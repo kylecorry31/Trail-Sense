@@ -143,10 +143,11 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
             titleView.subtitle.text = getString(R.string.historic_temperature_years, 30)
 
             // Set initial values
-            val roundedElevation = elevation.copy(
-                distance = elevation.distance.roundPlaces(
+            val roundedElevation = Distance.from(
+                elevation.value.roundPlaces(
                     Units.getDecimalPlaces(distanceUnits)
-                )
+                ),
+                elevation.units
             )
             elevationInput.elevation = roundedElevation
             locationInput.coordinate = location
@@ -313,7 +314,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
 
         val monthlyAverageTemperatures = temperatures
             .filter { it.first.dayOfMonth == 15 }
-            .map { it.first.month to Temperature.celsius((it.second.start.celsius().temperature + it.second.end.celsius().temperature) / 2) }
+            .map { it.first.month to Temperature.celsius((it.second.start.celsius().value + it.second.end.celsius().value) / 2) }
             .toMap()
 
         val climate = Meteorology.getKoppenGeigerClimateClassification(

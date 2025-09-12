@@ -68,7 +68,7 @@ class ARBeaconLayer(
                         view.location.distanceTo(it.coordinate),
                         (it.elevation ?: view.altitude) - view.altitude
                     )
-                    if (it.id != destination?.id && distance > maxVisibleDistance.meters().distance) {
+                    if (it.id != destination?.id && distance > maxVisibleDistance.meters().value) {
                         return@mapNotNull null
                     }
                     it to distance
@@ -85,7 +85,7 @@ class ARBeaconLayer(
                         GeographicARPoint(
                             beacon.coordinate,
                             beacon.elevation,
-                            beaconSize.distance,
+                            beaconSize.value,
                         ),
                         CanvasCircle(beacon.color, Color.WHITE),
                         onFocusedFn = {
@@ -102,7 +102,7 @@ class ARBeaconLayer(
                             GeographicARPoint(
                                 beacon.coordinate,
                                 beacon.elevation,
-                                beaconSize.distance
+                                beaconSize.value
                             ),
                             CanvasBitmap(
                                 loader.load(icon.icon, loadedImageSize),

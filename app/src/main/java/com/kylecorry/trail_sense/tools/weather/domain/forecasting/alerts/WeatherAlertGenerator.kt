@@ -23,11 +23,11 @@ internal class WeatherAlertGenerator : IWeatherAlertGenerator {
 
         val alerts = mutableListOf<WeatherAlert>()
 
-        if (weather.prediction.temperature.low.celsius().temperature <= WeatherSubsystem.COLD) {
+        if (weather.prediction.temperature.low.celsius().value <= WeatherSubsystem.COLD) {
             alerts.add(WeatherAlert.Cold)
         }
 
-        if (weather.prediction.temperature.high.celsius().temperature >= WeatherSubsystem.HOT) {
+        if (weather.prediction.temperature.high.celsius().value >= WeatherSubsystem.HOT) {
             alerts.add(WeatherAlert.Hot)
         }
 

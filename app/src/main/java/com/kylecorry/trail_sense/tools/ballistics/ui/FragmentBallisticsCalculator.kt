@@ -58,7 +58,7 @@ class FragmentBallisticsCalculator :
 
         // TODO: Determine normal value for metric
         val normalScopeHeight = useMemo {
-            Distance(1.5f, DistanceUnits.Inches)
+            Distance.from(1.5f, DistanceUnits.Inches)
         }
 
         val (zeroDistance, setZeroDistance) = useDistancePreference("cache-ballistics-sight-in-range")
@@ -88,14 +88,14 @@ class FragmentBallisticsCalculator :
                 zeroDistanceView.value = zeroDistance
             }
             zeroDistanceView.setOnValueChangeListener {
-                setZeroDistance(it ?: Distance(0f, DistanceUnits.Yards))
+                setZeroDistance(it ?: Distance.from(0f, DistanceUnits.Yards))
             }
 
             scopeHeightView.units = formatter.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
             scopeHeightView.hint = getString(R.string.scope_height)
             scopeHeightView.value = normalScopeHeight
             scopeHeightView.setOnValueChangeListener {
-                setScopeHeight(it ?: Distance(0f, DistanceUnits.Inches))
+                setScopeHeight(it ?: Distance.from(0f, DistanceUnits.Inches))
             }
 
             bulletSpeedView.units =
@@ -174,11 +174,11 @@ class FragmentBallisticsCalculator :
                     2
                 )
                 val distance = DecimalFormatter.format(
-                    point.distance.convertTo(zeroDistance?.units ?: DistanceUnits.Feet).distance,
+                    point.distance.convertTo(zeroDistance?.units ?: DistanceUnits.Feet).value,
                     Units.getDecimalPlaces(zeroDistance?.units ?: DistanceUnits.Feet)
                 )
                 val drop = DecimalFormatter.format(
-                    point.drop.convertTo(smallUnits).distance,
+                    point.drop.convertTo(smallUnits).value,
                     1
                 )
 
@@ -221,9 +221,9 @@ class FragmentBallisticsCalculator :
         }
 
         val initialVelocity = Physics.getVelocityVectorForImpact(
-            Vector2(zeroDistance.meters().distance, 0f),
+            Vector2(zeroDistance.meters().value, 0f),
             bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed,
-            Vector2(0f, -scopeHeight.meters().distance),
+            Vector2(0f, -scopeHeight.meters().value),
             timeStep = 0.01f,
             maxTime = 2f,
             minAngle = 0f,
@@ -233,7 +233,7 @@ class FragmentBallisticsCalculator :
         )
 
         val trajectory = Physics.getTrajectory2D(
-            initialPosition = Vector2(0f, -scopeHeight.meters().distance),
+            initialPosition = Vector2(0f, -scopeHeight.meters().value),
             initialVelocity = initialVelocity,
             dragModel = dragModel,
             timeStep = 0.01f,
@@ -251,20 +251,20 @@ class FragmentBallisticsCalculator :
         val velocities = trajectory.map { it.velocity.x }
 
         val newXs = (0..500 step 10).map {
-            Distance(
+            Distance.from(
                 it.toFloat(), if (zeroDistance.units.isMetric) {
                     DistanceUnits.Meters
                 } else {
                     DistanceUnits.Yards
                 }
-            ).meters().distance
+            ).meters().value
         }.filter { it <= maxDistance }
 
         return newXs.filter { it <= maxDistance }.map {
             TrajectoryPoint(
                 interpolator.interpolate(it, xs, times),
                 Distance.meters(it),
-                Speed(
+                Speed.from(
                     interpolator.interpolate(it, xs, velocities),
                     DistanceUnits.Meters,
                     TimeUnits.Seconds

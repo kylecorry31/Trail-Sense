@@ -284,7 +284,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
                     )
 
                     onIO {
-                        prefs.altitudeOverride = elevation.meters().distance
+                        prefs.altitudeOverride = elevation.meters().value
                         prefs.seaLevelPressureOverride = seaLevelPressure
                     }
 
@@ -310,7 +310,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
                     onIO {
                         prefs.altitudeOverride = elevation
-                        prefs.seaLevelPressureOverride = seaLevelPressure.pressure
+                        prefs.seaLevelPressureOverride = seaLevelPressure.value
                     }
 
                     onMain {
@@ -393,10 +393,10 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
                             Pressure.hpa(barometer.pressure),
                             elevation.meters()
                         )
-                        prefs.altitudeOverride = elevation.meters().distance
-                        prefs.seaLevelPressureOverride = seaLevelPressure.pressure
+                        prefs.altitudeOverride = elevation.meters().value
+                        prefs.seaLevelPressureOverride = seaLevelPressure.value
                     } else {
-                        prefs.altitudeOverride = elevation.meters().distance
+                        prefs.altitudeOverride = elevation.meters().value
                     }
 
                     onMain {

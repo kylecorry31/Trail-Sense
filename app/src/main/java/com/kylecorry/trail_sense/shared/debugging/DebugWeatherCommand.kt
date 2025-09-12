@@ -33,11 +33,11 @@ class DebugWeatherCommand(
                 it.time.toEpochMilli(),
                 originalReading?.value?.pressure,
                 originalReading?.value?.altitude,
-                originalReading?.value?.seaLevel(useTemperature = factorInTemperature)?.pressure,
+                originalReading?.value?.seaLevel(useTemperature = factorInTemperature)?.value,
                 originalReading?.value?.temperature,
                 originalReading?.value?.humidity,
-                it.pressure.pressure,
-                it.temperature.temperature,
+                it.pressure.value,
+                it.temperature.value,
                 it.humidity ?: 0f
             )
         }

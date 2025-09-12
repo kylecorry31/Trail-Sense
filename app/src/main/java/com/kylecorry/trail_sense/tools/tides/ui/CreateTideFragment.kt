@@ -360,7 +360,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             Tide(
                 time,
                 it.isHigh,
-                it.height?.meters()?.distance
+                it.height?.meters()?.value
             )
         }
 

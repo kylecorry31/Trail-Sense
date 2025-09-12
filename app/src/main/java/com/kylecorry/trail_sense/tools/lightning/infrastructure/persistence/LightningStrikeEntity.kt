@@ -27,7 +27,7 @@ data class LightningStrikeEntity(
         fun from(reading: Reading<LightningStrike>): LightningStrikeEntity {
             return LightningStrikeEntity(
                 reading.time,
-                reading.value.distance.meters().distance
+                reading.value.distance.meters().value
             ).also {
                 it.id = reading.value.id
             }

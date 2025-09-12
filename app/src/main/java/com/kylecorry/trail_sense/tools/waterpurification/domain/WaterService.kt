@@ -7,7 +7,7 @@ import java.time.Duration
 class WaterService : IWaterService {
 
     override fun getPurificationTime(altitude: Distance?): Duration {
-        if (altitude == null || altitude.convertTo(DistanceUnits.Meters).distance >= 1000f){
+        if (altitude == null || altitude.convertTo(DistanceUnits.Meters).value >= 1000f){
             return Duration.ofMinutes(3)
         }
 

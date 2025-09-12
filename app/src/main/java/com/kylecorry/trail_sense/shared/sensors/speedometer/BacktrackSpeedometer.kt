@@ -35,7 +35,7 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
         get() = prefs.backtrackEnabled && _speed != null
 
     override val speed: Speed
-        get() = _speed ?: Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+        get() = _speed ?: Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
 
     private fun getSpeed(waypoints: List<PathPoint>): Speed? {
         return if (waypoints.size < 2) {
@@ -62,11 +62,11 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
                     )
                 )
             ) {
-                return Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+                return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
             }
 
             val time = Duration.between(secondLast.time, last.time)
-            Speed(distance / time.seconds.toFloat(), DistanceUnits.Meters, TimeUnits.Seconds)
+            Speed.from(distance / time.seconds.toFloat(), DistanceUnits.Meters, TimeUnits.Seconds)
         }
     }
 

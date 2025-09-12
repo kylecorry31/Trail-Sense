@@ -28,6 +28,6 @@ class CalibratedThermometerWrapper(
     }
 
     private fun calibrate(temperature: Float): Float {
-        return calibrator.calibrate(Temperature.celsius(temperature)).temperature
+        return calibrator.calibrate(Temperature.celsius(temperature)).value
     }
 }

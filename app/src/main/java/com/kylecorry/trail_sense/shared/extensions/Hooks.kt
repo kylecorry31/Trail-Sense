@@ -293,7 +293,7 @@ fun ReactiveComponent.useDistancePreference(
     val (unit, setUnit) = useIntPreference("$key-unit")
 
     val setter = useCallback { distance: Distance? ->
-        setValue(distance?.distance)
+        setValue(distance?.value)
         setUnit(distance?.units?.id)
     }
 
@@ -302,7 +302,7 @@ fun ReactiveComponent.useDistancePreference(
             return@useMemo null
         }
 
-        Distance(value, DistanceUnits.entries.firstOrNull { it.id == unit } ?: DistanceUnits.Meters)
+        Distance.from(value, DistanceUnits.entries.firstOrNull { it.id == unit } ?: DistanceUnits.Meters)
     }
 
     return distance to setter
@@ -315,7 +315,7 @@ fun ReactiveComponent.useWeightPreference(
     val (unit, setUnit) = useIntPreference("$key-unit")
 
     val setter = useCallback { weight: Weight? ->
-        setValue(weight?.weight)
+        setValue(weight?.value)
         setUnit(weight?.units?.id)
     }
 
@@ -324,7 +324,7 @@ fun ReactiveComponent.useWeightPreference(
             return@useMemo null
         }
 
-        Weight(value, WeightUnits.entries.firstOrNull { it.id == unit } ?: WeightUnits.Kilograms)
+        Weight.from(value, WeightUnits.entries.firstOrNull { it.id == unit } ?: WeightUnits.Kilograms)
     }
 
     return weight to setter
@@ -348,7 +348,7 @@ fun ReactiveComponent.useSpeedPreference(
             return@useMemo null
         }
 
-        Speed(
+        Speed.from(
             value,
             DistanceUnits.entries.firstOrNull { it.id == distanceUnit } ?: DistanceUnits.Meters,
             TimeUnits.entries.firstOrNull { it.id == timeUnit } ?: TimeUnits.Seconds

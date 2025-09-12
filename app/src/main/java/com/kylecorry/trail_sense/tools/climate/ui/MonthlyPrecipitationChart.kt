@@ -49,13 +49,13 @@ class MonthlyPrecipitationChart(
         val values = data.map {
             Vector2(
                 it.key.value.toFloat(),
-                it.value.convertTo(units).distance
+                it.value.convertTo(units).value
             )
         }.sortedBy { it.x }
         val range = Chart.getYRange(
             values,
-            Distance(0.5f, DistanceUnits.Inches).convertTo(units).distance,
-            Distance(1f, DistanceUnits.Inches).convertTo(units).distance
+            Distance.from(0.5f, DistanceUnits.Inches).convertTo(units).value,
+            Distance.from(1f, DistanceUnits.Inches).convertTo(units).value
         )
         chart.configureYAxis(
             labelCount = 5,

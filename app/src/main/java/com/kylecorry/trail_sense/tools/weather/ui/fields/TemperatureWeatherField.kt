@@ -28,10 +28,10 @@ class TemperatureWeatherField(
         )
 
         val color = when {
-            temperature.temperature <= WeatherSubsystem.COLD -> {
+            temperature.value <= WeatherSubsystem.COLD -> {
                 AppColor.Blue.color
             }
-            temperature.temperature >= WeatherSubsystem.HOT -> {
+            temperature.value >= WeatherSubsystem.HOT -> {
                 AppColor.Red.color
             }
             else -> {

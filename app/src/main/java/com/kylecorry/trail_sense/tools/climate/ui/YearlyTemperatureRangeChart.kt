@@ -67,13 +67,13 @@ class YearlyTemperatureRangeChart(
         val lows = data.map {
             Vector2(
                 it.first.dayOfYear.toFloat(),
-                it.second.start.convertTo(units).temperature
+                it.second.start.convertTo(units).value
             )
         }
         val highs = data.map {
             Vector2(
                 it.first.dayOfYear.toFloat(),
-                it.second.end.convertTo(units).temperature
+                it.second.end.convertTo(units).value
             )
         }
         year = data.firstOrNull()?.first?.year ?: 2000
@@ -89,7 +89,7 @@ class YearlyTemperatureRangeChart(
             drawGridLines = true,
             labelFormatter = DayOfYearChartLabelFormatter(chart.context, year)
         )
-        freezingArea.top = freezing.temperature
+        freezingArea.top = freezing.value
         freezingArea.bottom = range.start
         lowLine.data = lows
         highLine.data = highs

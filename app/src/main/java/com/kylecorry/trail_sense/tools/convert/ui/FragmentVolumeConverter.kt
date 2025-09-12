@@ -51,7 +51,7 @@ class FragmentVolumeConverter : SimpleConvertFragment<VolumeUnits>(VolumeUnits.L
     }
 
     override fun convert(amount: Float, from: VolumeUnits, to: VolumeUnits): String {
-        val converted = Volume(amount.absoluteValue, from).convertTo(to)
+        val converted = Volume.from(amount.absoluteValue, from).convertTo(to)
         return formatService.formatVolume(converted, 4, false)
     }
 

@@ -14,7 +14,7 @@ class DistanceChartLabelFormatter(
     private val relative: Boolean
 ) : ChartLabelFormatter {
     override fun format(value: Float): String {
-        val distance = Distance(value, fromUnits).convertTo(toUnits).let {
+        val distance = Distance.from(value, fromUnits).convertTo(toUnits).let {
             if (relative) {
                 it.toRelativeDistance()
             } else {

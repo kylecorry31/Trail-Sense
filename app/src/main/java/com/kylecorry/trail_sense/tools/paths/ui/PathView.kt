@@ -161,8 +161,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
     private fun getInitialScale(): Float? {
         val bounds = bounds ?: return null
-        val distanceX = bounds.width().meters().distance
-        val distanceY = bounds.height().meters().distance
+        val distanceX = bounds.width().meters().value
+        val distanceY = bounds.height().meters().value
 
         if (distanceX == 0f || distanceY == 0f) {
             return null
@@ -193,7 +193,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         val yDiff = height / 2f - pixel.y
         val distance = sqrt(xDiff * xDiff + yDiff * yDiff) * metersPerPixel
         val angle = normalizeAngle(atan2(yDiff, xDiff).toDegrees())
-        return center.plus(Distance.meters(distance), Bearing(angle + 90))
+        return center.plus(Distance.meters(distance), Bearing.from(angle + 90))
     }
 
     private fun drawOverlays() {

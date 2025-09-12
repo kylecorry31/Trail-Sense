@@ -14,6 +14,7 @@ import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
@@ -124,7 +125,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             WeatherObservation(
                 reading?.value?.id ?: 0L,
                 it.time,
-                it.value.copy(pressure = it.value.pressure + offset),
+                Pressure.from(it.value.value + offset, it.value.units),
                 Temperature.celsius(reading?.value?.temperature ?: 0f),
                 reading?.value?.humidity
             )
@@ -248,7 +249,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
         val monthlyAverageTemperatures = temperatures
             .filter { it.first.dayOfMonth == 15 }
-            .associate { it.first.month to Temperature.celsius((it.second.start.celsius().temperature + it.second.end.celsius().temperature) / 2) }
+            .associate { it.first.month to Temperature.celsius((it.second.start.celsius().value + it.second.end.celsius().value) / 2) }
 
         return Meteorology.getKoppenGeigerClimateClassification(
             monthlyAverageTemperatures,

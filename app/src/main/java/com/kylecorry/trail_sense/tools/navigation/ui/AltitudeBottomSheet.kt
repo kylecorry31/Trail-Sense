@@ -106,11 +106,11 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
         startTime = readings.firstOrNull()?.time ?: Instant.now()
 
         val data = Chart.getDataFromReadings(readings) {
-            Distance.meters(it).convertTo(units).distance
+            Distance.meters(it).convertTo(units).value
         }
 
-        val margin = Distance.meters(10f).convertTo(units).distance
-        val minRange = Distance.meters(100f).convertTo(units).distance
+        val margin = Distance.meters(10f).convertTo(units).value
+        val minRange = Distance.meters(100f).convertTo(units).value
         val range = Chart.getYRange(data, margin, minRange)
         binding.chart.configureYAxis(
             minimum = range.start,

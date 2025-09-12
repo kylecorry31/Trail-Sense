@@ -7,7 +7,7 @@ fun Distance.toRelativeDistance(threshold: Float = 1000f): Distance {
     val metric = units.isMetric
     val baseDistance =
         if (metric) convertTo(DistanceUnits.Meters) else convertTo(DistanceUnits.Feet)
-    val newUnits = if (baseDistance.distance >= threshold) {
+    val newUnits = if (baseDistance.value >= threshold) {
         if (metric) DistanceUnits.Kilometers else DistanceUnits.Miles
     } else {
         if (metric) DistanceUnits.Meters else DistanceUnits.Feet

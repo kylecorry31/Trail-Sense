@@ -23,7 +23,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var scaleMode = MapScaleMode.Fractional
-    private var currentDistance = Distance(0f, DistanceUnits.Centimeters)
+    private var currentDistance = Distance.from(0f, DistanceUnits.Centimeters)
 
     private lateinit var units: UserPreferences.DistanceUnits
 
@@ -125,7 +125,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
                 } else {
                     val mapDistance = Geology.getMapDistance(currentDistance, scaleFrom, scaleTo)
                     formatService.formatDistance(
-                        Distance(mapDistance.distance, scaleTo.units),
+                        Distance.from(mapDistance.value, scaleTo.units),
                         mapPrecision,
                         false
                     )

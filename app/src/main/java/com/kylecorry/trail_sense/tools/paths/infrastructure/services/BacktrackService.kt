@@ -31,7 +31,7 @@ class BacktrackService :
         val units = prefs.baseDistanceUnits
         return ForegroundInfo(
             BacktrackAlerter.NOTIFICATION_ID,
-            BacktrackAlerter.getNotification(this, Distance(0f, units))
+            BacktrackAlerter.getNotification(this, Distance.from(0f, units))
         )
     }
 

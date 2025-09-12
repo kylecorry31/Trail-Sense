@@ -14,7 +14,7 @@ class DistanceAlertCommand(
     override fun execute() {
         val alertDistance = prefs.alertDistance ?: return
         val distance = paceCalculator.distance(counter.steps)
-        if (distance.meters().distance >= alertDistance.meters().distance) {
+        if (distance.meters().value >= alertDistance.meters().value) {
             alerter.alert()
             prefs.alertDistance = null
         }

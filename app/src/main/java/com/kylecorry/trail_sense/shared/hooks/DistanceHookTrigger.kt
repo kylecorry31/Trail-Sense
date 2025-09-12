@@ -18,7 +18,7 @@ internal class DistanceHookTrigger {
             }
 
             val distance = location.distanceTo(lastLocation!!, highAccuracy)
-            if (distance >= threshold.meters().distance) {
+            if (distance >= threshold.meters().value) {
                 lastLocation = location
                 lastReturnValue = !lastReturnValue
                 return lastReturnValue

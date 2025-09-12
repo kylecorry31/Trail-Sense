@@ -277,7 +277,7 @@ class FormatService private constructor(private val context: Context) {
         decimalPlaces: Int = 0,
         strict: Boolean = true
     ): String {
-        val formatted = DecimalFormatter.format(distance.distance, decimalPlaces, strict)
+        val formatted = DecimalFormatter.format(distance.value, decimalPlaces, strict)
         return when (distance.units) {
             DistanceUnits.Meters -> strings.getString(R.string.precise_meters_format, formatted)
             DistanceUnits.Kilometers -> strings.getString(
@@ -325,7 +325,7 @@ class FormatService private constructor(private val context: Context) {
     }
 
     fun formatVolume(volume: Volume, decimalPlaces: Int = 0, strict: Boolean = true): String {
-        val formatted = DecimalFormatter.format(volume.volume, decimalPlaces, strict)
+        val formatted = DecimalFormatter.format(volume.value, decimalPlaces, strict)
         return when (volume.units) {
             VolumeUnits.Liters -> strings.getString(R.string.liter_format, formatted)
             VolumeUnits.Milliliter -> strings.getString(R.string.milliliter_format, formatted)
@@ -367,7 +367,7 @@ class FormatService private constructor(private val context: Context) {
     }
 
     fun formatWeight(weight: Weight, decimalPlaces: Int = 0, strict: Boolean = true): String {
-        val formatted = DecimalFormatter.format(weight.weight, decimalPlaces, strict)
+        val formatted = DecimalFormatter.format(weight.value, decimalPlaces, strict)
         return when (weight.units) {
             WeightUnits.Pounds -> strings.getString(R.string.pounds_format, formatted)
             WeightUnits.Ounces -> strings.getString(R.string.ounces_weight_format, formatted)
@@ -403,7 +403,7 @@ class FormatService private constructor(private val context: Context) {
         decimalPlaces: Int = 0,
         strict: Boolean = true
     ): String {
-        val formatted = DecimalFormatter.format(temperature.temperature, decimalPlaces, strict)
+        val formatted = DecimalFormatter.format(temperature.value, decimalPlaces, strict)
         return when (temperature.units) {
             TemperatureUnits.F -> strings.getString(R.string.precise_temp_f_format, formatted)
             TemperatureUnits.C -> strings.getString(R.string.precise_temp_c_format, formatted)
@@ -492,7 +492,7 @@ class FormatService private constructor(private val context: Context) {
 
     fun formatPressure(pressure: Pressure, decimalPlaces: Int = 0, strict: Boolean = true): String {
         val symbol = getPressureUnitString(pressure.units)
-        val amt = DecimalFormatter.format(pressure.pressure, decimalPlaces, strict)
+        val amt = DecimalFormatter.format(pressure.value, decimalPlaces, strict)
         return strings.getString(R.string.pressure_format, amt, symbol)
     }
 

@@ -172,7 +172,7 @@ class FusedGPS(
             kalman?.currentXVelocity ?: 0f,
             kalman?.currentYVelocity ?: 0f
         )
-        return Speed(
+        return Speed.from(
             velocity.magnitude() / PROJECTION_SCALE,
             DistanceUnits.Meters,
             TimeUnits.Seconds

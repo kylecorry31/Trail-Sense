@@ -26,11 +26,11 @@ class PressureInputView(context: Context, attributeSet: AttributeSet? = null) :
     }
 
     override fun map(amount: Number, unit: PressureUnits): Pressure {
-        return Pressure(amount.toFloat(), unit)
+        return Pressure.from(amount.toFloat(), unit)
     }
 
     override fun getAmount(value: Pressure): Number {
-        return value.pressure
+        return value.value
     }
 
     override fun getUnit(value: Pressure): PressureUnits {

@@ -325,7 +325,7 @@ internal class TideServiceTest {
         private fun toMeters(tide: Tide): Tide {
             return tide.copy(
                 height = if (tide.height == null) null else Distance.feet(tide.height!!)
-                    .meters().distance
+                    .meters().value
             )
         }
 

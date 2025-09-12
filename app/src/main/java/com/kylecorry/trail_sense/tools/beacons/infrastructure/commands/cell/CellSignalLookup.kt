@@ -15,7 +15,7 @@ internal class CellSignalLookup(
     private val formatter = FormatService.getInstance(context)
     private val pathService = PathService.getInstance(context)
 
-    private val maxDistance = Distance.miles(50f).meters().distance
+    private val maxDistance = Distance.miles(50f).meters().value
 
     suspend fun getNearestCellSignalBeacon(location: Coordinate): Beacon? {
         val waypoints = pathService.getWaypointsWithCellSignal()

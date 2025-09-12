@@ -58,8 +58,8 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var cardinalSize = 0f
     private var locationStrokeWeight = 0f
 
-    private lateinit var maxDistanceBaseUnits: Distance
-    private lateinit var maxDistanceMeters: Distance
+    private var maxDistanceBaseUnits: Distance = Distance.meters(0f)
+    private var maxDistanceMeters: Distance = Distance.meters(0f)
 
     private val navigation = NavigationService()
 
@@ -381,7 +381,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     override var metersPerPixel: Float
-        get() = maxDistanceMeters.distance / (compassSize / 2f)
+        get() = maxDistanceMeters.value / (compassSize / 2f)
         set(_) {
             // Do nothing yet
         }

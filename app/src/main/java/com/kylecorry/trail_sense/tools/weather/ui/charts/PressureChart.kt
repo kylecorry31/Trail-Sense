@@ -85,9 +85,9 @@ class PressureChart(
     }
 
     private fun setUnits(units: PressureUnits) {
-        minRange = Pressure.hpa(MIN_RANGE).convertTo(units).pressure
+        minRange = Pressure.hpa(MIN_RANGE).convertTo(units).value
         precision = (Units.getDecimalPlaces(units) - 1).coerceAtLeast(0)
-        margin = Pressure.hpa(1f).convertTo(units).pressure.roundPlaces(2)
+        margin = Pressure.hpa(1f).convertTo(units).value.roundPlaces(2)
     }
 
     fun plot(
@@ -97,7 +97,7 @@ class PressureChart(
         startTime = data.firstOrNull()?.time ?: Instant.now()
         setUnits(data.firstOrNull()?.value?.units ?: PressureUnits.Hpa)
         val values = Chart.getDataFromReadings(data, startTime) {
-            it.pressure
+            it.value
         }
 
         val range = Chart.getYRange(values, margin, minRange)
@@ -112,7 +112,7 @@ class PressureChart(
 
         if (raw != null) {
             rawLine.data = Chart.getDataFromReadings(raw, startTime) {
-                it.pressure
+                it.value
             }
         } else {
             rawLine.data = emptyList()

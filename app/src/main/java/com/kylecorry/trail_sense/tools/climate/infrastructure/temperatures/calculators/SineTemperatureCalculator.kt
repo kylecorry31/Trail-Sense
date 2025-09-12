@@ -17,11 +17,11 @@ internal class SineTemperatureCalculator(
         Trigonometry.connect(
             Vector2(
                 getX(first.time),
-                first.value.celsius().temperature
+                first.value.celsius().value
             ),
             Vector2(
                 getX(second.time),
-                second.value.celsius().temperature
+                second.value.celsius().value
             )
         )
     }

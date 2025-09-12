@@ -119,7 +119,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
 
             // If it doesn't drop below the base temperature, then they are active all year
             // TODO: Use average or max?
-            if (temperatures.all { it.second.start.celsius().temperature >= species.phenology.baseGrowingDegreeDaysTemperature.celsius().temperature }) {
+            if (temperatures.all { it.second.start.celsius().value >= species.phenology.baseGrowingDegreeDaysTemperature.celsius().value }) {
                 activeDays[species] =
                     listOf(Range(LocalDate.of(year, 1, 1), LocalDate.of(year, 12, 31)))
                 continue

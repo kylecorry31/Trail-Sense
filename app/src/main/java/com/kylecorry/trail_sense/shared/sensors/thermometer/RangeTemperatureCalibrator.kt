@@ -12,7 +12,7 @@ class RangeTemperatureCalibrator(
     override fun calibrate(temperature: Temperature): Temperature {
         return Temperature.celsius(
             SolMath.map(
-                temperature.celsius().temperature,
+                temperature.celsius().value,
                 sensorMinC,
                 sensorMaxC,
                 calibratedMinC,

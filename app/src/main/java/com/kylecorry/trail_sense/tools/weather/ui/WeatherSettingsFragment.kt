@@ -226,9 +226,9 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
     private fun getForecastSensitivities(units: PressureUnits): Array<CharSequence> {
         val hpa = listOf(
-            Pressure(WeatherPreferences.HPA_FORECAST_LOW, PressureUnits.Hpa),
-            Pressure(WeatherPreferences.HPA_FORECAST_MEDIUM, PressureUnits.Hpa),
-            Pressure(WeatherPreferences.HPA_FORECAST_HIGH, PressureUnits.Hpa),
+            Pressure.from(WeatherPreferences.HPA_FORECAST_LOW, PressureUnits.Hpa),
+            Pressure.from(WeatherPreferences.HPA_FORECAST_MEDIUM, PressureUnits.Hpa),
+            Pressure.from(WeatherPreferences.HPA_FORECAST_HIGH, PressureUnits.Hpa),
         )
 
         val stringValues = hpa.map {
@@ -250,9 +250,9 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
     private fun getStormSensitivities(units: PressureUnits): Array<CharSequence> {
         val hpa = listOf(
-            Pressure(WeatherPreferences.HPA_STORM_LOW, PressureUnits.Hpa),
-            Pressure(WeatherPreferences.HPA_STORM_MEDIUM, PressureUnits.Hpa),
-            Pressure(WeatherPreferences.HPA_STORM_HIGH, PressureUnits.Hpa),
+            Pressure.from(WeatherPreferences.HPA_STORM_LOW, PressureUnits.Hpa),
+            Pressure.from(WeatherPreferences.HPA_STORM_MEDIUM, PressureUnits.Hpa),
+            Pressure.from(WeatherPreferences.HPA_STORM_HIGH, PressureUnits.Hpa),
         )
 
         val stringValues = hpa.map {

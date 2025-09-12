@@ -8,7 +8,7 @@ class PackMapper {
 
     fun mapToPackItem(item: PackItemEntity): PackItem {
         val weight = if (item.weight != null && item.weightUnits != null) {
-            Weight(item.weight, item.weightUnits)
+            Weight.from(item.weight, item.weightUnits)
         } else {
             null
         }
@@ -30,7 +30,7 @@ class PackMapper {
             item.category,
             item.amount,
             item.desiredAmount,
-            item.weight?.weight,
+            item.weight?.value,
             item.weight?.units
         ).also {
             it.id = item.id

@@ -22,7 +22,7 @@ class BackfillHistoricalTemperaturesCommand(
                 it.value.location,
                 Distance.meters(it.value.altitude)
             )
-            it.copy(value = it.value.copy(temperature = temperature.value.temperature))
+            it.copy(value = it.value.copy(temperature = temperature.value.value))
         }
         repo.addAll(updated)
     }

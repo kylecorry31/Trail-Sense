@@ -27,7 +27,7 @@ class BulletSpeedInputView(context: Context, attributeSet: AttributeSet? = null)
     }
 
     override fun map(amount: Number, unit: DistanceUnits): Speed {
-        return Speed(amount.toFloat(), unit, TimeUnits.Seconds)
+        return Speed.from(amount.toFloat(), unit, TimeUnits.Seconds)
     }
 
     override fun getAmount(value: Speed): Number {

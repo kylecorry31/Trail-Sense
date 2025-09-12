@@ -18,7 +18,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
         // Distance
         val distance = Geology.getPathDistance(points.map { it.coordinate })
             .convertTo(DistanceUnits.Miles)
-            .distance
+            .value
 
         if (distance >= 4) {
             debugLog(HikingDifficulty.Hard, distance, null, null)
@@ -27,8 +27,8 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
 
         // Gain / Loss
         val gainLoss = hikingService.getElevationLossGain(points)
-        val loss = gainLoss.first.convertTo(DistanceUnits.Feet).distance
-        val gain = gainLoss.second.convertTo(DistanceUnits.Feet).distance
+        val loss = gainLoss.first.convertTo(DistanceUnits.Feet).value
+        val gain = gainLoss.second.convertTo(DistanceUnits.Feet).value
         val elevationChange = max(gain, -loss)
 
         if (elevationChange >= 750) {

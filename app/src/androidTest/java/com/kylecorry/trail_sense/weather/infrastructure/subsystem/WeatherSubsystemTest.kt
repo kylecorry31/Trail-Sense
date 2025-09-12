@@ -204,23 +204,23 @@ internal class WeatherSubsystemTest {
                     end = actual.end.convertTo(TemperatureUnits.F)
                 )
                 val expected = Range(
-                    Temperature(day.low.toFloat(), TemperatureUnits.F),
-                    Temperature(day.high.toFloat(), TemperatureUnits.F)
+                    Temperature.from(day.low.toFloat(), TemperatureUnits.F),
+                    Temperature.from(day.high.toFloat(), TemperatureUnits.F)
                 )
 
-                errors.add(actual.start.temperature - expected.start.temperature)
-                errors.add(actual.end.temperature - expected.end.temperature)
+                errors.add(actual.start.value - expected.start.value)
+                errors.add(actual.end.value - expected.end.value)
 
                 assertEquals(
                     place.name,
-                    expected.start.temperature,
-                    actual.start.temperature,
+                    expected.start.value,
+                    actual.start.value,
                     maximumError
                 )
                 assertEquals(
                     place.name,
-                    expected.end.temperature,
-                    actual.end.temperature,
+                    expected.end.value,
+                    actual.end.value,
                     maximumError
                 )
             }
@@ -343,7 +343,7 @@ internal class WeatherSubsystemTest {
         for (place in places) {
             val all = subsystem.getMonthlyPrecipitation(Coordinate(place.latitude, place.longitude))
             for (month in place.months) {
-                val actual = all[month.key]!!.convertTo(DistanceUnits.Inches).distance
+                val actual = all[month.key]!!.convertTo(DistanceUnits.Inches).value
                 val expected = month.value
 
                 errors.add(actual - expected)

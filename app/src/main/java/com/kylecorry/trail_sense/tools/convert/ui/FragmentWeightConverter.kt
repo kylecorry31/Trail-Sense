@@ -16,7 +16,7 @@ class FragmentWeightConverter : SimpleConvertFragment<WeightUnits>(WeightUnits.K
     }
 
     override fun convert(amount: Float, from: WeightUnits, to: WeightUnits): String {
-        val converted = Weight(amount.absoluteValue, from).convertTo(to)
+        val converted = Weight.from(amount.absoluteValue, from).convertTo(to)
         return formatService.formatWeight(converted, 4, false)
     }
 

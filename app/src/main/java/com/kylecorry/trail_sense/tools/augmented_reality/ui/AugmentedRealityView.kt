@@ -315,7 +315,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun drawPosition() {
-        val bearing = Bearing(azimuth)
+        val bearing = Bearing.from(azimuth)
         val azimuthText = hooks.memo("azimuth_text", bearing.value.safeRoundPlaces(decimalPlaces)) {
             formatter.formatDegrees(bearing.value, decimalPlaces = decimalPlaces, replace360 = true)
                 .padStart(4 + if (decimalPlaces == 0) 0 else (decimalPlaces + 1), ' ')

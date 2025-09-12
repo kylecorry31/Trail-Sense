@@ -12,14 +12,14 @@ internal class WeightPackItemSortTest {
     @Test
     fun sortAsc() {
         val items = listOf(
-            item(0, "Test", ItemCategory.Natural, 0.0, Weight(10f, WeightUnits.Kilograms)),
+            item(0, "Test", ItemCategory.Natural, 0.0, Weight.from(10f, WeightUnits.Kilograms)),
             item(1, "Test 1", ItemCategory.Other, 1.0, null),
-            item(2, "Test 2", ItemCategory.Other, 3.0, Weight(1f, WeightUnits.Grams)),
+            item(2, "Test 2", ItemCategory.Other, 3.0, Weight.from(1f, WeightUnits.Grams)),
             item(3, "Something", ItemCategory.Electronics, 0.0, null),
-            item(4, "Test 1", ItemCategory.Other, 1.0, Weight(11f, WeightUnits.Kilograms)),
-            item(5, "Test 1", ItemCategory.Other, 1.0, Weight(9f, WeightUnits.Kilograms)),
-            item(6, "Test", ItemCategory.Other, 2.0, Weight(11f, WeightUnits.Kilograms)),
-            item(7, "Test", ItemCategory.Other, 1.0, Weight(11f, WeightUnits.Kilograms)),
+            item(4, "Test 1", ItemCategory.Other, 1.0, Weight.from(11f, WeightUnits.Kilograms)),
+            item(5, "Test 1", ItemCategory.Other, 1.0, Weight.from(9f, WeightUnits.Kilograms)),
+            item(6, "Test", ItemCategory.Other, 2.0, Weight.from(11f, WeightUnits.Kilograms)),
+            item(7, "Test", ItemCategory.Other, 1.0, Weight.from(11f, WeightUnits.Kilograms)),
         )
 
         val sort = WeightPackItemSort(true)
@@ -33,14 +33,14 @@ internal class WeightPackItemSortTest {
     @Test
     fun sortDesc() {
         val items = listOf(
-            item(0, "Test", ItemCategory.Natural, 0.0, Weight(10f, WeightUnits.Kilograms)),
+            item(0, "Test", ItemCategory.Natural, 0.0, Weight.from(10f, WeightUnits.Kilograms)),
             item(1, "Test 1", ItemCategory.Other, 1.0, null),
-            item(2, "Test 2", ItemCategory.Other, 3.0, Weight(1f, WeightUnits.Grams)),
+            item(2, "Test 2", ItemCategory.Other, 3.0, Weight.from(1f, WeightUnits.Grams)),
             item(3, "Something", ItemCategory.Electronics, 0.0, null),
-            item(4, "Test 1", ItemCategory.Other, 1.0, Weight(11f, WeightUnits.Kilograms)),
-            item(5, "Test 1", ItemCategory.Other, 1.0, Weight(9f, WeightUnits.Kilograms)),
-            item(6, "Test", ItemCategory.Other, 2.0, Weight(11f, WeightUnits.Kilograms)),
-            item(7, "Test", ItemCategory.Other, 1.0, Weight(11f, WeightUnits.Kilograms)),
+            item(4, "Test 1", ItemCategory.Other, 1.0, Weight.from(11f, WeightUnits.Kilograms)),
+            item(5, "Test 1", ItemCategory.Other, 1.0, Weight.from(9f, WeightUnits.Kilograms)),
+            item(6, "Test", ItemCategory.Other, 2.0, Weight.from(11f, WeightUnits.Kilograms)),
+            item(7, "Test", ItemCategory.Other, 1.0, Weight.from(11f, WeightUnits.Kilograms)),
         )
 
         val sort = WeightPackItemSort(false)

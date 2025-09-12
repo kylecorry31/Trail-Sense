@@ -23,9 +23,9 @@ class BeaconsSubsystem(context: Context) {
      */
     suspend fun getNearbyBeacons(bounds: CoordinateBounds? = null): List<Beacon> {
         val maxDistance = if (bounds == null) {
-            Distance.kilometers(1f).meters().distance
+            Distance.kilometers(1f).meters().value
         } else {
-            max(bounds.height().meters().distance, bounds.width().meters().distance)
+            max(bounds.height().meters().value, bounds.width().meters().value)
         }
         val searchBounds =
             bounds ?: CoordinateBounds.from(

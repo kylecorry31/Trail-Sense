@@ -33,7 +33,7 @@ class PathLoader(private val pathService: IPathService) {
                 -1,
                 currentBacktrackPathId,
                 location,
-                altitude.distance,
+                altitude.value,
                 Instant.now()
             )
 

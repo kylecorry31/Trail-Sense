@@ -53,8 +53,8 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             getString(R.string.pref_nearby_radius_holder),
             { relative(Distance.meters(userPrefs.navigation.maxBeaconDistance), userPrefs) },
             { distance ->
-                if (distance != null && distance.distance > 0) {
-                    userPrefs.navigation.maxBeaconDistance = distance.meters().distance
+                if (distance != null && distance.value > 0) {
+                    userPrefs.navigation.maxBeaconDistance = distance.meters().value
                 }
             },
             DistanceUtils.hikingDistanceUnits

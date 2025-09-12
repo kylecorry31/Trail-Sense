@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 
 class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_scope_adjustment) {
 
-    private val referenceDistance = Distance(100f, DistanceUnits.Yards)
+    private val referenceDistance = Distance.from(100f, DistanceUnits.Yards)
 
     override fun update() {
         val adjustmentTextView = useView<TextView>(R.id.adjustment_amount)
@@ -32,8 +32,8 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
 
-        val (offsetX, setOffsetX) = useState(Distance(0f, DistanceUnits.Inches))
-        val (offsetY, setOffsetY) = useState(Distance(0f, DistanceUnits.Inches))
+        val (offsetX, setOffsetX) = useState(Distance.from(0f, DistanceUnits.Inches))
+        val (offsetY, setOffsetY) = useState(Distance.from(0f, DistanceUnits.Inches))
         val (offsetDirectionX, setOffsetDirectionX) = useState(Direction.Left)
         val (offsetDirectionY, setOffsetDirectionY) = useState(Direction.Up)
         val (distanceToTarget, setDistanceToTarget) = useDistancePreference("cache-ballistics-sight-in-range")
@@ -42,7 +42,7 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
         useEffect(distancePerClick) {
             if (distancePerClick == null) {
                 setDistancePerClick(
-                    Distance(
+                    Distance.from(
                         0.25f,
                         DistanceUnits.Inches
                     )
@@ -66,17 +66,17 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
                 distanceToTargetView.value = distanceToTarget
             }
             distanceToTargetView.setOnValueChangeListener {
-                setDistanceToTarget(it ?: Distance(0f, DistanceUnits.Yards))
+                setDistanceToTarget(it ?: Distance.from(0f, DistanceUnits.Yards))
             }
 
             missDistanceXView.units = formatter.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
             missDistanceXView.setOnValueChangeListener {
-                setOffsetX(it ?: Distance(0f, DistanceUnits.Inches))
+                setOffsetX(it ?: Distance.from(0f, DistanceUnits.Inches))
             }
 
             missDistanceYView.units = formatter.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
             missDistanceYView.setOnValueChangeListener {
-                setOffsetY(it ?: Distance(0f, DistanceUnits.Inches))
+                setOffsetY(it ?: Distance.from(0f, DistanceUnits.Inches))
             }
 
             missDirectionXView.check(R.id.miss_left)
@@ -107,12 +107,12 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
 
             clickAmountView.setHint(getString(R.string.adjustment_per_click))
             val clickAmounts = listOf(
-                "1/8 MOA" to Distance(0.125f, DistanceUnits.Inches),
-                "1/4 MOA" to Distance(0.25f, DistanceUnits.Inches),
-                "1/2 MOA" to Distance(0.5f, DistanceUnits.Inches),
-                "1 MOA" to Distance(1f, DistanceUnits.Inches),
-                "0.1 mil" to Distance(0.36f, DistanceUnits.Inches),
-                "0.05 mil" to Distance(0.18f, DistanceUnits.Inches),
+                "1/8 MOA" to Distance.from(0.125f, DistanceUnits.Inches),
+                "1/4 MOA" to Distance.from(0.25f, DistanceUnits.Inches),
+                "1/2 MOA" to Distance.from(0.5f, DistanceUnits.Inches),
+                "1 MOA" to Distance.from(1f, DistanceUnits.Inches),
+                "0.1 mil" to Distance.from(0.36f, DistanceUnits.Inches),
+                "0.05 mil" to Distance.from(0.18f, DistanceUnits.Inches),
             )
 
             val selectedIdx = if (distancePerClick != null) {
@@ -186,10 +186,10 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
         offsetDirection: Direction,
         distanceToTarget: Distance
     ): Adjustment? {
-        val offsetInches = offset.convertTo(DistanceUnits.Inches).distance
-        val distanceToTargetYards = distanceToTarget.convertTo(DistanceUnits.Yards).distance
-        val referenceYards = referenceDistance.convertTo(DistanceUnits.Yards).distance
-        val inchesPerClick = distancePerClick.convertTo(DistanceUnits.Inches).distance
+        val offsetInches = offset.convertTo(DistanceUnits.Inches).value
+        val distanceToTargetYards = distanceToTarget.convertTo(DistanceUnits.Yards).value
+        val referenceYards = referenceDistance.convertTo(DistanceUnits.Yards).value
+        val inchesPerClick = distancePerClick.convertTo(DistanceUnits.Inches).value
 
         if (SolMath.isZero(inchesPerClick) || SolMath.isZero(distanceToTargetYards)) {
             return null

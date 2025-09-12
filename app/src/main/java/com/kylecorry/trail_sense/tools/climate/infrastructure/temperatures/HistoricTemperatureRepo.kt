@@ -68,11 +68,11 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
             )
 
         val lowMonths = months.mapValues {
-            it.value.start.celsius().temperature
+            it.value.start.celsius().value
         }
 
         val highMonths = months.mapValues {
-            it.value.end.celsius().temperature
+            it.value.end.celsius().value
         }
 
         val low = lowInterpolator.interpolate(date, lowMonths)

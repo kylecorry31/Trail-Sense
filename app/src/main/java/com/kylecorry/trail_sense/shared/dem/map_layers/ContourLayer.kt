@@ -48,7 +48,7 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
             pathLayer.setPaths(contours.flatMap { level ->
                 val isImportantLine = SolMath.isZero((level.elevation / contourInterval) % 5, 0.1f)
                 val name = DecimalFormatter.format(
-                    Distance.Companion.meters(level.elevation).convertTo(units).distance, 0
+                    Distance.Companion.meters(level.elevation).convertTo(units).value, 0
                 )
                 val color = colorScale.getElevationColor(level.elevation)
                 level.lines.map { line ->
@@ -108,13 +108,13 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
             )
         } else {
             mapOf(
-                13 to Distance.Companion.feet(200f).meters().distance,
-                14 to Distance.Companion.feet(200f).meters().distance,
-                15 to Distance.Companion.feet(200f).meters().distance,
-                16 to Distance.Companion.feet(40f).meters().distance,
-                17 to Distance.Companion.feet(40f).meters().distance,
-                18 to Distance.Companion.feet(40f).meters().distance,
-                19 to Distance.Companion.feet(40f).meters().distance
+                13 to Distance.Companion.feet(200f).meters().value,
+                14 to Distance.Companion.feet(200f).meters().value,
+                15 to Distance.Companion.feet(200f).meters().value,
+                16 to Distance.Companion.feet(40f).meters().value,
+                17 to Distance.Companion.feet(40f).meters().value,
+                18 to Distance.Companion.feet(40f).meters().value,
+                19 to Distance.Companion.feet(40f).meters().value
             )
         }
     }

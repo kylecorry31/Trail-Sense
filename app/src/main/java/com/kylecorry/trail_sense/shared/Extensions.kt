@@ -51,7 +51,7 @@ fun GeoUri.Companion.from(beacon: Beacon): GeoUri {
     return GeoUri(beacon.coordinate, null, params)
 }
 
-val ZERO_SPEED = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+val ZERO_SPEED = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
 
 fun ICellSignalSensor.networkQuality(): CellNetworkQuality? {
     val signal = signals.maxByOrNull { it.strength }

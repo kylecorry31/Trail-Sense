@@ -20,7 +20,7 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         if (UserPreferences(context).baseDistanceUnits == DistanceUnits.Meters) {
             30f
         } else {
-            Distance.feet(100f).meters().distance
+            Distance.feet(100f).meters().value
         }
     }
 

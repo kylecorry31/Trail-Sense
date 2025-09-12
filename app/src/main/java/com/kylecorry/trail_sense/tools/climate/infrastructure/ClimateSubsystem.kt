@@ -37,7 +37,7 @@ class ClimateSubsystem private constructor(private val context: Context) : ITemp
         date: LocalDate
     ): Temperature = onIO {
         val dewpoints =
-            getMonthlyDewpoints(location, elevation).mapValues { it.value.celsius().temperature }
+            getMonthlyDewpoints(location, elevation).mapValues { it.value.celsius().value }
         val interpolated = dewpointInterpolator.interpolate(date, dewpoints)
         Temperature.celsius(interpolated)
     }

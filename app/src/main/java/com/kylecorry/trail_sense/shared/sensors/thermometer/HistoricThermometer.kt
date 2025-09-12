@@ -32,7 +32,7 @@ class HistoricThermometer(
             location.location,
             location.elevation,
             false
-        ).value.temperature
+        ).value.value
         super.update()
     }
 

@@ -50,7 +50,7 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
                 "${it.category.id} - ${it.category.name}",
                 "", // No description, required for LighterPack
                 max(it.amount, it.desiredAmount).toString(),
-                (it.weight?.weight ?: 0f).toString(),
+                (it.weight?.value ?: 0f).toString(),
                 formatWeightUnit(it.weight?.units ?: WeightUnits.Grams),
                 it.amount.toString(),
                 it.desiredAmount.toString()
@@ -88,7 +88,7 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
                 category,
                 amount = packedQty,
                 desiredAmount = desiredQty,
-                weight = weight?.let { Weight(it, unit) })
+                weight = weight?.let { Weight.from(it, unit) })
         }
     }
 

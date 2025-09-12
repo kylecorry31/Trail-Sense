@@ -29,8 +29,8 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
             getString(R.string.pref_view_distance_beacons_holder),
             { relative(Distance.meters(userPrefs.augmentedReality.beaconViewDistance), userPrefs) },
             { distance ->
-                if (distance != null && distance.distance > 0) {
-                    userPrefs.augmentedReality.beaconViewDistance = distance.meters().distance
+                if (distance != null && distance.value > 0) {
+                    userPrefs.augmentedReality.beaconViewDistance = distance.meters().value
                 }
             },
             DistanceUtils.hikingDistanceUnits
@@ -40,8 +40,8 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
             getString(R.string.pref_view_distance_paths_holder),
             { relative(Distance.meters(userPrefs.augmentedReality.pathViewDistance), userPrefs) },
             { distance ->
-                if (distance != null && distance.distance > 0) {
-                    userPrefs.augmentedReality.pathViewDistance = distance.meters().distance
+                if (distance != null && distance.value > 0) {
+                    userPrefs.augmentedReality.pathViewDistance = distance.meters().value
                 }
             },
             DistanceUtils.hikingDistanceUnits,

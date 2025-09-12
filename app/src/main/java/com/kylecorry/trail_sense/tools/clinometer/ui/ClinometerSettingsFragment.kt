@@ -17,7 +17,7 @@ class ClinometerSettingsFragment : AndromedaPreferenceFragment() {
             getString(R.string.pref_clinometer_baseline_distance_holder),
             { prefs.clinometer.baselineDistance },
             { distance ->
-                if (distance != null && distance.distance > 0) {
+                if (distance != null && distance.value > 0) {
                     prefs.clinometer.baselineDistance = distance
                 } else {
                     prefs.clinometer.baselineDistance = null

@@ -367,7 +367,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                                 binding.arView.azimuth,
                                 binding.arView.inclination,
                                 isTrueNorth = prefs.compass.useTrueNorth,
-                                distance = distanceAway?.meters()?.distance ?: 10f
+                                distance = distanceAway?.meters()?.value ?: 10f
                             )
                         ), Color.WHITE, 1f
                     )
@@ -499,7 +499,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private fun addMarker(): ARPoint {
         // Distance away is distance from device to the object at 0 inclination
         // Calculate the distance away using the hypotenuse of the triangle
-        val adjacent = distanceAway?.meters()?.distance ?: 10f
+        val adjacent = distanceAway?.meters()?.value ?: 10f
         val hypotenuse = adjacent / cosDegrees(clinometer.incline)
         val point = SphericalARPoint(
             binding.arView.azimuth,

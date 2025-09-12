@@ -101,7 +101,7 @@ class SolarPanelServiceTest {
         whenever(timeProvider.getTime()).thenReturn(time)
         val duration = Duration.parse(durationString)
         val location = Coordinate(latitude, longitude)
-        val energy = service.getSolarEnergy(location, tilt, Bearing(azimuth), duration, restrictToToday)
+        val energy = service.getSolarEnergy(location, tilt, Bearing.from(azimuth), duration, restrictToToday)
         assertEquals(expectedEnergy, energy, 0.1f)
     }
 }

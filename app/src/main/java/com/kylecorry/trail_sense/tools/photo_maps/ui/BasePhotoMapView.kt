@@ -203,7 +203,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         this.map = map
         val rotation = map.calibration.rotation
         mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
-        fullMetersPerPixel = map.distancePerPixel()?.meters()?.distance ?: 1f
+        fullMetersPerPixel = map.distancePerPixel()?.meters()?.value ?: 1f
         projection = map.baseProjection
         if (keepMapUp) {
             mapAzimuth = 0f

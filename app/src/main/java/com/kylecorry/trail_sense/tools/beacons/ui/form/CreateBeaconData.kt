@@ -33,13 +33,13 @@ data class CreateBeaconData(
         if (!isComplete.isSatisfiedBy(this)) return null
 
         val coordinate = if (createAtDistance) {
-            val distanceTo = distanceTo?.meters()?.distance?.toDouble() ?: 0.0
+            val distanceTo = distanceTo?.meters()?.value?.toDouble() ?: 0.0
             val bearingTo = bearingTo ?: 0f
             val declination = if (!bearingIsTrueNorth) Geology.getGeomagneticDeclination(
                 coordinate!!,
-                elevation?.meters()?.distance
+                elevation?.meters()?.value
             ) else 0f
-            coordinate!!.plus(distanceTo, Bearing(bearingTo).withDeclination(declination))
+            coordinate!!.plus(distanceTo, Bearing.from(bearingTo).withDeclination(declination))
         } else {
             coordinate!!
         }
@@ -51,7 +51,7 @@ data class CreateBeaconData(
             isVisible,
             notes,
             groupId,
-            elevation?.meters()?.distance,
+            elevation?.meters()?.value,
             color = color.color,
             icon = icon
         )

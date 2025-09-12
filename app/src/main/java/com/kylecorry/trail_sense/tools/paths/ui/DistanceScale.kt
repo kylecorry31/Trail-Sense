@@ -19,7 +19,7 @@ class DistanceScale {
 
         for (i in 1..intervals.lastIndex) {
             val current = intervals[i]
-            val length = current.meters().distance / metersPerPixel
+            val length = current.meters().value / metersPerPixel
             if (length > maxLength) {
                 return intervals[i - 1]
             }
@@ -29,7 +29,7 @@ class DistanceScale {
     }
 
     fun getScaleBar(distance: Distance, metersPerPixel: Float, path: Path = Path()): Path {
-        val length = distance.meters().distance / metersPerPixel
+        val length = distance.meters().value / metersPerPixel
         val height = 12f
 
         // Horizontal

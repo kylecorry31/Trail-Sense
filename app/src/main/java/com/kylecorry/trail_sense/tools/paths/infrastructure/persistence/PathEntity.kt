@@ -72,7 +72,7 @@ data class PathEntity(
                 AppColor.values().firstOrNull { it.color == path.style.color } ?: AppColor.Gray,
                 path.style.visible,
                 path.temporary,
-                path.metadata.distance.meters().distance,
+                path.metadata.distance.meters().value,
                 path.metadata.waypoints,
                 path.metadata.duration?.start?.toEpochMilli(),
                 path.metadata.duration?.end?.toEpochMilli(),

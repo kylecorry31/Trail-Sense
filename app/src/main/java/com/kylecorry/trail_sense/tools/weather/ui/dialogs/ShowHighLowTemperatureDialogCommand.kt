@@ -48,7 +48,7 @@ class ShowHighLowTemperatureDialogCommand(
             val chart = TemperatureChart(it)
             chart.plot(forecast.map { reading ->
                 Reading(
-                    reading.value.convertTo(temperatureUnits).temperature,
+                    reading.value.convertTo(temperatureUnits).value,
                     reading.time
                 )
             })

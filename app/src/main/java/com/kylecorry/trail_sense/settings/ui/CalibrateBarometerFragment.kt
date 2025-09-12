@@ -132,9 +132,9 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 }
 
                 val currentOffset = prefs.weather.barometerOffset
-                val currentReading = getCurrentPressure().pressure
+                val currentReading = getCurrentPressure().value
                 val rawReading = currentReading - currentOffset
-                val newOffset = it.hpa().pressure - rawReading
+                val newOffset = it.hpa().value - rawReading
 
                 prefs.weather.barometerOffset = newOffset
 
@@ -219,7 +219,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             )
 
         // Disable the offset preference until there's a reading
-        preference(R.string.pref_holder_barometer_offset)?.isEnabled = pressure.pressure != 0f
+        preference(R.string.pref_holder_barometer_offset)?.isEnabled = pressure.value != 0f
     }
 
     private fun getCurrentPressure(): Pressure {

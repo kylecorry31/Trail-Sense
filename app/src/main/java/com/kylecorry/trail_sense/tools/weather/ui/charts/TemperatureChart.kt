@@ -45,7 +45,7 @@ class TemperatureChart(private val chart: Chart, showFreezing: Boolean = true) {
         chart.configureYAxis(labelCount = 5, drawGridLines = true)
         chart.emptyText = chart.context.getString(R.string.no_data)
         if (showFreezing) {
-            val freezing = Temperature.celsius(0f).convertTo(UserPreferences(chart.context).temperatureUnits).temperature
+            val freezing = Temperature.celsius(0f).convertTo(UserPreferences(chart.context).temperatureUnits).value
             freezingArea.top = freezing
             chart.plot(freezingArea, rawLine, line)
         } else {

@@ -150,7 +150,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
             // Only use altimeter if there's a valid reading
             if (altimeter.hasValidReading) {
                 return@onDefault waterService.getPurificationTime(
-                    Distance(altimeter.altitude, DistanceUnits.Meters)
+                    Distance.from(altimeter.altitude, DistanceUnits.Meters)
                 )
             }
         } else if (selectedTime == TimeSelection.LowAltitude) {

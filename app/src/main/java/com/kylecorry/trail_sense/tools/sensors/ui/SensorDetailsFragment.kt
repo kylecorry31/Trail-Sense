@@ -205,7 +205,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateAltimeterCache() {
-        val altitude = Distance(
+        val altitude = Distance.from(
             cachedAltimeter.altitude,
             DistanceUnits.Meters
         ).convertTo(if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Meters else DistanceUnits.Feet)
@@ -220,7 +220,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateAltimeter() {
-        val altitude = Distance(
+        val altitude = Distance.from(
             altimeter.altitude,
             DistanceUnits.Meters
         ).convertTo(if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Meters else DistanceUnits.Feet)
@@ -253,7 +253,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return
         }
         val pressure =
-            Pressure(barometer.pressure, PressureUnits.Hpa).convertTo(prefs.pressureUnits)
+            Pressure.from(barometer.pressure, PressureUnits.Hpa).convertTo(prefs.pressureUnits)
         sensorDetailsMap["barometer"] = SensorDetails(
             getString(R.string.barometer),
             formatService.formatPressure(
@@ -297,7 +297,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateThermometer() {
-        val temperature = Temperature(
+        val temperature = Temperature.from(
             thermometer.temperature,
             TemperatureUnits.C
         ).convertTo(prefs.temperatureUnits)

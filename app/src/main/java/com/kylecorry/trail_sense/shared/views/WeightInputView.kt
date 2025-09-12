@@ -24,11 +24,11 @@ class WeightInputView(context: Context, attributeSet: AttributeSet? = null) : Ba
     }
 
     override fun map(amount: Number, unit: WeightUnits): Weight {
-        return Weight(amount.toFloat(), unit)
+        return Weight.from(amount.toFloat(), unit)
     }
 
     override fun getAmount(value: Weight): Number {
-        return value.weight
+        return value.value
     }
 
     override fun getUnit(value: Weight): WeightUnits {

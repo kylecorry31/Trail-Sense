@@ -82,7 +82,7 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
             getString(R.string.pref_stride_length_holder),
             { userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits) },
             { distance ->
-                if (distance != null && distance.distance > 0f) {
+                if (distance != null && distance.value > 0f) {
                     userPrefs.pedometer.strideLength = distance
                 }
             },

@@ -49,9 +49,9 @@ class HikingService : IHikingService {
 
     override fun getAveragePace(difficulty: HikingDifficulty, factor: Float): Speed {
         return when (difficulty) {
-            HikingDifficulty.Easy -> Speed(1.5f * factor, DistanceUnits.Miles, TimeUnits.Hours)
-            HikingDifficulty.Moderate -> Speed(1.4f * factor, DistanceUnits.Miles, TimeUnits.Hours)
-            HikingDifficulty.Hard -> Speed(1.2f * factor, DistanceUnits.Miles, TimeUnits.Hours)
+            HikingDifficulty.Easy -> Speed.from(1.5f * factor, DistanceUnits.Miles, TimeUnits.Hours)
+            HikingDifficulty.Moderate -> Speed.from(1.4f * factor, DistanceUnits.Miles, TimeUnits.Hours)
+            HikingDifficulty.Hard -> Speed.from(1.2f * factor, DistanceUnits.Miles, TimeUnits.Hours)
         }
     }
 
@@ -82,9 +82,9 @@ class HikingService : IHikingService {
         pace: Speed
     ): Duration {
         val speed = pace.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed
-        val gain = getElevationGain(path).meters().distance
+        val gain = getElevationGain(path).meters().value
 
-        val distance = Geology.getPathDistance(path.map { it.coordinate }).meters().distance
+        val distance = Geology.getPathDistance(path.map { it.coordinate }).meters().value
 
         val scarfs = distance + 7.92f * gain
 

@@ -175,7 +175,7 @@ class PathService(
                 point.coordinate,
                 start.coordinate,
                 end.coordinate
-            ).distance.absoluteValue
+            ).value.absoluteValue
         }
 
         val points = getWaypoints(path).sortedBy { it.id }.toMutableList()

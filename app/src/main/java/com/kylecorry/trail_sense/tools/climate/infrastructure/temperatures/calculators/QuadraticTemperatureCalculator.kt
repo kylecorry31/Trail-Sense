@@ -12,8 +12,8 @@ internal class QuadraticTemperatureCalculator(
     high: Reading<Temperature>
 ) : ITemperatureCalculator {
 
-    private val b = low.value.celsius().temperature
-    private val a = (high.value.celsius().temperature - b) / square(getX(high.time))
+    private val b = low.value.celsius().value
+    private val a = (high.value.celsius().value - b) / square(getX(high.time))
 
     override suspend fun calculate(time: ZonedDateTime): Temperature {
         val x = getX(time.toInstant())

@@ -23,10 +23,10 @@ internal class WaterServiceTest {
         @JvmStatic
         fun providePurificationTimes(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(Distance(0f, DistanceUnits.Meters), Duration.ofMinutes(1)),
-                Arguments.of(Distance(999f, DistanceUnits.Meters), Duration.ofMinutes(1)),
-                Arguments.of(Distance(1000f, DistanceUnits.Meters), Duration.ofMinutes(3)),
-                Arguments.of(Distance(2000f, DistanceUnits.Meters), Duration.ofMinutes(3)),
+                Arguments.of(Distance.from(0f, DistanceUnits.Meters), Duration.ofMinutes(1)),
+                Arguments.of(Distance.from(999f, DistanceUnits.Meters), Duration.ofMinutes(1)),
+                Arguments.of(Distance.from(1000f, DistanceUnits.Meters), Duration.ofMinutes(3)),
+                Arguments.of(Distance.from(2000f, DistanceUnits.Meters), Duration.ofMinutes(3)),
                 Arguments.of(null, Duration.ofMinutes(3)),
             )
         }

@@ -134,7 +134,7 @@ class SolarPanelService(
                 end,
                 location,
                 y.toFloat(),
-                Bearing(x.toFloat()),
+                Bearing.from(x.toFloat()),
                 energyResolution
             )
         }
@@ -160,6 +160,6 @@ class SolarPanelService(
             fn = fn
         )
 
-        return Pair(best.second.toFloat(), Bearing(best.first.toFloat()))
+        return Pair(best.second.toFloat(), Bearing.from(best.first.toFloat()))
     }
 }

@@ -59,13 +59,13 @@ class BelowTemperatureTrigger(
     averageLowTemperature: Temperature = Temperature.celsius(0f),
 ) : LifecycleEventTrigger {
 
-    private val averageLowC = averageLowTemperature.celsius().temperature
+    private val averageLowC = averageLowTemperature.celsius().value
 
     override fun isTriggered(factors: LifecycleEventFactors): Boolean {
         val aboveFreezing =
-            factors.temperatureHistory30Days.indexOfFirst { it.start.celsius().temperature > averageLowC }
+            factors.temperatureHistory30Days.indexOfFirst { it.start.celsius().value > averageLowC }
         val belowFreezing =
-            factors.temperatureHistory30Days.indexOfFirst { it.start.celsius().temperature <= averageLowC }
+            factors.temperatureHistory30Days.indexOfFirst { it.start.celsius().value <= averageLowC }
         // Drops below freezing
         return aboveFreezing != -1 && belowFreezing > aboveFreezing
     }
@@ -76,13 +76,13 @@ class AboveTemperatureTrigger(
     averageHighTemperature: Temperature = Temperature.celsius(0f),
 ) : LifecycleEventTrigger {
 
-    private val averageHighC = averageHighTemperature.celsius().temperature
+    private val averageHighC = averageHighTemperature.celsius().value
 
     override fun isTriggered(factors: LifecycleEventFactors): Boolean {
         val aboveTemperature =
-            factors.temperatureHistory30Days.indexOfFirst { it.end.celsius().temperature >= averageHighC }
+            factors.temperatureHistory30Days.indexOfFirst { it.end.celsius().value >= averageHighC }
         val belowTemperature =
-            factors.temperatureHistory30Days.indexOfFirst { it.end.celsius().temperature < averageHighC }
+            factors.temperatureHistory30Days.indexOfFirst { it.end.celsius().value < averageHighC }
         // Rises above temperature
         return belowTemperature != -1 && aboveTemperature > belowTemperature
     }
@@ -132,16 +132,16 @@ object Phenology {
         calculationType: GrowingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.MinMax
     ): Float {
 
-        val max = temperature.end.celsius().temperature.coerceAtMost(limit)
-        var min = temperature.start.celsius().temperature
+        val max = temperature.end.celsius().value.coerceAtMost(limit)
+        var min = temperature.start.celsius().value
 
-        if (calculationType == GrowingDegreeDaysCalculationType.BaseMax && min < baseTemperature.celsius().temperature) {
-            min = baseTemperature.celsius().temperature
+        if (calculationType == GrowingDegreeDaysCalculationType.BaseMax && min < baseTemperature.celsius().value) {
+            min = baseTemperature.celsius().value
         }
 
         val average = (max + min) / 2
 
-        return (average - baseTemperature.celsius().temperature).coerceAtLeast(0f)
+        return (average - baseTemperature.celsius().value).coerceAtLeast(0f)
     }
 
     fun getCumulativeGrowingDegreeDays(
@@ -159,7 +159,7 @@ object Phenology {
         var currentDate = startDate.plusDays(1)
         while (currentDate < earliestDate) {
             val temperature = temperatureProvider(currentDate)
-            if (temperature.start.celsius().temperature < lowestTemperature.start.celsius().temperature) {
+            if (temperature.start.celsius().value < lowestTemperature.start.celsius().value) {
                 lowestTemperature = temperature
                 startDate = currentDate
             }

@@ -93,11 +93,11 @@ class MapLayerBackgroundTask {
                 } ?: 0f
 
                 val runPercentTranslateDifference = lastRunBounds?.let {
-                    it.center.distanceTo(bounds.center) / bounds.width().meters().distance
+                    it.center.distanceTo(bounds.center) / bounds.width().meters().value
                 } ?: 0f
 
                 val queuedPercentTranslateDifference = lastQueuedBounds?.let {
-                    it.center.distanceTo(bounds.center) / bounds.width().meters().distance
+                    it.center.distanceTo(bounds.center) / bounds.width().meters().value
                 } ?: 0f
 
                 // This will be queued up

@@ -79,7 +79,7 @@ class CreateFieldGuideSightingFragment :
             if (initialSighting != null) {
                 datetime?.toZonedDateTime()?.toInstant() != initialSighting.time ||
                         location != initialSighting.location ||
-                        elevation?.meters()?.distance != initialSighting.altitude ||
+                        elevation?.meters()?.value != initialSighting.altitude ||
                         notes != initialSighting.notes ||
                         harvested != initialSighting.harvested
             } else {
@@ -179,7 +179,7 @@ class CreateFieldGuideSightingFragment :
                                 pageId,
                                 datetime?.toZonedDateTime()?.toInstant(),
                                 location,
-                                elevation?.meters()?.distance,
+                                elevation?.meters()?.value,
                                 harvested,
                                 notes
                             )

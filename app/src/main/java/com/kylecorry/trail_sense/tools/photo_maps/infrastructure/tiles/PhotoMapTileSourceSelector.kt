@@ -24,16 +24,16 @@ class PhotoMapTileSourceSelector(
 
     // TODO: Factor in rotation by using projection to see if the bounds intersect/are contained
     override fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
-        val minArea = bounds.width().meters().distance.toDouble() * bounds.height()
-            .meters().distance.toDouble() * 0.25
+        val minArea = bounds.width().meters().value.toDouble() * bounds.height()
+            .meters().value.toDouble() * 0.25
 
         val possibleMaps = sortedMaps.filter {
             val boundary = it.boundary() ?: return@filter false
             if (boundary == CoordinateBounds.world) {
                 return@filter true
             }
-            val area = boundary.width().meters().distance.toDouble() *
-                    boundary.height().meters().distance.toDouble()
+            val area = boundary.width().meters().value.toDouble() *
+                    boundary.height().meters().value.toDouble()
             area >= minArea
         }
 

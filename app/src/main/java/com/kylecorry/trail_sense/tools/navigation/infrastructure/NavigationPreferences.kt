@@ -155,14 +155,14 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 cache.getString(context.getString(R.string.pref_max_beacon_distance)) ?: "0.5"
             return Distance.kilometers(raw.toFloatCompat() ?: 0.5f)
                 .meters()
-                .distance
+                .value
                 .coerceIn(1f, 25000000f)
         }
         set(value) {
             val meters = Distance.meters(value.coerceIn(1f, 25000000f))
             cache.putString(
                 context.getString(R.string.pref_max_beacon_distance),
-                meters.convertTo(DistanceUnits.Kilometers).distance.toString()
+                meters.convertTo(DistanceUnits.Kilometers).value.toString()
             )
         }
 

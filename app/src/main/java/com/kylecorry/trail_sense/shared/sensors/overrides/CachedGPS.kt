@@ -26,7 +26,7 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
             return Coordinate(lat, lng)
         }
     override val speed: Speed
-        get() = Speed(
+        get() = Speed.from(
             cache.getFloat(CustomGPS.LAST_SPEED) ?: 0.0f,
             DistanceUnits.Meters,
             TimeUnits.Seconds

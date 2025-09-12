@@ -23,7 +23,7 @@ class OverrideGPS(context: Context, updateFrequency: Long = 20L) :
     override val location: Coordinate
         get() = userPrefs.locationOverride
     override val speed: Speed
-        get() = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+        get() = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
     override val speedAccuracy: Float?
         get() = null
     override val time: Instant

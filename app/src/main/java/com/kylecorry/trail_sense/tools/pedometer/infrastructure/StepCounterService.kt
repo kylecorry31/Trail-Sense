@@ -73,7 +73,7 @@ class StepCounterService : AndromedaService() {
     }
 
     private fun getNotification(): Notification {
-        val distance = subsystem.distance.value.orElseGet { Distance(0f, DistanceUnits.Meters) }
+        val distance = subsystem.distance.value.orElseGet { Distance.from(0f, DistanceUnits.Meters) }
             .convertTo(prefs.baseDistanceUnits)
             .toRelativeDistance()
 

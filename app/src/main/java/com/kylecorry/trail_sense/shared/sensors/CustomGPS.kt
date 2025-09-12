@@ -72,7 +72,7 @@ class CustomGPS(
     override val altitude: Float
         get() = _altitude
     override val bearing: Bearing?
-        get() = _bearing?.let { Bearing(it) }
+        get() = _bearing?.let { Bearing.from(it) }
     override val bearingAccuracy: Float?
         get() = _bearingAccuracy
 
@@ -112,7 +112,7 @@ class CustomGPS(
     private var _horizontalAccuracy: Float? = null
     private var _verticalAccuracy: Float? = null
     private var _satellites: Int? = null
-    private var _speed: Speed = Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+    private var _speed: Speed = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
     private var _location = Coordinate.zero
     private var _mslAltitude: Float? = null
     private var _isTimedOut = false
@@ -218,7 +218,7 @@ class CustomGPS(
             cache.getDouble(LAST_LONGITUDE) ?: 0.0
         )
         _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
-        _speed = Speed(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
+        _speed = Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
     }
 

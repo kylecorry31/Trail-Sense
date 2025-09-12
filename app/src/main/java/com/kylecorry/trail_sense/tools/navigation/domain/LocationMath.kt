@@ -19,17 +19,17 @@ object LocationMath {
     fun convertToBaseSpeed(metersPerSecond: Float, units: UserPreferences.DistanceUnits): Float {
         return if (units == UserPreferences.DistanceUnits.Feet) {
             convertUnitPerSecondsToUnitPerHours(
-                Distance(
+                Distance.from(
                     metersPerSecond,
                     DistanceUnits.Meters
-                ).convertTo(DistanceUnits.Miles).distance
+                ).convertTo(DistanceUnits.Miles).value
             )
         } else {
             convertUnitPerSecondsToUnitPerHours(
-                Distance(
+                Distance.from(
                     metersPerSecond,
                     DistanceUnits.Meters
-                ).convertTo(DistanceUnits.Kilometers).distance
+                ).convertTo(DistanceUnits.Kilometers).value
             )
         }
     }

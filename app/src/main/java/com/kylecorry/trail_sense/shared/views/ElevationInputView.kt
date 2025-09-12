@@ -130,9 +130,12 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
 
     private fun changeElevation(elevation: Distance?) {
         val converted = elevation?.convertTo(elevationInput.unit ?: DistanceUnits.Meters)
-        val rounded = converted?.copy(
-            distance = converted.distance.roundPlaces(Units.getDecimalPlaces(converted.units))
-        )
+        val rounded = converted?.let {
+            Distance.from(
+                converted.value.roundPlaces(Units.getDecimalPlaces(converted.units)),
+                converted.units
+            )
+        }
         elevationInput.value = rounded
     }
 

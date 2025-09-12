@@ -86,7 +86,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(6, 7) { context, prefs ->
                 val distance = prefs.getFloat("odometer_distance")
                 if (distance != null) {
-                    val stride = UserPreferences(context).pedometer.strideLength.meters().distance
+                    val stride = UserPreferences(context).pedometer.strideLength.meters().value
                     if (stride > 0f) {
                         val steps = (distance / stride).toLong()
                         prefs.putLong(StepCounter.STEPS_KEY, steps)

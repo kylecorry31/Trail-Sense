@@ -39,7 +39,7 @@ class ActiveMapSelector {
     }
 
     private fun metersPerPixel(map: PhotoMap): Float {
-        return map.distancePerPixel()?.meters()?.distance ?: Float.MAX_VALUE
+        return map.distancePerPixel()?.meters()?.value ?: Float.MAX_VALUE
     }
 
     private fun contains(map: PhotoMap, location: Coordinate): Boolean {

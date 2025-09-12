@@ -18,7 +18,7 @@ object SpeedEstimator {
     ): Speed {
         // If the location is unset, the speed is zero
         if (lastLocation.coordinate == Coordinate.zero || newLocation.coordinate == Coordinate.zero) {
-            return Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+            return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
         }
 
         val distance = lastLocation.coordinate.distanceTo(newLocation.coordinate)
@@ -26,15 +26,15 @@ object SpeedEstimator {
 
         // If the time is zero, the speed is zero
         if (time.isZero || time.isNegative) {
-            return Speed(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+            return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
         }
 
         val speed = distance / (time.toMillis() / 1000f)
 
         // Estimate the range of the speed, given that the locations are as far apart as the accuracy
-        val maxDistance = distance + lastLocation.accuracy.distance + newLocation.accuracy.distance
+        val maxDistance = distance + lastLocation.accuracy.value + newLocation.accuracy.value
         val minDistance =
-            (distance - lastLocation.accuracy.distance - newLocation.accuracy.distance).coerceAtLeast(
+            (distance - lastLocation.accuracy.value - newLocation.accuracy.value).coerceAtLeast(
                 0f
             )
         val maxSpeed = maxDistance / (time.toMillis() / 1000f)
@@ -48,7 +48,7 @@ object SpeedEstimator {
             speed
         }
 
-        return Speed(trueSpeed, DistanceUnits.Meters, TimeUnits.Seconds)
+        return Speed.from(trueSpeed, DistanceUnits.Meters, TimeUnits.Seconds)
     }
 
 }

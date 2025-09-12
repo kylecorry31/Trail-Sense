@@ -296,7 +296,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         val end = if (start != null && direction != null) {
             val declination = if (trueNorth) 0f else Geology.getGeomagneticDeclination(start)
-            val bearing = Bearing(direction).withDeclination(declination)
+            val bearing = Bearing.from(direction).withDeclination(declination)
             destination ?: start.plus(
                 Distance.kilometers(1f),
                 if (shouldCalculateMyLocation) bearing.inverse() else bearing
@@ -359,8 +359,8 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             if (binding.bearing1.trueNorth) 0f else Geology.getGeomagneticDeclination(location1)
         val declination2 =
             if (binding.bearing2.trueNorth) 0f else Geology.getGeomagneticDeclination(location2)
-        val bearing1 = Bearing(direction1).withDeclination(declination1)
-        val bearing2 = Bearing(direction2).withDeclination(declination2)
+        val bearing1 = Bearing.from(direction1).withDeclination(declination1)
+        val bearing2 = Bearing.from(direction2).withDeclination(declination2)
 
         val location = if (shouldCalculateMyLocation) {
             Geology.triangulateSelf(location1, bearing1, location2, bearing2)

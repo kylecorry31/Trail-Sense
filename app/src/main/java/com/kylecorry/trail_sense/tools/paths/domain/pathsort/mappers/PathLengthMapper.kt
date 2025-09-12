@@ -9,7 +9,7 @@ class PathLengthMapper(override val loader: IGroupLoader<IPath>, val maximum: Bo
     GroupMapper<IPath, Float, Float>() {
 
     override suspend fun getValue(item: IPath): Float {
-        return (item as Path).metadata.distance.meters().distance
+        return (item as Path).metadata.distance.meters().value
     }
 
     override suspend fun aggregate(values: List<Float>): Float {

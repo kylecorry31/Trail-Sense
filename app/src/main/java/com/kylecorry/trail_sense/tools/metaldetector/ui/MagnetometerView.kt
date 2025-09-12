@@ -14,7 +14,7 @@ import kotlin.math.min
 class MagnetometerView : CanvasView {
 
     private var fieldStrength = 0f
-    private var direction = Bearing(0f) to Bearing(180f)
+    private var direction = Bearing.from(0f) to Bearing.from(180f)
     private var radius = 0f
     private var indicatorSize = 0f
     private var singlePole = false

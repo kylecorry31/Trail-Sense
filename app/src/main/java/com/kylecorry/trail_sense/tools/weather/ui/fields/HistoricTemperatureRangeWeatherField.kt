@@ -29,10 +29,10 @@ class HistoricTemperatureRangeWeatherField(
         )
 
         val color = when {
-            low.temperature <= WeatherSubsystem.COLD -> {
+            low.value <= WeatherSubsystem.COLD -> {
                 AppColor.Blue.color
             }
-            high.temperature >= WeatherSubsystem.HOT -> {
+            high.value >= WeatherSubsystem.HOT -> {
                 AppColor.Red.color
             }
             else -> {

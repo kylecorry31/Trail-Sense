@@ -86,13 +86,13 @@ class RulerView : CanvasView {
 
         if (metric) {
             drawLines(
-                Distance(0f, units),
+                Distance.from(0f, units),
                 rulerHeight,
-                Distance(0.1f, units)
+                Distance.from(0.1f, units)
             ) {
-                if (approxDivisibleBy(it.distance, 1f)) {
+                if (approxDivisibleBy(it.value, 1f)) {
                     wholeSize
-                } else if (approxDivisibleBy(it.distance, 0.5f)) {
+                } else if (approxDivisibleBy(it.value, 0.5f)) {
                     halfSize
                 } else {
                     tenthSize
@@ -100,17 +100,17 @@ class RulerView : CanvasView {
             }
         } else {
             drawLines(
-                Distance(0f, units),
+                Distance.from(0f, units),
                 rulerHeight,
-                Distance(0.125f, units)
+                Distance.from(0.125f, units)
             ) {
-                if (it.distance % 1 == 0f) {
+                if (it.value % 1 == 0f) {
                     wholeSize
-                } else if (it.distance % 0.5f == 0f) {
+                } else if (it.value % 0.5f == 0f) {
                     halfSize
-                } else if (it.distance % 0.25f == 0f) {
+                } else if (it.value % 0.25f == 0f) {
                     quarterSize
-                } else if (it.distance % 0.125f == 0f) {
+                } else if (it.value % 0.125f == 0f) {
                     eighthSize
                 } else {
                     tenthSize
@@ -119,9 +119,9 @@ class RulerView : CanvasView {
         }
 
         drawLabels(
-            Distance(0f, units),
+            Distance.from(0f, units),
             rulerHeight,
-            Distance(1f, units),
+            Distance.from(1f, units),
             wholeSize
         )
 
@@ -151,7 +151,7 @@ class RulerView : CanvasView {
         while (position < end) {
             val lineWidth = widthFn(position)
             drawLine(position, lineWidth, lineColor, lineThickness)
-            position = Distance(position.distance + convertedSpacing.distance, position.units)
+            position = Distance.from(position.value + convertedSpacing.value, position.units)
         }
     }
 
@@ -164,13 +164,13 @@ class RulerView : CanvasView {
         val convertedSpacing = spacing.convertTo(start.units)
         var position = start
         while (position < end) {
-            val label = position.distance.toInt().toString()
+            val label = position.value.toInt().toString()
             val labelHeight = textHeight(label)
             val y = getPosition(position)
             fill(lineColor)
             noStroke()
             text(label, lineWidth + dp(8f), y + labelHeight / 2)
-            position = Distance(position.distance + convertedSpacing.distance, position.units)
+            position = Distance.from(position.value + convertedSpacing.value, position.units)
         }
     }
 
@@ -189,14 +189,14 @@ class RulerView : CanvasView {
 
     private fun getPosition(distance: Distance): Float {
         val rulerHeight = getRulerHeight()
-        val d = distance.convertTo(rulerHeight.units).distance
-        return d / rulerHeight.distance * height + offset
+        val d = distance.convertTo(rulerHeight.units).value
+        return d / rulerHeight.value * height + offset
     }
 
     private fun getRulerHeight(): Distance {
         val actualHeight = height - offset
         val heightIn = scale * actualHeight / dpi
-        return Distance(
+        return Distance.from(
             heightIn,
             DistanceUnits.Inches
         ).convertTo(if (metric) DistanceUnits.Centimeters else DistanceUnits.Inches)
@@ -204,7 +204,7 @@ class RulerView : CanvasView {
 
     private fun getDistance(y: Float): Distance {
         val rulerHeight = getRulerHeight()
-        val distance = (y - offset) / height * rulerHeight.distance
-        return Distance(distance, rulerHeight.units)
+        val distance = (y - offset) / height * rulerHeight.value
+        return Distance.from(distance, rulerHeight.units)
     }
 }

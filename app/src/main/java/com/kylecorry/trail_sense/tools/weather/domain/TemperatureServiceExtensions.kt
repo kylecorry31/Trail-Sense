@@ -11,7 +11,7 @@ internal suspend fun ITemperatureService.getTemperaturePrediction(time: ZonedDat
         val low = range.start
         val high = range.end
         val current = getTemperature(time)
-        val average = Temperature((low.temperature + high.temperature) / 2f, low.units)
+        val average = Temperature.from((low.value + high.value) / 2f, low.units)
         TemperaturePrediction(
             average,
             low,

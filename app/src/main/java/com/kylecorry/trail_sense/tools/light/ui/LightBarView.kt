@@ -77,7 +77,7 @@ class LightBarView : View {
     private fun updateGradients(){
         val intensities = (1..100).map {
             val distance = if (units == DistanceUnits.Feet) it * 3 else it
-            Optics.luxAtDistance(candela, Distance(distance.toFloat(), units))
+            Optics.luxAtDistance(candela, Distance.from(distance.toFloat(), units))
         }
 
         // TODO: Calculate distance of each intensity description

@@ -8,7 +8,7 @@ class WeightPackItemSort(private val ascending: Boolean = true) : IPackItemSort 
         return items.sortedWith(
             compareBy(
                 {
-                    val weight = it.packedWeight?.convertTo(WeightUnits.Grams)?.weight
+                    val weight = it.packedWeight?.convertTo(WeightUnits.Grams)?.value
                     when {
                         weight == null -> Float.POSITIVE_INFINITY
                         ascending -> weight

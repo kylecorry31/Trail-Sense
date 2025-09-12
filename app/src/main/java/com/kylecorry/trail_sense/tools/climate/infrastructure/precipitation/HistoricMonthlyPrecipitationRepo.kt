@@ -35,7 +35,7 @@ internal object HistoricMonthlyPrecipitationRepo {
             val values = load(context, location)
             Month.entries.associateWith {
                 val daysInMonth = it.length(false)
-                Distance((values[it] ?: 0f) * daysInMonth, DistanceUnits.Millimeters).meters()
+                Distance.from((values[it] ?: 0f) * daysInMonth, DistanceUnits.Millimeters).meters()
             }
         }
     }

@@ -12,7 +12,7 @@ object DistanceUtils {
         ).contains(this.units)
         val baseDistance =
             if (metric) this.convertTo(DistanceUnits.Meters) else this.convertTo(DistanceUnits.Feet)
-        val newUnits = if (baseDistance.distance > 1000) {
+        val newUnits = if (baseDistance.value > 1000) {
             if (metric) DistanceUnits.Kilometers else DistanceUnits.Miles
         } else {
             if (metric) DistanceUnits.Meters else DistanceUnits.Feet

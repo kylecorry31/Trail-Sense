@@ -14,9 +14,9 @@ class LoessSeaLevelCalibrationStrategy(
         return DataUtils.smoothTemporal(
             seaLevel,
             smoothing,
-            { it.pressure }
+            { it.value }
         ) { reading, value ->
-            reading.copy(pressure = value)
+            Pressure.from(value, reading.units)
         }
     }
 }

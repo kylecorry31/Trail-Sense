@@ -12,16 +12,49 @@ internal class PackItemTest {
 
     @ParameterizedTest
     @MethodSource("providePackedWeight")
-    fun getPackedWeight(amount: Double, weight: Weight?, expected: Weight?) {
-        val item = PackItem(0, 0, "", ItemCategory.Other, amount, weight = weight)
-        assertEquals(expected, item.packedWeight)
+    fun getPackedWeight(
+        amount: Double,
+        weight: Float?,
+        units: WeightUnits?,
+        expected: Float?,
+        expectedUnits: WeightUnits?
+    ) {
+        val item = PackItem(
+            0,
+            0,
+            "",
+            ItemCategory.Other,
+            amount,
+            weight = weight?.let { units?.let { Weight.from(weight, units) } })
+        assertEquals(
+            expected?.let { expectedUnits?.let { Weight.from(expected, expectedUnits) } },
+            item.packedWeight
+        )
     }
 
     @ParameterizedTest
     @MethodSource("provideDesiredWeight")
-    fun getDesiredWeight(desiredAmount: Double, weight: Weight?, expected: Weight?) {
-        val item = PackItem(0, 0, "", ItemCategory.Other, desiredAmount = desiredAmount, weight = weight)
-        assertEquals(expected, item.desiredWeight)
+    fun getDesiredWeight(
+        desiredAmount: Double,
+        weight: Float?,
+        units: WeightUnits?,
+        expected: Float?,
+        expectedUnits: WeightUnits?
+    ) {
+        val item =
+            PackItem(
+                0,
+                0,
+                "",
+                ItemCategory.Other,
+                desiredAmount = desiredAmount,
+                weight = weight?.let {
+                    units?.let { Weight.from(weight, units) }
+                })
+        assertEquals(
+            expected?.let { expectedUnits?.let { Weight.from(expected, expectedUnits) } },
+            item.desiredWeight
+        )
     }
 
     @ParameterizedTest
@@ -42,20 +75,20 @@ internal class PackItemTest {
         @JvmStatic
         fun providePackedWeight(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(0.0, Weight(1f, WeightUnits.Grams), Weight(0f, WeightUnits.Grams)),
-                Arguments.of(1.0, Weight(1f, WeightUnits.Grams), Weight(1f, WeightUnits.Grams)),
-                Arguments.of(2.0, Weight(1f, WeightUnits.Grams), Weight(2f, WeightUnits.Grams)),
-                Arguments.of(1.0, null, null),
+                Arguments.of(0.0, 1f, WeightUnits.Grams, 0f, WeightUnits.Grams),
+                Arguments.of(1.0, 1f, WeightUnits.Grams, 1f, WeightUnits.Grams),
+                Arguments.of(2.0, 1f, WeightUnits.Grams, 2f, WeightUnits.Grams),
+                Arguments.of(1.0, null, null, null, null),
             )
         }
 
         @JvmStatic
         fun provideDesiredWeight(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(0.0, Weight(1f, WeightUnits.Grams), Weight(0f, WeightUnits.Grams)),
-                Arguments.of(1.0, Weight(1f, WeightUnits.Grams), Weight(1f, WeightUnits.Grams)),
-                Arguments.of(2.0, Weight(1f, WeightUnits.Grams), Weight(2f, WeightUnits.Grams)),
-                Arguments.of(1.0, null, null),
+                Arguments.of(0.0, 1f, WeightUnits.Grams, 0f, WeightUnits.Grams),
+                Arguments.of(1.0, 1f, WeightUnits.Grams, 1f, WeightUnits.Grams),
+                Arguments.of(2.0, 1f, WeightUnits.Grams, 2f, WeightUnits.Grams),
+                Arguments.of(1.0, null, null, null, null),
             )
         }
 

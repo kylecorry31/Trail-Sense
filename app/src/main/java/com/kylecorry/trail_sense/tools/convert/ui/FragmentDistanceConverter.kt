@@ -40,7 +40,7 @@ class FragmentDistanceConverter :
     }
 
     override fun convert(amount: Float, from: DistanceUnits, to: DistanceUnits): String {
-        val converted = Distance(amount.absoluteValue, from).convertTo(to)
+        val converted = Distance.from(amount.absoluteValue, from).convertTo(to)
         return formatService.formatDistance(converted, 4, false)
     }
 

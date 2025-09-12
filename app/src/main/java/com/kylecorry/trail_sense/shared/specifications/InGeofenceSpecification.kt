@@ -8,6 +8,6 @@ class InGeofenceSpecification(private val center: Coordinate, private val radius
     Specification<Coordinate>() {
     override fun isSatisfiedBy(value: Coordinate): Boolean {
         val distance = center.distanceTo(value)
-        return distance <= radius.meters().distance
+        return distance <= radius.meters().value
     }
 }

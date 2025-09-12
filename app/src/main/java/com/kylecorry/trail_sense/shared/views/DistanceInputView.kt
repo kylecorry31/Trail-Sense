@@ -57,9 +57,9 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
 
     override fun getAmount(value: Distance): Number {
         return if (showSecondaryAmount) {
-            floor(value.distance)
+            floor(value.value)
         } else {
-            value.distance
+            value.value
         }
     }
 
@@ -69,15 +69,15 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
 
     override fun map(amount: Number, secondaryAmount: Number?, unit: DistanceUnits): Distance {
         return if (showSecondaryAmount) {
-            Distance(amount.toFloat() + (secondaryAmount?.toFloat() ?: 0f) / 12f, unit)
+            Distance.from(amount.toFloat() + (secondaryAmount?.toFloat() ?: 0f) / 12f, unit)
         } else {
-            Distance(amount.toFloat(), unit)
+            Distance.from(amount.toFloat(), unit)
         }
     }
 
     override fun getSecondaryAmount(value: Distance): Number? {
         return if (showSecondaryAmount) {
-            val inches = (value.distance % 1f) * 12
+            val inches = (value.value % 1f) * 12
             if (inches == 0f) {
                 null
             } else {

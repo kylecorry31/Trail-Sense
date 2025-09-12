@@ -71,8 +71,8 @@ class PathElevationChart(private val chart: Chart) {
     fun plot(path: List<PathPoint>, @ColorInt color: Int) {
         val elevations = getElevationPlotPoints(path)
 
-        val margin = Distance.meters(10f).convertTo(units).distance
-        val minRange = Distance.meters(100f).convertTo(units).distance
+        val margin = Distance.meters(10f).convertTo(units).value
+        val minRange = Distance.meters(100f).convertTo(units).value
         val range = Chart.getRange(
             elevations.minOfOrNull { it.first.y } ?: 0f,
             elevations.maxOfOrNull { it.first.y } ?: 0f,

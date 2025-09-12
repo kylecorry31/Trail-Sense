@@ -26,7 +26,7 @@ class ClinometerPreferences(private val context: Context) : IClinometerPreferenc
                     ?: return null
             val units = DistanceUnits.entries.firstOrNull { baselineUnitId == it.id }
                 ?: DistanceUnits.Meters
-            return Distance(baseline, units)
+            return Distance.from(baseline, units)
         }
         set(value) {
             if (value == null) {
@@ -35,7 +35,7 @@ class ClinometerPreferences(private val context: Context) : IClinometerPreferenc
             } else {
                 cache.putFloat(
                     context.getString(R.string.pref_clinometer_baseline_distance),
-                    value.distance
+                    value.value
                 )
                 cache.putInt(
                     context.getString(R.string.pref_clinometer_baseline_distance_units),

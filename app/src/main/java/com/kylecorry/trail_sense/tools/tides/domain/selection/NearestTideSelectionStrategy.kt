@@ -19,7 +19,7 @@ class NearestTideSelectionStrategy(
                 ?: return@onIO nearest
 
         // If the nearest tide is too far away, use the auto tide instead
-        val maxDistance = Distance.kilometers(50f).meters().distance
+        val maxDistance = Distance.kilometers(50f).meters().value
         if (nearest.location!!.distanceTo(locationProvider()) > maxDistance) {
             autoTide
         } else {

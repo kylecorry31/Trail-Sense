@@ -8,7 +8,7 @@ import java.time.Duration
 
 class StrideLengthPaceCalculator(private val strideLength: Distance) : IPaceCalculator {
     override fun distance(steps: Long): Distance {
-        return Distance(steps * strideLength.distance, strideLength.units)
+        return Distance.from(steps * strideLength.value, strideLength.units)
     }
 
     override fun speed(steps: Long, time: Duration): Speed {
@@ -18,6 +18,6 @@ class StrideLengthPaceCalculator(private val strideLength: Distance) : IPaceCalc
             return ZERO_SPEED
         }
 
-        return Speed(d.distance / seconds, d.units, TimeUnits.Seconds)
+        return Speed.from(d.value / seconds, d.units, TimeUnits.Seconds)
     }
 }

@@ -12,10 +12,10 @@ internal class PackServiceTest {
 
     @ParameterizedTest
     @MethodSource("providePackWeight")
-    fun getPackWeight(items: List<PackItem>, units: WeightUnits, expected: Weight?) {
+    fun getPackWeight(items: List<PackItem>, units: WeightUnits, expected: Float?) {
         val service = PackService()
         val actual = service.getPackWeight(items, units)
-        assertEquals(expected, actual)
+        assertEquals(expected?.let { Weight.from(expected, units) }, actual)
     }
 
     @ParameterizedTest
@@ -161,21 +161,21 @@ internal class PackServiceTest {
             return Stream.of(
                 Arguments.of(
                     listOf(
-                        packItem(0.0, weight = Weight(1f, WeightUnits.Pounds)),
-                        packItem(1.0, weight = Weight(2f, WeightUnits.Pounds)),
-                        packItem(2.0, weight = Weight(3f, WeightUnits.Pounds)),
+                        packItem(0.0, weight = Weight.from(1f, WeightUnits.Pounds)),
+                        packItem(1.0, weight = Weight.from(2f, WeightUnits.Pounds)),
+                        packItem(2.0, weight = Weight.from(3f, WeightUnits.Pounds)),
                     ),
                     WeightUnits.Ounces,
-                    Weight(128f, WeightUnits.Ounces)
+                    128f
                 ),
                 Arguments.of(
                     listOf(
-                        packItem(1.0, weight = Weight(0.001f, WeightUnits.Kilograms)),
+                        packItem(1.0, weight = Weight.from(0.001f, WeightUnits.Kilograms)),
                         packItem(1.0),
-                        packItem(2.0, weight = Weight(3f, WeightUnits.Pounds)),
+                        packItem(2.0, weight = Weight.from(3f, WeightUnits.Pounds)),
                     ),
                     WeightUnits.Grams,
-                    Weight(2722.552f, WeightUnits.Grams)
+                    2722.552f
                 ),
                 Arguments.of(
                     listOf(

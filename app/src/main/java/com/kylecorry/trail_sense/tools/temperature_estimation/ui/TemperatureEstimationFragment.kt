@@ -40,7 +40,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
             return@CoroutineTimer
         }
         val temp = getEstimation()
-        binding.temperatureTitle.title.text = if (temp == null || temp.temperature.isNaN()) {
+        binding.temperatureTitle.title.text = if (temp == null || temp.value.isNaN()) {
             getString(R.string.dash)
         } else {
             formatService.formatTemperature(temp.convertTo(temperatureUnits))
@@ -84,10 +84,11 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
         // Set the initial elevation
         val elevation = location.elevation.convertTo(prefs.baseDistanceUnits)
-        val roundedElevation = elevation.copy(
-            distance = elevation.distance.roundPlaces(
+        val roundedElevation = Distance.from(
+            elevation.value.roundPlaces(
                 Units.getDecimalPlaces(elevation.units)
-            )
+            ),
+            elevation.units
         )
         binding.tempEstBaseElevation.elevation = roundedElevation
     }
@@ -133,7 +134,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
         if ((thermometer.hasValidReading || sensorTemperature != 0f) && !sensorTemperature.isNaN()) {
             val temp = Temperature.celsius(sensorTemperature).convertTo(temperatureUnits)
-            binding.tempEstBaseTemperature.amount = temp.temperature.safeRoundToInt()
+            binding.tempEstBaseTemperature.amount = temp.value.safeRoundToInt()
             binding.tempEstBaseTemperature.unit = temperatureUnits
         }
     }
@@ -153,7 +154,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     private fun getBaseTemperature(): Temperature? {
         val amount = binding.tempEstBaseTemperature.amount?.toFloat() ?: return null
         val units = binding.tempEstBaseTemperature.unit as TemperatureUnits
-        val uiTemp = Temperature(amount, units)
+        val uiTemp = Temperature.from(amount, units)
         return uiTemp.convertTo(TemperatureUnits.C)
     }
 

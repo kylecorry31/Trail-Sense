@@ -105,7 +105,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 binding.pressureMarker.isVisible = false
             } else {
                 val formatted = formatService.formatPressure(
-                    Pressure(pressure, units),
+                    Pressure.from(pressure, units),
                     Units.getDecimalPlaces(units)
                 )
                 binding.pressureMarker.text = getString(
@@ -339,7 +339,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun showTemperatureChart() {
         val readings = history.map {
-            Reading(it.temperature.convertTo(temperatureUnits).temperature, it.time)
+            Reading(it.temperature.convertTo(temperatureUnits).value, it.time)
         }
         if (readings.size < 2) {
             return
