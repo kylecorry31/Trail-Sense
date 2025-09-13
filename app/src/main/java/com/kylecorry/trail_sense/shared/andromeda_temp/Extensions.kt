@@ -4,11 +4,13 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.subscriptions.ISubscription
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.sol.math.SolMath.isCloseTo
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.absoluteValue
 import kotlin.math.log
 import kotlin.math.sqrt
 import kotlin.random.Random
@@ -44,22 +46,35 @@ fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
     )
 }
 
-fun CoordinateBounds.intersects2(other: CoordinateBounds): Boolean {
-    if (intersects(other)) {
-        return true
+fun CoordinateBounds.heightDegrees(): Double {
+    return (north - south).absoluteValue
+}
+
+fun CoordinateBounds.widthDegrees(): Double {
+    if (isCloseTo(west, CoordinateBounds.world.west, 0.0001) && isCloseTo(east, CoordinateBounds.world.east, 0.0001)) {
+        return 360.0
     }
 
+    return (if (east >= west) {
+        east - west
+    } else {
+        (180 - west) + (east + 180)
+    }).absoluteValue
+}
+
+fun CoordinateBounds.intersects2(other: CoordinateBounds): Boolean {
     if (south > other.north || other.south > north) {
         return false
     }
 
-    val selfWraps = east < west
-    val otherWraps = other.east < other.west
+    val union = CoordinateBounds.from(
+        listOf(
+            northEast, northWest, southEast, southWest,
+            other.northEast, other.northWest, other.southEast, other.southWest
+        )
+    )
 
-    if (selfWraps && otherWraps) return true
-    if (selfWraps) return other.west <= east || other.east >= west
-    if (otherWraps) return west <= other.east || east >= other.west
-    return west <= other.east && east >= other.west
+    return union.widthDegrees() <= (widthDegrees() + other.widthDegrees())
 }
 
 fun Fragment.observe(
