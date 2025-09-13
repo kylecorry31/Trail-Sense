@@ -15,6 +15,7 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
@@ -95,9 +96,35 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
     override val mapRotation: Float = 0f
 
-    private var scale = 1f
+    var scale = 1f
+        private set
     private var lastScale = 1f
-    private var minScale = 0.0002f
+    var minScale = 0.0002f
+        set(value) {
+            field = value
+            if (scale < minScale) {
+                zoomTo(minScale)
+            }
+            invalidate()
+        }
+
+    var constraintBounds: CoordinateBounds = CoordinateBounds(85.0, 180.0, -85.0, -180.0)
+        set(value) {
+            field = value
+            if (!field.contains(mapCenter)) {
+                mapCenter = field.center
+            }
+            invalidate()
+        }
+
+    var projection: IMapProjection = MercatorProjection()
+        set(value) {
+            field = value
+            layers.forEach { it.invalidate() }
+            invalidate()
+        }
+
+
     private var maxScale = 1f
     private var isScaling = false
 
@@ -115,8 +142,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { post { invalidate() } } }
     }
-
-    private val projection = MercatorProjection()
 
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
         val center = projection.toPixels(mapCenter)
@@ -228,6 +253,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         return lastValue
     }
 
+    // TODO: This doesn't work for world maps
     fun fitIntoView(bounds: CoordinateBounds, paddingFactor: Float = 1f) {
         if (width == 0 || height == 0) {
             return
@@ -282,8 +308,14 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         val newPoint = PixelCoordinate(width / 2f + distanceX, height / 2f + distanceY)
         val newCenter = toCoordinate(newPoint)
         mapCenter = Coordinate(
-            newCenter.latitude.coerceIn(-85.0, 85.0),
-            Coordinate.toLongitude(newCenter.longitude)
+            newCenter.latitude.coerceIn(
+                constraintBounds.south,
+                constraintBounds.north
+            ),
+            Coordinate.toLongitude(newCenter.longitude).coerceIn(
+                min(constraintBounds.west, constraintBounds.east),
+                max(constraintBounds.west, constraintBounds.east)
+            )
         )
         invalidate()
     }

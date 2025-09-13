@@ -19,7 +19,7 @@ class PhotoMapTileSourceSelector(
 ) : ITileSourceSelector {
 
     private val sortedMaps = maps
-        .filter { it.isCalibrated && it.visible }
+        .filter { it.isCalibrated }
         .sortedBy { it.distancePerPixel() }
 
     // TODO: Factor in rotation by using projection to see if the bounds intersect/are contained
