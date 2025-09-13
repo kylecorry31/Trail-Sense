@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams
 
 import com.kylecorry.andromeda.sound.stream.AudioStream
-import com.kylecorry.trail_sense.shared.andromeda_temp.nextGaussian
+import com.kylecorry.sol.math.random.nextGaussian
 import kotlin.random.Random
 
 class WhiteNoiseAudioStream(private val seed: Int = 0) : AudioStream {
