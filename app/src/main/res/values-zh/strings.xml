@@ -1455,4 +1455,5 @@
     <string name="color_gray">灰</string>
     <string name="color_white">白</string>
     <string name="background_color">背景色</string>
+    <string name="cell_signal_distance">手机信号距离</string>
 </resources>
