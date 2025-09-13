@@ -14,8 +14,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -24,6 +25,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
@@ -32,6 +34,7 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
@@ -54,14 +57,16 @@ class PhotoMapToolLayerManager {
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
+    private val photoMapLayer = TiledMapLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
     private var layerManager: ILayerManager? = null
+    private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
-    fun resume(context: Context, view: IMapView) {
+    fun resume(context: Context, view: IMapView, photoMapId: Long) {
         contourLayer = ContourLayer(taskRunner)
 
         // Location layer
@@ -116,9 +121,17 @@ class PhotoMapToolLayerManager {
         // My location layer
         myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
 
+        // Background
+        backgroundLayer.color = Color.rgb(127, 127, 127)
+
+        // Photo map
+        photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
+
         // Start
         view.setLayers(
             listOfNotNull(
+                backgroundLayer,
+                photoMapLayer,
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
@@ -137,6 +150,9 @@ class PhotoMapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
+                PhotoMapLayerManager(context, photoMapLayer, !prefs.photoMaps.autoReducePdfMaps) {
+                    it.id == photoMapId
+                },
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(
                     context,
                     pathLayer
