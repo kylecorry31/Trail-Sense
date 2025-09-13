@@ -1494,4 +1494,5 @@
     <string name="color_gray">Šedá</string>
     <string name="color_white">Bílá</string>
     <string name="background_color">Barva pozadí</string>
+    <string name="cell_signal_distance">Vzdálenost mobilního signálu</string>
 </resources>
