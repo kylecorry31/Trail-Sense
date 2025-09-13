@@ -20,6 +20,7 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
@@ -232,7 +233,7 @@ class CustomGPS(
         }
 
         // If this is being restarted, reload the value from cache if there's a newer reading there
-        if (hadValidReading && cacheHasNewerReading()) {
+        if (isDebug() && hadValidReading && cacheHasNewerReading()) {
             updateFromCache()
             notifyListeners()
         }
