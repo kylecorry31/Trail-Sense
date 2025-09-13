@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
@@ -24,6 +25,7 @@ import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -72,6 +74,13 @@ fun AndromedaFragment.useAltimeterSensor(gps: IGPS? = null): IAltimeter {
     }
 }
 
+fun ReactiveComponent.useSpeedometerSensor(gps: IGPS? = null): ISpeedometer {
+    val sensors = useService<SensorService>()
+    return useMemo(sensors, gps) {
+        sensors.getSpeedometer(gps = gps)
+    }
+}
+
 // Common sensor readings
 fun AndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)): Pair<Coordinate, Float?> {
     val gps = useGPSSensor(frequency)
@@ -82,12 +91,13 @@ fun AndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)
 
 data class NavigationSensorValues(
     val location: Coordinate,
-    val locationAccuracy: Float?,
-    val elevation: Float,
-    val elevationAccuracy: Float?,
-    val bearing: Float,
+    val locationAccuracy: Distance?,
+    val elevation: Distance,
+    val elevationAccuracy: Distance?,
+    val bearing: Bearing,
     val declination: Float,
-    val speed: Speed
+    val speed: Speed,
+    val gpsSpeed: Speed
 )
 
 fun AndromedaFragment.useNavigationSensors(
@@ -97,29 +107,59 @@ fun AndromedaFragment.useNavigationSensors(
     val gps = useGPSSensor(gpsFrequency)
     val compass = useCompassSensor()
     val altimeter = useAltimeterSensor(gps)
+    val speedometer = useSpeedometerSensor(gps)
     val prefs = useService<UserPreferences>()
+
+    val defaultGpsReading = useMemo(gps) {
+        Triple(gps.location, gps.horizontalAccuracy?.let { Distance.meters(it) }, gps.speed)
+    }
+
+    val defaultSpeedReading = useMemo(speedometer) {
+        speedometer.speed
+    }
+
+    val defaultElevationReading = useMemo(altimeter, gps) {
+        Distance.meters(altimeter.altitude) to (if (altimeter is IGPS) altimeter.verticalAccuracy else gps.verticalAccuracy)?.let {
+            Distance.meters(
+                it
+            )
+        }
+    }
+
+    val defaultCompassReading = useMemo(compass) {
+        compass.bearing
+    }
+
     val declinationProvider = useMemo(prefs, gps) {
         DeclinationFactory().getDeclinationStrategy(prefs, gps)
     }
     val declination = useMemo(gps.location) { declinationProvider.getDeclination() }
     useEffect(compass, declination) { compass.declination = if (trueNorth) declination else 0f }
 
-    val (location, locationAccuracy, speed) = useTopic(
+    val (location, locationAccuracy, gpsSpeed) = useTopic(
         gps,
-        Triple(gps.location, gps.horizontalAccuracy, gps.speed)
+        defaultGpsReading
     ) {
-        Triple(gps.location, gps.horizontalAccuracy, gps.speed)
+        Triple(gps.location, gps.horizontalAccuracy?.let { Distance.meters(it) }, gps.speed)
+    }
+
+    val speed = useTopic(speedometer, defaultSpeedReading) {
+        speedometer.speed
     }
 
     val (elevation, elevationAccuracy) = useTopic(
         altimeter,
-        altimeter.altitude to if (altimeter is IGPS) altimeter.verticalAccuracy else gps.verticalAccuracy
+        defaultElevationReading
     ) {
-        altimeter.altitude to if (altimeter is IGPS) altimeter.verticalAccuracy else gps.verticalAccuracy
+        Distance.meters(altimeter.altitude) to (if (altimeter is IGPS) altimeter.verticalAccuracy else gps.verticalAccuracy)?.let {
+            Distance.meters(
+                it
+            )
+        }
     }
 
-    val bearing = useTopic(compass, compass.rawBearing) {
-        compass.rawBearing
+    val bearing = useTopic(compass, defaultCompassReading) {
+        compass.bearing
     }
 
     return useMemo(
@@ -129,7 +169,8 @@ fun AndromedaFragment.useNavigationSensors(
         elevationAccuracy,
         bearing,
         declination,
-        speed
+        speed,
+        gpsSpeed
     ) {
         NavigationSensorValues(
             location,
@@ -138,7 +179,8 @@ fun AndromedaFragment.useNavigationSensors(
             elevationAccuracy,
             bearing,
             declination,
-            speed
+            speed,
+            gpsSpeed
         )
     }
 }
@@ -302,7 +344,9 @@ fun ReactiveComponent.useDistancePreference(
             return@useMemo null
         }
 
-        Distance.from(value, DistanceUnits.entries.firstOrNull { it.id == unit } ?: DistanceUnits.Meters)
+        Distance.from(
+            value,
+            DistanceUnits.entries.firstOrNull { it.id == unit } ?: DistanceUnits.Meters)
     }
 
     return distance to setter
@@ -324,7 +368,9 @@ fun ReactiveComponent.useWeightPreference(
             return@useMemo null
         }
 
-        Weight.from(value, WeightUnits.entries.firstOrNull { it.id == unit } ?: WeightUnits.Kilograms)
+        Weight.from(
+            value,
+            WeightUnits.entries.firstOrNull { it.id == unit } ?: WeightUnits.Kilograms)
     }
 
     return weight to setter

@@ -43,8 +43,8 @@ class BeaconDestinationView(context: Context, attrs: AttributeSet?) : LinearLayo
     ) {
         destinationPanel.show(
             navigationSensorValues.location,
-            navigationSensorValues.elevation,
-            navigationSensorValues.speed.speed,
+            navigationSensorValues.elevation.meters().value,
+            navigationSensorValues.gpsSpeed.speed,
             destination,
             navigationSensorValues.declination,
             usingTrueNorth

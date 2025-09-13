@@ -190,7 +190,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
 
         useEffect(mapView, lockMode, navigation.bearing) {
             if (lockMode == MapLockMode.Compass) {
-                mapView.mapAzimuth = navigation.bearing
+                mapView.mapAzimuth = navigation.bearing.value
             }
         }
 
