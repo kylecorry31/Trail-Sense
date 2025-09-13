@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -21,6 +22,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
@@ -46,7 +48,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         onLongPressCallback = callback
     }
 
-    // TODO: Expose a method to fit to bounds (sets map center and meters per pixel)
     override val mapBounds: CoordinateBounds
         get() = hooks.memo("bounds", metersPerPixel, mapCenter, width, height, mapAzimuth != 0f) {
             // Increase size to account for 45 degree rotation
@@ -205,6 +206,56 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     fun recenter() {
         scale = 1f
+        invalidate()
+    }
+
+    // TODO: Extract to Sol
+    private inline fun newtonRaphsonIteration(
+        initialValue: Float = 0f,
+        tolerance: Float = SolMath.EPSILON_FLOAT,
+        maxIterations: Int = Int.MAX_VALUE,
+        crossinline calculate: (lastValue: Float) -> Float
+    ): Float {
+        var lastValue = initialValue
+        var iterations = 0
+        var delta: Float
+        do {
+            val newValue = calculate(initialValue)
+            delta = newValue - lastValue
+            lastValue = newValue
+            iterations++
+        } while (iterations < maxIterations && delta.absoluteValue > tolerance)
+        return lastValue
+    }
+
+    fun fitIntoView(bounds: CoordinateBounds, paddingFactor: Float = 1f) {
+        if (width == 0 || height == 0) {
+            return
+        }
+
+        newtonRaphsonIteration(scale, 0.001f, 10) {
+            mapCenter = bounds.center
+            val nePixel = toPixel(bounds.northEast)
+            val sePixel = toPixel(bounds.southEast)
+            val nwPixel = toPixel(bounds.northWest)
+            val swPixel = toPixel(bounds.southWest)
+            val minX = minOf(nePixel.x, sePixel.x, nwPixel.x, swPixel.x)
+            val maxX = maxOf(nePixel.x, sePixel.x, nwPixel.x, swPixel.x)
+            val minY = minOf(nePixel.y, sePixel.y, nwPixel.y, swPixel.y)
+            val maxY = maxOf(nePixel.y, sePixel.y, nwPixel.y, swPixel.y)
+            val boxWidth = (maxX - minX).absoluteValue * paddingFactor
+            val boxHeight = (maxY - minY).absoluteValue * paddingFactor
+
+            if (boxWidth == 0f || boxHeight == 0f) {
+                return@newtonRaphsonIteration 0f
+            }
+
+            val scaleX = width / boxWidth
+            val scaleY = height / boxHeight
+            val newScale = min(scaleX, scaleY)
+            zoom(newScale)
+            newScale
+        }
         invalidate()
     }
 
