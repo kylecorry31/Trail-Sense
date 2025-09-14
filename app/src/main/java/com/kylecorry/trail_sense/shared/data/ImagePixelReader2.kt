@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.shared.data
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
-import android.util.Log
 import android.util.Size
 import androidx.core.graphics.get
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.isInBounds
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Range
@@ -35,6 +35,52 @@ class ImagePixelReader2(
     private val lookupOrder: Int = 1, // The layers of surrounding pixels to look up (1 = 4 pixels, 2 = 12 pixels, etc.)
     private val returnAllPixels: Boolean = false
 ) {
+
+    suspend fun getRegion(
+        image: InputStream,
+        region: Rect,
+        exact: Boolean = false,
+        autoClose: Boolean = true
+    ): Pair<Rect, Bitmap>? =
+        onIO {
+            try {
+                val rect = BitmapUtils.getExactRegion(region, imageSize)
+                val bitmap = BitmapUtils.decodeRegion(
+                    image,
+                    rect,
+                    BitmapFactory.Options().also { it.inPreferredConfig = config },
+                    autoClose = false
+                ) ?: return@onIO null
+
+                if (bitmap.width <= 0 || bitmap.height <= 0) {
+                    bitmap.recycle()
+                    return@onIO null
+                }
+
+                // Crop the bitmap to the original region
+                if (exact && rect != region) {
+                    var cropped: Bitmap? = null
+                    bitmap.use {
+                        // TODO: Handle when the original region was out of bounds
+                        cropped = Bitmap.createBitmap(
+                            bitmap,
+                            region.left - rect.left,
+                            region.top - rect.top,
+                            region.width(),
+                            region.height()
+                        )
+                    }
+                    cropped ?: return@onIO null
+                    region to cropped
+                } else {
+                    rect to bitmap
+                }
+            } finally {
+                if (autoClose) {
+                    image.close()
+                }
+            }
+        }
 
     suspend fun getAllPixels(
         image: InputStream,
@@ -74,34 +120,15 @@ class ImagePixelReader2(
             val xEnd = ceil(xRange.end).toInt()
             val yEnd = ceil(yRange.end).toInt()
 
-            val rect = BitmapUtils.getExactRegion(
-                Rect(
+            val (rect, loadedBitmap) = getRegion(
+                image, Rect(
                     xStart - lookupOrder * 2,
                     yStart - lookupOrder * 2,
                     xEnd + lookupOrder * 2,
                     yEnd + lookupOrder * 2
-                ),
-                imageSize
-            )
-            bitmap = BitmapUtils.decodeRegion(
-                image,
-                rect,
-                BitmapFactory.Options().also { it.inPreferredConfig = config },
-                autoClose = false
+                ), false
             ) ?: return@onIO emptyList()
-
-            if (bitmap.width != rect.width() ||
-                bitmap.height != rect.height()
-            ) {
-                Log.w(
-                    "ImagePixelReader",
-                    "Bitmap size does not match expected region size. Expected: ${rect.width()}x${rect.height()}, Actual: ${bitmap.width}x${bitmap.height}"
-                )
-            }
-
-            if (bitmap.width <= 0 || bitmap.height <= 0) {
-                return@onIO emptyList()
-            }
+            bitmap = loadedBitmap
 
             val allPixels = mutableListOf<PixelResult<Int>>()
             if (returnAllPixels) {
@@ -127,7 +154,6 @@ class ImagePixelReader2(
                     })
                 }
                 allPixels.distinctBy { it.x to it.y }
-
             }
         } finally {
             bitmap?.recycle()
