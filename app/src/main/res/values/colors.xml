@@ -2,6 +2,7 @@
 <resources>
     <color name="orange_10">#351000</color>
     <color name="orange_40">#FF6D00</color>
+    <color name="tool_icon_color">#FF6D00</color>
     <color name="orange_40_transparent">#80FF6D00</color>
     <color name="colorPrimaryLight">#FD750E</color>
     <color name="colorSecondary">#222222</color>

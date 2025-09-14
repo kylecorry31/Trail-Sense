@@ -1,4 +1,10 @@
 <!--drawable/angle_acute.xml-->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:fillColor="#fff" android:pathData="M20 19H4.09L14.18 4.43l1.64 1.14-4.54 6.56c1.61 0.83 2.72 2.49 2.72 4.41 0 0.16 0 0.31-0.03 0.46H20v2M7.91 17h4.05C12 16.85 12 16.7 12 16.54c0-1.26-0.76-2.32-1.86-2.76L7.91 17z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/tool_icon_color"
+        android:pathData="M20 19H4.09L14.18 4.43l1.64 1.14-4.54 6.56c1.61 0.83 2.72 2.49 2.72 4.41 0 0.16 0 0.31-0.03 0.46H20v2M7.91 17h4.05C12 16.85 12 16.7 12 16.54c0-1.26-0.76-2.32-1.86-2.76L7.91 17z" />
 </vector>

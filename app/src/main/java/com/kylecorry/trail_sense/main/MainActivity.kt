@@ -195,7 +195,8 @@ class MainActivity : AndromedaActivity() {
 
     private fun bindLayoutInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            val insets =
+                windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top
                 leftMargin = insets.left
@@ -207,7 +208,7 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    private fun updateTheme(){
+    private fun updateTheme() {
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> ColorTheme.Light
             UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
@@ -293,6 +294,18 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun handleIntentAction(intent: Intent) {
+        if (intent.action == "com.kylecorry.trail_sense.OPEN_TOOL") {
+            val toolId = intent.getLongExtra("tool_id", -1)
+            val tool = Tools.getTool(this, toolId)
+            if (tool != null) {
+                if (navController.currentDestination?.id != tool.navAction) {
+                    navController.navigate(tool.navAction)
+                }
+                binding.bottomNavigation.selectedItemId = tool.navAction
+            }
+            return
+        }
+
         val tools = Tools.getTools(this)
         tools.forEach { tool ->
             tool.intentHandlers.forEach { handler ->
@@ -517,6 +530,14 @@ class MainActivity : AndromedaActivity() {
 
         fun intent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
+        }
+
+        fun openToolIntent(context: Context, toolId: Long): Intent {
+            val tool = Tools.getTool(context, toolId)!!
+            return Intent(context, MainActivity::class.java).apply {
+                this.action = "com.kylecorry.trail_sense.OPEN_TOOL"
+                this.putExtra("tool_id", tool.id)
+            }
         }
 
         fun pendingIntent(context: Context): PendingIntent {
