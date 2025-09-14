@@ -1395,4 +1395,6 @@
     <string name="color_usgs">USGS</string>
     <string name="color_viridis">Viridis</string>
     <string name="hillshade">Korkeuskäyräväritys</string>
+    <string name="background_color">Taustan väri</string>
+    <string name="cell_signal_distance">Puhelinverkon signaalin etäisyys</string>
 </resources>
