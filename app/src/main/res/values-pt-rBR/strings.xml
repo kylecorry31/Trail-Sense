@@ -1439,4 +1439,5 @@
     <string name="color_white">Branco</string>
     <string name="background_color">Cor de fundo</string>
     <string name="cell_signal_distance">Distância do sinal da rede móvel</string>
+    <string name="add_to_homescreen">Adicionar à tela inicial</string>
 </resources>
