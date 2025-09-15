@@ -48,7 +48,6 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 decoder = EncodedDataImageReader.scaledDecoder(lowA, lowB),
                 maxChannels = 3
             ),
-            interpolate = true,
             latitudePixelsPerDegreeOverride = latitudePixelsPerDegree,
             longitudePixelsPerDegreeOverride = longitudePixelsPerDegree
         )
@@ -62,7 +61,6 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 decoder = EncodedDataImageReader.scaledDecoder(highA, highB),
                 maxChannels = 3
             ),
-            interpolate = true,
             latitudePixelsPerDegreeOverride = latitudePixelsPerDegree,
             longitudePixelsPerDegreeOverride = longitudePixelsPerDegree
         )

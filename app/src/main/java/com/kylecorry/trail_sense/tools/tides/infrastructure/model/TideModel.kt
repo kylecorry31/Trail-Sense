@@ -46,7 +46,7 @@ object TideModel {
             maxChannels = 2
         ),
         precision = 0,
-        interpolate = false
+        interpolationOrder = 0
     )
 
     private val imageReader = ImagePixelReader(condensedSize, interpolate = false)

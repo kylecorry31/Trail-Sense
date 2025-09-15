@@ -29,7 +29,7 @@ internal object HistoricMonthlyPrecipitationRepo {
                 decoder = EncodedDataImageReader.split16BitDecoder(),
                 maxChannels = 1
             ),
-            interpolate = false
+            interpolationOrder = 0
         )
     }
 
