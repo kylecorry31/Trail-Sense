@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.tools.signal_finder
 
+import androidx.test.platform.app.InstrumentationRegistry
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.test_utils.TestUtils.context
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -12,6 +14,8 @@ class CellTowerModelTest {
 
     @Test
     fun getTowers() = runBlocking {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        AppServiceRegistry.register(FileSubsystem.getInstance(context))
         val tests = listOf(
             Coordinate(42.03, -71.97) to listOf(CellNetwork.Lte),
             Coordinate(42.0, -72.0) to listOf(),
@@ -22,7 +26,7 @@ class CellTowerModelTest {
 
         for (test in tests) {
             val (coordinate, networks) = test
-            val towers = CellTowerModel.getTowers(context, coordinate)
+            val towers = CellTowerModel.getTowers(coordinate)
             assertEquals(networks, towers.second)
         }
     }

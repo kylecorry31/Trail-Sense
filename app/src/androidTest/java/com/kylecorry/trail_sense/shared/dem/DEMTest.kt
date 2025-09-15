@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.shared.dem
 
 import androidx.test.platform.app.InstrumentationRegistry
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import kotlinx.coroutines.runBlocking
@@ -27,6 +29,8 @@ class DEMTest {
 
     @Test
     fun getElevation() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        AppServiceRegistry.register(FileSubsystem.getInstance(context))
         for (model in models) {
             println("Testing ${model.path}")
             verify(model)

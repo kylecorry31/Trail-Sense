@@ -25,10 +25,11 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
-import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
+import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
+import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.data.LocalInputStreamable
+import com.kylecorry.trail_sense.shared.data.SingleImageReader
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.math.PI
@@ -279,7 +280,7 @@ object DEM {
         return a.plus(distance * percent.toDouble(), bearing)
     }
 
-    private suspend fun getSources(): List<Pair<String, GeographicImageSource>> = onIO {
+    private suspend fun getSources(): List<GeographicImageSource> = onIO {
         // TODO: Cache this
         // Clean the repo before getting sources
         DEMRepo.getInstance().clean()
@@ -298,23 +299,32 @@ object DEM {
                 // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
                 0.7f
             }
-            it.filename to GeographicImageSource(
-                Size(it.width, it.height),
+            // TODO: Support tiles with different decoders or an aggregated geographic image source
+            GeographicImageSource(
+                EncodedDataImageReader(
+                    SingleImageReader(
+                        Size(it.width, it.height), if (!isExternal) {
+                            AssetInputStreamable(it.filename)
+                        } else {
+                            LocalInputStreamable(it.filename)
+                        }
+                    ),
+                    decoder = if (it.compressionMethod == "8-bit") EncodedDataImageReader.scaledDecoder(
+                        it.a,
+                        it.b
+                    ) else EncodedDataImageReader.split16BitDecoder(it.a, it.b),
+                    treatZeroAsNaN = true,
+                    maxChannels = 1
+                ),
                 bounds = CoordinateBounds(
                     it.north,
                     it.east,
                     it.south,
                     it.west
                 ),
-                decoder = if (it.compressionMethod == "8-bit") GeographicImageSource.scaledDecoder(
-                    it.a,
-                    it.b
-                ) else GeographicImageSource.split16BitDecoder(it.a, it.b),
                 precision = 10,
-                include0ValuesInInterpolation = false,
                 valuePixelOffset = valuePixelOffset,
                 interpolationOrder = 2,
-                maxChannels = 1
             )
         }
     }
@@ -326,13 +336,11 @@ object DEM {
                 return@onIO emptyList()
             }
 
-            val files = AppServiceRegistry.get<FileSubsystem>()
             val sources = getSources()
-            val isExternal = isExternalModel()
 
             val lookups = locations.map { location ->
                 location to sources.firstOrNull {
-                    it.second.contains(location)
+                    it.contains(location)
                 }
             }.groupBy { it.second }
 
@@ -344,24 +352,14 @@ object DEM {
                 }
 
                 val coordinates =
-                    lookup.value.map { it.second!!.second.getPixel(it.first) to it.first }
+                    lookup.value.associate { it.second!!.getPixel(it.first) to it.first }
 
                 tryOrDefault(Distance.meters(0f)) {
-                    val streamProvider = suspend {
-                        if (isExternal) {
-                            files.get(lookup.key!!.first).inputStream()
-                        } else {
-                            files.streamAsset(lookup.key!!.first)!!
-                        }
-                    }
                     // TODO: Load pixels without interpolation and interpolate later - or add a multi image lookup?
-                    val readings =
-                        lookup.key!!.second.read(streamProvider, coordinates.map { it.first })
+                    val readings = lookup.key!!.read(coordinates.keys.toList())
 
                     elevations.addAll(readings.mapNotNull {
-                        val coordinate =
-                            coordinates.firstOrNull { c -> c.first == it.first }?.second
-                                ?: return@mapNotNull null
+                        val coordinate = coordinates[it.first] ?: return@mapNotNull null
                         coordinate to it.second.first()
                     })
                 }

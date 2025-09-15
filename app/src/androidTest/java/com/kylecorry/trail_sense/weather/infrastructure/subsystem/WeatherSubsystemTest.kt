@@ -1,21 +1,30 @@
 package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
 
 internal class WeatherSubsystemTest {
+
+    @Before
+    fun setup() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        AppServiceRegistry.register(FileSubsystem.getInstance(context))
+    }
 
     @Test
     fun temperature() = runBlocking {

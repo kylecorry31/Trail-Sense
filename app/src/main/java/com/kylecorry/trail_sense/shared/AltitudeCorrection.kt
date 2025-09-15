@@ -1,12 +1,14 @@
 package com.kylecorry.trail_sense.shared
 
-import android.content.Context
 import android.util.Size
 import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
+import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
+import com.kylecorry.trail_sense.shared.data.SingleImageReader
 
 object AltitudeCorrection {
 
@@ -18,15 +20,18 @@ object AltitudeCorrection {
     private const val b = 106.0
     private const val file = "geoids.webp"
     private val source = GeographicImageSource(
-        Size(361, 181),
-        decoder = GeographicImageSource.scaledDecoder(a, b),
+        EncodedDataImageReader(
+            SingleImageReader(Size(361, 181), AssetInputStreamable(file)),
+            maxChannels = 1,
+            decoder = EncodedDataImageReader.scaledDecoder(a, b)
+        ),
         interpolationOrder = 2
     )
 
-    suspend fun getGeoid(context: Context, location: Coordinate): Float = onIO {
+    suspend fun getGeoid(location: Coordinate): Float = onIO {
         val pixel = source.getPixel(location)
         cache.getOrPut(pixel) {
-            source.read(context, file, location).first()
+            source.read(location).first()
         }
     }
 }

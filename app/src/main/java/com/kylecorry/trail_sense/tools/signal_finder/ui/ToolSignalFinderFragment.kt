@@ -97,7 +97,6 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
             setLoading(true)
             queue.replace {
                 setNearby(CellTowerModel.getTowers(
-                    requireContext(),
                     Geofence(location, Distance.kilometers(20f)),
                     5
                 ).sortedBy { location.distanceTo(it.first) })

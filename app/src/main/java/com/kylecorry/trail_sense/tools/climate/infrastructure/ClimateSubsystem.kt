@@ -26,7 +26,7 @@ class ClimateSubsystem private constructor(private val context: Context) : ITemp
         location: Coordinate,
         elevation: Distance
     ): Map<Month, Temperature> = onIO {
-        HistoricMonthlyDewpointRepo.getMonthlyDewpoint(context, location).mapValues {
+        HistoricMonthlyDewpointRepo.getMonthlyDewpoint(location).mapValues {
             Meteorology.getTemperatureAtElevation(it.value, Distance.meters(0f), elevation)
         }
     }

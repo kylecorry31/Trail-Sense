@@ -233,7 +233,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     override suspend fun getMonthlyPrecipitation(location: Coordinate?): Map<Month, Distance> {
         val resolved = resolveLocation(location, null)
         return HistoricMonthlyPrecipitationRepo.getMonthlyPrecipitation(
-            context,
             resolved.first
         )
     }

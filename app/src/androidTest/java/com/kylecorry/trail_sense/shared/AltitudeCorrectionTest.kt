@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.shared
 
 import androidx.test.platform.app.InstrumentationRegistry
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -12,6 +14,7 @@ class AltitudeCorrectionTest {
     @Test
     fun getGeoid() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
+        AppServiceRegistry.register(FileSubsystem.getInstance(context))
 
         val errors = mutableListOf<Float>()
         val maximumError = 6f
@@ -36,7 +39,7 @@ class AltitudeCorrectionTest {
 
         for (place in places) {
             val geoid =
-                AltitudeCorrection.getGeoid(context, Coordinate(place.latitude, place.longitude))
+                AltitudeCorrection.getGeoid(Coordinate(place.latitude, place.longitude))
             assertEquals(place.name, place.offset, geoid, maximumError)
             errors.add(geoid - place.offset)
         }
