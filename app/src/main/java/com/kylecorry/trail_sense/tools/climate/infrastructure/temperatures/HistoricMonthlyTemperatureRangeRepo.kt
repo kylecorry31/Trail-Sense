@@ -22,9 +22,9 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     private val cache = LRUCache<PixelCoordinate, Map<Month, Range<Temperature>>>(size = 5)
 
     // Image data source
-    private const val highA = 1.356383
+    private const val highA = 1.3492063283920288
     private const val highB = 48.0
-    private const val lowA = 1.4088398
+    private const val lowA = 1.4010988473892212
     private const val lowB = 56.0
     private val size = Size(576, 361)
 

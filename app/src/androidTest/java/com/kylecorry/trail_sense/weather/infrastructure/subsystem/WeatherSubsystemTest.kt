@@ -33,7 +33,7 @@ internal class WeatherSubsystemTest {
         val subsystem = WeatherSubsystem.getInstance(context)
 
         val maximumError = 10.5f
-        val maxQuantile50Error = 2.1f
+        val maxQuantile50Error = 2f
         val maxQuantile90Error = 6.5f
 
         val errors = mutableListOf<Float>()
