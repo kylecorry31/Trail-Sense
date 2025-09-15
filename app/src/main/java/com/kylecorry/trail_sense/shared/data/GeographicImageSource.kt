@@ -18,8 +18,6 @@ class GeographicImageSource(
     private val bounds: CoordinateBounds = CoordinateBounds.world,
     private val precision: Int = 2,
     private val valuePixelOffset: Float = 0f,
-    private val latitudePixelsPerDegreeOverride: Double? = null,
-    private val longitudePixelsPerDegreeOverride: Double? = null,
     // TODO: All of these should be hidden from the geographic image source
     private val interpolationOrder: Int = 1
 ) {
@@ -30,21 +28,11 @@ class GeographicImageSource(
         var x: Double
         var y: Double
 
-        // TODO: These should be the same and no override should be needed
-        if (!SolMath.isZero(valuePixelOffset)) {
-            val horizontalRes = bounds.widthDegrees() / imageSize.width
-            val verticalRes = bounds.heightDegrees() / imageSize.height
-            x =
-                (location.longitude - (bounds.west + horizontalRes * valuePixelOffset)) / horizontalRes
-            y = ((bounds.north - verticalRes * valuePixelOffset) - location.latitude) / verticalRes
-        } else {
-            val latitudePixelsPerDegree: Double = latitudePixelsPerDegreeOverride
-                ?: ((imageSize.height - 1) / bounds.heightDegrees())
-            val longitudePixelsPerDegree: Double = longitudePixelsPerDegreeOverride
-                ?: ((imageSize.width - 1) / bounds.widthDegrees())
-            x = (location.longitude - bounds.west) * longitudePixelsPerDegree
-            y = (bounds.north - location.latitude) * latitudePixelsPerDegree
-        }
+        val horizontalRes = bounds.widthDegrees() / imageSize.width
+        val verticalRes = bounds.heightDegrees() / imageSize.height
+        x =
+            (location.longitude - (bounds.west + horizontalRes * valuePixelOffset)) / horizontalRes
+        y = ((bounds.north - verticalRes * valuePixelOffset) - location.latitude) / verticalRes
 
         if (x.isNaN()) {
             x = 0.0

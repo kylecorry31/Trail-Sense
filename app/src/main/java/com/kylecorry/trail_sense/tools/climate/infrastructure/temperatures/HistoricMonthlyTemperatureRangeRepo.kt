@@ -26,8 +26,6 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     private const val highB = 48.0
     private const val lowA = 1.4088398
     private const val lowB = 56.0
-    private const val latitudePixelsPerDegree = 2.0
-    private const val longitudePixelsPerDegree = 1.6
     private val size = Size(576, 361)
 
     private val extensionMap = mapOf(
@@ -47,9 +45,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 SingleImageReader(size, AssetInputStreamable(file)),
                 decoder = EncodedDataImageReader.scaledDecoder(lowA, lowB),
                 maxChannels = 3
-            ),
-            latitudePixelsPerDegreeOverride = latitudePixelsPerDegree,
-            longitudePixelsPerDegreeOverride = longitudePixelsPerDegree
+            )
         )
     }
 
@@ -60,9 +56,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 SingleImageReader(size, AssetInputStreamable(file)),
                 decoder = EncodedDataImageReader.scaledDecoder(highA, highB),
                 maxChannels = 3
-            ),
-            latitudePixelsPerDegreeOverride = latitudePixelsPerDegree,
-            longitudePixelsPerDegreeOverride = longitudePixelsPerDegree
+            )
         )
     }
 

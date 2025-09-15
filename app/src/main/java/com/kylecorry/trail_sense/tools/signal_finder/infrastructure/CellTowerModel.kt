@@ -35,9 +35,7 @@ object CellTowerModel {
             decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
             maxChannels = 1
         ),
-        interpolationOrder = 0,
-        latitudePixelsPerDegreeOverride = pixelsPerDegree,
-        longitudePixelsPerDegreeOverride = pixelsPerDegree
+        interpolationOrder = 0
     )
 
     // TODO: Load the whole region of the image and get the towers from it

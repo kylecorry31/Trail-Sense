@@ -17,9 +17,9 @@ class AltitudeCorrectionTest {
         AppServiceRegistry.register(FileSubsystem.getInstance(context))
 
         val errors = mutableListOf<Float>()
-        val maximumError = 6f
-        val maxQuantile50Error = 1f
-        val maxQuantile90Error = 3f
+        val maximumError = 4f
+        val maxQuantile50Error = 0.5f
+        val maxQuantile90Error = 1f
 
         val places = listOf(
             Place("New York", 41.714, -74.006, -32.57f),
