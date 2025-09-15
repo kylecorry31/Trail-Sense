@@ -1467,4 +1467,5 @@
     <string name="color_inferno">Inferno</string>
     <string name="sleep_sound_fan">Lüfter</string>
     <string name="color_usgs">USGS</string>
+    <string name="add_to_homescreen">Zum Startbildschirm hinzufügen</string>
 </resources>
