@@ -1456,4 +1456,5 @@
     <string name="color_white">白</string>
     <string name="background_color">背景色</string>
     <string name="cell_signal_distance">手机信号距离</string>
+    <string name="add_to_homescreen">添加到主屏幕</string>
 </resources>
