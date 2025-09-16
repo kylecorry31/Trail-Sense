@@ -1495,4 +1495,5 @@
     <string name="color_white">Bílá</string>
     <string name="background_color">Barva pozadí</string>
     <string name="cell_signal_distance">Vzdálenost mobilního signálu</string>
+    <string name="add_to_homescreen">Přidat na domovskou obrazovku</string>
 </resources>
