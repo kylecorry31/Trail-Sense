@@ -310,7 +310,7 @@
     <string name="weather_alert_hot_description">Valmistaudu kuumiin lämpötiloihin. Ryhdy ylimääräisiin varotoimiin lämpöuupumusta ja lämpöhalvausta vastaan.</string>
     <string name="create_path">Luo polku</string>
     <string name="distance_alert">Etäisyysilmoitus</string>
-    <string name="pref_daily_weather_notification_title">Päivittäinen sääilmoitus</string>
+    <string name="pref_daily_weather_notification_title">Päivittäinen sääennuste</string>
     <string name="cirrus_desc">Untuvapilvet (Cirrus) ovat korkealla olevia ohuita yläpilviä, jotka näyttävät valkoisilta hiustupsuilta.</string>
     <string name="strobe_warning_content">Strobe-ominaisuus sisältää vilkkuvia valoja, jotka voivat olla vaarallisia joillekin käyttäjille.</string>
     <string name="notes_empty_text">Ei muistiinpanoja</string>
@@ -783,7 +783,7 @@
     <string name="no_maps">Ei karttoja</string>
     <string name="pref_flashlight_should_timeout_title">Sammuta automaattisesti</string>
     <string name="no_tides">Ei vuorovesiä</string>
-    <string name="pref_daily_weather_time_title">Päivittäisen sääilmoituksen aika</string>
+    <string name="pref_daily_weather_time_title">Päivittäisen sääennusteen kellonaika</string>
     <string name="elevation_history">Korkeushistoria</string>
     <string name="source">Lähde</string>
     <string name="gps_user">Käyttäjä</string>

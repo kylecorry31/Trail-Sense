@@ -1223,4 +1223,14 @@
     <string name="planet_uranus">Uranus</string>
     <string name="open_settings">Åpne innstillinger</string>
     <string name="show_gps_accuracy">Vis GPS-nøyaktiget</string>
+    <string name="field_guide">Feltguide</string>
+    <string name="show_constellations">Vis stjernebilder</string>
+    <string name="constellation">Stjernebilde</string>
+    <string name="sleep_sound_ocean_waves">Havbølger</string>
+    <string name="hillshade">Relieffskygge</string>
+    <string name="color_white">Hvit</string>
+    <string name="background_color">Bakgrunnsfarge</string>
+    <string name="color_black">Svart</string>
+    <string name="color_brown">Brun</string>
+    <string name="color_gray">Grå</string>
 </resources>
