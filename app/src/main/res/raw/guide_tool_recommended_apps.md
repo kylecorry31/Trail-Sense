@@ -30,6 +30,12 @@ This app is a social network for naturalists. You can use it to record your obse
 
 [Download](market://details?id=org.inaturalist.android)
 
+## SaverTuner
+
+This app allows you to customize the battery saver mode on your device. It requires running a command from your computer the first time it is used so it can modify system settings. Not available on the Play Store (only F-Droid and Codeberg)
+
+[Download](market://details?id=s1m.savertuner)
+
 ## Seek by iNaturalist
 
 This app can help identify plants and animals through image recognition. After taking a photo it presents the most likely species with images and descriptions. As with all image recognition apps, it is not always accurate.
