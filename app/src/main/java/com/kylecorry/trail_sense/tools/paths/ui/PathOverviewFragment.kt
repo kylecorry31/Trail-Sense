@@ -268,11 +268,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         observe(pathService.getLivePath(pathId)) {
             path = it
-            updateParent()
-            updateElevationPlot()
-            updatePointStyleLegend()
-            updatePathMap()
-            onPathChanged()
+            binding.root.post {
+                updateParent()
+                updateElevationPlot()
+                updatePointStyleLegend()
+                updatePathMap()
+                onPathChanged()
+            }
         }
 
         observe(pathService.getWaypointsLive(pathId)) {
@@ -336,12 +338,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     deselectPoint()
                 }
                 pointSheet?.setPoints(this@PathOverviewFragment.waypoints)
+                updateElevationOverview()
+                updateHikingStats()
+                updatePathMap()
+                updatePointStyleLegend()
+                onPathChanged()
             }
-            updateElevationOverview()
-            updateHikingStats()
-            updatePathMap()
-            updatePointStyleLegend()
-            onPathChanged()
         }
     }
 
