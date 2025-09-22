@@ -278,27 +278,7 @@
     <string name="thunder">Trueno</string>
     <string name="pedometer">Podómetro</string>
     <string name="import_btn">Importar</string>
-    <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de localización nunca salen de tu dispositivo
-\n
-\n- Trail Sense nunca requerirá permiso de Internet
-\n
-\n- Ver la [política de privacidad](https://kylecorry.com/Trail-Sense/privacy_policy.html) (se abre en el navegador de tu teléfono)
-\n
-\n- Algunas funciones de Trail Sense requieren acceso a tu ubicación
-\n
-\n- Conceder el permiso de ubicación habilitará las siguientes funciones:
-\n
-\n\t- Navegación hacia balizas
-\n
-\n\t- Mejora de la precisión de las previsiones (no disponible en todos los dispositivos)
-\n
-\n\t- Retroceso
-\n
-\n\t- Horas de sol y luna para su ubicación actual (las alertas de puesta de sol pueden requerir una ubicación de fondo)
-\n
-\n- Si decides no conceder el permiso de ubicación, puedes introducir manualmente una ubicación en el menú Configuración &gt; Sensores &gt; Calibración GPS en Trail Sense.
-\n
-\n- Tras hacer clic en Continuar, se te pedirá que concedas el permiso de ubicación. Si deniegas este permiso, Trail Sense no podrá acceder a tu ubicación, por lo que se recomienda introducirla manualmente.</string>
+    <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de localización nunca salen de tu dispositivo \n \n- Trail Sense nunca requerirá permiso de Internet \n \n- Ver la [política de privacidad](https://kylecorry.com/Trail-Sense/privacy_policy.html) (se abre en el navegador de tu teléfono) \n \n- Algunas funciones de Trail Sense requieren acceso a tu ubicación \n \n- Conceder el permiso de ubicación habilitará las siguientes funciones: \n \n\t- Navegación hacia balizas \n \n\t- Precisión de las previsiones mejorada (no disponible en todos los dispositivos) \n \n\t- Retroceder por la ruta \n \n\t- Horas de sol y luna para tu ubicación actual (las alertas de puesta de sol pueden requerir una ubicación de fondo) \n \n- Si decides no conceder el permiso de ubicación, puedes introducir manualmente una ubicación en el menú Configuración &gt; Sensores &gt; Calibración GPS en Trail Sense. \n \n- Tras hacer clic en Continuar, se te pedirá que concedas el permiso de ubicación. Si deniegas este permiso, Trail Sense no podrá acceder a tu ubicación, por lo que se recomienda introducirla manualmente.</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d baliza exportada</item>
         <item quantity="many">%d balizas exportadas</item>
@@ -981,7 +961,7 @@
     </plurals>
     <string name="historic_temperatures">Temperaturas históricas</string>
     <string name="delete_map_group_message">%s y todos tus mapas serán eliminados.</string>
-    <string name="blank">Blanco</string>
+    <string name="blank">Vacío</string>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="size">Tamaño</string>
     <string name="create_blank_map">Crear un mapa en blanco</string>
@@ -1079,10 +1059,10 @@
     <string name="augmented_reality">Realidad aumentada</string>
     <string name="augmented_reality_description">Ver balizas cercanas y el sol / luna con tu cámara</string>
     <string name="magnetic_north">Polo Norte magnético</string>
-    <string name="tool_long_press_hint_toast">Pulsa prolongadamente en una herramienta para ver más opciones</string>
-    <string name="unpin">Desbloquear</string>
+    <string name="tool_long_press_hint_toast">Pulsación larga sobre herramienta para más opciones</string>
+    <string name="unpin">Sin pin</string>
     <string name="pinned">Fijado</string>
-    <string name="pin">Bloquear</string>
+    <string name="pin">Pin</string>
     <string name="settings_have_moved_message">Los ajustes de la aplicación se han trasladado a la pestaña Herramientas</string>
     <string name="settings_have_moved">Los ajustes se han desplazado</string>
     <string name="no_sensor_message">Su dispositivo no tiene un sensor %s</string>
@@ -1228,8 +1208,8 @@
     <string name="widget_updater">Actualizador de widgets</string>
     <string name="widget_bottom_sheet_instructions">Utilice la acción rápida del widget para ver</string>
     <string name="widget_pref_title">Widgets en la aplicación</string>
-    <string name="sun_moon_chart">Gráfico del sol y la luna</string>
-    <string name="pressure_chart">Gráfica de presiones</string>
+    <string name="sun_moon_chart">Gráfico Sol y Luna</string>
+    <string name="pressure_chart">Tabla de presiones</string>
     <string name="tide_chart">Gráfica de mareas</string>
     <string name="tide_estimation_description_tide_clock">Utiliza el reloj para estimar las mareas. Requiere al menos una marea conocida.</string>
     <string name="tide_estimation_description_lunitidal_interval_local">Utiliza la posición de la luna para estimar las mareas. Requiere el intervalo lunitidal local y la ubicación.</string>
@@ -1239,7 +1219,7 @@
     <string name="tide_model_auto">Modelo de mareas (automático)</string>
     <string name="nearby_beacons">Faros cercanos</string>
     <string name="star">Estrella</string>
-    <string name="show_stars">Mostrar estrellas</string>
+    <string name="show_stars">Mostrar estrellas y planetas</string>
     <string name="approximate_location">Ubicación aproximada</string>
     <string name="last_known_gps_location">Última ubicación GPS conocida</string>
     <string name="timezone">Huso horario</string>
@@ -1428,4 +1408,52 @@
     <string name="elevation_miss">Error de elevación</string>
     <string name="adjustment_per_click">Ajuste por clic</string>
     <string name="scope_height">Altura del alcance</string>
+    <string name="scope_adjustment">Ajustar el alcance</string>
+    <string name="sight_in_range">Distancia de puntería</string>
+    <string name="drop_amount">%s caída</string>
+    <string name="drop_header_units">Caída (%s)</string>
+    <string name="format_fpe">%s equivalente en ft·lb</string>
+    <string name="dem_url">DEM URL</string>
+    <string name="basemap">Mapa base</string>
+    <string name="show_labels">Mostrar etiquetas</string>
+    <string name="color_with_elevation">Contornos coloreados por elevación</string>
+    <string name="planet_mercury">Marcurio</string>
+    <string name="planet_venus">Venus</string>
+    <string name="planet_mars">Marte</string>
+    <string name="planet_jupiter">Júpiter</string>
+    <string name="planet_saturn">Saturno</string>
+    <string name="planet_uranus">Urano</string>
+    <string name="planet_neptune">Neptuno</string>
+    <string name="load_pdf_tiles">Cargar mosaicos PDF</string>
+    <string name="load_pdf_tiles_summary">Los mapas PDF serán más nítidos, pero el rendimiento puede verse afectado</string>
+    <string name="map_tool_disclaimer">Esta herramienta muestra tus balizas, rutas y mapas fotográficos. No sustituye a una aplicación de mapas dedicada.</string>
+    <string name="open_settings">Abrir ajustes</string>
+    <string name="show_gps_accuracy">Mostrar precisión GPS</string>
+    <string name="increase_exposure_at_night">Aumentar exposición de noche</string>
+    <string name="show_constellations">Mostrar constelaciones</string>
+    <string name="constellation">Constelación</string>
+    <string name="no_sightings">Sin avistamientos</string>
+    <string name="sighting">Avistamiento</string>
+    <string name="sleep_sound_white_noise">Ruido blanco</string>
+    <string name="sleep_sound_pink_noise">Ruido rosa</string>
+    <string name="sleep_sound_brown_noise">Ruido marrón</string>
+    <string name="sleep_sound_crickets">Grillos</string>
+    <string name="sleep_sound_crickets_no_chirping">Grillos (sin chirridos)</string>
+    <string name="sleep_sound_ocean_waves">Olas oceánicas</string>
+    <string name="sleep_sound_fan">Ventilador</string>
+    <string name="hillshade">Sombreado del terreno</string>
+    <string name="color_usgs">USGS</string>
+    <string name="color_grayscale">Escala de grises</string>
+    <string name="color_vibrant">Vibrante</string>
+    <string name="color_muted">Silenciado</string>
+    <string name="color_viridis">Viridis</string>
+    <string name="color_inferno">Inferno</string>
+    <string name="color_plasma">Plasma</string>
+    <string name="color_black">Negro</string>
+    <string name="color_brown">Marrón</string>
+    <string name="color_gray">Gris</string>
+    <string name="color_white">Blanco</string>
+    <string name="background_color">Color de fondo</string>
+    <string name="cell_signal_distance">Distancia de señal móvil</string>
+    <string name="add_to_homescreen">Añadir a pantalla de inicio</string>
 </resources>
