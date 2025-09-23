@@ -1,27 +1,53 @@
 <p>Explora más allá de los confines de Internet con Trail Sense.</p>
 
-<p>Trail Sense es una app que usa los sensores de tu teléfono para ayudarte en tus excursiones por la naturaleza. Trail Sense contiene muchas herramientas que se pueden usar en diferentes escenarios, como senderismo, acampada, mochilero, escalada en roca, etc.</p>
-
-<p>Esta app además no usa, y nunca lo hará, usar internet - en Trail Sense toda la información viene directamente desde los sensores de tu teléfono, y ningún dato saldrá de Trail Sense.</p>
-
 <ul>
-    <li>Diseñado para senderismo, mochilero, camping y geocaching</li>
+    <li>Diseñada para senderismo, mochilero, camping y geocaching</li>
     <li>Pon balizas y navega hacia ellas</li>
+    <li>Usa como brújula (solo disponible en dispositivos con sensor de brújula)</li>
     <li>Sigue rutas</li>
     <li>Vuelve sobre tus pasos con backtrack</li>
-    <li>Planifica que llevar</li>
-    <li>Te alerta antes de que se ponga el sol</li>
-    <li>Predice la climatología</li>
-    <li>Utiliza tu teléfono como linterna</li>
+    <li>Usa una foto como mapa</li>
+    <li>Planifica qué llevar</li>
+    <li>Alerta antes de que se ponga el sol</li>
+    <li>Predice el tiempo (sólo disponible en dispositivos con sensor barométrico)</li>
+    <li>Usa tu teléfono como linterna</li>
     <li>¡Y mucho más!</li>
 </ul>
 
-<p>Trail Sense es una herramienta que puedes utilizar, pero no es algo en lo que debas confiar. Esta app sólo tiene fines informativos y la precisión de las predicciones y sensores está determinada por un número de factores, incluyendo calibración, calidad de los sensores, fuentes externas, etc. Utilízala bajo tu responsabilidad, ten siempre herramientas de respaldo (p.ej., una brújula), y mantente a salvo en la medida de lo posible.</p>
+<p>Trail Sense es una herramienta, y al igual que cualquier otra herramienta que lleves a la naturaleza,
+es esencial tener habilidades y equipo de respaldo.
+Esta aplicación tiene únicamente fines informativos y la precisión de las predicciones y sensores están determinados por varios factores, incluyendo la calibración, la calidad del sensor, fuentes externas, etc.
+Úsala bajo tu responsabilidad, lleva siempre herramientas de respaldo (como mapa y brújula), y vela por tu seguridad.</p>
 
-<p>¿Encontraste un error o quieres nuevas funciones? Contáctanos en trailsense@protonmail.com o crea un nuevo asunto en GitHub: github.com/kylecorry31/Trail-Sense</p>
+<p>Esta aplicación tampoco usa ni usará Internet. Toda la información en Trail Sense proviene directamente de los sensores del teléfono y ningún dato sale de Trail Sense.</p>
+
+<h3>PROBLEMAS COMUNES</h3>
+<ul>
+    <li>No hay brújula: si tu teléfono no tiene un sensor de brújula no hay nada que pueda hacer para que funcione, es un tema de hardware.
+    Aún podrás usar las demás características de Trail Sense..</li>
+    <li>No hay pronóstico del tiempo: la herramienta de Clima solo está disponible si tu teléfono tiene un sensor barométrico.</li>
+</ul>
+
+<p>¿Has encontrado un problema o deseas una función nueva? Contáctame en trailsense@protonmail.com o abre un nuevo problema en GitHub: github.com/kylecorry31/Trail-Sense</p>
 
 <p>Soy el único desarrollador de Trail Sense, así que haré todo lo que puede para ayudar con los errores - pero tengo una selección limitada de dispositivos para probar.</p>
 
-<p>Política de privacidad: https://kylecorry.com/Trail-Sense/#privacy</p>
-<p>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</p>
-<p>Trail Sense está disponible bajo licencia MIT: https://opensource.org/license/mit/</p>
+
+<h3>PERMISOS</h3>
+<ul>
+    <li>Notificaciones: permite que Trail Sense muestre notificaciones (seguimiento de ruta, clima, alertas de puesta de sol, eventos astronómicos, temporizador para hervir agua, etc.)</li>
+    <li>Ubicación: permite que Trail Sense recupere tu ubicación para navegación, clima (calibración de nivel del mar) y astronomía.</li>
+    <li>Ubicación en segundo plano: permite que Trail Sense recupere tu ubicación para alertas de puesta de sol mientras se ejecuta en segundo plano.
+    En algunos dispositivos esto también mejorará la fiabilidad del seguimiento de ruta y del monitor de clima.</li>
+    <li>Actividad física: permite que Trail Sense use el podómetro de tu teléfono para calcular distancias.</li>
+    <li>Cámara: permite que Trail Sense use la cámara con la brújula con punto de mira, clinómetro y para tomar fotos usadas por el Escáner de Nubes, Escáner de Código QR y Mapas de Fotos.</li>
+    <li>Alarmas y recordatorios: permite que Trail Sense muestre notificaciónes en un momentos exactos.
+    Se usa con la herramienta Reloj (al actualizar la hora del sistema) y en las alertas de puesta y salida del Sol.</li>
+</ul>
+
+<h3>Enlaces</h3>
+<ul>
+    <li>Política de privacidad: https://kylecorry.com/Trail-Sense/#privacy</li>
+    <li>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</li>
+    <li>Trail Sense is available under the MIT License: https://opensource.org/license/mit/</li>
+</ul>
