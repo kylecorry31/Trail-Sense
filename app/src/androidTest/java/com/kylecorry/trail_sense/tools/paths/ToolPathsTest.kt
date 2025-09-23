@@ -37,15 +37,147 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         canUseBacktrack()
         canRenamePath()
         canViewPathDetails()
-        // TODO: Add path group
-        // TODO: Import path
-        // TODO: Create empty path
-        // TODO: Rename, export, delete, and move group
-        // TODO: Rename, hide/show, export, merge, delete, simplify, and move path
-        // TODO: Search path
-        // TODO: Change sort
+        addPathGroup()
+        importPath()
+        createEmptyPath()
+        groupOperations()
+        pathOperations()
+        searchPath()
+        changeSort()
         // TODO: Quick settings tile
         verifyQuickAction()
+    }
+
+    private fun addPathGroup() {
+        click(R.id.add_btn)
+        click(string(R.string.group))
+        input(string(R.string.name), "Test Group")
+        clickOk()
+
+        hasText("Test Group")
+        click("Test Group")
+        hasText(string(R.string.no_paths))
+        back(false)
+    }
+
+    private fun importPath() {
+        // Open import and verify the picker opens, then back out
+        click(R.id.add_btn)
+        click(string(R.string.import_gpx))
+        optional { hasText(string(R.string.pick_file)) }
+        back(false)
+        hasText(R.id.paths_title, string(R.string.paths))
+    }
+
+    private fun createEmptyPath() {
+        click(R.id.add_btn)
+        click(string(R.string.path), exact = true)
+        input(string(R.string.name), "Empty Path")
+        clickOk()
+        hasText("Empty Path")
+        back(false)
+    }
+
+    private fun groupOperations() {
+        // Ensure there is a second group to move into
+        click(R.id.add_btn)
+        click(string(R.string.group), exact = true)
+        input(string(R.string.name), "Dest Group")
+        clickOk()
+        hasText("Dest Group")
+
+        // Rename group "Test Group" -> "Test Group 2"
+        hasText("Test Group")
+        clickListItemMenu(string(R.string.rename), index = 2)
+        input("Test Group", "Test Group 2")
+        clickOk()
+        hasText("Test Group 2")
+
+        // Export current group via toolbar menu
+        click(toolbarButton(R.id.paths_title, Side.Right))
+        click(string(R.string.export))
+        clickOk()
+        optional { hasText("trail-sense-") }
+        backUntil { isVisible(R.id.paths_title) }
+
+        // Move group into Dest Group
+        hasText("Test Group 2")
+        clickListItemMenu(string(R.string.move_to), index = 2)
+        click("Dest Group")
+        click(string(R.string.move))
+        optional { hasText(string(R.string.moved_to, "Dest Group")) }
+
+        // Delete moved group (open Dest Group first)
+        click("Dest Group")
+        hasText("Test Group 2")
+        clickListItemMenu(string(R.string.delete))
+        clickOk()
+        not { hasText("Test Group 2", waitForTime = 0) }
+        back(false)
+    }
+
+    private fun pathOperations() {
+        // Create another path
+        click(R.id.add_btn)
+        click(string(R.string.path), exact = true)
+        input(string(R.string.name), "Second Path")
+        clickOk()
+        hasText("Second Path")
+        backUntil { isVisible(R.id.paths_title) }
+
+        // Rename
+        clickListItemMenu(string(R.string.rename))
+        input("Second Path", "Empty Path 2")
+        clickOk()
+        hasText("Empty Path 2")
+
+        // Hide / Show
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+
+        // Export
+        clickListItemMenu(string(R.string.export))
+        optional { hasText("trail-sense-") }
+        back(false)
+
+        // Merge "Empty Path 2" into "Empty Path"
+        clickListItemMenu(string(R.string.merge))
+        click("Empty Path", exact = true)
+        optional { hasText(string(R.string.merging)) }
+        not { hasText("Empty Path 2") }
+
+        // Simplify path
+        clickListItemMenu(string(R.string.simplify))
+        click("High")
+        clickOk()
+
+        // Move Empty Path to Dest Group
+        clickListItemMenu(string(R.string.move_to))
+        click("Dest Group")
+        click(string(R.string.move))
+
+        // Delete path
+        clickListItemMenu(string(R.string.delete), index = 1)
+        clickOk()
+        not { hasText("Empty Path 2", waitForTime = 0) }
+    }
+
+    private fun searchPath() {
+        input(R.id.searchbox, "Path")
+        hasText("Empty Path")
+        not { hasText("Dest Group", waitForTime = 0) }
+        input(R.id.searchbox, "")
+        hasText("Dest Group")
+    }
+
+    private fun changeSort() {
+        click(toolbarButton(R.id.paths_title, Side.Right))
+        click(string(R.string.sort_by, string(R.string.most_recent)))
+        click(string(R.string.name))
+        clickOk()
+        click(toolbarButton(R.id.paths_title, Side.Right))
+        hasText(string(R.string.sort_by, string(R.string.name)))
+        back(false)
     }
 
     private fun canViewPathDetails() {
