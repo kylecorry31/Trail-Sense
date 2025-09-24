@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
@@ -43,6 +44,7 @@ import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
@@ -68,6 +70,7 @@ class MapToolLayerManager {
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
+    private val cellTowerLayer = CellTowerMapLayer()
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
@@ -140,6 +143,8 @@ class MapToolLayerManager {
                 if (prefs.map.hillshadeLayer.isEnabled.get()) hillshadeLayer else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
+                // TODO: Add preference
+                if (isDebug()) cellTowerLayer else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) myLocationLayer else null,

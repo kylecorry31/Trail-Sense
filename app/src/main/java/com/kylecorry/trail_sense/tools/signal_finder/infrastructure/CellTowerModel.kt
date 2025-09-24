@@ -17,8 +17,8 @@ import com.kylecorry.trail_sense.shared.data.TiledImageReader
 object CellTowerModel {
 
     // Image data source
-    private val resolution = 0.02
-    private val size = Size(9000, 4500)
+    private val resolution = 0.015
+    private val size = Size(12000, 6000)
 
     val accuracy = Distance.nauticalMiles(resolution.toFloat() * 60 / 2f).meters()
 
@@ -52,7 +52,6 @@ object CellTowerModel {
             decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
             maxChannels = 1
         ),
-        valuePixelOffset = 0.5f,
         interpolationOrder = 0
     )
 
