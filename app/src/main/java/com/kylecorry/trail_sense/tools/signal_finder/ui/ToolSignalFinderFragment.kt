@@ -9,10 +9,10 @@ import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
 import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.markdown.MarkdownService
-import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -47,7 +47,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
         // State
         val signals = useCellSignals()
         val (location, _) = useGPSLocation(Duration.ofSeconds(5))
-        val (nearby, setNearby) = useState<List<Pair<Coordinate, List<CellNetwork>>>>(emptyList())
+        val (nearby, setNearby) = useState<List<Coordinate>>(emptyList())
         val (loading, setLoading) = useState(false)
 
         list.emptyView = emptyText
@@ -70,7 +70,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
             val signalItems = signals.map { signalMapper.map(it) }
 
             val towerMapper =
-                CellTowerListItemMapper(context, location) { (towerLocation, _), action ->
+                CellTowerListItemMapper(context, location) { towerLocation, action ->
                     when (action) {
                         CellTowerListItemAction.Navigate -> {
                             navigator.navigateTo(towerLocation, getString(R.string.cell_tower))
@@ -85,8 +85,8 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
                         }
                     }
                 }
-            val nearbyItems = nearby.flatMap { (towerLocation, networks) ->
-                networks.map { towerMapper.map(towerLocation to it) }
+            val nearbyItems = nearby.map { towerLocation ->
+                towerMapper.map(towerLocation)
             }
 
             list.setItems(signalItems + nearbyItems)
@@ -96,10 +96,11 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
         useBackgroundEffect(distance(location, Distance.meters(100f))) {
             setLoading(true)
             queue.replace {
-                setNearby(CellTowerModel.getTowers(
-                    Geofence(location, Distance.kilometers(20f)),
-                    5
-                ).sortedBy { location.distanceTo(it.first) })
+                setNearby(
+                    CellTowerModel.getTowers(
+                        CoordinateBounds.from(Geofence(location, Distance.kilometers(20f))),
+                        5
+                    ).sortedBy { location.distanceTo(it) })
                 setLoading(false)
             }
         }
