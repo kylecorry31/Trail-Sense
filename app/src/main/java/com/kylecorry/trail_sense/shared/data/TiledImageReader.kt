@@ -34,7 +34,14 @@ class TiledImageReader(
     }
 
     override suspend fun getRegion(bounds: Rect, config: Bitmap.Config): Bitmap? {
-        val images = tiles.filter { it.first.intersect(bounds) }
+        val images = tiles.filter {
+            it.first.intersects(
+                bounds.left,
+                bounds.top,
+                bounds.right,
+                bounds.bottom
+            )
+        }
         if (images.isEmpty()) {
             return null
         }
