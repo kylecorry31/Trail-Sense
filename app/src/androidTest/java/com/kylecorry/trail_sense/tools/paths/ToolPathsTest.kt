@@ -74,8 +74,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         click(string(R.string.path), exact = true)
         input(string(R.string.name), "Empty Path")
         clickOk()
+        isVisible(R.id.path_title)
         hasText("Empty Path")
-        back(false)
+        backUntil { isVisible(R.id.paths_title, waitForTime = 1000) }
     }
 
     private fun groupOperations() {
@@ -138,7 +139,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         // Export
         clickListItemMenu(string(R.string.export))
         optional { hasText("trail-sense-") }
-        back(false)
+        backUntil { isVisible(R.id.paths_title) }
 
         // Merge "Empty Path 2" into "Empty Path"
         clickListItemMenu(string(R.string.merge))
@@ -216,7 +217,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         hasText("Easy")
         hasText("Difficulty")
 
-        scrollUntil {
+        scrollUntil(R.id.path_scroll) {
             hasText("0 ft")
             hasText("Ascent")
         }
@@ -224,7 +225,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         hasText("0 ft")
         hasText("Descent")
 
-        scrollUntil {
+        scrollUntil(R.id.path_scroll) {
             hasText(Regex("\\d+ ft"))
             hasText("Lowest point")
         }
@@ -232,23 +233,23 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         hasText(Regex("\\d+ ft"))
         hasText("Highest point")
 
-        scrollUntil {
+        scrollUntil(R.id.path_scroll) {
             isVisible(R.id.chart)
         }
 
         // Add a point
-        scrollUntil {
+        scrollUntil(R.id.path_scroll) {
             click(R.id.add_point_btn)
         }
 
         not { hasText("Loading", waitForTime = GPS_WAIT_FOR_TIMEOUT) }
 
-        scrollUntil(direction = Direction.UP) {
+        scrollUntil(R.id.path_scroll, direction = Direction.UP) {
             hasText("2")
         }
 
         // Navigate
-        scrollUntil {
+        scrollUntil(R.id.path_scroll) {
             click("Navigate")
         }
 
@@ -256,7 +257,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         isVisible(R.id.navigation_title)
         hasText("Test Path")
         back()
-        isVisible(R.id.path_title)
+        back()
+        click("Test Path")
 
         // Path points
         click(toolbarButton(R.id.path_title, Side.Right))
