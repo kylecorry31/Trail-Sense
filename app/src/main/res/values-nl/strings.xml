@@ -969,7 +969,7 @@
     <string name="allow_schedule_exact_alarms_instructions">Dit laat %1$s toe wekkers en meldingen, zoals zonsondergangswekkers te starten. Zonder, gaan wekkers misschien niet op de correcte tijd af. \n \nOm te accepteren, druk op \'%2$s \' een machtig de instelling voor het toelaten van wekkers en meldingen.</string>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="no">Nee</string>
-    <string name="astronomy_rise">Opgang</string>
+    <string name="astronomy_rise">Opkomst</string>
     <string name="learn_more">Leer meer</string>
     <string name="triangulate_destination_location_1_instructions">Neem je locatie op en de richting naar de bestemming.</string>
     <string name="allow_ignore_battery_restrictions">%s toelaten batterijbeperkingen te negeren</string>
@@ -1143,7 +1143,7 @@
     <string name="date">Datum</string>
     <string name="max_s">Max. %s</string>
     <string name="pref_enable_analog_title">Analoge klok</string>
-    <string name="navigate_to_nearest_cell_signal">Navigeer naar dichtstbijzijnde mobiele signaal</string>
+    <string name="navigate_to_nearest_cell_signal">Navigeer naar dichtstbijzijnde zendmast</string>
     <string name="tool_quick_action_name">Hulpmiddel: %s</string>
     <string name="no_recorded_cell_signal_nearby">Geen opgenomen mobiel signaal in de buurt gevonden</string>
     <string name="ar_layer_override_message">Laaginstellingen kunnen overschreven worden door navigatie, zoals de Astronomiegids.</string>
