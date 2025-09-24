@@ -45,7 +45,7 @@
     <string name="pressure_12_hours">12 uur</string>
     <string name="pressure_4_hours">4 uur</string>
     <string name="pref_pressure_history_title">Drukgeschiedenis</string>
-    <string name="pref_elevation_override_sea_level_dialog_title">Geef druk op zeeniveau in</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Voer druk op zeeniveau in</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Geef de huidige luchtdruk op zeeniveau in hPa in</string>
     <string name="elevation_override_updated_toast">Nieuwe hoogte ingesteld</string>
     <string name="pref_elevation_override_title">Gebruik manuele hoogte</string>
@@ -388,7 +388,7 @@
     <string name="sun_moon_compass_when_up">Bij opkomst</string>
     <string name="always">Altijd</string>
     <string name="pref_weather_update_frequency_title">Frequentie van weerupdates</string>
-    <string name="pref_show_pressure_in_notification_title">Druk tonen in melding</string>
+    <string name="pref_show_pressure_in_notification_title">Druk in melding tonen</string>
     <string name="pref_forecast_sensitivity_title">Voorspellingsgevoeligheid</string>
     <string name="pref_monitor_weather_title">Meet het weer</string>
     <string name="pref_monitor_weather_summary">Op de achtergrond</string>
@@ -683,11 +683,11 @@
     <string name="tool_temperature_estimation_title">Geschatte temperatuur</string>
     <string name="explore">Verkennen</string>
     <string name="save">Opslaan</string>
-    <string name="exporting_map">Kaart verzenden</string>
-    <string name="map_exported">Kaart verzonden</string>
+    <string name="exporting_map">Kaart exporteren</string>
+    <string name="map_exported">Kaart geëxporteerd</string>
     <string name="camera_capture">Opname</string>
     <string name="file">Bestand</string>
-    <string name="map_export_error">Kan kaart niet verzenden naar het gekozen bestand</string>
+    <string name="map_export_error">Kan kaart niet exporteren naar het gekozen bestand</string>
     <string name="point">Punt</string>
     <string name="point_added">Punt toegevoegd aan pad</string>
     <string name="change_resolution">Verander afmetingen</string>
@@ -776,8 +776,8 @@
     <string name="gps_unavailable_resolution">Schakel locatie in, of verander uw locatiebron naar \'alleen toestel\' of \'hoge precisie\'</string>
     <string name="delete_path">Pad verwijderen\?</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="path_exported">Pad verzonden</string>
-    <string name="export_path_error">Pad kon niet worden verzonden</string>
+    <string name="path_exported">Pad geëxporteerd</string>
+    <string name="export_path_error">Pad kon niet geëxporteerd worden</string>
     <string name="low_amount">Laag (%s)</string>
     <string name="total">Geheel</string>
     <string name="medium_amount">Gemiddeld (%s)</string>
@@ -823,7 +823,7 @@
     <string name="estimate_stride_length">Lengte van passen inschatten</string>
     <string name="stride_length_stand_still">Stilstaan</string>
     <string name="saved">Opgeslagen</string>
-    <string name="stride_length_walk">Loop een rechte lijn, druk stop als u klaar bent</string>
+    <string name="stride_length_walk">Loop in een rechte lijn, druk stop als je klaar bent</string>
     <string name="current_speed">Huidige snelheid</string>
     <string name="current_speed_pedometer">Huidige snelheid (stappenteller)</string>
     <string name="current_speed_gps">Huidige snelheid (GPS)</string>
@@ -881,8 +881,8 @@
     <string name="season_spring">Lente</string>
     <string name="tilt">Helling</string>
     <string name="duration_of_charge">Duur van lading</string>
-    <string name="pref_export_weather_csv_title">Weermetingen verzenden</string>
-    <string name="weather_exported">Weer verzonden</string>
+    <string name="pref_export_weather_csv_title">Weermetingen exporteren</string>
+    <string name="weather_exported">Weer geëxporteerd</string>
     <string name="season_summer">Zomer</string>
     <string name="pref_show_nearest_tide_title">Dichtstbijzijnde getijde tonen</string>
     <string name="no_camera_access">Kan camera niet bereiken</string>
