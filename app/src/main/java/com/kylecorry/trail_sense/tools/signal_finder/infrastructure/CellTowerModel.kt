@@ -18,8 +18,8 @@ import com.kylecorry.trail_sense.shared.data.TiledImageReader
 object CellTowerModel {
 
     // Image data source
-    private val resolution = 0.008
-    private val size = Size(11250, 7500)
+    private val resolution = 0.01
+    private val size = Size(9000, 6000)
     private val rows = 3
     private val columns = 4
 
