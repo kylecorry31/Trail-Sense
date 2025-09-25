@@ -17,6 +17,7 @@ import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCellSignalSensor
 import com.kylecorry.trail_sense.shared.extensions.useGPSLocation
@@ -47,7 +48,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
         // State
         val signals = useCellSignals()
         val (location, _) = useGPSLocation(Duration.ofSeconds(5))
-        val (nearby, setNearby) = useState<List<Coordinate>>(emptyList())
+        val (nearby, setNearby) = useState<List<ApproximateCoordinate>>(emptyList())
         val (loading, setLoading) = useState(false)
 
         list.emptyView = emptyText
@@ -73,13 +74,13 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
                 CellTowerListItemMapper(context, location) { towerLocation, action ->
                     when (action) {
                         CellTowerListItemAction.Navigate -> {
-                            navigator.navigateTo(towerLocation, getString(R.string.cell_tower))
+                            navigator.navigateTo(towerLocation.coordinate, getString(R.string.cell_tower))
                             navController.openTool(Tools.NAVIGATION)
                         }
 
                         CellTowerListItemAction.CreateBeacon -> {
                             val bundle = bundleOf(
-                                "initial_location" to GeoUri(towerLocation)
+                                "initial_location" to GeoUri(towerLocation.coordinate)
                             )
                             navController.navigate(R.id.placeBeaconFragment, bundle)
                         }
@@ -100,7 +101,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
                     CellTowerModel.getTowers(
                         CoordinateBounds.from(Geofence(location, Distance.kilometers(20f))),
                         5
-                    ).sortedBy { location.distanceTo(it) })
+                    ).sortedBy { location.distanceTo(it.coordinate) })
                 setLoading(false)
             }
         }

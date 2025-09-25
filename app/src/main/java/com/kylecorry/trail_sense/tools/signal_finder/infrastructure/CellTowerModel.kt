@@ -8,6 +8,7 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
@@ -87,7 +88,7 @@ object CellTowerModel {
     suspend fun getTowers(
         bounds: CoordinateBounds,
         count: Int? = null
-    ): List<Coordinate> = onIO {
+    ): List<ApproximateCoordinate> = onIO {
         val locations = mutableListOf<Coordinate>()
 
         val latitudes = Interpolation.getMultiplesBetween(
@@ -112,13 +113,13 @@ object CellTowerModel {
         locations.removeIf { !bounds.contains(it) }
 
         getTowers(locations)
-            .sortedBy { it.distanceTo(bounds.center) }
+            .sortedBy { it.coordinate.distanceTo(bounds.center) }
             .take(count ?: Int.MAX_VALUE)
     }
 
     private suspend fun getTowers(
         locations: List<Coordinate>
-    ): List<Coordinate> = onIO {
+    ): List<ApproximateCoordinate> = onIO {
         val pixelsToLoad = locations.associate {
             val rounded = it.copy(
                 latitude = it.latitude.roundNearest(resolution),
@@ -139,7 +140,7 @@ object CellTowerModel {
                 if (!hasTower) {
                     return@mapNotNull null
                 }
-                location
+                ApproximateCoordinate(location.latitude, location.longitude, getAccuracy(location))
             }
 
         results

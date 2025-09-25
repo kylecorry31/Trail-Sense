@@ -32,13 +32,14 @@ class CellTowerMapLayer(private val taskRunner: MapLayerBackgroundTask = MapLaye
                 return@addTask
             }
 
+            // TODO: Show accuracy
             val towers = CellTowerModel.getTowers(bounds)
             clearMarkers()
             towers.forEach {
                 bitmap?.let { bitmap ->
                     addMarker(
                         BitmapMapMarker(
-                            it,
+                            it.coordinate,
                             bitmap,
                             tint = Color.WHITE
                         )

@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -23,18 +24,18 @@ enum class CellTowerListItemAction {
 class CellTowerListItemMapper(
     private val context: Context,
     private val location: Coordinate,
-    private val onAction: (Coordinate, CellTowerListItemAction) -> Unit
+    private val onAction: (ApproximateCoordinate, CellTowerListItemAction) -> Unit
 ) :
-    ListItemMapper<Coordinate> {
+    ListItemMapper<ApproximateCoordinate> {
 
     private val formatter = AppServiceRegistry.get<FormatService>()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
-    override fun map(value: Coordinate): ListItem {
+    override fun map(value: ApproximateCoordinate): ListItem {
         val distance =
-            Distance.meters(location.distanceTo(value))
+            Distance.meters(location.distanceTo(value.coordinate))
                 .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        val direction = location.bearingTo(value)
+        val direction = location.bearingTo(value.coordinate)
         val formattedDistance =
             formatter.formatDistance(distance, Units.getDecimalPlaces(distance.units))
         val formattedBearing = formatter.formatDegrees(direction.value, replace360 = true)
