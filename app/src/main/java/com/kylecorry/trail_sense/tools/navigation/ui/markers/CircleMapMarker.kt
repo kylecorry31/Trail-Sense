@@ -36,6 +36,7 @@ class CircleMapMarker(
             drawer.fill(color)
             drawer.opacity(opacity)
             drawer.circle(anchor.x, anchor.y, size * actualScale)
+            drawer.opacity(255)
         }
     }
 

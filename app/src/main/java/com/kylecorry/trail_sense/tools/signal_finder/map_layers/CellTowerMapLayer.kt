@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.signal_finder.map_layers
 import android.graphics.Bitmap
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
@@ -11,6 +12,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
+import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 
 class CellTowerMapLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
@@ -36,6 +38,19 @@ class CellTowerMapLayer(private val taskRunner: MapLayerBackgroundTask = MapLaye
             val towers = CellTowerModel.getTowers(bounds)
             clearMarkers()
             towers.forEach {
+                val sizePixels = 2 * it.accuracy.meters().value / metersPerPixel
+                addMarker(
+                    CircleMapMarker(
+                        it.coordinate,
+                        Color.WHITE,
+                        null,
+                        25,
+                        sizePixels,
+                        isSizeInDp = false,
+                        useScale = false
+                    )
+                )
+
                 bitmap?.let { bitmap ->
                     addMarker(
                         BitmapMapMarker(
