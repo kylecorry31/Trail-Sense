@@ -17,38 +17,66 @@ import com.kylecorry.trail_sense.shared.data.TiledImageReader
 object CellTowerModel {
 
     // Image data source
-    private val resolution = 0.015
-    private val size = Size(12000, 6000)
+    private val resolution = 0.008
+    private val size = Size(11250, 7500)
+    private val rows = 3
+    private val columns = 4
 
-    val accuracy = Distance.nauticalMiles(resolution.toFloat() * 60 / 2f).meters()
+    fun getAccuracy(towerLocation: Coordinate): Distance {
+        return Distance.meters(
+            towerLocation.distanceTo(
+                Coordinate(
+                    towerLocation.latitude,
+                    towerLocation.longitude + resolution / 2
+                )
+            )
+        )
+    }
+
+    private fun getTileReader(
+        rows: Int,
+        columns: Int,
+        tileSize: Size,
+        files: List<String>
+    ): TiledImageReader {
+        val tileWidth = tileSize.width
+        val tileHeight = tileSize.height
+        val readers = mutableListOf<Pair<Rect, SingleImageReader>>()
+        for (r in 0 until rows) {
+            for (c in 0 until columns) {
+                val index = r * columns + c
+                if (index >= files.size) {
+                    break
+                }
+                val file = files[index]
+                val rect = Rect(
+                    c * tileWidth,
+                    r * tileHeight,
+                    (c + 1) * tileWidth,
+                    (r + 1) * tileHeight
+                )
+                readers.add(
+                    rect to SingleImageReader(
+                        Size(tileWidth, tileHeight),
+                        AssetInputStreamable(file)
+                    )
+                )
+            }
+        }
+        return TiledImageReader(readers)
+    }
+
+    private fun getFiles(count: Int): List<String> {
+        val files = mutableListOf<String>()
+        for (i in 0 until count) {
+            files.add("cell_towers/cell_towers_$i.webp")
+        }
+        return files
+    }
 
     private val source = GeographicImageSource(
         EncodedDataImageReader(
-            TiledImageReader(
-                listOf(
-                    Rect(0, 0, size.width, size.height) to SingleImageReader(
-                        size,
-                        AssetInputStreamable("cell_towers/cell_towers_0.webp")
-                    ),
-                    Rect(size.width, 0, size.width * 2, size.height) to SingleImageReader(
-                        size,
-                        AssetInputStreamable("cell_towers/cell_towers_1.webp")
-                    ),
-                    Rect(0, size.height, size.width, size.height * 2) to SingleImageReader(
-                        size,
-                        AssetInputStreamable("cell_towers/cell_towers_2.webp")
-                    ),
-                    Rect(
-                        size.width,
-                        size.height,
-                        size.width * 2,
-                        size.height * 2
-                    ) to SingleImageReader(
-                        size,
-                        AssetInputStreamable("cell_towers/cell_towers_3.webp")
-                    )
-                )
-            ),
+            getTileReader(rows, columns, size, getFiles(rows * columns)),
             decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
             maxChannels = 1
         ),

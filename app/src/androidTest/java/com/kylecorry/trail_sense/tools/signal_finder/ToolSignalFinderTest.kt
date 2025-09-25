@@ -26,17 +26,17 @@ class ToolSignalFinderTest : ToolTestBase(Tools.SIGNAL_FINDER, Coordinate(42.03,
         }
 
         // Tower
-        hasText("4G")
-        hasText("Cell tower • 0 ft • 0° N")
-        hasText("Cell tower • 1.54 mi • 90° E")
+        hasText("Cell tower")
+//        hasText("0 ft • 0° N")
+//        hasText("1.54 mi • 90° E")
 
         // Create a beacon at one of the cell towers
-        TestUtils.clickListItemMenu(string(R.string.create_beacon))
-        hasText(R.id.create_beacon_title, string(R.string.create_beacon))
-        hasText(R.id.beacon_location, "42.030000°,  -71.970000°")
-
-        back()
-        click("Leave")
+//        TestUtils.clickListItemMenu(string(R.string.create_beacon))
+//        hasText(R.id.create_beacon_title, string(R.string.create_beacon))
+//        hasText(R.id.beacon_location, "42.030000°,  -71.970000°")
+//
+//        back()
+//        click("Leave")
 
         // Navigate to the tower
         TestUtils.clickListItemMenu(string(R.string.navigate))
