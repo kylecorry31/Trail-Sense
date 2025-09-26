@@ -24,7 +24,7 @@ object CellTowerModel {
     private val columns = 3
 
     // Accounts for errors in the dataset
-    private val accuracyScale = 1.5f
+    private val accuracyScale = 2f
 
     fun getAccuracy(towerLocation: Coordinate): Distance {
         return Distance.meters(
