@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
@@ -27,7 +28,7 @@ import com.kylecorry.trail_sense.shared.extensions.useLiveData
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useTimer
 import com.kylecorry.trail_sense.shared.extensions.useTrigger
-import com.kylecorry.trail_sense.shared.views.MaskedProgressView
+import com.kylecorry.trail_sense.shared.views.ProgressBar
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
@@ -36,6 +37,7 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.Batter
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_battery) {
     private val currentFilterSize = 100
@@ -48,7 +50,7 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         val currentTextView = useView<TextView>(R.id.battery_current)
         val titleView = useView<Toolbar>(R.id.battery_title)
         val lowPowerSwitchView = useView<SwitchCompat>(R.id.low_power_mode_switch)
-        val progressView = useView<MaskedProgressView>(R.id.battery_level_progress)
+        val progressView = useView<ProgressBar>(R.id.battery_level_progress)
         val servicesListView = useView<RecyclerView>(R.id.running_services)
 
         // Services
@@ -157,8 +159,8 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         // View - Percentage
         useEffect(percentageTextView, progressView, percent) {
             percentageTextView.text = formatter.formatPercentage(percent)
-            progressView.horizontal = false
             progressView.progress = percent / 100f
+            progressView.trackOpacity = 50
             progressView.progressColor = when {
                 percent >= 75 -> AppColor.Green.color
                 percent >= 50 -> AppColor.Yellow.color
