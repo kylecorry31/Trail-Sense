@@ -1469,4 +1469,5 @@
     <string name="color_white">Wit</string>
     <string name="background_color">Achtergrondkleur</string>
     <string name="add_to_homescreen">Toevoegen aan startscherm</string>
+    <string name="transparent">Transparant</string>
 </resources>
