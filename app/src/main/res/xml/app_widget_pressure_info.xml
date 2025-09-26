@@ -8,5 +8,7 @@
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="2"
     android:targetCellHeight="1"
+    android:configure="com.kylecorry.trail_sense.tools.tools.widgets.ToolWidgetConfigureActivity"
+    android:widgetFeatures="reconfigurable|configuration_optional"
     android:updatePeriodMillis="14400000"
     android:widgetCategory="home_screen" />

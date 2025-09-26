@@ -1069,6 +1069,7 @@
     <string name="distance_alert_distance_reached">You have reached %s</string>
     <string name="off">Off</string>
     <string name="save">Save</string>
+    <string name="transparent">Transparent</string>
     <string name="saved">Saved</string>
     <string name="estimate_stride_length">Estimate stride length</string>
     <string name="pref_estimate_stride_length_holder" translatable="false">pref_estimate_stride_length_holder</string>

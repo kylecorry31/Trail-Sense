@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.widgets.Widgets
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.topics.generic.Topic
@@ -188,6 +189,20 @@ object Tools {
         return getTools(context)
             .flatMap { it.services }
             .firstOrNull { it.id == serviceId }
+    }
+
+    fun getWidgetFromAppWidgetId(context: Context, appWidgetId: Int): ToolWidget? {
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val componentName = appWidgetManager.getAppWidgetInfo(appWidgetId)?.provider ?: return null
+        return getTools(context)
+            .flatMap { it.widgets }
+            .firstOrNull {
+                it.widgetClass == componentName.className.let { cls ->
+                    tryOrDefault(null) {
+                        Class.forName(cls)
+                    }
+                }
+            }
     }
 
     fun getWidget(context: Context, widgetId: String): ToolWidget? {
