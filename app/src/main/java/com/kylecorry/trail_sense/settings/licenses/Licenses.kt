@@ -13,7 +13,7 @@ object Licenses {
             val contributors = arrayOf("kylecorry31", "qwerty287", "muryno", "oersen", "Fjuro", "ChuckMichael", "weblate", "laralem", "ojppe", "tosinonikute", "fitojb", "comradekingu", "beriain", "bowornsin", "ebraminio", "zsbetu", "CloneWith", "SecularSteve", "shilonit", "jer194", "Jakarrrg", "Kamilkampfwagen-II", "raphaelventura", "ACABMAN666", "CesPaul", "SantosSi", "delthia", "BorATICI", "cleveHEX", "another-sapiens", "AlessandroFrangiamone", "trymbf", "gustavi", "khwolf", "eagledofc", "crlambda", "Xoronic", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "Craftefix", "AsmodeumX", "Portagoras", "StarSkyGeminid", "mrestivill", "s3n-w6i", "paulle", "olczcolor", "notramo", "NaserKhoshfetrat", "Tyxiel", "tacostea", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "AHOHNMYC", "Ricky-Tigg", "imBigo", "SebV60", "yurtpage", "naoritzio", "github-actions[bot]", "huuhaa", "lucasmz-dev", "mellvie", "volodymyr-ahafonov", "asafran", "sguinetti", "tetrdd", "ygorigor", "LuccoJ", "L-P", "NicolaSmaniotto", "Oymate", "Poussinou", "rezaalmanda", "f4n0", "efraletti", "WuerfelDev", "VasilisKos", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "mgorny", "hrachmnam", "Mohammadshir2004", "nautilusx", "random-integer", "doomed-neko", "kasmide", "tct123", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "love80312", "ARtHryDr", "Abdulkarim28", "Akamar", "dasrecht", "realgooseman", "helloiamcait", "CanUCMeSharp", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "IgotDlore", "iRomanyshyn", "teketemdn", "LightFOSS", "LucFreitas", "Luiz-bro", "BatuAtlas", "xmbhasin", "TomasCartman", "Kapral67")
             "${
                 mit(
-                    "2020-2024",
+                    "2020-2025",
                     "Kyle Corry"
                 )
             }\n\nThe following people contributed code or translations to Trail Sense under the MIT License: ${
@@ -266,6 +266,12 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
         ) { mit("2017", "Tyler C Sutterley") },
         Library("OpenCelliD", "https://opencellid.org/") {
             "OpenCelliD Project is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License"
+        },
+        Library("Mozilla Location Service", "https://archive.org/details/MLS_Full_Cell_Export_Final"){
+            "Mozilla Corporation - Public Domain - Final data export, no longer maintained."
+        },
+        Library("FCC Antenna Registrations", "https://www.fcc.gov/uls/transactions/daily-weekly"){
+            "FCC - Public Domain"
         },
         Library(
             "Survival guide",

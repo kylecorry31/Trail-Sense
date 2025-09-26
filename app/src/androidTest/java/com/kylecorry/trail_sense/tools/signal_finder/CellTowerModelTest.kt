@@ -34,7 +34,7 @@ class CellTowerModelTest {
             closest.coordinate.distanceTo(tower)
         }
 
-        assertQuantile(errors, 550f, 0.5f)
-        assertQuantile(errors, 1000f, 0.9f)
+        assertQuantile(errors, 650f, 0.5f)
+        assertQuantile(errors, 850f, 0.9f)
     }
 }

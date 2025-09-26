@@ -18,13 +18,13 @@ import com.kylecorry.trail_sense.shared.data.TiledImageReader
 object CellTowerModel {
 
     // Image data source
-    private val resolution = 0.01
-    private val size = Size(9000, 6000)
-    private val rows = 3
-    private val columns = 4
+    private val resolution = 0.015
+    private val size = Size(8000, 6000)
+    private val rows = 2
+    private val columns = 3
 
     // Accounts for errors in the dataset
-    private val accuracyScale = 2f
+    private val accuracyScale = 1.5f
 
     fun getAccuracy(towerLocation: Coordinate): Distance {
         return Distance.meters(
