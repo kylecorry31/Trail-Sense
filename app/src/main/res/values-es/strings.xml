@@ -1436,6 +1436,5 @@
     <string name="color_gray">Gris</string>
     <string name="color_white">Blanco</string>
     <string name="background_color">Color de fondo</string>
-    <string name="cell_signal_distance">Distancia de señal móvil</string>
     <string name="add_to_homescreen">Añadir a pantalla de inicio</string>
 </resources>

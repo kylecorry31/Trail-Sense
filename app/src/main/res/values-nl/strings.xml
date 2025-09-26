@@ -1468,6 +1468,5 @@
     <string name="color_gray">Grijs</string>
     <string name="color_white">Wit</string>
     <string name="background_color">Achtergrondkleur</string>
-    <string name="cell_signal_distance">Afstand mobiel signaal</string>
     <string name="add_to_homescreen">Toevoegen aan startscherm</string>
 </resources>

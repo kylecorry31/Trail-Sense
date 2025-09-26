@@ -22,7 +22,7 @@ class ToolSignalFinderTest : ToolTestBase(Tools.SIGNAL_FINDER, Coordinate(42.03,
         // Detected signal
         optional {
             hasText(Regex("[0-9]G"))
-            hasText(Regex("[0-9]+% • [0-9]+:[0-9]+:[0-9]+ (AM|PM) • (Full service | Emergency calls only)"))
+            hasText(Regex("[0-9]+% •(\\d+\\.\\d+ (ft|mi) - \\d+\\.\\d+ (ft|mi) •)? [0-9]+:[0-9]+:[0-9]+ (AM|PM) • (Full service | Emergency calls only)"))
         }
 
         // Tower

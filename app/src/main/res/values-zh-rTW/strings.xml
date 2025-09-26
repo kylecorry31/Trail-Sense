@@ -1428,7 +1428,6 @@
     <string name="load_pdf_tiles">載入 PDF 圖塊</string>
     <string name="show_gps_accuracy">顯示 GPS 準確性</string>
     <string name="sleep_sound_crickets_no_chirping">蟋蟀（無鳴叫）</string>
-    <string name="cell_signal_distance">手機訊號距離</string>
     <string name="add_to_homescreen">新增至主螢幕</string>
     <string name="mute_alarm_at_night">在夜間靜音警報</string>
     <string name="increase_exposure_at_night">在夜間增加曝光</string>
