@@ -29,6 +29,16 @@ Layers are used to display information on the map. You can find layer settings i
 ### Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
 
+### Elevation
+This layer shows the elevation from the digital elevation model (DEM) as color. You can change the DEM in Settings > Altimeter.
+
+Settings:
+
+- **Color**: The color scale of the pixels. The color will change based on elevation.
+
+### Hillshade
+This layer draws shadows to help see elevation in the terrain from the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
+
 ### Photo Maps
 This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
 
@@ -42,10 +52,14 @@ This layer shows contour lines generated from the digital elevation model (DEM) 
 Settings:
 
 - **Show labels**: Determines if contour labels are shown on the map.
-- **Color contours based on elevation**: If enabled, the color of the contour lines will be based on the elevation (green to purple). If disabled, contours will be brown.
+- **Color**: The color of the contour lines, some options are color scales which change based on elevation.
 
 ### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
+
+Settings:
+
+- **Background color**: The background color to render behind paths for increased visibility.
 
 ### Beacons
 This layer shows visible beacons. You can add new beacons in the Beacons tool. You can click on a beacon to navigate to it.

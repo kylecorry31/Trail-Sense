@@ -11,6 +11,8 @@ You can toggle the camera on and off by tapping the camera icon in the top-right
 
 Additionally, while the camera is active, you can adjust the zoom level using two fingers to pinch or the slider at the bottom of the screen.
 
+By default, the camera's exposure compensation will increase at night. You can disable this via "Settings > Augmented Reality > Increase exposure at night". 
+
 ## Reticle
 A circular reticle is displayed in the center of your screen. You can use this to see more details about the marker you are looking at by centering it in the reticle.
 
@@ -30,9 +32,11 @@ If you bring the sun or moon into the reticle, you will see more details about t
 If you tapped the "View in 3D" button on the Astronomy tool, you can use the guide to see where the sun or moon currently is and change the previewed date in the bottom panel.
 
 ## Stars
-The 50 brightest stars are shown at night. If you bring a star into the reticle, you will see its name.
+Bright stars, planets, and constellations are shown at night. If you bring a star into the reticle, you will see its name and the constellation(s) it belongs to. The star names are either the IAU proper names or the bayer designation. The constellations are from IAU.
 
-You can turn off the stars by disabling Settings > Augmented Reality > "Show stars".
+You can turn off the stars and planets by disabling Settings > Augmented Reality > "Show stars and planets".
+
+You can turn off the constellations by disabling Settings > Augmented Reality > "Show constellations".
 
 ## Grid / compass
 A grid is displayed on the screen to help orient you. The grid is aligned with the cardinal directions and is spaced at 30 degrees. The grid line for north is highlighted in orange. The cardinal directions are displayed over the grid.
