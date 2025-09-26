@@ -241,7 +241,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                             },
                             if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
                             if (tool.settingsNavAction != null) getString(R.string.settings) else null,
-                            if (isDebug()) getString(R.string.add_to_homescreen) else null
+                            getString(R.string.add_to_homescreen)
                         )
                     ) { selectedIdx ->
                         when (selectedIdx) {
