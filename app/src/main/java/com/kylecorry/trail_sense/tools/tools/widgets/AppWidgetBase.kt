@@ -30,18 +30,8 @@ abstract class AppWidgetBase(private val widgetId: String) :
         }
 
         val widget = Tools.getWidget(context, widgetId)!!
-        val view = widget.widgetView.getPopulatedView(context)
-
-        // Apply preferences
         val preferences = WidgetPreferences(context, widget, appWidgetId)
-        // TODO: Set the theme instead (set the text color and background color)
-        // ?attr/colorSurfaceContainer
-        view.setInt(
-            R.id.widget_frame,
-            "setBackgroundResource",
-            if (preferences.getBackgroundColor() == WidgetBackgroundColor.Transparent) android.R.color.transparent else R.drawable.widget_background
-        )
-        return view
+        return widget.widgetView.getPopulatedView(context, preferences)
     }
 
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {

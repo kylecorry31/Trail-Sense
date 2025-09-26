@@ -49,10 +49,10 @@ class ToolWidgetConfigureActivity : AndromedaActivity() {
         val checkbox = findViewById<CheckBox>(R.id.checkbox_transparent_background)
         val save = findViewById<Button>(R.id.button_save)
 
-        checkbox.isChecked = prefs.getBackgroundColor() == WidgetBackgroundColor.Transparent
+        checkbox.isChecked = prefs.getTheme() == WidgetTheme.TransparentBlack
 
         save.setOnClickListener {
-            prefs.setBackgroundColor(if (checkbox.isChecked) WidgetBackgroundColor.Transparent else WidgetBackgroundColor.System)
+            prefs.setTheme(if (checkbox.isChecked) WidgetTheme.TransparentBlack else WidgetTheme.System)
             inBackground {
                 val widgetProvider =
                     widget.widgetClass.getConstructor().newInstance() as? AppWidgetBase

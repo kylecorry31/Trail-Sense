@@ -3,10 +3,14 @@ package com.kylecorry.trail_sense.tools.tools.ui.widgets
 import android.content.Context
 import android.widget.RemoteViews
 import androidx.lifecycle.Lifecycle
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetTheme
 
 abstract class SimpleToolWidgetView : ToolWidgetView {
     protected val LAYOUT = R.layout.widget_small_simple
+    protected val LAYOUT_TRANSPARENT_BLACK = R.layout.widget_transparent_black_small_simple
     protected val ROOT = R.id.widget_frame
     protected val TITLE_TEXTVIEW = R.id.widget_title
     protected val SUBTITLE_TEXTVIEW = R.id.widget_subtitle
@@ -17,7 +21,16 @@ abstract class SimpleToolWidgetView : ToolWidgetView {
         // Do nothing
     }
 
-    override fun getView(context: Context): RemoteViews {
-        return RemoteViews(context.packageName, LAYOUT)
+    override fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+        val theme = prefs?.getTheme()
+        if (theme?.themeId != null) {
+            Resources.reloadTheme(context, theme.themeId)
+        }
+        return RemoteViews(
+            context.packageName, when (theme) {
+                WidgetTheme.TransparentBlack -> LAYOUT_TRANSPARENT_BLACK
+                else -> LAYOUT
+            }
+        )
     }
 }

@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.widgets.ChartToolWidgetViewBase
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.tools.weather.ui.charts.PressureChart
 import java.time.Duration
@@ -19,23 +20,26 @@ import java.time.Instant
 
 class PressureChartToolWidgetView : ChartToolWidgetViewBase() {
 
-    override suspend fun getPopulatedView(context: Context): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val weather = WeatherSubsystem.getInstance(context)
-        val prefs = UserPreferences(context)
-        val units = prefs.pressureUnits
+        val userPrefs = UserPreferences(context)
+        val units = userPrefs.pressureUnits
 
         val history = weather.getHistory()
         val displayReadings = history.filter {
             Duration.between(
                 it.time,
                 Instant.now()
-            ) <= prefs.weather.pressureHistory
+            ) <= userPrefs.weather.pressureHistory
         }
             .map { it.pressureReading() }
             .map { it.copy(value = it.value.convertTo(units)) }
 
 
-        val views = getView(context)
+        val views = getView(context, prefs)
         onMain {
             val chart = Chart(context)
             val pressureChart = PressureChart(chart)
