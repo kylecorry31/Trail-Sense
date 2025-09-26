@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -25,6 +26,8 @@ import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
+import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.luna.timer.TimerActionBehavior
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -44,7 +47,11 @@ import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.shared.views.SearchView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import java.time.Duration
+import java.util.UUID
+import kotlin.coroutines.CoroutineContext
 
 // Sensors
 
@@ -504,4 +511,68 @@ fun ReactiveComponent.usePauseEffect(vararg values: Any?, action: () -> Unit) {
     ) {
         action()
     }
+}
+
+fun ReactiveComponent.useResumeEffect(vararg values: Any?, action: () -> Unit) {
+    useLifecycleEffect(
+        Lifecycle.Event.ON_RESUME,
+        *values
+    ) {
+        action()
+    }
+}
+
+
+// LiveData
+fun <T : Any, V> ReactiveComponent.useLiveData(
+    data: LiveData<T>,
+    default: V,
+    mapper: (T) -> V
+): V {
+    val (state, setState) = useState(default)
+    val owner = useLifecycleOwner()
+
+    // Note: This does not change when the mapper changes
+    useEffect(data, owner) {
+        data.observe(owner) {
+            setState(mapper(it))
+        }
+    }
+
+    return state
+}
+
+fun <T : Any, V> ReactiveComponent.useLiveData(
+    data: LiveData<T>,
+    mapper: (T) -> V?
+): V? {
+    return useLiveData(data, null, mapper)
+}
+
+fun ReactiveComponent.useTimer(
+    interval: Long,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    observeOn: CoroutineContext = Dispatchers.Main,
+    actionBehavior: TimerActionBehavior = TimerActionBehavior.Wait,
+    runnable: suspend () -> Unit
+) {
+    val timer = useMemo {
+        CoroutineTimer(scope, observeOn, actionBehavior, runnable)
+    }
+
+    useResumeEffect(timer, interval) {
+        timer.interval(interval)
+    }
+
+    usePauseEffect(timer) {
+        timer.stop()
+    }
+}
+
+fun ReactiveComponent.useTrigger(): Pair<String, () -> Unit> {
+    val (key, setKey) = useState("")
+    val trigger = useCallback<Unit> {
+        setKey(UUID.randomUUID().toString())
+    }
+    return useMemo(key, trigger) { key to trigger }
 }
