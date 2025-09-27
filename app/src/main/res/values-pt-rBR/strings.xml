@@ -1439,4 +1439,5 @@
     <string name="color_white">Branco</string>
     <string name="background_color">Cor de fundo</string>
     <string name="add_to_homescreen">Adicionar à tela inicial</string>
+    <string name="transparent">Transparente</string>
 </resources>
