@@ -1253,4 +1253,8 @@
     <string name="color_black">Noir</string>
     <string name="color_gray">Gris</string>
     <string name="color_white">Blanc</string>
+    <string name="transparent">transparent</string>
+    <string name="no_items_found">Aucun article trouvé</string>
+    <string name="estimate_method">Méthode d\'estimation</string>
+    <string name="automatic_backup">Sauvegarde automatique</string>
 </resources>
