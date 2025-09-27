@@ -26,7 +26,7 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         isChecked(R.id.low_power_mode_switch)
 
         // Stop the battery log
-        click(R.id.disable_btn)
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
         not { hasText("Battery log", waitForTime = 0) }
 
         // Open battery settings
