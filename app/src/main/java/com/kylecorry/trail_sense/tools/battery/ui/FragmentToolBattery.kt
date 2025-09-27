@@ -4,21 +4,19 @@ import android.content.Intent
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useTopic
-import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.math.filters.MedianFilter
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -37,7 +35,6 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.Batter
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
-import kotlin.math.roundToInt
 
 class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_battery) {
     private val currentFilterSize = 100
@@ -51,7 +48,7 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         val titleView = useView<Toolbar>(R.id.battery_title)
         val lowPowerSwitchView = useView<SwitchCompat>(R.id.low_power_mode_switch)
         val progressView = useView<ProgressBar>(R.id.battery_level_progress)
-        val servicesListView = useView<RecyclerView>(R.id.running_services)
+        val servicesListView = useView<AndromedaListView>(R.id.running_services)
 
         // Services
         val context = useAndroidContext()
@@ -123,37 +120,16 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
 
 
         // View - Services List
-        // TODO: Convert to AndromedaList
-        val servicesList = useMemo(servicesListView, navController, triggerServicesUpdate) {
-            ListView<RunningService>(
-                servicesListView,
-                R.layout.list_item_service
-            ) { serviceView, service ->
-                val serviceBinding = ListItemServiceBinding.bind(serviceView)
-                serviceBinding.title.text = service.name
-                val frequency = if (service.frequency == Duration.ZERO) {
-                    getString(R.string.always_on)
-                } else {
-                    getString(
-                        R.string.service_update_frequency,
-                        formatter.formatDuration(service.frequency)
-                    )
-                }
-                serviceBinding.description.text =
-                    getString(R.string.dash_separated_pair, frequency, getBatteryUsage(service))
-                serviceBinding.disableBtn.setOnClickListener {
-                    runInBackground {
-                        service.disable()
-                        triggerServicesUpdate()
-                    }
-                }
-            }.also {
-                it.addLineSeparator()
+        val onServiceDisable = useCallback<RunningService, Unit> { service: RunningService ->
+            runInBackground {
+                service.disable()
+                triggerServicesUpdate()
             }
         }
 
-        useEffect(servicesList, services) {
-            servicesList.setData(services)
+        useEffect(servicesListView, context, services, onServiceDisable) {
+            val mapper = RunningServiceListItemMapper(context, onServiceDisable)
+            servicesListView.setItems(services, mapper)
         }
 
         // View - Percentage
@@ -337,20 +313,4 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         }
     }
 
-    private fun getBatteryUsage(service: RunningService): String {
-        val usage = when {
-            service.frequency < Duration.ofMinutes(15) -> {
-                getString(R.string.high)
-            }
-
-            service.frequency <= Duration.ofMinutes(25) -> {
-                getString(R.string.moderate)
-            }
-
-            else -> {
-                getString(R.string.low)
-            }
-        }
-        return getString(R.string.battery_usage, usage)
-    }
 }
