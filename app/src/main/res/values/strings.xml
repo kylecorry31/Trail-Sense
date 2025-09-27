@@ -1822,4 +1822,6 @@
     <string name="restrict_app_background_activity">Restrict app background activity</string>
     <string name="system">System</string>
     <string name="battery_tip_system">Adjust system settings to reduce battery usage.</string>
+    <string name="other_tips">Other tips</string>
+    <string name="battery_tip_other">Power off your device, force stop apps, disable or uninstall apps, or disable auto-update/backups.</string>
 </resources>

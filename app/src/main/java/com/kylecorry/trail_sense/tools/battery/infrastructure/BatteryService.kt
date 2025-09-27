@@ -141,6 +141,12 @@ class BatteryService {
                 context.getString(R.string.battery_tip_background_apps),
                 BatteryUsage.Unknown,
                 getSystemAction(context, Settings.ACTION_APPLICATION_SETTINGS)
+            ),
+            SystemBatteryTip(
+                context.getString(R.string.other_tips),
+                context.getString(R.string.battery_tip_other),
+                BatteryUsage.Unknown,
+                null
             )
         )
     }
