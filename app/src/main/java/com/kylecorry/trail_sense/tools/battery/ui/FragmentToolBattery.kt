@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.views.list.AndromedaListView
+import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.math.filters.MedianFilter
 import com.kylecorry.trail_sense.R
@@ -29,6 +30,7 @@ import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.views.ProgressBar
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
+import com.kylecorry.trail_sense.tools.battery.domain.SystemBatteryTip
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.LowPowerMode
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
@@ -88,6 +90,7 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             )
         }
         val (services, triggerServicesUpdate) = useRunningServices(batteryService)
+        val tips = useSystemBatteryTips(batteryService)
         val time = useMemo(isCharging, readings, current, percent) {
             if (isCharging) {
                 batteryService.getTimeUntilFull(battery, readings)
@@ -110,11 +113,11 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             setChargeMethod(battery.chargingMethod)
         }
 
-        useTopic(battery, triggerBatteryUpdate) {
+        useTopic(battery) {
             triggerBatteryUpdate()
         }
 
-        useTimer(INTERVAL_60_FPS) {
+        useTimer(INTERVAL_30_FPS) {
             triggerBatteryUpdate()
         }
 
@@ -127,9 +130,31 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             }
         }
 
-        useEffect(servicesListView, context, services, onServiceDisable) {
-            val mapper = RunningServiceListItemMapper(context, onServiceDisable)
-            servicesListView.setItems(services, mapper)
+        useEffect(servicesListView, context, services, onServiceDisable, tips) {
+            val serviceMapper = RunningServiceListItemMapper(context, onServiceDisable)
+            val tipMapper = SystemBatteryTipListItemMapper(context)
+            val items = mutableListOf<ListItem>()
+            if (services.isNotEmpty()) {
+                items.add(
+                    ListItem(
+                        -1,
+                        getString(R.string.app_name),
+                        getString(R.string.battery_tip_disable_services)
+                    )
+                )
+            }
+            items.addAll(services.map { serviceMapper.map(it) })
+
+            items.add(
+                ListItem(
+                    -2,
+                    getString(R.string.system),
+                    getString(R.string.battery_tip_system)
+                )
+            )
+            items.addAll(tips.map { tipMapper.map(it) })
+
+            servicesListView.setItems(items)
         }
 
         // View - Percentage
@@ -250,6 +275,22 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         }
 
         return services to triggerServicesUpdate
+    }
+
+    private fun useSystemBatteryTips(batteryService: BatteryService): List<SystemBatteryTip> {
+        val context = useAndroidContext()
+        val (tipsKey, triggerTipsUpdate) = useTrigger()
+        val (tips, setTips) = useState(emptyList<SystemBatteryTip>())
+
+        useEffect(tipsKey, resetOnResume) {
+            setTips(batteryService.getSystemBatteryTips(context))
+        }
+
+        useTimer(10000) {
+            triggerTipsUpdate()
+        }
+
+        return tips
     }
 
     private fun useShowCurrent(
