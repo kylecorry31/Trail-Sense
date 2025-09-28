@@ -201,14 +201,14 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         fun getAvailableSources(context: Context): List<CompassSource> {
             val sources = mutableListOf<CompassSource>()
 
-            if (Sensors.hasSensor(context, Sensor.TYPE_ROTATION_VECTOR)) {
-                sources.add(CompassSource.RotationVector)
-            }
-
             if (Sensors.hasSensor(context, Sensor.TYPE_GYROSCOPE) &&
                 Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)
             ) {
                 sources.add(CompassSource.CustomRotationVector)
+            }
+
+            if (Sensors.hasSensor(context, Sensor.TYPE_ROTATION_VECTOR)) {
+                sources.add(CompassSource.RotationVector)
             }
 
             if (Sensors.hasSensor(context, Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR)) {

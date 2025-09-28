@@ -34,6 +34,6 @@ class CompassPreferences(context: Context) : PreferenceRepo(context), ICompassPr
         cache,
         context.getString(R.string.pref_compass_source),
         CompassSource.entries.associateBy { it.id },
-        CompassSource.RotationVector
+        CompassSource.CustomRotationVector
     )
 }
