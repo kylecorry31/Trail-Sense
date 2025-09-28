@@ -5,14 +5,12 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
 import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.system.Resources
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 abstract class AndromedaCoroutineWidget(
-    private val themeToReload: Int? = null,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : AppWidgetProvider() {
     override fun onUpdate(
@@ -20,10 +18,6 @@ abstract class AndromedaCoroutineWidget(
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        if (themeToReload != null) {
-            Resources.reloadTheme(context, themeToReload)
-        }
-
         val pendingResult = goAsync()
         try {
             CoroutineScope(dispatcher).launch {
