@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_frame"
+    android:id="@+id/widget_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_background"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:theme="@style/AppTheme">
+    android:orientation="vertical">
 
     <android.widget.TextView
         android:id="@+id/widget_title"
@@ -14,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
         android:text="@string/loading"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="?android:attr/textColorPrimary" />
 
     <android.widget.ListView
         android:id="@+id/widget_list"
@@ -32,6 +30,7 @@
         android:gravity="center"
         android:text="@string/no_data"
         android:textAlignment="center"
+        android:textColor="?android:attr/textColorPrimary"
         android:visibility="gone" />
 
 </android.widget.LinearLayout>
