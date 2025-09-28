@@ -135,6 +135,8 @@ class MapToolLayerManager {
 
         myLocationLayer.setPreferences(prefs.map.myLocationLayer)
 
+        cellTowerLayer.setPreferences(prefs.map.cellTowerLayer)
+
         view.setLayers(
             listOfNotNull(
                 BackgroundColorMapLayer().also { it.color = Color.rgb(127, 127, 127) },
@@ -143,8 +145,7 @@ class MapToolLayerManager {
                 if (prefs.map.hillshadeLayer.isEnabled.get()) hillshadeLayer else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
-                // TODO: Add preference
-                if (isDebug()) cellTowerLayer else null,
+                if (prefs.map.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) myLocationLayer else null,

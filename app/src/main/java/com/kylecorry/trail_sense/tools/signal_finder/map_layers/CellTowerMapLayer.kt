@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.signal_finder.map_layers
 import android.graphics.Bitmap
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
@@ -65,6 +64,11 @@ class CellTowerMapLayer(private val taskRunner: MapLayerBackgroundTask = MapLaye
         }
     }
 
+    fun setPreferences(prefs: CellTowerMapLayerPreferences) {
+        setPercentOpacity(prefs.opacity.get() / 100f)
+        invalidate()
+    }
+
     override fun draw(
         drawer: ICanvasDrawer,
         map: IMapView
@@ -81,11 +85,6 @@ class CellTowerMapLayer(private val taskRunner: MapLayerBackgroundTask = MapLaye
         taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel)
         super.draw(drawer, map)
     }
-
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         updateListener = listener

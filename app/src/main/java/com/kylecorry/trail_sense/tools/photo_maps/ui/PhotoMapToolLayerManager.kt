@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
@@ -55,6 +56,7 @@ class PhotoMapToolLayerManager {
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
+    private val cellTowerLayer = CellTowerMapLayer()
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
@@ -116,11 +118,15 @@ class PhotoMapToolLayerManager {
         // My location layer
         myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
 
+        // Cell tower layer
+        cellTowerLayer.setPreferences(prefs.photoMaps.cellTowerLayer)
+
         // Start
         view.setLayers(
             listOfNotNull(
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
+                if (prefs.photoMaps.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) myLocationLayer else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,

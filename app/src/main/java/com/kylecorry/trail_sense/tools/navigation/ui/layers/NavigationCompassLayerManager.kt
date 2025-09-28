@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
@@ -39,6 +40,7 @@ class NavigationCompassLayerManager {
     private var contourLayer: ContourLayer? = null
     private var elevationLayer: ElevationLayer? = null
     private var hillshadeLayer: HillshadeLayer? = null
+    private val cellTowerLayer = CellTowerMapLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private var layerManager: ILayerManager? = null
 
@@ -63,6 +65,7 @@ class NavigationCompassLayerManager {
         val isBeaconLayerEnabled = prefs.navigation.beaconLayer.isEnabled.get()
         val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
         val isMyLocationLayerEnabled = prefs.navigation.myLocationLayer.isEnabled.get()
+        val isCellTowerLayerEnabled = prefs.navigation.cellTowerLayer.isEnabled.get()
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         beaconLayer.setPreferences(prefs.navigation.beaconLayer)
@@ -77,12 +80,14 @@ class NavigationCompassLayerManager {
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
+        cellTowerLayer.setPreferences(prefs.navigation.cellTowerLayer)
         view.setLayers(
             listOfNotNull(
                 if (isElevationLayerEnabled) elevationLayer else null,
                 if (isHillshadeLayerEnabled) hillshadeLayer else null,
                 if (isMapLayerEnabled) photoMapLayer else null,
                 if (isContourLayerEnabled) contourLayer else null,
+                if (isCellTowerLayerEnabled) cellTowerLayer else null,
                 if (isPathLayerEnabled) pathLayer else null,
                 if (isMyLocationLayerEnabled) myLocationLayer else null,
                 if (isTideLayerEnabled) tideLayer else null,

@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferen
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 
 class MapPreferences(context: Context) : PreferenceRepo(context) {
@@ -36,6 +37,7 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
     val myLocationLayer = MyLocationMapLayerPreferences(context, mapId)
     val elevationLayer = ElevationMapLayerPreferences(context, mapId, isEnabledByDefault = true)
     val hillshadeLayer = HillshadeMapLayerPreferences(context, mapId, isEnabledByDefault = true)
+    val cellTowerLayer = CellTowerMapLayerPreferences(context, mapId)
 
     val layerManager = MapLayerPreferenceManager(
         mapId, listOf(
@@ -44,6 +46,7 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
             hillshadeLayer.getPreferences(),
             photoMapLayer.getPreferences(),
             contourLayer.getPreferences(),
+            cellTowerLayer.getPreferences(),
             pathLayer.getPreferences(),
             beaconLayer.getPreferences(),
             navigationLayer.getPreferences(),
