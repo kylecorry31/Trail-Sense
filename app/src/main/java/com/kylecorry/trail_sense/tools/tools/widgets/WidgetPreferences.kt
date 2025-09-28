@@ -7,10 +7,11 @@ import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 
-enum class WidgetTheme(override val id: Long, val themeId: Int?) : Identifiable {
-    System(1, R.style.WidgetTheme),
-    TransparentBlack(2, R.style.WidgetTheme_TransparentBlack),
-    TransparentWhite(3, R.style.WidgetTheme_TransparentWhite),
+enum class WidgetTheme(override val id: Long, val themeId: Int?, val layoutId: Int?) :
+    Identifiable {
+    System(1, R.style.WidgetTheme, R.layout.widget_theme_system),
+    TransparentBlack(2, R.style.WidgetTheme_TransparentBlack, R.layout.widget_theme_transparent_black),
+    TransparentWhite(3, R.style.WidgetTheme_TransparentWhite, R.layout.widget_theme_transparent_white),
 }
 
 class WidgetPreferences(

@@ -3,15 +3,12 @@ package com.kylecorry.trail_sense.tools.tools.ui.widgets
 import android.content.Context
 import android.widget.RemoteViews
 import androidx.lifecycle.Lifecycle
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetHelper
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
-import com.kylecorry.trail_sense.tools.tools.widgets.WidgetTheme
 
 abstract class SimpleToolWidgetView : ToolWidgetView {
-    private val LAYOUT = R.layout.widget_small_simple
-    private val LAYOUT_TRANSPARENT_BLACK = R.layout.widget_transparent_black_small_simple
-    private val LAYOUT_TRANSPARENT_WHITE = R.layout.widget_transparent_white_small_simple
+    private val LAYOUT = R.layout.widget_layout_small_simple
     protected val ROOT = R.id.widget_frame
     protected val TITLE_TEXTVIEW = R.id.widget_title
     protected val SUBTITLE_TEXTVIEW = R.id.widget_subtitle
@@ -23,16 +20,6 @@ abstract class SimpleToolWidgetView : ToolWidgetView {
     }
 
     override fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews {
-        val theme = prefs?.getTheme()
-        if (theme?.themeId != null) {
-            Resources.reloadTheme(context, theme.themeId)
-        }
-        return RemoteViews(
-            context.packageName, when (theme) {
-                WidgetTheme.TransparentBlack -> LAYOUT_TRANSPARENT_BLACK
-                WidgetTheme.TransparentWhite -> LAYOUT_TRANSPARENT_WHITE
-                else -> LAYOUT
-            }
-        )
+        return WidgetHelper.createThemedRemoteViews(context, prefs?.getTheme(), LAYOUT)
     }
 }

@@ -26,7 +26,6 @@ import com.kylecorry.trail_sense.tools.beacons.subsystem.BeaconsSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.ToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
-import com.kylecorry.trail_sense.tools.tools.widgets.WidgetTheme
 
 class NearbyBeaconsToolWidgetView : ToolWidgetView {
     override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
@@ -122,6 +121,6 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
     }
 
     override fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews {
-        return RemoteViews(Package.getPackageName(context), R.layout.widget_list)
+        return RemoteViews(Package.getPackageName(context), R.layout.widget_layout_list)
     }
 }

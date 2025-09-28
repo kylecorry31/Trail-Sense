@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/widget_frame"
+    android:id="@+id/widget_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/widget_background"
-    android:padding="8dp"
-    android:theme="@style/AppTheme">
+    android:layout_height="match_parent">
 
     <android.widget.TextView
         android:id="@+id/widget_title"
@@ -14,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
         android:text="@string/loading"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="?android:attr/textColorPrimary" />
 
     <android.widget.ImageView
         android:id="@+id/widget_icon"
@@ -39,6 +37,7 @@
         android:drawablePadding="4dp"
         android:drawableTint="?android:attr/textColorSecondary"
         android:textAlignment="center"
+        android:textColor="?android:attr/textColorPrimary"
         tools:text="Subtitle" />
 
 </FrameLayout>
