@@ -2,20 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_gravity="center">
+    android:padding="16dp">
 
-    <!--TODO: Use material spinner-->
-    <CheckBox
-        android:id="@+id/checkbox_transparent_background"
+    <com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
+        android:id="@+id/theme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/transparent" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button_save"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/save" />
 </LinearLayout>

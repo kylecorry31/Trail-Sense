@@ -10,8 +10,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.ToolWidgetView
 
 abstract class ChartToolWidgetViewBase : ToolWidgetView {
-    protected val LAYOUT = R.layout.widget_chart
-    protected val TRANSPARENT_BLACK_LAYOUT = R.layout.widget_transparent_black_chart
+    private val LAYOUT = R.layout.widget_chart
+    private val TRANSPARENT_BLACK_LAYOUT = R.layout.widget_transparent_black_chart
+    private val TRANSPARENT_WHITE_LAYOUT = R.layout.widget_transparent_white_chart
     protected val ROOT = R.id.widget_frame
     protected val TITLE_TEXTVIEW = R.id.widget_title
     protected val CHART = R.id.widget_chart
@@ -35,6 +36,7 @@ abstract class ChartToolWidgetViewBase : ToolWidgetView {
         return RemoteViews(
             context.packageName, when (theme) {
                 WidgetTheme.TransparentBlack -> TRANSPARENT_BLACK_LAYOUT
+                WidgetTheme.TransparentWhite -> TRANSPARENT_WHITE_LAYOUT
                 else -> LAYOUT
             }
         )

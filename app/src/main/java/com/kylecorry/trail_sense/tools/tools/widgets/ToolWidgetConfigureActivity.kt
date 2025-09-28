@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.CheckBox
 import androidx.activity.enableEdgeToEdge
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.fragments.AndromedaActivity
@@ -12,6 +11,7 @@ import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ToolWidgetConfigureActivity : AndromedaActivity() {
@@ -21,6 +21,7 @@ class ToolWidgetConfigureActivity : AndromedaActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val userPrefs = AppServiceRegistry.get<UserPreferences>()
         setColorTheme(ColorTheme.System, userPrefs.useDynamicColors)
+        // TODO: Apply insets
         enableEdgeToEdge()
 
         super.onCreate(savedInstanceState)
@@ -46,13 +47,27 @@ class ToolWidgetConfigureActivity : AndromedaActivity() {
         }
 
         val prefs = WidgetPreferences(this, widget, appWidgetId)
-        val checkbox = findViewById<CheckBox>(R.id.checkbox_transparent_background)
+        val spinner = findViewById<MaterialSpinnerView>(R.id.theme)
         val save = findViewById<Button>(R.id.button_save)
 
-        checkbox.isChecked = prefs.getTheme() == WidgetTheme.TransparentBlack
+        val items = listOf(
+            WidgetTheme.System to getString(R.string.theme_system),
+            WidgetTheme.TransparentBlack to getString(
+                R.string.theme_transparent_type,
+                getString(R.string.widget_theme_black_text)
+            ),
+            WidgetTheme.TransparentWhite to getString(
+                R.string.theme_transparent_type,
+                getString(R.string.widget_theme_white_text)
+            )
+        )
+
+        spinner.setItems(items.map { it.second })
+        spinner.setSelection(items.indexOfFirst { it.first == prefs.getTheme() })
 
         save.setOnClickListener {
-            prefs.setTheme(if (checkbox.isChecked) WidgetTheme.TransparentBlack else WidgetTheme.System)
+            val theme = items.getOrElse(spinner.selectedItemPosition) { items[0] }.first
+            prefs.setTheme(theme)
             inBackground {
                 val widgetProvider =
                     widget.widgetClass.getConstructor().newInstance() as? AppWidgetBase

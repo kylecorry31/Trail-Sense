@@ -9,7 +9,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 
 enum class WidgetTheme(override val id: Long, val themeId: Int?) : Identifiable {
     System(1, R.style.WidgetTheme),
-    TransparentBlack(2, R.style.WidgetTheme_TransparentBlack)
+    TransparentBlack(2, R.style.WidgetTheme_TransparentBlack),
+    TransparentWhite(3, R.style.WidgetTheme_TransparentWhite),
 }
 
 class WidgetPreferences(

@@ -9,8 +9,9 @@ import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetTheme
 
 abstract class SimpleToolWidgetView : ToolWidgetView {
-    protected val LAYOUT = R.layout.widget_small_simple
-    protected val LAYOUT_TRANSPARENT_BLACK = R.layout.widget_transparent_black_small_simple
+    private val LAYOUT = R.layout.widget_small_simple
+    private val LAYOUT_TRANSPARENT_BLACK = R.layout.widget_transparent_black_small_simple
+    private val LAYOUT_TRANSPARENT_WHITE = R.layout.widget_transparent_white_small_simple
     protected val ROOT = R.id.widget_frame
     protected val TITLE_TEXTVIEW = R.id.widget_title
     protected val SUBTITLE_TEXTVIEW = R.id.widget_subtitle
@@ -29,6 +30,7 @@ abstract class SimpleToolWidgetView : ToolWidgetView {
         return RemoteViews(
             context.packageName, when (theme) {
                 WidgetTheme.TransparentBlack -> LAYOUT_TRANSPARENT_BLACK
+                WidgetTheme.TransparentWhite -> LAYOUT_TRANSPARENT_WHITE
                 else -> LAYOUT
             }
         )

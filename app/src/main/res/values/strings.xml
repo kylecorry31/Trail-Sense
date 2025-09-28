@@ -1824,4 +1824,7 @@
     <string name="battery_tip_system">Adjust system settings to reduce battery usage.</string>
     <string name="other_tips">Other tips</string>
     <string name="battery_tip_other">Power off your device, force stop apps, disable or uninstall apps, or disable auto-update/backups.</string>
+    <string name="theme_transparent_type">Transparent (%s)</string>
+    <string name="widget_theme_black_text">Black text</string>
+    <string name="widget_theme_white_text">White text</string>
 </resources>
