@@ -211,7 +211,16 @@ object Tools {
             .firstOrNull { it.id == widgetId }
     }
 
-    fun triggerWidgetUpdate(context: Context, widgetId: String) {
+    fun triggerWidgetUpdate(context: Context, widgetId: String?) {
+        if (widgetId == null) {
+            // Update all widgets
+            // TODO: Also update in app widgets?
+            getTools(context)
+                .flatMap { it.widgets }
+                .forEach { Widgets.requestUpdate(context, it.widgetClass) }
+            return
+        }
+
         val widget = getWidget(context, widgetId) ?: return
         Widgets.requestUpdate(context, widget.widgetClass)
         broadcast(

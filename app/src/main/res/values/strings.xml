@@ -1470,8 +1470,8 @@
     <string name="local_talk">Local Talk</string>
     <string name="quick_actions">Quick actions</string>
     <string name="pref_bottom_navigation_tools" translatable="false">pref_bottom_navigation_tools</string>
-    <string name="tool_quick_action_summary">Long press bottom navigation or view on tools tab</string>
-    <string name="widget_bottom_sheet_instructions">Use the Widgets quick action to view</string>
+    <string name="tool_quick_action_summary">Long press bottom navigation or view on tools tab.</string>
+    <string name="widget_bottom_sheet_instructions">Long press bottom navigation or use the Widgets quick action.</string>
     <string name="widget_pref_title">In-app widgets</string>
     <string name="pref_tool_settings_header_key" translatable="false">pref_tool_settings_header_key</string>
     <string name="quick_actions_are_unavailable">Quick actions are unavailable</string>
@@ -1827,4 +1827,6 @@
     <string name="theme_transparent_type">Transparent (%s)</string>
     <string name="widget_theme_black_text">Black text</string>
     <string name="widget_theme_white_text">White text</string>
+    <string name="pref_default_widget_theme" translatable="false">pref_default_widget_theme</string>
+    <string name="default_widget_theme">Default widget theme</string>
 </resources>
