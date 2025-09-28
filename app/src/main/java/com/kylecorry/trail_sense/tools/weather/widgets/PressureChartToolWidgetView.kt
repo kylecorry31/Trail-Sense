@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.TextView
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Views
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.luna.coroutines.onMain
@@ -47,6 +48,7 @@ class PressureChartToolWidgetView : ChartToolWidgetViewBase() {
 
             val text = Views.text(context, context.getString(R.string.pressure)) as TextView
             text.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            text.setTextColor(Resources.androidTextColorPrimary(context))
             val layout = Views.linear(listOf(text, chart))
 
             renderChart(context, views, layout)

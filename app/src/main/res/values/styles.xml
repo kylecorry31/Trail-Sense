@@ -32,6 +32,8 @@
 
     <style name="WidgetTheme.TransparentBase" parent="Theme.Material3.DynamicColors.DayNight">
         <item name="colorSurfaceContainer">@android:color/transparent</item>
+        <!--This is the color used for the sun/moon chart-->
+        <item name="android:colorBackground">@color/colorSecondary</item>
     </style>
 
     <style name="WidgetTheme.TransparentWhite.TextView" parent="@android:style/Widget.TextView">
