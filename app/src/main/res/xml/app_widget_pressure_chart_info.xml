@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.kylecorry.trail_sense.tools.tools.widgets.ToolWidgetConfigureActivity"
     android:initialKeyguardLayout="@layout/widget_layout_chart"
     android:initialLayout="@layout/widget_layout_chart"
     android:minWidth="150dp"
@@ -8,7 +9,6 @@
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="4"
     android:targetCellHeight="2"
-    android:configure="com.kylecorry.trail_sense.tools.tools.widgets.ToolWidgetConfigureActivity"
-    android:widgetFeatures="reconfigurable|configuration_optional"
     android:updatePeriodMillis="14400000"
-    android:widgetCategory="home_screen" />
+    android:widgetCategory="home_screen"
+    android:widgetFeatures="reconfigurable|configuration_optional" />
