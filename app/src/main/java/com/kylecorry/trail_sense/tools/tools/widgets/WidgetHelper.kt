@@ -18,7 +18,7 @@ object WidgetHelper {
         }
 
         val frame =
-            RemoteViews(context.packageName, theme?.layoutId ?: R.layout.widget_theme_system)
+            RemoteViews(context.packageName, theme?.layoutId ?: R.layout.widget_theme_in_app)
         val child = RemoteViews(context.packageName, layoutId)
         frame.removeAllViews(R.id.widget_frame)
         frame.addView(R.id.widget_frame, child)
