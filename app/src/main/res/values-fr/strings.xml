@@ -1257,4 +1257,23 @@
     <string name="no_items_found">Aucun article trouvé</string>
     <string name="estimate_method">Méthode d\'estimation</string>
     <string name="automatic_backup">Sauvegarde automatique</string>
+    <string name="milligrams_format">%s mg</string>
+    <string name="use_gyroscope_after_calibration_description">Au lieu de la boussole (évite la dérive magnétique)</string>
+    <string name="use_path_elevation">Utiliser l\'élévation du chemin</string>
+    <string name="enter_the_current_pressure">Entrez la pression actuelle</string>
+    <string name="survival_guide">Guide de survie</string>
+    <string name="imperial_teaspoons">cuillères à café impériales</string>
+    <string name="show_stars">Afficher les étoiles et les planètes</string>
+    <string name="approximate_location">Localisation approximative</string>
+    <string name="nearest_stars">Étoiles les plus proches</string>
+    <string name="north_america">Amérique du Nord</string>
+    <string name="south_america">Amérique du Sud</string>
+    <string name="rock">rocher</string>
+    <string name="insect">Insecte</string>
+    <string name="human_interaction">Interaction humaine</string>
+    <string name="no_results">Aucun résultat</string>
+    <string name="distance_to_target">Distance à la cible</string>
+    <string name="ballistic_coefficient">Coefficient balistique</string>
+    <string name="climate_tropical_monsoon">mousson tropicale</string>
+    <string name="adaptive_brightness">Luminosité adaptative</string>
 </resources>
