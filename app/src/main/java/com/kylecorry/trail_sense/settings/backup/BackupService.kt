@@ -34,7 +34,8 @@ class BackupService(
             AppDatabase.createCheckpoint(context)
 
             val excludedFiles = listOf(
-                fileSubsystem.getDirectory("dem")
+                fileSubsystem.getDirectory("dem"),
+                AppData.getSharedPrefsFile(context, "${context.packageName}_widget_preferences")
             )
 
             // Create the zip file
@@ -79,7 +80,9 @@ class BackupService(
     private suspend fun renameSharedPrefsFile(): Unit = onIO {
         val sharedPrefsDir = AppData.getSharedPrefsDirectory(context)
         // Get the xml file from that directory
-        val prefsFile = AppData.getSharedPrefsFiles(context).firstOrNull() ?: return@onIO
+        val prefsFile = AppData.getSharedPrefsFiles(context)
+            .filterNot { it.name.contains("widget_preferences") } // This should never happen, but just in case ignore the widget preferences
+            .firstOrNull() ?: return@onIO
         // Rename it to match the current package name (allows switching between nightly, dev, and regular builds)
         prefsFile.renameTo(File(sharedPrefsDir, "${context.packageName}_preferences.xml"))
     }
