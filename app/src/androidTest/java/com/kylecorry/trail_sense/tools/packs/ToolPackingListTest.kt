@@ -67,7 +67,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             1,
             2,
             string(R.string.category_food),
-            "1 lb",
+            "1.1 lb",
             false
         )
         hasText(R.id.total_percent_packed, "50% packed")
@@ -81,7 +81,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             2,
             2,
             string(R.string.category_food),
-            "2 lb",
+            "2.2 lb",
             true
         )
         hasText(R.id.total_percent_packed, "100% packed")
@@ -127,7 +127,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             1,
             2,
             string(R.string.category_clothing),
-            "1 lb",
+            "0.5 lb",
             false,
             0
         )
@@ -136,7 +136,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             2,
             2,
             string(R.string.category_food),
-            "2 lb",
+            "2.2 lb",
             true,
             1
         )
