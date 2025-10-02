@@ -35,6 +35,11 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         ItemCategory.entries.firstOrNull { it.id == lastCategoryId } ?: ItemCategory.Other
     }
 
+    private val defaultWeightUnit by lazy {
+        val lastUnitId = prefs.preferences.getInt(KEY_LAST_WEIGHT_UNIT)
+        WeightUnits.entries.firstOrNull { it.id == lastUnitId }
+    }
+
     private var editingItem: PackItem? = null
 
     private var packId: Long = 0
@@ -57,6 +62,9 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.itemWeightInput.units = formatService.sortWeightUnits(WeightUnits.entries)
+        if (itemId == 0L && defaultWeightUnit != null) {
+            binding.itemWeightInput.unit = defaultWeightUnit
+        }
 
         binding.createBtn.setOnClickListener {
             val name = binding.nameEdit.text?.toString()
@@ -64,12 +72,14 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
             val category = sortedCategories[binding.categorySpinner.selectedItemPosition]
             val weight = binding.itemWeightInput.value
+            val selectedUnit = binding.itemWeightInput.unit
 
             if (name != null) {
                 inBackground {
                     withContext(Dispatchers.IO) {
 
                         prefs.preferences.putInt(KEY_LAST_CATEGORY, category.id)
+                        selectedUnit?.let { prefs.preferences.putInt(KEY_LAST_WEIGHT_UNIT, it.id) }
 
                         itemRepo.addItem(
                             PackItem(
@@ -130,7 +140,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                     binding.categorySpinner.setSelection(sortedCategories.indexOf(it.category))
                     binding.itemWeightInput.value = it.weight
                     if (it.weight == null) {
-                        binding.itemWeightInput.unit = binding.itemWeightInput.units.firstOrNull()
+                        binding.itemWeightInput.unit = defaultWeightUnit ?: binding.itemWeightInput.units.firstOrNull()
                     }
                 }
             }
@@ -171,6 +181,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     companion object {
         private const val KEY_LAST_CATEGORY = "cache_packing_lists_last_category"
+        private const val KEY_LAST_WEIGHT_UNIT = "cache_packing_lists_last_weight_unit"
     }
 
 }
