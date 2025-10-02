@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.commands.ExportPackingListCommand
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemAction
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemListItemMapper
+import com.kylecorry.trail_sense.shared.Units
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Double.max
@@ -296,7 +297,11 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             val packedPercent = floor(packService.getPercentPacked(items))
             binding.itemWeightOverview.isVisible = totalWeight != null
             binding.totalPackedWeight.text = if (totalWeight != null) {
-                formatService.formatWeight(totalWeight, 1, false)
+                formatService.formatWeight(
+                    totalWeight,
+                    Units.getDecimalPlaces(totalWeight.units),
+                    false
+                )
             } else {
                 ""
             }

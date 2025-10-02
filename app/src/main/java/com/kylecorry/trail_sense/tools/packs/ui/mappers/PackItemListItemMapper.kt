@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 
 enum class PackItemAction {
@@ -46,7 +47,10 @@ class PackItemListItemMapper(
             colorMapper.map(value.category).color
         )
 
-        val weight = value.weight?.let { formatService.formatWeight(value.packedWeight!!) }
+        val weight = value.weight?.let {
+            val packed = value.packedWeight!!
+            formatService.formatWeight(packed, Units.getDecimalPlaces(packed.units), false)
+        }
 
         val menu = listOf(
             ListMenuItem(context.getString(R.string.add)) {
