@@ -361,7 +361,7 @@
     <string name="pref_backtrack_enabled_summary">Grabar historial de ubicación</string>
     <string name="pref_backtrack_frequency_title">Intervalo de Retroceso</string>
     <string name="elevation_override_updated_toast">Anulación de altitud actualizada</string>
-    <string name="pref_elevation_override_sea_level_dialog_msg">Introduzca la presión actual al nivel del mar en hPa</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Introduce la presión actual al nivel del mar en hPa</string>
     <string name="two">2</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="tool_ruler_title">Regla</string>
@@ -490,7 +490,7 @@
     <string name="weather_monitor">Estación meteorológica</string>
     <string name="battery_history">Historial de la batería: último %s</string>
     <string name="elevation_from_pressure">Establecer la anulación del barómetro</string>
-    <string name="pref_elevation_override_sea_level_dialog_title">Introduzca la presión al nivel del mar</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Introduce la presión al nivel del mar</string>
     <string name="pref_elevation_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
     <string name="unsaved_changes">Cambios sin guardar</string>
     <string name="solar_panel_instructions">Coloque su teléfono en la parte frontal del panel solar para comenzar.</string>
@@ -1130,7 +1130,7 @@
     <string name="cloud_scanner">Cloud Scanner</string>
     <string name="local_messaging">Mensajes locales</string>
     <string name="communication">Comunicación</string>
-    <string name="tool_quick_action_summary">Presiona prolongadamente en la parte inferior de la navegación o vista en la pestaña de herramientas</string>
+    <string name="tool_quick_action_summary">Pulsación larga en navegación inferior o ver en la pestaña de herramientas.</string>
     <string name="bottom_navigation_slot">Esquema de navegación inferior %d</string>
     <string name="no_items_found">No se encontraron artículos</string>
     <string name="import_packing_list">Lista de embalaje de importación</string>
@@ -1188,7 +1188,7 @@
         <item quantity="other">%d pasos</item>
     </plurals>
     <string name="widget_updater">Actualizador de widgets</string>
-    <string name="widget_bottom_sheet_instructions">Usar la acción rápida del widget para ver</string>
+    <string name="widget_bottom_sheet_instructions">Pulsación larga en navegación inferior o usa la acción rápida del Widget.</string>
     <string name="widget_pref_title">Widgets en la aplicación</string>
     <string name="sun_moon_chart">Gráfico Sol y Luna</string>
     <string name="pressure_chart">Tabla de presiones</string>
@@ -1437,4 +1437,35 @@
     <string name="color_white">Blanco</string>
     <string name="background_color">Color de fondo</string>
     <string name="add_to_homescreen">Añadir a pantalla de inicio</string>
+    <string name="transparent">Transparencia</string>
+    <string name="battery_tip_disable_services">Desactiva los servicios que no uses.</string>
+    <string name="battery_tip_airplane_mode">Activa el modo avión para desactivar todas las conexiones inalámbricas.</string>
+    <string name="battery_tip_wifi">Desactiva el wifi cuando no estés dentro del rango de una red wifi o no necesites Internet.</string>
+    <string name="battery_tip_bluetooth">Desactiva el Bluetooth cuando no lo uses.</string>
+    <string name="battery_tip_nfc">Desactiva el NFC cuando no necesites hacer pagos sin contacto.</string>
+    <string name="battery_tip_location">Desactiva la ubicación cuando no necesites GPS.</string>
+    <string name="battery_tip_battery_saver">Activa el modo de ahorro de batería para limitar ciertas funciones del teléfono.</string>
+    <string name="battery_tip_data_saver">Activa el ahorro de datos para restringir el uso de datos móviles en segundo plano.</string>
+    <string name="battery_tip_adaptive_brightness">Activa el brillo adaptativo o baja el brillo de la pantalla.</string>
+    <string name="battery_tip_display_timeout">Reduce el tiempo hasta apagar la pantalla para cuando olvides apagarla manualmente. Desactiva el modo pantalla siempre activa.</string>
+    <string name="battery_tip_dark_theme">Activa el tema oscuro si tu dispositivo tiene pantalla OLED.</string>
+    <string name="battery_tip_background_apps">Restringe la activada en segundo plano de las apps que no necesites que se ejecuten en segundo plano.</string>
+    <string name="airplane_mode">Modo avión</string>
+    <string name="wifi">Wifi</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="nfc">NFC</string>
+    <string name="battery_saver">Ahorro de batería</string>
+    <string name="data_saver">Ahorro de datos</string>
+    <string name="adaptive_brightness">Brillo adaptativo</string>
+    <string name="dark_theme">Tema oscuro</string>
+    <string name="restrict_app_background_activity">Restringir actividad en segundo plano</string>
+    <string name="system">Sistema</string>
+    <string name="battery_tip_system">Configurar los ajustes del sistema para reducir el uso de batería.</string>
+    <string name="other_tips">Otras sugerencias</string>
+    <string name="battery_tip_other">Apaga el dispositivo, fuerza la detención de las apps, desactiva o desinstala apps, o desactiva las actualizaciones automáticas y copias de seguridad.</string>
+    <string name="theme_transparent_type">Transparencia (%s)</string>
+    <string name="widget_theme_black_text">Texto negro</string>
+    <string name="widget_theme_white_text">Texto blanco</string>
+    <string name="default_widget_theme">Tema por defecto del widget</string>
+    <string name="screen_timeout">Tiempo hasta apagar la pantalla</string>
 </resources>

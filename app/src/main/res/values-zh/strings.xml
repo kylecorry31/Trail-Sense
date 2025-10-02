@@ -1153,7 +1153,7 @@
     <string name="communication">通讯</string>
     <string name="local_talk">本地交谈</string>
     <string name="quick_actions">快速操作</string>
-    <string name="tool_quick_action_summary">长按底部导航或在工具标签页查看</string>
+    <string name="tool_quick_action_summary">长按底部导航或在工具标签页查看。</string>
     <string name="quick_actions_are_unavailable">快速操作不可用</string>
     <string name="bottom_navigation_slot">底部导航插口 %d</string>
     <string name="forecast_algorithm">预估算法</string>
@@ -1211,7 +1211,7 @@
         <item quantity="other">%d 步</item>
     </plurals>
     <string name="widget_updater">小部件更新器</string>
-    <string name="widget_bottom_sheet_instructions">使用小部件快速操作查看</string>
+    <string name="widget_bottom_sheet_instructions">长按底部导航使用小部件快速操作。</string>
     <string name="widget_pref_title">应用内小部件</string>
     <string name="sun_moon_chart">太阳和月亮图表</string>
     <string name="pressure_chart">气压图表</string>
@@ -1459,7 +1459,7 @@
     <string name="transparent">透明</string>
     <string name="battery_tip_disable_services">停用没在使用的服务。</string>
     <string name="battery_tip_airplane_mode">打开飞行模式停用所有无线连接。</string>
-    <string name="battery_tip_wifi">不在 WiFi 网络范围内或不需要互联网时关闭 WiFi。</string>
+    <string name="battery_tip_wifi">不在 Wi-Fi 网络范围内或不需要互联网时关闭 Wi-Fi。</string>
     <string name="battery_tip_bluetooth">不使用蓝牙时关闭它。</string>
     <string name="battery_tip_nfc">无需进行无接触支付时关闭 NFC。</string>
     <string name="battery_tip_location">不需要 GPS 时关闭定位。</string>
@@ -1470,7 +1470,7 @@
     <string name="battery_tip_dark_theme">如果设备有 OLED 屏打开深色主题。</string>
     <string name="battery_tip_background_apps">限制无需后台运行的应用的后台活动。</string>
     <string name="airplane_mode">飞行模式</string>
-    <string name="wifi">WiFi</string>
+    <string name="wifi">Wi-Fi</string>
     <string name="bluetooth">蓝牙</string>
     <string name="nfc">NFC</string>
     <string name="battery_saver">电量节省器</string>
@@ -1483,4 +1483,8 @@
     <string name="battery_tip_system">调整系统设置降低电量使用。</string>
     <string name="other_tips">其他小提示</string>
     <string name="battery_tip_other">设备关机、强制停止应用、禁用或卸载应用，或停用自动更新/备份。</string>
+    <string name="theme_transparent_type">透明（%s）</string>
+    <string name="widget_theme_black_text">黑色文本</string>
+    <string name="widget_theme_white_text">白色文本</string>
+    <string name="default_widget_theme">默认小部件主题</string>
 </resources>

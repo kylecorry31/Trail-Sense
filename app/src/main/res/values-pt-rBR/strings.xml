@@ -1123,7 +1123,7 @@
     <string name="turn_back_instructions">Vire %1$s (%2$s) para retornar em %3$s</string>
     <string name="return_before_dark">Retorne antes de escurecer</string>
     <string name="turn_back_alert_set">Retornar ao alerta definido</string>
-    <string name="tool_quick_action_summary">Pressione e segure a navegação inferior ou visualize na guia de ferramentas</string>
+    <string name="tool_quick_action_summary">Pressione e segure a navegação inferior ou visualize na guia de ferramentas.</string>
     <string name="quick_actions_are_unavailable">As ações rápidas não estão disponíveis</string>
     <string name="bottom_navigation_slot">Slot de navegação inferior %d</string>
     <string name="quick_actions">Ações rápidas</string>
@@ -1191,7 +1191,7 @@
     </plurals>
     <string name="widget_updater">Atualização de widgets</string>
     <string name="widget_pref_title">Widgets no aplicativo</string>
-    <string name="widget_bottom_sheet_instructions">Use a ação rápida de Widgets para visualizar</string>
+    <string name="widget_bottom_sheet_instructions">Pressione e segure a navegação inferior ou use a ação rápida de Widgets.</string>
     <string name="sun_moon_chart">Gráficos solar &amp; lunar</string>
     <string name="pressure_chart">Gráfico do nível de pressão</string>
     <string name="tide_chart">Gráfico de marés</string>
@@ -1442,7 +1442,7 @@
     <string name="transparent">Transparente</string>
     <string name="battery_tip_disable_services">Desative serviços que você não está usando.</string>
     <string name="battery_tip_airplane_mode">Ative o modo avião para desativar todas as conexões sem fio.</string>
-    <string name="battery_tip_wifi">Desligue o WiFi quando não estiver no alcance de uma rede WiFi ou não precisar da Internet.</string>
+    <string name="battery_tip_wifi">Desligue o Wi-Fi quando não estiver no alcance de uma rede Wi-Fi ou não precisar da Internet.</string>
     <string name="battery_tip_bluetooth">Desligue o Bluetooth quando não estiver em uso.</string>
     <string name="battery_tip_nfc">Desative o NFC quando não precisar fazer pagamentos sem contato.</string>
     <string name="battery_tip_location">Desative a localização quando não precisar do GPS.</string>
@@ -1466,4 +1466,8 @@
     <string name="battery_tip_system">Ajuste as configurações do sistema para reduzir o uso da bateria.</string>
     <string name="other_tips">Outras dicas</string>
     <string name="battery_tip_other">Desligue seu dispositivo, force o fechamento de aplicativos, desabilite ou desinstale aplicativos ou desabilite atualizações automáticas/backups.</string>
+    <string name="theme_transparent_type">Transparente (%s)</string>
+    <string name="widget_theme_black_text">Texto preto</string>
+    <string name="widget_theme_white_text">Texto branco</string>
+    <string name="default_widget_theme">Tema de widget padrão</string>
 </resources>
