@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.preference.Preference
 
 class LabelMapLayerPreference(
-    private val title: String,
-    private val summary: String? = null,
+    private val title: CharSequence?,
+    private val summary: CharSequence? = null,
     override val dependency: String? = null,
     private val onClick: ((context: Context) -> Unit)? = null,
 ) : MapLayerViewPreference {
