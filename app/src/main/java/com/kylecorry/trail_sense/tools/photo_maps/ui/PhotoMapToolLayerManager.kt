@@ -56,7 +56,10 @@ class PhotoMapToolLayerManager {
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
-    private val cellTowerLayer = CellTowerMapLayer()
+    private val cellTowerLayer = CellTowerMapLayer {
+        CellTowerMapLayer.navigate(it)
+        true
+    }
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()

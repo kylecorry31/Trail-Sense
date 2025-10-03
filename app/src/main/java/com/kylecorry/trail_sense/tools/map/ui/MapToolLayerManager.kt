@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
@@ -33,7 +34,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerMana
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.text.StringLoader
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -70,7 +73,10 @@ class MapToolLayerManager {
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
-    private val cellTowerLayer = CellTowerMapLayer()
+    private val cellTowerLayer = CellTowerMapLayer {
+        CellTowerMapLayer.navigate(it)
+        true
+    }
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()

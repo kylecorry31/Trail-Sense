@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.text.HiddenSpan
+import com.kylecorry.trail_sense.shared.text.StringLoader
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object TrailSenseServiceRegister {
@@ -24,6 +25,7 @@ object TrailSenseServiceRegister {
         val appContext = context.applicationContext
 
         // Shared services
+        AppServiceRegistry.register(StringLoader(appContext))
         AppServiceRegistry.register(FormatService.getInstance(appContext))
         AppServiceRegistry.register(PreferencesSubsystem.getInstance(appContext))
         AppServiceRegistry.register(UserPreferences(appContext))
@@ -55,4 +57,8 @@ object TrailSenseServiceRegister {
         }
 
     }
+}
+
+inline fun <reified T : Any> getAppService(): T {
+    return AppServiceRegistry.get()
 }
