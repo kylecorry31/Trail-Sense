@@ -50,6 +50,9 @@ Settings:
 - **Show labels**: Determines if contour labels are shown on the map.
 - **Color**: The color of the contour lines, some options are color scales which change based on elevation.
 
+### Cell towers
+This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can click on a cell tower to navigate to it.
+
 ### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
 
