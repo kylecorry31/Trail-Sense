@@ -803,6 +803,7 @@ class FormatService private constructor(private val context: Context) {
             Separator.Comma -> ", "
             Separator.Space -> " "
             Separator.Dash -> " - "
+            Separator.NewLine -> "\n"
         }
         return strings.filterNotNull().joinToString(separatorString)
     }
@@ -820,7 +821,8 @@ class FormatService private constructor(private val context: Context) {
         Dot,
         Comma,
         Space,
-        Dash
+        Dash,
+        NewLine
     }
 
     companion object {

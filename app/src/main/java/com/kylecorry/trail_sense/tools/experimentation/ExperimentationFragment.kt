@@ -1,12 +1,117 @@
 package com.kylecorry.trail_sense.tools.experimentation
 
+import android.content.Context
+import android.widget.Button
+import android.widget.TextView
+import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.plugin.sample.registration.Forecast
+import com.kylecorry.trail_sense.plugin.sample.registration.SampleOnePluginService
+import com.kylecorry.trail_sense.plugins.plugins.PluginServiceConnection
+import com.kylecorry.trail_sense.plugins.plugins.Plugins
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useLocation
+import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.useTimer
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import java.time.Duration
 
 class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_experimentation) {
     override fun update() {
+//        useWormGrunting()
+        useSamplePlugin()
+    }
+
+    private fun useSamplePlugin() {
+        val text = useView<TextView>(R.id.text)
+        val button = useView<Button>(R.id.button)
+
+        val (isLoading, setIsLoading) = useState(false)
+        val (weather, setWeather) = useState<Forecast?>(null)
+        val (location, _) = useLocation()
+        val formatter = useService<FormatService>()
+        val prefs = useService<UserPreferences>()
+
+        val service = usePluginService(
+            Plugins.PLUGIN_SAMPLE,
+            ::SampleOnePluginService
+        )
+
+        useEffect(button, service, location) {
+            button.setOnClickListener {
+                inBackground {
+                    setIsLoading(true)
+                    tryOrLog {
+                        setWeather(service?.getWeather(location))
+                    }
+                    setIsLoading(false)
+                }
+            }
+        }
+
+        useEffect(text, weather, service, isLoading) {
+            text.text = if (service == null) {
+                "Not connected"
+            } else if (isLoading) {
+                "Loading"
+            } else if (weather == null) {
+                "No data"
+            } else {
+                formatter.join(
+                    formatter.formatTemperature(weather.current.temperature.convertTo(prefs.temperatureUnits)),
+                    formatter.formatPercentage(weather.current.humidity),
+                    formatter.formatSpeed(
+                        weather.current.windSpeed.convertTo(
+                            DistanceUnits.Meters,
+                            TimeUnits.Seconds
+                        ).speed
+                    ),
+                    WeatherCodeLookup.getWeatherDescription(weather.current.weatherCode),
+                    separator = FormatService.Separator.NewLine
+                )
+            }
+        }
+    }
+
+    private fun <T : PluginServiceConnection<*>> usePluginService(
+        pluginId: Long,
+        serviceProvider: (context: Context) -> T
+    ): T? {
+        val context = useAndroidContext()
+        val (isConnected, setIsConnected) = useState(false)
+
+        // TODO: Retry on a timer
+        val service = useMemo(pluginId) {
+            if (Plugins.isPluginAvailable(context, pluginId)) {
+                serviceProvider(context)
+            } else {
+                null
+            }
+        }
+
+        useBackgroundEffect(service, resetOnResume) {
+            service?.connect()
+        }
+
+        useTimer(200) {
+            setIsConnected(service?.isConnected() == true)
+        }
+
+        usePauseEffect(service) {
+            service?.disconnect()
+        }
+
+        return if (isConnected) service else null
+    }
+
+    private fun useWormGrunting() {
         val context = useAndroidContext()
         val haptics = useMemo {
             HapticSubsystem.getInstance(context)
