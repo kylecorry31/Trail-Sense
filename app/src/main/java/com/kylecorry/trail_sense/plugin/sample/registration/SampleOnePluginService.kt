@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.IBinder
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.plugin.sample.aidl.ISampleOnePluginService
 import com.kylecorry.trail_sense.plugins.plugins.PluginServiceConnection
@@ -20,7 +21,9 @@ class SampleOnePluginService(context: Context) : PluginServiceConnection<ISample
 
     suspend fun getWeather(location: Coordinate): Forecast? = onIO {
         // TODO: Only invoke this if the service has location permission
-        val json = service?.getWeather(location.latitude, location.longitude) ?: return@onIO null
+        val json =
+            service?.getWeather(location.latitude.roundPlaces(2), location.longitude.roundPlaces(2))
+                ?: return@onIO null
         JsonConvert.fromJson<Forecast>(json)
     }
 }
