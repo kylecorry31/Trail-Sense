@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.plugin.sample.registration
+package com.kylecorry.trail_sense.plugin.sample.service
 
 import android.content.Context
 import android.os.IBinder
@@ -6,7 +6,9 @@ import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.plugin.sample.SamplePluginRegistration
 import com.kylecorry.trail_sense.plugin.sample.aidl.ISampleOnePluginService
+import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugins.plugins.PluginServiceConnection
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 

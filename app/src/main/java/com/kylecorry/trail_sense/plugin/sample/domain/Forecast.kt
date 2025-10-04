@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.plugin.sample.registration
+package com.kylecorry.trail_sense.plugin.sample.domain
 
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed

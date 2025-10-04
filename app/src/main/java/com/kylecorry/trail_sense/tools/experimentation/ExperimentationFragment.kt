@@ -10,8 +10,8 @@ import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.plugin.sample.registration.Forecast
-import com.kylecorry.trail_sense.plugin.sample.registration.SampleOnePluginService
+import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
+import com.kylecorry.trail_sense.plugin.sample.service.SampleOnePluginService
 import com.kylecorry.trail_sense.plugins.plugins.PluginServiceConnection
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.FormatService

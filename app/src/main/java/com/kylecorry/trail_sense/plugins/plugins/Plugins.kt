@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.plugins.plugins
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.trail_sense.plugin.sample.registration.SamplePluginRegistration
+import com.kylecorry.trail_sense.plugin.sample.SamplePluginRegistration
 
 object Plugins {
     private val hooks = Hooks()

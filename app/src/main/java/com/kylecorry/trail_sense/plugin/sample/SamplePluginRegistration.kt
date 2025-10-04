@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.plugin.sample.registration
+package com.kylecorry.trail_sense.plugin.sample
 
 import android.Manifest
 import android.content.Context
