@@ -1265,7 +1265,7 @@
     <string name="mountain">Bergen</string>
     <string name="signal_finder_description">Dichtstbijzijnde zendmasten bekijken</string>
     <string name="no_cell_towers_found">Geen zendmasten gevonden</string>
-    <string name="cell_tower_disclaimer">Zendmastlocaties zijn geschat via OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) is gelicenseerd onder [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower_disclaimer">Zendmastlocaties zijn geschat via OpenCelliD, Mozilla Location Service en FCC Antenna Registrations.\n\n[OpenCelliD Project](https://opencellid.org/) is gelicenseerd onder [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="asia">Azië</string>
     <string name="australia">Australië</string>
     <string name="europe">Europa</string>
