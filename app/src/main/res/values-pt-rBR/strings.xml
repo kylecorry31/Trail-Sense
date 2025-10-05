@@ -1229,7 +1229,7 @@
     <string name="animal">Animais</string>
     <string name="reptile">Répteis</string>
     <string name="medicinal">Medicinais</string>
-    <string name="cell_tower_disclaimer">As localizações das torres são aproximadas a partir da OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) está licenciado sob [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower_disclaimer">As localizações das torres são aproximadas a partir do OpenCelliD, do Mozilla Location Service e dos registros de antenas da FCC.\n\nO [Projeto OpenCelliD](https://opencellid.org/) está licenciado sob [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="create_page">Criar página</string>
     <plurals name="page_group_summary">
         <item quantity="one">%d página</item>
