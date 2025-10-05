@@ -8,7 +8,6 @@ import com.kylecorry.trail_sense.plugins.plugins.PluginPackage
 import com.kylecorry.trail_sense.plugins.plugins.PluginRegistration
 import com.kylecorry.trail_sense.plugins.plugins.PluginService
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
-import com.kylecorry.trail_sense.shared.andromeda_temp.getSelfSignatureSha256Fingerprints
 
 object SamplePluginRegistration : PluginRegistration {
     override fun getPlugin(context: Context): Plugin {

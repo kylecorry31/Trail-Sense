@@ -4,8 +4,8 @@ import android.os.Build
 import android.os.Bundle
 import android.service.quicksettings.Tile
 import androidx.annotation.RequiresApi
-import com.kylecorry.andromeda.background.services.AndromedaTileService
 import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.andromeda.widgets.tiles.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools

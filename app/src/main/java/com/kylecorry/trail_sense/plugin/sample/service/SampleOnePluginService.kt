@@ -22,7 +22,7 @@ class SampleOnePluginService(context: Context) : PluginServiceConnection<ISample
     }
 
     suspend fun getWeather(location: Coordinate): Forecast? = onIO {
-        // TODO: Only invoke this if the service has location permission
+        // TODO: Only invoke this if the service has location permission - or if the user has given permission to call this?
         val json =
             service?.getWeather(location.latitude.roundPlaces(2), location.longitude.roundPlaces(2))
                 ?: return@onIO null

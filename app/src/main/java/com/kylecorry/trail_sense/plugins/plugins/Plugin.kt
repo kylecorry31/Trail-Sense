@@ -3,8 +3,7 @@ package com.kylecorry.trail_sense.plugins.plugins
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.tryOrDefault
-import com.kylecorry.trail_sense.shared.andromeda_temp.getSignatureSha256Fingerprints
-import com.kylecorry.trail_sense.shared.andromeda_temp.hasPermission
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
 
@@ -34,7 +33,7 @@ private fun getInstalledPackageId(context: Context, ids: List<PluginPackage>): P
             it.packageId,
             it.allowedSignatures
         ) && it.requiredPermissions.all { p ->
-            Package.hasPermission(context, it.packageId, p)
+            Permissions.hasPermission(context, it.packageId, p)
         }
     }
 }
