@@ -25,12 +25,12 @@ object SamplePluginRegistration : PluginRegistration {
             ),
             services = listOf(
                 PluginService(
-                    PLUGIN_SERVICE_ID_SAMPLE_ONE_SERVICE,
-                    "SAMPLE_ONE_SERVICE"
+                    PLUGIN_SERVICE_SAMPLE_PLUGIN_SERVICE,
+                    "com.kylecorry.trail_sense.PLUGIN_SERVICE"
                 )
             )
         )
     }
 
-    const val PLUGIN_SERVICE_ID_SAMPLE_ONE_SERVICE = "plugin-service-sample-sample-one"
+    const val PLUGIN_SERVICE_SAMPLE_PLUGIN_SERVICE = "plugin-service-sample-sample-two"
 }

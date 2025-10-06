@@ -6,20 +6,19 @@ import android.widget.TextView
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
-import com.kylecorry.trail_sense.plugin.sample.service.SampleOnePluginService
-import com.kylecorry.trail_sense.plugins.plugins.PluginServiceConnection
+import com.kylecorry.trail_sense.plugin.sample.service.SamplePluginService
+import com.kylecorry.trail_sense.plugins.plugins.IpcServicePlugin
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.useBackgroundMemo2
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useLocation
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
-import com.kylecorry.trail_sense.shared.extensions.useTimer
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import java.time.Duration
 
@@ -41,8 +40,12 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
 
         val service = usePluginService(
             Plugins.PLUGIN_SAMPLE,
-            ::SampleOnePluginService
+            ::SamplePluginService
         )
+
+        val data = useBackgroundMemo2(service) {
+            service?.ping()
+        }
 
         useEffect(button, service, location) {
             button.setOnClickListener {
@@ -56,10 +59,8 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
             }
         }
 
-        useEffect(text, weather, service, isLoading) {
-            text.text = if (service == null) {
-                "Not connected"
-            } else if (isLoading) {
+        useEffect(text, weather, service, isLoading, data) {
+            val weatherText = if (isLoading) {
                 "Loading"
             } else if (weather == null) {
                 "No data"
@@ -77,15 +78,16 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
                     separator = FormatService.Separator.NewLine
                 )
             }
+
+            text.text = "$weatherText\n$data"
         }
     }
 
-    private fun <T : PluginServiceConnection<*>> usePluginService(
+    private fun <T : IpcServicePlugin> usePluginService(
         pluginId: Long,
         serviceProvider: (context: Context) -> T
     ): T? {
         val context = useAndroidContext()
-        val (isConnected, setIsConnected) = useState(false)
 
         // TODO: Retry on a timer
         val service = useMemo(pluginId) {
@@ -96,19 +98,11 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
             }
         }
 
-        useBackgroundEffect(service, resetOnResume) {
-            service?.connect()
-        }
-
-        useTimer(200) {
-            setIsConnected(service?.isConnected() == true)
-        }
-
         usePauseEffect(service) {
-            service?.disconnect()
+            service?.close()
         }
 
-        return if (isConnected) service else null
+        return service
     }
 
     private fun useWormGrunting() {

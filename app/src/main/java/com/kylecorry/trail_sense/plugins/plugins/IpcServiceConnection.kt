@@ -4,26 +4,32 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
+import android.os.Message
+import android.os.Messenger
 import com.kylecorry.luna.coroutines.onDefault
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withTimeout
+import java.io.Closeable
+import kotlin.coroutines.resume
 
-abstract class PluginServiceConnection<T>(
-    protected val context: Context,
-    private val pluginId: Long,
-    private val serviceId: String
-) {
+class IpcServiceConnection(
+    private val context: Context,
+    private val intent: Intent,
+) : Closeable {
     private var isBound = false
     private var isConnecting = false
-    protected var service: T? = null
-        private set
     private var lock = Any()
+
+    private var messenger: Messenger? = null
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
             synchronized(lock) {
-                service = getServiceInterface(binder)
+                messenger = Messenger(binder)
                 isBound = true
                 isConnecting = false
             }
@@ -31,7 +37,7 @@ abstract class PluginServiceConnection<T>(
 
         override fun onServiceDisconnected(name: ComponentName?) {
             synchronized(lock) {
-                service = null
+                messenger = null
                 isBound = false
                 isConnecting = false
             }
@@ -45,20 +51,7 @@ abstract class PluginServiceConnection<T>(
             }
             isConnecting = true
         }
-        val intent = getIntent() ?: return false
         return context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
-    }
-
-    fun disconnect() {
-        synchronized(lock) {
-            if (!isBound && !isConnecting) {
-                return
-            }
-            context.unbindService(connection)
-            service = null
-            isBound = false
-            isConnecting = false
-        }
     }
 
     fun isConnected(): Boolean {
@@ -86,21 +79,33 @@ abstract class PluginServiceConnection<T>(
         }
     }
 
-    private fun getIntent(): Intent? {
-        val plugin = Plugins.getPlugin(context, pluginId) ?: return null
-        val installedPackage = plugin.getInstalledPackageId(context) ?: return null
-        val service = plugin.services.firstOrNull { it.id == serviceId } ?: return null
-        val actionId = if (service.prefixActionWithPackageName) {
-            "$installedPackage.${service.actionId}"
-        } else {
-            service.actionId
+    suspend fun send(path: String, payload: ByteArray?): ByteArray? = suspendCancellableCoroutine {
+        val message = Message.obtain()
+        val bundle = message.data
+        bundle.putString("route", path)
+        bundle.putByteArray("payload", payload)
+
+        val replyHandler = object : Handler(Looper.getMainLooper()) {
+            override fun handleMessage(msg: Message) {
+                it.resume(msg.data.getByteArray("payload"))
+            }
         }
 
-        return Intent(actionId).apply {
-            setPackage(installedPackage)
-        }
+        val replyMessenger = Messenger(replyHandler)
+        message.replyTo = replyMessenger
+        messenger?.send(message) ?: it.resume(null)
     }
 
-    abstract fun getServiceInterface(binder: IBinder?): T
+    override fun close() {
+        synchronized(lock) {
+            if (!isBound && !isConnecting) {
+                return
+            }
+            context.unbindService(connection)
+            messenger = null
+            isBound = false
+            isConnecting = false
+        }
+    }
 
 }

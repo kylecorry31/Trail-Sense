@@ -19,6 +19,10 @@ object Plugins {
         return getPlugins(context).firstOrNull { it.id == pluginId }
     }
 
+    fun getPackageId(context: Context, pluginId: Long): String? {
+        return getPlugin(context, pluginId)?.getInstalledPackageId(context)
+    }
+
     fun getPlugins(context: Context, availableOnly: Boolean = true): List<Plugin> {
         val plugins = hooks.memo("plugins", Resources.getLocale(context).language) {
             registry.map { it.getPlugin(context.applicationContext) }

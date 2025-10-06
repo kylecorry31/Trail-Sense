@@ -9,8 +9,7 @@ import com.kylecorry.trail_sense.shared.data.Identifiable
 
 data class PluginService(
     val id: String,
-    val actionId: String,
-    val prefixActionWithPackageName: Boolean = true
+    val actionId: String
 )
 
 private fun hasValidSignature(

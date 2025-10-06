@@ -3,11 +3,14 @@ package com.kylecorry.trail_sense.shared.andromeda_temp
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.subscriptions.ISubscription
+import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.sol.math.SolMath.isCloseTo
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.absoluteValue
@@ -83,4 +86,25 @@ fun <T> Fragment.observe(
     listener: suspend (T) -> Unit
 ) {
     observeFlow(subscription.flow(), state, collectOn, observeOn, listener)
+}
+
+fun <T> ReactiveComponent.useBackgroundMemo2(
+    vararg values: Any?,
+    state: BackgroundMinimumState = BackgroundMinimumState.Resumed,
+    cancelWhenBelowState: Boolean = true,
+    cancelWhenRerun: Boolean = false,
+    block: suspend CoroutineScope.() -> T
+): T? {
+    val (currentState, setCurrentState) = useState<T?>(null)
+
+    useBackgroundEffect(
+        *values,
+        state = state,
+        cancelWhenBelowState = cancelWhenBelowState,
+        cancelWhenRerun = cancelWhenRerun
+    ) {
+        setCurrentState(block())
+    }
+
+    return currentState
 }

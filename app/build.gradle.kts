@@ -46,7 +46,6 @@ android {
         // Support for view binding
         viewBinding = true
         buildConfig = true
-        aidl = true
     }
     buildTypes {
         // ------- RELEASES -------
