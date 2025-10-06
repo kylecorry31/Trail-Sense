@@ -7,6 +7,9 @@ import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
 
+// TODO: There are multiple types of services - ex. a foreground/worker service and the plugin "service" (API)
+// TODO: Have a way to say there's a plugin service and call the registration endpoint to see capabilities
+// TODO: Trusted plugins - where signatures match (no permission check required) vs untrusted plugins where permissions need to be checked
 data class PluginService(
     val id: String,
     val actionId: String
