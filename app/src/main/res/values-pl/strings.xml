@@ -7,7 +7,7 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Wschód Słońca</string>
     <string name="sunset_label">Zachód Słońca</string>
-    <string name="true_north">Prawdziwa Północ</string>
+    <string name="true_north">Prawdziwa północ</string>
     <string name="pref_use_sea_level_pressure_title">Ciśnienie na poziomie morza</string>
     <string name="general">Ogólne</string>
     <string name="pressure">Ciśnienie</string>
@@ -45,7 +45,7 @@
     <string name="pressure_12_hours">12 godzin</string>
     <string name="pressure_4_hours">4 godziny</string>
     <string name="pref_pressure_history_title">Historia ciśnienia</string>
-    <string name="waning_crescent">Ubywający Sierp</string>
+    <string name="waning_crescent">Ubywający sierp</string>
     <string name="new_moon">Nów</string>
     <string name="advanced">Zaawansowane</string>
     <string name="no_group">Brak grupy</string>
@@ -78,7 +78,7 @@
     <string name="sun_down_no_set">Słońce zaszło</string>
     <string name="sun_does_not_rise">nie wschodzi</string>
     <string name="sun_does_not_set">nie zachodzi</string>
-    <string name="notification_storm_alert_title">Alarmy burzowe</string>
+    <string name="notification_storm_alert_title">Alert burzowy</string>
     <string name="notification_storm_alert_text">Może zbliżać się burza</string>
     <string name="storm_alerts">Alerty burzowe</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s temu</string>
@@ -153,10 +153,7 @@
     <string name="tool_bubble_level_title">Poziomica</string>
     <string name="calibrate_compass_dialog_title">Kalibracja kompasu</string>
     <string name="calibrate">Kalibracja</string>
-    <string name="pref_ruler_calibration_summary">"Protokół kalibracji:
-\n-  Ustaw tę wartość na 1.
-\n- Zmierz wartość linijki programu Trail Sense odpowiadającą jednej jednostce fizycznej linijki.
-\n- Podaj tutaj zmierzoną wartość."</string>
+    <string name="pref_ruler_calibration_summary">"Protokół kalibracji:\n\n-  Ustaw wartość na 1.\n\n- Zmierz wartość linijki programu Trail Sense odpowiadającą jednej jednostce fizycznej linijki.\n\n- Podaj zmierzoną wartość."</string>
     <string name="edit_item_title">Edycja elementu</string>
     <string name="create_item_title">Tworzenie elementu</string>
     <string name="dialog_item_amount">Ilość</string>
@@ -168,10 +165,10 @@
     <string name="pref_ruler_calibration_title">Skala linijki</string>
     <string name="sensors">Czujniki</string>
     <string name="clinometer_title">Inklinometr</string>
-    <string name="waning_gibbous">Garbaty Księżyc</string>
-    <string name="waxing_gibbous">Poszerzony Księżyc</string>
+    <string name="waning_gibbous">Garbaty księżyc</string>
+    <string name="waxing_gibbous">Poszerzony księżyc</string>
     <string name="sunset_alert_notification_text">Słońce zajdzie o %s</string>
-    <string name="waxing_crescent">Wzrastający Sierp</string>
+    <string name="waxing_crescent">Wzrastający sierp</string>
     <string name="first_quarter">Pierwsza kwadra</string>
     <string name="tool_whistle_title">Gwizdek</string>
     <string name="category_shelter">Schronienie</string>
@@ -497,7 +494,7 @@
         <item quantity="other">Zaimportowano %d punktów nawigacyjnych</item>
     </plurals>
     <string name="theme_sunset_sunrise">Wschód/zachód słońca</string>
-    <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania z usługi</string>
+    <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania</string>
     <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
     <string name="last_signal_beacon_name">Ostatni sygnał - %1$s (%2$s)</string>
     <string name="color">Kolor</string>
@@ -936,7 +933,7 @@
     <string name="allow_schedule_exact_alarms_instructions">Pozwala to %1$s ustawić dokładne alarmy i przypomnienia, takie jak alerty o zachodzie słońca. Bez tej opcji alarmy mogą nie uruchamiać się we właściwym czasie.
 \n
 \nAby zezwolić, kliknij \"%2$s\" i włącz ustawienie zezwalające na alarmy i przypomnienia.</string>
-    <string name="sunset_alerts_background_location_disclaimer">Alerty o zachodzie słońca mogą być niedokładne podczas podróży.</string>
+    <string name="sunset_alerts_background_location_disclaimer">Alerty o zachodzie słońca mogą być niedokładne podczas podróży</string>
     <string name="start_time">Początek</string>
     <string name="end_time">Koniec</string>
     <string name="map_is_not_calibrated">Mapa nie jest skalibrowana</string>
@@ -951,7 +948,7 @@
     <string name="updating">Aktualizowanie</string>
     <string name="at_time">o %s</string>
     <string name="last_lightning_strike_at">Ostatnie uderzenie o %s</string>
-    <string name="photo_maps">Mapy z zdjęć</string>
+    <string name="photo_maps">Mapy ze zdjęć</string>
     <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historyczne (%d rok)</string>
     <string name="astronomy_altitude_peak">Wysokość górowania</string>
     <string name="map_calibration_instructions">Dotknij znanej lokalizacji na mapie, a następnie wprowadź współrzędne rzeczywiste. Kalibrację można zapisać, klikając przycisk \"Gotowe\".
@@ -1025,4 +1022,6 @@
         <item quantity="many">%d stron</item>
         <item quantity="other">%d stron</item>
     </plurals>
+    <string name="diamond">Diament</string>
+    <string name="coordinate_format_osgb">OSGB</string>
 </resources>
