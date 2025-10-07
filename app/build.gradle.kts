@@ -209,6 +209,7 @@ dependencies {
     implementation(libs.andromeda.xml)
     implementation(libs.andromeda.json)
     implementation(libs.andromeda.widgets)
+    implementation(libs.andromeda.ipc)
 
     // Misc
     implementation(libs.sol)

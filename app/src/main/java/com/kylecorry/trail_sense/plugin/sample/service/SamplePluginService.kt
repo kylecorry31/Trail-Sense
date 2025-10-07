@@ -1,18 +1,24 @@
 package com.kylecorry.trail_sense.plugin.sample.service
 
 import android.content.Context
-import com.kylecorry.trail_sense.plugins.plugins.IpcServicePlugin
+import android.content.Intent
+import com.kylecorry.andromeda.ipc.client.InterprocessCommunicationClient
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
+import com.kylecorry.trail_sense.plugins.plugins.payloadAsString
+import com.kylecorry.trail_sense.plugins.plugins.pluginResourceServiceIntent
 import java.io.Closeable
 
-class SamplePluginService(context: Context) : Closeable {
+class SamplePluginService(private val context: Context) : Closeable {
 
-    private val service =
-        IpcServicePlugin(Plugins.getPackageId(context, Plugins.PLUGIN_SAMPLE), context)
+    private fun getIntent(): Intent {
+        return pluginResourceServiceIntent(Plugins.getPackageId(context, Plugins.PLUGIN_SAMPLE)!!)
+    }
 
-    // Example of a custom endpoint
+    private val service = InterprocessCommunicationClient(context, getIntent())
+
+    // Example of a custom endpoint that stays connected (for faster communication)
     suspend fun ping(): String? {
-        return service.send("/ping")?.toString(Charsets.UTF_8)
+        return service.connectAndSend("/ping", null, stayConnected = true).payloadAsString()
     }
 
     override fun close() {

@@ -7,10 +7,9 @@ import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugin.sample.domain.WeatherRequest
-import com.kylecorry.trail_sense.plugins.plugins.IpcServicePlugin
 import com.kylecorry.trail_sense.plugins.plugins.PluginResourceService
-import com.kylecorry.trail_sense.plugins.plugins.fromJson
-import com.kylecorry.trail_sense.plugins.plugins.toJsonBytes
+import com.kylecorry.trail_sense.plugins.plugins.ipcSend
+import com.kylecorry.trail_sense.plugins.plugins.payloadAsJson
 
 // Example of a community endpoint
 class WeatherForecastService(
@@ -41,13 +40,14 @@ class WeatherForecastService(
             return null
         }
 
-        return IpcServicePlugin(plugin.packageId, context).use {
-            it.send(
-                actualEndpoint, WeatherRequest(
-                    location.latitude.roundPlaces(2),
-                    location.longitude.roundPlaces(2)
-                ).toJsonBytes()
-            )?.fromJson()
-        }
+        return ipcSend(
+            context,
+            plugin.packageId,
+            actualEndpoint,
+            WeatherRequest(
+                location.latitude.roundPlaces(2),
+                location.longitude.roundPlaces(2)
+            )
+        ).payloadAsJson()
     }
 }

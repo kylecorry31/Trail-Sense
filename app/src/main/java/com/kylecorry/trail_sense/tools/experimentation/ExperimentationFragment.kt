@@ -12,7 +12,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugin.sample.service.SamplePluginService
 import com.kylecorry.trail_sense.plugin.sample.service.WeatherForecastService
-import com.kylecorry.trail_sense.plugins.plugins.IpcServicePlugin
 import com.kylecorry.trail_sense.plugins.plugins.PluginLoader
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.FormatService

@@ -48,7 +48,7 @@ private fun isOfficialPlugin(
 class PluginLoader(private val context: Context) {
 
     suspend fun getPluginResourceServices(): List<PluginResourceService> {
-        val filter = Intent("com.kylecorry.trail_sense.PLUGIN_SERVICE")
+        val filter = Intent(PLUGIN_RESOURCE_SERVICE_ACTION)
         val services = context.packageManager.queryIntentServices(filter, 0)
         return services.map {
             val serviceInfo = it.serviceInfo
@@ -66,9 +66,11 @@ class PluginLoader(private val context: Context) {
                 Permissions.hasPermission(context, packageId, it)
             }
 
-            val registration = IpcServicePlugin(packageId, context).use {
-                it.send("/registration")?.fromJson<RegistrationResponse>()
-            }
+            val registration = ipcSend(
+                context,
+                packageId,
+                "/registration"
+            ).payloadAsJson<RegistrationResponse>()
 
             PluginResourceService(
                 packageId,
