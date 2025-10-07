@@ -11,8 +11,9 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugin.sample.service.SamplePluginService
+import com.kylecorry.trail_sense.plugin.sample.service.WeatherForecastService
 import com.kylecorry.trail_sense.plugins.plugins.IpcServicePlugin
-import com.kylecorry.trail_sense.plugins.plugins.PluginFinder
+import com.kylecorry.trail_sense.plugins.plugins.PluginLoader
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -21,6 +22,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useLocation
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import java.io.Closeable
 import java.time.Duration
 
 class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_experimentation) {
@@ -46,23 +48,32 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
         )
 
         val finder = useMemo(context) {
-            PluginFinder(context)
+            PluginLoader(context)
         }
 
         val plugins = useBackgroundMemo2(finder) {
-            finder.queryPlugins()
+            finder.getPluginResourceServices()
+        }
+
+        val weatherService = useMemo(plugins) {
+            val plugin = plugins?.firstOrNull { it.features.weather.isNotEmpty() }
+            if (plugin != null) {
+                WeatherForecastService(context, plugin)
+            } else {
+                null
+            }
         }
 
         val data = useBackgroundMemo2(service) {
             service?.ping()
         }
 
-        useEffect(button, service, location) {
+        useEffect(button, weatherService, location) {
             button.setOnClickListener {
                 inBackground {
                     setIsLoading(true)
                     tryOrLog {
-                        setWeather(service?.getWeather(location))
+                        setWeather(weatherService?.getWeather(location))
                     }
                     setIsLoading(false)
                 }
@@ -89,11 +100,11 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
                 )
             }
 
-            text.text = "$weatherText\n$data\n${plugins?.joinToString("\n")}"
+            text.text = "$weatherText\n\n$data\n\n${plugins?.joinToString("\n\n")}"
         }
     }
 
-    private fun <T : IpcServicePlugin> usePluginService(
+    private fun <T : Closeable> usePluginService(
         pluginId: Long,
         serviceProvider: (context: Context) -> T
     ): T? {

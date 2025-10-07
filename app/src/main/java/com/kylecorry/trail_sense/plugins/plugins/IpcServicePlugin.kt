@@ -5,9 +5,9 @@ import android.content.Intent
 import java.io.Closeable
 import java.time.Duration
 
-open class IpcServicePlugin(
+class IpcServicePlugin(
     private val packageId: String?,
-    protected val context: Context,
+    private val context: Context,
     private val actionId: String = "com.kylecorry.trail_sense.PLUGIN_SERVICE",
     private val stayConnected: Boolean = false
 ) : Closeable {
