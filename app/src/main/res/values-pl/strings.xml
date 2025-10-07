@@ -78,7 +78,7 @@
     <string name="sun_down_no_set">Słońce zaszło</string>
     <string name="sun_does_not_rise">nie wschodzi</string>
     <string name="sun_does_not_set">nie zachodzi</string>
-    <string name="notification_storm_alert_title">Alarmy burzowe</string>
+    <string name="notification_storm_alert_title">Alert burzowy</string>
     <string name="notification_storm_alert_text">Może zbliżać się burza</string>
     <string name="storm_alerts">Alerty burzowe</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s temu</string>
@@ -497,7 +497,7 @@
         <item quantity="other">Zaimportowano %d punktów nawigacyjnych</item>
     </plurals>
     <string name="theme_sunset_sunrise">Wschód/zachód słońca</string>
-    <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania z usługi</string>
+    <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania</string>
     <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
     <string name="last_signal_beacon_name">Ostatni sygnał - %1$s (%2$s)</string>
     <string name="color">Kolor</string>
