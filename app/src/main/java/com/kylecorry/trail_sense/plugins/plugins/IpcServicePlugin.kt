@@ -5,7 +5,7 @@ import android.content.Intent
 import java.io.Closeable
 import java.time.Duration
 
-abstract class IpcServicePlugin(
+open class IpcServicePlugin(
     private val packageId: String?,
     protected val context: Context,
     private val actionId: String = "com.kylecorry.trail_sense.PLUGIN_SERVICE",
@@ -20,7 +20,7 @@ abstract class IpcServicePlugin(
         }
     }
 
-    protected suspend fun send(
+    suspend fun send(
         route: String,
         payload: ByteArray? = null,
         timeout: Duration = Duration.ofSeconds(10)

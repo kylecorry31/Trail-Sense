@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugin.sample.service.SamplePluginService
 import com.kylecorry.trail_sense.plugins.plugins.IpcServicePlugin
+import com.kylecorry.trail_sense.plugins.plugins.PluginFinder
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -37,11 +38,20 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
         val (location, _) = useLocation()
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
+        val context = useAndroidContext()
 
         val service = usePluginService(
             Plugins.PLUGIN_SAMPLE,
             ::SamplePluginService
         )
+
+        val finder = useMemo(context) {
+            PluginFinder(context)
+        }
+
+        val plugins = useBackgroundMemo2(finder) {
+            finder.queryPlugins()
+        }
 
         val data = useBackgroundMemo2(service) {
             service?.ping()
@@ -79,7 +89,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
                 )
             }
 
-            text.text = "$weatherText\n$data"
+            text.text = "$weatherText\n$data\n${plugins?.joinToString("\n")}"
         }
     }
 
