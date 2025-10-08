@@ -1096,7 +1096,7 @@
     <string name="north_america">Nord-Amerika</string>
     <string name="south_america">Sør-Amerika</string>
     <string name="cell_towers">Mobilmaster</string>
-    <string name="cell_tower_disclaimer">Mobilmastenes plassering er beregnet ut fra OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) er lisensiert under en [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower_disclaimer">Mobilmastenes plassering er beregnet ut fra OpenCelliD, Mozilla Location Service og FCC Antenna Registrations.\n\n[OpenCelliD Project](https://opencellid.org/) er lisensiert under en [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="cell_tower">Mobilmast</string>
     <string name="no_results">Ingen resultater</string>
     <string name="pref_navigation_lock_screen_when_open_title">Vis på låseskjermen når åpen</string>
@@ -1233,4 +1233,5 @@
     <string name="color_black">Svart</string>
     <string name="color_brown">Brun</string>
     <string name="color_gray">Grå</string>
+    <string name="airplane_mode">Flymodus</string>
 </resources>
