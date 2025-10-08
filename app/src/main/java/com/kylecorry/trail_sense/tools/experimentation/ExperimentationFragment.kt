@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
@@ -86,15 +88,22 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
                 "No data"
             } else {
                 formatter.join(
-                    formatter.formatTemperature(weather.current.temperature.convertTo(prefs.temperatureUnits)),
-                    formatter.formatPercentage(weather.current.humidity),
+                    formatter.formatTemperature(
+                        Temperature.celsius(weather.current.temperature ?: 0f)
+                            .convertTo(prefs.temperatureUnits)
+                    ),
+                    formatter.formatPercentage(weather.current.humidity ?: 0f),
                     formatter.formatSpeed(
-                        weather.current.windSpeed.convertTo(
+                        Speed.from(
+                            weather.current.windSpeed ?: 0f,
+                            DistanceUnits.Kilometers,
+                            TimeUnits.Hours
+                        ).convertTo(
                             DistanceUnits.Meters,
                             TimeUnits.Seconds
                         ).speed
                     ),
-                    WeatherCodeLookup.getWeatherDescription(weather.current.weatherCode),
+                    formatter.formatWeather(weather.current.weather),
                     separator = FormatService.Separator.NewLine
                 )
             }

@@ -40,7 +40,7 @@ class WeatherForecastService(
             return null
         }
 
-        return ipcSend(
+        val response = ipcSend(
             context,
             plugin.packageId,
             actualEndpoint,
@@ -48,6 +48,8 @@ class WeatherForecastService(
                 location.latitude.roundPlaces(2),
                 location.longitude.roundPlaces(2)
             )
-        ).payloadAsJson()
+        )
+
+        return response.payloadAsJson()
     }
 }
