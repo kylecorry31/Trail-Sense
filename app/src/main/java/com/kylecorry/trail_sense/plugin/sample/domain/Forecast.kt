@@ -8,6 +8,7 @@ import java.time.LocalDate
 data class Forecast(
     val time: Instant,
     val elevation: Float?,
+    val citation: String?,
     val current: CurrentWeather,
     val hourly: List<HourlyWeather>,
     val daily: List<DailyWeather>

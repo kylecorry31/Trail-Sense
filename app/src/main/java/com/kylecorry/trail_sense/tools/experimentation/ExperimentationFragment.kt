@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.Temperature
@@ -34,6 +35,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
 
     private fun useSamplePlugin() {
         val text = useView<TextView>(R.id.text)
+        val text2 = useView<TextView>(R.id.text2)
         val button = useView<Button>(R.id.button)
 
         val (isLoading, setIsLoading) = useState(false)
@@ -41,6 +43,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
         val (location, _) = useLocation()
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
+        val markdown = useService<MarkdownService>()
         val context = useAndroidContext()
 
         val service = usePluginService(
@@ -81,7 +84,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
             }
         }
 
-        useEffect(text, weather, service, isLoading, data) {
+        useEffect(text, text2, weather, service, isLoading, data) {
             val weatherText = if (isLoading) {
                 "Loading"
             } else if (weather == null) {
@@ -109,6 +112,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
             }
 
             text.text = "$weatherText\n\n$data\n\n${plugins?.joinToString("\n\n")}"
+            markdown.setMarkdown(text2, weather?.citation ?: "")
         }
     }
 
