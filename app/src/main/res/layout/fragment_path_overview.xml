@@ -67,7 +67,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp">
 
-            <com.kylecorry.trail_sense.tools.paths.ui.PathView
+            <com.kylecorry.trail_sense.tools.map.ui.MapView
                 android:id="@+id/path_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

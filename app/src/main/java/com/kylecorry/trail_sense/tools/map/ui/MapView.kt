@@ -254,7 +254,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     // TODO: This doesn't work for world maps
-    fun fitIntoView(bounds: CoordinateBounds, paddingFactor: Float = 1f) {
+    fun fitIntoView(bounds: CoordinateBounds, paddingFactor: Float = 1.25f) {
         if (width == 0 || height == 0) {
             return
         }

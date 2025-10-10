@@ -167,7 +167,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         val bounds = CoordinateBounds.from(fences)
 
-        binding.map.fitIntoView(bounds, 1.25f)
+        binding.map.fitIntoView(bounds)
 
         // Show the locations on the map
         beaconLayer.setBeacons(listOfNotNull(
