@@ -54,6 +54,7 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.DigitalElevationModel
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.barometer.CalibratedBarometer
+import com.kylecorry.trail_sense.shared.sensors.gps.TimezoneGPS
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.MockHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -83,8 +84,12 @@ class SensorService(ctx: Context) {
 
         val hasPermission = hasLocationPermission()
 
-        if (!userPrefs.useAutoLocation || !hasPermission) {
+        if (!userPrefs.useAutoLocation || (!hasPermission && userPrefs.hasLocationOverride)) {
             return OverrideGPS(context, frequency.toMillis())
+        }
+
+        if (!hasPermission) {
+            return TimezoneGPS(frequency.toMillis())
         }
 
         if (GPS.isAvailable(context)) {

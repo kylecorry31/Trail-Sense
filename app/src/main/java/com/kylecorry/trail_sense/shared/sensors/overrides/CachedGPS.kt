@@ -13,10 +13,12 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.MockedGPS
 import java.time.Instant
 
 class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : AbstractSensor(),
-    ISatelliteGPS {
+    ISatelliteGPS, InactiveGPS, MockedGPS {
     override val location: Coordinate
         get() {
             val lat =

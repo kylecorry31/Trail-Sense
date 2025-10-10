@@ -262,6 +262,10 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             cache.putString(getString(R.string.pref_longitude_override), value.longitude.toString())
         }
 
+    val hasLocationOverride: Boolean
+        get() = cache.contains(getString(R.string.pref_latitude_override)) &&
+                cache.contains(getString(R.string.pref_longitude_override))
+
     var altitudeOverride: Float
         get() {
             val raw = cache.getString(getString(R.string.pref_altitude_override)) ?: "0.0"
