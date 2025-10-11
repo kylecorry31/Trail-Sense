@@ -1,0 +1,8 @@
+- Gün batımından X saat önce bildirim alın (ayarlar bölümünden yapılandırılabilir)
+- Astronomi sekmesine daha fazla ayrıntı eklendi (en yüksek konumlar, rakım, azimut, gelgit aralığı)
+- Ay evresi artık seçilen tarihi yansıtıyor
+- Navigasyon sekmesine el feneri ve SOS eklendi
+- Simgelere tıklandığında ham GPS doğruluğu gösterilir
+- Ayarlar bölümünde koordinat formatınızı yapılandırın
+- Navigasyon sekmesini açarken yaşanan gecikme sorunu giderildi
+- Kullanıcı arayüzü iyileştirmeleri

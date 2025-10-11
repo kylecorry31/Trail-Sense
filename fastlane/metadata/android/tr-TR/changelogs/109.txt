@@ -1,0 +1,17 @@
+Eğim Ölçer
+- Kamerayı varsayılan eğim ölçer yapın
+- Kamera görünüm boyutunu artırın
+- AR desteği ekleyin (deneysel)
+
+Metal Dedektörü
+- Hassasiyeti artırın
+
+Artırılmış Gerçeklik (Deneysel)
+- Hizalamayı iyileştirin
+- Izgara çizgilerini gösterin
+- Jiroskop bulunmayan cihazlarda deneyimi iyileştirin
+
+Çeşitli
+- GPS + Barometre altimetresini iyileştirin
+- Arka plan hizmetleri başlatılamadığında bildirimde bulunun
+- Daha fazla kullanım kılavuzu ekleyin

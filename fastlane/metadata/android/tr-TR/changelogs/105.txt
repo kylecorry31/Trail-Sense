@@ -1,0 +1,8 @@
+Yollar
+- Yol gruplarını içe/dışa aktarma
+- Dik bölümleri hesaba katmak için yürüyüş zorluk ölçütünü iyileştirme
+
+Çeşitli
+- Ayarlara tam yedekleme/geri yükleme özelliği ekleme (ayarlar ve veriler)
+- Fotoğraf çekmek için sıfır deklanşör gecikmesi modunu kullanmak için deneysel ayar eklendi
+- Hata düzeltmeleri
