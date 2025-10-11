@@ -199,7 +199,8 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Navigate")
         hasText("Test Map", index = 1)
         hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
-        click(R.id.cancel_navigation_btn)
+        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click("Yes")
 
         longClick(R.id.map)
         click("Distance")
