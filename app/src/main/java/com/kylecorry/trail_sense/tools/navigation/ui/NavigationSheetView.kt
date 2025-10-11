@@ -166,11 +166,11 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             separator = FormatService.Separator.NewLine
         )
 
-        toolbar.title.setCompoundDrawables(
-            Resources.dp(context, 16f).toInt(),
-            left = R.drawable.ic_location
-        )
-        CustomUiUtils.setImageColor(toolbar.title, Resources.androidTextColorSecondary(context))
+//        toolbar.title.setCompoundDrawables(
+//            Resources.dp(context, 16f).toInt(),
+//            left = R.drawable.ic_location
+//        )
+//        CustomUiUtils.setImageColor(toolbar.title, Resources.androidTextColorSecondary(context))
 
         toolbar.title.setOnClickListener {
             openBeacon(destination.id)
