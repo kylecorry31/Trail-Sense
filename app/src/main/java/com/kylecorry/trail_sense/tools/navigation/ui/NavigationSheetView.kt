@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.flatten
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.views.toolbar.Toolbar
@@ -139,7 +140,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
 
         // TODO: These don't change
-        toolbar.title.text = destination.name.padAround(10, ' ')
+        // Adding spaces in front of the name to offset the right icon width
+        toolbar.title.text = "    ${destination.name}"
 
         val hasComment = !destination.comment.isNullOrEmpty()
         toolbar.leftButton.isVisible = hasComment
@@ -166,11 +168,14 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             separator = FormatService.Separator.NewLine
         )
 
-//        toolbar.title.setCompoundDrawables(
-//            Resources.dp(context, 16f).toInt(),
-//            left = R.drawable.ic_location
-//        )
-//        CustomUiUtils.setImageColor(toolbar.title, Resources.androidTextColorSecondary(context))
+        toolbar.title.setCompoundDrawables(
+            Resources.sp(context, 16f).toInt(),
+            right = R.drawable.ic_open
+        )
+        CustomUiUtils.setImageColor(
+            toolbar.title,
+            Resources.androidTextColorSecondary(context).withAlpha(127)
+        )
 
         toolbar.title.setOnClickListener {
             openBeacon(destination.id)
@@ -193,17 +198,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
                 }
             }
         }
-    }
-
-    private fun String.padAround(length: Int, paddingCharacter: Char): String {
-        if (this.length >= length) {
-            return this
-        }
-        val totalPadding = length - this.length
-        val paddingStart = totalPadding / 2
-        val paddingEnd = totalPadding - paddingStart
-        return paddingCharacter.toString().repeat(paddingStart) + this + paddingCharacter.toString()
-            .repeat(paddingEnd)
     }
 
     private fun openBeacon(id: Long) {
