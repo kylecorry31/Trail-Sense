@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.science.geology.Geology
@@ -131,6 +132,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             updateDestination()
         }
 
+        observeFlow(navigator.destination) {
+            setDestination(it)
+        }
+
         reloadMap()
 
         binding.map.onMapLongClick = {
@@ -153,10 +158,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         // Handle when the lock button is pressed
         binding.lockBtn.setOnClickListener {
             updateMapLockMode(getNextLockMode(mapLockMode), keepMapUp)
-        }
-
-        binding.cancelNavigationBtn.setOnClickListener {
-            cancelNavigation()
         }
 
         binding.zoomOutBtn.setOnClickListener {
@@ -227,14 +228,14 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         elevation = altimeter.altitude
 
         val beacon = destination ?: return
-        binding.navigationSheet.show(
+        binding.navigationSheet.updateNavigationSensorValues(
             gps.location,
             altimeter.altitude,
             gps.speed.speed,
-            beacon,
-            compass.declination,
-            true
+            compass.declination
         )
+        binding.navigationSheet.setTrueNorthOverride(true)
+        binding.navigationSheet.show(beacon, true)
     }
 
     private fun selectLocation(location: Coordinate?) {
@@ -340,28 +341,18 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun navigateTo(beacon: Beacon): Boolean {
         navigator.navigateTo(beacon)
-        destination = beacon
-        binding.cancelNavigationBtn.show()
-        updateDestination()
-        activity?.let { screenLock.updateLock(it) }
+        setDestination(beacon)
         return true
     }
 
-    private fun hideNavigation() {
-        binding.cancelNavigationBtn.hide()
-        binding.navigationSheet.hide()
-        activity?.let { screenLock.updateLock(it) }
-        destination = null
-    }
-
-    private fun cancelNavigation() {
-        if (mapLockMode == MapLockMode.Trace) {
-            return
+    private fun setDestination(beacon: Beacon?) {
+        destination = beacon
+        if (beacon == null) {
+            binding.navigationSheet.hide()
+        } else {
+            updateDestination()
         }
-
-        navigator.cancelNavigation()
-        destination = null
-        hideNavigation()
+        activity?.let { screenLock.updateLock(it) }
     }
 
     private fun onMapLoad(map: PhotoMap) {

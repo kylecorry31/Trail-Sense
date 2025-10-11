@@ -75,12 +75,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         updateNavigation()
     }
 
-    fun navigateTo(beacon: Beacon) {
-        destinationBeacon = beacon
-        isNavigating = true
-        updateNavigation()
-    }
-
     fun show(beacon: Beacon, isNavigating: Boolean = false) {
         destinationBeacon = beacon
         this.isNavigating = isNavigating
