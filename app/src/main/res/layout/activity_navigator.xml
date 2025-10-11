@@ -92,9 +92,9 @@
         android:id="@+id/spacer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_details"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_details" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_details"
@@ -154,7 +154,7 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.kylecorry.trail_sense.shared.views.BeaconDestinationView
+    <com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
         android:id="@+id/navigation_sheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

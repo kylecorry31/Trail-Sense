@@ -178,15 +178,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Load the destination and start navigation
         if (beaconId != 0L) {
             showCalibrationDialog()
-            inBackground {
-                navigator.navigateTo(beaconId)
-                destination = navigator.getDestination()
-            }
+            navigator.navigateTo(beaconId)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeFlow(navigator.destination) {
+            destination = it
+        }
 
         // Observe diagnostics
         listOf(
@@ -281,12 +282,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         binding.beaconBtn.setOnClickListener {
-            if (destination == null) {
-                findNavController().openTool(Tools.BEACONS)
-            } else {
-                destination = null
-                navigator.cancelNavigation()
-            }
+            findNavController().openTool(Tools.BEACONS)
         }
 
         binding.beaconBtn.setOnLongClickListener {
@@ -492,14 +488,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ) {
             val selectedBeacon = getSelectedBeacon(nearbyBeacons)
             if (selectedBeacon != null) {
-                binding.navigationSheet.show(
+                binding.navigationSheet.updateNavigationSensorValues(
                     gps.location,
                     altimeter.altitude,
                     speedometer.speed.speed,
-                    selectedBeacon,
-                    declination,
-                    useTrueNorth
+                    declination
                 )
+                binding.navigationSheet.show(selectedBeacon, destination != null)
             } else {
                 binding.navigationSheet.hide()
             }
@@ -557,7 +552,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         effect("navigation", destination, lifecycleHookTrigger.onResume()) {
             handleShowWhenLocked()
-            updateNavigationButton()
         }
 
         effect("device_orientation", clinometer.incline.toInt(), lifecycleHookTrigger.onResume()) {
@@ -706,16 +700,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             compassStatusBadge = compassStatusBadgeProvider.getBadge()
             gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
         }
-    }
-
-    private fun updateNavigationButton() {
-        binding.beaconBtn.setImageResource(
-            if (destination != null) {
-                R.drawable.ic_cancel
-            } else {
-                R.drawable.ic_beacon
-            }
-        )
     }
 
     override fun generateBinding(

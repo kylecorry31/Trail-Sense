@@ -1829,4 +1829,6 @@
     <string name="widget_theme_white_text">White text</string>
     <string name="pref_default_widget_theme" translatable="false">pref_default_widget_theme</string>
     <string name="default_widget_theme">Default widget theme</string>
+    <string name="cancel_navigation">Cancel navigation</string>
+    <string name="elevation_value">Elevation: %s</string>
 </resources>
