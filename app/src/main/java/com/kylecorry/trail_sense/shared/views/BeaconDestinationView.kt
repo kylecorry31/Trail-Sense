@@ -19,24 +19,6 @@ class BeaconDestinationView(context: Context, attrs: AttributeSet?) : LinearLayo
     }
 
     fun show(
-        location: Coordinate,
-        elevation: Float,
-        speed: Float,
-        destination: Beacon,
-        declination: Float,
-        usingTrueNorth: Boolean = true
-    ) {
-        destinationPanel.show(
-            location,
-            elevation,
-            speed,
-            destination,
-            declination,
-            usingTrueNorth
-        )
-    }
-
-    fun show(
         navigationSensorValues: NavigationSensorValues,
         destination: Beacon,
         usingTrueNorth: Boolean = true

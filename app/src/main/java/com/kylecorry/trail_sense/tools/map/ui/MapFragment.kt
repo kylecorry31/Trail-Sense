@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -30,10 +29,10 @@ import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.shared.views.BeaconDestinationView
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
@@ -41,12 +40,11 @@ import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
     override fun update() {
         val mapView = useView<MapView>(R.id.map)
-        val cancelNavigationButton = useView<FloatingActionButton>(R.id.cancel_navigation_btn)
         val lockButton = useView<FloatingActionButton>(R.id.lock_btn)
         val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
         val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
         val menuButton = useView<FloatingActionButton>(R.id.menu_btn)
-        val navigationSheetView = useView<BeaconDestinationView>(R.id.navigation_sheet)
+        val navigationSheetView = useView<NavigationSheetView>(R.id.navigation_sheet)
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
         val navigation = useNavigationSensors(trueNorth = true)
         val context = useAndroidContext()
@@ -75,10 +73,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
 
         useClickCallback(lockButton, lockMode, hasCompass) {
             setLockMode(getNextLockMode(lockMode, hasCompass))
-        }
-
-        useClickCallback(cancelNavigationButton, navigator) {
-            navigator.cancelNavigation()
         }
 
         // Layers
@@ -207,10 +201,11 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
             }
         }
 
-        useEffect(cancelNavigationButton, navigationSheetView, destination, navigation) {
-            cancelNavigationButton.isVisible = destination != null
+        useEffect(navigationSheetView, destination, navigation) {
             if (destination != null) {
-                navigationSheetView.show(navigation, destination, true)
+                navigationSheetView.updateNavigationSensorValues(navigation)
+                navigationSheetView.setTrueNorthOverride(true)
+                navigationSheetView.show(destination, true)
             } else {
                 navigationSheetView.hide()
             }

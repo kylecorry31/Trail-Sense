@@ -29,6 +29,18 @@
         app:srcCompat="@drawable/ic_menu_dots" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/zoom_in_btn"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.86"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/zoom_out_btn"
+        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn"
+        app:srcCompat="@drawable/ic_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/zoom_out_btn"
         style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
@@ -43,44 +55,18 @@
         app:srcCompat="@drawable/ic_zoom_out" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/zoom_in_btn"
-        style="?attr/floatingActionButtonSmallStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0.86"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/zoom_out_btn"
-        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn"
-        app:srcCompat="@drawable/ic_add" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/lock_btn"
         style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:alpha="0.86"
-        app:layout_constraintBottom_toTopOf="@+id/cancel_navigation_btn"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_goneMarginBottom="24dp"
         app:srcCompat="@drawable/satellite" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/cancel_navigation_btn"
-        style="?attr/floatingActionButtonSmallStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_cancel"
-        tools:visibility="visible" />
-
-    <com.kylecorry.trail_sense.shared.views.BeaconDestinationView
+    <com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
         android:id="@+id/navigation_sheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
