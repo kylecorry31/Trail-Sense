@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.flatten
@@ -62,6 +63,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         elevationDataView = findViewById<DataPointView>(R.id.navigation_elevation)
         etaDataView = findViewById<DataPointView>(R.id.navigation_eta)
         CustomUiUtils.setButtonState(toolbar.rightButton, true)
+        CustomUiUtils.setButtonState(toolbar.leftButton, false)
         toolbar.leftButton.flatten()
     }
 
@@ -145,6 +147,13 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         // TODO: These don't change
         toolbar.title.text = destination.name.padAround(10, ' ')
 
+        val hasComment = !destination.comment.isNullOrEmpty()
+        toolbar.leftButton.isVisible = hasComment
+
+        toolbar.leftButton.setOnClickListener {
+            Alerts.dialog(context, destination.name, destination.comment, cancelText = null)
+        }
+
         val elevationDistance = destination.elevation?.let {
             Distance.meters(it).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         }
@@ -179,8 +188,16 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
         toolbar.rightButton.isVisible = isNavigating
         toolbar.rightButton.setOnClickListener {
-            hide()
-            navigator.cancelNavigation()
+            Alerts.dialog(
+                context,
+                context.getString(R.string.cancel_navigation_question),
+                okText = context.getString(R.string.yes),
+                cancelText = context.getString(R.string.no)
+            ) { cancelled ->
+                if (!cancelled) {
+                    navigator.cancelNavigation()
+                }
+            }
         }
     }
 

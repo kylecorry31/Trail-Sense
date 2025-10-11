@@ -11,6 +11,7 @@
         android:id="@+id/navigation_sheet_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:leftButtonIcon="@drawable/ic_tool_notes"
         app:rightButtonIcon="@drawable/ic_cancel" />
 
     <LinearLayout
