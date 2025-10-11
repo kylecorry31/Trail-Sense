@@ -56,7 +56,7 @@ By default, the map will align with North, roughly facing up so that the map is 
 ### Using beacons and navigating
 If you've created beacons, they will appear on the map.
 
-When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. A line is drawn from your location to the beacon. To cancel navigation, click the 'X' button in the bottom-right.
+When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. A line is drawn from your location to the beacon. To cancel navigation, click the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
 
 You can initiate navigation from the map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
 

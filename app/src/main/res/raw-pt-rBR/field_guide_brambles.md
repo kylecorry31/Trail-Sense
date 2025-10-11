@@ -3,4 +3,4 @@ Arbusto espinhoso, normalmente encontrado em florestas e campos, geralmente com 
 
 As espécies comuns incluem: amora, amora-preta e framboesa.
 
-https://pt.wikipedia.org/wiki/Rubus
+https://pt.m.wikipedia.org/wiki/Rubus

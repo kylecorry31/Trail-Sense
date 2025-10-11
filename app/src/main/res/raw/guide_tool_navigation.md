@@ -104,13 +104,17 @@ You can navigate to a beacon by tapping the navigate button in the bottom-right.
 
 While navigating to a beacon, the direction will be displayed on the compass and all other nearby beacons will become transparent. A navigation panel will display at the bottom of your screen with the following information:
 - **Name**: The name of the beacon you are navigating to.
+- **Coordinates**: The coordinates of the beacon.
 - **Distance**: The distance to the beacon.
 - **Bearing**: The bearing to the beacon.
 - **ETA**: The estimated time of arrival to the beacon.
-- **Elevation**: The elevation of the beacon and difference from your current elevation.
+- **Elevation**: The elevation of the beacon.
+- **Elevation change**: The elevation difference from your current elevation.
 - **Notes**: Any notes you have for the beacon. This will show as an icon if there are notes, and you can tap it to see the notes.
 
-You can stop navigating to a beacon by tapping the 'X' button in the bottom-right.
+You can stop navigating to a beacon by tapping the 'X' button.
+
+You can open the beacon by clicking the beacon name.
 
 You can quickly create a beacon from your current location by long-pressing the navigation icon at the bottom-right. This will open the Beacons tool with the location and elevation pre-filled.
 

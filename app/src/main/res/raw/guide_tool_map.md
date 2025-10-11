@@ -6,7 +6,7 @@ You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right.
 Click the GPS button in the bottom-right to center the map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it.
 
 ## Navigating and creating beacons
-When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button in the bottom-right.
+When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
 
 You can initiate navigation from the map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
 
