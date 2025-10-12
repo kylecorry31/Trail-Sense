@@ -1126,7 +1126,7 @@
     <string name="visible">可见</string>
     <string name="date">日期</string>
     <string name="ar_layer_override_message">图层设置可能会被指南（例如“天文学”指南）覆盖。</string>
-    <string name="astronomy_altitude">仰角</string>
+    <string name="astronomy_altitude">高度</string>
     <string name="grid">网格</string>
     <string name="projection_type">增强现实投影</string>
     <string name="max_s">最大 %s</string>
@@ -1487,4 +1487,6 @@
     <string name="widget_theme_black_text">黑色文本</string>
     <string name="widget_theme_white_text">白色文本</string>
     <string name="default_widget_theme">默认小部件主题</string>
+    <string name="cancel_navigation_question">取消导航？</string>
+    <string name="elevation_value">海拔：%s</string>
 </resources>

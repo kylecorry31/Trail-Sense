@@ -1500,4 +1500,6 @@
     <string name="widget_theme_black_text">Zwarte tekst</string>
     <string name="widget_theme_white_text">Witte tekst</string>
     <string name="default_widget_theme">Standaard widgetthema</string>
+    <string name="cancel_navigation_question">Navigatie annuleren?</string>
+    <string name="elevation_value">Hoogte: %s</string>
 </resources>

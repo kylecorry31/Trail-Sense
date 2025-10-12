@@ -1,0 +1,12 @@
+Fotoğraf Haritaları
+- Artık beta sürümünde değil
+- Kalibrasyon sırasında harita katmanlarını önizleme
+
+Yollar
+- GPX rotalarından yolları içe aktarma
+
+Çeşitli
+- Cihazda pusula olmadığında mesajlaşma iyileştirildi
+- Birimleri otomatik olarak seçme
+- Performans iyileştirmeleri
+- Hata düzeltmeleri

@@ -1,0 +1,21 @@
+Geri izleme
+- Çalışırken her zaman bildirim göster
+
+Hava durumu
+- Çalışırken her zaman bildirim göster
+- Geçmiş sıcaklık doğruluğunu iyileştir
+- Bulutları kullanarak hava durumu tahminini iyileştir
+
+Astronomi
+- Gün batımı uyarısı için hızlı eylem ekle
+
+Fotoğraf Haritaları
+- Otomatik döndürmeyi iyileştir
+
+Adım sayar
+- Bildirimden adım sayacını durdurmaya izin ver
+
+Çeşitli
+- Android 14 desteği
+- İzin isteği akışını iyileştir
+- Hata düzeltmeleri

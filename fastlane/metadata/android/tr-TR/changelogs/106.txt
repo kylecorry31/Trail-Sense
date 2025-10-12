@@ -1,0 +1,7 @@
+Konumu üçgenle belirleme
+- Uzakta bulunan bir konumu üçgenle belirleme
+- Harita, talimatlar ve nişan pusulası içerecek şekilde üçgenleme aracını yeniden tasarlama
+
+Çeşitli
+- Bazı kamera önizlemelerinin boyutunu artırma
+- Hata düzeltmeleri
