@@ -13,8 +13,22 @@ def smooth(data):
     smoothed = lowess(data, np.arange(len(data)), frac=frac, return_sorted=False, it=1)
     return smoothed
 
+
 def derivative(data):
     return [data[i + 1] - data[i] for i in range(len(data) - 1)]
+
+
+def integral(initial_value, values, dt, damping_factor=1.0, limit=None):
+    result = []
+    current = initial_value
+    for i in range(len(values)):
+        current += values[i] * dt
+        current *= damping_factor
+        if limit is not None:
+            current = min(max(current, limit[0]), limit[1])
+        result.append(current)
+    return result
+
 
 # Load weather_test_data.csv
 with open("weather_test_data.csv", "r") as csvfile:
@@ -60,7 +74,7 @@ def factorial(n):
     return result
 
 
-def prediction(
+def prediction_taylor_series(
     samples,
     n,
     order=3,
@@ -99,31 +113,73 @@ def prediction(
             values[i].append(next_coefs[i])
     return predictions
 
+def prediction(
+    samples,
+    n,
+    order=3,
+    smooth_fn=None,
+    damping_factors=None,
+    limits=None,
+):
+    values = [samples[:]]
+    for i in range(order):
+        values.append(derivative(values[-1]))
+        if smooth_fn:
+            values[-1] = list(smooth_fn(values[-1]))
+    predictions = [[0] * n]
+
+    for i in range(order + 1):
+        index = order - i
+        predictions.append(
+            integral(
+                values[index][-1],
+                predictions[-1],
+                1,
+                damping_factors[index] if damping_factors is not None else 1.0,
+                limits[index] if limits is not None else None,
+            )
+        )
+    return predictions[-1]
+
 
 def project_samples(samples, n, dx):
     # Continue to 1 sample past the peak. If there is no peak, then only return the next 5 samples
-    return prediction(
-        samples,
-        n,
-        order=4,
-        smooth_fn=smooth,
-        damping_factors=[1.0, 0.9, 0.85, 0.2, 0.1],
-        limits=[[800, 1100], [-10, 10], [-5, 5], None, None],
-    )
+    all_predictions = []
+    ensemble = 11
+    for i in range(ensemble):
+        all_predictions.append(prediction_taylor_series(
+            samples[:-i] if i > 0 else samples,
+            n + i,
+            order=4,
+            smooth_fn=smooth,
+            damping_factors=[1.0, 0.9, 0.85, 0.2, 0.1],
+            limits=[[800, 1100], [-10, 10], [-5, 5], None, None],
+        ))
+    predictions = []
+    for i in range(n):
+        value = all_predictions[-1][ensemble + i - 1]
+        alpha = 0.5
+        for j in range(ensemble - 2, -1, -1):
+            value = alpha * value + (1 - alpha) * all_predictions[j][j + i]
+        # values = [all_predictions[j][j + i] for j in range(ensemble)]
+        # predictions.append(np.mean(values))
+        predictions.append(value)
+    return predictions
+
 
 projected = project_samples(samples, len(xs) - len(samples), 1)  # xs[1] - xs[0])
 samples = scale(samples, np.min(original_ys), np.max(original_ys))
-projected = scale(projected, np.min(original_ys), np.max(original_ys))
+projected = scale(projected, np.min(original_ys), np.max(original_ys))[:12]
 unscaled_ys = ys
 original_ys = scale(original_ys)
 ys = scale(ys)
 
 plt.plot(xs[: len(samples)], samples, "o")
-plt.plot(xs[len(samples) :], projected, "o")
+plt.plot(xs[len(samples):len(samples)+len(projected)], projected, "o")
 plt.plot(xs, original_ys)
 plt.plot(xs, ys)
 last_dir = unscaled_ys
 for i in range(3):
     last_dir = smooth(derivative(last_dir))
-    plt.plot(xs[i + 1:], last_dir)
+    plt.plot(xs[i + 1 :], last_dir)
 plt.show()
