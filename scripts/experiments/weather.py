@@ -13,6 +13,9 @@ def smooth(data):
     smoothed = lowess(data, np.arange(len(data)), frac=frac, return_sorted=False, it=1)
     return smoothed
 
+def derivative(data):
+    return [data[i + 1] - data[i] for i in range(len(data) - 1)]
+
 # Load weather_test_data.csv
 with open("weather_test_data.csv", "r") as csvfile:
     reader = csv.DictReader(csvfile)
@@ -28,8 +31,6 @@ ys = [p for _, p in weather_data]
 samples = list(smooth(ys[:32]))
 original_ys = ys[:]
 ys = smooth(ys)
-dys = smooth([ys[i + 1] - ys[i] for i in range(len(ys) - 1)])
-ddys = smooth([dys[i + 1] - dys[i] for i in range(len(dys) - 1)])
 
 
 def scale(a, a_min=None, a_max=None):
@@ -69,9 +70,7 @@ def prediction(
 ):
     values = [samples[:]]
     for i in range(order):
-        values.append(
-            [values[-1][j + 1] - values[-1][j] for j in range(len(values[-1]) - 1)]
-        )
+        values.append(derivative(values[-1]))
         if smooth_fn:
             values[-1] = list(smooth_fn(values[-1]))
     predictions = []
@@ -115,6 +114,7 @@ def project_samples(samples, n, dx):
 projected = project_samples(samples, len(xs) - len(samples), 1)  # xs[1] - xs[0])
 samples = scale(samples, np.min(original_ys), np.max(original_ys))
 projected = scale(projected, np.min(original_ys), np.max(original_ys))
+unscaled_ys = ys
 original_ys = scale(original_ys)
 ys = scale(ys)
 
@@ -122,6 +122,8 @@ plt.plot(xs[: len(samples)], samples, "o")
 plt.plot(xs[len(samples) :], projected, "o")
 plt.plot(xs, original_ys)
 plt.plot(xs, ys)
-plt.plot(xs[1:], dys)
-plt.plot(xs[2:], ddys)
+last_dir = unscaled_ys
+for i in range(3):
+    last_dir = smooth(derivative(last_dir))
+    plt.plot(xs[i + 1:], last_dir)
 plt.show()
