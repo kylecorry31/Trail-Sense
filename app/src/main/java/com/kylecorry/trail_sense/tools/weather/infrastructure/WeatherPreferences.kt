@@ -174,6 +174,12 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
             return hours.contains(now)
         }
 
+    val showPressureForecast by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_pressure_forecast),
+        false
+    )
+
     private val useAlarmForStormAlertInternal by BooleanPreference(
         cache,
         context.getString(R.string.pref_weather_use_alarm_for_storm_alert),

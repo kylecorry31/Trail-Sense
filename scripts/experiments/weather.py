@@ -1,6 +1,7 @@
 import csv
 import datetime
 import matplotlib.pyplot as plt
+import scipy
 import numpy as np
 from statsmodels.nonparametric.smoothers_lowess import lowess
 
@@ -107,7 +108,7 @@ def project_samples(samples, n, dx):
         n,
         order=4,
         smooth_fn=smooth,
-        damping_factors=[1.0, 0.95, 0.9, 0.2, 0.2],
+        damping_factors=[1.0, 0.9, 0.85, 0.2, 0.1],
         limits=[[800, 1100], [-10, 10], [-5, 5], None, None],
     )
 

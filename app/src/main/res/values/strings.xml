@@ -1831,4 +1831,6 @@
     <string name="default_widget_theme">Default widget theme</string>
     <string name="cancel_navigation_question">Cancel navigation?</string>
     <string name="elevation_value">Elevation: %s</string>
+    <string name="pref_show_pressure_forecast">pref_show_pressure_forecast</string>
+    <string name="show_pressure_forecast">Show pressure forecast on chart</string>
 </resources>

@@ -66,6 +66,14 @@
             app:title="@string/forecast_algorithm"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_pressure_forecast"
+            app:singleLineTitle="false"
+            app:summary="@string/weather"
+            app:title="@string/show_pressure_forecast" />
+
         <ListPreference
             app:defaultValue="1"
             app:iconSpaceReserved="false"
