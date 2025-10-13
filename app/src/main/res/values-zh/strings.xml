@@ -1489,4 +1489,5 @@
     <string name="default_widget_theme">默认小部件主题</string>
     <string name="cancel_navigation_question">取消导航？</string>
     <string name="elevation_value">海拔：%s</string>
+    <string name="show_pressure_forecast">在图表上显示气压预报</string>
 </resources>
