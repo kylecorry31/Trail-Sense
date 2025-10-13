@@ -43,7 +43,7 @@ start = weather_data[0][0]
 xs = [(t - start).total_seconds() / 3600 for t, _ in weather_data]
 ys = [p for _, p in weather_data]
 
-samples = list(smooth(ys[:16]))
+samples = list(smooth(ys[:32]))
 original_ys = ys[:]
 ys = smooth(ys)
 
@@ -81,6 +81,7 @@ def prediction_taylor_series(
     order=3,
     smooth_fn=None,
     damping_factors=None,
+    offsets=None,
     limits=None,
 ):
     values = [samples[:]]
@@ -88,6 +89,9 @@ def prediction_taylor_series(
         values.append(derivative(values[-1]))
         if smooth_fn:
             values[-1] = list(smooth_fn(values[-1]))
+        if offsets:
+            for j in range(len(values[-1])):
+                values[-1][j] += offsets[i + 1]
     predictions = []
     for _ in range(n):
         coefs = [values[i][-1] for i in range(len(values))]
@@ -157,13 +161,20 @@ def project_samples(samples, n, dx):
             prediction_taylor_series(
                 samples,
                 n,
-                order=3,
+                order=2,
                 smooth_fn=smooth,
-                damping_factors=[
-                    1.0,
-                    random_value(1.0, 0.1, 0.8, 1.0),
-                    random_value(0.9, 0.5, 0.0, 1.0),
-                    random_value(0.3, 0.5, 0.0, 0.8)
+                # damping_factors=[
+                #     1.0,
+                #     1.0,
+                #     1.0,
+                #     0.01
+                # ],
+                # TODO: This should just be part of the "smooth" function (rename to map)
+                offsets = [
+                    0.0,
+                    random_value(0.0, 0.2, -1.0, 1.0),
+                    random_value(0.0, 0.2, -0.5, 0.5),
+                    # random_value(0.0, 0.03, -0.03, 0.03)
                 ],
                 limits=[[800, 1100], [-10, 10], [-5, 5], None],
             )
@@ -173,8 +184,7 @@ def project_samples(samples, n, dx):
     lower = []
     for i in range(n):
         values = [all_predictions[j][i] for j in range(ensemble)]
-        # TODO: Confidence interval
-        predictions.append(np.mean(values))
+        predictions.append(np.median(values))
         upper.append(np.percentile(values, 95))
         lower.append(np.percentile(values, 5))
     return predictions, upper, lower
@@ -182,9 +192,12 @@ def project_samples(samples, n, dx):
 
 projected, upper, lower = project_samples(samples, len(xs) - len(samples), 1)  # xs[1] - xs[0])
 samples = scale(samples, np.min(original_ys), np.max(original_ys))
-projected = scale(projected, np.min(original_ys), np.max(original_ys))[:12]
-upper = scale(upper, np.min(original_ys), np.max(original_ys))[:12]
-lower = scale(lower, np.min(original_ys), np.max(original_ys))[:12]
+
+max_projection = 12
+
+projected = scale(projected, np.min(original_ys), np.max(original_ys))[:max_projection]
+upper = scale(upper, np.min(original_ys), np.max(original_ys))[:max_projection]
+lower = scale(lower, np.min(original_ys), np.max(original_ys))[:max_projection]
 unscaled_ys = ys
 original_ys = scale(original_ys)
 ys = scale(ys)
@@ -198,5 +211,6 @@ plt.plot(xs, ys)
 last_dir = unscaled_ys
 for i in range(3):
     last_dir = smooth(derivative(last_dir))
+    print(np.max(abs(last_dir)))
     plt.plot(xs[i + 1 :], last_dir)
 plt.show()
