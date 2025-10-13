@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import scipy
 import numpy as np
 from statsmodels.nonparametric.smoothers_lowess import lowess
+import random
 
 
 def smooth(data):
@@ -42,7 +43,7 @@ start = weather_data[0][0]
 xs = [(t - start).total_seconds() / 3600 for t, _ in weather_data]
 ys = [p for _, p in weather_data]
 
-samples = list(smooth(ys[:32]))
+samples = list(smooth(ys[:16]))
 original_ys = ys[:]
 ys = smooth(ys)
 
@@ -113,6 +114,7 @@ def prediction_taylor_series(
             values[i].append(next_coefs[i])
     return predictions
 
+
 def prediction(
     samples,
     n,
@@ -142,40 +144,55 @@ def prediction(
     return predictions[-1]
 
 
+def random_value(center, deviation, minimum, maximum):
+    value = random.gauss(center, deviation)
+    return min(max(value, minimum), maximum)
+
+
 def project_samples(samples, n, dx):
-    # Continue to 1 sample past the peak. If there is no peak, then only return the next 5 samples
     all_predictions = []
-    ensemble = 11
+    ensemble = 100
     for i in range(ensemble):
-        all_predictions.append(prediction_taylor_series(
-            samples[:-i] if i > 0 else samples,
-            n + i,
-            order=4,
-            smooth_fn=smooth,
-            damping_factors=[1.0, 0.9, 0.85, 0.2, 0.1],
-            limits=[[800, 1100], [-10, 10], [-5, 5], None, None],
-        ))
+        all_predictions.append(
+            prediction_taylor_series(
+                samples,
+                n,
+                order=3,
+                smooth_fn=smooth,
+                damping_factors=[
+                    1.0,
+                    random_value(1.0, 0.1, 0.8, 1.0),
+                    random_value(0.9, 0.5, 0.0, 1.0),
+                    random_value(0.3, 0.5, 0.0, 0.8)
+                ],
+                limits=[[800, 1100], [-10, 10], [-5, 5], None],
+            )
+        )
     predictions = []
+    upper = []
+    lower = []
     for i in range(n):
-        value = all_predictions[-1][ensemble + i - 1]
-        alpha = 0.5
-        for j in range(ensemble - 2, -1, -1):
-            value = alpha * value + (1 - alpha) * all_predictions[j][j + i]
-        # values = [all_predictions[j][j + i] for j in range(ensemble)]
-        # predictions.append(np.mean(values))
-        predictions.append(value)
-    return predictions
+        values = [all_predictions[j][i] for j in range(ensemble)]
+        # TODO: Confidence interval
+        predictions.append(np.mean(values))
+        upper.append(np.percentile(values, 95))
+        lower.append(np.percentile(values, 5))
+    return predictions, upper, lower
 
 
-projected = project_samples(samples, len(xs) - len(samples), 1)  # xs[1] - xs[0])
+projected, upper, lower = project_samples(samples, len(xs) - len(samples), 1)  # xs[1] - xs[0])
 samples = scale(samples, np.min(original_ys), np.max(original_ys))
 projected = scale(projected, np.min(original_ys), np.max(original_ys))[:12]
+upper = scale(upper, np.min(original_ys), np.max(original_ys))[:12]
+lower = scale(lower, np.min(original_ys), np.max(original_ys))[:12]
 unscaled_ys = ys
 original_ys = scale(original_ys)
 ys = scale(ys)
 
 plt.plot(xs[: len(samples)], samples, "o")
-plt.plot(xs[len(samples):len(samples)+len(projected)], projected, "o")
+# confidence interval
+plt.fill_between(xs[len(samples) : len(samples) + len(projected)], lower, upper, color="gray", alpha=0.5)
+plt.plot(xs[len(samples) : len(samples) + len(projected)], projected, "o")
 plt.plot(xs, original_ys)
 plt.plot(xs, ys)
 last_dir = unscaled_ys
