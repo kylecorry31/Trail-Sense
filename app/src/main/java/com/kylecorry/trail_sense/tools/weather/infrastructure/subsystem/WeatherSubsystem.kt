@@ -334,33 +334,41 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     // TODO: Extract this to Sol (new forecaster)
-    suspend fun getPressureForecast(): List<Reading<Pressure>> = onIO {
-        val forecastLengthHours = 12f
+    suspend fun getPressureForecast(): List<Reading<Pressure>> = onDefault {
+        val forecastLengthHours = 6f
         val observations = getHistory()
-        val start = observations.firstOrNull()?.time?.toEpochMilli() ?: return@onIO emptyList()
+        val start = observations.firstOrNull()?.time?.toEpochMilli() ?: return@onDefault emptyList()
         val pressures = observations.map {
             val hours = (it.time.toEpochMilli() - start) / 3600000f
             Vector2(hours, it.pressure.hpa().value)
         }
         if (pressures.size <= 2) {
-            return@onIO emptyList()
+            return@onDefault emptyList()
         }
 
         val recentPressures =
             observations.count { it.time > Instant.now().minus(Duration.ofHours(4)) }
 
-        val order = (recentPressures - 1).coerceAtMost(4)
+        val order = (recentPressures - 1).coerceAtMost(2)
         val random = Random(1)
-        val predictors = (0 until 100).map {
+        var cachedFirstDerivative: List<Vector2>? = null
+        var cachedSecondDerivative: List<Vector2>? = null
+        val predictors = (0 until 50).map {
             val offset1 = randomValue(random, 0f, 0.2f, -1f, 1f)
             val offset2 = randomValue(random, 0f, 0.2f, -0.5f, 0.5f)
             DerivativePredictor(
                 order, mapOf(
                     1 to DerivativePredictor.DerivativePredictorConfig {
-                        DataUtils.smooth(it, 0.15f).map { it.copy(y = it.y + offset1) }
+                        if (cachedFirstDerivative == null) {
+                            cachedFirstDerivative = DataUtils.smooth(it, 0.15f)
+                        }
+                        cachedFirstDerivative.map { it.copy(y = it.y + offset1) }
                     },
                     2 to DerivativePredictor.DerivativePredictorConfig {
-                        DataUtils.smooth(it, 0.15f).map { it.copy(y = it.y + offset2) }
+                        if (cachedSecondDerivative == null) {
+                            cachedSecondDerivative = DataUtils.smooth(it, 0.15f)
+                        }
+                        cachedSecondDerivative.map { it.copy(y = it.y + offset2) }
                     }
                 )
             )
@@ -372,7 +380,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val n = (forecastLengthHours / stepSizeHours).toInt()
         // TODO: If the pressure turns around, don't forecast further out than that (can't tell what the next pressure system will bring)
         // TODO: Return the CI or only include samples that are confident
-        ensemble.predictNext(pressures, n, stepSizeHours).filter {
+        ensemble.predictNext(pressures.takeLast(50), n, stepSizeHours).filter {
             val confidence = it.upper.y - it.lower.y
             confidence < 5f // hPa
         }.map {

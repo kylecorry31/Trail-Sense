@@ -217,15 +217,15 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     Duration.between(it.time, Instant.now()) <= prefs.weather.pressureHistory
                 }
 
+                loadRawWeatherReadings()
+
+                weather = weatherSubsystem.getWeather()
+
                 if (prefs.weather.showPressureForecast) {
                     pressureForecast = listOfNotNull(
                         history.lastOrNull()?.pressureReading()
                     ) + weatherSubsystem.getPressureForecast()
                 }
-
-                loadRawWeatherReadings()
-
-                weather = weatherSubsystem.getWeather()
             }
         }
     }
