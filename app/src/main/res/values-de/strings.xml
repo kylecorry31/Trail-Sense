@@ -661,7 +661,7 @@
     <string name="power_saving_mode_resolution">Stromsparmodus deaktivieren</string>
     <string name="location_override_not_set_resolution">Standort in den Einstellungen überschreiben</string>
     <string name="location_override_resolution">Automatisches Anpassen des Standorts in den Einstellungen aktivieren.</string>
-    <string name="units_inhg">inHg</string>
+    <string name="units_inhg">in[Hg]</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d Wegpunkt wird entfernt</item>
         <item quantity="other">%d Wegpunkte werden entfernt</item>
@@ -686,7 +686,7 @@
     <string name="path_exported">Pfad exportiert</string>
     <string name="no_paths">Keine Pfade</string>
     <string name="navigate">Navigieren</string>
-    <string name="units_mmhg">mmHg</string>
+    <string name="units_mmhg">mm[Hg]</string>
     <string name="season_fall">Herbst</string>
     <string name="season_summer">Sommer</string>
     <string name="season_spring">Frühling</string>
@@ -1437,7 +1437,7 @@
     <string name="open_settings">Einstellungen öffnen</string>
     <string name="show_labels">Beschriftungen anzeigen</string>
     <string name="map_tool_disclaimer">Dieses Werkzeug zeigt Ihre Wegpunkte, Pfade und Bilderkarten. Es ist kein Ersatz für eine eigene Kartenanwendung.</string>
-    <string name="basemap">Basiskarte</string>
+    <string name="basemap">Hintergrundkarte</string>
     <string name="color_with_elevation">Farbkonturen aufgrund der Höhe</string>
     <string name="load_pdf_tiles">Lade PDF teile</string>
     <string name="load_pdf_tiles_summary">PDF-Karten sind schärfer, aber die Leistung wird verringert</string>
@@ -1500,4 +1500,7 @@
     <string name="widget_theme_black_text">Schwarzer Text</string>
     <string name="widget_theme_white_text">Weißer Text</string>
     <string name="default_widget_theme">Standard-Widget-Design</string>
+    <string name="show_pressure_forecast">Zeige Luftdruckvorhersage im Diagramm</string>
+    <string name="cancel_navigation_question">Navigation beenden?</string>
+    <string name="elevation_value">Höhe: %s</string>
 </resources>
