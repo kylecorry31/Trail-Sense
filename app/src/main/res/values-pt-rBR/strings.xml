@@ -217,7 +217,7 @@
     <string name="tool_ruler_title">Régua</string>
     <string name="precise_inches_format">%s in</string>
     <string name="precise_centimeters_format">%s cm</string>
-    <string name="tool_lightning_title">Distância entre relâmpagos</string>
+    <string name="tool_lightning_title">Distância do Raio</string>
     <string name="tool_lightning_description">Medir a distância de uma queda de raio</string>
     <string name="reset">Reiniciar</string>
     <string name="thunder">Trovão</string>
@@ -237,7 +237,7 @@
     <string name="water_boil_timer_channel_description">A água está fervendo</string>
     <string name="water_boil_timer">Temporizador de fervura de água</string>
     <string name="solar_panel_instructions">Coloque seu telefone sobre a superfície do painel solar para começar.</string>
-    <string name="tool_solar_panel_title">Alinhador de painéis solares</string>
+    <string name="tool_solar_panel_title">Alinhador de Painel Solar</string>
     <string name="tool_solar_panel_summary">Posicione os painéis solares para otimizar a produção de energia</string>
     <string name="pref_privacy_policy_title">Política de privacidade</string>
     <string name="guide_recommended_apps_description">Apps muito úteis para situações de sobrevivência</string>
@@ -284,7 +284,7 @@
     <string name="notification_channel_clock_sync_description">Uma notificação para sincronizar seu relógio com a hora do GPS</string>
     <string name="notification_channel_clock_sync">Sincronização do relógio</string>
     <string name="pip_notification_scheduled">Notificação agendada para %s</string>
-    <string name="pip_button">Atualizar horário do sistema</string>
+    <string name="pip_button">Atualizar hora do sistema</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
     <string name="tool_triangulate_title">Triangular localização</string>
     <string name="tool_category_signaling">Sinalização</string>
@@ -302,7 +302,7 @@
     <string name="charging_fast">Carregamento rápido (%s)</string>
     <string name="tool_notes_title">Anotações</string>
     <string name="note_title_hint">Título</string>
-    <string name="contents">Conteúdos</string>
+    <string name="contents">Conteúdo</string>
     <string name="delete_note_title">Excluir anotação\?</string>
     <string name="notes_empty_text">Nenhuma anotação</string>
     <string name="unit_centimeters">Centímetros</string>
@@ -596,9 +596,9 @@
     <string name="liter_format">%s l</string>
     <string name="pref_map_url_source_title">Mapa de compartilhamento da localização</string>
     <string name="clear_cache">Limpar o cache</string>
-    <string name="destination_elevation">Elevação do local de destino</string>
-    <string name="base_temperature">Temperatura de base</string>
-    <string name="base_elevation">Elevação de base</string>
+    <string name="destination_elevation">Elevação desejada</string>
+    <string name="base_temperature">Temperatura base</string>
+    <string name="base_elevation">Elevação base</string>
     <string name="weight_per_item">Peso por item</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto a baixo)</string>
     <string name="pack_sort_weight_low_to_high">Peso (baixo a alto)</string>
@@ -624,7 +624,7 @@
     <string name="num_satellites">%d satélites</string>
     <string name="beacon_qr_import_instructions">Digitalizar um código QR para importar</string>
     <string name="qr_code">Código QR</string>
-    <string name="autofill">Preenchimento automático</string>
+    <string name="autofill">Preencher automaticamente</string>
     <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Ferramentas afetadas
@@ -816,7 +816,7 @@
     <string name="pref_flashlight_should_timeout_title">Desligamento automático</string>
     <string name="pref_flashlight_timeout_title">Desligar após</string>
     <string name="tide_deleted">A maré foi excluída</string>
-    <string name="tool_temperature_estimation_title">Previsão de temperatura</string>
+    <string name="tool_temperature_estimation_title">Estimativa de Temperatura</string>
     <string name="explore">Explorar</string>
     <string name="average_speed">Velocidade média</string>
     <string name="steps">Passos</string>
@@ -1070,7 +1070,7 @@
     <string name="projection_linear">Linear</string>
     <string name="turn_back_notification_title">É hora de voltar</string>
     <string name="turn_back_alerts">Retornar aos alertas</string>
-    <string name="cloud_scanner">Cloud Scanner</string>
+    <string name="cloud_scanner">Scanner de Nuvens</string>
     <string name="turn_back_notification_description">Volte agora para retornar às %s</string>
     <string name="background">Segundo plano</string>
     <string name="communication">Comunicação</string>
@@ -1121,7 +1121,7 @@
     <string name="open_photo_map">Abrir mapa fotográfico</string>
     <string name="return_time">Hora de retorno</string>
     <string name="turn_back_instructions">Vire %1$s (%2$s) para retornar em %3$s</string>
-    <string name="return_before_dark">Retorne antes de escurecer</string>
+    <string name="return_before_dark">Retornar antes de escurecer</string>
     <string name="turn_back_alert_set">Retornar ao alerta definido</string>
     <string name="tool_quick_action_summary">Pressione e segure a navegação inferior ou visualize na guia de ferramentas.</string>
     <string name="quick_actions_are_unavailable">As ações rápidas não estão disponíveis</string>
@@ -1216,7 +1216,7 @@
         <item quantity="other">%d estrelas</item>
     </plurals>
     <string name="tide">Maré</string>
-    <string name="tool_signal_finder">Localizador de Sinais</string>
+    <string name="tool_signal_finder">Localizador de Sinal</string>
     <string name="cell_towers">Torres de rede móvel</string>
     <string name="field_guide">Guia de campo</string>
     <string name="books">Livros</string>
@@ -1372,9 +1372,9 @@
     <string name="pref_navigation_lock_screen_when_open_title">Mostrar na tela de bloqueio enquanto aberto</string>
     <string name="declination">Declinação</string>
     <string name="survival_guide_empty_desc">Faça busca por tópicos de sobrevivência como água, assistência médica, alimentação, clima, abrigo ou técnicas de navegação.</string>
-    <string name="use_alarm_for_turn_back_alert">Use o alarme para alerta de retorno</string>
+    <string name="use_alarm_for_turn_back_alert">Usar alarme para alerta de retorno</string>
     <string name="alarm_description">Reproduz um som mesmo que a mídia e as notificações estejam silenciadas</string>
-    <string name="use_alarm_for_distance_alert">Use o alarme para alerta de distância</string>
+    <string name="use_alarm_for_distance_alert">Usar alarme para alerta de distância</string>
     <string name="use_alarm_for_sunset_alert">Usar alarme para alertar sobre o pôr do sol</string>
     <string name="use_alarm_for_water_boil_timer">Usar alarme para o temporizador de fervura da água</string>
     <string name="use_alarm_for_storm_alert">Usar alarme para alerta de tempestade</string>
