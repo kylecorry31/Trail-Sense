@@ -596,7 +596,7 @@
     <string name="liter_format">%s l</string>
     <string name="pref_map_url_source_title">Mapa de compartilhamento da localização</string>
     <string name="clear_cache">Limpar o cache</string>
-    <string name="destination_elevation">Elevação desejada</string>
+    <string name="destination_elevation">Elevação de destino</string>
     <string name="base_temperature">Temperatura base</string>
     <string name="base_elevation">Elevação base</string>
     <string name="weight_per_item">Peso por item</string>
