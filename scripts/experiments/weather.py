@@ -7,8 +7,7 @@ from statsmodels.nonparametric.smoothers_lowess import lowess
 import random
 
 
-def smooth(data):
-    frac = 0.15
+def smooth(data, frac = 0.15):
     if frac * len(data) > 10:
         frac = 10 / len(data)
     smoothed = lowess(data, np.arange(len(data)), frac=frac, return_sorted=False, it=1)
@@ -30,6 +29,12 @@ def integral(initial_value, values, dt, damping_factor=1.0, limit=None):
         result.append(current)
     return result
 
+def add_noise(data, noise_level):
+    noisy_data = []
+    for value in data:
+        noise = random.gauss(0.0, noise_level)
+        noisy_data.append(value + noise)
+    return noisy_data
 
 # Load weather_test_data.csv
 with open("weather_test_data.csv", "r") as csvfile:
@@ -43,7 +48,8 @@ start = weather_data[0][0]
 xs = [(t - start).total_seconds() / 3600 for t, _ in weather_data]
 ys = [p for _, p in weather_data]
 
-samples = list(smooth(ys[:32]))
+index = random.choice(range(12, len(xs) - 3))
+samples = list(smooth(add_noise(ys[:index], 1), 0.4))
 original_ys = ys[:]
 ys = smooth(ys)
 
