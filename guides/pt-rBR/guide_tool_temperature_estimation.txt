@@ -6,5 +6,5 @@ Para estimar a temperatura em outra elevação, você precisa saber sua elevaç�
 Para estimar a temperatura:
 
 1. Clique em 'Preencher automaticamente' ou insira a 'Elevação base' (sua elevação) e a 'Temperatura base' (a temperatura no seu local).
-2. Em seguida, insira a 'Elevação desejada' (a elevação na qual você quer estimar a temperatura).
+2. Em seguida, insira a 'Elevação de destino' (a elevação na qual você quer estimar a temperatura).
 3. A temperatura estimada será exibida na parte superior da tela.
