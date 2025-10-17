@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.list.GridView
 import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.interpolation.LinearInterpolator
 import com.kylecorry.sol.science.physics.NoDragModel
 import com.kylecorry.sol.science.physics.Physics
@@ -244,34 +245,46 @@ class FragmentBallisticsCalculator :
 
 
         // Recalculate using interpolation
-        val xs = trajectory.map { it.position.x }
-        val ys = trajectory.map { it.position.y }
-        val times = trajectory.map { it.time }
-        val velocities = trajectory.map { it.velocity.x }
-        val timeInterpolator = LinearInterpolator(trajectory.map { Vector2(it.position.x, it.time) })
-        val velocityInterpolator = LinearInterpolator(trajectory.map { Vector2(it.position.x, it.velocity.x) })
-        val dropInterpolator = LinearInterpolator(trajectory.map { Vector2(it.position.x, it.position.y) })
+        val timeInterpolator =
+            LinearInterpolator(trajectory.map { Vector2(it.position.x, it.time) })
+        val velocityInterpolator =
+            LinearInterpolator(trajectory.map { Vector2(it.position.x, it.velocity.x) })
+        val dropInterpolator =
+            LinearInterpolator(trajectory.map { Vector2(it.position.x, it.position.y) })
 
-        val newXs = (0..500 step 10).map {
-            Distance.from(
-                it.toFloat(), if (zeroDistance.units.isMetric) {
-                    DistanceUnits.Meters
-                } else {
-                    DistanceUnits.Yards
-                }
-            ).meters().value
-        }.filter { it <= maxDistance }
+        val step = Distance.from(
+            10f, if (zeroDistance.units.isMetric) {
+                DistanceUnits.Meters
+            } else {
+                DistanceUnits.Yards
+            }
+        ).meters().value
+        val maximum = Distance.from(
+            500f, if (zeroDistance.units.isMetric) {
+                DistanceUnits.Meters
+            } else {
+                DistanceUnits.Yards
+            }
+        ).meters().value
 
-        return newXs.filter { it <= maxDistance }.map {
+        val newTimes =
+            Interpolation.resample(timeInterpolator, 0f, maximum.coerceAtMost(maxDistance), step)
+        val newVelocities =
+            Interpolation.resample(velocityInterpolator, 0f, maximum.coerceAtMost(maxDistance), step)
+        val newDrops =
+            Interpolation.resample(dropInterpolator, 0f, maximum.coerceAtMost(maxDistance), step)
+
+
+        return newTimes.mapIndexed { index, time ->
             TrajectoryPoint(
-                timeInterpolator.interpolate(it),
-                Distance.meters(it),
+                time.y,
+                Distance.meters(time.x),
                 Speed.from(
-                    velocityInterpolator.interpolate(it),
+                    newVelocities[index].y,
                     DistanceUnits.Meters,
                     TimeUnits.Seconds
                 ),
-                Distance.meters(dropInterpolator.interpolate(it))
+                Distance.meters(newDrops[index].y)
             )
         }
     }
