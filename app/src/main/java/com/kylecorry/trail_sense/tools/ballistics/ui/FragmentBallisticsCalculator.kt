@@ -242,13 +242,15 @@ class FragmentBallisticsCalculator :
 
         val maxDistance = trajectory.maxOf { it.position.x }
 
-        val interpolator = LinearInterpolator()
 
         // Recalculate using interpolation
         val xs = trajectory.map { it.position.x }
         val ys = trajectory.map { it.position.y }
         val times = trajectory.map { it.time }
         val velocities = trajectory.map { it.velocity.x }
+        val timeInterpolator = LinearInterpolator(trajectory.map { Vector2(it.position.x, it.time) })
+        val velocityInterpolator = LinearInterpolator(trajectory.map { Vector2(it.position.x, it.velocity.x) })
+        val dropInterpolator = LinearInterpolator(trajectory.map { Vector2(it.position.x, it.position.y) })
 
         val newXs = (0..500 step 10).map {
             Distance.from(
@@ -262,14 +264,14 @@ class FragmentBallisticsCalculator :
 
         return newXs.filter { it <= maxDistance }.map {
             TrajectoryPoint(
-                interpolator.interpolate(it, xs, times),
+                timeInterpolator.interpolate(it),
                 Distance.meters(it),
                 Speed.from(
-                    interpolator.interpolate(it, xs, velocities),
+                    velocityInterpolator.interpolate(it),
                     DistanceUnits.Meters,
                     TimeUnits.Seconds
                 ),
-                Distance.meters(interpolator.interpolate(it, xs, ys))
+                Distance.meters(dropInterpolator.interpolate(it))
             )
         }
     }
