@@ -140,8 +140,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
 
         // TODO: These don't change
-        // Adding spaces in front of the name to offset the right icon width
-        toolbar.title.text = "    ${destination.name}"
+        toolbar.title.text = destination.name
+        toolbar.title.maxWidth = Resources.dp(context, 250f).toInt()
 
         val hasComment = !destination.comment.isNullOrEmpty()
         toolbar.leftButton.isVisible = hasComment
@@ -166,15 +166,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
                 ) else null
             ).toTypedArray(),
             separator = FormatService.Separator.NewLine
-        )
-
-        toolbar.title.setCompoundDrawables(
-            Resources.sp(context, 16f).toInt(),
-            right = R.drawable.ic_open
-        )
-        CustomUiUtils.setImageColor(
-            toolbar.title,
-            Resources.androidTextColorSecondary(context).withAlpha(127)
         )
 
         toolbar.title.setOnClickListener {
