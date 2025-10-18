@@ -1526,4 +1526,7 @@
     <string name="widget_theme_black_text">Černý text</string>
     <string name="widget_theme_white_text">Bílý text</string>
     <string name="default_widget_theme">Výchozí motiv widgetu</string>
+    <string name="cancel_navigation_question">Zrušit navigaci?</string>
+    <string name="elevation_value">Stoupání: %s</string>
+    <string name="show_pressure_forecast">Zobrazit předpověď tlaku na grafu</string>
 </resources>
