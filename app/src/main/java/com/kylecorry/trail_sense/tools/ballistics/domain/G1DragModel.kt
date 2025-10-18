@@ -1,5 +1,10 @@
 package com.kylecorry.trail_sense.tools.ballistics.domain
 
+/*
+* Calculated from https://www.jbmballistics.com/ballistics/downloads/text/g1.txt
+* Using the V and T(V) column to determine change in velocity over time, downsampled for reduced size.
+* Converted to m/s
+ */
 class G1DragModel(bc: Float = 1f) : TabulatedDragModel(bc) {
     override val dragTable: Map<Float, Float> = mapOf(
         1341.12f to 609.6f,
