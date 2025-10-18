@@ -72,7 +72,7 @@ body:
       label: Generative AI use
       description: See the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information.
       options:
-        - label: Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this issue (outside of grammar, spelling, or translation)
+        - label: Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this issue (does not include grammar, spelling, or translation)
           required: false
   
   - type: textarea
