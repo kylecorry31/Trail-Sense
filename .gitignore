@@ -49,3 +49,5 @@ dem-*.zip
 # Mini will eventually be included once it has a release candidate
 # !dem-*-mini.zip
 /.idea/copilot.data.migration.*
+
+olin.txt

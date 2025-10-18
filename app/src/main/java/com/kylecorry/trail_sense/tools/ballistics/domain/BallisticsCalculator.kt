@@ -146,13 +146,12 @@ class BallisticsCalculator {
     }
 
     companion object {
-        private const val MAX_DISTANCE_METERS_YARDS = 500f
+        private const val MAX_DISTANCE_METERS_YARDS = 505f
         private const val STEP_DISTANCE_METERS_YARDS = 10f
         private const val MAX_TIME = 2f
         private const val TIME_STEP = 0.01f
         private const val MIN_ANGLE = 0f
         private const val MAX_ANGLE = 1f
-        private const val ANGLE_STEP = 0.001f
     }
 
 }
