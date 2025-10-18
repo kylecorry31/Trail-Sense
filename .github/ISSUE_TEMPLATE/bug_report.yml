@@ -76,3 +76,17 @@ body:
       description: The stack trace from logs for this error.
     validations:
       required: false
+  
+  - type: checkboxes
+    id: generative_ai
+    attributes:
+      label: Generative AI use
+      description: See the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information.
+      options:
+        - label: Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this issue (outside of grammar, spelling, or translation)
+          required: false
+  
+  - type: markdown
+    attributes:
+      value: |
+        By creating this issue, you confirm that you have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) file.

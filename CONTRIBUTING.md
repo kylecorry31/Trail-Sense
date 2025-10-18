@@ -29,3 +29,38 @@ All contributors will be credited in the Licenses section of Trail Sense setting
 The survival guide is heavily curated and all information must be easy to follow and relevant to wilderness survival for the average person. I do not want to include advanced topics or bushcraft in the guide.
 
 I may publish and sell a physical copy of the survival guide at some point, so I ask that all content is written by me. I'm open to suggestions for areas to improve or add.
+
+## Generative AI
+The use of generative AI for Trail Sense (issues, code, and content) must follow the below rules and always be fully verified by a person (maintainer + contributor). The contributor must verify the accuracy and how well it fits into the existing code base (ex. code style, architecture, etc) before requesting a review.
+
+It is not possible to enforce that contributors are following this (although, sometimes generative AI use is easy to notice), so this works on the honor system. All contributors are expected to be able to answer questions about all of the code/content in their PRs or issues (regardless of AI use).
+
+This policy is in place to ensure the accuracy and reliability of Trail Sense as well as save me time when reviewing contributed issues or pull requests. It may change as generative AI gets better (although, I personally enjoy writing the code myself) and I will re-evaluate the state of the tools a couple times a year.
+
+### Low risk areas
+Generative AI is allowed for areas that are low risk. Most of this can be done by conventional tools.
+
+- Grammar and spelling checking/correction (with minimal changes to the actual content)
+- Low effort linting fixes
+- Translation of text in issues, app description, changelogs, and user guides
+- Scripts that don't run in production code or generate artifacts that are used in production code (ex. experimentation, automation, etc)
+
+### Medium risk areas
+Generative AI is allowed for medium risk areas but extra caution should be used.
+
+- Unit tests (algorithm unit tests should be based on an expected output from a trusted source or calculations done by hand)
+- UI automation tests
+- Writing issues (any claims/algorithms in the issue must be confirmed through human research, ideally with sources cited - be careful about AI suggestions in areas you are not familiar with)
+- Writing changelogs
+- Writing user guides
+- Translation of text in the field guides and strings.xml (as long as the translator is proficient in the language it translates to and can verify accuracy)
+- Scripts for generating models/data for use in the app (accuracy must be verified through tests)
+- Boilerplate generation (something that can be easily compared to a reference implementation - typically something you could copy and paste with a few minor changes)
+- Autocomplete (as long as it is like conventional autocomplete - autocompletion of an algorithm, function, etc would be considered high risk)
+- Conversion of one programming language to another (as long as there are unit tests to verify accuracy)
+- Applying a migration after updating a dependency (if the migration steps are clearly listed by the dependency's author)
+
+Some features may be considered medium risk if they have little impact to the accuracy or reliability of Trail Sense. If you would like to use generative AI on a particular issue, please check with me first.
+
+### High risk areas
+Anything not listed above is considered to be high risk. Generative AI is not allowed in high risk areas.
