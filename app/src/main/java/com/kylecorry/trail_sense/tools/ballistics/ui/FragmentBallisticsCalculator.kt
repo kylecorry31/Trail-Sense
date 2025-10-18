@@ -33,7 +33,9 @@ import com.kylecorry.trail_sense.shared.extensions.useFloatPreference
 import com.kylecorry.trail_sense.shared.extensions.useSpeedPreference
 import com.kylecorry.trail_sense.shared.views.BulletSpeedInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trail_sense.tools.ballistics.domain.BallisticsCalculator
 import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
+import com.kylecorry.trail_sense.tools.ballistics.domain.TrajectoryPoint
 import java.time.Duration
 
 class FragmentBallisticsCalculator :
@@ -69,12 +71,14 @@ class FragmentBallisticsCalculator :
         val (trajectory, setTrajectory) = useState(emptyList<TrajectoryPoint>())
         val (loading, setLoading) = useState(false)
 
-        useEffect(scopeHeight, normalScopeHeight) {
+        useEffect(scopeHeightView, scopeHeight, normalScopeHeight) {
             if (scopeHeight == null) {
                 setScopeHeight(normalScopeHeight)
+                scopeHeightView.value = normalScopeHeight
             }
         }
 
+        // Intentionally not re-running when the values change
         useEffect(
             zeroDistanceView,
             scopeHeightView,
@@ -94,7 +98,9 @@ class FragmentBallisticsCalculator :
 
             scopeHeightView.units = formatter.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
             scopeHeightView.hint = getString(R.string.scope_height)
-            scopeHeightView.value = normalScopeHeight
+            if (scopeHeight != null){
+                scopeHeightView.value = scopeHeight
+            }
             scopeHeightView.setOnValueChangeListener {
                 setScopeHeight(it ?: Distance.from(0f, DistanceUnits.Inches))
             }
@@ -180,7 +186,7 @@ class FragmentBallisticsCalculator :
                 )
                 val drop = DecimalFormatter.format(
                     point.drop.convertTo(smallUnits).value,
-                    1
+                    2
                 )
 
                 val velocity = DecimalFormatter.format(
@@ -221,78 +227,9 @@ class FragmentBallisticsCalculator :
             G1DragModel(ballisticCoefficient)
         }
 
-        val initialVelocity = Physics.getVelocityVectorForImpact(
-            Vector2(zeroDistance.meters().value, 0f),
-            bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed,
-            Vector2(0f, -scopeHeight.meters().value),
-            timeStep = 0.01f,
-            maxTime = 2f,
-            minAngle = 0f,
-            maxAngle = 1f,
-            angleStep = 0.001f,
-            dragModel = dragModel
-        )
-
-        val trajectory = Physics.getTrajectory2D(
-            initialPosition = Vector2(0f, -scopeHeight.meters().value),
-            initialVelocity = initialVelocity,
-            dragModel = dragModel,
-            timeStep = 0.01f,
-            maxTime = 2f
-        )
-
-        val maxDistance = trajectory.maxOf { it.position.x }
-
-
-        // Recalculate using interpolation
-        val timeInterpolator =
-            LinearInterpolator(trajectory.map { Vector2(it.position.x, it.time) })
-        val velocityInterpolator =
-            LinearInterpolator(trajectory.map { Vector2(it.position.x, it.velocity.x) })
-        val dropInterpolator =
-            LinearInterpolator(trajectory.map { Vector2(it.position.x, it.position.y) })
-
-        val step = Distance.from(
-            10f, if (zeroDistance.units.isMetric) {
-                DistanceUnits.Meters
-            } else {
-                DistanceUnits.Yards
-            }
-        ).meters().value
-        val maximum = Distance.from(
-            500f, if (zeroDistance.units.isMetric) {
-                DistanceUnits.Meters
-            } else {
-                DistanceUnits.Yards
-            }
-        ).meters().value
-
-        val newTimes =
-            Interpolation.resample(timeInterpolator, 0f, maximum.coerceAtMost(maxDistance), step)
-        val newVelocities =
-            Interpolation.resample(velocityInterpolator, 0f, maximum.coerceAtMost(maxDistance), step)
-        val newDrops =
-            Interpolation.resample(dropInterpolator, 0f, maximum.coerceAtMost(maxDistance), step)
-
-
-        return newTimes.mapIndexed { index, time ->
-            TrajectoryPoint(
-                time.y,
-                Distance.meters(time.x),
-                Speed.from(
-                    newVelocities[index].y,
-                    DistanceUnits.Meters,
-                    TimeUnits.Seconds
-                ),
-                Distance.meters(newDrops[index].y)
-            )
-        }
+        val calculator = BallisticsCalculator()
+        return calculator.calculateTrajectory(zeroDistance, scopeHeight, bulletSpeed, dragModel)
     }
 
-    data class TrajectoryPoint(
-        val time: Float,
-        val distance: Distance,
-        val velocity: Speed,
-        val drop: Distance
-    )
 }
+

@@ -1833,4 +1833,8 @@
     <string name="elevation_value">Elevation: %s</string>
     <string name="pref_show_pressure_forecast" translatable="false">pref_show_pressure_forecast</string>
     <string name="show_pressure_forecast">Show pressure forecast on chart</string>
+    <!--Minute of angle (for shooting)-->
+    <string name="moa_amount">%s MOA</string>
+    <!--mil (for shooting)-->
+    <string name="mil_amount">%s mil</string>
 </resources>

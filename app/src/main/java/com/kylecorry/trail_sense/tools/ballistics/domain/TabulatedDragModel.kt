@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.ballistics.domain
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.interpolation.LinearInterpolator
+import com.kylecorry.sol.math.interpolation.LocalNewtonInterpolator
 import com.kylecorry.sol.science.physics.DragModel
 import kotlin.math.abs
 
@@ -11,12 +12,12 @@ abstract class TabulatedDragModel(val bc: Float = 1f) : DragModel {
     abstract val dragTable: Map<Float, Float>
 
     private val interpolator by lazy {
-        LinearInterpolator(dragTable.entries.map {
+        LocalNewtonInterpolator(dragTable.entries.map {
             Vector2(
                 it.key,
                 it.value
             )
-        })
+        }, 3)
     }
 
 
