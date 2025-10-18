@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please consider posting in the New Feature Ideas [issue](https://github.com/kylecorry31/Trail-Sense/issues/2590) or [discussion](https://github.com/kylecorry31/Trail-Sense/discussions/316) instead of logging a new issue. If you do create a new issue, I may modify your description or create my own issue as a replacement to make it easier for development. Please search through existing issues to make sure this isn't a duplicate and be sure to follow the [CONTRIBUTING](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide.
+        Please consider posting in the New Feature Ideas [issue](https://github.com/kylecorry31/Trail-Sense/issues/2590) or [discussion](https://github.com/kylecorry31/Trail-Sense/discussions/316) instead of logging a new issue. If you do create a new issue, I may modify your description or create my own issue as a replacement to make it easier for development. Please search through existing issues to make sure this isn't a duplicate. By creating this issue, you confirm that you have reviewed and are following the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide.
 
   - type: textarea
     id: description
@@ -15,6 +15,15 @@ body:
       description: Describe how the new feature will work.
     validations:
       required: true
+  
+  - type: checkboxes
+    id: generative_ai
+    attributes:
+      label: Generative AI use
+      description: See the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information.
+      options:
+        - label: Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this issue (outside of grammar, spelling, or translation)
+          required: false
   
   - type: textarea
     id: use-case
@@ -37,17 +46,3 @@ body:
     attributes:
       label: Background information
       description: Include any background information that may be relevant to the feature request. This may include write-ups, links, algorithms, images, or videos that would be useful in the development of this new feature. If you are suggesting a feature that is mathematical in nature or believe a different algorithm is more accurate, please include trusted sources here so I can cross verify - I try to ensure that all features are backed by research and are well tested using real-world data.
-  
-  - type: checkboxes
-    id: generative_ai
-    attributes:
-      label: Generative AI use
-      description: See the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information.
-      options:
-        - label: Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this issue (outside of grammar, spelling, or translation)
-          required: false
-  
-  - type: markdown
-    attributes:
-      value: |
-        By creating this issue, you confirm that you have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) file.

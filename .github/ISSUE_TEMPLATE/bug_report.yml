@@ -3,6 +3,12 @@ description: Report a bug
 title: "<Replace with a short summary of the bug>"
 labels: ["bug"]
 body:
+
+  - type: markdown
+    attributes:
+      value: |
+        By creating this issue, you confirm that you have reviewed and are following the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide.
+
   - type: input
     id: download_source
     attributes:
@@ -60,6 +66,15 @@ body:
     validations:
       required: true
   
+  - type: checkboxes
+    id: generative_ai
+    attributes:
+      label: Generative AI use
+      description: See the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information.
+      options:
+        - label: Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this issue (outside of grammar, spelling, or translation)
+          required: false
+  
   - type: textarea
     id: diagnostics
     attributes:
@@ -76,17 +91,3 @@ body:
       description: The stack trace from logs for this error.
     validations:
       required: false
-  
-  - type: checkboxes
-    id: generative_ai
-    attributes:
-      label: Generative AI use
-      description: See the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information.
-      options:
-        - label: Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this issue (outside of grammar, spelling, or translation)
-          required: false
-  
-  - type: markdown
-    attributes:
-      value: |
-        By creating this issue, you confirm that you have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) file.
