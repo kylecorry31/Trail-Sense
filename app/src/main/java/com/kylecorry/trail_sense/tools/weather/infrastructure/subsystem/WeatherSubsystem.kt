@@ -9,8 +9,6 @@ import com.kylecorry.andromeda.core.subscriptions.ISubscription
 import com.kylecorry.andromeda.core.subscriptions.Subscription
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.random.nextGaussian
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -34,6 +32,7 @@ import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.IWeatherForecaster
+import com.kylecorry.trail_sense.tools.weather.domain.forecasting.MonteCarloPressureForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.WeatherForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.CalibratedTemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.HistoricTemperatureService
@@ -42,8 +41,6 @@ import com.kylecorry.trail_sense.tools.weather.domain.sealevel.SeaLevelCalibrati
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.temp.DerivativePredictor
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.temp.TimeSeriesEnsemble
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -52,7 +49,6 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.Month
 import java.time.ZonedDateTime
-import kotlin.random.Random
 
 
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
@@ -323,72 +319,12 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         cloudRepo.getAll().sortedBy { it.time }.map { Reading(it.value.genus, it.time) }
     }
 
-    private fun randomValue(
-        random: Random,
-        center: Float,
-        deviation: Float,
-        minimum: Float,
-        maximum: Float
-    ): Float {
-        return (random.nextGaussian().toFloat() * deviation + center).coerceIn(minimum, maximum)
-    }
 
     // TODO: Extract this to Sol (new forecaster)
     suspend fun getPressureForecast(): List<Reading<Pressure>> = onDefault {
-        val forecastLengthHours = 6f
-        val observations = getHistory()
-        val start = observations.firstOrNull()?.time?.toEpochMilli() ?: return@onDefault emptyList()
-        val pressures = observations.map {
-            val hours = (it.time.toEpochMilli() - start) / 3600000f
-            Vector2(hours, it.pressure.hpa().value)
-        }
-        if (pressures.size <= 2) {
-            return@onDefault emptyList()
-        }
-
-        val recentPressures =
-            observations.count { it.time > Instant.now().minus(Duration.ofHours(4)) }
-
-        val order = (recentPressures - 1).coerceAtMost(2)
-        val random = Random(1)
-        var cachedFirstDerivative: List<Vector2>? = null
-        var cachedSecondDerivative: List<Vector2>? = null
-        val predictors = (0 until 50).map {
-            val offset1 = randomValue(random, 0f, 0.2f, -1f, 1f)
-            val offset2 = randomValue(random, 0f, 0.2f, -0.5f, 0.5f)
-            DerivativePredictor(
-                order, mapOf(
-                    1 to DerivativePredictor.DerivativePredictorConfig {
-                        if (cachedFirstDerivative == null) {
-                            cachedFirstDerivative = DataUtils.smooth(it, 0.15f)
-                        }
-                        cachedFirstDerivative.map { it.copy(y = it.y + offset1) }
-                    },
-                    2 to DerivativePredictor.DerivativePredictorConfig {
-                        if (cachedSecondDerivative == null) {
-                            cachedSecondDerivative = DataUtils.smooth(it, 0.15f)
-                        }
-                        cachedSecondDerivative.map { it.copy(y = it.y + offset2) }
-                    }
-                )
-            )
-        }
-
-        val ensemble = TimeSeriesEnsemble(predictors)
-
-        val stepSizeHours = 1f // For hourly weather
-        val n = (forecastLengthHours / stepSizeHours).toInt()
-        // TODO: If the pressure turns around, don't forecast further out than that (can't tell what the next pressure system will bring)
-        // TODO: Return the CI or only include samples that are confident
-        ensemble.predictNext(pressures.takeLast(50), n, stepSizeHours).filter {
-            val confidence = it.upper.y - it.lower.y
-            confidence < 5f // hPa
-        }.map {
-            Reading(
-                Pressure.hpa(it.value.y),
-                Instant.ofEpochMilli(start + (it.value.x * 3600000f).toLong())
-            )
-        }
+        val forecaster = MonteCarloPressureForecaster()
+        val history = getHistory().map { it.pressureReading() }.takeLast(50)
+        forecaster.getPressureForecast(history, maxErrorHpa = 8f)
     }
 
     private suspend fun populateCache(): CurrentWeather {
