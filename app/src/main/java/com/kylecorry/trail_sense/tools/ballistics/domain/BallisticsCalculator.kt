@@ -40,12 +40,16 @@ class BallisticsCalculator {
             }
         ).meters().value
 
+        val estimatedTimeToZeroDistance = 2 * zeroDistance.meters().value / bulletSpeed.convertTo(
+            DistanceUnits.Meters,
+            TimeUnits.Seconds
+        ).speed
         val initialVelocity = getVelocityVectorForImpact(
             Vector2(zeroDistance.meters().value, 0f),
             bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed,
             Vector2(0f, -scopeHeight.meters().value),
             timeStep = TIME_STEP,
-            maxTime = MAX_TIME,
+            maxTime = estimatedTimeToZeroDistance.coerceAtMost(MAX_TIME),
             minAngle = MIN_ANGLE,
             maxAngle = MAX_ANGLE,
             dragModel = dragModel,
