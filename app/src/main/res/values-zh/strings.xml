@@ -1490,4 +1490,6 @@
     <string name="cancel_navigation_question">取消导航？</string>
     <string name="elevation_value">海拔：%s</string>
     <string name="show_pressure_forecast">在图表上显示气压预报</string>
+    <string name="moa_amount">%s 角分</string>
+    <string name="mil_amount">%s 密位</string>
 </resources>
