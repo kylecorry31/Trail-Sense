@@ -7,17 +7,14 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
 import com.kylecorry.andromeda.list.GridView
 import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.interpolation.Interpolation
-import com.kylecorry.sol.math.interpolation.LinearInterpolator
 import com.kylecorry.sol.science.physics.NoDragModel
-import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -98,7 +95,7 @@ class FragmentBallisticsCalculator :
 
             scopeHeightView.units = formatter.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
             scopeHeightView.hint = getString(R.string.scope_height)
-            if (scopeHeight != null){
+            if (scopeHeight != null) {
                 scopeHeightView.value = scopeHeight
             }
             scopeHeightView.setOnValueChangeListener {
@@ -186,7 +183,7 @@ class FragmentBallisticsCalculator :
                 )
                 val drop = DecimalFormatter.format(
                     point.drop.convertTo(smallUnits).value,
-                    2
+                    1
                 )
 
                 val velocity = DecimalFormatter.format(
@@ -221,14 +218,17 @@ class FragmentBallisticsCalculator :
         bulletSpeed: Speed,
         ballisticCoefficient: Float?
     ): List<TrajectoryPoint> {
-        val dragModel = if (ballisticCoefficient == null || SolMath.isZero(ballisticCoefficient)) {
-            NoDragModel()
-        } else {
-            G1DragModel(ballisticCoefficient)
-        }
+        return tryOrDefault(emptyList()) {
+            val dragModel =
+                if (ballisticCoefficient == null || SolMath.isZero(ballisticCoefficient)) {
+                    NoDragModel()
+                } else {
+                    G1DragModel(ballisticCoefficient)
+                }
 
-        val calculator = BallisticsCalculator()
-        return calculator.calculateTrajectory(zeroDistance, scopeHeight, bulletSpeed, dragModel)
+            val calculator = BallisticsCalculator()
+            calculator.calculateTrajectory(zeroDistance, scopeHeight, bulletSpeed, dragModel)
+        }
     }
 
 }

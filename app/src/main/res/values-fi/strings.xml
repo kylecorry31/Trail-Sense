@@ -1243,7 +1243,6 @@
     <string name="field_guide_disclaimer">Tämä työkalu on tarkoitettu vain opetuksellisiin käyttötarkoituksiin. Ole aina varovainen tunnistaessasi kasveja, eläimiä tai sieniä. Jotkut lajit saattavat olla vaarallisia tai suojeltuja. Jos olet epävarma tunnistuksesta, kysy neuvoa ammattilaiselta.</string>
     <string name="survival_guide_disclaimer">Tämä opas on tarkoitettu vain informatiivisiin tarkoituksiin ja sen kirjoittaja, julkaisija tai kukaan edistäjistä ei takaa sen tarkkuutta tai käyttökelpoisuutta mihinkään tarkoitukseen. Käyttämällä tätä opasta hyväksyt, että ulkona liikkuminen pitää sisällään riskejä ja teet kaiken kyseisen toiminnan omalla vastuullasi, sekä vapautat kirjoittajan, julkaisijan että kaikki edistäjät kaikista tämän oppaan käytöstä johtuvista vahingoista tai korvausvaatimuksista. Kysy aina ammattilaisilta tarkkoja neuvoja omiin tilanteisiisi, sillä tämä opas ei korvaa ammattilaisopastusta. Huomio lisäksi, että paikalliset lait ja määräykset saattaavat vaikuttaa tiettyjen oppaassa kuvattujen tekniikoiden laillisuuteen, ja että lakien noudattaminen on aina sinun vastuullasi.</string>
     <string name="no_results">Ei tuloksia</string>
-    <string name="ballistics_calculator">Ballistiikkalaskin</string>
     <string name="permits">Luvat</string>
     <string name="no_permits">Ei lupia</string>
     <string name="above">Yläpuolella</string>

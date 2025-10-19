@@ -1209,7 +1209,6 @@
     <string name="books">Könyvek</string>
     <string name="habitat">Élőhely</string>
     <string name="tide_estimation_description_tide_model">Egy beépített árapály modellt használ az árapályok becsléséhez a megadott helyen, vagy a jelenlegi helyen, ha semmi nincs megadva.</string>
-    <string name="ballistics_calculator">Ballisztikai számológép</string>
     <string name="permits">Engedélyek</string>
     <string name="no_permits">Nincsenek engedélyek</string>
     <string name="above">Fölé</string>

@@ -1078,7 +1078,6 @@
     <string name="no_directory_selected">לא נבחרה תיקיית גיבוי</string>
     <string name="sun_moon_chart">טבלת שמש וירח</string>
     <string name="unable_to_create_an_automatic_backup">לא ניתן ליצור גיבוי אוטומטי.</string>
-    <string name="ballistics_calculator">מחשבון בליסטי</string>
     <string name="permits">אישורים</string>
     <string name="automatic_backup">גיבוי אוטומטי</string>
     <string name="auto_backup_instructions">גיבוי ייווצר פעם ביום אל %1$s. רק %2$d הגיבויים האחרונים יישמרו.</string>

@@ -1325,7 +1325,6 @@
     <string name="tool_quick_action_summary">Navigationsknopf lange drücken oder im Werkzeugtab ansehen.</string>
     <string name="drop_amount">%s Fallhöhe</string>
     <string name="muzzle_velocity">Initiale Geschwindigkeit</string>
-    <string name="ballistics_calculator">Ballistikrechner</string>
     <string name="projection_estimated_intrinsics">Geschätze intrinsische Werte</string>
     <string name="field_guide">Naturführer</string>
     <string name="drop_header_units">Fall (%s)</string>

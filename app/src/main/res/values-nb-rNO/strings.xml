@@ -1149,7 +1149,6 @@
     <string name="energy">Energi</string>
     <string name="milligrams">Milligram</string>
     <string name="milligrams_format">%s mg</string>
-    <string name="ballistics_calculator">Ballistikk-kalkulator</string>
     <string name="screen_flashlight_full_name">Skjermlommelykt</string>
     <string name="bottom_navigation_slot">Nedre navigeringsplass %d</string>
     <string name="pinned">Festet</string>
