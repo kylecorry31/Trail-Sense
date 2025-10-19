@@ -3,6 +3,7 @@ import datetime
 import matplotlib.pyplot as plt
 import scipy
 import numpy as np
+from scipy.integrate import solve_ivp
 from statsmodels.nonparametric.smoothers_lowess import lowess
 import random
 
@@ -17,17 +18,6 @@ def smooth(data, frac = 0.15):
 def derivative(data):
     return [data[i + 1] - data[i] for i in range(len(data) - 1)]
 
-
-def integral(initial_value, values, dt, damping_factor=1.0, limit=None):
-    result = []
-    current = initial_value
-    for i in range(len(values)):
-        current += values[i] * dt
-        current *= damping_factor
-        if limit is not None:
-            current = min(max(current, limit[0]), limit[1])
-        result.append(current)
-    return result
 
 def add_noise(data, noise_level):
     noisy_data = []
@@ -65,22 +55,6 @@ def scale(a, a_min=None, a_max=None):
     return 2 * (a - a_min) / (a_max - a_min) - 1
 
 
-def project_next(dx, position, velocity, acceleration):
-    new_position = position + velocity * dx + 0.5 * acceleration * dx * dx
-    new_velocity = velocity + acceleration * dx
-    # print(position, velocity, acceleration)
-    return new_position, new_velocity
-
-
-def factorial(n):
-    if n == 0:
-        return 1
-    result = 1
-    for i in range(2, n + 1):
-        result *= i
-    return result
-
-
 def prediction_taylor_series(
     samples,
     n,
@@ -98,60 +72,24 @@ def prediction_taylor_series(
         if offsets:
             for j in range(len(values[-1])):
                 values[-1][j] += offsets[i + 1]
-    predictions = []
-    for _ in range(n):
-        coefs = [values[i][-1] for i in range(len(values))]
-        next_coefs = []
-        for i in range(len(coefs)):
-            next_value = coefs[i]
-            for j in range(i + 1, len(coefs)):
-                next_value += coefs[j] * 1 / factorial(j - i)
-            next_coefs.append(float(next_value))
-        if damping_factors:
-            for i in range(len(next_coefs)):
-                next_coefs[i] *= damping_factors[i]
-        if limits:
-            for i in range(len(next_coefs)):
-                limit = limits[i]
-                if (
-                    limit is not None
-                    and next_coefs[i] >= limit[0]
-                    and next_coefs[i] <= limit[1]
-                ):
-                    next_coefs[i] = min(max(next_coefs[i], limit[0]), limit[1])
-        predictions.append(next_coefs[0])
-        for i in range(len(values)):
-            values[i].append(next_coefs[i])
-    return predictions
-
-
-def prediction(
-    samples,
-    n,
-    order=3,
-    smooth_fn=None,
-    damping_factors=None,
-    limits=None,
-):
-    values = [samples[:]]
-    for i in range(order):
-        values.append(derivative(values[-1]))
-        if smooth_fn:
-            values[-1] = list(smooth_fn(values[-1]))
-    predictions = [[0] * n]
-
-    for i in range(order + 1):
-        index = order - i
-        predictions.append(
-            integral(
-                values[index][-1],
-                predictions[-1],
-                1,
-                damping_factors[index] if damping_factors is not None else 1.0,
-                limits[index] if limits is not None else None,
-            )
-        )
-    return predictions[-1]
+    
+    y0 = np.array([values[i][-1] for i in range(len(values))])
+    
+    def ode_system(t, y):
+        dydt = np.zeros_like(y)
+        for i in range(len(y) - 1):
+            dydt[i] = y[i + 1]
+        dydt[-1] = 0  # Highest order derivative is constant
+        return dydt
+    
+    t_span = (0, n)
+    t_eval = np.arange(0, n, 1)
+    
+    solution = solve_ivp(ode_system, t_span, y0, t_eval=t_eval, method='RK45')
+    
+    predictions = solution.y[0, :]
+    
+    return list(predictions)
 
 
 def random_value(center, deviation, minimum, maximum):

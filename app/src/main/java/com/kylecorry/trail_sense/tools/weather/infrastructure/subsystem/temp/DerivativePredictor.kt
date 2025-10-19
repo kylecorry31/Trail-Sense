@@ -1,15 +1,18 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.temp
 
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.Vector
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.calculus.Calculus
+import com.kylecorry.sol.math.calculus.RungeKutta4thOrderSolver
 
 class DerivativePredictor(
     private val order: Int = 2,
     private val configs: Map<Int, DerivativePredictorConfig> = emptyMap()
 ) : ITimeSeriesPredictor {
+
+    private val solver = RungeKutta4thOrderSolver()
+
     private fun withMapping(order: Int, values: List<Vector2>): List<Vector2> {
         val mapFn = configs[order]?.map ?: return values
         return mapFn(values)
@@ -30,51 +33,34 @@ class DerivativePredictor(
             val lastValues = values.last()
             values.add(withMapping(i, Calculus.derivative(lastValues)).toMutableList())
         }
-        val predictions = mutableListOf<Vector2>()
-        for (stepIndex in 0 until n) {
-            val coefs = values.map { it.last() }
-            val nextCoefs = mutableListOf<Vector2>()
-            for (i in coefs.indices) {
-                var nextValue = coefs[i].y
-                for (j in i + 1 until coefs.size) {
-                    val factorial = Arithmetic.factorial(j - i)
-                    if (factorial != 0L) {
-                        nextValue += coefs[j].y * (1f / factorial) * SolMath.power(
-                            actualStep,
-                            (j - i)
-                        )
-                    }
+
+        val lastX = mappedSamples.last().x
+        val y0 = Vector(values.map { it.last().y }.toFloatArray())
+
+        val odeSystem: (Float, Vector) -> Vector = { _, y ->
+            Vector(FloatArray(order + 1) { i ->
+                if (i < order) {
+                    y[i + 1]
+                } else {
+                    // Highest order derivative is constant
+                    0f
                 }
-                nextCoefs.add(Vector2(coefs[i].x + actualStep, nextValue))
-            }
-            // Apply damping and limits
-            configs.forEach { (index, config) ->
-                if (index >= nextCoefs.size) return@forEach
-
-                val value = nextCoefs[index]
-                var y = value.y
-
-                config.dampingFactor?.let {
-                    y *= it
-                }
-
-                config.limit?.let {
-                    y = y.coerceIn(it.start, it.end)
-                }
-
-                nextCoefs[index] = Vector2(value.x, y)
-            }
-            predictions.add(nextCoefs[0])
-            for (i in values.indices) {
-                values[i].add(nextCoefs[i])
-            }
+            })
         }
-        return predictions
+
+        val solution = solver.solve(
+            Range(lastX, lastX + n * actualStep),
+            actualStep,
+            y0,
+            odeSystem
+        )
+
+        return solution.mapIndexed { index, state ->
+            Vector2(state.first, state.second[0])
+        }
     }
 
     class DerivativePredictorConfig(
-        val limit: Range<Float>? = null,
-        val dampingFactor: Float? = null,
         val map: ((List<Vector2>) -> List<Vector2>)? = null,
     )
 }
