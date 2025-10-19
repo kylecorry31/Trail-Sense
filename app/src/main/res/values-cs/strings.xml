@@ -1529,4 +1529,6 @@
     <string name="cancel_navigation_question">Zrušit navigaci?</string>
     <string name="elevation_value">Stoupání: %s</string>
     <string name="show_pressure_forecast">Zobrazit předpověď tlaku na grafu</string>
+    <string name="moa_amount">%s MOA</string>
+    <string name="mil_amount">%s mil</string>
 </resources>
