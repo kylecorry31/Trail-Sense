@@ -40,16 +40,12 @@ class BallisticsCalculator {
             }
         ).meters().value
 
-        val estimatedTimeToZeroDistance = 2 * zeroDistance.meters().value / bulletSpeed.convertTo(
-            DistanceUnits.Meters,
-            TimeUnits.Seconds
-        ).speed
         val initialVelocity = getVelocityVectorForImpact(
             Vector2(zeroDistance.meters().value, 0f),
             bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed,
             Vector2(0f, -scopeHeight.meters().value),
             timeStep = TIME_STEP,
-            maxTime = estimatedTimeToZeroDistance.coerceAtMost(MAX_TIME),
+            maxTime = getApproximateTime(bulletSpeed, zeroDistance).coerceAtMost(MAX_TIME),
             minAngle = MIN_ANGLE,
             maxAngle = MAX_ANGLE,
             dragModel = dragModel,
@@ -63,7 +59,9 @@ class BallisticsCalculator {
             initialVelocity = initialVelocity,
             dragModel = dragModel,
             timeStep = TIME_STEP,
-            maxTime = MAX_TIME
+            maxTime = getApproximateTime(bulletSpeed, Distance.meters(maxDistance)).coerceAtMost(
+                MAX_TIME
+            )
         )
 
         val maxCalculatedDistance = trajectory.maxOf { it.position.x }
@@ -149,8 +147,18 @@ class BallisticsCalculator {
         return LinearInterpolator(points)
     }
 
+    private fun getApproximateTime(bulletSpeed: Speed, distance: Distance): Float {
+        val speedMetersPerSecond = bulletSpeed.convertTo(
+            DistanceUnits.Meters,
+            TimeUnits.Seconds
+        ).speed
+        val distanceMeters = distance.meters().value
+        val dragFactor = 1.5f
+        return dragFactor * distanceMeters / speedMetersPerSecond
+    }
+
     companion object {
-        private const val MAX_DISTANCE_METERS_YARDS = 505f
+        private const val MAX_DISTANCE_METERS_YARDS = 205f
         private const val STEP_DISTANCE_METERS_YARDS = 10f
         private const val MAX_TIME = 2f
         private const val TIME_STEP = 0.01f

@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.ballistics.domain
 
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.interpolation.LinearInterpolator
 import com.kylecorry.sol.math.interpolation.LocalNewtonInterpolator
 import com.kylecorry.sol.science.physics.DragModel
 import kotlin.math.abs
