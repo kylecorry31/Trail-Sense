@@ -9,8 +9,9 @@ import com.kylecorry.sol.math.interpolation.LinearInterpolator
 import com.kylecorry.sol.math.optimization.ConvergenceOptimizer
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
 import com.kylecorry.sol.math.optimization.IOptimizer
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.physics.DragModel
-import com.kylecorry.sol.science.physics.Physics
+import com.kylecorry.sol.science.physics.TrajectoryPoint2D
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -54,7 +55,7 @@ class BallisticsCalculator {
             }
         )
 
-        val trajectory = Physics.getTrajectory2D(
+        val trajectory = getTrajectory2D(
             initialPosition = Vector2(0f, -scopeHeight.meters().value),
             initialVelocity = initialVelocity,
             dragModel = dragModel,
@@ -124,7 +125,7 @@ class BallisticsCalculator {
                     velocity * SolMath.sinDegrees(angle.toFloat())
                 )
             val trajectory =
-                Physics.getTrajectory2D(
+                getTrajectory2D(
                     initialPosition,
                     initialVelocity,
                     dragModel,
@@ -156,6 +157,40 @@ class BallisticsCalculator {
         val dragFactor = 1.5f
         return dragFactor * distanceMeters / speedMetersPerSecond
     }
+
+    // TODO: Move to sol
+    private fun getTrajectory2D(
+        initialPosition: Vector2,
+        initialVelocity: Vector2,
+        dragModel: DragModel,
+        timeStep: Float,
+        maxTime: Float,
+    ): List<TrajectoryPoint2D> {
+        val trajectory = mutableListOf<TrajectoryPoint2D>()
+
+        var x = initialPosition.x
+        var y = initialPosition.y
+        var vx = initialVelocity.x
+        var vy = initialVelocity.y
+        var t = 0f
+        val g = Geology.GRAVITY
+
+        trajectory.add(TrajectoryPoint2D(t, Vector2(x, y), Vector2(vx, vy)))
+        while (t < maxTime) {
+            val drag = dragModel.getDragAcceleration(Vector2(vx, vy))
+            x += vx * timeStep
+            y += vy * timeStep
+            vx += drag.x * timeStep
+            vy += (drag.y - g) * timeStep
+
+            t += timeStep
+
+            trajectory.add(TrajectoryPoint2D(t, Vector2(x, y), Vector2(vx, vy)))
+        }
+
+        return trajectory
+    }
+
 
     companion object {
         private const val MAX_DISTANCE_METERS_YARDS = 205f
