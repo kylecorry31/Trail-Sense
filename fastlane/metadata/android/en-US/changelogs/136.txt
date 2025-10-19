@@ -13,7 +13,7 @@ Navigation
 - Tap beacon name to open it while navigating
 
 Ballistics
-- Improve ballistics calculations
+- Add ballistics calculations (drop, velocity)
 
 Weather
 - [Experimental] Show pressure forecast on chart

@@ -17,7 +17,7 @@ class BallisticsCalculatorTest {
         "22 LR, 1200, 0.135, -6.02, -20.92, -45.97",
         "223 Remington, 2850, 0.371, 0.31, -0.65, -3.03",
         "308 Winchester, 2700, 0.475, 0.2, -0.96, -3.62",
-//        "JSB 18.13 Pellet, 900, 0.035, -14.57, -52.2, -122.83" // This is about 0.5 inches off at 200 yards, which is acceptable for a pellet
+        "JSB 18.13 Pellet, 900, 0.035, -14.57, -52.2, -122.83"
     )
     fun calculateTrajectory(
         name: String,
