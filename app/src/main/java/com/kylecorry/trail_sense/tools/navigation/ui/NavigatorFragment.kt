@@ -8,8 +8,8 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -189,6 +189,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destination = it
         }
 
+        observeFlow(navigator.navigationBearing) {
+            destinationBearing = it?.bearing
+        }
+
         // Observe diagnostics
         listOf(
             GPSDiagnosticScanner(gps),
@@ -334,28 +338,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun toggleDestinationBearing() {
-        if (destination != null) {
-            // Don't set destination bearing while navigating
-            return
-        }
+        inBackground {
+            if (destination != null) {
+                // Don't set destination bearing while navigating
+                return@inBackground
+            }
 
-        // If there is no compass, don't allow setting a destination bearing
-        if (!hasCompass) {
-            destinationBearing = null
-            cache.remove(LAST_DEST_BEARING)
-            return
-        }
-
-        if (destinationBearing == null) {
-            destinationBearing = compass.rawBearing
-            cache.putFloat(LAST_DEST_BEARING, compass.rawBearing)
-            Alerts.toast(
-                requireContext(),
-                getString(R.string.toast_destination_bearing_set)
-            )
-        } else {
-            destinationBearing = null
-            cache.remove(LAST_DEST_BEARING)
+            if (destinationBearing == null && hasCompass) {
+                // TODO: Wait for GPS location to be up to date (show a loading indicator)
+                navigator.navigateToBearing(compass.rawBearing, gps.location)
+                toast(getString(R.string.toast_destination_bearing_set))
+            } else {
+                navigator.clearBearing()
+            }
         }
     }
 
@@ -388,12 +383,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Resume navigation
         inBackground {
             destination = navigator.getDestination()
-        }
-
-        // Restore the last destination bearing
-        val lastDestBearing = cache.getFloat(LAST_DEST_BEARING)
-        if (lastDestBearing != null && hasCompass) {
-            destinationBearing = lastDestBearing
         }
 
         // Show the north reference indicator
@@ -710,7 +699,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     companion object {
-        const val LAST_DEST_BEARING = "last_dest_bearing"
         const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
         private val ASTRONOMY_UPDATE_DISTANCE = Distance.kilometers(1f).meters()
         private val ASTRONOMY_UPDATE_FREQUENCY = Duration.ofMinutes(1)

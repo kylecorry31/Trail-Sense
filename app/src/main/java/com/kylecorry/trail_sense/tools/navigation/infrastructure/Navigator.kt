@@ -8,6 +8,8 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,11 +18,13 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.Instant
 
 class Navigator private constructor(context: Context) {
 
     private val prefs = PreferencesSubsystem.getInstance(context).preferences
-    private val service = BeaconService(context)
+    private val beacons = BeaconService(context)
+    private val bearings = NavigationBearingService.getInstance(context)
 
     // Flows
     private val _destinationId = MutableStateFlow(getDestinationId())
@@ -29,7 +33,7 @@ class Navigator private constructor(context: Context) {
 
     val destination = destinationId
         .combine(_forceUpdate) { id, _ -> id }
-        .map { it?.let { service.getBeacon(it) } }
+        .map { it?.let { beacons.getBeacon(it) } }
 
     fun navigateTo(
         location: Coordinate,
@@ -46,7 +50,7 @@ class Navigator private constructor(context: Context) {
                 visible = false,
                 owner = owner
             )
-            val id = service.add(beacon)
+            val id = beacons.add(beacon)
             navigateTo(id)
         }
     }
@@ -73,11 +77,30 @@ class Navigator private constructor(context: Context) {
 
     suspend fun getDestination(): Beacon? = onIO {
         val id = getDestinationId() ?: return@onIO null
-        service.getBeacon(id)
+        beacons.getBeacon(id)
     }
 
     fun isNavigating(): Boolean {
         return getDestinationId() != null
+    }
+
+    // TODO: Merge this with beacon navigation
+    // Bearings
+    val navigationBearing = bearings.getBearing()
+
+    suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
+        val navigationBearing = NavigationBearing(
+            0,
+            bearing,
+            startingLocation,
+            isActive = true,
+            startTime = Instant.now()
+        )
+        bearings.setBearing(navigationBearing)
+    }
+
+    suspend fun clearBearing() {
+        bearings.setBearing(null)
     }
 
     companion object {

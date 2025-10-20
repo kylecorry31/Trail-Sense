@@ -25,9 +25,7 @@ object NavigationToolRegistration : ToolRegistration {
                 *ToolDiagnosticFactory.altimeter(context),
                 ToolDiagnosticFactory.pedometer(context),
             ).distinctBy { it.id },
-            singletons = listOf(
-                { Navigator.getInstance(it) }
-            )
+            singletons = listOf(Navigator::getInstance)
         )
     }
 }

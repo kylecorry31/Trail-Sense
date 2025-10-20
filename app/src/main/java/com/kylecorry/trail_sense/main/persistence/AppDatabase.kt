@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSigh
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSightingEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingDao
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingEntity
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
@@ -80,6 +81,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun fieldGuidePageDao(): FieldGuidePageDao
     abstract fun fieldGuideSightingDao(): FieldGuideSightingDao
     abstract fun digitalElevationModelDao(): DigitalElevationModelDao
+    abstract fun bearingDao(): NavigationBearingDao
 
     companion object {
 

@@ -15,8 +15,12 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrappe
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.Duration
 
 class PreferenceMigrator private constructor() {
@@ -46,7 +50,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 19
+        private const val version = 20
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -232,6 +236,17 @@ class PreferenceMigrator private constructor() {
                             "pref_${mapId}_contour_layer_color",
                             ElevationColorStrategy.Vibrant.id.toString()
                         )
+                    }
+                }
+            },
+            PreferenceMigration(19, 20) { context, prefs ->
+                val bearing = prefs.getFloat("last_dest_bearing")
+                prefs.remove("last_dest_bearing")
+                if (bearing != null) {
+                    val scope = CoroutineScope(Dispatchers.IO)
+                    scope.launch {
+                        val navigator = Navigator.getInstance(context)
+                        navigator.navigateToBearing(bearing)
                     }
                 }
             }
