@@ -1502,4 +1502,6 @@
     <string name="cancel_navigation_question">Navigatie annuleren?</string>
     <string name="elevation_value">Hoogte: %s</string>
     <string name="show_pressure_forecast">Toon drukverwachting op grafiek</string>
+    <string name="moa_amount">%s Hoekminuut</string>
+    <string name="mil_amount">%s mil</string>
 </resources>
