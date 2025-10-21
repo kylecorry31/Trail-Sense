@@ -325,16 +325,24 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val forecaster = MonteCarloPressureForecaster()
         val history = getHistory().map { it.pressureReading() }.takeLast(50)
         // TODO: Determine if the pressure history is reliable - sum of squared errors between raw and smoothed?
-        val derivativeSmoothing = if (prefs.weather.pressureSmoothing < 0.15f) {
+        val isPressureTrusted = prefs.weather.pressureSmoothing < 0.15f
+        val derivativeSmoothing = if (isPressureTrusted) {
             0f
         } else {
             0.1f
+        }
+        val error = if (isPressureTrusted) {
+            0.1f
+        } else {
+            0.2f
         }
         forecaster.getPressureForecast(
             history,
             maxErrorHpa = 8f,
             velocitySmoothing = derivativeSmoothing,
-            accelerationSmoothing = derivativeSmoothing
+            accelerationSmoothing = derivativeSmoothing,
+            velocityError = error,
+            accelerationError = error
         )
     }
 
