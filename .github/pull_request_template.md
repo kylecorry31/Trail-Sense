@@ -1,3 +1,5 @@
+<!-- You must use the following template for pull requests -->
+
 ## Description
 <!-- Describe what this PR does and why -->
 
