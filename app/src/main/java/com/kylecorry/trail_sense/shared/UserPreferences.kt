@@ -463,13 +463,13 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         Light, Dark, Black, System, SunriseSunset, Night, SystemBlack
     }
 
-    enum class AltimeterMode {
-        GPS,
-        GPSBarometer,
-        Barometer,
-        DigitalElevationModel,
-        DigitalElevationModelBarometer,
-        Override
+    enum class AltimeterMode(val usesDem: Boolean) {
+        GPS(false),
+        GPSBarometer(false),
+        Barometer(false),
+        DigitalElevationModel(true),
+        DigitalElevationModelBarometer(true),
+        Override(false)
     }
 
 }

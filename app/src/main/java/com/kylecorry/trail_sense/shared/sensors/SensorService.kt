@@ -157,7 +157,13 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            return gps ?: getGPS()
+            val actualGPS = gps ?: getGPS()
+
+            if (mode.usesDem) {
+                return getDigitalElevationModel(gps)
+            }
+
+            return actualGPS
         }
     }
 
