@@ -31,7 +31,6 @@ import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
@@ -175,10 +174,6 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
         onClick(preference(R.string.pref_reset_thermometer_calibration_button)) {
             resetCalibration()
-        }
-
-        onClick(preference(R.string.pref_thermometer_user_guide_button)) {
-            UserGuideUtils.showGuide(this, R.raw.guide_tool_settings)
         }
     }
 
