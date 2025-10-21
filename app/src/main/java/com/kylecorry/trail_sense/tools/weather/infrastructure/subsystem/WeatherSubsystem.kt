@@ -324,7 +324,18 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     suspend fun getPressureForecast(): List<Reading<Pressure>> = onDefault {
         val forecaster = MonteCarloPressureForecaster()
         val history = getHistory().map { it.pressureReading() }.takeLast(50)
-        forecaster.getPressureForecast(history, maxErrorHpa = 8f)
+        // TODO: Determine if the pressure history is reliable - sum of squared errors between raw and smoothed?
+        val derivativeSmoothing = if (prefs.weather.pressureSmoothing < 0.15f) {
+            0f
+        } else {
+            0.1f
+        }
+        forecaster.getPressureForecast(
+            history,
+            maxErrorHpa = 8f,
+            velocitySmoothing = derivativeSmoothing,
+            accelerationSmoothing = derivativeSmoothing
+        )
     }
 
     private suspend fun populateCache(): CurrentWeather {

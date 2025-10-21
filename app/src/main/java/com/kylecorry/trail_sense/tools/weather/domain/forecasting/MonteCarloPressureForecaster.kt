@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting
 
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.random.nextGaussian
 import com.kylecorry.sol.units.Pressure
@@ -50,13 +51,21 @@ class MonteCarloPressureForecaster {
                 2, mapOf(
                     1 to DerivativePredictor.DerivativePredictorConfig {
                         if (cachedFirstDerivative == null) {
-                            cachedFirstDerivative = DataUtils.smooth(it, velocitySmoothing)
+                            cachedFirstDerivative = if (SolMath.isZero(velocitySmoothing)) {
+                                it
+                            } else {
+                                DataUtils.smooth(it, velocitySmoothing)
+                            }
                         }
                         cachedFirstDerivative.map { it.copy(y = it.y + velocityOffset) }
                     },
                     2 to DerivativePredictor.DerivativePredictorConfig {
                         if (cachedSecondDerivative == null) {
-                            cachedSecondDerivative = DataUtils.smooth(it, accelerationSmoothing)
+                            cachedSecondDerivative = if (SolMath.isZero(accelerationSmoothing)) {
+                                it
+                            } else {
+                                DataUtils.smooth(it, accelerationSmoothing)
+                            }
                         }
                         cachedSecondDerivative.map { it.copy(y = it.y + accelerationOffset) }
                     }
