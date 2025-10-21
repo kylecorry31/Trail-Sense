@@ -1504,4 +1504,5 @@
     <string name="show_pressure_forecast">Toon drukverwachting op grafiek</string>
     <string name="moa_amount">%s Hoekminuut</string>
     <string name="mil_amount">%s mil</string>
+    <string name="uses_g1_drag_model">Gebruikt G1-luchtweerstandsmodel</string>
 </resources>
