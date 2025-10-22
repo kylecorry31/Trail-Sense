@@ -1472,4 +1472,7 @@
     <string name="cancel_navigation_question">Cancelar navegação?</string>
     <string name="elevation_value">Elevação: %s</string>
     <string name="show_pressure_forecast">Mostrar previsão de pressão no gráfico</string>
+    <string name="moa_amount">%s MOA</string>
+    <string name="mil_amount">%s mil</string>
+    <string name="uses_g1_drag_model">Utiliza modelo de arrasto G1</string>
 </resources>
