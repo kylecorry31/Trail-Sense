@@ -1427,4 +1427,10 @@
     <string name="widget_theme_black_text">Musta teksti</string>
     <string name="widget_theme_white_text">Valkoinen teksti</string>
     <string name="default_widget_theme">Pienoissovellusten oletusteema</string>
+    <string name="cancel_navigation_question">Lopeta navigointi?</string>
+    <string name="elevation_value">Korkeus: %s</string>
+    <string name="show_pressure_forecast">Näytä ilmanpaineen ennuste kaaviossa</string>
+    <string name="moa_amount">%s MOA</string>
+    <string name="mil_amount">%s mil</string>
+    <string name="uses_g1_drag_model">Käyttää G1-ilmanvastusmallia</string>
 </resources>
