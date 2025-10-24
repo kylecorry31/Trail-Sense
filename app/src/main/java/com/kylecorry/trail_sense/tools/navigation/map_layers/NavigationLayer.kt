@@ -6,8 +6,14 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
+import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 
 class NavigationLayer : BaseLayer() {
+
+    private val pathLayer = PathLayer()
 
     private var _start: Coordinate? = null
     private var _end: Coordinate? = null
@@ -17,16 +23,19 @@ class NavigationLayer : BaseLayer() {
 
     fun setStart(location: Coordinate?) {
         _start = location
+        updatePathLayer()
         invalidate()
     }
 
     fun setEnd(location: Coordinate?) {
         _end = location
+        updatePathLayer()
         invalidate()
     }
 
     fun setColor(@ColorInt color: Int) {
         _color = color
+        updatePathLayer()
         invalidate()
     }
 
@@ -37,13 +46,25 @@ class NavigationLayer : BaseLayer() {
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         super.draw(drawer, map)
-        val scale = map.layerScale
-        val p1 = _start?.let { map.toPixel(it) } ?: return
-        val p2 = _end?.let { map.toPixel(it) } ?: return
-        drawer.noPathEffect()
-        drawer.noFill()
-        drawer.stroke(_color)
-        drawer.strokeWeight(6f / scale)
-        drawer.line(p1.x, p1.y, p2.x, p2.y)
+        pathLayer.draw(drawer, map)
+    }
+
+    private fun updatePathLayer() {
+        val start = _start
+        val end = _end
+        val color = _color
+
+        val path = if (start == null || end == null) {
+            null
+        } else {
+            MappablePath(
+                -1, listOf(
+                    MappableLocation(-1, start, color, null),
+                    MappableLocation(-2, end, color, null)
+                ), color, LineStyle.Solid
+            )
+        }
+
+        pathLayer.setPaths(listOfNotNull(path))
     }
 }
