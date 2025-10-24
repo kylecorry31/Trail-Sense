@@ -396,6 +396,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                 ?.map { it.toLong() }
                 ?: listOf(
                     Tools.NAVIGATION,
+                    Tools.MAP,
                     Tools.WEATHER,
                     Tools.ASTRONOMY
                 ))

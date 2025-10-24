@@ -1,7 +1,7 @@
 Trail Sense is composed of a number of tools that are designed for hiking, backpacking, camping, and geocaching.
 
 ## Bottom navigation
-The Navigation, Weather (if available), and Astronomy tools are available in the bottom navigation bar by default. These tools are also available in the tool list.
+The Navigation, Map, Weather (if available), and Astronomy tools are available in the bottom navigation bar by default. These tools are also available in the tool list.
 
 You can change which tools (up to 7) appear in the bottom navigation in Settings > Tools > 'Bottom navigation slot'.
 
