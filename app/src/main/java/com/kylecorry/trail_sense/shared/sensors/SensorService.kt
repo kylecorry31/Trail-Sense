@@ -250,6 +250,7 @@ class SensorService(ctx: Context) {
         return Sensors.hasGyroscope(context)
     }
 
+    // TODO: Expose a way to see that a disturbance is present
     fun getCompass(orientationSensor: IOrientationSensor? = null): ICompass {
         return CompassProvider(context, userPrefs.compass).get(
             MOTION_SENSOR_DELAY,
