@@ -10,7 +10,7 @@ You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right.
 Click the GPS button in the bottom-right to center the map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it.
 
 ## Navigating and creating beacons
-When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button in the bottom-right.
+When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
 
 You can initiate navigation from the map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
 
@@ -53,6 +53,9 @@ Settings:
 
 - **Show labels**: Determines if contour labels are shown on the map.
 - **Color**: The color of the contour lines, some options are color scales which change based on elevation.
+
+### Cell towers
+This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can click on a cell tower to navigate to it.
 
 ### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
