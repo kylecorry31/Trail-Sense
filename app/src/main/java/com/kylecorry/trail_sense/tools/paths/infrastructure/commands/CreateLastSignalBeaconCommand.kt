@@ -19,23 +19,24 @@ class CreateLastSignalBeaconCommand(private val context: Context) {
     suspend fun execute(point: PathPoint) {
         point.cellSignal ?: return
         onIO {
-            beaconService.add(Beacon(
-                0L,
-                context.getString(
-                    R.string.last_signal_beacon_name,
-                    formatter.formatCellNetwork(
-                        CellNetwork.entries
-                            .first { it.id == point.cellSignal.network.id }
+            beaconService.add(
+                Beacon(
+                    0L,
+                    context.getString(
+                        R.string.last_signal_beacon_name,
+                        formatter.formatCellNetwork(
+                            CellNetwork.entries
+                                .first { it.id == point.cellSignal.network.id }
+                        ),
+                        formatter.formatQuality(point.cellSignal.quality)
                     ),
-                    formatter.formatQuality(point.cellSignal.quality)
-                ),
-                point.coordinate,
-                false,
-                elevation = point.elevation,
-                temporary = true,
-                owner = BeaconOwner.CellSignal,
-                color = AppColor.Orange.color
-            ))
+                    point.coordinate,
+                    false,
+                    elevation = point.elevation,
+                    temporary = true,
+                    owner = BeaconOwner.CellSignal,
+                    color = AppColor.Orange.color
+                ))
         }
     }
 }

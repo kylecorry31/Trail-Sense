@@ -28,6 +28,10 @@ class NavigationBearingService(private val dao: NavigationBearingDao) {
         return dao.getActiveBearingFlow().map { it?.toNavigationBearing() }
     }
 
+    suspend fun isNavigating(): Boolean {
+        return dao.isNavigating()
+    }
+
     private suspend fun deactivateBearing(bearingEntity: NavigationBearingEntity) = onIO {
         val deactivated = bearingEntity.copy(isActive = false)
         dao.upsert(deactivated)

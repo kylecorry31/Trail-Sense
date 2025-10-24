@@ -14,8 +14,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -84,9 +86,14 @@ class Navigator private constructor(context: Context) {
         return getDestinationId() != null
     }
 
+    // TODO: Replace isNavigating with this
+    suspend fun isNavigating2(): Boolean {
+        return getDestination() != null && bearings.isNavigating()
+    }
+
     // TODO: Merge this with beacon navigation
     // Bearings
-    val navigationBearing = bearings.getBearing()
+    val navigationBearing= bearings.getBearing()
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
         val navigationBearing = NavigationBearing(

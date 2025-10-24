@@ -9,9 +9,7 @@ import androidx.navigation.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.flatten
-import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate

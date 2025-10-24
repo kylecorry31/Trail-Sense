@@ -1,12 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors.compass
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.sol.units.Bearing
-import kotlin.math.min
 
 class MagQualityCompassWrapper(
     private val compass: ICompass,

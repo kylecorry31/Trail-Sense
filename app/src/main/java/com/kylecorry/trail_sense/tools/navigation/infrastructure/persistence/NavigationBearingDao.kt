@@ -14,6 +14,9 @@ interface NavigationBearingDao {
     @Query("UPDATE navigation_bearings SET is_active = 0 WHERE is_active = 1")
     suspend fun clearActiveBearing()
 
+    @Query("SELECT 1 FROM navigation_bearings WHERE is_active = 1 LIMIT 1")
+    suspend fun isNavigating(): Boolean
+
     @Upsert
     suspend fun upsert(bearing: NavigationBearingEntity): Long
 
