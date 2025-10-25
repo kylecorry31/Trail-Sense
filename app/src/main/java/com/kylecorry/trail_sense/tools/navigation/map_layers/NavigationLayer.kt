@@ -7,7 +7,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.navigation.domain.NavigationStrategy
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
@@ -18,7 +18,7 @@ class NavigationLayer : BaseLayer() {
     private val pathLayer = PathLayer()
 
     private var _myLocation: Coordinate? = null
-    private var _navigationStrategy: NavigationStrategy? = null
+    private var _destination: Destination? = null
 
     fun setMyLocation(location: Coordinate?) {
         _myLocation = location
@@ -26,8 +26,8 @@ class NavigationLayer : BaseLayer() {
         invalidate()
     }
 
-    fun setNavigation(navigationStrategy: NavigationStrategy?) {
-        _navigationStrategy = navigationStrategy
+    fun setDestination(destination: Destination?) {
+        _destination = destination
         updatePathLayer()
         invalidate()
     }
@@ -44,10 +44,10 @@ class NavigationLayer : BaseLayer() {
 
     private fun updatePathLayer() {
         val myLocation = _myLocation
-        val navigationStrategy = _navigationStrategy
+        val destination = _destination
 
-        val paths = if (navigationStrategy != null && myLocation != null) {
-            createPath(myLocation, navigationStrategy)
+        val paths = if (destination != null && myLocation != null) {
+            createPath(myLocation, destination)
         } else {
             emptyList()
         }
@@ -57,17 +57,17 @@ class NavigationLayer : BaseLayer() {
 
     private fun createPath(
         myLocation: Coordinate,
-        strategy: NavigationStrategy
+        destination: Destination
     ): List<MappablePath> {
-        return when (strategy) {
-            is NavigationStrategy.Beacon -> createBeaconPath(myLocation, strategy)
-            is NavigationStrategy.Bearing -> createBearingPath(myLocation, strategy)
+        return when (destination) {
+            is Destination.Beacon -> createBeaconPath(myLocation, destination)
+            is Destination.Bearing -> createBearingPath(myLocation, destination)
         }
     }
 
     private fun createBeaconPath(
         myLocation: Coordinate,
-        beacon: NavigationStrategy.Beacon
+        beacon: Destination.Beacon
     ): List<MappablePath> {
         return listOf(
             createPath(myLocation, beacon.beacon.coordinate, beacon.beacon.color)
@@ -76,7 +76,7 @@ class NavigationLayer : BaseLayer() {
 
     private fun createBearingPath(
         myLocation: Coordinate,
-        bearing: NavigationStrategy.Bearing
+        bearing: Destination.Bearing
     ): List<MappablePath> {
         // TODO: Load bearing color
         // TODO: Line from my location to the bearing line

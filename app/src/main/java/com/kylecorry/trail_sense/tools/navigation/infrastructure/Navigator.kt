@@ -1,23 +1,25 @@
 package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -25,6 +27,7 @@ import java.time.Instant
 class Navigator private constructor(context: Context) {
 
     private val prefs = PreferencesSubsystem.getInstance(context).preferences
+    private val userPrefs = AppServiceRegistry.get<UserPreferences>()
     private val beacons = BeaconService(context)
     private val bearings = NavigationBearingService.getInstance(context)
 
@@ -93,7 +96,37 @@ class Navigator private constructor(context: Context) {
 
     // TODO: Merge this with beacon navigation
     // Bearings
-    val navigationBearing= bearings.getBearing()
+    val navigationBearing = bearings.getBearing()
+
+    val bearingDestination = navigationBearing.map {
+        it?.let {
+            Destination.Bearing(
+                Bearing.from(it.bearing),
+                // TODO: Save these with the bearing
+                userPrefs.compass.useTrueNorth,
+                0f,
+                it.startLocation
+            )
+        }
+    }
+
+    // TODO: Standardized navigation instructions
+    // NavigationInstructions
+    // Bearing
+    // Distance?
+    // ETA?
+    // Elevation change?
+    // Beacons = always to the beacon, bearings = if off track, then back to the bearing reading otherwise bearing end point (or just the bearing if no location info)
+
+    val beaconDestination = destination.map {
+        it?.let {
+            Destination.Beacon(it)
+        }
+    }
+
+    val destination2 = bearingDestination.combine(beaconDestination) { bearing, beacon ->
+        beacon ?: bearing
+    }
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
         val navigationBearing = NavigationBearing(
