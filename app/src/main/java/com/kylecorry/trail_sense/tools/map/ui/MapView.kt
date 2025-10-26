@@ -40,6 +40,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private val hooks = Hooks()
 
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
+    private var onScaleChange: ((metersPerPixel: Float) -> Unit)? = null
+    private var onCenterChange: ((center: Coordinate) -> Unit)? = null
 
     init {
         runEveryCycle = false
@@ -86,6 +88,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override var mapCenter: Coordinate = Coordinate.zero
         set(value) {
             field = value
+            onCenterChange?.invoke(value)
             invalidate()
         }
 
@@ -97,7 +100,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override val mapRotation: Float = 0f
 
     var scale = 1f
-        private set
+        private set(value) {
+            field = value
+            onScaleChange?.invoke(metersPerPixel)
+            invalidate()
+        }
     private var lastScale = 1f
     var minScale = 0.0002f
         set(value) {
@@ -442,5 +449,13 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
             return PointF(pointArray[0], pointArray[1])
         }
+    }
+
+    fun setOnScaleChangeListener(callback: ((metersPerPixel: Float) -> Unit)?) {
+        onScaleChange = callback
+    }
+
+    fun setOnCenterChangeListener(callback: ((center: Coordinate) -> Unit)?) {
+        onCenterChange = callback
     }
 }

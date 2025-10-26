@@ -1836,4 +1836,6 @@
     <!--mil (for shooting)-->
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Uses G1 drag model</string>
+    <string name="pref_save_map_state" translatable="false">pref_save_map_state</string>
+    <string name="remember_map_state">Remember map scale and center</string>
 </resources>

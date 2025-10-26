@@ -20,7 +20,9 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useCoordinatePreference
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
+import com.kylecorry.trail_sense.shared.extensions.useFloatPreference
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
@@ -170,6 +172,11 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         useEffect(lockMode, mapView, lockButton) {
             switchMapLockMode(lockMode, mapView, lockButton)
         }
+
+        val shouldSaveMapState = useMemo(prefs, resetOnResume) {
+            prefs.map.saveMapState
+        }
+        useSavedMapState(mapView, "cache_map_state", shouldSaveMapState)
 
         useEffect(mapView, lockMode, navigation.location) {
             if (mapView.mapCenter == Coordinate.zero) {
@@ -357,6 +364,33 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
 
             MapLockMode.Free -> {
                 MapLockMode.Location
+            }
+        }
+    }
+
+    private fun useSavedMapState(mapView: MapView, key: String, shouldSave: Boolean) {
+        val (center, setCenter) = useCoordinatePreference("${key}_coordinate")
+        val (scale, setScale) = useFloatPreference("${key}_scale")
+
+        useEffect(mapView, shouldSave) {
+            if (!shouldSave) {
+                setCenter(null)
+                setScale(null)
+            } else {
+                // Intentionally not in the useEffect dependencies
+                center?.let { mapView.mapCenter = it }
+                scale?.let { mapView.metersPerPixel = it }
+            }
+
+            mapView.setOnScaleChangeListener {
+                if (shouldSave) {
+                    setScale(it)
+                }
+            }
+            mapView.setOnCenterChangeListener {
+                if (shouldSave) {
+                    setCenter(it)
+                }
             }
         }
     }

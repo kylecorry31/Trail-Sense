@@ -335,6 +335,12 @@ fun ReactiveComponent.useIntPreference(
     return usePreference(key, IPreferences::getInt, IPreferences::putInt)
 }
 
+fun ReactiveComponent.useCoordinatePreference(
+    key: String
+): Pair<Coordinate?, (Coordinate?) -> Unit> {
+    return usePreference(key, IPreferences::getCoordinate, IPreferences::putCoordinate)
+}
+
 fun ReactiveComponent.useDistancePreference(
     key: String
 ): Pair<Distance?, (Distance?) -> Unit> {

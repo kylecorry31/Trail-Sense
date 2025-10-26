@@ -25,6 +25,12 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
         false
     )
 
+    val saveMapState by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_save_map_state),
+        false
+    )
+
     // Layers
     private val mapId = "map"
     val baseMapLayer = BaseMapMapLayerPreferences(context, mapId)

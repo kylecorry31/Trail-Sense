@@ -13,6 +13,13 @@
             app:key="@string/pref_map_keep_unlocked"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:title="@string/remember_map_state"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_save_map_state"
+            app:singleLineTitle="false" />
+
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_map_layer_button"
