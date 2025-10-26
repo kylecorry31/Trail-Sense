@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCoordinatePreference
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useFloatPreference
+import com.kylecorry.trail_sense.shared.extensions.useIntPreference
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
@@ -50,7 +51,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
         val navigation = useNavigationSensors(trueNorth = true)
         val context = useAndroidContext()
-        val (lockMode, setLockMode) = useState(MapLockMode.Free)
         val sensors = useService<SensorService>()
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
         val navigator = useService<Navigator>()
@@ -60,6 +60,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val formatter = useService<FormatService>()
         val activity = useActivity()
         val navController = useNavController()
+        val (lockMode, setLockMode) = useLockMode()
 
         val screenLock = useMemo(prefs) {
             NavigationScreenLock(prefs.map.keepScreenUnlockedWhileOpen)
@@ -173,10 +174,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
             switchMapLockMode(lockMode, mapView, lockButton)
         }
 
-        val shouldSaveMapState = useMemo(prefs, resetOnResume) {
-            prefs.map.saveMapState
-        }
-        useSavedMapState(mapView, "cache_map_state", shouldSaveMapState)
+        useSavedMapState(mapView)
 
         useEffect(mapView, lockMode, navigation.location) {
             if (mapView.mapCenter == Coordinate.zero) {
@@ -368,7 +366,12 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         }
     }
 
-    private fun useSavedMapState(mapView: MapView, key: String, shouldSave: Boolean) {
+    private fun useSavedMapState(mapView: MapView) {
+        val prefs = useService<UserPreferences>()
+        val shouldSave = useMemo(prefs, resetOnResume) {
+            prefs.map.saveMapState
+        }
+        val key = "cache_map_state"
         val (center, setCenter) = useCoordinatePreference("${key}_coordinate")
         val (scale, setScale) = useFloatPreference("${key}_scale")
 
@@ -395,9 +398,36 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         }
     }
 
-    private enum class MapLockMode {
-        Location,
-        Compass,
-        Free
+    private fun useLockMode(): Pair<MapLockMode, (MapLockMode) -> Unit> {
+        val prefs = useService<UserPreferences>()
+        val shouldSave = useMemo(prefs, resetOnResume) {
+            prefs.map.saveMapState
+        }
+        val key = "cache_map_state"
+        val (savedLockModeId, setSavedLockModeId) = useIntPreference("${key}_lock_mode")
+        val savedLockMode = useMemo(savedLockModeId) {
+            MapLockMode.entries.firstOrNull { it.id == savedLockModeId }
+        }
+        val (lockMode, setLockMode) = useState(savedLockMode ?: MapLockMode.Free)
+        val exposedSetLockMode = useCallback(shouldSave) { newLockMode: MapLockMode ->
+            setLockMode(newLockMode)
+            if (shouldSave) {
+                setSavedLockModeId(newLockMode.id)
+            }
+        }
+
+        useEffect(shouldSave) {
+            if (!shouldSave) {
+                setSavedLockModeId(null)
+            }
+        }
+
+        return lockMode to exposedSetLockMode
+    }
+
+    private enum class MapLockMode(val id: Int) {
+        Location(1),
+        Compass(2),
+        Free(3)
     }
 }
