@@ -1531,4 +1531,5 @@
     <string name="moa_amount">%s MOA</string>
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Používá model G1</string>
+    <string name="remember_map_state">Zapamatovat stav mapy</string>
 </resources>
