@@ -3,11 +3,13 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
@@ -30,6 +32,7 @@ class Navigator private constructor(context: Context) {
     private val userPrefs = AppServiceRegistry.get<UserPreferences>()
     private val beacons = BeaconService(context)
     private val bearings = NavigationBearingService.getInstance(context)
+    private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
 
     // Flows
     private val _destinationId = MutableStateFlow(getDestinationId())
@@ -94,17 +97,20 @@ class Navigator private constructor(context: Context) {
         return getDestination() != null && bearings.isNavigating()
     }
 
-    // TODO: Merge this with beacon navigation
     // Bearings
     val navigationBearing = bearings.getBearing()
 
     val bearingDestination = navigationBearing.map {
         it?.let {
+            val declination = if (userPrefs.useAutoDeclination) {
+                Geology.getGeomagneticDeclination(it.startLocation ?: locationSubsystem.location)
+            } else {
+                userPrefs.declinationOverride
+            }
             Destination.Bearing(
                 Bearing.from(it.bearing),
-                // TODO: Save these with the bearing
                 userPrefs.compass.useTrueNorth,
-                0f,
+                declination,
                 it.startLocation
             )
         }

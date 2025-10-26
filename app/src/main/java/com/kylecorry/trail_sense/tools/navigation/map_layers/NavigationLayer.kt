@@ -83,7 +83,7 @@ class NavigationLayer : BaseLayer() {
         val adjustedBearing = if (bearing.isTrueNorth) {
             bearing.bearing
         } else {
-            bearing.bearing.withDeclination(-bearing.declination)
+            bearing.bearing.withDeclination(bearing.declination)
         }
         return if (bearing.startingLocation != null) {
             listOf(
