@@ -1492,4 +1492,5 @@
     <string name="moa_amount">%s 角分</string>
     <string name="mil_amount">%s 密位</string>
     <string name="uses_g1_drag_model">使用 G1 阻力模型</string>
+    <string name="remember_map_state">记住地图状态</string>
 </resources>
