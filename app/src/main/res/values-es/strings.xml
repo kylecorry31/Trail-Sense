@@ -1473,4 +1473,5 @@
     <string name="moa_amount">%s \' de ángulo</string>
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Usa el modelo de arrastre G1</string>
+    <string name="remember_map_state">Recordar estado del mapa</string>
 </resources>
