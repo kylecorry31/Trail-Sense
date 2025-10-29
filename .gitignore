@@ -51,3 +51,5 @@ dem-*.zip
 /.idea/copilot.data.migration.*
 
 olin.txt
+
+scripts/experiments/*.jpg
