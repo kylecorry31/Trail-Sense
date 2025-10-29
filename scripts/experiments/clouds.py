@@ -2,6 +2,7 @@ import sys
 import os
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 
 def load(image_path):
@@ -16,28 +17,25 @@ def save_image(img_array, file_name, mode="RGB"):
     img_pil.save(output_path, quality=90)
 
 def classify_pixels(img_rgb):    
-    luminance = np.mean(img_rgb, axis=2)
-    min_luminance = luminance.min()
-    normalized_luminance = ((luminance - min_luminance) / (luminance.max() - min_luminance + 1e-6)) if min_luminance < 0.1 else luminance
+    luminance = img_rgb[..., 2]
+    stdev = np.std(luminance)
 
     blue_ratio = img_rgb[..., 2] / (img_rgb[..., 0] + img_rgb[..., 1] + 1/255)
-    nrbr = ((img_rgb[..., 2] - img_rgb[..., 0]) / (img_rgb[..., 2] + img_rgb[..., 0] + 1/255) + 1) / 2
-    save_image((nrbr * 255).astype(np.uint8), "blue_ratio.jpg", mode='L')
+    save_image((blue_ratio * 255).astype(np.uint8), "blue_ratio.jpg", mode='L')
 
+    save_image((luminance * 255).astype(np.uint8), "luminance.jpg", mode='L')
 
-    # sky = (blue_ratio < 0.1) & (percent_blue > 0.4) & (normalized_luminance > 0.05)
-    # sky = (blue_ratio < 0.1) & (normalized_luminance > 0.1)
-    # sky = (percent_blue > 0.3) & (normalized_luminance > 0.2)
-    # sky = (nrbr < 0.9)# & (luminance > 0.1) 
-    # objects = ~sky
-    # clouds = ~objects
-
-    all_sky = np.all(blue_ratio > 0.1)
-    
-    if all_sky:
+    # TODO: This should be more robust to different lighting conditions
+    print(stdev)
+    if stdev < 0.15:
         objects = np.zeros_like(img_rgb[..., 0], dtype=bool)
     else:
-        objects = (nrbr >= 0.9) | (nrbr <= 0.1) | (normalized_luminance < 0.25)
+        objects = (luminance < 0.15)
+    
+    # Dilate the objects
+    width = img_rgb.shape[1]
+    objects = ndimage.binary_dilation(objects, iterations=int(width * 0.01))
+    
     sky = ~objects
     clouds = sky
 
@@ -49,6 +47,7 @@ def classify_pixels(img_rgb):
 
     cloud_coverage_img = 1 - np.clip(np.abs(0.5 - blue_ratio) * 2, 0, 1)
     cloud_coverage_img[~clouds] = 0
+    cloud_coverage_img[cloud_coverage_img > 0.8] = 1
     save_image((cloud_coverage_img * 255).astype(np.uint8), "cloud_coverage.jpg", mode='L')
 
     cloud_coverage = np.sum(cloud_coverage_img * clouds) / (np.sum(clouds) + 1e-6)
