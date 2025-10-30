@@ -493,7 +493,7 @@
     <string name="altimeter_cache">Korkeusmittarin välimuisti</string>
     <string name="create_blank_map">Luo tyhjä kartta</string>
     <string name="gps_accuracy_tip">Varmista, että sinulla on esteetön näkymä taivaalle ja siirry poispäin korkeista rakennuksista sekä puista.</string>
-    <string name="stratus_desc">Sumupilvet (Stratus) ovat matalalla oleva pilviä, jotka peittävät taivaan. Esineet eivät luo varjoja, ja saattaa olla sumuista.</string>
+    <string name="stratus_desc">Sumupilvet (Stratus) ovat matalalla olevia pilviä, jotka peittävät taivaan. Esineet eivät luo varjoja, ja saattaa olla sumuista.</string>
     <string name="new_text">Uusi</string>
     <string name="waypoint">Reittipiste</string>
     <string name="water_boil_timer_channel_description">Vesi on kiehumassa</string>
@@ -1433,4 +1433,5 @@
     <string name="moa_amount">%s MOA</string>
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Käyttää G1-ilmanvastusmallia</string>
+    <string name="remember_map_state">Muistan kartan tila</string>
 </resources>
