@@ -32,18 +32,35 @@ def get_cloud_coverage(image, sky):
     clear_sky = np.sum((cloud_coverage_img * sky) < 0.2) / (np.sum(sky) + 1e-6)
     return cloud_coverage, clear_sky
 
-
 def get_cloud_roughness(image, sky):
-    kernel = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
-    blue_channel = image[..., 2]
-    blue_channel = ndimage.gaussian_filter(blue_channel, sigma=1)
-    sobel_x = ndimage.convolve(blue_channel, kernel)
-    sobel_y = ndimage.convolve(blue_channel, kernel.T)
-    gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
-    gradient_magnitude[~sky] = 0
-    save_image(gradient_magnitude, "gradient_magnitude.jpg", mode="L")
-    roughness = np.sum(gradient_magnitude) * 10 / np.sum(sky)
+    blue = image[..., 2]
+    block_size = 5
+    
+    local_contrast = np.zeros_like(blue)
+    half_block = block_size // 2
+    
+    for i in range(half_block, blue.shape[0] - half_block):
+        for j in range(half_block, blue.shape[1] - half_block):
+            block = blue[i-half_block:i+half_block+1, j-half_block:j+half_block+1]
+            local_contrast[i, j] = np.max(block) - np.min(block)
+    
+    local_contrast[~sky] = 0
+    save_image(local_contrast, "gradient_magnitude.jpg", mode="L")
+    roughness = np.sum(local_contrast) * 10 / (np.sum(sky) + 1e-6)
     return roughness
+
+
+# def get_cloud_roughness(image, sky):
+#     kernel = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
+#     blue_channel = image[..., 2]
+#     blue_channel = ndimage.gaussian_filter(blue_channel, sigma=1)
+#     sobel_x = ndimage.convolve(blue_channel, kernel)
+#     sobel_y = ndimage.convolve(blue_channel, kernel.T)
+#     gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
+#     gradient_magnitude[~sky] = 0
+#     save_image(gradient_magnitude, "gradient_magnitude.jpg", mode="L")
+#     roughness = np.sum(gradient_magnitude) * 10 / np.sum(sky)
+#     return roughness
 
 # def get_cloud_roughness(image, sky):
 #     blue = image[..., 2]
@@ -104,7 +121,7 @@ else:
     new_width = int(new_width * aspect)
     pil_image = pil_image.resize((new_width, new_height), Image.BICUBIC)
 image = np.array(pil_image) / 255.0
-# image = blur(image, radius=1)
+image = blur(image, radius=1)
 sky = get_sky_mask(image)
 cloud_coverage, clear_sky = get_cloud_coverage(image, sky)
 roughness = get_cloud_roughness(image, sky)
