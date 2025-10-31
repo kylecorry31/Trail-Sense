@@ -44,7 +44,6 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.openTool
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -94,7 +93,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
     private val navigationService = NavigationService()
     private val formatService by lazy { FormatService.getInstance(requireContext()) }

@@ -229,6 +229,9 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
+    // TODO: Make this configurable
+    var useLocationWithBearing = true
+
     // Layers
 
     private val mapId = "navigation"

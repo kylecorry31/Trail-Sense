@@ -20,6 +20,13 @@ class NavigationLayer : BaseLayer() {
     private var _myLocation: Coordinate? = null
     private var _destination: Destination? = null
 
+    var useLocationWithBearing: Boolean = true
+        set(value) {
+            field = value
+            updatePathLayer()
+            invalidate()
+        }
+
     fun setMyLocation(location: Coordinate?) {
         _myLocation = location
         updatePathLayer()
@@ -78,19 +85,17 @@ class NavigationLayer : BaseLayer() {
         myLocation: Coordinate,
         bearing: Destination.Bearing
     ): List<MappablePath> {
-        // TODO: Load bearing color
-        // TODO: Line from my location to the bearing line
         val adjustedBearing = if (bearing.isTrueNorth) {
             bearing.bearing
         } else {
             bearing.bearing.withDeclination(bearing.declination)
         }
-        return if (bearing.startingLocation != null) {
+        return if (bearing.startingLocation != null && useLocationWithBearing) {
             listOf(
                 createPath(
                     bearing.startingLocation,
                     bearing.startingLocation.plus(Distance.kilometers(80f), adjustedBearing),
-                    AppColor.Orange.color
+                    AppColor.Blue.color
                 )
             )
         } else {
@@ -98,7 +103,7 @@ class NavigationLayer : BaseLayer() {
                 createPath(
                     myLocation,
                     myLocation.plus(Distance.kilometers(80f), adjustedBearing),
-                    AppColor.Orange.color
+                    AppColor.Blue.color
                 )
             )
         }
