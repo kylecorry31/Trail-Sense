@@ -17,6 +17,8 @@ def save_image(img_array, file_name, mode="RGB"):
     output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_name)
     img_pil.save(output_path, quality=90)
 
+def blur(img, radius):
+    return ndimage.gaussian_filter(img, sigma=(radius, radius, 0))
 
 def get_cloud_coverage(image, sky):
     blue_ratio = image[..., 2] / (image[..., 0] + image[..., 1] + 1 / 255)
@@ -34,13 +36,24 @@ def get_cloud_coverage(image, sky):
 def get_cloud_roughness(image, sky):
     kernel = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
     blue_channel = image[..., 2]
+    blue_channel = ndimage.gaussian_filter(blue_channel, sigma=1)
     sobel_x = ndimage.convolve(blue_channel, kernel)
     sobel_y = ndimage.convolve(blue_channel, kernel.T)
     gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
-    save_image(gradient_magnitude, "gradient_magnitude.jpg", mode="L")
     gradient_magnitude[~sky] = 0
-    roughness = np.sum(gradient_magnitude) / np.sum(sky)
+    save_image(gradient_magnitude, "gradient_magnitude.jpg", mode="L")
+    roughness = np.sum(gradient_magnitude) * 10 / np.sum(sky)
     return roughness
+
+# def get_cloud_roughness(image, sky):
+#     blue = image[..., 2]
+#     blurred1 = ndimage.gaussian_filter(blue, sigma=3)
+#     blurred2 = ndimage.gaussian_filter(blue, sigma=1)
+#     dog = np.clip(blurred2 - blurred1, 0, 1)
+#     dog[~sky] = 0
+#     save_image(dog, "gradient_magnitude.jpg", mode="L")
+#     roughness = np.sum(dog) * 100 / (np.sum(sky) + 1e-6)
+#     return roughness
 
 
 def get_sky_mask(image):
@@ -91,6 +104,7 @@ else:
     new_width = int(new_width * aspect)
     pil_image = pil_image.resize((new_width, new_height), Image.BICUBIC)
 image = np.array(pil_image) / 255.0
+# image = blur(image, radius=1)
 sky = get_sky_mask(image)
 cloud_coverage, clear_sky = get_cloud_coverage(image, sky)
 roughness = get_cloud_roughness(image, sky)
