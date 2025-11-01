@@ -40,7 +40,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.direction
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.openTool
@@ -54,6 +53,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvi
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -101,7 +101,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var nearbyBeacons: List<Beacon> = listOf()
 
     private var destination: Beacon? = null
-    private var destinationBearing: Float? = null
+    private var destinationBearing: Destination.Bearing? = null
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
     // Status badges
@@ -187,8 +187,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destination = it
         }
 
-        observeFlow(navigator.navigationBearing) {
-            destinationBearing = it?.bearing
+        observeFlow(navigator.bearingDestination) {
+            destinationBearing = it
         }
 
         // Observe diagnostics
@@ -422,31 +422,20 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getDestinationBearing(): Float? {
-        val destLocation = destination?.coordinate
-        return when {
-            destLocation != null -> {
-                fromTrueNorth(gps.location.bearingTo(destLocation).value)
-            }
-
-            destinationBearing != null -> {
-                destinationBearing
-            }
-
-            else -> {
-                null
-            }
+        val destinationBeacon = destination
+        val destination = if (destinationBeacon != null) {
+            Destination.Beacon(destinationBeacon)
+        } else {
+            destinationBearing
         }
+        if (destination == null) {
+            return null
+        }
+        return navigator.getBearing(gps.location, destination).value
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
         return destination ?: getFacingBeacon(nearby)
-    }
-
-    private fun fromTrueNorth(bearing: Float): Float {
-        if (useTrueNorth) {
-            return bearing
-        }
-        return DeclinationUtils.fromTrueNorthBearing(bearing, declination)
     }
 
     private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {

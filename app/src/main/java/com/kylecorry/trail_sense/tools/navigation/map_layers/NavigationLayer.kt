@@ -3,8 +3,6 @@ package com.kylecorry.trail_sense.tools.navigation.map_layers
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
@@ -85,25 +83,20 @@ class NavigationLayer : BaseLayer() {
         myLocation: Coordinate,
         bearing: Destination.Bearing
     ): List<MappablePath> {
-        val adjustedBearing = if (bearing.isTrueNorth) {
-            bearing.bearing
-        } else {
-            bearing.bearing.withDeclination(bearing.declination)
-        }
         return if (bearing.startingLocation != null && useLocationWithBearing) {
             listOf(
                 createPath(
                     bearing.startingLocation,
-                    bearing.startingLocation.plus(Distance.kilometers(80f), adjustedBearing),
-                    AppColor.Blue.color
+                    bearing.targetLocation!!,
+                    Destination.Bearing.defaultColor
                 )
             )
         } else {
             listOf(
                 createPath(
                     myLocation,
-                    myLocation.plus(Distance.kilometers(80f), adjustedBearing),
-                    AppColor.Blue.color
+                    myLocation.plus(Destination.Bearing.bearingDistance, bearing.trueBearing),
+                    Destination.Bearing.defaultColor
                 )
             )
         }

@@ -2,11 +2,14 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -24,6 +27,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.Instant
 
 class Navigator private constructor(context: Context) {
@@ -33,6 +37,8 @@ class Navigator private constructor(context: Context) {
     private val beacons = BeaconService(context)
     private val bearings = NavigationBearingService.getInstance(context)
     private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
+
+    private val declinationCache = GeospatialCache<Float>(Distance.kilometers(10f), 10)
 
     // Flows
     private val _destinationId = MutableStateFlow(getDestinationId())
@@ -147,6 +153,64 @@ class Navigator private constructor(context: Context) {
 
     suspend fun clearBearing() {
         bearings.setBearing(null)
+    }
+
+    fun getBearing(
+        myLocation: Coordinate,
+        destination: Destination
+    ): Bearing {
+        val useTrueNorth = userPrefs.compass.useTrueNorth
+
+        return when (destination) {
+            is Destination.Beacon -> {
+                fromTrueNorth(
+                    myLocation.bearingTo(destination.beacon.coordinate),
+                    useTrueNorth,
+                    getDeclination(myLocation)
+                )
+            }
+
+            is Destination.Bearing -> {
+                if (destination.startingLocation != null && userPrefs.navigation.useLocationWithBearing) {
+                    fromTrueNorth(
+                        myLocation.bearingTo(destination.targetLocation!!),
+                        useTrueNorth,
+                        getDeclination(myLocation)
+                    )
+                } else {
+                    destination.bearing
+                }
+            }
+
+        }
+    }
+
+    private fun getDeclination(location: Coordinate? = null, elevation: Float? = null): Float {
+        // TODO: Cache declination
+        return if (userPrefs.useAutoDeclination) {
+            val actualLocation = location ?: locationSubsystem.location
+            runBlocking {
+                declinationCache.getOrPut(actualLocation) {
+                    Geology.getGeomagneticDeclination(
+                        actualLocation,
+                        elevation ?: locationSubsystem.elevation.meters().value
+                    )
+                }
+            }
+        } else {
+            userPrefs.declinationOverride
+        }
+    }
+
+    private fun fromTrueNorth(
+        bearing: Bearing,
+        useTrueNorth: Boolean,
+        declination: Float
+    ): Bearing {
+        if (useTrueNorth) {
+            return bearing
+        }
+        return DeclinationUtils.fromTrueNorthBearing(bearing, declination)
     }
 
     companion object {
