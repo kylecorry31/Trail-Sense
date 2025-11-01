@@ -100,8 +100,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var beacons: Collection<Beacon> = listOf()
     private var nearbyBeacons: List<Beacon> = listOf()
 
-    private var destination: Beacon? = null
-    private var destinationBearing: Destination.Bearing? = null
+    private var destination: Destination? = null
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
     // Status badges
@@ -183,12 +182,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeFlow(navigator.destination) {
+        observeFlow(navigator.destination2){
             destination = it
-        }
-
-        observeFlow(navigator.bearingDestination) {
-            destinationBearing = it
         }
 
         // Observe diagnostics
@@ -337,12 +332,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun toggleDestinationBearing() {
         inBackground {
-            if (destination != null) {
-                // Don't set destination bearing while navigating
+            if (destination is Destination.Beacon) {
+                // TODO: Prompt to cancel navigation?
+                // Don't set destination bearing while navigating to a beacon
                 return@inBackground
             }
 
-            if (destinationBearing == null && hasCompass) {
+            if (destination == null && hasCompass) {
                 // TODO: Wait for GPS location to be up to date (show a loading indicator)
                 navigator.navigateToBearing(compass.rawBearing, gps.location)
                 toast(getString(R.string.toast_destination_bearing_set))
@@ -378,11 +374,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         layers.resume(requireContext(), binding.radarCompass)
 
-        // Resume navigation
-        inBackground {
-            destination = navigator.getDestination()
-        }
-
         // Show the north reference indicator
         binding.northReferenceIndicator.showDetailsOnClick = true
         binding.northReferenceIndicator.useTrueNorth = useTrueNorth
@@ -404,8 +395,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         inBackground {
             onIO {
                 loadBeaconsRunner.skipIfRunning {
+                    val destinationBeacon = (destination as? Destination.Beacon)?.beacon
                     if (!isNearbyEnabled) {
-                        nearbyBeacons = listOfNotNull(destination)
+                        nearbyBeacons = listOfNotNull(destinationBeacon)
                         return@skipIfRunning
                     }
 
@@ -415,27 +407,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                         nearbyCount,
                         8f,
                         nearbyDistance
-                    ) + listOfNotNull(destination)).distinctBy { it.id }
+                    ) + listOfNotNull(destinationBeacon)).distinctBy { it.id }
                 }
             }
         }
     }
 
     private fun getDestinationBearing(): Float? {
-        val destinationBeacon = destination
-        val destination = if (destinationBeacon != null) {
-            Destination.Beacon(destinationBeacon)
-        } else {
-            destinationBearing
-        }
-        if (destination == null) {
-            return null
-        }
-        return navigator.getBearing(gps.location, destination).value
+        return destination?.let { navigator.getBearing(gps.location, it).value }
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
-        return destination ?: getFacingBeacon(nearby)
+        return (destination as? Destination.Beacon)?.beacon ?: getFacingBeacon(nearby)
     }
 
     private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {
@@ -470,7 +453,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     speedometer.speed.speed,
                     declination
                 )
-                binding.navigationSheet.show(selectedBeacon, destination != null)
+                binding.navigationSheet.show(selectedBeacon, destination is Destination.Beacon)
             } else {
                 binding.navigationSheet.hide()
             }
@@ -627,8 +610,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun updateCompassLayers() {
         inBackground {
             val destBearing = getDestinationBearing()
-            val destination = destination
-            val destColor = destination?.color ?: AppColor.Blue.color
+            val destinationBeacon = (destination as? Destination.Beacon)?.beacon
+            val destColor = destinationBeacon?.color ?: AppColor.Blue.color
 
             val direction = destBearing?.let {
                 MappableBearing(it, destColor)
@@ -637,12 +620,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             // Update beacon layers
             layers.setBeacons(nearbyBeacons)
             beaconCompassLayer.setBeacons(nearbyBeacons)
-            beaconCompassLayer.highlight(destination)
-            layers.setDestination(destination)
+            beaconCompassLayer.highlight(destinationBeacon)
+            layers.setDestination(destinationBeacon)
 
             // Destination
-            if (destination != null) {
-                navigationCompassLayer.setDestination(destination)
+            if (destinationBeacon != null) {
+                navigationCompassLayer.setDestination(destinationBeacon)
             } else if (direction != null) {
                 navigationCompassLayer.setDestination(direction)
             } else {
