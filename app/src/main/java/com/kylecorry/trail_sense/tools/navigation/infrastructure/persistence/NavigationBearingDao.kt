@@ -20,4 +20,7 @@ interface NavigationBearingDao {
     @Upsert
     suspend fun upsert(bearing: NavigationBearingEntity): Long
 
+    @Query("DELETE FROM navigation_bearings WHERE start_time < :minEpochMillis AND is_active = 0")
+    suspend fun deleteOlderThan(minEpochMillis: Long)
+
 }

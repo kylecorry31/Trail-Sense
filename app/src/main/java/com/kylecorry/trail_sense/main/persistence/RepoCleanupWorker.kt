@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.dem.DEMRepo
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +31,8 @@ class RepoCleanupWorker(
             WeatherRepo.getInstance(context),
             CloudRepo.getInstance(context),
             LightningRepo.getInstance(context),
-            DEMRepo.getInstance()
+            DEMRepo.getInstance(),
+            NavigationBearingService.getInstance(context)
         )
 
         for (repo in cleanables) {
