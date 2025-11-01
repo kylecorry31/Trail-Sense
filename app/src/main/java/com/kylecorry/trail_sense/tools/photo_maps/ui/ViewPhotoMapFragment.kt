@@ -221,7 +221,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun updateDestination() {
-        if (throttle.isThrottled()) {
+        if (throttle.isThrottled() || !isBound) {
             return
         }
 
