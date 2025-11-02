@@ -1,0 +1,21 @@
+Retroceder
+- Muestra siempre notificaciones mientras se ejecuta
+
+Tiempo
+- Muestra siempre notificaciones mientras se ejecuta
+- Mejorada la precisión del historial de temperaturas
+- Mejorada la previsión meteorológica utilizando nubes
+
+Astronomía
+- Añadida acción rápida para alertas de puesta de sol
+
+Mapas en fotografía
+- Mejorada la rotación automática
+
+Podómetro
+- Permite detener el podómetro desde la notificación
+
+Varios
+- Compatibilidad con Android 14.
+- Mejorado el flujo de solicitud de permisos
+- Corrección de errores
