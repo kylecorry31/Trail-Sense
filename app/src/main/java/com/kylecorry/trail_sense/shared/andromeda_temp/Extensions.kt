@@ -193,3 +193,11 @@ suspend inline fun <reified T> Bitmap.reducePixels(
         operation(acc, pixels[i])
     }, combiner = combiner)
 }
+
+inline fun IntArray.get(x: Int, y: Int, width: Int): Int {
+    return this[y * width + x]
+}
+
+inline fun IntArray.set(x: Int, y: Int, width: Int, value: Int) {
+    this[y * width + x] = value
+}

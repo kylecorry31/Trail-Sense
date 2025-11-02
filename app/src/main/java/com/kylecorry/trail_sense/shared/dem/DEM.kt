@@ -4,8 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
 import android.util.Size
-import androidx.core.graphics.createBitmap
-import androidx.core.graphics.set
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -25,6 +23,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
@@ -169,7 +168,9 @@ object DEM {
         }
     ): Bitmap = onDefault {
         val grid = getElevationGrid(bounds, resolution)
-        val bitmap = createBitmap(grid[0].size, grid.size, Bitmap.Config.RGB_565)
+        val height = grid.size
+        val width = grid[0].size
+        val pixels = IntArray(height * width)
 
         try {
             var minElevation = Float.MAX_VALUE
@@ -188,15 +189,13 @@ object DEM {
             for (y in grid.indices) {
                 for (x in grid[y].indices) {
                     val color = colorMap(grid[y][x].second, minElevation, maxElevation)
-                    bitmap[x, y] = color
+                    pixels.set(x, y, width, color)
                 }
             }
+            Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
         } catch (e: Exception) {
-            bitmap.recycle()
             throw e
         }
-
-        bitmap
     }
 
     suspend fun hillshadeImage(
@@ -209,8 +208,9 @@ object DEM {
         sampleSpacing: Float = 3f
     ): Bitmap = onDefault {
         val grid = getElevationGrid(bounds, resolution)
-
-        val bitmap = createBitmap(grid[0].size, grid.size, Bitmap.Config.RGB_565)
+        val width = grid[0].size
+        val height = grid.size
+        val pixels = IntArray(width * height)
 
         try {
             val getElevation = { x: Int, y: Int ->
@@ -263,15 +263,13 @@ object DEM {
                     }
 
                     val gray = hillshade.toInt().coerceIn(0, 255)
-                    bitmap[x, y] = Color.rgb(gray, gray, gray)
+                    pixels.set(x, y, width, Color.rgb(gray, gray, gray))
                 }
             }
+            Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
         } catch (e: Exception) {
-            bitmap.recycle()
             throw e
         }
-
-        bitmap
     }
 
     private fun lerpCoordinate(percent: Float, a: Coordinate, b: Coordinate): Coordinate {
