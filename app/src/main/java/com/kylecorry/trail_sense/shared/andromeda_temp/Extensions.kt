@@ -121,42 +121,42 @@ fun Bitmap.setPixels(pixels: IntArray) {
     this.setPixels(pixels, 0, this.width, 0, 0, this.width, this.height)
 }
 
-inline fun parallelForEachIndex(
+suspend inline fun parallelForEachIndex(
     size: Int,
     maxParallel: Int = Runtime.getRuntime().availableProcessors(),
     crossinline action: (Int) -> Unit
 ) {
+    val parallelRunner = ParallelCoroutineRunner(maxParallel)
     val chunkSize = size / maxParallel + 1
 
-    val threads = mutableListOf<Thread>()
+    val coroutines = mutableListOf<suspend () -> Unit>()
     for (t in 0 until maxParallel) {
         val start = t * chunkSize
         val end = minOf(start + chunkSize, size)
         if (start >= end) {
             continue
         }
-        val thread = Thread {
+        coroutines.add {
             for (i in start until end) {
                 action(i)
             }
         }
-        threads.add(thread)
-        thread.start()
     }
 
-    threads.forEach { it.join() }
+    parallelRunner.run(coroutines)
 }
 
-inline fun <reified T> parallelReduceIndex(
+suspend inline fun <reified T> parallelReduceIndex(
     size: Int,
     initialValue: T,
     maxParallel: Int = Runtime.getRuntime().availableProcessors(),
     crossinline reducer: (T, Int) -> T,
     crossinline combiner: (T, T) -> T
 ): T {
+    val parallelRunner = ParallelCoroutineRunner(maxParallel)
     val chunkSize = size / maxParallel + 1
 
-    val threads = mutableListOf<Thread>()
+    val coroutines = mutableListOf<suspend () -> Unit>()
     val results = Array<T?>(maxParallel) { null }
     for (t in 0 until maxParallel) {
         val start = t * chunkSize
@@ -164,18 +164,16 @@ inline fun <reified T> parallelReduceIndex(
         if (start >= end) {
             continue
         }
-        val thread = Thread {
+        coroutines.add {
             var acc = initialValue
             for (i in start until end) {
                 acc = reducer(acc, i)
             }
             results[t] = acc
         }
-        threads.add(thread)
-        thread.start()
     }
 
-    threads.forEach { it.join() }
+    parallelRunner.run(coroutines)
     var finalAcc = initialValue
     for (res in results) {
         if (res != null) {
@@ -185,7 +183,7 @@ inline fun <reified T> parallelReduceIndex(
     return finalAcc
 }
 
-inline fun <reified T> Bitmap.reducePixels(
+suspend inline fun <reified T> Bitmap.reducePixels(
     initialValue: T,
     crossinline operation: (acc: T, pixel: Int) -> T,
     crossinline combiner: (a: T, b: T) -> T
