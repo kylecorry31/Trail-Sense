@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import android.graphics.Bitmap
-import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import kotlinx.coroutines.runBlocking
 
@@ -14,14 +13,16 @@ class MapPixels(private val inPlace: Boolean = false, private val map: (Int) -> 
                 pixels[i] = map(pixels[i])
             }
         }
-        if (inPlace) {
+        if (inPlace && bitmap.isMutable) {
             bitmap.setPixels(pixels)
             return bitmap
         }
-        val newBitmap =
-            createBitmap(bitmap.width, bitmap.height, bitmap.config ?: Bitmap.Config.ARGB_8888)
-        newBitmap.setPixels(pixels)
-        return newBitmap
+        return Bitmap.createBitmap(
+            pixels,
+            bitmap.width,
+            bitmap.height,
+            bitmap.config ?: Bitmap.Config.ARGB_8888
+        )
     }
 
     private suspend inline fun IntArray.forEachParallel(crossinline action: (Int) -> Unit) {
