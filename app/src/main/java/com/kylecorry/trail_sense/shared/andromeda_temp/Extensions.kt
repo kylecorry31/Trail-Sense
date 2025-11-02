@@ -1,11 +1,13 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
+import android.graphics.Bitmap
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.subscriptions.ISubscription
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
+import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.sol.math.SolMath.isCloseTo
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
@@ -107,4 +109,87 @@ fun <T> ReactiveComponent.useBackgroundMemo2(
     }
 
     return currentState
+}
+
+fun Bitmap.getPixels(): IntArray {
+    val pixels = IntArray(this.width * this.height)
+    this.getPixels(pixels, 0, this.width, 0, 0, this.width, this.height)
+    return pixels
+}
+
+fun Bitmap.setPixels(pixels: IntArray) {
+    this.setPixels(pixels, 0, this.width, 0, 0, this.width, this.height)
+}
+
+suspend inline fun parallelForEachIndex(
+    size: Int,
+    maxParallel: Int = Runtime.getRuntime().availableProcessors(),
+    crossinline action: (Int) -> Unit
+) {
+    val parallelRunner = ParallelCoroutineRunner(maxParallel)
+    val chunkSize = size / maxParallel + 1
+
+    val coroutines = mutableListOf<suspend () -> Unit>()
+    for (t in 0 until maxParallel) {
+        val start = t * chunkSize
+        val end = minOf(start + chunkSize, size)
+        if (start >= end) {
+            continue
+        }
+        coroutines.add {
+            for (i in start until end) {
+                action(i)
+            }
+        }
+    }
+
+    parallelRunner.run(coroutines)
+}
+
+suspend inline fun <reified T> parallelReduceIndex(
+    size: Int,
+    initialValue: T,
+    maxParallel: Int = Runtime.getRuntime().availableProcessors(),
+    crossinline reducer: (T, Int) -> T,
+    crossinline combiner: (T, T) -> T
+): T {
+    val parallelRunner = ParallelCoroutineRunner(maxParallel)
+    val chunkSize = size / maxParallel + 1
+
+    val coroutines = mutableListOf<suspend () -> Unit>()
+    val results = Array<T?>(maxParallel) { null }
+    for (t in 0 until maxParallel) {
+        val start = t * chunkSize
+        val end = minOf(start + chunkSize, size)
+        if (start >= end) {
+            continue
+        }
+        coroutines.add {
+            var acc = initialValue
+            for (i in start until end) {
+                acc = reducer(acc, i)
+            }
+            results[t] = acc
+        }
+    }
+
+    parallelRunner.run(coroutines)
+    var finalAcc = initialValue
+    for (res in results) {
+        if (res != null) {
+            finalAcc = combiner(finalAcc, res)
+        }
+    }
+    return finalAcc
+}
+
+suspend inline fun <reified T> Bitmap.reducePixels(
+    initialValue: T,
+    crossinline operation: (acc: T, pixel: Int) -> T,
+    crossinline combiner: (a: T, b: T) -> T
+): T {
+    val pixels = getPixels()
+    return parallelReduceIndex(pixels.size, initialValue, reducer = { acc, i ->
+        operation(acc, pixels[i])
+    }, combiner = combiner)
 }

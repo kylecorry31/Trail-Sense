@@ -10,6 +10,7 @@ import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.math.statistics.Texture
 import com.kylecorry.sol.math.statistics.TextureFeatures
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.trail_sense.shared.andromeda_temp.reducePixels
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import kotlin.math.sqrt
 
@@ -18,16 +19,9 @@ class SoftmaxCloudClassifier(
 ) : ICloudClassifier {
 
     override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus?>> {
-        var averageNRBR = 0.0
-
-        for (w in 0 until bitmap.width) {
-            for (h in 0 until bitmap.height) {
-                val pixel = bitmap.getPixel(w, h)
-                averageNRBR += ColorUtils.nrbr(pixel)
-            }
-        }
-
-        averageNRBR /= bitmap.width * bitmap.height
+        val averageNRBR = bitmap.reducePixels(0.0, { acc, pixel ->
+            acc + ColorUtils.nrbr(pixel)
+        }, { a, b -> a + b }) / (bitmap.width * bitmap.height)
 
         val regions = mutableListOf<Rect>()
         for (x in 0 until bitmap.width step GLCM_WINDOW_SIZE) {

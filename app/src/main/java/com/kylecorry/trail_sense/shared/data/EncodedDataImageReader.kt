@@ -10,6 +10,7 @@ import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.trail_sense.shared.andromeda_temp.getPixels
 
 class EncodedDataImageReader(
     private val reader: ImageReader,
@@ -25,9 +26,12 @@ class EncodedDataImageReader(
         var pixelGrid: Array<Array<FloatArray>>? = null
         var isAllNaN = true
         reader.getRegion(rect)?.use {
+            val pixels = getPixels()
+            val w = width
             pixelGrid = Array(height) { y ->
                 Array(width) { x ->
-                    val decoded = decoder(this[x, y])
+                    val pixel = pixels[y * w + x]
+                    val decoded = decoder(pixel)
                     val channels = if (maxChannels != null) minOf(
                         decoded.size,
                         maxChannels
