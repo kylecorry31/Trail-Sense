@@ -1,0 +1,18 @@
+Clinómetro
+- Convertida la cámara en el clinómetro predeterminado
+- Aumentar el tamaño de la vista de cámara
+- Añadir compatibilidad con RA (experimental)
+
+Detector de metales
+- Mejora de la sensibilidad
+
+Realidad aumentada (experimental)
+- Mejorada la alineación
+- Muestra líneas de cuadrícula
+- Mejora de la experiencia en dispositivos sin giroscopio
+
+Varios
+- Mejorado el altímetro mediante GPS + barómetro
+- Notifica si no se pueden iniciar servicios en segundo plano
+- Añadidas más guías de usuario
+- Corrección de errores
