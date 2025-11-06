@@ -590,7 +590,6 @@
     <string name="category_shelter">தங்குமிடம்</string>
     <string name="category_safety">பாதுகாப்பு</string>
     <string name="category_natural">இயற்கை</string>
-    <string name="toast_destination_bearing_set">இலக்கு தாங்கி தொகுப்பு</string>
     <string name="tool_cliff_height_disclaimer">அவ்வாறு செய்வது பாதுகாப்பாக இருக்கும்போது மட்டுமே இந்த கருவியைப் பயன்படுத்தவும், காயத்தைத் தவிர்ப்பதற்கு குன்றின் கீழே என்ன இருக்கிறது என்பதை சரிபார்க்கவும். வழிமுறைகளுக்கு பயனர் வழிகாட்டியைப் பார்க்கவும்.</string>
     <string name="tool_whistle_title">விசில்</string>
     <string name="action_inventory_clear_confirm">நிரம்பிய அனைத்து தொகைகளையும் அழிக்கவா?</string>

@@ -138,7 +138,7 @@
     <string name="start">Começar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até se tornar potável</item>
-        <item quantity="many" />
+        <item quantity="many"></item>
         <item quantity="other">%d segundos até se tornar potável</item>
     </plurals>
     <string name="water_boil_timer_done_content">A água agora é potável</string>
@@ -164,7 +164,6 @@
     <string name="tool_cliff_height_disclaimer">Use esta ferramenta apenas quando for seguro fazê-lo e verifique o que está no fundo do penhasco para evitar, ao atirar uma pedra ou objeto, ferir alguém, animais ou danificar elementos. Consulte o guia do utilizador para mais instruções.</string>
     <string name="tool_cliff_height_description">Mede a altura de um penhasco ou descida</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>
-    <string name="toast_destination_bearing_set">Direção do destino definida</string>
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
@@ -304,7 +303,7 @@
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d alfinete</item>
-        <item quantity="many" />
+        <item quantity="many"></item>
         <item quantity="other">%d alfinetes</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -788,7 +787,7 @@
     <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>
-        <item quantity="many" />
+        <item quantity="many"></item>
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="path">Percurso</string>

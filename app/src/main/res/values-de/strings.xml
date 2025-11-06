@@ -328,7 +328,6 @@
     <string name="clock_sync_notification">Uhrsynchronisierung – %s</string>
     <string name="could_not_triangulate">Triangulation fehlgeschlagen</string>
     <string name="strobe_warning_title">Blitzlicht</string>
-    <string name="toast_destination_bearing_set">Zielrichtung gesetzt</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="create_beacon">Wegpunkt anlegen</string>
     <string name="charging_wireless">Wird geladen (%s)</string>

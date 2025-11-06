@@ -259,7 +259,6 @@
     <string name="units_mbar">מלב\"ר</string>
     <string name="units_psi">PSI</string>
     <string name="category_hydration">הידרציה</string>
-    <string name="toast_destination_bearing_set">סט מיסבי יעד</string>
     <string name="share_action_send">שלח</string>
     <string name="maps">מפות</string>
     <string name="beacon_invalid_name">שם לא חוקי</string>

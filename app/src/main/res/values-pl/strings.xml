@@ -310,7 +310,6 @@
     <string name="coordinate_format_utm">UTM</string>
     <string name="set_inclination_instructions">Dotknij lub przytrzymaj w dowolnym miejscu, aby zablokować lub odblokować</string>
     <string name="create_at_distance">Utwórz w odległości</string>
-    <string name="toast_destination_bearing_set">Docelowy namiar ustawiony</string>
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
     <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00)

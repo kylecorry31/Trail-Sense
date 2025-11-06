@@ -79,10 +79,15 @@ class Navigator private constructor(context: Context) {
         _forceUpdate.update { it -> it + 1 }
     }
 
-    fun cancelNavigation() {
+    fun cancelBeaconNavigation() {
         prefs.remove(DESTINATION_ID_KEY)
         _destinationId.update { null }
         _forceUpdate.update { it -> it + 1 }
+    }
+
+    suspend fun cancelAllNavigation() {
+        cancelBeaconNavigation()
+        clearBearing()
     }
 
     fun getDestinationId(): Long? {

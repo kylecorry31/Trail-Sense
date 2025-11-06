@@ -28,8 +28,12 @@ import com.kylecorry.trail_sense.shared.extensions.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.DataPointView
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
 
 class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
@@ -44,7 +48,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
     private val navigationService = NavigationService()
 
-    private var destinationBeacon: Beacon? = null
+    private var destination: Destination? = null
     private var isNavigating: Boolean = false
     private var sensorValues: NavigationSensorValues? = null
     private var useTrueNorthOverride: Boolean? = null
@@ -52,6 +56,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     // VIEWS
     private val toolbar: Toolbar
     private val distanceDataView: DataPointView
+    private val bearingDataView: DataPointView
     private val elevationDataView: DataPointView
     private val etaDataView: DataPointView
 
@@ -59,8 +64,10 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         inflate(context, R.layout.view_navigation_sheet, this)
         toolbar = findViewById<Toolbar>(R.id.navigation_sheet_title)
         distanceDataView = findViewById<DataPointView>(R.id.navigation_distance)
+        bearingDataView = findViewById<DataPointView>(R.id.navigation_bearing)
         elevationDataView = findViewById<DataPointView>(R.id.navigation_elevation)
         etaDataView = findViewById<DataPointView>(R.id.navigation_eta)
+        bearingDataView.setShowDescription(false)
         CustomUiUtils.setButtonState(toolbar.rightButton, true)
         CustomUiUtils.setButtonState(toolbar.leftButton, false)
         toolbar.leftButton.flatten()
@@ -70,12 +77,12 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     // TODO: Listen for navigation and automatically hide/show with override ability (for navigation tool)
     fun hide() {
         isVisible = false
-        destinationBeacon = null
+        destination = null
         updateNavigation()
     }
 
-    fun show(beacon: Beacon, isNavigating: Boolean = false) {
-        destinationBeacon = beacon
+    fun show(destination: Destination, isNavigating: Boolean = false) {
+        this.destination = destination
         this.isNavigating = isNavigating
         updateNavigation()
     }
@@ -113,48 +120,89 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
     private fun updateNavigation() {
         val values = sensorValues
-        val destination = destinationBeacon
+        val destination = destination
         if (destination == null || values == null) {
             isVisible = false
             return
         }
+        isVisible = true
+        toolbar.title.maxWidth = Resources.dp(context, 250f).toInt()
+        toolbar.rightButton.isVisible = isNavigating
+        toolbar.rightButton.setOnClickListener {
+            Alerts.dialog(
+                context,
+                context.getString(R.string.cancel_navigation_question),
+                okText = context.getString(R.string.yes),
+                cancelText = context.getString(R.string.no)
+            ) { cancelled ->
+                if (!cancelled) {
+                    CoroutineScope(Dispatchers.Default).launch {
+                        navigator.cancelAllNavigation()
+                    }
+                }
+            }
+        }
 
+        if (destination is Destination.Beacon) {
+            updateBeaconNavigation(destination, values)
+        } else if (destination is Destination.Bearing) {
+            updateBearingNavigation(destination, values)
+        }
+    }
+
+    private fun updateBearingNavigation(
+        destination: Destination.Bearing,
+        values: NavigationSensorValues
+    ) {
+        val bearing = navigator.getBearing(values.location, destination)
+        updateDestinationDirection(bearing.value, true)
+        updateDestinationElevation(null, null)
+        etaDataView.isVisible = false
+        toolbar.title.text = context.getString(R.string.bearing)
+        toolbar.subtitle.isVisible = false
+        toolbar.leftButton.isVisible = false
+        toolbar.title.setOnClickListener(null)
+    }
+
+    private fun updateBeaconNavigation(
+        destination: Destination.Beacon,
+        values: NavigationSensorValues
+    ) {
+        val beacon = destination.beacon
         val vector = navigationService.navigate(
             values.location,
             values.elevation.meters().value,
-            destination,
+            beacon,
             values.declination,
             useTrueNorthOverride ?: useTrueNorth
         )
 
-        isVisible = true
-
         updateDestinationDirection(vector.direction.value)
-        updateDestinationElevation(destination.elevation, vector.altitudeChange)
+        updateDestinationElevation(beacon.elevation, vector.altitudeChange)
         updateDestinationEta(
             values.location, values.elevation.meters().value, values.speed.convertTo(
                 DistanceUnits.Meters, TimeUnits.Seconds
-            ).speed, destination
+            ).speed, beacon
         )
 
         // TODO: These don't change
-        toolbar.title.text = destination.name
-        toolbar.title.maxWidth = Resources.dp(context, 250f).toInt()
+        toolbar.title.text = beacon.name
+        toolbar.subtitle.isVisible = true
 
-        val hasComment = !destination.comment.isNullOrEmpty()
+        val hasComment = !beacon.comment.isNullOrEmpty()
         toolbar.leftButton.isVisible = hasComment
 
         toolbar.leftButton.setOnClickListener {
-            Alerts.dialog(context, destination.name, destination.comment, cancelText = null)
+            Alerts.dialog(context, beacon.name, beacon.comment, cancelText = null)
         }
 
-        val elevationDistance = destination.elevation?.let {
+        val elevationDistance = beacon.elevation?.let {
             Distance.meters(it).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         }
 
         toolbar.subtitle.text = formatter.join(
             *listOfNotNull(
-                formatter.formatLocation(destination.coordinate),
+                formatter.formatLocation(beacon.coordinate),
                 if (elevationDistance != null) context.getString(
                     R.string.elevation_value,
                     formatter.formatDistance(
@@ -167,25 +215,11 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
 
         toolbar.title.setOnClickListener {
-            openBeacon(destination.id)
+            openBeacon(beacon.id)
         }
 
         toolbar.subtitle.setOnClickListener {
-            openBeacon(destination.id)
-        }
-
-        toolbar.rightButton.isVisible = isNavigating
-        toolbar.rightButton.setOnClickListener {
-            Alerts.dialog(
-                context,
-                context.getString(R.string.cancel_navigation_question),
-                okText = context.getString(R.string.yes),
-                cancelText = context.getString(R.string.no)
-            ) { cancelled ->
-                if (!cancelled) {
-                    navigator.cancelNavigation()
-                }
-            }
+            openBeacon(beacon.id)
         }
     }
 
@@ -198,11 +232,18 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
     }
 
-    private fun updateDestinationDirection(azimuth: Float) {
-        distanceDataView.description = formatter.formatDegrees(
+    private fun updateDestinationDirection(azimuth: Float, isTitle: Boolean = false) {
+        val value = formatter.formatDegrees(
             azimuth,
             replace360 = true
         ) + " " + formatter.formatDirection(Bearing.direction(azimuth))
+        distanceDataView.isVisible = !isTitle
+        bearingDataView.isVisible = isTitle
+        if (isTitle) {
+            bearingDataView.title = value
+        } else {
+            distanceDataView.description = value
+        }
     }
 
     private fun updateDestinationEta(
@@ -211,6 +252,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         speed: Float,
         beacon: Beacon
     ) {
+        etaDataView.isVisible = true
         val d = Distance.meters(location.distanceTo(beacon.coordinate))
             .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         distanceDataView.title =

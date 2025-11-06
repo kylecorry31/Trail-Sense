@@ -166,7 +166,6 @@
     <string name="distance_to">Buraya kadar</string>
     <string name="distance_from">Buradan</string>
     <string name="delete_tide_prompt">Gelgiti sil\?</string>
-    <string name="toast_destination_bearing_set">Hedef kerterizi belirlendi</string>
     <string name="weather_monitor">Hava durumu izleyici</string>
     <string name="whistle_signal_come_here">Buraya gel</string>
     <string name="whistle_signal_acknowledged">Anlaşıldı/alındı</string>

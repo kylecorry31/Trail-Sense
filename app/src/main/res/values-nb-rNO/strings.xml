@@ -565,7 +565,6 @@
     <string name="service_update_frequency">Oppdateres hver %s</string>
     <string name="always_on">Alltid på</string>
     <string name="action_inventory_clear_confirm">Tøm alle pakkede mengder\?</string>
-    <string name="toast_destination_bearing_set">Målpeiling satt</string>
     <string name="units_mmhg">mmHg</string>
     <string name="weight_per_item">Vekt per element</string>
     <string name="delete_pack">Slett pakke\?</string>

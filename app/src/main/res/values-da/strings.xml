@@ -597,7 +597,6 @@
     <string name="category_fire">Ild</string>
     <string name="category_medical">Helbred</string>
     <string name="category_safety">Sikkerhed</string>
-    <string name="toast_destination_bearing_set">Destination indstillet</string>
     <string name="tool_cliff_height_title">Klippehøjde</string>
     <string name="tool_cliff_height_description">Mål højden af en klippe eller et fald</string>
     <string name="tool_cliff_height_disclaimer">Brug kun dette værktøj, når det er sikkert, og sørg for at undersøge, hvad der er under klippen for at undgå skader. Se brugervejledningen for instruktioner.</string>

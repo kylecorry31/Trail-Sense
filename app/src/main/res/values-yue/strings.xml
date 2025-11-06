@@ -617,7 +617,6 @@
     <string name="override_from_gps">按照 GPS 設定推翻</string>
     <string name="compass_declination">磁偏角</string>
     <string name="pref_show_linear_compass_title">將羅經躺平</string>
-    <string name="toast_destination_bearing_set">目標方位設定好</string>
     <string name="distance_from_flashlight">由部機去到閃光燈嘅距離</string>
     <string name="dialog_leave">算罷啦</string>
     <string name="hygrometer">濕度計</string>

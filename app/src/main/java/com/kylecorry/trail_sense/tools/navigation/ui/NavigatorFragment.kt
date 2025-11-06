@@ -182,7 +182,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeFlow(navigator.destination2){
+        observeFlow(navigator.destination2) {
             destination = it
         }
 
@@ -341,7 +341,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             if (destination == null && hasCompass) {
                 // TODO: Wait for GPS location to be up to date (show a loading indicator)
                 navigator.navigateToBearing(compass.rawBearing, gps.location)
-                toast(getString(R.string.toast_destination_bearing_set))
             } else {
                 navigator.clearBearing()
             }
@@ -445,15 +444,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             compass.rawBearing.safeRoundToInt(),
             lifecycleHookTrigger.onResume()
         ) {
-            val selectedBeacon = getSelectedBeacon(nearbyBeacons)
-            if (selectedBeacon != null) {
+            val currentDestination =
+                destination ?: getSelectedBeacon(nearbyBeacons)?.let { Destination.Beacon(it) }
+            if (currentDestination != null) {
                 binding.navigationSheet.updateNavigationSensorValues(
                     gps.location,
                     altimeter.altitude,
                     speedometer.speed.speed,
                     declination
                 )
-                binding.navigationSheet.show(selectedBeacon, destination is Destination.Beacon)
+                binding.navigationSheet.show(currentDestination, destination != null)
             } else {
                 binding.navigationSheet.hide()
             }

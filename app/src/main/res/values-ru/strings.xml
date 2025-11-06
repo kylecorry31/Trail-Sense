@@ -216,7 +216,6 @@
     <string name="tool_cliff_height_disclaimer">Используйте этот инструмент только тогда, когда это безопасно, и обязательно проверяйте, что находится под скалой, чтобы избежать травм. Инструкции смотрите в руководстве пользователя.</string>
     <string name="precise_inches_format">%s дюйм</string>
     <string name="thunder">Гром</string>
-    <string name="toast_destination_bearing_set">Ориентация установлена</string>
     <string name="unit_miles">Мили</string>
     <string name="unit_feet">Футы</string>
     <string name="water_purification_step_3">Запустите таймер</string>

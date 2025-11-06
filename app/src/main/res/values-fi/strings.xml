@@ -948,7 +948,6 @@
     <string name="restart_services_title">Uudelleenkäynnistä palvelut</string>
     <string name="restart_services_message">Taustapalveluita ei voitu uudelleenkäynnistää. Paina yrittääksesi uudelleen.</string>
     <string name="navigate">Navigoi</string>
-    <string name="toast_destination_bearing_set">Kohteen suuntima asetettu</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="pref_gps_override_title">Sijainnin ohitus</string>
     <string name="settings_have_moved_message">Sovelluksen asetuksien paikka on vaihdettu Työkalut-lehdelle</string>

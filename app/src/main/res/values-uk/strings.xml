@@ -164,7 +164,6 @@
     <string name="tool_cliff_height_disclaimer">Використовуйте цей засіб тільки тоді, коли це безпечно, і обов\'язково перевіряйте, що знаходиться під скелею, щоб уникнути травм. Вказівки дивіться в посібнику користувача.</string>
     <string name="tool_cliff_height_description">Виміряйте висоту скелі чи обриву</string>
     <string name="tool_cliff_height_title">Висота скелі</string>
-    <string name="toast_destination_bearing_set">Орієнтацію встановлено</string>
     <string name="calibrate_compass_dialog_title">Калібрувати компас</string>
     <string name="calibrate">Калібрувати</string>
     <string name="pref_ruler_calibration_summary">Порядок калібрування:

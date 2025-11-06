@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
@@ -71,7 +72,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private var mapId = 0L
     private var map: PhotoMap? = null
-    private var destination: Beacon? = null
+    private var destination: Destination? = null
 
     private var mapLockMode = MapLockMode.Free
 
@@ -132,7 +133,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             updateDestination()
         }
 
-        observeFlow(navigator.destination) {
+        observeFlow(navigator.destination2) {
             setDestination(it)
         }
 
@@ -166,15 +167,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         binding.zoomInBtn.setOnClickListener {
             binding.map.zoomBy(2f)
-        }
-
-        // Update navigation
-        inBackground {
-            navigator.getDestination()?.let {
-                onMain {
-                    navigateTo(it)
-                }
-            }
         }
     }
 
@@ -341,13 +333,13 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun navigateTo(beacon: Beacon): Boolean {
         navigator.navigateTo(beacon)
-        setDestination(beacon)
+        setDestination(Destination.Beacon(beacon))
         return true
     }
 
-    private fun setDestination(beacon: Beacon?) {
-        destination = beacon
-        if (beacon == null) {
+    private fun setDestination(destination: Destination?) {
+        this@ViewPhotoMapFragment.destination = destination
+        if (destination == null) {
             binding.navigationSheet.hide()
         } else {
             updateDestination()

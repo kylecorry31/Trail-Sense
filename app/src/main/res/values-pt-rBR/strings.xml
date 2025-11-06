@@ -253,7 +253,6 @@
     <string name="tool_cliff_height_disclaimer">Somente use essa ferramenta quando for seguro fazê-lo e certifique-se de verificar o que está abaixo do penhasco para evitar ferimentos. Consulte o Guia do Usuário para obter instruções.</string>
     <string name="tool_cliff_height_description">Mede a altura de um penhasco ou descida</string>
     <string name="tool_cliff_height_title">Altura do penhasco</string>
-    <string name="toast_destination_bearing_set">Orientação do destino definida</string>
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>

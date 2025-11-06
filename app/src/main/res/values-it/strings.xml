@@ -359,7 +359,6 @@
     <string name="calibrate_compass_on_navigate_dialog_content">Ruota il tuo telefono seguendo una forma ad 8 oppure in tutte le direzioni varie volte, premi %s una volta finito.
 \n
 \nQuesto avviso può essere disabilitato nelle impostazioni dell\'app.</string>
-    <string name="toast_destination_bearing_set">Direzione della destinazione impostata</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="clock_waiting_for_gps">Aggiornamento orario dal GPS…</string>
     <string name="contents">Contenuto</string>

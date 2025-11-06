@@ -94,7 +94,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             if (navigator.getDestinationId() != it.id) {
                 navigator.navigateTo(it)
             } else {
-                navigator.cancelNavigation()
+                navigator.cancelBeaconNavigation()
             }
             true
         }

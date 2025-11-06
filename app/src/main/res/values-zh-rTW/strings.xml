@@ -788,7 +788,6 @@
     <string name="calibrate_compass_on_navigate_dialog_content">將你的手機以 8 字形或向各個方向旋轉數次，完成後按 %s。
 \n
 \n可以在應用程式設定中停用此警報。</string>
-    <string name="toast_destination_bearing_set">目的地方位已設定</string>
     <string name="water_purification_step_2">將水煮沸</string>
     <string name="strobe_warning_title">閃光燈</string>
     <string name="strobe_warning_content">頻閃功能包含閃爍的燈光，可能對某些使用者構成危險。</string>
