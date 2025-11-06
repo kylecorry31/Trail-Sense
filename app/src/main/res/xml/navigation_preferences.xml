@@ -27,6 +27,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_lock_bearing_to_location"
+            app:singleLineTitle="false"
+            app:summary="@string/lock_bearing_to_location_description"
+            app:title="@string/lock_bearing_to_location" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_linear_compass"

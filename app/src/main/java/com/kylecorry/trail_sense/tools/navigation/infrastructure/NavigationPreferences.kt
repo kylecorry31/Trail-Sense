@@ -229,8 +229,11 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
-    // TODO: Make this configurable
-    var useLocationWithBearing = true
+    var lockBearingToLocation by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_lock_bearing_to_location),
+        false
+    )
 
     // Layers
 

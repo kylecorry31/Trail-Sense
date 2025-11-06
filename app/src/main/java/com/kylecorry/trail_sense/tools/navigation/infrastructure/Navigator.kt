@@ -171,7 +171,7 @@ class Navigator private constructor(context: Context) {
             }
 
             is Destination.Bearing -> {
-                if (destination.startingLocation != null && userPrefs.navigation.useLocationWithBearing) {
+                if (destination.startingLocation != null && userPrefs.navigation.lockBearingToLocation) {
                     fromTrueNorth(
                         myLocation.bearingTo(destination.targetLocation!!),
                         useTrueNorth,

@@ -19,7 +19,7 @@ class NavigationLayerManager(context: Context, private val layer: NavigationLaye
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
     override fun start() {
-        layer.useLocationWithBearing = prefs.navigation.useLocationWithBearing
+        layer.useLocationWithBearing = prefs.navigation.lockBearingToLocation
         scope.launch {
             navigator.destination2.collect {
                 layer.setDestination(it)
