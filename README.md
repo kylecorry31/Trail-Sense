@@ -38,7 +38,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
         </td>
         <td align="center">
             <a href="https://www.amazon.com/dp/B0FN4XBJM7">
-                <img alt="Buy it on Amazon" src="/site/images/cover.webp" height="80" align="middle">
+                <img alt="Buy it on Amazon" src="site/images/cover.webp" height="80" align="middle">
             </a>
         </td>
     </tr>
