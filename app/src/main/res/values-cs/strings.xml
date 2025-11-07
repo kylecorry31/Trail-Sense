@@ -629,7 +629,7 @@
     <string name="high_tide_letter">P</string>
     <string name="current_speed_gps">Aktuální rychlost (GPS)</string>
     <string name="average_speed_pedometer">Průměrná rychlost (krokoměr)</string>
-    <string name="bearing">Kurs</string>
+    <string name="bearing">Kurz</string>
     <string name="pref_tiles_enabled_title">Systémové dlaždice</string>
     <string name="pint_format">%s pt</string>
     <string name="us_ounces_volume">Americké unce</string>
@@ -1531,4 +1531,6 @@
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Používá model G1</string>
     <string name="remember_map_state">Zapamatovat stav mapy</string>
+    <string name="lock_bearing_to_location">Uzamknout kurz na polohu</string>
+    <string name="lock_bearing_to_location_description">Uzamknout linii kurzu na vaši počáteční polohu</string>
 </resources>
