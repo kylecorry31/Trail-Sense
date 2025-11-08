@@ -1505,4 +1505,6 @@
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Gebruikt G1-luchtweerstandsmodel</string>
     <string name="remember_map_state">Kaartstatus onthouden</string>
+    <string name="lock_bearing_to_location">Peiling vastzetten op locatie</string>
+    <string name="lock_bearing_to_location_description">Vergrendel de koerslijn aan je startlocatie</string>
 </resources>
