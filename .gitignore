@@ -53,3 +53,4 @@ dem-*.zip
 olin.txt
 
 scripts/experiments/*.jpg
+scripts/experiments/cache.json
