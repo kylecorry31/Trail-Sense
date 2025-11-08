@@ -118,6 +118,24 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         updateNavigationSensorValues(values)
     }
 
+    fun requestCancelNavigation() {
+        if (!isNavigating) {
+            return
+        }
+        Alerts.dialog(
+            context,
+            context.getString(R.string.cancel_navigation_question),
+            okText = context.getString(R.string.yes),
+            cancelText = context.getString(R.string.no)
+        ) { cancelled ->
+            if (!cancelled) {
+                CoroutineScope(Dispatchers.Default).launch {
+                    navigator.cancelAllNavigation()
+                }
+            }
+        }
+    }
+
     private fun updateNavigation() {
         val values = sensorValues
         val destination = destination
@@ -129,18 +147,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         toolbar.title.maxWidth = Resources.dp(context, 250f).toInt()
         toolbar.rightButton.isVisible = isNavigating
         toolbar.rightButton.setOnClickListener {
-            Alerts.dialog(
-                context,
-                context.getString(R.string.cancel_navigation_question),
-                okText = context.getString(R.string.yes),
-                cancelText = context.getString(R.string.no)
-            ) { cancelled ->
-                if (!cancelled) {
-                    CoroutineScope(Dispatchers.Default).launch {
-                        navigator.cancelAllNavigation()
-                    }
-                }
-            }
+            requestCancelNavigation()
         }
 
         if (destination is Destination.Beacon) {

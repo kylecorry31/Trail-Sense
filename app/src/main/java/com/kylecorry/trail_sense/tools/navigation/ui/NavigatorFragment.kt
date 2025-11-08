@@ -9,7 +9,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -25,6 +24,7 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
@@ -342,7 +342,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 // TODO: Wait for GPS location to be up to date (show a loading indicator)
                 navigator.navigateToBearing(compass.rawBearing, gps.location)
             } else {
-                navigator.clearBearing()
+                onMain {
+                    if (isBound) {
+                        binding.navigationSheet.requestCancelNavigation()
+                    }
+                }
             }
         }
     }

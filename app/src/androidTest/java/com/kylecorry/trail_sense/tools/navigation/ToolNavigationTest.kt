@@ -61,13 +61,18 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     }
 
     private fun canSetDestinationBearing() {
-        repeat(2) {
-            any(
-                { click(R.id.round_compass, waitForTime = 0) },
-                { click(R.id.radar_compass, waitForTime = 0) },
-                { click(R.id.linear_compass, waitForTime = 0) }
-            )
-        }
+        any(
+            { click(R.id.round_compass, waitForTime = 0) },
+            { click(R.id.radar_compass, waitForTime = 0) },
+            { click(R.id.linear_compass, waitForTime = 0) }
+        )
+
+        hasText("Bearing")
+        isVisible(R.id.navigation_bearing)
+
+        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click("Yes")
+        not { hasText("Bearing", waitForTime = 0) }
     }
 
     private fun canNavigate() {
