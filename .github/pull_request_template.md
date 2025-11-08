@@ -19,7 +19,7 @@
 
 
 ## Generative AI Use
-<!-- See the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information - use of AI in Trail Sense is only allowed in certain cases -->
+<!-- Generative AI use is heavily restricted in this repo, see the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information. -->
 - [ ] Generative AI (ex. ChatGPT, Gemini, Claude, etc.) was used in the creation of this PR
 
 <!-- If yes, please describe what generative AI was used for and how you verified the accuracy -->
