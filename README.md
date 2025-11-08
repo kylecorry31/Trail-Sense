@@ -188,7 +188,6 @@ If you want to monetarily support my development of Trail Sense, you can [buy a 
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
 - Please see the in app licenses for all open source licenses
 - Contributors and translators: https://github.com/kylecorry31/Trail-Sense/graphs/contributors
-- [showdownjs](https://github.com/showdownjs/showdown): used for website markdown rendering [License](https://github.com/showdownjs/showdown/blob/master/LICENSE)
 
 # License
 
