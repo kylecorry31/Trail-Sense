@@ -59,11 +59,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-In 2025, the main focus will be:
-- Photo Maps (improvements)
-- Survival Guide (improvements)
-- Cell Signal Finder (new)
-- Add official support for foraging, fishing, and hunting
+The 2026 feature roadmap has not yet been created. Vote on your most used tools [here](https://github.com/kylecorry31/Trail-Sense/discussions/3202) to influence the focus.
 
 ### Priorities
 Issue priority is denoted by labels on issues.
