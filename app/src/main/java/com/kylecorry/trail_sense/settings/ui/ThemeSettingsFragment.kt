@@ -38,6 +38,13 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
+        // Set Night Mode Fullscreen
+        val nightModeFullscreen = switch(R.string.pref_night_mode_fullscreen)
+        nightModeFullscreen?.setOnPreferenceChangeListener { _, _ ->
+            requireMainActivity().reloadTheme()
+            true
+        }
+
         // Widget default theme
         val widgetTheme = list(R.string.pref_default_widget_theme)!!
         val items = listOf(

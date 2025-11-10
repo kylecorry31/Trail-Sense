@@ -45,5 +45,13 @@
             app:singleLineTitle="false"
             app:title="@string/compact_mode" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_night_mode_fullscreen_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_night_mode_fullscreen"
+            app:singleLineTitle="false"
+            app:title="@string/pref_night_mode_fullscreen_title" />
+
     </PreferenceCategory>
 </PreferenceScreen>
