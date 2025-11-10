@@ -1494,4 +1494,6 @@
     <string name="remember_map_state">记住地图状态</string>
     <string name="lock_bearing_to_location">锁定位置方位角</string>
     <string name="lock_bearing_to_location_description">锁定起始位置方位线</string>
+    <string name="pref_night_mode_fullscreen_title">夜间模式下全屏</string>
+    <string name="pref_night_mode_fullscreen_summary">隐藏系统用户界面更好保留夜视能力</string>
 </resources>
