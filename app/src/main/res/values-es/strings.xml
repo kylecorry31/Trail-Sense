@@ -1473,4 +1473,6 @@
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Usa el modelo de arrastre G1</string>
     <string name="remember_map_state">Recordar estado del mapa</string>
+    <string name="lock_bearing_to_location">Bloquear rumbo en la ubicación</string>
+    <string name="lock_bearing_to_location_description">Bloquear línea de rumbo en la ubicación de inicio</string>
 </resources>
