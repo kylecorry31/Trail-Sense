@@ -6,8 +6,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
-import com.google.android.material.color.DynamicColors
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
@@ -21,11 +19,8 @@ import com.kylecorry.trail_sense.settings.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
-import com.kylecorry.trail_sense.tools.tools.widgets.WidgetTheme
 import kotlinx.coroutines.launch
 
 class SettingsFragment : AndromedaPreferenceFragment() {
@@ -33,6 +28,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     private val navigationMap = mapOf(
         R.string.pref_unit_settings to R.id.action_settings_to_unit_settings,
         R.string.pref_privacy_settings to R.id.action_settings_to_privacy_settings,
+        R.string.pref_theme_settings to R.id.action_settings_to_theme_settings,
         R.string.pref_experimental_settings to R.id.action_settings_to_experimental_settings,
         R.string.pref_error_settings to R.id.action_settings_to_error_settings,
         R.string.pref_sensor_settings to R.id.action_settings_to_sensor_settings,
@@ -54,8 +50,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             navigateOnClick(preference(nav.key), nav.value)
         }
 
-        reloadThemeOnChange(list(R.string.pref_theme))
-
         onClick(preference(R.string.pref_github)) {
             val i = Intents.url(it.summary.toString())
             startActivity(i)
@@ -69,24 +63,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         onClick(preference(R.string.pref_email)) {
             val intent = Intents.email(it.summary.toString(), getString(R.string.app_name))
             startActivity(Intent.createChooser(intent, it.title.toString()))
-        }
-
-        val dynamicColorsSwitch = switch(R.string.pref_use_dynamic_colors)
-        val dynamicCompassColorsSwitch = switch(R.string.pref_use_dynamic_colors_on_compass)
-        dynamicColorsSwitch?.isVisible = DynamicColors.isDynamicColorAvailable()
-        dynamicCompassColorsSwitch?.isVisible = DynamicColors.isDynamicColorAvailable()
-        dynamicCompassColorsSwitch?.isEnabled = prefs.useDynamicColors
-        dynamicColorsSwitch?.setOnPreferenceChangeListener { _, _ ->
-            requireMainActivity().reloadTheme()
-            dynamicCompassColorsSwitch?.isEnabled = prefs.useDynamicColors
-            true
-        }
-
-        //Set Compact Mode
-        val compactMode = switch(R.string.pref_use_compact_mode)
-        compactMode?.setOnPreferenceChangeListener { _, checked ->
-            requireMainActivity().changeBottomNavLabelsVisibility(checked as Boolean)
-            true
         }
 
         val version = Package.getVersionName(requireContext())
@@ -153,30 +129,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             }
             toolCategoryPreference?.addPreference(preference)
         }
-
-        // Widget default theme
-        val widgetTheme = list(R.string.pref_default_widget_theme)!!
-        val items = listOf(
-            WidgetTheme.System to getString(R.string.theme_system),
-            WidgetTheme.TransparentBlack to getString(
-                R.string.theme_transparent_type,
-                getString(R.string.widget_theme_black_text)
-            ),
-            WidgetTheme.TransparentWhite to getString(
-                R.string.theme_transparent_type,
-                getString(R.string.widget_theme_white_text)
-            )
-        )
-        widgetTheme.entries = items.map { it.second }.toTypedArray()
-        widgetTheme.entryValues = items.map { it.first.id.toString() }.toTypedArray()
-        // Save the default value
-        if (AppServiceRegistry.get<PreferencesSubsystem>().preferences.getString(widgetTheme.key) == null) {
-            widgetTheme.value = WidgetTheme.System.id.toString()
-        }
-
-        onChange(widgetTheme) {
-            Tools.triggerWidgetUpdate(requireContext(), null)
-        }
     }
 
     private fun backup() {
@@ -188,13 +140,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     private fun restore() {
         lifecycleScope.launch {
             restoreCommand.execute()
-        }
-    }
-
-    private fun reloadThemeOnChange(pref: Preference?) {
-        pref?.setOnPreferenceChangeListener { _, _ ->
-            requireMainActivity().reloadTheme()
-            true
         }
     }
 

@@ -742,6 +742,7 @@
     <string name="units">Units</string>
     <string name="privacy">Privacy</string>
     <string name="pref_privacy_settings" translatable="false">pref_privacy_settings</string>
+    <string name="pref_theme_settings" translatable="false">pref_theme_settings</string>
     <string name="pref_unit_settings" translatable="false">pref_unit_settings</string>
     <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
     <string name="pref_experimental_metal_direction_title">Show metal direction</string>
