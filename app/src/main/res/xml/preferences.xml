@@ -16,6 +16,10 @@
             app:key="@string/pref_sensor_settings"
             app:title="@string/sensors" />
         <Preference
+            app:icon="@drawable/ic_theme"
+            app:key="@string/pref_theme_settings"
+            app:title="@string/pref_theme_title" />
+        <Preference
             app:icon="@drawable/ic_visible"
             app:key="@string/pref_privacy_settings"
             app:title="@string/privacy" />
@@ -51,46 +55,6 @@
             app:singleLineTitle="false"
             app:title="@string/tools" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
-        app:title="@string/pref_theme_title">
-        <ListPreference
-            app:defaultValue="system"
-            app:entries="@array/theme_entries"
-            app:entryValues="@array/theme_values"
-            app:icon="@drawable/ic_theme"
-            app:key="@string/pref_theme"
-            app:singleLineTitle="false"
-            app:title="@string/pref_theme_title"
-            app:useSimpleSummaryProvider="true" />
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:icon="@drawable/palette"
-            app:key="@string/pref_use_dynamic_colors"
-            app:singleLineTitle="false"
-            app:title="@string/dynamic_colors" />
-        <SwitchPreferenceCompat
-            android:summary="@string/compass_dynamic_colors_summary"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_compass_icon"
-            app:key="@string/pref_use_dynamic_colors_on_compass"
-            app:singleLineTitle="false"
-            app:title="@string/compass_dynamic_colors" />
-        <ListPreference
-            app:icon="@drawable/ic_summary"
-            app:key="@string/pref_default_widget_theme"
-            app:singleLineTitle="false"
-            app:title="@string/default_widget_theme"
-            app:useSimpleSummaryProvider="true" />
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:icon="@drawable/page_layout_footer"
-            app:key="pref_use_compact_mode"
-            app:singleLineTitle="false"
-            app:title="@string/compact_mode" />
     </PreferenceCategory>
 
     <PreferenceCategory

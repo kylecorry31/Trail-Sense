@@ -226,6 +226,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    val nightModeFullscreen by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_night_mode_fullscreen),
+        false
+    )
+
     // Calibration
 
     override var useAutoDeclination: Boolean
