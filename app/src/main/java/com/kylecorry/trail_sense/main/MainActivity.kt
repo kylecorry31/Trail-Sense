@@ -18,6 +18,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -118,6 +119,7 @@ class MainActivity : AndromedaActivity() {
             )
         }
 
+        updateFullscreenMode()
         updateBottomNavigation()
 
         navController.addOnDestinationChangedListener { _, _, _ ->
@@ -220,6 +222,7 @@ class MainActivity : AndromedaActivity() {
 
     fun reloadTheme() {
         updateTheme()
+        updateFullscreenMode()
         cache.putBoolean("pref_theme_just_changed", true)
         recreate()
     }
@@ -521,6 +524,24 @@ class MainActivity : AndromedaActivity() {
             binding.bottomNavigation.enable()
         } else {
             binding.bottomNavigation.disable()
+        }
+    }
+
+    private fun updateFullscreenMode() {
+        val isNightMode = userPrefs.theme == UserPreferences.Theme.Night
+        val shouldBeFullscreen = isNightMode && userPrefs.nightModeFullscreen
+
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+
+        if (shouldBeFullscreen) {
+            // Hide system bars (status bar and navigation bar)
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+            // Set behavior to show bars temporarily when user swipes from edge
+            windowInsetsController.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
+            // Show system bars
+            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
         }
     }
 

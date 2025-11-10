@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/pref_theme_title">
+
+        <ListPreference
+            app:defaultValue="system"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_theme"
+            app:singleLineTitle="false"
+            app:title="@string/pref_theme_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_dynamic_colors"
+            app:singleLineTitle="false"
+            app:title="@string/dynamic_colors" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/compass_dynamic_colors_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_dynamic_colors_on_compass"
+            app:singleLineTitle="false"
+            app:title="@string/compass_dynamic_colors" />
+
+        <ListPreference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_default_widget_theme"
+            app:singleLineTitle="false"
+            app:title="@string/default_widget_theme"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="pref_use_compact_mode"
+            app:singleLineTitle="false"
+            app:title="@string/compact_mode" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_night_mode_fullscreen_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_night_mode_fullscreen"
+            app:singleLineTitle="false"
+            app:title="@string/pref_night_mode_fullscreen_title" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
