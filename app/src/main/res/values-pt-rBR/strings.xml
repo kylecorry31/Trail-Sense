@@ -666,7 +666,7 @@
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Excluir percurso?</string>
     <string name="auto">Automático</string>
-    <string name="lightning_dangerously_close">ATENÇÃO: Relâmpagos perigosos nas proximidades</string>
+    <string name="lightning_dangerously_close">Relâmpago perigosamente próximo</string>
     <string name="export_path_error">Não foi possível exportar o percurso</string>
     <string name="season_fall">Outono</string>
     <string name="season_summer">Verão</string>
@@ -1090,7 +1090,7 @@
     <string name="local_messaging">Mensagens locais</string>
     <string name="projection_manufacturer_intrinsics">Intrínsecos do fabricante</string>
     <string name="dynamic_colors">Cores dinâmicas</string>
-    <string name="no_recorded_cell_signal_nearby">Nenhum sinal da rede móvel foi registrado nas proximidades</string>
+    <string name="no_recorded_cell_signal_nearby">Nenhum sinal de celular registrado nas proximidades</string>
     <string name="compass_dynamic_colors_summary">Use cores dinâmicas para as direções cardeais</string>
     <string name="screen_flashlight_full_name">Usar tela do celular como lanterna</string>
     <string name="navigate_to_nearest_cell_signal">Navegue até o sinal da rede móvel mais próximo</string>
@@ -1422,7 +1422,7 @@
     <string name="sleep_sound_crickets">Grilos</string>
     <string name="sleep_sound_crickets_no_chirping">Grilos (sem chilrear)</string>
     <string name="sleep_sound_ocean_waves">Ondas do mar</string>
-    <string name="sleep_sound_fan">Fan</string>
+    <string name="sleep_sound_fan">Ventilador</string>
     <string name="hillshade">Sombreamento</string>
     <string name="color_usgs">SERVIÇO GEOLÓGICO AMERICANO</string>
     <string name="color_grayscale">Escala de cinza</string>
