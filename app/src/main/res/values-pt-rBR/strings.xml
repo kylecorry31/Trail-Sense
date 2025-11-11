@@ -1477,4 +1477,6 @@
     <string name="remember_map_state">Lembrar status do mapa</string>
     <string name="lock_bearing_to_location">Bloquear rumo na localização</string>
     <string name="lock_bearing_to_location_description">Bloqueia a linha de rumo no seu ponto de partida</string>
+    <string name="pref_night_mode_fullscreen_title">Tela cheia no modo noturno</string>
+    <string name="pref_night_mode_fullscreen_summary">Ocultar a interface do sistema para melhor preservação da visão noturna</string>
 </resources>
