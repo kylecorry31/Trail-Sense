@@ -1533,4 +1533,6 @@
     <string name="remember_map_state">Zapamatovat stav mapy</string>
     <string name="lock_bearing_to_location">Uzamknout kurz na polohu</string>
     <string name="lock_bearing_to_location_description">Uzamknout linii kurzu na vaši počáteční polohu</string>
+    <string name="pref_night_mode_fullscreen_title">Celá obrazovka v nočním režimu</string>
+    <string name="pref_night_mode_fullscreen_summary">Skrýt systémové rozhraní pro lepší zachování nočního vidění</string>
 </resources>
