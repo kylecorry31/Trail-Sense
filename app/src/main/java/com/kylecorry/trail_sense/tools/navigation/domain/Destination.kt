@@ -27,7 +27,7 @@ sealed class Destination {
             }
 
         companion object {
-            val bearingDistance: Distance = Distance.kilometers(80f).meters()
+            val bearingDistance: Distance = Distance.kilometers(5f).meters()
             val defaultColor: Int = AppColor.Blue.color
         }
     }
