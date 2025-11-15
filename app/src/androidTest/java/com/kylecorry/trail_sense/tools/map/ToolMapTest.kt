@@ -41,6 +41,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
     private fun canLongPressMap() {
         longClick(R.id.map)
         hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
+        hasText(Regex("Elevation: -?\\d+(\\.\\d+)?\\s*(ft|m)"))
         hasText("Beacon")
         hasText("Navigate")
         hasText("Distance")
