@@ -45,7 +45,7 @@ object DEM {
     private val multiElevationLookupLock = Mutex()
     private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
 
-    suspend fun getElevation(location: Coordinate): Float? = onDefault {
+    suspend fun getElevation(location: Coordinate): Float = onDefault {
         cache.getOrPut(location) {
             lookupElevations(listOf(location)).first().second
         }

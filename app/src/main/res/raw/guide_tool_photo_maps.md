@@ -128,6 +128,9 @@ You can measure distances on a map by opening the map, clicking the menu button 
 
 For a quick measurement from your location to a point, long-press that point on the map and click 'Distance'.
 
+## Measuring elevation
+Long press a location on the map to view the elevation (from the DEM).
+
 ## Recalibrating a map
 To recalibrate a map, open the map, click the menu button in the top-right, and choose 'Calibrate'. Follow the instructions above to recalibrate.
 

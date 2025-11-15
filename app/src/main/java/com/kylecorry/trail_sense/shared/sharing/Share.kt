@@ -75,6 +75,7 @@ object Share {
         fragment: Fragment,
         title: String,
         actions: List<ActionItem>,
+        subtitle: String? = null,
         noActionSelected: () -> Unit
     ) {
         var called = false
@@ -90,7 +91,7 @@ object Share {
                 }
             }
         }
-        val sheet = ActionSheet(title, actions, customOnAction)
+        val sheet = ActionSheet(title, subtitle, actions, customOnAction)
         sheet.show(fragment)
     }
 

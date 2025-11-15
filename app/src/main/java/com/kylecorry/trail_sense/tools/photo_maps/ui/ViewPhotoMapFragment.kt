@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -177,25 +178,35 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         selectLocation(location)
 
-        Share.actions(
-            this,
-            formatService.formatLocation(location),
-            listOf(
-                ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
-                    createBeacon(location)
+        inBackground {
+            val elevation = Distance.meters(DEM.getElevation(location))
+
+            onMain {
+                Share.actions(
+                    this@ViewPhotoMapFragment,
+                    formatService.formatLocation(location),
+                    listOf(
+                        ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
+                            createBeacon(location)
+                            selectLocation(null)
+                        },
+                        ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
+                            navigateTo(location)
+                            selectLocation(null)
+                        },
+                        ActionItem(getString(R.string.distance), R.drawable.ruler) {
+                            startDistanceMeasurement(gps.location, location)
+                            selectLocation(null)
+                        },
+                    ),
+                    subtitle = getString(
+                        R.string.elevation_value,
+                        formatService.formatElevation(elevation)
+                    )
+                ) {
                     selectLocation(null)
-                },
-                ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
-                    navigateTo(location)
-                    selectLocation(null)
-                },
-                ActionItem(getString(R.string.distance), R.drawable.ruler) {
-                    startDistanceMeasurement(gps.location, location)
-                    selectLocation(null)
-                },
-            )
-        ) {
-            selectLocation(null)
+                }
+            }
         }
     }
 

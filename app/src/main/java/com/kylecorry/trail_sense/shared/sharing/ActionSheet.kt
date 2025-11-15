@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
@@ -14,13 +15,16 @@ import com.kylecorry.trail_sense.shared.views.TileButton
 
 class ActionSheet(
     private val title: String,
+    private val subtitle: String?,
     private val actions: List<ActionItem>,
     private val onAction: (action: ActionItem?, sheet: ActionSheet) -> Unit
 ) : BoundBottomSheetDialogFragment<FragmentActionSheetBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.shareSheetTitle.text = title
+        binding.shareSheetTitle.title.text = title
+        binding.shareSheetTitle.subtitle.isVisible = subtitle != null
+        binding.shareSheetTitle.subtitle.text = subtitle
         actions.forEach { action ->
             val tile = TileButton(requireContext(), null)
             tile.setText(action.name)
