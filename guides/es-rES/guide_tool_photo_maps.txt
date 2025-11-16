@@ -1,0 +1,242 @@
+La herramienta Mapas Calibrados puede usarse para convertir una foto en un mapa. Es esencial llevar siempre un mapa físico como respaldo y validar la precisión de Trail Sense. Mapas Calibrados complementa otras apps de mapas y mapas físicos, sirviendo como una forma práctica de convertir fotos en mapas y no como un sustituto de éstos.
+
+## Creación de un mapa
+
+Para crear un mapa tienes tres opciones: hacer una foto de un mapa existente, importar un archivo o generar un mapa en blanco.
+
+1. Toca el botón '+' situado en la esquina inferior derecha y selecciona el método preferido para importar el mapa:
+
+    - **Cámara**: Haz una foto de tu mapa, asegurándote de que todo el mapa esté dentro del encuadre.
+
+    - **Archivo**: Elige un archivo desde tu dispositivo (JPG, PNG o PDF). Si tu PDF contiene datos geoespaciales, se usarán para la calibración automática del mapa.
+
+    - **En blanco**: Genera un mapa en blanco basado en una ubicación y tamaño de mapa especificados. Por defecto, centra el mapa en tu ubicación actual. El tamaño es la distancia desde el centro hasta la esquina. No se requiere más calibración al usar esta opción.
+
+2. Introduce un nombre para el mapa y haz clic en 'OK'.
+
+3. Recorta la foto para que coincida con los límites del mapa arrastrando las esquinas del cuadro de recorte hasta los bordes del mapa. Puedes hacer clic en 'Vista Previa' para visualizar el mapa recortado. Ten en cuenta que no se podrán hacer cambios en el recorte después de pulsasr en 'Siguiente'.
+
+4. Calibra el mapa usando dos ubicaciones conocidas:
+
+    - Introduce la ubicación del mundo real en el campo proporcionado, por ejemplo un poste indicador del sendero, el inicio del sendero o un punto de interés.
+
+    - Toca en el mapa para seleccionar dónde está la ubicación.
+
+    - Usa 'Anterior'/'Siguiente' para cambiar entre puntos de calibración.
+
+    - Una vez tengas dos puntos de calibración, haz clic en 'Preview' para previsualizar el mapa calibrado, que mostrará senderos y balizas cercanas.
+
+    - Puedes recentrar el mapa en tu pantalla haciendo clic en el botón de recenter en la esquina superior derecha.
+
+    - Usa pellizcar para hacer zoom o los botones de zoom en la esquina inferior derecha para seleccionar ubicaciones con mayor precisión.
+
+    - La calibración alinea automáticamente el mapa con el Norte hacia arriba, mostrando la cantidad de rotación calculada bajo el nombre del mapa en la parte superior.
+
+    - En cualquier momento puedes guardar la calibración haciendo clic en 'Siguiente' + 'Terminado'.
+
+5. Guarda la calibración pulsando en 'Terminado'.
+
+## Consejos de calibración
+
+### Calibrar mientras caminas
+
+- Punto 1: Elige el poste indicador donde fotografiaste el mapa o el inicio del sendero.
+
+- Punto 2: Selecciona la primera bifurcación de sendero que encuentres. Si no hay bifurcación, usa un punto de interés en el mapa, como un lago, una cima o un hito.
+
+### Calibrar desde la cuadrícula del mapa
+
+Si tu mapa tiene líneas de cuadrícula:
+
+1. Encuentra el número de zona UTM, que es un número de una o dos cifras seguido de una letra (ej. "16T"). Si no aparece en el mapa, estímalo introduciendo tu latitud y longitud aproximadas en la herramienta Convert de Trail Sense. Por ejemplo, puedes introducir 10 para latitud y 45 para longitud.
+
+2. Localiza los valores Easting y Northing en los bordes del mapa. Suelen estar marcados y pueden tener de 3 a 6 o 7 dígitos. Añade tres ceros si solo tienen 3 dígitos (p. ej., 123 pasa a 123000). Easting estará arriba o abajo, Northing a la izquierda o derecha.
+
+3. Observa las líneas de la cuadrícula en el mapa para identificar la zona de la cuadrícula donde está tu ubicación. Estas líneas representan las primeras cifras de tu ubicación (p. ej., 123000E y 234000N).
+
+4. Para mayor precisión, divide la cuadrícula en 10 secciones iguales vertical y horizontalmente. Determina a qué línea está más cerca tu ubicación dentro de la cuadrícula. Usa una regla, como la de Trail Sense, para mayor exactitud. Por ejemplo, si tu ubicación está dos décimas a la derecha y una décima hacia arriba desde la esquina inferior derecha de la cuadrícula, tu nueva ubicación será 123200E y 234100N.
+
+5. En Trail Sense, introduce la ubicación UTM y toca el mismo punto en el mapa fotográfico. Por ejemplo, introduce "16T 123200E 234100N".
+
+6. Repite para el segundo punto de calibración. Para la mejor precisión, usa un punto que esté lejos del primer punto.
+
+Las intersecciones de las líneas de la cuadrícula son los puntos de calibración más sencillos.
+
+### Calibrar desde una fuente online
+
+Si tienes acceso a Internet, puedes buscar las coordenadas de una característica del mapa (p. ej., cima de una montaña, inicio del sendero). Luego, en Trail Sense, toca la misma ubicación en el mapa e introduce las coordenadas.
+
+### Encontrar un PDF geoespacial
+
+Una buena fuente de PDFs geoespaciales es [CalTopo](https://caltopo.com), aunque hay muchas otras fuentes disponibles en línea.
+
+## Uso de un mapa
+
+Una vez hayas creado un mapa, puedes usarlo para navegación. El mapa muestra tu ubicación, elevación, senderos y balizas.
+
+Puedes arrastrar para desplazar, pellizcar para hacer zoom o tocar los botones de zoom en la esquina inferior derecha. Para recentrar el mapa en tu pantalla, haz clic en el botón de recenter en la esquina superior derecha. La escala del mapa se muestra en la esquina inferior derecha.
+
+Haz clic en el botón GPS en la esquina inferior derecha para centrar el mapa en tu ubicación. Al hacer clic de nuevo bloquearás tanto tu ubicación como tu orientación; un último clic los desbloquea. El icono de brújula en la esquina superior derecha siempre apunta al Norte.
+
+Por defecto, el mapa se alineará con el Norte, aproximadamente mirando hacia arriba para que el mapa sea cuadrado con la pantalla. Puedes cambiar esto para que el mapa esté alineado con el Norte hacia arriba (rotado) desactivando Ajustes > Mapas Calibrados > 'Mapa orientado hacia arriba'. Nota: Actualmente hay un error donde el desplazamiento y el zoom funcionan regular cuando esta opción está desactivada.
+
+### Usar balizas y navegar
+
+Si has creado balizas, aparecerán en el mapa.
+
+Al navegar a una baliza, la distancia, la dirección y el tiempo estimado de llegada (ETA) se muestran en la parte inferior. Se dibuja una línea desde tu ubicación hasta la baliza. Para cancelar la navegación, haz clic en el botón 'X'. Puedes abrir la baliza tocando el nombre de la baliza en la hoja de navegación.
+
+Puedes iniciar la navegación desde el mapa tocando una baliza o manteniendo pulsado un punto del mapa y seleccionando 'Navegar'.
+
+Para crear una baliza desde el mapa, mantén pulsado un punto del mapa y elige 'Baliza'. Esto abre la pantalla 'Crear baliza' con la ubicación rellenada.
+
+Para más detalles sobre balizas, consulta la guía 'Baliza'.
+
+### Usar senderos
+
+Si has creado senderos, serán visibles en el mapa.
+
+Para crear un sendero desde el mapa, sigue las instrucciones en la sección 'Measuring distance on a map' más abajo.
+
+Para más detalles sobre senderos, consulta la guía 'Rutas'.
+
+## Capas
+
+Las capas se usan para mostrar información en el mapa. Puedes encontrar los ajustes de capas en Ajustes > Mapas Calibrados o a través del menú en la esquina superior derecha de la pantalla del mapa. Puedes ocultar o mostrar capas usando el interruptor junto al nombre de cada capa. El ajuste de opacidad para cada capa determina cuán transparente es la capa. 0 es totalmente transparente y 100 es totalmente opaco.
+
+### Curvas de nivel
+
+Esta capa muestra líneas de contorno generadas a partir del modelo digital de elevación (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa. Puedes cambiar el DEM en Ajustes > Altímetro.
+
+Ajustes:
+
+- **Show labels**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
+- **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
+
+### Torres de telefonía
+
+Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations. Puedes hacer clic en una torre para navegar hacia ella.
+
+### Senderos
+
+Esta capa muestra los senderos visibles. Puedes añadir nuevos senderos en la herramienta Paths.
+
+Ajustes:
+
+- **Background color**: El color de fondo para renderizar detrás de los senderos para mayor visibilidad.
+
+### Balizas
+
+Esta capa muestra las balizas visibles. Puedes añadir nuevas balizas en la herramienta Beacons. Puedes hacer clic en una baliza para navegar hacia ella.
+
+### Navegación
+
+Esta capa dibuja una línea entre tu ubicación y el punto de destino al que navegas.
+
+### Mareas
+
+Esta capa muestra mareas visibles. Puedes añadir nuevas mareas en la herramienta Tides.
+
+### Mi ubicación
+
+Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújula) y la precisión de tu GPS.
+
+Ajustes:
+
+- **Show GPS accuracy**: Determina si el círculo de precisión del GPS es visible.
+
+### Escala
+
+Esta capa muestra una barra de escala en la esquina inferior izquierda del mapa, que puede usarse para estimar distancias en el mapa.
+
+Esta capa no es actualmente configurable.
+
+### Elevación
+
+Esta capa muestra tu elevación en la esquina inferior derecha del mapa.
+
+Esta capa no es actualmente configurable.
+
+### Brújula
+
+Esta capa muestra una brújula en la esquina superior derecha del mapa. Muestra dónde está el norte verdadero en el mapa.
+
+Esta capa no es actualmente configurable.
+
+## Medir distancia en un mapa
+
+Puedes medir distancias en un mapa abriéndolo, haciendo clic en el botón de menú en la esquina superior derecha y seleccionando 'Medir' o 'Crear ruta'. Toca el mapa para colocar marcadores y la distancia total se mostrará en la parte inferior. Para deshacer el último marcador, haz clic en el botón deshacer en la esquina inferior izquierda. Cancela haciendo clic en el botón 'X' en la esquina inferior derecha. También puedes convertir el camino dibujado en un sendero guardado haciendo clic en el botón 'Crear ruta' en la parte inferior.
+
+Para una medición rápida desde tu ubicación hasta un punto, mantén pulsado ese punto en el mapa y haz clic en 'Distancia'.
+
+## Medir elevación
+
+Mantén pulsada una ubicación en el mapa para ver la elevación (del DEM).
+
+## Recalibrar un mapa
+
+Para recalibrar un mapa, ábrelo, haz clic en el botón de menú en la esquina superior derecha y elige 'Calibrar'. Sigue las instrucciones anteriores para recalibrar.
+
+## Cambiar la proyección del mapa
+
+Si los puntos de tu mapa no se alinean correctamente después de calibrar (primero intenta calibrar de nuevo con puntos diferentes), considera cambiar la proyección del mapa. Para ello, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y selecciona 'Cambiar proyección'.
+
+## Renombrar un mapa
+
+Para renombrar un mapa, haz clic en el botón de menú en la fila del mapa que deseas renombrar y luego selecciona 'Renombrar' y proporciona un nuevo nombre. Alternativamente, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y elige 'Renombrar'.
+
+## Visibilidad del mapa
+
+Puedes elegir qué mapas son visibles en la herramienta Navigation haciendo clic en el icono de ojo en el lado derecho de la fila del mapa.
+
+## Eliminar un mapa
+
+Para eliminar un mapa, haz clic en el botón de menú en la fila del mapa que quieres quitar y luego selecciona 'Eliminar'. Alternativamente, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y elige 'Eliminar'.
+
+## Exportar un mapa
+
+Para exportar un mapa, haz clic en el botón de menú en la fila del mapa que quieres exportar y luego selecciona 'Exportar'. Alternativamente, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y elige 'Exportar'. Esta acción exporta el mapa como PDF y, si está calibrado, lo convertirá en un PDF geoespacial.
+
+## Imprimir un mapa
+
+Para imprimir un mapa, haz clic en el botón de menú en la fila del mapa que quieres imprimir y luego selecciona 'Imprimir'. Alternativamente, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y elige 'Imprimir'. Esto abre el diálogo de impresión del sistema, permitiéndote imprimir el mapa.
+
+## Rastrear un mapa
+
+Para rastrear un mapa, ábrelo, haz clic en el botón de menú en la esquina superior derecha y elige 'Calcar'. Muévete a un área con sombra o bloquea el sol con un paño y coloca papel sobre tu pantalla para que puedas ver el mapa a través del papel. Usa un bolígrafo o lápiz para trazar el mapa, pero evita rotuladores o bolígrafos que puedan traspasar el papel. Ten cuidado de no deslizar el papel mientras trazas.
+
+La navegación inferior quedará deshabilitada hasta que apagues el modo de trazado.
+
+Cuando termines de trazar, haz clic en el icono de candado en la esquina inferior derecha para apagar el modo de trazado.
+
+## Cambiar la resolución de un mapa
+
+Para cambiar la resolución de un mapa, haz clic en el botón de menú en la fila del mapa que quieres ajustar y luego selecciona 'Cambiar resolución'. Aparecerá un diálogo que te permitirá cambiar entre baja (calidad más baja y tamaño de archivo más pequeño), media (calidad y tamaño de archivo moderados) y alta (mayor calidad y mayor tamaño de archivo) resoluciones. Ten en cuenta que cambiar la resolución es una acción permanente y no se puede deshacer.
+
+Por defecto, Trail Sense reducirá automáticamente la resolución del mapa al importarlo. Para cambiar esto, desactiva Ajustes > Mapas Calibrados > 'Reducir resolución de la foto' o 'Reducir resolución del PDF'.
+
+## Organizar mapas
+
+Puedes organizar mapas en grupos. Para crear un grupo, haz clic en el botón '+' en la esquina inferior derecha de la lista de mapas y selecciona 'Grupo'. Ponle un nombre al grupo y haz clic en 'OK'. Para añadir mapas al grupo, haz clic en el grupo en la lista y sigue las instrucciones de creación de mapas. El mapa se añadirá al grupo elegido.
+
+Para cambiar el grupo de un mapa existente, haz clic en el botón de menú en la fila del mapa que quieres mover, selecciona 'Mover a' y elige el grupo destino.
+
+Para renombrar un grupo, haz clic en el botón de menú en la fila del grupo que quieres renombrar, luego selecciona 'Renombrar' y proporciona un nuevo nombre.
+
+Puedes eliminar un grupo (junto con todos los mapas dentro) haciendo clic en el botón de menú en la fila del grupo que quieras quitar, luego seleccionando 'Eliminar'.
+
+## Buscar mapas
+
+Para buscar entre tus mapas creados, usa la barra de búsqueda en la parte superior de la lista de mapas. Esta búsqueda abarca el grupo actual y todos los subgrupos. Además, puedes ordenar los mapas por distancia, tiempo o nombre haciendo clic en el botón de menú en la esquina superior derecha y seleccionando 'Clasificar'.
+
+La vista previa del mapa se muestra en el lado izquierdo de la fila del mapa. Puedes desactivar esta vista previa en Ajustes > Mapas Calibrados > 'Mostrar vistas previas de los mapas'.
+
+## Acción rápida
+
+Puedes habilitar la acción rápida Open Photo Map en los ajustes para la pestaña donde quieres que aparezca.
+
+Para usar la acción rápida, toca el botón de acción rápida y se abrirá el mapa activo y quedará bloqueado en tu ubicación. Si no hay ningún mapa activo, se mostrará la lista de mapas. Mantén pulsado la acción rápida para abrir la herramienta Mapas Calibrados.
+
+## Guía en vídeo
+
+Si prefieres una guía en vídeo sobre cómo usar Mapas Calibrados, aquí tienes un vídeo de uno de los usuarios de Trail Sense: [YouTube: Turn Photos into Navigational Maps with Trail Sense! by DeathfireD](https://www.youtube.com/watch?v=RT4PmBODdzw)

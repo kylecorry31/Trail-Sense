@@ -1,0 +1,227 @@
+## Unidades
+Las unidades se pueden ajustar en 'Ajustes > Unidades'. Por defecto, las unidades se establecen según los ajustes de idioma de tu dispositivo.
+
+- **Distancia**: La unidad para mostrar mediciones de distancia.
+- **Presión**: La unidad para mostrar mediciones de presión barométrica.
+- **Temperatura**: La unidad para mostrar mediciones de temperatura.
+- **Peso**: La unidad para mostrar mediciones de peso.
+- **Formato de coordenadas**: El formato para mostrar coordenadas geográficas.
+- **Mapa para compartir ubicación**: El enlace a usar al compartir una ubicación.
+- **Usar formato de 24 horas**: Si debes usar un reloj de 24 horas.
+- **Añadir cero inicial a la hora**: Si debes agregar un cero inicial a la hora (por ejemplo, 01:00 en lugar de 1:00).
+
+## Sensores > Brújula
+Los ajustes de la brújula se encuentran en Trail Sense 'Ajustes > Sensores' > Brújula. Algunos dispositivos pueden no tener un sensor de brújula, pero aún podrás fijar la declinación.
+
+### Acimut
+La dirección actual de la brújula (acimut) se muestra en la parte superior de los ajustes de la brújula. A medida que cambias ajustes, se actualizará para mostrar la nueva dirección.
+
+### Calibrar
+Se muestra la precisión reportada de la brújula. Si es baja, puedes pulsar esta opción para ver instrucciones sobre cómo calibrarla.
+
+### Fuente
+- **Magnetómetro + Giroscopio**: Esta es la fuente por defecto y debería funcionar en la mayoría de los dispositivos. Usa los sensores de magnetómetro y giroscopio para determinar la dirección. Cuando se añade el giroscopio, la lectura suele tener menos ruido. Esta fuente la proporciona el fabricante de tu teléfono.
+- **Magnetómetro**: Esta fuente usa solo el sensor de magnetómetro para determinar la dirección. Esta fuente la proporciona el fabricante de tu teléfono.
+- **Magnetómetro + Giroscopio (Personalizado)**: Esta fuente es similar a Magnetómetro + Giroscopio, pero los cálculos los realiza Trail Sense. Si la fuente Magnetómetro + Giroscopio no funciona correctamente, prueba esta fuente.
+- **Heredado (Trail Sense)**: Esta fuente es similar a la fuente Magnetómetro, pero los cálculos los realiza Trail Sense. Si la fuente Magnetómetro no funciona correctamente, prueba esta fuente.
+- **Heredado (Android)**: Esta fuente la proporciona Android y no se recomienda. Solo se incluye por compatibilidad con dispositivos antiguos, pero podría funcionar bien en algunos dispositivos.
+
+### Suavizado
+Para reducir el ruido en las lecturas de la brújula, puedes aumentar el ajuste de suavizado. Si usas una fuente que incluye giroscopio, se recomienda un valor de 1. De lo contrario, prueba incrementando este valor hasta que la brújula parezca funcionar correctamente al girar el teléfono. Sin embargo, si aumentas demasiado el suavizado, Trail Sense puede ignorar cambios reales de la brújula.
+
+### Norte verdadero
+Para mostrar el norte verdadero en lugar del norte magnético, habilita el ajuste "Norte verdadero". Esto ajustará la lectura de la brújula para tener en cuenta la declinación magnética y coincidirá con la mayoría de los mapas.
+
+### Declinación magnética
+La declinación magnética es la diferencia entre el norte magnético y el norte verdadero. Debes asegurarte de que esto sea correcto, independientemente de si usas norte verdadero o norte magnético.
+
+### Ajustar declinación automáticamente
+Habilitar el ajuste "Ajustar declinación automáticamente" ajustará automáticamente la declinación según tu ubicación.
+
+### Anular declinación
+Si prefieres fijar la declinación manualmente, puedes deshabilitar el ajuste "Ajustar declinación automáticamente" y usar el ajuste "Anular declinación" para fijar la declinación. Puedes encontrar la declinación para tu ubicación en la mayoría de los mapas o en línea. También puedes pulsar la opción "Establecer anulación desde GPS" para fijar la declinación según tu ubicación actual (solo la fija una vez).
+
+## Sensores > GPS
+Los ajustes del GPS se encuentran en Trail Sense 'Ajustes > Sensores > GPS'. Si tu teléfono lo soporta, se usarán varios sistemas GNSS (como GPS, GLONASS, Galileo y BeiDou).
+
+### Fuente de ubicación
+Puedes optar por falsificar tu ubicación deshabilitando el ajuste "Ajustar ubicación automáticamente". Esto habilitará el ajuste "Ubicación simulada" donde puedes fijar manualmente tu ubicación.
+
+Cuando "Ajustar ubicación automáticamente" está habilitado, la ubicación se determinará por el GPS de tu dispositivo.
+
+### Requerir posicionamiento por satélites
+Para obtener una ubicación más precisa, Trail Sense requiere al menos 4 satélites fijados. Si tienes problemas para obtener la ubicación, puedes deshabilitar este ajuste para permitir una ubicación con menos satélites (o si tu teléfono no soporta el recuento de satélites).
+
+### Caché
+Trail Sense guarda en caché tu última ubicación para cargar rápidamente detalles en ciertas herramientas. Puedes borrar esta caché temporalmente usando la opción "Vaciar caché" en los ajustes de GPS.
+
+## Sensores > Altímetro
+El altímetro se usa para medir la altitud. Para configurar los ajustes del altímetro, ve a Trail Sense 'Ajustes > Sensores > Altímetro'.
+
+### Elevación
+La elevación actual se muestra en la parte superior de los ajustes del altímetro. A medida que cambias ajustes, se actualizará para mostrar la nueva elevación.
+
+### Fuente
+- **GPS + Barómetro**: Esta es la fuente por defecto y debería funcionar en la mayoría de los dispositivos con barómetro. Combina GPS y barómetro para determinar la altitud.
+- **GPS**: Esta fuente usa solo el GPS para determinar la altitud. Es menos precisa que la fuente GPS + Barómetro.
+- **Barómetro**: Esta fuente usa solo el barómetro para determinar la altitud. Es más precisa que la fuente GPS, pero puede derivar con el tiempo y deberás calibrar antes de usar.
+- **DEM + Barómetro**: Combina un modelo digital de elevación (DEM) con el barómetro para determinar la altitud.
+- **DEM**: Un modelo digital de elevación (DEM) que determina la elevación usando tu ubicación GPS y un mapa.
+- **Manual**: Esta fuente te permite fijar la altitud manualmente. Es útil si conoces la altitud de tu ubicación y no cambiará.
+
+### Ajustes de GPS + Barómetro
+- **Forzar intervalo de calibración**: Puedes elegir forzar que el altímetro se recalibre usando el GPS cada cierto tiempo. Esto es útil para compensar la deriva del barómetro, que puede deberse a cambios en el clima o la ubicación.
+- **Calibración continua**: Puedes elegir calibrar continuamente el altímetro usando el GPS. Esto es útil si te mueves mucho y quieres la lectura de altitud más precisa. Cuando está habilitado, prefiere la lectura del barómetro, pero la ajustará ligeramente según la lectura del GPS.
+- **Reiniciar calibración**: Puedes reiniciar la calibración del altímetro. Esto es útil si estás en una nueva ubicación y quieres recalibrar el barómetro.
+
+### Ajustes de GPS
+- **Muestras**: El número de muestras de GPS a usar al determinar la altitud. Un número mayor dará una lectura más precisa, pero tardará más en calcular.
+- **Corrección de elevación NMEA**: La elevación proporcionada por el GPS necesita corregirse para coincidir con la elevación real. Si este ajuste está habilitado, usará el factor de corrección proporcionado por el GPS. Si está deshabilitado, usará el factor de corrección proporcionado por Trail Sense, que puede ser más preciso.
+
+### Ajustes DEM
+- **Modelo digital de elevación (DEM)**: Pulsar aquí te pedirá descargar e importar un modelo digital de elevación. Los modelos están disponibles en una variedad de tamaños en https://kylecorry.com/Trail-Sense/dem.html. Una vez que importes el modelo, puedes eliminar el archivo de tu dispositivo. Si ya tienes un modelo cargado y seleccionas uno nuevo, el anterior será eliminado. Si no hay ningún modelo cargado, se usará un modelo incorporado de baja precisión. Se recomienda descargar uno de los modelos más grandes si puedes. El DEM no se incluirá en la copia de seguridad debido al tamaño.
+- **Eliminar DEM**: Pulsar aquí te pedirá eliminar el archivo DEM. Esto es irreversible y necesitarás importar otro archivo para usar el DEM.
+
+### Barómetro / ajuste manual
+- **Anulación de elevación**: Si usas la fuente barómetro o manual, puedes fijar la elevación manualmente. Esto es útil si conoces la elevación de tu ubicación. Si usas la fuente barómetro, este ajuste se usa para calibrar el barómetro y cambiará a medida que te muevas.
+- **Establecer anulación desde GPS**: Puedes elegir fijar la anulación de elevación usando el GPS si no conoces tu elevación actual (solo la fija una vez).
+- **Establecer anulación desde barómetro**: Si conoces la presión al nivel del mar actual para tu ubicación, puedes fijar la anulación de elevación usando el barómetro (solo la fija una vez). Solo disponible en dispositivos con barómetro.
+
+## Sensores > Barómetro
+El barómetro se usa para medir la presión del aire. Puede usarse para pronóstico o determinar tu altitud. Para ajustar los ajustes del barómetro, ve a Trail Sense 'Ajustes > Sensores > Barómetro'.
+
+Si tienes el seguimiento meteorológico (ver la herramienta Meteorología) habilitado, verás un gráfico del historial de presión barométrica registrado por tu dispositivo. La línea coloreada representa la presión calibrada mientras que la línea gris representa la presión sin procesar. Cuando ajustas los ajustes, el gráfico se actualizará para mostrar la nueva presión calibrada. El objetivo es que la línea coloreada siga suavemente a la línea gris.
+
+### Presión al nivel del mar
+La presión barométrica cambia con la altitud, lo que hace difícil comparar lecturas de presión entre diferentes ubicaciones. Para hacer las lecturas de presión más consistentes, habilita el ajuste "Presión al nivel del mar". Esto ajustará la lectura de presión a lo que sería al nivel del mar. Usar este ajuste aumentará la precisión de las predicciones meteorológicas.
+
+### Suavizado
+Para reducir el ruido en las lecturas de presión, aumenta el ajuste de suavizado. Se recomienda un valor alrededor del 15%. Sin embargo, si aumentas demasiado el suavizado, Trail Sense puede ignorar cambios reales de presión.
+
+### Considerar la temperatura
+Para obtener una lectura de presión más precisa, puedes considerar la temperatura. Esto hará que la lectura sea más propensa al ruido del termómetro de tu teléfono, pero también te dará una lectura más precisa de la presión real del aire.
+
+### Desplazamiento del barómetro
+Para calibrar el barómetro, puedes ajustar el desplazamiento del barómetro. Después de pulsar en el ajuste 'Compensación del barómetro', introduce la presión actual tal como la informa una fuente fiable (debe coincidir con tu ajuste de "presíon al nivel del mar" - la mayoría de los sitios meteorológicos informan la presión al nivel del mar). Esto ajustará la presión actual para que coincida con la presión informada. Ten en cuenta que, si usas la presión al nivel del mar, la precisión de la calibración variará con la precisión del GPS.
+
+Puedes pulsar 'Reiniciar calibración' para reiniciar la calibración del barómetro. Esto eliminará cualquier desplazamiento que se haya establecido anteriormente.
+
+## Sensores > Termómetro
+Los ajustes del termómetro se encuentran en Trail Sense 'Ajustes > Sensores > Termómetro'.
+
+### Fuente
+En la mayoría de los teléfonos, debes usar la fuente de temperatura historic ya que será más precisa.
+
+- **Histórico**: la temperatura se estima a partir de 30 años de datos históricos. Normalmente es precisa, pero no durante climas extremos. Puedes calibrarla si está mal para tu ubicación.
+- **Sensor**: la temperatura se lee desde el termómetro incorporado del teléfono. A menudo es inexacta porque se ve afectada por la CPU y la batería del teléfono. Puedes calibrarla para mejorar su precisión. Si apagas el teléfono durante un rato, obtendrás una lectura más precisa del sensor.
+
+### Suavizado
+Para reducir el ruido en las lecturas de temperatura, puedes aumentar el ajuste de suavizado. Si usas la fuente de temperatura historic, normalmente no es necesario.
+
+Si el seguimiento meteorológico (ver la herramienta Weather) está habilitado, verás un gráfico del historial de temperatura registrado por tu dispositivo. La línea coloreada representa la temperatura calibrada mientras que la línea gris representa la temperatura sin procesar. Cuando ajustas los ajustes, el gráfico se actualizará para mostrar la nueva temperatura calibrada. El objetivo es que la línea coloreada siga suavemente a la línea gris.
+
+#### Actualizar temperaturas registradas
+Si cambias la fuente de temperatura a "Histórico", puedes elegir actualizar todas las temperaturas registradas anteriormente. Esto reemplazará las temperaturas antiguas con la temperatura estimada a partir de los datos históricos. Esto es útil si antes registraste temperaturas con el sensor y luego cambiaste a historic.
+
+### Calibración
+
+1. Reinicia la calibración del termómetro en Trail Sense.  
+2. Pon el teléfono en un lugar frío durante 10 minutos.  
+3. Anota la temperatura que muestra Trail Sense como la temperatura mínima del teléfono.  
+4. Anota la temperatura real del lugar frío usando un termómetro real.  
+5. Pon el teléfono en un lugar cálido durante 10 minutos.  
+6. Anota la temperatura que muestra Trail Sense como la temperatura máxima del teléfono.  
+7. Anota la temperatura real del lugar cálido usando un termómetro real.  
+8. Ve a los ajustes del sensor Termómetro en Trail Sense e introduce las temperaturas mínima y máxima registradas, junto con las temperaturas reales que has anotado.
+
+**Precaución:** Consulta el manual de tu teléfono para identificar las temperaturas de funcionamiento diseñadas; no las excedas al realizar la calibración.
+
+## Sensores > Cámara
+Los ajustes de la cámara se encuentran en Trail Sense 'Ajustes > Sensores > Cámara'.
+
+### Proyección de realidad aumentada
+El método de proyección determina cómo se muestran los puntos en la vista de la cámara. Si tienes problemas con que los puntos se alineen con el mundo real, prueba a cambiar el método de proyección.
+
+- **Valores intrínsecos estimados**: Este es el método por defecto y debería funcionar en la mayoría de los dispositivos. Usa las propiedades de la cámara para estimar la proyección.
+- **Valores intrínsecos manuales**: Similar al método de anterior, excepto que los cálculos los hace el fabricante. En algunos dispositivos no funciona correctamente.
+- **Perspectiva**: Es un método de proyección simple que tiene en cuenta la distancia del punto a la cámara. Es similar al intrínseco, pero puede ser menos preciso en algunos casos.
+- **Lineal**: Es el método de proyección más sencillo (también el más rápido). No tiene en cuenta las distancias.
+
+## Sensores > Señal móvil
+Los ajustes de la señal móvil se encuentran en Trail Sense 'Ajustes > Sensores > Señal móvil'.
+
+### Actualizar caché de señal
+El teléfono informa de la intensidad actual de la señal móvil, pero puede estar desactualizada. Puedes forzar la actualización de la caché de señal para obtener la intensidad actual. Esta función solo la usa la herramienta Rutas (Backtrack) cuando 'Ajustes > Rutas > Registrar señal móvil' está habilitado.
+
+## Privacidad
+Los ajustes de privacidad se pueden configurar en 'Ajustes > Privacidad'.
+
+- **Ubicación**: Pulsar aquí te llevará a los ajustes de GPS, donde puedes elegir usar una ubicación simulada.
+- **Evitar capturas de pantalla**: Evita que se tomen capturas de pantalla mientras la app está abierta.
+
+**Nota:** Trail Sense no usa Internet y todos los datos se almacenan localmente en tu dispositivo.
+
+## Errores
+Algunas herramientas como Navegación y Astronomía muestran banners de error en la parte superior de la pantalla. Estos banners se pueden deshabilitar en 'Ajustes > Errores'.
+
+- **Brújula no disponible**: La brújula no está disponible en tu dispositivo.
+- **GPS no disponible**: El GPS no está disponible en tu dispositivo.
+- **Ubicación no establecida**: La ubicación es simulada pero no se ha fijado (usa 0, 0).
+- **Precisión de la brújula**: La precisión de la brújula es baja.
+- **Tiempos de espera del GPS**: El GPS ha excedido el tiempo y no pudo determinar tu ubicación.
+
+## Experimental
+Las funciones experimentales se pueden habilitar en 'Ajustes > Experimental'. Estas funciones no están listas para uso general y pueden no funcionar como se espera.
+
+### Agrupación de notificaciones
+Android 16 introduce agrupación forzada de notificaciones para apps. Normalmente esto pone todas las notificaciones de Trail Sense en un grupo, lo que puede ser difícil de leer de un vistazo.
+
+- **Sistema**: Deja que Android controle la agrupación.
+- **Desagrupar todo**: Solución para desagrupar todas las notificaciones en Trail Sense.
+- **Desagrupar alertas**: Solución para desagrupar alertas (p. ej., tormenta, puesta de sol) en Trail Sense.
+
+Esta es una solución para evitar el comportamiento forzado en Android 16, por lo que puede no funcionar de forma consistente.
+
+## Copia de seguridad / restaurar
+Al cambiar a un dispositivo nuevo o reinstalar la app puede ser útil hacer una copia de seguridad de tus datos y ajustes. Esto se hace en 'Ajustes > Copia de seguridad / Restaurar'.
+
+- **Copia de seguridad**: Crea una copia de seguridad de tus datos y ajustes. Se guardará como un archivo zip que no está cifrado y contiene datos de ubicación, así que compártelo sólo con personas de confianza.
+- **Restaurar**: Restaura una copia de seguridad de tus datos y ajustes. Esto sobrescribirá permanentemente los datos y ajustes actuales. Puedes restaurar desde una versión más antigua de la app, pero no desde una más nueva.
+- **Copia de seguridad automática**: Crea una copia de seguridad de tus datos y ajustes cada día en la carpeta que elijas. Solo conservará las últimas 2 copias de seguridad.
+
+## Herramientas
+Los ajustes de cada herramienta se pueden ajustar en la sección 'Ajustes > Herramientas'. Para más información, consulta la guía de cada herramienta.
+
+## Tema
+Los ajustes relacionados con el tema se pueden ajustar en 'Ajustes > Tema'.
+
+- **Tema**: El tema a usar en la app.
+  - **Claro**: Tema con fondo blanco.
+  - **Oscuro**: Tema con fondo oscuro.
+  - **Negro**: Tema con fondo negro.
+  - **Sistema**: Tema que sigue los ajustes del sistema.
+  - **Sistema (negro)**: Tema que sigue los ajustes del sistema con fondo negro cuando el modo oscuro está habilitado.
+  - **Salida / puesta del sol**: Tema que cambia entre claro y oscuro según la hora del día.
+  - **Noche**: Tema con fondo negro y un filtro rojo para ayudar a mantener la visión nocturna.
+- **Colores dinámicos**: Usa los colores dinámicos de tu dispositivo en la app. Si está deshabilitado o no está disponible, los colores en Trail Sense serán de una tonalidad naranja.
+- **Brujula con colores dinámicos**: Usa los colores dinámicos de tu dispositivo en la brújula (direcciones cardinales y ciertos marcadores en mapas).
+- **Tema predetarminado del widget**: Tema predeterminado para los widgets. Se puede anular mediante las opciones de personalización del widget en la pantalla de inicio.
+- **Modo compacto**: Usa un diseño más compacto para la barra inferior (más delgado y no muestra etiquetas).
+- **Pantalla completa en modo noche**: Usa modo de pantalla completa cuando el tema nocturno está habilitado. Desliza desde la parte superior para mostrar la interfaz del sistema.
+
+## Acerca de
+Puedes encontrar información adicional sobre Trail Sense en 'Ajustes > Acerca de'.
+
+- **Versión**: La versión de la app que estás usando.
+- **Política de privacidad**: Enlace a la política de privacidad.
+- **Email al desarrollador**: Enlace para enviar un correo electrónico al desarrollador para comentarios o soporte.
+- **GitHub**: Enlace al repositorio de GitHub (código fuente) de Trail Sense.
+- **Licencias**: Una lista de licencias de código abierto usadas en Trail Sense.
+
+## Acción rápida
+Puedes habilitar la Acción rápida en los ajustes de la pestaña donde quieres que aparezca.
+
+Para usar la acción rápida, pulsa el botón de acciónes rápidas y se abrirá la página de ajustes de la herramienta activa. Mantén pulsada la acción rápida para abrir los ajustes de la app.
+
+## Modo seguro
+Si Trail Sense se bloquea varias veces seguidas, entrará en Modo seguro. Por ahora, esto solo deshabilita la capa Mapas Calibrados en la herramienta Navegación, pero en futuras actualizaciones pueden deshabilitarse más funciones. Podrás acceder a Ajustes y deshabilitar cualquier función que pueda estar causando el problema. El modo seguro se desactivará automáticamente después de 20 segundos.
