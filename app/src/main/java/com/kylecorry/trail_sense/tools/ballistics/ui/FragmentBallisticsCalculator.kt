@@ -36,7 +36,7 @@ import com.kylecorry.trail_sense.tools.ballistics.domain.TrajectoryPoint
 import java.time.Duration
 
 class FragmentBallisticsCalculator :
-    TrailSenseReactiveFragment(R.layout.fragment_ballistics_calculator) {
+    TrailSenseReactiveFragment(R.layout.fragment_tool_ballistics_calculator) {
 
     override fun update() {
         val ballisticsTableView = useView<RecyclerView>(R.id.ballistics_table)

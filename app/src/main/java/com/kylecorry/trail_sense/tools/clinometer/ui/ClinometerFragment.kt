@@ -27,7 +27,7 @@ import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolClinometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils
@@ -52,7 +52,7 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
+class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val orientation by lazy { sensorService.getOrientation() }
@@ -402,8 +402,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
-    ): FragmentClinometerBinding {
-        return FragmentClinometerBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolClinometerBinding {
+        return FragmentToolClinometerBinding.inflate(layoutInflater, container, false)
     }
 
     private fun getBottomIncline(): Float {

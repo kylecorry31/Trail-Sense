@@ -16,7 +16,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolTemperatureEstimationBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.UnitInputView
 import java.time.Duration
 
-class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimationBinding>() {
+class TemperatureEstimationFragment : BoundFragment<FragmentToolTemperatureEstimationBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val thermometer by lazy { sensorService.getThermometer() }
@@ -50,8 +50,8 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentTemperatureEstimationBinding {
-        return FragmentTemperatureEstimationBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolTemperatureEstimationBinding {
+        return FragmentToolTemperatureEstimationBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

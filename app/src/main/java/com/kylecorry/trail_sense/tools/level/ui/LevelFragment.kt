@@ -6,12 +6,12 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.level.Level
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolLevelBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlin.math.abs
 
-class LevelFragment : BoundFragment<FragmentLevelBinding>() {
+class LevelFragment : BoundFragment<FragmentToolLevelBinding>() {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val level by lazy { Level(SensorService(requireContext()).getOrientation()) }
@@ -50,8 +50,8 @@ class LevelFragment : BoundFragment<FragmentLevelBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentLevelBinding {
-        return FragmentLevelBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolLevelBinding {
+        return FragmentToolLevelBinding.inflate(layoutInflater, container, false)
     }
 
 }

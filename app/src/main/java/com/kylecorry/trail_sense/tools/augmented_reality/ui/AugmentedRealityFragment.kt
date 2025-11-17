@@ -35,7 +35,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolAugmentedRealityBinding
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -71,7 +71,7 @@ import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
-class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
+class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBinding>() {
 
     private var mode = ARMode.Normal
 
@@ -449,8 +449,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
-    ): FragmentAugmentedRealityBinding {
-        return FragmentAugmentedRealityBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolAugmentedRealityBinding {
+        return FragmentToolAugmentedRealityBinding.inflate(layoutInflater, container, false)
     }
 
     private fun setMode(mode: ARMode, extras: Bundle? = null) {

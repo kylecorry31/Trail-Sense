@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
@@ -28,7 +27,7 @@ import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerMod
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
-class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_signal_finder) {
+class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_signal_finder) {
 
     override fun update() {
         val context = useAndroidContext()
