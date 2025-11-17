@@ -157,7 +157,7 @@
     <string name="unit_feet">Pies</string>
     <string name="unit_kilometers">Kilómetros</string>
     <string name="unit_meters">Metros</string>
-    <string name="distance_to">Hasta</string>
+    <string name="distance_to">Convertir a</string>
     <string name="distance_from">Desde</string>
     <string name="inventory_empty_text">Ningún elemento</string>
     <string name="tool_whistle_title">Silbato</string>
@@ -571,7 +571,7 @@
     <string name="sun_moon_position_template">### %1$s \n** Altitud **:%2$s \n \n** Acimut **:%3$s</string>
     <string name="hide">Ocultar</string>
     <string name="show">Mostrar</string>
-    <string name="sensor_gyroscope">Giroscopio</string>
+    <string name="sensor_gyroscope">Giróscopo</string>
     <string name="pack_sort_weight_high_to_low">Peso (de mayor a menor)</string>
     <string name="weight_per_item">Peso por objeto</string>
     <string name="sun">Sol</string>
@@ -762,7 +762,7 @@
     <string name="tide_table">Tabla de mareas</string>
     <string name="high_tide_letter">A</string>
     <string name="pressure_tendency">Tendencia</string>
-    <string name="tool_temperature_estimation_title">Temperatura estimada</string>
+    <string name="tool_temperature_estimation_title">Estimación de Temperatura</string>
     <string name="tool_temperature_estimation_description">Predecir la temperatura a distinta elevación</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d marea</item>
@@ -955,7 +955,7 @@
     <string name="magnitude">Magnitud</string>
     <string name="obscuration">Oscurecimiento</string>
     <string name="unable_to_find_next_astronomy">Imposible encontrar el siguiente %s</string>
-    <string name="start_time">Inicio</string>
+    <string name="start_time">Iniciar</string>
     <string name="astronomy_direction_peak">Dirección del máximo</string>
     <string name="astronomy_altitude_peak">Altitud máxima</string>
     <string name="print">Imprimir</string>
@@ -966,7 +966,7 @@
     <string name="map_calibration_instructions">Toca una ubicación conocida en el mapa y, a continuación, introduce las coordenadas reales. Puedes guardar la calibración pulsando el botón \"Hecho\".
 \n
 \nEjemplos de buenos puntos de calibración son un aparcamiento, un punto de señalización, un punto de referencia o un cruce a lo largo de un sendero.</string>
-    <string name="compass_source_mag_gyro">Magnetómetro + Giroscopio</string>
+    <string name="compass_source_mag_gyro">Magnetómetro + Giróscopo</string>
     <string name="compass_source_legacy_android">Heredado (Android)</string>
     <string name="compass_source_legacy_ts">Heredado (Trail Sense)</string>
     <string name="data_source">Fuente: %s</string>
@@ -1038,9 +1038,9 @@
     <string name="augmented_reality_description">Mostrar balizas cercanas y sol/luna con la cámara</string>
     <string name="magnetic_north">Polo Norte magnético</string>
     <string name="tool_long_press_hint_toast">Pulsación larga sobre herramienta para más opciones</string>
-    <string name="unpin">Sin pin</string>
+    <string name="unpin">Desanclar</string>
     <string name="pinned">Fijado</string>
-    <string name="pin">Pin</string>
+    <string name="pin">Anclar</string>
     <string name="settings_have_moved_message">Los ajustes de la aplicación se han trasladado a la pestaña Herramientas</string>
     <string name="settings_have_moved">Los ajustes se han desplazado</string>
     <string name="no_sensor_message">Su dispositivo no tiene un sensor %s</string>
@@ -1075,7 +1075,7 @@
     <string name="compact_mode">Modo compacto</string>
     <string name="creating_beacon">Creando baliza</string>
     <string name="ar_calibration_instructions">Centra los %s en la pantalla y pulsa \"Calibrar\"</string>
-    <string name="use_gyroscope_after_calibration">Usar el giroscopio tras la calibración</string>
+    <string name="use_gyroscope_after_calibration">Usar el giróscopo tras la calibración</string>
     <string name="use_gyroscope_after_calibration_description">En lugar de la brújula (evita la deriva magnética)</string>
     <string name="reset_calibration_question">¿Reiniciar la calibración?</string>
     <string name="scanning_image">Escaneando la imagen</string>
@@ -1083,7 +1083,7 @@
     <string name="use_path_elevation">Usar elevación de ruta</string>
     <string name="smooth_gps_readings">Lecturas GPS fluidas</string>
     <string name="select_from_gallery">Seleccionar de la galería</string>
-    <string name="magnetometer_gyro_custom">Magnetómetro + giroscopio (personalizado)</string>
+    <string name="magnetometer_gyro_custom">Magnetómetro + giróscopo (personalizado)</string>
     <string name="pref_tiles_enabled_battery_log_summary">Registra el porcentaje de batería cada hora para estimar el tiempo hasta que se agote</string>
     <string name="pref_tiles_battery_log">Registro de batería</string>
     <string name="pref_dialog_battery_log_summary">El registro de la batería está deshabilitado, el historial y el tiempo hasta que se agote pueden no estar disponibles. Puedes volver a habilitar esto en la configuración</string>
@@ -1119,11 +1119,11 @@
     <string name="pref_start_camera_in_3d_view_title">Usar la cámara para visualización en 3D</string>
     <string name="pref_start_camera_in_3d_view_summary">Abrir la cámara al hacer clic en el botón Ver en 3D</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Controla el brillo de la pantalla con los botones de volumen</string>
-    <string name="mirror_camera">Reflejar Cámara</string>
+    <string name="mirror_camera">Cámara Espejo</string>
     <string name="tool_turn_back">Regreso</string>
     <string name="turn_back_instructions">Inicia el regreso a las %1$s (%2$s) para estar de vuelta a las %3$s</string>
     <string name="return_time">Hora de regreso</string>
-    <string name="cloud_scanner">Cloud Scanner</string>
+    <string name="cloud_scanner">Escáner de Nubes</string>
     <string name="local_messaging">Mensajes locales</string>
     <string name="communication">Comunicación</string>
     <string name="tool_quick_action_summary">Pulsación larga en navegación inferior o ver en la pestaña de herramientas.</string>
