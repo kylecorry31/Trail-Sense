@@ -18,7 +18,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.print.Printer
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolPhotoMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
@@ -32,7 +32,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.ui.commands.RenameMapCommand
 import kotlin.math.absoluteValue
 
 
-class PhotoMapsFragment : BoundFragment<FragmentPhotoMapsBinding>() {
+class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val mapService by lazy { MapService.getInstance(requireContext()) }
@@ -54,8 +54,8 @@ class PhotoMapsFragment : BoundFragment<FragmentPhotoMapsBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentPhotoMapsBinding {
-        return FragmentPhotoMapsBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolPhotoMapsBinding {
+        return FragmentToolPhotoMapsBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

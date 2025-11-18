@@ -42,7 +42,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathC
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
 
-class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
+class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     override fun update() {
         val mapView = useView<MapView>(R.id.map)
         val lockButton = useView<FloatingActionButton>(R.id.lock_btn)

@@ -31,7 +31,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherS
 import java.time.LocalDate
 import java.time.Month
 
-class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
+class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climate) {
 
     override fun update() {
         // Views

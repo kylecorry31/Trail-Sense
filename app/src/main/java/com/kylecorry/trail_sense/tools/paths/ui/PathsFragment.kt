@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolPathsBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
@@ -50,7 +50,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.ViewPathCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 
-class PathsFragment : BoundFragment<FragmentPathsBinding>() {
+class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
 
     private val service by lazy {
         Tools.getService(
@@ -202,8 +202,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentPathsBinding {
-        return FragmentPathsBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolPathsBinding {
+        return FragmentToolPathsBinding.inflate(layoutInflater, container, false)
     }
 
 
