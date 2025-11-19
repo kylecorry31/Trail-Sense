@@ -53,7 +53,7 @@ The last logged cloud type appears in the weather list. Clicking on it provides 
 The current weather front is displayed in the weather list. Fronts typically indicate weather changes and are often associated with precipitation and wind. Clicking on it provides a description of the weather front.
 
 ## Exporting weather data
-You can export the recorded weather data to a CSV file with Settings > Weather > Export weather records.
+You can export the recorded weather data to a CSV file with Settings > Weather > Export weather readings.
 
 ## Quick action
 You can enable the Weather Monitor quick action in the settings for the tab you want it on.
