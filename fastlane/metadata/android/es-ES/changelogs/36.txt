@@ -1,0 +1,8 @@
+- Añadir intensidad de señal celular al Retroceder (no usa Internet, desactivar en los ajustes de Navegar)
+- Mejorar la detección de errores de configuración o sensores
+- Añadir herramienta de prueba de linterna
+- Importar / exportar balizas
+- Añadir SOS y silbato de ayuda
+- Nuevo diseño de brújula e iconos (Tiempo y Astronomía)
+- Mejorar el diagnóstico de detalles de sensores (ajustes)
+- Correcciones de errores

@@ -1,0 +1,7 @@
+- Grupos de balizas
+- Nivel de burbuja 2D
+- Mejoras en los cálculos de presión al nivel del mar (ajuste disponible en los ajustes de calibración del barómetro)
+- Mejor seguimiento meteorológico en segundo plano
+- Guía del usuario (¡más próximamente!)
+- Pulsar el sol/la luna muestra la altitud
+- Correcciones de errores

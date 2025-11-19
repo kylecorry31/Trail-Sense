@@ -1,0 +1,12 @@
+Podómetro
+- Reemplazar Velocímetro / Odómetro por Podómetro
+- Añadir notificación de distancia recorrida por el podómetro
+- Añadir velocímetro basado en el podómetro (actual, media desde el reinicio)
+- Añadir estimador de longitud de zancada en los ajustes del podómetro
+
+Navegar
+- Actualizar diseño
+- Actualizar diseño de la hoja de Navegar
+
+Varios
+- Correcciones de errores

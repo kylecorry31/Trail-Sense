@@ -1,0 +1,6 @@
+Mapas (Experimental)
+- Exportar mapa a PDF geoespacial
+- Importar mapa con la cámara
+- Mejorar el soporte de importación de PDFs de mapas
+- Aumentar la visibilidad de rutas en los mapas
+- Correcciones de errores

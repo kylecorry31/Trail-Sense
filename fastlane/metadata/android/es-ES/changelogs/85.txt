@@ -1,0 +1,9 @@
+Meteorología
+- Mostrar más información en la pestaña de meteorología (frente meteorológico, sistema de presión, última nube)
+- Mostrar la hora del día en el gráfico de presión
+- Establecer la fecha/hora de las lecturas de nubes
+- Mejorar el calibrador de nivel del mar v2 al cambiar de ubicación (experimental)
+- Mostrar lecturas crudas del nivel del mar mientras calibras el barómetro
+
+Miscelánea
+- Corrección de errores

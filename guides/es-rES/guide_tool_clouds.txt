@@ -7,7 +7,7 @@ En el registro de nubes encontrarás las últimas 48 horas de observaciones de n
 Para registrar una nube, pulsa el botón '+' en la esquina inferior derecha. Puedes elegir usar una foto de la nube desde los archivos o la cámara del dispositivo, o identificar la nube manualmente.
 
 ### Identificación automática
-Si optas por usar la cámara o un archivo, Trail Sense intentará identificar la nube por ti. Mostrará su nivel de confianza en cada tipo de nube y te permitirá seleccionar los tipos de nube que quieras registrar usando las casillas de verificación. Por defecto, selecciona el/los tipo(s) de nube más probables. También puedes ajustar la hora de la observación pulsando en la hora en la parte superior de la pantalla. Cuando estés satisfecho pulsa el botón de verificación en la esquina superior derecha de la pantalla.
+Si optas por usar la cámara o un archivo, Trail Sense intentará identificar la nube por ti. Mostrará su nivel de confianza en cada tipo de nube y te permitirá seleccionar los tipos de nube que quieras registrar usando las casillas de verificación. Por defecto, selecciona el/los tipo(s) de nube más probables. También puedes ajustar la hora de la observación pulsando en la hora en la parte superior de la pantalla. Cuando estés satisfecho, pulsa el botón de verificación en la esquina superior derecha de la pantalla.
 
 ### Identificación manual
 Si prefieres identificar la nube manualmente, verás una lista de tipos de nubes. Usa las casillas de verificación para seleccionar los tipos de nube que quieras registrar. También puedes ajustar la hora de la observación pulsando en la hora en la parte superior de la pantalla. Cuando estés satisfecho, pulsa el botón de verificación en la esquina superior derecha de la pantalla.

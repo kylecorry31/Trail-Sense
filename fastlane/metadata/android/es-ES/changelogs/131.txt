@@ -1,0 +1,19 @@
+Balística
+- Nueva herramienta para calcular el ajuste de la mira y la energía
+- Función experimental para cálculos balísticos (velocidad / caída)
+
+Mapas Calibrados
+- Respeta 'Mostrar en la pantalla de bloqueo mientras Navegas' en los ajustes de Navegar
+- Opción para calcar un mapa sobre papel
+
+Convertir
+- Añadir miligramos y granos
+
+Detector de metales
+- Botón para desactivar la vibración
+
+Guía de supervivencia
+- Ajustar contenido e ilustraciones
+
+Guía de campo
+- Reemplazar todas las imágenes con ilustraciones personalizadas

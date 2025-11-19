@@ -5,7 +5,7 @@
     <li>Pon balizas y navega hacia ellas</li>
     <li>Usa como brújula (solo disponible en dispositivos con sensor de brújula)</li>
     <li>Sigue rutas</li>
-    <li>Vuelve sobre tus pasos con backtrack</li>
+    <li>Vuelve sobre tus pasos con Retroceder</li>
     <li>Usa una foto como mapa</li>
     <li>Planifica qué llevar</li>
     <li>Alerta antes de que se ponga el sol</li>
@@ -35,10 +35,10 @@ Esta aplicación tiene únicamente fines informativos y la precisión de las pre
 
 <h3>PERMISOS</h3>
 <ul>
-    <li>Notificaciones: permite que Trail Sense muestre notificaciones (seguimiento de ruta, clima, alertas de puesta de sol, eventos astronómicos, temporizador para hervir agua, etc.)</li>
+    <li>Notificaciones: permite que Trail Sense muestre notificaciones (retroceder, clima, alertas de puesta de sol, eventos astronómicos, temporizador para hervir agua, etc.)</li>
     <li>Ubicación: permite que Trail Sense recupere tu ubicación para navegación, clima (calibración de nivel del mar) y astronomía.</li>
     <li>Ubicación en segundo plano: permite que Trail Sense recupere tu ubicación para alertas de puesta de sol mientras se ejecuta en segundo plano.
-    En algunos dispositivos esto también mejorará la fiabilidad del seguimiento de ruta y del monitor de clima.</li>
+    En algunos dispositivos esto también mejorará la fiabilidad de Retroceder y del Seguimiento meteorológico.</li>
     <li>Actividad física: permite que Trail Sense use el podómetro de tu teléfono para calcular distancias.</li>
     <li>Cámara: permite que Trail Sense use la cámara con la brújula con punto de mira, clinómetro y para tomar fotos usadas por el Escáner de Nubes, Escáner de Código QR y Mapas de Fotos.</li>
     <li>Alarmas y recordatorios: permite que Trail Sense muestre notificaciónes en un momentos exactos.

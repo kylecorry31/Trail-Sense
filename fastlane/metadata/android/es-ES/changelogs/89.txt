@@ -1,0 +1,9 @@
+Meteorología
+- Mostrar temperaturas históricas máximas/mínimas
+- Fuente de termómetro histórico (reemplaza al sensor por defecto, ajusta en ajustes)
+- Herramienta climática para temperaturas históricas mundiales
+- Mostrar la temperatura máxima/mínima histórica en la notificación meteorológica diaria
+- Añadir ajuste de suavizado del termómetro
+
+Miscelánea
+- Corrección de errores

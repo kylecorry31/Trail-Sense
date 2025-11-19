@@ -1,0 +1,8 @@
+Rutas
+- Importar/Exportar grupos de rutas
+- Mejorar la métrica de dificultad de la caminata para tener en cuenta tramos empinados
+
+Varios
+- Añadir copia de seguridad completa / restauración en ajustes (ajustes y datos)
+- Añadir ajuste experimental para usar modo de obturador sin retardo al hacer fotos
+- Correcciones de errores

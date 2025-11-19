@@ -1,0 +1,6 @@
+- Añadir herramienta Detector de metales
+- Añadir herramienta Triangular ubicación
+- Organizar la pestaña Herramientas
+- Añadir notificación de sincronización del Reloj (Herramientas > Reloj)
+- Actualizar el diseño de la herramienta Altura de acantilado
+- Correcciones de errores

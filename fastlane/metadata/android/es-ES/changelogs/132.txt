@@ -1,0 +1,13 @@
+Clima
+- Cantidades mensuales de precipitación históricas
+- Clasificación climática
+- [Experimental] Actividad de mosquitos y garrapatas
+
+Mapas Calibrados
+- Guardar la rotación de la cámara
+
+Guía de supervivencia
+- Ajustar contenido e ilustraciones
+
+Convertir
+- Añadir acción rápida (coordenadas, distancia, temperatura)

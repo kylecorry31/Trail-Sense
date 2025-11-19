@@ -1,0 +1,11 @@
+Mareas
+- Introduce tablas de mareas (usa una fuente oficial para conseguirlas)
+- Estima mareas futuras
+- Muestra mareas en la brújula de radar cercana
+- Añadido guía del usuario
+
+Mapas (experimental)
+- Añade etiquetas a los puntos de calibración
+
+Miscelánea
+- Corrección de errores

@@ -1,0 +1,16 @@
+Rutas
+- Mostrar la precisión de la ubicación
+
+Navegar
+- Mostrar la precisión de la ubicación en la brújula de radar
+
+Mapas Calibrados (Experimental)
+- Medir distancias de rutas
+- Crear rutas
+- Mostrar la precisión de la ubicación
+- Corrección de errores
+
+Miscelánea
+- Ajuste para añadir un cero inicial a los tiempos (p. ej., 05:00)
+- Mejoras de rendimiento
+- Corrección de errores

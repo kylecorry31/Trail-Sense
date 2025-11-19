@@ -1,0 +1,25 @@
+Realidad aumentada
+- Disponible en beta: ver balizas, rutas y el sol/la luna con la cámara
+- No disponible en dispositivos sin brújula
+- Alternar capas
+- Distancia de vista de rutas ajustable
+- Mostrar brújula / precisión GPS
+
+Inclinómetro
+- Mostrar medida en la vista de la cámara
+
+Astronomía
+- Ver la trayectoria del sol / la luna en 3D
+- Mostrar dirección y altitud actuales del sol / la luna al pulsar
+
+Detector de metales
+- Reproducir sonido cuando se detecte metal
+
+Sensores
+- Listar todos los sensores
+
+Guía del usuario
+- Añadir guías para ajustes
+
+Reloj
+- Añadir ajuste para usar reloj digital

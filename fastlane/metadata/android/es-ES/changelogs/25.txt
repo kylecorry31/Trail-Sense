@@ -1,0 +1,7 @@
+- Añadir herramienta Convertidor de distancia
+- Añadir herramienta Altura de acantilado
+- Añadir herramienta Silbato
+- Añadir profundidad máxima a la herramienta de profundidad
+- Añadir guía del usuario de apps recomendadas
+- Añadir borrar todo en inventario
+- Correcciones de errores

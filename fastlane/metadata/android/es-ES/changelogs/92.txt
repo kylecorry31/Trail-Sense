@@ -1,0 +1,8 @@
+Meteorología
+- Estimar el tiempo hasta la precipitación cuando se registran nubes
+- Mostrar la distancia de la descarga eléctrica anterior
+- Añadir opción para ocultar la temperatura en la notificación meteorológica
+
+Miscelánea
+- Usar el botón de volumen para capturar foto (nubes, mapas sin conexión)
+- Corrección de errores

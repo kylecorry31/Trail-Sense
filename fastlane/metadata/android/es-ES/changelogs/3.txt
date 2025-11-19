@@ -1,0 +1,12 @@
+- Página de astronomía renovada
+- Añadir tema oscuro
+- Corregir problemas de estabilidad de la brújula en algunos dispositivos
+- Añadir ajustes para suavizado de la brújula y uso de un modo experimental de brújula
+- Hacer opcional el permiso de ubicación (algunas funciones pueden estar desactivadas)
+- Permitir detener el seguimiento meteorológico desde la notificación
+- Pulsar la notificación ahora abrirá la app
+- Compartir ubicación será ahora un enlace a la ubicación en OSM en vez de solo una coordenada
+- Desactivar funciones meteorológicas en teléfonos sin barómetro
+- Añadir corrección de altitud a ASML
+- Añadir una regla a la pantalla de Navegar
+- Ajustes de interfaz de usuario

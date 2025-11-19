@@ -1,0 +1,8 @@
+- Recibir una notificación X horas antes del atardecer (configurable en ajustes)
+- Añadir más detalles a la pestaña de astronomía (posiciones pico, altitud, acimut, rango de marea)
+- La fase lunar ahora refleja la fecha seleccionada
+- Añadir linterna y SOS a la pestaña de Navegar
+- Mostrar la precisión GPS sin procesar cuando se pulsan los iconos
+- Configurar tu formato de coordenadas en ajustes
+- Corregir la demora al abrir la pestaña de Navegar
+- Mejoras en la interfaz de usuario

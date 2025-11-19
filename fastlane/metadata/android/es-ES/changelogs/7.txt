@@ -1,0 +1,6 @@
+- Cambiar el algoritmo de brújula predeterminado (añadido ajuste de brújula legacy)
+- Añadir más opciones para compartir balizas
+- Añadir horas al gráfico de Astronomía
+- Ver cuál fue la presión en un punto del gráfico
+- No mostrar balizas dentro de 8 metros
+- Correcciones de errores

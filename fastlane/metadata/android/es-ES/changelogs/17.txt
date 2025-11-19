@@ -1,0 +1,10 @@
+- Altímetro barométrico
+- Temperatura y humedad
+- Datos astronómicos más precisos
+- Mostrar horas de crepúsculo/amanecer
+- Punto de ajuste de presión (pulsar y mantener la presión actual en la pestaña de Tiempo)
+- Mostrar balizas dentro de un radio determinado
+- Permitir intervalo de actualización meteorológica personalizado
+- Mejor compatibilidad con Android 11
+- Traducciones mejoradas
+- Correcciones de errores

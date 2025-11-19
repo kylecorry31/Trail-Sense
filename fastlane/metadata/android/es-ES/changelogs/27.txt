@@ -1,0 +1,5 @@
+- Añadir herramienta Reloj GPS
+- Añadir herramienta Distancia de impacto de rayo
+- Añadir herramienta Regla (pulsar la regla para obtener una medición más precisa)
+- Mejorar las instrucciones del temporizador para hervir agua
+- El estroboscópico ya no vuelve a activar la linterna

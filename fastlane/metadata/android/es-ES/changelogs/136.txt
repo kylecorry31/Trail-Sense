@@ -1,0 +1,24 @@
+Batería
+- Mejorar el diseño de la herramienta de batería
+- Añadir consejos del sistema para ahorrar batería
+
+Buscador de señal
+- Mejorar las ubicaciones de las torres de celular
+
+Capas del mapa
+- Añadir capa de torres de celular
+- Estimar distancia a la torre de celular conectada
+
+Navegar
+- Pulsar el nombre de la baliza para abrirla mientras Navegas
+
+Balística
+- Añadir cálculos balísticos (caída, velocidad)
+
+Tiempo
+- [Experimental] Mostrar pronóstico de presión en el gráfico
+
+Varios
+- Añadir accesos directos de herramienta a la pantalla de inicio
+- Añadir personalización del tema de widgets
+- Usar fuente de sensor de brújula personalizada por defecto

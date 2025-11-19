@@ -1,0 +1,15 @@
+Listas de equipaje
+- Importar y exportar listas de equipaje
+
+Silbato
+- Mejorar el sonido del silbato
+
+Herramientas
+- Mostrar acciones rápidas para la herramienta actual al mantener pulsada la barra inferior
+
+Guía del usuario
+- Añadir acción rápida para mostrar la guía de la herramienta actual
+
+Ajustes
+- Añadir acción rápida para mostrar los ajustes de la herramienta actual
+- Calibración del barómetro

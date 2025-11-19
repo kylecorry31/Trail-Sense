@@ -1,0 +1,6 @@
+Rutas
+- Añadir más estilos de línea
+- Navegar al tramo más cercano de una ruta
+
+Otros
+- Correcciones de errores

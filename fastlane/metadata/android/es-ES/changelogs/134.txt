@@ -1,0 +1,18 @@
+Herramienta de mapa (nuevo)
+- Ver todas las balizas, rutas, Mapas Calibrados, etc. en un mapa
+- Capa base (color según imágenes satelitales)
+
+Capas del mapa
+- Añadir capa de curvas de nivel
+- Ajustes de capa del mapa en Navegar, Mapas Calibrados y la herramienta de mapa
+
+Mapas Calibrados
+- Autocalibrar más PDFs (p. ej., USGS GeoPDF)
+- Mejorar el renderizado de PDFs
+
+Realidad aumentada
+- Ver planetas visibles y lluvias de meteoros por la noche
+- Mejorar el enfoque al apuntar al cielo
+
+Guía de supervivencia
+- Actualizaciones de contenido

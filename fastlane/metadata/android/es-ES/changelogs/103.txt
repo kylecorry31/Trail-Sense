@@ -1,0 +1,12 @@
+Mapas Calibrados
+- Ya no está en beta
+- Vista previa de las capas del mapa durante la calibración
+
+Rutas
+- Importar rutas desde GPX
+
+Varios
+- Mejorar los mensajes cuando el dispositivo no tiene brújula
+- Seleccionar automáticamente las unidades
+- Mejoras de rendimiento
+- Correcciones de errores

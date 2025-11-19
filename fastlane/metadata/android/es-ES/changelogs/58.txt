@@ -1,0 +1,6 @@
+- Añadir estimación de temperatura a distintas altitudes (disponible desde la herramienta termómetro)
+- Añadir herramienta de diagnóstico en ajustes
+- Elegir qué balizas importar
+- Mantener pulsado el icono del calendario de Astronomía para buscar eventos
+- Mejorar la entrada de distancia
+- Correcciones de errores

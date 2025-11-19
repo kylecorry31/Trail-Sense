@@ -1,0 +1,19 @@
+Rutas
+- Suavizar el gráfico de elevación de la ruta
+- Mostrar la pendiente de la ruta
+- Mostrar la mayor y la menor elevación de la ruta
+
+Navegar
+- Mejorar el formato de la ficha de destino
+- Suavizar el historial de elevación
+
+Meteorología
+- Añadir calibrador de nivel del mar v2 (experimental)
+
+Nivel de burbuja
+- Mostrar 1 cifra de precisión
+- Mostrar grados en las burbujas
+
+Miscelánea
+- Corrección de errores
+- Mejoras de rendimiento

@@ -1,0 +1,13 @@
+Códigos QR
+- Añadir herramienta Escáner de códigos QR
+- Compartir una nota como código QR
+
+Linterna
+- Mejorar la interfaz
+- Añadir más modos de estroboscópico
+- Apagar la linterna automáticamente (disponible en ajustes)
+- Ajustar el brillo de la linterna de pantalla
+
+Otros
+- Tema nocturno
+- Correcciones de errores

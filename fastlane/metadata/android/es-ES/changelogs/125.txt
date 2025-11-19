@@ -1,0 +1,14 @@
+Mapas Calibrados
+- Añadir ajuste para mantener los PDFs a resolución completa
+- Mostrar la elevación actual
+
+Astronomía
+- Ajustar la orientación de la luna según la ubicación
+
+Convertir
+- Añadir milímetros, cucharaditas y cucharadas
+
+Varios
+- Permitir hasta 7 herramientas en la barra de navegación inferior
+- Añadir tema negro del sistema
+- Correcciones de errores

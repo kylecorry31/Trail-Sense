@@ -1,0 +1,9 @@
+- Añadir brújula 'radar' de balizas (ajustes de Navegar)
+- Añadir herramienta velocímetro/odómetro/podómetro
+- Añadir luz de pantalla
+- Añadir conmutador agua salada/agua dulce a la herramienta de profundidad
+- Mostrar lluvias de meteoros en Astronomía (pico y día anterior)
+- Mejorar el selector de fecha en Astronomía
+- [Experimental] Mapas sin conexión (sube una imagen y calibra — agradeceríamos mucho tus comentarios)
+- [Experimental] Guardar mareas para múltiples ubicaciones
+- Correcciones de errores

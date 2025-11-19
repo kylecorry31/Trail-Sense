@@ -25,7 +25,7 @@ Puedes editar un avistamiento pulsando sobre él en la lista de avistamientos o 
 
 Puedes eliminar un avistamiento usando el menú a la derecha y seleccionando "Eliminar".
 
-Puedes Navegar hacia un avistamiento usando el menú a la derecha y seleccionando "Navigar". Esto abrirá la herramienta Navegación con la ubicación del avistamiento como destino.
+Puedes Navegar hacia un avistamiento usando el menú a la derecha y seleccionando "Navegar". Esto abrirá la herramienta Navegación con la ubicación del avistamiento como destino.
 
 Puedes crear una baliza a partir de un avistamiento usando el menú a la derecha y seleccionando "Crear baliza". Esto abrirá la herramienta Balizas con una nueva baliza con la ubicación y el nombre del avistamiento rellenados.
 

@@ -1,0 +1,20 @@
+Capas del mapa
+- Añadir capas de elevación y hillshade
+- Añadir ajustes de color para la capa de curvas de nivel
+- Añadir ajuste de color de fondo para la capa de rutas
+
+Guía de campo
+- Añadir registro de avistamientos para cada página
+
+Ruido blanco
+- Añadir selector de sonido: ruido (blanco, rosa, marrón), grillos, olas, ventilador
+
+Realidad aumentada
+- Mostrar constelaciones
+- Aumentar la exposición por la noche
+
+Listas de equipaje
+- Recordar la última categoría
+
+Buscador de señal
+- Mostrar distancia estimada de la señal (experimental)

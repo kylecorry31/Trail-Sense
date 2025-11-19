@@ -1,0 +1,7 @@
+Triangular ubicación
+- Triangular una ubicación en la distancia
+- Rediseñar la herramienta de triangulación para incluir mapa, instrucciones y brújula de avistamiento
+
+Varios
+- Aumentar el tamaño de algunas vistas previas de la cámara
+- Correcciones de errores

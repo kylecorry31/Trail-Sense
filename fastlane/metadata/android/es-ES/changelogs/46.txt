@@ -1,0 +1,11 @@
+- Brújula de avistamiento (experimental: obtener un rumbo más preciso con la cámara)  
+  - Activar la brújula de avistamiento encendiendo funciones experimentales, funciones de cámara y brújula lineal  
+- Colores personalizados para balizas  
+- Soporte de altitud NMEA  
+- Historial de batería  
+- Última baliza con señal (cuando Retroceder está activado)  
+- Fusionar conversor de distancia y conversor de coordenadas  
+- Mejoras del mapa (experimental: corregir perspectiva, rotar)  
+- Nuevo método de autocalibración del barómetro (experimental; activar en los ajustes del barómetro) — sería muy útil recibir feedback  
+- Reducir uso de memoria  
+- Correcciones de errores

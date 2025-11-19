@@ -1,0 +1,6 @@
+Retroceder
+- Permitir actualizaciones más frecuentes para Retroceder (para cartografiar un sendero)
+- Mostrar y editar la frecuencia para Retroceder desde la herramienta Rutas
+
+Varios
+- Posibles correcciones de errores de la cámara

@@ -1,0 +1,2 @@
+- Corrección de un error por el que la notificación de seguimiento meteorológico aparecía aunque no hubiera barómetro
+- Corrección de un fallo al introducir una coordenada no válida
