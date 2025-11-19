@@ -1,0 +1,6 @@
+- Personalización de rutas: nombre, color, estilo, simplificar, fusionar, ocultar/mostrar
+- Detalles de rutas: mapa, ganancia/pérdida de elevación, duración, distancia, dificultad
+- Importar rutas desde GPX
+- La herramienta Retroceder renombrada a Rutas
+- Mejorar la carga de rutas en la brújula de radar
+- Mejorar la calibración del barómetro

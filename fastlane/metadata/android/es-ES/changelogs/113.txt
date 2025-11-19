@@ -1,0 +1,20 @@
+Rutas
+- Añadir ajuste para mejorar el rendimiento de renderizado a costa de la apariencia
+
+Linterna
+- Añadir acción rápida para linterna de pantalla
+
+Nivel de burbuja
+- Aumentar tamaño
+
+Realidad aumentada (Experimental)
+- Guía del sol / la luna (botón en la herramienta de Astronomía)
+- Navegar hacia balizas
+- Añadir ajuste de distancia de vista
+- Aplicar suavizado de brújula a AR
+
+Varios
+- Añadir soporte de color dinámico (activar en ajustes en dispositivos compatibles)
+- Fijar la guía del usuario en Herramientas por defecto
+- Mejoras de rendimiento
+- Correcciones de errores

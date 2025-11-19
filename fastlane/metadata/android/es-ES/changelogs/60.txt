@@ -1,0 +1,6 @@
+- Eclipses lunares y Superlunas en la pestaña de Astronomía
+- Notificaciones de eventos astronómicos para lluvias de meteoros o eclipses lunares (activar en los ajustes de Astronomía)
+- Pulsar elementos de Astronomía para más detalles
+- Optimizar el alineamiento de paneles solares para la luz solar restante
+- Exportar lecturas meteorológicas a CSV (ajustes de Tiempo)
+- Correcciones de errores

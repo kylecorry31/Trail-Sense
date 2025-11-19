@@ -1,0 +1,7 @@
+Mareas (experimental)
+- Crear tablas de marea
+- Añadir gráfico del nivel del agua de la marea
+- Indicar si la marea está subiendo / bajando
+- Estimar la altura de la marea (si está entre lecturas de la tabla de mareas)
+- Indicar si una marea es estimada o proporcionada por el usuario
+- Añadir guía del usuario

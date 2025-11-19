@@ -1,0 +1,10 @@
+Rutas
+- Organizar rutas en grupos
+- Crear una ruta manualmente
+- Añadir puntos manualmente a una ruta
+
+Balizas
+- Las búsquedas ahora incluyen balizas en subgrupos
+
+Varios
+- Correcciones de errores

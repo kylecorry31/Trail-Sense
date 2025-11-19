@@ -1,0 +1,5 @@
+- Registrar presión sin seguimiento en segundo plano
+- Mejorar la tematización de la interfaz
+- Añadir historial de humedad (en dispositivos con sensor de humedad)
+- Añadir escáner de nubes (experimental)
+- Correcciones de errores

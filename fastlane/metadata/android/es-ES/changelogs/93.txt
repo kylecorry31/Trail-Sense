@@ -1,0 +1,13 @@
+Rutas
+- Buscar por nombre
+
+Mapas Calibrados (Experimental)
+- Renombrar Offline Maps a Photo Maps
+- Añadir grupos de mapas
+- Buscar por nombre
+- Ordenar por nombre, fecha de creación, distancia
+- Pulsación larga para Navegar, colocar una baliza o medir la distancia
+- Nombre de mapa por defecto según el nombre de archivo
+
+Miscelánea
+- Corrección de errores

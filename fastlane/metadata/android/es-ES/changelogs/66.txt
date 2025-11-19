@@ -1,0 +1,10 @@
+Meteorología
+- Eliminar la herramienta termómetro (activar la visualización de temperatura dentro de los ajustes de Meteorología)
+- Actualizar el diseño de la pestaña de Meteorología
+- Añadir acción rápida de distancia de impacto de rayo
+
+Varios
+- Actualizar el diseño a Material3
+- Mejoras de rendimiento
+- Eliminar la herramienta de profundidad del agua
+- Actualizar las páginas de incorporación

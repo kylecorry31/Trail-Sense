@@ -1,0 +1,13 @@
+Guía de campo (nuevo)
+- Páginas de guía prellenadas con especies importantes y comunes para supervivencia
+- Añadir nuevas páginas de guía para varias categorías
+
+Buscador de señal (nuevo)
+- Ver señales de móvil detectadas
+- Ver distancia y dirección a torres de celular cercanas (aproximado)
+
+Balizas
+- Elemento de menú para borrar todas las balizas en el grupo actual
+
+Realidad aumentada
+- Eliminar la distancia máxima de vista de rutas (distancias grandes pueden provocar demora)

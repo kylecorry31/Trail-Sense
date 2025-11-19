@@ -1,0 +1,20 @@
+Realidad aumentada
+- Ya no está en beta
+
+Volver atrás
+- Nueva herramienta para recordarte que vuelvas sobre tus pasos a mitad de la caminata
+
+Cámara espejo
+- Nueva herramienta para actuar como 'espejo' usando la cámara frontal
+
+Mapas Calibrados
+- Añadir acción rápida Abrir Photo Map (abre el mapa activo)
+
+Nubes
+- Añadir acción rápida Escáner de nubes
+
+Balizas
+- Navegar hacia la señal celular más cercana
+
+Varios
+- Abrir cualquier herramienta como acción rápida

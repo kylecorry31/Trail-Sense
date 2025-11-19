@@ -1,0 +1,19 @@
+Linterna
+- Ajustar el brillo (Android 13, si está soportado)
+
+Navegar
+- La brújula de radar indica mejor el destino
+
+Meteorología
+- Suavizar el historial de temperatura y humedad
+- Mejorar la precisión de elevación para la presión al nivel del mar
+
+Retroceder
+- Mejorar la precisión de elevación
+
+Nubes
+- Mejorar la eliminación de obstáculos (Experimental)
+
+Miscelánea
+- Soporte para Android 13
+- Corrección de errores

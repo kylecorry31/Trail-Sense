@@ -1,0 +1,6 @@
+Nubes
+- Identificar nubes usando tu cámara o una foto
+- Reemplazar la lista de nubes por un registro de nubes (últimas 48 horas)
+
+Miscelánea
+- Corrección de errores

@@ -1,0 +1,8 @@
+Rutas
+- Mostrar notificación cuando Retroceder esté en ejecución
+- Mostrar distancia en la notificación para Retroceder
+
+Mapas Calibrados (Experimental)
+- Crear un mapa en blanco
+- Mejorar el comportamiento del zoom
+- Corrección de errores

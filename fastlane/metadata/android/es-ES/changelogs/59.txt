@@ -1,0 +1,6 @@
+- Rutas para Retroceder
+- Mapa de ruta Retroceder (pulsar una ruta de Retroceder)
+- Mostrar altitud, señal celular y hora en los mapas de rutas de Volver sobre tus pasos
+- Exportar rutas de Volver sobre tus pasos como GPX
+- Añadir unidades de presión mmHg
+- Correcciones de errores

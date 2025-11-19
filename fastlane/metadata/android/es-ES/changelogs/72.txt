@@ -1,0 +1,6 @@
+Regla
+- Mejorar la precisión de la regla en una gama más amplia de dispositivos
+
+Cambios para soporte de Android 12
+- Mostrar qué se está ejecutando en segundo plano (necesario para mantener Retroceder y Seguimiento meteorológico en ejecución)
+- Solicitar exención de batería para Retroceder y Meteorología para mejorar la precisión

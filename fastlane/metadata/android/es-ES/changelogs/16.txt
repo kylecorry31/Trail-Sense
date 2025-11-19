@@ -1,0 +1,8 @@
+- Anulaciones manuales para ubicación, altitud y declinación
+- Mejorar la precisión del GPS
+- Recordatorio de calibración
+- Mostrar la tendencia de presión (en la pestaña y en la notificación)
+- Capacidad para forzar lecturas de presión a intervalos establecidos
+- Funciones experimentales: inclinómetro y rango de marea (activa en ajustes)
+- Sección "About" en ajustes
+- Corrección de errores

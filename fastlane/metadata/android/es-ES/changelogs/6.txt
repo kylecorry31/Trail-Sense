@@ -1,0 +1,4 @@
+- Nuevo gráfico de astronomía para mostrar mejor las posiciones reales del sol y la luna
+- Ajuste para mostrar el sol y la luna en la brújula cuando estén sobre el horizonte
+- Soporte para ubicaciones donde el sol/la luna no salen y se ponen con regularidad
+- Correcciones de errores

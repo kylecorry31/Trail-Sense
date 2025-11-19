@@ -1,0 +1,9 @@
+Balizas
+- Mostrar la marea en los detalles de la baliza
+
+Realidad aumentada
+- Mostrar más estrellas por la noche
+- Añadir color a las estrellas
+
+Mareas
+- Especificar qué campos son obligatorios

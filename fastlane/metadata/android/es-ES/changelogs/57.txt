@@ -1,0 +1,5 @@
+- Compartir balizas como código QR (incluso en dispositivos sin Trail Sense / Android) - la importación requiere permiso de Cámara o una app de escaneo de QR
+- Vista de avistamiento para el modo brújula lineal - requiere permiso de Cámara
+- Historial de altitud (pulsar la altitud en la pestaña de Navegar)
+- Información de ubicación (pulsar la ubicación en la pestaña de Navegar)
+- Correcciones de errores

@@ -1,0 +1,21 @@
+Retroceder
+- Siempre mostrar notificación mientras corres
+
+Weather
+- Siempre mostrar notificación mientras corres
+- Mejorar la precisión histórica de la temperatura
+- Mejorar el pronóstico del tiempo usando nubes
+
+Astronomía
+- Añadir acción rápida para alerta de atardecer
+
+Mapas Calibrados
+- Mejorar la auto-rotación
+
+Pedometer
+- Permitir detener el podómetro desde la notificación
+
+Misc
+- Soporte para Android 14
+- Mejorar el flujo de solicitud de permisos
+- Corrección de errores

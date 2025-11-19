@@ -1,0 +1,7 @@
+- Encender la linterna con la tecla de volumen (desactivado por defecto)
+- Nueva organización de ajustes
+- Duración personalizada de registro para Retroceder
+- Mejorar el cálculo de la profundidad del agua
+- Dirección del detector de metales (experimental, requiere giroscopio)
+- Mejoras del mapa (experimental)
+- Correcciones de errores

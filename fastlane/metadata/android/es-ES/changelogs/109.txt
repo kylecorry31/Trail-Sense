@@ -1,0 +1,17 @@
+Inclinómetro
+- Usar la cámara como inclinómetro por defecto
+- Aumentar el tamaño de la vista de la cámara
+- Añadir soporte AR (experimental)
+
+Detector de metales
+- Mejorar la sensibilidad
+
+Realidad aumentada (Experimental)
+- Mejorar la alineación
+- Mostrar líneas de la cuadrícula
+- Mejorar la experiencia en dispositivos sin giroscopio
+
+Varios
+- Mejorar el altímetro por GPS + barómetro
+- Notificar si no se pueden iniciar los servicios en segundo plano
+- Añadir más guías de usuario
