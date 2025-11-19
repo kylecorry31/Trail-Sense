@@ -30,6 +30,7 @@ Las capas se usan para mostrar información en la brújula radar. Puedes encontr
 
 #### Elevación
 Esta capa muestra la elevación del modelo digital de elevación (DEM) como color. Puedes cambiar el DEM en 'Ajustes > Altímetro'.
+
 Ajustes:
 
 - **Color**: La escala de color de los píxeles. El color cambiará según la elevación.
@@ -123,7 +124,8 @@ Para más información sobre balizas, consulta la guía Beacons.
 
 Puedes navegar usando un rumbo pulsando la brújula para fijar un rumbo. El rumbo fijado se mostrará en la brújula y en el panel de navegación. Puedes pulsar la brújula de nuevo o pulsar el botón 'X' para borrar el rumbo.
 
-Por defecto, los rumbos no cambian cuando te desplazas a otra ubicación. Si quieres mantener el rumbo fijado a tu ubicación inicial, puedes activar 'Ajustes > Navegación > Bloquear rumbo a la ubicación'. Esto es similar a crear una baliza a distancia y navegar hacia ella.
+Por defecto, los rumbos no cambian cuando te desplazas a otra ubicación. Si quieres mantener el rumbo fijado a tu ubicación inicial, puedes activar 
+'Ajustes > Navegación > Bloquear rumbo a la ubicación'. Esto es similar a crear una baliza a distancia y navegar hacia ella.
 
 ## Navegación por rutas.
 

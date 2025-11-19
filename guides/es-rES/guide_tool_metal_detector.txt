@@ -7,12 +7,12 @@ Calibrar el detector de metales mejora la precisión de las lecturas. Para calib
 2. Pulsa 'Calibrar'.
 3. Vuelve a calibrar ocasionalmente para mantener la precisión.
 
-El detector se calibra automáticamente al iniciarlo.
+El detector se calibra automáticamente al iniciarse.
 
 ## Detectar metal
 El detector solo encuentra metales magnéticos como el hierro. Para detectar metal:
 
-1. Tras calibrar, mantén el teléfono a 2–3 pulgadas (5–8 cm) sobre el área a escanear con la pantalla hacia arriba.
+1. Tras calibrar, mantén el teléfono a 5–8 cm (2–3 pulgadas) sobre el área a escanear con la pantalla hacia arriba.
 2. Mueve lentamente el teléfono, manteniendo la distancia y la orientación constantes.
 3. Cuando se detecte metal, el teléfono vibrará e indicará la detección.
 
@@ -22,9 +22,9 @@ El gráfico muestra la intensidad del campo magnético a lo largo del tiempo. El
 La lectura en la parte superior de la pantalla muestra la intensidad del campo en microteslas (uT).
 
 ## Umbral
-Valores de umbral bajos aumentan la sensibilidad y valores altos la disminuyen. Ajustalo con el control deslizante.
+Los valores de umbral bajos aumentan la sensibilidad y los valores altos la disminuyen. Se ajusta con el control deslizante.
 
-## Modo alta sensibilidad
+## Modo de alta sensibilidad
 Esto elimina el filtrado de ruido para máxima sensibilidad. El gráfico se vuelve más ruidoso y las falsas alarmas son más frecuentes. Actívalo con el interruptor 'Alta sensibilidad'.
 
 ## Indicador sonoro

@@ -121,6 +121,7 @@ Para reducir el ruido en las lecturas de temperatura, puedes aumentar el ajuste 
 Si el seguimiento meteorológico (ver la herramienta Weather) está habilitado, verás un gráfico del historial de temperatura registrado por tu dispositivo. La línea coloreada representa la temperatura calibrada mientras que la línea gris representa la temperatura sin procesar. Cuando ajustas los ajustes, el gráfico se actualizará para mostrar la nueva temperatura calibrada. El objetivo es que la línea coloreada siga suavemente a la línea gris.
 
 #### Actualizar temperaturas registradas
+
 Si cambias la fuente de temperatura a "Histórico", puedes elegir actualizar todas las temperaturas registradas anteriormente. Esto reemplazará las temperaturas antiguas con la temperatura estimada a partir de los datos históricos. Esto es útil si antes registraste temperaturas con el sensor y luego cambiaste a historic.
 
 ### Calibración
