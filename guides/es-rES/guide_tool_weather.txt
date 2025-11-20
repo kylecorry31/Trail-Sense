@@ -53,7 +53,7 @@ El último tipo de nube registrado aparece en la lista del tiempo. Pulsar sobre 
 El frente meteorológico actual se muestra en la lista del tiempo. Los frentes suelen indicar cambios en el tiempo y suelen asociarse con precipitación y viento. Pulsar sobre él proporciona una descripción del frente meteorológico.
 
 ## Exportar datos meteorológicos
-Puedes exportar los datos meteorológicos registrados a un archivo CSV con Ajustes > Meteorología > Exportar registros meteo.
+Puedes exportar los datos meteorológicos registrados a un archivo CSV con Ajustes > Meteorología > Exportar lecturas meteo.
 
 ## Acción rápida
 Puedes habilitar la acción rápida Seguimiento Meteorológico en los ajustes para la pestaña donde quieras que aparezca.
