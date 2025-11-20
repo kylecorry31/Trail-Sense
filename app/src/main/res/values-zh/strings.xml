@@ -1496,4 +1496,5 @@
     <string name="lock_bearing_to_location_description">锁定起始位置方位线</string>
     <string name="pref_night_mode_fullscreen_title">夜间模式下全屏</string>
     <string name="pref_night_mode_fullscreen_summary">隐藏系统用户界面更好保留夜视能力</string>
+    <string name="show_below_horizon">显示在地平线下方</string>
 </resources>
