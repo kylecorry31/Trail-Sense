@@ -1544,6 +1544,8 @@
     <string name="tide_estimation_description_tide_model">Uses a built-in tide model to estimate tides for the entered location or your location if none is entered.</string>
     <string name="star">Star</string>
     <string name="pref_show_ar_stars" translatable="false">pref_show_ar_stars</string>
+    <string name="pref_show_ar_astronomy_below_horizon" translatable="false">pref_show_ar_astronomy_below_horizon</string>
+    <string name="show_below_horizon">Show below horizon</string>
     <string name="pref_show_ar_constellations" translatable="false">pref_show_ar_constellations</string>
     <string name="show_stars">Show stars and planets</string>
     <string name="approximate_location">Approximate location</string>

@@ -281,7 +281,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     fun getVisibleStars(
         location: Coordinate,
-        time: ZonedDateTime = ZonedDateTime.now()
+        time: ZonedDateTime = ZonedDateTime.now(),
+        thresholdElevation: Float? = 0f
     ): List<Pair<Star, Pair<Bearing, Float>>> {
         if (isSunUp(location, time)) {
             return emptyList()
@@ -291,7 +292,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             val azimuth = Astronomy.getStarAzimuth(it, time, location)
             val altitude = Astronomy.getStarAltitude(it, time, location, true)
             it to (azimuth to altitude)
-        }.filter { it.second.second > 0 }
+        }.filter { thresholdElevation == null || it.second.second > thresholdElevation }
     }
 
     fun getConstellationsForStar(star: Star): List<Constellation> {
@@ -310,7 +311,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     fun getVisiblePlanets(
         location: Coordinate,
-        time: ZonedDateTime = ZonedDateTime.now()
+        time: ZonedDateTime = ZonedDateTime.now(),
+        thresholdElevation: Float? = 0f
     ): List<Pair<Planet, CelestialObservation>> {
         if (isSunUp(location, time)) {
             return emptyList()
@@ -326,12 +328,13 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
         return planetsToConsider.map {
             it to Astronomy.getPlanetPosition(it, time, location, withRefraction = true)
-        }.filter { it.second.altitude > 0 }
+        }.filter { thresholdElevation == null || it.second.altitude > thresholdElevation }
     }
 
     fun getVisibleMeteorShowers(
         location: Coordinate,
-        time: ZonedDateTime = ZonedDateTime.now()
+        time: ZonedDateTime = ZonedDateTime.now(),
+        thresholdElevation: Float? = -10f
     ): List<Pair<MeteorShower, CelestialObservation>> {
         if (isSunUp(location, time)) {
             return emptyList()
@@ -350,7 +353,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                     location,
                     time.toInstant()
                 )
-            }.filter { it.second.altitude > -10 }
+            }.filter { thresholdElevation == null || it.second.altitude > thresholdElevation }
     }
 
     private fun getEclipse(

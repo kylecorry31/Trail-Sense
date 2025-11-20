@@ -49,6 +49,8 @@ class ARAstronomyLayer(
     private val onMeteorShowerFocus: (shower: MeteorShower) -> Boolean
 ) : ARLayer {
 
+    private val belowHorizonAlphaDivisor = 4
+
     private val scope = CoroutineScope(Dispatchers.Default)
     private val runner = CoroutineQueueRunner()
 
@@ -267,6 +269,7 @@ class ARAstronomyLayer(
                 val moonBitmap = bitmapLoader?.load(moonIconId, moonImageSize)
                 val moonTilt = astro.getMoonTilt(location, time)
 
+                val moonOpacity = if (moonAltitude < 0) 255 / belowHorizonAlphaDivisor else 255
                 val moon = ARMarker(
                     SphericalARPoint(
                         moonAzimuth,
@@ -274,13 +277,20 @@ class ARAstronomyLayer(
                         isTrueNorth = true,
                         angularDiameter = 2f
                     ),
-                    canvasObject = moonBitmap?.let { CanvasBitmap(moonBitmap, rotation = moonTilt) }
-                        ?: CanvasCircle(Color.WHITE),
+                    canvasObject = moonBitmap?.let {
+                        CanvasBitmap(
+                            moonBitmap,
+                            rotation = moonTilt,
+                            opacity = moonOpacity
+                        )
+                    }
+                        ?: CanvasCircle(Color.WHITE.withAlpha(moonOpacity)),
                     onFocusedFn = {
                         onMoonFocus(time, phase)
                     }
                 )
 
+                val sunOpacity = if (sunAltitude < 0) 255 / belowHorizonAlphaDivisor else 255
                 val sun = ARMarker(
                     SphericalARPoint(
                         sunAzimuth,
@@ -288,24 +298,14 @@ class ARAstronomyLayer(
                         isTrueNorth = true,
                         angularDiameter = 2f
                     ),
-                    canvasObject = CanvasCircle(AppColor.Yellow.color),
+                    canvasObject = CanvasCircle(AppColor.Yellow.color.withAlpha(sunOpacity)),
                     onFocusedFn = {
                         onSunFocus(time)
                     }
                 )
 
-                val sunPointsToDraw = if (drawBelowHorizon) {
-                    listOf(sunPositions)
-                } else {
-                    getMarkersAboveHorizon(sunPositions)
-                }
-
-                val moonPointsToDraw = if (drawBelowHorizon) {
-                    listOf(moonPositions)
-                } else {
-                    getMarkersAboveHorizon(moonPositions)
-                }
-
+                val sunPointsToDraw = getMarkersAboveHorizon(sunPositions)
+                val moonPointsToDraw = getMarkersAboveHorizon(moonPositions)
 
                 // TODO: The line should be drawn to the horizon
 
@@ -343,9 +343,10 @@ class ARAstronomyLayer(
     }
 
     private suspend fun updateStarLayer(location: Coordinate, time: ZonedDateTime) = onDefault {
-        val stars = astro.getVisibleStars(location, time)
+        val stars = astro.getVisibleStars(location, time, if (drawBelowHorizon) null else 0f)
         val starMarkers = if (drawStars) {
             stars.map {
+                val alpha = if (it.second.second < 0) 255 / belowHorizonAlphaDivisor else 255
                 ARMarker(
                     SphericalARPoint(
                         it.second.first.value,
@@ -365,7 +366,7 @@ class ARAstronomyLayer(
                             Astronomy.getColorTemperature(
                                 it.first
                             )
-                        )
+                        ).withAlpha(alpha)
                     ),
                     onFocusedFn = {
                         onStarFocus(it.first)
@@ -418,13 +419,14 @@ class ARAstronomyLayer(
         drawer: ICanvasDrawer
     ) = onDefault {
         val markers = if (drawStars) {
-            val planets = astro.getVisiblePlanets(location, time)
+            val planets = astro.getVisiblePlanets(location, time, if (drawBelowHorizon) null else 0f)
             planets.mapNotNull {
                 val resId = planetMapper?.getImage(it.first) ?: return@mapNotNull null
                 val bitmap = bitmapLoader?.load(
                     resId,
                     drawer.dp(24f).toInt()
                 ) ?: return@mapNotNull null
+                val alpha = if (it.second.altitude < 0) 255 / belowHorizonAlphaDivisor else 255
                 ARMarker(
                     SphericalARPoint(
                         it.second.azimuth.value,
@@ -439,7 +441,7 @@ class ARAstronomyLayer(
                             true
                         )
                     ),
-                    canvasObject = CanvasBitmap(bitmap),
+                    canvasObject = CanvasBitmap(bitmap, opacity = alpha),
                     onFocusedFn = {
                         onPlanetFocus(it.first)
                     }
@@ -457,11 +459,13 @@ class ARAstronomyLayer(
         time: ZonedDateTime,
         drawer: ICanvasDrawer
     ) = onDefault {
-        val showers = astro.getVisibleMeteorShowers(location, time)
+        val horizon = -10f
+        val showers = astro.getVisibleMeteorShowers(location, time, if (drawBelowHorizon) null else horizon)
         val markers = showers.mapNotNull {
             val bitmap =
                 bitmapLoader?.load(R.drawable.meteor_shower_radiant, drawer.dp(100f).toInt())
                     ?: return@mapNotNull null
+            val alpha = if (it.second.altitude < horizon) 30 / belowHorizonAlphaDivisor else 30
             ARMarker(
                 SphericalARPoint(
                     it.second.azimuth.value,
@@ -469,7 +473,7 @@ class ARAstronomyLayer(
                     isTrueNorth = true,
                     angularDiameter = 20f
                 ),
-                canvasObject = CanvasBitmap(bitmap, opacity = 30),
+                canvasObject = CanvasBitmap(bitmap, opacity = alpha),
                 onFocusedFn = {
                     onMeteorShowerFocus(it.first)
                 }

@@ -27,12 +27,16 @@ If you bring the sun or moon into the reticle, you will see more details about t
 
 If you tapped the "View in 3D" button on the Astronomy tool, you can use the guide to see where the sun or moon currently is and change the previewed date in the bottom panel.
 
-## Stars
-Bright stars, planets, and constellations are shown at night. If you bring a star into the reticle, you will see its name and the constellation(s) it belongs to. The star names are either the IAU proper names or the bayer designation. The constellations are from IAU.
+You can view the sun and moon when they are below the horizon by enabling Settings > Augmented Reality > "Show below horizon".
+
+## Stars / planets / meteor showers
+Bright stars, planets, constellations, and meteor showers are shown at night. If you bring a star into the reticle, you will see its name and the constellation(s) it belongs to. The star names are either the IAU proper names or the bayer designation. The constellations are from IAU.
 
 You can turn off the stars and planets by disabling Settings > Augmented Reality > "Show stars and planets".
 
 You can turn off the constellations by disabling Settings > Augmented Reality > "Show constellations".
+
+Stars, planets, constellations, and meteor showers below the horizon can also be viewed by enabling Settings > Augmented Reality > "Show below horizon".
 
 ## Grid / compass
 A grid is displayed on the screen to help orient you. The grid is aligned with the cardinal directions and is spaced at 30 degrees. The grid line for north is highlighted in orange. The cardinal directions are displayed over the grid.

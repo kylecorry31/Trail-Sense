@@ -102,7 +102,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     private val astronomyLayer by lazy {
         ARAstronomyLayer(
-            drawBelowHorizon = false,
+            drawBelowHorizon = userPrefs.augmentedReality.showAstronomyBelowHorizon,
             drawStars = userPrefs.augmentedReality.showStars,
             drawConstellations = userPrefs.augmentedReality.showConstellations,
             onSunFocus = this::onSunFocused,

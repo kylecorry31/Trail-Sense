@@ -75,6 +75,14 @@
             app:singleLineTitle="false"
             app:title="@string/show_constellations" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:dependency="@string/pref_show_ar_astronomy_layer"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_ar_astronomy_below_horizon"
+            app:singleLineTitle="false"
+            app:title="@string/show_below_horizon" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

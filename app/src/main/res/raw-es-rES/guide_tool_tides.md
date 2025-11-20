@@ -1,0 +1,106 @@
+La herramienta Mareas te ayuda a seguir las mareas en una ubicación específica.
+
+## Crear una tabla de mareas
+Antes de aventurarte en zonas costeras, consulta una tabla de mareas oficial para obtener horas y alturas de agua precisas. Una vez que tengas esta información, sigue estos pasos para importarla en la herramienta Mareas de Trail Sense:
+
+1. Pulsa el botón de mareas en la esquina superior derecha de la pantalla.
+2. Pulsa el botón '+' en la esquina inferior derecha.
+3. Opcionalmente, proporciona un nombre y una ubicación para la marea.
+4. Ajusta la frecuencia de mareas, indicando cuántas pleamares suelen ocurrir en un día (la mayoría de los lugares tienen 2, conocidas como Semidiurnas).
+5. Desplázate hacia abajo hasta la sección de la tabla de mareas.
+6. Pulsa 'H' para pleamar o 'L' para bajamar para alternar entre ellas.
+7. Selecciona 'Tiempo no ajustado' e introduce la fecha y la hora de la marea.
+8. Opcionalmente, pulsa el '-' en la columna 'Height' para introducir la altura de la marea.
+9. Para añadir otra marea, pulsa el botón '+' en la esquina superior izquierda de la tabla.
+10. Puedes eliminar una marea pulsando el icono 'X' a la derecha de la marea.
+11. El método de estimación de la marea puede cambiarse pulsando el desplegable 'Marea Estimada'. El intervalo lunitidal usa la posición de la luna para estimar mareas y puede ser más preciso en algunas ubicaciones.
+12. Guarda la tabla de mareas pulsando la marca de verificación en la esquina superior derecha.
+
+Para mayor precisión, introduce todas las mareas de cada día relevante. Trail Sense distinguirá entre mareas introducidas y estimadas en el gráfico de mareas.
+
+### Métodos de estimación
+
+- **Reloj de mareas**: Asume un ciclo mareal fijo y requiere al menos una marea conocida para operar.
+- **Intervalo lunitidal**: Usa la posición de la luna para estimar mareas.
+  - **Auto**: Requiere al menos una marea conocida; calculará automáticamente el intervalo lunitidal.
+  - **Local**: Introduce el intervalo lunitidal en horas y minutos para tu ubicación. Esto requiere que la ubicación esté establecida, pero no una tabla de mareas.
+  - **UTC/Greenwich**: Introduce el intervalo lunitidal en horas y minutos para UTC/Greenwich. Esto no requiere ubicación ni tabla de mareas.
+- **Modelo de mareas (auto)**: Estima la marea cerca de la ubicación introducida o, si no se introdujo ubicación, cerca de ti. Para la mayoría de ubicaciones, las mareas deberían estar en un margen de una hora..
+
+## Ver una tabla de mareas
+Por defecto, la herramienta Mareas muestra la marea más cercana a tu ubicación al abrirla. Para cambiar esto, ve a 'Ajustes > Mareas > Mostrar marea más cercana' para alternar entre mostrar la marea más cercana y la última marea que viste.
+
+Para seleccionar otra marea, pulsa el botón de mareas en la esquina superior derecha de la pantalla. Esto abre una lista de todas las tablas de mareas que has creado. Simplemente pulsa una marea para verla.
+
+### Marea cercana
+Esto muestra la marea cerca de tu ubicación usando un modelo de mareas offline. Para la mayoría de ubicaciones, las mareas deberían ser precisas dentro de una hora, pero siempre usa tablas de mareas oficiales si es posible. Si no estás cerca de una marea que introdujiste, esto se mostrará por defecto.
+
+Esto puede ser inexacto en algunas áreas, especialmente en zonas con geografía complicada.
+
+La tabla de mareas cercana no puede modificarse ni eliminarse.
+
+## Gráfico de mareas
+El gráfico de mareas muestra las mareas del día actual. El eje X representa el tiempo y el eje Y la altura de la marea. Un punto marca la hora actual en el gráfico. Por defecto está seleccionado hoy, pero puedes cambiarlo pulsando el icono de calendario en la parte superior de la pantalla. Además, puedes usar las flechas para moverte a la fecha siguiente/anterior o mantener pulsado el calendario para saltar rápidamente a la fecha de hoy.
+
+En la parte superior de la pantalla encontrarás el nivel de marea actual y, si está disponible, la altura de la marea. Una flecha hacia abajo significa marea baja en descenso, mientras que una flecha hacia arriba significa marea subiendo.
+
+La parte inferior de la pantalla muestra una tabla de mareas para el día actual. Si se introdujo la altura de la marea, se mostrará aquí; de lo contrario, será estimada. Las mareas estimadas pueden no ser totalmente precisas y se basan en las mareas introducidas.
+
+## Editar una tabla de mareas
+Puedes editar una tabla de mareas con los siguientes pasos:
+
+1. Pulsa el botón de mareas en la esquina superior derecha de la pantalla.
+2. Pulsa el botón de menú a la derecha de la marea que quieras editar.
+3. Selecciona 'Editar.'
+4. Irás a la misma pantalla usada para crear la tabla de mareas. Edita la tabla según necesites.
+5. Guarda los cambios pulsando la marca de verificación en la esquina superior derecha.
+
+## Eliminar una tabla de mareas
+Puedes eliminar una tabla de mareas con los siguientes pasos:
+
+1. Pulsa el botón de mareas en la esquina superior derecha de la pantalla.
+2. Pulsa el botón de menú a la derecha de la marea que quieras eliminar.
+3. Elige 'Eliminar.'
+
+## Ver mareas en el mapa
+Por defecto, las mareas con una ubicación introducida aparecerán en la brújula radar de la herramienta Navegar y en Mapas Calibrados. Para ocultar/mostrar una marea, sigue estos pasos:
+
+1. Pulsa el botón de mareas en la esquina superior derecha de la pantalla.
+2. Pulsa el botón de menú a la derecha de la marea que quieras ocultar o mostrar.
+3. Selecciona 'Ocultar' o 'Mostrar.'
+
+## Estimar mareas sin una tabla de mareas
+Si no tienes acceso a una tabla de mareas, puedes estimar mareas usando la herramienta Mareas. Ten en cuenta que esto es solo una estimación, por lo que siempre es mejor consultar una tabla de mareas publicada oficialmente cuando sea posible. Si sabes si la marea es actualmente alta o baja, puedes crear una tabla de mareas con una sola entrada (usando la hora y el nivel actuales), y la herramienta Mareas estimará el ciclo mareal. Esto solo debe usarse para predicciones a corto plazo, ya que la precisión disminuye cuanto más lejos esté de la marea de referencia.
+
+## Encontrar tablas de mareas oficiales
+Para localizar una tabla de mareas oficial, busca en Internet las mareas de tu ubicación. Aquí hay sitios recomendados por la comunidad que ofrecen tablas de mareas:
+
+### Mundial
+- [tides4fishing](https://tides4fishing.com/)
+- [tide-forecast.com](https://www.tide-forecast.com/)
+- [SHOM](https://maree.shom.fr/)
+
+### Alemania
+- [BSH](https://www.bsh.de/DE/DATEN/Vorhersagen/Gezeiten/gezeiten_node.html)
+
+### Países Bajos
+- [Rijkswaterstaat](https://www.rijkswaterstaat.nl/water/waterdata-en-waterberichtgeving/waterdata/getij)
+
+### Reino Unido
+- [UK Hydrographic Office: EasyTide](https://easytide.admiralty.co.uk/)
+
+### Reino Unido e Irlanda
+- [NTSLF Tides](https://ntslf.org/tides/predictions)
+
+### EE. UU.
+- [NOAA Tides & Currents](https://tidesandcurrents.noaa.gov/tide_predictions.html)
+- [Tides.net](https://tides.net/)
+
+## Widgets
+Los siguientes widgets pueden colocarse en la pantalla de inicio de tu dispositivo o verse dentro de la app:
+
+- **Mareas:** Muestra el estado de la marea más cercana.
+- **Gráfico de mareas:** El gráfico del nivel del agua de la marea más cercana.
+
+## Disclaimer
+Las predicciones de mareas son estimaciones y no deberían usarse como única referencia. Cuando sea posible, usa una tabla de mareas oficial e introduce los datos en Trail Sense para mayor precisión.

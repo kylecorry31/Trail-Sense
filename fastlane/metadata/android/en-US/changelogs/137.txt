@@ -1,0 +1,17 @@
+Navigation
+- Setting to lock bearing to location
+- Show destination bearings on navigation sheet
+
+Map / Photo Maps
+- Show DEM elevation of long pressed location
+
+Bubble Level
+- Keep screen on
+
+Augmented Reality
+- Setting to show astronomy below horizon
+
+Misc
+- Report lower compass accuracy when near metal
+- Pin Map tool to bottom navigation for new users
+- Setting to hide system UI in night mode
