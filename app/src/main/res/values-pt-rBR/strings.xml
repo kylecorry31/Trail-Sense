@@ -1479,4 +1479,5 @@
     <string name="lock_bearing_to_location_description">Bloqueia a linha de rumo no seu ponto de partida</string>
     <string name="pref_night_mode_fullscreen_title">Tela cheia no modo noturno</string>
     <string name="pref_night_mode_fullscreen_summary">Ocultar a interface do sistema para melhor preservação da visão noturna</string>
+    <string name="show_below_horizon">Mostrar abaixo do horizonte</string>
 </resources>
