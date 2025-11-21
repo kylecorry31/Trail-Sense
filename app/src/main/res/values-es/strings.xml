@@ -532,7 +532,7 @@
     <string name="medium_amount">Mediano (%s)</string>
     <string name="season_spring">Primavera</string>
     <string name="duration_of_charge">Duración de la carga</string>
-    <string name="pref_export_weather_csv_title">Exportar registros meteo</string>
+    <string name="pref_export_weather_csv_title">Exportar lecturas meteo</string>
     <string name="precipitation_rain">Lluvia</string>
     <string name="precipitation_chance">Probabilidad de precipitación:%s</string>
     <string name="pref_show_nearest_tide_title">Mostrar marea más cercana</string>
