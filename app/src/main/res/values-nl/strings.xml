@@ -1509,4 +1509,5 @@
     <string name="lock_bearing_to_location_description">Vergrendel de koerslijn aan je startlocatie</string>
     <string name="pref_night_mode_fullscreen_title">Volledig scherm in nachtmodus</string>
     <string name="pref_night_mode_fullscreen_summary">Verberg systeemelementen voor een beter nachtzicht</string>
+    <string name="show_below_horizon">Onder de horizon weergeven</string>
 </resources>
