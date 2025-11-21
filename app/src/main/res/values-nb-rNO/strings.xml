@@ -1232,4 +1232,8 @@
     <string name="color_brown">Brun</string>
     <string name="color_gray">Grå</string>
     <string name="airplane_mode">Flymodus</string>
+    <string name="pref_night_mode_fullscreen_title">Fullskjerm i nattmodus</string>
+    <string name="show_below_horizon">Vis under horisont</string>
+    <string name="cancel_navigation_question">Avbryte navigering?</string>
+    <string name="elevation_value">Høyde: %s</string>
 </resources>
