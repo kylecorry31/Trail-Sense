@@ -4,6 +4,7 @@ Navigation
 
 Map / Photo Maps
 - Show DEM elevation of long pressed location
+- Remember map state (zoom, pan, mode) - Map tool only
 
 Bubble Level
 - Keep screen on
