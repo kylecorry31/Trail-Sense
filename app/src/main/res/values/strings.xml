@@ -1846,4 +1846,6 @@
     <string name="pref_lock_bearing_to_location" translatable="false">pref_lock_bearing_to_location</string>
     <string name="lock_bearing_to_location">Lock bearing to location</string>
     <string name="lock_bearing_to_location_description">Lock the bearing line to your starting location</string>
+    <string name="pref_show_astronomy_bands_title">Show sunrise/set bands</string>
+    <string name="pref_show_astronomy_bands" translatable="false">pref_show_astronomy_bands</string>
 </resources>

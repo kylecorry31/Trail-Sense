@@ -460,5 +460,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     companion object {
         private val altitudeGranularity = Duration.ofMinutes(10)
+        const val SUN_MIN_ALTITUDE_CIVIL = -6f
+        const val SUN_MIN_ALTITUDE_NAUTICAL = -12f
+        const val SUN_MIN_ALTITUDE_ASTRONOMICAL = -18f
     }
 }

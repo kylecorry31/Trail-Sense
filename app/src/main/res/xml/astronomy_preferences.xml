@@ -22,6 +22,13 @@
             app:singleLineTitle="false"
             app:title="@string/pref_center_sun_and_moon_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_astronomy_bands"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_astronomy_bands_title" />
+
         <ListPreference
             app:defaultValue="1"
             app:iconSpaceReserved="false"

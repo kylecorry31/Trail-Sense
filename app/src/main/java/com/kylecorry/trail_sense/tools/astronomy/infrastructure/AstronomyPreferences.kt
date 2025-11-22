@@ -43,6 +43,12 @@ class AstronomyPreferences(private val context: Context) {
             return raw == "always"
         }
 
+    var showAstronomyBands by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_astronomy_bands),
+        false
+    )
+
     var sendSunsetAlerts by BooleanPreference(
         cache,
         context.getString(R.string.pref_sunset_alerts),

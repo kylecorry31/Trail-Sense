@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.AstroChart
@@ -37,8 +38,10 @@ class SunAndMoonChartToolWidgetView : ChartToolWidgetViewBase() {
         val views = getView(context, prefs)
         onMain {
             val chart = Chart(context)
+            val userPrefs = UserPreferences(context)
             val astroChart = AstroChart(chart) {}
             astroChart.setMoonImage(R.drawable.ic_moon)
+            astroChart.setBands(userPrefs.astronomy.showAstronomyBands)
             astroChart.plot(sunAltitudes, moonAltitudes)
 
             val moonImage = MoonPhaseImageMapper().getPhaseImage(moon.phase)

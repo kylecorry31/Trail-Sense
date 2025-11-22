@@ -288,6 +288,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onResume() {
         super.onResume()
+        chart.setBands(prefs.astronomy.showAstronomyBands)
         binding.displayDate.reset()
         requestLocationUpdate()
 
