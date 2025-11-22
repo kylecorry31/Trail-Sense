@@ -1535,4 +1535,5 @@
     <string name="lock_bearing_to_location_description">Uzamknout linii kurzu na vaši počáteční polohu</string>
     <string name="pref_night_mode_fullscreen_title">Celá obrazovka v nočním režimu</string>
     <string name="pref_night_mode_fullscreen_summary">Skrýt systémové rozhraní pro lepší zachování nočního vidění</string>
+    <string name="show_below_horizon">Zobrazit pod horizontem</string>
 </resources>
