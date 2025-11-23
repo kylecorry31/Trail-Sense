@@ -1480,4 +1480,5 @@
     <string name="pref_night_mode_fullscreen_title">Tela cheia no modo noturno</string>
     <string name="pref_night_mode_fullscreen_summary">Ocultar a interface do sistema para melhor preservação da visão noturna</string>
     <string name="show_below_horizon">Mostrar abaixo do horizonte</string>
+    <string name="pref_show_astronomy_bands_title">Mostrar gráficos do nascer e pôr do sol</string>
 </resources>
