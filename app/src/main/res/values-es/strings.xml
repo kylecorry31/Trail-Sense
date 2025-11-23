@@ -1469,4 +1469,5 @@
     <string name="pref_night_mode_fullscreen_title">Pantalla completa en modo noche</string>
     <string name="pref_night_mode_fullscreen_summary">Oculta la interfaz para preservar mejor la visión nocturna</string>
     <string name="show_below_horizon">Mostrar bajo el horizonte</string>
+    <string name="pref_show_astronomy_bands_title">Mostrar bandas en salida y puesta de sol</string>
 </resources>
