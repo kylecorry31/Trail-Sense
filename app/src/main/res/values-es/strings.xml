@@ -454,7 +454,7 @@
     <string name="meteor_shower">Lluvia de meteoros</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Máximo %d meteoros / h</string>
     <string name="no_maps">Sin mapas</string>
-    <string name="on_map">En el mapa</string>
+    <string name="on_map">Ir al mapa</string>
     <string name="previous">Anterior</string>
     <string name="next">Siguiente</string>
     <string name="time_until_full">Hasta que se cargue</string>
@@ -486,7 +486,7 @@
     <string name="pref_elevation_override_sea_level_dialog_title">Introduce la presión al nivel del mar</string>
     <string name="pref_elevation_override_sea_level_title">Usando presión conocida al nivel del mar</string>
     <string name="unsaved_changes">Cambios sin guardar</string>
-    <string name="solar_panel_instructions">Coloque su teléfono en la parte frontal del panel solar para comenzar.</string>
+    <string name="solar_panel_instructions">Para comenzar coloca el teléfono en la parte frontal del panel solar.</string>
     <string name="water_boil_timer_channel_description">El agua está hirviendo</string>
     <string name="water_boil_timer_title">El agua está hirviendo</string>
     <string name="water_boil_timer_done_title">El agua ha terminado de hervir</string>
@@ -765,7 +765,7 @@
     </plurals>
     <string name="errors">Errores</string>
     <string name="error_banners">Anuncios de error</string>
-    <string name="no_qr_code_found">No se detectó ningún código QR</string>
+    <string name="no_qr_code_found">Código QR no detectado</string>
     <string name="saved_to_note">Guardar en nota</string>
     <string name="view">Vista</string>
     <string name="low_tide_letter">B</string>
@@ -1017,10 +1017,10 @@
     <string name="zero_shutter_lag">Sin retardo del obturador</string>
     <string name="my_location">Mi ubicación</string>
     <string name="destination">Destino</string>
-    <string name="triangulate_destination_location_1_instructions">Registre su ubicación y la dirección hacia el destino.</string>
-    <string name="triangulate_self_location_1_instructions">Elija un lugar conocido que pueda ver y anote la dirección desde donde se encuentra hasta ese lugar.</string>
-    <string name="triangulate_self_location_2_instructions">Elija otro lugar conocido que pueda ver y anote la dirección desde donde se encuentra hasta ese lugar.</string>
-    <string name="triangulate_destination_location_2_instructions">Muévase al menos %s desde la primera ubicación y registre de nuevo su ubicación y la dirección hacia el destino.</string>
+    <string name="triangulate_destination_location_1_instructions">Registra tu ubicación y la dirección hacia el destino.</string>
+    <string name="triangulate_self_location_1_instructions">Elije un lugar conocido que puedas ver y anota la dirección desde tu posición hasta ese lugar.</string>
+    <string name="triangulate_self_location_2_instructions">Elije otro lugar conocido que puedas ver y anota la dirección desde tu posición hasta ese lugar.</string>
+    <string name="triangulate_destination_location_2_instructions">Desplázate al menos %s desde la primera ubicación y registra de nuevo tu ubicación y la dirección hacia el destino.</string>
     <string name="location_to_triangulate">Ubicación para triangular</string>
     <string name="distance_away_from_destination">%s desde el destino</string>
     <string name="location_number">Situación %d</string>
@@ -1304,10 +1304,10 @@
     <string name="muzzle_velocity">Velocidad inicial</string>
     <string name="tool_signal_finder">Buscador de Señal</string>
     <string name="climate_tundra_description">Es posible que se descongele algo de hielo durante el verano, pero la vegetación será mínima.</string>
-    <string name="climate_very_cold_winter_description">Prevea temperaturas extremadamente frías durante el invierno.</string>
+    <string name="climate_very_cold_winter_description">Previsibles temperaturas extremadamente frías durante el invierno.</string>
     <string name="climate_dry_winter_description">Hay una estación seca durante el invierno.</string>
     <string name="climate_polar_description">Clima extremadamente frío con veranos cortos.</string>
-    <string name="climate_cold_summer_description">Prevea temperaturas frescas durante el verano.</string>
+    <string name="climate_cold_summer_description">Previsibles temperaturas frescas durante el verano.</string>
     <string name="insect_activity">Actividad de los insectos</string>
     <string name="climate_tropical_description">Clima cálido y húmedo con precipitaciones importantes durante todo el año.</string>
     <string name="climate_dry_description">Clima árido con pocas precipitaciones y vegetación escasa.</string>
@@ -1321,10 +1321,10 @@
     <string name="climate_desert_description">La extrema falta de precipitaciones hace que el terreno esté suelto y sea difícil encontrar agua.</string>
     <string name="climate_steppe_description">Puede haber pastizales dispersos.</string>
     <string name="climate_ice_cap_description">El hielo no se derrite durante el año y no hay vegetación.</string>
-    <string name="climate_hot_description">Prevea temperaturas cálidas todo el año.</string>
-    <string name="climate_cold_description">Prevea temperaturas frías todo el año.</string>
-    <string name="climate_hot_summer_description">Prevea temperaturas cálidas durante el verano.</string>
-    <string name="climate_warm_summer_description">Prevea temperaturas moderadas durante el verano.</string>
+    <string name="climate_hot_description">Previsibles temperaturas cálidas todo el año.</string>
+    <string name="climate_cold_description">Previsibles temperaturas frías todo el año.</string>
+    <string name="climate_hot_summer_description">Previsibles temperaturas cálidas durante el verano.</string>
+    <string name="climate_warm_summer_description">Previsibles temperaturas moderadas durante el verano.</string>
     <string name="field_guide">Guía de Campo</string>
     <string name="pref_navigation_lock_screen_when_open_title">Mostrar en pantalla de bloqueo mientras está abierto</string>
     <string name="caliber_format">%s cal</string>
@@ -1379,7 +1379,7 @@
     <string name="elevation_miss">Corrección de elevación</string>
     <string name="adjustment_per_click">Ajuste por clic</string>
     <string name="scope_height">Altura de la mira</string>
-    <string name="scope_adjustment">Ajustar el alcance</string>
+    <string name="scope_adjustment">Ajustes del alcance</string>
     <string name="sight_in_range">Distancia de ajuste</string>
     <string name="drop_amount">%s caída</string>
     <string name="drop_header_units">Caída (%s)</string>
