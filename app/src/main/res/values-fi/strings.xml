@@ -1433,4 +1433,10 @@
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Käyttää G1-ilmanvastusmallia</string>
     <string name="remember_map_state">Muistan kartan tila</string>
+    <string name="pref_night_mode_fullscreen_title">Käytä koko näyttöä yö-tilassa</string>
+    <string name="pref_night_mode_fullscreen_summary">Piilota järjestelmän käyttöliittymä pimeänäön säilyttämiseksi paremmin</string>
+    <string name="show_below_horizon">Näytä horisontin alapuolella</string>
+    <string name="lock_bearing_to_location">Lukitse suuntima kohteeseen</string>
+    <string name="lock_bearing_to_location_description">Lukitse suuntimaviiva aloitussijaintiisi</string>
+    <string name="pref_show_astronomy_bands_title">Näytä auringonnousun ja -laskun nauhat</string>
 </resources>
