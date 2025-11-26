@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.weather.domain.clouds
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.sol.math.algebra.Matrix
-import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.classifiers.confusion
 import com.kylecorry.sol.math.split
@@ -34,7 +33,7 @@ class CloudTrainer {
         val testY = split.second.unzip().second
 
         val clf = LogisticRegressionClassifier.fromWeights(
-            createMatrix(
+            Matrix.create(
                 x.first().size,
                 10
             ) { _, _ -> Math.random().toFloat() * 0.1f })
@@ -53,7 +52,7 @@ class CloudTrainer {
 
         // Record training data
         val rows =
-            clf.dump().joinToString(",\n") { "arrayOf(${it.joinToString(",") { "${it}f" }})" }
+            clf.dump().to2DArray().joinToString(",\n") { "arrayOf(${it.joinToString(",") { "${it}f" }})" }
 
         val output = File("src/data/output")
         output.mkdir()
@@ -104,7 +103,7 @@ class CloudTrainer {
             "St",
             "Cb"
         )
-        val f1s = confusion.mapIndexed { index, _ -> index to Statistics.f1Score(confusion, index) }
+        val f1s = confusion.to2DArray().mapIndexed { index, _ -> index to Statistics.f1Score(confusion, index) }
         println(
             f1s.joinToString("\n") {
                 "${labels[it.first]}: ${
@@ -133,12 +132,18 @@ class CloudTrainer {
         println("    " + labels.joinToString("  "))
         var i = 0
         println(
-            confusion.joinToString("\n") {
+            confusion.to2DArray().joinToString("\n") {
                 labels[i++] + "  " + it.joinToString("  ") {
                     it.toInt().toString().padStart(2, ' ')
                 }
             }
         )
+    }
+
+    private fun Matrix.to2DArray(): Array<Array<Float>> {
+        return Array(rows()){ r ->
+            Array(columns()){ c ->  get(r, c)}
+        }
     }
 
 }
