@@ -127,7 +127,10 @@ For more information on beacons, see the Beacons guide.
 
 ## Bearing navigation
 
-You can navigate using a bearing by tapping the compass to set a bearing. The set bearing will be displayed on the compass. You can tap the compass again to clear the bearing.
+You can navigate using a bearing by tapping the compass to set a bearing. The set bearing will be displayed on the compass and in the navigation panel. You can tap the compass again or tap the 'X' button to clear the bearing.
+
+By default, bearings don't change when you move to a different location. If you would like to keep the bearing fixed to your initial location, you can enable 
+Settings > Navigation > Lock bearing to location'. This is similar to creating a beacon at a distance and navigating to it.
 
 ## Path navigation
 
