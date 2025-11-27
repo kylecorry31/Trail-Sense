@@ -1,0 +1,10 @@
+Meteorología
+- Nuevos tipos de meteorología basados en la temperatura: Lluvia, Nieve, Tormenta eléctrica
+- Mostrar la temperatura actual en la notificación meteorológica
+- Mostrar alertas en la herramienta de meteorología: Calor, Frío, Tormenta
+- Reemplazar la meteorología de tormenta por el tipo de precipitación
+- Permitir rellenar históricamente las temperaturas
+
+Astronomía
+- Tener en cuenta la refracción atmosférica en las horas de sol/luna (horas aparentes)
+- Mostrar el amanecer/atardecer en los detalles de la baliza

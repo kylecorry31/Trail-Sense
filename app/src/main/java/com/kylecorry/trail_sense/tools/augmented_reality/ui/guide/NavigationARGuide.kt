@@ -27,7 +27,7 @@ class NavigationARGuide(private val navigator: Navigator) : ARGuide {
         val layoutInflater = LayoutInflater.from(panel.context)
         val binding = ViewArNavigationGuideBinding.inflate(layoutInflater, panel, true)
         binding.arGuideCancel.setOnClickListener {
-            navigator.cancelNavigation()
+            navigator.cancelBeaconNavigation()
         }
         job = scope.launch {
             navigator.destination.collect {

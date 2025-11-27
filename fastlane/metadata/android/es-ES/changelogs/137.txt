@@ -1,0 +1,18 @@
+Navegación
+- Ajuste para bloquear rumbo a ubicación
+- Mostrar rumbos del destino en la hoja de Navegar
+
+Map / Mapas Calibrados
+- Mostrar elevación DEM de la ubicación con pulsación prolongada
+- Recordar el estado del mapa (zoom, desplazamiento, modo) — solo en herramienta Mapa
+
+Nivel de burbuja
+- Mantener pantalla encendida
+
+Realidad aumentada
+- Ajuste para mostrar astronomía bajo el horizonte
+
+Varios
+- Informar menor precisión de la brújula cuando estés cerca de metal
+- Fijar la herramienta Pin Map en la navegación inferior para usuarios nuevos
+- Ajuste para ocultar la interfaz del sistema en modo nocturno

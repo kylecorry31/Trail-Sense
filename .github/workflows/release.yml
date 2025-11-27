@@ -39,37 +39,3 @@ jobs:
           name: Trail-Sense-${{ github.event.release.tag_name }}-release.apk
           path: ./app/build/outputs/apk/github/app-github.apk
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build legacy debug APK
-        run: |
-          echo ${DEV_STORE_FILE} | base64 -d > KEY_DEV.jks
-          DEV_KEY_ALIAS=$(echo -n $DEV_KEY_ALIAS | base64 -d)
-          ./gradlew assembleDev -Ddev_store_file=../KEY_DEV.jks -Ddev_store_password="${DEV_STORE_PASSWORD}" -Ddev_key_alias="${DEV_KEY_ALIAS}" -Ddev_key_password="${DEV_STORE_PASSWORD}"
-        env:
-          DEV_STORE_PASSWORD: ${{ secrets.DEV_STORE_PASSWORD }}
-          DEV_KEY_ALIAS: ${{ secrets.DEV_KEY_ALIAS }}
-          DEV_STORE_FILE: ${{ secrets.DEV_STORE_FILE }}
-
-      - name: Upload to release
-        uses: Shopify/upload-to-release@v2.0.0
-        with:
-          name: Trail-Sense-${{ github.event.release.tag_name }}-dev.apk
-          path: ./app/build/outputs/apk/dev/app-dev.apk
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build legacy GitHub release APK
-        run: |
-          echo ${DEV_STORE_FILE} | base64 -d > KEY_DEV.jks
-          DEV_KEY_ALIAS=$(echo -n $DEV_KEY_ALIAS | base64 -d)
-          ./gradlew assembleLegacyGithub -Ddev_store_file=../KEY_DEV.jks -Ddev_store_password="${DEV_STORE_PASSWORD}" -Ddev_key_alias="${DEV_KEY_ALIAS}" -Ddev_key_password="${DEV_STORE_PASSWORD}"
-        env:
-          DEV_STORE_PASSWORD: ${{ secrets.DEV_STORE_PASSWORD }}
-          DEV_KEY_ALIAS: ${{ secrets.DEV_KEY_ALIAS }}
-          DEV_STORE_FILE: ${{ secrets.DEV_STORE_FILE }}
-
-      - name: Upload legacy GitHub release APK to release
-        uses: Shopify/upload-to-release@v2.0.0
-        with:
-          name: Trail-Sense-${{ github.event.release.tag_name }}-github-release.apk
-          path: ./app/build/outputs/apk/legacyGithub/app-legacyGithub.apk
-          repo-token: ${{ secrets.GITHUB_TOKEN }}

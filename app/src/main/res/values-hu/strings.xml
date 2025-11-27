@@ -620,7 +620,6 @@
     <string name="delete_path_group_message">%s és minden ösvénye törölve lesz.</string>
     <string name="error_occurred">Hiba történt</string>
     <string name="tool_user_guide_summary">Egy \'hogy és miként\' útmutató a Trail Sense használatához</string>
-    <string name="toast_destination_bearing_set">Célirány beállítva</string>
     <string name="action_inventory_clear_confirm">Minden bepakolt mennyiséget törölsz\?</string>
     <string name="category_fire">Tűz</string>
     <string name="water_boil_timer_channel_description">A víz forr</string>
@@ -1209,7 +1208,6 @@
     <string name="books">Könyvek</string>
     <string name="habitat">Élőhely</string>
     <string name="tide_estimation_description_tide_model">Egy beépített árapály modellt használ az árapályok becsléséhez a megadott helyen, vagy a jelenlegi helyen, ha semmi nincs megadva.</string>
-    <string name="ballistics_calculator">Ballisztikai számológép</string>
     <string name="permits">Engedélyek</string>
     <string name="no_permits">Nincsenek engedélyek</string>
     <string name="above">Fölé</string>

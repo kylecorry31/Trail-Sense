@@ -26,7 +26,6 @@ class WhiteNoiseService : AndromedaService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        acquireWakelock()
         isRunning = true
         val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
         if (stopAt != null && Instant.now() < stopAt) {
@@ -55,7 +54,6 @@ class WhiteNoiseService : AndromedaService() {
     }
 
     override fun onDestroy() {
-        releaseWakelock()
         offTimer.stop()
         isRunning = false
         soundPlayer?.fadeOff(true)

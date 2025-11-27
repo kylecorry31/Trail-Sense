@@ -1,0 +1,6 @@
+- "Inventory" se renovó como "Listas de equipaje"
+- Crear listas de equipaje para prepararte para las excursiones
+- Llevar el control del peso de la mochila
+- Más categorías de ítems
+- Más colores para las balizas
+- Añadir formatos de coordenadas USNG y OSNG

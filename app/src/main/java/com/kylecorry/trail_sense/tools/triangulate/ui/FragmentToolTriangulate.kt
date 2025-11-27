@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.from
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -59,6 +60,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
     private val beaconLayer = BeaconLayer(showLabels = true)
     private val pathLayer = PathLayer()
+    private val scaleBarLayer = ScaleBarLayer()
 
     private val radius = Distance.meters(100f)
 
@@ -139,7 +141,8 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         // TODO: Display the distance to the location in the title
         beaconLayer.setOutlineColor(Color.WHITE)
         pathLayer.setShouldRenderWithDrawLines(true)
-        binding.map.setLayers(listOf(pathLayer, beaconLayer))
+        scaleBarLayer.units = prefs.baseDistanceUnits
+        binding.map.setLayers(listOf(pathLayer, beaconLayer, scaleBarLayer))
 
         binding.resetBtn.setOnClickListener {
             reset()
@@ -164,9 +167,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         val bounds = CoordinateBounds.from(fences)
 
-        binding.map.bounds = bounds
-        binding.map.isInteractive = true
-        binding.map.recenter()
+        binding.map.fitIntoView(bounds)
 
         // Show the locations on the map
         beaconLayer.setBeacons(listOfNotNull(

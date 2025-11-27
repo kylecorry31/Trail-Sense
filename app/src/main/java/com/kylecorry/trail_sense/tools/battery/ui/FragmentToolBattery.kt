@@ -1,39 +1,36 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
 import com.kylecorry.andromeda.battery.BatteryHealth
-import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.andromeda.list.ListView
-import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.sol.math.filters.IFilter
+import com.kylecorry.andromeda.core.ui.useCallback
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useTopic
+import com.kylecorry.andromeda.views.list.AndromedaListView
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.math.filters.MedianFilter
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolBatteryBinding
-import com.kylecorry.trail_sense.databinding.ListItemServiceBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useLiveData
+import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useTimer
+import com.kylecorry.trail_sense.shared.extensions.useTrigger
+import com.kylecorry.trail_sense.shared.views.ProgressBar
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
+import com.kylecorry.trail_sense.tools.battery.domain.SystemBatteryTip
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.LowPowerMode
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
@@ -41,299 +38,320 @@ import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
 
-class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
-
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val battery by lazy { Battery(requireContext()) }
-    private val batteryRepo by lazy { BatteryRepo.getInstance(requireContext()) }
-    private lateinit var navController: NavController
-    private val lowPowerMode by lazy { LowPowerMode(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
-    private val batteryService = BatteryService()
-    private lateinit var servicesList: ListView<RunningService>
-
+class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_battery) {
     private val currentFilterSize = 100
-    private var currentFilter: IFilter = MedianFilter(currentFilterSize)
-    private var lastChargingStatus = BatteryChargingStatus.Unknown
-    private var current = 0f
-    private var pct = 0
-    private var capacity = 0f
 
-    private var readings = listOf<BatteryReading>()
+    override fun update() {
+        // Views
+        val percentageTextView = useView<TextView>(R.id.battery_percentage)
+        val capacityTextView = useView<TextView>(R.id.battery_capacity)
+        val healthTextView = useView<TextView>(R.id.battery_health)
+        val currentTextView = useView<TextView>(R.id.battery_current)
+        val titleView = useView<Toolbar>(R.id.battery_title)
+        val lowPowerSwitchView = useView<SwitchCompat>(R.id.low_power_mode_switch)
+        val progressView = useView<ProgressBar>(R.id.battery_level_progress)
+        val servicesListView = useView<AndromedaListView>(R.id.running_services)
 
-    private val intervalometer = CoroutineTimer {
-        update()
-    }
+        // Services
+        val context = useAndroidContext()
+        val navController = useNavController()
+        val prefs = useService<UserPreferences>()
+        val formatter = useService<FormatService>()
+        val batteryService = useMemo { BatteryService() }
+        val battery = useMemo(context) { Battery(context) }
+        val batteryRepo = useMemo(context) { BatteryRepo.getInstance(context) }
+        val lowPowerMode = useMemo(context) { LowPowerMode(context) }
 
-    private val serviceIntervalometer = CoroutineTimer {
-        updateServices()
-    }
-
-    private val batteryUpdateTimer = CoroutineTimer(lifecycleScope) {
-        onDefault {
-            // If charging, show up arrow
-            val chargingStatus = battery.chargingStatus
-            val isCharging = chargingStatus == BatteryChargingStatus.Charging
-
-            if (chargingStatus != lastChargingStatus) {
-                resetCurrentFilter()
+        // State
+        val (batteryKey, triggerBatteryUpdate) = useTrigger()
+        val (percent, setPercent) = useState(0f)
+        val (capacity, setCapacity) = useState(0f)
+        val (health, setHealth) = useState(BatteryHealth.Unknown)
+        val (current, setCurrent) = useState(0f)
+        val (chargingStatus, setChargingStatus) = useState(BatteryChargingStatus.Unknown)
+        val (chargeMethod, setChargeMethod) = useState(BatteryChargingMethod.Unknown)
+        val currentFilter = useMemo(resetOnResume, chargingStatus) {
+            MedianFilter(currentFilterSize)
+        }
+        val isCharging = chargingStatus == BatteryChargingStatus.Charging
+        val rawReadings = useLiveData(batteryRepo.get(), emptyList()) { allReadings ->
+            allReadings.sortedBy { it.time }
+        }
+        val readings = useMemo(rawReadings, percent, capacity, isCharging) {
+            rawReadings + listOfNotNull(
+                if (battery.hasValidReading)
+                    BatteryReading(
+                        Instant.now(),
+                        percent,
+                        capacity,
+                        isCharging
+                    )
+                else null
+            )
+        }
+        val (services, triggerServicesUpdate) = useRunningServices(batteryService)
+        val tips = useSystemBatteryTips(batteryService)
+        val time = useMemo(isCharging, readings, current, percent) {
+            if (isCharging) {
+                batteryService.getTimeUntilFull(battery, readings)
+            } else {
+                batteryService.getTimeUntilEmpty(battery, readings)
             }
+        }
 
-            lastChargingStatus = chargingStatus
+        // Battery
+        // TODO: Extract battery reading to a custom hook
+        useEffect(battery, batteryKey) {
+            setChargingStatus(battery.chargingStatus)
+            val isCharging = battery.chargingStatus == BatteryChargingStatus.Charging
 
             // If charging and current is negative, invert current
-            current =
-                currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1)
-            capacity = battery.capacity
-            pct = battery.percent.safeRoundToInt()
+            setCurrent(currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1))
+            setCapacity(battery.capacity)
+            setPercent(battery.percent)
+            setHealth(battery.health)
+            setChargeMethod(battery.chargingMethod)
         }
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navController = findNavController()
-        binding.batteryLevelProgress.horizontal = false
-        servicesList =
-            ListView(binding.runningServices, R.layout.list_item_service) { serviceView, service ->
-                val serviceBinding = ListItemServiceBinding.bind(serviceView)
-                serviceBinding.title.text = service.name
-                val frequency = if (service.frequency == Duration.ZERO) {
-                    getString(R.string.always_on)
-                } else {
-                    getString(
-                        R.string.service_update_frequency,
-                        formatService.formatDuration(service.frequency)
-                    )
-                }
-                serviceBinding.description.text =
-                    getString(R.string.dash_separated_pair, frequency, getBatteryUsage(service))
-                serviceBinding.disableBtn.setOnClickListener {
-                    runInBackground {
-                        service.disable()
-                        onMain {
-                            updateServices()
-                        }
-                    }
-                }
+        useTopic(battery) {
+            triggerBatteryUpdate()
+        }
+
+        useTimer(INTERVAL_30_FPS) {
+            triggerBatteryUpdate()
+        }
+
+
+        // View - Services List
+        val onServiceDisable = useCallback<RunningService, Unit> { service: RunningService ->
+            runInBackground {
+                service.disable()
+                triggerServicesUpdate()
             }
-        servicesList.addLineSeparator()
-        binding.lowPowerModeSwitch.isChecked = lowPowerMode.isEnabled()
-        binding.lowPowerModeSwitch.setOnClickListener {
-            if (lowPowerMode.isEnabled()) {
-                prefs.power.userEnabledLowPower = false
-                lowPowerMode.disable()
-            } else {
-                prefs.power.userEnabledLowPower = true
-                lowPowerMode.enable()
-            }
-            updateServices()
         }
 
-        CustomUiUtils.setButtonState(binding.batteryTitle.leftButton, false)
-        CustomUiUtils.setButtonState(binding.batteryTitle.rightButton, false)
-
-        val settingsIntent = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
-        binding.batteryTitle.rightButton.isVisible =
-            Intents.hasReceiver(requireContext(), settingsIntent)
-        binding.batteryTitle.rightButton.setOnClickListener {
-            startActivity(settingsIntent)
-        }
-
-        binding.batteryTitle.leftButton.setOnClickListener {
-            if (prefs.power.enableBatteryLog) {
-                val readingDuration =
-                    Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
-                CustomUiUtils.showChart(
-                    this,
-                    getString(
-                        R.string.battery_history,
-                        formatService.formatDuration(readingDuration, false)
+        useEffect(servicesListView, context, services, onServiceDisable, tips) {
+            val serviceMapper = RunningServiceListItemMapper(context, onServiceDisable)
+            val tipMapper = SystemBatteryTipListItemMapper(context)
+            val items = mutableListOf<ListItem>()
+            if (services.isNotEmpty()) {
+                items.add(
+                    ListItem(
+                        -1,
+                        getString(R.string.app_name),
+                        getString(R.string.battery_tip_disable_services)
                     )
-                ) {
-                    val chart = BatteryChart(it)
-                    chart.plot(readings, false)
-                }
-            } else {
-                Alerts.dialog(
-                    requireContext(),
-                    getString(R.string.pref_tiles_battery_log),
-                    getString(R.string.pref_dialog_battery_log_summary),
-                    okText = getString(R.string.settings),
-                    onClose = {
-                        if (it.not()) {
-                            navController.navigate(
-                                R.id.action_settings_to_power_settings,
-                            )
-                        }
-
-                    }
                 )
             }
+            items.addAll(services.map { serviceMapper.map(it) })
+
+            items.add(
+                ListItem(
+                    -2,
+                    getString(R.string.system),
+                    getString(R.string.battery_tip_system)
+                )
+            )
+            items.addAll(tips.map { tipMapper.map(it) })
+
+            servicesListView.setItems(items)
         }
 
-        observe(batteryRepo.get()) { allReadings ->
-            readings =
-                allReadings.sortedBy { it.time } + listOfNotNull(
-                    if (battery.hasValidReading)
-                        BatteryReading(
-                            Instant.now(),
-                            battery.percent,
-                            battery.capacity,
-                            battery.chargingStatus == BatteryChargingStatus.Charging
+        // View - Percentage
+        useEffect(percentageTextView, progressView, percent) {
+            percentageTextView.text = formatter.formatPercentage(percent)
+            progressView.progress = percent / 100f
+            progressView.trackOpacity = 50
+            progressView.progressColor = when {
+                percent >= 75 -> AppColor.Green.color
+                percent >= 50 -> AppColor.Yellow.color
+                percent >= 25 -> AppColor.Orange.color
+                else -> AppColor.Red.color
+            }
+        }
+
+        // View - Capacity
+        useEffect(capacityTextView, capacity) {
+            capacityTextView.isVisible = capacity != 0f
+            capacityTextView.text = formatter.formatElectricalCapacity(capacity)
+        }
+
+        // View - Title
+        useEffect(titleView, time, isCharging) {
+            titleView.title.isVisible = time != null
+
+            if (time != null) {
+                titleView.title.text = formatter.formatDuration(time)
+            }
+
+            if (time != null && !isCharging) {
+                titleView.subtitle.isVisible = true
+                titleView.subtitle.text = getString(R.string.time_until_empty)
+            } else if (time != null) {
+                titleView.subtitle.isVisible = true
+                titleView.subtitle.text = getString(R.string.time_until_full)
+            } else {
+                titleView.subtitle.isVisible = false
+            }
+        }
+
+        useEffect(titleView, readings) {
+            titleView.leftButton.isVisible = readings.size >= 2
+            titleView.leftButton.setOnClickListener {
+                if (prefs.power.enableBatteryLog) {
+                    val readingDuration =
+                        Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
+                    CustomUiUtils.showChart(
+                        this,
+                        getString(
+                            R.string.battery_history,
+                            formatter.formatDuration(readingDuration, false)
                         )
-                    else null
-                )
+                    ) {
+                        val chart = BatteryChart(it)
+                        chart.plot(readings, false)
+                    }
+                } else {
+                    Alerts.dialog(
+                        requireContext(),
+                        getString(R.string.pref_tiles_battery_log),
+                        getString(R.string.pref_dialog_battery_log_summary),
+                        okText = getString(R.string.settings),
+                        onClose = {
+                            if (it.not()) {
+                                navController.navigate(
+                                    R.id.action_settings_to_power_settings,
+                                )
+                            }
 
-            binding.batteryTitle.leftButton.isVisible = readings.size >= 2
-
-            update()
-        }
-
-        observe(battery) { }
-    }
-
-    private fun resetCurrentFilter() {
-        currentFilter = MedianFilter(currentFilterSize)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        resetCurrentFilter()
-        intervalometer.interval(INTERVAL_1_FPS)
-        batteryUpdateTimer.interval(20)
-        serviceIntervalometer.interval(1000)
-        binding.batteryCurrent.text = ""
-    }
-
-    override fun onPause() {
-        super.onPause()
-        serviceIntervalometer.stop()
-        batteryUpdateTimer.stop()
-        intervalometer.stop()
-    }
-
-    private fun getBatteryUsage(service: RunningService): String {
-        val usage = when {
-            service.frequency < Duration.ofMinutes(15) -> {
-                getString(R.string.high)
-            }
-
-            service.frequency <= Duration.ofMinutes(25) -> {
-                getString(R.string.moderate)
-            }
-
-            else -> {
-                getString(R.string.low)
+                        }
+                    )
+                }
             }
         }
-        return getString(R.string.battery_usage, usage)
-    }
 
-    private fun update() {
-        // If charging, show up arrow
-        val chargingStatus = battery.chargingStatus
-        val isCharging = chargingStatus == BatteryChargingStatus.Charging
+        useEffect(titleView) {
+            CustomUiUtils.setButtonState(titleView.leftButton, false)
+            CustomUiUtils.setButtonState(titleView.rightButton, false)
 
-        val time = if (isCharging) getTimeUntilFull() else getTimeUntilEmpty()
-
-        binding.batteryPercentage.text = formatService.formatPercentage(pct.toFloat())
-        binding.batteryCapacity.text = formatService.formatElectricalCapacity(capacity)
-        binding.batteryCapacity.isVisible = capacity != 0f
-        binding.batteryTitle.title.isVisible = time != null
-
-        if (time != null) {
-            binding.batteryTitle.title.text = formatService.formatDuration(time)
+            val settingsIntent = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
+            titleView.rightButton.isVisible = Intents.hasReceiver(context, settingsIntent)
+            titleView.rightButton.setOnClickListener {
+                startActivity(settingsIntent)
+            }
         }
 
-        if (time != null && !isCharging) {
-            binding.batteryTitle.subtitle.isVisible = true
-            binding.batteryTitle.subtitle.text = getString(R.string.time_until_empty)
-        } else if (time != null) {
-            binding.batteryTitle.subtitle.isVisible = true
-            binding.batteryTitle.subtitle.text = getString(R.string.time_until_full)
-        } else {
-            binding.batteryTitle.subtitle.isVisible = false
+        // View - Health
+        useEffect(healthTextView, health) {
+            healthTextView.isVisible = health != BatteryHealth.Good
+            healthTextView.text =
+                getString(R.string.battery_health, formatter.formatBatteryHealth(health))
         }
-        binding.batteryHealth.isVisible = battery.health != BatteryHealth.Good
-        binding.batteryHealth.text =
-            getString(R.string.battery_health, getHealthString(battery.health))
-        binding.batteryLevelProgress.progress = pct / 100f
 
-        binding.batteryPercentage.setShadowLayer(
-            6f,
-            0f,
-            0f,
-            Resources.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
-        )
-        binding.batteryCapacity.setShadowLayer(
-            6f,
-            0f,
-            0f,
-            Resources.getAndroidColorAttr(requireContext(), android.R.attr.textColorPrimaryInverse)
+        // View - Current
+        useShowCurrent(
+            currentTextView,
+            current,
+            isCharging,
+            chargeMethod,
+            formatter
         )
 
-        binding.batteryLevelProgress.progressColor = when {
-            pct >= 75 -> AppColor.Green.color
-            pct >= 50 -> AppColor.Yellow.color
-            pct >= 25 -> AppColor.Orange.color
-            else -> AppColor.Red.color
+        // View - Low power toggle
+        useLowPowerToggle(lowPowerSwitchView, lowPowerMode, prefs, triggerServicesUpdate)
+    }
+
+    private fun useRunningServices(batteryService: BatteryService): Pair<List<RunningService>, () -> Unit> {
+        val context = useAndroidContext()
+        val (servicesKey, triggerServicesUpdate) = useTrigger()
+        val (services, setServices) = useState(emptyList<RunningService>())
+
+        useEffect(servicesKey) {
+            setServices(batteryService.getRunningServices(context))
         }
 
+        useTimer(1000) {
+            triggerServicesUpdate()
+        }
 
-        if (current.absoluteValue >= 0.5f) {
-            val formattedCurrent = formatService.formatCurrent(current.absoluteValue)
-            binding.batteryCurrent.text = when {
-                current > 500 -> getString(R.string.charging_fast, formattedCurrent)
-                current > 0 -> getString(R.string.charging_slow, formattedCurrent)
-                current < -500 -> getString(R.string.discharging_fast, formattedCurrent)
-                else -> getString(R.string.discharging_slow, formattedCurrent)
-            }
-        } else {
-            val chargeMethod = battery.chargingMethod
-            binding.batteryCurrent.text = when {
-                isCharging && chargeMethod == BatteryChargingMethod.AC -> getString(
-                    R.string.charging_fast,
-                    getString(R.string.battery_power_ac)
-                )
+        return services to triggerServicesUpdate
+    }
 
-                isCharging && chargeMethod == BatteryChargingMethod.USB -> getString(
-                    R.string.charging_slow,
-                    getString(R.string.battery_power_usb)
-                )
+    private fun useSystemBatteryTips(batteryService: BatteryService): List<SystemBatteryTip> {
+        val context = useAndroidContext()
+        val (tipsKey, triggerTipsUpdate) = useTrigger()
+        val (tips, setTips) = useState(emptyList<SystemBatteryTip>())
 
-                isCharging && chargeMethod == BatteryChargingMethod.Wireless -> getString(
-                    R.string.charging_wireless,
-                    getString(R.string.battery_power_wireless)
-                )
+        useEffect(tipsKey, resetOnResume) {
+            setTips(batteryService.getSystemBatteryTips(context))
+        }
 
-                else -> ""
+        useTimer(10000) {
+            triggerTipsUpdate()
+        }
+
+        return tips
+    }
+
+    private fun useShowCurrent(
+        textView: TextView,
+        current: Float,
+        isCharging: Boolean,
+        chargeMethod: BatteryChargingMethod,
+        formatter: FormatService
+    ) {
+        useEffect(textView, current, isCharging, chargeMethod) {
+            if (current.absoluteValue >= 0.5f) {
+                val formattedCurrent = formatter.formatCurrent(current.absoluteValue)
+                textView.text = when {
+                    current > 500 -> getString(R.string.charging_fast, formattedCurrent)
+                    current > 0 -> getString(R.string.charging_slow, formattedCurrent)
+                    current < -500 -> getString(R.string.discharging_fast, formattedCurrent)
+                    else -> getString(R.string.discharging_slow, formattedCurrent)
+                }
+            } else {
+                textView.text = when {
+                    isCharging && chargeMethod == BatteryChargingMethod.AC -> getString(
+                        R.string.charging_fast,
+                        getString(R.string.battery_power_ac)
+                    )
+
+                    isCharging && chargeMethod == BatteryChargingMethod.USB -> getString(
+                        R.string.charging_slow,
+                        getString(R.string.battery_power_usb)
+                    )
+
+                    isCharging && chargeMethod == BatteryChargingMethod.Wireless -> getString(
+                        R.string.charging_wireless,
+                        getString(R.string.battery_power_wireless)
+                    )
+
+                    else -> ""
+                }
             }
         }
     }
 
-    private fun updateServices() {
-        val services = batteryService.getRunningServices(requireContext())
-        servicesList.setData(services)
-    }
+    private fun useLowPowerToggle(
+        switch: SwitchCompat,
+        lowPowerMode: LowPowerMode,
+        prefs: UserPreferences,
+        onChange: () -> Unit
+    ) {
+        useEffect(switch, lowPowerMode, prefs, onChange) {
+            switch.isChecked = lowPowerMode.isEnabled()
 
-    private fun getTimeUntilEmpty(): Duration? {
-        return batteryService.getTimeUntilEmpty(battery, readings)
-    }
-
-    private fun getTimeUntilFull(): Duration? {
-        return batteryService.getTimeUntilFull(battery, readings)
-    }
-
-
-    private fun getHealthString(health: BatteryHealth): String {
-        return formatService.formatBatteryHealth(health)
-    }
-
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolBatteryBinding {
-        return FragmentToolBatteryBinding.inflate(layoutInflater, container, false)
+            switch.setOnClickListener {
+                if (lowPowerMode.isEnabled()) {
+                    prefs.power.userEnabledLowPower = false
+                    lowPowerMode.disable()
+                } else {
+                    prefs.power.userEnabledLowPower = true
+                    lowPowerMode.enable()
+                }
+                onChange()
+            }
+        }
     }
 
 }

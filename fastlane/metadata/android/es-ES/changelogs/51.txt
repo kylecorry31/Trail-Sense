@@ -1,0 +1,3 @@
+- Añadir estimación de temperatura (experimental, desde la herramienta termómetro)
+- Permitir borrar la caché del GPS
+- Corregir fallo de caché de GPS obsoleta

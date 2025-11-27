@@ -15,9 +15,7 @@ You can use the Scope calculator to sight in a scope. It is best to take a few s
 Once you fill out the fields, the scope adjustment amount will be shown at the bottom. The adjustment per click and distance to target will be remembered.
 
 ## Ballistics
-This feature is experimental and can be enabled via experimental settings. The accuracy has not been fully verified and does not exactly match other calculators yet.
-
-You can use the Ballistics calculator to determine bullet drop at a given distance.
+You can use the Ballistics calculator to determine bullet drop at a given distance. This only works for projectiles that use the G1 drag model.
 
 - **Sight-in range**: The distance you sighted in your rifle at.
 - **Scope height**: The height of your scope above the center of the bore.

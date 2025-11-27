@@ -1,29 +1,40 @@
 package com.kylecorry.trail_sense.tools.signal_finder
 
-import com.kylecorry.andromeda.signal.CellNetwork
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.test_utils.TestUtils.context
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
+import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class CellTowerModelTest {
 
     @Test
     fun getTowers() = runBlocking {
-        val tests = listOf(
-            Coordinate(42.03, -71.97) to listOf(CellNetwork.Lte),
-            Coordinate(42.0, -72.0) to listOf(),
-            Coordinate(45.09, -61.8) to listOf(CellNetwork.Lte),
-            Coordinate(27.03, 14.43) to listOf(CellNetwork.Wcdma, CellNetwork.Lte),
-            Coordinate(-22.53, -55.74) to listOf(CellNetwork.Lte),
+        val knownCellTowers = listOf(
+            // RI
+            Coordinate(41.887778, -71.755889),
+            Coordinate(41.915583, -71.686472),
+            Coordinate(41.966611, -71.755417),
+            Coordinate(41.974194, -71.779944),
+            // TODO: Add tests for other places
         )
 
-        for (test in tests) {
-            val (coordinate, networks) = test
-            val towers = CellTowerModel.getTowers(context, coordinate)
-            assertEquals(networks, towers.second)
+        AppServiceRegistry.register(FileSubsystem.getInstance(TestUtils.context))
+
+        val errors = knownCellTowers.map { tower ->
+            val towers =
+                CellTowerModel.getTowers(CoordinateBounds.from(Geofence(tower, Distance.miles(5f))))
+            val closest = towers.minBy { it.coordinate.distanceTo(tower) }
+            closest.coordinate.distanceTo(tower)
         }
+
+        assertQuantile(errors, 650f, 0.5f)
+        assertQuantile(errors, 850f, 0.9f)
     }
 }

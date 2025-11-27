@@ -17,25 +17,11 @@
         tools:subtitle="@string/time_until_empty"
         tools:title="23h" />
 
-    <com.kylecorry.trail_sense.shared.views.MaskedProgressView
-        android:id="@+id/battery_level_progress"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:drawable="@drawable/ic_battery"
-        android:drawableTint="?attr/colorBackgroundFloating"
-        android:progress="0"
-        app:horizontal="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battery_title" />
-
     <TextView
         android:id="@+id/battery_percentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="6"
@@ -43,20 +29,44 @@
         android:textColor="?android:textColorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/battery_level_progress"
-        app:layout_constraintEnd_toEndOf="@id/battery_level_progress"
-        app:layout_constraintStart_toStartOf="@id/battery_level_progress"
-        app:layout_constraintTop_toTopOf="@id/battery_level_progress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/battery_title"
         tools:text="10 %" />
+
+    <TextView
+        android:id="@+id/battery_capacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="?android:textColorPrimary"
+        android:textIsSelectable="true"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/battery_percentage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/battery_percentage"
+        tools:text="1000 mAh" />
+
+    <com.kylecorry.trail_sense.shared.views.ProgressBar
+        android:id="@+id/battery_level_progress"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/battery_percentage" />
 
     <TextView
         android:id="@+id/battery_current"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textIsSelectable="true"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battery_level_progress"
         tools:text="1000 mA" />
@@ -65,14 +75,15 @@
         android:id="@+id/battery_health"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:textIsSelectable="true"
         android:textSize="12sp"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/battery_current"
-        tools:text="Health: Good" />
+        app:layout_constraintBottom_toBottomOf="@id/battery_current"
+        app:layout_constraintStart_toEndOf="@id/battery_current"
+        app:layout_constraintTop_toTopOf="@id/battery_current"
+        tools:text="Health: Good"
+        tools:visibility="visible" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/low_power_mode_switch"
@@ -86,7 +97,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battery_health" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/running_services"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -95,21 +106,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/low_power_mode_switch" />
-
-    <TextView
-        android:id="@+id/battery_capacity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="?android:textColorPrimary"
-        android:textIsSelectable="true"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/battery_level_progress"
-        app:layout_constraintStart_toStartOf="@+id/battery_level_progress"
-        app:layout_constraintTop_toBottomOf="@id/battery_percentage"
-        tools:text="1000 mAh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

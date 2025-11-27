@@ -1,0 +1,9 @@
+Mapas (experimental)
+- Centrar el mapa en la ubicación actual
+- Rotar el mapa con la brújula
+- Añadir barra de escala
+- Permitir reducir la resolución de mapas existentes
+
+Miscelánea
+- La cámara por defecto en dispositivos con cámara gran angular está al 100% de zoom
+- Corrección de errores

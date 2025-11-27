@@ -217,7 +217,7 @@
     <string name="tool_ruler_title">Régua</string>
     <string name="precise_inches_format">%s in</string>
     <string name="precise_centimeters_format">%s cm</string>
-    <string name="tool_lightning_title">Distância entre relâmpagos</string>
+    <string name="tool_lightning_title">Distância do Raio</string>
     <string name="tool_lightning_description">Medir a distância de uma queda de raio</string>
     <string name="reset">Reiniciar</string>
     <string name="thunder">Trovão</string>
@@ -225,7 +225,7 @@
     <string name="tool_clock_title">Relógio</string>
     <string name="pref_sensor_details_title">Detalhes do sensor</string>
     <string name="tool_boil_summary">Avisar quando a água for potável</string>
-    <string name="start">Começar</string>
+    <string name="start">Iniciar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até virar potável</item>
         <item quantity="many">%d segundos até virar potável</item>
@@ -236,8 +236,8 @@
     <string name="water_boil_timer_title">Água fervendo</string>
     <string name="water_boil_timer_channel_description">A água está fervendo</string>
     <string name="water_boil_timer">Temporizador de fervura de água</string>
-    <string name="solar_panel_instructions">Para começar coloque seu telefone sobre a face do painel solar.</string>
-    <string name="tool_solar_panel_title">Alinhador de painéis solares</string>
+    <string name="solar_panel_instructions">Coloque seu telefone sobre a superfície do painel solar para começar.</string>
+    <string name="tool_solar_panel_title">Alinhador de Painel Solar</string>
     <string name="tool_solar_panel_summary">Posicione os painéis solares para otimizar a produção de energia</string>
     <string name="pref_privacy_policy_title">Política de privacidade</string>
     <string name="guide_recommended_apps_description">Apps muito úteis para situações de sobrevivência</string>
@@ -253,7 +253,6 @@
     <string name="tool_cliff_height_disclaimer">Somente use essa ferramenta quando for seguro fazê-lo e certifique-se de verificar o que está abaixo do penhasco para evitar ferimentos. Consulte o Guia do Usuário para obter instruções.</string>
     <string name="tool_cliff_height_description">Mede a altura de um penhasco ou descida</string>
     <string name="tool_cliff_height_title">Altura do penhasco</string>
-    <string name="toast_destination_bearing_set">Orientação do destino definida</string>
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
@@ -284,9 +283,9 @@
     <string name="notification_channel_clock_sync_description">Uma notificação para sincronizar seu relógio com a hora do GPS</string>
     <string name="notification_channel_clock_sync">Sincronização do relógio</string>
     <string name="pip_notification_scheduled">Notificação agendada para %s</string>
-    <string name="pip_button">Atualizar horário do sistema</string>
+    <string name="pip_button">Atualizar hora do sistema</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
-    <string name="tool_triangulate_title">Localização triangular</string>
+    <string name="tool_triangulate_title">Triangular localização</string>
     <string name="tool_category_signaling">Sinalização</string>
     <string name="tool_category_angles">Ângulos</string>
     <string name="power">Energia</string>
@@ -302,7 +301,7 @@
     <string name="charging_fast">Carregamento rápido (%s)</string>
     <string name="tool_notes_title">Anotações</string>
     <string name="note_title_hint">Título</string>
-    <string name="contents">Conteúdos</string>
+    <string name="contents">Conteúdo</string>
     <string name="delete_note_title">Excluir anotação\?</string>
     <string name="notes_empty_text">Nenhuma anotação</string>
     <string name="unit_centimeters">Centímetros</string>
@@ -596,9 +595,9 @@
     <string name="liter_format">%s l</string>
     <string name="pref_map_url_source_title">Mapa de compartilhamento da localização</string>
     <string name="clear_cache">Limpar o cache</string>
-    <string name="destination_elevation">Elevação do local de destino</string>
-    <string name="base_temperature">Temperatura de base</string>
-    <string name="base_elevation">Elevação de base</string>
+    <string name="destination_elevation">Elevação de destino</string>
+    <string name="base_temperature">Temperatura base</string>
+    <string name="base_elevation">Elevação base</string>
     <string name="weight_per_item">Peso por item</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto a baixo)</string>
     <string name="pack_sort_weight_low_to_high">Peso (baixo a alto)</string>
@@ -624,7 +623,7 @@
     <string name="num_satellites">%d satélites</string>
     <string name="beacon_qr_import_instructions">Digitalizar um código QR para importar</string>
     <string name="qr_code">Código QR</string>
-    <string name="autofill">Preenchimento automático</string>
+    <string name="autofill">Preencher automaticamente</string>
     <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Ferramentas afetadas
@@ -667,7 +666,7 @@
     <string name="units_mmhg_short">mm</string>
     <string name="delete_path">Excluir percurso?</string>
     <string name="auto">Automático</string>
-    <string name="lightning_dangerously_close">ATENÇÃO: Relâmpagos perigosos nas proximidades</string>
+    <string name="lightning_dangerously_close">Relâmpago perigosamente próximo</string>
     <string name="export_path_error">Não foi possível exportar o percurso</string>
     <string name="season_fall">Outono</string>
     <string name="season_summer">Verão</string>
@@ -816,7 +815,7 @@
     <string name="pref_flashlight_should_timeout_title">Desligamento automático</string>
     <string name="pref_flashlight_timeout_title">Desligar após</string>
     <string name="tide_deleted">A maré foi excluída</string>
-    <string name="tool_temperature_estimation_title">Previsão de temperatura</string>
+    <string name="tool_temperature_estimation_title">Estimativa de Temperatura</string>
     <string name="explore">Explorar</string>
     <string name="average_speed">Velocidade média</string>
     <string name="steps">Passos</string>
@@ -1031,7 +1030,7 @@
     <string name="battery_settings_limit_accuracy">Restrições na bateria podem reduzir a precisão</string>
     <string name="backing_up_loading_message">Fazendo backup…</string>
     <string name="backup_restore">Backup / restauração</string>
-    <string name="triangulate_destination_location_1_instructions">Coloque a sua localização e a direção do destino.</string>
+    <string name="triangulate_destination_location_1_instructions">Registre sua localização e a direção para o destino.</string>
     <string name="augmented_reality_description">Ver pontos de orientação próximos, o sol e a lua com a câmera</string>
     <string name="magnetic_north">Norte Magnético</string>
     <string name="pinned">Fixado</string>
@@ -1039,7 +1038,7 @@
     <string name="tool_long_press_hint_toast">Mantenha pressionado para ver mais opções da ferramenta</string>
     <string name="direction_not_set">Direção não definida</string>
     <string name="distance_away_from_self">%s distante</string>
-    <string name="location_to_triangulate">Localização em triangular</string>
+    <string name="location_to_triangulate">Localização para triangular</string>
     <string name="missing_sensor_message_1">Seu dispositivo %1$s não possui %2$s disponível. Infelizmente algumas funções do %3$s não estarão disponíveis.</string>
     <string name="settings_have_moved">As configurações mudaram de lugar</string>
     <string name="settings_have_moved_message">As configurações do aplicativo mudaram para a barra de ferramentas</string>
@@ -1070,7 +1069,7 @@
     <string name="projection_linear">Linear</string>
     <string name="turn_back_notification_title">É hora de voltar</string>
     <string name="turn_back_alerts">Retornar aos alertas</string>
-    <string name="cloud_scanner">Cloud Scanner</string>
+    <string name="cloud_scanner">Scanner de Nuvens</string>
     <string name="turn_back_notification_description">Volte agora para retornar às %s</string>
     <string name="background">Segundo plano</string>
     <string name="communication">Comunicação</string>
@@ -1091,7 +1090,7 @@
     <string name="local_messaging">Mensagens locais</string>
     <string name="projection_manufacturer_intrinsics">Intrínsecos do fabricante</string>
     <string name="dynamic_colors">Cores dinâmicas</string>
-    <string name="no_recorded_cell_signal_nearby">Nenhum sinal da rede móvel foi registrado nas proximidades</string>
+    <string name="no_recorded_cell_signal_nearby">Nenhum sinal de celular registrado nas proximidades</string>
     <string name="compass_dynamic_colors_summary">Use cores dinâmicas para as direções cardeais</string>
     <string name="screen_flashlight_full_name">Usar tela do celular como lanterna</string>
     <string name="navigate_to_nearest_cell_signal">Navegue até o sinal da rede móvel mais próximo</string>
@@ -1116,14 +1115,14 @@
     <string name="tool_quick_action_name">Ferramenta: %s</string>
     <string name="pref_start_camera_in_3d_view_title">Use a câmera para visualização em 3D</string>
     <string name="pref_start_camera_in_3d_view_summary">Abre a câmera quando você tocar no botão \"Visualizar em 3D\"</string>
-    <string name="mirror_camera">Espelhar câmera</string>
+    <string name="mirror_camera">Câmera espelhada</string>
     <string name="tool_turn_back">Retornar</string>
     <string name="open_photo_map">Abrir mapa fotográfico</string>
     <string name="return_time">Hora de retorno</string>
     <string name="turn_back_instructions">Vire %1$s (%2$s) para retornar em %3$s</string>
-    <string name="return_before_dark">Retorne antes de escurecer</string>
+    <string name="return_before_dark">Retornar antes de escurecer</string>
     <string name="turn_back_alert_set">Retornar ao alerta definido</string>
-    <string name="tool_quick_action_summary">Pressione e segure a navegação inferior ou visualize na guia de ferramentas</string>
+    <string name="tool_quick_action_summary">Pressione e segure a navegação inferior ou visualize na guia de ferramentas.</string>
     <string name="quick_actions_are_unavailable">As ações rápidas não estão disponíveis</string>
     <string name="bottom_navigation_slot">Slot de navegação inferior %d</string>
     <string name="quick_actions">Ações rápidas</string>
@@ -1191,7 +1190,7 @@
     </plurals>
     <string name="widget_updater">Atualização de widgets</string>
     <string name="widget_pref_title">Widgets no aplicativo</string>
-    <string name="widget_bottom_sheet_instructions">Use a ação rápida de Widgets para visualizar</string>
+    <string name="widget_bottom_sheet_instructions">Pressione e segure a navegação inferior ou use a ação rápida de Widgets.</string>
     <string name="sun_moon_chart">Gráficos solar &amp; lunar</string>
     <string name="pressure_chart">Gráfico do nível de pressão</string>
     <string name="tide_chart">Gráfico de marés</string>
@@ -1216,7 +1215,7 @@
         <item quantity="other">%d estrelas</item>
     </plurals>
     <string name="tide">Maré</string>
-    <string name="tool_signal_finder">Localizador de Sinais</string>
+    <string name="tool_signal_finder">Localizador de Sinal</string>
     <string name="cell_towers">Torres de rede móvel</string>
     <string name="field_guide">Guia de campo</string>
     <string name="books">Livros</string>
@@ -1229,7 +1228,7 @@
     <string name="animal">Animais</string>
     <string name="reptile">Répteis</string>
     <string name="medicinal">Medicinais</string>
-    <string name="cell_tower_disclaimer">As localizações das torres são aproximadas a partir da OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) está licenciado sob [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower_disclaimer">As localizações das torres são aproximadas a partir do OpenCelliD, do Mozilla Location Service e dos registros de antenas da FCC.\n\nO [Projeto OpenCelliD](https://opencellid.org/) está licenciado sob [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="create_page">Criar página</string>
     <plurals name="page_group_summary">
         <item quantity="one">%d página</item>
@@ -1293,7 +1292,7 @@
     <string name="milligrams_format">%s mg</string>
     <string name="left">Esquerda</string>
     <string name="right">Direita</string>
-    <string name="ballistics">Balístico</string>
+    <string name="ballistics">Balística</string>
     <string name="windage_miss">Erro de direção do vento</string>
     <string name="scope_adjustment">Ajuste da mira</string>
     <string name="below">Abaixo</string>
@@ -1315,7 +1314,6 @@
     <string name="unit_caliber">Calibre</string>
     <string name="energy">Energia</string>
     <string name="bullet_weight">Peso do projétil</string>
-    <string name="ballistics_calculator">Calculadora balística</string>
     <string name="no_permits">Sem licenças</string>
     <string name="permits">Licenças</string>
     <string name="trace">Rotas</string>
@@ -1372,11 +1370,11 @@
     <string name="pref_navigation_lock_screen_when_open_title">Mostrar na tela de bloqueio enquanto aberto</string>
     <string name="declination">Declinação</string>
     <string name="survival_guide_empty_desc">Faça busca por tópicos de sobrevivência como água, assistência médica, alimentação, clima, abrigo ou técnicas de navegação.</string>
-    <string name="use_alarm_for_turn_back_alert">Use o alarme para alerta de retorno</string>
+    <string name="use_alarm_for_turn_back_alert">Usar alarme para alerta de retorno</string>
     <string name="alarm_description">Reproduz um som mesmo que a mídia e as notificações estejam silenciadas</string>
-    <string name="use_alarm_for_distance_alert">Use o alarme para alerta de distância</string>
+    <string name="use_alarm_for_distance_alert">Usar alarme para alerta de distância</string>
     <string name="use_alarm_for_sunset_alert">Usar alarme para alertar sobre o pôr do sol</string>
-    <string name="use_alarm_for_water_boil_timer">Usar alarme para o cronômetro de fervura da água</string>
+    <string name="use_alarm_for_water_boil_timer">Usar alarme para o temporizador de fervura da água</string>
     <string name="use_alarm_for_storm_alert">Usar alarme para alerta de tempestade</string>
     <string name="use_alarm_for_sunrise_alert">Usar alarme para alertar sobre o nascer do sol</string>
     <string name="mute_alarm_at_night">Silenciar o alarme durante a noite</string>
@@ -1424,7 +1422,7 @@
     <string name="sleep_sound_crickets">Grilos</string>
     <string name="sleep_sound_crickets_no_chirping">Grilos (sem chilrear)</string>
     <string name="sleep_sound_ocean_waves">Ondas do mar</string>
-    <string name="sleep_sound_fan">Fan</string>
+    <string name="sleep_sound_fan">Ventilador</string>
     <string name="hillshade">Sombreamento</string>
     <string name="color_usgs">SERVIÇO GEOLÓGICO AMERICANO</string>
     <string name="color_grayscale">Escala de cinza</string>
@@ -1438,4 +1436,49 @@
     <string name="color_gray">Cinza</string>
     <string name="color_white">Branco</string>
     <string name="background_color">Cor de fundo</string>
+    <string name="add_to_homescreen">Adicionar à tela inicial</string>
+    <string name="transparent">Transparente</string>
+    <string name="battery_tip_disable_services">Desative serviços que você não está usando.</string>
+    <string name="battery_tip_airplane_mode">Ative o modo avião para desativar todas as conexões sem fio.</string>
+    <string name="battery_tip_wifi">Desligue o Wi-Fi quando não estiver no alcance de uma rede Wi-Fi ou não precisar da Internet.</string>
+    <string name="battery_tip_bluetooth">Desligue o Bluetooth quando não estiver em uso.</string>
+    <string name="battery_tip_nfc">Desative o NFC quando não precisar fazer pagamentos sem contato.</string>
+    <string name="battery_tip_location">Desative a localização quando não precisar do GPS.</string>
+    <string name="battery_tip_battery_saver">Ative o modo de economia de bateria para limitar determinadas funções do telefone.</string>
+    <string name="battery_tip_data_saver">Ative a economia de dados para restringir que aplicativos usem dados móveis em segundo plano.</string>
+    <string name="battery_tip_adaptive_brightness">Ative o brilho adaptável ou diminua a intensidade da tela.</string>
+    <string name="battery_tip_display_timeout">Reduza o tempo limite da tela para quando você se esquecer de apertar o botão liga/desliga. Desative a tela sempre ligada.</string>
+    <string name="battery_tip_dark_theme">Ative o tema escuro se o seu dispositivo tiver uma tela OLED.</string>
+    <string name="battery_tip_background_apps">Restrinja atividades em segundo plano para aplicativos que você não precisa executar em segundo plano.</string>
+    <string name="airplane_mode">Modo Avião</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="nfc">NFC</string>
+    <string name="battery_saver">Economia de energia</string>
+    <string name="data_saver">Economia de dados</string>
+    <string name="adaptive_brightness">Brilho adaptável</string>
+    <string name="screen_timeout">Duração da luz de fundo</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="restrict_app_background_activity">Restringir atividades em segundo plano do aplicativo</string>
+    <string name="system">Sistema</string>
+    <string name="battery_tip_system">Ajuste as configurações do sistema para reduzir o uso da bateria.</string>
+    <string name="other_tips">Outras dicas</string>
+    <string name="battery_tip_other">Desligue seu dispositivo, force o fechamento de aplicativos, desabilite ou desinstale aplicativos ou desabilite atualizações automáticas/backups.</string>
+    <string name="theme_transparent_type">Transparente (%s)</string>
+    <string name="widget_theme_black_text">Texto preto</string>
+    <string name="widget_theme_white_text">Texto branco</string>
+    <string name="default_widget_theme">Tema de widget padrão</string>
+    <string name="cancel_navigation_question">Cancelar navegação?</string>
+    <string name="elevation_value">Elevação: %s</string>
+    <string name="show_pressure_forecast">Mostrar previsão de pressão no gráfico</string>
+    <string name="moa_amount">%s MOA</string>
+    <string name="mil_amount">%s mil</string>
+    <string name="uses_g1_drag_model">Utiliza modelo de arrasto G1</string>
+    <string name="remember_map_state">Lembrar status do mapa</string>
+    <string name="lock_bearing_to_location">Bloquear rumo na localização</string>
+    <string name="lock_bearing_to_location_description">Bloqueia a linha de rumo no seu ponto de partida</string>
+    <string name="pref_night_mode_fullscreen_title">Tela cheia no modo noturno</string>
+    <string name="pref_night_mode_fullscreen_summary">Ocultar a interface do sistema para melhor preservação da visão noturna</string>
+    <string name="show_below_horizon">Mostrar abaixo do horizonte</string>
+    <string name="pref_show_astronomy_bands_title">Mostrar gráficos do nascer e pôr do sol</string>
 </resources>

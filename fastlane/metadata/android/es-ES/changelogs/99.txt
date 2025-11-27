@@ -1,0 +1,14 @@
+Mapas Calibrados (Experimental)
+- Rotar automáticamente el mapa según la calibración
+- Mejorar el flujo de calibración
+
+Brújula
+- Usar el giroscopio para mejorar la capacidad de respuesta de la brújula
+- Añadir ajuste para las fuentes de la brújula
+
+Miscelánea
+- Elegir entre más unidades de distancia en los campos de entrada
+- Mejorar el campo de entrada de elevación: autocompletar desde el altímetro o las balizas
+- Mejorar el campo de entrada de duración
+- Mejorar el rendimiento y el uso de la batería
+- Corrección de errores

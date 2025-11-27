@@ -1,0 +1,20 @@
+Batería
+- Añadir ajuste para alternar el registro de batería
+
+Tiempo
+- Mover el ajuste de historial de presión a los ajustes de tiempo
+
+Realidad aumentada (Experimental)
+- Mejorar rutas
+- Calibración de la orientación AR usando el sol o la luna
+- Añadir ajuste para ajustar rutas por elevación
+- Mejorar la calibración de la cámara en algunos dispositivos
+
+Reloj
+- Mejorar la precisión del tiempo GPS
+
+Varios
+- [Experimental] Suavizado de ubicación
+- Cambiar entre cámara frontal y trasera en la mayoría de vistas de cámara
+- Añadir brújula personalizada de magnetómetro + giroscopio; puede mejorar la precisión en algunos dispositivos
+- Correcciones de errores

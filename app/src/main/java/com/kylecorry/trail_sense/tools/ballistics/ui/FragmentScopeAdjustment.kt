@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.ballistics.ui
 
 import android.widget.TextView
 import com.google.android.material.button.MaterialButtonToggleGroup
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.units.Distance
@@ -107,12 +108,21 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
 
             clickAmountView.setHint(getString(R.string.adjustment_per_click))
             val clickAmounts = listOf(
-                "1/8 MOA" to Distance.from(0.125f, DistanceUnits.Inches),
-                "1/4 MOA" to Distance.from(0.25f, DistanceUnits.Inches),
-                "1/2 MOA" to Distance.from(0.5f, DistanceUnits.Inches),
-                "1 MOA" to Distance.from(1f, DistanceUnits.Inches),
-                "0.1 mil" to Distance.from(0.36f, DistanceUnits.Inches),
-                "0.05 mil" to Distance.from(0.18f, DistanceUnits.Inches),
+                getString(R.string.moa_amount, "1/8") to Distance.from(
+                    0.125f,
+                    DistanceUnits.Inches
+                ),
+                getString(R.string.moa_amount, "1/4") to Distance.from(0.25f, DistanceUnits.Inches),
+                getString(R.string.moa_amount, "1/2") to Distance.from(0.5f, DistanceUnits.Inches),
+                getString(R.string.moa_amount, "1") to Distance.from(1f, DistanceUnits.Inches),
+                getString(R.string.mil_amount, DecimalFormatter.format(0.1, 1)) to Distance.from(
+                    0.36f,
+                    DistanceUnits.Inches
+                ),
+                getString(
+                    R.string.mil_amount,
+                    DecimalFormatter.format(0.05, 2)
+                ) to Distance.from(0.18f, DistanceUnits.Inches),
             )
 
             val selectedIdx = if (distancePerClick != null) {

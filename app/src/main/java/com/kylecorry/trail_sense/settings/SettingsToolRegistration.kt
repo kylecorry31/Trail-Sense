@@ -43,6 +43,7 @@ object SettingsToolRegistration : ToolRegistration {
                 R.id.thermometerSettingsFragment,
                 R.id.cameraSettingsFragment,
                 R.id.toolsSettingsFragment,
+                R.id.themeSettingsFragment
                 // TODO: Add all the tool settings
             ),
             notificationChannels = listOf(

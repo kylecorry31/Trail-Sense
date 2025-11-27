@@ -1,0 +1,18 @@
+Navigace
+- Uzamčení azimutu na dané místo
+- Zobrazení azimutů cíle na navigačním listu
+
+Mapa / Fotomapy
+- Zobrazení výšky DEM dlouhým stisknutím daného místa
+- Zapamatování stavu mapy (zoom, posun, režim)
+
+Vodováha
+- Udržení zapnuté obrazovky
+
+Rozšířená realita
+- Nastavení pro zobrazení astronomie pod horizontem
+
+Různé
+- Hlášení nižší přesnosti kompasu v blízkosti kovu
+- Připnutí nástroje Mapy k dolní navigaci pro nové uživatele
+- Skrytí systémového uživatelského rozhraní v nočním režimu

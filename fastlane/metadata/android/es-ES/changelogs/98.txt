@@ -1,0 +1,8 @@
+Mapas Calibrados (Experimental)
+- Imprimir un mapa
+
+Miscelánea
+- Soporte de icono monocromo
+- Aumentar la disponibilidad de velocidad del GPS
+- Corrección de errores
+- Mejoras de rendimiento

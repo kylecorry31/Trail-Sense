@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorBackgroundFloating"
+    android:orientation="vertical">
+
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
+        android:id="@+id/navigation_sheet_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftButtonIcon="@drawable/ic_tool_notes"
+        app:rightButtonIcon="@drawable/ic_cancel" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/navigation_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ruler" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/navigation_bearing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ic_compass_icon" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/navigation_elevation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ic_altitude" />
+
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/navigation_eta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:dataPointIcon="@drawable/ic_tool_clock" />
+
+    </LinearLayout>
+</LinearLayout>

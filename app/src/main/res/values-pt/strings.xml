@@ -164,7 +164,6 @@
     <string name="tool_cliff_height_disclaimer">Use esta ferramenta apenas quando for seguro fazê-lo e verifique o que está no fundo do penhasco para evitar, ao atirar uma pedra ou objeto, ferir alguém, animais ou danificar elementos. Consulte o guia do utilizador para mais instruções.</string>
     <string name="tool_cliff_height_description">Mede a altura de um penhasco ou descida</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>
-    <string name="toast_destination_bearing_set">Direção do destino definida</string>
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
@@ -1355,7 +1354,6 @@
     <string name="bullet_weight">Peso do projétil</string>
     <string name="format_joules">%s joules</string>
     <string name="format_fpe">%s lb-ft</string>
-    <string name="ballistics_calculator">Calculadora balística</string>
     <string name="permits">Licenças</string>
     <string name="no_permits">Sem licenças</string>
     <string name="trace">Rotas</string>

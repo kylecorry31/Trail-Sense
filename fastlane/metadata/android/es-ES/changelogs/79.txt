@@ -1,0 +1,10 @@
+Meteorología
+- Registrar automáticamente la meteorología cuando abras la pestaña
+- Añadir barra de estado del seguimiento meteorológico
+
+Nubes
+- Mostrar pronóstico basado en el tipo de nubes
+
+Miscelánea
+- Corrección de errores
+- Mejoras de rendimiento

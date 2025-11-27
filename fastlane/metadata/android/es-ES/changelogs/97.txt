@@ -1,0 +1,8 @@
+Astronomía
+- Añadir predicción de eclipse solar
+- Añadir alertas de eclipse solar
+- Añadir magnitud de los eclipses
+- Añadir dirección de brújula de los eclipses
+
+Miscelánea
+- Mejoras de rendimiento

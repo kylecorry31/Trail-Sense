@@ -1,12 +1,15 @@
-A ferramenta "Ruído branco" pode ser usada para ajudá-lo a dormir enquanto estiver acampando ou fazendo mochilão.
+A ferramenta Ruído Branco pode ser usada para ajudar você a adormecer enquanto acampa ou faz trilhas.
 
 ## Uso
-Toque no botão "Ruído branco" para ativar e desativar o ruído branco. Uma notificação será exibida enquanto o ruído branco estiver sendo reproduzido, e você poderá tocá-la a qualquer momento para interromper o ruído branco.
+Toque no botão de ruído branco para ativar ou desativar o som. Uma notificação será exibida enquanto o ruído branco estiver tocando, e você poderá tocá-la a qualquer momento para parar o som.
 
-## Suspensão programada
-Você pode definir uma cronometragem para interromper automaticamente o ruído branco após um determinado período de tempo. Para definir uma suspensão programada, tique no botão "Suspensão programada" e digite o período de tempo que deseja que o ruído branco seja reproduzido. A suspensão programada começará a contagem regressiva assim que você iniciar o ruído branco.
+## Seleção de som
+Você pode escolher o som de sono de sua preferência usando o menu suspenso abaixo do botão. Essa seleção será salva para usos futuros da ferramenta de ruído branco.
 
-## Ações rápidas
-Você pode ativar a ação rápida do ruído branco nas configurações na guia em que deseja usá-lo.
+## Timer de sono
+É possível definir um timer de sono para parar automaticamente o ruído branco após um determinado tempo. Para configurar o timer, ative a opção de timer de sono e insira o tempo que deseja que o som toque. O timer começará a contagem regressiva assim que o ruído branco for iniciado.
 
-Para usar a ação rápida, toque no botão "Ruído branco" para ativá-la ou desativá-la.
+## Ação rápida
+Você pode habilitar a ação rápida de Ruído Branco nas configurações da aba em que deseja utilizá-la.
+
+Para usar a ação rápida, toque no botão de ação rápida de Ruído Branco para ativá-la ou desativá-la.

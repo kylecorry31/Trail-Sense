@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.algebra.add
-import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.algebra.dot
 import com.kylecorry.sol.math.algebra.inverse
 import com.kylecorry.sol.math.algebra.subtract
@@ -14,46 +14,46 @@ internal class KalmanFilter(
     private val updateStateWithPrediction: Boolean = false
 ) {
     // State transition model
-    var F = createMatrix(stateSize, stateSize, 0f)
+    var F = Matrix.zeros(stateSize, stateSize)
 
     // Observation model
-    var H = createMatrix(measurementSize, stateSize, 0f)
+    var H = Matrix.zeros(measurementSize, stateSize)
 
     // Control matrix
-    var B = createMatrix(stateSize, controlSize, 0f)
+    var B = Matrix.zeros(stateSize, controlSize)
 
     // Process noise covariance
-    var Q = createMatrix(stateSize, stateSize, 0f)
+    var Q = Matrix.zeros(stateSize, stateSize)
 
     // Observation noise covariance
-    var R = createMatrix(measurementSize, measurementSize, 0f)
+    var R = Matrix.zeros(measurementSize, measurementSize)
 
     // Control vector
-    var Uk = createMatrix(controlSize, 1, 0f)
+    var Uk = Matrix.zeros(controlSize, 1)
 
     // Actual values (measured)
-    var Zk = createMatrix(measurementSize, 1, 0f)
+    var Zk = Matrix.zeros(measurementSize, 1)
 
     // Predicted state estimate
-    var Xk_km1 = createMatrix(stateSize, 1, 0f)
+    var Xk_km1 = Matrix.zeros(stateSize, 1)
 
     // Predicted estimate covariance
-    var Pk_km1 = createMatrix(stateSize, stateSize, 0f)
+    var Pk_km1 = Matrix.zeros(stateSize, stateSize)
 
     // Measurement innovation
-    var Yk = createMatrix(measurementSize, 1, 0f)
+    var Yk = Matrix.zeros(measurementSize, 1)
 
     // Innovation covariance
-    var Sk = createMatrix(measurementSize, measurementSize, 0f)
+    var Sk = Matrix.zeros(measurementSize, measurementSize)
 
     // Kalman gain (optimal)
-    var K = createMatrix(stateSize, measurementSize, 0f)
+    var K = Matrix.zeros(stateSize, measurementSize)
 
     // Updated (current) state
-    var Xk_k = createMatrix(stateSize, 1, 0f)
+    var Xk_k = Matrix.zeros(stateSize, 1)
 
     // Updated estimate covariance
-    var Pk_k = createMatrix(stateSize, stateSize, 0f)
+    var Pk_k = Matrix.zeros(stateSize, stateSize)
 
     // Post fit residual - not used yet
 //    val Yk_k = createMatrix(measureDimension, 1, 0f)

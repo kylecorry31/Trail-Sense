@@ -1,7 +1,7 @@
 Trail Sense is composed of a number of tools that are designed for hiking, backpacking, camping, and geocaching.
 
 ## Bottom navigation
-The Navigation, Weather (if available), and Astronomy tools are available in the bottom navigation bar by default. These tools are also available in the tool list.
+The Navigation, Map, Weather (if available), and Astronomy tools are available in the bottom navigation bar by default. These tools are also available in the tool list.
 
 You can change which tools (up to 7) appear in the bottom navigation in Settings > Tools > 'Bottom navigation slot'.
 
@@ -18,6 +18,7 @@ You can also long-press on a tool to see more options:
 - **User guide**: Opens the user guide for the tool.
 - **Settings**: Opens the settings for the tool.
 - **Experimental**: This will show tools that are still in development. These tools may not be fully functional. You can enable experimental tools in Settings > Experimental.
+- **Add to homescreen**: This will add a shortcut to the tool on your device's homescreen.
 
 ## Pinned tools
 You can pin tools to the top of the tool list by long-pressing on a tool and selecting 'Pin'. This will make the tool appear at the top of the tool list. You can unpin a tool by long-pressing on it and selecting 'Unpin'.

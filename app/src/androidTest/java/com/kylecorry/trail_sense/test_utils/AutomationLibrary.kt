@@ -377,7 +377,10 @@ object AutomationLibrary {
         scrollToEnd({ view(id, index = index) }, waitForTime)
     }
 
-    fun scrollToEnd(viewLookup: () -> TestView, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun scrollToEnd(
+        viewLookup: () -> TestView = { getScrollableView() },
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
         waitFor(waitForTime) {
             viewLookup().scrollToEnd()
         }
@@ -387,7 +390,10 @@ object AutomationLibrary {
         scrollToStart({ view(id, index = index) }, waitForTime)
     }
 
-    fun scrollToStart(viewLookup: () -> TestView, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun scrollToStart(
+        viewLookup: () -> TestView = { getScrollableView() },
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
         waitFor(waitForTime) {
             viewLookup().scrollToEnd(Direction.UP)
         }

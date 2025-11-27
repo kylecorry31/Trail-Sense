@@ -14,8 +14,8 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
@@ -59,6 +60,10 @@ class PhotoMapToolLayerManager {
     private val selectedPointLayer = BeaconLayer()
     private val photoMapLayer = TiledMapLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
+    private val cellTowerLayer = CellTowerMapLayer {
+        CellTowerMapLayer.navigate(it)
+        true
+    }
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
@@ -127,6 +132,9 @@ class PhotoMapToolLayerManager {
         // Photo map
         photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
 
+        // Cell tower layer
+        cellTowerLayer.setPreferences(prefs.photoMaps.cellTowerLayer)
+
         // Start
         view.setLayers(
             listOfNotNull(
@@ -134,6 +142,7 @@ class PhotoMapToolLayerManager {
                 photoMapLayer,
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
+                if (prefs.photoMaps.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) myLocationLayer else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,

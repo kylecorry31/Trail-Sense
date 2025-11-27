@@ -1,15 +1,14 @@
 package com.kylecorry.trail_sense.shared.sensors.compass
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.math.Quaternion
-import kotlin.math.min
 
 class MagQualityOrientationWrapper(
     private val orientationSensor: IOrientationSensor,
-    private val magnetometer: ISensor
+    private val magnetometer: IMagnetometer
 ) : AbstractSensor(), IOrientationSensor {
 
     override val hasValidReading: Boolean
@@ -22,9 +21,10 @@ class MagQualityOrientationWrapper(
         get() = orientationSensor.orientation
 
     override val quality: Quality
-        get() = Quality.entries[min(
+        get() = Quality.entries[minOf(
             magnetometer.quality.ordinal,
-            orientationSensor.quality.ordinal
+            orientationSensor.quality.ordinal,
+            magnetometer.getQualityFromFieldStrength().ordinal
         )]
 
     override val rawOrientation: FloatArray

@@ -17,7 +17,7 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentTideBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -34,7 +34,7 @@ import java.time.Instant
 import java.time.LocalDate
 
 
-class TidesFragment : BoundFragment<FragmentTideBinding>() {
+class TidesFragment : BoundFragment<FragmentToolTideBinding>() {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val tideService by lazy { TideService(requireContext()) }
@@ -58,8 +58,8 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentTideBinding {
-        return FragmentTideBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolTideBinding {
+        return FragmentToolTideBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

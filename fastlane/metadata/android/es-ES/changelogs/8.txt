@@ -1,0 +1,7 @@
+- Cambiar el algoritmo de brújula por defecto (añadido ajuste de brújula heredada)
+- Añadir más opciones para compartir balizas
+- Añadir horas al gráfico de astronomía
+- El gráfico de astronomía refleja la fecha seleccionada
+- Ver qué presión había en un punto del gráfico
+- No mostrar balizas a menos de 8 metros
+- Corrección de errores

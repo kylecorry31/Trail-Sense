@@ -78,13 +78,18 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe(weatherSubsystem.weatherChanged) {
-            inBackground {
-                runner.replace {
-                    history = weatherSubsystem.getHistory()
-                    uncalibratedHistory = weatherSubsystem.getRawHistory(true)
-                    onMain {
-                        updateChart()
-                    }
+            updateBarometerData()
+        }
+        updateBarometerData()
+    }
+
+    private fun updateBarometerData() {
+        inBackground {
+            runner.replace {
+                history = weatherSubsystem.getHistory()
+                uncalibratedHistory = weatherSubsystem.getRawHistory(true)
+                onMain {
+                    updateChart()
                 }
             }
         }

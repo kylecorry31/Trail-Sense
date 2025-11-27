@@ -13,11 +13,12 @@ import com.kylecorry.andromeda.views.remote.setImageViewResourceAsIcon
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class FlashlightToolWidgetView : SimpleToolWidgetView() {
 
-    override suspend fun getPopulatedView(context: Context): RemoteViews {
-        val views = getView(context)
+    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+        val views = getView(context, prefs)
         val flashlight = FlashlightSubsystem.getInstance(context)
         val isOn = flashlight.getMode() != FlashlightMode.Off
 

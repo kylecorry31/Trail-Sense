@@ -1,13 +1,15 @@
 package com.kylecorry.trail_sense.shared.sensors.compass
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.compass.ICompass
+import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.sol.units.Bearing
-import kotlin.math.min
 
-class MagQualityCompassWrapper(private val compass: ICompass, private val magnetometer: ISensor) :
+class MagQualityCompassWrapper(
+    private val compass: ICompass,
+    private val magnetometer: IMagnetometer
+) :
     AbstractSensor(), ICompass {
     override val bearing: Bearing
         get() = compass.bearing
@@ -24,7 +26,11 @@ class MagQualityCompassWrapper(private val compass: ICompass, private val magnet
         get() = compass.rawBearing
 
     override val quality: Quality
-        get() = Quality.values()[min(magnetometer.quality.ordinal, compass.quality.ordinal)]
+        get() = Quality.entries[minOf(
+            magnetometer.quality.ordinal,
+            compass.quality.ordinal,
+            magnetometer.getQualityFromFieldStrength().ordinal
+        )]
 
     override fun startImpl() {
         compass.start(this::onReading)

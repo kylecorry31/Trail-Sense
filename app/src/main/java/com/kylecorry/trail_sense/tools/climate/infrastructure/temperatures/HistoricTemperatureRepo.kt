@@ -26,7 +26,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         location: Coordinate
     ): List<Pair<LocalDate, Range<Temperature>>> = onDefault {
         val monthly =
-            HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRanges(context, location)
+            HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRanges(location)
 
         Time.getYearlyValues(year) {
             getDailyRange(location, it, monthly)
@@ -64,7 +64,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
     ): Range<Temperature> = onDefault {
         val months =
             monthlyRanges ?: HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRanges(
-                context, location
+                location
             )
 
         val lowMonths = months.mapValues {

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
@@ -50,6 +51,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
             scrollUntil { hasText("Hillshade") }
             scrollUntil { hasText("Photo Maps") }
             scrollUntil { hasText("Contours") }
+            scrollUntil { hasText("Cell towers") }
             scrollUntil { hasText("Paths") }
             scrollUntil { hasText("Beacons") }
             scrollUntil { hasText("Tides") }
@@ -59,13 +61,18 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     }
 
     private fun canSetDestinationBearing() {
-        repeat(2) {
-            any(
-                { click(R.id.round_compass, waitForTime = 0) },
-                { click(R.id.radar_compass, waitForTime = 0) },
-                { click(R.id.linear_compass, waitForTime = 0) }
-            )
-        }
+        any(
+            { click(R.id.round_compass, waitForTime = 0) },
+            { click(R.id.radar_compass, waitForTime = 0) },
+            { click(R.id.linear_compass, waitForTime = 0) }
+        )
+
+        hasText("Bearing")
+        isVisible(R.id.navigation_bearing)
+
+        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click("Yes")
+        not { hasText("Bearing", waitForTime = 0) }
     }
 
     private fun canNavigate() {
@@ -77,7 +84,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
                     "Test Beacon",
                     Coordinate(1.0, -1.0),
                     comment = "Test Comment",
-                    elevation = 100f
+                    elevation = Distance.feet(100f).meters().value
                 )
             )
         }
@@ -90,16 +97,23 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         clickOk()
 
         hasText("Test Beacon")
-        hasText(R.id.beacon_distance, Regex("\\d+(\\.\\d+)? (ft|mi)"))
-        hasText(R.id.beacon_distance, Regex("\\d+° [NSEW]+"))
-        hasText(R.id.beacon_eta, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
-        hasText(R.id.beacon_eta, Regex("\\d+:\\d+?\\s(AM|PM)"))
-        hasText(R.id.beacon_elevation, Regex("-?\\d+ ft"))
-        click("Test Beacon")
+        hasText(Regex("1.000000°,\\s+-1.000000°"))
+        hasText("100 ft")
+        hasText(R.id.navigation_distance, Regex("\\d+(\\.\\d+)? (ft|mi)"))
+        hasText(R.id.navigation_distance, Regex("\\d+° [NSEW]+"))
+        hasText(R.id.navigation_eta, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
+        hasText(R.id.navigation_eta, Regex("\\d+:\\d+?\\s(AM|PM)"))
+        hasText(R.id.navigation_elevation, Regex("[-+]?\\d+ ft"))
+        click(toolbarButton(R.id.navigation_sheet_title, Side.Left))
         hasText("Test Comment")
         clickOk()
 
-        click(R.id.beaconBtn)
+        click("Test Beacon")
+        hasText(R.id.beacon_title, "Test Beacon")
+        back()
+
+        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click("Yes")
         not { hasText("Test Beacon", waitForTime = 0) }
 
         hasWorkingTrueNorthIndicator()

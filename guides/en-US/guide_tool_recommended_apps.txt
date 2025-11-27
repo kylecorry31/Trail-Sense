@@ -67,3 +67,15 @@ This app provides a metronome and can be used for camp music or meditation.
 This app allows for offline encrypted communication using bluetooth or WiFi direct.
 
 [Download](market://details?id=org.briarproject.briar.android)
+
+## SaverTuner
+
+This app allows you to customize the battery saver mode on your device. It requires running a command from your computer the first time it is used so it can modify system settings. Not available on the Play Store (only F-Droid and Codeberg)
+
+[Download](market://details?id=s1m.savertuner)
+
+## Breezy Weather
+
+An open source weather app.
+
+[Download](https://github.com/breezy-weather/breezy-weather)

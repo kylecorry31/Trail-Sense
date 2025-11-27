@@ -1,0 +1,24 @@
+Baterie
+- Vylepšení rozložení nástrojů baterie
+- Tipy pro úsporu baterie systému
+
+Vyhledávač signálu
+- Vylepšení polohy vysílačů
+
+Mapové vrstvy
+- Vrstva mobilních vysílačů
+- Odhad vzdálenosti k připojenému vysílači
+
+Navigace
+- Otevření majáku během navigace
+
+Balistika
+- Balistické výpočty (pád, rychlost)
+
+Počasí
+- [Experimentální] Předpověď tlaku na grafu
+
+Různé
+- Zkratky nástrojů na domovské obrazovce
+- Přizpůsobení motivu widgetu
+- Vých. použití vlastního zdroje kompasového senzoru

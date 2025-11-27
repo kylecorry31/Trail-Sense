@@ -1,125 +1,152 @@
 package com.kylecorry.trail_sense.tools.signal_finder.infrastructure
 
-import android.content.Context
+import android.graphics.Rect
 import android.util.Size
-import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.math.SolMath.roundNearest
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
+import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
+import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
+import com.kylecorry.trail_sense.shared.data.SingleImageReader
+import com.kylecorry.trail_sense.shared.data.TiledImageReader
 
 object CellTowerModel {
 
-    // Cache
-    private val cache = LRUCache<PixelCoordinate, List<CellNetwork>>(size = 10)
-    private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate?>(size = 20)
-
     // Image data source
-    private val resolution = 0.03
-    private val pixelsPerDegree = 1 / resolution
-    private val size = Size((360 * pixelsPerDegree).toInt(), (180 * pixelsPerDegree).toInt())
+    private val resolution = 0.01
+    private val size = Size(9000, 6000)
+    private val rows = 3
+    private val columns = 4
 
-    val accuracy = Distance.nauticalMiles(resolution.toFloat() * 60 / 2f).meters()
+    // Accounts for errors in the dataset
+    private val accuracyScale = 2f
+
+    fun getAccuracy(towerLocation: Coordinate): Distance {
+        return Distance.meters(
+            accuracyScale * towerLocation.distanceTo(
+                Coordinate(
+                    towerLocation.latitude,
+                    towerLocation.longitude + resolution / 2
+                )
+            )
+        )
+    }
+
+    private fun getTileReader(
+        rows: Int,
+        columns: Int,
+        tileSize: Size,
+        files: List<String>
+    ): TiledImageReader {
+        val tileWidth = tileSize.width
+        val tileHeight = tileSize.height
+        val readers = mutableListOf<Pair<Rect, SingleImageReader>>()
+        for (r in 0 until rows) {
+            for (c in 0 until columns) {
+                val index = r * columns + c
+                if (index >= files.size) {
+                    break
+                }
+                val file = files[index]
+                val rect = Rect(
+                    c * tileWidth,
+                    r * tileHeight,
+                    (c + 1) * tileWidth,
+                    (r + 1) * tileHeight
+                )
+                readers.add(
+                    rect to SingleImageReader(
+                        Size(tileWidth, tileHeight),
+                        AssetInputStreamable(file)
+                    )
+                )
+            }
+        }
+        return TiledImageReader(readers)
+    }
+
+    private fun getFiles(count: Int): List<String> {
+        val files = mutableListOf<String>()
+        for (i in 0 until count) {
+            files.add("cell_towers/cell_towers_$i.webp")
+        }
+        return files
+    }
 
     private val source = GeographicImageSource(
-        size,
-        interpolate = false,
-        decoder = GeographicImageSource.scaledDecoder(1.0, 0.0, false),
-        latitudePixelsPerDegree = pixelsPerDegree,
-        longitudePixelsPerDegree = pixelsPerDegree
+        EncodedDataImageReader(
+            getTileReader(rows, columns, size, getFiles(rows * columns)),
+            decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
+            maxChannels = 1
+        ),
+        interpolationOrder = 0
     )
 
     // TODO: Load the whole region of the image and get the towers from it
     suspend fun getTowers(
-        context: Context,
-        geofence: Geofence,
+        bounds: CoordinateBounds,
         count: Int? = null
-    ): List<Pair<Coordinate, List<CellNetwork>>> = onIO {
-        val bounds = CoordinateBounds.from(geofence)
+    ): List<ApproximateCoordinate> = onIO {
         val locations = mutableListOf<Coordinate>()
-        var lon = bounds.west.roundNearest(resolution)
-        var lat = bounds.north.roundNearest(resolution)
-        while (lon <= bounds.east) {
-            while (lat >= bounds.south) {
+
+        val latitudes = Interpolation.getMultiplesBetween(
+            bounds.south - resolution,
+            bounds.north + resolution,
+            resolution
+        )
+
+        val longitudes = Interpolation.getMultiplesBetween(
+            bounds.west - resolution,
+            bounds.east + resolution,
+            resolution
+        )
+
+        latitudes.forEach { lat ->
+            longitudes.forEach { lon ->
                 locations.add(Coordinate(lat, lon))
-                lat -= resolution
             }
-            lat = bounds.north
-            lon += resolution
         }
 
         // Remove locations that are outside the geofence
-        locations.removeIf { !geofence.contains(it) }
+        locations.removeIf { !bounds.contains(it) }
 
-        val towers = mutableListOf<Pair<Coordinate, List<CellNetwork>>>()
-
-        val sortedLocations = locations
-            .sortedBy { it.distanceTo(geofence.center) }
-            .distinct()
-
-        for (location in sortedLocations) {
-            val tower = getTowers(context, location)
-            if (tower.second.isNotEmpty()) {
-                towers.add(tower)
-            }
-            if (count != null && towers.size >= count) {
-                break
-            }
-        }
-
-        towers
+        getTowers(locations)
+            .sortedBy { it.coordinate.distanceTo(bounds.center) }
+            .take(count ?: Int.MAX_VALUE)
     }
 
-    suspend fun getTowers(
-        context: Context,
-        location: Coordinate
-    ): Pair<Coordinate, List<CellNetwork>> = onIO {
-        val rounded = location.copy(
-            latitude = location.latitude.roundNearest(resolution),
-            longitude = location.longitude.roundNearest(resolution)
-        )
-        val pixel = locationToPixelCache.getOrPut(rounded) {
-            source.getPixel(rounded)
+    private suspend fun getTowers(
+        locations: List<Coordinate>
+    ): List<ApproximateCoordinate> = onIO {
+        val pixelsToLoad = locations.associate {
+            val rounded = it.copy(
+                latitude = it.latitude.roundNearest(resolution),
+                longitude = it.longitude.roundNearest(resolution)
+            )
+            val pixel = source.getPixel(rounded)
+            pixel to rounded
         }
 
-        if (pixel == null) {
-            return@onIO rounded to emptyList()
-        }
-
-        rounded to cache.getOrPut(pixel) {
-            load(context, pixel)
-        }
-    }
-
-    private suspend fun load(
-        context: Context,
-        pixel: PixelCoordinate
-    ): List<CellNetwork> = onIO {
-        val data = source.read(context, "cell_towers.webp", pixel)
-        if (data.isEmpty()) {
-            return@onIO emptyList()
-        }
-        val value = data[0].toInt()
-        val networkMap = mapOf(
-            1 to CellNetwork.Gsm,
-            2 to CellNetwork.Wcdma,
-            4 to CellNetwork.Lte,
-            8 to CellNetwork.Nr,
-            16 to CellNetwork.Cdma
-        )
-
-        val networks = mutableListOf<CellNetwork>()
-        for ((key, network) in networkMap) {
-            if (value and key == key) {
-                networks.add(network)
+        val results = source.read(pixelsToLoad.keys.toList())
+            .mapNotNull {
+                val data = it.second
+                if (data.isEmpty()) {
+                    return@mapNotNull null
+                }
+                val location = pixelsToLoad[it.first] ?: return@mapNotNull null
+                val hasTower = data[0].toInt() > 0
+                if (!hasTower) {
+                    return@mapNotNull null
+                }
+                ApproximateCoordinate(location.latitude, location.longitude, getAccuracy(location))
             }
-        }
-        networks
+
+        results
     }
 
 }

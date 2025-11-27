@@ -17,7 +17,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolCloudsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -32,7 +32,7 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import java.time.Duration
 import java.time.Instant
 
-class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
+class CloudFragment : BoundFragment<FragmentToolCloudsBinding>() {
 
     private val mapper by lazy { CloudReadingListItemMapper(requireContext(), this::handleAction) }
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
@@ -129,8 +129,8 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentCloudsBinding {
-        return FragmentCloudsBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolCloudsBinding {
+        return FragmentToolCloudsBinding.inflate(layoutInflater, container, false)
     }
 
     private fun handleAction(action: CloudReadingAction, reading: Reading<CloudObservation>) {

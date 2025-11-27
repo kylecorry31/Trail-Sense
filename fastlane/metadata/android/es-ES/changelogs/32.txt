@@ -1,0 +1,9 @@
+- Añadir Retroceder para registrar waypoints y volver sobre tus pasos — reemplaza la regla en la pestaña de Navegar
+- Añadir conversor de escala de mapa a la herramienta Regla
+- Añadir formato de coordenadas UTM (y una herramienta de Conversión de Coordenadas)
+- Actualizar el diseño del nivel de burbuja
+- Añadir baliza desde distancia y dirección
+- Añadir calibración de temperatura
+- Añadir herramienta Ruido blanco para ayudarte a dormir (experimental)
+- Añadir más guías de usuario
+- Correcciones de errores

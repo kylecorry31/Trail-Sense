@@ -226,6 +226,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    val nightModeFullscreen by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_night_mode_fullscreen),
+        false
+    )
+
     // Calibration
 
     override var useAutoDeclination: Boolean
@@ -261,6 +267,10 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             cache.putString(getString(R.string.pref_latitude_override), value.latitude.toString())
             cache.putString(getString(R.string.pref_longitude_override), value.longitude.toString())
         }
+
+    val hasLocationOverride: Boolean
+        get() = cache.contains(getString(R.string.pref_latitude_override)) &&
+                cache.contains(getString(R.string.pref_longitude_override))
 
     var altitudeOverride: Float
         get() {
@@ -392,6 +402,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                 ?.map { it.toLong() }
                 ?: listOf(
                     Tools.NAVIGATION,
+                    Tools.MAP,
                     Tools.WEATHER,
                     Tools.ASTRONOMY
                 ))
@@ -459,13 +470,13 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         Light, Dark, Black, System, SunriseSunset, Night, SystemBlack
     }
 
-    enum class AltimeterMode {
-        GPS,
-        GPSBarometer,
-        Barometer,
-        DigitalElevationModel,
-        DigitalElevationModelBarometer,
-        Override
+    enum class AltimeterMode(val usesDem: Boolean) {
+        GPS(false),
+        GPSBarometer(false),
+        Barometer(false),
+        DigitalElevationModel(true),
+        DigitalElevationModelBarometer(true),
+        Override(false)
     }
 
 }

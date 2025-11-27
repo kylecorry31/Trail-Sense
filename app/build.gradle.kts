@@ -16,8 +16,8 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
         targetSdk = 36
-        versionCode = 135
-        versionName = "7.2.0"
+        versionCode = 138
+        versionName = "7.5.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -46,7 +46,6 @@ android {
         // Support for view binding
         viewBinding = true
         buildConfig = true
-        aidl = true
     }
     buildTypes {
         // ------- RELEASES -------
@@ -210,6 +209,7 @@ dependencies {
     implementation(libs.andromeda.xml)
     implementation(libs.andromeda.json)
     implementation(libs.andromeda.widgets)
+    implementation(libs.andromeda.ipc)
 
     // Misc
     implementation(libs.sol)

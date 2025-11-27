@@ -185,6 +185,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
     private fun canLongPressMap() {
         longClick(R.id.map)
         hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
+        hasText(Regex("Elevation: -?\\d+(\\.\\d+)?\\s*(ft|m)"))
         hasText("Beacon")
         hasText("Navigate")
         hasText("Distance")
@@ -199,7 +200,8 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Navigate")
         hasText("Test Map", index = 1)
         hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
-        click(R.id.cancel_navigation_btn)
+        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click("Yes")
 
         longClick(R.id.map)
         click("Distance")
@@ -258,6 +260,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Layers")
         scrollUntil { hasText("Contours") }
+        scrollUntil { hasText("Cell towers") }
         scrollUntil { hasText("Paths") }
         scrollUntil { hasText("Beacons") }
         scrollUntil { hasText("Navigation") }

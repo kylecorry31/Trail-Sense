@@ -19,7 +19,10 @@ import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.GeographicImageUtils
+import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
+import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
+import com.kylecorry.trail_sense.shared.data.SingleImageReader
 import kotlin.math.roundToInt
 
 object TideModel {
@@ -37,10 +40,13 @@ object TideModel {
     private val searchSize = 5
 
     private val source = GeographicImageSource(
-        size,
+        EncodedDataImageReader(
+            SingleImageReader(size, AssetInputStreamable("tides/tide-indices-1-2.webp")),
+            decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
+            maxChannels = 2
+        ),
         precision = 0,
-        interpolate = false,
-        decoder = GeographicImageSource.scaledDecoder(1.0, 0.0, false)
+        interpolationOrder = 0
     )
 
     private val imageReader = ImagePixelReader(condensedSize, interpolate = false)
@@ -107,8 +113,7 @@ object TideModel {
     ): List<TidalHarmonic> = onIO {
 
         // Step 1: Get the indices into the amplitudes/phase array
-        val indicesFile = "tides/tide-indices-1-2.webp"
-        val indices = source.read(context, indicesFile, pixel)
+        val indices = source.read(pixel)
         val x = indices[0].toInt() - 1
         val y = indices[1].toInt() - 1
 

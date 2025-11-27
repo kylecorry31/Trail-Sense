@@ -6,7 +6,7 @@ You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right.
 Click the GPS button in the bottom-right to center the map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it.
 
 ## Navigating and creating beacons
-When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button in the bottom-right.
+When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
 
 You can initiate navigation from the map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
 
@@ -18,6 +18,9 @@ For further details on beacons, refer to the 'Beacons' guide.
 You can measure distances by clicking the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, click the undo button in the bottom left. Cancel by clicking the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by clicking the 'Create path' button at the bottom.
 
 For a quick measurement from your location to a point, long-press that point on the map and click 'Distance'.
+
+## Measuring elevation
+Long press a location on the map to view the elevation (from the DEM).
 
 ## Layers
 Layers are used to display information on the map. You can find layer settings in Settings > Map or through the menu at the top right of the screen. You can choose to hide and show layers using the switch next to each layer's name. The opacity setting for each layer determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
@@ -49,6 +52,9 @@ Settings:
 
 - **Show labels**: Determines if contour labels are shown on the map.
 - **Color**: The color of the contour lines, some options are color scales which change based on elevation.
+
+### Cell towers
+This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can click on a cell tower to navigate to it.
 
 ### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.

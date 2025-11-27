@@ -6,7 +6,6 @@ import kotlin.random.Random
 class PinkNoiseAudioStream : AudioStream {
     private val whiteNoise = WhiteNoiseAudioStream()
     private var counter = 0L
-    private var random = Random(0)
     private val rows = DoubleArray(16)
     private var runningSum = 0.0
 
@@ -30,7 +29,6 @@ class PinkNoiseAudioStream : AudioStream {
     override suspend fun reset() {
         whiteNoise.reset()
         counter = 0L
-        random = Random(0)
         rows.fill(0.0)
         runningSum = 0.0
     }

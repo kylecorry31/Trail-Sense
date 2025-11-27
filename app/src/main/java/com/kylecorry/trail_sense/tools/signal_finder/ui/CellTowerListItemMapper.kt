@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.signal_finder.ui
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.andromeda.views.list.ListMenuItem
@@ -11,6 +10,7 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -24,29 +24,26 @@ enum class CellTowerListItemAction {
 class CellTowerListItemMapper(
     private val context: Context,
     private val location: Coordinate,
-    private val onAction: (Pair<Coordinate, CellNetwork>, CellTowerListItemAction) -> Unit
+    private val onAction: (ApproximateCoordinate, CellTowerListItemAction) -> Unit
 ) :
-    ListItemMapper<Pair<Coordinate, CellNetwork>> {
+    ListItemMapper<ApproximateCoordinate> {
 
     private val formatter = AppServiceRegistry.get<FormatService>()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
-    override fun map(value: Pair<Coordinate, CellNetwork>): ListItem {
-        val towerLocation = value.first
-        val network = value.second
+    override fun map(value: ApproximateCoordinate): ListItem {
         val distance =
-            Distance.meters(location.distanceTo(towerLocation))
+            Distance.meters(location.distanceTo(value.coordinate))
                 .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        val direction = location.bearingTo(towerLocation)
+        val direction = location.bearingTo(value.coordinate)
         val formattedDistance =
             formatter.formatDistance(distance, Units.getDecimalPlaces(distance.units))
         val formattedBearing = formatter.formatDegrees(direction.value, replace360 = true)
         val formattedDirection = formatter.formatDirection(direction.direction)
         return ListItem(
             value.hashCode().toLong(),
-            formatter.formatCellNetwork(network),
+            context.getString(R.string.cell_tower),
             formatter.join(
-                context.getString(R.string.cell_tower),
                 formattedDistance,
                 "$formattedBearing $formattedDirection",
                 separator = FormatService.Separator.Dot

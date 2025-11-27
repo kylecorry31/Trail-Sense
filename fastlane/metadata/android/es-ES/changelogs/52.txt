@@ -1,0 +1,8 @@
+- Convertidor de peso
+- Convertidor de volumen
+- Convertidor de tiempo
+- Convertidor de temperatura
+- Estimación de temperatura por elevación (experimental)
+- Ajuste de formato de URL para compartir mapas
+- Pellizcar para hacer zoom en la brújula de radar
+- Correcciones de errores

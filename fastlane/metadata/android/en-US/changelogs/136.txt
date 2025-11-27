@@ -1,0 +1,24 @@
+Battery
+- Improve battery tool layout
+- Add system battery saving tips
+
+Signal Finder
+- Improve cell tower locations
+
+Map layers
+- Add cell towers layer
+- Estimate distance to connected cell tower
+
+Navigation
+- Tap beacon name to open it while navigating
+
+Ballistics
+- Add ballistics calculations (drop, velocity)
+
+Weather
+- [Experimental] Show pressure forecast on chart
+
+Misc
+- Add tool shortcuts to homescreen
+- Add widget theme customization
+- Use custom compass sensor source by default

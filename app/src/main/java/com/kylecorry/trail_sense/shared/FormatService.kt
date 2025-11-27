@@ -272,6 +272,11 @@ class FormatService private constructor(private val context: Context) {
 
     }
 
+    fun formatElevation(distance: Distance): String {
+        val baseDistance = distance.convertTo(prefs.baseDistanceUnits)
+        return formatDistance(baseDistance, Units.getDecimalPlaces(baseDistance.units))
+    }
+
     fun formatDistance(
         distance: Distance,
         decimalPlaces: Int = 0,
@@ -803,6 +808,7 @@ class FormatService private constructor(private val context: Context) {
             Separator.Comma -> ", "
             Separator.Space -> " "
             Separator.Dash -> " - "
+            Separator.NewLine -> "\n"
         }
         return strings.filterNotNull().joinToString(separatorString)
     }
@@ -820,7 +826,8 @@ class FormatService private constructor(private val context: Context) {
         Dot,
         Comma,
         Space,
-        Dash
+        Dash,
+        NewLine
     }
 
     companion object {

@@ -20,44 +20,38 @@ class CellSignalListItemMapper(private val context: Context) : ListItemMapper<Ce
     private val formatter = AppServiceRegistry.get<FormatService>()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val baseDistanceUnits = prefs.baseDistanceUnits
-    private val showDistances = prefs.cellSignal.estimateSignalDistance
 
     override fun map(value: CellSignal): ListItem {
+        val distance = value.timingDistanceMeters?.let {
+            Distance.meters(it).convertTo(baseDistanceUnits).toRelativeDistance()
+        }
+
+        val maxDistance = distance?.let {
+            value.timingDistanceErrorMeters?.let {
+                val errorDistance = Distance.meters(it).convertTo(distance.units)
+                Distance.from(distance.value + errorDistance.value, distance.units)
+                    .toRelativeDistance()
+            }
+        }
         return ListItem(
             value.id.hashCode().toLong(),
             formatter.formatCellNetwork(value.network),
             formatter.join(
                 formatter.formatPercentage(value.strength),
-                if (showDistances) {
-                    val distance = value.timingDistanceMeters?.let {
-                        Distance.meters(it).convertTo(baseDistanceUnits).toRelativeDistance()
+                distance?.let {
+                    formatter.formatDistance(
+                        distance,
+                        Units.getDecimalPlaces(distance.units)
+                    ) + if (maxDistance != null) {
+                        " - ${
+                            formatter.formatDistance(
+                                maxDistance,
+                                Units.getDecimalPlaces(maxDistance.units)
+                            )
+                        }"
+                    } else {
+                        ""
                     }
-
-                    val maxDistance = distance?.let {
-                        value.timingDistanceErrorMeters?.let {
-                            val errorDistance = Distance.meters(it).convertTo(distance.units)
-                            Distance.from(distance.value + errorDistance.value, distance.units)
-                                .toRelativeDistance()
-                        }
-                    }
-
-                    distance?.let {
-                        formatter.formatDistance(
-                            distance,
-                            Units.getDecimalPlaces(distance.units)
-                        ) + if (maxDistance != null) {
-                            " - ${
-                                formatter.formatDistance(
-                                    maxDistance,
-                                    Units.getDecimalPlaces(maxDistance.units)
-                                )
-                            }"
-                        } else {
-                            ""
-                        }
-                    }
-                } else {
-                    null
                 },
                 formatter.formatTime(value.time),
                 if (value.isRegistered) {

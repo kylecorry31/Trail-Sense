@@ -104,7 +104,7 @@ class CustomGPS(
     }
 
     private val geoidTimer = CoroutineTimer {
-        geoidOffset = AltitudeCorrection.getGeoid(context, location)
+        geoidOffset = AltitudeCorrection.getGeoid(location)
     }
 
     private var _altitude = 0f
@@ -206,7 +206,7 @@ class CustomGPS(
         }
 
         // This is not ideal, but an offset is needed (and this service caches it)
-        geoidOffset = runBlocking { AltitudeCorrection.getGeoid(context, location) }
+        geoidOffset = runBlocking { AltitudeCorrection.getGeoid(location) }
         return geoidOffset
     }
 

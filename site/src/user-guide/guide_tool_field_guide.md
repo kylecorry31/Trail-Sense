@@ -20,6 +20,19 @@ If you had a category selected when you created the page, the new page will be p
 ## Edit a page
 To edit a page, click the menu button on a page row and select "Edit". You can change the name, image, notes, and tags of the page. You can click the check button in the top right corner to save the changes.
 
+## Sightings
+You can view and record sightings for a field guide entry by clicking the "Sightings" link under the field guide page's image. This opens the list of sightings which show the time of time and notes. The total count of sightings is displayed next to the sighting link on the entry's page.
+
+You can create a new sighting by clicking the plus button in the bottom right of the sightings list. You can fill out the time, location, elevation, whether it was harvested, and notes. All fields are optional. Click the check button in the top right to save the sighting.
+
+You can edit a sighting by clicking on it in the sightings list or using the menu on the right and selecting "Edit".
+
+You can delete a sighting by using the menu on the right and selecting "Delete".
+
+You can navigate to a sighting by using the menu on the right and selecting "Navigate". This will open the Navigation tool with the sighting's location as the destination.
+
+You can create a beacon from a sighting by using the menu on the right and selecting "Create beacon". This will open the Beacons tool with a new beacon pre-filled with the sighting's location and name.
+
 ## Delete a page
 To delete a page, click the menu button on a page row and select "Delete". You will be asked to confirm the deletion. Deleting a page is permanent and cannot be undone.
 

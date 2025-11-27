@@ -1,0 +1,6 @@
+Astronomía
+- Ver fases lunares, eclipses y lluvias de meteoros en el calendario
+
+Herramientas
+- Elegir qué herramientas aparecen en la barra inferior
+- Mantener pulsada la barra inferior para mostrar acciones rápidas

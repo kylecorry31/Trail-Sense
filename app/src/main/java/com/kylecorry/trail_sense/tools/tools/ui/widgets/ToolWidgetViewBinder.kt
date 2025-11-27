@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetTheme
 
 class ToolWidgetViewBinder(
     private val fragment: Fragment,
@@ -87,7 +88,7 @@ class ToolWidgetViewBinder(
             val updateFunction = {
                 fragment.inBackground {
                     val views = onDefault {
-                        widget.widgetView.getPopulatedView(context)
+                        widget.widgetView.getPopulatedView(context, null)
                     }
                     onMain {
                         tryOrLog {
@@ -106,7 +107,7 @@ class ToolWidgetViewBinder(
 
             this.widgets.add(WidgetInstance(widget, updateFunction))
             val widgetView =
-                widget.widgetView.getView(context)
+                widget.widgetView.getView(context, null)
             layout.updateAppWidget(widgetView)
             layout.getChildAt(0)?.backgroundTintList =
                 ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(context))

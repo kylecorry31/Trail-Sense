@@ -1,0 +1,21 @@
+Navegar
+- Mostrar Mapas Calibrados en la brújula de radar (activar/desactivar en ajustes)
+- Hacer la brújula más grande
+- Opción para mantener la pantalla desbloqueada
+
+Mapas Calibrados
+- Opción para mantener la pantalla desbloqueada
+- Ocultar/mostrar Mapas Calibrados (para Navegar)
+
+Guía de supervivencia
+- Fragmentos de búsqueda
+- Acción rápida de búsqueda
+- Actualizaciones de contenido
+
+Declinación (nueva herramienta)
+- Mostrar la declinación para una ubicación
+
+Varios
+- Elegir reproducir algunos sonidos de notificación como alarmas
+- Actualizar el modelo de declinación
+- Añadir fuente de altímetro DEM (modelos de mayor precisión disponibles para descargar)

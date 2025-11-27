@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import java.time.Duration
@@ -31,7 +32,7 @@ class GpsStatusBadgeProvider(private val gps: ISatelliteGPS, private val context
             return AppColor.Green.color
         }
 
-        if (gps is CachedGPS || !GPS.isAvailable(context)) {
+        if (gps is InactiveGPS || !GPS.isAvailable(context)) {
             return AppColor.Red.color
         }
 
@@ -53,7 +54,7 @@ class GpsStatusBadgeProvider(private val gps: ISatelliteGPS, private val context
             return context.getString(R.string.gps_user)
         }
 
-        if (gps is CachedGPS || !GPS.isAvailable(context)) {
+        if (gps is InactiveGPS || !GPS.isAvailable(context)) {
             return context.getString(R.string.unavailable)
         }
 

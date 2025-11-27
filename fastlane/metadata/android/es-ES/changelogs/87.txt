@@ -1,0 +1,11 @@
+Meteorología
+- Mejorar la calibración al nivel del mar
+- Añadir ajuste de suavizado a la calibración del barómetro
+- Actualizar los iconos de precipitación y de tormenta
+
+Altímetro
+- Personalizar el tamaño de muestra del altímetro para reducción de ruido
+
+Miscelánea
+- Actualizar estilo del gráfico
+- Corrección de errores

@@ -39,6 +39,12 @@ class PressureChart(
         AppColor.Gray.color.withAlpha(50)
     )
 
+    // TODO: Dotted line
+    private val forecastLine = LineChartLayer(
+        emptyList(),
+        AppColor.Gray.color.withAlpha(50)
+    )
+
     private val line = LineChartLayer(
         emptyList(),
         color
@@ -69,7 +75,7 @@ class PressureChart(
 
         chart.setShouldRerenderEveryCycle(false)
 
-        chart.plot(rawLine, line, highlight)
+        chart.plot(rawLine, forecastLine, line, highlight)
     }
 
     private fun onClick(value: Vector2): Boolean {
@@ -92,7 +98,8 @@ class PressureChart(
 
     fun plot(
         data: List<Reading<Pressure>>,
-        raw: List<Reading<Pressure>>? = null
+        raw: List<Reading<Pressure>>? = null,
+        forecast: List<Reading<Pressure>> = emptyList()
     ) {
         startTime = data.firstOrNull()?.time ?: Instant.now()
         setUnits(data.firstOrNull()?.value?.units ?: PressureUnits.Hpa)
@@ -100,7 +107,11 @@ class PressureChart(
             it.value
         }
 
-        val range = Chart.getYRange(values, margin, minRange)
+        val forecastValues = Chart.getDataFromReadings(forecast, startTime) {
+            it.value
+        }
+
+        val range = Chart.getYRange(values + forecastValues, margin, minRange)
         // TODO: Support minimum range
         chart.configureYAxis(
             minimum = range.start,
@@ -119,6 +130,9 @@ class PressureChart(
         }
 
         line.data = values
+
+        forecastLine.data = forecastValues
+
         chart.invalidate()
     }
 

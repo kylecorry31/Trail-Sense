@@ -8,6 +8,7 @@ import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.waterlevel.HarmonicWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
+import com.kylecorry.sol.science.oceanography.waterlevel.LunitidalWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.RuleOfTwelfthsWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.TideClockWaterLevelCalculator
 import com.kylecorry.sol.time.Time.hours

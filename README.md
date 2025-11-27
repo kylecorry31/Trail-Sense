@@ -32,13 +32,13 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
             </a>
         </td>
         <td>
-          <a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/{%22id%22:%22com.kylecorry.trail_sense.github%22,%22url%22:%22https://github.com/kylecorry31/Trail-Sense%22,%22author%22:%22kylecorry31%22,%22name%22:%22Trail%20Sense%22,%22additionalSettings%22:%22{\%22apkFilterRegEx\%22:\%22release\%22,\%22invertAPKFilter\%22:false,\%22about\%22:\%22Use%20your%20Android%20phone%27s%20sensors%20to%20assist%20with%20wilderness%20treks%20or%20survival%20situations.%20Designed%20for%20entirely%20offline%20use.\%22}%22}">
+          <a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/{%22id%22:%22com.kylecorry.trail_sense%22,%22url%22:%22https://github.com/kylecorry31/Trail-Sense%22,%22author%22:%22kylecorry31%22,%22name%22:%22Trail%20Sense%22,%22additionalSettings%22:%22{\%22apkFilterRegEx\%22:\%22\\\\d-release\%22,\%22invertAPKFilter\%22:false,\%22about\%22:\%22Use%20your%20Android%20phone%27s%20sensors%20to%20assist%20with%20wilderness%20treks%20or%20survival%20situations.%20Designed%20for%20entirely%20offline%20use.\%22}%22}">
             <img alt="Get it on Obtainium" src="https://github.com/user-attachments/assets/713d71c5-3dec-4ec4-a3f2-8d28d025a9c6" height="60" align="middle">
           </a>
         </td>
         <td align="center">
             <a href="https://www.amazon.com/dp/B0FN4XBJM7">
-                <img alt="Buy it on Amazon" src="/site/images/cover.webp" height="80" align="middle">
+                <img alt="Buy it on Amazon" src="site/images/cover.webp" height="80" align="middle">
             </a>
         </td>
     </tr>
@@ -59,11 +59,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-In 2025, the main focus will be:
-- Photo Maps (improvements)
-- Survival Guide (improvements)
-- Cell Signal Finder (new)
-- Add official support for foraging, fishing, and hunting
+The 2026 feature roadmap has not yet been created. Vote on your most used tools [here](https://github.com/kylecorry31/Trail-Sense/discussions/3202) to influence the focus.
 
 ### Priorities
 Issue priority is denoted by labels on issues.
@@ -192,7 +188,6 @@ If you want to monetarily support my development of Trail Sense, you can [buy a 
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
 - Please see the in app licenses for all open source licenses
 - Contributors and translators: https://github.com/kylecorry31/Trail-Sense/graphs/contributors
-- [showdownjs](https://github.com/showdownjs/showdown): used for website markdown rendering [License](https://github.com/showdownjs/showdown/blob/master/LICENSE)
 
 # License
 

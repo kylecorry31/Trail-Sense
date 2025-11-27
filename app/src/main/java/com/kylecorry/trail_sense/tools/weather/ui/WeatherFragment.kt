@@ -68,6 +68,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var history by state<List<WeatherObservation>>(emptyList())
+    private var pressureForecast by state<List<Reading<Pressure>>>(emptyList())
     private var rawHistory by state<List<Reading<Pressure>>>(emptyList())
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
@@ -123,12 +124,12 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
         updateStatusBar()
 
-        Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_STATE_CHANGED){
+        Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_STATE_CHANGED) {
             updateStatusBar()
             true
         }
 
-        Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED){
+        Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED) {
             updateStatusBar()
             true
         }
@@ -219,6 +220,12 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 loadRawWeatherReadings()
 
                 weather = weatherSubsystem.getWeather()
+
+                if (prefs.weather.showPressureForecast) {
+                    pressureForecast = listOfNotNull(
+                        history.lastOrNull()?.pressureReading()
+                    ) + weatherSubsystem.getPressureForecast()
+                }
             }
         }
     }
@@ -226,8 +233,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     override fun onUpdate() {
         super.onUpdate()
 
-        effect("chart", history, rawHistory, lifecycleHookTrigger.onResume()) {
-            displayPressureChart(history, rawHistory)
+        effect("chart", history, rawHistory, pressureForecast, lifecycleHookTrigger.onResume()) {
+            displayPressureChart(history, rawHistory, pressureForecast)
         }
 
         effect("list", weather, lifecycleHookTrigger.onResume()) {
@@ -260,14 +267,18 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun displayPressureChart(
         readings: List<WeatherObservation>,
-        rawReadings: List<Reading<Pressure>>
+        rawReadings: List<Reading<Pressure>>,
+        forecast: List<Reading<Pressure>>
     ) {
         val displayReadings =
             readings.map { it.pressureReading() }.map { it.copy(value = it.value.convertTo(units)) }
         if (displayReadings.isNotEmpty()) {
+            val displayForecast = forecast.map { it.copy(value = it.value.convertTo(units)) }
             chart.plot(
                 displayReadings,
-                rawReadings.map { it.copy(value = it.value.convertTo(units)) }.ifEmpty { null })
+                rawReadings.map { it.copy(value = it.value.convertTo(units)) }.ifEmpty { null },
+                displayForecast
+            )
         }
     }
 

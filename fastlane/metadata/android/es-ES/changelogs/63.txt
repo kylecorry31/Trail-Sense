@@ -1,0 +1,19 @@
+Inclinómetro
+- Pulsar y mantener para estimar la altura o distancia de un objeto
+- Usar la cámara como inclinómetro
+- Mostrar el inclinómetro como un dial
+- Añadir porcentaje de pendiente (grado)
+- Añadir ajustes del inclinómetro
+- Añadir guía de usuario del inclinómetro
+
+Altura de acantilado
+- Pulsar y mantener para medir
+
+Mapas (experimental)
+- Reducir uso de memoria
+- Reducir el tamaño de almacenamiento de mapas
+- Soportar más proyecciones
+
+Otros
+- Añadir ajustes de errores para desactivar banners
+- Correcciones de errores

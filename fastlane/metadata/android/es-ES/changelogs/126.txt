@@ -1,0 +1,26 @@
+Widgets
+- Widgets en la pantalla de inicio y dentro de la app (mantener pulsada la navegación inferior):
+  - Tiempo
+  - Presión
+  - Gráfico de presión
+  - Sol
+  - Luna
+  - Gráfico de sol y luna
+  - Elevación
+  - Ubicación
+  - Marea
+  - Gráfico de mareas
+  - Podómetro
+  - Retroceder
+  - Linterna
+  - Balizas cercanas
+
+Mareas
+- Modelo mundial de mareas (sin conexión)
+- Marea cercana (muestra la marea para tu ubicación)
+
+Copia de seguridad
+- Ajuste para copia de seguridad automática (una vez al día, conserva las 2 últimas copias)
+
+Realidad aumentada
+- Mostrar estrellas por la noche (las 50 más brillantes)

@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideCleanupCommand
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
-class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_field_guide) {
+class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_field_guide) {
 
     private val headingTags = listOf(
         FieldGuidePageTag.Plant,

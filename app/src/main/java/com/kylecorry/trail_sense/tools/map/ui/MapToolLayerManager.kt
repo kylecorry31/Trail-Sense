@@ -43,6 +43,7 @@ import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
@@ -68,6 +69,10 @@ class MapToolLayerManager {
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
+    private val cellTowerLayer = CellTowerMapLayer {
+        CellTowerMapLayer.navigate(it)
+        true
+    }
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
@@ -132,6 +137,8 @@ class MapToolLayerManager {
 
         myLocationLayer.setPreferences(prefs.map.myLocationLayer)
 
+        cellTowerLayer.setPreferences(prefs.map.cellTowerLayer)
+
         view.setLayers(
             listOfNotNull(
                 BackgroundColorMapLayer().also { it.color = Color.rgb(127, 127, 127) },
@@ -140,6 +147,7 @@ class MapToolLayerManager {
                 if (prefs.map.hillshadeLayer.isEnabled.get()) hillshadeLayer else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
+                if (prefs.map.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) myLocationLayer else null,

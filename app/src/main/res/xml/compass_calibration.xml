@@ -20,7 +20,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            app:defaultValue="rotation_vector"
+            app:defaultValue="custom_rotation_vector"
             app:iconSpaceReserved="false"
             app:key="@string/pref_compass_source"
             app:singleLineTitle="false"

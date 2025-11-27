@@ -13,6 +13,8 @@ class CircleMapMarker(
     private val opacity: Int = 255,
     override val size: Float = 12f,
     private val strokeWeight: Float = 0.5f,
+    private val isSizeInDp: Boolean = true,
+    private val useScale: Boolean = true,
     private val onClickFn: () -> Boolean = { false }
 ) : MapMarker {
     override fun draw(
@@ -21,18 +23,20 @@ class CircleMapMarker(
         scale: Float,
         rotation: Float
     ) {
-        val size = drawer.dp(this.size)
+        val actualScale = if (useScale) scale else 1f
+        val size = if (isSizeInDp) drawer.dp(this.size) else this.size
         drawer.noTint()
         if (strokeColor != null && strokeColor != Color.TRANSPARENT) {
             drawer.stroke(strokeColor)
-            drawer.strokeWeight(drawer.dp(strokeWeight) * scale)
+            drawer.strokeWeight(drawer.dp(strokeWeight) * actualScale)
         } else {
             drawer.noStroke()
         }
         if (color != Color.TRANSPARENT) {
             drawer.fill(color)
             drawer.opacity(opacity)
-            drawer.circle(anchor.x, anchor.y, size * scale)
+            drawer.circle(anchor.x, anchor.y, size * actualScale)
+            drawer.opacity(255)
         }
     }
 

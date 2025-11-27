@@ -1,0 +1,8 @@
+- Añadir linterna a Herramientas (SOS disponible solo allí ahora)
+- Añadir herramienta Alineador de paneles solares
+- Añadir herramienta Temporizador para hervir agua
+- Añadir visualización de detalles de sensores en Acerca de los ajustes
+- Correcciones de errores
+
+Problemas conocidos
+- Pulsar para apagar estroboscópico o SOS a veces puede hacer que la linterna normal se encienda

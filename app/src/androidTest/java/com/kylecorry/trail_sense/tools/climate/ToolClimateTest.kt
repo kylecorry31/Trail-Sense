@@ -25,7 +25,7 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
         pickDate(2024, 8, 5)
 
         // Verify the temperature is displayed
-        hasText("81 °F / 59 °F")
+        hasText("83 °F / 62 °F")
 
         // Scroll until precipitation section is visible, then verify it
         scrollUntil {
@@ -39,7 +39,7 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
                 listOf(
                     string(R.string.climate_continental_description),
                     string(R.string.climate_no_dry_season_description),
-                    string(R.string.climate_warm_summer_description)
+                    string(R.string.climate_hot_summer_description)
                 ).joinToString(" ")
             )
         }

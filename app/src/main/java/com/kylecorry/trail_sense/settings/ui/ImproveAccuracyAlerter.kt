@@ -18,8 +18,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
-import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
-import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
 
 class ImproveAccuracyAlerter(
     private val context: Context,
@@ -80,7 +79,7 @@ class ImproveAccuracyAlerter(
     }
 
     private fun SpannableStringBuilder.appendGPS(gps: ISatelliteGPS) {
-        if (gps is OverrideGPS || gps is CachedGPS) {
+        if (gps is InactiveGPS) {
             return
         }
 

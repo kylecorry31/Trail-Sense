@@ -1,0 +1,18 @@
+Araçlar
+- Araçlar sekmesini yeniden tasarlayın
+- Ayarları araçlara taşıyın
+- Araçlara hızlı eylemler ekleyin (ayarlar bölümünde özelleştirin)
+- Araç sabitleme özelliği ekleyin
+- Araç sıralama özelliği ekleyin (kategori, alfabetik)
+
+Gezinme
+- Pusula kamerasının hizalamasını iyileştirme
+- Gerçek Kuzey ve Manyetik Kuzey için etiket ekleme
+
+Artırılmış Gerçeklik (Deneysel)
+- Artırılmış Gerçeklik aracı ekleme (Deneysel ayarlarda etkinleştirme)
+- AR'da yakındaki işaretleri gösterme
+- AR'da güneş ve ay konumlarını gösterme
+
+Çeşitli
+- Yeni hızlı eylemler: Pedometre, Hava Durumu Monitörü, Geri Dönüş (açma/kapama) ve Gece modu

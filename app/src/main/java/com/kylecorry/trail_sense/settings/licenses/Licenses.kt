@@ -10,10 +10,10 @@ object Licenses {
             "Trail Sense",
             "https://github.com/kylecorry31/Trail-Sense"
         ) {
-            val contributors = arrayOf("kylecorry31", "qwerty287", "muryno", "oersen", "Fjuro", "ChuckMichael", "weblate", "laralem", "ojppe", "tosinonikute", "fitojb", "comradekingu", "beriain", "bowornsin", "ebraminio", "zsbetu", "TamilNeram", "CloneWith", "shilonit", "SecularSteve", "Jakarrrg", "jer194", "Kamilkampfwagen-II", "raphaelventura", "ACABMAN666", "CesPaul", "SantosSi", "delthia", "another-sapiens", "AlessandroFrangiamone", "cleveHEX", "BorATICI", "trymbf", "gustavi", "eagledofc", "crlambda", "Xoronic", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "Craftefix", "AsmodeumX", "Portagoras", "khwolf", "StarSkyGeminid", "mrestivill", "s3n-w6i", "paulle", "olczcolor", "notramo", "NaserKhoshfetrat", "Tyxiel", "tacostea", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "AHOHNMYC", "Ricky-Tigg", "imBigo", "SebV60", "yurtpage", "naoritzio", "github-actions[bot]", "huuhaa", "lucasmz-dev", "mellvie", "volodymyr-ahafonov", "asafran", "sguinetti", "eddisch", "ygorigor", "LuccoJ", "L-P", "NicolaSmaniotto", "Oymate", "Poussinou", "rezaalmanda", "f4n0", "efraletti", "WuerfelDev", "VasilisKos", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "mgorny", "hrachmnam", "Mohammadshir2004", "nautilusx", "random-integer", "doomed-neko", "kasmide", "tct123", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "love80312", "ARtHryDr", "Abdulkarim28", "Akamar", "dasrecht", "realgooseman", "helloiamcait", "CanUCMeSharp", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "IgotDlore", "iRomanyshyn", "teketemdn", "LightFOSS", "LucFreitas", "Luiz-bro", "BatuAtlas", "xmbhasin", "TomasCartman", "Kapral67")
+            val contributors = arrayOf("kylecorry31", "qwerty287", "muryno", "Fjuro", "oersen", "ChuckMichael", "weblate", "laralem", "ojppe", "inavleb", "tosinonikute", "fitojb", "comradekingu", "beriain", "bowornsin", "ebraminio", "zsbetu", "CloneWith", "AlessandroFrangiamone", "shilonit", "SecularSteve", "Jakarrrg", "jer194", "Kamilkampfwagen-II", "raphaelventura", "SantosSi", "ACABMAN666", "CesPaul", "delthia", "another-sapiens", "cleveHEX", "khwolf", "BorATICI", "naoliv", "trymbf", "gustavi", "Craftefix", "eagledofc", "crlambda", "Xoronic", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "AsmodeumX", "Portagoras", "StarSkyGeminid", "mrestivill", "s3n-w6i", "TamilNeram", "paulle", "olczcolor", "notramo", "NaserKhoshfetrat", "carter-oswald-dev", "Tyxiel", "tacostea", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "AHOHNMYC", "Ricky-Tigg", "imBigo", "SebV60", "yurtpage", "naoritzio", "bgo-eiu", "github-actions[bot]", "huuhaa", "lucasmz-dev", "mellvie", "volodymyr-ahafonov", "asafran", "sguinetti", "tetrdd", "ygorigor", "LuccoJ", "L-P", "LosstarottArt", "NicolaSmaniotto", "Oymate", "Poussinou", "rezaalmanda", "efraletti", "WuerfelDev", "VasilisKos", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "mgorny", "ARtHryDr", "f4n0", "hrachmnam", "Mohammadshir2004", "nautilusx", "doomed-neko", "kasmide", "tct123", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "love80312", "Abdulkarim28", "Akamar", "dasrecht", "realgooseman", "helloiamcait", "CanUCMeSharp", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "IgotDlore", "iRomanyshyn", "teketemdn", "LightFOSS", "LucFreitas", "Luiz-bro", "BatuAtlas", "xmbhasin", "TomasCartman", "Kapral67")
             "${
                 mit(
-                    "2020-2024",
+                    "2020-2025",
                     "Kyle Corry"
                 )
             }\n\nThe following people contributed code or translations to Trail Sense under the MIT License: ${
@@ -266,6 +266,12 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
         ) { mit("2017", "Tyler C Sutterley") },
         Library("OpenCelliD", "https://opencellid.org/") {
             "OpenCelliD Project is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License"
+        },
+        Library("Mozilla Location Service", "https://archive.org/details/MLS_Full_Cell_Export_Final"){
+            "Mozilla Corporation - Public Domain - Final data export, no longer maintained."
+        },
+        Library("FCC Antenna Registrations", "https://www.fcc.gov/uls/transactions/daily-weekly"){
+            "FCC - Public Domain"
         },
         Library(
             "Survival guide",

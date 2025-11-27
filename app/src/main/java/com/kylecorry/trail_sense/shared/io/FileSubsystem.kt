@@ -152,6 +152,13 @@ class FileSubsystem private constructor(private val context: Context) {
         return get(path, create).toUri()
     }
 
+    fun canRead(uri: Uri): Boolean {
+        return tryOrDefault(false){
+            context.contentResolver.openFileDescriptor(uri, "r")?.close()
+            true
+        }
+    }
+
     suspend fun copyToLocal(uri: Uri, directory: String, destinationName: String? = null): File? =
         onIO {
             val filename = if (destinationName != null) {

@@ -3,21 +3,24 @@ package com.kylecorry.trail_sense.tools.astronomy.widgets
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.AstroChart
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.widgets.ChartToolWidgetViewBase
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 import java.time.Duration
 import java.time.Instant
 
 class SunAndMoonChartToolWidgetView : ChartToolWidgetViewBase() {
 
-    override suspend fun getPopulatedView(context: Context): RemoteViews {
+    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
         val astronomy = AstronomySubsystem.getInstance(context)
 
         val moon = astronomy.moon
@@ -32,11 +35,13 @@ class SunAndMoonChartToolWidgetView : ChartToolWidgetViewBase() {
             Duration.between(instant, it.time).abs()
         }
 
-        val views = getView(context)
+        val views = getView(context, prefs)
         onMain {
             val chart = Chart(context)
+            val userPrefs = UserPreferences(context)
             val astroChart = AstroChart(chart) {}
             astroChart.setMoonImage(R.drawable.ic_moon)
+            astroChart.setBands(userPrefs.astronomy.showAstronomyBands)
             astroChart.plot(sunAltitudes, moonAltitudes)
 
             val moonImage = MoonPhaseImageMapper().getPhaseImage(moon.phase)

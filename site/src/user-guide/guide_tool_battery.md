@@ -26,6 +26,9 @@ You can configure power saving mode to activate automatically when your battery 
 ## Services
 Running services are listed below the battery statistics. You can see how often they are running and how much impact they have on battery life. You can stop a service by clicking the 'X' button next to it.
 
+## System settings
+A list of system settings which impacts battery life is shown below the Trail Sense services. It will show a red or yellow alert icon if you can adjust it to change a setting. The gray unknown icon indicates that Trail Sense can't check that setting, so you should double check to ensure it is set properly. Clicking on one of the settings will open the system setting page so you can adjust as needed.
+
 ## Quick action
 You can enable the Power Saving Mode quick action in the settings for the tab you want it on.
 

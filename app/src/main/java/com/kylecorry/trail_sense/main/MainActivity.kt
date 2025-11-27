@@ -18,6 +18,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -118,6 +119,7 @@ class MainActivity : AndromedaActivity() {
             )
         }
 
+        updateFullscreenMode()
         updateBottomNavigation()
 
         navController.addOnDestinationChangedListener { _, _, _ ->
@@ -195,7 +197,8 @@ class MainActivity : AndromedaActivity() {
 
     private fun bindLayoutInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            val insets =
+                windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top
                 leftMargin = insets.left
@@ -207,7 +210,7 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    private fun updateTheme(){
+    private fun updateTheme() {
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> ColorTheme.Light
             UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
@@ -219,6 +222,7 @@ class MainActivity : AndromedaActivity() {
 
     fun reloadTheme() {
         updateTheme()
+        updateFullscreenMode()
         cache.putBoolean("pref_theme_just_changed", true)
         recreate()
     }
@@ -293,6 +297,18 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun handleIntentAction(intent: Intent) {
+        if (intent.action == "com.kylecorry.trail_sense.OPEN_TOOL") {
+            val toolId = intent.getLongExtra("tool_id", -1)
+            val tool = Tools.getTool(this, toolId)
+            if (tool != null) {
+                if (navController.currentDestination?.id != tool.navAction) {
+                    navController.navigate(tool.navAction)
+                }
+                binding.bottomNavigation.selectedItemId = tool.navAction
+            }
+            return
+        }
+
         val tools = Tools.getTools(this)
         tools.forEach { tool ->
             tool.intentHandlers.forEach { handler ->
@@ -511,12 +527,38 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
+    private fun updateFullscreenMode() {
+        val isNightMode = userPrefs.theme == UserPreferences.Theme.Night
+        val shouldBeFullscreen = isNightMode && userPrefs.nightModeFullscreen
+
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+
+        if (shouldBeFullscreen) {
+            // Hide system bars (status bar and navigation bar)
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+            // Set behavior to show bars temporarily when user swipes from edge
+            windowInsetsController.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
+            // Show system bars
+            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
+        }
+    }
+
     companion object {
 
         var lastKnownFragment: String? = null
 
         fun intent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
+        }
+
+        fun openToolIntent(context: Context, toolId: Long): Intent {
+            val tool = Tools.getTool(context, toolId)!!
+            return Intent(context, MainActivity::class.java).apply {
+                this.action = "com.kylecorry.trail_sense.OPEN_TOOL"
+                this.putExtra("tool_id", tool.id)
+            }
         }
 
         fun pendingIntent(context: Context): PendingIntent {

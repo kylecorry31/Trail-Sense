@@ -1,4 +1,4 @@
 Cúmulos
-Nuvens baixas e inchadas que se parecem com bolas de algodão. Elas são espaçadas e normalmente brancas com manchas mais escuras embaixo. Geralmente indicam tempo bom, mas se estiverem ficando mais altas, é possível que haja precipitação ou tempestade nas próximas horas.
+Nuvens baixas e fofas que se parecem com bolas de algodão. Estão espaçadas e são normalmente brancas com manchas mais escuras na parte inferior. Geralmente indicam bom tempo, mas se estiverem crescendo em altura, precipitação ou tempestade pode ser possível nas próximas horas.
 
-https://pt.wikipedia.org/wiki/Cumulus
+https://pt.m.wikipedia.org/wiki/Cumulus

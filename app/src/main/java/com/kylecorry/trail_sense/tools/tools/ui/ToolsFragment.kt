@@ -1,8 +1,13 @@
 package com.kylecorry.trail_sense.tools.tools.ui
 
+import android.app.PendingIntent
+import android.graphics.drawable.Icon
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.pm.ShortcutInfoCompat
+import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.drawable.IconCompat
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -14,8 +19,10 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.databinding.ListItemToolBinding
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -233,7 +240,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                                 getString(R.string.pin)
                             },
                             if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
-                            if (tool.settingsNavAction != null) getString(R.string.settings) else null
+                            if (tool.settingsNavAction != null) getString(R.string.settings) else null,
+                            getString(R.string.add_to_homescreen)
                         )
                     ) { selectedIdx ->
                         when (selectedIdx) {
@@ -253,6 +261,10 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
                             4 -> {
                                 findNavController().navigateWithAnimation(tool.settingsNavAction!!)
+                            }
+
+                            5 -> {
+                                addToHomescreen(tool)
                             }
                         }
                         true
@@ -318,6 +330,36 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
             updatePinnedTools()
         }
+    }
+
+    private fun addToHomescreen(tool: Tool) {
+        if (!ShortcutManagerCompat.isRequestPinShortcutSupported(requireContext())) {
+            return
+        }
+
+        val shortcutInfo = ShortcutInfoCompat.Builder(requireContext(), "tool-${tool.id}")
+            .setIcon(
+                IconCompat.createFromIcon(
+                    requireContext(),
+                    Icon.createWithResource(requireContext(), tool.icon)
+                )
+            )
+            .setIntent(MainActivity.openToolIntent(requireContext(), tool.id))
+            .setShortLabel(tool.name)
+            .setLongLabel(tool.name)
+            .build()
+
+        val callbackIntent =
+            ShortcutManagerCompat.createShortcutResultIntent(requireContext(), shortcutInfo)
+        val successCallback = PendingIntent.getBroadcast(
+            requireContext(), 0, callbackIntent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+        ShortcutManagerCompat.requestPinShortcut(
+            requireContext(),
+            shortcutInfo,
+            successCallback.intentSender
+        )
     }
 
 }

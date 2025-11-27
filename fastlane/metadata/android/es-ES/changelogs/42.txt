@@ -1,0 +1,11 @@
+- Añadir búsqueda a Herramientas y selección de balizas
+- Importar / exportar archivos GPX (waypoints)
+- Mostrar la ruta para Retroceder en la brújula de radar
+- La herramienta Ruido blanco ya no es experimental
+- Estimación de vida de la batería
+- Personalizar acciones rápidas
+- Mantener pulsado el botón de Navegar para crear una baliza
+- Permitir reiniciar el odómetro diariamente (ajustes del Odómetro)
+- Luz de pantalla roja (para uso nocturno)
+- Mejoras del mapa (experimental, soporte de PDF geoespacial)
+- Correcciones de errores

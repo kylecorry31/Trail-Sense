@@ -170,6 +170,8 @@
     <string name="theme_system">System</string>
     <string name="theme_system_black">System (black)</string>
     <string name="theme_sunset_sunrise">Sunrise/sunset</string>
+    <string name="pref_night_mode_fullscreen_title">Fullscreen in night mode</string>
+    <string name="pref_night_mode_fullscreen_summary">Hide system UI for better night vision preservation</string>
     <string name="coordinate_format_decimal_degrees">Decimal degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
     <string name="coordinate_format_degrees_decimal_minutes">Degrees decimal minutes</string>
@@ -298,6 +300,7 @@
     <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
     <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_night_mode_fullscreen" translatable="false">pref_night_mode_fullscreen</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass_2</string>
@@ -374,7 +377,6 @@
     <string name="category_shelter">Shelter</string>
     <string name="category_safety">Safety</string>
     <string name="category_natural">Natural</string>
-    <string name="toast_destination_bearing_set">Destination bearing set</string>
     <string name="tool_cliff_height_title">Cliff Height</string>
     <string name="tool_cliff_height_description">Measure the height of a cliff or drop</string>
     <string name="tool_cliff_height_disclaimer">Only use this tool when it is safe to do so, and be sure to check what is below the cliff to avoid injury. See the user guide for instructions.</string>
@@ -743,6 +745,7 @@
     <string name="units">Units</string>
     <string name="privacy">Privacy</string>
     <string name="pref_privacy_settings" translatable="false">pref_privacy_settings</string>
+    <string name="pref_theme_settings" translatable="false">pref_theme_settings</string>
     <string name="pref_unit_settings" translatable="false">pref_unit_settings</string>
     <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
     <string name="pref_experimental_metal_direction_title">Show metal direction</string>
@@ -1069,6 +1072,7 @@
     <string name="distance_alert_distance_reached">You have reached %s</string>
     <string name="off">Off</string>
     <string name="save">Save</string>
+    <string name="transparent">Transparent</string>
     <string name="saved">Saved</string>
     <string name="estimate_stride_length">Estimate stride length</string>
     <string name="pref_estimate_stride_length_holder" translatable="false">pref_estimate_stride_length_holder</string>
@@ -1469,8 +1473,8 @@
     <string name="local_talk">Local Talk</string>
     <string name="quick_actions">Quick actions</string>
     <string name="pref_bottom_navigation_tools" translatable="false">pref_bottom_navigation_tools</string>
-    <string name="tool_quick_action_summary">Long press bottom navigation or view on tools tab</string>
-    <string name="widget_bottom_sheet_instructions">Use the Widgets quick action to view</string>
+    <string name="tool_quick_action_summary">Long press bottom navigation or view on tools tab.</string>
+    <string name="widget_bottom_sheet_instructions">Long press bottom navigation or use the Widgets quick action.</string>
     <string name="widget_pref_title">In-app widgets</string>
     <string name="pref_tool_settings_header_key" translatable="false">pref_tool_settings_header_key</string>
     <string name="quick_actions_are_unavailable">Quick actions are unavailable</string>
@@ -1540,6 +1544,8 @@
     <string name="tide_estimation_description_tide_model">Uses a built-in tide model to estimate tides for the entered location or your location if none is entered.</string>
     <string name="star">Star</string>
     <string name="pref_show_ar_stars" translatable="false">pref_show_ar_stars</string>
+    <string name="pref_show_ar_astronomy_below_horizon" translatable="false">pref_show_ar_astronomy_below_horizon</string>
+    <string name="show_below_horizon">Show below horizon</string>
     <string name="pref_show_ar_constellations" translatable="false">pref_show_ar_constellations</string>
     <string name="show_stars">Show stars and planets</string>
     <string name="approximate_location">Approximate location</string>
@@ -1601,7 +1607,7 @@
     <string name="cell_towers">Cell towers</string>
     <string name="signal_finder_description">View nearby cell towers and signals.</string>
     <string name="no_cell_towers_found">No cell towers found</string>
-    <string name="cell_tower_disclaimer">Tower locations are approximated from OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower_disclaimer">Tower locations are approximated from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations.\n\n[OpenCelliD Project](https://opencellid.org/) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="full_service">Full service</string>
     <string name="emergency_calls_only">Emergency calls only</string>
     <string name="cell_tower">Cell tower</string>
@@ -1642,8 +1648,6 @@
     <string name="format_joules">%s joules</string>
     <!--    Foot pound equivalent (used for bullets)-->
     <string name="format_fpe">%s FPE</string>
-    <string name="ballistics_calculator">Ballistics calculator</string>
-    <string name="pref_ballistics_calculator_enabled" translatable="false">pref_ballistics_calculator_enabled</string>
     <!--A document as in a hunting permit-->
     <string name="permits">Permits</string>
     <string name="no_permits">No permits</string>
@@ -1796,6 +1800,52 @@
     <string name="color_gray">Gray</string>
     <string name="color_white">White</string>
     <string name="background_color">Background color</string>
-    <string name="cell_signal_distance">Cell signal distance</string>
-    <string name="pref_show_cell_signal_distance" translatable="false">pref_show_cell_signal_distance</string>
+    <string name="add_to_homescreen">Add to homescreen</string>
+    <string name="battery_tip_disable_services">Disable services you aren\'t using.</string>
+    <string name="battery_tip_airplane_mode">Turn on airplane mode to disable all wireless connections.</string>
+    <string name="battery_tip_wifi">Turn off Wi-Fi when you aren\'t in range of a Wi-Fi network or don\'t need the Internet.</string>
+    <string name="battery_tip_bluetooth">Turn off Bluetooth when you aren\'t using it.</string>
+    <string name="battery_tip_nfc">Turn off NFC when you don\'t need to make contactless payments.</string>
+    <string name="battery_tip_location">Turn off location when you don\'t need GPS.</string>
+    <string name="battery_tip_battery_saver">Turn on battery saver mode to limit certain phone functions.</string>
+    <string name="battery_tip_data_saver">Turn on data saver to restrict apps from using mobile data in the background.</string>
+    <string name="battery_tip_adaptive_brightness">Turn on adaptive brightness or dim your screen.</string>
+    <string name="battery_tip_display_timeout">Reduce your screen timeout for when you forget to hit the power button. Turn off always-on display.</string>
+    <string name="battery_tip_dark_theme">Turn on dark theme if your device has an OLED screen.</string>
+    <string name="battery_tip_background_apps">Restrict background activity for apps that you don\'t need to run in the background.</string>
+    <string name="airplane_mode">Airplane mode</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="nfc">NFC</string>
+    <string name="battery_saver">Battery saver</string>
+    <string name="data_saver">Data saver</string>
+    <string name="adaptive_brightness">Adaptive brightness</string>
+    <string name="screen_timeout">Screen timeout</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="restrict_app_background_activity">Restrict app background activity</string>
+    <string name="system">System</string>
+    <string name="battery_tip_system">Adjust system settings to reduce battery usage.</string>
+    <string name="other_tips">Other tips</string>
+    <string name="battery_tip_other">Power off your device, force stop apps, disable or uninstall apps, or disable auto-update/backups.</string>
+    <string name="theme_transparent_type">Transparent (%s)</string>
+    <string name="widget_theme_black_text">Black text</string>
+    <string name="widget_theme_white_text">White text</string>
+    <string name="pref_default_widget_theme" translatable="false">pref_default_widget_theme</string>
+    <string name="default_widget_theme">Default widget theme</string>
+    <string name="cancel_navigation_question">Cancel navigation?</string>
+    <string name="elevation_value">Elevation: %s</string>
+    <string name="pref_show_pressure_forecast" translatable="false">pref_show_pressure_forecast</string>
+    <string name="show_pressure_forecast">Show pressure forecast on chart</string>
+    <!--Minute of angle (for shooting)-->
+    <string name="moa_amount">%s MOA</string>
+    <!--mil (for shooting)-->
+    <string name="mil_amount">%s mil</string>
+    <string name="uses_g1_drag_model">Uses G1 drag model</string>
+    <string name="pref_save_map_state" translatable="false">pref_save_map_state</string>
+    <string name="remember_map_state">Remember map state</string>
+    <string name="pref_lock_bearing_to_location" translatable="false">pref_lock_bearing_to_location</string>
+    <string name="lock_bearing_to_location">Lock bearing to location</string>
+    <string name="lock_bearing_to_location_description">Lock the bearing line to your starting location</string>
+    <string name="pref_show_astronomy_bands_title">Show sunrise/set bands</string>
+    <string name="pref_show_astronomy_bands" translatable="false">pref_show_astronomy_bands</string>
 </resources>

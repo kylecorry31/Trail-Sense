@@ -27,6 +27,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.statistics.Statistics
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -46,6 +47,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
@@ -120,6 +122,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var difficulty = HikingDifficulty.Easy
 
     private val pathLayer = PathLayer()
+    private val scaleBarLayer = ScaleBarLayer()
+
+    private var lastBounds = CoordinateBounds.empty
     private val waypointLayer = BeaconLayer(8f) {
         if (selectedPointId != null) {
             deselectPoint()
@@ -214,7 +219,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             val timer = CoroutineTimer {
                 if (isBound) {
                     binding.root.scrollTo(0, binding.pathMapHolder.top)
-                    binding.pathImage.recenter()
+                    binding.pathImage.fitIntoView(lastBounds)
                 }
             }
             timer.once(Duration.ofMillis(30))
@@ -268,11 +273,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         observe(pathService.getLivePath(pathId)) {
             path = it
-            updateParent()
-            updateElevationPlot()
-            updatePointStyleLegend()
-            updatePathMap()
-            onPathChanged()
+            binding.root.post {
+                updateParent()
+                updateElevationPlot()
+                updatePointStyleLegend()
+                updatePathMap()
+                onPathChanged()
+            }
         }
 
         observe(pathService.getWaypointsLive(pathId)) {
@@ -290,8 +297,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         waypointLayer.setOutlineColor(Color.TRANSPARENT)
+        scaleBarLayer.units = prefs.baseDistanceUnits
         binding.pathImage.setLayers(
-            listOf(pathLayer, waypointLayer, myLocationLayer)
+            listOf(pathLayer, waypointLayer, myLocationLayer, scaleBarLayer)
         )
 
         binding.pathLineStyle.setOnClickListener {
@@ -336,12 +344,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     deselectPoint()
                 }
                 pointSheet?.setPoints(this@PathOverviewFragment.waypoints)
+                updateElevationOverview()
+                updateHikingStats()
+                updatePathMap()
+                updatePointStyleLegend()
+                onPathChanged()
             }
-            updateElevationOverview()
-            updateHikingStats()
-            updatePathMap()
-            updatePointStyleLegend()
-            onPathChanged()
         }
     }
 
@@ -474,7 +482,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         if (!isBound) {
             return
         }
-        binding.pathImage.bounds = Geology.getBounds(waypoints.map { it.coordinate })
+        lastBounds = Geology.getBounds(waypoints.map { it.coordinate })
+        binding.pathImage.fitIntoView(lastBounds)
         pathLayer.setPaths(
             listOf(
                 MappablePath(

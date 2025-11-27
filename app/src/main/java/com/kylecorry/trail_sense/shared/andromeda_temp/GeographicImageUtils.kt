@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 
 object GeographicImageUtils {
 
-    // TODO: Extract to andromeda (nearest pixel meeting a criteria within a region - maybe just update the ImageSource with a nearest non-zero pixel option)
+    // TODO: Redo this
     suspend fun getNearestPixelOfAsset(
         source: GeographicImageSource,
         context: Context,
@@ -26,10 +26,10 @@ object GeographicImageUtils {
         imagePath: String,
         searchSize: Int = 5,
         hasValue: (Int) -> Boolean = { it.red > 0 || it.green > 0 || it.blue > 0 },
-        hasMappedValue: (List<Float>) -> Boolean = { it.dropLast(1).any { it > 0 } },
+        hasMappedValue: (FloatArray) -> Boolean = { it.dropLast(1).any { it > 0 } },
     ): PixelCoordinate? {
         val actualPixel = source.getPixel(location)
-        val sourceValue = source.read(context, imagePath, actualPixel)
+        val sourceValue = source.read(actualPixel)
         if (hasMappedValue(sourceValue)) {
             return actualPixel
         }
@@ -39,6 +39,8 @@ object GeographicImageUtils {
             var bitmap: Bitmap? = null
             try {
                 bitmap = loadRegion(stream, actualPixel, searchSize, source.imageSize)
+                val pixels = bitmap.getPixels()
+                val width = bitmap.width
 
                 // Get the nearest non-zero pixel, wrapping around the image
                 val x = searchSize
@@ -55,20 +57,20 @@ object GeographicImageUtils {
 
                     // Check the top and bottom rows
                     for (j in leftX..rightX) {
-                        if (hasValue(bitmap[j, topY])) {
+                        if (hasValue(pixels.get(j, topY, width))) {
                             hits.add(PixelCoordinate(j.toFloat(), topY.toFloat()))
                         }
-                        if (hasValue(bitmap[j, bottomY])) {
+                        if (hasValue(pixels.get(j, bottomY, width))) {
                             hits.add(PixelCoordinate(j.toFloat(), bottomY.toFloat()))
                         }
                     }
 
                     // Check the left and right columns
                     for (j in topY..bottomY) {
-                        if (hasValue(bitmap[leftX, j])) {
+                        if (hasValue(pixels.get(leftX, j, width))) {
                             hits.add(PixelCoordinate(leftX.toFloat(), j.toFloat()))
                         }
-                        if (hasValue(bitmap[rightX, j])) {
+                        if (hasValue(pixels.get(rightX, j, width))) {
                             hits.add(PixelCoordinate(rightX.toFloat(), j.toFloat()))
                         }
                     }

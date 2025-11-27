@@ -1,0 +1,9 @@
+- Añadir modo de bajo consumo (solo para Trail Sense), disponible en ajustes y en la herramienta Batería
+- Añadir herramienta simple de identificación de nubes
+- Añadir selección de unidades a la regla
+- Añadir formato de coordenadas MGRS
+- Mejorar las páginas de incorporación
+- Añadir ajuste de requisito de satélites GPS
+- Añadir tiempo de espera de 10 segundos para GPS
+- Añadir recordatorio de calibración de la brújula cuando la precisión sea baja o media
+- Correcciones de errores

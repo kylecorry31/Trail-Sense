@@ -25,14 +25,16 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.subsystem.BeaconsSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.ToolWidgetView
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetHelper
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class NearbyBeaconsToolWidgetView : ToolWidgetView {
     override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
         // Do nothing
     }
 
-    override suspend fun getPopulatedView(context: Context): RemoteViews {
-        val views = getView(context)
+    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+        val views = getView(context, prefs)
 
         val subsystem = BeaconsSubsystem.getInstance(context)
         val prefs = UserPreferences(context)
@@ -119,7 +121,8 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
         return views
     }
 
-    override fun getView(context: Context): RemoteViews {
-        return RemoteViews(Package.getPackageName(context), R.layout.widget_list)
+    override fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+        return WidgetHelper.createThemedRemoteViews(context, prefs?.getTheme(), R.layout.widget_layout_list)
+//        return RemoteViews(Package.getPackageName(context), R.layout.widget_layout_list)
     }
 }

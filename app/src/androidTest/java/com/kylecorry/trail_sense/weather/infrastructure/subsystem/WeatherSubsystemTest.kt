@@ -1,21 +1,81 @@
 package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Location
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
 
 internal class WeatherSubsystemTest {
+
+    @Before
+    fun setup() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        AppServiceRegistry.register(FileSubsystem.getInstance(context))
+    }
+
+    @Test
+    fun climateZone() = runBlocking {
+        // Source of truth: https://koppen.earth/
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val subsystem = WeatherSubsystem.getInstance(context)
+
+        val places = listOf(
+            location(-4.518814742813397, -64.54611891693324) to "Af",
+            location(-6.221323527569555, -57.75469757904136) to "Am",
+            location(-12.755153459727236, -60.129570938783964) to "As",
+            location(26.427732529097433, 11.642537825154815) to "BWh",
+            location(39.48769607422648, -118.76175636637248) to "BWk",
+            location(10.889781243153859, 17.840790318309242) to "BSh",
+            location(40.61674146229803, -103.23676957636688) to "BSk",
+            location(34.760618265160815, -5.4566297837873625) to "Csa",
+            location(45.52684910275576, -122.77664603487463) to "Csb",
+            location(25.440252914660682, 83.93974525268311) to "Cwa",
+            location(19.94868082137199, -100.17999896176053) to "Cwb",
+            location(35.768295580708255, -81.4029610545656) to "Cfa",
+            location(47.61887607873789, 2.3071200209801765) to "Cfb",
+            location(57.32387528320942, -4.077455914853912) to "Cfc",
+            location(38.76062888403598, 41.51727954258531) to "Dsa",
+            location(38.74488121796104, 36.92826402609207) to "Dsb",
+            location(42.4474624964996, 122.11758394841614) to "Dwa",
+            location(49.097957757816225, 127.3216568354164) to "Dwb",
+            location(54.35765122332575, 126.62354956462677) to "Dwc",
+            location(63.00675660364513, 130.85668059453226) to "Dwd",
+            location(42, -72, 0f) to "Dfa",
+            location(45.38076187098529, -69.35700638127085) to "Dfb",
+            location(54.770550236146356, -74.47190511134566) to "Dfc",
+            location(73.06625156704135, -121.51469117406504) to "ET",
+            location(-80.55071870183689, -91.46659018836088) to "EF"
+        )
+
+
+        for (place in places) {
+            val classification = subsystem.getClimateClassification(
+                place.first.coordinate,
+                place.first.elevation,
+                false
+            )
+            assertEquals(
+                "Expected ${place.second} for ${place.first.coordinate} but got ${classification.code}",
+                place.second,
+                classification.code
+            )
+        }
+    }
 
     @Test
     fun temperature() = runBlocking {
@@ -25,7 +85,7 @@ internal class WeatherSubsystemTest {
 
         val maximumError = 10.5f
         val maxQuantile50Error = 2f
-        val maxQuantile90Error = 6.5f
+        val maxQuantile90Error = 6f
 
         val errors = mutableListOf<Float>()
 
@@ -360,6 +420,20 @@ internal class WeatherSubsystemTest {
         assertQuantile(errors, maxQuantile50Error, 0.5f, "Precipitation")
         assertQuantile(errors, maxQuantile90Error, 0.9f, "Precipitation")
     }
+
+    private fun location(latitude: Number, longitude: Number, elevation: Number? = null): Location =
+        runBlocking {
+            val ele = elevation?.toFloat() ?: DEM.getElevation(
+                Coordinate(
+                    latitude.toDouble(),
+                    longitude.toDouble()
+                )
+            ) ?: 0f
+            Location(
+                Coordinate(latitude.toDouble(), longitude.toDouble()),
+                Distance.meters(ele)
+            )
+        }
 
     private class TemperaturePlace(
         val name: String,

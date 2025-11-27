@@ -16,11 +16,12 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class MoonToolWidgetView : SimpleToolWidgetView() {
 
-    override suspend fun getPopulatedView(context: Context): RemoteViews {
-        val views = getView(context)
+    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+        val views = getView(context, prefs)
         val astronomy = AstronomySubsystem.getInstance(context)
         val formatter = FormatService.getInstance(context)
         val moon = astronomy.moon

@@ -34,8 +34,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.gps.MockedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
-import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstroPositions
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyEvent
@@ -288,6 +288,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onResume() {
         super.onResume()
+        chart.setBands(prefs.astronomy.showAstronomyBands)
         binding.displayDate.reset()
         requestLocationUpdate()
 
@@ -450,7 +451,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             return
         }
 
-        if (gps is OverrideGPS && location == Coordinate.zero) {
+        if (gps is MockedGPS && prefs.locationOverride == Coordinate.zero) {
             val activity = requireActivity() as MainActivity
             val navController = findNavController()
             val error = UserError(

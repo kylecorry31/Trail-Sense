@@ -1,4 +1,4 @@
-Bolete
-Cogumelo com parte inferior esponjosa e porosa em vez de brânquias, comumente encontrado perto de árvores. Muitos boletos são comestíveis, mas alguns são tóxicos, portanto, evite os que têm poros vermelhos ou alaranjados ou que ficam azuis quando cortados.
+Boleto
+Um cogumelo com a parte inferior esponjosa e porosa em vez de lamelas, comumente encontrado perto de árvores. Muitos boletos são comestíveis, mas alguns são tóxicos, portanto evite os que possuem poros vermelhos ou laranjas ou que ficam azuis quando cortados.
 
-https://pt.wikipedia.org/wiki/Boletales
+https://pt.m.wikipedia.org/wiki/Boletales

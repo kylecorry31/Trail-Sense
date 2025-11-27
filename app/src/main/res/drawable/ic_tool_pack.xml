@@ -1,4 +1,10 @@
 <!--drawable/bag_personal.xml-->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:tint="?android:textColorSecondary" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:fillColor="#fff" android:pathData="M16 5V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1a4 4 0 0 0-4 4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a4 4 0 0 0-4-4m-6-1h4v1h-4V4m2 5l2 2-2 2-2-2 2-2m6 7H9v2H8v-2H6v-1h12v1z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/tool_icon_color"
+        android:pathData="M16 5V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1a4 4 0 0 0-4 4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a4 4 0 0 0-4-4m-6-1h4v1h-4V4m2 5l2 2-2 2-2-2 2-2m6 7H9v2H8v-2H6v-1h12v1z" />
 </vector>

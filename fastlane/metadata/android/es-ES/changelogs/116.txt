@@ -1,0 +1,13 @@
+Acciones rápidas
+- Nuevo: Crear baliza, Nota
+- Eliminar límites en las acciones rápidas disponibles
+
+Realidad aumentada
+- Añadir soporte para rutas
+- Activar barra de zoom
+
+Varios
+- Dividir ajustes de Navegar y rutas
+- Añadir opción de ajustes al mantener pulsada una herramienta
+- Añadir modo compacto para la navegación inferior
+- Correcciones de errores

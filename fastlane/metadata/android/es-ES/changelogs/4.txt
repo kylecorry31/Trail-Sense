@@ -1,0 +1,6 @@
+- Nuevo modo de brújula lineal
+- Mostrar balizas cercanas
+- Ajustar la visualización de la regla
+- Hacer el seguimiento meteorológico una función opcional
+- Añadir más ajustes personalizables
+- Ajustes de interfaz de usuario

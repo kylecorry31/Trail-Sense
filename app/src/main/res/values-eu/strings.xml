@@ -355,7 +355,6 @@
     <string name="error_occurred">Errore bat gertatu da</string>
     <string name="delete_path_group_message">%s eta bere bide guztiak ezabatuko dira.</string>
     <string name="tool_bubble_level_summary">Azaleraren bat laua den determinatzen du</string>
-    <string name="toast_destination_bearing_set">Helbururainoko orientazioa ezarrita</string>
     <string name="tool_cliff_height_disclaimer">Tresna hau soilik segurua denean erabili, eta ziurtatu zer dagoen amildegiaren beheran zauriak ekiditeko. Erabiltzailearen gida irakurri argibideentzako.</string>
     <string name="guide_recommended_apps_description">Aplikazio erabilgarriak biziraupen uneentzako</string>
     <string name="solar_panel_instructions">Hasteko, kokatu zure mugikorra eguzki-panelaren aurrealdean.</string>

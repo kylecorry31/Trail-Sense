@@ -4,9 +4,11 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.lifecycle.Lifecycle
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetHelper
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 abstract class SimpleToolWidgetView : ToolWidgetView {
-    protected val LAYOUT = R.layout.widget_small_simple
+    private val LAYOUT = R.layout.widget_layout_small_simple
     protected val ROOT = R.id.widget_frame
     protected val TITLE_TEXTVIEW = R.id.widget_title
     protected val SUBTITLE_TEXTVIEW = R.id.widget_subtitle
@@ -17,7 +19,7 @@ abstract class SimpleToolWidgetView : ToolWidgetView {
         // Do nothing
     }
 
-    override fun getView(context: Context): RemoteViews {
-        return RemoteViews(context.packageName, LAYOUT)
+    override fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+        return WidgetHelper.createThemedRemoteViews(context, prefs?.getTheme(), LAYOUT)
     }
 }

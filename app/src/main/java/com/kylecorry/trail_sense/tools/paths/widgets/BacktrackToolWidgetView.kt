@@ -14,11 +14,12 @@ import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class BacktrackToolWidgetView : SimpleToolWidgetView() {
 
-    override suspend fun getPopulatedView(context: Context): RemoteViews {
-        val views = getView(context)
+    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+        val views = getView(context, prefs)
         val pathService = PathService.getInstance(context)
         val isBacktrackActive =
             Tools.getService(context, PathsToolRegistration.SERVICE_BACKTRACK)?.isEnabled() == true

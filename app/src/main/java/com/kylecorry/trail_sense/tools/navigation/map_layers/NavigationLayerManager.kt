@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.content.Context
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayerManager
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -14,19 +15,14 @@ class NavigationLayerManager(context: Context, private val layer: NavigationLaye
     BaseLayerManager() {
 
     private val scope = CoroutineScope(Dispatchers.Default)
-    private val navigator = Navigator.Companion.getInstance(context)
+    private val navigator = AppServiceRegistry.get<Navigator>()
+    private val prefs = AppServiceRegistry.get<UserPreferences>()
 
     override fun start() {
+        layer.useLocationWithBearing = prefs.navigation.lockBearingToLocation
         scope.launch {
-            // Load destination
-            navigator.destination.collect {
-                if (it != null) {
-                    val colorWithAlpha = it.color.withAlpha(127)
-                    layer.setColor(colorWithAlpha)
-                    layer.setEnd(it.coordinate)
-                } else {
-                    layer.setEnd(null)
-                }
+            navigator.destination2.collect {
+                layer.setDestination(it)
             }
         }
     }
@@ -37,6 +33,6 @@ class NavigationLayerManager(context: Context, private val layer: NavigationLaye
 
     override fun onLocationChanged(location: Coordinate, accuracy: Float?) {
         super.onLocationChanged(location, accuracy)
-        layer.setStart(location)
+        layer.setMyLocation(location)
     }
 }

@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/path_scroll">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,7 +67,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp">
 
-            <com.kylecorry.trail_sense.tools.paths.ui.PathView
+            <com.kylecorry.trail_sense.tools.map.ui.MapView
                 android:id="@+id/path_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

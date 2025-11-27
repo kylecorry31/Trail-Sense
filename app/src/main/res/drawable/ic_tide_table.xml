@@ -1,4 +1,10 @@
 <!--drawable/waves.xml-->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24" android:tint="?android:textColorSecondary">
-    <path android:fillColor="#fff" android:pathData="M20 12h2v2h-2c-1.38 0-2.74-0.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26 0.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-0.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22 0.86 2.61 1.33 4 1.33m0-6h2v2h-2c-1.38 0-2.74-0.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26 0.65-2.63 1-4 1H2V6h2c1.39 0 2.78-0.47 4-1.33 2.44 1.71 5.56 1.71 8 0C17.22 5.53 18.61 6 20 6m0 12h2v2h-2c-1.38 0-2.74-0.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26 0.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-0.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22 0.86 2.61 1.33 4 1.33z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/tool_icon_color"
+        android:pathData="M20 12h2v2h-2c-1.38 0-2.74-0.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26 0.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-0.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22 0.86 2.61 1.33 4 1.33m0-6h2v2h-2c-1.38 0-2.74-0.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26 0.65-2.63 1-4 1H2V6h2c1.39 0 2.78-0.47 4-1.33 2.44 1.71 5.56 1.71 8 0C17.22 5.53 18.61 6 20 6m0 12h2v2h-2c-1.38 0-2.74-0.35-4-1-2.5 1.3-5.5 1.3-8 0-1.26 0.65-2.63 1-4 1H2v-2h2c1.39 0 2.78-0.47 4-1.33 2.44 1.71 5.56 1.71 8 0 1.22 0.86 2.61 1.33 4 1.33z" />
 </vector>

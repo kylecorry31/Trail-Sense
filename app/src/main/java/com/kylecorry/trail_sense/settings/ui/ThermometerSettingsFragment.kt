@@ -203,13 +203,18 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             }
 
         observe(weather.weatherChanged) {
-            inBackground {
-                runner.replace {
-                    history = weather.getHistory()
-                    uncalibratedHistory = weather.getRawHistory()
-                    onMain {
-                        updateChart()
-                    }
+            updateData()
+        }
+        updateData()
+    }
+
+    private fun updateData() {
+        inBackground {
+            runner.replace {
+                history = weather.getHistory()
+                uncalibratedHistory = weather.getRawHistory()
+                onMain {
+                    updateChart()
                 }
             }
         }

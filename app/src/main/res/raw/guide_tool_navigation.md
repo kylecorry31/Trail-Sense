@@ -53,6 +53,9 @@ Settings:
 - **Show labels**: Determines if contour labels are shown on the map.
 - **Color**: The color of the contour lines, some options are color scales which change based on elevation.
 
+### Cell towers
+This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations.
+
 #### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
 
@@ -101,13 +104,17 @@ You can navigate to a beacon by tapping the navigate button in the bottom-right.
 
 While navigating to a beacon, the direction will be displayed on the compass and all other nearby beacons will become transparent. A navigation panel will display at the bottom of your screen with the following information:
 - **Name**: The name of the beacon you are navigating to.
+- **Coordinates**: The coordinates of the beacon.
 - **Distance**: The distance to the beacon.
 - **Bearing**: The bearing to the beacon.
 - **ETA**: The estimated time of arrival to the beacon.
-- **Elevation**: The elevation of the beacon and difference from your current elevation.
+- **Elevation**: The elevation of the beacon.
+- **Elevation change**: The elevation difference from your current elevation.
 - **Notes**: Any notes you have for the beacon. This will show as an icon if there are notes, and you can tap it to see the notes.
 
-You can stop navigating to a beacon by tapping the 'X' button in the bottom-right.
+You can stop navigating to a beacon by tapping the 'X' button.
+
+You can open the beacon by clicking the beacon name.
 
 You can quickly create a beacon from your current location by long-pressing the navigation icon at the bottom-right. This will open the Beacons tool with the location and elevation pre-filled.
 
@@ -115,7 +122,10 @@ For more information on beacons, see the Beacons guide.
 
 ## Bearing navigation
 
-You can navigate using a bearing by tapping the compass to set a bearing. The set bearing will be displayed on the compass. You can tap the compass again to clear the bearing.
+You can navigate using a bearing by tapping the compass to set a bearing. The set bearing will be displayed on the compass and in the navigation panel. You can tap the compass again or tap the 'X' button to clear the bearing.
+
+By default, bearings don't change when you move to a different location. If you would like to keep the bearing fixed to your initial location, you can enable 
+Settings > Navigation > Lock bearing to location'. This is similar to creating a beacon at a distance and navigating to it.
 
 ## Path navigation
 

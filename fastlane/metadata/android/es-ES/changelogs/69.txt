@@ -1,0 +1,9 @@
+Navegar
+- Crear subgrupos dentro de un grupo
+- Actualizar la hoja inferior de ubicación
+- Navegar al punto más cercano de una ruta
+
+Otros
+- Introducir rumbos manualmente al colocar balizas o triangular
+- Permitir desactivar el inicio al arrancar (ajustes de Energía, por defecto activado)
+- Correcciones de errores

@@ -6,6 +6,7 @@
 
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
+        <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/orange_10</item>
         <item name="colorAccent">?attr/colorPrimary</item>
 
@@ -22,11 +23,42 @@
         <item name="materialButtonStyle">@style/ThemeOverlay.App.ElevatedButton</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
-        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall</item>
+        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall
+        </item>
         <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
 
     <style name="WidgetTheme" parent="Theme.Material3.DynamicColors.DayNight" />
+
+    <style name="WidgetTheme.TransparentBase" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="colorSurfaceContainer">@android:color/transparent</item>
+        <!--This is the color used for the sun/moon chart-->
+        <item name="android:colorBackground">@color/colorSecondary</item>
+    </style>
+
+    <style name="WidgetTheme.TransparentWhite.TextView" parent="@android:style/Widget.TextView">
+        <item name="android:shadowColor">@android:color/black</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WidgetTheme.TransparentBlack.TextView" parent="@android:style/Widget.TextView">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WidgetTheme.TransparentBlack" parent="WidgetTheme.TransparentBase">
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@android:color/black</item>
+        <item name="android:textViewStyle">@style/WidgetTheme.TransparentBlack.TextView</item>
+    </style>
+
+    <style name="WidgetTheme.TransparentWhite" parent="WidgetTheme.TransparentBase">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textViewStyle">@style/WidgetTheme.TransparentWhite.TextView</item>
+    </style>
 
 
     <!--Override this for other Android versions-->

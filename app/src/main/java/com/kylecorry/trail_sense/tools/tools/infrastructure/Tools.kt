@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.widgets.Widgets
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.topics.generic.Topic
@@ -190,13 +191,36 @@ object Tools {
             .firstOrNull { it.id == serviceId }
     }
 
+    fun getWidgetFromAppWidgetId(context: Context, appWidgetId: Int): ToolWidget? {
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val componentName = appWidgetManager.getAppWidgetInfo(appWidgetId)?.provider ?: return null
+        return getTools(context)
+            .flatMap { it.widgets }
+            .firstOrNull {
+                it.widgetClass == componentName.className.let { cls ->
+                    tryOrDefault(null) {
+                        Class.forName(cls)
+                    }
+                }
+            }
+    }
+
     fun getWidget(context: Context, widgetId: String): ToolWidget? {
         return getTools(context)
             .flatMap { it.widgets }
             .firstOrNull { it.id == widgetId }
     }
 
-    fun triggerWidgetUpdate(context: Context, widgetId: String) {
+    fun triggerWidgetUpdate(context: Context, widgetId: String?) {
+        if (widgetId == null) {
+            // Update all widgets
+            // TODO: Also update in app widgets?
+            getTools(context)
+                .flatMap { it.widgets }
+                .forEach { Widgets.requestUpdate(context, it.widgetClass) }
+            return
+        }
+
         val widget = getWidget(context, widgetId) ?: return
         Widgets.requestUpdate(context, widget.widgetClass)
         broadcast(

@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please consider posting in the New Feature Ideas [issue](https://github.com/kylecorry31/Trail-Sense/issues/2590) or [discussion](https://github.com/kylecorry31/Trail-Sense/discussions/316) instead of logging a new issue. If you do create a new issue, I may modify your description or create my own issue as a replacement to make it easier for development. Please search through existing issues to make sure this isn't a duplicate and be sure to follow the [CONTRIBUTING](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide.
+        Please consider posting in the New Feature Ideas [issue](https://github.com/kylecorry31/Trail-Sense/issues/2590) or [discussion](https://github.com/kylecorry31/Trail-Sense/discussions/316) instead of logging a new issue. If you do create a new issue, I may modify your description or create my own issue as a replacement to make it easier for development. Please search through existing issues to make sure this isn't a duplicate. By creating this issue, you confirm that you have reviewed and are following the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide. Generative AI use is heavily restricted in this repo, see the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) before creating this issue.
 
   - type: textarea
     id: description

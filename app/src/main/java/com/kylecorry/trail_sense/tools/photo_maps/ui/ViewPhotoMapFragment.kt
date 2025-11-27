@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -28,6 +29,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -36,6 +38,7 @@ import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
@@ -72,7 +75,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private var mapId = 0L
     private var map: PhotoMap? = null
-    private var destination: Beacon? = null
+    private var destination: Destination? = null
 
     private var mapLockMode = MapLockMode.Free
 
@@ -133,6 +136,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             updateDestination()
         }
 
+        observeFlow(navigator.destination2) {
+            setDestination(it)
+        }
+
         reloadMap()
 
         binding.map.setOnLongPressListener {
@@ -157,25 +164,12 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             updateMapLockMode(getNextLockMode(mapLockMode), keepMapUp)
         }
 
-        binding.cancelNavigationBtn.setOnClickListener {
-            cancelNavigation()
-        }
-
         binding.zoomOutBtn.setOnClickListener {
             binding.map.zoom(0.5f)
         }
 
         binding.zoomInBtn.setOnClickListener {
             binding.map.zoom(2f)
-        }
-
-        // Update navigation
-        inBackground {
-            navigator.getDestination()?.let {
-                onMain {
-                    navigateTo(it)
-                }
-            }
         }
     }
 
@@ -186,25 +180,35 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         selectLocation(location)
 
-        Share.actions(
-            this,
-            formatService.formatLocation(location),
-            listOf(
-                ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
-                    createBeacon(location)
+        inBackground {
+            val elevation = Distance.meters(DEM.getElevation(location))
+
+            onMain {
+                Share.actions(
+                    this@ViewPhotoMapFragment,
+                    formatService.formatLocation(location),
+                    listOf(
+                        ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
+                            createBeacon(location)
+                            selectLocation(null)
+                        },
+                        ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
+                            navigateTo(location)
+                            selectLocation(null)
+                        },
+                        ActionItem(getString(R.string.distance), R.drawable.ruler) {
+                            startDistanceMeasurement(gps.location, location)
+                            selectLocation(null)
+                        },
+                    ),
+                    subtitle = getString(
+                        R.string.elevation_value,
+                        formatService.formatElevation(elevation)
+                    )
+                ) {
                     selectLocation(null)
-                },
-                ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
-                    navigateTo(location)
-                    selectLocation(null)
-                },
-                ActionItem(getString(R.string.distance), R.drawable.ruler) {
-                    startDistanceMeasurement(gps.location, location)
-                    selectLocation(null)
-                },
-            )
-        ) {
-            selectLocation(null)
+                }
+            }
         }
     }
 
@@ -222,21 +226,21 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun updateDestination() {
-        if (throttle.isThrottled()) {
+        if (throttle.isThrottled() || !isBound) {
             return
         }
 
         elevation = altimeter.altitude
 
         val beacon = destination ?: return
-        binding.navigationSheet.show(
+        binding.navigationSheet.updateNavigationSensorValues(
             gps.location,
             altimeter.altitude,
             gps.speed.speed,
-            beacon,
-            compass.declination,
-            true
+            compass.declination
         )
+        binding.navigationSheet.setTrueNorthOverride(true)
+        binding.navigationSheet.show(beacon, true)
     }
 
     private fun selectLocation(location: Coordinate?) {
@@ -342,28 +346,18 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun navigateTo(beacon: Beacon): Boolean {
         navigator.navigateTo(beacon)
-        destination = beacon
-        binding.cancelNavigationBtn.show()
-        updateDestination()
-        activity?.let { screenLock.updateLock(it) }
+        setDestination(Destination.Beacon(beacon))
         return true
     }
 
-    private fun hideNavigation() {
-        binding.cancelNavigationBtn.hide()
-        binding.navigationSheet.hide()
-        activity?.let { screenLock.updateLock(it) }
-        destination = null
-    }
-
-    private fun cancelNavigation() {
-        if (mapLockMode == MapLockMode.Trace) {
-            return
+    private fun setDestination(destination: Destination?) {
+        this@ViewPhotoMapFragment.destination = destination
+        if (destination == null) {
+            binding.navigationSheet.hide()
+        } else {
+            updateDestination()
         }
-
-        navigator.cancelNavigation()
-        destination = null
-        hideNavigation()
+        activity?.let { screenLock.updateLock(it) }
     }
 
     private fun onMapLoad(map: PhotoMap) {

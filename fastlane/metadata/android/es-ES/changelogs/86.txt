@@ -1,0 +1,14 @@
+Meteorología
+- Tener en cuenta las nubes en el pronóstico
+- Mostrar la condición meteorológica más probable
+- Mejorar la precisión de elevación para la conversión al nivel del mar
+- Determinar si la condición meteorológica es probable ahora, muy pronto, pronto o más tarde
+
+Retroceder
+- Mejorar la precisión de elevación
+
+Historial de elevación
+- Mostrar la hora en el eje X
+
+Miscelánea
+- Corrección de errores

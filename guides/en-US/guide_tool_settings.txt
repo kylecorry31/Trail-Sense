@@ -206,7 +206,9 @@ Theme related settings can be adjusted in Settings > Theme.
   - **Night**: A theme with a black background and a red filter to help maintain night vision.
 - **Dynamic colors**: Whether to use your device's dynamic colors in the app, if disabled or unavailable colors in Trail Sense will be a shade of orange.
 - **Compass dynamic colors**: Whether to use your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
+- **Default widget theme**: The default theme for widgets. This can be overridden through the widget customization options on your homescreen.
 - **Compact mode**: Whether to use a more compact layout for the bottom bar (thinner and does not display labels).
+- **Fullscreen in night mode**: Whether to use fullscreen mode when the night theme is enabled. Swipe from the top to show the system UI.
 
 ## About
 You can find additional information about Trail Sense in Settings > About.

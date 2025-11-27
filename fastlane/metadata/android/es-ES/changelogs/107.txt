@@ -1,0 +1,18 @@
+Herramientas
+- Rediseñar la pestaña de herramientas
+- Mover los ajustes a herramientas
+- Añadir acciones rápidas a herramientas (personalizar en ajustes)
+- Añadir fijación de herramienta
+- Añadir ordenación de herramientas (categoría, alfabético)
+
+Navegar
+- Mejorar la alineación de la cámara con la brújula de avistamiento
+- Añadir etiqueta para Norte verdadero frente a Norte magnético
+
+Realidad aumentada (Experimental)
+- Añadir herramienta de Realidad Aumentada (activar en ajustes experimentales)
+- Mostrar balizas cercanas en AR
+- Mostrar posiciones del sol y la luna en AR
+
+Varios
+- Nuevas acciones rápidas: Pedometer, Seguimiento meteorológico, Retroceder (alternar) y modo nocturno

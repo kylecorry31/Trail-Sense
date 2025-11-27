@@ -4,6 +4,9 @@
 
     <queries>
         <package android:name="com.kylecorry.trail_sense_comms" />
+        <intent>
+            <action android:name="com.kylecorry.trail_sense.PLUGIN_SERVICE" />
+        </intent>
     </queries>
 
     <!--Features-->
@@ -152,6 +155,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name="com.kylecorry.trail_sense.tools.tools.widgets.ToolWidgetConfigureActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".tools.flashlight.infrastructure.FlashlightService"

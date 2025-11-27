@@ -26,11 +26,8 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSigh
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSightingEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
-import com.kylecorry.trail_sense.tools.photo_maps.domain.MapEntity
-import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroupEntity
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapDao
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapGroupDao
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.commands.RebaseMapCalibrationWorker
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingDao
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingEntity
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
@@ -43,6 +40,11 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathEnti
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupDao
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupEntity
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.WaypointDao
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapEntity
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroupEntity
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapDao
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapGroupDao
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.commands.RebaseMapCalibrationWorker
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideConstituentEntry
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
@@ -55,8 +57,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class],
-    version = 43,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class],
+    version = 44,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -79,6 +81,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun fieldGuidePageDao(): FieldGuidePageDao
     abstract fun fieldGuideSightingDao(): FieldGuideSightingDao
     abstract fun digitalElevationModelDao(): DigitalElevationModelDao
+    abstract fun bearingDao(): NavigationBearingDao
 
     companion object {
 
@@ -380,6 +383,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_43_44 = object : Migration(43, 44) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `navigation_bearings` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bearing` REAL NOT NULL, `start_latitude` REAL DEFAULT NULL, `start_longitude` REAL DEFAULT NULL, `start_time` INTEGER DEFAULT NULL, `is_active` INTEGER NOT NULL)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -423,7 +432,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_39_40,
                     MIGRATION_40_41,
                     MIGRATION_41_42,
-                    MIGRATION_42_43
+                    MIGRATION_42_43,
+                    MIGRATION_43_44
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

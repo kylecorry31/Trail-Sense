@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation">گزینمە</string>
+    <string name="weather">هوا دورومی</string>
+    <string name="settings">عیارلر</string>
+    <string name="astronomy">گوك بیلیم</string>
+    <string name="tools">آراچلر</string>
+    <string name="disclaimer_message_title">سوروملولق ردی</string>
+    <string name="duration_hour_format">%dسا</string>
+</resources>

@@ -250,7 +250,6 @@
     <string name="navigation_nearby_category">القريب</string>
     <string name="category_medical">الطب</string>
     <string name="category_fire">النار</string>
-    <string name="toast_destination_bearing_set">تم تعيين اتجاه الوجهة</string>
     <string name="tool_cliff_height_description">قياس ارتفاع جرف أو انخفاض</string>
     <string name="tool_cliff_height_disclaimer">استخدم هذه الأداة فقط عندما يكون ذلك آمنًا، وتأكد من التحقق مما هو أسفل الجرف لتجنب الإصابات. راجع دليل المستخدم للحصول على التعليمات.</string>
     <string name="action_inventory_clear_confirm">مسح جميع الكميات المعبأة؟</string>

@@ -1,0 +1,14 @@
+Astronomía
+- Alertas de salida del sol
+
+Mareas
+- Añadir método de estimación del intervalo lunitidal
+
+Rutas
+- Cambiar el intervalo predeterminado para Retroceder a 15 minutos
+
+Linterna
+- Controlar el brillo de la linterna de pantalla con los botones de volumen (activar en ajustes)
+
+Varios
+- Correcciones de errores y mejoras de rendimiento
