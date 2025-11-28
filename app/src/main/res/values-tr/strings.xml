@@ -417,7 +417,7 @@
     <string name="access_background_location">Konum bilgisini güncelle</string>
     <string name="copied_to_clipboard_toast">Panoya kopyalandı</string>
     <string name="tools">Araçlar</string>
-    <string name="astronomy">Gök bilim</string>
+    <string name="astronomy">Gök bilimi</string>
     <string name="settings">Ayarlar</string>
     <string name="weather">Hava durumu</string>
     <string name="navigation">Gezinme</string>
@@ -1474,4 +1474,10 @@
     <string name="color_grayscale">Gri tonlama</string>
     <string name="color_vibrant">Canlı</string>
     <string name="color_muted">Sessiz</string>
+    <string name="pref_night_mode_fullscreen_title">Gece modunda tam ekran</string>
+    <string name="pref_night_mode_fullscreen_summary">Gece görüşünü korumak için sistem arayüzünü gizle</string>
+    <string name="show_below_horizon">Ufuğun altını göster</string>
+    <string name="show_pressure_forecast">Basınç tahminini grafikte göster</string>
+    <string name="lock_bearing_to_location">Yönü konuma kilitle</string>
+    <string name="lock_bearing_to_location_description">Yön çizgisini başlangıç konumuna kilitle</string>
 </resources>
