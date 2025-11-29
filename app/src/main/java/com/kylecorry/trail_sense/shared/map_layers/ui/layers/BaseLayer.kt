@@ -11,6 +11,9 @@ import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
 
 open class BaseLayer : IAsyncLayer {
 
+    private var lastHeight = 0
+    private var lastWidth = 0
+    private var cachedBounds = Rectangle(0f, 0f, 0f, 0f)
     private val markers = mutableListOf<MapMarker>()
     private val lock = Any()
 
@@ -89,9 +92,14 @@ open class BaseLayer : IAsyncLayer {
     }
 
     private fun getBounds(drawer: ICanvasDrawer): Rectangle {
-        // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
-        // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
-        return drawer.getBounds(45f)
+        if (drawer.canvas.height != lastHeight || drawer.canvas.width != lastWidth) {
+            lastHeight = drawer.canvas.height
+            lastWidth = drawer.canvas.width
+            // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
+            // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
+            cachedBounds = drawer.getBounds(45f)
+        }
+        return cachedBounds
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
