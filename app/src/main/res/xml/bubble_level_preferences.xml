@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/tool_bubble_level_title">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_bubble_level_threshold"
+            app:singleLineTitle="false"
+            app:title="@string/pref_bubble_level_threshold_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
