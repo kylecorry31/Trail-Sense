@@ -121,3 +121,5 @@ scripts/experiments/cache.json
 .idea/AndroidProjectSystem.xml
 /.idea/deviceManager.xml
 /.idea/migrations.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
