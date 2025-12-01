@@ -210,6 +210,7 @@ dependencies {
     implementation(libs.andromeda.json)
     implementation(libs.andromeda.widgets)
     implementation(libs.andromeda.ipc)
+    implementation(libs.andromeda.geojson)
 
     // Misc
     implementation(libs.sol)

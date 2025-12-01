@@ -6,7 +6,7 @@ androidXTestUiAutomator = "2.3.0"
 androidXArchCore = "2.2.0"
 androidXCoreRemoteViews = "1.1.0"
 androidXExifinterfaceVersion = "1.4.1"
-andromedaVersion = "18.0.0"
+andromedaVersion = "18.1.0"
 cameraxVersion = "1.4.2"
 coreKtx = "1.17.0"
 appcompat = "1.7.1"
@@ -77,6 +77,7 @@ andromeda-torch = { module = "com.kylecorry.andromeda:torch", version.ref = "and
 andromeda-views = { module = "com.kylecorry.andromeda:views", version.ref = "andromedaVersion" }
 andromeda-widgets = { module = "com.kylecorry.andromeda:widgets", version.ref = "andromedaVersion" }
 andromeda-ipc = { module = "com.kylecorry.andromeda:ipc", version.ref = "andromedaVersion" }
+andromeda-geojson = { module = "com.kylecorry.andromeda:geojson", version.ref = "andromedaVersion" }
 camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraxVersion" }
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraxVersion" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraxVersion" }
