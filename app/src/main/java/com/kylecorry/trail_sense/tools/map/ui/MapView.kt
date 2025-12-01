@@ -92,6 +92,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             invalidate()
         }
 
+    private val mapCenterPixels: Vector2
+        get() = hooks.memo("map_center_pixels", mapCenter, projection) {
+            projection.toPixels(mapCenter)
+        }
+
     override var mapAzimuth: Float = 0f
         set(value) {
             field = value
@@ -176,7 +181,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        val center = projection.toPixels(mapCenter)
+        val center = mapCenterPixels
 
         val x = (pixel.x - width / 2f) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS
         val y =
