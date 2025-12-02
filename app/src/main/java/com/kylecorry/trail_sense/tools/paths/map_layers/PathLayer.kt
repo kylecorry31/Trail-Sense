@@ -131,7 +131,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
                         strokeScale = 0.75f * scale / (path.originalPath?.thicknessScale ?: 1f)
                     ) {
                         if (shouldRenderWithDrawLines || path.path == null) {
-                            lines(path.line.toFloatArray())
+                            lines(path.line)
                         } else {
                             path(path.path)
                         }
@@ -143,7 +143,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
                     strokeScale = scale / (path.originalPath?.thicknessScale ?: 1f)
                 ) {
                     if (shouldRenderWithDrawLines || path.path == null) {
-                        lines(path.line.toFloatArray())
+                        lines(path.line)
                     } else {
                         path(path.path)
                     }
@@ -284,7 +284,6 @@ class PathLayer : IAsyncLayer, IPathLayer {
         // Update the rendered paths
         synchronized(lock) {
             renderedPaths.forEach {
-                linePool.release(it.value.line)
                 it.value.path?.let {
                     pathPool.release(it)
                 }
@@ -305,6 +304,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
             val lineObj = linePool.get()
             val pathObj = if (shouldRenderWithDrawLines) null else pathPool.get()
             map[path.id] = render(path, renderer, lineObj, pathObj)
+            linePool.release(lineObj)
         }
         return map
     }

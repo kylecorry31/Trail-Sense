@@ -156,7 +156,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        val center = projection.toPixels(mapCenter)
+        val center = mapCenterPixels
 
         // Always render the hemispheres closest to the map center
         val newCoordinate = Coordinate(
@@ -173,6 +173,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         val y =
             (center.y - projected.y) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel) // Y inverted
 
+        // TODO: Replace PixelCoordinate with Vector2
         return PixelCoordinate(
             x.toFloat() + width / 2f,
             y.toFloat() + height / 2f

@@ -20,7 +20,7 @@ class ClippedPathRenderer(
 
         clipper.clip(points.map { mapper(it) }, bounds, line, originPx, rdpFilterEpsilon = filterEpsilon)
 
-        return RenderedPath(origin, line)
+        return RenderedPath(origin, line.toFloatArray())
     }
 
 }
