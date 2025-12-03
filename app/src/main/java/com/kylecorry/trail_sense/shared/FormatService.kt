@@ -11,14 +11,14 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.ResourceCache
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
-import com.kylecorry.sol.science.geography.CoordinateFormat
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toDecimalDegrees
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toDegreeDecimalMinutes
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toDegreeMinutesSeconds
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toMGRS
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toOSGB
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toUSNG
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toUTM
+import com.kylecorry.sol.science.geography.formatting.CoordinateFormat
+import com.kylecorry.sol.science.geography.formatting.DecimalDegreesCoordinateFormat
+import com.kylecorry.sol.science.geography.formatting.DegreesDecimalMinutesCoordinateFormat
+import com.kylecorry.sol.science.geography.formatting.DegreesMinutesSecondsCoordinateFormat
+import com.kylecorry.sol.science.geography.formatting.MGRSCoordinateFormat
+import com.kylecorry.sol.science.geography.formatting.OSGBCoordinateFormat
+import com.kylecorry.sol.science.geography.formatting.USNGCoordinateFormat
+import com.kylecorry.sol.science.geography.formatting.UTMCoordinateFormat
 import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.shared.Season
@@ -38,6 +38,7 @@ import com.kylecorry.sol.units.VolumeUnits
 import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.navigation.domain.LocationMath
@@ -410,8 +411,12 @@ class FormatService private constructor(private val context: Context) {
     ): String {
         val formatted = DecimalFormatter.format(temperature.value, decimalPlaces, strict)
         return when (temperature.units) {
-            TemperatureUnits.F -> strings.getString(R.string.precise_temp_f_format, formatted)
-            TemperatureUnits.C -> strings.getString(R.string.precise_temp_c_format, formatted)
+            TemperatureUnits.Fahrenheit -> strings.getString(
+                R.string.precise_temp_f_format,
+                formatted
+            )
+
+            TemperatureUnits.Celsius -> strings.getString(R.string.precise_temp_c_format, formatted)
         }
     }
 
@@ -512,35 +517,42 @@ class FormatService private constructor(private val context: Context) {
         }
     }
 
+    val builtInCoordinateFormatMap = mapOf<BuiltInCoordinateFormat, CoordinateFormat>(
+        BuiltInCoordinateFormat.DecimalDegrees to DecimalDegreesCoordinateFormat(),
+        BuiltInCoordinateFormat.DegreesMinutesSeconds to DegreesMinutesSecondsCoordinateFormat(),
+        BuiltInCoordinateFormat.DegreesDecimalMinutes to DegreesDecimalMinutesCoordinateFormat(),
+        BuiltInCoordinateFormat.UTM to UTMCoordinateFormat(),
+        BuiltInCoordinateFormat.MGRS to MGRSCoordinateFormat(),
+        BuiltInCoordinateFormat.OSGB to OSGBCoordinateFormat(),
+        BuiltInCoordinateFormat.USNG to USNGCoordinateFormat()
+    )
+
     fun formatLocation(
         location: Coordinate,
-        format: CoordinateFormat? = null,
+        format: BuiltInCoordinateFormat? = null,
         fallbackToDD: Boolean = true
     ): String {
-        val formatted = when (format ?: prefs.navigation.coordinateFormat) {
-            CoordinateFormat.DecimalDegrees -> location.toDecimalDegrees()
-            CoordinateFormat.DegreesDecimalMinutes -> location.toDegreeDecimalMinutes()
-            CoordinateFormat.DegreesMinutesSeconds -> location.toDegreeMinutesSeconds()
-            CoordinateFormat.UTM -> location.toUTM()
-            CoordinateFormat.MGRS -> location.toMGRS()
-            CoordinateFormat.USNG -> location.toUSNG()
-            CoordinateFormat.OSGB -> location.toOSGB()
-        }
+        val formatted =
+            builtInCoordinateFormatMap[format ?: prefs.navigation.coordinateFormat]?.toString(
+                location
+            ) ?: "?"
         if (formatted == "?" && fallbackToDD) {
-            return location.toDecimalDegrees()
+            return builtInCoordinateFormatMap[BuiltInCoordinateFormat.DecimalDegrees]!!.toString(
+                location
+            )
         }
         return formatted
     }
 
-    fun formatCoordinateType(type: CoordinateFormat): String {
+    fun formatCoordinateType(type: BuiltInCoordinateFormat): String {
         return when (type) {
-            CoordinateFormat.DecimalDegrees -> strings.getString(R.string.coordinate_format_decimal_degrees)
-            CoordinateFormat.DegreesDecimalMinutes -> strings.getString(R.string.coordinate_format_degrees_decimal_minutes)
-            CoordinateFormat.DegreesMinutesSeconds -> strings.getString(R.string.coordinate_format_degrees_minutes_seconds)
-            CoordinateFormat.UTM -> strings.getString(R.string.coordinate_format_utm)
-            CoordinateFormat.MGRS -> strings.getString(R.string.coordinate_format_mgrs)
-            CoordinateFormat.USNG -> strings.getString(R.string.coordinate_format_usng)
-            CoordinateFormat.OSGB -> strings.getString(R.string.coordinate_format_osgb)
+            BuiltInCoordinateFormat.DecimalDegrees -> strings.getString(R.string.coordinate_format_decimal_degrees)
+            BuiltInCoordinateFormat.DegreesDecimalMinutes -> strings.getString(R.string.coordinate_format_degrees_decimal_minutes)
+            BuiltInCoordinateFormat.DegreesMinutesSeconds -> strings.getString(R.string.coordinate_format_degrees_minutes_seconds)
+            BuiltInCoordinateFormat.UTM -> strings.getString(R.string.coordinate_format_utm)
+            BuiltInCoordinateFormat.MGRS -> strings.getString(R.string.coordinate_format_mgrs)
+            BuiltInCoordinateFormat.USNG -> strings.getString(R.string.coordinate_format_usng)
+            BuiltInCoordinateFormat.OSGB -> strings.getString(R.string.coordinate_format_osgb)
         }
     }
 
@@ -668,13 +680,13 @@ class FormatService private constructor(private val context: Context) {
     fun getTemperatureUnitName(unit: TemperatureUnits, short: Boolean = false): String {
         return if (short) {
             when (unit) {
-                TemperatureUnits.F -> strings.getString(R.string.temp_f_short)
-                TemperatureUnits.C -> strings.getString(R.string.temp_c_short)
+                TemperatureUnits.Fahrenheit -> strings.getString(R.string.temp_f_short)
+                TemperatureUnits.Celsius -> strings.getString(R.string.temp_c_short)
             }
         } else {
             when (unit) {
-                TemperatureUnits.F -> strings.getString(R.string.fahrenheit)
-                TemperatureUnits.C -> strings.getString(R.string.celsius)
+                TemperatureUnits.Fahrenheit -> strings.getString(R.string.fahrenheit)
+                TemperatureUnits.Celsius -> strings.getString(R.string.celsius)
             }
         }
     }

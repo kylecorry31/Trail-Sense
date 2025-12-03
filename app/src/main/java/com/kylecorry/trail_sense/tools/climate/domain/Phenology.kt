@@ -41,10 +41,10 @@ data class SpeciesPhenology(
 // Common triggers
 class MinimumGrowingDegreeDaysTrigger(
     minimum: Float,
-    units: TemperatureUnits = TemperatureUnits.C
+    units: TemperatureUnits = TemperatureUnits.Celsius
 ) : LifecycleEventTrigger {
 
-    private val minC = if (units == TemperatureUnits.C) {
+    private val minC = if (units == TemperatureUnits.Celsius) {
         minimum
     } else {
         minimum * 5 / 9f
@@ -91,11 +91,11 @@ class AboveTemperatureTrigger(
 
 class CoolingGrowingDegreeDaysTrigger(
     minimum: Float,
-    units: TemperatureUnits = TemperatureUnits.C,
+    units: TemperatureUnits = TemperatureUnits.Celsius,
     private val days: Int = 30
 ) : LifecycleEventTrigger {
 
-    private val minC = if (units == TemperatureUnits.C) {
+    private val minC = if (units == TemperatureUnits.Celsius) {
         minimum
     } else {
         minimum * 5 / 9f

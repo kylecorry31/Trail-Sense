@@ -35,7 +35,7 @@ class NoaaHcAndMetadataTideTableConverter: TideTableParser {
 
             val units = converted.children.find { it.tag == "unit" }?.text
             val amplitudeToMeters =
-                if (units?.lowercase()?.contains("feet") == true) DistanceUnits.Feet.meters else 1f
+                if (units?.lowercase()?.contains("feet") == true) DistanceUnits.Feet.meters.toFloat() else 1f
 
             val data = converted.children.find { it.tag == "data" } ?: return null
 

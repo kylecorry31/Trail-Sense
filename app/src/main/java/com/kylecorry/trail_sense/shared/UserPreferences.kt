@@ -146,10 +146,10 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         cache,
         getString(R.string.pref_temperature_units),
         mapOf(
-            "c" to TemperatureUnits.C,
-            "f" to TemperatureUnits.F
+            "c" to TemperatureUnits.Celsius,
+            "f" to TemperatureUnits.Fahrenheit
         ),
-        if (isMetricPreferred) TemperatureUnits.C else TemperatureUnits.F,
+        if (isMetricPreferred) TemperatureUnits.Celsius else TemperatureUnits.Fahrenheit,
         saveDefault = true
     )
 

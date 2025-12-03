@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.data.LocalInputStreamable
 import com.kylecorry.trail_sense.shared.data.SingleImageReader
+import com.kylecorry.trail_sense.shared.extensions.ParallelExecutor
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.math.PI
@@ -143,14 +144,13 @@ object DEM {
 
         val parallelThresholds = ParallelCoroutineRunner(16)
         parallelThresholds.map(thresholds) { threshold ->
-            val calculators = Interpolation.getIsolineCalculators(
+
+            val segments = Interpolation.getIsoline(
                 grid,
                 threshold,
-                ::lerpCoordinate
+                executor = ParallelExecutor(ParallelCoroutineRunner(16)),
+                interpolator = ::lerpCoordinate
             )
-
-            val parallel = ParallelCoroutineRunner(16)
-            val segments = parallel.mapFunctions(calculators).flatten()
 
             Contour(
                 threshold,

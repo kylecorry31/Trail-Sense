@@ -35,7 +35,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView, IMapView {
-    private lateinit var centerPixel: PixelCoordinate
+    private var centerPixel: PixelCoordinate = PixelCoordinate(0f, 0f)
     private lateinit var compassCircle: Circle
 
     @ColorInt
