@@ -1,4 +1,7 @@
 name: Update Guide Translations
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   schedule:
