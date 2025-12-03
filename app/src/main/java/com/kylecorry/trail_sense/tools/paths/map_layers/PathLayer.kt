@@ -58,9 +58,17 @@ class PathLayer : IAsyncLayer, IPathLayer {
     private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.Default)
 
+    private val factory = PathLineDrawerFactory()
+
     private var currentScale = 1f
 
     private var backgroundColor: Int? = null
+
+    private var lastHeight = 0
+    private var lastWidth = 0
+    private var cachedBounds = Rectangle(0f, 0f, 0f, 0f)
+
+    private var filterEpsilon = 0f
 
     fun setPreferences(prefs: PathMapLayerPreferences) {
         _percentOpacity = prefs.opacity.get() / 100f
@@ -96,20 +104,23 @@ class PathLayer : IAsyncLayer, IPathLayer {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        if (filterEpsilon == 0f) {
+            filterEpsilon = drawer.dp(1.5f)
+        }
+
         val scale = map.layerScale
         currentScale = map.metersPerPixel
         if (!pathsRendered && !renderInProgress) {
             val renderer = ClippedPathRenderer(
                 getBounds(drawer),
                 map::toPixel,
-                drawer.dp(1.5f)
+                filterEpsilon
             )
             renderInBackground(renderer)
         }
 
         // Make a copy of the rendered paths
         synchronized(lock) {
-            val factory = PathLineDrawerFactory()
             val values = renderedPaths.values
             for (path in values) {
                 // Don't draw empty paths
@@ -316,21 +327,19 @@ class PathLayer : IAsyncLayer, IPathLayer {
         pathObj: Path?
     ): RenderedPath = onDefault {
         val points = path.points.map { it.coordinate }
-        synchronized(lock) {
-            lineObj.clear()
-            pathObj?.reset()
-            val before = currentScale
-            renderer.render(points, lineObj)
-                .copy(
-                    style = path.style,
-                    color = path.color,
-                    // A best guess at what scale the path was rendered at
-                    renderedScale = (before + currentScale) / 2f,
-                    originalPath = path,
-                    path = pathObj?.also {
-                        it.drawLines(lineObj.toFloatArray(), shouldRenderSmoothPaths)
-                    })
-        }
+        lineObj.clear()
+        pathObj?.reset()
+        val before = currentScale
+        val rendered = renderer.render(points, lineObj)
+        rendered.copy(
+            style = path.style,
+            color = path.color,
+            // A best guess at what scale the path was rendered at
+            renderedScale = (before + currentScale) / 2f,
+            originalPath = path,
+            path = pathObj?.also {
+                it.drawLines(rendered.line, shouldRenderSmoothPaths)
+            })
     }
 
     override fun invalidate() {
@@ -343,9 +352,14 @@ class PathLayer : IAsyncLayer, IPathLayer {
     }
 
     private fun getBounds(drawer: ICanvasDrawer): Rectangle {
-        // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
-        // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
-        return drawer.getBounds(45f)
+        if (drawer.canvas.height != lastHeight || drawer.canvas.width != lastWidth) {
+            lastHeight = drawer.canvas.height
+            lastWidth = drawer.canvas.width
+            // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
+            // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
+            cachedBounds = drawer.getBounds(45f)
+        }
+        return cachedBounds
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
