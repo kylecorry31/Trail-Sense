@@ -1,4 +1,7 @@
 name: Fix String Translations
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   schedule:
