@@ -99,23 +99,6 @@ android {
             applicationIdSuffix = ".nightly_release"
             versionNameSuffix = "-nightly-release-${LocalDate.now()}"
         }
-
-        // ------- DEPRECATED -------
-
-        // Legacy debug build for GitHub
-        create("dev") {
-            initWith(getByName("debug"))
-            signingConfig = signingConfigs.getByName("dev")
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = "-dev"
-        }
-        // Legacy release build for GitHub
-        create("legacyGithub") {
-            initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("dev")
-            applicationIdSuffix = ".github"
-            versionNameSuffix = "-github"
-        }
     }
     testOptions {
         unitTests.all {
