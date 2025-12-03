@@ -159,21 +159,17 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         val center = mapCenterPixels
 
         // Always render the hemispheres closest to the map center
-        val newCoordinate = Coordinate(
-            coordinate.latitude,
-            mapCenter.longitude + deltaAngle(
+        val projected = projection.toPixels(
+            coordinate.latitude, mapCenter.longitude + deltaAngle(
                 mapCenter.longitude.toFloat(),
                 coordinate.longitude.toFloat()
             )
         )
 
-        val projected = projection.toPixels(newCoordinate)
-
         val x = (projected.x - center.x) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel)
         val y =
             (center.y - projected.y) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel) // Y inverted
 
-        // TODO: Replace PixelCoordinate with Vector2
         return PixelCoordinate(
             x.toFloat() + width / 2f,
             y.toFloat() + height / 2f
