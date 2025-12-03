@@ -1,4 +1,6 @@
 name: Android Test
+permissions:
+  contents: read
 
 on:
   schedule:
