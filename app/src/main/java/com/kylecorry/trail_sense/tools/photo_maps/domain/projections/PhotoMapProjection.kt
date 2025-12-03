@@ -26,6 +26,13 @@ class PhotoMapProjection(
         return projection.toPixels(location)
     }
 
+    override fun toPixels(
+        latitude: Double,
+        longitude: Double
+    ): Vector2 {
+        return projection.toPixels(latitude, longitude)
+    }
+
     private fun calculateProjection(): IMapProjection {
         val rotatedSize = map.calibratedSize(usePdf)
         val calibrationPoints = rotationService.getCalibrationPoints()
