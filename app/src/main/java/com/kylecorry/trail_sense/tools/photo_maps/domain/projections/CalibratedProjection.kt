@@ -37,15 +37,21 @@ class CalibratedProjection(
     }
 
     override fun toPixels(coordinate: Coordinate): Vector2 {
+        return toPixels(coordinate.latitude, coordinate.longitude)
+    }
 
+    override fun toPixels(
+        latitude: Double,
+        longitude: Double
+    ): Vector2 {
         if (left == null || top == null || bottom == null) {
             return Vector2(0f, 0f)
         }
 
-        val coords = if (coordinate.longitude < 0 && bounds.west > 0) {
-            projection.toPixels(coordinate.copy(longitude = coordinate.longitude + 360))
+        val coords = if (longitude < 0 && bounds.west > 0) {
+            projection.toPixels(latitude, longitude + 360)
         } else {
-            projection.toPixels(coordinate)
+            projection.toPixels(latitude, longitude)
         }
 
         val x = left.first.x + width * norm(coords.x, bottomLeft.x, topRight.x)

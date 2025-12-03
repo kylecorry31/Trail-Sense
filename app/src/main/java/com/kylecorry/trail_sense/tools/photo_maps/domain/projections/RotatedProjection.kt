@@ -20,7 +20,14 @@ class RotatedProjection(
     }
 
     override fun toPixels(location: Coordinate): Vector2 {
-        val unrotated = projection.toPixels(location)
+        return toPixels(location.latitude, location.longitude)
+    }
+
+    override fun toPixels(
+        latitude: Double,
+        longitude: Double
+    ): Vector2 {
+        val unrotated = projection.toPixels(latitude, longitude)
         return unrotated.rotateInRect(-rotation, rotatedSize, size)
     }
 }

@@ -260,12 +260,12 @@ internal class WeatherSubsystemTest {
                     false
                 )
                 actual = actual.copy(
-                    start = actual.start.convertTo(TemperatureUnits.F),
-                    end = actual.end.convertTo(TemperatureUnits.F)
+                    start = actual.start.convertTo(TemperatureUnits.Fahrenheit),
+                    end = actual.end.convertTo(TemperatureUnits.Fahrenheit)
                 )
                 val expected = Range(
-                    Temperature.from(day.low.toFloat(), TemperatureUnits.F),
-                    Temperature.from(day.high.toFloat(), TemperatureUnits.F)
+                    Temperature.from(day.low.toFloat(), TemperatureUnits.Fahrenheit),
+                    Temperature.from(day.high.toFloat(), TemperatureUnits.Fahrenheit)
                 )
 
                 errors.add(actual.start.value - expected.start.value)
