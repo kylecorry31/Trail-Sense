@@ -1,4 +1,7 @@
 name: Update Contributors
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   schedule:
