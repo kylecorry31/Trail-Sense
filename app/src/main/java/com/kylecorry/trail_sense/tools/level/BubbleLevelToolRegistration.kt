@@ -18,6 +18,7 @@ object BubbleLevelToolRegistration : ToolRegistration {
             ToolCategory.Angles,
             context.getString(R.string.tool_bubble_level_summary),
             guideId = R.raw.guide_tool_bubble_level,
+            settingsNavAction = R.id.bubbleLevelSettingsFragment,
             diagnostics = listOf(
                 *ToolDiagnosticFactory.tilt(context)
             ).distinctBy { it.id }
