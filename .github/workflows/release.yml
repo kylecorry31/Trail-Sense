@@ -1,4 +1,6 @@
 name: Release Upload
+permissions:
+  contents: write
 
 on:
   release:
