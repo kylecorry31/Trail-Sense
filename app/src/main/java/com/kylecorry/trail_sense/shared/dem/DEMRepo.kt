@@ -21,10 +21,13 @@ class DEMRepo private constructor() : ICleanable {
         lock.withLock {
             val expectedVersion = database.digitalElevationModelDao().getVersion()
             val versionFile = files.get("dem/version.txt")
-            if (!versionFile.exists() || versionFile.readText().trim() != expectedVersion) {
-                Log.d("DEMRepo", "DEM version mismatch")
+            if (!versionFile.exists() || versionFile.readText().trim() != expectedVersion
+            ) {
                 database.digitalElevationModelDao().deleteAll()
-                files.getDirectory("dem").deleteRecursively()
+                if (files.getDirectory("dem").exists()) {
+                    Log.d("DEMRepo", "DEM version mismatch")
+                    files.getDirectory("dem").deleteRecursively()
+                }
                 prefs.altimeter.isDigitalElevationModelLoaded = false
                 removed = true
             }

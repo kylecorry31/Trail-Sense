@@ -23,12 +23,13 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.views.SurfaceCanvasView
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
 
-class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
+class MapView(context: Context, attrs: AttributeSet? = null) : SurfaceCanvasView(context, attrs),
     IMapView {
     var isInteractive = true
     var isPanEnabled = true

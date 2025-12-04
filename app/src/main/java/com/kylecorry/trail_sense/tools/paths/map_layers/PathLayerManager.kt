@@ -33,6 +33,7 @@ class PathLayerManager(
     private val loadRunner = CoroutineQueueRunner(2, scope)
     private val listenerRunner = CoroutineQueueRunner(scope = scope)
     private var loaded = false
+    private var wasBacktrackOn = false
 
     override fun start() {
         loaded = false
@@ -40,6 +41,7 @@ class PathLayerManager(
             listenerRunner.skipIfRunning {
                 pathService.getPaths().collect {
                     paths = it.filter { path -> path.style.visible }
+                    wasBacktrackOn = pathService.getBacktrackPathId() != null
                     loaded = false
                     loadRunner.replace {
                         loadPaths(true)
@@ -66,6 +68,9 @@ class PathLayerManager(
 
     override fun onLocationChanged(location: Coordinate, accuracy: Float?) {
         super.onLocationChanged(location, accuracy)
+        if (!wasBacktrackOn){
+            return
+        }
         scope.launch {
             loadRunner.enqueue {
                 loadPaths(false)

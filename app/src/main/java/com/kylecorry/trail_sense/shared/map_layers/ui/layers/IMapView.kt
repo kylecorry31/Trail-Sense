@@ -41,3 +41,22 @@ interface IMapView {
 
     val mapBounds: CoordinateBounds
 }
+
+fun IMapView.lineToPixels(
+    coordinates: List<Coordinate>,
+    line: FloatArray = FloatArray(coordinates.size * 4)
+): FloatArray {
+    if (coordinates.isEmpty()) {
+        return line
+    }
+    var lastPixel = toPixel(coordinates[0])
+    for (i in 1..coordinates.lastIndex) {
+        val nextPixel = toPixel(coordinates[i])
+        line[(i - 1) * 4] = lastPixel.x
+        line[(i - 1) * 4 + 1] = lastPixel.y
+        line[(i - 1) * 4 + 2] = nextPixel.x
+        line[(i - 1) * 4 + 3] = nextPixel.y
+        lastPixel = nextPixel
+    }
+    return line
+}

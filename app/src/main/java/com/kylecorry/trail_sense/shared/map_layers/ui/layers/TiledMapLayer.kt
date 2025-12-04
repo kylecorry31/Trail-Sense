@@ -6,14 +6,10 @@ import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.andromeda_temp.grow
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapMapLayerPreferences
@@ -85,9 +81,7 @@ class TiledMapLayer : IAsyncLayer {
                         controlsPdfCache
                     )
                 }
-                onMain {
-                    updateListener?.invoke()
-                }
+                updateListener?.invoke()
             } catch (e: CancellationException) {
                 System.gc()
                 throw e

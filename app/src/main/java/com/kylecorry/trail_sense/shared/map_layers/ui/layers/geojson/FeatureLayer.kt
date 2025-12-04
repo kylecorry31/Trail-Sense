@@ -18,7 +18,7 @@ abstract class FeatureLayer : IAsyncLayer {
     private val taskRunner = MapLayerBackgroundTask()
 
     fun setFeatures(features: List<GeoJsonFeature>) {
-        this@FeatureLayer.features = filterFeatures(features)
+        this@FeatureLayer.features = features
         invalidate()
     }
 
@@ -50,7 +50,7 @@ abstract class FeatureLayer : IAsyncLayer {
         ) { bounds, metersPerPixel ->
             isInvalid = false
             try {
-                renderFeaturesInBackground(bounds, metersPerPixel, features)
+                renderFeaturesInBackground(bounds, metersPerPixel, filterFeatures(features))
                 updateListener?.invoke()
             } catch (e: CancellationException) {
                 throw e
@@ -86,7 +86,6 @@ abstract class FeatureLayer : IAsyncLayer {
 
     fun setPercentOpacity(opacity: Float) {
         _percentOpacity = opacity.coerceIn(0f, 1f)
-        invalidate()
     }
 
     private var _percentOpacity: Float = 1f
