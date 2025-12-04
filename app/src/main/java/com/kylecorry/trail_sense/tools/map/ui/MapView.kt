@@ -23,13 +23,12 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.views.SurfaceCanvasView
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
 
-class MapView(context: Context, attrs: AttributeSet? = null) : SurfaceCanvasView(context, attrs),
+class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
     IMapView {
     var isInteractive = true
     var isPanEnabled = true
@@ -37,7 +36,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : SurfaceCanvasView
 
     private val lookupMatrix = Matrix()
 
-    private val layers = mutableListOf<ILayer>()
+    private var layers = listOf<ILayer>()
     private val hooks = Hooks()
 
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
@@ -142,16 +141,15 @@ class MapView(context: Context, attrs: AttributeSet? = null) : SurfaceCanvasView
     private var isScaling = false
 
     override fun addLayer(layer: ILayer) {
-        layers.add(layer)
+        layers = layers + layer
     }
 
     override fun removeLayer(layer: ILayer) {
-        layers.remove(layer)
+        layers = layers - layer
     }
 
     override fun setLayers(layers: List<ILayer>) {
-        this.layers.clear()
-        this.layers.addAll(layers)
+        this.layers = layers.toList()
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { post { invalidate() } } }
     }

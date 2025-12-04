@@ -3,12 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.map_layers
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
-import com.kylecorry.andromeda.geojson.GeoJsonLineString
-import com.kylecorry.andromeda.geojson.GeoJsonPosition
-import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_COLOR
-import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_LINE_STYLE
-import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_LINE_THICKNESS_SCALE
-import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_NAME
+import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.LineStringLayer
@@ -38,19 +33,13 @@ class PathLayer : IAsyncLayer, IPathLayer {
 
     override fun setPaths(paths: List<IMappablePath>) {
         lineStringLayer.setFeatures(paths.map {
-            GeoJsonFeature(
-                it.id, GeoJsonLineString(it.points.map { point ->
-                    GeoJsonPosition(
-                        point.coordinate.longitude,
-                        point.coordinate.latitude,
-                        point.elevation?.toDouble()
-                    )
-                }), mapOf(
-                    GEO_JSON_PROPERTY_NAME to it.name,
-                    GEO_JSON_PROPERTY_LINE_STYLE to it.style.id,
-                    GEO_JSON_PROPERTY_COLOR to it.color,
-                    GEO_JSON_PROPERTY_LINE_THICKNESS_SCALE to it.thicknessScale
-                )
+            GeoJsonFeature.lineString(
+                it.points.map { point -> point.coordinate },
+                it.id,
+                it.name,
+                it.style,
+                it.color,
+                it.thicknessScale
             )
         })
     }

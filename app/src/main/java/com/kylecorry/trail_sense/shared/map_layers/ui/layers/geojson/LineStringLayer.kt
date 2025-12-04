@@ -72,8 +72,6 @@ class LineStringLayer : FeatureLayer() {
         metersPerPixel: Float,
         features: List<GeoJsonFeature>
     ) {
-        // TODO: Run this less often
-
         val rdp =
             RDPFilter<GeoJsonPosition>(metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
                 Geology.getCrossTrackDistance(
@@ -165,7 +163,6 @@ class LineStringLayer : FeatureLayer() {
             drawer.push()
             drawer.strokeJoin(StrokeJoin.Round)
             drawer.strokeCap(StrokeCap.Round)
-            // TODO: Do all the calculations in the background? Maybe SurfaceView will resolve this?
             val line = map.lineToPixels(path.points, path.allocatedPointArray)
             if (!shouldRenderWithDrawLines) {
                 path.path.reset()
