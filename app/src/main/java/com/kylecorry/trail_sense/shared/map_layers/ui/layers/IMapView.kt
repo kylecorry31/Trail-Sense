@@ -10,6 +10,7 @@ interface IMapView {
     fun setLayers(layers: List<ILayer>)
 
     fun toPixel(coordinate: Coordinate): PixelCoordinate
+    fun toPixel(latitude: Double, longitude: Double): PixelCoordinate
     fun toCoordinate(pixel: PixelCoordinate): Coordinate
 
     /**

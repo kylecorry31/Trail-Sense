@@ -1,52 +1,36 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 
 import android.graphics.Color
-import android.graphics.Path
+import android.util.Log
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.cache.ObjectPool
-import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonLineString
+import com.kylecorry.andromeda.geojson.GeoJsonPosition
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.positive
-import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
-import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.extensions.getColor
 import com.kylecorry.trail_sense.shared.extensions.getLineStyle
 import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getThicknessScale
-import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
-import com.kylecorry.trail_sense.tools.paths.ui.drawing.ClippedPathRenderer
-import com.kylecorry.trail_sense.tools.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
-import com.kylecorry.trail_sense.tools.paths.ui.drawing.RenderedPath
 import kotlin.math.absoluteValue
 import kotlin.math.atan2
 import kotlin.math.max
 
 class LineStringLayer : FeatureLayer() {
-
-    private lateinit var renderer: IRenderedPathFactory
-    private var linePool = ObjectPool { mutableListOf<Float>() }
-    private var pathPool = ObjectPool { Path() }
-    private var renderedPaths = mapOf<Long, RenderedPath>()
-
     private var shouldRenderWithDrawLines = false
     private var shouldRenderSmoothPaths = false
     private var shouldRenderLabels = false
@@ -59,11 +43,9 @@ class LineStringLayer : FeatureLayer() {
 
     private var backgroundColor: Int? = null
 
-    private var lastHeight = 0
-    private var lastWidth = 0
-    private var cachedBounds = Rectangle(0f, 0f, 0f, 0f)
-
     private var filterEpsilon = 0f
+
+    private var reducedPaths = emptyList<Pair<GeoJsonFeature, FloatArray>>()
 
     fun setBackgroundColor(color: PathBackgroundColor) {
         backgroundColor = when (color) {
@@ -98,70 +80,93 @@ class LineStringLayer : FeatureLayer() {
         metersPerPixel: Float,
         features: List<GeoJsonFeature>
     ) {
-        renderFeatures(features, metersPerPixel, renderer)
+        // TODO: Run this less often
+
+        // Apply RDP filter to features
+        val rdp =
+            RDPFilter<GeoJsonPosition>(metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
+                Geology.getCrossTrackDistance(
+                    point.coordinate,
+                    start.coordinate,
+                    end.coordinate
+                ).value.absoluteValue
+            }
+
+        var totalCount = 0
+        // TODO: Clip to coordinate bounds
+        reducedPaths = features.mapNotNull {
+            val geometry = it.geometry as GeoJsonLineString
+            val line = geometry.line
+
+            val geometryBounds =
+                geometry.boundingBox?.bounds ?: CoordinateBounds.from(line?.map { it.coordinate }
+                    ?: emptyList())
+            if (!geometryBounds.intersects(bounds)) {
+                return@mapNotNull null
+            }
+
+            val filteredLine = line?.let { rdp.filter(it) }
+            totalCount += filteredLine?.size ?: 0
+            it.copy(geometry = geometry.copy(line = filteredLine)) to FloatArray(
+                (filteredLine?.size ?: 0) * 4
+            )
+        }
+        Log.d("LineStringLayer", "Rendered $totalCount vertices")
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         if (filterEpsilon == 0f) {
             filterEpsilon = drawer.dp(1.5f)
         }
-        val lastBounds = cachedBounds
-        val newBounds = getBounds(drawer)
-        if (lastBounds != newBounds) {
-            renderer = ClippedPathRenderer(
-                newBounds,
-                map::toPixel,
-                filterEpsilon
-            )
-            isInvalid = true
-        }
         val scale = map.layerScale
         currentScale = map.metersPerPixel
         super.draw(drawer, map)
         // Make a copy of the rendered paths
         synchronized(lock) {
-            val values = renderedPaths.values
-            for (path in values) {
+            val values = reducedPaths
+            for (value in values) {
+                val feature = value.first
+                val path = feature.geometry as GeoJsonLineString
+                val line = path.line ?: emptyList()
                 // Don't draw empty paths
-                if (path.line.isEmpty()) {
+                if (line.isEmpty()) {
                     continue
                 }
-                val pathDrawer = factory.create(path.style)
-                val centerPixel = map.toPixel(path.origin)
+                val pathDrawer = factory.create(feature.getLineStyle() ?: LineStyle.Solid)
                 drawer.push()
-                // TODO: This isn't working correctly - consider another approach
-                drawer.translate(centerPixel.x, centerPixel.y)
-                val relativeScale = (path.renderedScale / currentScale).real().positive(1f)
-                drawer.scale(relativeScale)
                 drawer.strokeJoin(StrokeJoin.Round)
                 drawer.strokeCap(StrokeCap.Round)
+                val floatArray = value.second
+                // TODO: Do all the drawing except for final render in the background? Maybe SurfaceView will resolve this?
+                var lastPixel = map.toPixel(line[0].y, line[0].x)
+                for (i in 1..line.lastIndex) {
+                    val nextPixel = map.toPixel(line[i].y, line[i].x)
+                    floatArray[(i - 1) * 4] = lastPixel.x
+                    floatArray[(i - 1) * 4 + 1] = lastPixel.y
+                    floatArray[(i - 1) * 4 + 2] = nextPixel.x
+                    floatArray[(i - 1) * 4 + 3] = nextPixel.y
+                    lastPixel = nextPixel
+                }
+
                 backgroundColor?.let { backgroundColor ->
                     factory.create(LineStyle.Solid).draw(
                         drawer,
                         backgroundColor,
-                        strokeScale = 0.75f * scale / (path.originalPath?.thicknessScale ?: 1f)
+                        strokeScale = 0.75f * scale / (feature.getThicknessScale() ?: 1f)
                     ) {
-                        if (shouldRenderWithDrawLines || path.path == null) {
-                            lines(path.line)
-                        } else {
-                            path(path.path)
-                        }
+                        lines(floatArray)
                     }
                 }
                 pathDrawer.draw(
                     drawer,
-                    path.color,
-                    strokeScale = scale / (path.originalPath?.thicknessScale ?: 1f)
+                    feature.getColor() ?: Color.WHITE,
+                    strokeScale = scale / (feature.getThicknessScale() ?: 1f)
                 ) {
-                    if (shouldRenderWithDrawLines || path.path == null) {
-                        lines(path.line)
-                    } else {
-                        path(path.path)
-                    }
+                    lines(floatArray)
                 }
 
                 drawer.pop()
-                drawLabels(drawer, map, path)
+                drawLabels(drawer, map, feature)
             }
         }
 
@@ -171,9 +176,9 @@ class LineStringLayer : FeatureLayer() {
     }
 
 
-    private fun drawLabels(drawer: ICanvasDrawer, map: IMapView, path: RenderedPath) {
-        if (shouldRenderLabels && path.originalPath?.name != null) {
-            val pts = path.originalPath.points
+    private fun drawLabels(drawer: ICanvasDrawer, map: IMapView, path: GeoJsonFeature) {
+        if (shouldRenderLabels && path.getName() != null) {
+            val pts = (path.geometry as GeoJsonLineString).line ?: emptyList()
             if (pts.size < 2) return
 
             // TODO: Adjust text size / wrapping based on name length
@@ -256,102 +261,13 @@ class LineStringLayer : FeatureLayer() {
 
                         drawer.push()
                         drawer.rotate(drawAngle, center.x, center.y)
-                        drawer.text(path.originalPath.name ?: "", center.x, center.y)
+                        drawer.text(path.getName() ?: "", center.x, center.y)
                         drawer.pop()
                         labelsDrawn++
                     }
                 }
             }
         }
-    }
-
-    private suspend fun renderFeatures(
-        features: List<GeoJsonFeature>,
-        metersPerPixel: Float,
-        renderer: IRenderedPathFactory
-    ) {
-        // Make a copy of the paths to render
-        val paths = features.map {
-            val line = it.geometry as GeoJsonLineString
-            MappablePath(
-                (it.id as? Long) ?: 0,
-                line.line?.map { point ->
-                    MappableLocation(
-                        0,
-                        point.coordinate,
-                        Color.TRANSPARENT,
-                        null,
-                        null
-                    )
-                } ?: emptyList(),
-                it.getColor() ?: Color.WHITE,
-                it.getLineStyle() ?: LineStyle.Solid,
-                it.getName(),
-                it.getThicknessScale() ?: 1f
-            )
-        }
-
-        // Render the paths
-        val updated = render(paths, metersPerPixel, renderer)
-
-        // Update the rendered paths
-        synchronized(lock) {
-            renderedPaths.forEach {
-                it.value.path?.let {
-                    pathPool.release(it)
-                }
-            }
-            renderedPaths = updated
-        }
-    }
-
-    private suspend fun render(
-        paths: List<IMappablePath>,
-        metersPerPixel: Float,
-        renderer: IRenderedPathFactory
-    ): Map<Long, RenderedPath> {
-        val map = mutableMapOf<Long, RenderedPath>()
-        for (path in paths) {
-            val lineObj = linePool.get()
-            val pathObj = if (shouldRenderWithDrawLines) null else pathPool.get()
-            map[path.id] = render(path, metersPerPixel, renderer, lineObj, pathObj)
-            linePool.release(lineObj)
-        }
-        return map
-    }
-
-    private suspend fun render(
-        path: IMappablePath,
-        metersPerPixel: Float,
-        renderer: IRenderedPathFactory,
-        lineObj: MutableList<Float>,
-        pathObj: Path?
-    ): RenderedPath = onDefault {
-        val points = path.points.map { it.coordinate }
-        lineObj.clear()
-        pathObj?.reset()
-        val before = metersPerPixel
-        val rendered = renderer.render(points, lineObj)
-        rendered.copy(
-            style = path.style,
-            color = path.color,
-            // A best guess at what scale the path was rendered at
-            renderedScale = (before + currentScale) / 2f,
-            originalPath = path,
-            path = pathObj?.also {
-                it.drawLines(rendered.line, shouldRenderSmoothPaths)
-            })
-    }
-
-    private fun getBounds(drawer: ICanvasDrawer): Rectangle {
-        if (drawer.canvas.height != lastHeight || drawer.canvas.width != lastWidth) {
-            lastHeight = drawer.canvas.height
-            lastWidth = drawer.canvas.width
-            // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
-            // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
-            cachedBounds = drawer.getBounds(45f)
-        }
-        return cachedBounds
     }
 
     private fun PixelCoordinate.midpoint(other: PixelCoordinate): PixelCoordinate {

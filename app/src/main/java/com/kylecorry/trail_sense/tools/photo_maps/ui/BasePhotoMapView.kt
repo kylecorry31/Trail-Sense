@@ -47,7 +47,14 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     }
 
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        return getPixelCoordinate(coordinate) ?: PixelCoordinate(0f, 0f)
+        return getPixelCoordinate(coordinate.latitude, coordinate.longitude) ?: PixelCoordinate(
+            0f,
+            0f
+        )
+    }
+
+    override fun toPixel(latitude: Double, longitude: Double): PixelCoordinate {
+        return getPixelCoordinate(latitude, longitude) ?: PixelCoordinate(0f, 0f)
     }
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
@@ -222,8 +229,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         invalidate()
     }
 
-    private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
-        val source = projection?.toPixels(coordinate) ?: return null
+    private fun getPixelCoordinate(latitude: Double, longitude: Double): PixelCoordinate? {
+        val source = projection?.toPixels(latitude, longitude) ?: return null
         val view = toView(source.x, source.y)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }

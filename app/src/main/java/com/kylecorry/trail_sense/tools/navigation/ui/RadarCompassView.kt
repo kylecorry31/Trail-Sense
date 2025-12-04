@@ -376,6 +376,13 @@ class RadarCompassView : BaseCompassView, IMapView {
         return PixelCoordinate(compassCircle.center.x + xDiff, compassCircle.center.y - yDiff)
     }
 
+    override fun toPixel(
+        latitude: Double,
+        longitude: Double
+    ): PixelCoordinate {
+        return toPixel(Coordinate(latitude, longitude))
+    }
+
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
         TODO("Not yet implemented")
     }

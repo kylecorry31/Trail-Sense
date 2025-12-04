@@ -156,13 +156,20 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
+        return toPixel(coordinate.latitude, coordinate.longitude)
+    }
+
+    override fun toPixel(
+        latitude: Double,
+        longitude: Double
+    ): PixelCoordinate {
         val center = mapCenterPixels
 
         // Always render the hemispheres closest to the map center
         val projected = projection.toPixels(
-            coordinate.latitude, mapCenter.longitude + deltaAngle(
+            latitude, mapCenter.longitude + deltaAngle(
                 mapCenter.longitude.toFloat(),
-                coordinate.longitude.toFloat()
+                longitude.toFloat()
             )
         )
 
