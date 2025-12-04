@@ -1275,4 +1275,7 @@
     <string name="ballistic_coefficient">Coefficient balistique</string>
     <string name="climate_tropical_monsoon">mousson tropicale</string>
     <string name="adaptive_brightness">Luminosité adaptative</string>
+    <string name="pref_night_mode_fullscreen_title">Plein écran en mode nuit</string>
+    <string name="quick_actions_are_unavailable">Les actions rapides ne sont pas disponibles.</string>
+    <string name="sunrise">Lever du soleil</string>
 </resources>
