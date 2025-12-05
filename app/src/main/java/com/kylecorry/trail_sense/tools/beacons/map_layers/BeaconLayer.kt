@@ -4,15 +4,15 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
+import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonRenderer
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.TextMapMarker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,13 +23,13 @@ class BeaconLayer(
     private val showLabels: Boolean = false,
     private val onBeaconClick: (beacon: Beacon) -> Boolean = { false }
 ) :
-    BaseLayer() {
+    IAsyncLayer {
+
+    private val geoJsonRenderer = GeoJsonRenderer()
 
     private val _beacons = mutableListOf<Beacon>()
+    private val _featureToBeacon = mutableMapOf<GeoJsonFeature, Beacon>()
     private var _highlighted: Beacon? = null
-
-    private var _loader: DrawerBitmapLoader? = null
-    private var _imageSize = 8f
 
     @ColorInt
     private var backgroundColor = Color.TRANSPARENT
@@ -38,6 +38,15 @@ class BeaconLayer(
 
     private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.IO)
+
+    init {
+        geoJsonRenderer.setOnClickListener {
+            val beacon = synchronized(lock) {
+                _featureToBeacon[it] ?: return@setOnClickListener false
+            }
+            onBeaconClick(beacon)
+        }
+    }
 
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
@@ -48,22 +57,30 @@ class BeaconLayer(
     }
 
     fun setPreferences(prefs: BeaconMapLayerPreferences) {
-        setPercentOpacity(prefs.opacity.get() / 100f)
-        invalidate()
+        _percentOpacity = prefs.opacity.get() / 100f
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        if (_loader == null) {
-            _imageSize = drawer.dp(24f)
-            _loader = DrawerBitmapLoader(drawer)
-            updateMarkers()
-        }
-        super.draw(drawer, map)
+        geoJsonRenderer.draw(drawer, map)
     }
 
-    protected fun finalize() {
-        _loader?.clear()
-        _loader = null
+    override fun drawOverlay(
+        drawer: ICanvasDrawer,
+        map: IMapView
+    ) {
+        // Do nothing
+    }
+
+    override fun invalidate() {
+        geoJsonRenderer.invalidate()
+    }
+
+    override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
+        return geoJsonRenderer.onClick(drawer, map, pixel)
+    }
+
+    override fun setHasUpdateListener(listener: (() -> Unit)?) {
+        geoJsonRenderer.setHasUpdateListener(listener)
     }
 
     fun setOutlineColor(@ColorInt color: Int) {
@@ -80,73 +97,45 @@ class BeaconLayer(
         scope.launch {
             runner.replace {
                 synchronized(lock) {
-                    val markers = convertToMarkers(_beacons)
-                    clearMarkers()
-                    for (marker in markers) {
-                        addMarker(marker)
-                    }
+                    _featureToBeacon.clear()
+                    geoJsonRenderer.setGeoJsonObject(
+                        GeoJsonFeatureCollection(
+                            _beacons.map {
+                                val point = GeoJsonFeature.point(
+                                    it.coordinate,
+                                    it.id,
+                                    it.name.trim(),
+                                    color = it.color,
+                                    strokeColor = backgroundColor,
+                                    opacity = if (_highlighted == null || _highlighted?.id == it.id) {
+                                        255
+                                    } else {
+                                        127
+                                    },
+                                    size = size,
+                                    icon = it.icon?.icon,
+                                    iconScale = 0.75f,
+                                    iconColor = Colors.mostContrastingColor(
+                                        Color.WHITE,
+                                        Color.BLACK,
+                                        it.color
+                                    ),
+                                    isClickable = true
+                                )
+                                _featureToBeacon[point] = it
+                                point
+                            }
+                        ))
+
+
                 }
             }
         }
     }
 
-    private fun convertToMarkers(beacons: List<Beacon>): List<MapMarker> {
-        val loader = _loader ?: return emptyList()
-        val size = _imageSize.toInt()
-        val markers = mutableListOf<MapMarker>()
-        beacons.forEach {
+    private var _percentOpacity: Float = 1f
 
-            // Reduce the opacity if the beacon is not highlighted
-            val opacity = if (_highlighted == null || _highlighted?.id == it.id) {
-                255
-            } else {
-                127
-            }
-
-            // Create the marker background
-            markers.add(
-                CircleMapMarker(
-                    it.coordinate,
-                    it.color,
-                    backgroundColor,
-                    opacity,
-                    this.size
-                ) {
-                    onBeaconClick(it)
-                })
-
-            // Create the icon for the marker
-            if (it.icon != null && !showLabels) {
-                val image = loader.load(it.icon.icon, size)
-                val color =
-                    Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
-                markers.add(
-                    BitmapMapMarker(
-                        it.coordinate,
-                        image,
-                        size = this.size * 0.75f,
-                        tint = color
-                    ) {
-                        onBeaconClick(it)
-                    })
-            }
-
-            if (showLabels && it.name.isNotBlank()) {
-                val color =
-                    Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color)
-                markers.add(
-                    TextMapMarker(
-                        it.coordinate,
-                        it.name.trim(),
-                        color,
-                        size = this.size * 0.75f
-                    ) {
-                        onBeaconClick(it)
-                    }
-                )
-            }
-        }
-        return markers
-    }
+    override val percentOpacity: Float
+        get() = _percentOpacity
 
 }

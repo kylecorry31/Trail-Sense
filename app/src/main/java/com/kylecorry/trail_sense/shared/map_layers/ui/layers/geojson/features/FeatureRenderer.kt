@@ -22,6 +22,7 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
     override fun setFeatures(features: List<GeoJsonFeature>) {
         this@FeatureRenderer.features = filterFeatures(features)
         invalidate()
+        notifyListeners()
     }
 
     open fun filterFeatures(features: List<GeoJsonFeature>): List<GeoJsonFeature> {
@@ -68,6 +69,10 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
 
     override fun invalidate() {
         isInvalid = true
+    }
+
+    protected fun notifyListeners() {
+        updateListener?.invoke()
     }
 
     override fun onClick(
