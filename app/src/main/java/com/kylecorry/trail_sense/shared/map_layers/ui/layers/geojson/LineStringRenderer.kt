@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonLineString
 import com.kylecorry.andromeda.geojson.GeoJsonPosition
+import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.filters.RDPFilter
@@ -33,7 +34,7 @@ import kotlin.math.absoluteValue
 import kotlin.math.atan2
 import kotlin.math.max
 
-class LineStringLayer : FeatureLayer() {
+class LineStringRenderer : FeatureRenderer(), ILineStringRenderer {
     private var shouldRenderWithDrawLines = false
     private var shouldRenderSmoothPaths = false
     private var shouldRenderLabels = false
@@ -43,7 +44,11 @@ class LineStringLayer : FeatureLayer() {
     private var reducedPaths = emptyList<PrecomputedLineString>()
     private var labelGrid = PrecomputedLabelGrid(emptyList(), emptyList())
 
-    fun setBackgroundColor(color: PathBackgroundColor) {
+    init {
+        setRunInBackgroundWhenChanged(this::renderFeaturesInBackground)
+    }
+
+    override fun setBackgroundColor(color: PathBackgroundColor) {
         backgroundColor = when (color) {
             PathBackgroundColor.None -> null
             PathBackgroundColor.Black -> Color.BLACK
@@ -51,15 +56,15 @@ class LineStringLayer : FeatureLayer() {
         }
     }
 
-    fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
+    override fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
         this.shouldRenderWithDrawLines = shouldRenderWithDrawLines
     }
 
-    fun setShouldRenderSmoothPaths(shouldRenderSmoothPaths: Boolean) {
+    override fun setShouldRenderSmoothPaths(shouldRenderSmoothPaths: Boolean) {
         this.shouldRenderSmoothPaths = shouldRenderSmoothPaths
     }
 
-    fun setShouldRenderLabels(shouldRenderLabels: Boolean) {
+    override fun setShouldRenderLabels(shouldRenderLabels: Boolean) {
         this.shouldRenderLabels = shouldRenderLabels
     }
 
@@ -67,11 +72,11 @@ class LineStringLayer : FeatureLayer() {
         return features.filter { it.geometry is GeoJsonLineString }
     }
 
-    override suspend fun renderFeaturesInBackground(
+    private suspend fun renderFeaturesInBackground(
         bounds: CoordinateBounds,
         metersPerPixel: Float,
         features: List<GeoJsonFeature>
-    ) {
+    ) = onDefault {
         val rdp =
             RDPFilter<GeoJsonPosition>(metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
                 Geology.getCrossTrackDistance(
@@ -148,12 +153,15 @@ class LineStringLayer : FeatureLayer() {
         }
     }
 
-    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+    override fun draw(
+        drawer: ICanvasDrawer,
+        map: IMapView,
+        features: List<GeoJsonFeature>
+    ) {
         if (filterEpsilon == 0f) {
             filterEpsilon = drawer.dp(2f)
         }
         val scale = map.layerScale
-        super.draw(drawer, map)
         for (path in reducedPaths) {
             // Don't draw empty paths
             if (path.points.isEmpty()) {

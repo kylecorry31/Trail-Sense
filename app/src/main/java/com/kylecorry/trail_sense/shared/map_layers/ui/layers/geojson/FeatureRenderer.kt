@@ -6,19 +6,21 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import kotlinx.coroutines.CancellationException
 
-abstract class FeatureLayer : IAsyncLayer {
+abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
 
     protected var isInvalid = true
     private var features: List<GeoJsonFeature> = emptyList()
     private var updateListener: (() -> Unit)? = null
+
+    private var backgroundAction: (suspend (bounds: CoordinateBounds, metersPerPixel: Float, features: List<GeoJsonFeature>) -> Unit)? =
+        null
     private val taskRunner = MapLayerBackgroundTask()
 
-    fun setFeatures(features: List<GeoJsonFeature>) {
-        this@FeatureLayer.features = features
+    override fun setFeatures(features: List<GeoJsonFeature>) {
+        this@FeatureRenderer.features = filterFeatures(features)
         invalidate()
     }
 
@@ -30,12 +32,11 @@ abstract class FeatureLayer : IAsyncLayer {
         updateListener = listener
     }
 
-    // TODO: Pass drawer bounds?
-    abstract suspend fun renderFeaturesInBackground(
-        bounds: CoordinateBounds,
-        metersPerPixel: Float,
-        features: List<GeoJsonFeature>
-    )
+    protected fun setRunInBackgroundWhenChanged(action: (suspend (bounds: CoordinateBounds, metersPerPixel: Float, features: List<GeoJsonFeature>) -> Unit)?) {
+        backgroundAction = action
+    }
+
+    abstract fun draw(drawer: ICanvasDrawer, map: IMapView, features: List<GeoJsonFeature>)
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         // Avoid drawing while in safe mode
@@ -43,25 +44,26 @@ abstract class FeatureLayer : IAsyncLayer {
             return
         }
 
-        taskRunner.scheduleUpdate(
-            map.mapBounds,
-            map.metersPerPixel,
-            isInvalid
-        ) { bounds, metersPerPixel ->
-            isInvalid = false
-            try {
-                renderFeaturesInBackground(bounds, metersPerPixel, filterFeatures(features))
-                updateListener?.invoke()
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Throwable) {
-                e.printStackTrace()
-                isInvalid = true
+        draw(drawer, map, features)
+
+        if (backgroundAction != null) {
+            taskRunner.scheduleUpdate(
+                map.mapBounds,
+                map.metersPerPixel,
+                isInvalid
+            ) { bounds, metersPerPixel ->
+                isInvalid = false
+                try {
+                    backgroundAction?.invoke(bounds, metersPerPixel, features)
+                    updateListener?.invoke()
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                    isInvalid = true
+                }
             }
         }
-
-        // TODO: task runner w/ abstract render in background method
-        // TODO: render features
     }
 
     override fun drawOverlay(
