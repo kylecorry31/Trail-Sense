@@ -10,14 +10,29 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import kotlinx.coroutines.CancellationException
 
-open class GeoJsonLayer<T : GeoJsonSource>(protected val source: T) : IAsyncLayer {
+open class GeoJsonLayer<T : GeoJsonSource>(
+    protected val source: T,
+    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
+) : IAsyncLayer {
 
-    private val renderer = GeoJsonRenderer()
-    private val taskRunner = MapLayerBackgroundTask()
+    protected val renderer = GeoJsonRenderer()
     private var isInvalid = true
 
     init {
         renderer.setOnClickListener(this::onClick)
+        taskRunner.addTask { bounds, metersPerPixel ->
+            isInvalid = false
+            try {
+                val obj =
+                    source.load(bounds, metersPerPixel) ?: GeoJsonFeatureCollection(emptyList())
+                renderer.setGeoJsonObject(obj)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                isInvalid = true
+            }
+        }
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
@@ -33,19 +48,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(protected val source: T) : IAsyncLaye
             map.mapBounds,
             map.metersPerPixel,
             isInvalid
-        ) { bounds, metersPerPixel ->
-            isInvalid = false
-            try {
-                val obj =
-                    source.load(bounds, metersPerPixel) ?: GeoJsonFeatureCollection(emptyList())
-                renderer.setGeoJsonObject(obj)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Throwable) {
-                e.printStackTrace()
-                isInvalid = true
-            }
-        }
+        )
     }
 
     override fun drawOverlay(
