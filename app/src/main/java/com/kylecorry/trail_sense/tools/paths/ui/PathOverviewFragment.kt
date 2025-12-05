@@ -54,7 +54,7 @@ import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.LegacyBeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -125,10 +125,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val scaleBarLayer = ScaleBarLayer()
 
     private var lastBounds = CoordinateBounds.empty
-    private val waypointLayer = BeaconLayer(8f) {
+    private val waypointLayer = LegacyBeaconLayer(8f) {
         if (selectedPointId != null) {
             deselectPoint()
-            return@BeaconLayer true
+            return@LegacyBeaconLayer true
         }
         val point = waypoints.firstOrNull { point -> point.id == it.id }
         if (point != null) {

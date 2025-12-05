@@ -114,8 +114,8 @@ fun GeoJsonFeature.getIconColor(): Int? {
     return getIntProperty(GEO_JSON_PROPERTY_ICON_COLOR)
 }
 
-fun GeoJsonFeature.getIconScale(): Float {
-    return getFloatProperty(GEO_JSON_PROPERTY_ICON_SCALE) ?: 1f
+fun GeoJsonFeature.getIconSize(): Float? {
+    return getFloatProperty(GEO_JSON_PROPERTY_ICON_SIZE)
 }
 
 fun GeoJsonFeature.getOpacity(): Int {
@@ -188,7 +188,6 @@ fun GeoJsonFeature.Companion.point(
     name: String? = null,
     color: Int? = null,
     icon: Int? = null,
-    iconScale: Float? = null,
     iconColor: Int? = null,
     markerShape: String? = GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE,
     isClickable: Boolean = false,
@@ -197,13 +196,15 @@ fun GeoJsonFeature.Companion.point(
     opacity: Int? = null,
     useScale: Boolean? = null,
     size: Float? = null,
+    iconSize: Float? = size,
     sizeUnit: String? = null,
     bounds: CoordinateBounds? = CoordinateBounds(
         point.latitude,
         point.longitude,
         point.latitude,
         point.longitude
-    )
+    ),
+    additionalProperties: Map<String, Any?> = emptyMap()
 ): GeoJsonFeature {
     val boundingBox = bounds?.let { createBoundingBox(it) }
     return GeoJsonFeature(
@@ -214,7 +215,7 @@ fun GeoJsonFeature.Companion.point(
             GEO_JSON_PROPERTY_SIZE to size,
             GEO_JSON_PROPERTY_SIZE_UNIT to sizeUnit,
             GEO_JSON_PROPERTY_ICON to icon,
-            GEO_JSON_PROPERTY_ICON_SCALE to iconScale,
+            GEO_JSON_PROPERTY_ICON_SIZE to iconSize,
             GEO_JSON_PROPERTY_ICON_COLOR to iconColor,
             GEO_JSON_PROPERTY_COLOR to color,
             GEO_JSON_PROPERTY_MARKER_SHAPE to markerShape,
@@ -223,7 +224,7 @@ fun GeoJsonFeature.Companion.point(
             GEO_JSON_PROPERTY_STROKE_WEIGHT to strokeWeight,
             GEO_JSON_PROPERTY_OPACITY to opacity,
             GEO_JSON_PROPERTY_USE_SCALE to useScale
-        ),
+        ) + additionalProperties,
         boundingBox = boundingBox
     )
 }
@@ -241,7 +242,7 @@ const val GEO_JSON_PROPERTY_MARKER_SHAPE_NONE = "none"
 const val GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE = "circle"
 const val GEO_JSON_PROPERTY_ICON = "icon"
 const val GEO_JSON_PROPERTY_ICON_COLOR = "iconColor"
-const val GEO_JSON_PROPERTY_ICON_SCALE = "iconScale"
+const val GEO_JSON_PROPERTY_ICON_SIZE = "iconSize"
 const val GEO_JSON_PROPERTY_SIZE = "size"
 const val GEO_JSON_PROPERTY_OPACITY = "opacity"
 const val GEO_JSON_PROPERTY_LINE_STYLE = "lineStyle"

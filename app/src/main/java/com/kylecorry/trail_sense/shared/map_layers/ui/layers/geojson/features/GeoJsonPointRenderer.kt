@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_MARKER_SHAP
 import com.kylecorry.trail_sense.shared.extensions.getColor
 import com.kylecorry.trail_sense.shared.extensions.getIcon
 import com.kylecorry.trail_sense.shared.extensions.getIconColor
-import com.kylecorry.trail_sense.shared.extensions.getIconScale
+import com.kylecorry.trail_sense.shared.extensions.getIconSize
 import com.kylecorry.trail_sense.shared.extensions.getMarkerShape
 import com.kylecorry.trail_sense.shared.extensions.getOpacity
 import com.kylecorry.trail_sense.shared.extensions.getSize
@@ -43,8 +43,8 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     private var featuresChanged = false
 
     override fun setFeatures(features: List<GeoJsonFeature>) {
-        super.setFeatures(features)
         featuresChanged = true
+        super.setFeatures(features)
     }
 
     override fun filterFeatures(features: List<GeoJsonFeature>): List<GeoJsonFeature> {
@@ -68,6 +68,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val shape = feature.getMarkerShape()
                 val icon = feature.getIcon()
                 val size = feature.getSize() ?: 12f
+                val iconSize = feature.getIconSize() ?: size
                 val isClickable = feature.isClickable()
                 if (shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null && icon == null)) {
                     newMarkers.add(
@@ -89,12 +90,12 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 }
 
                 if (icon != null) {
-                    val bitmap = bitmapLoader!!.load(icon, (feature.getSize() ?: 12f).toInt())
+                    val bitmap = bitmapLoader!!.load(icon, (iconSize * 2).toInt())
                     newMarkers.add(
                         BitmapMapMarker(
                             point.coordinate,
                             bitmap,
-                            size * feature.getIconScale(),
+                            iconSize,
                             rotation = null,
                             tint = feature.getIconColor(),
                             onClickFn = if (isClickable) {
@@ -110,9 +111,8 @@ class GeoJsonPointRenderer : FeatureRenderer() {
             markers = newMarkers
 
             featuresChanged = false
+            notifyListeners()
         }
-
-
     }
 
     override fun draw(

@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.LegacyBeaconLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
@@ -16,9 +16,9 @@ import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> Unit = {}) :
     ILayer {
 
-    private val pointLayer = BeaconLayer {
+    private val pointLayer = LegacyBeaconLayer {
         if (!isEnabled) {
-            return@BeaconLayer false
+            return@LegacyBeaconLayer false
         }
         add(it.coordinate)
         true

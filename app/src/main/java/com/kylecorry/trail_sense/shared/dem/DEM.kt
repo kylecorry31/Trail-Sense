@@ -48,7 +48,7 @@ object DEM {
 
     suspend fun getElevation(location: Coordinate): Float = onDefault {
         cache.getOrPut(location) {
-            lookupElevations(listOf(location)).first().second
+            lookupElevations(listOf(location)).firstOrNull()?.second ?: 0f
         }
     }
 
