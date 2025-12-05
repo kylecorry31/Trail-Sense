@@ -156,7 +156,6 @@ class PhotoMapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    context,
                     tideLayer
                 ) else null,
                 if (prefs.photoMaps.beaconLayer.isEnabled.get()) BeaconLayerManager(

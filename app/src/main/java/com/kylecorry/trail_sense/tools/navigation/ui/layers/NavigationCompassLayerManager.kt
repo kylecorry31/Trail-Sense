@@ -103,7 +103,7 @@ class NavigationCompassLayerManager {
                     Color.WHITE,
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
-                if (isTideLayerEnabled) TideMapLayerManager(context, tideLayer) else null,
+                if (isTideLayerEnabled) TideMapLayerManager(tideLayer) else null,
                 if (isMapLayerEnabled) PhotoMapLayerManager(
                     context,
                     photoMapLayer,

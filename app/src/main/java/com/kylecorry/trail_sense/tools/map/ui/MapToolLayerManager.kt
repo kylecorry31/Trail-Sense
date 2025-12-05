@@ -175,7 +175,6 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
                 if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    context,
                     tideLayer
                 ) else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) PhotoMapLayerManager(
