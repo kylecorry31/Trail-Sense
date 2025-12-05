@@ -5,11 +5,10 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.normalize
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 
-class GeoJsonLayer : IAsyncLayer {
+class GeoJsonRenderer : IGeoJsonRenderer {
 
     private val lineStringLayer: ILineStringRenderer = if (isDebug()) {
         LineStringRenderer()
@@ -53,13 +52,6 @@ class GeoJsonLayer : IAsyncLayer {
         lineStringLayer.draw(drawer, map)
     }
 
-    override fun drawOverlay(
-        drawer: ICanvasDrawer,
-        map: IMapView
-    ) {
-        lineStringLayer.drawOverlay(drawer, map)
-    }
-
     override fun invalidate() {
         lineStringLayer.invalidate()
     }
@@ -71,7 +63,4 @@ class GeoJsonLayer : IAsyncLayer {
     ): Boolean {
         return lineStringLayer.onClick(drawer, map, pixel)
     }
-
-    override val percentOpacity: Float
-        get() = lineStringLayer.percentOpacity
 }

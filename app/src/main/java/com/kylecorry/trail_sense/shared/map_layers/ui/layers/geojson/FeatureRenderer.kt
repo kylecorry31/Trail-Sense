@@ -66,13 +66,6 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
         }
     }
 
-    override fun drawOverlay(
-        drawer: ICanvasDrawer,
-        map: IMapView
-    ) {
-        // Do nothing
-    }
-
     override fun invalidate() {
         isInvalid = true
     }
@@ -85,13 +78,4 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
         // Do nothing by default
         return false
     }
-
-    fun setPercentOpacity(opacity: Float) {
-        _percentOpacity = opacity.coerceIn(0f, 1f)
-    }
-
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
 }

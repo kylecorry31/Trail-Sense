@@ -7,33 +7,33 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonRenderer
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 
 class PathLayer : IAsyncLayer, IPathLayer {
 
-    private val geoJsonLayer = GeoJsonLayer()
+    private val geoJsonRenderer = GeoJsonRenderer()
 
     fun setPreferences(prefs: PathMapLayerPreferences) {
         _percentOpacity = prefs.opacity.get() / 100f
-        geoJsonLayer.configureLineStringRenderer(backgroundColor = prefs.backgroundColor.get())
+        geoJsonRenderer.configureLineStringRenderer(backgroundColor = prefs.backgroundColor.get())
     }
 
     fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
-        geoJsonLayer.configureLineStringRenderer(shouldRenderWithDrawLines = shouldRenderWithDrawLines)
+        geoJsonRenderer.configureLineStringRenderer(shouldRenderWithDrawLines = shouldRenderWithDrawLines)
     }
 
     fun setShouldRenderSmoothPaths(shouldRenderSmoothPaths: Boolean) {
-        geoJsonLayer.configureLineStringRenderer(shouldRenderSmoothPaths = shouldRenderSmoothPaths)
+        geoJsonRenderer.configureLineStringRenderer(shouldRenderSmoothPaths = shouldRenderSmoothPaths)
     }
 
     fun setShouldRenderLabels(shouldRenderLabels: Boolean) {
-        geoJsonLayer.configureLineStringRenderer(shouldRenderLabels = shouldRenderLabels)
+        geoJsonRenderer.configureLineStringRenderer(shouldRenderLabels = shouldRenderLabels)
     }
 
     override fun setPaths(paths: List<IMappablePath>) {
-        geoJsonLayer.setGeoJsonObject(GeoJsonFeatureCollection(paths.map {
+        geoJsonRenderer.setGeoJsonObject(GeoJsonFeatureCollection(paths.map {
             GeoJsonFeature.lineString(
                 it.points.map { point -> point.coordinate },
                 it.id,
@@ -46,26 +46,26 @@ class PathLayer : IAsyncLayer, IPathLayer {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        geoJsonLayer.draw(drawer, map)
+        geoJsonRenderer.draw(drawer, map)
     }
 
     override fun drawOverlay(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        geoJsonLayer.drawOverlay(drawer, map)
+        // Do nothing
     }
 
     override fun invalidate() {
-        geoJsonLayer.invalidate()
+        geoJsonRenderer.invalidate()
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
-        return geoJsonLayer.onClick(drawer, map, pixel)
+        return geoJsonRenderer.onClick(drawer, map, pixel)
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
-        geoJsonLayer.setHasUpdateListener(listener)
+        geoJsonRenderer.setHasUpdateListener(listener)
     }
 
     private var _percentOpacity: Float = 1f

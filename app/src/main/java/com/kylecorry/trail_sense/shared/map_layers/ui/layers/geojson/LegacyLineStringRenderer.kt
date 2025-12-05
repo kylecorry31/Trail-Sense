@@ -256,13 +256,6 @@ class LegacyLineStringRenderer : FeatureRenderer(), ILineStringRenderer {
         }
     }
 
-    override fun drawOverlay(
-        drawer: ICanvasDrawer,
-        map: IMapView
-    ) {
-        // Do nothing
-    }
-
     private fun renderInBackground(renderer: IRenderedPathFactory, features: List<GeoJsonFeature>) {
         renderInProgress = true
         scope.launch {
@@ -367,9 +360,4 @@ class LegacyLineStringRenderer : FeatureRenderer(), ILineStringRenderer {
             other.x - this.x
         ).toDegrees()
     }
-
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
 }
