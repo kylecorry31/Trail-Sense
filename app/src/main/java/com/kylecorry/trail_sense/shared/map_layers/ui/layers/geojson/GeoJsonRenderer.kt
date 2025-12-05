@@ -6,11 +6,14 @@ import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.normalize
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.ILineStringRenderer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.LegacyLineStringRenderer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.LineStringRenderer
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 
 class GeoJsonRenderer : IGeoJsonRenderer {
 
-    private val lineStringLayer: ILineStringRenderer = if (isDebug()) {
+    private val lineStringRenderer: ILineStringRenderer = if (isDebug()) {
         LineStringRenderer()
     } else {
         LegacyLineStringRenderer()
@@ -23,37 +26,37 @@ class GeoJsonRenderer : IGeoJsonRenderer {
         shouldRenderSmoothPaths: Boolean? = null,
     ) {
         if (backgroundColor != null) {
-            lineStringLayer.setBackgroundColor(backgroundColor)
+            lineStringRenderer.setBackgroundColor(backgroundColor)
         }
         if (shouldRenderWithDrawLines != null) {
-            lineStringLayer.setShouldRenderWithDrawLines(shouldRenderWithDrawLines)
+            lineStringRenderer.setShouldRenderWithDrawLines(shouldRenderWithDrawLines)
         }
         if (shouldRenderLabels != null) {
-            lineStringLayer.setShouldRenderLabels(shouldRenderLabels)
+            lineStringRenderer.setShouldRenderLabels(shouldRenderLabels)
         }
         if (shouldRenderSmoothPaths != null) {
-            lineStringLayer.setShouldRenderSmoothPaths(shouldRenderSmoothPaths)
+            lineStringRenderer.setShouldRenderSmoothPaths(shouldRenderSmoothPaths)
         }
     }
 
     fun setGeoJsonObject(obj: GeoJsonObject) {
         val features = obj.normalize()
-        lineStringLayer.setFeatures(features)
+        lineStringRenderer.setFeatures(features)
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
-        lineStringLayer.setHasUpdateListener(listener)
+        lineStringRenderer.setHasUpdateListener(listener)
     }
 
     override fun draw(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        lineStringLayer.draw(drawer, map)
+        lineStringRenderer.draw(drawer, map)
     }
 
     override fun invalidate() {
-        lineStringLayer.invalidate()
+        lineStringRenderer.invalidate()
     }
 
     override fun onClick(
@@ -61,6 +64,6 @@ class GeoJsonRenderer : IGeoJsonRenderer {
         map: IMapView,
         pixel: PixelCoordinate
     ): Boolean {
-        return lineStringLayer.onClick(drawer, map, pixel)
+        return lineStringRenderer.onClick(drawer, map, pixel)
     }
 }
