@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_SIZE_UNIT_METERS
 import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
@@ -32,13 +33,12 @@ class CellTowerGeoJsonSource : GeoJsonSource {
         val towers = CellTowerModel.getTowers(bounds)
         return GeoJsonFeatureCollection(
             towers.map {
-                val sizePixels = 2 * it.accuracy.meters().value / metersPerPixel
                 GeoJsonFeature.point(
                     it.coordinate,
                     color = Color.WHITE,
                     opacity = 25,
-                    size = sizePixels,
-                    sizeUnit = GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS,
+                    size = 2 * it.accuracy.meters().value,
+                    sizeUnit = GEO_JSON_PROPERTY_SIZE_UNIT_METERS,
                     useScale = false,
                     icon = R.drawable.cell_tower,
                     iconColor = Color.WHITE,

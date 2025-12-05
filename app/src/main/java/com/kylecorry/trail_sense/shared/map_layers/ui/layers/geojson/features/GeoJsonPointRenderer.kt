@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.extensions.getIconSize
 import com.kylecorry.trail_sense.shared.extensions.getMarkerShape
 import com.kylecorry.trail_sense.shared.extensions.getOpacity
 import com.kylecorry.trail_sense.shared.extensions.getSize
+import com.kylecorry.trail_sense.shared.extensions.getSizeUnit
 import com.kylecorry.trail_sense.shared.extensions.getStrokeColor
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
 import com.kylecorry.trail_sense.shared.extensions.isClickable
@@ -79,7 +80,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                             feature.getOpacity(),
                             size,
                             feature.getStrokeWeight() ?: 0.5f,
-                            feature.isSizeInDp(),
+                            feature.getSizeUnit(),
                             feature.useScale(),
                             if (isClickable) {
                                 { onClickListener(feature) }
@@ -125,7 +126,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
         markers.forEach {
             val anchor = map.toPixel(it.location)
             if (bounds.contains(anchor.toVector2(bounds.top))) {
-                it.draw(drawer, anchor, map.layerScale, map.mapAzimuth + map.mapRotation)
+                it.draw(drawer, anchor, map.layerScale, map.mapAzimuth + map.mapRotation, map.metersPerPixel)
             }
         }
     }

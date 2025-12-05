@@ -5,6 +5,7 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.SizeUnit
 
 class CircleMapMarker(
     override val location: Coordinate,
@@ -13,7 +14,7 @@ class CircleMapMarker(
     private val opacity: Int = 255,
     override val size: Float = 12f,
     private val strokeWeight: Float = 0.5f,
-    private val isSizeInDp: Boolean = true,
+    private val sizeUnit: SizeUnit = SizeUnit.DensityPixels,
     private val useScale: Boolean = true,
     private val onClickFn: () -> Boolean = { false }
 ) : MapMarker {
@@ -21,10 +22,21 @@ class CircleMapMarker(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,
         scale: Float,
-        rotation: Float
+        rotation: Float,
+        metersPerPixel: Float,
     ) {
         val actualScale = if (useScale) scale else 1f
-        val size = if (isSizeInDp) drawer.dp(this.size) else this.size
+        val size = when (sizeUnit) {
+            SizeUnit.DensityPixels -> {
+                drawer.dp(this.size)
+            }
+            SizeUnit.Meters -> {
+                this.size / metersPerPixel
+            }
+            else -> {
+                this.size
+            }
+        }
         drawer.noTint()
         if (strokeColor != null && strokeColor != Color.TRANSPARENT) {
             drawer.stroke(strokeColor)

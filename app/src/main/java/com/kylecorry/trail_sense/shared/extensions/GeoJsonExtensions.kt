@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.geojson.GeoJsonPolygon
 import com.kylecorry.andromeda.geojson.GeoJsonPosition
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.SizeUnit
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 fun GeoJsonObject.normalize(): List<GeoJsonFeature> {
@@ -135,6 +136,14 @@ fun GeoJsonFeature.isSizeInDp(): Boolean {
     return getStringProperty(GEO_JSON_PROPERTY_SIZE_UNIT) != GEO_JSON_PROPERTY_SIZE_UNIT_DENSITY_PIXELS
 }
 
+fun GeoJsonFeature.getSizeUnit(): SizeUnit {
+    return when (getStringProperty(GEO_JSON_PROPERTY_SIZE_UNIT)){
+       GEO_JSON_PROPERTY_SIZE_UNIT_METERS -> SizeUnit.Meters
+       GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS -> SizeUnit.Pixels
+       else -> SizeUnit.DensityPixels
+    }
+}
+
 fun GeoJsonFeature.useScale(): Boolean {
     return getBooleanProperty(GEO_JSON_PROPERTY_USE_SCALE) ?: true
 }
@@ -252,3 +261,4 @@ const val GEO_JSON_PROPERTY_IS_CLICKABLE = "isClickable"
 const val GEO_JSON_PROPERTY_SIZE_UNIT = "sizeUnit"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS = "px"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_DENSITY_PIXELS = "dp"
+const val GEO_JSON_PROPERTY_SIZE_UNIT_METERS = "m"

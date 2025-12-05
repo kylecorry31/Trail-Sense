@@ -18,7 +18,8 @@ class BitmapMapMarker(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,
         scale: Float,
-        rotation: Float
+        rotation: Float,
+        metersPerPixel: Float,
     ) {
         val size = drawer.dp(this.size) * scale
         val aspectRatio = bitmap.width.toFloat() / bitmap.height.toFloat()

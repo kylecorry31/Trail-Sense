@@ -41,7 +41,13 @@ open class BaseLayer : IAsyncLayer {
         markers.forEach {
             val anchor = map.toPixel(it.location)
             if (bounds.contains(anchor.toVector2(bounds.top))) {
-                it.draw(drawer, anchor, map.layerScale, map.mapAzimuth + map.mapRotation)
+                it.draw(
+                    drawer,
+                    anchor,
+                    map.layerScale,
+                    map.mapAzimuth + map.mapRotation,
+                    map.metersPerPixel
+                )
             }
         }
     }

@@ -22,7 +22,8 @@ class TextMapMarker(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,
         scale: Float,
-        rotation: Float
+        rotation: Float,
+        metersPerPixel: Float,
     ) {
         val size = drawer.sp(this.size)
         drawer.noTint()

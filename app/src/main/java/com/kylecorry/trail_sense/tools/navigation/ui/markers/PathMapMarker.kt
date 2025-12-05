@@ -24,7 +24,8 @@ class PathMapMarker(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,
         scale: Float,
-        rotation: Float
+        rotation: Float,
+        metersPerPixel: Float,
     ) {
         val requestedSize = drawer.dp(size) * scale
         val dimensions = drawer.pathDimensions(path)
