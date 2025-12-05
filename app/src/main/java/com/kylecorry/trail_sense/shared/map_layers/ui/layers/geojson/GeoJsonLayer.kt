@@ -3,13 +3,14 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import kotlinx.coroutines.CancellationException
 
-open class GeoJsonLayer<T: GeoJsonSource>(protected val source: T) : IAsyncLayer {
+open class GeoJsonLayer<T : GeoJsonSource>(protected val source: T) : IAsyncLayer {
 
     private val renderer = GeoJsonRenderer()
     private val taskRunner = MapLayerBackgroundTask()
@@ -35,7 +36,9 @@ open class GeoJsonLayer<T: GeoJsonSource>(protected val source: T) : IAsyncLayer
         ) { bounds, metersPerPixel ->
             isInvalid = false
             try {
-                source.load(bounds, metersPerPixel)?.let { renderer.setGeoJsonObject(it) }
+                val obj =
+                    source.load(bounds, metersPerPixel) ?: GeoJsonFeatureCollection(emptyList())
+                renderer.setGeoJsonObject(obj)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Throwable) {
