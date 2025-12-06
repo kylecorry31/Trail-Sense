@@ -5,6 +5,8 @@ import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
@@ -15,6 +17,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
@@ -24,11 +27,11 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
-import com.kylecorry.trail_sense.tools.beacons.map_layers.LegacyBeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
@@ -55,7 +58,7 @@ class PhotoMapToolLayerManager {
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
-    private val selectedPointLayer = LegacyBeaconLayer()
+    private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val cellTowerLayer = CellTowerMapLayer {
         CellTowerMapLayer.navigate(it)
@@ -96,9 +99,6 @@ class PhotoMapToolLayerManager {
 
         // Beacon layer
         beaconLayer.setPreferences(prefs.photoMaps.beaconLayer)
-
-        // Selected point layer
-        selectedPointLayer.setOutlineColor(Color.WHITE)
 
         // Path layer
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
@@ -194,15 +194,16 @@ class PhotoMapToolLayerManager {
     }
 
     fun setSelectedLocation(location: Coordinate?) {
-        selectedPointLayer.setBeacons(
-            listOfNotNull(
-                if (location == null) {
-                    null
-                } else {
-                    Beacon(0, "", location)
-                }
+        if (location == null) {
+            selectedPointLayer.setData(GeoJsonFeatureCollection(emptyList()))
+        } else {
+            val point = GeoJsonFeature.point(
+                location,
+                strokeColor = Color.WHITE,
+                color = Color.BLACK
             )
-        )
+            selectedPointLayer.setData(GeoJsonFeatureCollection(listOf(point)))
+        }
     }
 
     fun setOnBeaconClickListener(listener: ((Beacon) -> Unit)?) {

@@ -70,7 +70,7 @@ class MapToolLayerManager {
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
-    private val selectedPointLayer = ConfigurableGeoJsonLayer(GeoJsonFeatureCollection(emptyList()))
+    private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val cellTowerLayer = CellTowerMapLayer {
         CellTowerMapLayer.navigate(it)

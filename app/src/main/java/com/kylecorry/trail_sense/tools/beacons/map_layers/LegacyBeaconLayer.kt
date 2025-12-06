@@ -46,6 +46,7 @@ class LegacyBeaconLayer(
             }
             onBeaconClick(beacon)
         }
+        geoJsonRenderer.configurePointRenderer(shouldRenderLabels = showLabels)
     }
 
     fun setBeacons(beacons: List<Beacon>) {
