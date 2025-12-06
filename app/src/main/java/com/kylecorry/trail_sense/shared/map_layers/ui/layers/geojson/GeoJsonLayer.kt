@@ -15,7 +15,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
 ) : IAsyncLayer {
 
-    protected val renderer = GeoJsonRenderer()
+    val renderer = GeoJsonRenderer()
     private var isInvalid = true
 
     init {
