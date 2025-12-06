@@ -91,6 +91,10 @@ class LegacyLineStringRenderer : FeatureRenderer(), ILineStringRenderer {
         this.shouldRenderLabels = shouldRenderLabels
     }
 
+    override fun filterFeatures(features: List<GeoJsonFeature>): List<GeoJsonFeature> {
+        return features.filter { it.geometry is GeoJsonLineString }
+    }
+
     override fun draw(
         drawer: ICanvasDrawer,
         map: IMapView,
