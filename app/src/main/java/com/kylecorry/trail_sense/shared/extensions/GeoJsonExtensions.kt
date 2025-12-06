@@ -234,6 +234,34 @@ fun GeoJsonFeature.Companion.point(
     )
 }
 
+fun GeoJsonFeature.Companion.polygon(
+    rings: List<List<Coordinate>>,
+    id: Long? = null,
+    name: String? = null,
+    color: Int? = null,
+    strokeColor: Int? = null,
+    strokeWeight: Float? = null,
+    opacity: Int? = null,
+    bounds: CoordinateBounds? = CoordinateBounds.from(rings.flatten()),
+    additionalProperties: Map<String, Any?> = emptyMap()
+): GeoJsonFeature {
+    val boundingBox = bounds?.let { createBoundingBox(it) }
+    return GeoJsonFeature(
+        id,
+        GeoJsonPolygon(rings.map { ring ->
+            ring.map { point -> GeoJsonPosition(point.longitude, point.latitude) }
+        }, boundingBox),
+        mapOf(
+            GEO_JSON_PROPERTY_NAME to name,
+            GEO_JSON_PROPERTY_COLOR to color,
+            GEO_JSON_PROPERTY_STROKE_COLOR to strokeColor,
+            GEO_JSON_PROPERTY_STROKE_WEIGHT to strokeWeight,
+            GEO_JSON_PROPERTY_OPACITY to opacity
+        ) + additionalProperties,
+        boundingBox = boundingBox
+    )
+}
+
 private fun createBoundingBox(bounds: CoordinateBounds): GeoJsonBoundingBox {
     return GeoJsonBoundingBox(bounds.west, bounds.south, bounds.east, bounds.north)
 }
