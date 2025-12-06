@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.beacons.map_layers.LegacyBeaconLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.paths.map_layers.LegacyPathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> Unit = {}) :
@@ -23,7 +23,7 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
         add(it.coordinate)
         true
     }
-    private val pathLayer = PathLayer()
+    private val pathLayer = LegacyPathLayer()
     private var points = mutableListOf<Coordinate>()
 
     init {

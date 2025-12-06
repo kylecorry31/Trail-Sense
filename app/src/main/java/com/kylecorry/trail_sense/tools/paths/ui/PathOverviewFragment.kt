@@ -69,7 +69,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathLine
 import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathPointNavigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.paths.map_layers.LegacyPathLayer
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathColorCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathLineStyleCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePointStyleCommand
@@ -121,7 +121,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var slopes: List<Triple<PathPoint, PathPoint, Float>> = emptyList()
     private var difficulty = HikingDifficulty.Easy
 
-    private val pathLayer = PathLayer()
+    private val pathLayer = LegacyPathLayer()
     private val scaleBarLayer = ScaleBarLayer()
 
     private var lastBounds = CoordinateBounds.empty

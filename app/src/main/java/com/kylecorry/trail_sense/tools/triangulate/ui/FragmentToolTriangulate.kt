@@ -44,7 +44,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.beacons.map_layers.LegacyBeaconLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.paths.map_layers.LegacyPathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
@@ -59,7 +59,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
     private var shouldCalculateMyLocation = false
 
     private val beaconLayer = LegacyBeaconLayer(showLabels = true)
-    private val pathLayer = PathLayer()
+    private val pathLayer = LegacyPathLayer()
     private val scaleBarLayer = ScaleBarLayer()
 
     private val radius = Distance.meters(100f)

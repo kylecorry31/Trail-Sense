@@ -18,9 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class PathLayerManager(
+class LegacyPathLayerManager(
     private val context: Context,
-    private val layer: PathLayer,
+    private val layer: IPathLayer,
     private val shouldCorrectElevations: Boolean = false
 ) :
     BaseLayerManager() {

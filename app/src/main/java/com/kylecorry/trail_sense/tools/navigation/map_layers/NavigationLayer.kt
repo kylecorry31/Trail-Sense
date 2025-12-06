@@ -9,11 +9,11 @@ import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.paths.map_layers.LegacyPathLayer
 
 class NavigationLayer : BaseLayer() {
 
-    private val pathLayer = PathLayer()
+    private val pathLayer = LegacyPathLayer()
 
     private var _myLocation: Coordinate? = null
     private var _destination: Destination? = null
