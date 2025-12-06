@@ -16,9 +16,14 @@ class BeaconGeoJsonSource : GeoJsonSource {
 
     private var highlighted: Beacon? = null
     private var featureToBeaconMap = mapOf<GeoJsonFeature, Beacon>()
+    private var outlineColor = Color.WHITE
 
     fun highlight(beacon: Beacon?) {
         highlighted = beacon
+    }
+
+    fun setOutlineColor(color: Int) {
+        outlineColor = color
     }
 
     private val beaconService = AppServiceRegistry.get<BeaconService>()
@@ -43,7 +48,7 @@ class BeaconGeoJsonSource : GeoJsonSource {
                     it.id,
                     it.name.trim(),
                     color = it.color,
-                    strokeColor = Color.WHITE,
+                    strokeColor = outlineColor,
                     opacity = if (highlighted == null || highlighted?.id == it.id) {
                         255
                     } else {

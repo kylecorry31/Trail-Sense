@@ -622,7 +622,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
 
             // Update beacon layers
-            layers.setBeacons(nearbyBeacons)
             beaconCompassLayer.setBeacons(nearbyBeacons)
             beaconCompassLayer.highlight(destinationBeacon)
             layers.setDestination(destinationBeacon)

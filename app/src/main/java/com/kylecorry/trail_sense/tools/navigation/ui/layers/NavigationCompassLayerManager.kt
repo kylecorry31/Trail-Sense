@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerMana
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.beacons.map_layers.LegacyBeaconLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
@@ -33,7 +33,7 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 class NavigationCompassLayerManager {
     private val taskRunner = MapLayerBackgroundTask()
     private val pathLayer = PathLayer()
-    private val beaconLayer = LegacyBeaconLayer()
+    private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val photoMapLayer = TiledMapLayer()
@@ -136,10 +136,6 @@ class NavigationCompassLayerManager {
 
     fun onBoundsChanged(bounds: CoordinateBounds) {
         layerManager?.onBoundsChanged(bounds)
-    }
-
-    fun setBeacons(beacons: List<Beacon>) {
-        beaconLayer.setBeacons(beacons)
     }
 
     fun setDestination(beacon: Beacon?) {
