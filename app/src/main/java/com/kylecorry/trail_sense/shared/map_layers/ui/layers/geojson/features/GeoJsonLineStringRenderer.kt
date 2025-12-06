@@ -63,7 +63,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         val pixels = points.map { projection.toPixels(it) }
         val segments = mutableListOf<Float>()
 
-        clipper.clip(pixels, bounds, segments, originPixel)
+        clipper.clip(pixels, bounds, segments, originPixel, rdpFilterEpsilon = filterEpsilon)
 
         val segmentArray = segments.toFloatArray()
         path.reset()
@@ -207,8 +207,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             filterEpsilon = drawer.dp(2f)
         }
         val scale = map.layerScale
-        drawer.noPathEffect()
-
         synchronized(lock) {
             for (path in reducedPaths) {
                 if (path.line.isEmpty()) {
