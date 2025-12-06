@@ -162,7 +162,6 @@ class PhotoMapToolLayerManager {
                     beaconLayer
                 ) else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(
-                    context,
                     navigationLayer
                 ) else null
             )

@@ -190,7 +190,6 @@ class MapToolLayerManager {
                     beaconLayer
                 ) else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(
-                    context,
                     navigationLayer
                 ) else null
             )
