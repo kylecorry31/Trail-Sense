@@ -42,6 +42,14 @@ class GeoJsonRenderer : IGeoJsonRenderer {
         }
     }
 
+    fun configurePointRenderer(
+        shouldRenderLabels: Boolean? = null
+    ) {
+        if (shouldRenderLabels != null) {
+            pointRenderer.setShouldRenderLabels(shouldRenderLabels)
+        }
+    }
+
     fun setGeoJsonObject(obj: GeoJsonObject) {
         val features = obj.normalize()
         lineStringRenderer.setFeatures(features)

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPoint
@@ -14,13 +15,13 @@ import com.kylecorry.trail_sense.shared.extensions.getIcon
 import com.kylecorry.trail_sense.shared.extensions.getIconColor
 import com.kylecorry.trail_sense.shared.extensions.getIconSize
 import com.kylecorry.trail_sense.shared.extensions.getMarkerShape
+import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getOpacity
 import com.kylecorry.trail_sense.shared.extensions.getSize
 import com.kylecorry.trail_sense.shared.extensions.getSizeUnit
 import com.kylecorry.trail_sense.shared.extensions.getStrokeColor
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
 import com.kylecorry.trail_sense.shared.extensions.isClickable
-import com.kylecorry.trail_sense.shared.extensions.isSizeInDp
 import com.kylecorry.trail_sense.shared.extensions.useScale
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -29,6 +30,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
+import com.kylecorry.trail_sense.tools.navigation.ui.markers.TextMapMarker
 
 class GeoJsonPointRenderer : FeatureRenderer() {
 
@@ -36,6 +38,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     private var lastWidth = 0
     private var cachedBounds = Rectangle(0f, 0f, 0f, 0f)
     private var markers = listOf<MapMarker>()
+    private var showLabels = false
 
     private var onClickListener: (feature: GeoJsonFeature) -> Boolean = { false }
 
@@ -50,6 +53,10 @@ class GeoJsonPointRenderer : FeatureRenderer() {
 
     override fun filterFeatures(features: List<GeoJsonFeature>): List<GeoJsonFeature> {
         return features.filter { it.geometry is GeoJsonPoint }
+    }
+
+    fun setShouldRenderLabels(shouldRenderLabels: Boolean) {
+        showLabels = shouldRenderLabels
     }
 
     fun setOnClickListener(listener: (feature: GeoJsonFeature) -> Boolean) {
@@ -71,6 +78,8 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val size = feature.getSize() ?: 12f
                 val iconSize = feature.getIconSize() ?: size
                 val isClickable = feature.isClickable()
+                val name = feature.getName()
+
                 if (shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null && icon == null)) {
                     newMarkers.add(
                         CircleMapMarker(
@@ -107,6 +116,24 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                         )
                     )
                 }
+
+                if (showLabels && !name.isNullOrBlank()) {
+                    val color = Colors.mostContrastingColor(
+                        Color.WHITE,
+                        Color.BLACK,
+                        feature.getColor() ?: Color.BLACK
+                    )
+                    newMarkers.add(
+                        TextMapMarker(
+                            point.coordinate,
+                            name.trim(),
+                            color,
+                            size = size * 0.75f
+                        ) {
+                            onClickListener(feature)
+                        }
+                    )
+                }
             }
 
             markers = newMarkers
@@ -126,7 +153,13 @@ class GeoJsonPointRenderer : FeatureRenderer() {
         markers.forEach {
             val anchor = map.toPixel(it.location)
             if (bounds.contains(anchor.toVector2(bounds.top))) {
-                it.draw(drawer, anchor, map.layerScale, map.mapAzimuth + map.mapRotation, map.metersPerPixel)
+                it.draw(
+                    drawer,
+                    anchor,
+                    map.layerScale,
+                    map.mapAzimuth + map.mapRotation,
+                    map.metersPerPixel
+                )
             }
         }
     }

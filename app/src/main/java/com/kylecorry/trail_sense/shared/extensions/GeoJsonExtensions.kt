@@ -132,15 +132,11 @@ fun GeoJsonFeature.getStrokeWeight(): Float? {
 }
 
 
-fun GeoJsonFeature.isSizeInDp(): Boolean {
-    return getStringProperty(GEO_JSON_PROPERTY_SIZE_UNIT) != GEO_JSON_PROPERTY_SIZE_UNIT_DENSITY_PIXELS
-}
-
 fun GeoJsonFeature.getSizeUnit(): SizeUnit {
-    return when (getStringProperty(GEO_JSON_PROPERTY_SIZE_UNIT)){
-       GEO_JSON_PROPERTY_SIZE_UNIT_METERS -> SizeUnit.Meters
-       GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS -> SizeUnit.Pixels
-       else -> SizeUnit.DensityPixels
+    return when (getStringProperty(GEO_JSON_PROPERTY_SIZE_UNIT)) {
+        GEO_JSON_PROPERTY_SIZE_UNIT_METERS -> SizeUnit.Meters
+        GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS -> SizeUnit.Pixels
+        else -> SizeUnit.DensityPixels
     }
 }
 
