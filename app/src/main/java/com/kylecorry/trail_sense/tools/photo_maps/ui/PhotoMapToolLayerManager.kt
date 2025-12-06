@@ -147,7 +147,6 @@ class PhotoMapToolLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(
-                    context,
                     pathLayer
                 ) else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(

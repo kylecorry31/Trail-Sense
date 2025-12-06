@@ -39,7 +39,6 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
-import com.kylecorry.trail_sense.tools.paths.map_layers.LegacyPathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
@@ -167,7 +166,6 @@ class MapToolLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (prefs.map.pathLayer.isEnabled.get()) PathLayerManager(
-                    context,
                     pathLayer
                 ) else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(

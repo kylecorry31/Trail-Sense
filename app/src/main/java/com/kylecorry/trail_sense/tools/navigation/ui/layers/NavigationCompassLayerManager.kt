@@ -97,7 +97,7 @@ class NavigationCompassLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (isPathLayerEnabled) PathLayerManager(context, pathLayer) else null,
+                if (isPathLayerEnabled) PathLayerManager(pathLayer) else null,
                 if (isMyLocationLayerEnabled) MyLocationLayerManager(
                     myLocationLayer,
                     Color.WHITE,

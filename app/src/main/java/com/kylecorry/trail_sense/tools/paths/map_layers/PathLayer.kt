@@ -14,8 +14,8 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
         renderer.configureLineStringRenderer(shouldRenderWithDrawLines = shouldRenderWithDrawLines)
     }
 
-    fun setPaths(paths: List<IMappablePath>) {
-        source.paths = paths
+    fun reload() {
+        source.reload()
         invalidate()
     }
 }

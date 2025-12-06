@@ -88,7 +88,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         super.onResume()
         layerManager = MultiLayerManager(
             listOf(
-                PathLayerManager(requireContext(), pathLayer),
+                PathLayerManager(pathLayer),
                 MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(requireContext()),
