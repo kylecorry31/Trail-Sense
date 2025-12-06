@@ -4,11 +4,8 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.main.errors.SafeMode
-import com.kylecorry.trail_sense.shared.andromeda_temp.grow
-import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
@@ -74,7 +71,7 @@ class TiledMapLayer : IAsyncLayer {
                 sourceSelector?.let {
                     loader.loadTiles(
                         it,
-                        bounds.grow(getGrowPercent()),
+                        bounds,
                         metersPerPixel,
                         minZoom,
                         backgroundColor,
@@ -108,16 +105,6 @@ class TiledMapLayer : IAsyncLayer {
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
         return false
-    }
-
-    private fun getGrowPercent(): Float {
-        val device = AppServiceRegistry.get<DeviceSubsystem>()
-        val threshold = 50 * 1024 * 1024 // 50 MB
-        return if (device.getAvailableBitmapMemoryBytes() < threshold) {
-            0f
-        } else {
-            0.2f
-        }
     }
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {

@@ -1,8 +1,12 @@
 package com.kylecorry.trail_sense.shared.map_layers
 
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.andromeda_temp.grow
+import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -23,6 +27,7 @@ class MapLayerBackgroundTask {
     private val lock = Mutex()
     private val taskLock = Any()
     private var isDirty = true
+    private val growPercent = getGrowPercent()
 
     private val tasks =
         mutableListOf<suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit>()
@@ -61,12 +66,16 @@ class MapLayerBackgroundTask {
             parallel.run(taskCopy.map { { it(bounds, metersPerPixel) } })
         }
     ) {
+
         scope.launch {
+            val newBounds =
+                TileMath.snapToTiles(bounds.grow(growPercent), metersPerPixel.toDouble())
+
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
                 if (!isDirty && !isInvalid && areBoundsEqual(
-                        bounds,
-                        lastRunBounds ?: CoordinateBounds.Companion.empty
+                        newBounds,
+                        lastRunBounds ?: CoordinateBounds.empty
                     ) &&
                     metersPerPixel == lastRunMetersPerPixel
                 ) {
@@ -75,8 +84,8 @@ class MapLayerBackgroundTask {
 
                 // This was causing it to not run when required, figure this out since this causes an extra re-render
 //                if (!isInvalid && areBoundsEqual(
-//                        bounds,
-//                        lastQueuedBounds ?: CoordinateBounds.Companion.empty
+//                        newBounds,
+//                        lastQueuedBounds ?: CoordinateBounds.empty
 //                    ) &&
 //                    metersPerPixel == lastQueuedMetersPerPixel
 //                ) {
@@ -93,25 +102,25 @@ class MapLayerBackgroundTask {
                 } ?: 0f
 
                 val runPercentTranslateDifference = lastRunBounds?.let {
-                    it.center.distanceTo(bounds.center) / bounds.width().meters().value
+                    it.center.distanceTo(newBounds.center) / newBounds.width().meters().value
                 } ?: 0f
 
                 val queuedPercentTranslateDifference = lastQueuedBounds?.let {
-                    it.center.distanceTo(bounds.center) / bounds.width().meters().value
+                    it.center.distanceTo(newBounds.center) / newBounds.width().meters().value
                 } ?: 0f
 
                 // This will be queued up
-                lastQueuedBounds = bounds
+                lastQueuedBounds = newBounds
                 lastQueuedMetersPerPixel = metersPerPixel
                 isDirty = false
 
                 // Otherwise queue it up
                 val run = suspend {
                     lock.withLock {
-                        lastRunBounds = bounds
+                        lastRunBounds = newBounds
                         lastRunMetersPerPixel = metersPerPixel
                     }
-                    update(bounds, metersPerPixel)
+                    update(newBounds, metersPerPixel)
                 }
 
                 val scaleSignificantlyChanged =
@@ -125,6 +134,16 @@ class MapLayerBackgroundTask {
                     runner.enqueue(run)
                 }
             }
+        }
+    }
+
+    private fun getGrowPercent(): Float {
+        val device = AppServiceRegistry.get<DeviceSubsystem>()
+        val threshold = 50 * 1024 * 1024 // 50 MB
+        return if (device.getAvailableBitmapMemoryBytes() < threshold) {
+            0f
+        } else {
+            0.2f
         }
     }
 

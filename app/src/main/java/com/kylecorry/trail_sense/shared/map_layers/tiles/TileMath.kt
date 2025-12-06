@@ -68,12 +68,42 @@ object TileMath {
         return tiles
     }
 
-    private fun latLonToTileXY(lat: Double, lon: Double, zoom: Int): Pair<Int, Int> {
+    fun snapToTiles(
+        bounds: CoordinateBounds,
+        metersPerPixel: Double,
+        maxZoom: Int = 20
+    ): CoordinateBounds {
+        val minLat = max(bounds.south, MIN_LATITUDE)
+        val maxLat = min(bounds.north, MAX_LATITUDE)
+        val zoom =
+            distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2).coerceAtMost(maxZoom)
+        val northWestTile = latLonToTileXY(bounds.north, bounds.west, zoom).getBounds()
+        val southEastTile = latLonToTileXY(bounds.south, bounds.east, zoom).getBounds()
+        return CoordinateBounds.fromBounds(
+            listOf(
+                northWestTile,
+                southEastTile
+            )
+        )
+    }
+
+    private fun CoordinateBounds.Companion.fromBounds(bounds: List<CoordinateBounds>): CoordinateBounds {
+        return CoordinateBounds.from(bounds.flatMap {
+            listOf(
+                it.northWest,
+                it.northEast,
+                it.southWest,
+                it.southEast
+            )
+        })
+    }
+
+    fun latLonToTileXY(lat: Double, lon: Double, zoom: Int): Tile {
         val latRad = Math.toRadians(lat)
         val n = 1 shl zoom
         val x = ((lon + 180.0) / 360.0 * n).toInt()
         val y = ((1.0 - ln(tan(latRad) + 1 / cos(latRad)) / PI) / 2.0 * n).toInt()
-        return x to y
+        return Tile(x, y, zoom)
     }
 
     fun distancePerPixelToZoom(
