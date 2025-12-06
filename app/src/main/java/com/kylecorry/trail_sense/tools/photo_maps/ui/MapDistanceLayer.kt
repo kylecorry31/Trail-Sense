@@ -4,30 +4,35 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
+import com.kylecorry.andromeda.geojson.GeoJsonPoint
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
-import com.kylecorry.trail_sense.tools.beacons.map_layers.LegacyBeaconLayer
+import com.kylecorry.trail_sense.shared.extensions.lineString
+import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.paths.map_layers.LegacyPathLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonRenderer
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> Unit = {}) :
     ILayer {
 
-    private val pointLayer = LegacyBeaconLayer {
-        if (!isEnabled) {
-            return@LegacyBeaconLayer false
-        }
-        add(it.coordinate)
-        true
-    }
-    private val pathLayer = LegacyPathLayer()
+    private val renderer = GeoJsonRenderer()
     private var points = mutableListOf<Coordinate>()
+    private var pathColor = Color.BLACK
+    private var outlineColor = Color.WHITE
 
     init {
-        pathLayer.setShouldRenderWithDrawLines(true)
+        renderer.setOnClickListener {
+            val geometry = it.geometry
+            if (geometry is GeoJsonPoint) {
+                geometry.point?.coordinate?.let { point -> add(point) }
+                true
+            } else {
+                false
+            }
+        }
     }
 
     var isEnabled = true
@@ -36,15 +41,14 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
             clear()
         }
 
-    private var pathColor: Int = Color.BLACK
-
     fun setPathColor(@ColorInt color: Int) {
         pathColor = color
         updateLayers()
     }
 
     fun setOutlineColor(@ColorInt color: Int) {
-        pointLayer.setOutlineColor(color)
+        outlineColor = color
+        updateLayers()
     }
 
     fun add(location: Coordinate) {
@@ -78,26 +82,18 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
         if (!isEnabled) {
             return
         }
-
-        pathLayer.draw(drawer, map)
-        pointLayer.draw(drawer, map)
+        renderer.draw(drawer, map)
     }
 
     override fun drawOverlay(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        if (!isEnabled) {
-            return
-        }
-
-        pathLayer.drawOverlay(drawer, map)
-        pointLayer.drawOverlay(drawer, map)
+        // Do nothing
     }
 
     override fun invalidate() {
-        pointLayer.invalidate()
-        pathLayer.invalidate()
+        renderer.invalidate()
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
@@ -105,9 +101,7 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
             return false
         }
 
-        val wasPointClicked = pointLayer.onClick(drawer, map, pixel)
-
-        if (wasPointClicked) {
+        if (renderer.onClick(drawer, map, pixel)) {
             return true
         }
 
@@ -116,33 +110,35 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
     }
 
     private fun updateLayers() {
-        pointLayer.setBeacons(getBeacons())
-        pathLayer.setPaths(listOf(getPath()))
-    }
+        val features = mutableListOf<GeoJsonFeature>()
 
-    private fun getPath(): MappablePath {
-        return MappablePath(
-            0,
-            getBeacons(),
-            pathColor,
-            LineStyle.Solid
-        )
-    }
+        if (points.isNotEmpty()) {
+            // Path
+            if (points.size > 1) {
+                features.add(
+                    GeoJsonFeature.lineString(
+                        points,
+                        color = pathColor,
+                        lineStyle = LineStyle.Solid
+                    )
+                )
+            }
 
-    private fun getBeacons(): List<Beacon> {
-        return points.mapIndexed { index, coordinate ->
-            Beacon(
-                index.toLong(),
-                "",
-                coordinate,
-                color = pathColor,
-                temporary = true
-            )
+            // Points
+            points.forEach {
+                features.add(
+                    GeoJsonFeature.point(
+                        it,
+                        color = pathColor,
+                        strokeColor = outlineColor,
+                        isClickable = true
+                    )
+                )
+            }
         }
+
+        renderer.setGeoJsonObject(GeoJsonFeatureCollection(features))
     }
 
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
+    override var percentOpacity: Float = 1f
 }
