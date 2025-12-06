@@ -16,10 +16,12 @@ import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
@@ -31,6 +33,8 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import kotlin.math.min
 
@@ -82,6 +86,8 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var lastHeight = 0
 
     var shouldDrawDial: Boolean = true
+
+    private val hooks = Hooks()
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -367,25 +373,45 @@ class RadarCompassView : BaseCompassView, IMapView {
         this.layers.addAll(layers)
     }
 
-    override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        val vector = navigation.navigate(compassCenter, coordinate, declination, useTrueNorth)
-        val angle = SolMath.wrap(-(vector.direction.value - 90), 0f, 360f)
-        val pixelDistance = vector.distance / metersPerPixel
-        val xDiff = SolMath.cosDegrees(angle) * pixelDistance
-        val yDiff = SolMath.sinDegrees(angle) * pixelDistance
-        return PixelCoordinate(compassCircle.center.x + xDiff, compassCircle.center.y - yDiff)
-    }
+    override val mapProjection: IMapViewProjection
+        get() = hooks.memo(
+            "mapProjection",
+            mapCenter,
+            metersPerPixel,
+        ) {
+            val mapCenter = mapCenter
+            val metersPerPixel = metersPerPixel
 
-    override fun toPixel(
-        latitude: Double,
-        longitude: Double
-    ): PixelCoordinate {
-        return toPixel(Coordinate(latitude, longitude))
-    }
+            object : IMapProjection, IMapViewProjection {
+                override fun toPixels(
+                    latitude: Double,
+                    longitude: Double
+                ): PixelCoordinate {
+                    return toPixels(Coordinate(latitude, longitude))
+                }
 
-    override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        TODO("Not yet implemented")
-    }
+                override fun toCoordinate(pixel: Vector2): Coordinate {
+                    // Not implemented
+                    return mapCenter
+                }
+
+                override fun toPixels(location: Coordinate): PixelCoordinate {
+                    val vector =
+                        navigation.navigate(compassCenter, location, declination, useTrueNorth)
+                    val angle = SolMath.wrap(-(vector.direction.value - 90), 0f, 360f)
+                    val pixelDistance = vector.distance / metersPerPixel
+                    val xDiff = SolMath.cosDegrees(angle) * pixelDistance
+                    val yDiff = SolMath.sinDegrees(angle) * pixelDistance
+                    return PixelCoordinate(
+                        compassCircle.center.x + xDiff,
+                        compassCircle.center.y - yDiff
+                    )
+                }
+
+                override val metersPerPixel: Float = metersPerPixel
+                override val center: Coordinate = mapCenter
+            }
+        }
 
     override var metersPerPixel: Float
         get() = maxDistanceMeters.value / (compassSize / 2f)

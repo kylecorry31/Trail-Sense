@@ -15,6 +15,7 @@ import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.filters.RDPFilter
+import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
@@ -26,7 +27,9 @@ import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getThicknessScale
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.lineToPixels
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
@@ -73,12 +76,13 @@ class LineStringRenderer : FeatureRenderer(), ILineStringRenderer {
     }
 
     private suspend fun renderFeaturesInBackground(
+        viewBounds: Rectangle,
         bounds: CoordinateBounds,
-        metersPerPixel: Float,
+        projection: IMapViewProjection,
         features: List<GeoJsonFeature>
     ) = onDefault {
         val rdp =
-            RDPFilter<GeoJsonPosition>(metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
+            RDPFilter<GeoJsonPosition>(projection.metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
                 Geology.getCrossTrackDistance(
                     point.coordinate,
                     start.coordinate,
@@ -118,7 +122,7 @@ class LineStringRenderer : FeatureRenderer(), ILineStringRenderer {
         Log.d("LineStringLayer", "Rendered $totalCount vertices")
 
         val zoomLevel = TileMath.distancePerPixelToZoom(
-            metersPerPixel.toDouble(),
+            projection.metersPerPixel.toDouble(),
             bounds.center.latitude
         )
 

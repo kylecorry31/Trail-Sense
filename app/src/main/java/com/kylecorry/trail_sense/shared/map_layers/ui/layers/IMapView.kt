@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 
@@ -9,9 +10,10 @@ interface IMapView {
     fun removeLayer(layer: ILayer)
     fun setLayers(layers: List<ILayer>)
 
-    fun toPixel(coordinate: Coordinate): PixelCoordinate
-    fun toPixel(latitude: Double, longitude: Double): PixelCoordinate
-    fun toCoordinate(pixel: PixelCoordinate): Coordinate
+    /**
+     * The current projection of the map. The response should be fixed, so it doesn't change on consumers using it.
+     */
+    val mapProjection: IMapViewProjection
 
     /**
      * The scale in meters per pixel
@@ -40,6 +42,18 @@ interface IMapView {
     val mapRotation: Float
 
     val mapBounds: CoordinateBounds
+}
+
+fun IMapView.toPixel(coordinate: Coordinate): PixelCoordinate {
+    return mapProjection.toPixels(coordinate)
+}
+
+fun IMapView.toPixel(latitude: Double, longitude: Double): PixelCoordinate {
+    return mapProjection.toPixels(latitude, longitude)
+}
+
+fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
+    return mapProjection.toCoordinate(pixel)
 }
 
 fun IMapView.lineToPixels(

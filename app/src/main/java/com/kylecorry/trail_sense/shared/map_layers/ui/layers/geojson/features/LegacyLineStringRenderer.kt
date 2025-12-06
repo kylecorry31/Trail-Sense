@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.shared.extensions.getThicknessScale
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.ClippedPathRenderer

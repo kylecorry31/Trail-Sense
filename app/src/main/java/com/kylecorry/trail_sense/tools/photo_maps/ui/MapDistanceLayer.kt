@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonRenderer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> Unit = {}) :

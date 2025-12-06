@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 
 class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
     IAsyncLayer {

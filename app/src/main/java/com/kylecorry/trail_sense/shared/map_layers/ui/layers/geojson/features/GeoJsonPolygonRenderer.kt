@@ -3,11 +3,16 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features
 import android.graphics.Color
 import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.StrokeCap
+import com.kylecorry.andromeda.canvas.StrokeJoin
+import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPolygon
 import com.kylecorry.andromeda.geojson.GeoJsonPosition
 import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.sol.math.SolMath.positive
+import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -20,20 +25,30 @@ import com.kylecorry.trail_sense.shared.extensions.getStrokeColor
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlin.math.absoluteValue
 
 class GeoJsonPolygonRenderer : FeatureRenderer() {
 
-    private var reducedPaths = emptyList<PrecomputedPolygon>()
     private var filterEpsilon = 0f
     private val clipper = PolygonClipper()
 
-    private var lastHeight = 0
-    private var lastWidth = 0
-    private var cachedBounds = Rectangle(0f, 0f, 0f, 0f)
+    // Rendering cache
+    private var pathsRendered = false
+    private var renderInProgress = false
+    private var pathPool = ObjectPool { Path() }
+    private var renderedPaths = listOf<RenderedPolygon>()
+    private val lock = Any()
+    private var updateListener: (() -> Unit)? = null
 
     init {
         setRunInBackgroundWhenChanged(this::renderFeaturesInBackground)
+    }
+
+    override fun setHasUpdateListener(listener: (() -> Unit)?) {
+        super.setHasUpdateListener(listener)
+        updateListener = listener
     }
 
     override fun filterFeatures(features: List<GeoJsonFeature>): List<GeoJsonFeature> {
@@ -41,23 +56,26 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
     }
 
     private suspend fun renderFeaturesInBackground(
+        viewBounds: Rectangle,
         bounds: CoordinateBounds,
-        metersPerPixel: Float,
+        projection: IMapViewProjection,
         features: List<GeoJsonFeature>
     ) = onDefault {
-        val rdp = RDPFilter<GeoJsonPosition>(metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
-            Geology.getCrossTrackDistance(
-                point.coordinate,
-                start.coordinate,
-                end.coordinate
-            ).value.absoluteValue
-        }
+        val rdp =
+            RDPFilter<GeoJsonPosition>(projection.metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
+                Geology.getCrossTrackDistance(
+                    point.coordinate,
+                    start.coordinate,
+                    end.coordinate
+                ).value.absoluteValue
+            }
 
-        reducedPaths = features.mapNotNull { feature ->
+        val precomputed = features.mapNotNull { feature ->
             val geometry = feature.geometry as GeoJsonPolygon
             val rings = geometry.polygon ?: return@mapNotNull null
 
-            val geometryBounds = geometry.boundingBox?.bounds ?: CoordinateBounds.from(rings.flatten().map { it.coordinate })
+            val geometryBounds = geometry.boundingBox?.bounds ?: CoordinateBounds.from(
+                rings.flatten().map { it.coordinate })
             if (!geometryBounds.intersects(bounds)) {
                 return@mapNotNull null
             }
@@ -75,6 +93,31 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
                 feature.getOpacity()
             )
         }
+
+        val newPaths = mutableListOf<RenderedPolygon>()
+
+        // Canvas bounds are inverted
+        val margin = 100f
+        val actualViewBounds = Rectangle(
+            viewBounds.left - margin,
+            viewBounds.bottom - margin,
+            viewBounds.right + margin,
+            viewBounds.top + margin
+        )
+        for (polygon in precomputed) {
+            val pathObj = pathPool.get()
+            newPaths.add(renderPolygon(polygon, actualViewBounds, projection, pathObj))
+        }
+
+        synchronized(lock) {
+            renderedPaths.forEach {
+                pathPool.release(it.path)
+            }
+            renderedPaths = newPaths
+        }
+
+        pathsRendered = true
+        renderInProgress = false
     }
 
     override fun draw(
@@ -87,73 +130,91 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
         }
 
         val scale = map.layerScale
-        val mapBounds = getBounds(drawer)
-
         drawer.noPathEffect()
 
-        for (polygon in reducedPaths) {
-            val path = polygon.path
-            path.rewind()
-            path.fillType = Path.FillType.EVEN_ODD
+        synchronized(lock) {
+            for (polygon in renderedPaths) {
+                val path = polygon.path
+                val centerPixel = map.toPixel(polygon.origin)
 
-            polygon.rings.forEach { ring ->
-                if (ring.isEmpty()) return@forEach
+                drawer.push()
+                drawer.translate(centerPixel.x, centerPixel.y)
+                val relativeScale = (polygon.renderedScale / map.metersPerPixel).real().positive(1f)
+                drawer.scale(relativeScale)
 
-                // Convert to pixels
-                val pixels = ring.map { map.toPixel(it) }
-
-                // Clip to bounds
-                val clipped = clipper.clip(pixels, mapBounds)
-
-                if (clipped.isEmpty()) return@forEach
-
-                val start = clipped[0]
-                path.moveTo(start.x, start.y)
-
-                for (i in 1 until clipped.size) {
-                    val pixel = clipped[i]
-                    path.lineTo(pixel.x, pixel.y)
+                if (polygon.fillColor != null) {
+                    drawer.fill(polygon.fillColor.withAlpha(polygon.opacity))
+                } else {
+                    drawer.noFill()
                 }
-                path.close()
-            }
 
-            if (polygon.fillColor != null) {
-                drawer.fill(polygon.fillColor.withAlpha(polygon.opacity))
-            } else {
-                drawer.noFill()
-            }
+                if (polygon.strokeColor != null && polygon.strokeWeight > 0) {
+                    drawer.stroke(polygon.strokeColor.withAlpha(polygon.opacity))
+                    drawer.strokeWeight(drawer.dp(polygon.strokeWeight * scale) / relativeScale)
+                    drawer.strokeJoin(StrokeJoin.Round)
+                    drawer.strokeCap(StrokeCap.Round)
+                } else {
+                    drawer.noStroke()
+                }
 
-            if (polygon.strokeColor != null && polygon.strokeWeight > 0) {
-                drawer.stroke(polygon.strokeColor.withAlpha(polygon.opacity))
-                drawer.strokeWeight(drawer.dp(polygon.strokeWeight * scale))
-            } else {
-                drawer.noStroke()
+                drawer.path(path)
+                drawer.pop()
             }
-
-            drawer.path(path)
         }
 
         drawer.noStroke()
         drawer.fill(Color.WHITE)
     }
 
-    private fun getBounds(drawer: ICanvasDrawer): Rectangle {
-        if (drawer.canvas.height != lastHeight || drawer.canvas.width != lastWidth) {
-            lastHeight = drawer.canvas.height
-            lastWidth = drawer.canvas.width
-            // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
-            // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
-            val bounds = drawer.getBounds(45f)
-            val margin = drawer.dp(50f)
-            // Top and bottom are flipped to match drawing coordinate system
-            cachedBounds = Rectangle(
-                bounds.left - margin,
-                bounds.bottom - margin,
-                bounds.right + margin,
-                bounds.top + margin
-            )
+    private suspend fun renderPolygon(
+        polygon: PrecomputedPolygon,
+        bounds: Rectangle,
+        mapper: IMapViewProjection,
+        path: Path
+    ): RenderedPolygon = onDefault {
+        path.reset()
+        path.fillType = Path.FillType.EVEN_ODD
+
+        // Calculate origin for relative rendering
+        val allPoints = polygon.rings.flatten()
+        val origin = if (allPoints.isNotEmpty()) {
+            CoordinateBounds.from(allPoints).center
+        } else {
+            Coordinate.zero
         }
-        return cachedBounds
+        val originPixel = mapper.toPixels(origin)
+
+        polygon.rings.forEach { ring ->
+            if (ring.isEmpty()) return@forEach
+
+            // Convert to pixels
+            val pixels = ring.map { mapper.toPixels(it) }
+
+            // Clip to bounds
+            val clipped = clipper.clip(pixels, bounds)
+
+            if (clipped.isEmpty()) return@forEach
+
+            val start = clipped[0]
+            path.moveTo(start.x - originPixel.x, start.y - originPixel.y)
+
+            for (i in 1 until clipped.size) {
+                val pixel = clipped[i]
+                path.lineTo(pixel.x - originPixel.x, pixel.y - originPixel.y)
+            }
+            path.close()
+        }
+
+        RenderedPolygon(
+            polygon,
+            path,
+            origin,
+            mapper.metersPerPixel,
+            polygon.fillColor,
+            polygon.strokeColor,
+            polygon.strokeWeight,
+            polygon.opacity
+        )
     }
 
     class PrecomputedPolygon(
@@ -162,7 +223,17 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
         val fillColor: Int?,
         val strokeColor: Int?,
         val strokeWeight: Float,
-        val opacity: Int,
-        val path: Path = Path()
+        val opacity: Int
+    )
+
+    class RenderedPolygon(
+        val source: PrecomputedPolygon,
+        val path: Path,
+        val origin: Coordinate,
+        val renderedScale: Float,
+        val fillColor: Int?,
+        val strokeColor: Int?,
+        val strokeWeight: Float,
+        val opacity: Int
     )
 }
