@@ -204,7 +204,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         }
 
         val elevationDistance = beacon.elevation?.let {
-            Distance.meters(it).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            Distance.meters(it).convertTo(prefs.baseDistanceUnits)
         }
 
         toolbar.subtitle.text = formatter.join(
