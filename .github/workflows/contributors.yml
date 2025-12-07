@@ -1,6 +1,6 @@
 name: Update Contributors
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 on:

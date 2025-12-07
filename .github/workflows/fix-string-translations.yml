@@ -1,6 +1,6 @@
 name: Fix String Translations
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 on:
