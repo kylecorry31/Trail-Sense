@@ -32,7 +32,7 @@ class BitmapMapMarker(
         }
         drawer.imageMode(ImageMode.Center)
         drawer.push()
-        if (tint != null){
+        if (tint != null) {
             drawer.tint(tint)
         } else {
             drawer.noTint()
@@ -46,5 +46,13 @@ class BitmapMapMarker(
 
     override fun onClick(): Boolean {
         return onClickFn()
+    }
+
+    override fun calculateSizeInPixels(
+        drawer: ICanvasDrawer,
+        metersPerPixel: Float,
+        scale: Float
+    ): Float {
+        return drawer.dp(size) * scale
     }
 }

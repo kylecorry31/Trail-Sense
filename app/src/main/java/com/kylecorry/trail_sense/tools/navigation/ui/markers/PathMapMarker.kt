@@ -58,4 +58,12 @@ class PathMapMarker(
     override fun onClick(): Boolean {
         return onClickFn()
     }
+
+    override fun calculateSizeInPixels(
+        drawer: ICanvasDrawer,
+        metersPerPixel: Float,
+        scale: Float
+    ): Float {
+        return drawer.dp(size) * scale
+    }
 }

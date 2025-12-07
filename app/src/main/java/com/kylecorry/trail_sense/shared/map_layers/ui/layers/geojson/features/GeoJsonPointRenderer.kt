@@ -168,7 +168,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
         val points = markers.map {
             val anchor = map.toPixel(it.location)
-            val radius = drawer.dp(it.size * map.layerScale) / 2f
+            val radius = it.calculateSizeInPixels(drawer, map.metersPerPixel, map.layerScale) / 2f
             it to PixelCircle(anchor, radius)
         }
 

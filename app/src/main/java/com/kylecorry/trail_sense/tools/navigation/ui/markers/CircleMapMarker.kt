@@ -26,17 +26,7 @@ class CircleMapMarker(
         metersPerPixel: Float,
     ) {
         val actualScale = if (useScale) scale else 1f
-        val size = when (sizeUnit) {
-            SizeUnit.DensityPixels -> {
-                drawer.dp(this.size)
-            }
-            SizeUnit.Meters -> {
-                this.size / metersPerPixel
-            }
-            else -> {
-                this.size
-            }
-        }
+        val size = calculateSizeInPixels(drawer, metersPerPixel, actualScale)
         drawer.noTint()
         if (strokeColor != null && strokeColor != Color.TRANSPARENT) {
             drawer.stroke(strokeColor)
@@ -47,12 +37,32 @@ class CircleMapMarker(
         if (color != Color.TRANSPARENT) {
             drawer.fill(color)
             drawer.opacity(opacity)
-            drawer.circle(anchor.x, anchor.y, size * actualScale)
+            drawer.circle(anchor.x, anchor.y, size)
             drawer.opacity(255)
         }
     }
 
     override fun onClick(): Boolean {
         return onClickFn()
+    }
+
+    override fun calculateSizeInPixels(
+        drawer: ICanvasDrawer,
+        metersPerPixel: Float,
+        scale: Float
+    ): Float {
+        return when (sizeUnit) {
+            SizeUnit.DensityPixels -> {
+                drawer.dp(this.size)
+            }
+
+            SizeUnit.Meters -> {
+                this.size / metersPerPixel
+            }
+
+            else -> {
+                this.size
+            }
+        } * (if (useScale) scale else 1f)
     }
 }

@@ -9,4 +9,5 @@ interface MapMarker {
     val size: Float
     fun draw(drawer: ICanvasDrawer, anchor: PixelCoordinate, scale: Float, rotation: Float, metersPerPixel: Float)
     fun onClick(): Boolean
+    fun calculateSizeInPixels(drawer: ICanvasDrawer, metersPerPixel: Float, scale: Float): Float
 }
