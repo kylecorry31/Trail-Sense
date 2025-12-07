@@ -227,7 +227,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                     factory.create(LineStyle.Solid).draw(
                         drawer,
                         backgroundColor,
-                        strokeScale = 0.75f * scale / (path.thicknessScale * relativeScale)
+                        strokeScale = 0.75f * relativeScale * scale / path.thicknessScale
                     ) {
                         if (shouldRenderWithDrawLines) {
                             lines(path.line)
@@ -240,7 +240,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 pathDrawer.draw(
                     drawer,
                     path.color,
-                    strokeScale = scale / (path.thicknessScale * relativeScale)
+                    strokeScale = relativeScale * scale / path.thicknessScale
                 ) {
                     if (shouldRenderWithDrawLines) {
                         lines(path.line)
