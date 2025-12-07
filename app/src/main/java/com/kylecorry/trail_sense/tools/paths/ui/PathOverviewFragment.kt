@@ -485,6 +485,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
         lastBounds = Geology.getBounds(waypoints.map { it.coordinate })
         binding.pathImage.fitIntoView(lastBounds)
+        updateMapLayer()
     }
 
     private fun onPathChanged() {
