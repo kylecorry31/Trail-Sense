@@ -8,27 +8,15 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_SIZE_UNIT_METERS
 import com.kylecorry.trail_sense.shared.extensions.point
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 
 class CellTowerGeoJsonSource : GeoJsonSource {
 
-    private val minZoomLevel = 10
-
     override suspend fun load(
         bounds: CoordinateBounds,
         metersPerPixel: Float
     ): GeoJsonObject? {
-        val zoomLevel = TileMath.distancePerPixelToZoom(
-            metersPerPixel.toDouble(),
-            (bounds.north + bounds.south) / 2
-        )
-
-        if (zoomLevel < minZoomLevel) {
-            return null
-        }
-
         val towers = CellTowerModel.getTowers(bounds)
         return GeoJsonFeatureCollection(
             towers.map {

@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class CellTowerMapLayer(
     private val onClick: (tower: ApproximateCoordinate) -> Boolean = { false }
-) : GeoJsonLayer<CellTowerGeoJsonSource>(CellTowerGeoJsonSource()) {
+) : GeoJsonLayer<CellTowerGeoJsonSource>(CellTowerGeoJsonSource(), minZoomLevel = 11) {
 
     fun setPreferences(prefs: CellTowerMapLayerPreferences) {
         percentOpacity = prefs.opacity.get() / 100f

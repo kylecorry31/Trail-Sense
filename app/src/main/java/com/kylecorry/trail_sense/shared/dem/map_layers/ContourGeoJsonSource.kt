@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 class ContourGeoJsonSource : GeoJsonSource {
 
     private val units = AppServiceRegistry.get<UserPreferences>().baseDistanceUnits
-    private val minZoomLevel = 13
     private val maxZoomLevel = 19
 
     var colorScale: ElevationColorMap = TrailSenseVibrantElevationColorMap()
@@ -72,10 +71,6 @@ class ContourGeoJsonSource : GeoJsonSource {
             metersPerPixel.toDouble(),
             (bounds.north + bounds.south) / 2
         ).coerceAtMost(maxZoomLevel)
-
-        if (zoomLevel < minZoomLevel) {
-            return null
-        }
 
         val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
         val contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)

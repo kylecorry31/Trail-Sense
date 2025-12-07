@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
@@ -12,7 +13,8 @@ import kotlinx.coroutines.CancellationException
 
 open class GeoJsonLayer<T : GeoJsonSource>(
     protected val source: T,
-    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
+    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
+    private val minZoomLevel: Int? = null
 ) : IAsyncLayer {
 
     val renderer = GeoJsonRenderer()
@@ -23,6 +25,18 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         taskRunner.addTask { bounds, metersPerPixel ->
             isInvalid = false
             try {
+                if (minZoomLevel != null) {
+                    val zoomLevel = TileMath.distancePerPixelToZoom(
+                        metersPerPixel.toDouble(),
+                        (bounds.north + bounds.south) / 2
+                    )
+
+                    if (zoomLevel < minZoomLevel) {
+                        renderer.setGeoJsonObject(GeoJsonFeatureCollection(emptyList()))
+                        return@addTask
+                    }
+                }
+
                 val obj =
                     source.load(bounds, metersPerPixel) ?: GeoJsonFeatureCollection(emptyList())
                 renderer.setGeoJsonObject(obj)
