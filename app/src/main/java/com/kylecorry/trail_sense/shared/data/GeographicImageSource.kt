@@ -110,12 +110,18 @@ class GeographicImageSource(
                 maxY = pixel.y
             }
         }
-        return Rect(
-            floor(minX).toInt() - interpolationOrder,
-            floor(minY).toInt() - interpolationOrder,
-            floor(maxX).toInt() + 1 + interpolationOrder,
-            floor(maxY).toInt() + 1 + interpolationOrder
-        )
+        val imageSize = reader.getSize()
+
+        val left = (floor(minX).toInt() - interpolationOrder).coerceAtLeast(0)
+        val top = (floor(minY).toInt() - interpolationOrder).coerceAtLeast(0)
+        val right = (floor(maxX).toInt() + 1 + interpolationOrder).coerceAtMost(imageSize.width)
+        val bottom = (floor(maxY).toInt() + 1 + interpolationOrder).coerceAtMost(imageSize.height)
+
+        if (right <= left || bottom <= top) {
+            return null
+        }
+
+        return Rect(left, top, right, bottom)
     }
 
     private fun partitionPixels(
