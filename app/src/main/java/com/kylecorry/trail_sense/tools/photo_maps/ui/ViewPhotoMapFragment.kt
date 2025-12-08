@@ -350,10 +350,12 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun setDestination(destination: Destination?) {
         this@ViewPhotoMapFragment.destination = destination
-        if (destination == null) {
-            binding.navigationSheet.hide()
-        } else {
-            updateDestination()
+        if (isBound) {
+            if (destination == null) {
+                binding.navigationSheet.hide()
+            } else {
+                updateDestination()
+            }
         }
         activity?.let { screenLock.updateLock(it) }
     }
