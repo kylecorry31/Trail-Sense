@@ -54,7 +54,7 @@ class BeaconGeoJsonSource : GeoJsonSource {
                     } else {
                         127
                     },
-                    icon = it.icon?.icon,
+                    icon = it.icon?.id,
                     iconSize = 12f * 0.75f,
                     iconColor = Colors.mostContrastingColor(
                         Color.WHITE,

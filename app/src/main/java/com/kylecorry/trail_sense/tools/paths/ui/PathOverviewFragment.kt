@@ -585,7 +585,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 it.id,
                 it.name,
                 color = it.color,
-                icon = it.icon?.icon,
+                icon = it.icon?.id,
                 iconColor = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color),
                 size = 8f,
                 iconSize = 8f * 0.75f,

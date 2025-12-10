@@ -5,10 +5,10 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_SIZE_UNIT_METERS
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 
 class CellTowerGeoJsonSource : GeoJsonSource {
@@ -27,7 +27,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
                     size = 2 * it.accuracy.meters().value,
                     sizeUnit = GEO_JSON_PROPERTY_SIZE_UNIT_METERS,
                     useScale = false,
-                    icon = R.drawable.cell_tower,
+                    icon = BeaconIcon.CellTower.id,
                     iconColor = Color.WHITE,
                     iconSize = 12f,
                     isClickable = true,

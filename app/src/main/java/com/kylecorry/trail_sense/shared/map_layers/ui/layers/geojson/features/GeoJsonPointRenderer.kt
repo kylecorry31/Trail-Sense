@@ -27,11 +27,13 @@ import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.shared.toVector2
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.TextMapMarker
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 
 class GeoJsonPointRenderer : FeatureRenderer() {
 
@@ -76,12 +78,14 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val point = (feature.geometry as GeoJsonPoint).point ?: return@forEach
                 val shape = feature.getMarkerShape()
                 val icon = feature.getIcon()
+                val beaconIcon = icon?.let { BeaconIcon.entries.withId(it) }
+                val iconRes = beaconIcon?.icon
                 val size = feature.getSize() ?: 12f
                 val iconSize = feature.getIconSize() ?: size
                 val isClickable = feature.isClickable()
                 val name = feature.getName()
 
-                if (shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null && icon == null)) {
+                if (shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null && iconRes == null)) {
                     newMarkers.add(
                         CircleMapMarker(
                             point.coordinate,
@@ -100,8 +104,8 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                         ))
                 }
 
-                if (icon != null) {
-                    val bitmap = bitmapLoader!!.load(icon, (iconSize * 2).toInt())
+                if (iconRes != null) {
+                    val bitmap = bitmapLoader!!.load(iconRes, (iconSize * 2).toInt())
                     newMarkers.add(
                         BitmapMapMarker(
                             point.coordinate,

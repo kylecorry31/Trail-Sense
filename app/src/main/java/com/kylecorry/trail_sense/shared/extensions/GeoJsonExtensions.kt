@@ -106,9 +106,8 @@ fun GeoJsonFeature.getStrokeColor(): Int? {
     return getIntProperty(GEO_JSON_PROPERTY_STROKE_COLOR)
 }
 
-// TODO: Use a preset list of icons
-fun GeoJsonFeature.getIcon(): Int? {
-    return getIntProperty(GEO_JSON_PROPERTY_ICON)
+fun GeoJsonFeature.getIcon(): Long? {
+    return getNumberProperty(GEO_JSON_PROPERTY_ICON)?.toLong()
 }
 
 fun GeoJsonFeature.getIconColor(): Int? {
@@ -192,7 +191,7 @@ fun GeoJsonFeature.Companion.point(
     id: Long? = null,
     name: String? = null,
     color: Int? = null,
-    icon: Int? = null,
+    icon: Long? = null,
     iconColor: Int? = null,
     markerShape: String? = GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE,
     isClickable: Boolean = false,

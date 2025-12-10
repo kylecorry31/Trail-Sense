@@ -7,9 +7,9 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.oceanography.TideType
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
@@ -30,14 +30,14 @@ class TideGeoJsonSource : GeoJsonSource {
         val features = tides.mapNotNull { (table, type) ->
             val location = table.location ?: return@mapNotNull null
             val icon = when (type) {
-                TideType.High -> R.drawable.ic_tide_high
-                TideType.Low -> R.drawable.ic_tide_low
-                null -> R.drawable.ic_tide_half
+                TideType.High -> BeaconIcon.TideHigh
+                TideType.Low -> BeaconIcon.TideLow
+                null -> BeaconIcon.TideHalf
             }
 
             GeoJsonFeature.point(
                 location,
-                icon = icon,
+                icon = icon.id,
                 iconSize = 12f,
                 markerShape = null
             )
