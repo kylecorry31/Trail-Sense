@@ -20,7 +20,7 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
-import com.kylecorry.trail_sense.shared.extensions.DEFAULT_LINE_STRING_STROKE_WEIGHT_PX
+import com.kylecorry.trail_sense.shared.extensions.DEFAULT_LINE_STRING_STROKE_WEIGHT_DP
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.extensions.getColor
 import com.kylecorry.trail_sense.shared.extensions.getLineStyle
@@ -152,7 +152,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 it.getColor() ?: Color.WHITE,
                 it.getLineStyle() ?: LineStyle.Solid,
                 (it.getStrokeWeight()
-                    ?: DEFAULT_LINE_STRING_STROKE_WEIGHT_PX) / DEFAULT_LINE_STRING_STROKE_WEIGHT_PX,
+                    ?: DEFAULT_LINE_STRING_STROKE_WEIGHT_DP) / DEFAULT_LINE_STRING_STROKE_WEIGHT_DP,
                 path,
                 projection.center,
                 projection.metersPerPixel
@@ -209,6 +209,8 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             filterEpsilon = drawer.dp(2f)
         }
         val scale = map.layerScale
+        // Paths were originally 6px, so convert that to the default dp size
+        val dpScale = drawer.dp(DEFAULT_LINE_STRING_STROKE_WEIGHT_DP) / 6f
         synchronized(lock) {
             for (path in reducedPaths) {
                 if (path.line.isEmpty()) {
@@ -229,7 +231,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                     factory.create(LineStyle.Solid).draw(
                         drawer,
                         backgroundColor,
-                        strokeScale = 0.75f * relativeScale * scale / path.thicknessScale
+                        strokeScale = dpScale * 0.75f * relativeScale * scale / path.thicknessScale
                     ) {
                         if (shouldRenderWithDrawLines) {
                             lines(path.line)
@@ -242,7 +244,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 pathDrawer.draw(
                     drawer,
                     path.color,
-                    strokeScale = relativeScale * scale / path.thicknessScale
+                    strokeScale = dpScale * relativeScale * scale / path.thicknessScale
                 ) {
                     if (shouldRenderWithDrawLines) {
                         lines(path.line)

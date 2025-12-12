@@ -172,7 +172,7 @@ fun GeoJsonFeature.Companion.lineString(
             GEO_JSON_PROPERTY_NAME to name,
             GEO_JSON_PROPERTY_LINE_STYLE to lineStyle.stringId,
             GEO_JSON_PROPERTY_COLOR to color,
-            GEO_JSON_PROPERTY_STROKE_WEIGHT to DEFAULT_LINE_STRING_STROKE_WEIGHT_PX * thicknessScale,
+            GEO_JSON_PROPERTY_STROKE_WEIGHT to DEFAULT_LINE_STRING_STROKE_WEIGHT_DP * thicknessScale,
         ),
         boundingBox = bounds?.let { createBoundingBox(it) }
     )
@@ -273,4 +273,4 @@ const val GEO_JSON_PROPERTY_SIZE_UNIT = "sizeUnit"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS = "px"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_DENSITY_PIXELS = "dp"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_METERS = "m"
-const val DEFAULT_LINE_STRING_STROKE_WEIGHT_PX = 6f
+const val DEFAULT_LINE_STRING_STROKE_WEIGHT_DP = 2.25f
