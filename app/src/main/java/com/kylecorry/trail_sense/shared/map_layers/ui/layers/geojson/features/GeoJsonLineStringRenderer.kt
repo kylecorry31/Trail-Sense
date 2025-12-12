@@ -210,7 +210,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         }
         val scale = map.layerScale
         // Paths were originally 6px, so convert that to the default dp size
-        val dpScale = drawer.dp(DEFAULT_LINE_STRING_STROKE_WEIGHT_DP) / 6f
+        val dpScale = 6f / drawer.dp(DEFAULT_LINE_STRING_STROKE_WEIGHT_DP)
         synchronized(lock) {
             for (path in reducedPaths) {
                 if (path.line.isEmpty()) {
