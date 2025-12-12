@@ -154,10 +154,6 @@ fun GeoJsonFeature.getLineStyle(): LineStyle? {
     return LineStyle.entries.firstOrNull { it.stringId == lineStyleId }
 }
 
-fun GeoJsonFeature.getThicknessScale(): Float? {
-    return getFloatProperty(GEO_JSON_PROPERTY_LINE_THICKNESS_SCALE)
-}
-
 fun GeoJsonFeature.Companion.lineString(
     points: List<Coordinate>,
     id: Long? = null,
@@ -176,7 +172,7 @@ fun GeoJsonFeature.Companion.lineString(
             GEO_JSON_PROPERTY_NAME to name,
             GEO_JSON_PROPERTY_LINE_STYLE to lineStyle.stringId,
             GEO_JSON_PROPERTY_COLOR to color,
-            GEO_JSON_PROPERTY_LINE_THICKNESS_SCALE to thicknessScale
+            GEO_JSON_PROPERTY_STROKE_WEIGHT to DEFAULT_LINE_STRING_STROKE_WEIGHT_PX * thicknessScale,
         ),
         boundingBox = bounds?.let { createBoundingBox(it) }
     )
@@ -272,9 +268,9 @@ const val GEO_JSON_PROPERTY_ICON_SIZE = "iconSize"
 const val GEO_JSON_PROPERTY_SIZE = "size"
 const val GEO_JSON_PROPERTY_OPACITY = "opacity"
 const val GEO_JSON_PROPERTY_LINE_STYLE = "lineStyle"
-const val GEO_JSON_PROPERTY_LINE_THICKNESS_SCALE = "thicknessScale"
 const val GEO_JSON_PROPERTY_IS_CLICKABLE = "isClickable"
 const val GEO_JSON_PROPERTY_SIZE_UNIT = "sizeUnit"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS = "px"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_DENSITY_PIXELS = "dp"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_METERS = "m"
+const val DEFAULT_LINE_STRING_STROKE_WEIGHT_PX = 6f

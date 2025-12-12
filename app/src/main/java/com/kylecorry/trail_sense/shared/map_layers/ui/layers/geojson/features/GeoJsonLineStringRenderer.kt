@@ -20,11 +20,12 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
+import com.kylecorry.trail_sense.shared.extensions.DEFAULT_LINE_STRING_STROKE_WEIGHT_PX
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.extensions.getColor
 import com.kylecorry.trail_sense.shared.extensions.getLineStyle
 import com.kylecorry.trail_sense.shared.extensions.getName
-import com.kylecorry.trail_sense.shared.extensions.getThicknessScale
+import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
@@ -150,7 +151,8 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 it.getName(),
                 it.getColor() ?: Color.WHITE,
                 it.getLineStyle() ?: LineStyle.Solid,
-                it.getThicknessScale() ?: 1f,
+                (it.getStrokeWeight()
+                    ?: DEFAULT_LINE_STRING_STROKE_WEIGHT_PX) / DEFAULT_LINE_STRING_STROKE_WEIGHT_PX,
                 path,
                 projection.center,
                 projection.metersPerPixel
