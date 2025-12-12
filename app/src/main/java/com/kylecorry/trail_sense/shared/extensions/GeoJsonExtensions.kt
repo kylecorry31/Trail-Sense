@@ -139,10 +139,6 @@ fun GeoJsonFeature.getSizeUnit(): SizeUnit {
     }
 }
 
-fun GeoJsonFeature.useScale(): Boolean {
-    return getBooleanProperty(GEO_JSON_PROPERTY_USE_SCALE) ?: true
-}
-
 fun GeoJsonFeature.isClickable(): Boolean {
     return getBooleanProperty(GEO_JSON_PROPERTY_IS_CLICKABLE) ?: false
 }
@@ -198,7 +194,6 @@ fun GeoJsonFeature.Companion.point(
     strokeColor: Int? = null,
     strokeWeight: Float? = null,
     opacity: Int? = null,
-    useScale: Boolean? = null,
     size: Float? = null,
     iconSize: Float? = size,
     sizeUnit: String? = null,
@@ -226,8 +221,7 @@ fun GeoJsonFeature.Companion.point(
             GEO_JSON_PROPERTY_IS_CLICKABLE to isClickable,
             GEO_JSON_PROPERTY_STROKE_COLOR to strokeColor,
             GEO_JSON_PROPERTY_STROKE_WEIGHT to strokeWeight,
-            GEO_JSON_PROPERTY_OPACITY to opacity,
-            GEO_JSON_PROPERTY_USE_SCALE to useScale
+            GEO_JSON_PROPERTY_OPACITY to opacity
         ) + additionalProperties,
         boundingBox = boundingBox
     )
@@ -279,7 +273,6 @@ const val GEO_JSON_PROPERTY_SIZE = "size"
 const val GEO_JSON_PROPERTY_OPACITY = "opacity"
 const val GEO_JSON_PROPERTY_LINE_STYLE = "lineStyle"
 const val GEO_JSON_PROPERTY_LINE_THICKNESS_SCALE = "thicknessScale"
-const val GEO_JSON_PROPERTY_USE_SCALE = "useScale"
 const val GEO_JSON_PROPERTY_IS_CLICKABLE = "isClickable"
 const val GEO_JSON_PROPERTY_SIZE_UNIT = "sizeUnit"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS = "px"

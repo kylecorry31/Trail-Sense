@@ -26,7 +26,6 @@ class CellTowerGeoJsonSource : GeoJsonSource {
                     opacity = 25,
                     size = 2 * it.accuracy.meters().value,
                     sizeUnit = GEO_JSON_PROPERTY_SIZE_UNIT_METERS,
-                    useScale = false,
                     icon = BeaconIcon.CellTower.id,
                     iconColor = Color.WHITE,
                     iconSize = 12f,

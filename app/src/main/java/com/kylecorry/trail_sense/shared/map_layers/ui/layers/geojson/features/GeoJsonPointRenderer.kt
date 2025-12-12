@@ -22,18 +22,18 @@ import com.kylecorry.trail_sense.shared.extensions.getSizeUnit
 import com.kylecorry.trail_sense.shared.extensions.getStrokeColor
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
 import com.kylecorry.trail_sense.shared.extensions.isClickable
-import com.kylecorry.trail_sense.shared.extensions.useScale
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.SizeUnit
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.TextMapMarker
-import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 
 class GeoJsonPointRenderer : FeatureRenderer() {
 
@@ -81,6 +81,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val beaconIcon = icon?.let { BeaconIcon.entries.withId(it) }
                 val iconRes = beaconIcon?.icon
                 val size = feature.getSize() ?: 12f
+                val sizeUnit = feature.getSizeUnit()
                 val iconSize = feature.getIconSize() ?: size
                 val isClickable = feature.isClickable()
                 val name = feature.getName()
@@ -94,8 +95,8 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                             feature.getOpacity(),
                             size,
                             feature.getStrokeWeight() ?: 0.5f,
-                            feature.getSizeUnit(),
-                            feature.useScale(),
+                            sizeUnit,
+                            sizeUnit != SizeUnit.Meters,
                             if (isClickable) {
                                 { onClickListener(feature) }
                             } else {
