@@ -150,8 +150,8 @@ fun GeoJsonFeature.getMarkerShape(): String? {
 
 // LINE STRING ONLY
 fun GeoJsonFeature.getLineStyle(): LineStyle? {
-    val lineStyleId = getIntProperty(GEO_JSON_PROPERTY_LINE_STYLE)
-    return LineStyle.entries.firstOrNull { it.id == lineStyleId }
+    val lineStyleId = getStringProperty(GEO_JSON_PROPERTY_LINE_STYLE)
+    return LineStyle.entries.firstOrNull { it.stringId == lineStyleId }
 }
 
 fun GeoJsonFeature.getThicknessScale(): Float? {
@@ -174,7 +174,7 @@ fun GeoJsonFeature.Companion.lineString(
         }),
         mapOf(
             GEO_JSON_PROPERTY_NAME to name,
-            GEO_JSON_PROPERTY_LINE_STYLE to lineStyle.id,
+            GEO_JSON_PROPERTY_LINE_STYLE to lineStyle.stringId,
             GEO_JSON_PROPERTY_COLOR to color,
             GEO_JSON_PROPERTY_LINE_THICKNESS_SCALE to thicknessScale
         ),
