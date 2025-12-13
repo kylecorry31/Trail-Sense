@@ -8,10 +8,11 @@ class ElevationLayer(taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTas
     TileMapLayer<ElevationMapTileSource>(
         ElevationMapTileSource(),
         taskRunner,
-        minZoomLevel = 10
+        minZoomLevel = 10,
     ) {
 
     init {
+        preRenderBitmaps = true
         loader.useFirstImageSize = true
         loader.alwaysReloadTiles = true
         loader.clearTileWhenNullResponse = false

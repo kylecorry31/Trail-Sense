@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
 import android.graphics.Bitmap
+import android.util.Size
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
@@ -12,7 +13,8 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 abstract class FullRegionMapTileLoader(
-    private val fullBounds: CoordinateBounds
+    private val fullBounds: CoordinateBounds,
+    private val outputSize: Size? = null
 ) : IGeographicImageRegionLoader {
     private var fullImage: Bitmap? = null
     private var isStopped = false
@@ -58,8 +60,7 @@ abstract class FullRegionMapTileLoader(
                         percentTopLeft,
                         percentTopRight
                     ),
-                    maxSize = tile.size,
-                    outputSize = tile.size
+                    outputSize = outputSize
                 ),
                 recycleOriginal = false,
             )

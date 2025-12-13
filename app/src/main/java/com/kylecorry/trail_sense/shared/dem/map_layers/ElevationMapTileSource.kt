@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
+import android.util.Size
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -33,7 +34,7 @@ class ElevationMapTileSource : FullRegionMapTileSource() {
     )
 
     override fun getLoader(fullBounds: CoordinateBounds): FullRegionMapTileLoader {
-        return object : FullRegionMapTileLoader(fullBounds) {
+        return object : FullRegionMapTileLoader(fullBounds, Size(10, 10)) {
             override suspend fun loadFullImage(
                 bounds: CoordinateBounds,
                 zoomLevel: Int
