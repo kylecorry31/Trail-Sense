@@ -10,11 +10,10 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot
 
 class TileLoader {
@@ -25,6 +24,8 @@ class TileLoader {
     var lock = Any()
 
     var useFirstImageSize: Boolean = false
+
+    var alwaysReloadTiles: Boolean = false
 
     fun clearCache() {
         synchronized(lock) {
@@ -78,15 +79,6 @@ class TileLoader {
         }
 
         var hasChanges = false
-
-        val newTiles = ConcurrentHashMap<Tile, List<Bitmap>>()
-        synchronized(lock) {
-            tileCache.keys.forEach { key ->
-                newTiles[key] = tileCache[key] ?: return@forEach
-            }
-            tileCache = newTiles
-        }
-
         val parallel = ParallelCoroutineRunner()
 
         val middleX = tileSources.keys.map { it.x }.average()
@@ -96,14 +88,8 @@ class TileLoader {
             .sortedBy { hypot(it.key.x - middleX, it.key.y - middleY) }
 
         parallel.run(sortedEntries.toList()) { source ->
-            if (newTiles.containsKey(source.key)) {
+            if (tileCache.containsKey(source.key) && !alwaysReloadTiles) {
                 return@run
-            }
-            // Load tiles from the bitmap
-            val entries = mutableListOf<Bitmap>()
-
-            synchronized(lock) {
-                newTiles[source.key] = entries
             }
 
             val config = if (backgroundColor.alpha != 255) {
@@ -136,7 +122,7 @@ class TileLoader {
                 )
 
                 if (currentImage != null) {
-                    if (useFirstImageSize){
+                    if (useFirstImageSize) {
                         image = createBitmap(currentImage.width, currentImage.height, config)
                         canvas = Canvas(image)
                     }
@@ -164,16 +150,16 @@ class TileLoader {
 
             hasChanges = true
             synchronized(lock) {
-                image?.let { entries.add(it) }
+                val old = tileCache[source.key]
+                tileCache += source.key to listOfNotNull(image)
+                old?.forEach { it.recycle() }
             }
         }
 
         synchronized(lock) {
-            val toDelete = mutableListOf<Tile>()
             tileCache.keys.forEach { key ->
                 if (!tileSources.containsKey(key)) {
                     tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
-                    toDelete.add(key)
                     hasChanges = true
                 }
             }
