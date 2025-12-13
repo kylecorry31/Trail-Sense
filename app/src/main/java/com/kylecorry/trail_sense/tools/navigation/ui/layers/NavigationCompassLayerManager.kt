@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
@@ -31,6 +32,7 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class NavigationCompassLayerManager {
     private val taskRunner = MapLayerBackgroundTask()
+    private val taskRunner2 = MapLayerBackgroundTask2()
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
@@ -49,7 +51,7 @@ class NavigationCompassLayerManager {
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
         contourLayer = ContourLayer(taskRunner)
-        elevationLayer = ElevationLayer(taskRunner)
+        elevationLayer = ElevationLayer(taskRunner2)
         hillshadeLayer = HillshadeLayer(taskRunner)
 
         if (!hasCompass) {
@@ -113,6 +115,7 @@ class NavigationCompassLayerManager {
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
+        taskRunner2.stop()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())

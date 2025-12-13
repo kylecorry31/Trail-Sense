@@ -4,4 +4,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 
 interface ITileSourceSelector {
     suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader>
+    suspend fun getRegionLoaders(bounds: List<CoordinateBounds>): List<List<IGeographicImageRegionLoader>> {
+        return bounds.map { getRegionLoaders(it) }
+    }
 }

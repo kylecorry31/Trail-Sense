@@ -24,6 +24,8 @@ class TileLoader {
 
     var lock = Any()
 
+    var useFirstImageSize: Boolean = false
+
     fun clearCache() {
         synchronized(lock) {
             tileCache.forEach { (_, bitmaps) ->
@@ -55,8 +57,10 @@ class TileLoader {
 
         // Step 2: For each tile, determine which map(s) will supply it.
         val tileSources = mutableMapOf<Tile, List<IGeographicImageRegionLoader>>()
-        for (tile in tiles) {
-            val sources = sourceSelector.getRegionLoaders(tile.getBounds())
+        val loaders = sourceSelector.getRegionLoaders(tiles.map { it.getBounds() })
+        for (i in tiles.indices) {
+            val tile = tiles[i]
+            val sources = loaders[i]
             if (sources.isNotEmpty()) {
                 tileSources[tile] = sources
             }
@@ -108,10 +112,14 @@ class TileLoader {
                 Bitmap.Config.RGB_565
             }
 
-            var image: Bitmap? =
-                createBitmap(source.key.size.width, source.key.size.height, config)
-            image!!.eraseColor(backgroundColor)
-            val canvas = Canvas(image)
+            var canvas: Canvas? = null
+            var image: Bitmap? = null
+
+            if (!useFirstImageSize) {
+                image = createBitmap(source.key.size.width, source.key.size.height, config)
+                image.eraseColor(backgroundColor)
+                canvas = Canvas(image)
+            }
 
             source.value.reversed().forEachIndexed { index, loader ->
                 val currentImage = loader.load(source.key)?.applyOperationsOrNull(
@@ -128,13 +136,18 @@ class TileLoader {
                 )
 
                 if (currentImage != null) {
-                    canvas.drawBitmap(currentImage, 0f, 0f, null)
+                    if (useFirstImageSize){
+                        image = createBitmap(currentImage.width, currentImage.height, config)
+                        canvas = Canvas(image)
+                    }
+
+                    canvas?.drawBitmap(currentImage, 0f, 0f, null)
                     currentImage.recycle()
                 }
             }
 
             // Remove transparency
-            image = image.applyOperationsOrNull(
+            image = image?.applyOperationsOrNull(
                 // Undo color replacement
                 Conditional(
                     backgroundColor.alpha != 255 && source.value.size > 1,

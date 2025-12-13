@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +40,9 @@ class PhotoMapRegionLoader(
     private val operations: List<BitmapOperation> = emptyList()
 ) : IGeographicImageRegionLoader {
 
-    override suspend fun load(bounds: CoordinateBounds, maxSize: Size): Bitmap? = onIO {
+    override suspend fun load(tile: Tile): Bitmap? = onIO {
+        val bounds = tile.getBounds()
+        val maxSize = tile.size
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = if (loadPdfs) map.projection else map.imageProjection
 

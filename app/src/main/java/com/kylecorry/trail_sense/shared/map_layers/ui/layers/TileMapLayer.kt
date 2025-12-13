@@ -23,7 +23,7 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
     private var shouldReloadTiles = true
     private var backgroundColor: Int = Color.WHITE
     protected var controlsPdfCache = false
-    private val loader = TileLoader()
+    protected val loader = TileLoader()
     private val tilePaint = Paint().apply {
         isAntiAlias = true
         isFilterBitmap = true
@@ -57,7 +57,6 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
                 shouldReloadTiles = true
             }
         }
-
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
