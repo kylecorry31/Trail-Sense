@@ -34,7 +34,6 @@ abstract class FullRegionMapTileLoader(
 
         val bounds = tile.getBounds()
 
-        // TODO: There's a gap sometimes
         val leftPercent = (bounds.west - fullBounds.west) / fullBounds.widthDegrees()
         val rightPercent = (bounds.east - fullBounds.west) / fullBounds.widthDegrees()
         val topPercent = (bounds.north - fullBounds.south) / fullBounds.heightDegrees()

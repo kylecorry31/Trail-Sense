@@ -26,6 +26,7 @@ class TileLoader {
     var useFirstImageSize: Boolean = false
 
     var alwaysReloadTiles: Boolean = false
+    var clearTileWhenNullResponse: Boolean = true
 
     fun clearCache() {
         synchronized(lock) {
@@ -150,9 +151,11 @@ class TileLoader {
 
             hasChanges = true
             synchronized(lock) {
-                val old = tileCache[source.key]
-                tileCache += source.key to listOfNotNull(image)
-                old?.forEach { it.recycle() }
+                if (clearTileWhenNullResponse || image != null) {
+                    val old = tileCache[source.key]
+                    tileCache += source.key to listOfNotNull(image)
+                    old?.forEach { it.recycle() }
+                }
             }
         }
 

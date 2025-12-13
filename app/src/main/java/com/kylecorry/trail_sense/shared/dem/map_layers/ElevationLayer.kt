@@ -14,6 +14,7 @@ class ElevationLayer(taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTas
     init {
         loader.useFirstImageSize = true
         loader.alwaysReloadTiles = true
+        loader.clearTileWhenNullResponse = false
     }
 
     fun setPreferences(prefs: ElevationMapLayerPreferences) {
