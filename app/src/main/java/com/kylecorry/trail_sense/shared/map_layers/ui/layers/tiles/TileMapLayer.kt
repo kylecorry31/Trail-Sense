@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.map_layers.ui.layers
+package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -12,6 +12,10 @@ import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlinx.coroutines.CancellationException
 
 abstract class TileMapLayer<T : ITileSourceSelector>(
