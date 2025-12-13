@@ -5,15 +5,18 @@ import android.graphics.Color
 import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.getBounds
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import kotlinx.coroutines.CancellationException
 
 abstract class TileMapLayer<T : ITileSourceSelector>(
     protected val source: T,
-    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
+    private val taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTask2(),
     private val minZoomLevel: Int? = null
 ) : IAsyncLayer {
 
@@ -34,13 +37,13 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
 
     init {
         // Load tiles if needed
-        taskRunner.addTask { bounds, metersPerPixel ->
+        taskRunner.addTask { viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
             shouldReloadTiles = false
             try {
                 loader.loadTiles(
                     source,
                     bounds,
-                    metersPerPixel,
+                    projection.metersPerPixel,
                     minZoomLevel ?: 0,
                     backgroundColor,
                     controlsPdfCache
@@ -64,7 +67,12 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
         }
 
         // Load tiles if needed
-        taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel, shouldReloadTiles)
+        taskRunner.scheduleUpdate(
+            drawer.getBounds(45f), // TODO: Cache this
+            map.mapBounds,
+            map.mapProjection,
+            shouldReloadTiles
+        )
 
         // Render loaded tiles
         synchronized(loader.lock) {
