@@ -9,75 +9,42 @@ import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
-import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapMapLayerPreferences
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
 import kotlinx.coroutines.CancellationException
 
-class TiledMapLayer : IAsyncLayer {
+abstract class TileMapLayer<T : ITileSourceSelector>(
+    protected val source: T,
+    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
+    private val minZoomLevel: Int? = null
+) : IAsyncLayer {
 
     private var shouldReloadTiles = true
     private var backgroundColor: Int = Color.WHITE
-    var controlsPdfCache = false
-    private var minZoom: Int = 0
+    protected var controlsPdfCache = false
     private val loader = TileLoader()
     private val tilePaint = Paint().apply {
         isAntiAlias = true
         isFilterBitmap = true
     }
-    private val taskRunner = MapLayerBackgroundTask()
     private var updateListener: (() -> Unit)? = null
-
-    var sourceSelector: ITileSourceSelector? = null
-        set(value) {
-            field = value
-            loader.clearCache()
-            shouldReloadTiles = true
-        }
-
-    fun setPreferences(prefs: PhotoMapMapLayerPreferences) {
-        _percentOpacity = prefs.opacity.get() / 100f
-        invalidate()
-    }
-
-    fun setPreferences(prefs: BaseMapMapLayerPreferences) {
-        _percentOpacity = prefs.opacity.get() / 100f
-        invalidate()
-    }
 
     fun setBackgroundColor(color: Int) {
         this.backgroundColor = color
         shouldReloadTiles = true
     }
 
-    fun setMinZoom(minZoom: Int) {
-        this.minZoom = minZoom
-        shouldReloadTiles = true
-    }
-
-    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        // Avoid drawing while in safe mode
-        if (SafeMode.isEnabled()) {
-            return
-        }
-
+    init {
         // Load tiles if needed
-        taskRunner.scheduleUpdate(
-            map.mapBounds,
-            map.metersPerPixel,
-            shouldReloadTiles
-        ) { bounds, metersPerPixel ->
+        taskRunner.addTask { bounds, metersPerPixel ->
             shouldReloadTiles = false
             try {
-                sourceSelector?.let {
-                    loader.loadTiles(
-                        it,
-                        bounds,
-                        metersPerPixel,
-                        minZoom,
-                        backgroundColor,
-                        controlsPdfCache
-                    )
-                }
+                loader.loadTiles(
+                    source,
+                    bounds,
+                    metersPerPixel,
+                    minZoomLevel ?: 0,
+                    backgroundColor,
+                    controlsPdfCache
+                )
                 updateListener?.invoke()
             } catch (e: CancellationException) {
                 System.gc()
@@ -87,6 +54,17 @@ class TiledMapLayer : IAsyncLayer {
                 shouldReloadTiles = true
             }
         }
+
+    }
+
+    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        // Avoid drawing while in safe mode
+        if (SafeMode.isEnabled()) {
+            return
+        }
+
+        // Load tiles if needed
+        taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel, shouldReloadTiles)
 
         // Render loaded tiles
         synchronized(loader.lock) {
@@ -139,8 +117,5 @@ class TiledMapLayer : IAsyncLayer {
         updateListener = listener
     }
 
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
+    override var percentOpacity: Float = 1f
 }

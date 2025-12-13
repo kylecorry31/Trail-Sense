@@ -18,14 +18,13 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
@@ -36,7 +35,7 @@ class NavigationCompassLayerManager {
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
-    private val photoMapLayer = TiledMapLayer()
+    private val photoMapLayer = PhotoMapLayer()
     private var contourLayer: ContourLayer? = null
     private var elevationLayer: ElevationLayer? = null
     private var hillshadeLayer: HillshadeLayer? = null
@@ -78,8 +77,6 @@ class NavigationCompassLayerManager {
         tideLayer.setPreferences(prefs.navigation.tideLayer)
         myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
-        photoMapLayer.setMinZoom(4)
-        photoMapLayer.controlsPdfCache = true
         cellTowerLayer.setPreferences(prefs.navigation.cellTowerLayer)
         view.setLayers(
             listOfNotNull(
@@ -103,12 +100,7 @@ class NavigationCompassLayerManager {
                     Color.WHITE,
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
-                if (isTideLayerEnabled) TideMapLayerManager(tideLayer) else null,
-                if (isMapLayerEnabled) PhotoMapLayerManager(
-                    context,
-                    photoMapLayer,
-                    loadPdfs = prefs.navigation.photoMapLayer.loadPdfs.get()
-                ) else null
+                if (isTideLayerEnabled) TideMapLayerManager(tideLayer) else null
             )
         )
 

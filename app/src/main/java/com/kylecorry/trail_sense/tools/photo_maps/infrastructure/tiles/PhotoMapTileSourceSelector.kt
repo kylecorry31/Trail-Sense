@@ -23,7 +23,7 @@ class PhotoMapTileSourceSelector(
         .sortedBy { it.distancePerPixel() }
 
     // TODO: Factor in rotation by using projection to see if the bounds intersect/are contained
-    override fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
+    override suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
         val minArea = bounds.width().meters().value.toDouble() * bounds.height()
             .meters().value.toDouble() * 0.25
 
