@@ -368,6 +368,8 @@
     <string name="navigation_nearby_category">Nearby</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
+    <string name="pref_bubble_level_threshold" translatable="false">pref_bubble_level_threshold</string>
+    <string name="pref_bubble_level_threshold_title">Level threshold (degrees)</string>
     <string name="other">Other</string>
     <string name="category_food">Food</string>
     <string name="category_hydration">Hydration</string>
