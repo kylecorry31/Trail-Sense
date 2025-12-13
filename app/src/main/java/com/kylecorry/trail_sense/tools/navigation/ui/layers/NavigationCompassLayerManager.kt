@@ -52,7 +52,7 @@ class NavigationCompassLayerManager {
         val hasCompass = SensorService(context).hasCompass()
         contourLayer = ContourLayer(taskRunner)
         elevationLayer = ElevationLayer(taskRunner2)
-        hillshadeLayer = HillshadeLayer(taskRunner)
+        hillshadeLayer = HillshadeLayer(taskRunner2)
 
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)

@@ -89,7 +89,7 @@ class MapToolLayerManager {
         val hasCompass = SensorService(context).hasCompass()
 
         contourLayer = ContourLayer(taskRunner)
-        hillshadeLayer = HillshadeLayer(taskRunner)
+        hillshadeLayer = HillshadeLayer(taskRunner2)
         elevationLayer = ElevationLayer(taskRunner2)
 
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)

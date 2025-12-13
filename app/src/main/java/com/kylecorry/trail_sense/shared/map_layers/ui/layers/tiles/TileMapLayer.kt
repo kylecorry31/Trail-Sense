@@ -28,10 +28,11 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
     private var backgroundColor: Int = Color.WHITE
     protected var controlsPdfCache = false
     protected val loader = TileLoader()
-    private val tilePaint = Paint().apply {
+    protected val tilePaint = Paint().apply {
         isAntiAlias = true
         isFilterBitmap = true
     }
+    var alpha: Int = 255
     private var updateListener: (() -> Unit)? = null
 
     fun setBackgroundColor(color: Int) {
@@ -79,7 +80,7 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
 
         // Render loaded tiles
         synchronized(loader.lock) {
-            tilePaint.alpha = 255
+            tilePaint.alpha = alpha
             renderTiles(drawer.canvas, map)
         }
     }
