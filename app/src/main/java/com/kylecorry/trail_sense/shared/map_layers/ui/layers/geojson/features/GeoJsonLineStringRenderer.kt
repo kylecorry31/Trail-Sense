@@ -149,7 +149,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 coordinates,
                 lineSegments,
                 it.getName(),
-                it.getColor() ?: Color.WHITE,
+                it.getColor() ?: Color.TRANSPARENT,
                 it.getLineStyle() ?: LineStyle.Solid,
                 (it.getStrokeWeight()
                     ?: DEFAULT_LINE_STRING_STROKE_WEIGHT_DP) / DEFAULT_LINE_STRING_STROKE_WEIGHT_DP,
