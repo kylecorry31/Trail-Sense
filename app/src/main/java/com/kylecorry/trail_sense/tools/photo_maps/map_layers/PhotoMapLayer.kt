@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TileMapLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 
 class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(PhotoMapTileSource(), minZoomLevel = 4) {
     init {

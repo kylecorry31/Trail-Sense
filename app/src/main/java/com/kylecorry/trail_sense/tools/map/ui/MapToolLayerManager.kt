@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
@@ -58,6 +59,7 @@ class MapToolLayerManager {
         true
     }
     private val taskRunner = MapLayerBackgroundTask()
+    private val taskRunner2 = MapLayerBackgroundTask2()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val baseMapLayer = BaseMapLayer()
@@ -87,8 +89,8 @@ class MapToolLayerManager {
         val hasCompass = SensorService(context).hasCompass()
 
         contourLayer = ContourLayer(taskRunner)
-        hillshadeLayer = HillshadeLayer(taskRunner)
-        elevationLayer = ElevationLayer(taskRunner)
+        hillshadeLayer = HillshadeLayer(taskRunner2)
+        elevationLayer = ElevationLayer(taskRunner2)
 
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
@@ -194,6 +196,7 @@ class MapToolLayerManager {
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
+        taskRunner2.stop()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())

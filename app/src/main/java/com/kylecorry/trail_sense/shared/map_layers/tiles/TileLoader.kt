@@ -10,11 +10,10 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot
 
 class TileLoader {
@@ -23,6 +22,11 @@ class TileLoader {
         private set
 
     var lock = Any()
+
+    var useFirstImageSize: Boolean = false
+
+    var alwaysReloadTiles: Boolean = false
+    var clearTileWhenNullResponse: Boolean = true
 
     fun clearCache() {
         synchronized(lock) {
@@ -55,8 +59,10 @@ class TileLoader {
 
         // Step 2: For each tile, determine which map(s) will supply it.
         val tileSources = mutableMapOf<Tile, List<IGeographicImageRegionLoader>>()
-        for (tile in tiles) {
-            val sources = sourceSelector.getRegionLoaders(tile.getBounds())
+        val loaders = sourceSelector.getRegionLoaders(tiles.map { it.getBounds() })
+        for (i in tiles.indices) {
+            val tile = tiles[i]
+            val sources = loaders[i]
             if (sources.isNotEmpty()) {
                 tileSources[tile] = sources
             }
@@ -74,15 +80,6 @@ class TileLoader {
         }
 
         var hasChanges = false
-
-        val newTiles = ConcurrentHashMap<Tile, List<Bitmap>>()
-        synchronized(lock) {
-            tileCache.keys.forEach { key ->
-                newTiles[key] = tileCache[key] ?: return@forEach
-            }
-            tileCache = newTiles
-        }
-
         val parallel = ParallelCoroutineRunner()
 
         val middleX = tileSources.keys.map { it.x }.average()
@@ -92,14 +89,8 @@ class TileLoader {
             .sortedBy { hypot(it.key.x - middleX, it.key.y - middleY) }
 
         parallel.run(sortedEntries.toList()) { source ->
-            if (newTiles.containsKey(source.key)) {
+            if (tileCache.containsKey(source.key) && !alwaysReloadTiles) {
                 return@run
-            }
-            // Load tiles from the bitmap
-            val entries = mutableListOf<Bitmap>()
-
-            synchronized(lock) {
-                newTiles[source.key] = entries
             }
 
             val config = if (backgroundColor.alpha != 255) {
@@ -108,10 +99,14 @@ class TileLoader {
                 Bitmap.Config.RGB_565
             }
 
-            var image: Bitmap? =
-                createBitmap(source.key.size.width, source.key.size.height, config)
-            image!!.eraseColor(backgroundColor)
-            val canvas = Canvas(image)
+            var canvas: Canvas? = null
+            var image: Bitmap? = null
+
+            if (!useFirstImageSize) {
+                image = createBitmap(source.key.size.width, source.key.size.height, config)
+                image.eraseColor(backgroundColor)
+                canvas = Canvas(image)
+            }
 
             source.value.reversed().forEachIndexed { index, loader ->
                 val currentImage = loader.load(source.key)?.applyOperationsOrNull(
@@ -128,13 +123,18 @@ class TileLoader {
                 )
 
                 if (currentImage != null) {
-                    canvas.drawBitmap(currentImage, 0f, 0f, null)
+                    if (useFirstImageSize) {
+                        image = createBitmap(currentImage.width, currentImage.height, config)
+                        canvas = Canvas(image)
+                    }
+
+                    canvas?.drawBitmap(currentImage, 0f, 0f, null)
                     currentImage.recycle()
                 }
             }
 
             // Remove transparency
-            image = image.applyOperationsOrNull(
+            image = image?.applyOperationsOrNull(
                 // Undo color replacement
                 Conditional(
                     backgroundColor.alpha != 255 && source.value.size > 1,
@@ -151,16 +151,18 @@ class TileLoader {
 
             hasChanges = true
             synchronized(lock) {
-                image?.let { entries.add(it) }
+                if (clearTileWhenNullResponse || image != null) {
+                    val old = tileCache[source.key]
+                    tileCache += source.key to listOfNotNull(image)
+                    old?.forEach { it.recycle() }
+                }
             }
         }
 
         synchronized(lock) {
-            val toDelete = mutableListOf<Tile>()
             tileCache.keys.forEach { key ->
                 if (!tileSources.containsKey(key)) {
                     tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
-                    toDelete.add(key)
                     hasChanges = true
                 }
             }
