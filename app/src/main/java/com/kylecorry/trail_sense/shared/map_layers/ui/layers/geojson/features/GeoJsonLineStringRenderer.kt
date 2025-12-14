@@ -47,7 +47,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     private var backgroundColor: Int? = null
     private var filterEpsilon = 0f
     private var reducedPaths = emptyList<PrecomputedLineString>()
-    private var labelGrid = PrecomputedLabelGrid(emptyList(), emptyList())
     private val lock = Any()
 
     init {
@@ -55,13 +54,11 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     }
 
     private fun render(
-        points: List<Coordinate>,
+        pixels: List<PixelCoordinate>,
+        originPixel: PixelCoordinate,
         path: Path,
-        bounds: Rectangle,
-        projection: IMapViewProjection
+        bounds: Rectangle
     ): FloatArray {
-        val originPixel = projection.toPixels(projection.center)
-        val pixels = points.map { projection.toPixels(it) }
         val segments = mutableListOf<Float>()
 
         clipper.clip(pixels, bounds, segments, originPixel, rdpFilterEpsilon = filterEpsilon)
@@ -120,6 +117,8 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             viewBounds.bottom - margin
         )
 
+        val originPixel = projection.toPixels(projection.center)
+
         val precomputed = features.mapNotNull {
             val geometry = it.geometry as GeoJsonLineString
             val line = geometry.line
@@ -137,22 +136,35 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 return@mapNotNull null
             }
 
+            val pixelPoints = coordinates.map { coordinate -> projection.toPixels(coordinate) }
             val path = pathPool.get()
-            val lineSegments = render(coordinates, path, actualViewBounds, projection)
+            val lineSegments = render(pixelPoints, originPixel, path, actualViewBounds)
             if (lineSegments.isEmpty()) {
                 pathPool.release(path)
                 return@mapNotNull null
+            }
+
+            val name = it.getName()
+            val labelSegments = if (shouldRenderLabels && name != null) {
+                pixelPoints.windowed(2).map { segment ->
+                    val p1 = segment[0]
+                    val p2 = segment[1]
+                    LabelSegment(p1.midpoint(p2), p1.angleTo(p2))
+                }
+            } else {
+                emptyList()
             }
 
             PrecomputedLineString(
                 it,
                 coordinates,
                 lineSegments,
-                it.getName(),
+                name,
                 it.getColor() ?: Color.TRANSPARENT,
                 it.getLineStyle() ?: LineStyle.Solid,
                 (it.getStrokeWeight()
                     ?: DEFAULT_LINE_STRING_STROKE_WEIGHT_DP) / DEFAULT_LINE_STRING_STROKE_WEIGHT_DP,
+                labelSegments,
                 path,
                 projection.center,
                 projection.metersPerPixel
@@ -164,8 +176,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             bounds.center.latitude
         )
 
-        // Only show labels at zoom level 13+
-        if (zoomLevel >= 13) {
+        val gridPoints = if (shouldRenderLabels && zoomLevel >= 13) {
             // Grid spacing based on zoom level (degrees)
             val resolution = when (zoomLevel) {
                 13 -> 0.048
@@ -177,7 +188,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 else -> 0.001
             }
 
-            // Grid
             val latitudes = Interpolation.getMultiplesBetween(
                 bounds.south,
                 bounds.north,
@@ -189,9 +199,23 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 resolution
             )
 
-            labelGrid = PrecomputedLabelGrid(latitudes, longitudes)
+            val points = mutableListOf<PixelCoordinate>()
+            for (lat in latitudes) {
+                for (lon in longitudes) {
+                    points.add(projection.toPixels(Coordinate(lat, lon)))
+                }
+            }
+            points
         } else {
-            labelGrid = PrecomputedLabelGrid(emptyList(), emptyList())
+            emptyList()
+        }
+
+        if (shouldRenderLabels && gridPoints.isNotEmpty()) {
+            val canvasWidth = (viewBounds.right - viewBounds.left).absoluteValue
+            val canvasHeight = (viewBounds.bottom - viewBounds.top).absoluteValue
+            val minSeparationPx = max(canvasWidth, canvasHeight) / 4f
+            val maxLabels = 5
+            computeLabelPlacements(precomputed, gridPoints, minSeparationPx, maxLabels, originPixel)
         }
 
         synchronized(lock) {
@@ -271,31 +295,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             // TODO: Adjust text size / wrapping based on name length
             drawer.textSize(drawer.sp(10f * map.layerScale))
             val strokeWeight = drawer.dp(2.5f * map.layerScale)
-            val minSeparationPx = max(drawer.canvas.width, drawer.canvas.height) / 4f
             val maxLabels = 5
-
-            // World-aligned grid for label selection
-            val bounds = map.mapBounds
-            val zoomLevel = TileMath.distancePerPixelToZoom(
-                map.metersPerPixel.toDouble(),
-                bounds.center.latitude
-            )
-
-            // Only show labels at zoom level 13+
-            if (zoomLevel < 13) return
-
-            // TODO: Precompute all of this
-            val segmentCenters = ArrayList<PixelCoordinate>(path.points.size - 1)
-            val segmentAngles = ArrayList<Float>(path.points.size - 1)
-            for (i in 0 until (path.points.size - 1)) {
-                val p1 = map.toPixel(path.points[i])
-                val p2 = map.toPixel(path.points[i + 1])
-                segmentCenters.add(p1.midpoint(p2))
-                segmentAngles.add(p1.angleTo(p2))
-            }
-
-            val chosenSegments = HashSet<Int>()
-            val placedCenters = mutableListOf<PixelCoordinate>()
 
             drawer.strokeWeight(strokeWeight)
             drawer.textMode(TextMode.Center)
@@ -303,36 +303,21 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             drawer.fill(Color.BLACK)
             drawer.noPathEffect()
 
-            val grid = labelGrid
+            val placements = path.labelPlacements
+            if (placements.isEmpty()) return
 
+            val centerPixel = map.toPixel(path.origin)
             var labelsDrawn = 0
-            for (lat in grid.latitudes) {
+            for (placement in placements) {
                 if (labelsDrawn >= maxLabels) break
-                for (lon in grid.longitudes) {
-                    if (labelsDrawn >= maxLabels) break
-                    val gridPixel = map.toPixel(Coordinate(lat, lon))
+                val center = placement.center + centerPixel
+                val drawAngle = placement.angle
 
-                    // Find nearest segment center to this grid point
-                    val closestIndex =
-                        SolMath.argmin(segmentCenters.map { it.distanceTo(gridPixel) })
-
-                    if (closestIndex >= 0) {
-                        val center = segmentCenters[closestIndex]
-                        if (chosenSegments.contains(closestIndex)) continue
-                        if (placedCenters.any { it.distanceTo(center) < minSeparationPx }) continue
-
-                        chosenSegments.add(closestIndex)
-                        placedCenters.add(center)
-                        val angle = segmentAngles[closestIndex]
-                        val drawAngle = if (angle.absoluteValue > 90) angle + 180 else angle
-
-                        drawer.push()
-                        drawer.rotate(drawAngle, center.x, center.y)
-                        drawer.text(path.name, center.x, center.y)
-                        drawer.pop()
-                        labelsDrawn++
-                    }
-                }
+                drawer.push()
+                drawer.rotate(drawAngle, center.x, center.y)
+                drawer.text(path.name, center.x, center.y)
+                drawer.pop()
+                labelsDrawn++
             }
         }
     }
@@ -343,7 +328,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             (this.y + other.y) / 2
         )
     }
-
+    
     private fun PixelCoordinate.angleTo(other: PixelCoordinate): Float {
         return atan2(
             other.y - this.y,
@@ -359,14 +344,64 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         val color: Int,
         val lineStyle: LineStyle,
         val thicknessScale: Float,
+        var labelSegments: List<LabelSegment>,
         val path: Path,
         val origin: Coordinate,
-        val renderedScale: Float
+        val renderedScale: Float,
+        var labelPlacements: List<LabelPlacement> = emptyList()
+    )
+    class LabelSegment(
+        val center: PixelCoordinate,
+        val angle: Float
     )
 
-    class PrecomputedLabelGrid(
-        val latitudes: List<Double>,
-        val longitudes: List<Double>,
+    class LabelPlacement(
+        val center: PixelCoordinate,
+        val angle: Float
     )
+
+    private fun computeLabelPlacements(
+        paths: List<PrecomputedLineString>,
+        gridPoints: List<PixelCoordinate>,
+        minSeparationPx: Float,
+        maxLabels: Int,
+        originPixel: PixelCoordinate
+    ) {
+        for (path in paths) {
+            val segments = path.labelSegments
+            if (segments.isEmpty()) {
+                path.labelPlacements = emptyList()
+                continue
+            }
+
+            val placements = mutableListOf<LabelPlacement>()
+            val chosenSegments = HashSet<Int>()
+            val placedCenters = mutableListOf<PixelCoordinate>()
+
+            for (gridPixel in gridPoints) {
+                if (placements.size >= maxLabels) break
+
+                val closestIndex =
+                    SolMath.argmin(segments.map { it.center.distanceTo(gridPixel) })
+
+                if (closestIndex >= 0) {
+                    val center = segments[closestIndex].center - originPixel
+                    if (chosenSegments.contains(closestIndex)) continue
+                    if (placedCenters.any { it.distanceTo(center) < minSeparationPx }) continue
+
+                    chosenSegments.add(closestIndex)
+                    placedCenters.add(center)
+
+                    val angle = segments[closestIndex].angle
+                    val drawAngle = if (angle.absoluteValue > 90) angle + 180 else angle
+
+                    placements.add(LabelPlacement(center, drawAngle))
+                }
+            }
+
+            path.labelPlacements = placements
+            path.labelSegments = emptyList()
+        }
+    }
 
 }

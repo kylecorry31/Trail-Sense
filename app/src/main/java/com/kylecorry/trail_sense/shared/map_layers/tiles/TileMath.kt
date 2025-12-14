@@ -79,23 +79,12 @@ object TileMath {
             distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2).coerceAtMost(maxZoom)
         val northWestTile = latLonToTileXY(bounds.north, bounds.west, zoom).getBounds()
         val southEastTile = latLonToTileXY(bounds.south, bounds.east, zoom).getBounds()
-        return CoordinateBounds.fromBounds(
-            listOf(
-                northWestTile,
-                southEastTile
-            )
+        return CoordinateBounds(
+            northWestTile.north,
+            southEastTile.east,
+            southEastTile.south,
+            northWestTile.west
         )
-    }
-
-    private fun CoordinateBounds.Companion.fromBounds(bounds: List<CoordinateBounds>): CoordinateBounds {
-        return CoordinateBounds.from(bounds.flatMap {
-            listOf(
-                it.northWest,
-                it.northEast,
-                it.southWest,
-                it.southEast
-            )
-        })
     }
 
     fun latLonToTileXY(lat: Double, lon: Double, zoom: Int): Tile {

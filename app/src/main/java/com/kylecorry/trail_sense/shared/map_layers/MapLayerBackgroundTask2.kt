@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.shared.map_layers
 
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
 import com.kylecorry.trail_sense.shared.andromeda_temp.grow
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
@@ -65,8 +65,7 @@ class MapLayerBackgroundTask2 {
             val taskCopy = synchronized(taskLock) {
                 tasks.toList()
             }
-            val parallel = ParallelCoroutineRunner()
-            parallel.run(taskCopy.map { { it(viewBounds, bounds, projection) } })
+            Parallel.forEach(taskCopy.map { { it(viewBounds, bounds, projection) } })
         }
     ) {
 

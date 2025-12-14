@@ -102,7 +102,7 @@ object DEM {
 
         val longitudes = Interpolation.getMultiplesBetween(
             bounds.west - resolution * expandBy,
-            bounds.east + resolution * expandBy,
+            (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution * expandBy,
             resolution
         )
 
@@ -110,7 +110,7 @@ object DEM {
             val toLookupCoordinates = mutableListOf<Coordinate>()
             latitudes.forEach { lat ->
                 longitudes.forEach { lon ->
-                    toLookupCoordinates.add(Coordinate(lat, lon))
+                    toLookupCoordinates.add(Coordinate(lat, Coordinate.toLongitude(lon)))
                 }
             }
 

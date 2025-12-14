@@ -6,24 +6,30 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionL
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 class PhotoMapTileSource : ITileSourceSelector {
 
     var loadPdfs = true
     private var lastLoadPdfs = loadPdfs
     private var internalSelector: ITileSourceSelector? = null
+    private val lock = Mutex()
 
     override suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
-        if (internalSelector == null || loadPdfs != lastLoadPdfs) {
-            val repo = AppServiceRegistry.get<MapRepo>()
-            internalSelector = PhotoMapTileSourceSelector(
-                AppServiceRegistry.get(),
-                repo.getAllMaps().filter { it.visible },
-                8,
-                loadPdfs
-            )
-            lastLoadPdfs = loadPdfs
+        val selector = lock.withLock {
+            if (internalSelector == null || loadPdfs != lastLoadPdfs) {
+                val repo = AppServiceRegistry.get<MapRepo>()
+                internalSelector = PhotoMapTileSourceSelector(
+                    AppServiceRegistry.get(),
+                    repo.getAllMaps().filter { it.visible },
+                    8,
+                    loadPdfs
+                )
+                lastLoadPdfs = loadPdfs
+            }
+            internalSelector
         }
-        return internalSelector?.getRegionLoaders(bounds) ?: emptyList()
+        return selector?.getRegionLoaders(bounds) ?: emptyList()
     }
 }

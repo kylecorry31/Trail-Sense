@@ -8,10 +8,13 @@ import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.isCloseTo
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.CoordinateBounds.Companion.empty
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.sol.units.Coordinate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
@@ -200,4 +203,41 @@ inline fun IntArray.get(x: Int, y: Int, width: Int): Int {
 
 inline fun IntArray.set(x: Int, y: Int, width: Int, value: Int) {
     this[y * width + x] = value
+}
+
+// TODO: Sol
+fun CoordinateBounds.Companion.from2(points: List<Coordinate>): CoordinateBounds {
+    val west = getWestLongitudeBound(points) ?: return empty
+    val east = getEastLongitudeBound(points) ?: return empty
+    val north = getNorthLatitudeBound(points) ?: return empty
+    val south = getSouthLatitudeBound(points) ?: return empty
+    return CoordinateBounds(north, east, south, west)
+}
+
+private fun getWestLongitudeBound(locations: List<Coordinate>): Double? {
+    val first = locations.firstOrNull() ?: return null
+    return locations.minByOrNull {
+        deltaAngle(
+            first.longitude.toFloat() + 180,
+            it.longitude.toFloat() + 180
+        )
+    }?.longitude
+}
+
+private fun getEastLongitudeBound(locations: List<Coordinate>): Double? {
+    val first = locations.firstOrNull() ?: return null
+    return locations.maxByOrNull {
+        deltaAngle(
+            first.longitude.toFloat() + 180,
+            it.longitude.toFloat() + 180
+        )
+    }?.longitude
+}
+
+private fun getSouthLatitudeBound(locations: List<Coordinate>): Double? {
+    return locations.minByOrNull { it.latitude }?.latitude
+}
+
+private fun getNorthLatitudeBound(locations: List<Coordinate>): Double? {
+    return locations.maxByOrNull { it.latitude }?.latitude
 }
