@@ -44,6 +44,7 @@ object DEM {
     private val cacheSize = 500
     private var cache = GeospatialCache<Float>(Distance.meters(cacheDistance), size = cacheSize)
     private val multiElevationLookupLock = Mutex()
+    private var tileCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(20)
     private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
 
     suspend fun getElevation(location: Coordinate): Float = onDefault {
@@ -89,21 +90,23 @@ object DEM {
 
     private suspend fun getElevationGrid(
         bounds: CoordinateBounds,
-        resolution: Double
+        resolution: Double,
+        expandBy: Int = 1,
+        isTile: Boolean = true
     ): List<List<Pair<Coordinate, Float>>> = onDefault {
         val latitudes = Interpolation.getMultiplesBetween(
-            bounds.south - resolution,
-            bounds.north + resolution,
+            bounds.south - resolution * expandBy,
+            bounds.north + resolution * expandBy,
             resolution
         )
 
         val longitudes = Interpolation.getMultiplesBetween(
-            bounds.west - resolution,
-            bounds.east + resolution,
+            bounds.west - resolution * expandBy,
+            bounds.east + resolution * expandBy,
             resolution
         )
 
-        gridCache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
+        val lookup = suspend {
             val toLookupCoordinates = mutableListOf<Coordinate>()
             latitudes.forEach { lat ->
                 longitudes.forEach { lon ->
@@ -121,6 +124,14 @@ object DEM {
                 }
             }
         }
+
+        val cache = if (isTile) {
+            tileCache
+        } else {
+            gridCache
+        }
+
+        cache.getOrPut(getGridKey(latitudes, longitudes, resolution, expandBy), lookup)
     }
 
     /**
@@ -131,7 +142,7 @@ object DEM {
         interval: Float,
         resolution: Double,
     ): List<Contour> = onDefault {
-        val grid = getElevationGrid(bounds, resolution)
+        val grid = getElevationGrid(bounds, resolution, isTile = false)
 
         val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
         val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
@@ -167,9 +178,10 @@ object DEM {
             Color.rgb(gray, gray, gray)
         }
     ): Bitmap = onDefault {
-        val grid = getElevationGrid(bounds, resolution)
-        val height = grid.size
-        val width = grid[0].size
+        val expandBy = 1
+        val grid = getElevationGrid(bounds, resolution, expandBy)
+        val width = grid[0].size - expandBy * 2
+        val height = grid.size - expandBy * 2
         val pixels = IntArray(height * width)
 
         try {
@@ -186,10 +198,10 @@ object DEM {
                 }
             }
 
-            for (y in grid.indices) {
-                for (x in grid[y].indices) {
+            for (y in expandBy..grid.lastIndex - expandBy) {
+                for (x in expandBy..grid[y].lastIndex - expandBy) {
                     val color = colorMap(grid[y][x].second, minElevation, maxElevation)
-                    pixels.set(x, y, width, color)
+                    pixels.set(x - expandBy, y - expandBy, width, color)
                 }
             }
             Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
@@ -207,9 +219,10 @@ object DEM {
         samples: Int = 1,
         sampleSpacing: Float = 3f
     ): Bitmap = onDefault {
-        val grid = getElevationGrid(bounds, resolution)
-        val width = grid[0].size
-        val height = grid.size
+        val expandBy = 1
+        val grid = getElevationGrid(bounds, resolution, expandBy)
+        val width = grid[0].size - expandBy * 2
+        val height = grid.size - expandBy * 2
         val pixels = IntArray(width * height)
 
         try {
@@ -231,8 +244,8 @@ object DEM {
             val cosZenith = cos(zenithRad)
             val sinZenith = sin(zenithRad)
 
-            for (y in grid.indices) {
-                for (x in grid[y].indices) {
+            for (y in expandBy..grid.lastIndex - expandBy) {
+                for (x in expandBy..grid[y].lastIndex - expandBy) {
                     val a = getElevation(x - 1, y - 1)
                     val b = getElevation(x, y - 1)
                     val c = getElevation(x + 1, y - 1)
@@ -263,7 +276,7 @@ object DEM {
                     }
 
                     val gray = hillshade.toInt().coerceIn(0, 255)
-                    pixels.set(x, y, width, Color.rgb(gray, gray, gray))
+                    pixels.set(x - expandBy, y - expandBy, width, Color.rgb(gray, gray, gray))
                 }
             }
             Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
@@ -379,13 +392,14 @@ object DEM {
     private fun getGridKey(
         latitudes: List<Double>,
         longitudes: List<Double>,
-        resolution: Double
+        resolution: Double,
+        expandBy: Int = 1
     ): String {
         val minLatitude = latitudes.minOrNull() ?: 0.0
         val maxLatitude = latitudes.maxOrNull() ?: 0.0
         val minLongitude = longitudes.minOrNull() ?: 0.0
         val maxLongitude = longitudes.maxOrNull() ?: 0.0
-        return "${minLatitude}_${maxLatitude}_${minLongitude}_${maxLongitude}_$resolution"
+        return "${minLatitude}_${maxLatitude}_${minLongitude}_${maxLongitude}_${resolution}_${expandBy}"
     }
 
 }

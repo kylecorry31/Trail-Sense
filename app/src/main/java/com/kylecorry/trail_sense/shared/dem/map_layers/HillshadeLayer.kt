@@ -13,8 +13,6 @@ class HillshadeLayer(taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTas
     init {
         preRenderBitmaps = true
         loader.useFirstImageSize = true
-        loader.alwaysReloadTiles = true
-        loader.clearTileWhenNullResponse = false
         alpha = 127
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             tilePaint.setBlendMode(BlendModeCompat.MULTIPLY)

@@ -44,7 +44,8 @@ class TileLoader {
         minZoom: Int = 0,
         backgroundColor: Int = Color.WHITE,
         // TODO: This is gross, rather than this it should handle the lifecycle of region loaders and make them distinct
-        controlsPdfCache: Boolean = false
+        controlsPdfCache: Boolean = false,
+        onChange: suspend () -> Unit = {}
     ) = onDefault {
         // Step 1: Split the visible area into tiles (geographic)
         val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
@@ -157,6 +158,7 @@ class TileLoader {
                     old?.forEach { it.recycle() }
                 }
             }
+            onChange()
         }
 
         synchronized(lock) {
@@ -169,6 +171,7 @@ class TileLoader {
 
             tileCache = tileCache.filterKeys { it in tileSources.keys }
         }
+        onChange()
 
         if (hasChanges) {
             System.gc()

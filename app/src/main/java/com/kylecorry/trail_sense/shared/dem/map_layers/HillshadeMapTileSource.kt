@@ -2,12 +2,16 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import android.util.Size
+import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.Resize
+import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.FullRegionMapTileLoader
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.FullRegionMapTileSource
+import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
+import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 
-class HillshadeMapTileSource : FullRegionMapTileSource() {
+class HillshadeMapTileSource : ITileSourceSelector {
 
     private val minZoomLevel = 10
     private val maxZoomLevel = 19
@@ -24,17 +28,16 @@ class HillshadeMapTileSource : FullRegionMapTileSource() {
         18 to baseResolution / 4,
         19 to baseResolution / 4
     )
-
-    override fun getLoader(fullBounds: CoordinateBounds): FullRegionMapTileLoader {
-        return object : FullRegionMapTileLoader(fullBounds, Size(10, 10)) {
-            override suspend fun loadFullImage(
-                bounds: CoordinateBounds,
-                zoomLevel: Int
-            ): Bitmap? {
-                val zoomLevel = zoomLevel.coerceIn(minZoomLevel, maxZoomLevel)
-                return DEM.hillshadeImage(bounds, validResolutions[zoomLevel]!!, 3f)
+    override suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
+        return listOf(object : IGeographicImageRegionLoader {
+            override suspend fun load(tile: Tile): Bitmap? {
+                val zoomLevel = tile.z.coerceIn(minZoomLevel, maxZoomLevel)
+                return DEM.hillshadeImage(tile.getBounds(), validResolutions[zoomLevel]!!, 3f).applyOperationsOrNull(
+                    Convert(Bitmap.Config.ARGB_8888),
+                    Resize(Size(10, 10), true),
+                    Convert(Bitmap.Config.RGB_565),
+                )
             }
-
-        }
+        })
     }
 }
