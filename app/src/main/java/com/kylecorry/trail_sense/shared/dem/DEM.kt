@@ -198,8 +198,8 @@ object DEM {
                 }
             }
 
-            for (y in expandBy..grid.lastIndex - expandBy) {
-                for (x in expandBy..grid[y].lastIndex - expandBy) {
+            for (y in expandBy.. grid.lastIndex - expandBy) {
+                for (x in expandBy.. grid[y].lastIndex - expandBy) {
                     val color = colorMap(grid[y][x].second, minElevation, maxElevation)
                     pixels.set(x - expandBy, y - expandBy, width, color)
                 }
@@ -244,8 +244,8 @@ object DEM {
             val cosZenith = cos(zenithRad)
             val sinZenith = sin(zenithRad)
 
-            for (y in expandBy..grid.lastIndex - expandBy) {
-                for (x in expandBy..grid[y].lastIndex - expandBy) {
+            for (y in expandBy.. grid.lastIndex - expandBy) {
+                for (x in expandBy.. grid[y].lastIndex - expandBy) {
                     val a = getElevation(x - 1, y - 1)
                     val b = getElevation(x, y - 1)
                     val c = getElevation(x + 1, y - 1)
