@@ -5,44 +5,70 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 
-class ParallelCoroutineRunner2(maxParallel: Int = 8) {
+object Parallel {
 
-    private val semaphore = Semaphore(maxParallel)
+    fun getProcessorCount(): Int {
+        return Runtime.getRuntime().availableProcessors()
+    }
 
-    suspend fun run(coroutines: List<suspend () -> Any>) = coroutineScope {
-        for (coroutine in coroutines) {
-            launch {
-                semaphore.withPermit { coroutine() }
+    private fun getDefaultMaxParallel(): Int {
+        return getProcessorCount().coerceAtLeast(2)
+    }
+
+    suspend fun forEach(
+        coroutines: List<suspend () -> Any>,
+        maxParallel: Int = getDefaultMaxParallel()
+    ) =
+        coroutineScope {
+            val semaphore = Semaphore(maxParallel)
+            for (coroutine in coroutines) {
+                launch {
+                    semaphore.withPermit { coroutine() }
+                }
             }
         }
+
+    suspend fun <R> forEach(
+        items: List<R>,
+        maxParallel: Int = getDefaultMaxParallel(),
+        coroutine: suspend (R) -> Unit
+    ) {
+        forEach(items.map { { coroutine(it) } }, maxParallel)
     }
 
-    suspend fun <R> run(items: List<R>, coroutine: suspend (R) -> Unit) {
-        run(items.map { { coroutine(it) } })
-    }
-
-    suspend fun <T> map(coroutines: List<suspend () -> T>): List<T> {
+    suspend fun <T> map(
+        coroutines: List<suspend () -> T>,
+        maxParallel: Int = getDefaultMaxParallel()
+    ): List<T> {
         val items = mutableListOf<Pair<Int, T>>()
         val lock = Any()
 
-        run(coroutines.mapIndexed { index, coroutine ->
+        forEach(coroutines.mapIndexed { index, coroutine ->
             {
                 val item = coroutine()
                 synchronized(lock) {
                     items.add(index to item)
                 }
             }
-        })
+        }, maxParallel)
 
         return items.sortedBy { it.first }.map { it.second }
     }
 
-    suspend fun <T> mapFunctions(functions: List<() -> T>): List<T> {
-        return map(functions.map { { it() } })
+    suspend fun <T> mapFunctions(
+        functions: List<() -> T>,
+        maxParallel: Int = getDefaultMaxParallel()
+    ): List<T> {
+        return map(functions.map { { it() } }, maxParallel)
     }
 
-    suspend fun <R, T> map(items: List<R>, coroutine: suspend (R) -> T): List<T> {
-        return map(items.map { { coroutine(it) } })
+    suspend fun <R, T> map(
+        items: List<R>,
+        maxParallel: Int = getDefaultMaxParallel(),
+        coroutine: suspend (R) -> T
+    ): List<T> {
+        return map(items.map { { coroutine(it) } }, maxParallel)
     }
+
 
 }

@@ -10,9 +10,9 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import kotlin.math.hypot
 
@@ -80,7 +80,6 @@ class TileLoader {
         }
 
         var hasChanges = false
-        val parallel = ParallelCoroutineRunner()
 
         val middleX = tileSources.keys.map { it.x }.average()
         val middleY = tileSources.keys.map { it.y }.average()
@@ -88,9 +87,9 @@ class TileLoader {
         val sortedEntries = tileSources.entries
             .sortedBy { hypot(it.key.x - middleX, it.key.y - middleY) }
 
-        parallel.run(sortedEntries.toList()) { source ->
+        Parallel.forEach(sortedEntries.toList()) { source ->
             if (tileCache.containsKey(source.key) && !alwaysReloadTiles) {
-                return@run
+                return@forEach
             }
 
             val config = if (backgroundColor.alpha != 255) {
@@ -153,7 +152,7 @@ class TileLoader {
             synchronized(lock) {
                 if (clearTileWhenNullResponse || image != null) {
                     val old = tileCache[source.key]
-                    if (image == null){
+                    if (image == null) {
                         tileCache -= source.key
                     } else {
                         tileCache += source.key to listOfNotNull(image)
