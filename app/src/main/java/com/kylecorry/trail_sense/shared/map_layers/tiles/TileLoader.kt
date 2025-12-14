@@ -153,7 +153,11 @@ class TileLoader {
             synchronized(lock) {
                 if (clearTileWhenNullResponse || image != null) {
                     val old = tileCache[source.key]
-                    tileCache += source.key to listOfNotNull(image)
+                    if (image == null){
+                        tileCache -= source.key
+                    } else {
+                        tileCache += source.key to listOfNotNull(image)
+                    }
                     old?.forEach { it.recycle() }
                 }
             }

@@ -162,7 +162,7 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
 
             preRenderedBitmap = createBitmap(bitmapWidth, bitmapHeight)
             val mergeCanvas = Canvas(preRenderedBitmap!!)
-            mergeCanvas.drawColor(backgroundColor)
+            mergeCanvas.drawColor(Color.TRANSPARENT)
 
             // Render all tiles into the merged bitmap
             loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmaps) ->

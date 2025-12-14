@@ -167,9 +167,10 @@ object DEM {
             Color.rgb(gray, gray, gray)
         }
     ): Bitmap = onDefault {
+        val expandBy = 1
         val grid = getElevationGrid(bounds, resolution)
-        val height = grid.size
-        val width = grid[0].size
+        val width = grid[0].size - expandBy * 2
+        val height = grid.size - expandBy * 2
         val pixels = IntArray(height * width)
 
         try {
@@ -186,10 +187,10 @@ object DEM {
                 }
             }
 
-            for (y in grid.indices) {
-                for (x in grid[y].indices) {
+            for (y in expandBy .. grid.lastIndex - expandBy) {
+                for (x in expandBy .. grid[y].lastIndex - expandBy) {
                     val color = colorMap(grid[y][x].second, minElevation, maxElevation)
-                    pixels.set(x, y, width, color)
+                    pixels.set(x - expandBy, y - expandBy, width, color)
                 }
             }
             Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
@@ -207,9 +208,10 @@ object DEM {
         samples: Int = 1,
         sampleSpacing: Float = 3f
     ): Bitmap = onDefault {
+        val expandBy = 1
         val grid = getElevationGrid(bounds, resolution)
-        val width = grid[0].size
-        val height = grid.size
+        val width = grid[0].size - expandBy * 2
+        val height = grid.size - expandBy * 2
         val pixels = IntArray(width * height)
 
         try {
@@ -231,8 +233,8 @@ object DEM {
             val cosZenith = cos(zenithRad)
             val sinZenith = sin(zenithRad)
 
-            for (y in grid.indices) {
-                for (x in grid[y].indices) {
+            for (y in expandBy .. grid.lastIndex - expandBy) {
+                for (x in expandBy .. grid[y].lastIndex - expandBy) {
                     val a = getElevation(x - 1, y - 1)
                     val b = getElevation(x, y - 1)
                     val c = getElevation(x + 1, y - 1)
@@ -263,7 +265,7 @@ object DEM {
                     }
 
                     val gray = hillshade.toInt().coerceIn(0, 255)
-                    pixels.set(x, y, width, Color.rgb(gray, gray, gray))
+                    pixels.set(x - expandBy, y - expandBy, width, Color.rgb(gray, gray, gray))
                 }
             }
             Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
