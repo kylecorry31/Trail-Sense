@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.map_layers
 
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.grow
@@ -65,8 +64,12 @@ class MapLayerBackgroundTask2 {
             val taskCopy = synchronized(taskLock) {
                 tasks.toList()
             }
-            val parallel = ParallelCoroutineRunner()
-            parallel.run(taskCopy.map { { it(viewBounds, bounds, projection) } })
+            for (task in taskCopy) {
+                task(viewBounds, bounds, projection)
+            }
+            // TODO: Parallel execution is not working properly - I think it's cancellation related
+//            val parallel = ParallelCoroutineRunner()
+//            parallel.run(taskCopy.map { { it(viewBounds, bounds, projection) } })
         }
     ) {
 

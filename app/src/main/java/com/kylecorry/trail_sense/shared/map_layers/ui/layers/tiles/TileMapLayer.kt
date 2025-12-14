@@ -45,19 +45,9 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
         shouldReloadTiles = true
     }
 
-    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        // Avoid drawing while in safe mode
-        if (SafeMode.isEnabled()) {
-            return
-        }
-
+    init {
         // Load tiles if needed
-        taskRunner.scheduleUpdate(
-            drawer.getBounds(45f), // TODO: Cache this
-            map.mapBounds,
-            map.mapProjection,
-            shouldReloadTiles
-        ){ viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
+        taskRunner.addTask { viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
             shouldReloadTiles = false
             try {
                 loader.loadTiles(
@@ -82,6 +72,21 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
                 shouldReloadTiles = true
             }
         }
+    }
+
+    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        // Avoid drawing while in safe mode
+        if (SafeMode.isEnabled()) {
+            return
+        }
+
+        // Load tiles if needed
+        taskRunner.scheduleUpdate(
+            drawer.getBounds(45f), // TODO: Cache this
+            map.mapBounds,
+            map.mapProjection,
+            shouldReloadTiles
+        )
 
         // Render loaded tiles
         synchronized(loader.lock) {

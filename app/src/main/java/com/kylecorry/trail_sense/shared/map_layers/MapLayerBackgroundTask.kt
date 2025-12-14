@@ -62,8 +62,12 @@ class MapLayerBackgroundTask {
             val taskCopy = synchronized(taskLock) {
                 tasks.toList()
             }
-            val parallel = ParallelCoroutineRunner()
-            parallel.run(taskCopy.map { { it(bounds, metersPerPixel) } })
+            for (task in taskCopy) {
+                task(bounds, metersPerPixel)
+            }
+            // TODO: Parallel execution is not working properly - I think it's cancellation related
+//            val parallel = ParallelCoroutineRunner()
+//            parallel.run(taskCopy.map { { it(bounds, metersPerPixel) } })
         }
     ) {
 
