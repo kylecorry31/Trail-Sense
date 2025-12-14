@@ -169,7 +169,7 @@ abstract class TileMapLayer<T : ITileSourceSelector>(
                 val pixelX = (tile.x - minTileX) * tileWidth
                 val pixelY = (maxTileY - tile.y) * tileHeight
                 bitmaps.reversed().forEach { bitmap ->
-                    mergeCanvas.drawBitmap(bitmap, pixelX.toFloat(), pixelY.toFloat(), tilePaint)
+                    mergeCanvas.drawBitmap(bitmap, pixelX.toFloat(), pixelY.toFloat(), null)
                 }
             }
 
