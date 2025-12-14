@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.CoordinateBounds.Companion.empty
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.from2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import kotlinx.coroutines.sync.Mutex
@@ -14,7 +18,7 @@ abstract class FullRegionMapTileSource : ITileSourceSelector {
     abstract fun getLoader(fullBounds: CoordinateBounds): FullRegionMapTileLoader
 
     override suspend fun getRegionLoaders(bounds: List<CoordinateBounds>): List<List<IGeographicImageRegionLoader>> {
-        val fullBounds = CoordinateBounds.from(bounds.flatMap {
+        val fullBounds = CoordinateBounds.from2(bounds.flatMap {
             listOf(
                 it.northWest,
                 it.southEast
