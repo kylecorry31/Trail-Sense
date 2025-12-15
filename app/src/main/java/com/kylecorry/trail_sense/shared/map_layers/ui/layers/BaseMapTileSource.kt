@@ -7,10 +7,9 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
-import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata
@@ -19,7 +18,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
 
-class BaseMapTileSource : ITileSourceSelector {
+class BaseMapTileSource : TileSource {
 
     private val context = AppServiceRegistry.get<Context>()
     private val internalSelector = PhotoMapTileSourceSelector(
@@ -93,8 +92,8 @@ class BaseMapTileSource : ITileSourceSelector {
         )
     )
 
-    override suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
-        return internalSelector.getRegionLoaders(bounds)
+    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, android.graphics.Bitmap?) -> Unit) {
+        internalSelector.load(tiles, onLoaded)
     }
 
     companion object {

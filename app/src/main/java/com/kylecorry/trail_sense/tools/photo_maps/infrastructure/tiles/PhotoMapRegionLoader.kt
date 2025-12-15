@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
-import android.util.Size
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
@@ -18,14 +17,12 @@ import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
 import com.kylecorry.trail_sense.shared.andromeda_temp.ceilToInt
 import com.kylecorry.trail_sense.shared.andromeda_temp.floorToInt
 import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import kotlinx.coroutines.CoroutineScope
@@ -38,9 +35,9 @@ class PhotoMapRegionLoader(
     private val loadPdfs: Boolean = true,
     private val isPixelPerfect: Boolean = false,
     private val operations: List<BitmapOperation> = emptyList()
-) : IGeographicImageRegionLoader {
+) {
 
-    override suspend fun load(tile: Tile): Bitmap? = onIO {
+    suspend fun load(tile: Tile): Bitmap? = onIO {
         val bounds = tile.getBounds()
         val maxSize = tile.size
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()

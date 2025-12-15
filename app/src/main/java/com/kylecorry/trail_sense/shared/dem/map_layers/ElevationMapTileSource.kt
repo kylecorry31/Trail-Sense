@@ -7,15 +7,14 @@ import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearest
-import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
-import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
-import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 
-class ElevationMapTileSource : ITileSourceSelector {
+class ElevationMapTileSource : TileSource {
 
     var useDynamicElevationScale = false
     var colorScale: ElevationColorMap = USGSElevationColorMap()
@@ -37,37 +36,40 @@ class ElevationMapTileSource : ITileSourceSelector {
         19 to baseResolution / 4
     )
 
-    override suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
-        return listOf(object : IGeographicImageRegionLoader {
-            override suspend fun load(tile: Tile): Bitmap? {
-                val zoomLevel = tile.z.coerceIn(minZoomLevel, maxZoomLevel)
+    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
+        Parallel.forEach(tiles) {
+            val bitmap = loadTile(it)
+            onLoaded(it, bitmap)
+        }
+    }
 
-                return DEM.elevationImage(
-                    tile.getBounds(),
-                    validResolutions[zoomLevel]!!
-                ) { elevation, _, maxElevation ->
-                    if (useDynamicElevationScale) {
-                        var max = (maxElevation * 1.25f).roundNearest(1000f)
-                        if (max < maxElevation) {
-                            max += 1000f
-                        }
-                        colorScale.getColor(
-                            SolMath.norm(
-                                elevation,
-                                minScaleElevation,
-                                max,
-                                true
-                            )
-                        )
-                    } else {
-                        colorScale.getElevationColor(elevation)
-                    }
-                }.applyOperationsOrNull(
-                    Convert(Bitmap.Config.ARGB_8888),
-                    Resize(Size(10, 10), true),
-                    Convert(Bitmap.Config.RGB_565),
+    private suspend fun loadTile(tile: Tile): Bitmap? {
+        val zoomLevel = tile.z.coerceIn(minZoomLevel, maxZoomLevel)
+
+        return DEM.elevationImage(
+            tile.getBounds(),
+            validResolutions[zoomLevel]!!
+        ) { elevation, _, maxElevation ->
+            if (useDynamicElevationScale) {
+                var max = (maxElevation * 1.25f).roundNearest(1000f)
+                if (max < maxElevation) {
+                    max += 1000f
+                }
+                colorScale.getColor(
+                    SolMath.norm(
+                        elevation,
+                        minScaleElevation,
+                        max,
+                        true
+                    )
                 )
+            } else {
+                colorScale.getElevationColor(elevation)
             }
-        })
+        }.applyOperationsOrNull(
+            Convert(Bitmap.Config.ARGB_8888),
+            Resize(Size(10, 10), true),
+            Convert(Bitmap.Config.RGB_565),
+        )
     }
 }
