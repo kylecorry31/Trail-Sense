@@ -6,7 +6,7 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.intersects2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
-import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
 class PhotoMapTileSourceSelector(
@@ -16,7 +16,7 @@ class PhotoMapTileSourceSelector(
     private val loadPdfs: Boolean = true,
     private val isPixelPerfect: Boolean = false,
     private val operations: List<BitmapOperation> = emptyList()
-) : ITileSourceSelector {
+) : TileSource {
 
     private val sortedMaps = maps
         .filter { it.isCalibrated }

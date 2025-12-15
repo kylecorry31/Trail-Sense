@@ -12,7 +12,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
-import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlinx.coroutines.CancellationException
 
-abstract class TileMapLayer<T : ITileSourceSelector>(
+abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
     private val taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTask2(),
     private val minZoomLevel: Int? = null,

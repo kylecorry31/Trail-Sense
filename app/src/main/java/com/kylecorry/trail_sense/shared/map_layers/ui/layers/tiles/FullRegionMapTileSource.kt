@@ -1,16 +1,13 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
-import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.CoordinateBounds.Companion.empty
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.from2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
-import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-abstract class FullRegionMapTileSource : ITileSourceSelector {
+abstract class FullRegionMapTileSource : TileSource {
 
     private var loaderLock = Mutex()
     private var lastLoader: FullRegionMapTileLoader? = null

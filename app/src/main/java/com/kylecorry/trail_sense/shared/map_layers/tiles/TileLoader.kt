@@ -38,7 +38,7 @@ class TileLoader {
     }
 
     suspend fun loadTiles(
-        sourceSelector: ITileSourceSelector,
+        sourceSelector: TileSource,
         bounds: CoordinateBounds,
         metersPerPixel: Float,
         minZoom: Int = 0,
