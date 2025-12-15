@@ -13,7 +13,6 @@ class ElevationLayer(taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTas
 
     init {
         preRenderBitmaps = true
-        loader.useFirstImageSize = true
     }
 
     fun setPreferences(prefs: ElevationMapLayerPreferences) {

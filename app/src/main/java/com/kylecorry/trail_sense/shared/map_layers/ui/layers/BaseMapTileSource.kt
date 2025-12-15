@@ -7,9 +7,8 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
@@ -93,8 +92,8 @@ class BaseMapTileSource : TileSource {
         )
     )
 
-    override suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
-        return internalSelector.getRegionLoaders(bounds)
+    override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, android.graphics.Bitmap?) -> Unit) {
+        internalSelector.load(tiles, onLoaded)
     }
 
     companion object {

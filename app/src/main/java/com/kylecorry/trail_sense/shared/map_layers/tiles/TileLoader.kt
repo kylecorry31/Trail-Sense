@@ -1,20 +1,8 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
 import android.util.Log
-import androidx.core.graphics.alpha
-import androidx.core.graphics.createBitmap
-import com.kylecorry.andromeda.bitmaps.operations.Conditional
-import com.kylecorry.andromeda.bitmaps.operations.Convert
-import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.onDefault
-import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
-import kotlin.math.hypot
 
 class TileLoader {
 
@@ -22,8 +10,6 @@ class TileLoader {
         private set
 
     var lock = Any()
-
-    var useFirstImageSize: Boolean = false
 
     var alwaysReloadTiles: Boolean = false
     var clearTileWhenNullResponse: Boolean = true
@@ -39,138 +25,39 @@ class TileLoader {
 
     suspend fun loadTiles(
         sourceSelector: TileSource,
-        bounds: CoordinateBounds,
-        metersPerPixel: Float,
-        minZoom: Int = 0,
-        backgroundColor: Int = Color.WHITE,
-        // TODO: This is gross, rather than this it should handle the lifecycle of region loaders and make them distinct
-        controlsPdfCache: Boolean = false
+        tiles: List<Tile>
     ) = onDefault {
-        // Step 1: Split the visible area into tiles (geographic)
-        val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
-        if (tiles.size > 100) {
-            Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
-            return@onDefault
-        }
-
-        if ((tiles.firstOrNull()?.z ?: 0) < minZoom) {
-            return@onDefault
-        }
-
-        // Step 2: For each tile, determine which map(s) will supply it.
-        val tileSources = mutableMapOf<Tile, List<IGeographicImageRegionLoader>>()
-        val loaders = sourceSelector.getRegionLoaders(tiles.map { it.getBounds() })
-        for (i in tiles.indices) {
-            val tile = tiles[i]
-            val sources = loaders[i]
-            if (sources.isNotEmpty()) {
-                tileSources[tile] = sources
-            }
-        }
-
-        // TODO: Handle this cleanup elsewhere
-        val allMaps = tileSources.values
-            .flatten()
-            .filterIsInstance<PhotoMapRegionLoader>()
-            .map { it.map }
-            .distinct()
-
-        if (controlsPdfCache) {
-            PhotoMapRegionLoader.Companion.removeUnneededLoaders(allMaps)
+        val tilesToLoad = if (alwaysReloadTiles) {
+            tiles
+        } else {
+            tiles.filter { !tileCache.containsKey(it) }
         }
 
         var hasChanges = false
 
-        val middleX = tileSources.keys.map { it.x }.average()
-        val middleY = tileSources.keys.map { it.y }.average()
-
-        val sortedEntries = tileSources.entries
-            .sortedBy { hypot(it.key.x - middleX, it.key.y - middleY) }
-
-        Parallel.forEach(sortedEntries.toList()) { source ->
-            if (tileCache.containsKey(source.key) && !alwaysReloadTiles) {
-                return@forEach
-            }
-
-            val config = if (backgroundColor.alpha != 255) {
-                Bitmap.Config.ARGB_8888
-            } else {
-                Bitmap.Config.RGB_565
-            }
-
-            var canvas: Canvas? = null
-            var image: Bitmap? = null
-
-            if (!useFirstImageSize) {
-                image = createBitmap(source.key.size.width, source.key.size.height, config)
-                image.eraseColor(backgroundColor)
-                canvas = Canvas(image)
-            }
-
-            source.value.reversed().forEachIndexed { index, loader ->
-                val currentImage = loader.load(source.key)?.applyOperationsOrNull(
-                    Conditional(
-                        index > 0,
-                        ReplaceColor(
-                            Color.WHITE,
-                            Color.argb(127, 127, 127, 127),
-                            80f,
-                            true,
-                            inPlace = true
-                        )
-                    )
-                )
-
-                if (currentImage != null) {
-                    if (useFirstImageSize) {
-                        image = createBitmap(currentImage.width, currentImage.height, config)
-                        canvas = Canvas(image)
-                    }
-
-                    canvas?.drawBitmap(currentImage, 0f, 0f, null)
-                    currentImage.recycle()
-                }
-            }
-
-            // Remove transparency
-            image = image?.applyOperationsOrNull(
-                // Undo color replacement
-                Conditional(
-                    backgroundColor.alpha != 255 && source.value.size > 1,
-                    ReplaceColor(
-                        Color.argb(127, 127, 127, 127),
-                        Color.WHITE,
-                        80f,
-                        true,
-                        inPlace = true
-                    )
-                ),
-                Convert(config)
-            )
-
-            hasChanges = true
+        sourceSelector.load(tilesToLoad) { tile, image ->
             synchronized(lock) {
                 if (clearTileWhenNullResponse || image != null) {
-                    val old = tileCache[source.key]
+                    val old = tileCache[tile]
                     if (image == null) {
-                        tileCache -= source.key
+                        tileCache -= tile
                     } else {
-                        tileCache += source.key to listOfNotNull(image)
+                        tileCache += tile to listOfNotNull(image)
                     }
                     old?.forEach { it.recycle() }
+                    hasChanges = true
                 }
             }
         }
 
         synchronized(lock) {
-            tileCache.keys.forEach { key ->
-                if (!tileSources.containsKey(key)) {
-                    tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
-                    hasChanges = true
-                }
+            val tilesSet = tiles.toSet()
+            val keysToRemove = tileCache.keys.filter { it !in tilesSet }
+            keysToRemove.forEach { key ->
+                tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
+                tileCache -= key
+                hasChanges = true
             }
-
-            tileCache = tileCache.filterKeys { it in tileSources.keys }
         }
 
         if (hasChanges) {

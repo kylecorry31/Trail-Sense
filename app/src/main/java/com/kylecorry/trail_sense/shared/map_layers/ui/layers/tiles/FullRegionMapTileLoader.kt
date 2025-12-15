@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.CorrectPerspective2
-import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -15,7 +14,7 @@ import kotlinx.coroutines.sync.withLock
 abstract class FullRegionMapTileLoader(
     private val fullBounds: CoordinateBounds,
     private val outputSize: Size? = null
-) : IGeographicImageRegionLoader {
+) {
     private var fullImage: Bitmap? = null
     private var isStopped = false
     private val lock = Mutex()
@@ -26,7 +25,7 @@ abstract class FullRegionMapTileLoader(
         fullImage = null
     }
 
-    override suspend fun load(tile: Tile): Bitmap? {
+    suspend fun load(tile: Tile): Bitmap? {
         val fullImage = lock.withLock {
             if (fullImage == null && !isStopped) {
                 fullImage = loadFullImage(fullBounds, tile.z)

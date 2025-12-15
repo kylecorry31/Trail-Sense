@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
+import android.graphics.Bitmap
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
 import com.kylecorry.trail_sense.shared.andromeda_temp.from2
-import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -14,25 +16,20 @@ abstract class FullRegionMapTileSource : TileSource {
 
     abstract fun getLoader(fullBounds: CoordinateBounds): FullRegionMapTileLoader
 
-    override suspend fun getRegionLoaders(bounds: List<CoordinateBounds>): List<List<IGeographicImageRegionLoader>> {
-        val fullBounds = CoordinateBounds.from2(bounds.flatMap {
+    override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, Bitmap?) -> Unit) {
+        val fullBounds = CoordinateBounds.from2(tiles.flatMap {
+            val bounds = it.getBounds()
             listOf(
-                it.northWest,
-                it.southEast
+                bounds.northWest,
+                bounds.southEast
             )
         })
-        return loaderLock.withLock {
+        loaderLock.withLock {
             lastLoader?.close()
             lastLoader = getLoader(fullBounds)
-            bounds.map { listOfNotNull(lastLoader) }
-        }
-    }
-
-    override suspend fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
-        return loaderLock.withLock {
-            lastLoader?.close()
-            lastLoader = getLoader(bounds)
-            listOfNotNull(lastLoader)
+            Parallel.forEach(tiles) {
+                onLoaded(it, lastLoader?.load(it))
+            }
         }
     }
 }

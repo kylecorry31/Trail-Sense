@@ -2,14 +2,19 @@ package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 
-class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(PhotoMapTileSource(), minZoomLevel = 4) {
-    init {
-        controlsPdfCache = true
-    }
+class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
+    PhotoMapTileSource(pruneCache = true),
+    minZoomLevel = 4
+) {
 
     fun setPreferences(prefs: PhotoMapMapLayerPreferences) {
         percentOpacity = prefs.opacity.get() / 100f
         source.loadPdfs = prefs.loadPdfs.get()
         invalidate()
+    }
+
+    override fun setBackgroundColor(color: Int) {
+        super.setBackgroundColor(color)
+        source.backgroundColor = color
     }
 }
