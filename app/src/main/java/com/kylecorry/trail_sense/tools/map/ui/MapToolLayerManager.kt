@@ -6,6 +6,8 @@ import android.view.View
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
@@ -19,9 +21,11 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
+import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -30,9 +34,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -41,7 +44,7 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerMana
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
@@ -56,10 +59,11 @@ class MapToolLayerManager {
         true
     }
     private val taskRunner = MapLayerBackgroundTask()
+    private val taskRunner2 = MapLayerBackgroundTask2()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
-    private val baseMapLayer = TiledMapLayer()
-    private val photoMapLayer = TiledMapLayer()
+    private val baseMapLayer = BaseMapLayer()
+    private val photoMapLayer = PhotoMapLayer()
     private var contourLayer: ContourLayer? = null
     private var hillshadeLayer: HillshadeLayer? = null
     private var elevationLayer: ElevationLayer? = null
@@ -67,7 +71,7 @@ class MapToolLayerManager {
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
-    private val selectedPointLayer = BeaconLayer()
+    private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val cellTowerLayer = CellTowerMapLayer {
         CellTowerMapLayer.navigate(it)
@@ -85,8 +89,8 @@ class MapToolLayerManager {
         val hasCompass = SensorService(context).hasCompass()
 
         contourLayer = ContourLayer(taskRunner)
-        hillshadeLayer = HillshadeLayer(taskRunner)
-        elevationLayer = ElevationLayer(taskRunner)
+        hillshadeLayer = HillshadeLayer(taskRunner2)
+        elevationLayer = ElevationLayer(taskRunner2)
 
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
@@ -107,10 +111,7 @@ class MapToolLayerManager {
 
         scaleBarLayer.units = prefs.baseDistanceUnits
 
-        beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         beaconLayer.setPreferences(prefs.map.beaconLayer)
-
-        selectedPointLayer.setOutlineColor(Color.WHITE)
 
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         pathLayer.setPreferences(prefs.map.pathLayer)
@@ -119,8 +120,6 @@ class MapToolLayerManager {
 
         baseMapLayer.setPreferences(prefs.map.baseMapLayer)
 
-        photoMapLayer.setMinZoom(4)
-        photoMapLayer.controlsPdfCache = true
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
 
         contourLayer?.setPreferences(prefs.map.contourLayer)
@@ -166,7 +165,6 @@ class MapToolLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (prefs.map.pathLayer.isEnabled.get()) PathLayerManager(
-                    context,
                     pathLayer
                 ) else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
@@ -175,24 +173,13 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
                 if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    context,
                     tideLayer
-                ) else null,
-                if (prefs.map.photoMapLayer.isEnabled.get()) PhotoMapLayerManager(
-                    context,
-                    photoMapLayer,
-                    loadPdfs = prefs.map.photoMapLayer.loadPdfs.get()
-                ) else null,
-                if (prefs.map.baseMapLayer.isEnabled.get()) BaseMapLayerManager(
-                    context,
-                    baseMapLayer
                 ) else null,
                 if (prefs.map.beaconLayer.isEnabled.get()) BeaconLayerManager(
                     context,
                     beaconLayer
                 ) else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(
-                    context,
                     navigationLayer
                 ) else null
             )
@@ -209,6 +196,7 @@ class MapToolLayerManager {
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
+        taskRunner2.stop()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
@@ -232,15 +220,16 @@ class MapToolLayerManager {
     }
 
     fun setSelectedLocation(location: Coordinate?) {
-        selectedPointLayer.setBeacons(
-            listOfNotNull(
-                if (location == null) {
-                    null
-                } else {
-                    Beacon(0, "", location)
-                }
+        if (location == null) {
+            selectedPointLayer.setData(GeoJsonFeatureCollection(emptyList()))
+        } else {
+            val point = GeoJsonFeature.point(
+                location,
+                strokeColor = Color.WHITE,
+                color = Color.BLACK
             )
-        )
+            selectedPointLayer.setData(point)
+        }
     }
 
     // Distance measurement

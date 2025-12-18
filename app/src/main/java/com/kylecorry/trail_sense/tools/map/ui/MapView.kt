@@ -23,6 +23,9 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
@@ -36,7 +39,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private val lookupMatrix = Matrix()
 
-    private val layers = mutableListOf<ILayer>()
+    private var layers = listOf<ILayer>()
     private val hooks = Hooks()
 
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
@@ -92,6 +95,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             invalidate()
         }
 
+    private val mapCenterPixels: Vector2
+        get() = hooks.memo("map_center_pixels", mapCenter, projection) {
+            projection.toPixels(mapCenter)
+        }
+
     override var mapAzimuth: Float = 0f
         set(value) {
             field = value
@@ -136,59 +144,82 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var isScaling = false
 
     override fun addLayer(layer: ILayer) {
-        layers.add(layer)
+        layers = layers + layer
     }
 
     override fun removeLayer(layer: ILayer) {
-        layers.remove(layer)
+        layers = layers - layer
     }
 
     override fun setLayers(layers: List<ILayer>) {
-        this.layers.clear()
-        this.layers.addAll(layers)
+        this.layers = layers.toList()
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { post { invalidate() } } }
     }
 
-    override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        val center = projection.toPixels(mapCenter)
+    override val mapProjection: IMapViewProjection
+        get() = hooks.memo(
+            "mapProjection",
+            mapCenter,
+            mapCenterPixels,
+            projection,
+            metersPerPixel,
+            width,
+            height
+        ) {
+            val mapCenter = mapCenter
+            val center = mapCenterPixels
+            val projection = projection
+            val metersPerPixel = metersPerPixel
+            val width = width
+            val height = height
 
-        // Always render the hemispheres closest to the map center
-        val newCoordinate = Coordinate(
-            coordinate.latitude,
-            mapCenter.longitude + deltaAngle(
-                mapCenter.longitude.toFloat(),
-                coordinate.longitude.toFloat()
-            )
-        )
-
-        val projected = projection.toPixels(newCoordinate)
-
-        val x = (projected.x - center.x) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel)
-        val y =
-            (center.y - projected.y) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel) // Y inverted
-
-        return PixelCoordinate(
-            x.toFloat() + width / 2f,
-            y.toFloat() + height / 2f
-        )
-    }
+            object : IMapProjection, IMapViewProjection {
+                override fun toPixels(
+                    latitude: Double,
+                    longitude: Double
+                ): PixelCoordinate {
 
 
-    override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        val center = projection.toPixels(mapCenter)
+                    // Always render the hemispheres closest to the map center
+                    val projected = projection.toPixels(
+                        latitude, mapCenter.longitude + deltaAngle(
+                            mapCenter.longitude.toFloat(),
+                            longitude.toFloat()
+                        )
+                    )
 
-        val x = (pixel.x - width / 2f) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS
-        val y =
-            (height / 2f - pixel.y) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS // Y inverted
+                    val x =
+                        (projected.x - center.x) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel)
+                    val y =
+                        (center.y - projected.y) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel) // Y inverted
 
-        val projected = Vector2(
-            center.x + x.toFloat(),
-            center.y + y.toFloat()
-        )
-        return projection.toCoordinate(projected)
-    }
+                    return PixelCoordinate(
+                        x.toFloat() + width / 2f,
+                        y.toFloat() + height / 2f
+                    )
+                }
 
+                override fun toCoordinate(pixel: Vector2): Coordinate {
+                    val x = (pixel.x - width / 2f) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS
+                    val y =
+                        (height / 2f - pixel.y) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS // Y inverted
+
+                    val projected = Vector2(
+                        center.x + x.toFloat(),
+                        center.y + y.toFloat()
+                    )
+                    return projection.toCoordinate(projected)
+                }
+
+                override fun toPixels(location: Coordinate): PixelCoordinate {
+                    return toPixels(location.latitude, location.longitude)
+                }
+
+                override val metersPerPixel: Float = metersPerPixel
+                override val center: Coordinate = mapCenter
+            }
+        }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)

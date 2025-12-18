@@ -95,7 +95,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        if (prefs.temperatureUnits == TemperatureUnits.C) {
+        if (prefs.temperatureUnits == TemperatureUnits.Celsius) {
             minTempCalibratedF?.isVisible = false
             maxTempCalibratedF?.isVisible = false
             minTempUncalibratedF?.isVisible = false
@@ -103,25 +103,25 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             minTempCalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.minActualTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).value
+                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
             minTempUncalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.minBatteryTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).value
+                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
             maxTempCalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.maxActualTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).value
+                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
             maxTempUncalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.maxBatteryTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.C).convertTo(TemperatureUnits.F).value
+                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
         } else {
@@ -132,25 +132,25 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             minTempCalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.minActualTemperature =
-                    Temperature.from(temp, TemperatureUnits.F).celsius().value
+                    Temperature.from(temp, TemperatureUnits.Fahrenheit).celsius().value
                 true
             }
             minTempUncalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.minBatteryTemperature =
-                    Temperature.from(temp, TemperatureUnits.F).celsius().value
+                    Temperature.from(temp, TemperatureUnits.Fahrenheit).celsius().value
                 true
             }
             maxTempCalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.maxActualTemperature =
-                    Temperature.from(temp, TemperatureUnits.F).celsius().value
+                    Temperature.from(temp, TemperatureUnits.Fahrenheit).celsius().value
                 true
             }
             maxTempUncalibratedF?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.maxBatteryTemperature =
-                    Temperature.from(temp, TemperatureUnits.F).celsius().value
+                    Temperature.from(temp, TemperatureUnits.Fahrenheit).celsius().value
                 true
             }
         }
@@ -312,7 +312,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             formatService.formatTemperature(
                 Temperature.from(
                     temperature,
-                    TemperatureUnits.C
+                    TemperatureUnits.Celsius
                 ).convertTo(prefs.temperatureUnits)
             )
         return true

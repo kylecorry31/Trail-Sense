@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.shared.sharing
 
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationQRSender
@@ -16,7 +16,7 @@ object Share {
     fun shareLocation(
         fragment: Fragment,
         location: Coordinate,
-        format: CoordinateFormat = UserPreferences(fragment.requireContext()).navigation.coordinateFormat,
+        format: BuiltInCoordinateFormat = UserPreferences(fragment.requireContext()).navigation.coordinateFormat,
         title: String = fragment.getString(R.string.location)
     ) {
         val locationSenders = mapOf(

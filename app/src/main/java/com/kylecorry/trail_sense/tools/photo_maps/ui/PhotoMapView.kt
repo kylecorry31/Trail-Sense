@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 
 class PhotoMapView : BasePhotoMapView {
 

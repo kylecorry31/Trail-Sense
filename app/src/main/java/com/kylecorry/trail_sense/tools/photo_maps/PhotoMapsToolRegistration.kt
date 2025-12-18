@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.os.bundleOf
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -53,7 +54,10 @@ object PhotoMapsToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.camera(context),
                 *ToolDiagnosticFactory.compass(context)
             ).distinctBy { it.id },
-            intentHandlers = listOf(importMapIntentHandler)
+            intentHandlers = listOf(importMapIntentHandler),
+            singletons = listOf(
+                MapRepo::getInstance
+            )
         )
     }
 }

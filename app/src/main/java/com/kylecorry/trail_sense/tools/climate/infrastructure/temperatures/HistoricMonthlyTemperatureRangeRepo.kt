@@ -72,8 +72,8 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 val low = lows[it] ?: 0f
                 val high = highs[it] ?: 0f
                 Range(
-                    Temperature.from(min(low, high), TemperatureUnits.F).celsius(),
-                    Temperature.from(max(low, high), TemperatureUnits.F).celsius()
+                    Temperature.from(min(low, high), TemperatureUnits.Fahrenheit).celsius(),
+                    Temperature.from(max(low, high), TemperatureUnits.Fahrenheit).celsius()
                 )
             }
         }

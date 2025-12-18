@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.navigation.map_layers
 
-import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -11,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class NavigationLayerManager(context: Context, private val layer: NavigationLayer) :
+class NavigationLayerManager(private val layer: NavigationLayer) :
     BaseLayerManager() {
 
     private val scope = CoroutineScope(Dispatchers.Default)

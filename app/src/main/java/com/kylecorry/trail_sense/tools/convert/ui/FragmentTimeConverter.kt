@@ -28,7 +28,7 @@ class FragmentTimeConverter : SimpleConvertFragment<TimeUnits>(TimeUnits.Minutes
     override fun convert(amount: Float, from: TimeUnits, to: TimeUnits): String {
         val seconds = amount * from.seconds
         val converted = seconds / to.seconds
-        return formatService.formatTime(converted, to, 4, false)
+        return formatService.formatTime(converted.toFloat(), to, 4, false)
     }
 
 }

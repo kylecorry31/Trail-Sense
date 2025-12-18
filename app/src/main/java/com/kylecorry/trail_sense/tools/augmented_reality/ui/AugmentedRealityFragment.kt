@@ -66,7 +66,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvi
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.paths.map_layers.LegacyPathLayerManager
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot
@@ -140,7 +140,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             this::onPathFocused
         )
     }
-    private var pathLayerManager: PathLayerManager? = null
+    private var pathLayerManager: LegacyPathLayerManager? = null
 
     private var isCameraEnabled = true
 
@@ -262,7 +262,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     override fun onResume() {
         super.onResume()
 
-        pathLayerManager = PathLayerManager(
+        pathLayerManager = LegacyPathLayerManager(
             requireContext(),
             pathsLayer,
             shouldCorrectElevations = userPrefs.augmentedReality.adjustForPathElevation

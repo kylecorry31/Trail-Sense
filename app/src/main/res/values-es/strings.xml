@@ -51,8 +51,8 @@
     <string name="pref_num_visible_beacons_title">Balizas cercanas</string>
     <string name="pref_display_multi_beacons_summary">Mostrar balizas más cercanas en la brújula</string>
     <string name="pref_monitor_weather_summary">"En segundo plano"</string>
-    <string name="sun_does_not_set">no está de salida</string>
-    <string name="sun_does_not_rise">no está de puesta</string>
+    <string name="sun_does_not_set">no se pone</string>
+    <string name="sun_does_not_rise">no sale</string>
     <string name="sun_up_no_set">El sol ha salido</string>
     <string name="sun_down_no_set">El sol se ha puesto</string>
     <string name="tools">Herramientas</string>

@@ -6,6 +6,7 @@ import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.beacons.widgets.AppWidgetNearbyBeacons
 import com.kylecorry.trail_sense.tools.beacons.widgets.NearbyBeaconsToolWidgetView
@@ -77,6 +78,9 @@ object BeaconsToolRegistration : ToolRegistration {
             intentHandlers = listOf(geoIntentHandler, openBeaconIntentHandler),
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_BEACONS_CHANGED, "Beacons changed")
+            ),
+            singletons = listOf(
+                { BeaconService(it) }
             ),
             widgets = listOf(
                 ToolWidget(

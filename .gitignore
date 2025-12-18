@@ -119,3 +119,7 @@ scripts/experiments/cache.json
 # Custom
 .idea/markdown.xml
 .idea/AndroidProjectSystem.xml
+/.idea/deviceManager.xml
+/.idea/migrations.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml

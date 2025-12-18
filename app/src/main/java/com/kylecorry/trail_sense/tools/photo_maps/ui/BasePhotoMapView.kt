@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geography.projections.IMapProjection
@@ -15,6 +16,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import kotlin.math.max
@@ -33,6 +37,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     var onImageLoadedListener: (() -> Unit)? = null
 
+    private val hooks = Hooks()
+
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
     }
@@ -46,15 +52,42 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         this.layers.addAll(layers)
     }
 
-    override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        return getPixelCoordinate(coordinate) ?: PixelCoordinate(0f, 0f)
-    }
+    override val mapProjection: IMapViewProjection
+        get() = hooks.memo(
+            "mapProjection",
+            projection,
+            metersPerPixel
+        ) {
+            val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f))
+            val projection = projection
+            val metersPerPixel = metersPerPixel
 
-    override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
-        val source = toSource(pixel.x, pixel.y) ?: return Coordinate.zero
-        return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
-    }
+            object : IMapProjection, IMapViewProjection {
+                override fun toPixels(
+                    latitude: Double,
+                    longitude: Double
+                ): PixelCoordinate {
+                    return getPixelCoordinate(latitude, longitude) ?: PixelCoordinate(0f, 0f)
+                }
+
+                override fun toCoordinate(pixel: Vector2): Coordinate {
+                    // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
+                    val source = toSource(pixel.x, pixel.y) ?: return Coordinate.zero
+                    return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
+                }
+
+                override fun toPixels(location: Coordinate): PixelCoordinate {
+                    return getPixelCoordinate(location.latitude, location.longitude)
+                        ?: PixelCoordinate(
+                            0f,
+                            0f
+                        )
+                }
+
+                override val metersPerPixel: Float = metersPerPixel
+                override val center: Coordinate by lazy { viewNoRotation?.let { toCoordinate(toPixel(it)) } ?: Coordinate.zero }
+            }
+        }
 
     protected fun toPixel(point: PointF): PixelCoordinate {
         return PixelCoordinate(point.x, point.y)
@@ -222,8 +255,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         invalidate()
     }
 
-    private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
-        val source = projection?.toPixels(coordinate) ?: return null
+    private fun getPixelCoordinate(latitude: Double, longitude: Double): PixelCoordinate? {
+        val source = projection?.toPixels(latitude, longitude) ?: return null
         val view = toView(source.x, source.y)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }

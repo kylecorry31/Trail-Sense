@@ -6,14 +6,14 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 
 class FragmentTemperatureConverter :
-    SimpleConvertFragment<TemperatureUnits>(TemperatureUnits.C, TemperatureUnits.F) {
+    SimpleConvertFragment<TemperatureUnits>(TemperatureUnits.Celsius, TemperatureUnits.Fahrenheit) {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     override fun getUnitName(unit: TemperatureUnits): String {
         return when (unit) {
-            TemperatureUnits.F -> getString(R.string.fahrenheit)
-            TemperatureUnits.C -> getString(R.string.celsius)
+            TemperatureUnits.Fahrenheit -> getString(R.string.fahrenheit)
+            TemperatureUnits.Celsius -> getString(R.string.celsius)
         }
     }
 

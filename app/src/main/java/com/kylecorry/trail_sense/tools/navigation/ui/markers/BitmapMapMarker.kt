@@ -18,7 +18,8 @@ class BitmapMapMarker(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,
         scale: Float,
-        rotation: Float
+        rotation: Float,
+        metersPerPixel: Float,
     ) {
         val size = drawer.dp(this.size) * scale
         val aspectRatio = bitmap.width.toFloat() / bitmap.height.toFloat()
@@ -31,7 +32,7 @@ class BitmapMapMarker(
         }
         drawer.imageMode(ImageMode.Center)
         drawer.push()
-        if (tint != null){
+        if (tint != null) {
             drawer.tint(tint)
         } else {
             drawer.noTint()
@@ -45,5 +46,13 @@ class BitmapMapMarker(
 
     override fun onClick(): Boolean {
         return onClickFn()
+    }
+
+    override fun calculateSizeInPixels(
+        drawer: ICanvasDrawer,
+        metersPerPixel: Float,
+        scale: Float
+    ): Float {
+        return drawer.dp(size) * scale
     }
 }

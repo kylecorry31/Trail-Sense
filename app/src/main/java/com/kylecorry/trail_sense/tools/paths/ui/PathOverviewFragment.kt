@@ -23,6 +23,8 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.roundPlaces
@@ -40,6 +42,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.extensions.lineString
+import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.IOFactory
@@ -48,15 +52,13 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
@@ -69,7 +71,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathLine
 import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathPointNavigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathColorCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathLineStyleCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePointStyleCommand
@@ -121,23 +122,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private var slopes: List<Triple<PathPoint, PathPoint, Float>> = emptyList()
     private var difficulty = HikingDifficulty.Easy
 
-    private val pathLayer = PathLayer()
     private val scaleBarLayer = ScaleBarLayer()
 
     private var lastBounds = CoordinateBounds.empty
-    private val waypointLayer = BeaconLayer(8f) {
-        if (selectedPointId != null) {
-            deselectPoint()
-            return@BeaconLayer true
-        }
-        val point = waypoints.firstOrNull { point -> point.id == it.id }
-        if (point != null) {
-            viewWaypoint(point)
-            true
-        } else {
-            false
-        }
-    }
+
+    // TODO: Eventually move all of this to the path layer (including waypoint rendering)
+    private val layer = ConfigurableGeoJsonLayer()
     private val myLocationLayer = MyLocationLayer()
     private val paceFactor = 1.75f
 
@@ -161,7 +151,20 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
+        layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
+        layer.setOnClickListener {
+            if (selectedPointId != null) {
+                deselectPoint()
+                return@setOnClickListener true
+            }
+            val point = waypoints.firstOrNull { point -> point.id == it.id }
+            if (point != null) {
+                viewWaypoint(point)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onResume() {
@@ -296,10 +299,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             layerManager?.onBearingChanged(compass.rawBearing)
         }
 
-        waypointLayer.setOutlineColor(Color.TRANSPARENT)
         scaleBarLayer.units = prefs.baseDistanceUnits
         binding.pathImage.setLayers(
-            listOf(pathLayer, waypointLayer, myLocationLayer, scaleBarLayer)
+            listOf(layer, myLocationLayer, scaleBarLayer)
         )
 
         binding.pathLineStyle.setOnClickListener {
@@ -478,31 +480,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun updatePathMap() {
-        val path = path ?: return
         if (!isBound) {
             return
         }
         lastBounds = Geology.getBounds(waypoints.map { it.coordinate })
         binding.pathImage.fitIntoView(lastBounds)
-        pathLayer.setPaths(
-            listOf(
-                MappablePath(
-                    path.id,
-                    waypoints.map {
-                        MappableLocation(
-                            it.id,
-                            it.coordinate,
-                            path.style.color,
-                            null,
-                            it.elevation
-                        )
-                    },
-                    path.style.color,
-                    path.style.line,
-                    path.name
-                )
-            )
-        )
+        updateMapLayer()
     }
 
     private fun onPathChanged() {
@@ -585,19 +568,41 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         Colors.setImageColor(binding.pathColor, path.style.color)
 
-        updateWaypoints()
+        updateMapLayer()
 
         updateDebugStats()
     }
 
-    private fun updateWaypoints() {
-        waypointLayer.setBeacons(
-            waypoints.asBeacons(
-                requireContext(),
-                path?.style?.point ?: PathPointColoringStyle.None,
-                selectedPointId
+    private fun updateMapLayer() {
+        val path = path ?: return
+        val waypointFeatures = waypoints.asBeacons(
+            requireContext(),
+            path.style.point,
+            selectedPointId
+        ).map {
+            GeoJsonFeature.point(
+                it.coordinate,
+                it.id,
+                it.name,
+                color = it.color,
+                icon = it.icon?.id,
+                iconColor = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, it.color),
+                size = 8f,
+                iconSize = 8f * 0.75f,
+                isClickable = true,
+                strokeColor = Color.TRANSPARENT
             )
+        }
+
+        val pathFeature = GeoJsonFeature.lineString(
+            waypoints.map { it.coordinate },
+            path.id,
+            path.name,
+            lineStyle = path.style.line,
+            color = path.style.color
         )
+
+        layer.setData(GeoJsonFeatureCollection(waypointFeatures + pathFeature))
     }
 
     private fun updateDeclination() {
@@ -613,6 +618,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         selectedPointId = null
         binding.pathSelectedPoint.isVisible = false
         chart.removeHighlight()
+        updateMapLayer()
     }
 
     private fun updatePointStyleLegend() {

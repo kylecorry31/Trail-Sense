@@ -11,13 +11,13 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
-import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLocationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.sharing.Share
 import java.time.Duration
 import java.time.Instant
@@ -28,7 +28,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private var format = CoordinateFormat.DecimalDegrees
+    private var format = BuiltInCoordinateFormat.DecimalDegrees
 
     private val intervalometer = CoroutineTimer {
         updateUI()
@@ -50,7 +50,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
         binding.locationTitle.subtitle.text = formatService.formatCoordinateType(format)
 
         binding.locationTitle.subtitle.setOnClickListener {
-            val formats = CoordinateFormat.values()
+            val formats = BuiltInCoordinateFormat.entries
             val formatStrings = formats.map { formatService.formatCoordinateType(it) }
             Pickers.item(
                 requireContext(),

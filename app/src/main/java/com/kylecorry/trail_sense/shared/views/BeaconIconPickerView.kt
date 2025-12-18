@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 class BeaconIconPickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
     private val flex: FlexboxLayout
+    private val selectableIcons = BeaconIcon.values().filter { it.isUserSelectable }
+    private val buttons = mutableMapOf<BeaconIcon?, ImageButton>()
     private var changeListener: ((icon: BeaconIcon?) -> Unit)? = null
 
     var icon: BeaconIcon? = null
@@ -29,28 +31,18 @@ class BeaconIconPickerView(context: Context, attrs: AttributeSet?) : FrameLayout
         flex = findViewById(R.id.color_picker_flex)
 
         addButton(null)
-        for (icon in BeaconIcon.values()) {
+        for (icon in selectableIcons) {
             addButton(icon)
         }
 
     }
 
     private fun selectButton(icon: BeaconIcon?) {
-        val view = if (icon == null) {
-            flex.getChildAt(0)
-        } else {
-            flex.getChildAt(icon.ordinal + 1)
-        } as ImageButton
-        CustomUiUtils.setButtonState(view, true)
+        buttons[icon]?.let { CustomUiUtils.setButtonState(it, true) }
     }
 
     private fun deselectButton(icon: BeaconIcon?) {
-        val view = if (icon == null) {
-            flex.getChildAt(0)
-        } else {
-            flex.getChildAt(icon.ordinal + 1)
-        } as ImageButton
-        CustomUiUtils.setButtonState(view, false)
+        buttons[icon]?.let { CustomUiUtils.setButtonState(it, false) }
     }
 
     private fun addButton(icon: BeaconIcon?) {
@@ -62,6 +54,7 @@ class BeaconIconPickerView(context: Context, attrs: AttributeSet?) : FrameLayout
             this.icon = icon
             changeListener?.invoke(icon)
         }
+        buttons[icon] = button
         flex.addView(button)
     }
 

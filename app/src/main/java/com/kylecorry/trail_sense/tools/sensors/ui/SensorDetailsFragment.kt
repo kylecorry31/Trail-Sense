@@ -302,7 +302,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private fun updateThermometer() {
         val temperature = Temperature.from(
             thermometer.temperature,
-            TemperatureUnits.C
+            TemperatureUnits.Celsius
         ).convertTo(prefs.temperatureUnits)
         sensorDetailsMap["thermometer"] = SensorDetails(
             getString(R.string.tool_thermometer_title),

@@ -30,7 +30,7 @@ enum class BiologicalActivity(
             listOf(
                 LifecycleEvent(
                     EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(230f, TemperatureUnits.F)
+                    MinimumGrowingDegreeDaysTrigger(230f, TemperatureUnits.Fahrenheit)
                 ),
                 LifecycleEvent(
                     EVENT_ACTIVE_END,

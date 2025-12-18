@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCoordinateConvertBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 
 class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConvertBinding>() {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
-    private val formats = CoordinateFormat.values()
+    private val formats = BuiltInCoordinateFormat.entries
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

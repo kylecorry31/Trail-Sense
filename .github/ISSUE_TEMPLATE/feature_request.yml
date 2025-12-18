@@ -12,25 +12,9 @@ body:
     id: description
     attributes:
       label: Description
-      description: Describe how the new feature will work.
+      description: Describe how the new feature will work. Describe how the new feature fits into [Trail Sense's use cases](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases) and which tool it should be added to (if applicable).
     validations:
       required: true
-  
-  - type: textarea
-    id: use-case
-    attributes:
-      label: Use case
-      description: Describe how the new feature fits into [Trail Sense's use cases](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
-    validations:
-      required: true
-  
-  - type: input
-    id: tool
-    attributes:
-      label: Tool
-      description: The tool which should be extended to include the new feature. Leave blank if you are suggesting a new tool or an app-wide change.
-    validations:
-      required: false
     
   - type: textarea
     id: background-info

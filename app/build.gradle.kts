@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.time.LocalDate
 
 plugins {
@@ -59,7 +60,7 @@ android {
             )
         }
         // Play Store
-        create("playStore"){
+        create("playStore") {
             initWith(getByName("release"))
         }
         // GitHub
@@ -70,7 +71,7 @@ android {
 
         // ------- DEVELOPMENT -------
         // Local debug
-        getByName("debug"){
+        getByName("debug") {
             testProguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -99,23 +100,6 @@ android {
             applicationIdSuffix = ".nightly_release"
             versionNameSuffix = "-nightly-release-${LocalDate.now()}"
         }
-
-        // ------- DEPRECATED -------
-
-        // Legacy debug build for GitHub
-        create("dev") {
-            initWith(getByName("debug"))
-            signingConfig = signingConfigs.getByName("dev")
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = "-dev"
-        }
-        // Legacy release build for GitHub
-        create("legacyGithub") {
-            initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("dev")
-            applicationIdSuffix = ".github"
-            versionNameSuffix = "-github"
-        }
     }
     testOptions {
         unitTests.all {
@@ -134,8 +118,11 @@ android {
             useLegacyPackaging = true
         }
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.fromTarget(JavaVersion.VERSION_11.toString())
+        }
     }
 
     lint {
@@ -210,6 +197,7 @@ dependencies {
     implementation(libs.andromeda.json)
     implementation(libs.andromeda.widgets)
     implementation(libs.andromeda.ipc)
+    implementation(libs.andromeda.geojson)
 
     // Misc
     implementation(libs.sol)

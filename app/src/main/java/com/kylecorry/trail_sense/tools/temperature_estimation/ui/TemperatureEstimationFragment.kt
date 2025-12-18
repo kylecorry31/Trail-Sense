@@ -57,10 +57,10 @@ class TemperatureEstimationFragment : BoundFragment<FragmentToolTemperatureEstim
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val temps = if (temperatureUnits == TemperatureUnits.C) {
-            listOf(TemperatureUnits.C, TemperatureUnits.F)
+        val temps = if (temperatureUnits == TemperatureUnits.Celsius) {
+            listOf(TemperatureUnits.Celsius, TemperatureUnits.Fahrenheit)
         } else {
-            listOf(TemperatureUnits.F, TemperatureUnits.C)
+            listOf(TemperatureUnits.Fahrenheit, TemperatureUnits.Celsius)
         }.map {
             UnitInputView.DisplayUnit(
                 it,
@@ -155,7 +155,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentToolTemperatureEstim
         val amount = binding.tempEstBaseTemperature.amount?.toFloat() ?: return null
         val units = binding.tempEstBaseTemperature.unit as TemperatureUnits
         val uiTemp = Temperature.from(amount, units)
-        return uiTemp.convertTo(TemperatureUnits.C)
+        return uiTemp.convertTo(TemperatureUnits.Celsius)
     }
 
     private fun getBaseElevation(): Distance? {

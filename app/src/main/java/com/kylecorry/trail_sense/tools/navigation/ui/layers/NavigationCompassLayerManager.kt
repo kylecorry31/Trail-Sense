@@ -9,34 +9,35 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class NavigationCompassLayerManager {
     private val taskRunner = MapLayerBackgroundTask()
+    private val taskRunner2 = MapLayerBackgroundTask2()
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
-    private val photoMapLayer = TiledMapLayer()
+    private val photoMapLayer = PhotoMapLayer()
     private var contourLayer: ContourLayer? = null
     private var elevationLayer: ElevationLayer? = null
     private var hillshadeLayer: HillshadeLayer? = null
@@ -50,8 +51,8 @@ class NavigationCompassLayerManager {
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
         contourLayer = ContourLayer(taskRunner)
-        elevationLayer = ElevationLayer(taskRunner)
-        hillshadeLayer = HillshadeLayer(taskRunner)
+        elevationLayer = ElevationLayer(taskRunner2)
+        hillshadeLayer = HillshadeLayer(taskRunner2)
 
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
@@ -78,8 +79,6 @@ class NavigationCompassLayerManager {
         tideLayer.setPreferences(prefs.navigation.tideLayer)
         myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
-        photoMapLayer.setMinZoom(4)
-        photoMapLayer.controlsPdfCache = true
         cellTowerLayer.setPreferences(prefs.navigation.cellTowerLayer)
         view.setLayers(
             listOfNotNull(
@@ -97,18 +96,13 @@ class NavigationCompassLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (isPathLayerEnabled) PathLayerManager(context, pathLayer) else null,
+                if (isPathLayerEnabled) PathLayerManager(pathLayer) else null,
                 if (isMyLocationLayerEnabled) MyLocationLayerManager(
                     myLocationLayer,
                     Color.WHITE,
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
-                if (isTideLayerEnabled) TideMapLayerManager(context, tideLayer) else null,
-                if (isMapLayerEnabled) PhotoMapLayerManager(
-                    context,
-                    photoMapLayer,
-                    loadPdfs = prefs.navigation.photoMapLayer.loadPdfs.get()
-                ) else null
+                if (isTideLayerEnabled) TideMapLayerManager(tideLayer) else null
             )
         )
 
@@ -121,6 +115,7 @@ class NavigationCompassLayerManager {
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
+        taskRunner2.stop()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
@@ -136,10 +131,6 @@ class NavigationCompassLayerManager {
 
     fun onBoundsChanged(bounds: CoordinateBounds) {
         layerManager?.onBoundsChanged(bounds)
-    }
-
-    fun setBeacons(beacons: List<Beacon>) {
-        beaconLayer.setBeacons(beacons)
     }
 
     fun setDestination(beacon: Beacon?) {

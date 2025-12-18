@@ -25,6 +25,7 @@ object TrailSenseServiceRegister {
         val appContext = context.applicationContext
 
         // Shared services
+        AppServiceRegistry.register(appContext)
         AppServiceRegistry.register(StringLoader(appContext))
         AppServiceRegistry.register(FormatService.getInstance(appContext))
         AppServiceRegistry.register(PreferencesSubsystem.getInstance(appContext))

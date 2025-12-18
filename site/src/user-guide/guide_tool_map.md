@@ -23,6 +23,9 @@ You can measure distances by clicking the menu button in the top-right, and sele
 
 For a quick measurement from your location to a point, long-press that point on the map and click 'Distance'.
 
+## Measuring elevation
+Long press a location on the map to view the elevation (from the DEM).
+
 ## Layers
 Layers are used to display information on the map. You can find layer settings in Settings > Map or through the menu at the top right of the screen. You can choose to hide and show layers using the switch next to each layer's name. The opacity setting for each layer determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
 

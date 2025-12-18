@@ -5,6 +5,8 @@ import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
@@ -14,8 +16,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
@@ -25,7 +28,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
@@ -34,8 +37,8 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
@@ -57,8 +60,8 @@ class PhotoMapToolLayerManager {
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
-    private val selectedPointLayer = BeaconLayer()
-    private val photoMapLayer = TiledMapLayer()
+    private var photoMapLayer: PhotoMapLayer? = null
+    private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val cellTowerLayer = CellTowerMapLayer {
         CellTowerMapLayer.navigate(it)
@@ -99,11 +102,7 @@ class PhotoMapToolLayerManager {
         scaleBarLayer.units = prefs.baseDistanceUnits
 
         // Beacon layer
-        beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         beaconLayer.setPreferences(prefs.photoMaps.beaconLayer)
-
-        // Selected point layer
-        selectedPointLayer.setOutlineColor(Color.WHITE)
 
         // Path layer
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
@@ -130,7 +129,9 @@ class PhotoMapToolLayerManager {
         backgroundLayer.color = Color.rgb(127, 127, 127)
 
         // Photo map
-        photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
+        photoMapLayer?.recycle()
+        photoMapLayer = PhotoMapLayer(photoMapId)
+        photoMapLayer?.setBackgroundColor(Color.TRANSPARENT)
 
         // Cell tower layer
         cellTowerLayer.setPreferences(prefs.photoMaps.cellTowerLayer)
@@ -159,11 +160,7 @@ class PhotoMapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                PhotoMapLayerManager(context, photoMapLayer, !prefs.photoMaps.autoReducePdfMaps) {
-                    it.id == photoMapId
-                },
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(
-                    context,
                     pathLayer
                 ) else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
@@ -172,7 +169,6 @@ class PhotoMapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    context,
                     tideLayer
                 ) else null,
                 if (prefs.photoMaps.beaconLayer.isEnabled.get()) BeaconLayerManager(
@@ -180,7 +176,6 @@ class PhotoMapToolLayerManager {
                     beaconLayer
                 ) else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(
-                    context,
                     navigationLayer
                 ) else null
             )
@@ -213,15 +208,16 @@ class PhotoMapToolLayerManager {
     }
 
     fun setSelectedLocation(location: Coordinate?) {
-        selectedPointLayer.setBeacons(
-            listOfNotNull(
-                if (location == null) {
-                    null
-                } else {
-                    Beacon(0, "", location)
-                }
+        if (location == null) {
+            selectedPointLayer.setData(GeoJsonFeatureCollection(emptyList()))
+        } else {
+            val point = GeoJsonFeature.point(
+                location,
+                strokeColor = Color.WHITE,
+                color = Color.BLACK
             )
-        )
+            selectedPointLayer.setData(GeoJsonFeatureCollection(listOf(point)))
+        }
     }
 
     fun setOnBeaconClickListener(listener: ((Beacon) -> Unit)?) {

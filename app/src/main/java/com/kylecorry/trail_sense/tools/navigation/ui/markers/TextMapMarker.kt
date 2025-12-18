@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
+import kotlin.math.max
 
 class TextMapMarker(
     override val location: Coordinate,
@@ -22,7 +23,8 @@ class TextMapMarker(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,
         scale: Float,
-        rotation: Float
+        rotation: Float,
+        metersPerPixel: Float,
     ) {
         val size = drawer.sp(this.size)
         drawer.noTint()
@@ -47,5 +49,15 @@ class TextMapMarker(
 
     override fun onClick(): Boolean {
         return onClickFn()
+    }
+
+    override fun calculateSizeInPixels(
+        drawer: ICanvasDrawer,
+        metersPerPixel: Float,
+        scale: Float
+    ): Float {
+        drawer.textSize(drawer.sp(size) * scale)
+        val dimensions = drawer.textDimensions(text)
+        return max(dimensions.first, dimensions.second)
     }
 }

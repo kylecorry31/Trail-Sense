@@ -40,12 +40,13 @@ import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.extensions.lineString
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 
@@ -58,8 +59,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
     private var shouldCalculateMyLocation = false
 
-    private val beaconLayer = BeaconLayer(showLabels = true)
-    private val pathLayer = PathLayer()
+    private val layer = ConfigurableGeoJsonLayer()
     private val scaleBarLayer = ScaleBarLayer()
 
     private val radius = Distance.meters(100f)
@@ -70,6 +70,10 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         } else {
             Distance.meters(30f)
         }
+    }
+
+    private val updateTimer = CoroutineTimer {
+        update()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -139,10 +143,10 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         binding.location1Expansion.expand()
 
         // TODO: Display the distance to the location in the title
-        beaconLayer.setOutlineColor(Color.WHITE)
-        pathLayer.setShouldRenderWithDrawLines(true)
+        layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = true)
+        layer.renderer.configurePointRenderer(shouldRenderLabels = true)
         scaleBarLayer.units = prefs.baseDistanceUnits
-        binding.map.setLayers(listOf(pathLayer, beaconLayer, scaleBarLayer))
+        binding.map.setLayers(listOf(layer, scaleBarLayer))
 
         binding.resetBtn.setOnClickListener {
             reset()
@@ -170,30 +174,41 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         binding.map.fitIntoView(bounds)
 
         // Show the locations on the map
-        beaconLayer.setBeacons(listOfNotNull(
+        val points = listOfNotNull(
             location1?.let {
-                Beacon.temporary(
+                GeoJsonFeature.point(
                     it,
                     id = 1,
                     name = "1",
-                    color = Resources.getPrimaryMarkerColor(requireContext())
+                    color = Resources.getPrimaryMarkerColor(requireContext()),
+                    strokeColor = Color.WHITE
                 )
             },
             location2?.let {
-                Beacon.temporary(
+                GeoJsonFeature.point(
                     it,
                     id = 2,
                     name = "2",
-                    color = Resources.getPrimaryMarkerColor(requireContext())
+                    color = Resources.getPrimaryMarkerColor(requireContext()),
+                    strokeColor = Color.WHITE
                 )
             },
-            destination?.let { Beacon.temporary(it, id = 3, color = AppColor.Green.color) }
-        ))
+            destination?.let {
+                GeoJsonFeature.point(
+                    it,
+                    id = 3,
+                    color = AppColor.Green.color,
+                    strokeColor = Color.WHITE
+                )
+            }
+        )
 
         // Draw bearing lines
         val path1 = getPath(1)
         val path2 = getPath(2)
-        pathLayer.setPaths(listOfNotNull(path1, path2))
+        val paths = listOfNotNull(path1, path2)
+
+        layer.setData(GeoJsonFeatureCollection(points + paths))
     }
 
     private fun updateDistances() {
@@ -287,7 +302,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             .toRelativeDistance()
     }
 
-    private fun getPath(locationIdx: Int): IMappablePath? {
+    private fun getPath(locationIdx: Int): GeoJsonFeature? {
         val destination = location
         val start =
             if (locationIdx == 1) binding.location1.coordinate else binding.location2.coordinate
@@ -307,14 +322,12 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         }
 
         return if (start != null && end != null) {
-            val pts = listOf(
-                MappableLocation(0, start, Resources.getPrimaryMarkerColor(requireContext()), null),
-                MappableLocation(0, end, Resources.getPrimaryMarkerColor(requireContext()), null),
-            )
-            MappablePath(
-                locationIdx.toLong(),
+            val pts = listOf(start, end)
+            GeoJsonFeature.lineString(
                 if (shouldCalculateMyLocation) pts.reversed() else pts,
-                Resources.getPrimaryMarkerColor(requireContext()), LineStyle.Arrow
+                locationIdx.toLong(),
+                color = Resources.getPrimaryMarkerColor(requireContext()),
+                lineStyle = LineStyle.Arrow
             )
         } else {
             null
@@ -326,10 +339,13 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         binding.bearing1.start()
         binding.bearing2.start()
         restoreState()
+        // The map width/height needs time to populate for some reason
+        updateTimer.once(500)
     }
 
     override fun onPause() {
         super.onPause()
+        updateTimer.stop()
         binding.bearing1.stop()
         binding.bearing2.stop()
         binding.location1.pause()
