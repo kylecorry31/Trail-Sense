@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
 import android.graphics.Bitmap
+import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
 import com.kylecorry.trail_sense.shared.andromeda_temp.from2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
