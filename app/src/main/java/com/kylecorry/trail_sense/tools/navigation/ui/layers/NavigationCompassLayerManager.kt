@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerMana
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
@@ -101,8 +100,7 @@ class NavigationCompassLayerManager {
                     myLocationLayer,
                     Color.WHITE,
                     Resources.getPrimaryMarkerColor(context)
-                ) else null,
-                if (isBeaconLayerEnabled) BeaconLayerManager(context, beaconLayer) else null
+                ) else null
             )
         )
 

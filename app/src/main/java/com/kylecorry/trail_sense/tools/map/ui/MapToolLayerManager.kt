@@ -37,7 +37,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
@@ -170,10 +169,6 @@ class MapToolLayerManager {
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context),
                     Resources.getPrimaryMarkerColor(context)
-                ) else null,
-                if (prefs.map.beaconLayer.isEnabled.get()) BeaconLayerManager(
-                    context,
-                    beaconLayer
                 ) else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(
                     navigationLayer
