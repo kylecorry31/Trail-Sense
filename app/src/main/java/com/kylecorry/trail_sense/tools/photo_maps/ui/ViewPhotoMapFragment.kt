@@ -367,9 +367,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.map.minScale = 0f
         val bounds = map.boundary() ?: CoordinateBounds(85.0, 180.0, -85.0, -180.0)
         binding.map.projection = MapProjectionFactory().getProjection(map.metadata.projection)
-        binding.map.fitIntoView(bounds)
+        binding.map.fitIntoView(bounds, paddingFactor = 1.05f)
         binding.map.constraintBounds = bounds
         binding.map.minScale = binding.map.scale
+        layerManager.improveResolution(binding.map.mapBounds, binding.map.metersPerPixel.toDouble())
         // TODO: Use the same lock logic as the MapFragment
 //        binding.map.onImageLoadedListener = {
 //            if (shouldLockOnMapLoad) {

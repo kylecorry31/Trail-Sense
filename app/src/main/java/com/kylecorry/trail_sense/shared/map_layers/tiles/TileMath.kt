@@ -18,11 +18,9 @@ object TileMath {
         metersPerPixel: Double,
         maxZoom: Int = 20
     ): List<Tile> {
-        val minLat = max(bounds.south, MIN_LATITUDE)
-        val maxLat = min(bounds.north, MAX_LATITUDE)
         return getTiles(
             bounds,
-            distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2).coerceAtMost(maxZoom)
+            getZoomLevel(bounds, metersPerPixel).coerceAtMost(maxZoom)
         )
     }
 
@@ -73,10 +71,7 @@ object TileMath {
         metersPerPixel: Double,
         maxZoom: Int = 20
     ): CoordinateBounds {
-        val minLat = max(bounds.south, MIN_LATITUDE)
-        val maxLat = min(bounds.north, MAX_LATITUDE)
-        val zoom =
-            distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2).coerceAtMost(maxZoom)
+        val zoom = getZoomLevel(bounds, metersPerPixel).coerceAtMost(maxZoom)
         val northWestTile = latLonToTileXY(bounds.north, bounds.west, zoom).getBounds()
         val southEastTile = latLonToTileXY(bounds.south, bounds.east, zoom).getBounds()
         return CoordinateBounds(
@@ -93,6 +88,12 @@ object TileMath {
         val x = ((lon + 180.0) / 360.0 * n).toInt()
         val y = ((1.0 - ln(tan(latRad) + 1 / cos(latRad)) / PI) / 2.0 * n).toInt()
         return Tile(x, y, zoom)
+    }
+
+    fun getZoomLevel(bounds: CoordinateBounds, metersPerPixel: Double): Int {
+        val minLat = max(bounds.south, MIN_LATITUDE)
+        val maxLat = min(bounds.north, MAX_LATITUDE)
+        return distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2)
     }
 
     fun distancePerPixelToZoom(
