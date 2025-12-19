@@ -22,13 +22,13 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerMana
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class NavigationCompassLayerManager {
     private val taskRunner = MapLayerBackgroundTask()
@@ -102,22 +102,23 @@ class NavigationCompassLayerManager {
                     Color.WHITE,
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
-                if (isTideLayerEnabled) TideMapLayerManager(tideLayer) else null
+                if (isBeaconLayerEnabled) BeaconLayerManager(context, beaconLayer) else null
             )
         )
 
         key += 1
 
         if (prefs.navigation.useRadarCompass) {
+            view.start()
             layerManager?.start()
         }
     }
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
-        taskRunner2.stop()
         layerManager?.stop()
         layerManager = null
+        view.stop()
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 

@@ -48,7 +48,6 @@ import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class MapToolLayerManager {
 
@@ -172,9 +171,6 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context),
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
-                if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    tideLayer
-                ) else null,
                 if (prefs.map.beaconLayer.isEnabled.get()) BeaconLayerManager(
                     context,
                     beaconLayer
@@ -185,6 +181,7 @@ class MapToolLayerManager {
             )
         )
 
+        view.start()
         layerManager?.start()
 
         if (view is View) {
@@ -196,9 +193,9 @@ class MapToolLayerManager {
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
-        taskRunner2.stop()
         layerManager?.stop()
         layerManager = null
+        view.stop()
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 

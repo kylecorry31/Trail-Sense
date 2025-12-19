@@ -10,11 +10,11 @@ class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource()) {
         invalidate()
     }
 
-    fun start() {
+    override fun start() {
         timer.interval(Duration.ofMinutes(1))
     }
 
-    fun stop() {
+    override fun stop() {
         timer.stop()
     }
 

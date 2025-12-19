@@ -152,7 +152,6 @@ class MapLayerBackgroundTask2 {
 
     fun stop() {
         runner.cancel()
-        clearTasks()
     }
 
     private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {

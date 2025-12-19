@@ -269,4 +269,13 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         return toView(source.x, source.y, false)
     }
 
+    override fun start() {
+        layers.forEach { it.start() }
+        invalidate()
+    }
+
+    override fun stop() {
+        layers.forEach { it.stop() }
+    }
+
 }

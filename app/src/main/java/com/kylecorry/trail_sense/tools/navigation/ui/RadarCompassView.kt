@@ -373,6 +373,15 @@ class RadarCompassView : BaseCompassView, IMapView {
         this.layers.addAll(layers)
     }
 
+    override fun start() {
+        layers.forEach { it.start() }
+        invalidate()
+    }
+
+    override fun stop() {
+        layers.forEach { it.stop() }
+    }
+
     override val mapProjection: IMapViewProjection
         get() = hooks.memo(
             "mapProjection",

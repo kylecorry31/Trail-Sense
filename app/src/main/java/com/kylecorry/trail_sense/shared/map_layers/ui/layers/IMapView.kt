@@ -10,6 +10,9 @@ interface IMapView {
     fun removeLayer(layer: ILayer)
     fun setLayers(layers: List<ILayer>)
 
+    fun start()
+    fun stop()
+
     /**
      * The current projection of the map. The response should be fixed, so it doesn't change on consumers using it.
      */
