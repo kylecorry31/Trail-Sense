@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
@@ -39,19 +38,17 @@ class NavigationCompassLayerManager {
         private set
 
     fun resume(context: Context, view: IMapView) {
-        val hasCompass = SensorService(context).hasCompass()
         contourLayer = ContourLayer(taskRunner2)
         elevationLayer = ElevationLayer(taskRunner2)
         hillshadeLayer = HillshadeLayer(taskRunner2)
 
-        // Location layer
+        // Hardcoded customization for this tool
         myLocationLayer.setColor(Color.WHITE)
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
+        beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
+        photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
 
-        if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
-        }
-
+        // Preferences
         val isMapLayerEnabled = prefs.navigation.photoMapLayer.isEnabled.get()
         val isContourLayerEnabled = prefs.navigation.contourLayer.isEnabled.get()
         val isElevationLayerEnabled = prefs.navigation.elevationLayer.isEnabled.get()
@@ -61,8 +58,6 @@ class NavigationCompassLayerManager {
         val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
         val isMyLocationLayerEnabled = prefs.navigation.myLocationLayer.isEnabled.get()
         val isCellTowerLayerEnabled = prefs.navigation.cellTowerLayer.isEnabled.get()
-
-        beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         beaconLayer.setPreferences(prefs.navigation.beaconLayer)
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         pathLayer.setPreferences(prefs.navigation.pathLayer)
@@ -72,8 +67,8 @@ class NavigationCompassLayerManager {
         hillshadeLayer?.setPreferences(prefs.map.hillshadeLayer)
         tideLayer.setPreferences(prefs.navigation.tideLayer)
         myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
-        photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         cellTowerLayer.setPreferences(prefs.navigation.cellTowerLayer)
+
         view.setLayers(
             listOfNotNull(
                 if (isElevationLayerEnabled) elevationLayer else null,
@@ -95,7 +90,7 @@ class NavigationCompassLayerManager {
         }
     }
 
-    fun pause(context: Context, view: IMapView) {
+    fun pause(view: IMapView) {
         view.stop()
     }
 

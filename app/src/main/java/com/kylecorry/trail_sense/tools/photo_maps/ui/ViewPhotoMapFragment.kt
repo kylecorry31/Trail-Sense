@@ -325,7 +325,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     fun adjustLayers() {
         layerSheet?.dismiss()
         layerSheet = MapLayersBottomSheet(prefs.photoMaps.layerManager)
-        layerManager.pause(requireContext(), binding.map)
+        layerManager.pause(binding.map)
         layerSheet?.setOnDismissListener {
             resetLayerManager()
         }
@@ -485,7 +485,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         super.onPause()
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
-        layerManager.pause(requireContext(), binding.map)
+        layerManager.pause(binding.map)
         // Reset brightness
         screenLight.off()
 

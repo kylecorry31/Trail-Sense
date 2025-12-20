@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
@@ -67,22 +66,15 @@ class PhotoMapToolLayerManager {
 
     fun resume(context: Context, view: IMapView, photoMapId: Long) {
         contourLayer = ContourLayer()
+        photoMapLayer = PhotoMapLayer(photoMapId)
 
-        // Location layer
-        val hasCompass = SensorService(context).hasCompass()
-        if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
-        }
+        // Hardcoded customization for this tool
         myLocationLayer.setColor(Resources.getPrimaryMarkerColor(context))
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
-
-        // Compass layer
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
         compassLayer.paddingTopDp = 8f
         compassLayer.paddingRightDp = 8f
-
-        // Elevation layer
         myElevationLayer = MyElevationLayer(
             formatter,
             PixelCoordinate(
@@ -90,40 +82,18 @@ class PhotoMapToolLayerManager {
                 -Resources.dp(context, 16f)
             )
         )
-
-        // Scale bar layer
-        scaleBarLayer.units = prefs.baseDistanceUnits
-
-        // Beacon layer
-        beaconLayer.setPreferences(prefs.photoMaps.beaconLayer)
-
-        // Path layer
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        pathLayer.setPreferences(prefs.photoMaps.pathLayer)
-
-        // Navigation layer
-        navigationLayer.setPreferences(prefs.photoMaps.navigationLayer)
-
-        // Contour layer
-        contourLayer?.setPreferences(prefs.photoMaps.contourLayer)
-
-        // Distance layer
         distanceLayer.isEnabled = false
-
-        // Tide layer
-        tideLayer.setPreferences(prefs.photoMaps.tideLayer)
-
-        // My location layer
-        myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
-
-        // Background
         backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
-
-        // Photo map
-        photoMapLayer = PhotoMapLayer(photoMapId)
         lastMapDetails?.let { improveResolution(it.first, it.second) }
 
-        // Cell tower layer
+        // Preferences
+        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
+        pathLayer.setPreferences(prefs.photoMaps.pathLayer)
+        beaconLayer.setPreferences(prefs.photoMaps.beaconLayer)
+        navigationLayer.setPreferences(prefs.photoMaps.navigationLayer)
+        contourLayer?.setPreferences(prefs.photoMaps.contourLayer)
+        tideLayer.setPreferences(prefs.photoMaps.tideLayer)
+        myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
         cellTowerLayer.setPreferences(prefs.photoMaps.cellTowerLayer)
 
         // Start
@@ -151,7 +121,7 @@ class PhotoMapToolLayerManager {
         view.start()
     }
 
-    fun pause(context: Context, view: IMapView) {
+    fun pause(view: IMapView) {
         view.stop()
     }
 

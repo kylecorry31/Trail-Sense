@@ -144,7 +144,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         // TODO: Display the distance to the location in the title
         layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = true)
         layer.renderer.configurePointRenderer(shouldRenderLabels = true)
-        scaleBarLayer.units = prefs.baseDistanceUnits
         binding.map.setLayers(listOf(layer, scaleBarLayer))
 
         binding.resetBtn.setOnClickListener {

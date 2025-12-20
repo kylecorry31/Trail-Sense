@@ -24,7 +24,6 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
@@ -74,8 +73,6 @@ class MapToolLayerManager {
     var key: Int = 0
 
     fun resume(context: Context, view: IMapView) {
-        val hasCompass = SensorService(context).hasCompass()
-
         contourLayer = ContourLayer(taskRunner2)
         hillshadeLayer = HillshadeLayer(taskRunner2)
         elevationLayer = ElevationLayer(taskRunner2)
@@ -96,14 +93,10 @@ class MapToolLayerManager {
             )
         )
 
-        if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
-        }
         myLocationLayer.setColor(Resources.getPrimaryMarkerColor(context))
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
 
         // Preferences
-        scaleBarLayer.units = prefs.baseDistanceUnits
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         beaconLayer.setPreferences(prefs.map.beaconLayer)
         pathLayer.setPreferences(prefs.map.pathLayer)
@@ -150,7 +143,7 @@ class MapToolLayerManager {
         key++
     }
 
-    fun pause(context: Context, view: IMapView) {
+    fun pause(view: IMapView) {
         view.stop()
     }
 

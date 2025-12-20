@@ -85,7 +85,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         useEffectWithCleanup(manager, mapView, resetOnResume) {
             manager.resume(context, mapView)
             return@useEffectWithCleanup {
-                manager.pause(context, mapView)
+                manager.pause(mapView)
             }
         }
         val layerEditSheet = useMemo(prefs) {
@@ -100,7 +100,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {
-            manager.pause(context, mapView)
+            manager.pause(mapView)
             layerEditSheet.setOnDismissListener {
                 manager.resume(context, mapView)
             }

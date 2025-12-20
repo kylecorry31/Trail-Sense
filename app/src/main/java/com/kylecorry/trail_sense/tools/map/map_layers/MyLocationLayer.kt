@@ -4,11 +4,13 @@ import android.graphics.Color
 import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.PathMapMarker
 
@@ -17,7 +19,7 @@ class MyLocationLayer : IAsyncLayer {
     private var _location: Coordinate? = null
     private var _azimuth: Float? = null
     private var _path: Path? = null
-    private var _showDirection = true
+    private val _showDirection = AppServiceRegistry.get<SensorService>().hasCompass()
 
     @ColorInt
     private var _color: Int = Color.WHITE
@@ -35,11 +37,6 @@ class MyLocationLayer : IAsyncLayer {
 
     override val percentOpacity: Float
         get() = _percentOpacity
-
-    fun setShowDirection(show: Boolean) {
-        _showDirection = show
-        invalidate()
-    }
 
     fun setLocation(location: Coordinate) {
         _location = location
@@ -122,7 +119,7 @@ class MyLocationLayer : IAsyncLayer {
             25,
             sizeDp
         )
-        
+
         val anchor = map.toPixel(marker.location)
         marker.draw(
             drawer,
@@ -171,7 +168,7 @@ class MyLocationLayer : IAsyncLayer {
 
             _path = path
         }
-        
+
         val marker = PathMapMarker(
             _location ?: map.mapCenter,
             path,
@@ -181,7 +178,7 @@ class MyLocationLayer : IAsyncLayer {
             strokeWeight = 2f,
             rotation = (_azimuth ?: 0f) + map.mapRotation
         )
-        
+
         val anchor = map.toPixel(marker.location)
         marker.draw(
             drawer,

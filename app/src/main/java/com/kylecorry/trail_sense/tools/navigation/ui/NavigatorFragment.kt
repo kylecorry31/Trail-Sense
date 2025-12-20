@@ -306,7 +306,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompass.setOnLongPressListener {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(userPrefs.navigation.layerManager)
-            layers.pause(requireContext(), binding.radarCompass)
+            layers.pause(binding.radarCompass)
             layerSheet?.setOnDismissListener {
                 layers.resume(requireContext(), binding.radarCompass)
             }
@@ -387,7 +387,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         errors.reset()
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
-        layers.pause(requireContext(), binding.radarCompass)
+        layers.pause(binding.radarCompass)
         northReferenceHideTimer.stop()
     }
 

@@ -6,9 +6,9 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
@@ -19,11 +19,9 @@ class ScaleBarLayer : ILayer {
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
 
-    var units: DistanceUnits = DistanceUnits.Meters
-        set(value) {
-            field = value
-            invalidate()
-        }
+    private val prefs = AppServiceRegistry.get<UserPreferences>()
+
+    val units = prefs.baseDistanceUnits
 
     private val formatter = AppServiceRegistry.get<FormatService>()
 
