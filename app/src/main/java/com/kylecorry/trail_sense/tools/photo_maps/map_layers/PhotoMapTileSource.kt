@@ -5,6 +5,7 @@ import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
 import kotlinx.coroutines.sync.Mutex
@@ -12,7 +13,8 @@ import kotlinx.coroutines.sync.withLock
 
 class PhotoMapTileSource(
     var backgroundColor: Int = Color.WHITE,
-    private val pruneCache: Boolean = false
+    private val pruneCache: Boolean = false,
+    private val filter: (map: PhotoMap) -> Boolean = { it.visible }
 ) : TileSource {
 
     var loadPdfs = true
@@ -27,7 +29,7 @@ class PhotoMapTileSource(
                 val repo = AppServiceRegistry.get<MapRepo>()
                 internalSelector = PhotoMapTileSourceSelector(
                     AppServiceRegistry.get(),
-                    repo.getAllMaps().filter { it.visible },
+                    repo.getAllMaps().filter(filter),
                     8,
                     loadPdfs,
                     backgroundColor = backgroundColor,

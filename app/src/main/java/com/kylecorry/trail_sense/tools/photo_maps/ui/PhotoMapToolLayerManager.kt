@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -34,6 +35,7 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
@@ -55,6 +57,7 @@ class PhotoMapToolLayerManager {
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
+    private var photoMapLayer: PhotoMapLayer? = null
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val cellTowerLayer = CellTowerMapLayer {
@@ -65,9 +68,12 @@ class PhotoMapToolLayerManager {
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
     private var layerManager: ILayerManager? = null
+    private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
-    fun resume(context: Context, view: IMapView) {
+    private var lastMapDetails: Pair<CoordinateBounds, Double>? = null
+
+    fun resume(context: Context, view: IMapView, photoMapId: Long) {
         contourLayer = ContourLayer(taskRunner)
 
         // Location layer
@@ -118,12 +124,22 @@ class PhotoMapToolLayerManager {
         // My location layer
         myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
 
+        // Background
+        backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
+
+        // Photo map
+        photoMapLayer = PhotoMapLayer(photoMapId)
+        photoMapLayer?.setBackgroundColor(Color.TRANSPARENT)
+        lastMapDetails?.let { improveResolution(it.first, it.second) }
+
         // Cell tower layer
         cellTowerLayer.setPreferences(prefs.photoMaps.cellTowerLayer)
 
         // Start
         view.setLayers(
             listOfNotNull(
+                backgroundLayer,
+                photoMapLayer,
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.photoMaps.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
@@ -177,6 +193,11 @@ class PhotoMapToolLayerManager {
     fun onBoundsChanged(bounds: CoordinateBounds) {
         layerManager?.onBoundsChanged(bounds)
         distanceLayer.invalidate()
+    }
+
+    fun improveResolution(bounds: CoordinateBounds, metersPerPixel: Double) {
+        lastMapDetails = bounds to metersPerPixel
+        photoMapLayer?.improveResolution(bounds, metersPerPixel, 70)
     }
 
     fun onElevationChanged(elevation: Float) {

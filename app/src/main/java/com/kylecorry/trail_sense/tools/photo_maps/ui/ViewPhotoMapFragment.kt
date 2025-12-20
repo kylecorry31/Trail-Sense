@@ -18,6 +18,8 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -42,6 +44,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScree
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
@@ -126,7 +129,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         observe(compass) {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
-            binding.map.azimuth = bearing
+//            binding.map.azimuth = bearing
             layerManager.onBearingChanged(bearing)
             if (mapLockMode == MapLockMode.Compass) {
                 binding.map.mapAzimuth = bearing
@@ -140,7 +143,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         reloadMap()
 
-        binding.map.onMapLongClick = {
+        binding.map.setOnLongPressListener {
             onLongPress(it)
         }
 
@@ -149,8 +152,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         // TODO: Don't show if location not on map
 
         // Update initial map rotation
-        binding.map.mapAzimuth = 0f
-        binding.map.keepMapUp = keepMapUp
+        binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
         // Set the button states
         CustomUiUtils.setButtonState(binding.lockBtn, false)
@@ -163,11 +165,22 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         }
 
         binding.zoomOutBtn.setOnClickListener {
-            binding.map.zoomBy(0.5f)
+            binding.map.zoom(0.5f)
         }
 
         binding.zoomInBtn.setOnClickListener {
-            binding.map.zoomBy(2f)
+            binding.map.zoom(2f)
+        }
+    }
+
+    private fun getDefaultMapAzimuth(keepMapUp: Boolean): Float {
+        return if (keepMapUp) {
+            -SolMath.deltaAngle(
+                map?.calibration?.rotation ?: 0f,
+                map?.baseRotation()?.toFloat() ?: 0f
+            )
+        } else {
+            0f
         }
     }
 
@@ -303,7 +316,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun resetLayerManager() {
-        layerManager.resume(requireContext(), binding.map)
+        layerManager.resume(requireContext(), binding.map, mapId)
 
         // Populate the last known location and map bounds
         map?.boundary()?.let {
@@ -362,13 +375,18 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
-        binding.map.onImageLoadedListener = {
-            if (shouldLockOnMapLoad) {
-                updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
-                shouldLockOnMapLoad = false
-            }
+        binding.map.minScale = 0f
+        val bounds = map.boundary() ?: CoordinateBounds(85.0, 180.0, -85.0, -180.0)
+        binding.map.projection = MapProjectionFactory().getProjection(map.metadata.projection)
+        binding.map.fitIntoView(bounds, paddingFactor = 1.05f)
+        binding.map.constraintBounds = bounds
+        binding.map.minScale = binding.map.scale
+        layerManager.improveResolution(binding.map.mapBounds, binding.map.metersPerPixel.toDouble())
+        if (shouldLockOnMapLoad) {
+            updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
+            shouldLockOnMapLoad = false
         }
-        binding.map.showMap(map)
+        binding.map.mapAzimuth = getDefaultMapAzimuth(prefs.photoMaps.keepMapFacingUp)
         map.boundary()?.let {
             layerManager.onBoundsChanged(it)
         }
@@ -395,8 +413,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
 
                 // Reset the rotation
-                binding.map.mapAzimuth = 0f
-                binding.map.keepMapUp = keepMapUp
+                binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as locked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
@@ -414,7 +431,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
 
                 // Rotate
-                binding.map.keepMapUp = false
                 binding.map.mapAzimuth = -compass.rawBearing
 
                 // Show as locked
@@ -430,8 +446,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.isPanEnabled = true
 
                 // Reset the rotation
-                binding.map.mapAzimuth = 0f
-                binding.map.keepMapUp = keepMapUp
+                binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as unlocked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
@@ -451,7 +466,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 )
 
                 // Disable pan
-                binding.map.setPanEnabled(false, false)
+                binding.map.isInteractive = false
                 binding.map.isZoomEnabled = false
 
                 // Show as locked

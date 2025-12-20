@@ -27,7 +27,7 @@ import kotlin.math.hypot
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
     private val taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTask2(),
-    private val minZoomLevel: Int? = null,
+    private val minZoomLevel: Int? = null
 ) : IAsyncLayer {
 
     private var shouldReloadTiles = true
@@ -42,6 +42,12 @@ abstract class TileMapLayer<T : TileSource>(
     private var updateListener: (() -> Unit)? = null
     private var preRenderedBitmap: Bitmap? = null
     private var preRenderedBounds: CoordinateBounds? = null
+    private var zoomOffset: Int = 0
+
+    fun setZoomOffset(offset: Int) {
+        zoomOffset = offset
+        shouldReloadTiles = true
+    }
 
     open fun setBackgroundColor(color: Int) {
         this.backgroundColor = color
@@ -53,7 +59,13 @@ abstract class TileMapLayer<T : TileSource>(
         taskRunner.addTask { viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
             shouldReloadTiles = false
             try {
-                val tiles = TileMath.getTiles(bounds, projection.metersPerPixel.toDouble())
+                val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel.toDouble())
+                var adjustedOffset = zoomOffset + 1
+                var tiles: List<Tile>
+                do {
+                    adjustedOffset--
+                    tiles = TileMath.getTiles(bounds, (zoom + adjustedOffset).coerceAtMost(20))
+                } while (tiles.size > MAX_TILES && (zoom + adjustedOffset) > 1)
 
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
@@ -112,6 +124,10 @@ abstract class TileMapLayer<T : TileSource>(
 
     override fun invalidate() {
         // Do nothing, invalidation is handled separately
+    }
+
+    protected fun notifyListeners() {
+        updateListener?.invoke()
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
@@ -239,6 +255,6 @@ abstract class TileMapLayer<T : TileSource>(
 
     companion object {
         private const val MAX_PRE_RENDER_SIZE = 500
-        private const val MAX_TILES = 100
+        const val MAX_TILES = 150
     }
 }
