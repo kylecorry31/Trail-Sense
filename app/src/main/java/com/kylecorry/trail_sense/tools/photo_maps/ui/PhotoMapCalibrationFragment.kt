@@ -21,13 +21,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
@@ -50,8 +49,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     private lateinit var backCallback: OnBackPressedCallback
 
-    private val prefs by lazy { UserPreferences(requireContext()) }
-
     private val manager = MapCalibrationManager(maxPoints) {
         updateMapCalibration()
     }
@@ -73,7 +70,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private var showPreview = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
     }

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.map_layers
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.withId
@@ -21,6 +22,12 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
     private var scope: CoroutineScope? = null
     private val listenerRunner = CoroutineQueueRunner()
     private var wasBacktrackOn = false
+
+    private val prefs = AppServiceRegistry.get<UserPreferences>()
+
+    init {
+        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
+    }
 
     private val onLocationChanged = { _: Bundle ->
         if (wasBacktrackOn) {
@@ -58,10 +65,6 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
         renderer.configureLineStringRenderer(
             backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId)
         )
-    }
-
-    fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
-        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = shouldRenderWithDrawLines)
     }
 
     fun reload() {

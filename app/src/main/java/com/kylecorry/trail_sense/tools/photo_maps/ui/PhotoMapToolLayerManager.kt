@@ -45,7 +45,7 @@ class PhotoMapToolLayerManager {
     }
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
-    private var contourLayer: ContourLayer? = null
+    private val contourLayer = ContourLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
@@ -66,7 +66,6 @@ class PhotoMapToolLayerManager {
     private var lastMapDetails: Pair<CoordinateBounds, Double>? = null
 
     fun resume(context: Context, view: IMapView, photoMapId: Long) {
-        contourLayer = ContourLayer()
         photoMapLayer = PhotoMapLayer(photoMapId)
 
         // Hardcoded customization for this tool
@@ -86,9 +85,6 @@ class PhotoMapToolLayerManager {
         distanceLayer.isEnabled = false
         backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
         lastMapDetails?.let { improveResolution(it.first, it.second) }
-
-        // Preferences
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
 
         view.setLayersWithPreferences(
             backgroundLayer to null,

@@ -23,15 +23,15 @@ import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLaye
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class NavigationCompassLayerManager {
-    private val taskRunner2 = MapLayerBackgroundTask()
+    private val taskRunner = MapLayerBackgroundTask()
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val photoMapLayer = PhotoMapLayer()
-    private var contourLayer: ContourLayer? = null
-    private var elevationLayer: ElevationLayer? = null
-    private var hillshadeLayer: HillshadeLayer? = null
+    private val contourLayer = ContourLayer(taskRunner)
+    private val elevationLayer = ElevationLayer(taskRunner)
+    private val hillshadeLayer = HillshadeLayer(taskRunner)
     private val cellTowerLayer = CellTowerMapLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
@@ -39,18 +39,11 @@ class NavigationCompassLayerManager {
         private set
 
     fun resume(context: Context, view: IMapView) {
-        contourLayer = ContourLayer(taskRunner2)
-        elevationLayer = ElevationLayer(taskRunner2)
-        hillshadeLayer = HillshadeLayer(taskRunner2)
-
         // Hardcoded customization for this tool
         myLocationLayer.setColor(Color.WHITE)
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
-
-        // Preferences
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
 
         view.setLayersWithPreferences(
             elevationLayer to prefs.map.elevationLayer,

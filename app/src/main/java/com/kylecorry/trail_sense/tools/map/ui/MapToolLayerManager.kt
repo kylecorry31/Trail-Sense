@@ -94,9 +94,6 @@ class MapToolLayerManager {
         myLocationLayer.setColor(Resources.getPrimaryMarkerColor(context))
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
 
-        // Preferences
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-
         view.setLayersWithPreferences(
             backgroundLayer to null,
             baseMapLayer to prefs.map.baseMapLayer,
