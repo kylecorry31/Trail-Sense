@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 
 class PhotoMapLayer(private val photoMapId: Long? = null) : TileMapLayer<PhotoMapTileSource>(
     PhotoMapTileSource(pruneCache = true) {
@@ -41,5 +42,10 @@ class PhotoMapLayer(private val photoMapId: Long? = null) : TileMapLayer<PhotoMa
     override fun setBackgroundColor(color: Int) {
         super.setBackgroundColor(color)
         source.backgroundColor = color
+    }
+
+    override fun stop() {
+        super.stop()
+        PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 }
