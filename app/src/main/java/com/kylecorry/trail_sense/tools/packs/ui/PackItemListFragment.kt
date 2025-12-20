@@ -16,6 +16,7 @@ import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
@@ -27,7 +28,6 @@ import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.commands.ExportPackingListCommand
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemAction
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemListItemMapper
-import com.kylecorry.trail_sense.shared.Units
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Double.max

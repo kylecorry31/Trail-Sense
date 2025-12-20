@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.navigation.ui.data
 
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.sense.location.IGPS
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand

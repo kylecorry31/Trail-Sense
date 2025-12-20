@@ -14,7 +14,6 @@ import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.databinding.FragmentSightingCompassSheetBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlinx.coroutines.Dispatchers

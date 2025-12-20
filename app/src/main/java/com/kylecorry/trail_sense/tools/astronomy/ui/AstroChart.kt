@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.chart.data.AreaChartLayer
 import com.kylecorry.andromeda.views.chart.data.BitmapChartLayer
-import com.kylecorry.andromeda.views.chart.data.ChartLayer
 import com.kylecorry.andromeda.views.chart.data.FullAreaChartLayer
 import com.kylecorry.andromeda.views.chart.data.HorizontalLineChartLayer
 import com.kylecorry.andromeda.views.chart.data.LineChartLayer
@@ -17,8 +16,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
-import com.kylecorry.trail_sense.tools.navigation.ui.BitmapLoader
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.navigation.ui.BitmapLoader
 import java.time.Instant
 
 

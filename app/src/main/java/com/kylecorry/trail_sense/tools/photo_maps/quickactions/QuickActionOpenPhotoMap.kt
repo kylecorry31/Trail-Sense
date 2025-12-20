@@ -10,10 +10,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.domain.selection.ActiveMapSelector
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import kotlinx.coroutines.launch
 
 class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickActionButton(

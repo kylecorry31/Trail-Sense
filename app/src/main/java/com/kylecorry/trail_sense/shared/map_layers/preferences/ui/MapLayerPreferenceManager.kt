@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 import android.content.Context
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
-import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerViewPreferences
 
 class MapLayerPreferenceManager(

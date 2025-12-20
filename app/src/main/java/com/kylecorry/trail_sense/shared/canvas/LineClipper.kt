@@ -8,7 +8,6 @@ import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Line
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
-import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
 import kotlin.math.absoluteValue

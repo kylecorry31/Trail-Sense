@@ -14,8 +14,11 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
+import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.preferences.putOrRemoveCoordinate
 import com.kylecorry.andromeda.preferences.putOrRemoveFloat
+import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.science.geology.Geology
@@ -33,19 +36,16 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.from
-import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
+import com.kylecorry.trail_sense.shared.extensions.lineString
+import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
-import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
-import com.kylecorry.andromeda.geojson.GeoJsonFeature
-import com.kylecorry.luna.timer.CoroutineTimer
-import com.kylecorry.trail_sense.shared.extensions.point
-import com.kylecorry.trail_sense.shared.extensions.lineString
 
 class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() {
 

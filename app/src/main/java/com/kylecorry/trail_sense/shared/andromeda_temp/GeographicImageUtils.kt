@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Rect
 import android.util.Size
 import androidx.core.graphics.blue
-import androidx.core.graphics.get
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.core.units.PixelCoordinate

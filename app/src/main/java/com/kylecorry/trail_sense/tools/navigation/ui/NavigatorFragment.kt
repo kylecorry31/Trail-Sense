@@ -308,7 +308,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             layerSheet = MapLayersBottomSheet(userPrefs.navigation.layerManager)
             layers.pause(binding.radarCompass)
             layerSheet?.setOnDismissListener {
-                layers.resume(requireContext(), binding.radarCompass)
+                layers.resume(binding.radarCompass)
             }
             layerSheet?.show(this)
         }
@@ -372,7 +372,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
 
-        layers.resume(requireContext(), binding.radarCompass)
+        layers.resume(binding.radarCompass)
 
         // Show the north reference indicator
         binding.northReferenceIndicator.showDetailsOnClick = true

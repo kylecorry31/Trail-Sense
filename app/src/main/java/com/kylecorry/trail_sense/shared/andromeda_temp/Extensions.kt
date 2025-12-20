@@ -11,7 +11,6 @@ import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.isCloseTo
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.CoordinateBounds.Companion.empty
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate

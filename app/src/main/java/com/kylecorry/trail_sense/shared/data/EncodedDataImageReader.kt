@@ -5,7 +5,6 @@ import android.graphics.Rect
 import android.util.Size
 import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
-import androidx.core.graphics.get
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use

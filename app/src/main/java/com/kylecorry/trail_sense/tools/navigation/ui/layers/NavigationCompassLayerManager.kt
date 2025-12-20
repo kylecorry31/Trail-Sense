@@ -1,11 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.layers
 
-import android.content.Context
-import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
@@ -37,7 +33,7 @@ class NavigationCompassLayerManager {
     var key = 0
         private set
 
-    fun resume(context: Context, view: IMapView) {
+    fun resume(view: IMapView) {
         view.setLayersWithPreferences(
             elevationLayer to prefs.navigation.elevationLayer,
             hillshadeLayer to prefs.navigation.hillshadeLayer,

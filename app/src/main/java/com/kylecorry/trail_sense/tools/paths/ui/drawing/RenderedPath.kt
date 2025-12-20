@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.Path
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 data class RenderedPath(
