@@ -10,7 +10,7 @@ TODO: Preferences.
 
 # GeoJSON features
 
-GeoJSON layers allow for the display of vector geometry (points, lines, and areas).
+GeoJSON layers allow for the display of vector geometry (points, lines, and polygons).
 
 ## Request contract
 
@@ -20,37 +20,181 @@ TODO: More details
 
 ## Response contract
 
-The body of the plugin response must be valid GeoJSON (https://geojson.org/). All geometry types are supported.
+The body of the plugin response must be valid GeoJSON (https://geojson.org/). All geometry types are supported but GeometryCollection is not recommended since the feature properties vary by geometry type. Multi* geometry values are flattened into their base geometry type by Trail Sense, so use the property type of the base (ex. MultPoint -> Point).
 
-Trail Sense supports the following properties (additional properties can be sent, but are ignored):
+The following JSON schemas outline what you can provide for the `properties` value for each geometry type.  Other properties in the future may include `description` and `coordinateProperties` (properties of coordinates in a LineString/Polygon).
 
-- `name` (`string`, default `null`): The name of the feature. Depending on user settings this may be displayed on the map or when selected.
-- `lineStyle` (`string`, default `"solid"`): The style of the line. Valid values are:
-  - `solid`
-  - `dotted`
-  - `arrow`
-  - `dashed`
-  - `square`
-  - `diamond`
-  - `cross`
-- `color` (`number`, default transparent): The Android compatible ARGB color int of the fill/LineString.
-- `strokeColor` (`string`, default null): The Android compatible ARGB color int of the stroke. Does not apply to LineStrings.
-- `strokeWeight` (`number`, default `0.5` for Points, `2.25` for LineStrings, `0` for Polygons): The stroke weight in dp.
-- `size` (`number`, default `12`): The size of the marker in the units of `sizeUnit`. Only applies to Points.
-- `sizeUnit` (`string`, default `"dp"`): The size unit of the marker. Only applies to Points. Valid values are:
-  - `px`: Pixels
-  - `dp`: Density pixels
-  - `m`: Meters
-- `icon` (`number`, default null): The ID of the icon to use. Only applies to Points. A full list of icons can be found [here](https://github.com/kylecorry31/Trail-Sense/blob/main/app/src/main/java/com/kylecorry/trail_sense/tools/beacons/domain/BeaconIcon.kt). This may be transitioned over to strings before the official plugin support is released.
-- `iconSize` (`number`, default `size`): The size of the icon in dp. Only applies to Points.
-- `iconColor` (`number`, default black): The Android compatible ARGB color int of the icon. Only applies to Points.
-- `markerShape` (`string`, default `"circle"` if `icon` is not provided, else `"none"`): The shape of the marker. Valid values are:
-  - `circle`
-  - `none`: Only the icon is rendered
-- `isClickable` (`boolean`, default `false`): A boolean that indicates if the feature should be clickable.
-- `opacity` (`number`, default `255`): The opacity of the feature (between 0 and 255).
+### Point properties
 
-Other properties in the future may include `description` and `coordinateProperties` (properties of coordinates in a LineString/Polygon).
+Used for Point geometries with marker support:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Trail Sense Point Feature Properties",
+  "properties": {
+    "name": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
+    },
+    "color": {
+      "type": "integer",
+      "default": 0,
+      "description": "The Android compatible ARGB color int of the marker fill."
+    },
+    "strokeColor": {
+      "type": ["integer", "null"],
+      "default": null,
+      "description": "The Android compatible ARGB color int of the stroke."
+    },
+    "strokeWeight": {
+      "type": "number",
+      "default": 0.5,
+      "description": "The stroke weight in dp."
+    },
+    "size": {
+      "type": "number",
+      "default": 12,
+      "description": "The size of the marker in the units of sizeUnit."
+    },
+    "sizeUnit": {
+      "type": "string",
+      "enum": ["px", "dp", "m"],
+      "default": "dp",
+      "description": "The size unit of the marker. px = pixels, dp = density pixels, m = meters"
+    },
+    "icon": {
+      "type": ["integer", "null"],
+      "default": null,
+      "description": "The ID of the icon to use. A full list of icons can be found [here](https://github.com/kylecorry31/Trail-Sense/blob/main/app/src/main/java/com/kylecorry/trail_sense/tools/beacons/domain/BeaconIcon.kt). This may be transitioned over to strings before the official plugin support is released."
+    },
+    "iconSize": {
+      "type": "number",
+      "description": "The size of the icon in dp. Default: same as size property."
+    },
+    "iconColor": {
+      "type": "integer",
+      "default": -16777216,
+      "description": "The Android compatible ARGB color int of the icon."
+    },
+    "markerShape": {
+      "type": "string",
+      "enum": ["circle", "none"],
+      "description": "The shape of the marker. Default: 'circle' if icon is not provided, else 'none'. When 'none', only the icon is rendered."
+    },
+    "isClickable": {
+      "type": "boolean",
+      "default": false,
+      "description": "A boolean that indicates if the feature should be clickable."
+    },
+    "opacity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 255,
+      "default": 255,
+      "description": "The opacity of the feature (between 0 and 255)."
+    }
+  },
+  "additionalProperties": true
+}
+```
+
+### LineString properties
+
+Used for LineString geometries:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Trail Sense LineString Feature Properties",
+  "properties": {
+    "name": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
+    },
+    "lineStyle": {
+      "type": "string",
+      "enum": ["solid", "dotted", "arrow", "dashed", "square", "diamond", "cross"],
+      "default": "solid",
+      "description": "The style of the line."
+    },
+    "color": {
+      "type": "integer",
+      "default": 0,
+      "description": "The Android compatible ARGB color int of the line."
+    },
+    "strokeWeight": {
+      "type": "number",
+      "default": 2.25,
+      "description": "The stroke weight in dp."
+    },
+    "isClickable": {
+      "type": "boolean",
+      "default": false,
+      "description": "A boolean that indicates if the feature should be clickable."
+    },
+    "opacity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 255,
+      "default": 255,
+      "description": "The opacity of the feature (between 0 and 255)."
+    }
+  },
+  "additionalProperties": true
+}
+```
+
+### Polygon properties
+
+Used for Polygon geometries:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Trail Sense Polygon Feature Properties",
+  "properties": {
+    "name": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
+    },
+    "color": {
+      "type": "integer",
+      "default": 0,
+      "description": "The Android compatible ARGB color int of the fill."
+    },
+    "strokeColor": {
+      "type": ["integer", "null"],
+      "default": null,
+      "description": "The Android compatible ARGB color int of the stroke."
+    },
+    "strokeWeight": {
+      "type": "number",
+      "default": 0,
+      "description": "The stroke weight in dp."
+    },
+    "isClickable": {
+      "type": "boolean",
+      "default": false,
+      "description": "A boolean that indicates if the feature should be clickable."
+    },
+    "opacity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 255,
+      "default": 255,
+      "description": "The opacity of the feature (between 0 and 255)."
+    }
+  },
+  "additionalProperties": true
+}
+```
 
 # Tiles
 
