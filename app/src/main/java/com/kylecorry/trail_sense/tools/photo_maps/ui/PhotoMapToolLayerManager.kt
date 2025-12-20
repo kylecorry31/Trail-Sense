@@ -34,7 +34,6 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
@@ -144,9 +143,6 @@ class PhotoMapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(
-                    pathLayer
-                ) else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context),

@@ -41,7 +41,6 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
@@ -162,9 +161,6 @@ class MapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (prefs.map.pathLayer.isEnabled.get()) PathLayerManager(
-                    pathLayer
-                ) else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context),
