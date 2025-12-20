@@ -12,7 +12,9 @@ import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.IMapProjection
@@ -376,7 +378,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             distanceY: Float
         ): Boolean {
             if (isPanEnabled) {
-                translatePixels(distanceX, distanceY)
+                val angle = mapAzimuth
+                val dx = distanceX * cosDegrees(angle) - distanceY * sinDegrees(angle)
+                val dy = distanceX * sinDegrees(angle) + distanceY * cosDegrees(angle)
+                translatePixels(dx, dy)
             }
             return true
         }
@@ -435,15 +440,16 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         if (!isZoomEnabled) return
 
         // Calculate the focus coordinate before zooming
-        val focusCoordinate = toCoordinate(focus)
+        val unrotatedFocus = unrotated(focus)
+        val focusCoordinate = toCoordinate(unrotatedFocus)
 
         zoom(scaleFactor)
 
         if (isPanEnabled) {
             // Keep the focus point stationary
             val newFocusPixel = toPixel(focusCoordinate)
-            val dx = focus.x - newFocusPixel.x
-            val dy = focus.y - newFocusPixel.y
+            val dx = unrotatedFocus.x - newFocusPixel.x
+            val dy = unrotatedFocus.y - newFocusPixel.y
             translatePixels(-dx, -dy)
         }
     }

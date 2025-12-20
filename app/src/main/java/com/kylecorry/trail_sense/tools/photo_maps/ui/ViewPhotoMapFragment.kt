@@ -382,13 +382,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.map.constraintBounds = bounds
         binding.map.minScale = binding.map.scale
         layerManager.improveResolution(binding.map.mapBounds, binding.map.metersPerPixel.toDouble())
-        // TODO: Use the same lock logic as the MapFragment
-//        binding.map.onImageLoadedListener = {
-//            if (shouldLockOnMapLoad) {
-//                updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
-//                shouldLockOnMapLoad = false
-//            }
-//        }
+        if (shouldLockOnMapLoad) {
+            updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
+            shouldLockOnMapLoad = false
+        }
         binding.map.mapAzimuth = getDefaultMapAzimuth(prefs.photoMaps.keepMapFacingUp)
         map.boundary()?.let {
             layerManager.onBoundsChanged(it)
