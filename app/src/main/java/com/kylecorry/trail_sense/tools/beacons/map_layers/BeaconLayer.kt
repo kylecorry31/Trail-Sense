@@ -43,11 +43,6 @@ class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { fal
         }
     }
 
-    fun setOutlineColor(color: Int) {
-        source.setOutlineColor(color)
-        invalidate()
-    }
-
     fun highlight(beacon: Beacon?) {
         source.highlight(beacon)
         invalidate()

@@ -76,10 +76,7 @@ class MapToolLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         // Hardcoded customization for this tool
-        compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
-        compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
         compassLayer.paddingTopDp = 48f
-        compassLayer.paddingRightDp = 8f
 
         distanceLayer.isEnabled = false
 
@@ -90,9 +87,6 @@ class MapToolLayerManager {
                 -Resources.dp(context, 16f)
             )
         )
-
-        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(context))
-        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
 
         view.setLayersWithPreferences(
             backgroundLayer to null,

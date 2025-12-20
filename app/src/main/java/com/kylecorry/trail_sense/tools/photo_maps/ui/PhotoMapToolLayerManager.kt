@@ -69,12 +69,6 @@ class PhotoMapToolLayerManager {
         photoMapLayer = PhotoMapLayer(photoMapId)
 
         // Hardcoded customization for this tool
-        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(context))
-        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
-        compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
-        compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
-        compassLayer.paddingTopDp = 8f
-        compassLayer.paddingRightDp = 8f
         myElevationLayer = MyElevationLayer(
             formatter,
             PixelCoordinate(

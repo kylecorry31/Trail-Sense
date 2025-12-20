@@ -163,9 +163,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(requireContext()))
-        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(requireContext()))
-
         // Populate the last known location
         myLocationLayer.setLocation(gps.location)
         myLocationLayer.setAccuracy(gps.horizontalAccuracy)

@@ -1,34 +1,36 @@
 package com.kylecorry.trail_sense.tools.navigation.map_layers
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 
 // TODO: Allow setting of position
 class CompassOverlayLayer : ILayer {
 
-    var backgroundColor: Int = Color.TRANSPARENT
-        set(value) {
-            field = value
-            invalidate()
-        }
-    var cardinalDirectionColor: Int = AppColor.Orange.color
+    private val backgroundColor: Int
+    private val cardinalDirectionColor: Int
+
+    init {
+        val context = AppServiceRegistry.get<Context>()
+        backgroundColor = Resources.color(context, R.color.colorSecondary)
+        cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
+    }
+
+    var paddingTopDp: Float = 8f
         set(value) {
             field = value
             invalidate()
         }
 
-    var paddingTopDp: Float = 16f
-        set(value) {
-            field = value
-            invalidate()
-        }
-
-    var paddingRightDp: Float = 16f
+    var paddingRightDp: Float = 8f
         set(value) {
             field = value
             invalidate()

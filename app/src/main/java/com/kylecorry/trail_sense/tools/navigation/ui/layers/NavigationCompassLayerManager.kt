@@ -5,7 +5,6 @@ import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
@@ -39,15 +38,9 @@ class NavigationCompassLayerManager {
         private set
 
     fun resume(context: Context, view: IMapView) {
-        // Hardcoded customization for this tool
-        myLocationLayer.setColor(Color.WHITE)
-        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
-        beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
-        photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
-
         view.setLayersWithPreferences(
-            elevationLayer to prefs.map.elevationLayer,
-            hillshadeLayer to prefs.map.hillshadeLayer,
+            elevationLayer to prefs.navigation.elevationLayer,
+            hillshadeLayer to prefs.navigation.hillshadeLayer,
             photoMapLayer to prefs.navigation.photoMapLayer,
             contourLayer to prefs.navigation.contourLayer,
             cellTowerLayer to prefs.navigation.cellTowerLayer,

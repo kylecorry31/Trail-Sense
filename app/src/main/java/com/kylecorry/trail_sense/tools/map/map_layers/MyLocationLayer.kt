@@ -1,13 +1,16 @@
 package com.kylecorry.trail_sense.tools.map.map_layers
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
 import android.os.Bundle
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -39,6 +42,12 @@ class MyLocationLayer : IAsyncLayer {
 
     override val percentOpacity: Float
         get() = _percentOpacity
+
+    init {
+        val context = AppServiceRegistry.get<Context>()
+        _color = Resources.getPrimaryMarkerColor(context)
+        _accuracyFillColor = Resources.getPrimaryMarkerColor(context)
+    }
 
     fun setLocation(location: Coordinate) {
         _location = location
