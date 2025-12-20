@@ -33,7 +33,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
@@ -160,9 +159,6 @@ class PhotoMapToolLayerManager {
             listOfNotNull(
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer
-                ) else null,
-                if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(
-                    navigationLayer
                 ) else null
             )
         )
