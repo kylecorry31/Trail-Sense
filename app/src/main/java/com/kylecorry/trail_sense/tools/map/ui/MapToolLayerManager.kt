@@ -41,7 +41,6 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
@@ -89,10 +88,13 @@ class MapToolLayerManager {
         hillshadeLayer = HillshadeLayer(taskRunner2)
         elevationLayer = ElevationLayer(taskRunner2)
 
+        // Hardcoded customization for this tool
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
         compassLayer.paddingTopDp = 48f
         compassLayer.paddingRightDp = 8f
+
+        distanceLayer.isEnabled = false
 
         myElevationLayer = MyElevationLayer(
             formatter,
@@ -105,39 +107,27 @@ class MapToolLayerManager {
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
         }
+        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(context))
+        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
 
+        // Preferences
         scaleBarLayer.units = prefs.baseDistanceUnits
-
-        beaconLayer.setPreferences(prefs.map.beaconLayer)
-
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
+        beaconLayer.setPreferences(prefs.map.beaconLayer)
         pathLayer.setPreferences(prefs.map.pathLayer)
-
         navigationLayer.setPreferences(prefs.map.navigationLayer)
-
         baseMapLayer.setPreferences(prefs.map.baseMapLayer)
-
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
-
         contourLayer?.setPreferences(prefs.map.contourLayer)
         elevationLayer?.setPreferences(prefs.map.elevationLayer)
         hillshadeLayer?.setPreferences(prefs.map.hillshadeLayer)
-
-        photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
-
-        distanceLayer.isEnabled = false
-        distanceLayer.setOutlineColor(Color.WHITE)
-        distanceLayer.setPathColor(Color.BLACK)
-
         tideLayer.setPreferences(prefs.map.tideLayer)
-
         myLocationLayer.setPreferences(prefs.map.myLocationLayer)
-
         cellTowerLayer.setPreferences(prefs.map.cellTowerLayer)
 
         view.setLayers(
             listOfNotNull(
-                BackgroundColorMapLayer().also { it.color = Color.rgb(127, 127, 127) },
+                BackgroundColorMapLayer(Color.rgb(127, 127, 127)),
                 if (prefs.map.baseMapLayer.isEnabled.get()) baseMapLayer else null,
                 if (prefs.map.elevationLayer.isEnabled.get()) elevationLayer else null,
                 if (prefs.map.hillshadeLayer.isEnabled.get()) hillshadeLayer else null,
@@ -162,9 +152,7 @@ class MapToolLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(context),
-                    Resources.getPrimaryMarkerColor(context)
+                    myLocationLayer
                 ) else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(
                     navigationLayer
@@ -183,7 +171,6 @@ class MapToolLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
-        taskRunner.stop()
         layerManager?.stop()
         layerManager = null
         view.stop()

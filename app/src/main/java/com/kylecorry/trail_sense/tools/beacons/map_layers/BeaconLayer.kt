@@ -27,6 +27,7 @@ class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { fal
     }
 
     override fun stop() {
+        super.stop()
         scope?.cancel()
         scope = null
     }

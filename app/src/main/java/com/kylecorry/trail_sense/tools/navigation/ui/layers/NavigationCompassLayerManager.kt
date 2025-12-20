@@ -23,7 +23,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
@@ -51,6 +50,10 @@ class NavigationCompassLayerManager {
         contourLayer = ContourLayer(taskRunner)
         elevationLayer = ElevationLayer(taskRunner2)
         hillshadeLayer = HillshadeLayer(taskRunner2)
+
+        //
+        myLocationLayer.setColor(Color.WHITE)
+        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
 
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
@@ -95,9 +98,7 @@ class NavigationCompassLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (isMyLocationLayerEnabled) MyLocationLayerManager(
-                    myLocationLayer,
-                    Color.WHITE,
-                    Resources.getPrimaryMarkerColor(context)
+                    myLocationLayer
                 ) else null
             )
         )
@@ -111,7 +112,6 @@ class NavigationCompassLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
-        taskRunner.stop()
         layerManager?.stop()
         layerManager = null
         view.stop()

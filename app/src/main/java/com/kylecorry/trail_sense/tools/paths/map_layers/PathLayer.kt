@@ -44,6 +44,7 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
     }
 
     override fun stop() {
+        super.stop()
         Tools.unsubscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED, onLocationChanged)
         listenerRunner.cancel()
         scope?.cancel()

@@ -81,6 +81,8 @@ class PhotoMapToolLayerManager {
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
         }
+        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(context))
+        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
 
         // Compass layer
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
@@ -115,8 +117,6 @@ class PhotoMapToolLayerManager {
 
         // Distance layer
         distanceLayer.isEnabled = false
-        distanceLayer.setOutlineColor(Color.WHITE)
-        distanceLayer.setPathColor(Color.BLACK)
 
         // Tide layer
         tideLayer.setPreferences(prefs.photoMaps.tideLayer)
@@ -129,7 +129,6 @@ class PhotoMapToolLayerManager {
 
         // Photo map
         photoMapLayer = PhotoMapLayer(photoMapId)
-        photoMapLayer?.setBackgroundColor(Color.TRANSPARENT)
         lastMapDetails?.let { improveResolution(it.first, it.second) }
 
         // Cell tower layer
@@ -160,11 +159,8 @@ class PhotoMapToolLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(context),
-                    Resources.getPrimaryMarkerColor(context)
+                    myLocationLayer
                 ) else null,
-
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(
                     navigationLayer
                 ) else null
@@ -176,7 +172,6 @@ class PhotoMapToolLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
-        taskRunner.stop()
         layerManager?.stop()
         view.stop()
         layerManager = null

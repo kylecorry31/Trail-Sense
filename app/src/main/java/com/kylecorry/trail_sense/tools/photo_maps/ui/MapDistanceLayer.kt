@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.graphics.Color
-import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -41,16 +40,6 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
             field = value
             clear()
         }
-
-    fun setPathColor(@ColorInt color: Int) {
-        pathColor = color
-        updateLayers()
-    }
-
-    fun setOutlineColor(@ColorInt color: Int) {
-        outlineColor = color
-        updateLayers()
-    }
 
     fun add(location: Coordinate) {
         if (location == points.lastOrNull()) {

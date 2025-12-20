@@ -15,6 +15,7 @@ class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource()) {
     }
 
     override fun stop() {
+        super.stop()
         timer.stop()
     }
 

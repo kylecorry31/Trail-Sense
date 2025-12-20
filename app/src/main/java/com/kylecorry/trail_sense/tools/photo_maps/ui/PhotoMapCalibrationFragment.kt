@@ -84,15 +84,9 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     override fun onResume() {
         super.onResume()
-        layerManager = MultiLayerManager(
-            listOf(
-                MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(requireContext()),
-                    Resources.getPrimaryMarkerColor(requireContext())
-                )
-            )
-        )
+        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(requireContext()))
+        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(requireContext()))
+        layerManager = MultiLayerManager(listOf(MyLocationLayerManager(myLocationLayer)))
 
         // Populate the last known location
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)

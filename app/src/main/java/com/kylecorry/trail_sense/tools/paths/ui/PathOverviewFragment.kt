@@ -169,15 +169,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        layerManager = MultiLayerManager(
-            listOf(
-                MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(requireContext()),
-                    Resources.getPrimaryMarkerColor(requireContext())
-                )
-            )
-        )
+        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(requireContext()))
+        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(requireContext()))
+
+        layerManager = MultiLayerManager(listOf(MyLocationLayerManager(myLocationLayer)))
         layerManager?.start()
 
         // Populate the last known location

@@ -89,5 +89,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         return false
     }
 
+    override fun stop() {
+        taskRunner.stop()
+    }
+
     override var percentOpacity: Float = 1f
 }

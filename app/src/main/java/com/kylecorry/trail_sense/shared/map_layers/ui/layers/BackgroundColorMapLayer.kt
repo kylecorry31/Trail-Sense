@@ -4,9 +4,9 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 
-class BackgroundColorMapLayer : ILayer {
+class BackgroundColorMapLayer(initialColor: Int = Color.TRANSPARENT) : ILayer {
 
-    var color: Int = Color.TRANSPARENT
+    var color: Int = initialColor
         set(value) {
             field = value
             invalidate()
