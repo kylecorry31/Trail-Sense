@@ -12,11 +12,10 @@ import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.getBounds
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
@@ -26,7 +25,7 @@ import kotlin.math.hypot
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
-    private val taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTask2(),
+    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     private val minZoomLevel: Int? = null
 ) : IAsyncLayer {
 
@@ -59,13 +58,7 @@ abstract class TileMapLayer<T : TileSource>(
         taskRunner.addTask { viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
             shouldReloadTiles = false
             try {
-                val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel.toDouble())
-                var adjustedOffset = zoomOffset + 1
-                var tiles: List<Tile>
-                do {
-                    adjustedOffset--
-                    tiles = TileMath.getTiles(bounds, (zoom + adjustedOffset).coerceAtMost(20))
-                } while (tiles.size > MAX_TILES && (zoom + adjustedOffset) > 1)
+                val tiles = getTiles(bounds, projection)
 
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
@@ -236,6 +229,17 @@ abstract class TileMapLayer<T : TileSource>(
             0,
             tilePaint
         )
+    }
+
+    private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
+        val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel.toDouble())
+        var adjustedOffset = zoomOffset + 1
+        var tiles: List<Tile>
+        do {
+            adjustedOffset--
+            tiles = TileMath.getTiles(bounds, (zoom + adjustedOffset).coerceAtMost(20))
+        } while (tiles.size > MAX_TILES && (zoom + adjustedOffset) > 1)
+        return tiles
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {

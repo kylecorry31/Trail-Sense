@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.map_layers.ui.layers
+package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -8,6 +8,8 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 
 class MyElevationLayer(

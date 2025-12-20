@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.map_layers.ui.layers
+package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Color
 import android.graphics.Path
@@ -6,7 +6,9 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.PathMapMarker
 

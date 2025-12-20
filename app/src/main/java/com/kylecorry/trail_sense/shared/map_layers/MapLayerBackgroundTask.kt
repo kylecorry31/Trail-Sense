@@ -3,10 +3,12 @@ package com.kylecorry.trail_sense.shared.map_layers
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.grow
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -30,9 +32,9 @@ class MapLayerBackgroundTask {
     private val growPercent = getGrowPercent()
 
     private val tasks =
-        mutableListOf<suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit>()
+        mutableListOf<suspend (viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection) -> Unit>()
 
-    fun addTask(task: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit) {
+    fun addTask(task: suspend (viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection) -> Unit) {
         synchronized(taskLock) {
             tasks.add(task)
         }
@@ -55,18 +57,20 @@ class MapLayerBackgroundTask {
     }
 
     fun scheduleUpdate(
+        viewBounds: Rectangle,
         bounds: CoordinateBounds,
-        metersPerPixel: Float,
+        projection: IMapViewProjection,
         isInvalid: Boolean = false,
-        update: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit = { bounds, metersPerPixel ->
+        update: suspend (viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection) -> Unit = { viewBounds, bounds, projection ->
             val taskCopy = synchronized(taskLock) {
                 tasks.toList()
             }
-            Parallel.forEach(taskCopy.map { { it(bounds, metersPerPixel) } })
+            Parallel.forEach(taskCopy.map { { it(viewBounds, bounds, projection) } })
         }
     ) {
 
         scope.launch {
+            val metersPerPixel = projection.metersPerPixel
             val newBounds =
                 TileMath.snapToTiles(bounds.grow(growPercent), metersPerPixel.toDouble())
 
@@ -119,7 +123,7 @@ class MapLayerBackgroundTask {
                         lastRunBounds = newBounds
                         lastRunMetersPerPixel = metersPerPixel
                     }
-                    update(newBounds, metersPerPixel)
+                    update(viewBounds, newBounds, projection)
                 }
 
                 val scaleSignificantlyChanged =
@@ -148,7 +152,6 @@ class MapLayerBackgroundTask {
 
     fun stop() {
         runner.cancel()
-        clearTasks()
     }
 
     private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {

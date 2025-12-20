@@ -1,9 +1,11 @@
-package com.kylecorry.trail_sense.shared.map_layers.ui.layers
+package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 
 // TODO: Allow setting of position
 class CompassOverlayLayer : ILayer {
@@ -45,7 +47,7 @@ class CompassOverlayLayer : ILayer {
         val compassSize = drawer.dp(24f)
         val arrowWidth = drawer.dp(5f)
         val arrowMargin = drawer.dp(3f)
-        val location = PixelCoordinate(
+        val location = com.kylecorry.andromeda.core.units.PixelCoordinate(
             drawer.canvas.width - drawer.dp(paddingRightDp + compassSize / 2f),
             drawer.dp(paddingTopDp + compassSize / 2f)
         )

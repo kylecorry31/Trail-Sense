@@ -1,6 +1,7 @@
-package com.kylecorry.trail_sense.shared.map_layers.ui.layers
+package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.core.graphics.toColorInt
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
@@ -9,7 +10,7 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata
@@ -92,7 +93,7 @@ class BaseMapTileSource : TileSource {
         )
     )
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, android.graphics.Bitmap?) -> Unit) {
+    override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, Bitmap?) -> Unit) {
         internalSelector.load(tiles, onLoaded)
     }
 

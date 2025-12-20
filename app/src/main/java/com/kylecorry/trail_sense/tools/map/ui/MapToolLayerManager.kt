@@ -22,18 +22,17 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
@@ -49,8 +48,7 @@ class MapToolLayerManager {
         navigator.navigateTo(it)
         true
     }
-    private val taskRunner = MapLayerBackgroundTask()
-    private val taskRunner2 = MapLayerBackgroundTask2()
+    private val taskRunner2 = MapLayerBackgroundTask()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val baseMapLayer = BaseMapLayer()
@@ -78,7 +76,7 @@ class MapToolLayerManager {
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
 
-        contourLayer = ContourLayer(taskRunner)
+        contourLayer = ContourLayer(taskRunner2)
         hillshadeLayer = HillshadeLayer(taskRunner2)
         elevationLayer = ElevationLayer(taskRunner2)
 

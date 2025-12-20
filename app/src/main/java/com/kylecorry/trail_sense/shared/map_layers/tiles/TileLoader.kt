@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles
 import android.graphics.Bitmap
 import android.util.Log
 import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
 class TileLoader {
 
