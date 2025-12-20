@@ -250,11 +250,6 @@ abstract class TileMapLayer<T : TileSource>(
 
     override var percentOpacity: Float = 1f
 
-    fun recycle() {
-        taskRunner.stop()
-        loader.clearCache()
-    }
-
     companion object {
         private const val MAX_PRE_RENDER_SIZE = 500
         const val MAX_TILES = 200

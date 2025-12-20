@@ -18,6 +18,7 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
@@ -151,8 +152,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         // TODO: Don't show if location not on map
 
         // Update initial map rotation
-        binding.map.mapAzimuth = 0f
-//        binding.map.keepMapUp = keepMapUp
+        binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
         // Set the button states
         CustomUiUtils.setButtonState(binding.lockBtn, false)
@@ -170,6 +170,17 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         binding.zoomInBtn.setOnClickListener {
             binding.map.zoom(2f)
+        }
+    }
+
+    private fun getDefaultMapAzimuth(keepMapUp: Boolean): Float {
+        return if (keepMapUp) {
+            -SolMath.deltaAngle(
+                map?.calibration?.rotation ?: 0f,
+                map?.baseRotation()?.toFloat() ?: 0f
+            )
+        } else {
+            0f
         }
     }
 
@@ -378,7 +389,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 //                shouldLockOnMapLoad = false
 //            }
 //        }
-//        binding.map.showMap(map)
+        binding.map.mapAzimuth = getDefaultMapAzimuth(prefs.photoMaps.keepMapFacingUp)
         map.boundary()?.let {
             layerManager.onBoundsChanged(it)
         }
@@ -405,8 +416,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
 
                 // Reset the rotation
-                binding.map.mapAzimuth = 0f
-//                binding.map.keepMapUp = keepMapUp
+                binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as locked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
@@ -424,7 +434,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
 
                 // Rotate
-//                binding.map.keepMapUp = false
                 binding.map.mapAzimuth = -compass.rawBearing
 
                 // Show as locked
@@ -440,8 +449,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.isPanEnabled = true
 
                 // Reset the rotation
-                binding.map.mapAzimuth = 0f
-//                binding.map.keepMapUp = keepMapUp
+                binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as unlocked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
@@ -461,7 +469,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 )
 
                 // Disable pan
-//                binding.map.setPanEnabled(false, false)
                 binding.map.isInteractive = false
                 binding.map.isZoomEnabled = false
 

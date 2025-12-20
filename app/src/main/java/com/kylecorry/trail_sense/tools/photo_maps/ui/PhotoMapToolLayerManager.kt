@@ -128,7 +128,6 @@ class PhotoMapToolLayerManager {
         backgroundLayer.color = Color.rgb(127, 127, 127)
 
         // Photo map
-        photoMapLayer?.recycle()
         photoMapLayer = PhotoMapLayer(photoMapId)
         photoMapLayer?.setBackgroundColor(Color.TRANSPARENT)
         lastMapDetails?.let { improveResolution(it.first, it.second) }
