@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
+import android.util.Size
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
@@ -89,16 +90,15 @@ class PhotoMapRegionLoader(
             percentBottomLeft.y
         ).any { !SolMath.isZero(it % 1f) }
 
+        val inSampleSize = calculateInSampleSize(
+            region.width(),
+            region.height(),
+            maxSize.width,
+            maxSize.height
+        )
+
         val bitmap = if (loadPdfs && map.hasPdf(context)) {
-            decodePdfRegion(
-                context, map,
-                region, calculateInSampleSize(
-                    region.width(),
-                    region.height(),
-                    maxSize.width,
-                    maxSize.height
-                )
-            )
+            decodePdfRegion(context, map, region, inSampleSize)
         } else {
             val inputStream = if (map.isAsset) {
                 fileSystem.streamAsset(map.filename)!!
@@ -108,22 +108,23 @@ class PhotoMapRegionLoader(
 
             inputStream.use { stream ->
                 val options = BitmapFactory.Options().also {
-                    it.inSampleSize = calculateInSampleSize(
-                        region.width(),
-                        region.height(),
-                        maxSize.width,
-                        maxSize.height
-                    )
+                    it.inSampleSize = inSampleSize
                     it.inScaled = true
                     it.inPreferredConfig = Bitmap.Config.ARGB_8888
                     it.inMutable = true
+                }
+
+                val destinationSize = if (shouldApplyPerspectiveCorrection) {
+                    Size(region.width() / inSampleSize, region.height() / inSampleSize)
+                } else {
+                    maxSize
                 }
 
                 ImageRegionLoader.decodeBitmapRegionWrapped(
                     stream,
                     region,
                     size.toAndroidSize(),
-                    destinationSize = maxSize,
+                    destinationSize = destinationSize,
                     options = options,
                     enforceBounds = false
                 )
@@ -131,7 +132,10 @@ class PhotoMapRegionLoader(
         }
 
         bitmap?.applyOperationsOrNull(
-            Resize(maxSize, false, useBilinearScaling = !isPixelPerfect),
+            Conditional(
+                !shouldApplyPerspectiveCorrection,
+                Resize(maxSize, false, useBilinearScaling = !isPixelPerfect)
+            ),
             Conditional(
                 shouldApplyPerspectiveCorrection,
                 CorrectPerspective(
