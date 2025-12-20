@@ -21,34 +21,36 @@ class CorrectPerspective2 : BitmapOperation {
     private var maxSize: Size? = null
     private var outputSize: Size? = null
 
-    private val paint = Paint().apply {
-        isFilterBitmap = true
-    }
+    private val paint = Paint()
 
     constructor(
         bounds: PixelBounds,
         @ColorInt backgroundColor: Int? = null,
         maxSize: Size? = null,
-        outputSize: Size? = null
+        outputSize: Size? = null,
+        useBilinearInterpolation: Boolean = true
     ) {
         this.bounds = bounds
         this.percentBounds = null
         this.backgroundColor = backgroundColor
         this.maxSize = maxSize
         this.outputSize = outputSize
+        paint.isFilterBitmap = useBilinearInterpolation
     }
 
     constructor(
         bounds: PercentBounds,
         @ColorInt backgroundColor: Int? = null,
         maxSize: Size? = null,
-        outputSize: Size? = null
+        outputSize: Size? = null,
+        useBilinearScaling: Boolean = true
     ) {
         this.bounds = null
         this.percentBounds = bounds
         this.backgroundColor = backgroundColor
         this.maxSize = maxSize
         this.outputSize = outputSize
+        paint.isFilterBitmap = useBilinearScaling
     }
 
     override fun execute(bitmap: Bitmap): Bitmap {

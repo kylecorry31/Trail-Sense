@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.util.Log
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -64,12 +65,14 @@ abstract class TileMapLayer<T : TileSource>(
                 do {
                     adjustedOffset--
                     tiles = TileMath.getTiles(bounds, (zoom + adjustedOffset).coerceAtMost(20))
-                } while (tiles.size > MAX_TILES && adjustedOffset > 1)
+                } while (tiles.size > MAX_TILES && (zoom + adjustedOffset) > 1)
 
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
                 ) {
                     loader.loadTiles(source, sortTiles(tiles))
+                } else if (tiles.size > MAX_TILES) {
+                    Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
                 }
 
                 if (preRenderBitmaps) {
@@ -252,6 +255,6 @@ abstract class TileMapLayer<T : TileSource>(
 
     companion object {
         private const val MAX_PRE_RENDER_SIZE = 500
-        const val MAX_TILES = 200
+        const val MAX_TILES = 150
     }
 }

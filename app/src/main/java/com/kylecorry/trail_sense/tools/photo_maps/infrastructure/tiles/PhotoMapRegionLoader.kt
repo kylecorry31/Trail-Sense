@@ -9,7 +9,6 @@ import androidx.core.net.toUri
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
-import com.kylecorry.andromeda.bitmaps.operations.CorrectPerspective
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
@@ -18,6 +17,7 @@ import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.trail_sense.shared.andromeda_temp.CorrectPerspective2
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
 import com.kylecorry.trail_sense.shared.andromeda_temp.ceilToInt
 import com.kylecorry.trail_sense.shared.andromeda_temp.floorToInt
@@ -37,6 +37,8 @@ class PhotoMapRegionLoader(
     private val isPixelPerfect: Boolean = false,
     private val operations: List<BitmapOperation> = emptyList()
 ) {
+
+    private val improveImageScaling = false
 
     suspend fun load(tile: Tile): Bitmap? = onIO {
         val bounds = tile.getBounds()
@@ -114,7 +116,7 @@ class PhotoMapRegionLoader(
                     it.inMutable = true
                 }
 
-                val destinationSize = if (shouldApplyPerspectiveCorrection) {
+                val destinationSize = if (shouldApplyPerspectiveCorrection && improveImageScaling) {
                     Size(region.width() / inSampleSize, region.height() / inSampleSize)
                 } else {
                     maxSize
@@ -133,12 +135,12 @@ class PhotoMapRegionLoader(
 
         bitmap?.applyOperationsOrNull(
             Conditional(
-                !shouldApplyPerspectiveCorrection,
+                !improveImageScaling || !shouldApplyPerspectiveCorrection,
                 Resize(maxSize, false, useBilinearScaling = !isPixelPerfect)
             ),
             Conditional(
                 shouldApplyPerspectiveCorrection,
-                CorrectPerspective(
+                CorrectPerspective2(
                     // Bounds are inverted on the Y axis from android's pixel coordinate system
                     PercentBounds(
                         percentBottomLeft,
@@ -146,7 +148,9 @@ class PhotoMapRegionLoader(
                         percentTopLeft,
                         percentTopRight
                     ),
-                    maxSize = maxSize
+                    maxSize = maxSize,
+                    outputSize = maxSize,
+                    useBilinearScaling = !isPixelPerfect
                 )
             ),
             Resize(maxSize, true, useBilinearScaling = !isPixelPerfect),
