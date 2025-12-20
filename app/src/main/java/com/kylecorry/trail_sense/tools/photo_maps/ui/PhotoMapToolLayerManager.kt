@@ -125,7 +125,7 @@ class PhotoMapToolLayerManager {
         myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
 
         // Background
-        backgroundLayer.color = Color.rgb(127, 127, 127)
+        backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
 
         // Photo map
         photoMapLayer = PhotoMapLayer(photoMapId)
