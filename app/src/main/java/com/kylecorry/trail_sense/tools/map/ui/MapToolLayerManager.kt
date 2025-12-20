@@ -37,18 +37,15 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class MapToolLayerManager {
 
@@ -164,20 +161,10 @@ class MapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (prefs.map.pathLayer.isEnabled.get()) PathLayerManager(
-                    pathLayer
-                ) else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context),
                     Resources.getPrimaryMarkerColor(context)
-                ) else null,
-                if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    tideLayer
-                ) else null,
-                if (prefs.map.beaconLayer.isEnabled.get()) BeaconLayerManager(
-                    context,
-                    beaconLayer
                 ) else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(
                     navigationLayer
@@ -185,6 +172,7 @@ class MapToolLayerManager {
             )
         )
 
+        view.start()
         layerManager?.start()
 
         if (view is View) {
@@ -196,9 +184,9 @@ class MapToolLayerManager {
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
-        taskRunner2.stop()
         layerManager?.stop()
         layerManager = null
+        view.stop()
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 

@@ -31,9 +31,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
@@ -88,13 +86,11 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         super.onResume()
         layerManager = MultiLayerManager(
             listOf(
-                PathLayerManager(pathLayer),
                 MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(requireContext()),
                     Resources.getPrimaryMarkerColor(requireContext())
-                ),
-                BeaconLayerManager(requireContext(), beaconLayer)
+                )
             )
         )
 

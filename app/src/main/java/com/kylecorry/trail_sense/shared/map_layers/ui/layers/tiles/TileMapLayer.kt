@@ -239,6 +239,15 @@ abstract class TileMapLayer<T : TileSource>(
         updateListener = listener
     }
 
+    override fun start() {
+        shouldReloadTiles = true
+    }
+
+    override fun stop() {
+        taskRunner.stop()
+        loader.clearCache()
+    }
+
     override var percentOpacity: Float = 1f
 
     fun recycle() {

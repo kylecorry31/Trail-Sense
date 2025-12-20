@@ -32,15 +32,12 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.Configurabl
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class PhotoMapToolLayerManager {
 
@@ -163,33 +160,26 @@ class PhotoMapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(
-                    pathLayer
-                ) else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context),
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
-                if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    tideLayer
-                ) else null,
-                if (prefs.photoMaps.beaconLayer.isEnabled.get()) BeaconLayerManager(
-                    context,
-                    beaconLayer
-                ) else null,
+
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(
                     navigationLayer
                 ) else null
             )
         )
 
+        view.start()
         layerManager?.start()
     }
 
     fun pause(context: Context, view: IMapView) {
         taskRunner.stop()
         layerManager?.stop()
+        view.stop()
         layerManager = null
     }
 

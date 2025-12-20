@@ -28,6 +28,20 @@ interface ILayer {
      */
     fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean
 
+    /**
+     * Called when the layer can start running
+     */
+    fun start() {
+        // Do nothing
+    }
+
+    /**
+     * Called when the layer should stop running and clean up
+     */
+    fun stop() {
+        // Do nothing
+    }
+
     val percentOpacity: Float
 
     val opacity: Int
