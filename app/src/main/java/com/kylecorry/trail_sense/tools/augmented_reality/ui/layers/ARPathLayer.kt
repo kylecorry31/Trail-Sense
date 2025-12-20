@@ -12,7 +12,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
-import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.shared.forEachLine
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
@@ -21,7 +20,6 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 
 /**
  * An augmented reality layer that displays paths
@@ -34,7 +32,7 @@ class ARPathLayer(
     viewDistanceMeters: Float,
     private val adjustForPathElevation: Boolean,
     private val onFocus: (path: IMappablePath) -> Boolean = { false },
-) : ARLayer, IPathLayer {
+) : ARLayer {
 
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f, false)
@@ -117,7 +115,7 @@ class ARPathLayer(
         return markerLayer.onFocus(drawer, view)
     }
 
-    override fun setPaths(paths: List<IMappablePath>) {
+    fun setPaths(paths: List<IMappablePath>) {
         this.paths = paths
     }
 

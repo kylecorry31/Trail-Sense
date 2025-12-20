@@ -25,8 +25,6 @@ import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -144,7 +142,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
-    private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
     private val screenLock by lazy { NavigationScreenLock(userPrefs.navigation.keepScreenUnlockedWhileOpen) }
@@ -600,15 +597,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         updateNearbyBeacons()
-
-        if (useRadarCompass) {
-            val loadGeofence = Geofence(
-                location,
-                Distance.meters(nearbyDistance + 10)
-            )
-            val bounds = CoordinateBounds.from(loadGeofence)
-            layers.onBoundsChanged(bounds)
-        }
     }
 
     private fun updateCompassLayers() {

@@ -8,7 +8,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -27,12 +26,9 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -75,7 +71,6 @@ class MapToolLayerManager {
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
-    private var layerManager: ILayerManager? = null
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
     var key: Int = 0
@@ -148,16 +143,7 @@ class MapToolLayerManager {
             )
         )
 
-        layerManager = MultiLayerManager(
-            listOfNotNull(
-                if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
-                    myLocationLayer
-                ) else null
-            )
-        )
-
         view.start()
-        layerManager?.start()
 
         if (view is View) {
             view.invalidate()
@@ -167,21 +153,19 @@ class MapToolLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
-        layerManager?.stop()
-        layerManager = null
         view.stop()
     }
 
     fun onBearingChanged(bearing: Bearing) {
-        layerManager?.onBearingChanged(bearing.value)
+        myLocationLayer.setAzimuth(bearing.value)
     }
 
     fun onLocationChanged(location: Coordinate, accuracy: Distance?) {
-        layerManager?.onLocationChanged(location, accuracy?.meters()?.value)
+        myLocationLayer.setLocation(location)
+        myLocationLayer.setAccuracy(accuracy?.meters()?.value)
     }
 
-    fun onBoundsChanged(bounds: CoordinateBounds) {
-        layerManager?.onBoundsChanged(bounds)
+    fun onBoundsChanged() {
         distanceLayer.invalidate()
     }
 

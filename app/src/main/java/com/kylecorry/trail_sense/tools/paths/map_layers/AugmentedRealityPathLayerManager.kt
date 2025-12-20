@@ -4,27 +4,25 @@ import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import com.kylecorry.trail_sense.tools.paths.ui.asMappable
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class LegacyPathLayerManager(
+class AugmentedRealityPathLayerManager(
     private val context: Context,
-    private val layer: IPathLayer,
+    private val layer: ARPathLayer,
     private val shouldCorrectElevations: Boolean = false
-) :
-    BaseLayerManager() {
+) {
 
+    private var bounds: CoordinateBounds? = null
     private val pathService = PathService.Companion.getInstance(context)
     private val hikingService = HikingService()
     private val pathLoader = PathLoader(pathService)
@@ -35,7 +33,7 @@ class LegacyPathLayerManager(
     private var loaded = false
     private var wasBacktrackOn = false
 
-    override fun start() {
+    fun start() {
         loaded = false
         scope.launch {
             listenerRunner.skipIfRunning {
@@ -51,26 +49,14 @@ class LegacyPathLayerManager(
         }
     }
 
-    override fun stop() {
+    fun stop() {
         listenerRunner.cancel()
         loadRunner.cancel()
         scope.cancel()
     }
 
-    override fun onBoundsChanged(bounds: CoordinateBounds?) {
-        super.onBoundsChanged(bounds)
-        scope.launch {
-            loadRunner.enqueue {
-                loadPaths(false)
-            }
-        }
-    }
-
-    override fun onLocationChanged(location: Coordinate, accuracy: Float?) {
-        super.onLocationChanged(location, accuracy)
-        if (!wasBacktrackOn){
-            return
-        }
+    fun onBoundsChanged(bounds: CoordinateBounds?) {
+        this.bounds = bounds
         scope.launch {
             loadRunner.enqueue {
                 loadPaths(false)

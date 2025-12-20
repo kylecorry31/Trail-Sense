@@ -164,7 +164,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         useEffect(manager, mapView.mapBounds, manager.key) {
-            manager.onBoundsChanged(mapView.mapBounds)
+            manager.onBoundsChanged()
         }
 
         useEffect(mapView, manager, navigation.elevation, manager.key) {

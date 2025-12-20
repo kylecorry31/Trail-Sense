@@ -47,10 +47,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
@@ -146,8 +143,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
     }
 
-    private var layerManager: ILayerManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
@@ -172,17 +167,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         myLocationLayer.setColor(Resources.getPrimaryMarkerColor(requireContext()))
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(requireContext()))
 
-        layerManager = MultiLayerManager(listOf(MyLocationLayerManager(myLocationLayer)))
-        layerManager?.start()
-
         // Populate the last known location
-        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        myLocationLayer.setLocation(gps.location)
+        myLocationLayer.setAccuracy(gps.horizontalAccuracy)
+
+        binding.pathImage.start()
     }
 
     override fun onPause() {
         super.onPause()
-        layerManager?.stop()
-        layerManager = null
+        binding.pathImage.stop()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -286,12 +280,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         observe(gps) {
             updateDeclination()
-            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            myLocationLayer.setLocation(gps.location)
+            myLocationLayer.setAccuracy(gps.horizontalAccuracy)
             onPathChanged()
         }
 
         observe(compass) {
-            layerManager?.onBearingChanged(compass.rawBearing)
+            myLocationLayer.setAzimuth(compass.bearing.value)
         }
 
         scaleBarLayer.units = prefs.baseDistanceUnits

@@ -21,12 +21,9 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -66,7 +63,6 @@ class PhotoMapToolLayerManager {
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
-    private var layerManager: ILayerManager? = null
     private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
@@ -155,34 +151,23 @@ class PhotoMapToolLayerManager {
             )
         )
 
-        layerManager = MultiLayerManager(
-            listOfNotNull(
-                if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
-                    myLocationLayer
-                ) else null
-            )
-        )
-
         view.start()
-        layerManager?.start()
     }
 
     fun pause(context: Context, view: IMapView) {
-        layerManager?.stop()
         view.stop()
-        layerManager = null
     }
 
     fun onBearingChanged(bearing: Float) {
-        layerManager?.onBearingChanged(bearing)
+        myLocationLayer.setAzimuth(bearing)
     }
 
     fun onLocationChanged(location: Coordinate, accuracy: Float?) {
-        layerManager?.onLocationChanged(location, accuracy)
+        myLocationLayer.setLocation(location)
+        myLocationLayer.setAccuracy(accuracy)
     }
 
-    fun onBoundsChanged(bounds: CoordinateBounds) {
-        layerManager?.onBoundsChanged(bounds)
+    fun onBoundsChanged() {
         distanceLayer.invalidate()
     }
 

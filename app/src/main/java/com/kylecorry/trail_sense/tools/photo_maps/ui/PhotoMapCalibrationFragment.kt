@@ -25,10 +25,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
@@ -60,7 +57,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     // Layers
-    private var layerManager: ILayerManager? = null
     private val beaconLayer = BeaconLayer()
     private val pathLayer = PathLayer()
     private val myLocationLayer = MyLocationLayer()
@@ -86,25 +82,25 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         super.onResume()
         myLocationLayer.setColor(Resources.getPrimaryMarkerColor(requireContext()))
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(requireContext()))
-        layerManager = MultiLayerManager(listOf(MyLocationLayerManager(myLocationLayer)))
 
         // Populate the last known location
-        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        myLocationLayer.setLocation(gps.location)
+        myLocationLayer.setAccuracy(gps.horizontalAccuracy)
 
         observe(gps) {
-            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            myLocationLayer.setLocation(gps.location)
+            myLocationLayer.setAccuracy(gps.horizontalAccuracy)
             compass.declination = declinationStrategy.getDeclination()
         }
 
         observe(compass) {
-            layerManager?.onBearingChanged(compass.rawBearing)
+            myLocationLayer.setAzimuth(compass.rawBearing)
         }
     }
 
     override fun onPause() {
         super.onPause()
-        layerManager?.stop()
-        layerManager = null
+        binding.calibrationMap.stop()
     }
 
     override fun generateBinding(
@@ -207,7 +203,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
         calibrateMap()
-        layerManager?.onBoundsChanged(map.boundary())
     }
 
     private fun updateMapCalibration() {
@@ -236,7 +231,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
                 rotation = if (showPreview) rotationCalculator.calculate(map!!) else originalRotation
             )
         )
-        layerManager?.onBoundsChanged(map?.boundary())
         val map = map ?: return
         binding.calibrationMap.mapAzimuth = 0f
         binding.calibrationMap.keepMapUp = true
@@ -327,9 +321,9 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         updateMapCalibration()
 
         if (showPreview) {
-            layerManager?.start()
+            binding.calibrationMap.start()
         } else {
-            layerManager?.stop()
+            binding.calibrationMap.stop()
         }
 
     }

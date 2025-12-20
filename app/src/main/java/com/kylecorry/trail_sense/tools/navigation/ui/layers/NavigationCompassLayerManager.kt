@@ -14,11 +14,8 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
@@ -40,7 +37,6 @@ class NavigationCompassLayerManager {
     private var hillshadeLayer: HillshadeLayer? = null
     private val cellTowerLayer = CellTowerMapLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private var layerManager: ILayerManager? = null
 
     var key = 0
         private set
@@ -51,7 +47,7 @@ class NavigationCompassLayerManager {
         elevationLayer = ElevationLayer(taskRunner2)
         hillshadeLayer = HillshadeLayer(taskRunner2)
 
-        //
+        // Location layer
         myLocationLayer.setColor(Color.WHITE)
         myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(context))
 
@@ -95,38 +91,24 @@ class NavigationCompassLayerManager {
             )
         )
 
-        layerManager = MultiLayerManager(
-            listOfNotNull(
-                if (isMyLocationLayerEnabled) MyLocationLayerManager(
-                    myLocationLayer
-                ) else null
-            )
-        )
-
         key += 1
 
         if (prefs.navigation.useRadarCompass) {
             view.start()
-            layerManager?.start()
         }
     }
 
     fun pause(context: Context, view: IMapView) {
-        layerManager?.stop()
-        layerManager = null
         view.stop()
     }
 
     fun onBearingChanged(bearing: Float) {
-        layerManager?.onBearingChanged(bearing)
+        myLocationLayer.setAzimuth(bearing)
     }
 
     fun onLocationChanged(location: Coordinate, accuracy: Float?) {
-        layerManager?.onLocationChanged(location, accuracy)
-    }
-
-    fun onBoundsChanged(bounds: CoordinateBounds) {
-        layerManager?.onBoundsChanged(bounds)
+        myLocationLayer.setLocation(location)
+        myLocationLayer.setAccuracy(accuracy)
     }
 
     fun setDestination(beacon: Beacon?) {

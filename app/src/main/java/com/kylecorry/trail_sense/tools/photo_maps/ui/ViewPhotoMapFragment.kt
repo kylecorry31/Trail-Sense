@@ -318,9 +318,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         layerManager.resume(requireContext(), binding.map, mapId)
 
         // Populate the last known location and map bounds
-        map?.boundary()?.let {
-            layerManager.onBoundsChanged(it)
-        }
+        layerManager.onBoundsChanged()
         layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
     }
 
@@ -386,9 +384,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             shouldLockOnMapLoad = false
         }
         binding.map.mapAzimuth = getDefaultMapAzimuth(prefs.photoMaps.keepMapFacingUp)
-        map.boundary()?.let {
-            layerManager.onBoundsChanged(it)
-        }
+        layerManager.onBoundsChanged()
     }
 
     private fun updateMapLockMode(mode: MapLockMode, keepMapUp: Boolean) {
