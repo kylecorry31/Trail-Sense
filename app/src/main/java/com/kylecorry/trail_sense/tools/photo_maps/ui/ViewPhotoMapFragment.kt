@@ -129,7 +129,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         observe(compass) {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
-//            binding.map.azimuth = bearing
             layerManager.onBearingChanged(bearing)
             if (mapLockMode == MapLockMode.Compass) {
                 binding.map.mapAzimuth = bearing
