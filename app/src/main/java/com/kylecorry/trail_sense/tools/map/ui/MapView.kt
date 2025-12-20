@@ -92,8 +92,14 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var mapCenter: Coordinate = Coordinate.zero
         set(value) {
-            field = value
-            onCenterChange?.invoke(value)
+            field = Coordinate(
+                value.latitude.coerceIn(constraintBounds.south, constraintBounds.north),
+                Coordinate.toLongitude(value.longitude).coerceIn(
+                    min(constraintBounds.west, constraintBounds.east),
+                    max(constraintBounds.west, constraintBounds.east)
+                )
+            )
+            onCenterChange?.invoke(field)
             invalidate()
         }
 
@@ -355,18 +361,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private fun translatePixels(distanceX: Float, distanceY: Float) {
         val newPoint = PixelCoordinate(width / 2f + distanceX, height / 2f + distanceY)
-        val newCenter = toCoordinate(newPoint)
-        mapCenter = Coordinate(
-            newCenter.latitude.coerceIn(
-                constraintBounds.south,
-                constraintBounds.north
-            ),
-            Coordinate.toLongitude(newCenter.longitude).coerceIn(
-                min(constraintBounds.west, constraintBounds.east),
-                max(constraintBounds.west, constraintBounds.east)
-            )
-        )
-        invalidate()
+        mapCenter = toCoordinate(newPoint)
     }
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
