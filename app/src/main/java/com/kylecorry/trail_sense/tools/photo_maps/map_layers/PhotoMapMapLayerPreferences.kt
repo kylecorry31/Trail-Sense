@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerPreferenceConfig
@@ -46,5 +47,13 @@ class PhotoMapMapLayerPreferences(
             opacity.preference,
             loadPdfs.preference
         )
+    }
+
+    override fun addPreferencesToBundle(bundle: Bundle) {
+        bundle.putBoolean(LOAD_PDFS, loadPdfs.get())
+    }
+
+    companion object {
+        const val LOAD_PDFS = "loadPdfs"
     }
 }

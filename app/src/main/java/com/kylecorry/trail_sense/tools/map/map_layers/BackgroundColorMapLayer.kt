@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
@@ -13,6 +14,10 @@ class BackgroundColorMapLayer(initialColor: Int = Color.TRANSPARENT) : ILayer {
             field = value
             invalidate()
         }
+
+    override fun setPreferences(preferences: Bundle) {
+        // Do nothing
+    }
 
     override fun draw(
         drawer: ICanvasDrawer,

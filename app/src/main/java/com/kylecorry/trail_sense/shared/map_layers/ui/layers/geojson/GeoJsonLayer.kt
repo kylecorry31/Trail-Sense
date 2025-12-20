@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -53,6 +54,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         renderer.setHasUpdateListener(listener)
+    }
+
+    override fun setPreferences(preferences: Bundle) {
+        // Do nothing
     }
 
     override fun draw(

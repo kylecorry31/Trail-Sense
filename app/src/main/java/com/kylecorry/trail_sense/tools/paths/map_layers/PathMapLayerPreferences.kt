@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths.map_layers
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.ListMapLayerPreference
@@ -42,5 +43,13 @@ class PathMapLayerPreferences(
             opacity.preference,
             backgroundColor.preference
         )
+    }
+
+    override fun addPreferencesToBundle(bundle: Bundle) {
+        bundle.putLong(BACKGROUND_COLOR, backgroundColor.get().id)
+    }
+
+    companion object {
+        const val BACKGROUND_COLOR = "backgroundColor"
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
@@ -63,8 +64,7 @@ class NavigationLayer : GeoJsonLayer<NavigationGeoJsonSource>(NavigationGeoJsonS
         invalidate()
     }
 
-    fun setPreferences(prefs: NavigationMapLayerPreferences) {
-        percentOpacity = prefs.opacity.get() / 100f
-        invalidate()
+    override fun setPreferences(preferences: Bundle) {
+        percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY) / 100f
     }
 }

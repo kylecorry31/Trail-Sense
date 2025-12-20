@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
@@ -53,6 +54,10 @@ class ElevationMapLayerPreferences(
         )
     )
 
+    override fun addPreferencesToBundle(bundle: Bundle) {
+        bundle.putLong(COLOR_STRATEGY_ID, colorStrategy.get().id)
+    }
+
     override fun getAllPreferences(): List<MapLayerViewPreference> {
         return listOf(
             isEnabled.preference,
@@ -68,5 +73,9 @@ class ElevationMapLayerPreferences(
             opacity.preference,
             colorStrategy.preference
         )
+    }
+
+    companion object {
+        const val COLOR_STRATEGY_ID = "colorStrategyId"
     }
 }

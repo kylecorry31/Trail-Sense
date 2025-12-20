@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -32,6 +33,10 @@ class CompassOverlayLayer : ILayer {
             field = value
             invalidate()
         }
+
+    override fun setPreferences(preferences: Bundle) {
+        // Do nothing
+    }
 
     override fun draw(
         drawer: ICanvasDrawer,

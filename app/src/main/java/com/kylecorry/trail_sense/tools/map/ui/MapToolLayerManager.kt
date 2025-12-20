@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
@@ -47,14 +48,15 @@ class MapToolLayerManager {
         navigator.navigateTo(it)
         true
     }
-    private val taskRunner2 = MapLayerBackgroundTask()
+    private val taskRunner = MapLayerBackgroundTask()
+    private val backgroundLayer = BackgroundColorMapLayer(Color.rgb(127, 127, 127))
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val baseMapLayer = BaseMapLayer()
     private val photoMapLayer = PhotoMapLayer()
-    private var contourLayer: ContourLayer? = null
-    private var hillshadeLayer: HillshadeLayer? = null
-    private var elevationLayer: ElevationLayer? = null
+    private val contourLayer = ContourLayer(taskRunner)
+    private val hillshadeLayer = HillshadeLayer(taskRunner)
+    private val elevationLayer = ElevationLayer(taskRunner)
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
@@ -73,10 +75,6 @@ class MapToolLayerManager {
     var key: Int = 0
 
     fun resume(context: Context, view: IMapView) {
-        contourLayer = ContourLayer(taskRunner2)
-        hillshadeLayer = HillshadeLayer(taskRunner2)
-        elevationLayer = ElevationLayer(taskRunner2)
-
         // Hardcoded customization for this tool
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
@@ -98,40 +96,25 @@ class MapToolLayerManager {
 
         // Preferences
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        beaconLayer.setPreferences(prefs.map.beaconLayer)
-        pathLayer.setPreferences(prefs.map.pathLayer)
-        navigationLayer.setPreferences(prefs.map.navigationLayer)
-        baseMapLayer.setPreferences(prefs.map.baseMapLayer)
-        photoMapLayer.setPreferences(prefs.map.photoMapLayer)
-        contourLayer?.setPreferences(prefs.map.contourLayer)
-        elevationLayer?.setPreferences(prefs.map.elevationLayer)
-        hillshadeLayer?.setPreferences(prefs.map.hillshadeLayer)
-        tideLayer.setPreferences(prefs.map.tideLayer)
-        myLocationLayer.setPreferences(prefs.map.myLocationLayer)
-        cellTowerLayer.setPreferences(prefs.map.cellTowerLayer)
 
-        view.setLayers(
-            listOfNotNull(
-                BackgroundColorMapLayer(Color.rgb(127, 127, 127)),
-                if (prefs.map.baseMapLayer.isEnabled.get()) baseMapLayer else null,
-                if (prefs.map.elevationLayer.isEnabled.get()) elevationLayer else null,
-                if (prefs.map.hillshadeLayer.isEnabled.get()) hillshadeLayer else null,
-                if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
-                if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
-                if (prefs.map.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
-                if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
-                if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
-                if (prefs.map.myLocationLayer.isEnabled.get()) myLocationLayer else null,
-                if (prefs.map.tideLayer.isEnabled.get()) tideLayer else null,
-                if (prefs.map.beaconLayer.isEnabled.get()) beaconLayer else null,
-                selectedPointLayer,
-                distanceLayer,
-
-                // Overlays
-                scaleBarLayer,
-                myElevationLayer,
-                compassLayer
-            )
+        view.setLayersWithPreferences(
+            backgroundLayer to null,
+            baseMapLayer to prefs.map.baseMapLayer,
+            elevationLayer to prefs.map.elevationLayer,
+            hillshadeLayer to prefs.map.hillshadeLayer,
+            photoMapLayer to prefs.map.photoMapLayer,
+            contourLayer to prefs.map.contourLayer,
+            cellTowerLayer to prefs.map.cellTowerLayer,
+            navigationLayer to prefs.map.navigationLayer,
+            pathLayer to prefs.map.pathLayer,
+            myLocationLayer to prefs.map.myLocationLayer,
+            tideLayer to prefs.map.tideLayer,
+            beaconLayer to prefs.map.beaconLayer,
+            selectedPointLayer to null,
+            distanceLayer to null,
+            scaleBarLayer to null,
+            myElevationLayer to null,
+            compassLayer to null
         )
 
         view.start()

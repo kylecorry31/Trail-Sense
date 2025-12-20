@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
@@ -87,6 +88,10 @@ class MyElevationLayer(
 
     protected fun finalize() {
         bitmapLoader.clear()
+    }
+
+    override fun setPreferences(preferences: Bundle) {
+        // Do nothing
     }
 
     private var _percentOpacity: Float = 1f

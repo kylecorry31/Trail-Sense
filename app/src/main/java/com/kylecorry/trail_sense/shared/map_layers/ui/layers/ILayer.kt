@@ -1,10 +1,17 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 
 interface ILayer {
+
+    /**
+     * Set the preferences of the layer
+     */
+    fun setPreferences(preferences: Bundle)
+
     /**
      * Draw the layer on the map.
      * Transforms are already applied to the canvas.

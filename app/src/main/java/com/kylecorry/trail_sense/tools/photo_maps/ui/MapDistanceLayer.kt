@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -66,6 +67,10 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
 
     fun getPoints(): List<Coordinate> {
         return points
+    }
+
+    override fun setPreferences(preferences: Bundle) {
+        // Do nothing
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {

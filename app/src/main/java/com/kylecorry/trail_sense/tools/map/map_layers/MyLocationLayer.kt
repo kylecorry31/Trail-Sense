@@ -2,11 +2,13 @@ package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Color
 import android.graphics.Path
+import android.os.Bundle
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
@@ -63,15 +65,9 @@ class MyLocationLayer : IAsyncLayer {
         invalidate()
     }
 
-    fun setPreferences(prefs: MyLocationMapLayerPreferences) {
-        setPercentOpacity(prefs.opacity.get() / 100f)
-        _drawAccuracy = prefs.showAccuracy.get()
-        invalidate()
-    }
-
-    fun setPercentOpacity(opacity: Float) {
-        _percentOpacity = opacity.coerceIn(0f, 1f)
-        invalidate()
+    override fun setPreferences(preferences: Bundle) {
+        _percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY) / 100f
+        _drawAccuracy = preferences.getBoolean(MyLocationMapLayerPreferences.SHOW_ACCURACY)
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.repo
 
 import android.content.Context
+import android.os.Bundle
 import androidx.annotation.StringRes
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntPreference
@@ -68,10 +69,27 @@ abstract class BaseMapLayerPreferences(
         )
     }
 
+    fun toBundle(): Bundle {
+        val bundle = Bundle()
+        bundle.putBoolean(IS_ENABLED, isEnabled.get())
+        bundle.putInt(OPACITY, opacity.get())
+        addPreferencesToBundle(bundle)
+        return bundle
+    }
+
+    open fun addPreferencesToBundle(bundle: Bundle) {
+        // Do nothing
+    }
+
     protected open fun getAllPreferences(): List<MapLayerViewPreference> {
         return listOf(
             isEnabled.preference,
             opacity.preference
         )
+    }
+
+    companion object {
+        const val IS_ENABLED = "isEnabled"
+        const val OPACITY = "opacity"
     }
 }

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
@@ -85,5 +86,15 @@ class ContourMapLayerPreferences(
             showLabels.preference,
             colorStrategy.preference
         )
+    }
+
+    override fun addPreferencesToBundle(bundle: Bundle) {
+        bundle.putBoolean(SHOW_LABELS, showLabels.get())
+        bundle.putLong(COLOR_STRATEGY_ID, colorStrategy.get().id)
+    }
+
+    companion object {
+        const val SHOW_LABELS = "showLabels"
+        const val COLOR_STRATEGY_ID = "colorStrategyId"
     }
 }

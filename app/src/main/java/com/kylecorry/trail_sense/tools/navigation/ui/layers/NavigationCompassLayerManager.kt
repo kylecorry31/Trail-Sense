@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
@@ -49,38 +50,18 @@ class NavigationCompassLayerManager {
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
 
         // Preferences
-        val isMapLayerEnabled = prefs.navigation.photoMapLayer.isEnabled.get()
-        val isContourLayerEnabled = prefs.navigation.contourLayer.isEnabled.get()
-        val isElevationLayerEnabled = prefs.navigation.elevationLayer.isEnabled.get()
-        val isHillshadeLayerEnabled = prefs.navigation.hillshadeLayer.isEnabled.get()
-        val isPathLayerEnabled = prefs.navigation.pathLayer.isEnabled.get()
-        val isBeaconLayerEnabled = prefs.navigation.beaconLayer.isEnabled.get()
-        val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
-        val isMyLocationLayerEnabled = prefs.navigation.myLocationLayer.isEnabled.get()
-        val isCellTowerLayerEnabled = prefs.navigation.cellTowerLayer.isEnabled.get()
-        beaconLayer.setPreferences(prefs.navigation.beaconLayer)
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        pathLayer.setPreferences(prefs.navigation.pathLayer)
-        photoMapLayer.setPreferences(prefs.navigation.photoMapLayer)
-        contourLayer?.setPreferences(prefs.navigation.contourLayer)
-        elevationLayer?.setPreferences(prefs.map.elevationLayer)
-        hillshadeLayer?.setPreferences(prefs.map.hillshadeLayer)
-        tideLayer.setPreferences(prefs.navigation.tideLayer)
-        myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
-        cellTowerLayer.setPreferences(prefs.navigation.cellTowerLayer)
 
-        view.setLayers(
-            listOfNotNull(
-                if (isElevationLayerEnabled) elevationLayer else null,
-                if (isHillshadeLayerEnabled) hillshadeLayer else null,
-                if (isMapLayerEnabled) photoMapLayer else null,
-                if (isContourLayerEnabled) contourLayer else null,
-                if (isCellTowerLayerEnabled) cellTowerLayer else null,
-                if (isPathLayerEnabled) pathLayer else null,
-                if (isMyLocationLayerEnabled) myLocationLayer else null,
-                if (isTideLayerEnabled) tideLayer else null,
-                if (isBeaconLayerEnabled) beaconLayer else null
-            )
+        view.setLayersWithPreferences(
+            elevationLayer to prefs.map.elevationLayer,
+            hillshadeLayer to prefs.map.hillshadeLayer,
+            photoMapLayer to prefs.navigation.photoMapLayer,
+            contourLayer to prefs.navigation.contourLayer,
+            cellTowerLayer to prefs.navigation.cellTowerLayer,
+            pathLayer to prefs.navigation.pathLayer,
+            myLocationLayer to prefs.navigation.myLocationLayer,
+            tideLayer to prefs.navigation.tideLayer,
+            beaconLayer to prefs.navigation.beaconLayer
         )
 
         key += 1

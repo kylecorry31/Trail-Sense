@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
@@ -88,34 +89,22 @@ class PhotoMapToolLayerManager {
 
         // Preferences
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        pathLayer.setPreferences(prefs.photoMaps.pathLayer)
-        beaconLayer.setPreferences(prefs.photoMaps.beaconLayer)
-        navigationLayer.setPreferences(prefs.photoMaps.navigationLayer)
-        contourLayer?.setPreferences(prefs.photoMaps.contourLayer)
-        tideLayer.setPreferences(prefs.photoMaps.tideLayer)
-        myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
-        cellTowerLayer.setPreferences(prefs.photoMaps.cellTowerLayer)
 
-        // Start
-        view.setLayers(
-            listOfNotNull(
-                backgroundLayer,
-                photoMapLayer,
-                if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
-                if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
-                if (prefs.photoMaps.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
-                if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
-                if (prefs.photoMaps.myLocationLayer.isEnabled.get()) myLocationLayer else null,
-                if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
-                if (prefs.photoMaps.beaconLayer.isEnabled.get()) beaconLayer else null,
-                selectedPointLayer,
-                distanceLayer,
-
-                // Overlays
-                scaleBarLayer,
-                myElevationLayer,
-                compassLayer
-            )
+        view.setLayersWithPreferences(
+            backgroundLayer to null,
+            photoMapLayer to null,
+            contourLayer to prefs.photoMaps.contourLayer,
+            navigationLayer to prefs.photoMaps.navigationLayer,
+            cellTowerLayer to prefs.photoMaps.cellTowerLayer,
+            pathLayer to prefs.photoMaps.pathLayer,
+            myLocationLayer to prefs.photoMaps.myLocationLayer,
+            tideLayer to prefs.photoMaps.tideLayer,
+            beaconLayer to prefs.photoMaps.beaconLayer,
+            selectedPointLayer to null,
+            distanceLayer to null,
+            scaleBarLayer to null,
+            myElevationLayer to null,
+            compassLayer to null
         )
 
         view.start()

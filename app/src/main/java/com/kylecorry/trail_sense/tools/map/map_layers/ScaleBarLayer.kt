@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Color
 import android.graphics.Path
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
@@ -24,6 +25,10 @@ class ScaleBarLayer : ILayer {
     val units = prefs.baseDistanceUnits
 
     private val formatter = AppServiceRegistry.get<FormatService>()
+
+    override fun setPreferences(preferences: Bundle) {
+        // Do nothing
+    }
 
     override fun draw(
         drawer: ICanvasDrawer,

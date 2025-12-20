@@ -35,4 +35,8 @@ class MyLocationMapLayerPreferences(
             showAccuracy.preference
         )
     }
+
+    companion object {
+        const val SHOW_ACCURACY = "showAccuracy"
+    }
 }

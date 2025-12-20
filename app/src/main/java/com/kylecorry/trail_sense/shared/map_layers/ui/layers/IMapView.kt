@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 
 interface IMapView {
     fun addLayer(layer: ILayer)
@@ -58,3 +59,14 @@ fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
     return mapProjection.toCoordinate(pixel)
 }
 
+fun IMapView.setLayersWithPreferences(vararg layers: Pair<ILayer?, BaseMapLayerPreferences?>) {
+    val actualLayers = layers.filter { it.first != null && it.second?.isEnabled?.get() != false }
+    actualLayers.forEach {
+        it.second?.toBundle()?.let { prefs ->
+            it.first?.setPreferences(prefs)
+            it.first?.invalidate()
+        }
+    }
+
+    setLayers(actualLayers.mapNotNull { it.first })
+}

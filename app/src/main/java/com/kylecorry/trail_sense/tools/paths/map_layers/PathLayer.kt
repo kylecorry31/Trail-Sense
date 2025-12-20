@@ -1,14 +1,15 @@
 package com.kylecorry.trail_sense.tools.paths.map_layers
 
+import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import android.os.Bundle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -51,9 +52,12 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
         scope = null
     }
 
-    fun setPreferences(prefs: PathMapLayerPreferences) {
-        percentOpacity = prefs.opacity.get() / 100f
-        renderer.configureLineStringRenderer(backgroundColor = prefs.backgroundColor.get())
+    override fun setPreferences(preferences: Bundle) {
+        percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY) / 100f
+        val backgroundColorId = preferences.getLong(PathMapLayerPreferences.BACKGROUND_COLOR)
+        renderer.configureLineStringRenderer(
+            backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId)
+        )
     }
 
     fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
