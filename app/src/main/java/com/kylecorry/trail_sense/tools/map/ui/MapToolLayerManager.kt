@@ -187,7 +187,6 @@ class MapToolLayerManager {
         layerManager?.stop()
         layerManager = null
         view.stop()
-        PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 
     fun onBearingChanged(bearing: Bearing) {

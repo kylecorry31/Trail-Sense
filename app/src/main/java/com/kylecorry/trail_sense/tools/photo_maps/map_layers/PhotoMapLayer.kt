@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 
 class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     PhotoMapTileSource(pruneCache = true),
@@ -16,5 +17,10 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     override fun setBackgroundColor(color: Int) {
         super.setBackgroundColor(color)
         source.backgroundColor = color
+    }
+
+    override fun stop() {
+        super.stop()
+        PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 }
