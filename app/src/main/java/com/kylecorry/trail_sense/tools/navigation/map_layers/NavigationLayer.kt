@@ -4,24 +4,24 @@ import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 
 class NavigationLayer : GeoJsonLayer<NavigationGeoJsonSource>(NavigationGeoJsonSource()) {
 
     private val navigator = AppServiceRegistry.get<Navigator>()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
-    private var scope: CoroutineScope? = null
+    private val task = BackgroundTask {
+        navigator.destination2.collect {
+            setDestination(it)
+        }
+    }
 
     private val onLocationChanged = { _: Bundle ->
         setMyLocation(locationSubsystem.location)
@@ -32,19 +32,12 @@ class NavigationLayer : GeoJsonLayer<NavigationGeoJsonSource>(NavigationGeoJsonS
         useLocationWithBearing = prefs.navigation.lockBearingToLocation
         setMyLocation(locationSubsystem.location)
         Tools.subscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED, onLocationChanged)
-        scope?.cancel()
-        scope = CoroutineScope(Dispatchers.Default)
-        scope?.launch {
-            navigator.destination2.collect {
-                setDestination(it)
-            }
-        }
+        task.start()
     }
 
     override fun stop() {
         Tools.unsubscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED, onLocationChanged)
-        scope?.cancel()
-        scope = null
+        task.stop()
     }
 
     var useLocationWithBearing: Boolean
@@ -62,9 +55,5 @@ class NavigationLayer : GeoJsonLayer<NavigationGeoJsonSource>(NavigationGeoJsonS
     fun setDestination(destination: Destination?) {
         source.destination = destination
         invalidate()
-    }
-
-    override fun setPreferences(preferences: Bundle) {
-        percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY) / 100f
     }
 }

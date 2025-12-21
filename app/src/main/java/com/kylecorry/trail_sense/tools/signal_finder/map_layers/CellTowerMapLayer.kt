@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.signal_finder.map_layers
 
-import android.os.Bundle
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPoint
 import com.kylecorry.sol.units.Distance
@@ -8,7 +7,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.extensions.getFloatProperty
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.text.StringLoader
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
@@ -29,10 +27,6 @@ class CellTowerMapLayer(
                 Distance.meters(accuracy)
             )
         )
-    }
-
-    override fun setPreferences(preferences: Bundle) {
-        percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY) / 100f
     }
 
     companion object {

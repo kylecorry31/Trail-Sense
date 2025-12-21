@@ -16,7 +16,7 @@ class ContourLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
     ) {
 
     override fun setPreferences(preferences: Bundle) {
-        percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY) / 100f
+        super.setPreferences(preferences)
         renderer.configureLineStringRenderer(
             shouldRenderLabels = preferences.getBoolean(
                 ContourMapLayerPreferences.SHOW_LABELS
