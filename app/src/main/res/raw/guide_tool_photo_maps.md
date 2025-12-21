@@ -74,6 +74,8 @@ For further details on paths, refer to the 'Paths' guide.
 ## Layers
 Layers are used to display information on the map. You can find layer settings in Settings > Photo Maps or through the menu at the top right of the map screen. You can choose to hide and show layers using the switch next to each layer's name. The opacity setting for each layer determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
 
+You can copy layer settings to other maps using the "Copy settings to other maps" option under each layer. This impacts Navigation, Photo Maps, and Map tools.
+
 ### Contours
 This layer shows contour lines generated from the digital elevation model (DEM) and can be used to see the steepness and elevation of map features. You can change the DEM in Settings > Altimeter.
 

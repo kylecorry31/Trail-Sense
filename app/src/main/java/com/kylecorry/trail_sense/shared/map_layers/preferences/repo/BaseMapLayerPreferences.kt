@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.Switch
 abstract class BaseMapLayerPreferences(
     context: Context,
     protected val mapId: String,
-    protected val layerId: String,
+    val layerId: String,
     @StringRes nameResId: Int,
     enabledByDefault: Boolean = true,
     defaultOpacityPercent: Int = 100,
@@ -25,7 +25,7 @@ abstract class BaseMapLayerPreferences(
     PreferenceRepo(context) {
 
     protected val enabledPreferenceId = "${layerId}_layer_enabled"
-    protected val name = context.getString(nameResId)
+    val name: String = context.getString(nameResId)
 
     private var _isEnabled by BooleanPreference(
         cache,

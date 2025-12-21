@@ -47,17 +47,17 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
 
     val layerManager = MapLayerPreferenceManager(
         mapId, listOf(
-            baseMapLayer.getPreferences(),
-            elevationLayer.getPreferences(),
-            hillshadeLayer.getPreferences(),
-            photoMapLayer.getPreferences(),
-            contourLayer.getPreferences(),
-            cellTowerLayer.getPreferences(),
-            pathLayer.getPreferences(),
-            beaconLayer.getPreferences(),
-            navigationLayer.getPreferences(),
-            tideLayer.getPreferences(),
-            myLocationLayer.getPreferences()
+            baseMapLayer,
+            elevationLayer,
+            hillshadeLayer,
+            photoMapLayer,
+            contourLayer,
+            cellTowerLayer,
+            pathLayer,
+            beaconLayer,
+            navigationLayer,
+            tideLayer,
+            myLocationLayer
         )
     )
 }

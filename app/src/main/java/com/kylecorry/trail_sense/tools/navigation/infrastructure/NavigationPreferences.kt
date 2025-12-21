@@ -250,15 +250,15 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
 
     val layerManager = MapLayerPreferenceManager(
         mapId, listOf(
-            elevationLayer.getPreferences(),
-            hillshadeLayer.getPreferences(),
-            photoMapLayer.getPreferences(),
-            contourLayer.getPreferences(),
-            cellTowerLayer.getPreferences(),
-            pathLayer.getPreferences(),
-            beaconLayer.getPreferences(),
-            tideLayer.getPreferences(),
-            myLocationLayer.getPreferences()
+            elevationLayer,
+            hillshadeLayer,
+            photoMapLayer,
+            contourLayer,
+            cellTowerLayer,
+            pathLayer,
+            beaconLayer,
+            tideLayer,
+            myLocationLayer
         )
     )
 

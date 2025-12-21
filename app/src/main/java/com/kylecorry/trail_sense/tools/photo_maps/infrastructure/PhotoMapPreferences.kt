@@ -64,13 +64,13 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
     val cellTowerLayer = CellTowerMapLayerPreferences(context, mapId)
     val layerManager = MapLayerPreferenceManager(
         mapId, listOf(
-            contourLayer.getPreferences(),
-            cellTowerLayer.getPreferences(),
-            pathLayer.getPreferences(),
-            beaconLayer.getPreferences(),
-            navigationLayer.getPreferences(),
-            tideLayer.getPreferences(),
-            myLocationLayer.getPreferences()
+            contourLayer,
+            cellTowerLayer,
+            pathLayer,
+            beaconLayer,
+            navigationLayer,
+            tideLayer,
+            myLocationLayer
         )
     )
 }
