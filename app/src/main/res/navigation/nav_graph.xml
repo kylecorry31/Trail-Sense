@@ -634,6 +634,11 @@
         android:label="CellSignalSettingsFragment" />
 
     <fragment
+        android:id="@+id/bubbleLevelSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.level.ui.BubbleLevelSettingsFragment"
+        android:label="BubbleLevelSettingsFragment" />
+
+    <fragment
         android:id="@+id/clockSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.ClockSettingsFragment"
         android:label="ClockSettingsFragment" />
