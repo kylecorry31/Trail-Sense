@@ -3,20 +3,17 @@ package com.kylecorry.trail_sense.tools.photo_maps
 import android.content.Context
 import androidx.core.os.bundleOf
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.quickactions.QuickActionOpenPhotoMap
-import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayerPreferences
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolIntentHandler
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -52,7 +49,6 @@ object PhotoMapsToolRegistration : ToolRegistration {
                     context.getString(R.string.open_photo_map),
                     ::QuickActionOpenPhotoMap
                 )
-
             ),
             additionalNavigationIds = listOf(
                 R.id.photoMapsFragment
@@ -66,16 +62,19 @@ object PhotoMapsToolRegistration : ToolRegistration {
             singletons = listOf(
                 MapRepo::getInstance
             ),
-            maps = listOf(
-                ToolMap(
-                    MAP_ID, listOf(
-                        ContourMapLayerPreferences(context, MAP_ID),
-                        CellTowerMapLayerPreferences(context, MAP_ID),
-                        PathMapLayerPreferences(context, MAP_ID),
-                        BeaconMapLayerPreferences(context, MAP_ID),
-                        NavigationMapLayerPreferences(context, MAP_ID),
-                        TideMapLayerPreferences(context, MAP_ID),
-                        MyLocationMapLayerPreferences(context, MAP_ID)
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    PhotoMapLayer.LAYER_ID,
+                    context.getString(R.string.photo_maps),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = PhotoMapLayer.LOAD_PDFS,
+                            title = context.getString(R.string.load_pdf_tiles),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = false,
+                            dependency = DefaultMapLayerDefinitions.ENABLED,
+                            summary = context.getString(R.string.load_pdf_tiles_summary)
+                        )
                     )
                 )
             )

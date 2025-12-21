@@ -54,9 +54,9 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        val backgroundColorId = preferences.getLong(PathMapLayerPreferences.BACKGROUND_COLOR)
+        val backgroundColorId = preferences.getString(BACKGROUND_COLOR)?.toLongOrNull()
         renderer.configureLineStringRenderer(
-            backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId)
+            backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId ?: 0)
         )
     }
 
@@ -67,5 +67,6 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
 
     companion object {
         const val LAYER_ID = "path"
+        const val BACKGROUND_COLOR = "background_color"
     }
 }

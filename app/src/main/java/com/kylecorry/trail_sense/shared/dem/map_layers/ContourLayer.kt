@@ -18,19 +18,19 @@ class ContourLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
         renderer.configureLineStringRenderer(
-            shouldRenderLabels = preferences.getBoolean(
-                ContourMapLayerPreferences.SHOW_LABELS
-            )
+            shouldRenderLabels = preferences.getBoolean(SHOW_LABELS)
         )
         // TODO: More experimentation required before this is enabled for everyone
 //        renderer.configureLineStringRenderer(shouldRenderSmoothPaths = isDebug())
-        val strategyId = preferences.getLong(ContourMapLayerPreferences.COLOR_STRATEGY_ID)
+        val strategyId = preferences.getString(COLOR)?.toLongOrNull()
         source.colorScale = ElevationColorMapFactory().getElevationColorMap(
-            ElevationColorStrategy.entries.withId(strategyId) ?: ElevationColorStrategy.Brown
+            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: ElevationColorStrategy.Brown
         )
     }
 
     companion object {
         const val LAYER_ID = "contour"
+        const val SHOW_LABELS = "show_labels"
+        const val COLOR = "color"
     }
 }

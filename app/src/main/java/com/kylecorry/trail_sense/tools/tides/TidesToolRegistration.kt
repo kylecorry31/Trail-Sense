@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.tides
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTideChart
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTides
 import com.kylecorry.trail_sense.tools.tides.widgets.TideChartToolWidgetView
@@ -30,6 +32,12 @@ object TidesToolRegistration : ToolRegistration {
             ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context)
+            ),
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    TideMapLayer.LAYER_ID,
+                    context.getString(R.string.tides)
+                )
             ),
             widgets = listOf(
                 ToolWidget(

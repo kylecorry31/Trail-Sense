@@ -74,4 +74,17 @@ class NavigationCompassLayerManager {
         beaconLayer.highlight(beacon)
     }
 
+    companion object {
+        val orderedLayerIds = listOf(
+            ElevationLayer.LAYER_ID,
+            HillshadeLayer.LAYER_ID,
+            PhotoMapLayer.LAYER_ID,
+            ContourLayer.LAYER_ID,
+            CellTowerMapLayer.LAYER_ID,
+            PathLayer.LAYER_ID,
+            BeaconLayer.LAYER_ID,
+            TideMapLayer.LAYER_ID,
+            MyLocationLayer.LAYER_ID
+        )
+    }
 }

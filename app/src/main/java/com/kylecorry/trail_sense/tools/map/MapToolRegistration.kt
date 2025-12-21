@@ -2,20 +2,17 @@ package com.kylecorry.trail_sense.tools.map
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
-import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapLayerPreferences
-import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapLayerPreferences
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
-import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapMapLayerPreferences
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
-import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayerPreferences
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
@@ -35,20 +32,93 @@ object MapToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.compass(context)
             ).distinctBy { it.id },
-            maps = listOf(
-                ToolMap(
-                    MAP_ID, listOf(
-                        BaseMapMapLayerPreferences(context, MAP_ID),
-                        ElevationMapLayerPreferences(context, MAP_ID, isEnabledByDefault = true),
-                        HillshadeMapLayerPreferences(context, MAP_ID, isEnabledByDefault = true),
-                        PhotoMapMapLayerPreferences(context, MAP_ID, defaultOpacity = 100),
-                        ContourMapLayerPreferences(context, MAP_ID, isEnabledByDefault = true),
-                        CellTowerMapLayerPreferences(context, MAP_ID),
-                        PathMapLayerPreferences(context, MAP_ID),
-                        BeaconMapLayerPreferences(context, MAP_ID),
-                        NavigationMapLayerPreferences(context, MAP_ID),
-                        TideMapLayerPreferences(context, MAP_ID),
-                        MyLocationMapLayerPreferences(context, MAP_ID)
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    BaseMapLayer.LAYER_ID,
+                    context.getString(R.string.basemap)
+                ),
+                MapLayerDefinition(
+                    ElevationLayer.LAYER_ID,
+                    context.getString(R.string.elevation),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = ElevationLayer.COLOR,
+                            title = context.getString(R.string.color),
+                            type = MapLayerPreferenceType.Enum,
+                            values = listOf(
+                                context.getString(R.string.color_usgs) to ElevationColorStrategy.USGS.id.toString(),
+                                context.getString(R.string.color_grayscale) to ElevationColorStrategy.Grayscale.id.toString(),
+                                context.getString(R.string.color_muted) to ElevationColorStrategy.Muted.id.toString(),
+                                context.getString(R.string.color_vibrant) to ElevationColorStrategy.Vibrant.id.toString(),
+                                context.getString(R.string.color_viridis) to ElevationColorStrategy.Viridis.id.toString(),
+                                context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
+                                context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
+                            ),
+                            defaultValue = ElevationColorStrategy.USGS.id.toString(),
+                        )
+                    )
+                ),
+                MapLayerDefinition(
+                    HillshadeLayer.LAYER_ID,
+                    context.getString(R.string.hillshade),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = "dem_settings",
+                            title = context.getString(R.string.plugin_digital_elevation_model),
+                            type = MapLayerPreferenceType.Label,
+                            summary = context.getString(R.string.open_settings),
+                            openDemSettingsOnClick = true
+                        )
+                    )
+                ),
+                MapLayerDefinition(
+                    ContourLayer.LAYER_ID,
+                    context.getString(R.string.contours),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = "dem_settings",
+                            title = context.getString(R.string.plugin_digital_elevation_model),
+                            type = MapLayerPreferenceType.Label,
+                            summary = context.getString(R.string.open_settings),
+                            openDemSettingsOnClick = true
+                        ),
+                        MapLayerPreference(
+                            id = ContourLayer.SHOW_LABELS,
+                            title = context.getString(R.string.show_labels),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = true,
+                        ),
+                        MapLayerPreference(
+                            id = ContourLayer.COLOR,
+                            title = context.getString(R.string.color),
+                            type = MapLayerPreferenceType.Enum,
+                            values = listOf(
+                                context.getString(R.string.color_black) to ElevationColorStrategy.Black.id.toString(),
+                                context.getString(R.string.color_brown) to ElevationColorStrategy.Brown.id.toString(),
+                                context.getString(R.string.color_gray) to ElevationColorStrategy.Gray.id.toString(),
+                                context.getString(R.string.color_white) to ElevationColorStrategy.White.id.toString(),
+                                context.getString(R.string.color_usgs) to ElevationColorStrategy.USGS.id.toString(),
+                                context.getString(R.string.color_grayscale) to ElevationColorStrategy.Grayscale.id.toString(),
+                                context.getString(R.string.color_muted) to ElevationColorStrategy.Muted.id.toString(),
+                                context.getString(R.string.color_vibrant) to ElevationColorStrategy.Vibrant.id.toString(),
+                                context.getString(R.string.color_viridis) to ElevationColorStrategy.Viridis.id.toString(),
+                                context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
+                                context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
+                            ),
+                            defaultValue = ElevationColorStrategy.Brown.id.toString(),
+                        )
+                    )
+                ),
+                MapLayerDefinition(
+                    MyLocationLayer.LAYER_ID,
+                    context.getString(R.string.my_location),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = MyLocationLayer.SHOW_ACCURACY,
+                            title = context.getString(R.string.show_gps_accuracy),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = true,
+                        )
                     )
                 )
             )

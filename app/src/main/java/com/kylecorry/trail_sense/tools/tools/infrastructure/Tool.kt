@@ -31,7 +31,6 @@ data class Tool(
     val actions: List<ToolAction> = emptyList(),
     val initialize: (context: Context) -> Unit = {},
     val singletons: List<(Context) -> Any> = emptyList(),
-    val maps: List<ToolMap> = emptyList(),
     val mapLayers: List<MapLayerDefinition> = emptyList()
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {

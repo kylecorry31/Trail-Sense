@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -59,7 +59,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun setPreferences(preferences: Bundle) {
-        percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY, 100) / 100f
+        percentOpacity = preferences.getInt(DefaultMapLayerDefinitions.OPACITY, 100) / 100f
     }
 
     override fun draw(

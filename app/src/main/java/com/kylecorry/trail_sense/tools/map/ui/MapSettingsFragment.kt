@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MapSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -18,8 +17,10 @@ class MapSettingsFragment : AndromedaPreferenceFragment() {
         // Layers
         onClick(preference(R.string.pref_map_layer_button)) {
             layerSheet?.dismiss()
-            val map = Tools.getMap(requireContext(), MapToolRegistration.MAP_ID)!!
-            layerSheet = MapLayersBottomSheet(map.manager)
+            layerSheet = MapLayersBottomSheet(
+                MapToolRegistration.MAP_ID,
+                MapToolLayerManager.orderedLayerIds
+            )
             layerSheet?.show(this)
         }
     }

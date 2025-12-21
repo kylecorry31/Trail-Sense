@@ -178,4 +178,16 @@ class PhotoMapToolLayerManager {
     fun isMeasuringDistance(): Boolean {
         return distanceLayer.isEnabled
     }
+
+    companion object {
+        val orderedLayerIds = listOf(
+            ContourLayer.LAYER_ID,
+            CellTowerMapLayer.LAYER_ID,
+            PathLayer.LAYER_ID,
+            BeaconLayer.LAYER_ID,
+            NavigationLayer.LAYER_ID,
+            TideMapLayer.LAYER_ID,
+            MyLocationLayer.LAYER_ID
+        )
+    }
 }

@@ -19,12 +19,11 @@ enum class MapLayerPreferenceType {
 
 data class MapLayerPreference(
     val id: String,
-    val title: CharSequence,
+    val title: CharSequence?,
     val type: MapLayerPreferenceType,
     val summary: CharSequence? = null,
     val defaultValue: Any? = null,
-    // TODO: Dependency should be removed - always dependent on enabled
-    val dependency: String? = null,
+    val dependency: String? = DefaultMapLayerDefinitions.ENABLED,
     val min: Number? = null,
     val max: Number? = null,
     val values: List<Pair<String, String>>? = null,
@@ -54,7 +53,7 @@ class LabelMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
 class EnumMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
     override fun convert(preference: MapLayerPreference, layerId: String): MapLayerViewPreference {
         return ListMapLayerPreference(
-            preference.title.toString(),
+            preference.title?.toString() ?: "",
             preference.getBasePreferenceKey(layerId),
             preference.values ?: emptyList(),
             preference.defaultValue as? String?,
@@ -66,7 +65,7 @@ class EnumMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
 class SeekbarMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
     override fun convert(preference: MapLayerPreference, layerId: String): MapLayerViewPreference {
         return SeekbarMapLayerPreference(
-            preference.title.toString(),
+            preference.title?.toString() ?: "",
             preference.getBasePreferenceKey(layerId),
             (preference.defaultValue as? Int) ?: 0,
             preference.min?.toInt() ?: 0,
@@ -79,7 +78,7 @@ class SeekbarMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
 class SwitchMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
     override fun convert(preference: MapLayerPreference, layerId: String): MapLayerViewPreference {
         return SwitchMapLayerPreference(
-            preference.title.toString(),
+            preference.title?.toString() ?: "",
             preference.getBasePreferenceKey(layerId),
             (preference.defaultValue as? Boolean) ?: true,
             preference.getDependencyBasePreferenceKey(layerId),

@@ -305,8 +305,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.radarCompass.setOnLongPressListener {
             layerSheet?.dismiss()
-            val map = Tools.getMap(requireContext(), NavigationToolRegistration.MAP_ID)!!
-            layerSheet = MapLayersBottomSheet(map.manager)
+            layerSheet = MapLayersBottomSheet(
+                NavigationToolRegistration.MAP_ID,
+                NavigationCompassLayerManager.orderedLayerIds
+            )
             layers.pause(binding.radarCompass)
             layerSheet?.setOnDismissListener {
                 layers.resume(requireContext(), binding.radarCompass)

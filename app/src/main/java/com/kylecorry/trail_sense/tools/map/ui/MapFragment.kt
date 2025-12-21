@@ -42,7 +42,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     override fun update() {
@@ -91,8 +90,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
         val layerEditSheet = useMemo(prefs) {
-            val map = Tools.getMap(context, MapToolRegistration.MAP_ID)!!
-            MapLayersBottomSheet(map.manager)
+            MapLayersBottomSheet(
+                MapToolRegistration.MAP_ID,
+                MapToolLayerManager.orderedLayerIds
+            )
         }
 
         usePauseEffect(layerEditSheet) {

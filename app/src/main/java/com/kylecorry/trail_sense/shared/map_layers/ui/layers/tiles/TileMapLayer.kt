@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Bundle
 import android.util.Log
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -13,6 +14,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
@@ -253,6 +255,10 @@ abstract class TileMapLayer<T : TileSource>(
     override fun stop() {
         taskRunner.stop()
         loader.clearCache()
+    }
+
+    override fun setPreferences(preferences: Bundle) {
+        percentOpacity = preferences.getInt(DefaultMapLayerDefinitions.OPACITY) / 100f
     }
 
     override var percentOpacity: Float = 1f

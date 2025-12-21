@@ -4,8 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ENABLED
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -63,26 +62,19 @@ fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
     return mapProjection.toCoordinate(pixel)
 }
 
-fun IMapView.setLayersWithPreferences(vararg layers: Pair<ILayer?, BaseMapLayerPreferences?>) {
-    val actualLayers = layers.filter { it.first != null && it.second?.isEnabled?.get() != false }
-    actualLayers.forEach {
-        it.second?.toBundle()?.let { prefs ->
-            it.first?.setPreferences(prefs)
-            it.first?.invalidate()
-        }
-    }
 
-    setLayers(actualLayers.mapNotNull { it.first })
-}
-
-fun IMapView.setLayersWithPreferences2(context: Context, mapId: String, vararg layers: ILayer?) {
+fun IMapView.setLayersWithPreferences(context: Context, mapId: String, vararg layers: ILayer?) {
     val layerDefinitions = Tools.getTools(context).flatMap { it.mapLayers }
     val layersToPreference = layers.map { layer ->
         layer to layerDefinitions.firstOrNull { it.id == layer?.layerId }
             ?.getPreferenceValues(context, mapId)
     }
     val actualLayers =
-        layersToPreference.filter { it.first != null && it.second?.getBoolean(ENABLED) != false }
+        layersToPreference.filter {
+            it.first != null && it.second?.getBoolean(
+                DefaultMapLayerDefinitions.ENABLED
+            ) != false
+        }
     actualLayers.forEach {
         it.second?.let { prefs ->
             it.first?.setPreferences(prefs)
@@ -93,12 +85,3 @@ fun IMapView.setLayersWithPreferences2(context: Context, mapId: String, vararg l
     setLayers(actualLayers.mapNotNull { it.first })
 }
 
-fun IMapView.setLayersWithPreferences(context: Context, mapId: String, vararg layers: ILayer?) {
-    val preferences = Tools.getMap(context, mapId)?.layerPreferences ?: return
-
-    val layersToPreference = layers.map { layer ->
-        layer to preferences.firstOrNull { it.layerId == layer?.layerId }
-    }
-
-    setLayersWithPreferences(*layersToPreference.toTypedArray())
-}

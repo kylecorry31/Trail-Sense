@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
@@ -77,8 +77,8 @@ class MyLocationLayer : IAsyncLayer {
     }
 
     override fun setPreferences(preferences: Bundle) {
-        _percentOpacity = preferences.getInt(BaseMapLayerPreferences.OPACITY) / 100f
-        _drawAccuracy = preferences.getBoolean(MyLocationMapLayerPreferences.SHOW_ACCURACY)
+        _percentOpacity = preferences.getInt(DefaultMapLayerDefinitions.OPACITY) / 100f
+        _drawAccuracy = preferences.getBoolean(SHOW_ACCURACY)
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
@@ -202,5 +202,6 @@ class MyLocationLayer : IAsyncLayer {
 
     companion object {
         const val LAYER_ID = "my_location"
+        const val SHOW_ACCURACY = "show_accuracy"
     }
 }

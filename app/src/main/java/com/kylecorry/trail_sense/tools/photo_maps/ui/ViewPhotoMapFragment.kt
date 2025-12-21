@@ -48,7 +48,6 @@ import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -326,8 +325,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     fun adjustLayers() {
         layerSheet?.dismiss()
-        val map = Tools.getMap(requireContext(), PhotoMapsToolRegistration.MAP_ID)!!
-        layerSheet = MapLayersBottomSheet(map.manager)
+        layerSheet = MapLayersBottomSheet(
+            PhotoMapsToolRegistration.MAP_ID,
+            PhotoMapToolLayerManager.orderedLayerIds
+        )
         layerManager.pause(binding.map)
         layerSheet?.setOnDismissListener {
             resetLayerManager()

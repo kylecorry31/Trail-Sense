@@ -1,7 +1,13 @@
 package com.kylecorry.trail_sense.tools.signal_finder
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -10,6 +16,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiag
 
 object SignalFinderToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
+        val markdown = AppServiceRegistry.get<MarkdownService>()
         return Tool(
             Tools.SIGNAL_FINDER,
             context.getString(R.string.tool_signal_finder),
@@ -20,7 +27,21 @@ object SignalFinderToolRegistration : ToolRegistration {
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context)
             ),
-            guideId = R.raw.guide_tool_signal_finder
+            guideId = R.raw.guide_tool_signal_finder,
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    CellTowerMapLayer.LAYER_ID,
+                    context.getString(R.string.cell_towers),
+                    listOf(
+                        MapLayerPreference(
+                            "disclaimer",
+                            null,
+                            MapLayerPreferenceType.Label,
+                            markdown.toMarkdown(context.getString(R.string.cell_tower_disclaimer))
+                        )
+                    )
+                )
+            )
         )
     }
 }
