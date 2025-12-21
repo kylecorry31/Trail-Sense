@@ -17,10 +17,10 @@ import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.ceilToInt
+import com.kylecorry.sol.math.floorToInt
 import com.kylecorry.trail_sense.shared.andromeda_temp.CorrectPerspective2
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
-import com.kylecorry.trail_sense.shared.andromeda_temp.ceilToInt
-import com.kylecorry.trail_sense.shared.andromeda_temp.floorToInt
 import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem

@@ -36,7 +36,7 @@ class PhotoMapLayer(private val photoMapId: Long? = null) : TileMapLayer<PhotoMa
 
     fun improveResolution(
         bounds: CoordinateBounds,
-        metersPerPixel: Double,
+        metersPerPixel: Float,
         minimumTileCount: Int
     ) {
         val zoom = TileMath.getZoomLevel(bounds, metersPerPixel)

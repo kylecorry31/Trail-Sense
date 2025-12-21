@@ -83,7 +83,7 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
     } ?: getString(R.string.dash)
 }
 
-fun AndromedaPreferenceFragment.setupThresholdSetting(
+fun AndromedaPreferenceFragment.setupNumberPickerSetting(
     holderKey: String,
     getValue: () -> Int,
     setValue: (Int) -> Unit,

@@ -61,7 +61,7 @@ class PhotoMapToolLayerManager {
     private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
-    private var lastMapDetails: Pair<CoordinateBounds, Double>? = null
+    private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
 
     fun resume(context: Context, view: IMapView, photoMapId: Long) {
         photoMapLayer = PhotoMapLayer(photoMapId)
@@ -115,7 +115,7 @@ class PhotoMapToolLayerManager {
         distanceLayer.invalidate()
     }
 
-    fun improveResolution(bounds: CoordinateBounds, metersPerPixel: Double) {
+    fun improveResolution(bounds: CoordinateBounds, metersPerPixel: Float) {
         lastMapDetails = bounds to metersPerPixel
         photoMapLayer?.improveResolution(bounds, metersPerPixel, 70)
     }

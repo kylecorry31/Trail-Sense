@@ -232,7 +232,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
-        val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel.toDouble())
+        val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel)
         var adjustedOffset = zoomOffset + 1
         var tiles: List<Tile>
         do {

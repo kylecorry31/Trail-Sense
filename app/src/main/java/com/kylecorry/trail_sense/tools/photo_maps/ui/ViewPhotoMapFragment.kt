@@ -378,7 +378,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.map.fitIntoView(bounds, paddingFactor = 1.05f)
         binding.map.constraintBounds = bounds
         binding.map.minScale = binding.map.scale
-        layerManager.improveResolution(binding.map.mapBounds, binding.map.metersPerPixel.toDouble())
+        layerManager.improveResolution(binding.map.mapBounds, binding.map.metersPerPixel)
         if (shouldLockOnMapLoad) {
             updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
             shouldLockOnMapLoad = false

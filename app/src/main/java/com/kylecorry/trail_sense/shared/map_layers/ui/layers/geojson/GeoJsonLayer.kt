@@ -30,7 +30,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                 if (minZoomLevel != null) {
                     val zoomLevel = TileMath.getZoomLevel(
                         bounds,
-                        projection.metersPerPixel.toDouble()
+                        projection.metersPerPixel
                     )
 
                     if (zoomLevel < minZoomLevel) {

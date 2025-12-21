@@ -46,7 +46,7 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
         bubblePadding = dp(8f)
         backgroundColor =
             Resources.getAndroidColorAttr(context, android.R.attr.colorBackgroundFloating)
-        levelBackgroundColor = Resources.getPrimaryColor(context).withAlpha(50)
+        levelBackgroundColor = Resources.getPrimaryColor(context).withAlpha(80)
         textColor = Resources.getColorOnPrimary(context)
         textSize = sp(14f)
         lineColor = Resources.androidTextColorPrimary(context).withAlpha(127)

@@ -15,17 +15,6 @@ object TileMath {
 
     fun getTiles(
         bounds: CoordinateBounds,
-        metersPerPixel: Double,
-        maxZoom: Int = 20
-    ): List<Tile> {
-        return getTiles(
-            bounds,
-            getZoomLevel(bounds, metersPerPixel).coerceAtMost(maxZoom)
-        )
-    }
-
-    fun getTiles(
-        bounds: CoordinateBounds,
         zoom: Int
     ): List<Tile> {
         // If the bounds crosses the -180/180 line, split this into 2 calls - one for each hemisphere
@@ -68,7 +57,7 @@ object TileMath {
 
     fun snapToTiles(
         bounds: CoordinateBounds,
-        metersPerPixel: Double,
+        metersPerPixel: Float,
         maxZoom: Int = 20
     ): CoordinateBounds {
         val zoom = getZoomLevel(bounds, metersPerPixel).coerceAtMost(maxZoom)
@@ -90,20 +79,14 @@ object TileMath {
         return Tile(x, y, zoom)
     }
 
-    fun getZoomLevel(bounds: CoordinateBounds, metersPerPixel: Double): Int {
+    fun getZoomLevel(bounds: CoordinateBounds, metersPerPixel: Float): Int {
         val minLat = max(bounds.south, MIN_LATITUDE)
         val maxLat = min(bounds.north, MAX_LATITUDE)
-        return distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2)
-    }
-
-    fun distancePerPixelToZoom(
-        distancePerPixel: Double,
-        latitude: Double
-    ): Int {
+        val latitude = (minLat + maxLat) / 2
         val earthCircumference = Geology.EARTH_AVERAGE_RADIUS * 2 * PI
-        val metersPerPixel =
+        val sourceMetersPerPixel =
             earthCircumference * cos(Math.toRadians(latitude)) / (WORLD_TILE_SIZE * (1 shl 0))
-        return log2(metersPerPixel / distancePerPixel).toInt()
+        return log2(sourceMetersPerPixel / metersPerPixel).toInt()
     }
 
     private const val MIN_LATITUDE = -85.0511

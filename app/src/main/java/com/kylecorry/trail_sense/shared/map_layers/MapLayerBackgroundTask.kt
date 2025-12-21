@@ -72,7 +72,7 @@ class MapLayerBackgroundTask {
         scope.launch {
             val metersPerPixel = projection.metersPerPixel
             val newBounds =
-                TileMath.snapToTiles(bounds.grow(growPercent), metersPerPixel.toDouble())
+                TileMath.snapToTiles(bounds.grow(growPercent), metersPerPixel)
 
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit

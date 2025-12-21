@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.andromeda_temp.intersects2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
@@ -177,7 +176,7 @@ class PhotoMapTileSourceSelector(
             )
             corners.all { it }
         } else {
-            bounds.intersects2(subBounds)
+            bounds.intersects(subBounds)
         }
     }
 

@@ -171,9 +171,9 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             )
         }
 
-        val zoomLevel = TileMath.distancePerPixelToZoom(
-            projection.metersPerPixel.toDouble(),
-            bounds.center.latitude
+        val zoomLevel = TileMath.getZoomLevel(
+            bounds,
+            projection.metersPerPixel
         )
 
         val gridPoints = if (shouldRenderLabels && zoomLevel >= 13) {
@@ -328,7 +328,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             (this.y + other.y) / 2
         )
     }
-    
+
     private fun PixelCoordinate.angleTo(other: PixelCoordinate): Float {
         return atan2(
             other.y - this.y,
@@ -350,6 +350,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         val renderedScale: Float,
         var labelPlacements: List<LabelPlacement> = emptyList()
     )
+
     class LabelSegment(
         val center: PixelCoordinate,
         val angle: Float
