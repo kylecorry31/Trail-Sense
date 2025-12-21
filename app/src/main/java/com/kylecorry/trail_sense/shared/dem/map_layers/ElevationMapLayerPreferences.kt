@@ -58,6 +58,13 @@ class ElevationMapLayerPreferences(
         bundle.putLong(COLOR_STRATEGY_ID, colorStrategy.get().id)
     }
 
+    override fun setPreferencesFromBundle(bundle: Bundle) {
+        val colorId = bundle.getLong(COLOR_STRATEGY_ID, ElevationColorStrategy.USGS.id)
+        val color = ElevationColorStrategy.entries.firstOrNull { it.id == colorId }
+            ?: ElevationColorStrategy.USGS
+        colorStrategy.set(color)
+    }
+
     override fun getAllPreferences(): List<MapLayerViewPreference> {
         return listOf(
             isEnabled.preference,

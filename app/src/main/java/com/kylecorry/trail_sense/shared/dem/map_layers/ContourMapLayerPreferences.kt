@@ -93,6 +93,13 @@ class ContourMapLayerPreferences(
         bundle.putLong(COLOR_STRATEGY_ID, colorStrategy.get().id)
     }
 
+    override fun setPreferencesFromBundle(bundle: Bundle) {
+        showLabels.set(bundle.getBoolean(SHOW_LABELS, true))
+        val colorId = bundle.getLong(COLOR_STRATEGY_ID, ElevationColorStrategy.Brown.id)
+        val color = ElevationColorStrategy.entries.firstOrNull { it.id == colorId } ?: ElevationColorStrategy.Brown
+        colorStrategy.set(color)
+    }
+
     companion object {
         const val SHOW_LABELS = "showLabels"
         const val COLOR_STRATEGY_ID = "colorStrategyId"

@@ -53,6 +53,10 @@ class PhotoMapMapLayerPreferences(
         bundle.putBoolean(LOAD_PDFS, loadPdfs.get())
     }
 
+    override fun setPreferencesFromBundle(bundle: Bundle) {
+        loadPdfs.set(bundle.getBoolean(LOAD_PDFS))
+    }
+
     companion object {
         const val LOAD_PDFS = "loadPdfs"
     }

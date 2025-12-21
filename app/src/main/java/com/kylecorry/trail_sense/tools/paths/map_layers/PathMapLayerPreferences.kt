@@ -49,6 +49,13 @@ class PathMapLayerPreferences(
         bundle.putLong(BACKGROUND_COLOR, backgroundColor.get().id)
     }
 
+    override fun setPreferencesFromBundle(bundle: Bundle) {
+        val colorId = bundle.getLong(BACKGROUND_COLOR)
+        val color = PathBackgroundColor.entries.firstOrNull { it.id == colorId }
+            ?: PathBackgroundColor.None
+        backgroundColor.set(color)
+    }
+
     companion object {
         const val BACKGROUND_COLOR = "backgroundColor"
     }

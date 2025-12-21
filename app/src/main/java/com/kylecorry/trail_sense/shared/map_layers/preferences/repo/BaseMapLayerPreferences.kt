@@ -77,7 +77,17 @@ abstract class BaseMapLayerPreferences(
         return bundle
     }
 
+    fun fromBundle(bundle: Bundle) {
+        isEnabled.set(bundle.getBoolean(IS_ENABLED))
+        opacity.set(bundle.getInt(OPACITY))
+        setPreferencesFromBundle(bundle)
+    }
+
     open fun addPreferencesToBundle(bundle: Bundle) {
+        // Do nothing
+    }
+
+    open fun setPreferencesFromBundle(bundle: Bundle) {
         // Do nothing
     }
 
