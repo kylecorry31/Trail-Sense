@@ -21,6 +21,7 @@ fun MapLayerDefinition.getPreferenceValues(context: Context, mapId: String): Bun
 
     for (preference in preferencesWithBase) {
         val key = preference.getFullPreferenceKey(mapId, id)
+        // TODO: Extract converters
         when (preference.type) {
             MapLayerPreferenceType.Label -> {}
             MapLayerPreferenceType.Enum -> {
@@ -51,6 +52,7 @@ fun MapLayerDefinition.writePreferenceValues(context: Context, bundle: Bundle, m
         DefaultMapLayerDefinitions.getBasePreferences(context, name) + preferences
     for (preference in preferencesWithBase) {
         val key = preference.getFullPreferenceKey(mapId, id)
+        // TODO: Extract converters
         when (preference.type) {
             MapLayerPreferenceType.Label -> {}
             MapLayerPreferenceType.Enum -> {

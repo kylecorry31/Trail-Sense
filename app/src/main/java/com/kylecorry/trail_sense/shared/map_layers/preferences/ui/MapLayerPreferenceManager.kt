@@ -5,10 +5,10 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.LabelMapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.LabelMapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerViewPreferenceConverterFactory
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.writePreferenceValues
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.map_layers.preferences.definition
+package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views
 
 data class MapLayerViewPreferences(
     val layerId: String,

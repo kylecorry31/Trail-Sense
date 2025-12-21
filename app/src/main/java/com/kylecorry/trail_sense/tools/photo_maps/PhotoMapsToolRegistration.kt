@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.core.os.bundleOf
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
@@ -72,7 +71,6 @@ object PhotoMapsToolRegistration : ToolRegistration {
                             title = context.getString(R.string.load_pdf_tiles),
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = false,
-                            dependency = DefaultMapLayerDefinitions.ENABLED,
                             summary = context.getString(R.string.load_pdf_tiles_summary)
                         )
                     )
