@@ -9,6 +9,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 
 class BackgroundColorMapLayer(initialColor: Int = Color.TRANSPARENT) : ILayer {
 
+    override val layerId: String = LAYER_ID
+
     var color: Int = initialColor
         set(value) {
             field = value
@@ -49,4 +51,8 @@ class BackgroundColorMapLayer(initialColor: Int = Color.TRANSPARENT) : ILayer {
 
     override val percentOpacity: Float
         get() = _percentOpacity
+
+    companion object {
+        const val LAYER_ID = "background_color"
+    }
 }

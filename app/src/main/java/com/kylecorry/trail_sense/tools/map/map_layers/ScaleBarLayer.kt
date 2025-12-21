@@ -17,6 +17,8 @@ import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
 // TODO: Allow position to be adjusted
 class ScaleBarLayer : ILayer {
 
+    override val layerId: String = LAYER_ID
+
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
 
@@ -92,4 +94,8 @@ class ScaleBarLayer : ILayer {
 
     override val percentOpacity: Float
         get() = _percentOpacity
+
+    companion object {
+        const val LAYER_ID = "scale_bar"
+    }
 }

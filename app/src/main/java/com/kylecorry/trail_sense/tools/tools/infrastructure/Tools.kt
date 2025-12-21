@@ -139,6 +139,10 @@ object Tools {
         return tools.filter { !availableOnly || it.isAvailable(context) }
     }
 
+    fun getMap(context: Context, mapId: String): ToolMap? {
+        return getTools(context).flatMap { it.maps }.firstOrNull { it.mapId == mapId }
+    }
+
     fun getQuickActions(context: Context): List<ToolQuickAction> {
         val none = ToolQuickAction(
             QUICK_ACTION_NONE,

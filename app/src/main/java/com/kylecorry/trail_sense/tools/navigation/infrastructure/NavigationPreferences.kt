@@ -12,25 +12,15 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
-import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapLayerPreferences
-import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapLayerPreferences
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
-import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayerPreferences
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
@@ -234,34 +224,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         context.getString(R.string.pref_lock_bearing_to_location),
         false
     )
-
-    // Layers
-
-    private val mapId = "navigation"
-    val photoMapLayer = PhotoMapMapLayerPreferences(context, mapId)
-    val pathLayer = PathMapLayerPreferences(context, mapId)
-    val beaconLayer = BeaconMapLayerPreferences(context, mapId)
-    val contourLayer = ContourMapLayerPreferences(context, mapId)
-    val tideLayer = TideMapLayerPreferences(context, mapId)
-    val myLocationLayer = MyLocationMapLayerPreferences(context, mapId)
-    val elevationLayer = ElevationMapLayerPreferences(context, mapId)
-    val hillshadeLayer = HillshadeMapLayerPreferences(context, mapId)
-    val cellTowerLayer = CellTowerMapLayerPreferences(context, mapId)
-
-    val layerManager = MapLayerPreferenceManager(
-        mapId, listOf(
-            elevationLayer,
-            hillshadeLayer,
-            photoMapLayer,
-            contourLayer,
-            cellTowerLayer,
-            pathLayer,
-            beaconLayer,
-            tideLayer,
-            myLocationLayer
-        )
-    )
-
     enum class SpeedometerMode {
         Backtrack,
         GPS,

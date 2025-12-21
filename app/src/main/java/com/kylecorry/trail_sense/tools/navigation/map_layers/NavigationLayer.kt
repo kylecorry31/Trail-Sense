@@ -12,7 +12,8 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class NavigationLayer : GeoJsonLayer<NavigationGeoJsonSource>(NavigationGeoJsonSource()) {
+class NavigationLayer :
+    GeoJsonLayer<NavigationGeoJsonSource>(NavigationGeoJsonSource(), layerId = LAYER_ID) {
 
     private val navigator = AppServiceRegistry.get<Navigator>()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
@@ -55,5 +56,9 @@ class NavigationLayer : GeoJsonLayer<NavigationGeoJsonSource>(NavigationGeoJsonS
     fun setDestination(destination: Destination?) {
         source.destination = destination
         invalidate()
+    }
+
+    companion object {
+        const val LAYER_ID = "navigation"
     }
 }

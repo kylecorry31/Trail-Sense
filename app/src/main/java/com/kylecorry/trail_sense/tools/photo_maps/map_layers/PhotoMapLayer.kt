@@ -19,6 +19,8 @@ class PhotoMapLayer(private val photoMapId: Long? = null) : TileMapLayer<PhotoMa
     minZoomLevel = 4
 ) {
 
+    override val layerId: String = LAYER_ID
+
     init {
         setBackgroundColor(Color.TRANSPARENT)
     }
@@ -59,5 +61,9 @@ class PhotoMapLayer(private val photoMapId: Long? = null) : TileMapLayer<PhotoMa
     override fun stop() {
         super.stop()
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
+    }
+
+    companion object {
+        const val LAYER_ID = "map"
     }
 }

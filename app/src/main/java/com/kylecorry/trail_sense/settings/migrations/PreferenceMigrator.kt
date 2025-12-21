@@ -15,8 +15,10 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrappe
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -224,9 +226,11 @@ class PreferenceMigrator private constructor() {
                 }
             },
             PreferenceMigration(17, 18) { context, prefs ->
-                val userPrefs = UserPreferences(context)
                 // Disable the map layer by default for returning users to not be disruptive
-                userPrefs.navigation.photoMapLayer.isEnabled.set(!AppState.isReturningUser)
+                val map = Tools.getMap(context, NavigationToolRegistration.MAP_ID)
+                val layer =
+                    map?.layerPreferences?.firstOrNull { it.layerId == PhotoMapLayer.LAYER_ID }
+                layer?.isEnabled?.set(!AppState.isReturningUser)
             },
             PreferenceMigration(18, 19) { context, prefs ->
                 val mapIds = listOf("navigation", "map", "photo_maps")

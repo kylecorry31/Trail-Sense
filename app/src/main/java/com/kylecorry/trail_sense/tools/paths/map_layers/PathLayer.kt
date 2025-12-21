@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
+class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId = LAYER_ID) {
 
     private val pathService = AppServiceRegistry.get<PathService>()
     private val task = BackgroundTask {
@@ -63,5 +63,9 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
     fun reload() {
         source.reload()
         invalidate()
+    }
+
+    companion object {
+        const val LAYER_ID = "path"
     }
 }

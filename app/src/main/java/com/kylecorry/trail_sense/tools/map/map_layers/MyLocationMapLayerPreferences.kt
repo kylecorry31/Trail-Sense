@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayer
 class MyLocationMapLayerPreferences(
     context: Context,
     mapId: String
-) : BaseMapLayerPreferences(context, mapId, "my_location", R.string.my_location) {
+) : BaseMapLayerPreferences(context, mapId, MyLocationLayer.LAYER_ID, R.string.my_location) {
 
     private var _showAccuracy by BooleanPreference(
         cache,

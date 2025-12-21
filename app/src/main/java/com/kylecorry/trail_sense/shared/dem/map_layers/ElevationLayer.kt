@@ -15,6 +15,8 @@ class ElevationLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
         minZoomLevel = 10,
     ) {
 
+    override val layerId: String = LAYER_ID
+
     init {
         preRenderBitmaps = true
     }
@@ -25,5 +27,9 @@ class ElevationLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
         source.colorScale = ElevationColorMapFactory().getElevationColorMap(
             ElevationColorStrategy.entries.withId(strategyId) ?: ElevationColorStrategy.Brown
         )
+    }
+
+    companion object {
+        const val LAYER_ID = "elevation"
     }
 }

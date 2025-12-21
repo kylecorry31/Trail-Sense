@@ -17,7 +17,7 @@ class PhotoMapMapLayerPreferences(
 ) : BaseMapLayerPreferences(
     context,
     mapId,
-    "map",
+    PhotoMapLayer.LAYER_ID,
     R.string.photo_maps,
     enabledByDefault,
     defaultOpacity

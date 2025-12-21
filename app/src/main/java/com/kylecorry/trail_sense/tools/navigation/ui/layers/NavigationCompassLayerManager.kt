@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.layers
 
+import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -12,6 +13,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPrefer
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
@@ -33,17 +35,19 @@ class NavigationCompassLayerManager {
     var key = 0
         private set
 
-    fun resume(view: IMapView) {
+    fun resume(context: Context, view: IMapView) {
         view.setLayersWithPreferences(
-            elevationLayer to prefs.navigation.elevationLayer,
-            hillshadeLayer to prefs.navigation.hillshadeLayer,
-            photoMapLayer to prefs.navigation.photoMapLayer,
-            contourLayer to prefs.navigation.contourLayer,
-            cellTowerLayer to prefs.navigation.cellTowerLayer,
-            pathLayer to prefs.navigation.pathLayer,
-            myLocationLayer to prefs.navigation.myLocationLayer,
-            tideLayer to prefs.navigation.tideLayer,
-            beaconLayer to prefs.navigation.beaconLayer
+            context,
+            NavigationToolRegistration.MAP_ID,
+            elevationLayer,
+            hillshadeLayer,
+            photoMapLayer,
+            contourLayer,
+            cellTowerLayer,
+            pathLayer,
+            myLocationLayer,
+            tideLayer,
+            beaconLayer
         )
 
         key += 1

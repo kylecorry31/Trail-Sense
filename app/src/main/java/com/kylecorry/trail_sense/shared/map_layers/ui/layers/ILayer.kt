@@ -8,6 +8,11 @@ import com.kylecorry.sol.math.SolMath
 interface ILayer {
 
     /**
+     * The ID of the layer
+     */
+    val layerId: String
+
+    /**
      * Set the preferences of the layer
      */
     fun setPreferences(preferences: Bundle)

@@ -48,6 +48,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
@@ -304,10 +305,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.radarCompass.setOnLongPressListener {
             layerSheet?.dismiss()
-            layerSheet = MapLayersBottomSheet(userPrefs.navigation.layerManager)
+            val map = Tools.getMap(requireContext(), NavigationToolRegistration.MAP_ID)!!
+            layerSheet = MapLayersBottomSheet(map.manager)
             layers.pause(binding.radarCompass)
             layerSheet?.setOnDismissListener {
-                layers.resume(binding.radarCompass)
+                layers.resume(requireContext(), binding.radarCompass)
             }
             layerSheet?.show(this)
         }
@@ -371,7 +373,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
 
-        layers.resume(binding.radarCompass)
+        layers.resume(requireContext(), binding.radarCompass)
 
         // Show the north reference indicator
         binding.northReferenceIndicator.showDetailsOnClick = true

@@ -21,6 +21,8 @@ import com.kylecorry.trail_sense.tools.navigation.ui.markers.PathMapMarker
 
 class MyLocationLayer : IAsyncLayer {
 
+    override val layerId: String = LAYER_ID
+
     private var _location: Coordinate? = null
     private var _azimuth: Float? = null
     private var _path: Path? = null
@@ -196,5 +198,9 @@ class MyLocationLayer : IAsyncLayer {
 
     protected fun finalize() {
         _path = null
+    }
+
+    companion object {
+        const val LAYER_ID = "my_location"
     }
 }

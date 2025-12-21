@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 class PathMapLayerPreferences(
     context: Context,
     mapId: String
-) : BaseMapLayerPreferences(context, mapId, "path", R.string.paths) {
+) : BaseMapLayerPreferences(context, mapId, PathLayer.LAYER_ID, R.string.paths) {
     private var _backgroundColor by StringEnumPreference(
         cache,
         "pref_${mapId}_${layerId}_layer_background_color",

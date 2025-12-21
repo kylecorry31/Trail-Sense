@@ -4,11 +4,10 @@ import android.content.Context
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.LabelMapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MapLayerPreferenceManager(
     val mapId: String,
@@ -40,7 +39,7 @@ class MapLayerPreferenceManager(
                         if (cancelled) {
                             return@dialog
                         }
-                        val managers = getOtherMapLayers(layer.layerId)
+                        val managers = getOtherMapLayers(context, layer.layerId)
                         val bundle = layer.toBundle()
                         managers.forEach {
                             it.fromBundle(bundle)
@@ -53,17 +52,14 @@ class MapLayerPreferenceManager(
         }
     }
 
-    private fun getOtherMapLayers(layerId: String): List<BaseMapLayerPreferences> {
-        val prefs = AppServiceRegistry.get<UserPreferences>()
-        // TODO: Have a registry for map layer managers
-        val maps = listOf(
-            prefs.map.layerManager,
-            prefs.photoMaps.layerManager,
-            prefs.navigation.layerManager
-        )
+    private fun getOtherMapLayers(
+        context: Context,
+        layerId: String
+    ): List<BaseMapLayerPreferences> {
+        val maps = Tools.getTools(context).flatMap { it.maps }
         return maps
             .filter { it.mapId != mapId }
-            .flatMap { it.layers }
+            .flatMap { it.layerPreferences }
             .filter { it.layerId == layerId }
     }
 

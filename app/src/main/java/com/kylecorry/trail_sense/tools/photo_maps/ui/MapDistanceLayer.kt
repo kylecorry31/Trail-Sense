@@ -69,6 +69,8 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
         return points
     }
 
+    override val layerId: String = LAYER_ID
+
     override fun setPreferences(preferences: Bundle) {
         // Do nothing
     }
@@ -136,4 +138,8 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
     }
 
     override var percentOpacity: Float = 1f
+
+    companion object {
+        const val LAYER_ID = "map_distance"
+    }
 }

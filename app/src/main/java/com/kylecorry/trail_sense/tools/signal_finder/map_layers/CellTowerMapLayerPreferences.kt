@@ -14,7 +14,7 @@ class CellTowerMapLayerPreferences(
 ) : BaseMapLayerPreferences(
     context,
     mapId,
-    "cell_tower",
+    CellTowerMapLayer.LAYER_ID,
     R.string.cell_towers,
     enabledByDefault = false
 ) {

@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
@@ -79,20 +80,22 @@ class PhotoMapToolLayerManager {
         lastMapDetails?.let { improveResolution(it.first, it.second) }
 
         view.setLayersWithPreferences(
-            backgroundLayer to null,
-            photoMapLayer to null,
-            contourLayer to prefs.photoMaps.contourLayer,
-            navigationLayer to prefs.photoMaps.navigationLayer,
-            cellTowerLayer to prefs.photoMaps.cellTowerLayer,
-            pathLayer to prefs.photoMaps.pathLayer,
-            myLocationLayer to prefs.photoMaps.myLocationLayer,
-            tideLayer to prefs.photoMaps.tideLayer,
-            beaconLayer to prefs.photoMaps.beaconLayer,
-            selectedPointLayer to null,
-            distanceLayer to null,
-            scaleBarLayer to null,
-            myElevationLayer to null,
-            compassLayer to null
+            context,
+            PhotoMapsToolRegistration.MAP_ID,
+            backgroundLayer,
+            photoMapLayer,
+            contourLayer,
+            navigationLayer,
+            cellTowerLayer,
+            pathLayer,
+            myLocationLayer,
+            tideLayer,
+            beaconLayer,
+            selectedPointLayer,
+            distanceLayer,
+            scaleBarLayer,
+            myElevationLayer,
+            compassLayer
         )
 
         view.start()

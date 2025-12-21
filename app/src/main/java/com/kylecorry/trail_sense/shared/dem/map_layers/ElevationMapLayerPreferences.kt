@@ -21,7 +21,7 @@ class ElevationMapLayerPreferences(
 ) : BaseMapLayerPreferences(
     context,
     mapId,
-    "elevation",
+    ElevationLayer.LAYER_ID,
     R.string.elevation,
     isEnabledByDefault,
     50

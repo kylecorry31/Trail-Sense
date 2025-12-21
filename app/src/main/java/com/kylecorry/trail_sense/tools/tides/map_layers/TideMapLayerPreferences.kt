@@ -7,4 +7,4 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayer
 class TideMapLayerPreferences(
     context: Context,
     mapId: String
-) : BaseMapLayerPreferences(context, mapId, "tide", R.string.tides)
+) : BaseMapLayerPreferences(context, mapId, TideMapLayer.LAYER_ID, R.string.tides)

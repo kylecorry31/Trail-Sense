@@ -52,25 +52,4 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_photo_maps_keep_unlocked),
         false
     )
-
-    // Layers
-    private val mapId = "photo_maps"
-    val contourLayer = ContourMapLayerPreferences(context, mapId)
-    val pathLayer = PathMapLayerPreferences(context, mapId)
-    val beaconLayer = BeaconMapLayerPreferences(context, mapId)
-    val navigationLayer = NavigationMapLayerPreferences(context, mapId)
-    val tideLayer = TideMapLayerPreferences(context, mapId)
-    val myLocationLayer = MyLocationMapLayerPreferences(context, mapId)
-    val cellTowerLayer = CellTowerMapLayerPreferences(context, mapId)
-    val layerManager = MapLayerPreferenceManager(
-        mapId, listOf(
-            contourLayer,
-            cellTowerLayer,
-            pathLayer,
-            beaconLayer,
-            navigationLayer,
-            tideLayer,
-            myLocationLayer
-        )
-    )
 }

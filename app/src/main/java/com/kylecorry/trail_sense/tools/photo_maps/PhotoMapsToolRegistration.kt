@@ -3,12 +3,20 @@ package com.kylecorry.trail_sense.tools.photo_maps
 import android.content.Context
 import androidx.core.os.bundleOf
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.quickactions.QuickActionOpenPhotoMap
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayerPreferences
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolIntentHandler
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -57,7 +65,22 @@ object PhotoMapsToolRegistration : ToolRegistration {
             intentHandlers = listOf(importMapIntentHandler),
             singletons = listOf(
                 MapRepo::getInstance
+            ),
+            maps = listOf(
+                ToolMap(
+                    MAP_ID, listOf(
+                        ContourMapLayerPreferences(context, MAP_ID),
+                        CellTowerMapLayerPreferences(context, MAP_ID),
+                        PathMapLayerPreferences(context, MAP_ID),
+                        BeaconMapLayerPreferences(context, MAP_ID),
+                        NavigationMapLayerPreferences(context, MAP_ID),
+                        TideMapLayerPreferences(context, MAP_ID),
+                        MyLocationMapLayerPreferences(context, MAP_ID)
+                    )
+                )
             )
         )
     }
+
+    const val MAP_ID = "photo_maps"
 }

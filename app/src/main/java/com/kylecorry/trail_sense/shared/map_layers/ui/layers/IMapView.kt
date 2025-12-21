@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
+import android.content.Context
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 interface IMapView {
     fun addLayer(layer: ILayer)
@@ -69,4 +71,14 @@ fun IMapView.setLayersWithPreferences(vararg layers: Pair<ILayer?, BaseMapLayerP
     }
 
     setLayers(actualLayers.mapNotNull { it.first })
+}
+
+fun IMapView.setLayersWithPreferences(context: Context, mapId: String, vararg layers: ILayer?) {
+    val preferences = Tools.getMap(context, mapId)?.layerPreferences ?: return
+
+    val layersToPreference = layers.map { layer ->
+        layer to preferences.firstOrNull { it.layerId == layer?.layerId }
+    }
+
+    setLayersWithPreferences(*layersToPreference.toTypedArray())
 }

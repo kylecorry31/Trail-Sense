@@ -8,8 +8,8 @@ import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { false }) :
-    GeoJsonLayer<BeaconGeoJsonSource>(BeaconGeoJsonSource()) {
-
+    GeoJsonLayer<BeaconGeoJsonSource>(BeaconGeoJsonSource(), layerId = LAYER_ID) {
+        
     private val navigator = AppServiceRegistry.get<Navigator>()
     private var task = BackgroundTask {
         navigator.destination.collect {
@@ -39,5 +39,9 @@ class BeaconLayer(private val onBeaconClick: (beacon: Beacon) -> Boolean = { fal
     fun highlight(beacon: Beacon?) {
         source.highlight(beacon)
         invalidate()
+    }
+
+    companion object {
+        const val LAYER_ID = "beacon"
     }
 }

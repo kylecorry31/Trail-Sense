@@ -5,8 +5,14 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.ConfigurableGeoJsonSource
 
-class ConfigurableGeoJsonLayer(initialData: GeoJsonObject = GeoJsonFeatureCollection(emptyList())) :
-    GeoJsonLayer<ConfigurableGeoJsonSource>(ConfigurableGeoJsonSource(initialData)) {
+class ConfigurableGeoJsonLayer(
+    initialData: GeoJsonObject = GeoJsonFeatureCollection(emptyList()),
+    layerId: String = ""
+) :
+    GeoJsonLayer<ConfigurableGeoJsonSource>(
+        ConfigurableGeoJsonSource(initialData),
+        layerId = layerId
+    ) {
 
     private var onClickListener: ((GeoJsonFeature) -> Boolean)? = null
 

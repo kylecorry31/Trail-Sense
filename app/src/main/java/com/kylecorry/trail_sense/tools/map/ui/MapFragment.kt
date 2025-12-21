@@ -35,12 +35,14 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     override fun update() {
@@ -89,7 +91,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
         val layerEditSheet = useMemo(prefs) {
-            MapLayersBottomSheet(prefs.map.layerManager)
+            val map = Tools.getMap(context, MapToolRegistration.MAP_ID)!!
+            MapLayersBottomSheet(map.manager)
         }
 
         usePauseEffect(layerEditSheet) {

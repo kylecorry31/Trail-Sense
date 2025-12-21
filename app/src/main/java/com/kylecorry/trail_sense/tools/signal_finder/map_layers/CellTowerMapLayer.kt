@@ -14,7 +14,11 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class CellTowerMapLayer(
     private val onClick: (tower: ApproximateCoordinate) -> Boolean = { false }
-) : GeoJsonLayer<CellTowerGeoJsonSource>(CellTowerGeoJsonSource(), minZoomLevel = 11) {
+) : GeoJsonLayer<CellTowerGeoJsonSource>(
+    CellTowerGeoJsonSource(),
+    minZoomLevel = 11,
+    layerId = LAYER_ID
+) {
 
     override fun onClick(feature: GeoJsonFeature): Boolean {
         val point = (feature.geometry as? GeoJsonPoint)?.point?.coordinate ?: return false
@@ -30,6 +34,8 @@ class CellTowerMapLayer(
     }
 
     companion object {
+
+        const val LAYER_ID = "cell_tower"
 
         fun navigate(tower: ApproximateCoordinate) {
             val navigator = getAppService<Navigator>()

@@ -18,6 +18,8 @@ class MyElevationLayer(
     private val bottomLeft: PixelCoordinate,
 ) : ILayer {
 
+    override val layerId: String = LAYER_ID
+
     var elevation = Distance.meters(0f)
         set(value) {
             field = value
@@ -98,4 +100,8 @@ class MyElevationLayer(
 
     override val percentOpacity: Float
         get() = _percentOpacity
+
+    companion object {
+        const val LAYER_ID = "my_elevation"
+    }
 }

@@ -15,6 +15,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 // TODO: Allow setting of position
 class CompassOverlayLayer : ILayer {
 
+    override val layerId: String = LAYER_ID
+
     private val backgroundColor: Int
     private val cardinalDirectionColor: Int
 
@@ -110,4 +112,8 @@ class CompassOverlayLayer : ILayer {
 
     override val percentOpacity: Float
         get() = _percentOpacity
+
+    companion object {
+        const val LAYER_ID = "compass_overlay"
+    }
 }

@@ -12,6 +12,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 class HillshadeLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
     TileMapLayer<HillshadeMapTileSource>(HillshadeMapTileSource(), taskRunner, minZoomLevel = 10) {
 
+    override val layerId: String = LAYER_ID
+
     init {
         preRenderBitmaps = true
         alpha = 127
@@ -29,5 +31,9 @@ class HillshadeLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
             255f,
             shouldClamp = true
         ).toInt()
+    }
+
+    companion object {
+        const val LAYER_ID = "hillshade"
     }
 }

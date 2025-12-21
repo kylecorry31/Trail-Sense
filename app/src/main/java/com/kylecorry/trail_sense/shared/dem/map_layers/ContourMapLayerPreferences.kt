@@ -20,7 +20,14 @@ class ContourMapLayerPreferences(
     context: Context,
     mapId: String,
     isEnabledByDefault: Boolean = false
-) : BaseMapLayerPreferences(context, mapId, "contour", R.string.contours, isEnabledByDefault, 50) {
+) : BaseMapLayerPreferences(
+    context,
+    mapId,
+    ContourLayer.LAYER_ID,
+    R.string.contours,
+    isEnabledByDefault,
+    50
+) {
 
     private var _showLabels by BooleanPreference(
         cache,
@@ -96,7 +103,8 @@ class ContourMapLayerPreferences(
     override fun setPreferencesFromBundle(bundle: Bundle) {
         showLabels.set(bundle.getBoolean(SHOW_LABELS, true))
         val colorId = bundle.getLong(COLOR_STRATEGY_ID, ElevationColorStrategy.Brown.id)
-        val color = ElevationColorStrategy.entries.firstOrNull { it.id == colorId } ?: ElevationColorStrategy.Brown
+        val color = ElevationColorStrategy.entries.firstOrNull { it.id == colorId }
+            ?: ElevationColorStrategy.Brown
         colorStrategy.set(color)
     }
 

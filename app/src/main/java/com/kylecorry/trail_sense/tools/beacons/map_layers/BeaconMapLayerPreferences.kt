@@ -7,4 +7,4 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayer
 class BeaconMapLayerPreferences(
     context: Context,
     mapId: String
-) : BaseMapLayerPreferences(context, mapId, "beacon", R.string.beacons)
+) : BaseMapLayerPreferences(context, mapId, BeaconLayer.LAYER_ID, R.string.beacons)

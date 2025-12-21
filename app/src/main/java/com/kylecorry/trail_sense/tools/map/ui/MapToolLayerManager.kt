@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
@@ -86,23 +87,25 @@ class MapToolLayerManager {
         )
 
         view.setLayersWithPreferences(
-            backgroundLayer to null,
-            baseMapLayer to prefs.map.baseMapLayer,
-            elevationLayer to prefs.map.elevationLayer,
-            hillshadeLayer to prefs.map.hillshadeLayer,
-            photoMapLayer to prefs.map.photoMapLayer,
-            contourLayer to prefs.map.contourLayer,
-            cellTowerLayer to prefs.map.cellTowerLayer,
-            navigationLayer to prefs.map.navigationLayer,
-            pathLayer to prefs.map.pathLayer,
-            myLocationLayer to prefs.map.myLocationLayer,
-            tideLayer to prefs.map.tideLayer,
-            beaconLayer to prefs.map.beaconLayer,
-            selectedPointLayer to null,
-            distanceLayer to null,
-            scaleBarLayer to null,
-            myElevationLayer to null,
-            compassLayer to null
+            context,
+            MapToolRegistration.MAP_ID,
+            backgroundLayer,
+            baseMapLayer,
+            elevationLayer,
+            hillshadeLayer,
+            photoMapLayer,
+            contourLayer,
+            cellTowerLayer,
+            navigationLayer,
+            pathLayer,
+            myLocationLayer,
+            tideLayer,
+            beaconLayer,
+            selectedPointLayer,
+            distanceLayer,
+            scaleBarLayer,
+            myElevationLayer,
+            compassLayer
         )
 
         view.start()

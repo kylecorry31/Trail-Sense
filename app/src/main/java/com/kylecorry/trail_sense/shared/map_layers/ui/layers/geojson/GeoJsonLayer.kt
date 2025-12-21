@@ -17,7 +17,8 @@ import kotlinx.coroutines.CancellationException
 open class GeoJsonLayer<T : GeoJsonSource>(
     protected val source: T,
     private val minZoomLevel: Int? = null,
-    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
+    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
+    override val layerId: String
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
     private var isInvalid = true

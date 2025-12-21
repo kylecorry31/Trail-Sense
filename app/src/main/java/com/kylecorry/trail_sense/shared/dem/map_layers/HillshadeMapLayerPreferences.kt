@@ -16,7 +16,7 @@ class HillshadeMapLayerPreferences(
 ) : BaseMapLayerPreferences(
     context,
     mapId,
-    "hillshade",
+    HillshadeLayer.LAYER_ID,
     R.string.hillshade,
     isEnabledByDefault,
     50

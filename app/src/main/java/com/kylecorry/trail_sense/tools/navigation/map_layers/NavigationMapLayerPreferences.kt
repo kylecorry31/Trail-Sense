@@ -7,4 +7,4 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayer
 class NavigationMapLayerPreferences(
     context: Context,
     mapId: String
-) : BaseMapLayerPreferences(context, mapId, "navigation", R.string.navigation)
+) : BaseMapLayerPreferences(context, mapId, NavigationLayer.LAYER_ID, R.string.navigation)

@@ -29,7 +29,8 @@ data class Tool(
     val broadcasts: List<ToolBroadcast> = emptyList(),
     val actions: List<ToolAction> = emptyList(),
     val initialize: (context: Context) -> Unit = {},
-    val singletons: List<(Context) -> Any> = emptyList()
+    val singletons: List<(Context) -> Any> = emptyList(),
+    val maps: List<ToolMap> = emptyList()
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {
         return navAction == currentNavId || additionalNavigationIds.contains(currentNavId)
