@@ -6,6 +6,7 @@ import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.beacons.widgets.AppWidgetNearbyBeacons
@@ -96,10 +97,14 @@ object BeaconsToolRegistration : ToolRegistration {
                     usesLocation = true,
                     canPlaceInApp = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                 )
+            ),
+            mapLayers = listOf(
+                MapLayerDefinition(MAP_LAYER_BEACONS, context.getString(R.string.beacons))
             )
         )
     }
 
     const val BROADCAST_BEACONS_CHANGED = "beacons-broadcast-beacons-changed"
     const val WIDGET_NEARBY_BEACONS = "beacons-widget-nearby-beacons"
+    const val MAP_LAYER_BEACONS = "beacon"
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import com.kylecorry.trail_sense.shared.data.Identifiable
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 
 data class Tool(
@@ -30,7 +31,8 @@ data class Tool(
     val actions: List<ToolAction> = emptyList(),
     val initialize: (context: Context) -> Unit = {},
     val singletons: List<(Context) -> Any> = emptyList(),
-    val maps: List<ToolMap> = emptyList()
+    val maps: List<ToolMap> = emptyList(),
+    val mapLayers: List<MapLayerDefinition> = emptyList()
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {
         return navAction == currentNavId || additionalNavigationIds.contains(currentNavId)

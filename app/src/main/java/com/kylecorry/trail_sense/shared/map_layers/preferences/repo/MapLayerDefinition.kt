@@ -1,0 +1,104 @@
+package com.kylecorry.trail_sense.shared.map_layers.preferences.repo
+
+import android.content.Context
+import android.os.Bundle
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+
+
+class MapLayerDefinition(
+    val id: String,
+    val name: String,
+    val preferences: List<MapLayerPreference> = emptyList()
+)
+
+private fun getBasePreferences(context: Context, layerName: String): List<MapLayerPreference> {
+    return listOf(
+        MapLayerPreference(
+            ENABLED,
+            layerName,
+            MapLayerPreferenceType.Switch,
+            defaultValue = true
+        ),
+        MapLayerPreference(
+            OPACITY,
+            context.getString(R.string.opacity),
+            MapLayerPreferenceType.Seekbar,
+            dependency = ENABLED,
+            defaultValue = 100
+        )
+    )
+}
+
+fun MapLayerDefinition.getPreferenceValues(context: Context, mapId: String): Bundle {
+    val cache = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+    val bundle = Bundle()
+
+    val preferencesWithBase = getBasePreferences(context, name) + preferences
+
+    for (preference in preferencesWithBase) {
+        val key = preference.getFullPreferenceKey(mapId, id)
+        when (preference.type) {
+            MapLayerPreferenceType.Label -> {}
+            MapLayerPreferenceType.Enum -> {
+                val value = cache.getString(key)
+                bundle.putString(preference.id, value ?: (preference.defaultValue as? String))
+            }
+
+            MapLayerPreferenceType.Seekbar -> {
+                val value = cache.getInt(key)
+                bundle.putInt(preference.id, value ?: (preference.defaultValue as? Int) ?: 0)
+            }
+
+            MapLayerPreferenceType.Switch -> {
+                val value = cache.getBoolean(key)
+                bundle.putBoolean(
+                    preference.id,
+                    value ?: (preference.defaultValue as? Boolean) ?: false
+                )
+            }
+        }
+    }
+    return bundle
+}
+
+fun MapLayerDefinition.writePreferenceValues(context: Context, bundle: Bundle, mapId: String) {
+    val cache = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+    val preferencesWithBase = getBasePreferences(context, name) + preferences
+    for (preference in preferencesWithBase) {
+        val key = preference.getFullPreferenceKey(mapId, id)
+        when (preference.type) {
+            MapLayerPreferenceType.Label -> {}
+            MapLayerPreferenceType.Enum -> {
+                val value = bundle.getString(key)
+                if (value == null) {
+                    cache.remove(preference.id)
+                } else {
+                    cache.putString(preference.id, value)
+                }
+            }
+
+            MapLayerPreferenceType.Seekbar -> {
+                if (!bundle.containsKey(preference.id)) {
+                    cache.remove(key)
+                } else {
+                    val value = bundle.getInt(preference.id)
+                    cache.putInt(preference.id, value)
+                }
+            }
+
+            MapLayerPreferenceType.Switch -> {
+                if (!bundle.containsKey(preference.id)) {
+                    cache.remove(key)
+                } else {
+                    val value = bundle.getBoolean(preference.id)
+                    cache.putBoolean(preference.id, value)
+                }
+            }
+        }
+    }
+}
+
+const val ENABLED = "enabled"
+const val OPACITY = "opacity"
