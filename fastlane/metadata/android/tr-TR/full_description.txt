@@ -1,0 +1,52 @@
+<p>Trail Sense ile internetin ötesini keşfedin.</p>
+
+<ul>
+    <li>Yürüyüş, sırt çantasıyla seyahat, kampçılık ve geocaching için tasarlanmıştır</li>
+    <li>İşaretler yerleştirin ve onlara doğru yol alın</li>
+    <li>Pusula olarak kullanın (sadece pusula sensörü olan cihazlarda kullanılabilir)</li>
+    <li>Yolları takip edin</li>
+    <li>Geri dönüş ile adımlarınızı takip edin</li>
+    <li>Fotoğrafı harita olarak kullanın</li>
+    <li>Ne götüreceğinizi planlayın</li>
+    <li>Güneş batmadan önce uyarı alın</li>
+    <li>Hava durumunu tahmin edin (sadece barometre sensörlü cihazlarda kullanılabilir)</li>
+    <li>Telefonunuzu el feneri olarak kullanın</li>
+    <li>Ve çok daha fazlası!</li>
+</ul>
+
+<p>Trail Sense bir araçtır ve vahşi doğaya götürdüğünüz diğer araçlar gibi,
+yedek ekipman ve becerilere sahip olmak çok önemlidir.
+Bu uygulama yalnızca bilgi amaçlıdır ve tahminlerin ve sensörlerin doğruluğu, kalibrasyon, sensör kalitesi, harici kaynaklar vb. dahil olmak üzere bir dizi faktöre bağlıdır.
+Kendi sorumluluğunuzda kullanın, her zaman yedek araçlar (örn. pusula) bulundurun ve güvenliğinizi sağlayın..</p>
+
+<p>Bu uygulama ayrıca interneti kullanmaz ve asla kullanmayacaktır - Trail Sense'deki tüm bilgiler doğrudan telefonunuzun sensörlerinden gelir ve hiçbir veri Trail Sense'den dışarı çıkmaz..</p>
+
+<h3>SIK KARŞILAŞILAN SORUNLAR</h3>
+<ul>
+    <li>Pusula yoksa: Telefonunuzda pusula sensörü yoksa, bu donanımla ilgili bir sorun olduğu için yapabileceğim bir şey yoktur.
+    Trail Sense'in diğer özelliklerini kullanmaya devam edebilirsiniz.</li>
+    <li>Hava durumu yoksa: Hava durumu aracı, telefonunuzda barometre sensörü varsa kullanılabilir.</li>
+</ul>
+
+<p>Bir sorun mu buldunuz veya yeni bir özellik mi istiyorsunuz? trailsense@protonmail.com adresinden bana ulaşın veya GitHub'da yeni bir sorun oluşturun: github.com/kylecorry31/Trail-Sense</p>
+
+<p>Trail Sense'in tek geliştiricisi benim, bu yüzden sorunları çözmek için elimden geleni yapacağım, ancak test etmek için sınırlı sayıda cihazım var..</p>
+
+<h3>İZİNLER</h3>
+<ul>
+    <li>Bildirimler: Trail Sense'in bildirimleri (geri dönüş, hava durumu, gün batımı uyarıları, astronomi olayları, su kaynatma zamanlayıcısı vb.) görüntülemesine izin verir.</li>
+    <li>Konum: Trail Sense'in navigasyon, hava durumu (deniz seviyesi kalibrasyonu) ve astronomi için konumunuzu almasına izin verir. </li>
+    <li>Arka plan konumu: Trail Sense'in arka planda çalışırken gün batımı uyarıları için konumunuzu almasına izin verir.
+    Bazı cihazlarda bu, geri dönüş ve hava durumu izleme özelliğinin güvenilirliğini de artıracaktır.</li>
+    <li>Fiziksel aktivite: Trail Sense'in mesafe hesaplaması için telefonunuzun pedometresini kullanmasına izin verir.</li>
+    <li>Kamera: Trail Sense'in görüş pusulası, eğim ölçer ve Bulut Tarayıcısı, QR Kodu Tarayıcı ve Fotoğraf Haritaları tarafından kullanılan fotoğrafları çekmek için kameranızı kullanmasına izin verir.</li>
+    <li>Alarmlar ve hatırlatıcılar: Trail Sense'in tam saatte bir bildirim göndermesine izin verir.
+    Bu, Saat aracı (sistem saatini güncellerken) ve Gün Batımı ve Gün Doğumu Uyarıları tarafından kullanılır.</li>
+</ul>
+
+<h3>Bağlantılar</h3>
+<ul>
+    <li>Gizlilik politikası: https://kylecorry.com/Trail-Sense/#privacy</li>
+    <li>SSS: https://github.com/kylecorry31/Trail-Sense#faq</li>
+    <li>Trail Sense, MIT Lisansı altında kullanılabilir: https://opensource.org/license/mit/</li>
+</ul>
