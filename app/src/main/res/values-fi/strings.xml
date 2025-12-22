@@ -1439,4 +1439,8 @@
     <string name="lock_bearing_to_location">Lukitse suuntima kohteeseen</string>
     <string name="lock_bearing_to_location_description">Lukitse suuntimaviiva aloitussijaintiisi</string>
     <string name="pref_show_astronomy_bands_title">Näytä auringonnousun ja -laskun nauhat</string>
+    <string name="pref_bubble_level_threshold_title">Tason kynnysarvo</string>
+    <string name="settings_copied">Asetukset kopioitu</string>
+    <string name="copy_settings_to_other_maps">Kopioi asetukset muihin karttoihin</string>
+    <string name="layer_settings_overwrite_warning">Tämä päällekirjoittaa \"%s\" tasoasetuksen koko sovelluksessa.</string>
 </resources>
