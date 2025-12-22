@@ -466,7 +466,7 @@
     <string name="delete_tide_prompt">删除潮汐？</string>
     <string name="meteor_shower">流星雨</string>
     <string name="pref_meteor_showers_title">流星雨</string>
-    <string name="meteors_per_hour">最多 %d 颗流星/时</string>
+    <string name="meteors_per_hour">最多 %d 颗流星/小时</string>
     <string name="pedometer_disclaimer">计步器的准确性和电池使用量取决于你设备的制造商和输入的步幅。在实际使用前，请先在家里试一下，验证电池消耗和准确性。</string>
     <string name="next">下一张</string>
     <string name="previous">上一张</string>
@@ -972,7 +972,7 @@
     <string name="solar_eclipses">日食</string>
     <string name="start_time">开始</string>
     <string name="end_time">结束</string>
-    <string name="peak_time">食甚</string>
+    <string name="peak_time">高峰期</string>
     <string name="obscuration">遮蔽率</string>
     <string name="astronomy_altitude_peak">最大仰角</string>
     <string name="magnitude">食分</string>
@@ -1498,4 +1498,8 @@
     <string name="pref_night_mode_fullscreen_summary">隐藏系统用户界面更好保留夜视能力</string>
     <string name="show_below_horizon">显示在地平线下方</string>
     <string name="pref_show_astronomy_bands_title">显示日出/日落带</string>
+    <string name="pref_bubble_level_threshold_title">等级阈值</string>
+    <string name="settings_copied">已复制设置</string>
+    <string name="copy_settings_to_other_maps">复制设置到其他地图</string>
+    <string name="layer_settings_overwrite_warning">这会在整个应用中覆盖 \"%s\" 层设置。</string>
 </resources>

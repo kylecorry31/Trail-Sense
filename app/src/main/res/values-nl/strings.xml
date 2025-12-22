@@ -1511,4 +1511,8 @@
     <string name="pref_night_mode_fullscreen_summary">Verberg systeemelementen voor een beter nachtzicht</string>
     <string name="show_below_horizon">Onder de horizon weergeven</string>
     <string name="pref_show_astronomy_bands_title">Zonsopkomst/ondergangs-stroken weergeven</string>
+    <string name="pref_bubble_level_threshold_title">Niveaudrempel</string>
+    <string name="settings_copied">Instellingen gekopieerd</string>
+    <string name="copy_settings_to_other_maps">Instellingen kopiëren naar andere kaarten</string>
+    <string name="layer_settings_overwrite_warning">Dit overschrijft \"%s\" laaginstellingen in de hele app.</string>
 </resources>
