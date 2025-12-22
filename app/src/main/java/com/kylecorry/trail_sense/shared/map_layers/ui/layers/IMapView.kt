@@ -3,7 +3,9 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 import android.content.Context
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -12,6 +14,7 @@ interface IMapView {
     fun addLayer(layer: ILayer)
     fun removeLayer(layer: ILayer)
     fun setLayers(layers: List<ILayer>)
+    fun getLayers(): List<ILayer>
 
     fun start()
     fun stop()
@@ -20,6 +23,12 @@ interface IMapView {
      * The current projection of the map. The response should be fixed, so it doesn't change on consumers using it.
      */
     val mapProjection: IMapViewProjection
+
+    var userLocation: Coordinate
+
+    var userLocationAccuracy: Distance?
+
+    var userAzimuth: Bearing
 
     /**
      * The scale in meters per pixel
@@ -85,3 +94,7 @@ fun IMapView.setLayersWithPreferences(context: Context, mapId: String, vararg la
     setLayers(actualLayers.mapNotNull { it.first })
 }
 
+@Suppress("UNCHECKED_CAST")
+fun <T : ILayer> IMapView.getLayerById(id: String): T? {
+    return getLayers().firstOrNull { it.layerId == id } as? T
+}

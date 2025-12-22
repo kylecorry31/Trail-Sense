@@ -24,6 +24,7 @@ import com.kylecorry.sol.math.geometry.Circle
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -88,6 +89,24 @@ class RadarCompassView : BaseCompassView, IMapView {
     var shouldDrawDial: Boolean = true
 
     private val hooks = Hooks()
+
+    override var userLocation: Coordinate
+        get() = compassCenter
+        set(value) {
+            compassCenter = value
+        }
+
+    override var userLocationAccuracy: Distance? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userAzimuth: Bearing
+        get() = Bearing.from(azimuth)
+        set(value) {
+            azimuth = value.value
+        }
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -371,6 +390,10 @@ class RadarCompassView : BaseCompassView, IMapView {
     override fun setLayers(layers: List<ILayer>) {
         this.layers.clear()
         this.layers.addAll(layers)
+    }
+
+    override fun getLayers(): List<ILayer> {
+        return layers.toList()
     }
 
     override fun start() {

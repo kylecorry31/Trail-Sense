@@ -157,23 +157,18 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
 
         // Update layer values
-        useEffect(mapView, manager, navigation.location, navigation.locationAccuracy, manager.key) {
-            manager.onLocationChanged(navigation.location, navigation.locationAccuracy)
+        useEffect(mapView, navigation.location, navigation.locationAccuracy) {
+            mapView.userLocation = navigation.location
+            mapView.userLocationAccuracy = navigation.locationAccuracy
             mapView.invalidate()
         }
 
-        useEffect(mapView, manager, navigation.bearing, manager.key) {
-            manager.onBearingChanged(navigation.bearing)
-            mapView.invalidate()
+        useEffect(mapView, navigation.bearing) {
+            mapView.userAzimuth = navigation.bearing
         }
 
         useEffect(manager, mapView.mapBounds, manager.key) {
             manager.onBoundsChanged()
-        }
-
-        useEffect(mapView, manager, navigation.elevation, manager.key) {
-            manager.onElevationChanged(navigation.elevation)
-            mapView.invalidate()
         }
 
         useEffect(lockMode, mapView, lockButton) {

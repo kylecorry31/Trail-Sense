@@ -2,9 +2,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.content.Context
 import android.graphics.Color
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -12,8 +10,6 @@ import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -47,7 +43,7 @@ class PhotoMapToolLayerManager {
     private val contourLayer = ContourLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
-    private var myElevationLayer: MyElevationLayer? = null
+    private val myElevationLayer = MyElevationLayer()
     private val compassLayer = CompassOverlayLayer()
     private var photoMapLayer: PhotoMapLayer? = null
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
@@ -57,8 +53,6 @@ class PhotoMapToolLayerManager {
         true
     }
 
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val formatter = AppServiceRegistry.get<FormatService>()
     private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
@@ -68,13 +62,6 @@ class PhotoMapToolLayerManager {
         photoMapLayer = PhotoMapLayer(photoMapId)
 
         // Hardcoded customization for this tool
-        myElevationLayer = MyElevationLayer(
-            formatter,
-            PixelCoordinate(
-                Resources.dp(context, 16f),
-                -Resources.dp(context, 16f)
-            )
-        )
         distanceLayer.isEnabled = false
         backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
         lastMapDetails?.let { improveResolution(it.first, it.second) }
@@ -105,15 +92,6 @@ class PhotoMapToolLayerManager {
         view.stop()
     }
 
-    fun onBearingChanged(bearing: Float) {
-        myLocationLayer.setAzimuth(bearing)
-    }
-
-    fun onLocationChanged(location: Coordinate, accuracy: Float?) {
-        myLocationLayer.setLocation(location)
-        myLocationLayer.setAccuracy(accuracy)
-    }
-
     fun onBoundsChanged() {
         distanceLayer.invalidate()
     }
@@ -121,10 +99,6 @@ class PhotoMapToolLayerManager {
     fun improveResolution(bounds: CoordinateBounds, metersPerPixel: Float) {
         lastMapDetails = bounds to metersPerPixel
         photoMapLayer?.improveResolution(bounds, metersPerPixel, 70)
-    }
-
-    fun onElevationChanged(elevation: Float) {
-        myElevationLayer?.elevation = Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
     }
 
     fun setSelectedLocation(location: Coordinate?) {

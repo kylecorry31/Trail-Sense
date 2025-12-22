@@ -5,18 +5,34 @@ import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class MyElevationLayer(
-    private val formatter: FormatService,
-    private val bottomLeft: PixelCoordinate,
-) : ILayer {
+class MyElevationLayer : ILayer {
+
+    private var bottomLeft = PixelCoordinate(
+        16f,
+        -16f
+    )
+
+    private val formatter = AppServiceRegistry.get<FormatService>()
+    private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
+
+    private val onElevationChange = { _: Bundle ->
+        elevation = locationSubsystem.elevation.convertTo(prefs.baseDistanceUnits)
+        true
+    }
 
     override val layerId: String = LAYER_ID
 
@@ -29,6 +45,14 @@ class MyElevationLayer(
     private var elevationString = ""
 
     private lateinit var bitmapLoader: DrawerBitmapLoader
+
+    override fun start() {
+        Tools.subscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
+    }
+
+    override fun stop() {
+        Tools.unsubscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
+    }
 
     override fun draw(
         drawer: ICanvasDrawer,
@@ -48,7 +72,7 @@ class MyElevationLayer(
         val elevationIcon = bitmapLoader.load(R.drawable.ic_altitude, drawer.sp(20f).toInt())
 
         drawer.push()
-        drawer.translate(bottomLeft.x, drawer.canvas.height + bottomLeft.y)
+        drawer.translate(drawer.dp(bottomLeft.x), drawer.canvas.height + drawer.dp(bottomLeft.y))
         drawer.textMode(TextMode.Corner)
         drawer.textSize(drawer.sp(12f))
         drawer.strokeWeight(4f)

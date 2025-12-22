@@ -4,16 +4,11 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geology.Geology
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
@@ -57,7 +52,7 @@ class MapToolLayerManager {
     private val elevationLayer = ElevationLayer(taskRunner)
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
-    private var myElevationLayer: MyElevationLayer? = null
+    private val myElevationLayer = MyElevationLayer()
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
@@ -65,9 +60,6 @@ class MapToolLayerManager {
         CellTowerMapLayer.navigate(it)
         true
     }
-
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val formatter = AppServiceRegistry.get<FormatService>()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
     var key: Int = 0
@@ -77,14 +69,6 @@ class MapToolLayerManager {
         compassLayer.paddingTopDp = 48f
 
         distanceLayer.isEnabled = false
-
-        myElevationLayer = MyElevationLayer(
-            formatter,
-            PixelCoordinate(
-                Resources.dp(context, 16f),
-                -Resources.dp(context, 16f)
-            )
-        )
 
         view.setLayersWithPreferences(
             context,
@@ -121,21 +105,8 @@ class MapToolLayerManager {
         view.stop()
     }
 
-    fun onBearingChanged(bearing: Bearing) {
-        myLocationLayer.setAzimuth(bearing.value)
-    }
-
-    fun onLocationChanged(location: Coordinate, accuracy: Distance?) {
-        myLocationLayer.setLocation(location)
-        myLocationLayer.setAccuracy(accuracy?.meters()?.value)
-    }
-
     fun onBoundsChanged() {
         distanceLayer.invalidate()
-    }
-
-    fun onElevationChanged(elevation: Distance) {
-        myElevationLayer?.elevation = elevation.convertTo(prefs.baseDistanceUnits)
     }
 
     fun setSelectedLocation(location: Coordinate?) {

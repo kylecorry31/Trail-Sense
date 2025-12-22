@@ -21,7 +21,9 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -47,6 +49,24 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
     private var onScaleChange: ((metersPerPixel: Float) -> Unit)? = null
     private var onCenterChange: ((center: Coordinate) -> Unit)? = null
+
+    override var userLocation: Coordinate = Coordinate.zero
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userLocationAccuracy: Distance? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userAzimuth: Bearing = Bearing.from(0f)
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     init {
         runEveryCycle = false
@@ -163,6 +183,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         this.layers = layers.toList()
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { post { invalidate() } } }
+    }
+
+    override fun getLayers(): List<ILayer> {
+        return layers.toList()
     }
 
     override fun start() {

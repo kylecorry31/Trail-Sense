@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -76,21 +77,20 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     override fun onResume() {
         super.onResume()
-        myLocationLayer.setColor(Resources.getPrimaryMarkerColor(requireContext()))
-        myLocationLayer.setAccuracyColor(Resources.getPrimaryMarkerColor(requireContext()))
-
         // Populate the last known location
-        myLocationLayer.setLocation(gps.location)
-        myLocationLayer.setAccuracy(gps.horizontalAccuracy)
+        binding.calibrationMap.userLocation = gps.location
+        binding.calibrationMap.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         observe(gps) {
-            myLocationLayer.setLocation(gps.location)
-            myLocationLayer.setAccuracy(gps.horizontalAccuracy)
+            binding.calibrationMap.userLocation = gps.location
+            binding.calibrationMap.userLocationAccuracy =
+                gps.horizontalAccuracy?.let { Distance.meters(it) }
             compass.declination = declinationStrategy.getDeclination()
         }
 
         observe(compass) {
-            myLocationLayer.setAzimuth(compass.rawBearing)
+            binding.calibrationMap.userAzimuth = compass.bearing
         }
     }
 

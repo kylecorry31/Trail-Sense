@@ -85,9 +85,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private var shouldLockOnMapLoad = false
 
-    // State
-    private var elevation by state(0f)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
@@ -119,7 +116,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe(gps) {
-            layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            binding.map.userLocation = gps.location
+            binding.map.userLocationAccuracy = gps.horizontalAccuracy?.let { Distance.meters(it) }
             updateDestination()
 
             if (mapLockMode == MapLockMode.Location || mapLockMode == MapLockMode.Compass) {
@@ -130,7 +128,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         observe(compass) {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
-            layerManager.onBearingChanged(bearing)
+            binding.map.userAzimuth = compass.bearing
             if (mapLockMode == MapLockMode.Compass) {
                 binding.map.mapAzimuth = bearing
             }
@@ -241,8 +239,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             return
         }
 
-        elevation = altimeter.altitude
-
         val beacon = destination ?: return
         binding.navigationSheet.updateNavigationSensorValues(
             gps.location,
@@ -320,7 +316,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         // Populate the last known location and map bounds
         layerManager.onBoundsChanged()
-        layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        binding.map.userLocation = gps.location
+        binding.map.userLocationAccuracy = gps.horizontalAccuracy?.let { Distance.meters(it) }
     }
 
     fun adjustLayers() {
@@ -511,10 +508,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
-
-        effect("elevation", elevation, lifecycleHookTrigger.onResume()) {
-            layerManager.onElevationChanged(elevation)
-        }
 
         useEffect(resetOnResume) {
             activity?.let { screenLock.updateLock(it) }

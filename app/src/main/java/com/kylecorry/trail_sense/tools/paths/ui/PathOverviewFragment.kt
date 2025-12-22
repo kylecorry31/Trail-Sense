@@ -163,8 +163,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     override fun onResume() {
         super.onResume()
         // Populate the last known location
-        myLocationLayer.setLocation(gps.location)
-        myLocationLayer.setAccuracy(gps.horizontalAccuracy)
+        binding.pathImage.userLocation = gps.location
+        binding.pathImage.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         binding.pathImage.start()
     }
@@ -275,13 +276,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         observe(gps) {
             updateDeclination()
-            myLocationLayer.setLocation(gps.location)
-            myLocationLayer.setAccuracy(gps.horizontalAccuracy)
+            binding.pathImage.userLocation = gps.location
+            binding.pathImage.userLocationAccuracy =
+                gps.horizontalAccuracy?.let { Distance.meters(it) }
             onPathChanged()
         }
 
         observe(compass) {
-            myLocationLayer.setAzimuth(compass.bearing.value)
+            binding.pathImage.userAzimuth = compass.bearing
         }
 
         binding.pathImage.setLayers(

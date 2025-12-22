@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
@@ -23,16 +22,12 @@ class MyLocationLayer : IAsyncLayer {
 
     override val layerId: String = LAYER_ID
 
-    private var _location: Coordinate? = null
-    private var _azimuth: Float? = null
     private var _path: Path? = null
     private val _showDirection = AppServiceRegistry.get<SensorService>().hasCompass()
 
     @ColorInt
     private var _color: Int = Color.WHITE
 
-
-    private var _accuracy: Float? = null
 
     private var _drawAccuracy: Boolean = true
 
@@ -49,31 +44,6 @@ class MyLocationLayer : IAsyncLayer {
         val context = AppServiceRegistry.get<Context>()
         _color = Resources.getPrimaryMarkerColor(context)
         _accuracyFillColor = Resources.getPrimaryMarkerColor(context)
-    }
-
-    fun setLocation(location: Coordinate) {
-        _location = location
-        invalidate()
-    }
-
-    fun setAccuracy(accuracy: Float?) {
-        _accuracy = accuracy
-        invalidate()
-    }
-
-    fun setAzimuth(azimuth: Float) {
-        _azimuth = azimuth
-        invalidate()
-    }
-
-    fun setColor(@ColorInt color: Int) {
-        _color = color
-        invalidate()
-    }
-
-    fun setAccuracyColor(@ColorInt color: Int) {
-        _accuracyFillColor = color
-        invalidate()
     }
 
     override fun setPreferences(preferences: Bundle) {
@@ -112,8 +82,8 @@ class MyLocationLayer : IAsyncLayer {
     }
 
     private fun drawAccuracy(drawer: ICanvasDrawer, map: IMapView) {
-        val accuracy = _accuracy ?: return
-        val location = _location ?: return
+        val accuracy = map.userLocationAccuracy?.meters()?.value ?: 0f
+        val location = map.userLocation
         if (map.metersPerPixel <= 0) return
 
         val sizePixels = 2 * accuracy / map.metersPerPixel * map.layerScale
@@ -139,7 +109,7 @@ class MyLocationLayer : IAsyncLayer {
 
     private fun drawCircle(drawer: ICanvasDrawer, map: IMapView) {
         val marker = CircleMapMarker(
-            _location ?: map.mapCenter,
+            map.userLocation,
             color = _color,
             strokeColor = Color.WHITE,
             strokeWeight = 2f,
@@ -177,13 +147,13 @@ class MyLocationLayer : IAsyncLayer {
         }
 
         val marker = PathMapMarker(
-            _location ?: map.mapCenter,
+            map.userLocation,
             path,
             size = 16f,
             color = _color,
             strokeColor = Color.WHITE,
             strokeWeight = 2f,
-            rotation = (_azimuth ?: 0f) + map.mapRotation
+            rotation = map.userAzimuth.value + map.mapRotation
         )
 
         val anchor = map.toPixel(marker.location)

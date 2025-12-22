@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
+import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -565,8 +566,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.navigationTitle.title.setTextDistinct(titleText)
         }
 
-        layers.onBearingChanged(bearing)
-
         // Compass
         listOf<ICompassView>(
             binding.roundCompass,
@@ -588,7 +587,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             formatService.formatLocation(location)
         )
 
-        layers.onLocationChanged(location, gps.horizontalAccuracy)
+        binding.radarCompass.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         // Compass center point
         listOf<ICompassView>(
@@ -615,7 +615,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             // Update beacon layers
             beaconCompassLayer.setBeacons(nearbyBeacons)
             beaconCompassLayer.highlight(destinationBeacon)
-            layers.setDestination(destinationBeacon)
 
             // Destination
             if (destinationBeacon != null) {
