@@ -5,12 +5,12 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.LabelMapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.writePreferenceValues
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.LabelMapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 class MapLayerPreferenceManager(
     private val mapId: String,
     private val layers: List<MapLayerDefinition>,
+    private val alwaysEnabledLayerIds: List<String>
 ) {
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
@@ -26,7 +27,11 @@ class MapLayerPreferenceManager(
             val category = createCategory(context)
             screen.addPreference(category)
 
-            val base = DefaultMapLayerDefinitions.getBasePreferences(context, layer.name)
+            val base = DefaultMapLayerDefinitions.getBasePreferences(
+                context,
+                layer.name,
+                alwaysEnabledLayerIds.contains(layer.id)
+            )
             val preferences = base + layer.preferences
             val viewPreferences = preferences.map {
                 factory.getConverter(it.type).convert(it, layer.id)

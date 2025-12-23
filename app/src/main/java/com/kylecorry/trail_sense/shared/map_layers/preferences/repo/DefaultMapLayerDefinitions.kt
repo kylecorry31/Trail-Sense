@@ -4,12 +4,16 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 
 object DefaultMapLayerDefinitions {
-    fun getBasePreferences(context: Context, layerName: String): List<MapLayerPreference> {
+    fun getBasePreferences(
+        context: Context,
+        layerName: String,
+        alwaysEnabled: Boolean = false
+    ): List<MapLayerPreference> {
         return listOf(
             MapLayerPreference(
                 ENABLED,
                 layerName,
-                MapLayerPreferenceType.Switch,
+                if (alwaysEnabled) MapLayerPreferenceType.Label else MapLayerPreferenceType.Switch,
                 defaultValue = true,
                 dependency = null
             ),

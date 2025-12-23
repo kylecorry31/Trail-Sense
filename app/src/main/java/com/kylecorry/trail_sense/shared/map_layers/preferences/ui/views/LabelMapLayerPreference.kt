@@ -7,6 +7,7 @@ class LabelMapLayerPreference(
     private val title: CharSequence?,
     private val summary: CharSequence? = null,
     override val dependency: String? = null,
+    private val key: String? = null,
     private val onClick: ((context: Context) -> Unit)? = null,
 ) : MapLayerViewPreference {
     override fun create(
@@ -18,6 +19,7 @@ class LabelMapLayerPreference(
         preference.isSingleLineTitle = false
         preference.title = title
         preference.summary = summary
+        preference.key = "pref_${mapId}_${key}"
         preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             onClick?.invoke(context)
             true

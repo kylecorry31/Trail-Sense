@@ -10,7 +10,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MapLayersBottomSheet(
     private val mapId: String,
-    private val layerIds: List<String>
+    private val layerIds: List<String>,
+    private val alwaysEnabledLayerIds: List<String> = emptyList()
 ) : TrailSenseReactiveBottomSheetFragment(R.layout.fragment_map_layers_bottom_sheet) {
 
     private var onDismissListener: (() -> Unit)? = null
@@ -31,7 +32,7 @@ class MapLayersBottomSheet(
             val allDefs = Tools.getTools(mainActivity).flatMap { it.mapLayers }
             val defs = allDefs.filter { layerIds.contains(it.id) }
                 .sortedBy { layerIds.indexOf(it.id) }
-            val manager = MapLayerPreferenceManager(mapId, defs)
+            val manager = MapLayerPreferenceManager(mapId, defs, alwaysEnabledLayerIds)
             MapLayersBottomSheetFragment(manager, mainActivity)
         }
 

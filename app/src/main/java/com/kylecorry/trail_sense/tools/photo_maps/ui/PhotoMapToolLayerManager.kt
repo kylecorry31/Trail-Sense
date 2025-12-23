@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.content.Context
 import android.graphics.Color
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -15,6 +16,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
@@ -56,6 +58,8 @@ class PhotoMapToolLayerManager {
     private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
+    private val preferences = AppServiceRegistry.get<PreferencesSubsystem>()
+
     private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
 
     fun resume(context: Context, view: IMapView, photoMapId: Long) {
@@ -65,6 +69,9 @@ class PhotoMapToolLayerManager {
         distanceLayer.isEnabled = false
         backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
         lastMapDetails?.let { improveResolution(it.first, it.second) }
+
+        // User can't disable the photo maps layer
+        preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
 
         view.setLayersWithPreferences(
             context,
@@ -154,7 +161,12 @@ class PhotoMapToolLayerManager {
     }
 
     companion object {
+        val alwaysEnabledLayers = listOf(
+            PhotoMapLayer.LAYER_ID
+        )
+
         val orderedLayerIds = listOf(
+            PhotoMapLayer.LAYER_ID,
             ContourLayer.LAYER_ID,
             CellTowerMapLayer.LAYER_ID,
             PathLayer.LAYER_ID,
