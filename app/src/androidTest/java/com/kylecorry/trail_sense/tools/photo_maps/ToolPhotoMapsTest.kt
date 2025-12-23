@@ -259,6 +259,10 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Layers
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Layers")
+        scrollUntil { hasText("Basemap") }
+        scrollUntil { hasText("Elevation") }
+        scrollUntil { hasText("Hillshade") }
+        scrollUntil { hasText("Photo Maps") }
         scrollUntil { hasText("Contours") }
         scrollUntil { hasText("Cell towers") }
         scrollUntil { hasText("Paths") }

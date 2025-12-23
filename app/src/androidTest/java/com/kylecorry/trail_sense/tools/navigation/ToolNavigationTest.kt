@@ -47,6 +47,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     private fun canAdjustLayers() {
         optional {
             longClick(R.id.radar_compass)
+            scrollUntil { hasText("Basemap") }
             scrollUntil { hasText("Elevation") }
             scrollUntil { hasText("Hillshade") }
             scrollUntil { hasText("Photo Maps") }

@@ -253,10 +253,22 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(20, 21) { context, prefs ->
 
                 val disabledByDefault = listOf(
-                    "pref_navigation_contour_layer_enabled",
+                    // Elevation
+                    "pref_photo_maps_elevation_layer_enabled",
                     "pref_navigation_elevation_layer_enabled",
+                    // Hillshade
+                    "pref_photo_maps_hillshade_layer_enabled",
                     "pref_navigation_hillshade_layer_enabled",
+                    // Contour
                     "pref_photo_maps_contour_layer_enabled",
+                    "pref_navigation_contour_layer_enabled",
+                    // Base map
+                    "pref_photo_maps_base_map_layer_enabled",
+                    "pref_navigation_base_map_layer_enabled",
+                    // Cell towers
+                    "pref_map_cell_tower_layer_enabled",
+                    "pref_photo_maps_cell_tower_layer_enabled",
+                    "pref_navigation_cell_tower_layer_enabled",
                 )
 
                 for (key in disabledByDefault) {
@@ -266,12 +278,19 @@ class PreferenceMigrator private constructor() {
                 }
 
                 val halfOpacityByDefault = listOf(
+                    // Elevation
                     "pref_map_elevation_layer_opacity",
+                    "pref_photo_maps_elevation_layer_opacity",
                     "pref_navigation_elevation_layer_opacity",
+                    // Hillshade
                     "pref_map_hillshade_layer_opacity",
+                    "pref_photo_maps_hillshade_layer_opacity",
                     "pref_navigation_hillshade_layer_opacity",
+                    // Contour
                     "pref_map_contour_layer_opacity",
+                    "pref_photo_maps_contour_layer_opacity",
                     "pref_navigation_contour_layer_opacity",
+                    // Photo Maps
                     "pref_navigation_map_layer_opacity",
                 )
 

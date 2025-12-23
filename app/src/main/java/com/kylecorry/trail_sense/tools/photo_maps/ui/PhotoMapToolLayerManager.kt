@@ -12,7 +12,10 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
@@ -20,6 +23,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
@@ -42,7 +46,11 @@ class PhotoMapToolLayerManager {
     }
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
-    private val contourLayer = ContourLayer()
+    private val taskRunner = MapLayerBackgroundTask()
+    private val contourLayer = ContourLayer(taskRunner)
+    private val elevationLayer = ElevationLayer(taskRunner)
+    private val hillshadeLayer = HillshadeLayer(taskRunner)
+    private val baseMapLayer = BaseMapLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private val myElevationLayer = MyElevationLayer()
@@ -77,6 +85,9 @@ class PhotoMapToolLayerManager {
             context,
             PhotoMapsToolRegistration.MAP_ID,
             backgroundLayer,
+            baseMapLayer,
+            elevationLayer,
+            hillshadeLayer,
             photoMapLayer,
             contourLayer,
             navigationLayer,
@@ -166,6 +177,9 @@ class PhotoMapToolLayerManager {
         )
 
         val orderedLayerIds = listOf(
+            BaseMapLayer.LAYER_ID,
+            ElevationLayer.LAYER_ID,
+            HillshadeLayer.LAYER_ID,
             PhotoMapLayer.LAYER_ID,
             ContourLayer.LAYER_ID,
             CellTowerMapLayer.LAYER_ID,

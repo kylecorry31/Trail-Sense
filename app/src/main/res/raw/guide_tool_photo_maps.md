@@ -76,6 +76,19 @@ Layers are used to display information on the map. You can find layer settings i
 
 You can copy layer settings to other maps using the "Copy settings to other maps" option under each layer. This impacts Navigation, Photo Maps, and Map tools.
 
+### Base map
+This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
+
+### Elevation
+This layer shows the elevation from the digital elevation model (DEM) as color. You can change the DEM in Settings > Altimeter.
+
+Settings:
+
+- **Color**: The color scale of the pixels. The color will change based on elevation.
+
+### Hillshade
+This layer draws shadows to help see elevation in the terrain from the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
+
 ### Contours
 This layer shows contour lines generated from the digital elevation model (DEM) and can be used to see the steepness and elevation of map features. You can change the DEM in Settings > Altimeter.
 

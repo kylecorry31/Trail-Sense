@@ -30,6 +30,9 @@ Layers are used to display information on the radar compass. You can find layer 
 
 You can copy layer settings to other maps using the "Copy settings to other maps" option under each layer. This impacts Navigation, Photo Maps, and Map tools.
 
+#### Base map
+This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
+
 #### Elevation
 This layer shows the elevation from the digital elevation model (DEM) as color. You can change the DEM in Settings > Altimeter.
 
@@ -55,7 +58,7 @@ Settings:
 - **Show labels**: Determines if contour labels are shown on the map.
 - **Color**: The color of the contour lines, some options are color scales which change based on elevation.
 
-### Cell towers
+#### Cell towers
 This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations.
 
 #### Paths
