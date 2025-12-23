@@ -88,10 +88,10 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         scrollUntil { hasText("Hillshade") }
         scrollUntil { hasText("Photo Maps") }
         scrollUntil { hasText("Contours") }
+        scrollUntil { hasText("Navigation") }
         scrollUntil { hasText("Cell towers") }
         scrollUntil { hasText("Paths") }
         scrollUntil { hasText("Beacons") }
-        scrollUntil { hasText("Navigation") }
         scrollUntil { hasText("Tides") }
         scrollUntil { hasText("My location") }
         click(toolbarButton(R.id.title, Side.Right))

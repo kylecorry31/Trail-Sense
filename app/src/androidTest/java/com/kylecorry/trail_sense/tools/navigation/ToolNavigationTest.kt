@@ -52,6 +52,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
             scrollUntil { hasText("Hillshade") }
             scrollUntil { hasText("Photo Maps") }
             scrollUntil { hasText("Contours") }
+            scrollUntil { hasText("Navigation") }
             scrollUntil { hasText("Cell towers") }
             scrollUntil { hasText("Paths") }
             scrollUntil { hasText("Beacons") }

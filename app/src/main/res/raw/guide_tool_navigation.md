@@ -29,7 +29,6 @@ If your device does not have a compass, you can still choose to display the comp
 Layers are used to display information on the radar compass. You can find layer settings in Settings > Navigation or by long pressing the radar compass. For more information on layers, refer to the 'Map Layers' guide.
 
 The following layers are not available:
-- Navigation
 - Scale
 - Compass
 - Elevation

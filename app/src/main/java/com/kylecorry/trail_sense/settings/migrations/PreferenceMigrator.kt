@@ -269,6 +269,8 @@ class PreferenceMigrator private constructor() {
                     "pref_map_cell_tower_layer_enabled",
                     "pref_photo_maps_cell_tower_layer_enabled",
                     "pref_navigation_cell_tower_layer_enabled",
+                    // Navigation
+                    "pref_navigation_navigation_layer_enabled",
                 )
 
                 for (key in disabledByDefault) {

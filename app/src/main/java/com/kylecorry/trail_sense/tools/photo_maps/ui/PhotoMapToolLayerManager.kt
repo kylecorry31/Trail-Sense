@@ -182,10 +182,10 @@ class PhotoMapToolLayerManager {
             HillshadeLayer.LAYER_ID,
             PhotoMapLayer.LAYER_ID,
             ContourLayer.LAYER_ID,
+            NavigationLayer.LAYER_ID,
             CellTowerMapLayer.LAYER_ID,
             PathLayer.LAYER_ID,
             BeaconLayer.LAYER_ID,
-            NavigationLayer.LAYER_ID,
             TideMapLayer.LAYER_ID,
             MyLocationLayer.LAYER_ID
         )

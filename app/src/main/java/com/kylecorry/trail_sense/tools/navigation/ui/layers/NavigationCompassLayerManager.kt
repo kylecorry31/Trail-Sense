@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
@@ -20,6 +21,7 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class NavigationCompassLayerManager {
     private val taskRunner = MapLayerBackgroundTask()
+    private val navigationLayer = NavigationLayer()
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
@@ -44,6 +46,7 @@ class NavigationCompassLayerManager {
             hillshadeLayer,
             photoMapLayer,
             contourLayer,
+            navigationLayer,
             cellTowerLayer,
             pathLayer,
             myLocationLayer,
@@ -70,6 +73,7 @@ class NavigationCompassLayerManager {
             PhotoMapLayer.LAYER_ID,
             ContourLayer.LAYER_ID,
             CellTowerMapLayer.LAYER_ID,
+            NavigationLayer.LAYER_ID,
             PathLayer.LAYER_ID,
             BeaconLayer.LAYER_ID,
             TideMapLayer.LAYER_ID,
