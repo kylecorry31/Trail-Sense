@@ -2,13 +2,21 @@ package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 
 import android.content.Context
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 
-class ExpandableHeaderPreference(context: Context) : Preference(context) {
+class LayerHeaderPreference(context: Context) : Preference(context) {
 
     var isExpanded: Boolean = false
+        set(value) {
+            field = value
+            notifyChanged()
+        }
+
+    var isLayerEnabled: Boolean = true
         set(value) {
             field = value
             notifyChanged()
@@ -25,6 +33,15 @@ class ExpandableHeaderPreference(context: Context) : Preference(context) {
         val imageView = icon?.getChildAt(0) as? ImageView
         imageView?.setImageResource(
             if (isExpanded) R.drawable.ic_drop_down_expanded else R.drawable.ic_drop_down
+        )
+
+        val title = holder.findViewById(android.R.id.title) as? TextView
+        title?.setTextColor(
+            if (isLayerEnabled) {
+                Resources.androidTextColorPrimary(context)
+            } else {
+                Resources.androidTextColorSecondary(context)
+            }
         )
     }
 }

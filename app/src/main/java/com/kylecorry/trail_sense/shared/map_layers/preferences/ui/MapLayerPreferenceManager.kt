@@ -5,14 +5,17 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.writePreferenceValues
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.LabelMapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters.MapLayerViewPreferenceConverterFactory
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
@@ -22,6 +25,8 @@ class MapLayerPreferenceManager(
     private val layers: List<MapLayerDefinition>,
     private val alwaysEnabledLayerIds: List<String>
 ) {
+
+    private val prefs = AppServiceRegistry.get<PreferencesSubsystem>().preferences
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val factory = MapLayerViewPreferenceConverterFactory()
@@ -33,7 +38,7 @@ class MapLayerPreferenceManager(
                 screen.addPreference(divider)
             }
 
-            val header = ExpandableHeaderPreference(context)
+            val header = LayerHeaderPreference(context)
             header.title = layer.name
             screen.addPreference(header)
 
@@ -41,7 +46,7 @@ class MapLayerPreferenceManager(
             category.isVisible = false
             screen.addPreference(category)
 
-            header.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            header.onPreferenceClickListener = {
                 header.isExpanded = !header.isExpanded
                 category.isVisible = header.isExpanded
                 true
@@ -62,6 +67,23 @@ class MapLayerPreferenceManager(
                 if (isAlwaysEnabled && it.first.id == DefaultMapLayerDefinitions.ENABLED) {
                     preference.isVisible = false
                 }
+
+                if (it.first.id == DefaultMapLayerDefinitions.ENABLED) {
+
+                    header.isLayerEnabled = if (isAlwaysEnabled) {
+                        preference.isVisible = true
+                        true
+                    } else {
+                        val key = it.first.getFullPreferenceKey(mapId, layer.id)
+                        prefs.getBoolean(key) ?: (it.first.defaultValue as? Boolean ?: true)
+                    }
+
+                    preference.onPreferenceChangeListener = { pref, newValue ->
+                        header.isLayerEnabled = newValue as Boolean
+                        true
+                    }
+                }
+
                 category.addPreference(preference)
                 preference.dependency = if (it.second.dependency != null) {
                     "pref_${mapId}_${it.second.dependency}"
