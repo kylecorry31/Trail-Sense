@@ -1852,5 +1852,4 @@
     <string name="pref_show_astronomy_bands" translatable="false">pref_show_astronomy_bands</string>
     <string name="settings_copied">Settings copied</string>
     <string name="copy_settings_to_other_maps">Copy settings to other maps</string>
-    <string name="layer_settings_overwrite_warning">This will overwrite \"%s\" layer settings across the app.</string>
-</resources>
+    </resources>

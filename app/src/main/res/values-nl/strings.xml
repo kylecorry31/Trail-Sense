@@ -1514,5 +1514,4 @@
     <string name="pref_bubble_level_threshold_title">Niveaudrempel</string>
     <string name="settings_copied">Instellingen gekopieerd</string>
     <string name="copy_settings_to_other_maps">Instellingen kopiëren naar andere kaarten</string>
-    <string name="layer_settings_overwrite_warning">Dit overschrijft \"%s\" laaginstellingen in de hele app.</string>
-</resources>
+    </resources>

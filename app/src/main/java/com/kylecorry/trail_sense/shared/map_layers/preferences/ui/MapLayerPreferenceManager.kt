@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
@@ -47,21 +48,30 @@ class MapLayerPreferenceManager(
                 }
             }
 
+            val mapIdToName = mapOf(
+                MapToolRegistration.MAP_ID to context.getString(R.string.map),
+                NavigationToolRegistration.MAP_ID to context.getString(R.string.navigation),
+                PhotoMapsToolRegistration.MAP_ID to context.getString(R.string.photo_maps)
+            )
+
             val copyPreference =
                 LabelMapLayerPreference(
                     context.getString(R.string.copy_settings_to_other_maps)
                 ) {
-                    Alerts.dialog(
-                        context, context.getString(R.string.copy_settings_to_other_maps),
-                        context.getString(R.string.layer_settings_overwrite_warning, layer.name)
-                    ) { cancelled ->
-                        if (cancelled) {
-                            return@dialog
+                    val otherMaps = getOtherMapIds()
+                    Pickers.items(
+                        context,
+                        context.getString(R.string.copy_settings_to_other_maps),
+                        otherMaps.mapNotNull { mapIdToName[it] },
+                        otherMaps.indices.toList()
+                    ) { indices ->
+                        if (indices == null || indices.isEmpty()) {
+                            return@items
                         }
-                        val otherMaps = getOtherMapIds()
+
                         val bundle = layer.getPreferenceValues(context, mapId)
-                        otherMaps.forEach { otherMapId ->
-                            layer.writePreferenceValues(context, bundle, otherMapId)
+                        indices.forEach { index ->
+                            layer.writePreferenceValues(context, bundle, otherMaps[index])
                         }
                         Alerts.toast(context, context.getString(R.string.settings_copied))
                     }
