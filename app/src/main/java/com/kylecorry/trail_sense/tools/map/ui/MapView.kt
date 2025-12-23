@@ -171,6 +171,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var maxScale = 1f
     private var isScaling = false
 
+    private var fitToViewBounds: CoordinateBounds? = null
+    private var fitToViewPadding: Float = 1f
+
     override fun addLayer(layer: ILayer) {
         layers = layers + layer
     }
@@ -308,8 +311,13 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         return 1f / metersPerPixel
     }
 
-    fun recenter() {
-        scale = 1f
+    fun recenter(ignoreFitToViewBounds: Boolean = false) {
+        val fitToViewBounds = fitToViewBounds
+        if (ignoreFitToViewBounds || fitToViewBounds == null) {
+            scale = 1f
+        } else {
+            fitIntoView(fitToViewBounds, fitToViewPadding)
+        }
         invalidate()
     }
 
@@ -337,7 +345,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         if (width == 0 || height == 0) {
             return
         }
-
+        fitToViewBounds = bounds
+        fitToViewPadding = paddingFactor
         newtonRaphsonIteration(scale, 0.001f, 10) {
             mapCenter = bounds.center
             val nePixel = toPixel(bounds.northEast)
