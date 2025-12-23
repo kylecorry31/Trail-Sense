@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 
 import android.content.Context
+import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
@@ -24,25 +25,46 @@ class MapLayerPreferenceManager(
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val factory = MapLayerViewPreferenceConverterFactory()
-        layers.forEach { layer ->
+        layers.forEachIndexed { index, layer ->
+            if (index > 0) {
+                val divider = Preference(context)
+                divider.layoutResource = R.layout.preference_divider
+                divider.isSelectable = false
+                screen.addPreference(divider)
+            }
+
+            val header = ExpandableHeaderPreference(context)
+            header.title = layer.name
+            screen.addPreference(header)
+
             val category = createCategory(context)
+            category.isVisible = false
             screen.addPreference(category)
 
+            header.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                header.isExpanded = !header.isExpanded
+                category.isVisible = header.isExpanded
+                true
+            }
+
+            val isAlwaysEnabled = alwaysEnabledLayerIds.contains(layer.id)
             val base = DefaultMapLayerDefinitions.getBasePreferences(
                 context,
-                layer.name,
-                alwaysEnabledLayerIds.contains(layer.id)
+                context.getString(R.string.visible)
             )
             val preferences = base + layer.preferences
             val viewPreferences = preferences.map {
-                factory.getConverter(it.type).convert(it, layer.id)
+                it to factory.getConverter(it.type).convert(it, layer.id)
             }
 
             viewPreferences.forEach {
-                val preference = it.create(context, mapId)
+                val preference = it.second.create(context, mapId)
+                if (isAlwaysEnabled && it.first.id == DefaultMapLayerDefinitions.ENABLED) {
+                    preference.isVisible = false
+                }
                 category.addPreference(preference)
-                preference.dependency = if (it.dependency != null) {
-                    "pref_${mapId}_${it.dependency}"
+                preference.dependency = if (it.second.dependency != null) {
+                    "pref_${mapId}_${it.second.dependency}"
                 } else {
                     null
                 }

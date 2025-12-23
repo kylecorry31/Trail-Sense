@@ -6,14 +6,13 @@ import com.kylecorry.trail_sense.R
 object DefaultMapLayerDefinitions {
     fun getBasePreferences(
         context: Context,
-        layerName: String,
-        alwaysEnabled: Boolean = false
+        layerName: String
     ): List<MapLayerPreference> {
         return listOf(
             MapLayerPreference(
                 ENABLED,
                 layerName,
-                if (alwaysEnabled) MapLayerPreferenceType.Label else MapLayerPreferenceType.Switch,
+                MapLayerPreferenceType.Switch,
                 defaultValue = true,
                 dependency = null
             ),
