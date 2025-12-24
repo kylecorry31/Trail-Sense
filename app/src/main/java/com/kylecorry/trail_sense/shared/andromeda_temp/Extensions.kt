@@ -9,30 +9,10 @@ import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.sol.math.SolMath.deltaAngle
-import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
-
-fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
-    val x = this.width() * percent
-    val y = this.height() * percent
-    return CoordinateBounds.Companion.from(
-        listOf(
-            northWest.plus(x, Bearing.Companion.from(CompassDirection.West))
-                .plus(y, Bearing.Companion.from(CompassDirection.North)),
-            northEast.plus(x, Bearing.Companion.from(CompassDirection.East))
-                .plus(y, Bearing.Companion.from(CompassDirection.North)),
-            southWest.plus(x, Bearing.Companion.from(CompassDirection.West))
-                .plus(y, Bearing.Companion.from(CompassDirection.South)),
-            southEast.plus(x, Bearing.Companion.from(CompassDirection.East))
-                .plus(y, Bearing.Companion.from(CompassDirection.South)),
-        )
-    )
-}
 
 fun Fragment.observe(
     subscription: ISubscription,
@@ -164,41 +144,4 @@ inline fun IntArray.get(x: Int, y: Int, width: Int): Int {
 
 inline fun IntArray.set(x: Int, y: Int, width: Int, value: Int) {
     this[y * width + x] = value
-}
-
-// TODO: Sol
-fun CoordinateBounds.Companion.from2(points: List<Coordinate>): CoordinateBounds {
-    val west = getWestLongitudeBound(points) ?: return empty
-    val east = getEastLongitudeBound(points) ?: return empty
-    val north = getNorthLatitudeBound(points) ?: return empty
-    val south = getSouthLatitudeBound(points) ?: return empty
-    return CoordinateBounds(north, east, south, west)
-}
-
-private fun getWestLongitudeBound(locations: List<Coordinate>): Double? {
-    val first = locations.firstOrNull() ?: return null
-    return locations.minByOrNull {
-        deltaAngle(
-            first.longitude.toFloat() + 180,
-            it.longitude.toFloat() + 180
-        )
-    }?.longitude
-}
-
-private fun getEastLongitudeBound(locations: List<Coordinate>): Double? {
-    val first = locations.firstOrNull() ?: return null
-    return locations.maxByOrNull {
-        deltaAngle(
-            first.longitude.toFloat() + 180,
-            it.longitude.toFloat() + 180
-        )
-    }?.longitude
-}
-
-private fun getSouthLatitudeBound(locations: List<Coordinate>): Double? {
-    return locations.minByOrNull { it.latitude }?.latitude
-}
-
-private fun getNorthLatitudeBound(locations: List<Coordinate>): Double? {
-    return locations.maxByOrNull { it.latitude }?.latitude
 }

@@ -29,7 +29,7 @@ material = "1.13.0"
 luna = "1.1.0"
 mockitoKotlin = "6.1.0"
 roomVersion = "2.8.4"
-sol = "15.3.0"
+sol = "15.4.0"
 workRuntimeKtx = "2.11.0"
 preferenceKtx = "1.2.1"
 
