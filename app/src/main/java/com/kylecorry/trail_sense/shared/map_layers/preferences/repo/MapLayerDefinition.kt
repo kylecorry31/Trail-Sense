@@ -13,6 +13,7 @@ class MapLayerDefinition(
     val name: String,
     val preferences: List<MapLayerPreference> = emptyList(),
     val isConfigurable: Boolean = true,
+    val isOverlay: Boolean = false,
     val create: (context: Context, taskRunner: MapLayerBackgroundTask) -> ILayer
 )
 

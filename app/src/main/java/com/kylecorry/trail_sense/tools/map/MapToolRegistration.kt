@@ -134,16 +134,19 @@ object MapToolRegistration : ToolRegistration {
                     ScaleBarLayer.LAYER_ID,
                     context.getString(R.string.map_scale_title),
                     isConfigurable = false,
+                    isOverlay = true,
                 ) { _, _ -> ScaleBarLayer() },
                 MapLayerDefinition(
                     CompassOverlayLayer.LAYER_ID,
                     context.getString(R.string.pref_compass_sensor_title),
                     isConfigurable = false,
+                    isOverlay = true,
                 ) { _, _ -> CompassOverlayLayer() },
                 MapLayerDefinition(
                     MyElevationLayer.LAYER_ID,
                     context.getString(R.string.my_elevation),
                     isConfigurable = false,
+                    isOverlay = true,
                 ) { _, _ -> MyElevationLayer() }
             )
         )
