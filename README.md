@@ -59,7 +59,12 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-The 2026 feature roadmap has not yet been created. Vote on your most used tools [here](https://github.com/kylecorry31/Trail-Sense/discussions/3202) to influence the focus.
+This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other features may be included based on what I feel like working on.
+
+- Improvements to / additional map layers
+- Improvements to the following tools: Photo Maps, Map, Navigation, and Astronomy
+- Performance, stability, and codebase cleanup
+- Release of the first plugins (map layers / coordinate formats)
 
 ### Priorities
 Issue priority is denoted by labels on issues.
