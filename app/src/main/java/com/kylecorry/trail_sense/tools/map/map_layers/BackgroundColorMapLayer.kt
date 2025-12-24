@@ -7,11 +7,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 
-class BackgroundColorMapLayer(initialColor: Int = Color.TRANSPARENT) : ILayer {
+class BackgroundColorMapLayer : ILayer {
 
     override val layerId: String = LAYER_ID
 
-    var color: Int = initialColor
+    var color: Int = Color.TRANSPARENT
         set(value) {
             field = value
             invalidate()

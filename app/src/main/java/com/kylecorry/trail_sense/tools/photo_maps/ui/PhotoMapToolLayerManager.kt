@@ -40,10 +40,7 @@ class PhotoMapToolLayerManager {
     private var onBeaconClick: ((Beacon) -> Unit)? = null
 
     private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer {
-        onBeaconClick?.invoke(it)
-        true
-    }
+    private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val taskRunner = MapLayerBackgroundTask()
@@ -55,13 +52,10 @@ class PhotoMapToolLayerManager {
     private val scaleBarLayer = ScaleBarLayer()
     private val myElevationLayer = MyElevationLayer()
     private val compassLayer = CompassOverlayLayer()
-    private var photoMapLayer: PhotoMapLayer? = null
+    private val photoMapLayer = PhotoMapLayer()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
-    private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
-    private val cellTowerLayer = CellTowerMapLayer {
-        CellTowerMapLayer.navigate(it)
-        true
-    }
+    private val distanceLayer = MapDistanceLayer()
+    private val cellTowerLayer = CellTowerMapLayer()
 
     private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
@@ -71,10 +65,19 @@ class PhotoMapToolLayerManager {
     private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
 
     fun resume(context: Context, view: IMapView, photoMapId: Long) {
-        photoMapLayer = PhotoMapLayer(photoMapId)
+        photoMapLayer.setPhotoMapFilter { it.id == photoMapId }
 
         // Hardcoded customization for this tool
         distanceLayer.isEnabled = false
+        beaconLayer.onClick = {
+            onBeaconClick?.invoke(it)
+            true
+        }
+        cellTowerLayer.onClick = {
+            CellTowerMapLayer.navigate(it)
+            true
+        }
+        distanceLayer.onPathChanged = { onDistancePathChange(it) }
         backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
         lastMapDetails?.let { improveResolution(it.first, it.second) }
 

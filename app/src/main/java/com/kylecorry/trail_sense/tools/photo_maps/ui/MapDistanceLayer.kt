@@ -16,9 +16,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonRend
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
-class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> Unit = {}) :
-    ILayer {
+class MapDistanceLayer : ILayer {
 
+    var onPathChanged: (points: List<Coordinate>) -> Unit = {}
     private val renderer = GeoJsonRenderer()
     private var points = mutableListOf<Coordinate>()
     private var pathColor = Color.BLACK

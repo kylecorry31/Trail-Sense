@@ -36,13 +36,9 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 class MapToolLayerManager {
 
     private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer {
-        val navigator = AppServiceRegistry.get<Navigator>()
-        navigator.navigateTo(it)
-        true
-    }
+    private val beaconLayer = BeaconLayer()
     private val taskRunner = MapLayerBackgroundTask()
-    private val backgroundLayer = BackgroundColorMapLayer(Color.rgb(127, 127, 127))
+    private val backgroundLayer = BackgroundColorMapLayer()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val baseMapLayer = BaseMapLayer()
@@ -55,11 +51,8 @@ class MapToolLayerManager {
     private val myElevationLayer = MyElevationLayer()
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
-    private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
-    private val cellTowerLayer = CellTowerMapLayer {
-        CellTowerMapLayer.navigate(it)
-        true
-    }
+    private val distanceLayer = MapDistanceLayer()
+    private val cellTowerLayer = CellTowerMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
     var key: Int = 0
@@ -67,6 +60,17 @@ class MapToolLayerManager {
     fun resume(context: Context, view: IMapView) {
         // Hardcoded customization for this tool
         compassLayer.paddingTopDp = 48f
+        backgroundLayer.color = Color.rgb(127, 127, 127)
+        beaconLayer.onClick = {
+            val navigator = AppServiceRegistry.get<Navigator>()
+            navigator.navigateTo(it)
+            true
+        }
+        cellTowerLayer.onClick = {
+            CellTowerMapLayer.navigate(it)
+            true
+        }
+        distanceLayer.onPathChanged = { onDistancePathChange(it) }
 
         distanceLayer.isEnabled = false
 

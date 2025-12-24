@@ -14,18 +14,19 @@ import kotlinx.coroutines.sync.withLock
 class PhotoMapTileSource(
     var backgroundColor: Int = Color.WHITE,
     private val pruneCache: Boolean = false,
-    private val filter: (map: PhotoMap) -> Boolean = { it.visible }
 ) : TileSource {
 
+    var filter: (map: PhotoMap) -> Boolean = { it.visible }
     var loadPdfs = true
     private var lastLoadPdfs = loadPdfs
     private var lastBackgroundColor = backgroundColor
+    private var lastFilter = filter
     private var internalSelector: TileSource? = null
     private val lock = Mutex()
 
     override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, Bitmap?) -> Unit) {
         val selector = lock.withLock {
-            if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor) {
+            if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || filter != lastFilter) {
                 val repo = AppServiceRegistry.get<MapRepo>()
                 internalSelector = PhotoMapTileSourceSelector(
                     AppServiceRegistry.get(),
@@ -37,6 +38,7 @@ class PhotoMapTileSource(
                 )
                 lastLoadPdfs = loadPdfs
                 lastBackgroundColor = backgroundColor
+                lastFilter = filter
             }
             internalSelector
         }

@@ -5,16 +5,11 @@ import android.os.Bundle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 
-class PhotoMapLayer(private val photoMapId: Long? = null) : TileMapLayer<PhotoMapTileSource>(
-    PhotoMapTileSource(pruneCache = true) {
-        if (photoMapId == null) {
-            it.visible
-        } else {
-            it.id == photoMapId
-        }
-    },
+class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
+    PhotoMapTileSource(pruneCache = true),
     minZoomLevel = 4
 ) {
 
@@ -27,6 +22,10 @@ class PhotoMapLayer(private val photoMapId: Long? = null) : TileMapLayer<PhotoMa
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
         source.loadPdfs = preferences.getBoolean(LOAD_PDFS)
+    }
+
+    fun setPhotoMapFilter(filter: (map: PhotoMap) -> Boolean) {
+        source.filter = filter
     }
 
     fun improveResolution(
