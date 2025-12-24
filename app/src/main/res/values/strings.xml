@@ -1853,4 +1853,5 @@
     <string name="pref_show_astronomy_bands" translatable="false">pref_show_astronomy_bands</string>
     <string name="settings_copied">Settings copied</string>
     <string name="copy_settings_to_other_maps">Copy settings to other maps</string>
-    </resources>
+    <string name="my_elevation">My elevation</string>
+</resources>

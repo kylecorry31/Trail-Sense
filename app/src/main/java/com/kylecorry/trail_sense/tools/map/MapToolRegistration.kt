@@ -11,7 +11,10 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
+import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -126,7 +129,22 @@ object MapToolRegistration : ToolRegistration {
                     BackgroundColorMapLayer.LAYER_ID,
                     context.getString(R.string.background_color),
                     isConfigurable = false,
-                ) { _, _ -> BackgroundColorMapLayer() }
+                ) { _, _ -> BackgroundColorMapLayer() },
+                MapLayerDefinition(
+                    ScaleBarLayer.LAYER_ID,
+                    context.getString(R.string.map_scale_title),
+                    isConfigurable = false,
+                ) { _, _ -> ScaleBarLayer() },
+                MapLayerDefinition(
+                    CompassOverlayLayer.LAYER_ID,
+                    context.getString(R.string.pref_compass_sensor_title),
+                    isConfigurable = false,
+                ) { _, _ -> CompassOverlayLayer() },
+                MapLayerDefinition(
+                    MyElevationLayer.LAYER_ID,
+                    context.getString(R.string.my_elevation),
+                    isConfigurable = false,
+                ) { _, _ -> MyElevationLayer() }
             )
         )
     }

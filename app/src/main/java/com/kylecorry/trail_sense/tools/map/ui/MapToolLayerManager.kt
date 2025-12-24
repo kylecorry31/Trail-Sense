@@ -36,9 +36,6 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class MapToolLayerManager {
     private val taskRunner = MapLayerBackgroundTask()
-    private val scaleBarLayer = ScaleBarLayer()
-    private val myElevationLayer = MyElevationLayer()
-    private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
@@ -54,17 +51,14 @@ class MapToolLayerManager {
             // TODO: Extract these to layer config
             listOf(
                 selectedPointLayer,
-                distanceLayer,
-                scaleBarLayer,
-                myElevationLayer,
-                compassLayer
+                distanceLayer
             )
         )
 
         // Hardcoded configuration
-        compassLayer.paddingTopDp = 48f
         distanceLayer.onPathChanged = { onDistancePathChange(it) }
         distanceLayer.isEnabled = false
+        view.getLayer<CompassOverlayLayer>()?.paddingTopDp = 48f
         view.getLayer<BackgroundColorMapLayer>()?.color = Color.rgb(127, 127, 127)
         view.getLayer<CellTowerMapLayer>()?.onClick = {
             CellTowerMapLayer.navigate(it)
@@ -156,6 +150,10 @@ class MapToolLayerManager {
             PathLayer.LAYER_ID,
             BeaconLayer.LAYER_ID,
             MyLocationLayer.LAYER_ID,
+            // Overlays
+            ScaleBarLayer.LAYER_ID,
+            MyElevationLayer.LAYER_ID,
+            CompassOverlayLayer.LAYER_ID
         )
 
     }

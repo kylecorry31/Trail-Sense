@@ -40,9 +40,6 @@ class PhotoMapToolLayerManager {
 
     private var onBeaconClick: ((Beacon) -> Unit)? = null
     private val taskRunner = MapLayerBackgroundTask()
-    private val scaleBarLayer = ScaleBarLayer()
-    private val myElevationLayer = MyElevationLayer()
-    private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
@@ -64,10 +61,7 @@ class PhotoMapToolLayerManager {
             // TODO: Extract these to layer config
             listOf(
                 selectedPointLayer,
-                distanceLayer,
-                scaleBarLayer,
-                myElevationLayer,
-                compassLayer
+                distanceLayer
             )
         )
 
@@ -177,6 +171,10 @@ class PhotoMapToolLayerManager {
             PathLayer.LAYER_ID,
             BeaconLayer.LAYER_ID,
             MyLocationLayer.LAYER_ID,
+            // Overlays
+            ScaleBarLayer.LAYER_ID,
+            MyElevationLayer.LAYER_ID,
+            CompassOverlayLayer.LAYER_ID
         )
 
     }
