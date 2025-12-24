@@ -198,7 +198,7 @@ Used for Polygon geometries:
 
 # Tiles
 
-Tile layers allow for the display of images.
+Tile layers allow for the display of images. I may add a way to specify how to map from pixel value to a measurement.
 
 ## Request contract
 
