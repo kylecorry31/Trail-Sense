@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.main
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.trail_sense.main.automations.Automations
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerRegistry
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetBroadcastManager
 import java.time.Duration
@@ -23,8 +25,12 @@ object TrailSenseApplicationInitializer {
 
         // Initialize all tools
         val tools = Tools.getTools(context)
+        val mapLayerRegistry = AppServiceRegistry.get<MapLayerRegistry>()
         tools.forEach {
             it.initialize(context)
+            it.mapLayers.forEach {
+                mapLayerRegistry.register(it)
+            }
         }
     }
 

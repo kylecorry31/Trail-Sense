@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.quickactions.QuickActionOpenPhotoMap
@@ -65,6 +66,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     PhotoMapLayer.LAYER_ID,
                     context.getString(R.string.photo_maps),
+                    layerType = MapLayerType.Tile,
                     preferences = listOf(
                         MapLayerPreference(
                             id = PhotoMapLayer.LOAD_PDFS,

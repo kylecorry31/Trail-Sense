@@ -1,15 +1,16 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerRegistry
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 interface IMapView {
     fun addLayer(layer: ILayer)
@@ -86,7 +87,8 @@ fun IMapView.setLayersWithPreferences(
     if (!forceReplaceLayers && currentLayerIds == newLayerIds) {
         return
     }
-    val layerDefinitions = Tools.getTools(context).flatMap { it.mapLayers }
+    val registry = AppServiceRegistry.get<MapLayerRegistry>()
+    val layerDefinitions = registry.getLayers()
     val layers = layerIds.mapNotNull { id ->
         layerDefinitions.firstOrNull { it.id == id }?.create(context, taskRunner)
     } + additionalLayers

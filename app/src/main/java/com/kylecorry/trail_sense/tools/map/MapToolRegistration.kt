@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
@@ -39,11 +40,13 @@ object MapToolRegistration : ToolRegistration {
             mapLayers = listOf(
                 MapLayerDefinition(
                     BaseMapLayer.LAYER_ID,
-                    context.getString(R.string.basemap)
+                    context.getString(R.string.basemap),
+                    layerType = MapLayerType.Tile
                 ) { _, _ -> BaseMapLayer() },
                 MapLayerDefinition(
                     ElevationLayer.LAYER_ID,
                     context.getString(R.string.elevation),
+                    layerType = MapLayerType.Tile,
                     preferences = listOf(
                         MapLayerPreference(
                             id = ElevationLayer.COLOR,
@@ -65,6 +68,7 @@ object MapToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     HillshadeLayer.LAYER_ID,
                     context.getString(R.string.hillshade),
+                    layerType = MapLayerType.Tile,
                     preferences = listOf(
                         MapLayerPreference(
                             id = "dem_settings",
@@ -134,19 +138,19 @@ object MapToolRegistration : ToolRegistration {
                     ScaleBarLayer.LAYER_ID,
                     context.getString(R.string.map_scale_title),
                     isConfigurable = false,
-                    isOverlay = true,
+                    layerType = MapLayerType.Overlay
                 ) { _, _ -> ScaleBarLayer() },
                 MapLayerDefinition(
                     CompassOverlayLayer.LAYER_ID,
                     context.getString(R.string.pref_compass_sensor_title),
                     isConfigurable = false,
-                    isOverlay = true,
+                    layerType = MapLayerType.Overlay
                 ) { _, _ -> CompassOverlayLayer() },
                 MapLayerDefinition(
                     MyElevationLayer.LAYER_ID,
                     context.getString(R.string.my_elevation),
                     isConfigurable = false,
-                    isOverlay = true,
+                    layerType = MapLayerType.Overlay
                 ) { _, _ -> MyElevationLayer() }
             )
         )

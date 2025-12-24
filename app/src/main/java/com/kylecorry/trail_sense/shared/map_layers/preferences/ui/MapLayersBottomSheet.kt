@@ -1,12 +1,13 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 
 import android.content.DialogInterface
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.replaceChildFragment
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerRegistry
 
 class MapLayersBottomSheet(
     private val mapId: String,
@@ -28,8 +29,9 @@ class MapLayersBottomSheet(
     override fun update() {
         val titleView = useView<Toolbar>(R.id.title)
         val mainActivity = useActivity() as MainActivity
+        val registry = useService<MapLayerRegistry>()
         val preferences = useMemo {
-            val allDefs = Tools.getTools(mainActivity).flatMap { it.mapLayers }
+            val allDefs = registry.getLayers()
             val defs = allDefs.filter { it.isConfigurable && layerIds.contains(it.id) }
                 .sortedBy { layerIds.indexOf(it.id) }
             val manager = MapLayerPreferenceManager(mapId, defs, alwaysEnabledLayerIds)

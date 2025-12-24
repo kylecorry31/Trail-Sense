@@ -7,13 +7,18 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
+enum class MapLayerType {
+    Overlay,
+    Feature,
+    Tile
+}
 
 class MapLayerDefinition(
     val id: String,
     val name: String,
     val preferences: List<MapLayerPreference> = emptyList(),
     val isConfigurable: Boolean = true,
-    val isOverlay: Boolean = false,
+    val layerType: MapLayerType = MapLayerType.Feature,
     val create: (context: Context, taskRunner: MapLayerBackgroundTask) -> ILayer
 )
 
