@@ -1514,4 +1514,6 @@
     <string name="pref_bubble_level_threshold_title">Niveaudrempel</string>
     <string name="settings_copied">Instellingen gekopieerd</string>
     <string name="copy_settings_to_other_maps">Instellingen kopiëren naar andere kaarten</string>
-    </resources>
+    <string name="guide_map_layers">Kaartlagen</string>
+    <string name="my_elevation">Mijn hoogte</string>
+</resources>
