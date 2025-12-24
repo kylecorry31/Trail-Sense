@@ -94,7 +94,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
                 NavigationToolRegistration.MAP_ID,
-                NavigationCompassLayerManager.orderedLayerIds
+                NavigationCompassLayerManager.defaultLayers
             )
             layerSheet?.show(this)
         }

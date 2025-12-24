@@ -92,7 +92,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val layerEditSheet = useMemo(prefs) {
             MapLayersBottomSheet(
                 MapToolRegistration.MAP_ID,
-                MapToolLayerManager.orderedLayerIds
+                MapToolLayerManager.defaultLayers
             )
         }
 

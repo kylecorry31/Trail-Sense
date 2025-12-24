@@ -21,14 +21,15 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
@@ -53,11 +54,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private val manager = MapCalibrationManager(maxPoints) {
         updateMapCalibration()
     }
-
-    // Layers
-    private val beaconLayer = BeaconLayer()
-    private val pathLayer = PathLayer()
-    private val myLocationLayer = MyLocationLayer()
 
     // Sensors
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -309,11 +305,15 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
         showPreview = enabled
         val layers = if (enabled) listOf(
-            pathLayer,
-            myLocationLayer,
-            beaconLayer
+            PathLayer.LAYER_ID,
+            MyLocationLayer.LAYER_ID,
+            BeaconLayer.LAYER_ID
         ) else emptyList()
-        binding.calibrationMap.setLayers(layers)
+        binding.calibrationMap.setLayersWithPreferences(
+            requireContext(),
+            PhotoMapsToolRegistration.MAP_ID,
+            layers
+        )
         updateMapCalibration()
 
         if (showPreview) {

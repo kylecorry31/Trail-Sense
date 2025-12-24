@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
@@ -21,17 +22,6 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class NavigationCompassLayerManager {
     private val taskRunner = MapLayerBackgroundTask()
-    private val navigationLayer = NavigationLayer()
-    private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer()
-    private val myLocationLayer = MyLocationLayer()
-    private val tideLayer = TideMapLayer()
-    private val photoMapLayer = PhotoMapLayer()
-    private val contourLayer = ContourLayer(taskRunner)
-    private val elevationLayer = ElevationLayer(taskRunner)
-    private val hillshadeLayer = HillshadeLayer(taskRunner)
-    private val cellTowerLayer = CellTowerMapLayer()
-    private val baseMapLayer = BaseMapLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
     var key = 0
@@ -41,17 +31,8 @@ class NavigationCompassLayerManager {
         view.setLayersWithPreferences(
             context,
             NavigationToolRegistration.MAP_ID,
-            baseMapLayer,
-            elevationLayer,
-            hillshadeLayer,
-            photoMapLayer,
-            contourLayer,
-            navigationLayer,
-            cellTowerLayer,
-            pathLayer,
-            myLocationLayer,
-            tideLayer,
-            beaconLayer
+            defaultLayers,
+            taskRunner
         )
 
         key += 1
@@ -66,18 +47,19 @@ class NavigationCompassLayerManager {
     }
 
     companion object {
-        val orderedLayerIds = listOf(
+        val defaultLayers = listOf(
+            BackgroundColorMapLayer.LAYER_ID,
             BaseMapLayer.LAYER_ID,
             ElevationLayer.LAYER_ID,
             HillshadeLayer.LAYER_ID,
             PhotoMapLayer.LAYER_ID,
             ContourLayer.LAYER_ID,
-            CellTowerMapLayer.LAYER_ID,
             NavigationLayer.LAYER_ID,
+            CellTowerMapLayer.LAYER_ID,
+            TideMapLayer.LAYER_ID,
             PathLayer.LAYER_ID,
             BeaconLayer.LAYER_ID,
-            TideMapLayer.LAYER_ID,
-            MyLocationLayer.LAYER_ID
+            MyLocationLayer.LAYER_ID,
         )
     }
 }

@@ -3,13 +3,17 @@ package com.kylecorry.trail_sense.shared.map_layers.preferences.repo
 import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 
 class MapLayerDefinition(
     val id: String,
     val name: String,
-    val preferences: List<MapLayerPreference> = emptyList()
+    val preferences: List<MapLayerPreference> = emptyList(),
+    val isConfigurable: Boolean = true,
+    val create: (context: Context, taskRunner: MapLayerBackgroundTask) -> ILayer
 )
 
 fun MapLayerDefinition.getPreferenceValues(context: Context, mapId: String): Bundle {

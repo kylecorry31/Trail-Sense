@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.beacons.widgets.AppWidgetNearbyBeacons
 import com.kylecorry.trail_sense.tools.beacons.widgets.NearbyBeaconsToolWidgetView
@@ -99,7 +100,9 @@ object BeaconsToolRegistration : ToolRegistration {
                 )
             ),
             mapLayers = listOf(
-                MapLayerDefinition(MAP_LAYER_BEACONS, context.getString(R.string.beacons))
+                MapLayerDefinition(MAP_LAYER_BEACONS, context.getString(R.string.beacons)) { _, _ ->
+                    BeaconLayer()
+                }
             )
         )
     }

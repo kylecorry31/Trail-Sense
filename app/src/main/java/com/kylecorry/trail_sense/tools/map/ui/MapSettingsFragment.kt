@@ -19,7 +19,7 @@ class MapSettingsFragment : AndromedaPreferenceFragment() {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
                 MapToolRegistration.MAP_ID,
-                MapToolLayerManager.orderedLayerIds
+                MapToolLayerManager.defaultLayers
             )
             layerSheet?.show(this)
         }

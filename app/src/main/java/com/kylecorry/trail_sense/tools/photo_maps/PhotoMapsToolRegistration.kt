@@ -74,7 +74,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
                             summary = context.getString(R.string.load_pdf_tiles_summary)
                         )
                     )
-                )
+                ) { _, _ -> PhotoMapLayer() }
             )
         )
     }

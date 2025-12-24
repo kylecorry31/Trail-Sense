@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
@@ -34,67 +35,46 @@ import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLaye
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class MapToolLayerManager {
-
-    private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer()
     private val taskRunner = MapLayerBackgroundTask()
-    private val backgroundLayer = BackgroundColorMapLayer()
-    private val myLocationLayer = MyLocationLayer()
-    private val tideLayer = TideMapLayer()
-    private val baseMapLayer = BaseMapLayer()
-    private val photoMapLayer = PhotoMapLayer()
-    private val contourLayer = ContourLayer(taskRunner)
-    private val hillshadeLayer = HillshadeLayer(taskRunner)
-    private val elevationLayer = ElevationLayer(taskRunner)
-    private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private val myElevationLayer = MyElevationLayer()
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
-    private val cellTowerLayer = CellTowerMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
     var key: Int = 0
 
     fun resume(context: Context, view: IMapView) {
-        // Hardcoded customization for this tool
+        view.setLayersWithPreferences(
+            context,
+            MapToolRegistration.MAP_ID,
+            defaultLayers,
+            taskRunner,
+            // TODO: Extract these to layer config
+            listOf(
+                selectedPointLayer,
+                distanceLayer,
+                scaleBarLayer,
+                myElevationLayer,
+                compassLayer
+            )
+        )
+
+        // Hardcoded configuration
         compassLayer.paddingTopDp = 48f
-        backgroundLayer.color = Color.rgb(127, 127, 127)
-        beaconLayer.onClick = {
+        distanceLayer.onPathChanged = { onDistancePathChange(it) }
+        distanceLayer.isEnabled = false
+        view.getLayer<BackgroundColorMapLayer>()?.color = Color.rgb(127, 127, 127)
+        view.getLayer<CellTowerMapLayer>()?.onClick = {
+            CellTowerMapLayer.navigate(it)
+            true
+        }
+        view.getLayer<BeaconLayer>()?.onClick = {
             val navigator = AppServiceRegistry.get<Navigator>()
             navigator.navigateTo(it)
             true
         }
-        cellTowerLayer.onClick = {
-            CellTowerMapLayer.navigate(it)
-            true
-        }
-        distanceLayer.onPathChanged = { onDistancePathChange(it) }
-
-        distanceLayer.isEnabled = false
-
-        view.setLayersWithPreferences(
-            context,
-            MapToolRegistration.MAP_ID,
-            backgroundLayer,
-            baseMapLayer,
-            elevationLayer,
-            hillshadeLayer,
-            photoMapLayer,
-            contourLayer,
-            navigationLayer,
-            cellTowerLayer,
-            pathLayer,
-            myLocationLayer,
-            tideLayer,
-            beaconLayer,
-            selectedPointLayer,
-            distanceLayer,
-            scaleBarLayer,
-            myElevationLayer,
-            compassLayer
-        )
 
         view.start()
 
@@ -162,7 +142,9 @@ class MapToolLayerManager {
     }
 
     companion object {
-        val orderedLayerIds = listOf(
+
+        val defaultLayers = listOf(
+            BackgroundColorMapLayer.LAYER_ID,
             BaseMapLayer.LAYER_ID,
             ElevationLayer.LAYER_ID,
             HillshadeLayer.LAYER_ID,
@@ -170,10 +152,11 @@ class MapToolLayerManager {
             ContourLayer.LAYER_ID,
             NavigationLayer.LAYER_ID,
             CellTowerMapLayer.LAYER_ID,
+            TideMapLayer.LAYER_ID,
             PathLayer.LAYER_ID,
             BeaconLayer.LAYER_ID,
-            TideMapLayer.LAYER_ID,
             MyLocationLayer.LAYER_ID,
         )
+
     }
 }

@@ -40,7 +40,7 @@ object SignalFinderToolRegistration : ToolRegistration {
                             markdown.toMarkdown(context.getString(R.string.cell_tower_disclaimer))
                         )
                     )
-                )
+                ) { _, _ -> CellTowerMapLayer() }
             )
         )
     }

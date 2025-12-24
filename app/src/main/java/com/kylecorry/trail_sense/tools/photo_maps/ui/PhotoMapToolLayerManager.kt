@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
@@ -38,73 +39,57 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 class PhotoMapToolLayerManager {
 
     private var onBeaconClick: ((Beacon) -> Unit)? = null
-
-    private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer()
-    private val myLocationLayer = MyLocationLayer()
-    private val tideLayer = TideMapLayer()
     private val taskRunner = MapLayerBackgroundTask()
-    private val contourLayer = ContourLayer(taskRunner)
-    private val elevationLayer = ElevationLayer(taskRunner)
-    private val hillshadeLayer = HillshadeLayer(taskRunner)
-    private val baseMapLayer = BaseMapLayer()
-    private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private val myElevationLayer = MyElevationLayer()
     private val compassLayer = CompassOverlayLayer()
-    private val photoMapLayer = PhotoMapLayer()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
-    private val cellTowerLayer = CellTowerMapLayer()
-
-    private val backgroundLayer = BackgroundColorMapLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
+    private var photoMapLayer: PhotoMapLayer? = null
 
     private val preferences = AppServiceRegistry.get<PreferencesSubsystem>()
 
     private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
 
     fun resume(context: Context, view: IMapView, photoMapId: Long) {
-        photoMapLayer.setPhotoMapFilter { it.id == photoMapId }
-
-        // Hardcoded customization for this tool
-        distanceLayer.isEnabled = false
-        beaconLayer.onClick = {
-            onBeaconClick?.invoke(it)
-            true
-        }
-        cellTowerLayer.onClick = {
-            CellTowerMapLayer.navigate(it)
-            true
-        }
-        distanceLayer.onPathChanged = { onDistancePathChange(it) }
-        backgroundLayer.color = Resources.color(context, R.color.colorSecondary)
-        lastMapDetails?.let { improveResolution(it.first, it.second) }
-
         // User can't disable the photo maps layer
         preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
 
         view.setLayersWithPreferences(
             context,
             PhotoMapsToolRegistration.MAP_ID,
-            backgroundLayer,
-            baseMapLayer,
-            elevationLayer,
-            hillshadeLayer,
-            photoMapLayer,
-            contourLayer,
-            navigationLayer,
-            cellTowerLayer,
-            pathLayer,
-            myLocationLayer,
-            tideLayer,
-            beaconLayer,
-            selectedPointLayer,
-            distanceLayer,
-            scaleBarLayer,
-            myElevationLayer,
-            compassLayer
+            defaultLayers,
+            taskRunner,
+            // TODO: Extract these to layer config
+            listOf(
+                selectedPointLayer,
+                distanceLayer,
+                scaleBarLayer,
+                myElevationLayer,
+                compassLayer
+            )
         )
+
+        // Hardcoded customization for this tool
+        distanceLayer.isEnabled = false
+        distanceLayer.onPathChanged = { onDistancePathChange(it) }
+        lastMapDetails?.let { improveResolution(it.first, it.second) }
+
+
+        photoMapLayer = view.getLayer<PhotoMapLayer>()
+        photoMapLayer?.setPhotoMapFilter { it.id == photoMapId }
+        view.getLayer<BeaconLayer>()?.onClick = {
+            onBeaconClick?.invoke(it)
+            true
+        }
+        view.getLayer<CellTowerMapLayer>()?.onClick = {
+            CellTowerMapLayer.navigate(it)
+            true
+        }
+        view.getLayer<BackgroundColorMapLayer>()?.color =
+            Resources.color(context, R.color.colorSecondary)
+
 
         view.start()
     }
@@ -179,7 +164,8 @@ class PhotoMapToolLayerManager {
             PhotoMapLayer.LAYER_ID
         )
 
-        val orderedLayerIds = listOf(
+        val defaultLayers = listOf(
+            BackgroundColorMapLayer.LAYER_ID,
             BaseMapLayer.LAYER_ID,
             ElevationLayer.LAYER_ID,
             HillshadeLayer.LAYER_ID,
@@ -187,10 +173,11 @@ class PhotoMapToolLayerManager {
             ContourLayer.LAYER_ID,
             NavigationLayer.LAYER_ID,
             CellTowerMapLayer.LAYER_ID,
+            TideMapLayer.LAYER_ID,
             PathLayer.LAYER_ID,
             BeaconLayer.LAYER_ID,
-            TideMapLayer.LAYER_ID,
-            MyLocationLayer.LAYER_ID
+            MyLocationLayer.LAYER_ID,
         )
+
     }
 }

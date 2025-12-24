@@ -140,7 +140,7 @@ object PathsToolRegistration : ToolRegistration {
                             defaultValue = PathBackgroundColor.None.id.toString(),
                         )
                     )
-                )
+                ) { _, _ -> PathLayer() }
             )
         )
     }

@@ -32,7 +32,7 @@ object NavigationToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     NavigationLayer.LAYER_ID,
                     context.getString(R.string.navigation)
-                )
+                ) { _, _ -> NavigationLayer() }
             )
         )
     }

@@ -30,7 +30,7 @@ class MapLayersBottomSheet(
         val mainActivity = useActivity() as MainActivity
         val preferences = useMemo {
             val allDefs = Tools.getTools(mainActivity).flatMap { it.mapLayers }
-            val defs = allDefs.filter { layerIds.contains(it.id) }
+            val defs = allDefs.filter { it.isConfigurable && layerIds.contains(it.id) }
                 .sortedBy { layerIds.indexOf(it.id) }
             val manager = MapLayerPreferenceManager(mapId, defs, alwaysEnabledLayerIds)
             MapLayersBottomSheetFragment(manager, mainActivity)

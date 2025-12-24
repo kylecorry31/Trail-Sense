@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -36,7 +37,7 @@ object MapToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     BaseMapLayer.LAYER_ID,
                     context.getString(R.string.basemap)
-                ),
+                ) { _, _ -> BaseMapLayer() },
                 MapLayerDefinition(
                     ElevationLayer.LAYER_ID,
                     context.getString(R.string.elevation),
@@ -57,7 +58,7 @@ object MapToolRegistration : ToolRegistration {
                             defaultValue = ElevationColorStrategy.USGS.id.toString(),
                         )
                     )
-                ),
+                ) { _, taskRunner -> ElevationLayer(taskRunner) },
                 MapLayerDefinition(
                     HillshadeLayer.LAYER_ID,
                     context.getString(R.string.hillshade),
@@ -70,7 +71,7 @@ object MapToolRegistration : ToolRegistration {
                             openDemSettingsOnClick = true
                         )
                     )
-                ),
+                ) { _, taskRunner -> HillshadeLayer(taskRunner) },
                 MapLayerDefinition(
                     ContourLayer.LAYER_ID,
                     context.getString(R.string.contours),
@@ -108,7 +109,7 @@ object MapToolRegistration : ToolRegistration {
                             defaultValue = ElevationColorStrategy.Brown.id.toString(),
                         )
                     )
-                ),
+                ) { _, taskRunner -> ContourLayer(taskRunner) },
                 MapLayerDefinition(
                     MyLocationLayer.LAYER_ID,
                     context.getString(R.string.my_location),
@@ -120,7 +121,12 @@ object MapToolRegistration : ToolRegistration {
                             defaultValue = true,
                         )
                     )
-                )
+                ) { _, _ -> MyLocationLayer() },
+                MapLayerDefinition(
+                    BackgroundColorMapLayer.LAYER_ID,
+                    context.getString(R.string.background_color),
+                    isConfigurable = false,
+                ) { _, _ -> BackgroundColorMapLayer() }
             )
         )
     }

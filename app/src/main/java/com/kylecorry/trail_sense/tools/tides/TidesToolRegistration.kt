@@ -37,7 +37,7 @@ object TidesToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     TideMapLayer.LAYER_ID,
                     context.getString(R.string.tides)
-                )
+                ) { _, _ -> TideMapLayer() }
             ),
             widgets = listOf(
                 ToolWidget(

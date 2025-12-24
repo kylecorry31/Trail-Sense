@@ -6,6 +6,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -71,6 +72,44 @@ fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
     return mapProjection.toCoordinate(pixel)
 }
 
+fun IMapView.setLayersWithPreferences(
+    context: Context,
+    mapId: String,
+    layerIds: List<String>,
+    taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
+    additionalLayers: List<ILayer> = emptyList(),
+    forceReplaceLayers: Boolean = false
+) {
+    //
+    val currentLayerIds = getLayers().map { it.layerId }
+    val newLayerIds = layerIds + additionalLayers.map { it.layerId }
+    if (!forceReplaceLayers && currentLayerIds == newLayerIds) {
+        return
+    }
+    val layerDefinitions = Tools.getTools(context).flatMap { it.mapLayers }
+    val layers = layerIds.mapNotNull { id ->
+        layerDefinitions.firstOrNull { it.id == id }?.create(context, taskRunner)
+    } + additionalLayers
+    val layersToPreference = layers.map { layer ->
+        layer to layerDefinitions.firstOrNull { it.id == layer.layerId }
+            ?.getPreferenceValues(context, mapId)
+    }
+    val actualLayers =
+        layersToPreference.filter {
+            it.second?.getBoolean(
+                DefaultMapLayerDefinitions.ENABLED
+            ) != false
+        }
+    actualLayers.forEach {
+        it.second?.let { prefs ->
+            it.first.setPreferences(prefs)
+            it.first.invalidate()
+        }
+    }
+
+    setLayers(actualLayers.map { it.first })
+}
+
 
 fun IMapView.setLayersWithPreferences(context: Context, mapId: String, vararg layers: ILayer?) {
     val layerDefinitions = Tools.getTools(context).flatMap { it.mapLayers }
@@ -95,6 +134,6 @@ fun IMapView.setLayersWithPreferences(context: Context, mapId: String, vararg la
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <T : ILayer> IMapView.getLayerById(id: String): T? {
-    return getLayers().firstOrNull { it.layerId == id } as? T
+inline fun <reified T : ILayer> IMapView.getLayer(): T? {
+    return getLayers().firstOrNull { it is T } as T?
 }

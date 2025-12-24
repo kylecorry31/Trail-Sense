@@ -308,7 +308,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
                 NavigationToolRegistration.MAP_ID,
-                NavigationCompassLayerManager.orderedLayerIds
+                NavigationCompassLayerManager.defaultLayers
             )
             layers.pause(binding.radarCompass)
             layerSheet?.setOnDismissListener {
