@@ -1501,4 +1501,5 @@
     <string name="pref_bubble_level_threshold_title">等级阈值</string>
     <string name="settings_copied">已复制设置</string>
     <string name="copy_settings_to_other_maps">复制设置到其他地图</string>
-    </resources>
+    <string name="guide_map_layers">地图层</string>
+</resources>
