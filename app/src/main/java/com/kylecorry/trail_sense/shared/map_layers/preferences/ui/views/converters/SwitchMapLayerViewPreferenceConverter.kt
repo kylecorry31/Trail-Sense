@@ -1,20 +1,26 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters
 
+import android.content.Context
+import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getBasePreferenceKey
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getDependencyBasePreferenceKey
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.MapLayerViewPreference
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.SwitchMapLayerPreference
 
 class SwitchMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
-    override fun convert(preference: MapLayerPreference, layerId: String): MapLayerViewPreference {
-        return SwitchMapLayerPreference(
-            preference.title?.toString() ?: "",
-            preference.getBasePreferenceKey(layerId),
-            (preference.defaultValue as? Boolean) ?: true,
-            preference.getDependencyBasePreferenceKey(layerId),
-            preference.summary?.toString()
-        )
+    override fun convert(
+        context: Context,
+        mapId: String,
+        layerId: String,
+        preference: MapLayerPreference
+    ): Preference {
+        val visible = SwitchPreferenceCompat(context)
+        visible.setDefaultValue((preference.defaultValue as? Boolean) ?: true)
+        visible.isIconSpaceReserved = false
+        visible.key = preference.getFullPreferenceKey(mapId, layerId)
+        visible.isSingleLineTitle = false
+        visible.title = preference.title
+        visible.summary = preference.summary
+        return visible
     }
-
 }

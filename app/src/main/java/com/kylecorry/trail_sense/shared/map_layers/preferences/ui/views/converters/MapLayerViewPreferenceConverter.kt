@@ -1,8 +1,14 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters
 
+import android.content.Context
+import androidx.preference.Preference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.MapLayerViewPreference
 
 interface MapLayerViewPreferenceConverter {
-    fun convert(preference: MapLayerPreference, layerId: String): MapLayerViewPreference
+    fun convert(
+        context: Context,
+        mapId: String,
+        layerId: String,
+        preference: MapLayerPreference
+    ): Preference
 }

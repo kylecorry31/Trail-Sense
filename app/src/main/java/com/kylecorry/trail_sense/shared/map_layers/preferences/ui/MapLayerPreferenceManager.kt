@@ -10,10 +10,10 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getDependencyBasePreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.writePreferenceValues
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.LabelMapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
@@ -59,11 +59,11 @@ class MapLayerPreferenceManager(
             )
             val preferences = base + layer.preferences
             val viewPreferences = preferences.map {
-                it to factory.getConverter(it.type).convert(it, layer.id)
+                it to factory.getConverter(it.type).convert(context, mapId, layer.id, it)
             }
 
             viewPreferences.forEach {
-                val preference = it.second.create(context, mapId)
+                val preference = it.second
                 if (isAlwaysEnabled && it.first.id == DefaultMapLayerDefinitions.ENABLED) {
                     preference.isVisible = false
                 }
@@ -85,10 +85,10 @@ class MapLayerPreferenceManager(
                 }
 
                 category.addPreference(preference)
-                preference.dependency = if (it.second.dependency != null) {
-                    "pref_${mapId}_${it.second.dependency}"
-                } else {
-                    null
+
+                val dependency = it.first.getDependencyBasePreferenceKey(layer.id)
+                if (dependency != null) {
+                    preference.dependency = "pref_${mapId}_$dependency"
                 }
             }
 
@@ -98,29 +98,31 @@ class MapLayerPreferenceManager(
                 PhotoMapsToolRegistration.MAP_ID to context.getString(R.string.photo_maps)
             )
 
-            val copyPreference =
-                LabelMapLayerPreference(
-                    context.getString(R.string.copy_settings_to_other_maps)
-                ) {
-                    val otherMaps = getOtherMapIds()
-                    Pickers.items(
-                        context,
-                        context.getString(R.string.copy_settings_to_other_maps),
-                        otherMaps.mapNotNull { mapIdToName[it] },
-                        otherMaps.indices.toList()
-                    ) { indices ->
-                        if (indices == null || indices.isEmpty()) {
-                            return@items
-                        }
-
-                        val bundle = layer.getPreferenceValues(context, mapId)
-                        indices.forEach { index ->
-                            layer.writePreferenceValues(context, bundle, otherMaps[index])
-                        }
-                        Alerts.toast(context, context.getString(R.string.settings_copied))
+            val copyPreference = Preference(context)
+            copyPreference.title = context.getString(R.string.copy_settings_to_other_maps)
+            copyPreference.isIconSpaceReserved = false
+            copyPreference.isSingleLineTitle = false
+            copyPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                val otherMaps = getOtherMapIds()
+                Pickers.items(
+                    context,
+                    context.getString(R.string.copy_settings_to_other_maps),
+                    otherMaps.mapNotNull { mapIdToName[it] },
+                    otherMaps.indices.toList()
+                ) { indices ->
+                    if (indices == null || indices.isEmpty()) {
+                        return@items
                     }
+
+                    val bundle = layer.getPreferenceValues(context, mapId)
+                    indices.forEach { index ->
+                        layer.writePreferenceValues(context, bundle, otherMaps[index])
+                    }
+                    Alerts.toast(context, context.getString(R.string.settings_copied))
                 }
-            category.addPreference(copyPreference.create(context, mapId))
+                true
+            }
+            category.addPreference(copyPreference)
         }
     }
 
