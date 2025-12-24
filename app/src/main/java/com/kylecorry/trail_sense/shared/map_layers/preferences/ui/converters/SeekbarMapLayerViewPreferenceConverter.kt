@@ -1,11 +1,10 @@
-package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters
+package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters
 
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getDependencyBasePreferenceKey
 
 class SeekbarMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
     override fun convert(

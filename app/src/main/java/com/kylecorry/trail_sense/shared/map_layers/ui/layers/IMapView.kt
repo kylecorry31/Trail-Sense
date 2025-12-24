@@ -111,28 +111,6 @@ fun IMapView.setLayersWithPreferences(
 }
 
 
-fun IMapView.setLayersWithPreferences(context: Context, mapId: String, vararg layers: ILayer?) {
-    val layerDefinitions = Tools.getTools(context).flatMap { it.mapLayers }
-    val layersToPreference = layers.map { layer ->
-        layer to layerDefinitions.firstOrNull { it.id == layer?.layerId }
-            ?.getPreferenceValues(context, mapId)
-    }
-    val actualLayers =
-        layersToPreference.filter {
-            it.first != null && it.second?.getBoolean(
-                DefaultMapLayerDefinitions.ENABLED
-            ) != false
-        }
-    actualLayers.forEach {
-        it.second?.let { prefs ->
-            it.first?.setPreferences(prefs)
-            it.first?.invalidate()
-        }
-    }
-
-    setLayers(actualLayers.mapNotNull { it.first })
-}
-
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : ILayer> IMapView.getLayer(): T? {
     return getLayers().firstOrNull { it is T } as T?

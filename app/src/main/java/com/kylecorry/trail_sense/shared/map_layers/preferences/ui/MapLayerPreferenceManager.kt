@@ -10,11 +10,11 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getDependencyBasePreferenceKey
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullDependencyPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.writePreferenceValues
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters.MapLayerViewPreferenceConverterFactory
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
@@ -86,9 +86,9 @@ class MapLayerPreferenceManager(
 
                 category.addPreference(preference)
 
-                val dependency = it.first.getDependencyBasePreferenceKey(layer.id)
+                val dependency = it.first.getFullDependencyPreferenceKey(mapId, layer.id)
                 if (dependency != null) {
-                    preference.dependency = "pref_${mapId}_$dependency"
+                    preference.dependency = dependency
                 }
             }
 

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.views.converters
+package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters
 
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 

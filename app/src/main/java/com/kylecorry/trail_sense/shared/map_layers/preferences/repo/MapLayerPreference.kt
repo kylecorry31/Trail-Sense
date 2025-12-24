@@ -14,17 +14,13 @@ data class MapLayerPreference(
     val openDemSettingsOnClick: Boolean = false
 )
 
-fun MapLayerPreference.getDependencyBasePreferenceKey(layerId: String): String? {
+fun MapLayerPreference.getFullDependencyPreferenceKey(mapId: String, layerId: String): String? {
     if (dependency == null) {
         return null
     }
-    return "${layerId}_layer_${dependency}"
-}
-
-fun MapLayerPreference.getBasePreferenceKey(layerId: String): String {
-    return "${layerId}_layer_${id}"
+    return "pref_${mapId}_${layerId}_layer_${dependency}"
 }
 
 fun MapLayerPreference.getFullPreferenceKey(mapId: String, layerId: String): String {
-    return "pref_${mapId}_${getBasePreferenceKey(layerId)}"
+    return "pref_${mapId}_${layerId}_layer_${id}"
 }
