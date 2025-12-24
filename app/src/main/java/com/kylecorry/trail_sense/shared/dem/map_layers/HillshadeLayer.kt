@@ -31,9 +31,11 @@ class HillshadeLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
             255f,
             shouldClamp = true
         ).toInt()
+        source.drawAccurateShadows = preferences.getBoolean(DRAW_ACCURATE_SHADOWS)
     }
 
     companion object {
         const val LAYER_ID = "hillshade"
+        const val DRAW_ACCURATE_SHADOWS = "draw_accurate_shadows"
     }
 }

@@ -49,6 +49,13 @@ object MapToolRegistration : ToolRegistration {
                     layerType = MapLayerType.Tile,
                     preferences = listOf(
                         MapLayerPreference(
+                            id = "dem_settings",
+                            title = context.getString(R.string.plugin_digital_elevation_model),
+                            type = MapLayerPreferenceType.Label,
+                            summary = context.getString(R.string.open_settings),
+                            openDemSettingsOnClick = true
+                        ),
+                        MapLayerPreference(
                             id = ElevationLayer.COLOR,
                             title = context.getString(R.string.color),
                             type = MapLayerPreferenceType.Enum,
@@ -76,7 +83,13 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
                             openDemSettingsOnClick = true
-                        )
+                        ),
+                        MapLayerPreference(
+                            id = HillshadeLayer.DRAW_ACCURATE_SHADOWS,
+                            title = context.getString(R.string.draw_accurate_shadows),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = false,
+                        ),
                     )
                 ) { _, taskRunner -> HillshadeLayer(taskRunner) },
                 MapLayerDefinition(

@@ -21,6 +21,10 @@ Settings:
 ## Hillshade
 This layer draws shadows to help see elevation in the terrain from the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
 
+Settings:
+
+- **Draw accurate shadows**: If enabled, shadows will be drawn using the position of the sun and moon, but the 3D appearance may be reduced.
+
 ## Photo Maps
 This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
 
