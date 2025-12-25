@@ -50,7 +50,7 @@ class HillshadeMapTileSource : FullRegionMapTileSource() {
                     return 315f to 45f
                 }
 
-                if (astronomy.isSunUp(location)) {
+                if (astronomy.getSunAltitude(location) > AstronomyService.SUN_MIN_ALTITUDE_CIVIL) {
                     return astronomy.getSunAzimuth(location).value to astronomy.getSunAltitude(
                         location
                     )
