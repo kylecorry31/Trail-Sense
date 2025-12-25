@@ -144,14 +144,14 @@ class MapLayerPreferenceManager(
         summary: CharSequence? = null,
         onClick: (() -> Unit)? = null
     ): Preference {
-        val preference = Preference(context)
+        val preference = SummaryClickablePreference(context)
         preference.title = title
         preference.summary = summary
         preference.isIconSpaceReserved = false
         preference.isSingleLineTitle = false
         preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             onClick?.invoke()
-            true
+            onClick != null
         }
         return preference
     }
