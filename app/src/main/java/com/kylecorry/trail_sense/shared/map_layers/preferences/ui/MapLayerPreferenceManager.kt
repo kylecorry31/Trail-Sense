@@ -6,6 +6,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
@@ -27,6 +28,7 @@ class MapLayerPreferenceManager(
 ) {
 
     private val prefs = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+    private val markdown = AppServiceRegistry.get<MarkdownService>()
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val factory = MapLayerViewPreferenceConverterFactory()
@@ -40,6 +42,7 @@ class MapLayerPreferenceManager(
 
             val header = LayerHeaderPreference(context)
             header.title = layer.name
+            header.summary = layer.description
             screen.addPreference(header)
 
             val category = createCategory(context)
@@ -98,11 +101,21 @@ class MapLayerPreferenceManager(
                 PhotoMapsToolRegistration.MAP_ID to context.getString(R.string.photo_maps)
             )
 
-            val copyPreference = Preference(context)
-            copyPreference.title = context.getString(R.string.copy_settings_to_other_maps)
-            copyPreference.isIconSpaceReserved = false
-            copyPreference.isSingleLineTitle = false
-            copyPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            if (layer.attribution != null) {
+                val licensePreference = createLabelPreference(
+                    context,
+                    context.getString(R.string.attribution),
+                    markdown.toMarkdown(
+                        layer.attribution.longAttribution ?: layer.attribution.attribution
+                    )
+                )
+                category.addPreference(licensePreference)
+            }
+
+            val copyPreference = createLabelPreference(
+                context,
+                context.getString(R.string.copy_settings_to_other_maps)
+            ) {
                 val otherMaps = getOtherMapIds()
                 Pickers.items(
                     context,
@@ -120,10 +133,27 @@ class MapLayerPreferenceManager(
                     }
                     Alerts.toast(context, context.getString(R.string.settings_copied))
                 }
-                true
             }
             category.addPreference(copyPreference)
         }
+    }
+
+    private fun createLabelPreference(
+        context: Context,
+        title: CharSequence? = null,
+        summary: CharSequence? = null,
+        onClick: (() -> Unit)? = null
+    ): Preference {
+        val preference = Preference(context)
+        preference.title = title
+        preference.summary = summary
+        preference.isIconSpaceReserved = false
+        preference.isSingleLineTitle = false
+        preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            onClick?.invoke()
+            true
+        }
+        return preference
     }
 
     private fun getOtherMapIds(): List<String> {
