@@ -1540,4 +1540,7 @@
     <string name="pref_bubble_level_threshold_title">Práh úrovně</string>
     <string name="settings_copied">Nastavení zkopírována</string>
     <string name="copy_settings_to_other_maps">Zkopírovat nastavení do ostatních map</string>
-    </resources>
+    <string name="guide_map_layers">Vrstvy mapy</string>
+    <string name="my_elevation">Moje nadmořská výška</string>
+    <string name="draw_accurate_shadows">Vykreslit přesné stíny</string>
+</resources>
