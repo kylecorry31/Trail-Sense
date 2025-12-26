@@ -1757,6 +1757,7 @@
     <string name="ungroup_alerts">Ungroup alerts</string>
     <string name="contours">Contours</string>
     <string name="map_layer">Map layer</string>
+    <string name="map_attribution_format">Map data © %s</string>
     <string name="pref_dem_url" translatable="false">pref_dem_url</string>
     <string name="dem_url">DEM URL</string>
     <string name="map">Map</string>

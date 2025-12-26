@@ -1,12 +1,15 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.content.Context
+import android.text.Spanned
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerRegistry
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
@@ -116,4 +119,24 @@ fun IMapView.setLayersWithPreferences(
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : ILayer> IMapView.getLayer(): T? {
     return getLayers().firstOrNull { it is T } as T?
+}
+
+fun IMapView.getAttribution(context: Context): Spanned? {
+    val registry = AppServiceRegistry.get<MapLayerRegistry>()
+    val definitions = registry.getLayers()
+    val markdown = AppServiceRegistry.get<MarkdownService>()
+    val attributions = getLayers().mapNotNull { layer ->
+        definitions.firstOrNull { it.id == layer.layerId }?.attribution?.attribution
+    }.distinct()
+
+    if (attributions.isEmpty()) {
+        return null
+    }
+
+    return markdown.toMarkdown(
+        context.getString(
+            R.string.map_attribution_format,
+            attributions.joinToString(", ")
+        )
+    )
 }

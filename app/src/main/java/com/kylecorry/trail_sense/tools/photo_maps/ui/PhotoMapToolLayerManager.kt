@@ -49,6 +49,9 @@ class PhotoMapToolLayerManager {
 
     private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
 
+    var key: Int = 0
+        private set
+
     fun resume(context: Context, view: IMapView, photoMapId: Long) {
         // User can't disable the photo maps layer
         preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
@@ -64,6 +67,8 @@ class PhotoMapToolLayerManager {
                 distanceLayer
             )
         )
+
+        key++
 
         // Hardcoded customization for this tool
         distanceLayer.isEnabled = false

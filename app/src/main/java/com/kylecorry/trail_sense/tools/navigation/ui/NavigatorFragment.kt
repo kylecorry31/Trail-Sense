@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,13 +34,13 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
-import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -300,6 +301,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.roundCompass.setOnClickListener {
             toggleDestinationBearing()
         }
+        binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
         binding.radarCompass.setOnSingleTapListener {
             toggleDestinationBearing()
         }
@@ -516,6 +518,20 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         effect("navigation", destination, lifecycleHookTrigger.onResume()) {
             handleShowWhenLocked()
+        }
+
+        effect(
+            "attribution",
+            layers.key,
+            binding.radarCompass.isVisible
+        ) {
+            if (binding.radarCompass.isVisible) {
+                val attribution = binding.radarCompass.getAttribution(requireContext())
+                binding.mapAttribution.text = attribution
+                binding.mapAttribution.isVisible = attribution != null
+            } else {
+                binding.mapAttribution.isVisible = false
+            }
         }
 
         effect("device_orientation", clinometer.incline.toInt(), lifecycleHookTrigger.onResume()) {

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -139,6 +141,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             setDestination(it)
         }
 
+        binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
+
         reloadMap()
 
         binding.map.setOnLongPressListener {
@@ -169,6 +173,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.zoomInBtn.setOnClickListener {
             binding.map.zoom(2f)
         }
+
+        scheduleUpdates(5000)
     }
 
     private fun getDefaultMapAzimuth(keepMapUp: Boolean): Float {
@@ -512,6 +518,12 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         useEffect(resetOnResume) {
             activity?.let { screenLock.updateLock(it) }
+        }
+
+        effect("attribution", layerManager.key) {
+            val attribution = binding.map.getAttribution(requireContext())
+            binding.mapAttribution.text = attribution
+            binding.mapAttribution.isVisible = attribution != null
         }
     }
 

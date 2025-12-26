@@ -28,6 +28,8 @@ class ScaleBarLayer : ILayer {
 
     private val formatter = AppServiceRegistry.get<FormatService>()
 
+    var bottomMargin: Float = 32f
+
     override fun setPreferences(preferences: Bundle) {
         // Do nothing
     }
@@ -53,7 +55,7 @@ class ScaleBarLayer : ILayer {
         scaleBar.reset()
         distanceScale.getScaleBar(scaleSize, map.metersPerPixel, scaleBar)
         val start = drawer.canvas.width - drawer.dp(16f) - drawer.pathWidth(scaleBar)
-        val y = drawer.canvas.height - drawer.dp(16f)
+        val y = drawer.canvas.height - drawer.dp(bottomMargin)
         drawer.push()
         drawer.translate(start, y)
         drawer.stroke(Color.BLACK)
