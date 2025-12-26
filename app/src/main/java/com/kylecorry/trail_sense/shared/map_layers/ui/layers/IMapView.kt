@@ -126,7 +126,13 @@ fun IMapView.getAttribution(context: Context): Spanned? {
     val definitions = registry.getLayers()
     val markdown = AppServiceRegistry.get<MarkdownService>()
     val attributions = getLayers().mapNotNull { layer ->
-        definitions.firstOrNull { it.id == layer.layerId }?.attribution?.attribution
+        val attribution = definitions.firstOrNull { it.id == layer.layerId }?.attribution
+            ?: return@mapNotNull null
+        if (attribution.alwaysShow) {
+            attribution.attribution
+        } else {
+            null
+        }
     }.distinct()
 
     if (attributions.isEmpty()) {
