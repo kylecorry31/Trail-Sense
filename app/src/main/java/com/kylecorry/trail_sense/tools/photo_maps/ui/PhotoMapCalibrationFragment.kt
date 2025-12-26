@@ -304,6 +304,10 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         CustomUiUtils.setButtonState(binding.previewButton, enabled)
 
         showPreview = enabled
+        updateMapCalibration()
+
+        binding.calibrationMap.stop()
+
         val layers = if (enabled) listOf(
             PathLayer.LAYER_ID,
             MyLocationLayer.LAYER_ID,
@@ -314,12 +318,9 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             PhotoMapsToolRegistration.MAP_ID,
             layers
         )
-        updateMapCalibration()
 
         if (showPreview) {
             binding.calibrationMap.start()
-        } else {
-            binding.calibrationMap.stop()
         }
 
     }
