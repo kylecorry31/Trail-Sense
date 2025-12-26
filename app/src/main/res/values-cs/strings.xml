@@ -1543,4 +1543,5 @@
     <string name="guide_map_layers">Vrstvy mapy</string>
     <string name="my_elevation">Moje nadmořská výška</string>
     <string name="draw_accurate_shadows">Vykreslit přesné stíny</string>
+    <string name="attribution">Poděkování</string>
 </resources>
