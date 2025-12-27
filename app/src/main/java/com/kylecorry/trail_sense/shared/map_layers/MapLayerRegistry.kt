@@ -20,9 +20,15 @@ class MapLayerRegistry {
         }
     }
 
-    fun getLayers(): List<MapLayerDefinition> {
+    fun getLayers(): Map<String, MapLayerDefinition> {
         return synchronized(lock) {
-            layerDefinitions.values.toList()
+            layerDefinitions.toMap()
+        }
+    }
+
+    fun getLayerDefinition(layerId: String): MapLayerDefinition? {
+        return synchronized(lock) {
+            layerDefinitions[layerId]
         }
     }
 

@@ -11,9 +11,11 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerFactory
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerRegistry
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getLayerPreferencesBundle
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 interface IMapView {
     fun addLayer(layer: ILayer)
@@ -84,20 +86,22 @@ fun IMapView.setLayersWithPreferences(
     additionalLayers: List<ILayer> = emptyList(),
     forceReplaceLayers: Boolean = false
 ) {
-    val registry = AppServiceRegistry.get<MapLayerRegistry>()
-    val layerDefinitions = registry.getLayers()
+    val factory = MapLayerFactory()
+    val preferences = AppServiceRegistry.get<PreferencesSubsystem>().preferences
     val currentLayers = getLayers()
     val newLayerIds = layerIds + additionalLayers.map { it.layerId }
     val layers = if (!forceReplaceLayers && currentLayers.map { it.layerId } == newLayerIds) {
         currentLayers
     } else {
         layerIds.mapNotNull { id ->
-            layerDefinitions.firstOrNull { it.id == id }?.create(context, taskRunner)
+            factory.create(id, context, taskRunner)
         } + additionalLayers
     }
+
+    val layerPreferences = preferences.getLayerPreferencesBundle(mapId, newLayerIds)
+
     val layersToPreference = layers.map { layer ->
-        layer to layerDefinitions.firstOrNull { it.id == layer.layerId }
-            ?.getPreferenceValues(context, mapId)
+        layer to layerPreferences[layer.layerId]
     }
     val actualLayers =
         layersToPreference.filter {
@@ -126,7 +130,7 @@ fun IMapView.getAttribution(context: Context): Spanned? {
     val definitions = registry.getLayers()
     val markdown = AppServiceRegistry.get<MarkdownService>()
     val attributions = getLayers().mapNotNull { layer ->
-        val attribution = definitions.firstOrNull { it.id == layer.layerId }?.attribution
+        val attribution = definitions[layer.layerId]?.attribution
             ?: return@mapNotNull null
         if (attribution.alwaysShow) {
             attribution.attribution

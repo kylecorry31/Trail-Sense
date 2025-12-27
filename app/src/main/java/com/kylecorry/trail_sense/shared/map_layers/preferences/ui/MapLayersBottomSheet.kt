@@ -31,10 +31,10 @@ class MapLayersBottomSheet(
         val mainActivity = useActivity() as MainActivity
         val registry = useService<MapLayerRegistry>()
         val preferences = useMemo {
-            val allDefs = registry.getLayers()
-            val defs = allDefs.filter { it.isConfigurable && layerIds.contains(it.id) }
+            val definitions = registry.getLayers().values
+                .filter { it.isConfigurable && layerIds.contains(it.id) }
                 .sortedBy { layerIds.indexOf(it.id) }
-            val manager = MapLayerPreferenceManager(mapId, defs, alwaysEnabledLayerIds)
+            val manager = MapLayerPreferenceManager(mapId, definitions, alwaysEnabledLayerIds)
             MapLayersBottomSheetFragment(manager, mainActivity)
         }
 

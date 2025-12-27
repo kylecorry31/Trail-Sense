@@ -11,10 +11,9 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.copyLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullDependencyPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getPreferenceValues
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.writePreferenceValues
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
@@ -127,10 +126,8 @@ class MapLayerPreferenceManager(
                         return@items
                     }
 
-                    val bundle = layer.getPreferenceValues(context, mapId)
-                    indices.forEach { index ->
-                        layer.writePreferenceValues(context, bundle, otherMaps[index])
-                    }
+                    val destinationIds = indices.map { otherMaps[it] }
+                    prefs.copyLayerPreferences(layer.id, mapId, destinationIds)
                     Alerts.toast(context, context.getString(R.string.settings_copied))
                 }
             }
