@@ -1505,4 +1505,5 @@
     <string name="my_elevation">我的海拔</string>
     <string name="draw_accurate_shadows">绘制精确阴影</string>
     <string name="attribution">归属信息</string>
+    <string name="map_attribution_format">地图数据 © %s</string>
 </resources>

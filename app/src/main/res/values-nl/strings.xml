@@ -1518,4 +1518,5 @@
     <string name="my_elevation">Mijn hoogte</string>
     <string name="draw_accurate_shadows">Nauwkeurige schaduwen weergeven</string>
     <string name="attribution">Dank aan</string>
+    <string name="map_attribution_format">Kaartdata © %s</string>
 </resources>
