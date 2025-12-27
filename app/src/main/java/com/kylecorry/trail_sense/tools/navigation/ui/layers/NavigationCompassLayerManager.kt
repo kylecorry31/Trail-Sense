@@ -29,7 +29,6 @@ class NavigationCompassLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         view.setLayersWithPreferences(
-            context,
             NavigationToolRegistration.MAP_ID,
             defaultLayers,
             taskRunner

@@ -57,7 +57,6 @@ class PhotoMapToolLayerManager {
         preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
 
         view.setLayersWithPreferences(
-            context,
             PhotoMapsToolRegistration.MAP_ID,
             defaultLayers,
             taskRunner,

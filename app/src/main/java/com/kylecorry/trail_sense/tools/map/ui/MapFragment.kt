@@ -101,7 +101,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         useBackgroundEffect(mapView, manager.key, attributionView) {
-            val attribution = mapView.getAttribution(context)
+            val attribution = mapView.getAttribution()
             onMain {
                 attributionView.text = attribution
                 attributionView.isVisible = attribution != null

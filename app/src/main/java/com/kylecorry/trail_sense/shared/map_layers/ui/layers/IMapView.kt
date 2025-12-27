@@ -1,18 +1,14 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
-import android.content.Context
-import android.text.Spanned
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerDefinitionLoader
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerFactory
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
+import com.kylecorry.trail_sense.shared.map_layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getLayerPreferencesBundle
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -79,14 +75,13 @@ fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
 }
 
 fun IMapView.setLayersWithPreferences(
-    context: Context,
     mapId: String,
     layerIds: List<String>,
     taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     additionalLayers: List<ILayer> = emptyList(),
     forceReplaceLayers: Boolean = false
 ) {
-    val factory = MapLayerFactory()
+    val loader = AppServiceRegistry.get<MapLayerLoader>()
     val preferences = AppServiceRegistry.get<PreferencesSubsystem>().preferences
     val currentLayers = getLayers()
     val newLayerIds = layerIds + additionalLayers.map { it.layerId }
@@ -94,7 +89,7 @@ fun IMapView.setLayersWithPreferences(
         currentLayers
     } else {
         layerIds.mapNotNull { id ->
-            factory.create(id, context, taskRunner)
+            loader.getLayer(id, taskRunner)
         } + additionalLayers
     }
 
@@ -125,28 +120,7 @@ inline fun <reified T : ILayer> IMapView.getLayer(): T? {
     return getLayers().firstOrNull { it is T } as T?
 }
 
-suspend fun IMapView.getAttribution(context: Context): Spanned? {
-    val loader = MapLayerDefinitionLoader()
-    val definitions = loader.load(context)
-    val markdown = AppServiceRegistry.get<MarkdownService>()
-    val attributions = getLayers().mapNotNull { layer ->
-        val attribution = definitions[layer.layerId]?.attribution
-            ?: return@mapNotNull null
-        if (attribution.alwaysShow) {
-            attribution.attribution
-        } else {
-            null
-        }
-    }.distinct()
-
-    if (attributions.isEmpty()) {
-        return null
-    }
-
-    return markdown.toMarkdown(
-        context.getString(
-            R.string.map_attribution_format,
-            attributions.joinToString(", ")
-        )
-    )
+suspend fun IMapView.getAttribution(): CharSequence? {
+    val loader = AppServiceRegistry.get<MapLayerLoader>()
+    return loader.getAttribution(getLayers().map { it.layerId })
 }

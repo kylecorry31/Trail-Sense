@@ -1,13 +1,14 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 
 import android.content.DialogInterface
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.replaceChildFragment
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerDefinitionLoader
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 
 class MapLayersBottomSheet(
     private val mapId: String,
@@ -29,10 +30,9 @@ class MapLayersBottomSheet(
     override fun update() {
         val titleView = useView<Toolbar>(R.id.title)
         val mainActivity = useActivity() as MainActivity
-        val context = useAndroidContext()
-        val definitions = useBackgroundMemo(context) {
-            val loader = MapLayerDefinitionLoader()
-            loader.load(context).values
+        val loader = useService<MapLayerLoader>()
+        val definitions = useBackgroundMemo {
+            loader.getDefinitions().values
                 .filter { it.isConfigurable && layerIds.contains(it.id) }
                 .sortedBy { layerIds.indexOf(it.id) }
         }

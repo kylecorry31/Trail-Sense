@@ -44,7 +44,6 @@ class MapToolLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         view.setLayersWithPreferences(
-            context,
             MapToolRegistration.MAP_ID,
             defaultLayers,
             taskRunner,

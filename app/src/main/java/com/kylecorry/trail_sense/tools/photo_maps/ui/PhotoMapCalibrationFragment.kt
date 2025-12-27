@@ -314,7 +314,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             BeaconLayer.LAYER_ID
         ) else emptyList()
         binding.calibrationMap.setLayersWithPreferences(
-            requireContext(),
             PhotoMapsToolRegistration.MAP_ID,
             layers
         )
