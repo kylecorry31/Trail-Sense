@@ -208,8 +208,6 @@ TODO: More details
 
 ## Response contract
 
-The body of the plugin response must be a bitmap no larger than 256x256 pixels and be in ARGB_8888 format.
+The body of the plugin response must be a bitmap no larger than 256x256 pixels and be in ARGB_8888 format. Tiles that aren't 256x256 will be rescaled by Trail Sense.
 
 TODO: Specify how to say there is no tile available
-
-TODO: Header for specifying pixel format?
