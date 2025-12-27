@@ -30,12 +30,16 @@ class MapLayersBottomSheet(
         val titleView = useView<Toolbar>(R.id.title)
         val mainActivity = useActivity() as MainActivity
         val context = useAndroidContext()
-        val preferences = useBackgroundMemo(context) {
+        val definitions = useBackgroundMemo(context) {
             val loader = MapLayerDefinitionLoader()
-            val definitions = loader.load(context).values
+            loader.load(context).values
                 .filter { it.isConfigurable && layerIds.contains(it.id) }
                 .sortedBy { layerIds.indexOf(it.id) }
-            val manager = MapLayerPreferenceManager(mapId, definitions, alwaysEnabledLayerIds)
+        }
+
+        val preferences = useMemo(definitions) {
+            val manager =
+                MapLayerPreferenceManager(mapId, definitions ?: emptyList(), alwaysEnabledLayerIds)
             MapLayersBottomSheetFragment(manager, mainActivity)
         }
 
@@ -47,9 +51,7 @@ class MapLayersBottomSheet(
 
         // TODO: Show loading indicator once plugin layers are in place
         useEffect(titleView, preferences) {
-            if (preferences != null) {
-                replaceChildFragment(preferences, R.id.preferences_fragment)
-            }
+            replaceChildFragment(preferences, R.id.preferences_fragment)
         }
     }
 }

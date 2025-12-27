@@ -26,10 +26,4 @@ class MapLayerRegistry {
         }
     }
 
-    fun getLayerDefinition(layerId: String): MapLayerDefinition? {
-        return synchronized(lock) {
-            layerDefinitions[layerId]
-        }
-    }
-
 }

@@ -525,12 +525,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             layers.key,
             binding.radarCompass.isVisible
         ) {
-            if (binding.radarCompass.isVisible) {
-                val attribution = binding.radarCompass.getAttribution(requireContext())
-                binding.mapAttribution.text = attribution
-                binding.mapAttribution.isVisible = attribution != null
-            } else {
-                binding.mapAttribution.isVisible = false
+            inBackground {
+                if (binding.radarCompass.isVisible) {
+                    val attribution = binding.radarCompass.getAttribution(requireContext())
+                    onMain {
+                        binding.mapAttribution.text = attribution
+                        binding.mapAttribution.isVisible = attribution != null
+                    }
+                } else {
+                    onMain {
+                        binding.mapAttribution.isVisible = false
+                    }
+                }
             }
         }
 

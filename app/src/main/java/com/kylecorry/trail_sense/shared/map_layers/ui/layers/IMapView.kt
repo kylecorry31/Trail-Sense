@@ -11,8 +11,8 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerDefinitionLoader
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerFactory
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerRegistry
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getLayerPreferencesBundle
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -125,9 +125,9 @@ inline fun <reified T : ILayer> IMapView.getLayer(): T? {
     return getLayers().firstOrNull { it is T } as T?
 }
 
-fun IMapView.getAttribution(context: Context): Spanned? {
-    val registry = AppServiceRegistry.get<MapLayerRegistry>()
-    val definitions = registry.getLayers()
+suspend fun IMapView.getAttribution(context: Context): Spanned? {
+    val loader = MapLayerDefinitionLoader()
+    val definitions = loader.load(context)
     val markdown = AppServiceRegistry.get<MarkdownService>()
     val attributions = getLayers().mapNotNull { layer ->
         val attribution = definitions[layer.layerId]?.attribution

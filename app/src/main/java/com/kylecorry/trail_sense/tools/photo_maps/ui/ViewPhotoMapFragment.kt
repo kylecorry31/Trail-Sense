@@ -521,9 +521,13 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         }
 
         effect("attribution", layerManager.key) {
-            val attribution = binding.map.getAttribution(requireContext())
-            binding.mapAttribution.text = attribution
-            binding.mapAttribution.isVisible = attribution != null
+            inBackground {
+                val attribution = binding.map.getAttribution(requireContext())
+                onMain {
+                    binding.mapAttribution.text = attribution
+                    binding.mapAttribution.isVisible = attribution != null
+                }
+            }
         }
     }
 

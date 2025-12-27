@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.pickers.Pickers
@@ -99,10 +100,12 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        useEffect(mapView, manager.key, attributionView) {
+        useBackgroundEffect(mapView, manager.key, attributionView) {
             val attribution = mapView.getAttribution(context)
-            attributionView.text = attribution
-            attributionView.isVisible = attribution != null
+            onMain {
+                attributionView.text = attribution
+                attributionView.isVisible = attribution != null
+            }
         }
 
         val layerEditSheet = useMemo(prefs) {
