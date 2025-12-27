@@ -11,8 +11,9 @@ class MapLayerFactory {
         context: Context,
         taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
     ): ILayer? {
+        // TODO: This is where it would check the layer ID to see if it is a plugin and create a plugin layer
+        // The plugin layer IDs should use a consistent format like plugin__package_name__layer_id__tile / plugin__package_name__layer_id__feature
         val registry = AppServiceRegistry.get<MapLayerRegistry>()
-        // This is where it would check the layer ID to see if it is a plugin
         return registry.getLayerDefinition(layerId)?.create(context, taskRunner)
     }
 
