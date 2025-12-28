@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
 import android.content.Context
+import com.kylecorry.luna.cache.MemoryCachedValue
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
@@ -27,19 +28,23 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
     IWaterLevelCalculator {
     private val range = TideTableRangeCalculator().getRange(table)
     private val tides = table.tides.sortedBy { it.time }.map { populateHeight(it) }
-    private val piecewise by lazy { generatePiecewiseCalculator() }
+    private val piecewise = MemoryCachedValue<IWaterLevelCalculator>()
     private val ocean = OceanographyService()
     private val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
     private val locationSubsystem = LocationSubsystem.getInstance(context)
-    private val harmonic by lazy { getHarmonicCalculator() }
+    private val harmonic = MemoryCachedValue<IWaterLevelCalculator?>()
     private val lunitidal by lazy { getLunitidalCalculator() }
     var location: Coordinate? = table.location
         private set
 
-    override fun calculate(time: ZonedDateTime): Float {
+    override fun calculate(time: ZonedDateTime): Float = runBlocking {
+        calculateSuspend(time)
+    }
+
+    suspend fun calculateSuspend(time: ZonedDateTime): Float {
         // Harmonic tides don't require a table
         if (tides.isEmpty() && (table.estimator == TideEstimator.Harmonic || table.estimator == TideEstimator.TideModel)) {
-            return harmonic?.calculate(time) ?: 0f
+            return getHarmonicCalculator()?.calculate(time) ?: 0f
         }
 
         // Lunitidal tides don't require a table if the interval is specified
@@ -47,26 +52,28 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
             return lunitidal?.calculate(time) ?: 0f
         }
 
-        return if (tides.isEmpty()) 0f else piecewise.calculate(time)
+        return if (tides.isEmpty()) 0f else generatePiecewiseCalculator().calculate(time)
     }
 
-    private fun generatePiecewiseCalculator(): IWaterLevelCalculator {
-        val calculators = mutableListOf(
-            Range(MIN_TIME, tides.first().time) to getGapCalculator2(null, tides.first()),
-            Range(tides.last().time, MAX_TIME) to getGapCalculator2(tides.last(), null)
-        )
-
-        val tableCalculators = tides.zipWithNext().map {
-            val range = Range(it.first.time, it.second.time)
-            range to getGapCalculator2(
-                it.first,
-                it.second
+    private suspend fun generatePiecewiseCalculator(): IWaterLevelCalculator {
+        return piecewise.getOrPut {
+            val calculators = mutableListOf(
+                Range(MIN_TIME, tides.first().time) to getGapCalculator2(null, tides.first()),
+                Range(tides.last().time, MAX_TIME) to getGapCalculator2(tides.last(), null)
             )
+
+            val tableCalculators = tides.zipWithNext().map {
+                val range = Range(it.first.time, it.second.time)
+                range to getGapCalculator2(
+                    it.first,
+                    it.second
+                )
+            }
+
+            calculators.addAll(tableCalculators)
+
+            PiecewiseWaterLevelCalculator(calculators)
         }
-
-        calculators.addAll(tableCalculators)
-
-        return PiecewiseWaterLevelCalculator(calculators)
     }
 
     private fun hasGap(first: Tide, second: Tide): Boolean {
@@ -76,7 +83,7 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
         return first.isHigh == second.isHigh || period > maxPeriod
     }
 
-    private fun getGapCalculator2(
+    private suspend fun getGapCalculator2(
         first: Tide?,
         second: Tide?
     ): IWaterLevelCalculator {
@@ -142,8 +149,8 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
         return getGapCalculator(first, second).second
     }
 
-    private fun getEstimateCalculator(referenceTide: Tide): IWaterLevelCalculator {
-        return harmonic ?: lunitidal ?: getClockCalculator(
+    private suspend fun getEstimateCalculator(referenceTide: Tide): IWaterLevelCalculator {
+        return getHarmonicCalculator() ?: lunitidal ?: getClockCalculator(
             referenceTide
         )
     }
@@ -214,29 +221,29 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
         )
     }
 
-    private fun getHarmonicCalculator(): IWaterLevelCalculator? {
-        if (table.estimator != TideEstimator.Harmonic && table.estimator != TideEstimator.TideModel) {
-            return null
-        }
+    private suspend fun getHarmonicCalculator(): IWaterLevelCalculator? {
+        return harmonic.getOrPut {
+            if (table.estimator != TideEstimator.Harmonic && table.estimator != TideEstimator.TideModel) {
+                return@getOrPut null
+            }
 
-        val harmonics = if (table.estimator == TideEstimator.Harmonic) {
-            table.harmonics
-        } else {
-            runBlocking {
+            val harmonics = if (table.estimator == TideEstimator.Harmonic) {
+                table.harmonics
+            } else {
                 val result = TideModel.getHarmonics(
                     context,
                     table.location ?: locationSubsystem.location
                 )
-                location = result?.location ?: location
+                location = result?.location
                 result?.harmonics ?: emptyList()
             }
-        }
 
-        if (harmonics.isEmpty()) {
-            return null
-        }
+            if (harmonics.isEmpty()) {
+                return@getOrPut null
+            }
 
-        return HarmonicWaterLevelCalculator(harmonics)
+            HarmonicWaterLevelCalculator(harmonics)
+        }
     }
 
     private fun getClockCalculator(tide: Tide): IWaterLevelCalculator {

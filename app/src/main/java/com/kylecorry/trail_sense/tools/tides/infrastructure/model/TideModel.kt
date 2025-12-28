@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.data.SingleImageReader
+import com.kylecorry.trail_sense.tools.map.infrastructure.LandModel
 import kotlin.math.roundToInt
 
 object TideModel {
@@ -103,7 +104,8 @@ object TideModel {
             return@onIO cached
         }
 
-        val actualLocation = source.getLocation(pixel)
+        val tideLocation = source.getLocation(pixel)
+        val actualLocation = LandModel.getNearestWater(context, tideLocation) ?: tideLocation
         val harmonics = load(context, pixel)
         val result = TideModelResult(actualLocation, harmonics)
         cache.put(pixel, result)
