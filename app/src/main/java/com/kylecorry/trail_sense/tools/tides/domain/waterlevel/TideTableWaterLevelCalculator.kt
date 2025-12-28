@@ -33,6 +33,8 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
     private val locationSubsystem = LocationSubsystem.getInstance(context)
     private val harmonic by lazy { getHarmonicCalculator() }
     private val lunitidal by lazy { getLunitidalCalculator() }
+    var location: Coordinate? = table.location
+        private set
 
     override fun calculate(time: ZonedDateTime): Float {
         // Harmonic tides don't require a table
@@ -221,10 +223,12 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
             table.harmonics
         } else {
             runBlocking {
-                TideModel.getHarmonics(
+                val result = TideModel.getHarmonics(
                     context,
                     table.location ?: locationSubsystem.location
                 )
+                location = result?.location ?: location
+                result?.harmonics ?: emptyList()
             }
         }
 

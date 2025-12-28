@@ -28,7 +28,7 @@ import kotlin.math.roundToInt
 object TideModel {
 
     // Cache
-    private val cache = LRUCache<PixelCoordinate, List<TidalHarmonic>>(size = 5)
+    private val cache = LRUCache<PixelCoordinate, TideModelResult>(size = 5)
     private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate?>(size = 20)
 
     // Image data source
@@ -80,7 +80,7 @@ object TideModel {
     suspend fun getHarmonics(
         context: Context,
         location: Coordinate
-    ): List<TidalHarmonic> = onIO {
+    ): TideModelResult? = onIO {
         val pixel = locationToPixelCache.getOrPut(
             Coordinate(
                 location.latitude.roundPlaces(1),
@@ -96,15 +96,18 @@ object TideModel {
                 hasValue = { it.red > 0 || it.green > 0 },
                 hasMappedValue = { it[0] > 0f || it[1] > 0f }
             )
+        } ?: return@onIO null
+
+        val cached = cache.get(pixel)
+        if (cached != null) {
+            return@onIO cached
         }
 
-        if (pixel == null) {
-            return@onIO emptyList()
-        }
-
-        cache.getOrPut(pixel) {
-            load(context, pixel)
-        }
+        val actualLocation = source.getLocation(pixel)
+        val harmonics = load(context, pixel)
+        val result = TideModelResult(actualLocation, harmonics)
+        cache.put(pixel, result)
+        result
     }
 
     private suspend fun load(

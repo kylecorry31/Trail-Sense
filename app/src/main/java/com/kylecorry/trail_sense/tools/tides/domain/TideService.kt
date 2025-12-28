@@ -6,8 +6,8 @@ import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
-import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
 import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
@@ -23,7 +23,7 @@ class TideService(private val context: Context) : ITideService {
 
     private val ocean = OceanographyService()
 
-    private val cache = mutableMapOf<TideTable, IWaterLevelCalculator>()
+    private val cache = mutableMapOf<TideTable, TideTableWaterLevelCalculator>()
 
     override fun getTides(table: TideTable, date: LocalDate, zone: ZoneId): List<Tide> {
         val start = date.atStartOfDay().toZonedDateTime(zone)
@@ -88,6 +88,13 @@ class TideService(private val context: Context) : ITideService {
         return getNextTide(table, time)?.isHigh ?: false
     }
 
+    override fun getLocation(table: TideTable): Coordinate? {
+        val calculator = getTableCalculator(table)
+        // Calculate to trigger model loading
+        calculator.calculate(ZonedDateTime.now())
+        return calculator.location
+    }
+
     private fun getNextTide(table: TideTable, time: ZonedDateTime, iteration: Int = 0): Tide? {
         if (iteration >= maxSearchIterations) {
             return null
@@ -102,7 +109,7 @@ class TideService(private val context: Context) : ITideService {
         )
     }
 
-    private fun getTableCalculator(table: TideTable): IWaterLevelCalculator {
+    private fun getTableCalculator(table: TideTable): TideTableWaterLevelCalculator {
         return cache.getOrPut(table) { TideTableWaterLevelCalculator(context, table) }
     }
 }

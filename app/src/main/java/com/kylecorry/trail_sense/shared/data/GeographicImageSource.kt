@@ -50,6 +50,20 @@ class GeographicImageSource(
         )
     }
 
+    fun getLocation(pixel: PixelCoordinate): Coordinate {
+        val imageSize = reader.getSize()
+        val horizontalRes = bounds.widthDegrees() / imageSize.width
+        val verticalRes = bounds.heightDegrees() / imageSize.height
+
+        val longitude = (pixel.x + valuePixelOffset) * horizontalRes + bounds.west
+        val latitude = bounds.north - (pixel.y + valuePixelOffset) * verticalRes
+
+        return Coordinate(
+            latitude.roundPlaces(precision),
+            longitude.roundPlaces(precision)
+        )
+    }
+
     suspend fun read(location: Coordinate): FloatArray = onIO {
         read(getPixel(location))
     }
