@@ -100,9 +100,8 @@ fun IMapView.setLayersWithPreferences(
     }
     val actualLayers =
         layersToPreference.filter {
-            it.second?.getBoolean(
-                DefaultMapLayerDefinitions.ENABLED
-            ) != false
+            it.second?.containsKey(DefaultMapLayerDefinitions.ENABLED) == false ||
+                    it.second?.getBoolean(DefaultMapLayerDefinitions.ENABLED) != false
         }
     actualLayers.forEach {
         it.second?.let { prefs ->
