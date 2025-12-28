@@ -1857,4 +1857,5 @@
     <string name="my_elevation">My elevation</string>
     <string name="draw_accurate_shadows">Draw accurate shadows</string>
     <string name="attribution">Attribution</string>
+    <string name="show_modeled_tides">Show modeled tides on coastline</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.map_layers
 
 import android.content.Context
+import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -22,8 +23,8 @@ import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 
 class TideGeoJsonSource : GeoJsonSource {
 
-    var showNearbyTides: Boolean = false
-    private val minZoomLevel = 5
+    var showModeledTides: Boolean = false
+    private val minZoomLevel = 8
     private val maxDistanceFromTideModel = Distance.kilometers(100f).meters().value
 
     override suspend fun load(
@@ -57,7 +58,8 @@ class TideGeoJsonSource : GeoJsonSource {
                 location,
                 icon = icon.id,
                 iconSize = 12f,
-                markerShape = null
+                color = Color.WHITE,
+                size = 11f,
             )
         }
 
@@ -68,7 +70,7 @@ class TideGeoJsonSource : GeoJsonSource {
         bounds: CoordinateBounds,
         metersPerPixel: Float
     ): List<TideTable> {
-        if (!showNearbyTides) {
+        if (!showModeledTides) {
             return emptyList()
         }
 

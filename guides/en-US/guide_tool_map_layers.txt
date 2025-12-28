@@ -59,6 +59,10 @@ This layer draws a line between your location and the destination point you are 
 ## Tides
 This layer shows visible tides. You can add new tides in the Tides tool.
 
+Settings:
+
+- **Show modeled tides on coastline**: If enabled, tides will be loaded from the built-in model on the coastline.
+
 ## My location
 This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS.
 

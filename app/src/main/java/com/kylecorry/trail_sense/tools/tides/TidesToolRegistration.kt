@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.tools.tides
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTideChart
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTides
@@ -36,7 +38,15 @@ object TidesToolRegistration : ToolRegistration {
             mapLayers = listOf(
                 MapLayerDefinition(
                     TideMapLayer.LAYER_ID,
-                    context.getString(R.string.tides)
+                    context.getString(R.string.tides),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            TideMapLayer.SHOW_MODELED_TIDES,
+                            context.getString(R.string.show_modeled_tides),
+                            MapLayerPreferenceType.Switch,
+                            defaultValue = false
+                        )
+                    )
                 ) { _, _ -> TideMapLayer() }
             ),
             widgets = listOf(
