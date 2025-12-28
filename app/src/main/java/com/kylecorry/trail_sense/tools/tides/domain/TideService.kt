@@ -101,8 +101,6 @@ class TideService(private val context: Context) {
 
     suspend fun getLocation(table: TideTable): Coordinate? {
         val calculator = getTableCalculator(table)
-        // Calculate to trigger model loading
-        calculator.calculate(ZonedDateTime.now())
         return calculator.location
     }
 
