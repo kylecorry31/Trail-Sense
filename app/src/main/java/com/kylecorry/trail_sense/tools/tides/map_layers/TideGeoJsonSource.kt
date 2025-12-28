@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.oceanography.TideType
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
@@ -25,7 +24,6 @@ class TideGeoJsonSource : GeoJsonSource {
 
     var showModeledTides: Boolean = false
     private val minZoomLevel = 8
-    private val maxDistanceFromTideModel = Distance.kilometers(100f).meters().value
 
     override suspend fun load(
         bounds: CoordinateBounds,
@@ -44,10 +42,6 @@ class TideGeoJsonSource : GeoJsonSource {
         val features = Parallel.map(tides) { table ->
             val type = currentTideCommand.execute(table)
             val location = table.location ?: return@map null
-            val calculatedLocation = tideService.getLocation(table) ?: return@map null
-            if (location != calculatedLocation && location.distanceTo(calculatedLocation) > maxDistanceFromTideModel) {
-                return@map null
-            }
             val icon = when (type) {
                 TideType.High -> BeaconIcon.TideHigh
                 TideType.Low -> BeaconIcon.TideLow

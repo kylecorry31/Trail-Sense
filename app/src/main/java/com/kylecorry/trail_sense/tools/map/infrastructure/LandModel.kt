@@ -42,8 +42,8 @@ object LandModel {
         context: Context,
         bounds: CoordinateBounds
     ): List<Coordinate> = onIO {
-        val minWaterNeighbors = 4
-        val minLandNeighbors = 2
+        val minWaterNeighbors = 1
+        val minLandNeighbors = 1
 
         val fileSystem = AssetFileSystem(context)
         val coastalLocations = mutableListOf<Coordinate>()
@@ -51,11 +51,17 @@ object LandModel {
         val topLeft = source.getPixel(Coordinate(bounds.north, bounds.west))
         val bottomRight = source.getPixel(Coordinate(bounds.south, bounds.east))
 
+        val right = if (topLeft.x > bottomRight.x) {
+            bottomRight.x + source.imageSize.width
+        } else {
+            bottomRight.x
+        }
+
         // Add padding for neighbors
         val rect = Rect(
             (topLeft.x.toInt() - 1),
             (topLeft.y.toInt() - 1),
-            (bottomRight.x.toInt() + 1),
+            (right.toInt() + 1),
             (bottomRight.y.toInt() + 1)
         )
 

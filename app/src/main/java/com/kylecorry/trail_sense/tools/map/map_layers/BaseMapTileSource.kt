@@ -56,10 +56,17 @@ class BaseMapTileSource : TileSource {
         isPixelPerfect = true,
         operations = listOf(
             Conditional(
-                SOURCE_MAP_COLOR_WATER != DESTINATION_MAP_COLOR_WATER,
+                SOURCE_MAP_COLOR_OCEAN != DESTINATION_MAP_COLOR_OCEAN,
                 ReplaceColor(
-                    SOURCE_MAP_COLOR_WATER,
-                    DESTINATION_MAP_COLOR_WATER
+                    SOURCE_MAP_COLOR_OCEAN,
+                    DESTINATION_MAP_COLOR_OCEAN
+                )
+            ),
+            Conditional(
+                SOURCE_MAP_COLOR_LAKES != DESTINATION_MAP_COLOR_LAKES,
+                ReplaceColor(
+                    SOURCE_MAP_COLOR_LAKES,
+                    DESTINATION_MAP_COLOR_LAKES
                 )
             ),
             Conditional(
@@ -102,12 +109,14 @@ class BaseMapTileSource : TileSource {
         private val SOURCE_MAP_COLOR_ROCK = Color.rgb(202, 195, 184)
         private val SOURCE_MAP_COLOR_GRASS = Color.rgb(189, 204, 150)
         private val SOURCE_MAP_COLOR_ICE = Color.rgb(245, 244, 242)
-        private const val SOURCE_MAP_COLOR_WATER = Color.BLACK
+        private const val SOURCE_MAP_COLOR_OCEAN = Color.BLACK
+        private val SOURCE_MAP_COLOR_LAKES = Color.rgb(127, 127, 127)
 
         private val DESTINATION_MAP_COLOR_DESERT = SOURCE_MAP_COLOR_DESERT
         private val DESTINATION_MAP_COLOR_ROCK = SOURCE_MAP_COLOR_ROCK
         private val DESTINATION_MAP_COLOR_GRASS = SOURCE_MAP_COLOR_GRASS
         private val DESTINATION_MAP_COLOR_ICE = SOURCE_MAP_COLOR_ICE
-        private val DESTINATION_MAP_COLOR_WATER = "#AAD3DF".toColorInt()
+        private val DESTINATION_MAP_COLOR_OCEAN = "#AAD3DF".toColorInt()
+        private val DESTINATION_MAP_COLOR_LAKES = "#AAD3DF".toColorInt()
     }
 }
