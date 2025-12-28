@@ -8,7 +8,8 @@ import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
-import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.math.interpolation.Interpolation
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -144,4 +145,26 @@ inline fun IntArray.get(x: Int, y: Int, width: Int): Int {
 
 inline fun IntArray.set(x: Int, y: Int, width: Int, value: Int) {
     this[y * width + x] = value
+}
+
+fun CoordinateBounds.grid(resolution: Double): List<Coordinate> {
+    val latitudes = Interpolation.getMultiplesBetween(
+        south - resolution,
+        north + resolution,
+        resolution
+    )
+
+    val longitudes = Interpolation.getMultiplesBetween(
+        west - resolution,
+        (if (west < east) east else east + 360) + resolution,
+        resolution
+    )
+
+    val points = mutableListOf<Coordinate>()
+    for (lat in latitudes) {
+        for (lon in longitudes) {
+            points.add(Coordinate(lat, lon))
+        }
+    }
+    return points
 }
