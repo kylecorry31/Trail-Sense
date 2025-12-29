@@ -28,7 +28,7 @@ import kotlin.math.hypot
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    private val minZoomLevel: Int? = null
+    private var minZoomLevel: Int? = null
 ) : IAsyncLayer {
 
     private var shouldReloadTiles = true
@@ -52,6 +52,11 @@ abstract class TileMapLayer<T : TileSource>(
 
     open fun setBackgroundColor(color: Int) {
         this.backgroundColor = color
+        shouldReloadTiles = true
+    }
+
+    fun setMinZoomLevel(level: Int) {
+        minZoomLevel = level
         shouldReloadTiles = true
     }
 

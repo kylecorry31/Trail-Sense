@@ -77,6 +77,7 @@ class PhotoMapToolLayerManager {
 
         photoMapLayer = view.getLayer<PhotoMapLayer>()
         photoMapLayer?.setPhotoMapFilter { it.id == photoMapId }
+        photoMapLayer?.setMinZoomLevel(0)
         view.getLayer<BeaconLayer>()?.onClick = {
             onBeaconClick?.invoke(it)
             true
