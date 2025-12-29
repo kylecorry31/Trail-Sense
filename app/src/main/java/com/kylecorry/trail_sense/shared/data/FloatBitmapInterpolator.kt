@@ -11,23 +11,33 @@ class FloatBitmapInterpolator(interpolationOrder: Int) {
         NearestInterpolator()
     )
 
-    fun getValue(bitmap: FloatBitmap, rect: Rect, x: Float, y: Float): FloatArray {
+    fun getValue(
+        bitmap: FloatBitmap,
+        rect: Rect,
+        x: Float,
+        y: Float,
+        dest: FloatArray,
+        destOffset: Int = 0
+    ) {
         if (bitmap.width == 0 || bitmap.height == 0 || bitmap.channels == 0) {
-            return FloatArray(0)
+            return
         }
 
-        val interpolated = FloatArray(bitmap.channels)
         val localPixel = PixelCoordinate(
             x - rect.left,
             y - rect.top
         )
 
-        for (i in interpolated.indices) {
-            interpolated[i] = interpolators.firstNotNullOfOrNull {
+        for (i in 0 until bitmap.channels) {
+            dest[destOffset + i] = interpolators.firstNotNullOfOrNull {
                 it.interpolate(localPixel, bitmap, i)
             } ?: 0f
         }
+    }
 
+    fun getValue(bitmap: FloatBitmap, rect: Rect, x: Float, y: Float): FloatArray {
+        val interpolated = FloatArray(bitmap.channels)
+        getValue(bitmap, rect, x, y, interpolated)
         return interpolated
     }
 }

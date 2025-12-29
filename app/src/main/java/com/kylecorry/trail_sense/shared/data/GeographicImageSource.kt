@@ -36,17 +36,22 @@ class GeographicImageSource(
     private val interpolationOrder: Int = 1
 ) {
     val imageSize = reader.getSize()
+    private val horizontalRes = bounds.widthDegrees() / imageSize.width
+    private val verticalRes = bounds.heightDegrees() / imageSize.height
+    private val west = bounds.west + horizontalRes * valuePixelOffset
+    private val north = bounds.north - verticalRes * valuePixelOffset
+
+    private fun getX(longitude: Double): Double {
+        return (longitude - west) / horizontalRes
+    }
+
+    private fun getY(latitude: Double): Double {
+        return (north - latitude) / verticalRes
+    }
 
     fun getPixel(location: Coordinate): PixelCoordinate {
-        val imageSize = reader.getSize()
-        var x: Double
-        var y: Double
-
-        val horizontalRes = bounds.widthDegrees() / imageSize.width
-        val verticalRes = bounds.heightDegrees() / imageSize.height
-        x =
-            (location.longitude - (bounds.west + horizontalRes * valuePixelOffset)) / horizontalRes
-        y = ((bounds.north - verticalRes * valuePixelOffset) - location.latitude) / verticalRes
+        var x = getX(location.longitude)
+        var y = getY(location.latitude)
 
         if (x.isNaN()) {
             x = 0.0
@@ -87,6 +92,93 @@ class GeographicImageSource(
 
     suspend fun read(pixel: PixelCoordinate): FloatArray = onIO {
         read(listOf(pixel)).first().second
+    }
+
+    suspend fun read(
+        latitudes: DoubleArray,
+        longitudes: DoubleArray,
+        output: FloatBitmap
+    ) = onIO {
+        var minX = Float.MAX_VALUE
+        var minY = Float.MAX_VALUE
+        var maxX = Float.MIN_VALUE
+        var maxY = Float.MIN_VALUE
+
+        // Pre-calculate Y pixels
+        val yPixels = FloatArray(latitudes.size)
+        val yInside = BooleanArray(latitudes.size)
+        for (i in latitudes.indices) {
+            val lat = latitudes[i]
+            if (!bounds.containsLatitude(lat)) {
+                yInside[i] = false
+                continue
+            }
+            val y = getY(lat).toFloat()
+            yPixels[i] = y
+            yInside[i] = true
+            if (y < minY) minY = y
+            if (y > maxY) maxY = y
+        }
+
+        if (minY == Float.MAX_VALUE) {
+            return@onIO
+        }
+
+        // Pre-calculate X pixels
+        val xPixels = FloatArray(longitudes.size)
+        val xInside = BooleanArray(longitudes.size)
+        for (i in longitudes.indices) {
+            val lon = longitudes[i]
+            if (!bounds.containsLongitude(lon)) {
+                xInside[i] = false
+                continue
+            }
+            val x = getX(lon).toFloat()
+            xPixels[i] = x
+            xInside[i] = true
+            if (x < minX) minX = x
+            if (x > maxX) maxX = x
+        }
+
+        if (minX == Float.MAX_VALUE) {
+            return@onIO
+        }
+
+        // Read the region and add padding for interpolation
+        val left = (floor(minX).toInt() - interpolationOrder).coerceAtLeast(0)
+        val top = (floor(minY).toInt() - interpolationOrder).coerceAtLeast(0)
+        val right = (floor(maxX).toInt() + 1 + interpolationOrder).coerceAtMost(imageSize.width)
+        val bottom = (floor(maxY).toInt() + 1 + interpolationOrder).coerceAtMost(imageSize.height)
+
+        if (right <= left || bottom <= top) {
+            return@onIO
+        }
+
+        val rect = Rect(left, top, right, bottom)
+        val (pixelGrid, hasData) = reader.getRegion(rect) ?: return@onIO
+
+        if (!hasData) {
+            return@onIO
+        }
+
+        val interpolator = FloatBitmapInterpolator(interpolationOrder)
+        val outputData = output.data
+        val outputWidth = output.width
+        val channels = output.channels
+
+        // Interpolate
+        for (yIdx in latitudes.indices) {
+            if (!yInside[yIdx]) continue
+            val y = yPixels[yIdx]
+
+            for (xIdx in longitudes.indices) {
+                if (!xInside[xIdx]) continue
+                val x = xPixels[xIdx]
+
+                val outputOffset = (yIdx * outputWidth + xIdx) * channels
+                interpolator.getValue(pixelGrid, rect, x, y, outputData, outputOffset)
+            }
+        }
     }
 
     suspend fun read(pixels: List<PixelCoordinate>): List<Pair<PixelCoordinate, FloatArray>> =

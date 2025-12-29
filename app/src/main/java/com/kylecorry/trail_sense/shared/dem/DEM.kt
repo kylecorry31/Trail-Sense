@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.dem
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.util.Log
 import android.util.Size
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
@@ -27,6 +26,7 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
+import com.kylecorry.trail_sense.shared.data.FloatBitmap
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.data.LocalInputStreamable
 import com.kylecorry.trail_sense.shared.data.SingleImageReader
@@ -44,61 +44,26 @@ object DEM {
     private const val CACHE_DISTANCE = 10f
     private const val CACHE_SIZE = 500
     private var cache = GeospatialCache<Float>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
-    private val multiElevationLookupLock = Mutex()
-    private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
+    private var pixelCache = LRUCache<String, FloatBitmap>(1)
     private var cachedSources: List<GeographicImageSource>? = null
     private var cachedIsExternal: Boolean? = null
     private val sourcesLock = Mutex()
 
     suspend fun getElevation(location: Coordinate): Float = onDefault {
         cache.getOrPut(location) {
-            lookupElevations(listOf(location))[location]
-                ?: 0f
+            val source = getSources().firstOrNull { it.contains(location) } ?: return@getOrPut 0f
+            onIO {
+                tryOrDefault(0f) {
+                    source.read(location).first()
+                }
+            }
         }
     }
 
-    private suspend fun getElevations(
-        locations: List<Coordinate>,
-        limitToBounds: CoordinateBounds
-    ): Map<Coordinate, Float> =
-        onDefault {
-            // It is less performant to use the cache for large numbers of locations
-            val shouldUseCache = locations.size < 20
-            multiElevationLookupLock.withLock {
-                val results = mutableMapOf<Coordinate, Float>()
-                val cachedLocations = mutableSetOf<Coordinate>()
-
-                if (shouldUseCache) {
-                    val cached = cache.getAll(locations)
-                    if (cached.isNotEmpty()) {
-                        cachedLocations.addAll(cached.keys)
-                        results.putAll(cached)
-                    }
-                }
-
-                val remaining = if (shouldUseCache) {
-                    locations.filter { it !in cachedLocations }
-                } else {
-                    locations
-                }
-                val elevations = lookupElevations(remaining, limitToBounds)
-                if (shouldUseCache) {
-                    cache.putAll(elevations)
-                }
-
-                results.putAll(elevations)
-
-                if (remaining.isNotEmpty()) {
-                    Log.d("DEM", "Looked up ${remaining.size} locations not in cache")
-                }
-                results
-            }
-        }
-
-    private suspend fun getElevationGrid(
+    private suspend fun getElevationPixels(
         bounds: CoordinateBounds,
         resolution: Double
-    ): List<List<Pair<Coordinate, Float>>> = onDefault {
+    ): FloatBitmap = onDefault {
         val latitudes = Interpolation.getMultiplesBetween2(
             bounds.south - resolution,
             bounds.north + resolution,
@@ -111,24 +76,25 @@ object DEM {
             resolution
         )
 
-        gridCache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
-            val toLookupCoordinates = ArrayList<Coordinate>(latitudes.size * longitudes.size)
-            latitudes.forEach { lat ->
-                longitudes.forEach { lon ->
-                    toLookupCoordinates.add(Coordinate(lat, Coordinate.toLongitude(lon)))
-                }
+        pixelCache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
+            val width = longitudes.size
+            val height = latitudes.size
+            val output = FloatBitmap(width, height, 1)
+
+            val sources = getSources().filter { it.bounds.intersects(bounds) }
+
+            for (i in longitudes.indices) {
+                longitudes[i] = Coordinate.toLongitude(longitudes[i])
             }
 
-            val allElevations = getElevations(toLookupCoordinates, bounds)
-            var i = 0
-            latitudes.map {
-                longitudes.map {
-                    val location = toLookupCoordinates[i++]
-                    location to (allElevations[location] ?: 0f)
-                }
+            for (i in sources.indices) {
+                sources[i].read(latitudes, longitudes, output)
             }
+
+            output
         }
     }
+
 
     /**
      * Get contour lines using marching squares
@@ -138,19 +104,41 @@ object DEM {
         interval: Float,
         resolution: Double,
     ): List<Contour> = onDefault {
-        val grid = getElevationGrid(bounds, resolution)
+        val pixels = getElevationPixels(bounds, resolution)
+
+        val latitudes = Interpolation.getMultiplesBetween2(
+            bounds.south - resolution,
+            bounds.north + resolution,
+            resolution
+        )
+
+        val longitudes = Interpolation.getMultiplesBetween2(
+            bounds.west - resolution,
+            (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution,
+            resolution
+        )
 
         var minElevation = Float.MAX_VALUE
         var maxElevation = Float.MIN_VALUE
-        for (row in grid) {
-            for (point in row) {
-                if (point.second < minElevation) {
-                    minElevation = point.second
+
+        val grid = ArrayList<List<Pair<Coordinate, Float>>>(latitudes.size)
+        for (y in latitudes.indices) {
+            val row = ArrayList<Pair<Coordinate, Float>>(longitudes.size)
+            val lat = latitudes[y]
+            for (x in longitudes.indices) {
+                val lon = Coordinate.toLongitude(longitudes[x])
+                val value = pixels.get(x, y, 0)
+
+                if (value < minElevation) {
+                    minElevation = value
                 }
-                if (point.second > maxElevation) {
-                    maxElevation = point.second
+                if (value > maxElevation) {
+                    maxElevation = value
                 }
+
+                row.add(Coordinate(lat, lon) to value)
             }
+            grid.add(row)
         }
 
         val thresholds = Interpolation.getMultiplesBetween(
@@ -183,28 +171,28 @@ object DEM {
         }
     ): Bitmap = onDefault {
         val expandBy = 1
-        val grid = getElevationGrid(bounds, resolution)
-        val width = grid[0].size - expandBy * 2
-        val height = grid.size - expandBy * 2
+        val grid = getElevationPixels(bounds, resolution)
+        val width = grid.width - expandBy * 2
+        val height = grid.height - expandBy * 2
         val pixels = IntArray(height * width)
 
         try {
             var minElevation = Float.MAX_VALUE
             var maxElevation = Float.MIN_VALUE
-            for (row in grid) {
-                for (point in row) {
-                    if (point.second < minElevation) {
-                        minElevation = point.second
-                    }
-                    if (point.second > maxElevation) {
-                        maxElevation = point.second
-                    }
+            val data = grid.data
+            for (i in data.indices) {
+                val elevation = data[i]
+                if (elevation < minElevation) {
+                    minElevation = elevation
+                }
+                if (elevation > maxElevation) {
+                    maxElevation = elevation
                 }
             }
 
-            for (y in expandBy..grid.lastIndex - expandBy) {
-                for (x in expandBy..grid[y].lastIndex - expandBy) {
-                    val color = colorMap(grid[y][x].second, minElevation, maxElevation)
+            for (y in expandBy until grid.height - expandBy) {
+                for (x in expandBy until grid.width - expandBy) {
+                    val color = colorMap(grid.get(x, y, 0), minElevation, maxElevation)
                     pixels.set(x - expandBy, y - expandBy, width, color)
                 }
             }
@@ -224,14 +212,14 @@ object DEM {
         sampleSpacing: Float = 3f
     ): Bitmap = onDefault {
         val expandBy = 1
-        val grid = getElevationGrid(bounds, resolution)
-        val width = grid[0].size - expandBy * 2
-        val height = grid.size - expandBy * 2
+        val grid = getElevationPixels(bounds, resolution)
+        val width = grid.width - expandBy * 2
+        val height = grid.height - expandBy * 2
         val pixels = IntArray(width * height)
 
         try {
             val getElevation = { x: Int, y: Int ->
-                grid[y.coerceIn(grid.indices)][x.coerceIn(grid[0].indices)].second
+                grid.get(x.coerceIn(0, grid.width - 1), y.coerceIn(0, grid.height - 1), 0)
             }
 
             val cellSizeX = (resolution * 111319.5 * cosDegrees(bounds.center.latitude))
@@ -248,8 +236,8 @@ object DEM {
             val cosZenith = cos(zenithRad)
             val sinZenith = sin(zenithRad)
 
-            for (y in expandBy..grid.lastIndex - expandBy) {
-                for (x in expandBy..grid[y].lastIndex - expandBy) {
+            for (y in expandBy until grid.height - expandBy) {
+                for (x in expandBy until grid.width - expandBy) {
                     val a = getElevation(x - 1, y - 1)
                     val b = getElevation(x, y - 1)
                     val c = getElevation(x + 1, y - 1)
@@ -352,48 +340,6 @@ object DEM {
             sources
         }
     }
-
-    // TODO: If at the border of a tile, load the nearby pixels as well
-    private suspend fun lookupElevations(
-        locations: List<Coordinate>,
-        limitToBounds: CoordinateBounds = CoordinateBounds.from(locations)
-    ): Map<Coordinate, Float> =
-        onIO {
-            if (locations.isEmpty()) {
-                return@onIO emptyMap()
-            }
-
-            val sources = getSources().filter { it.bounds.intersects(limitToBounds) }
-
-            val lookups =
-                locations.groupBy { location -> sources.firstOrNull { it.contains(location) } }
-
-            val elevations = mutableMapOf<Coordinate, Float>()
-            for (lookup in lookups) {
-                if (lookup.key == null) {
-                    lookup.value.forEach {
-                        elevations[it] = 0f
-                    }
-                    continue
-                }
-
-                val coordinates =
-                    lookup.value.associateBy { lookup.key!!.getPixel(it) }
-
-                tryOrDefault(Distance.meters(0f)) {
-                    // TODO: Load pixels without interpolation and interpolate later - or add a multi image lookup?
-                    val readings = lookup.key!!.read(coordinates.keys.toList())
-
-                    readings.forEach {
-                        val coordinate = coordinates[it.first] ?: return@forEach
-                        elevations[coordinate] = it.second.first()
-                    }
-                }
-            }
-
-
-            elevations
-        }
 
     fun invalidateCache() {
         cache = GeospatialCache(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
