@@ -15,8 +15,14 @@ class EncodedDataImageReader(
     private val reader: ImageReader,
     private val treatZeroAsNaN: Boolean = false,
     private val maxChannels: Int? = null,
-    private val decoder: (Int) -> FloatArray = { floatArrayOf(it.toFloat()) }
+    private val decoder: PixelDecoder = defaultDecoder
 ) : DataImageReader {
+
+    interface PixelDecoder {
+        val channels: Int
+        fun decode(pixel: Int, dest: FloatArray)
+    }
+
     override fun getSize(): Size {
         return reader.getSize()
     }
@@ -29,27 +35,29 @@ class EncodedDataImageReader(
             val w = width
             val h = height
             val channels = if (maxChannels != null) {
-                val firstPixel = if (pixels.isNotEmpty()) decoder(pixels[0]) else floatArrayOf()
-                minOf(firstPixel.size, maxChannels)
+                minOf(decoder.channels, maxChannels)
             } else {
-                if (pixels.isNotEmpty()) decoder(pixels[0]).size else 0
+                decoder.channels
             }
 
             pixelGrid = FloatBitmap(w, h, channels)
+            val data = pixelGrid.data
+            val buffer = FloatArray(decoder.channels)
+            var idx = 0
+
             for (y in 0 until h) {
                 for (x in 0 until w) {
                     val pixel = pixels[y * w + x]
-                    val decoded = decoder(pixel)
+                    decoder.decode(pixel, buffer)
                     for (i in 0 until channels) {
-                        val value = if (i < decoded.size) decoded[i] else Float.NaN
-                        val finalValue =
-                            if ((treatZeroAsNaN && SolMath.isZero(value)) || value.isNaN()) {
-                                Float.NaN
-                            } else {
-                                isAllNaN = false
-                                value
-                            }
-                        pixelGrid.set(x, y, i, finalValue)
+                        val value = buffer[i]
+                        val finalValue = if ((treatZeroAsNaN && SolMath.isZero(value)) || value.isNaN()) {
+                            Float.NaN
+                        } else {
+                            isAllNaN = false
+                            value
+                        }
+                        data[idx++] = finalValue
                     }
                 }
             }
@@ -64,42 +72,53 @@ class EncodedDataImageReader(
 
     companion object {
 
+        val defaultDecoder = object : PixelDecoder {
+            override val channels = 1
+            override fun decode(pixel: Int, dest: FloatArray) {
+                dest[0] = pixel.toFloat()
+            }
+        }
+
         fun scaledDecoder(
             a: Double,
             b: Double,
             convertZero: Boolean = true
-        ): (Int) -> FloatArray {
-            return {
-                val red = it.red.toFloat()
-                val green = it.green.toFloat()
-                val blue = it.blue.toFloat()
-                val alpha = it.alpha.toFloat()
+        ): PixelDecoder {
+            return object : PixelDecoder {
+                override val channels = 4
+                override fun decode(pixel: Int, dest: FloatArray) {
+                    val red = pixel.red.toFloat()
+                    val green = pixel.green.toFloat()
+                    val blue = pixel.blue.toFloat()
+                    val alpha = pixel.alpha.toFloat()
 
-                if (!convertZero && red == 0f && green == 0f && blue == 0f) {
-                    floatArrayOf(0f, 0f, 0f, alpha)
-                } else {
-                    floatArrayOf(
-                        (red / a - b).toFloat(),
-                        (green / a - b).toFloat(),
-                        (blue / a - b).toFloat(),
-                        (alpha / a - b).toFloat()
-                    )
+                    if (!convertZero && red == 0f && green == 0f && blue == 0f) {
+                        dest[0] = 0f
+                        dest[1] = 0f
+                        dest[2] = 0f
+                        dest[3] = alpha
+                    } else {
+                        dest[0] = (red / a - b).toFloat()
+                        dest[1] = (green / a - b).toFloat()
+                        dest[2] = (blue / a - b).toFloat()
+                        dest[3] = (alpha / a - b).toFloat()
+                    }
                 }
             }
         }
 
-        fun split16BitDecoder(a: Double = 1.0, b: Double = 0.0): (Int) -> FloatArray {
-            return {
-                val red = it.red
-                val green = it.green
-                val blue = it.blue
-                val alpha = it.alpha
+        fun split16BitDecoder(a: Double = 1.0, b: Double = 0.0): PixelDecoder {
+            return object : PixelDecoder {
+                override val channels = 2
+                override fun decode(pixel: Int, dest: FloatArray) {
+                    val red = pixel.red
+                    val green = pixel.green
+                    val blue = pixel.blue
+                    val alpha = pixel.alpha
 
-                floatArrayOf(
-                    ((green shl 8 or red).toDouble() / a - b).toFloat(),
-                    ((alpha shl 8 or blue).toDouble() / a - b).toFloat()
-                )
-
+                    dest[0] = ((green shl 8 or red).toDouble() / a - b).toFloat()
+                    dest[1] = ((alpha shl 8 or blue).toDouble() / a - b).toFloat()
+                }
             }
         }
 

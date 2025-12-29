@@ -17,12 +17,12 @@ class FloatBitmapInterpolator(interpolationOrder: Int) {
         }
 
         val interpolated = FloatArray(bitmap.channels)
+        val localPixel = PixelCoordinate(
+            x - rect.left,
+            y - rect.top
+        )
 
         for (i in interpolated.indices) {
-            val localPixel = PixelCoordinate(
-                x - rect.left,
-                y - rect.top
-            )
             interpolated[i] = interpolators.firstNotNullOfOrNull {
                 it.interpolate(localPixel, bitmap, i)
             } ?: 0f

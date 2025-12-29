@@ -119,6 +119,8 @@ class BilinearInterpolator : PixelInterpolator {
 }
 
 class BicubicInterpolator : PixelInterpolator {
+    private val rowVals = FloatArray(4)
+
     private fun cubic(t: Float): Float {
         val tAbs = abs(t)
         return when {
@@ -142,7 +144,6 @@ class BicubicInterpolator : PixelInterpolator {
         val fx = x - xInt
         val fy = y - yInt
 
-        val rowVals = FloatArray(4)
         for (i in 0 until 4) {
             var value = 0f
             for (j in 0 until 4) {

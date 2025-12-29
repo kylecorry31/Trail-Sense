@@ -9,7 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import kotlin.math.floor
 
 class FloatBitmap(val width: Int, val height: Int, val channels: Int) {
-    private val data = FloatArray(width * height * channels)
+    internal val data = FloatArray(width * height * channels)
 
     fun get(x: Int, y: Int, channel: Int): Float {
         return data[(y * width + x) * channels + channel]
@@ -96,10 +96,10 @@ class GeographicImageSource(
             val regions = partitionPixels(pixels)
             // TODO: Move the interpolation out of this class?
             val results = mutableListOf<Pair<PixelCoordinate, FloatArray>>()
+            val interpolator = FloatBitmapInterpolator(interpolationOrder)
             for (region in regions) {
                 val rect = getRect(region, interpolationOrder) ?: continue
                 val (pixelGrid, hasData) = reader.getRegion(rect) ?: continue
-                val interpolator = FloatBitmapInterpolator(interpolationOrder)
                 val empty = FloatArray(pixelGrid.channels)
                 for (pixel in region) {
                     var interpolated = empty
