@@ -46,6 +46,9 @@ object DEM {
     private var cache = GeospatialCache<Float>(Distance.meters(cacheDistance), size = cacheSize)
     private val multiElevationLookupLock = Mutex()
     private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
+    private var cachedSources: List<GeographicImageSource>? = null
+    private var cachedIsExternal: Boolean? = null
+    private val sourcesLock = Mutex()
 
     suspend fun getElevation(location: Coordinate): Float = onDefault {
         cache.getOrPut(location) {
@@ -285,51 +288,60 @@ object DEM {
     }
 
     private suspend fun getSources(): List<GeographicImageSource> = onIO {
-        // TODO: Cache this
-        // Clean the repo before getting sources
-        DEMRepo.getInstance().clean()
-        val isExternal = isExternalModel()
-        val tiles = if (isExternal) {
-            val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
-            database.getAll()
-        } else {
-            BuiltInDem.getTiles()
-        }
-
-        tiles.map {
-            val valuePixelOffset = if (isExternal) {
-                0.5f
-            } else {
-                // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
-                0.7f
+        sourcesLock.withLock {
+            // Clean the repo before getting sources
+            DEMRepo.getInstance().clean()
+            val isExternal = isExternalModel()
+            val previousSources = cachedSources
+            if (previousSources != null && cachedIsExternal == isExternal) {
+                return@onIO previousSources
             }
-            // TODO: Support tiles with different decoders or an aggregated geographic image source
-            GeographicImageSource(
-                EncodedDataImageReader(
-                    SingleImageReader(
-                        Size(it.width, it.height), if (!isExternal) {
-                            AssetInputStreamable(it.filename)
-                        } else {
-                            LocalInputStreamable(it.filename)
-                        }
+
+            val tiles = if (isExternal) {
+                val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
+                database.getAll()
+            } else {
+                BuiltInDem.getTiles()
+            }
+
+            val sources = tiles.map {
+                val valuePixelOffset = if (isExternal) {
+                    0.5f
+                } else {
+                    // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
+                    0.7f
+                }
+                // TODO: Support tiles with different decoders or an aggregated geographic image source
+                GeographicImageSource(
+                    EncodedDataImageReader(
+                        SingleImageReader(
+                            Size(it.width, it.height), if (!isExternal) {
+                                AssetInputStreamable(it.filename)
+                            } else {
+                                LocalInputStreamable(it.filename)
+                            }
+                        ),
+                        decoder = if (it.compressionMethod == "8-bit") EncodedDataImageReader.scaledDecoder(
+                            it.a,
+                            it.b
+                        ) else EncodedDataImageReader.split16BitDecoder(it.a, it.b),
+                        treatZeroAsNaN = true,
+                        maxChannels = 1
                     ),
-                    decoder = if (it.compressionMethod == "8-bit") EncodedDataImageReader.scaledDecoder(
-                        it.a,
-                        it.b
-                    ) else EncodedDataImageReader.split16BitDecoder(it.a, it.b),
-                    treatZeroAsNaN = true,
-                    maxChannels = 1
-                ),
-                bounds = CoordinateBounds(
-                    it.north,
-                    it.east,
-                    it.south,
-                    it.west
-                ),
-                precision = 10,
-                valuePixelOffset = valuePixelOffset,
-                interpolationOrder = 2,
-            )
+                    bounds = CoordinateBounds(
+                        it.north,
+                        it.east,
+                        it.south,
+                        it.west
+                    ),
+                    precision = 10,
+                    valuePixelOffset = valuePixelOffset,
+                    interpolationOrder = 2,
+                )
+            }
+            cachedSources = sources
+            cachedIsExternal = isExternal
+            sources
         }
     }
 
@@ -377,6 +389,8 @@ object DEM {
 
     fun invalidateCache() {
         cache = GeospatialCache(Distance.meters(cacheDistance), size = cacheSize)
+        cachedSources = null
+        cachedIsExternal = null
     }
 
     fun isExternalModel(): Boolean {
