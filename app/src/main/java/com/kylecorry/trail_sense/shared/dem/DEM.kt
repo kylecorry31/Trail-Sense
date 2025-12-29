@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.luna.cache.LRUCache
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
+import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
@@ -41,9 +41,9 @@ import kotlin.math.hypot
 import kotlin.math.sin
 
 object DEM {
-    private val cacheDistance = 10f
-    private val cacheSize = 500
-    private var cache = GeospatialCache<Float>(Distance.meters(cacheDistance), size = cacheSize)
+    private const val CACHE_DISTANCE = 10f
+    private const val CACHE_SIZE = 500
+    private var cache = GeospatialCache<Float>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
     private val multiElevationLookupLock = Mutex()
     private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
     private var cachedSources: List<GeographicImageSource>? = null
@@ -121,8 +121,8 @@ object DEM {
 
             val allElevations = getElevations(toLookupCoordinates, bounds)
             var i = 0
-            latitudes.map { lat ->
-                longitudes.map { lon ->
+            latitudes.map {
+                longitudes.map {
                     val location = toLookupCoordinates[i++]
                     location to (allElevations[location] ?: 0f)
                 }
@@ -140,8 +140,18 @@ object DEM {
     ): List<Contour> = onDefault {
         val grid = getElevationGrid(bounds, resolution)
 
-        val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
-        val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
+        var minElevation = Float.MAX_VALUE
+        var maxElevation = Float.MIN_VALUE
+        for (row in grid) {
+            for (point in row) {
+                if (point.second < minElevation) {
+                    minElevation = point.second
+                }
+                if (point.second > maxElevation) {
+                    maxElevation = point.second
+                }
+            }
+        }
 
         val thresholds = Interpolation.getMultiplesBetween(
             minElevation,
@@ -149,9 +159,7 @@ object DEM {
             interval
         )
 
-        val parallelThresholds = ParallelCoroutineRunner(16)
-        parallelThresholds.map(thresholds) { threshold ->
-
+        Parallel.map(thresholds) { threshold ->
             val segments = Interpolation.getIsoline(
                 grid,
                 threshold,
@@ -388,7 +396,7 @@ object DEM {
         }
 
     fun invalidateCache() {
-        cache = GeospatialCache(Distance.meters(cacheDistance), size = cacheSize)
+        cache = GeospatialCache(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
         cachedSources = null
         cachedIsExternal = null
     }

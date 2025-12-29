@@ -12,11 +12,11 @@ class FloatBitmapInterpolator(interpolationOrder: Int) {
     )
 
     fun getValue(bitmap: FloatBitmap, rect: Rect, x: Float, y: Float): FloatArray {
-        if (bitmap.isEmpty() || bitmap[0].isEmpty() || bitmap[0][0].isEmpty()) {
+        if (bitmap.width == 0 || bitmap.height == 0 || bitmap.channels == 0) {
             return FloatArray(0)
         }
 
-        val interpolated = FloatArray(bitmap[0][0].size)
+        val interpolated = FloatArray(bitmap.channels)
 
         for (i in interpolated.indices) {
             val localPixel = PixelCoordinate(

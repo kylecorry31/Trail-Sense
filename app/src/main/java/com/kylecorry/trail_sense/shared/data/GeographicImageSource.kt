@@ -8,7 +8,24 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import kotlin.math.floor
 
-typealias FloatBitmap = Array<Array<FloatArray>>
+class FloatBitmap(val width: Int, val height: Int, val channels: Int) {
+    private val data = FloatArray(width * height * channels)
+
+    fun get(x: Int, y: Int, channel: Int): Float {
+        return data[(y * width + x) * channels + channel]
+    }
+
+    fun set(x: Int, y: Int, channel: Int, value: Float) {
+        data[(y * width + x) * channels + channel] = value
+    }
+
+    fun getOrNull(x: Int, y: Int, channel: Int): Float? {
+        if (x !in 0 until width || y !in 0 until height || channel !in 0 until channels) {
+            return null
+        }
+        return get(x, y, channel)
+    }
+}
 
 class GeographicImageSource(
     private val reader: DataImageReader,
@@ -83,7 +100,7 @@ class GeographicImageSource(
                 val rect = getRect(region, interpolationOrder) ?: continue
                 val (pixelGrid, hasData) = reader.getRegion(rect) ?: continue
                 val interpolator = FloatBitmapInterpolator(interpolationOrder)
-                val empty = FloatArray(pixelGrid[0][0].size)
+                val empty = FloatArray(pixelGrid.channels)
                 for (pixel in region) {
                     var interpolated = empty
                     if (hasData) {

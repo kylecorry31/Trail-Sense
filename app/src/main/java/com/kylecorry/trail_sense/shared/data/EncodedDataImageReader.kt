@@ -15,34 +15,41 @@ class EncodedDataImageReader(
     private val reader: ImageReader,
     private val treatZeroAsNaN: Boolean = false,
     private val maxChannels: Int? = null,
-    private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
+    private val decoder: (Int) -> FloatArray = { floatArrayOf(it.toFloat()) }
 ) : DataImageReader {
     override fun getSize(): Size {
         return reader.getSize()
     }
 
     override suspend fun getRegion(rect: Rect, config: Bitmap.Config): Pair<FloatBitmap, Boolean>? {
-        var pixelGrid: Array<Array<FloatArray>>? = null
+        var pixelGrid: FloatBitmap? = null
         var isAllNaN = true
         reader.getRegion(rect)?.use {
             val pixels = getPixels()
             val w = width
-            pixelGrid = Array(height) { y ->
-                Array(width) { x ->
+            val h = height
+            val channels = if (maxChannels != null) {
+                val firstPixel = if (pixels.isNotEmpty()) decoder(pixels[0]) else floatArrayOf()
+                minOf(firstPixel.size, maxChannels)
+            } else {
+                if (pixels.isNotEmpty()) decoder(pixels[0]).size else 0
+            }
+
+            pixelGrid = FloatBitmap(w, h, channels)
+            for (y in 0 until h) {
+                for (x in 0 until w) {
                     val pixel = pixels[y * w + x]
                     val decoded = decoder(pixel)
-                    val channels = if (maxChannels != null) minOf(
-                        decoded.size,
-                        maxChannels
-                    ) else decoded.size
-                    FloatArray(channels) { i ->
-                        val value = decoded[i]
-                        if ((treatZeroAsNaN && SolMath.isZero(value)) || value.isNaN()) {
-                            Float.NaN
-                        } else {
-                            isAllNaN = false
-                            value
-                        }
+                    for (i in 0 until channels) {
+                        val value = if (i < decoded.size) decoded[i] else Float.NaN
+                        val finalValue =
+                            if ((treatZeroAsNaN && SolMath.isZero(value)) || value.isNaN()) {
+                                Float.NaN
+                            } else {
+                                isAllNaN = false
+                                value
+                            }
+                        pixelGrid.set(x, y, i, finalValue)
                     }
                 }
             }
@@ -61,37 +68,37 @@ class EncodedDataImageReader(
             a: Double,
             b: Double,
             convertZero: Boolean = true
-        ): (Int?) -> List<Float> {
+        ): (Int) -> FloatArray {
             return {
-                val red = it?.red?.toFloat() ?: 0f
-                val green = it?.green?.toFloat() ?: 0f
-                val blue = it?.blue?.toFloat() ?: 0f
-                val alpha = it?.alpha?.toFloat() ?: 0f
+                val red = it.red.toFloat()
+                val green = it.green.toFloat()
+                val blue = it.blue.toFloat()
+                val alpha = it.alpha.toFloat()
 
                 if (!convertZero && red == 0f && green == 0f && blue == 0f) {
-                    listOf(0f, 0f, 0f, alpha)
+                    floatArrayOf(0f, 0f, 0f, alpha)
                 } else {
-                    listOf(
-                        red / a - b,
-                        green / a - b,
-                        blue / a - b,
-                        alpha / a - b
-                    ).map { it.toFloat() }
+                    floatArrayOf(
+                        (red / a - b).toFloat(),
+                        (green / a - b).toFloat(),
+                        (blue / a - b).toFloat(),
+                        (alpha / a - b).toFloat()
+                    )
                 }
             }
         }
 
-        fun split16BitDecoder(a: Double = 1.0, b: Double = 0.0): (Int?) -> List<Float> {
+        fun split16BitDecoder(a: Double = 1.0, b: Double = 0.0): (Int) -> FloatArray {
             return {
-                val red = it?.red ?: 0
-                val green = it?.green ?: 0
-                val blue = it?.blue ?: 0
-                val alpha = it?.alpha ?: 0
+                val red = it.red
+                val green = it.green
+                val blue = it.blue
+                val alpha = it.alpha
 
-                listOf(
-                    green shl 8 or red,
-                    alpha shl 8 or blue
-                ).map { (it.toDouble() / a - b).toFloat() }
+                floatArrayOf(
+                    ((green shl 8 or red).toDouble() / a - b).toFloat(),
+                    ((alpha shl 8 or blue).toDouble() / a - b).toFloat()
+                )
 
             }
         }
