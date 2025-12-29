@@ -14,6 +14,8 @@ import com.kylecorry.sol.units.Coordinate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.ceil
+import kotlin.math.floor
 
 fun Fragment.observe(
     subscription: ISubscription,
@@ -167,4 +169,23 @@ fun CoordinateBounds.grid(resolution: Double): List<Coordinate> {
         }
     }
     return points
+}
+
+fun Interpolation.getMultiplesBetween2(
+    start: Double,
+    end: Double,
+    multiple: Double
+): DoubleArray {
+    val startMultiple = ceil(start / multiple).toInt()
+    val endMultiple = floor(end / multiple).toInt()
+    val size = endMultiple - startMultiple + 1
+    if (size <= 0) return DoubleArray(0)
+
+    val result = DoubleArray(size)
+    var value = startMultiple * multiple
+    for (i in 0 until size) {
+        result[i] = value
+        value += multiple
+    }
+    return result
 }

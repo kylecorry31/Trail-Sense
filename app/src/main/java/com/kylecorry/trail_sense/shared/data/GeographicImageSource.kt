@@ -12,7 +12,7 @@ typealias FloatBitmap = Array<Array<FloatArray>>
 
 class GeographicImageSource(
     private val reader: DataImageReader,
-    private val bounds: CoordinateBounds = CoordinateBounds.world,
+    val bounds: CoordinateBounds = CoordinateBounds.world,
     private val precision: Int = 2,
     private val valuePixelOffset: Float = 0f,
     // TODO: All of these should be hidden from the geographic image source

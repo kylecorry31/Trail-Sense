@@ -23,6 +23,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
@@ -48,23 +49,27 @@ object DEM {
 
     suspend fun getElevation(location: Coordinate): Float = onDefault {
         cache.getOrPut(location) {
-            lookupElevations(listOf(location)).firstOrNull()?.second ?: 0f
+            lookupElevations(listOf(location))[location]
+                ?: 0f
         }
     }
 
-    suspend fun getElevations(locations: List<Coordinate>): List<Pair<Coordinate, Float>> =
+    private suspend fun getElevations(
+        locations: List<Coordinate>,
+        limitToBounds: CoordinateBounds
+    ): Map<Coordinate, Float> =
         onDefault {
             // It is less performant to use the cache for large numbers of locations
             val shouldUseCache = locations.size < 20
             multiElevationLookupLock.withLock {
-                val results = mutableListOf<Pair<Coordinate, Float>>()
+                val results = mutableMapOf<Coordinate, Float>()
                 val cachedLocations = mutableSetOf<Coordinate>()
 
                 if (shouldUseCache) {
                     val cached = cache.getAll(locations)
                     if (cached.isNotEmpty()) {
                         cachedLocations.addAll(cached.keys)
-                        results.addAll(cached.map { it.key to it.value })
+                        results.putAll(cached)
                     }
                 }
 
@@ -73,12 +78,12 @@ object DEM {
                 } else {
                     locations
                 }
-                val elevations = lookupElevations(remaining)
+                val elevations = lookupElevations(remaining, limitToBounds)
                 if (shouldUseCache) {
-                    cache.putAll(elevations.associate { it.first to it.second })
+                    cache.putAll(elevations)
                 }
 
-                results.addAll(elevations)
+                results.putAll(elevations)
 
                 if (remaining.isNotEmpty()) {
                     Log.d("DEM", "Looked up ${remaining.size} locations not in cache")
@@ -91,28 +96,27 @@ object DEM {
         bounds: CoordinateBounds,
         resolution: Double
     ): List<List<Pair<Coordinate, Float>>> = onDefault {
-        val latitudes = Interpolation.getMultiplesBetween(
+        val latitudes = Interpolation.getMultiplesBetween2(
             bounds.south - resolution,
             bounds.north + resolution,
             resolution
         )
 
-        val longitudes = Interpolation.getMultiplesBetween(
+        val longitudes = Interpolation.getMultiplesBetween2(
             bounds.west - resolution,
             (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution,
             resolution
         )
 
         gridCache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
-            val toLookupCoordinates = mutableListOf<Coordinate>()
+            val toLookupCoordinates = ArrayList<Coordinate>(latitudes.size * longitudes.size)
             latitudes.forEach { lat ->
                 longitudes.forEach { lon ->
                     toLookupCoordinates.add(Coordinate(lat, Coordinate.toLongitude(lon)))
                 }
             }
 
-            val allElevations =
-                getElevations(toLookupCoordinates).associate { it.first to it.second }
+            val allElevations = getElevations(toLookupCoordinates, bounds)
             var i = 0
             latitudes.map { lat ->
                 longitudes.map { lon ->
@@ -187,8 +191,8 @@ object DEM {
                 }
             }
 
-            for (y in expandBy .. grid.lastIndex - expandBy) {
-                for (x in expandBy .. grid[y].lastIndex - expandBy) {
+            for (y in expandBy..grid.lastIndex - expandBy) {
+                for (x in expandBy..grid[y].lastIndex - expandBy) {
                     val color = colorMap(grid[y][x].second, minElevation, maxElevation)
                     pixels.set(x - expandBy, y - expandBy, width, color)
                 }
@@ -233,8 +237,8 @@ object DEM {
             val cosZenith = cos(zenithRad)
             val sinZenith = sin(zenithRad)
 
-            for (y in expandBy .. grid.lastIndex - expandBy) {
-                for (x in expandBy .. grid[y].lastIndex - expandBy) {
+            for (y in expandBy..grid.lastIndex - expandBy) {
+                for (x in expandBy..grid[y].lastIndex - expandBy) {
                     val a = getElevation(x - 1, y - 1)
                     val b = getElevation(x, y - 1)
                     val c = getElevation(x + 1, y - 1)
@@ -330,38 +334,40 @@ object DEM {
     }
 
     // TODO: If at the border of a tile, load the nearby pixels as well
-    private suspend fun lookupElevations(locations: List<Coordinate>): List<Pair<Coordinate, Float>> =
+    private suspend fun lookupElevations(
+        locations: List<Coordinate>,
+        limitToBounds: CoordinateBounds = CoordinateBounds.from(locations)
+    ): Map<Coordinate, Float> =
         onIO {
             if (locations.isEmpty()) {
-                return@onIO emptyList()
+                return@onIO emptyMap()
             }
 
-            val sources = getSources()
+            val sources = getSources().filter { it.bounds.intersects(limitToBounds) }
 
-            val lookups = locations.map { location ->
-                location to sources.firstOrNull {
-                    it.contains(location)
-                }
-            }.groupBy { it.second }
+            val lookups =
+                locations.groupBy { location -> sources.firstOrNull { it.contains(location) } }
 
-            val elevations = mutableListOf<Pair<Coordinate, Float>>()
+            val elevations = mutableMapOf<Coordinate, Float>()
             for (lookup in lookups) {
                 if (lookup.key == null) {
-                    elevations.addAll(lookup.value.map { it.first to 0f })
+                    lookup.value.forEach {
+                        elevations[it] = 0f
+                    }
                     continue
                 }
 
                 val coordinates =
-                    lookup.value.associate { it.second!!.getPixel(it.first) to it.first }
+                    lookup.value.associateBy { lookup.key!!.getPixel(it) }
 
                 tryOrDefault(Distance.meters(0f)) {
                     // TODO: Load pixels without interpolation and interpolate later - or add a multi image lookup?
                     val readings = lookup.key!!.read(coordinates.keys.toList())
 
-                    elevations.addAll(readings.mapNotNull {
-                        val coordinate = coordinates[it.first] ?: return@mapNotNull null
-                        coordinate to it.second.first()
-                    })
+                    readings.forEach {
+                        val coordinate = coordinates[it.first] ?: return@forEach
+                        elevations[coordinate] = it.second.first()
+                    }
                 }
             }
 
@@ -379,14 +385,14 @@ object DEM {
     }
 
     private fun getGridKey(
-        latitudes: List<Double>,
-        longitudes: List<Double>,
+        latitudes: DoubleArray,
+        longitudes: DoubleArray,
         resolution: Double
     ): String {
-        val minLatitude = latitudes.minOrNull() ?: 0.0
-        val maxLatitude = latitudes.maxOrNull() ?: 0.0
-        val minLongitude = longitudes.minOrNull() ?: 0.0
-        val maxLongitude = longitudes.maxOrNull() ?: 0.0
+        val minLatitude = latitudes.firstOrNull() ?: 0.0
+        val maxLatitude = latitudes.lastOrNull() ?: 0.0
+        val minLongitude = longitudes.firstOrNull() ?: 0.0
+        val maxLongitude = longitudes.lastOrNull() ?: 0.0
         return "${minLatitude}_${maxLatitude}_${minLongitude}_${maxLongitude}_$resolution"
     }
 
