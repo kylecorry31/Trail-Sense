@@ -5,6 +5,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.Duration
@@ -17,7 +18,7 @@ import java.util.stream.Stream
 internal class TideServiceTest {
 
     @Test
-    fun getTides() {
+    fun getTides() = runBlocking {
         val table = TideTable(
             0, listOf(
                 Tide.high(time(10, 1, 42), 3.25f),
@@ -81,9 +82,9 @@ internal class TideServiceTest {
     }
 
     @Test
-    fun testRealWorldAccuracyHighLow() {
+    fun testRealWorldAccuracyHighLow() = runBlocking {
         val testData = provideTides()
-        testData.forEach { data ->
+        for (data in testData) {
             val references = data[0] as List<Tide>
             val dates = data[1] as List<LocalDate>
             val expected = data[2] as List<Tide>
