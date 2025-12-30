@@ -1506,4 +1506,5 @@
     <string name="draw_accurate_shadows">绘制精确阴影</string>
     <string name="attribution">归属信息</string>
     <string name="map_attribution_format">地图数据 © %s</string>
+    <string name="show_modeled_tides">显示模型预测的海岸线潮汐</string>
 </resources>

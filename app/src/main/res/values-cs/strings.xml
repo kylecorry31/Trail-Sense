@@ -1545,4 +1545,5 @@
     <string name="draw_accurate_shadows">Vykreslit přesné stíny</string>
     <string name="attribution">Poděkování</string>
     <string name="map_attribution_format">Mapová data © %s</string>
+    <string name="show_modeled_tides">Zobrazit modelovaný příliv a odliv na pobřeží</string>
 </resources>
