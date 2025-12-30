@@ -72,7 +72,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
                             id = PhotoMapLayer.LOAD_PDFS,
                             title = context.getString(R.string.load_pdf_tiles),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = false,
+                            defaultValue = PhotoMapLayer.DEFAULT_LOAD_PDFS,
                             summary = context.getString(R.string.load_pdf_tiles_summary)
                         )
                     )

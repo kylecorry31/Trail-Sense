@@ -47,8 +47,11 @@ class MyLocationLayer : IAsyncLayer {
     }
 
     override fun setPreferences(preferences: Bundle) {
-        _percentOpacity = preferences.getInt(DefaultMapLayerDefinitions.OPACITY) / 100f
-        _drawAccuracy = preferences.getBoolean(SHOW_ACCURACY)
+        _percentOpacity = preferences.getInt(
+            DefaultMapLayerDefinitions.OPACITY,
+            DefaultMapLayerDefinitions.DEFAULT_OPACITY
+        ) / 100f
+        _drawAccuracy = preferences.getBoolean(SHOW_ACCURACY, DEFAULT_SHOW_ACCURACY)
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
@@ -173,5 +176,6 @@ class MyLocationLayer : IAsyncLayer {
     companion object {
         const val LAYER_ID = "my_location"
         const val SHOW_ACCURACY = "show_accuracy"
+        const val DEFAULT_SHOW_ACCURACY = true
     }
 }

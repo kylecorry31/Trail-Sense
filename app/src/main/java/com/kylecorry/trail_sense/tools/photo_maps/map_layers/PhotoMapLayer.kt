@@ -21,7 +21,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        source.loadPdfs = preferences.getBoolean(LOAD_PDFS)
+        source.loadPdfs = preferences.getBoolean(LOAD_PDFS, DEFAULT_LOAD_PDFS)
     }
 
     fun setPhotoMapFilter(filter: (map: PhotoMap) -> Boolean) {
@@ -58,5 +58,6 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     companion object {
         const val LAYER_ID = "map"
         const val LOAD_PDFS = "load_pdfs"
+        const val DEFAULT_LOAD_PDFS = false
     }
 }

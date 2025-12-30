@@ -57,6 +57,7 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
         val backgroundColorId = preferences.getString(BACKGROUND_COLOR)?.toLongOrNull()
         renderer.configureLineStringRenderer(
             backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId ?: 0)
+                ?: DEFAULT_BACKGROUND_COLOR
         )
     }
 
@@ -68,5 +69,6 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
     companion object {
         const val LAYER_ID = "path"
         const val BACKGROUND_COLOR = "background_color"
+        val DEFAULT_BACKGROUND_COLOR = PathBackgroundColor.None
     }
 }

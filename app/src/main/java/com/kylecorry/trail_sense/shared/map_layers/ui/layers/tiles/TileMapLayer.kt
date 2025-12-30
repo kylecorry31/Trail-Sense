@@ -263,7 +263,10 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override fun setPreferences(preferences: Bundle) {
-        percentOpacity = preferences.getInt(DefaultMapLayerDefinitions.OPACITY) / 100f
+        percentOpacity = preferences.getInt(
+            DefaultMapLayerDefinitions.OPACITY,
+            DefaultMapLayerDefinitions.DEFAULT_OPACITY
+        ) / 100f
     }
 
     override var percentOpacity: Float = 1f

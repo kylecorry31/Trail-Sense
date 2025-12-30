@@ -24,18 +24,23 @@ class HillshadeLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
 
     override fun setPreferences(preferences: Bundle) {
         alpha = SolMath.map(
-            preferences.getInt(DefaultMapLayerDefinitions.OPACITY) / 100f,
+            preferences.getInt(
+                DefaultMapLayerDefinitions.OPACITY,
+                DefaultMapLayerDefinitions.DEFAULT_OPACITY
+            ) / 100f,
             0f,
             1f,
             0f,
             255f,
             shouldClamp = true
         ).toInt()
-        source.drawAccurateShadows = preferences.getBoolean(DRAW_ACCURATE_SHADOWS)
+        source.drawAccurateShadows =
+            preferences.getBoolean(DRAW_ACCURATE_SHADOWS, DEFAULT_DRAW_ACCURATE_SHADOWS)
     }
 
     companion object {
         const val LAYER_ID = "hillshade"
         const val DRAW_ACCURATE_SHADOWS = "draw_accurate_shadows"
+        const val DEFAULT_DRAW_ACCURATE_SHADOWS = false
     }
 }

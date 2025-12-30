@@ -24,12 +24,13 @@ class ElevationLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
         super.setPreferences(preferences)
         val strategyId = preferences.getString(COLOR)?.toLongOrNull()
         source.colorScale = ElevationColorMapFactory().getElevationColorMap(
-            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: ElevationColorStrategy.Brown
+            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
         )
     }
 
     companion object {
         const val LAYER_ID = "elevation"
         const val COLOR = "color"
+        val DEFAULT_COLOR = ElevationColorStrategy.USGS
     }
 }

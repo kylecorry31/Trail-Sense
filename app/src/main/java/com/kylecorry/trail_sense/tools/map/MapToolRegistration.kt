@@ -68,7 +68,7 @@ object MapToolRegistration : ToolRegistration {
                                 context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
                                 context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
                             ),
-                            defaultValue = ElevationColorStrategy.USGS.id.toString(),
+                            defaultValue = ElevationLayer.DEFAULT_COLOR.id.toString(),
                         )
                     )
                 ) { _, taskRunner -> ElevationLayer(taskRunner) },
@@ -88,7 +88,7 @@ object MapToolRegistration : ToolRegistration {
                             id = HillshadeLayer.DRAW_ACCURATE_SHADOWS,
                             title = context.getString(R.string.draw_accurate_shadows),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = false,
+                            defaultValue = HillshadeLayer.DEFAULT_DRAW_ACCURATE_SHADOWS,
                         ),
                     )
                 ) { _, taskRunner -> HillshadeLayer(taskRunner) },
@@ -107,7 +107,7 @@ object MapToolRegistration : ToolRegistration {
                             id = ContourLayer.SHOW_LABELS,
                             title = context.getString(R.string.show_labels),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = true,
+                            defaultValue = ContourLayer.DEFAULT_SHOW_LABELS,
                         ),
                         MapLayerPreference(
                             id = ContourLayer.COLOR,
@@ -126,7 +126,7 @@ object MapToolRegistration : ToolRegistration {
                                 context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
                                 context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
                             ),
-                            defaultValue = ElevationColorStrategy.Brown.id.toString(),
+                            defaultValue = ContourLayer.DEFAULT_COLOR.id.toString(),
                         )
                     )
                 ) { _, taskRunner -> ContourLayer(taskRunner) },

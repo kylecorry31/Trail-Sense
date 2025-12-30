@@ -44,7 +44,7 @@ object TidesToolRegistration : ToolRegistration {
                             TideMapLayer.SHOW_MODELED_TIDES,
                             context.getString(R.string.show_modeled_tides),
                             MapLayerPreferenceType.Switch,
-                            defaultValue = false
+                            defaultValue = TideMapLayer.DEFAULT_SHOW_MODELED_TIDES
                         )
                     )
                 ) { _, _ -> TideMapLayer() }

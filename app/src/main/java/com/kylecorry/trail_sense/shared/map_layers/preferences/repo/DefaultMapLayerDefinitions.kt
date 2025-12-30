@@ -27,4 +27,5 @@ object DefaultMapLayerDefinitions {
 
     const val ENABLED = "enabled"
     const val OPACITY = "opacity"
+    const val DEFAULT_OPACITY = 100
 }

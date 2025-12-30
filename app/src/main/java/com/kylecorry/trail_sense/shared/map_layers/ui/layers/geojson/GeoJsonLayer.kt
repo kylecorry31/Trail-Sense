@@ -59,7 +59,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun setPreferences(preferences: Bundle) {
-        percentOpacity = preferences.getInt(DefaultMapLayerDefinitions.OPACITY, 100) / 100f
+        percentOpacity = preferences.getInt(
+            DefaultMapLayerDefinitions.OPACITY,
+            DefaultMapLayerDefinitions.DEFAULT_OPACITY
+        ) / 100f
     }
 
     override fun draw(
