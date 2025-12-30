@@ -1858,4 +1858,16 @@
     <string name="draw_accurate_shadows">Draw accurate shadows</string>
     <string name="attribution">Attribution</string>
     <string name="show_modeled_tides">Show modeled tides on coastline</string>
+    <string name="map_layer_base_map_description">Low resolution colored world map</string>
+    <string name="map_layer_elevation_description">Color-coded elevations from the digital elevation model</string>
+    <string name="map_layer_hillshade_description">Shaded terrain to visualize elevation changes</string>
+    <string name="map_layer_contours_description">Lines showing elevation and terrain steepness</string>
+    <string name="map_layer_my_location_description">Your current location, heading, and GPS accuracy</string>
+    <string name="map_layer_my_elevation_description">Your current elevation</string>
+    <string name="map_layer_beacons_description">Your saved beacons</string>
+    <string name="map_layer_paths_description">Your saved paths</string>
+    <string name="map_layer_tides_description">Your saved tide tables and modeled coastal tides</string>
+    <string name="map_layer_photo_maps_description">Your saved photo maps</string>
+    <string name="map_layer_cell_towers_description">Approximate cell tower locations</string>
+    <string name="map_layer_navigation_description">Line to your navigation destination</string>
 </resources>

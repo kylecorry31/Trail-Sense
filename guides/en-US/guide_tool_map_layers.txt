@@ -65,7 +65,7 @@ Settings:
 
 - **Show modeled tides on coastline**: If enabled, tides will be loaded from the built-in model on the coastline.
 
-## My location
+## Location
 This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS.
 
 Settings:

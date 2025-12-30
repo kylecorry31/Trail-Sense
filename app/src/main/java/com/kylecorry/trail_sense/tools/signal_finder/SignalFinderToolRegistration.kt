@@ -28,6 +28,7 @@ object SignalFinderToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     CellTowerMapLayer.LAYER_ID,
                     context.getString(R.string.cell_towers),
+                    description = context.getString(R.string.map_layer_cell_towers_description),
                     attribution = MapLayerAttribution(
                         "[OpenCelliD Project](https://opencellid.org)",
                         context.getString(R.string.cell_tower_disclaimer),

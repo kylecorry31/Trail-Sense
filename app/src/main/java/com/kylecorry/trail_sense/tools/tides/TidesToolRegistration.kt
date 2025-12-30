@@ -39,6 +39,7 @@ object TidesToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     TideMapLayer.LAYER_ID,
                     context.getString(R.string.tides),
+                    description = context.getString(R.string.map_layer_tides_description),
                     preferences = listOf(
                         MapLayerPreference(
                             TideMapLayer.SHOW_MODELED_TIDES,

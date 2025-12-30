@@ -31,7 +31,8 @@ object NavigationToolRegistration : ToolRegistration {
             mapLayers = listOf(
                 MapLayerDefinition(
                     NavigationLayer.LAYER_ID,
-                    context.getString(R.string.navigation)
+                    context.getString(R.string.navigation),
+                    description = context.getString(R.string.map_layer_navigation_description)
                 ) { _, _ -> NavigationLayer() }
             )
         )

@@ -100,7 +100,11 @@ object BeaconsToolRegistration : ToolRegistration {
                 )
             ),
             mapLayers = listOf(
-                MapLayerDefinition(MAP_LAYER_BEACONS, context.getString(R.string.beacons)) { _, _ ->
+                MapLayerDefinition(
+                    MAP_LAYER_BEACONS,
+                    context.getString(R.string.beacons),
+                    description = context.getString(R.string.map_layer_beacons_description)
+                ) { _, _ ->
                     BeaconLayer()
                 }
             )

@@ -41,12 +41,14 @@ object MapToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     BaseMapLayer.LAYER_ID,
                     context.getString(R.string.basemap),
-                    layerType = MapLayerType.Tile
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_base_map_description)
                 ) { _, _ -> BaseMapLayer() },
                 MapLayerDefinition(
                     ElevationLayer.LAYER_ID,
                     context.getString(R.string.elevation),
                     layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_elevation_description),
                     preferences = listOf(
                         MapLayerPreference(
                             id = "dem_settings",
@@ -76,6 +78,7 @@ object MapToolRegistration : ToolRegistration {
                     HillshadeLayer.LAYER_ID,
                     context.getString(R.string.hillshade),
                     layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_hillshade_description),
                     preferences = listOf(
                         MapLayerPreference(
                             id = "dem_settings",
@@ -95,6 +98,7 @@ object MapToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     ContourLayer.LAYER_ID,
                     context.getString(R.string.contours),
+                    description = context.getString(R.string.map_layer_contours_description),
                     preferences = listOf(
                         MapLayerPreference(
                             id = "dem_settings",
@@ -132,7 +136,8 @@ object MapToolRegistration : ToolRegistration {
                 ) { _, taskRunner -> ContourLayer(taskRunner) },
                 MapLayerDefinition(
                     MyLocationLayer.LAYER_ID,
-                    context.getString(R.string.my_location),
+                    context.getString(R.string.location),
+                    description = context.getString(R.string.map_layer_my_location_description),
                     preferences = listOf(
                         MapLayerPreference(
                             id = MyLocationLayer.SHOW_ACCURACY,
@@ -145,7 +150,7 @@ object MapToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     BackgroundColorMapLayer.LAYER_ID,
                     context.getString(R.string.background_color),
-                    isConfigurable = false,
+                    isConfigurable = false
                 ) { _, _ -> BackgroundColorMapLayer() },
                 MapLayerDefinition(
                     ScaleBarLayer.LAYER_ID,
@@ -163,7 +168,8 @@ object MapToolRegistration : ToolRegistration {
                     MyElevationLayer.LAYER_ID,
                     context.getString(R.string.my_elevation),
                     isConfigurable = false,
-                    layerType = MapLayerType.Overlay
+                    layerType = MapLayerType.Overlay,
+                    description = context.getString(R.string.map_layer_my_elevation_description)
                 ) { _, _ -> MyElevationLayer() }
             )
         )
