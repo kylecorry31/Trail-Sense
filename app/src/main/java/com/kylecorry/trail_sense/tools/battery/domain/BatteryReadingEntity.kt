@@ -2,10 +2,11 @@ package com.kylecorry.trail_sense.tools.battery.domain
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.time.Instant
 
-@Entity(tableName = "battery")
+@Entity(tableName = "battery", indices = [Index(value = ["time"])])
 class BatteryReadingEntity(
     @ColumnInfo(name = "percent") val percent: Float,
     @ColumnInfo(name = "capacity") val capacity: Float,

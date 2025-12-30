@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -15,7 +16,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import java.time.Instant
 
-@Entity(tableName = "paths")
+@Entity(tableName = "paths", indices = [Index(value = ["parentId"])])
 data class PathEntity(
     @ColumnInfo(name = "name") val name: String?,
     // Style

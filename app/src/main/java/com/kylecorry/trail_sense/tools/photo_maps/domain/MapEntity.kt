@@ -2,11 +2,12 @@ package com.kylecorry.trail_sense.tools.photo_maps.domain
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 
-@Entity(tableName = "maps")
+@Entity(tableName = "maps", indices = [Index(value = ["parent"])])
 data class MapEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "filename") val filename: String,

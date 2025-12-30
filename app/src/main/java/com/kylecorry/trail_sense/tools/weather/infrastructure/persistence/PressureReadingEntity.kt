@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
@@ -9,7 +10,8 @@ import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import java.time.Instant
 
 @Entity(
-    tableName = "pressures"
+    tableName = "pressures",
+    indices = [Index(value = ["time"])]
 )
 data class PressureReadingEntity(
     @ColumnInfo(name = "pressure") val pressure: Float,

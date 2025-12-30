@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -10,7 +11,11 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 
 @Entity(
-    tableName = "beacons"
+    tableName = "beacons",
+    indices = [
+        Index(value = ["beacon_group_id"]),
+        Index(value = ["temporary", "owner"])
+    ]
 )
 data class BeaconEntity(
     @ColumnInfo(name = "name") val name: String,

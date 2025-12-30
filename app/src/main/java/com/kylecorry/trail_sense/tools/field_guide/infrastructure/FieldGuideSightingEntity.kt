@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.tools.field_guide.infrastructure
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
 import java.time.Instant
 
-@Entity(tableName = "field_guide_sightings")
+@Entity(tableName = "field_guide_sightings", indices = [Index(value = ["field_guide_page_id"])])
 data class FieldGuideSightingEntity(
     @ColumnInfo(name = "field_guide_page_id") val fieldGuidePageId: Long,
     @ColumnInfo(name = "time") val time: Instant? = null,
