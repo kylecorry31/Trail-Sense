@@ -25,6 +25,14 @@ class FloatBitmap(val width: Int, val height: Int, val channels: Int) {
         }
         return get(x, y, channel)
     }
+
+    fun getX(index: Int): Int {
+        return index % width
+    }
+
+    fun getY(index: Int): Int {
+        return index / width
+    }
 }
 
 class GeographicImageSource(

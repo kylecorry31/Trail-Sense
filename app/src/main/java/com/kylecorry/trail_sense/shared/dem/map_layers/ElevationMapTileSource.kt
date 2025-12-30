@@ -2,8 +2,6 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import android.util.Size
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
@@ -13,10 +11,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.FullRegionMap
 
 class ElevationMapTileSource : FullRegionMapTileSource() {
 
-    var useDynamicElevationScale = false
     var colorScale: ElevationColorMap = USGSElevationColorMap()
 
-    private val minScaleElevation = 0f
     private val minZoomLevel = 10
     private val maxZoomLevel = 19
     private val baseResolution = 1 / 240.0
@@ -38,29 +34,14 @@ class ElevationMapTileSource : FullRegionMapTileSource() {
             override suspend fun loadFullImage(
                 bounds: CoordinateBounds,
                 zoomLevel: Int
-            ): Bitmap? {
+            ): Bitmap {
                 val zoomLevel = zoomLevel.coerceIn(minZoomLevel, maxZoomLevel)
 
-                return DEM.elevationImage(
+                return DEM.getElevationImage(
                     bounds,
                     validResolutions[zoomLevel]!!
-                ) { elevation, _, maxElevation ->
-                    if (useDynamicElevationScale) {
-                        var max = (maxElevation * 1.25f).roundNearest(1000f)
-                        if (max < maxElevation) {
-                            max += 1000f
-                        }
-                        colorScale.getColor(
-                            SolMath.norm(
-                                elevation,
-                                minScaleElevation,
-                                max,
-                                true
-                            )
-                        )
-                    } else {
-                        colorScale.getElevationColor(elevation)
-                    }
+                ) { x, y, getElevation ->
+                    colorScale.getElevationColor(getElevation(x, y))
                 }
             }
 
