@@ -1,5 +1,7 @@
 Layers are used to display information on the map, they are configurable on the Navigation, Photo Maps, and Map tool. See the respective tool guides for how to access the layer settings.
 
+On the layer settings panel, the higher up a layer is in the list, the more "on top" it will be drawn on the map. The order is not configurable at this time.
+
 Click on the layer's name to expand its settings.
 
 Each layer has the following settings:

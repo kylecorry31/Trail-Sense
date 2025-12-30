@@ -47,17 +47,17 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     private fun canAdjustLayers() {
         optional {
             longClick(R.id.radar_compass)
-            scrollUntil { hasText("Basemap") }
-            scrollUntil { hasText("Elevation") }
-            scrollUntil { hasText("Hillshade") }
-            scrollUntil { hasText("Photo Maps") }
-            scrollUntil { hasText("Contours") }
-            scrollUntil { hasText("Navigation") }
-            scrollUntil { hasText("Cell towers") }
-            scrollUntil { hasText("Paths") }
-            scrollUntil { hasText("Beacons") }
-            scrollUntil { hasText("Tides") }
             scrollUntil { hasText("My location") }
+            scrollUntil { hasText("Tides") }
+            scrollUntil { hasText("Beacons") }
+            scrollUntil { hasText("Paths") }
+            scrollUntil { hasText("Cell towers") }
+            scrollUntil { hasText("Navigation") }
+            scrollUntil { hasText("Contours") }
+            scrollUntil { hasText("Photo Maps") }
+            scrollUntil { hasText("Hillshade") }
+            scrollUntil { hasText("Elevation") }
+            scrollUntil { hasText("Basemap") }
             click(toolbarButton(R.id.title, Side.Right))
         }
     }

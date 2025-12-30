@@ -31,7 +31,8 @@ class MapLayerPreferenceManager(
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val factory = MapLayerViewPreferenceConverterFactory()
-        layers.forEachIndexed { index, layer ->
+        // Reversing the layers so the highest layer appears at the top of the list like other map apps
+        layers.reversed().forEachIndexed { index, layer ->
             if (index > 0) {
                 val divider = Preference(context)
                 divider.layoutResource = R.layout.preference_divider
