@@ -259,7 +259,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Layers
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Layers")
-        scrollUntil { hasText("My location") }
+        scrollUntil { hasText("Location") }
         scrollUntil { hasText("Tides") }
         scrollUntil { hasText("Beacons") }
         scrollUntil { hasText("Paths") }

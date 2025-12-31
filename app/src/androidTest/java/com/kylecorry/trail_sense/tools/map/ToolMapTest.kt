@@ -83,7 +83,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
 
         click(R.id.menu_btn)
         click("Layers")
-        scrollUntil { hasText("My location") }
+        scrollUntil { hasText("Location") }
         scrollUntil { hasText("Tides") }
         scrollUntil { hasText("Beacons") }
         scrollUntil { hasText("Paths") }
