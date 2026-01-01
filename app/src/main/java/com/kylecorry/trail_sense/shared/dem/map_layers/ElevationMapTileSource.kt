@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.trail_sense.shared.andromeda_temp.Flip
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
@@ -49,7 +50,8 @@ class ElevationMapTileSource : TileSource {
             colorScale.getElevationColor(getElevation(x, y))
         }.applyOperationsOrNull(
             Convert(Bitmap.Config.ARGB_8888),
-            Resize(Size(10, 10), true)
+            Resize(Size(10, 10), true),
+            Flip(horizontal = false)
         )
     }
 }

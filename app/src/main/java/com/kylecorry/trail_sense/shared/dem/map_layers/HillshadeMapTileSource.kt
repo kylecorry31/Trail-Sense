@@ -13,6 +13,7 @@ import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.Flip
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -106,7 +107,8 @@ class HillshadeMapTileSource : TileSource {
             Color.rgb(gray, gray, gray)
         }.applyOperationsOrNull(
             Convert(Bitmap.Config.ARGB_8888),
-            Resize(Size(10, 10), true)
+            Resize(Size(10, 10), true),
+            Flip(horizontal = false)
         )
     }
 
