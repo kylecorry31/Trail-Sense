@@ -95,8 +95,9 @@ class PhotoMapRegionLoader(
         val inSampleSize = calculateInSampleSize(
             region.width(),
             region.height(),
-            maxSize.width,
-            maxSize.height
+            // Use twice the required size to get a better quality
+            maxSize.width * 2,
+            maxSize.height * 2
         )
 
         val bitmap = if (loadPdfs && map.hasPdf(context)) {
