@@ -40,7 +40,7 @@ abstract class TileMapLayer<T : TileSource>(
         isAntiAlias = true
         isFilterBitmap = true
     }
-    private val expandedBitmapPaint = Paint().apply {
+    private val neighborPaint = Paint().apply {
         isFilterBitmap = false
         isAntiAlias = false
     }
@@ -244,7 +244,7 @@ abstract class TileMapLayer<T : TileSource>(
                 neighborBitmap,
                 srcRect,
                 destRect,
-                expandedBitmapPaint
+                neighborPaint
             )
         }
     }
