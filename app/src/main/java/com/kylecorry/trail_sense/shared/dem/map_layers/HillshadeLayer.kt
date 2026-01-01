@@ -15,7 +15,6 @@ class HillshadeLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
     override val layerId: String = LAYER_ID
 
     init {
-        preRenderBitmaps = true
         alpha = 127
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             tilePaint.setBlendMode(BlendModeCompat.MULTIPLY)

@@ -16,10 +16,6 @@ class ElevationLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
 
     override val layerId: String = LAYER_ID
 
-    init {
-        preRenderBitmaps = true
-    }
-
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
         val strategyId = preferences.getString(COLOR)?.toLongOrNull()
