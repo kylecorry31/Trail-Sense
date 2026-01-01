@@ -135,10 +135,6 @@ class PhotoMapRegionLoader(
 
         bitmap?.applyOperationsOrNull(
             Conditional(
-                !improveImageScaling || !shouldApplyPerspectiveCorrection,
-                Resize(maxSize, false, useBilinearScaling = !isPixelPerfect)
-            ),
-            Conditional(
                 shouldApplyPerspectiveCorrection,
                 CorrectPerspective2(
                     // Bounds are inverted on the Y axis from android's pixel coordinate system

@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import androidx.core.graphics.alpha
 import androidx.core.graphics.createBitmap
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
@@ -60,7 +61,7 @@ class PhotoMapTileSourceSelector(
         val canvas = Canvas(image)
 
         loaders.reversed().forEachIndexed { index, loader ->
-            val currentImage = loader.load(tile)?.applyOperationsOrNull(
+            loader.load(tile)?.applyOperationsOrNull(
                 Conditional(
                     index > 0,
                     ReplaceColor(
@@ -71,11 +72,8 @@ class PhotoMapTileSourceSelector(
                         inPlace = true
                     )
                 )
-            )
-
-            if (currentImage != null) {
-                canvas.drawBitmap(currentImage, 0f, 0f, null)
-                currentImage.recycle()
+            )?.use {
+                canvas.drawBitmap(this, 0f, 0f, null)
             }
         }
 
