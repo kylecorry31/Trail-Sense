@@ -6,12 +6,11 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.Shader
 import android.os.Bundle
 import android.util.Log
-import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -40,7 +39,7 @@ abstract class TileMapLayer<T : TileSource>(
 
     private var shouldReloadTiles = true
     private var backgroundColor: Int = Color.WHITE
-    protected val loader = TileLoader()
+    protected val loader = TileLoader(TILE_BORDER_PIXELS)
     protected val tilePaint = Paint().apply {
         isAntiAlias = true
         isFilterBitmap = true
@@ -52,12 +51,11 @@ abstract class TileMapLayer<T : TileSource>(
     var alpha: Int = 255
     private var updateListener: (() -> Unit)? = null
     private var zoomOffset: Int = 0
-    private var cachedExpandedBitmap: Bitmap? = null
-    private val cachedBitmapLock = Any()
     private val renderMatrix = Matrix()
-    private val neighborMatrix = Matrix()
     private val srcPoints = FloatArray(8)
     private val dstPoints = FloatArray(8)
+    private val srcRect = Rect()
+    private val destRect = Rect()
 
     fun setZoomOffset(offset: Int) {
         zoomOffset = offset
@@ -147,16 +145,13 @@ abstract class TileMapLayer<T : TileSource>(
     private fun renderTiles(canvas: Canvas, map: IMapView) {
         loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
             val tileBounds = tile.getBounds()
-            synchronized(cachedBitmapLock) {
-                val expandedBitmap = createExpandedTileBitmap(tile, bitmap)
-                renderTile(
-                    canvas,
-                    map,
-                    tileBounds,
-                    expandedBitmap ?: bitmap,
-                    expandedBitmap != null
-                )
-            }
+            fillNeighborPixels(tile, bitmap)
+            renderTile(
+                canvas,
+                map,
+                tileBounds,
+                bitmap
+            )
         }
     }
 
@@ -164,15 +159,14 @@ abstract class TileMapLayer<T : TileSource>(
         canvas: Canvas,
         map: IMapView,
         bounds: CoordinateBounds,
-        bitmap: Bitmap,
-        hasExpandedBorder: Boolean = false
+        bitmap: Bitmap
     ) {
         val topLeftPixel = map.toPixel(bounds.northWest)
         val topRightPixel = map.toPixel(bounds.northEast)
         val bottomRightPixel = map.toPixel(bounds.southEast)
         val bottomLeftPixel = map.toPixel(bounds.southWest)
 
-        val borderPixels = if (hasExpandedBorder) TILE_BORDER_PIXELS else 0
+        val borderPixels = TILE_BORDER_PIXELS
 
         val shader = BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
 
@@ -220,188 +214,140 @@ abstract class TileMapLayer<T : TileSource>(
         tilePaint.shader = null
     }
 
-    private fun createExpandedTileBitmap(tile: Tile, originalBitmap: Bitmap): Bitmap? {
-        return tryOrDefault(null) {
-            val borderSize = TILE_BORDER_PIXELS
-            val expandedWidth = originalBitmap.width + (borderSize * 2)
-            val expandedHeight = originalBitmap.height + (borderSize * 2)
+    private fun drawNeighbor(
+        canvas: Canvas,
+        neighborTile: Tile,
+        destX: Int,
+        destY: Int,
+        destWidth: Int,
+        destHeight: Int,
+        srcXStart: Int,
+        srcYStart: Int
+    ) {
+        loader.tileCache[neighborTile]?.let { neighborBitmap ->
+            srcRect.set(
+                srcXStart,
+                srcYStart,
+                srcXStart + destWidth,
+                srcYStart + destHeight
+            )
 
-            val expandedBitmap =
-                if (false && cachedExpandedBitmap?.width == expandedWidth && cachedExpandedBitmap?.height == expandedHeight) {
-                    cachedExpandedBitmap!!
-                } else {
-                    cachedExpandedBitmap?.recycle()
-                    createBitmap(expandedWidth, expandedHeight).also {
-                        cachedExpandedBitmap = it
-                    }
-                }
+            destRect.set(
+                destX,
+                destY,
+                (destX + destWidth),
+                (destY + destHeight)
+            )
 
-            val canvas = Canvas(expandedBitmap)
-
-            // Draw center tile
             canvas.drawBitmap(
-                originalBitmap,
-                borderSize.toFloat(),
-                borderSize.toFloat(),
+                neighborBitmap,
+                srcRect,
+                destRect,
                 expandedBitmapPaint
             )
-
-            // Helper function to draw a neighbor using bitmap shader
-            fun drawNeighbor(
-                neighborTile: Tile,
-                destX: Float,
-                destY: Float,
-                destWidth: Int,
-                destHeight: Int,
-                srcXStart: Int,
-                srcYStart: Int,
-                srcWidth: Int,
-                srcHeight: Int
-            ) {
-                loader.tileCache[neighborTile]?.let { neighborBitmap ->
-                    val shader =
-                        BitmapShader(neighborBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-
-                    // Calculate scale factors to map source region to destination
-                    val scaleX = destWidth.toFloat() / srcWidth
-                    val scaleY = destHeight.toFloat() / srcHeight
-
-                    // Scale and translate to show the correct region
-                    neighborMatrix.reset()
-                    neighborMatrix.setScale(scaleX, scaleY)
-                    neighborMatrix.postTranslate(
-                        destX - srcXStart * scaleX,
-                        destY - srcYStart * scaleY
-                    )
-
-                    shader.setLocalMatrix(neighborMatrix)
-                    expandedBitmapPaint.shader = shader
-                    canvas.drawRect(
-                        destX,
-                        destY,
-                        destX + destWidth,
-                        destY + destHeight,
-                        expandedBitmapPaint
-                    )
-                    expandedBitmapPaint.shader = null
-                }
-            }
-
-            // Draw neighboring tiles' edges
-            // Top neighbor
-            val topTile = Tile(tile.x, tile.y - 1, tile.z, tile.size)
-            drawNeighbor(
-                topTile,
-                borderSize.toFloat(),
-                0f,
-                originalBitmap.width,
-                borderSize,
-                0,
-                originalBitmap.height - borderSize,
-                originalBitmap.width,
-                borderSize
-            )
-
-            // Bottom neighbor
-            val bottomTile = Tile(tile.x, tile.y + 1, tile.z, tile.size)
-            drawNeighbor(
-                bottomTile,
-                borderSize.toFloat(),
-                (originalBitmap.height + borderSize).toFloat(),
-                originalBitmap.width,
-                borderSize,
-                0,
-                0,
-                originalBitmap.width,
-                borderSize
-            )
-
-            // Left neighbor
-            val leftTile = Tile(tile.x - 1, tile.y, tile.z, tile.size)
-            drawNeighbor(
-                leftTile,
-                0f,
-                borderSize.toFloat(),
-                borderSize,
-                originalBitmap.height,
-                originalBitmap.width - borderSize,
-                0,
-                borderSize,
-                originalBitmap.height
-            )
-
-            // Right neighbor
-            val rightTile = Tile(tile.x + 1, tile.y, tile.z, tile.size)
-            drawNeighbor(
-                rightTile,
-                (originalBitmap.width + borderSize).toFloat(),
-                borderSize.toFloat(),
-                borderSize,
-                originalBitmap.height,
-                0,
-                0,
-                borderSize,
-                originalBitmap.height
-            )
-
-            // Top-left corner
-            val topLeftTile = Tile(tile.x - 1, tile.y - 1, tile.z, tile.size)
-            drawNeighbor(
-                topLeftTile,
-                0f,
-                0f,
-                borderSize,
-                borderSize,
-                originalBitmap.width - borderSize,
-                originalBitmap.height - borderSize,
-                borderSize,
-                borderSize
-            )
-
-            // Top-right corner
-            val topRightTile = Tile(tile.x + 1, tile.y - 1, tile.z, tile.size)
-            drawNeighbor(
-                topRightTile,
-                (originalBitmap.width + borderSize).toFloat(),
-                0f,
-                borderSize,
-                borderSize,
-                0,
-                originalBitmap.height - borderSize,
-                borderSize,
-                borderSize
-            )
-
-            // Bottom-left corner
-            val bottomLeftTile = Tile(tile.x - 1, tile.y + 1, tile.z, tile.size)
-            drawNeighbor(
-                bottomLeftTile,
-                0f,
-                (originalBitmap.height + borderSize).toFloat(),
-                borderSize,
-                borderSize,
-                originalBitmap.width - borderSize,
-                0,
-                borderSize,
-                borderSize
-            )
-
-            // Bottom-right corner
-            val bottomRightTile = Tile(tile.x + 1, tile.y + 1, tile.z, tile.size)
-            drawNeighbor(
-                bottomRightTile,
-                (originalBitmap.width + borderSize).toFloat(),
-                (originalBitmap.height + borderSize).toFloat(),
-                borderSize,
-                borderSize,
-                0,
-                0,
-                borderSize,
-                borderSize
-            )
-
-            expandedBitmap
         }
+    }
+
+    private fun fillNeighborPixels(tile: Tile, originalBitmap: Bitmap) {
+        val borderSize = TILE_BORDER_PIXELS
+
+        val canvas = Canvas(originalBitmap)
+
+        val topTile = Tile(tile.x, tile.y - 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            topTile,
+            borderSize,
+            0,
+            originalBitmap.width,
+            borderSize,
+            borderSize,
+            originalBitmap.height - borderSize * 2
+        )
+
+        val bottomTile = Tile(tile.x, tile.y + 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            bottomTile,
+            borderSize,
+            originalBitmap.height - borderSize,
+            originalBitmap.width,
+            borderSize,
+            borderSize,
+            borderSize
+        )
+
+        val leftTile = Tile(tile.x - 1, tile.y, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            leftTile,
+            0,
+            borderSize,
+            borderSize,
+            originalBitmap.height,
+            originalBitmap.width - borderSize * 2,
+            borderSize
+        )
+
+        val rightTile = Tile(tile.x + 1, tile.y, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            rightTile,
+            originalBitmap.width - borderSize,
+            borderSize,
+            borderSize,
+            originalBitmap.height,
+            borderSize,
+            borderSize
+        )
+
+        val topLeftTile = Tile(tile.x - 1, tile.y - 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            topLeftTile,
+            0,
+            0,
+            borderSize,
+            borderSize,
+            originalBitmap.width - borderSize * 2,
+            originalBitmap.height - borderSize * 2
+        )
+
+        val topRightTile = Tile(tile.x + 1, tile.y - 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            topRightTile,
+            originalBitmap.width - borderSize,
+            0,
+            borderSize,
+            borderSize,
+            borderSize,
+            originalBitmap.height - borderSize * 2
+        )
+
+        val bottomLeftTile = Tile(tile.x - 1, tile.y + 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            bottomLeftTile,
+            0,
+            originalBitmap.height - borderSize,
+            borderSize,
+            borderSize,
+            originalBitmap.width - borderSize * 2,
+            borderSize
+        )
+
+        val bottomRightTile = Tile(tile.x + 1, tile.y + 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            bottomRightTile,
+            originalBitmap.width - borderSize,
+            originalBitmap.height - borderSize,
+            borderSize,
+            borderSize,
+            borderSize,
+            borderSize
+        )
     }
 
     private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
@@ -426,10 +372,6 @@ abstract class TileMapLayer<T : TileSource>(
     override fun stop() {
         taskRunner.stop()
         loader.clearCache()
-        synchronized(cachedBitmapLock) {
-            cachedExpandedBitmap?.recycle()
-            cachedExpandedBitmap = null
-        }
     }
 
     override fun setPreferences(preferences: Bundle) {

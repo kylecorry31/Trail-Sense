@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
+import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.onDefault
@@ -49,13 +50,8 @@ class TileLoader(private val padding: Int = 0) {
                             tile.size,
                             exact = false
                         ),
-                        Pad(
-                            padding, if (image.config == Bitmap.Config.ARGB_8888) {
-                                Color.TRANSPARENT
-                            } else {
-                                Color.WHITE
-                            }
-                        )
+                        Convert(Bitmap.Config.ARGB_8888),
+                        Pad(padding, Color.TRANSPARENT)
                     )
                     if (resized == null) {
                         tileCache -= tile
