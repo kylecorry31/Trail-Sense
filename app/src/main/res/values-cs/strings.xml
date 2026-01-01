@@ -1537,4 +1537,25 @@
     <string name="pref_night_mode_fullscreen_summary">Skrýt systémové rozhraní pro lepší zachování nočního vidění</string>
     <string name="show_below_horizon">Zobrazit pod horizontem</string>
     <string name="pref_show_astronomy_bands_title">Zobrazit pásma východu/západu slunce</string>
+    <string name="pref_bubble_level_threshold_title">Práh úrovně</string>
+    <string name="settings_copied">Nastavení zkopírována</string>
+    <string name="copy_settings_to_other_maps">Zkopírovat nastavení do ostatních map</string>
+    <string name="guide_map_layers">Vrstvy mapy</string>
+    <string name="my_elevation">Moje nadmořská výška</string>
+    <string name="draw_accurate_shadows">Vykreslit přesné stíny</string>
+    <string name="attribution">Poděkování</string>
+    <string name="map_attribution_format">Mapová data © %s</string>
+    <string name="show_modeled_tides">Zobrazit modelovaný příliv a odliv na pobřeží</string>
+    <string name="map_layer_base_map_description">Obarvená mapa světa s nízkým rozlišením</string>
+    <string name="map_layer_elevation_description">Barevně odlišené výšky z digitálního výškového modelu</string>
+    <string name="map_layer_hillshade_description">Stínovaný terén pro vizualizaci změn nadmořské výšky</string>
+    <string name="map_layer_contours_description">Čáry znázorňující nadmořskou výšku a strmost terénu</string>
+    <string name="map_layer_my_location_description">Vaše aktuální poloha, směr a přesnost GPS</string>
+    <string name="map_layer_my_elevation_description">Vaše aktuální nadmořská výška</string>
+    <string name="map_layer_beacons_description">Vaše uložené majáky</string>
+    <string name="map_layer_paths_description">Vaše uložené cesty</string>
+    <string name="map_layer_tides_description">Vaše uložené tabulky přílivů a modelované pobřežní přílivy</string>
+    <string name="map_layer_photo_maps_description">Vaše uložené fotografické mapy</string>
+    <string name="map_layer_cell_towers_description">Přibližné polohy mobilních věží</string>
+    <string name="map_layer_navigation_description">Čára k cíli vaší navigace</string>
 </resources>

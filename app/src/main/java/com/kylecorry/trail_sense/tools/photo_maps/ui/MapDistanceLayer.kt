@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.graphics.Color
-import androidx.annotation.ColorInt
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -16,9 +16,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonRend
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
-class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> Unit = {}) :
-    ILayer {
+class MapDistanceLayer : ILayer {
 
+    var onPathChanged: (points: List<Coordinate>) -> Unit = {}
     private val renderer = GeoJsonRenderer()
     private var points = mutableListOf<Coordinate>()
     private var pathColor = Color.BLACK
@@ -41,16 +41,6 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
             field = value
             clear()
         }
-
-    fun setPathColor(@ColorInt color: Int) {
-        pathColor = color
-        updateLayers()
-    }
-
-    fun setOutlineColor(@ColorInt color: Int) {
-        outlineColor = color
-        updateLayers()
-    }
 
     fun add(location: Coordinate) {
         if (location == points.lastOrNull()) {
@@ -77,6 +67,12 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
 
     fun getPoints(): List<Coordinate> {
         return points
+    }
+
+    override val layerId: String = LAYER_ID
+
+    override fun setPreferences(preferences: Bundle) {
+        // Do nothing
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
@@ -142,4 +138,8 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
     }
 
     override var percentOpacity: Float = 1f
+
+    companion object {
+        const val LAYER_ID = "map_distance"
+    }
 }

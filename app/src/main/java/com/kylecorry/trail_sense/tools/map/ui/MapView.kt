@@ -12,14 +12,18 @@ import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -45,6 +49,24 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
     private var onScaleChange: ((metersPerPixel: Float) -> Unit)? = null
     private var onCenterChange: ((center: Coordinate) -> Unit)? = null
+
+    override var userLocation: Coordinate = Coordinate.zero
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userLocationAccuracy: Distance? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userAzimuth: Bearing = Bearing.from(0f)
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     init {
         runEveryCycle = false
@@ -90,8 +112,14 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var mapCenter: Coordinate = Coordinate.zero
         set(value) {
-            field = value
-            onCenterChange?.invoke(value)
+            field = Coordinate(
+                value.latitude.coerceIn(constraintBounds.south, constraintBounds.north),
+                Coordinate.toLongitude(value.longitude).coerceIn(
+                    min(constraintBounds.west, constraintBounds.east),
+                    max(constraintBounds.west, constraintBounds.east)
+                )
+            )
+            onCenterChange?.invoke(field)
             invalidate()
         }
 
@@ -143,6 +171,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var maxScale = 1f
     private var isScaling = false
 
+    private var fitToViewBounds: CoordinateBounds? = null
+    private var fitToViewPadding: Float = 1f
+
     override fun addLayer(layer: ILayer) {
         layers = layers + layer
     }
@@ -155,6 +186,19 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         this.layers = layers.toList()
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { post { invalidate() } } }
+    }
+
+    override fun getLayers(): List<ILayer> {
+        return layers.toList()
+    }
+
+    override fun start() {
+        layers.forEach { it.start() }
+        invalidate()
+    }
+
+    override fun stop() {
+        layers.forEach { it.stop() }
     }
 
     override val mapProjection: IMapViewProjection
@@ -267,8 +311,13 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         return 1f / metersPerPixel
     }
 
-    fun recenter() {
-        scale = 1f
+    fun recenter(ignoreFitToViewBounds: Boolean = false) {
+        val fitToViewBounds = fitToViewBounds
+        if (ignoreFitToViewBounds || fitToViewBounds == null) {
+            scale = 1f
+        } else {
+            fitIntoView(fitToViewBounds, fitToViewPadding)
+        }
         invalidate()
     }
 
@@ -296,7 +345,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         if (width == 0 || height == 0) {
             return
         }
-
+        fitToViewBounds = bounds
+        fitToViewPadding = paddingFactor
         newtonRaphsonIteration(scale, 0.001f, 10) {
             mapCenter = bounds.center
             val nePixel = toPixel(bounds.northEast)
@@ -344,18 +394,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private fun translatePixels(distanceX: Float, distanceY: Float) {
         val newPoint = PixelCoordinate(width / 2f + distanceX, height / 2f + distanceY)
-        val newCenter = toCoordinate(newPoint)
-        mapCenter = Coordinate(
-            newCenter.latitude.coerceIn(
-                constraintBounds.south,
-                constraintBounds.north
-            ),
-            Coordinate.toLongitude(newCenter.longitude).coerceIn(
-                min(constraintBounds.west, constraintBounds.east),
-                max(constraintBounds.west, constraintBounds.east)
-            )
-        )
-        invalidate()
+        mapCenter = toCoordinate(newPoint)
     }
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
@@ -367,7 +406,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             distanceY: Float
         ): Boolean {
             if (isPanEnabled) {
-                translatePixels(distanceX, distanceY)
+                val angle = mapAzimuth
+                val dx = distanceX * cosDegrees(angle) - distanceY * sinDegrees(angle)
+                val dy = distanceX * sinDegrees(angle) + distanceY * cosDegrees(angle)
+                translatePixels(dx, dy)
             }
             return true
         }
@@ -426,15 +468,16 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         if (!isZoomEnabled) return
 
         // Calculate the focus coordinate before zooming
-        val focusCoordinate = toCoordinate(focus)
+        val unrotatedFocus = unrotated(focus)
+        val focusCoordinate = toCoordinate(unrotatedFocus)
 
         zoom(scaleFactor)
 
         if (isPanEnabled) {
             // Keep the focus point stationary
             val newFocusPixel = toPixel(focusCoordinate)
-            val dx = focus.x - newFocusPixel.x
-            val dy = focus.y - newFocusPixel.y
+            val dx = unrotatedFocus.x - newFocusPixel.x
+            val dy = unrotatedFocus.y - newFocusPixel.y
             translatePixels(-dx, -dy)
         }
     }

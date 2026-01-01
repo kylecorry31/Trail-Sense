@@ -8,38 +8,34 @@ import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
+import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.dem.DEM
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import java.time.Instant
 
 class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
     IGPS {
 
-    private val scope = CoroutineScope(Dispatchers.Default)
-    private val queue = CoroutineQueueRunner(2)
-    private var demAltitude: Float? = null
-    private var job: Job? = null
-
-    private fun onUpdate(): Boolean {
-        job = scope.launch {
-            queue.enqueue {
-                try {
-                    val location = gps.location
-                    val gpsIsValid = gps.hasValidReading
-                    demAltitude = DEM.getElevation(location) ?: 0f
-                    onMain {
-                        if (gpsIsValid) {
-                            notifyListeners()
-                        }
+    private val updateTask = BackgroundTask {
+        queue.enqueue {
+            try {
+                val location = gps.location
+                val gpsIsValid = gps.hasValidReading
+                demAltitude = DEM.getElevation(location)
+                onMain {
+                    if (gpsIsValid) {
+                        notifyListeners()
                     }
-                } catch (e: Exception) {
-                    Log.e("DigitalElevationModel", "Unable to get DEM elevation", e)
                 }
+            } catch (e: Exception) {
+                Log.e("DigitalElevationModel", "Unable to get DEM elevation", e)
             }
         }
+    }
+    private val queue = CoroutineQueueRunner(2)
+    private var demAltitude: Float? = null
+
+    private fun onUpdate(): Boolean {
+        updateTask.start()
         return true
     }
 
@@ -51,7 +47,7 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
     override fun stopImpl() {
         gps.stop(this::onUpdate)
         queue.cancel()
-        job?.cancel()
+        updateTask.stop()
     }
 
     override val hasValidReading: Boolean

@@ -88,6 +88,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/round_compass" />
 
+    <TextView
+        android:id="@+id/map_attribution"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:linksClickable="true"
+        android:textColor="?android:textColorSecondary"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radar_compass"
+        tools:text="Map Attribution" />
+
     <View
         android:id="@+id/spacer"
         android:layout_width="0dp"

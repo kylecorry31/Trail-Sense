@@ -1236,4 +1236,11 @@
     <string name="show_below_horizon">Vis under horisont</string>
     <string name="cancel_navigation_question">Avbryte navigering?</string>
     <string name="elevation_value">Høyde: %s</string>
+    <string name="guide_map_layers">Kartlag</string>
+    <string name="draw_accurate_shadows">Tegn nøyaktige skygger</string>
+    <string name="my_elevation">Min høyde</string>
+    <string name="copy_settings_to_other_maps">Kopier innstillinger til andre kart</string>
+    <string name="settings_copied">Innstillinger kopiert</string>
+    <string name="show_modeled_tides">Vis modellerte tidevann på kystlinje</string>
+    <string name="map_attribution_format">Kartdata © %s</string>
 </resources>

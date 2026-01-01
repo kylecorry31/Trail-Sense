@@ -5,15 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapView
+    <com.kylecorry.trail_sense.tools.map.ui.MapView
         android:id="@+id/map"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/map_attribution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#88000000"
+        android:linksClickable="true"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:textColor="@android:color/white"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@id/map"
+        app:layout_constraintEnd_toEndOf="@id/map"
+        tools:text="Map Attribution" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,7 +46,7 @@
         style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
@@ -48,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="48dp"
         android:alpha="0.86"
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"

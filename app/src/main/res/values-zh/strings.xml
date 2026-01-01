@@ -466,7 +466,7 @@
     <string name="delete_tide_prompt">删除潮汐？</string>
     <string name="meteor_shower">流星雨</string>
     <string name="pref_meteor_showers_title">流星雨</string>
-    <string name="meteors_per_hour">最多 %d 颗流星/时</string>
+    <string name="meteors_per_hour">最多 %d 颗流星/小时</string>
     <string name="pedometer_disclaimer">计步器的准确性和电池使用量取决于你设备的制造商和输入的步幅。在实际使用前，请先在家里试一下，验证电池消耗和准确性。</string>
     <string name="next">下一张</string>
     <string name="previous">上一张</string>
@@ -513,8 +513,8 @@
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
     <string name="battery_history">历史电量 - 过去 %s</string>
     <string name="no_data">无数据</string>
-    <string name="pref_nmea_elevation_title">NMEA 高度修正</string>
-    <string name="pref_nmea_elevation_summary">使用 NMEA（卫星）而不是内置模型来修正高度</string>
+    <string name="pref_nmea_elevation_title">NMEA 海拔高度修正</string>
+    <string name="pref_nmea_elevation_summary">使用 NMEA（卫星）而不是内置模型来修正海拔高度</string>
     <string name="moved_to">已移动到 %s</string>
     <string name="move">移动</string>
     <string name="no_groups">无群组</string>
@@ -972,7 +972,7 @@
     <string name="solar_eclipses">日食</string>
     <string name="start_time">开始</string>
     <string name="end_time">结束</string>
-    <string name="peak_time">食甚</string>
+    <string name="peak_time">高峰期</string>
     <string name="obscuration">遮蔽率</string>
     <string name="astronomy_altitude_peak">最大仰角</string>
     <string name="magnitude">食分</string>
@@ -1125,7 +1125,7 @@
     <string name="visible">可见</string>
     <string name="date">日期</string>
     <string name="ar_layer_override_message">图层设置可能会被指南（例如“天文学”指南）覆盖。</string>
-    <string name="astronomy_altitude">高度</string>
+    <string name="astronomy_altitude">仰角</string>
     <string name="grid">网格</string>
     <string name="projection_type">增强现实投影</string>
     <string name="max_s">最大 %s</string>
@@ -1311,7 +1311,7 @@
     <string name="right">右</string>
     <string name="distance_to_target">离目标距离</string>
     <string name="scope_adjustment">范围调整</string>
-    <string name="elevation_miss">高度偏差</string>
+    <string name="elevation_miss">海拔偏差</string>
     <string name="windage_miss">风力扰动偏差</string>
     <string name="drop_amount">弹道降落距离 %s</string>
     <string name="scope_height">瞄准镜高度</string>
@@ -1498,4 +1498,13 @@
     <string name="pref_night_mode_fullscreen_summary">隐藏系统用户界面更好保留夜视能力</string>
     <string name="show_below_horizon">显示在地平线下方</string>
     <string name="pref_show_astronomy_bands_title">显示日出/日落带</string>
+    <string name="pref_bubble_level_threshold_title">等级阈值</string>
+    <string name="settings_copied">已复制设置</string>
+    <string name="copy_settings_to_other_maps">复制设置到其他地图</string>
+    <string name="guide_map_layers">地图层</string>
+    <string name="my_elevation">我的海拔</string>
+    <string name="draw_accurate_shadows">绘制精确阴影</string>
+    <string name="attribution">归属信息</string>
+    <string name="map_attribution_format">地图数据 © %s</string>
+    <string name="show_modeled_tides">显示模型预测的海岸线潮汐</string>
 </resources>

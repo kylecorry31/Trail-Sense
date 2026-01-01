@@ -139,6 +139,7 @@ object Tools {
         return tools.filter { !availableOnly || it.isAvailable(context) }
     }
 
+
     fun getQuickActions(context: Context): List<ToolQuickAction> {
         val none = ToolQuickAction(
             QUICK_ACTION_NONE,

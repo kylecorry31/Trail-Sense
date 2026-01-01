@@ -2,12 +2,14 @@ package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 
 @Entity(
-    tableName = "items"
+    tableName = "items",
+    indices = [Index(value = ["packId"])]
 )
 data class PackItemEntity(
     @ColumnInfo(name = "name") val name: String,

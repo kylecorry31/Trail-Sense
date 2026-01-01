@@ -1098,7 +1098,7 @@
     <string name="fused_altimeter_force_calibration_summary">Forceert een GPS-kalibratie elke %s</string>
     <string name="continuous_calibration">Voortdurende kalibratie</string>
     <string name="service_restart_channel_description">Een melding om activiteiten te herstarten</string>
-    <string name="compass_dynamic_colors">Dynamische kleuren kompas</string>
+    <string name="compass_dynamic_colors">Dynamische kompaskleuren</string>
     <string name="dynamic_colors">Dynamische kleuren</string>
     <string name="screen_flashlight_full_name">Schermzaklamp</string>
     <string name="compass_dynamic_colors_summary">Gebruik dynamische kleuren voor windstreken</string>
@@ -1511,4 +1511,13 @@
     <string name="pref_night_mode_fullscreen_summary">Verberg systeemelementen voor een beter nachtzicht</string>
     <string name="show_below_horizon">Onder de horizon weergeven</string>
     <string name="pref_show_astronomy_bands_title">Zonsopkomst/ondergangs-stroken weergeven</string>
+    <string name="pref_bubble_level_threshold_title">Niveaudrempel</string>
+    <string name="settings_copied">Instellingen gekopieerd</string>
+    <string name="copy_settings_to_other_maps">Instellingen kopiëren naar andere kaarten</string>
+    <string name="guide_map_layers">Kaartlagen</string>
+    <string name="my_elevation">Mijn hoogte</string>
+    <string name="draw_accurate_shadows">Nauwkeurige schaduwen weergeven</string>
+    <string name="attribution">Dank aan</string>
+    <string name="map_attribution_format">Kaartdata © %s</string>
+    <string name="show_modeled_tides">Gemodelleerde getijden aan de kustlijn tonen</string>
 </resources>

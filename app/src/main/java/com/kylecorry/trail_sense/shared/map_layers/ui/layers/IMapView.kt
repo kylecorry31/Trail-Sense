@@ -1,19 +1,37 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
+import com.kylecorry.trail_sense.shared.map_layers.getAttribution
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getLayerPreferencesBundle
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 interface IMapView {
     fun addLayer(layer: ILayer)
     fun removeLayer(layer: ILayer)
     fun setLayers(layers: List<ILayer>)
+    fun getLayers(): List<ILayer>
+
+    fun start()
+    fun stop()
 
     /**
      * The current projection of the map. The response should be fixed, so it doesn't change on consumers using it.
      */
     val mapProjection: IMapViewProjection
+
+    var userLocation: Coordinate
+
+    var userLocationAccuracy: Distance?
+
+    var userAzimuth: Bearing
 
     /**
      * The scale in meters per pixel
@@ -56,21 +74,52 @@ fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
     return mapProjection.toCoordinate(pixel)
 }
 
-fun IMapView.lineToPixels(
-    coordinates: List<Coordinate>,
-    line: FloatArray = FloatArray(coordinates.size * 4)
-): FloatArray {
-    if (coordinates.isEmpty()) {
-        return line
+fun IMapView.setLayersWithPreferences(
+    mapId: String,
+    layerIds: List<String>,
+    taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
+    additionalLayers: List<ILayer> = emptyList(),
+    forceReplaceLayers: Boolean = false
+) {
+    val loader = AppServiceRegistry.get<MapLayerLoader>()
+    val preferences = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+    val currentLayers = getLayers()
+    val newLayerIds = layerIds + additionalLayers.map { it.layerId }
+    val layers = if (!forceReplaceLayers && currentLayers.map { it.layerId } == newLayerIds) {
+        currentLayers
+    } else {
+        layerIds.mapNotNull { id ->
+            loader.getLayer(id, taskRunner)
+        } + additionalLayers
     }
-    var lastPixel = toPixel(coordinates[0])
-    for (i in 1..coordinates.lastIndex) {
-        val nextPixel = toPixel(coordinates[i])
-        line[(i - 1) * 4] = lastPixel.x
-        line[(i - 1) * 4 + 1] = lastPixel.y
-        line[(i - 1) * 4 + 2] = nextPixel.x
-        line[(i - 1) * 4 + 3] = nextPixel.y
-        lastPixel = nextPixel
+
+    val layerPreferences = preferences.getLayerPreferencesBundle(mapId, newLayerIds)
+
+    val layersToPreference = layers.map { layer ->
+        layer to layerPreferences[layer.layerId]
     }
-    return line
+    val actualLayers =
+        layersToPreference.filter {
+            it.second?.containsKey(DefaultMapLayerDefinitions.ENABLED) == false ||
+                    it.second?.getBoolean(DefaultMapLayerDefinitions.ENABLED) != false
+        }
+    actualLayers.forEach {
+        it.second?.let { prefs ->
+            it.first.setPreferences(prefs)
+            it.first.invalidate()
+        }
+    }
+
+    setLayers(actualLayers.map { it.first })
+}
+
+
+@Suppress("UNCHECKED_CAST")
+inline fun <reified T : ILayer> IMapView.getLayer(): T? {
+    return getLayers().firstOrNull { it is T } as T?
+}
+
+suspend fun IMapView.getAttribution(): CharSequence? {
+    val loader = AppServiceRegistry.get<MapLayerLoader>()
+    return loader.getAttribution(getLayers().map { it.layerId })
 }

@@ -4,7 +4,12 @@ import android.content.Context
 import androidx.core.os.bundleOf
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -44,7 +49,6 @@ object PhotoMapsToolRegistration : ToolRegistration {
                     context.getString(R.string.open_photo_map),
                     ::QuickActionOpenPhotoMap
                 )
-
             ),
             additionalNavigationIds = listOf(
                 R.id.photoMapsFragment
@@ -57,7 +61,26 @@ object PhotoMapsToolRegistration : ToolRegistration {
             intentHandlers = listOf(importMapIntentHandler),
             singletons = listOf(
                 MapRepo::getInstance
+            ),
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    PhotoMapLayer.LAYER_ID,
+                    context.getString(R.string.photo_maps),
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_photo_maps_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = PhotoMapLayer.LOAD_PDFS,
+                            title = context.getString(R.string.load_pdf_tiles),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = PhotoMapLayer.DEFAULT_LOAD_PDFS,
+                            summary = context.getString(R.string.load_pdf_tiles_summary)
+                        )
+                    )
+                ) { _, _ -> PhotoMapLayer() }
             )
         )
     }
+
+    const val MAP_ID = "photo_maps"
 }

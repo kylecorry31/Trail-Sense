@@ -3,48 +3,68 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
+import android.graphics.Rect
+import android.os.Bundle
 import android.util.Log
-import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.getBounds
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlinx.coroutines.CancellationException
 import kotlin.math.hypot
+import kotlin.math.round
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
-    private val taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTask2(),
-    private val minZoomLevel: Int? = null,
+    private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
+    private var minZoomLevel: Int? = null
 ) : IAsyncLayer {
 
     private var shouldReloadTiles = true
     private var backgroundColor: Int = Color.WHITE
-    protected val loader = TileLoader()
-    protected var preRenderBitmaps: Boolean = false
+    protected val loader = TileLoader(TILE_BORDER_PIXELS)
     protected val tilePaint = Paint().apply {
         isAntiAlias = false
         isFilterBitmap = true
     }
+    private val neighborPaint = Paint().apply {
+        isFilterBitmap = false
+        isAntiAlias = false
+    }
     var alpha: Int = 255
     private var updateListener: (() -> Unit)? = null
-    private var preRenderedBitmap: Bitmap? = null
-    private var preRenderedBounds: CoordinateBounds? = null
+    private var zoomOffset: Int = 0
+    private val renderMatrix = Matrix()
+    private val srcPoints = FloatArray(8)
+    private val dstPoints = FloatArray(8)
+    private val srcRect = Rect()
+    private val destRect = Rect()
+
+    fun setZoomOffset(offset: Int) {
+        zoomOffset = offset
+        shouldReloadTiles = true
+    }
 
     open fun setBackgroundColor(color: Int) {
         this.backgroundColor = color
+        shouldReloadTiles = true
+    }
+
+    fun setMinZoomLevel(level: Int) {
+        minZoomLevel = level
         shouldReloadTiles = true
     }
 
@@ -53,22 +73,14 @@ abstract class TileMapLayer<T : TileSource>(
         taskRunner.addTask { viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
             shouldReloadTiles = false
             try {
-                val tiles = TileMath.getTiles(bounds, projection.metersPerPixel.toDouble())
+                val tiles = getTiles(bounds, projection)
 
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
                 ) {
-                    loader.loadTiles(source, sortTiles(tiles)){
-                        if (preRenderBitmaps) {
-                            preRenderTiles()
-                        }
-                    }
+                    loader.loadTiles(source, sortTiles(tiles))
                 } else if (tiles.size > MAX_TILES) {
                     Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
-                }
-
-                if (preRenderBitmaps) {
-                    preRenderTiles()
                 }
 
                 updateListener?.invoke()
@@ -118,82 +130,23 @@ abstract class TileMapLayer<T : TileSource>(
         // Do nothing, invalidation is handled separately
     }
 
+    protected fun notifyListeners() {
+        updateListener?.invoke()
+    }
+
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
         return false
     }
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
-        if (preRenderedBitmap != null && preRenderedBounds != null) {
-            renderTile(canvas, map, preRenderedBounds ?: return, preRenderedBitmap ?: return)
-            return
-        }
-
-        loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmaps) ->
+        loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
             val tileBounds = tile.getBounds()
-            bitmaps.reversed().forEach { bitmap ->
-                renderTile(canvas, map, tileBounds, bitmap)
-            }
-        }
-    }
-
-    private fun preRenderTiles() {
-        synchronized(loader.lock) {
-            if (loader.tileCache.isEmpty()) {
-                return
-            }
-
-            // Calculate tile grid dimensions and collect bitmap dimensions
-            var minTileX = Int.MAX_VALUE
-            var minTileY = Int.MAX_VALUE
-            var maxTileX = Int.MIN_VALUE
-            var maxTileY = Int.MIN_VALUE
-            var tileWidth = 0
-            var tileHeight = 0
-
-            loader.tileCache.forEach { (tile, bitmaps) ->
-                minTileX = minOf(minTileX, tile.x)
-                maxTileX = maxOf(maxTileX, tile.x)
-                minTileY = minOf(minTileY, tile.y)
-                maxTileY = maxOf(maxTileY, tile.y)
-                if (bitmaps.isNotEmpty()) {
-                    tileWidth = bitmaps[0].width
-                    tileHeight = bitmaps[0].height
-                }
-            }
-
-            preRenderedBitmap?.recycle()
-
-            val tilesWide = (maxTileX - minTileX) + 1
-            val tilesHigh = (maxTileY - minTileY) + 1
-            val bitmapWidth = tilesWide * tileWidth
-            val bitmapHeight = tilesHigh * tileHeight
-
-            // Don't pre-render large bitmaps
-            if (bitmapWidth > MAX_PRE_RENDER_SIZE || bitmapHeight > MAX_PRE_RENDER_SIZE) {
-                preRenderedBitmap = null
-                preRenderedBounds = null
-                return
-            }
-
-            preRenderedBitmap = createBitmap(bitmapWidth, bitmapHeight)
-            val mergeCanvas = Canvas(preRenderedBitmap!!)
-            mergeCanvas.drawColor(Color.TRANSPARENT)
-
-            // Render all tiles into the merged bitmap
-            loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmaps) ->
-                val pixelX = (tile.x - minTileX) * tileWidth
-                val pixelY = (maxTileY - tile.y) * tileHeight
-                bitmaps.reversed().forEach { bitmap ->
-                    mergeCanvas.drawBitmap(bitmap, pixelX.toFloat(), pixelY.toFloat(), null)
-                }
-            }
-
-            // Calculate geographic bounds
-            preRenderedBounds = CoordinateBounds.from(
-                loader.tileCache.keys.flatMap { tile ->
-                    val tileBounds = tile.getBounds()
-                    listOf(tileBounds.northWest, tileBounds.southEast)
-                }
+            fillNeighborPixels(tile, bitmap)
+            renderTile(
+                canvas,
+                map,
+                tileBounds,
+                bitmap
             )
         }
     }
@@ -208,32 +161,231 @@ abstract class TileMapLayer<T : TileSource>(
         val topRightPixel = map.toPixel(bounds.northEast)
         val bottomRightPixel = map.toPixel(bounds.southEast)
         val bottomLeftPixel = map.toPixel(bounds.southWest)
-        canvas.drawBitmapMesh(
-            bitmap,
-            1,
-            1,
-            floatArrayOf(
-                // Intentionally inverted along the Y axis
-                bottomLeftPixel.x, bottomLeftPixel.y,
-                bottomRightPixel.x, bottomRightPixel.y,
-                topLeftPixel.x, topLeftPixel.y,
-                topRightPixel.x, topRightPixel.y
-            ),
-            0,
-            null,
-            0,
-            tilePaint
+
+        val borderPixels = TILE_BORDER_PIXELS
+
+        // Bitmap pixels, exclude the border pixels
+        // Top left
+        srcPoints[0] = borderPixels.toFloat()
+        srcPoints[1] = borderPixels.toFloat()
+        // Top right
+        srcPoints[2] = (bitmap.width - borderPixels).toFloat()
+        srcPoints[3] = borderPixels.toFloat()
+        // Bottom left
+        srcPoints[4] = borderPixels.toFloat()
+        srcPoints[5] = (bitmap.height - borderPixels).toFloat()
+        // Bottom right
+        srcPoints[6] = (bitmap.width - borderPixels).toFloat()
+        srcPoints[7] = (bitmap.height - borderPixels).toFloat()
+
+        // Canvas pixels
+        // Top left
+        dstPoints[0] = round(topLeftPixel.x)
+        dstPoints[1] = round(topLeftPixel.y)
+        // Top right
+        dstPoints[2] = round(topRightPixel.x)
+        dstPoints[3] = round(topRightPixel.y)
+        // Bottom left
+        dstPoints[4] = round(bottomLeftPixel.x)
+        dstPoints[5] = round(bottomLeftPixel.y)
+        // Bottom right
+        dstPoints[6] = round(bottomRightPixel.x)
+        dstPoints[7] = round(bottomRightPixel.y)
+
+        renderMatrix.reset()
+        renderMatrix.setPolyToPoly(srcPoints, 0, dstPoints, 0, 4)
+
+        canvas.save()
+        canvas.concat(renderMatrix)
+
+        srcRect.set(
+            borderPixels,
+            borderPixels,
+            bitmap.width - borderPixels,
+            bitmap.height - borderPixels
         )
+        destRect.set(
+            borderPixels,
+            borderPixels,
+            bitmap.width - borderPixels,
+            bitmap.height - borderPixels
+        )
+
+        canvas.drawBitmap(bitmap, srcRect, destRect, tilePaint)
+        canvas.restore()
+    }
+
+    private fun drawNeighbor(
+        canvas: Canvas,
+        neighborTile: Tile,
+        destX: Int,
+        destY: Int,
+        destWidth: Int,
+        destHeight: Int,
+        srcXStart: Int,
+        srcYStart: Int
+    ) {
+        loader.tileCache[neighborTile]?.let { neighborBitmap ->
+            srcRect.set(
+                srcXStart,
+                srcYStart,
+                srcXStart + destWidth,
+                srcYStart + destHeight
+            )
+
+            destRect.set(
+                destX,
+                destY,
+                (destX + destWidth),
+                (destY + destHeight)
+            )
+
+            canvas.drawBitmap(
+                neighborBitmap,
+                srcRect,
+                destRect,
+                neighborPaint
+            )
+        }
+    }
+
+    private fun fillNeighborPixels(tile: Tile, originalBitmap: Bitmap) {
+        val borderSize = TILE_BORDER_PIXELS
+
+        val canvas = Canvas(originalBitmap)
+
+        val topTile = Tile(tile.x, tile.y - 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            topTile,
+            borderSize,
+            0,
+            originalBitmap.width,
+            borderSize,
+            borderSize,
+            originalBitmap.height - borderSize * 2
+        )
+
+        val bottomTile = Tile(tile.x, tile.y + 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            bottomTile,
+            borderSize,
+            originalBitmap.height - borderSize,
+            originalBitmap.width,
+            borderSize,
+            borderSize,
+            borderSize
+        )
+
+        val leftTile = Tile(tile.x - 1, tile.y, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            leftTile,
+            0,
+            borderSize,
+            borderSize,
+            originalBitmap.height,
+            originalBitmap.width - borderSize * 2,
+            borderSize
+        )
+
+        val rightTile = Tile(tile.x + 1, tile.y, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            rightTile,
+            originalBitmap.width - borderSize,
+            borderSize,
+            borderSize,
+            originalBitmap.height,
+            borderSize,
+            borderSize
+        )
+
+        val topLeftTile = Tile(tile.x - 1, tile.y - 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            topLeftTile,
+            0,
+            0,
+            borderSize,
+            borderSize,
+            originalBitmap.width - borderSize * 2,
+            originalBitmap.height - borderSize * 2
+        )
+
+        val topRightTile = Tile(tile.x + 1, tile.y - 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            topRightTile,
+            originalBitmap.width - borderSize,
+            0,
+            borderSize,
+            borderSize,
+            borderSize,
+            originalBitmap.height - borderSize * 2
+        )
+
+        val bottomLeftTile = Tile(tile.x - 1, tile.y + 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            bottomLeftTile,
+            0,
+            originalBitmap.height - borderSize,
+            borderSize,
+            borderSize,
+            originalBitmap.width - borderSize * 2,
+            borderSize
+        )
+
+        val bottomRightTile = Tile(tile.x + 1, tile.y + 1, tile.z, tile.size)
+        drawNeighbor(
+            canvas,
+            bottomRightTile,
+            originalBitmap.width - borderSize,
+            originalBitmap.height - borderSize,
+            borderSize,
+            borderSize,
+            borderSize,
+            borderSize
+        )
+    }
+
+    private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
+        val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel)
+        var adjustedOffset = zoomOffset + 1
+        var tiles: List<Tile>
+        do {
+            adjustedOffset--
+            tiles = TileMath.getTiles(bounds, (zoom + adjustedOffset).coerceAtMost(20))
+        } while (tiles.size > MAX_TILES && (zoom + adjustedOffset) > 1)
+        return tiles
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         updateListener = listener
     }
 
+    override fun start() {
+        shouldReloadTiles = true
+    }
+
+    override fun stop() {
+        taskRunner.stop()
+        loader.clearCache()
+    }
+
+    override fun setPreferences(preferences: Bundle) {
+        percentOpacity = preferences.getInt(
+            DefaultMapLayerDefinitions.OPACITY,
+            DefaultMapLayerDefinitions.DEFAULT_OPACITY
+        ) / 100f
+    }
+
     override var percentOpacity: Float = 1f
 
     companion object {
-        private const val MAX_PRE_RENDER_SIZE = 500
-        private const val MAX_TILES = 100
+        const val MAX_TILES = 150
+        private const val TILE_BORDER_PIXELS = 2
     }
 }

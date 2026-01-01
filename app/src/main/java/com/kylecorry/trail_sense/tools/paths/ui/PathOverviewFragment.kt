@@ -35,7 +35,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -47,11 +46,6 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -59,6 +53,8 @@ import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
@@ -97,7 +93,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val compass by lazy { sensorService.getCompass() }
-    private val hasCompass by lazy { sensorService.hasCompass() }
     private val declinationProvider by lazy {
         DeclinationFactory().getDeclinationStrategy(
             prefs,
@@ -146,8 +141,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
     }
 
-    private var layerManager: ILayerManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
@@ -169,25 +162,17 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        layerManager = MultiLayerManager(
-            listOf(
-                MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(requireContext()),
-                    Resources.getPrimaryMarkerColor(requireContext())
-                )
-            )
-        )
-        layerManager?.start()
-
         // Populate the last known location
-        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        binding.pathImage.userLocation = gps.location
+        binding.pathImage.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
+
+        binding.pathImage.start()
     }
 
     override fun onPause() {
         super.onPause()
-        layerManager?.stop()
-        layerManager = null
+        binding.pathImage.stop()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -291,15 +276,16 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         observe(gps) {
             updateDeclination()
-            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            binding.pathImage.userLocation = gps.location
+            binding.pathImage.userLocationAccuracy =
+                gps.horizontalAccuracy?.let { Distance.meters(it) }
             onPathChanged()
         }
 
         observe(compass) {
-            layerManager?.onBearingChanged(compass.rawBearing)
+            binding.pathImage.userAzimuth = compass.bearing
         }
 
-        scaleBarLayer.units = prefs.baseDistanceUnits
         binding.pathImage.setLayers(
             listOf(layer, myLocationLayer, scaleBarLayer)
         )
@@ -320,10 +306,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             val path = path ?: return@setOnClickListener
             val command = ChangePointStyleCommand(requireContext(), this)
             command.execute(path)
-        }
-
-        if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
         }
     }
 

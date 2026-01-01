@@ -8,7 +8,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import kotlinx.coroutines.CancellationException
@@ -21,7 +20,7 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
 
     private var backgroundAction: (suspend (viewBounds: Rectangle, bounds: CoordinateBounds, mapProjection: IMapViewProjection, features: List<GeoJsonFeature>) -> Unit)? =
         null
-    private val taskRunner = MapLayerBackgroundTask2()
+    private val taskRunner = MapLayerBackgroundTask()
 
     override fun setFeatures(features: List<GeoJsonFeature>) {
         this@FeatureRenderer.features = filterFeatures(features)
@@ -53,7 +52,7 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
 
         if (backgroundAction != null) {
             taskRunner.scheduleUpdate(
-                    drawer.getBounds(45f), // TODO: Cache this
+                drawer.getBounds(45f), // TODO: Cache this
                 map.mapBounds,
                 map.mapProjection,
                 isInvalid

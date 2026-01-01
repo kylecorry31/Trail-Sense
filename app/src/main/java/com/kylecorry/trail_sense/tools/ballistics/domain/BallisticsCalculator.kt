@@ -1,23 +1,17 @@
 package com.kylecorry.trail_sense.tools.ballistics.domain
 
-import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.interpolation.Interpolator
 import com.kylecorry.sol.math.interpolation.LinearInterpolator
 import com.kylecorry.sol.math.optimization.ConvergenceOptimizer
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
-import com.kylecorry.sol.math.optimization.IOptimizer
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.physics.DragModel
 import com.kylecorry.sol.science.physics.Physics
-import com.kylecorry.sol.science.physics.TrajectoryPoint2D
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import kotlin.math.absoluteValue
 
 
 class BallisticsCalculator {

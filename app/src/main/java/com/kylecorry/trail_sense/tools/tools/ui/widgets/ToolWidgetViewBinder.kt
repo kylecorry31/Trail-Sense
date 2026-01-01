@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.tools.widgets.WidgetTheme
 
 class ToolWidgetViewBinder(
     private val fragment: Fragment,

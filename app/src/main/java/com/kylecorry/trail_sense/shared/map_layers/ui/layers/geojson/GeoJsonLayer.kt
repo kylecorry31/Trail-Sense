@@ -1,10 +1,13 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 
+import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
+import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -13,22 +16,22 @@ import kotlinx.coroutines.CancellationException
 
 open class GeoJsonLayer<T : GeoJsonSource>(
     protected val source: T,
+    private val minZoomLevel: Int? = null,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    private val minZoomLevel: Int? = null
+    override val layerId: String
 ) : IAsyncLayer {
-
     val renderer = GeoJsonRenderer()
     private var isInvalid = true
 
     init {
         renderer.setOnClickListener(this::onClick)
-        taskRunner.addTask { bounds, metersPerPixel ->
+        taskRunner.addTask { viewBounds, bounds, projection ->
             isInvalid = false
             try {
                 if (minZoomLevel != null) {
-                    val zoomLevel = TileMath.distancePerPixelToZoom(
-                        metersPerPixel.toDouble(),
-                        (bounds.north + bounds.south) / 2
+                    val zoomLevel = TileMath.getZoomLevel(
+                        bounds,
+                        projection.metersPerPixel
                     )
 
                     if (zoomLevel < minZoomLevel) {
@@ -38,7 +41,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                 }
 
                 val obj =
-                    source.load(bounds, metersPerPixel) ?: GeoJsonFeatureCollection(emptyList())
+                    source.load(bounds, projection.metersPerPixel) ?: GeoJsonFeatureCollection(
+                        emptyList()
+                    )
                 renderer.setGeoJsonObject(obj)
             } catch (e: CancellationException) {
                 throw e
@@ -53,14 +58,22 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         renderer.setHasUpdateListener(listener)
     }
 
+    override fun setPreferences(preferences: Bundle) {
+        percentOpacity = preferences.getInt(
+            DefaultMapLayerDefinitions.OPACITY,
+            DefaultMapLayerDefinitions.DEFAULT_OPACITY
+        ) / 100f
+    }
+
     override fun draw(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
         renderer.draw(drawer, map)
         taskRunner.scheduleUpdate(
+            drawer.getBounds(45f),
             map.mapBounds,
-            map.metersPerPixel,
+            map.mapProjection,
             isInvalid
         )
     }
@@ -87,6 +100,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     open fun onClick(feature: GeoJsonFeature): Boolean {
         return false
+    }
+
+    override fun stop() {
+        taskRunner.stop()
     }
 
     override var percentOpacity: Float = 1f

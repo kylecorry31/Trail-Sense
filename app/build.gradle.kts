@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.time.LocalDate
 
 plugins {
@@ -59,7 +60,7 @@ android {
             )
         }
         // Play Store
-        create("playStore"){
+        create("playStore") {
             initWith(getByName("release"))
         }
         // GitHub
@@ -70,7 +71,7 @@ android {
 
         // ------- DEVELOPMENT -------
         // Local debug
-        getByName("debug"){
+        getByName("debug") {
             testProguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -117,8 +118,11 @@ android {
             useLegacyPackaging = true
         }
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.fromTarget(JavaVersion.VERSION_11.toString())
+        }
     }
 
     lint {

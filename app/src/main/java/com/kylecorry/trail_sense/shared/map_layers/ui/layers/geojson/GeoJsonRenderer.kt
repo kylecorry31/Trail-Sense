@@ -6,9 +6,9 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.trail_sense.shared.extensions.normalize
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.GeoJsonLineStringRenderer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.GeoJsonPointRenderer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.GeoJsonPolygonRenderer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.GeoJsonLineStringRenderer
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 
 class GeoJsonRenderer : IGeoJsonRenderer {

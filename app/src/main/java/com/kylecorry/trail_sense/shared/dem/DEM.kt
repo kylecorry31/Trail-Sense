@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.shared.dem
 
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.util.Log
 import android.util.Size
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
@@ -10,12 +8,7 @@ import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.luna.cache.LRUCache
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.toRadians
-import com.kylecorry.sol.math.SolMath.wrap
-import com.kylecorry.sol.math.analysis.Trigonometry
+import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -23,116 +16,88 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
+import com.kylecorry.trail_sense.shared.data.FloatBitmap
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.data.LocalInputStreamable
 import com.kylecorry.trail_sense.shared.data.SingleImageReader
 import com.kylecorry.trail_sense.shared.extensions.ThreadParallelExecutor
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlin.math.PI
-import kotlin.math.atan
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.hypot
-import kotlin.math.sin
 
 object DEM {
-    private val cacheDistance = 10f
-    private val cacheSize = 500
-    private var cache = GeospatialCache<Float>(Distance.meters(cacheDistance), size = cacheSize)
-    private val multiElevationLookupLock = Mutex()
-    private var tileCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(20)
-    private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
+
+    private class ElevationBitmap(
+        val data: FloatBitmap,
+        val latitudes: DoubleArray,
+        val longitudes: DoubleArray
+    )
+
+    private const val CACHE_DISTANCE = 10f
+    private const val CACHE_SIZE = 500
+    private var cache = GeospatialCache<Float>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
+    private var pixelCache = LRUCache<String, ElevationBitmap>(1)
+    private var tileCache = LRUCache<String, ElevationBitmap>(50)
+    private var cachedSources: List<GeographicImageSource>? = null
+    private var cachedIsExternal: Boolean? = null
+    private val sourcesLock = Mutex()
 
     suspend fun getElevation(location: Coordinate): Float = onDefault {
         cache.getOrPut(location) {
-            lookupElevations(listOf(location)).firstOrNull()?.second ?: 0f
+            val source = getSources().firstOrNull { it.contains(location) } ?: return@getOrPut 0f
+            onIO {
+                tryOrDefault(0f) {
+                    source.read(location).first()
+                }
+            }
         }
     }
 
-    suspend fun getElevations(locations: List<Coordinate>): List<Pair<Coordinate, Float>> =
-        onDefault {
-            // It is less performant to use the cache for large numbers of locations
-            val shouldUseCache = locations.size < 20
-            multiElevationLookupLock.withLock {
-                val results = mutableListOf<Pair<Coordinate, Float>>()
-                val cachedLocations = mutableSetOf<Coordinate>()
-
-                if (shouldUseCache) {
-                    val cached = cache.getAll(locations)
-                    if (cached.isNotEmpty()) {
-                        cachedLocations.addAll(cached.keys)
-                        results.addAll(cached.map { it.key to it.value })
-                    }
-                }
-
-                val remaining = if (shouldUseCache) {
-                    locations.filter { it !in cachedLocations }
-                } else {
-                    locations
-                }
-                val elevations = lookupElevations(remaining)
-                if (shouldUseCache) {
-                    cache.putAll(elevations.associate { it.first to it.second })
-                }
-
-                results.addAll(elevations)
-
-                if (remaining.isNotEmpty()) {
-                    Log.d("DEM", "Looked up ${remaining.size} locations not in cache")
-                }
-                results
-            }
-        }
-
-    private suspend fun getElevationGrid(
+    private suspend fun getElevations(
         bounds: CoordinateBounds,
         resolution: Double,
-        expandBy: Int = 1,
-        isTile: Boolean = true
-    ): List<List<Pair<Coordinate, Float>>> = onDefault {
-        val latitudes = Interpolation.getMultiplesBetween(
-            bounds.south - resolution * expandBy,
-            bounds.north + resolution * expandBy,
+        isTile: Boolean = false
+    ): ElevationBitmap = onDefault {
+        val latitudes = Interpolation.getMultiplesBetween2(
+            bounds.south - resolution,
+            bounds.north + resolution,
             resolution
         )
 
-        val longitudes = Interpolation.getMultiplesBetween(
-            bounds.west - resolution * expandBy,
-            (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution * expandBy,
+        val longitudes = Interpolation.getMultiplesBetween2(
+            bounds.west - resolution,
+            (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution,
             resolution
         )
-
-        val lookup = suspend {
-            val toLookupCoordinates = mutableListOf<Coordinate>()
-            latitudes.forEach { lat ->
-                longitudes.forEach { lon ->
-                    toLookupCoordinates.add(Coordinate(lat, Coordinate.toLongitude(lon)))
-                }
-            }
-
-            val allElevations =
-                getElevations(toLookupCoordinates).associate { it.first to it.second }
-            var i = 0
-            latitudes.map { lat ->
-                longitudes.map { lon ->
-                    val location = toLookupCoordinates[i++]
-                    location to (allElevations[location] ?: 0f)
-                }
-            }
-        }
 
         val cache = if (isTile) {
             tileCache
         } else {
-            gridCache
+            pixelCache
         }
 
-        cache.getOrPut(getGridKey(latitudes, longitudes, resolution, expandBy), lookup)
+        cache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
+            val width = longitudes.size
+            val height = latitudes.size
+            val output = FloatBitmap(width, height, 1)
+
+            val sources = getSources().filter { it.bounds.intersects(bounds) }
+
+            for (i in longitudes.indices) {
+                longitudes[i] = Coordinate.toLongitude(longitudes[i])
+            }
+
+            for (i in sources.indices) {
+                sources[i].read(latitudes, longitudes, output)
+            }
+
+            ElevationBitmap(output, latitudes, longitudes)
+        }
     }
+
 
     /**
      * Get contour lines using marching squares
@@ -142,10 +107,30 @@ object DEM {
         interval: Float,
         resolution: Double,
     ): List<Contour> = onDefault {
-        val grid = getElevationGrid(bounds, resolution, isTile = false)
+        val elevations = getElevations(bounds, resolution)
 
-        val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
-        val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
+        var minElevation = Float.MAX_VALUE
+        var maxElevation = Float.MIN_VALUE
+
+        val grid = ArrayList<List<Pair<Coordinate, Float>>>(elevations.latitudes.size)
+        for (y in elevations.latitudes.indices) {
+            val row = ArrayList<Pair<Coordinate, Float>>(elevations.longitudes.size)
+            val lat = elevations.latitudes[y]
+            for (x in elevations.longitudes.indices) {
+                val lon = Coordinate.toLongitude(elevations.longitudes[x])
+                val value = elevations.data.get(x, y, 0)
+
+                if (value < minElevation) {
+                    minElevation = value
+                }
+                if (value > maxElevation) {
+                    maxElevation = value
+                }
+
+                row.add(Coordinate(lat, lon) to value)
+            }
+            grid.add(row)
+        }
 
         val thresholds = Interpolation.getMultiplesBetween(
             minElevation,
@@ -153,9 +138,7 @@ object DEM {
             interval
         )
 
-        val parallelThresholds = ParallelCoroutineRunner(16)
-        parallelThresholds.map(thresholds) { threshold ->
-
+        Parallel.map(thresholds) { threshold ->
             val segments = Interpolation.getIsoline(
                 grid,
                 threshold,
@@ -170,119 +153,29 @@ object DEM {
         }
     }
 
-    suspend fun elevationImage(
+    suspend fun getElevationImage(
         bounds: CoordinateBounds,
         resolution: Double,
-        colorMap: (elevation: Float, minElevation: Float, maxElevation: Float) -> Int = { elevation, minElevation, maxElevation ->
-            val gray = SolMath.map(elevation, minElevation, maxElevation, 0f, 255f, true).toInt()
-            Color.rgb(gray, gray, gray)
-        }
+        config: Bitmap.Config = Bitmap.Config.RGB_565,
+        adjuster: (x: Int, y: Int, getElevation: (x: Int, y: Int) -> Float) -> Int
     ): Bitmap = onDefault {
         val expandBy = 1
-        val grid = getElevationGrid(bounds, resolution, expandBy)
-        val width = grid[0].size - expandBy * 2
-        val height = grid.size - expandBy * 2
-        val pixels = IntArray(height * width)
-
-        try {
-            var minElevation = Float.MAX_VALUE
-            var maxElevation = Float.MIN_VALUE
-            for (row in grid) {
-                for (point in row) {
-                    if (point.second < minElevation) {
-                        minElevation = point.second
-                    }
-                    if (point.second > maxElevation) {
-                        maxElevation = point.second
-                    }
-                }
-            }
-
-            for (y in expandBy.. grid.lastIndex - expandBy) {
-                for (x in expandBy.. grid[y].lastIndex - expandBy) {
-                    val color = colorMap(grid[y][x].second, minElevation, maxElevation)
-                    pixels.set(x - expandBy, y - expandBy, width, color)
-                }
-            }
-            Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    suspend fun hillshadeImage(
-        bounds: CoordinateBounds,
-        resolution: Double,
-        zFactor: Float = 1f,
-        azimuth: Float = 315f,
-        altitude: Float = 45f,
-        samples: Int = 1,
-        sampleSpacing: Float = 3f
-    ): Bitmap = onDefault {
-        val expandBy = 1
-        val grid = getElevationGrid(bounds, resolution, expandBy)
-        val width = grid[0].size - expandBy * 2
-        val height = grid.size - expandBy * 2
+        val elevations = getElevations(bounds, resolution)
+        val width = elevations.data.width - expandBy * 2
+        val height = elevations.data.height - expandBy * 2
         val pixels = IntArray(width * height)
 
-        try {
-            val getElevation = { x: Int, y: Int ->
-                grid[y.coerceIn(grid.indices)][x.coerceIn(grid[0].indices)].second
-            }
-
-            val cellSizeX = (resolution * 111319.5 * cosDegrees(bounds.center.latitude))
-            val cellSizeY = (resolution * 111319.5)
-
-            // https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-hillshade-works.htm
-            val zenithRad = (90 - altitude).toRadians()
-            val azimuths = mutableListOf<Float>()
-            var start = azimuth - (samples / 2) * sampleSpacing
-            for (i in 0 until samples) {
-                azimuths.add(Trigonometry.remapUnitAngle(start, 90f, true).toRadians())
-                start += sampleSpacing
-            }
-            val cosZenith = cos(zenithRad)
-            val sinZenith = sin(zenithRad)
-
-            for (y in expandBy.. grid.lastIndex - expandBy) {
-                for (x in expandBy.. grid[y].lastIndex - expandBy) {
-                    val a = getElevation(x - 1, y - 1)
-                    val b = getElevation(x, y - 1)
-                    val c = getElevation(x + 1, y - 1)
-                    val d = getElevation(x - 1, y)
-                    val f = getElevation(x + 1, y)
-                    val g = getElevation(x - 1, y + 1)
-                    val h = getElevation(x, y + 1)
-                    val i = getElevation(x + 1, y + 1)
-                    val dx = (((c + 2 * f + i) - (a + 2 * d + g)) / (8 * cellSizeX)).toFloat()
-                    val dy = (((g + 2 * h + i) - (a + 2 * b + c)) / (8 * cellSizeY)).toFloat()
-                    val slopeRad = atan(zFactor * hypot(dx, dy))
-
-                    var aspectRad = 0f
-                    if (!SolMath.isZero(dx)) {
-                        aspectRad = wrap(atan2(dy, -dx), 0f, 2 * PI.toFloat())
-                    } else {
-                        if (dy > 0) {
-                            aspectRad = PI.toFloat() / 2
-                        } else if (dy < 0) {
-                            aspectRad = 3 * PI.toFloat() / 2
-                        }
-                    }
-
-                    var hillshade = 0.0
-                    for (azimuthRad in azimuths) {
-                        hillshade += 255 * (cosZenith * cos(slopeRad) +
-                                sinZenith * sin(slopeRad) * cos(azimuthRad - aspectRad)) / samples
-                    }
-
-                    val gray = hillshade.toInt().coerceIn(0, 255)
-                    pixels.set(x - expandBy, y - expandBy, width, Color.rgb(gray, gray, gray))
-                }
-            }
-            Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565)
-        } catch (e: Exception) {
-            throw e
+        val getElevation = { x: Int, y: Int ->
+            elevations.data.get(x, y, 0)
         }
+
+        for (y in expandBy until elevations.data.height - expandBy) {
+            for (x in expandBy until elevations.data.width - expandBy) {
+                pixels.set(x - expandBy, y - expandBy, width, adjuster(x, y, getElevation))
+            }
+        }
+
+        Bitmap.createBitmap(pixels, width, height, config)
     }
 
     private fun lerpCoordinate(percent: Float, a: Coordinate, b: Coordinate): Coordinate {
@@ -292,96 +185,67 @@ object DEM {
     }
 
     private suspend fun getSources(): List<GeographicImageSource> = onIO {
-        // TODO: Cache this
-        // Clean the repo before getting sources
-        DEMRepo.getInstance().clean()
-        val isExternal = isExternalModel()
-        val tiles = if (isExternal) {
-            val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
-            database.getAll()
-        } else {
-            BuiltInDem.getTiles()
-        }
-
-        tiles.map {
-            val valuePixelOffset = if (isExternal) {
-                0.5f
-            } else {
-                // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
-                0.7f
+        sourcesLock.withLock {
+            // Clean the repo before getting sources
+            DEMRepo.getInstance().clean()
+            val isExternal = isExternalModel()
+            val previousSources = cachedSources
+            if (previousSources != null && cachedIsExternal == isExternal) {
+                return@onIO previousSources
             }
-            // TODO: Support tiles with different decoders or an aggregated geographic image source
-            GeographicImageSource(
-                EncodedDataImageReader(
-                    SingleImageReader(
-                        Size(it.width, it.height), if (!isExternal) {
-                            AssetInputStreamable(it.filename)
-                        } else {
-                            LocalInputStreamable(it.filename)
-                        }
+
+            val tiles = if (isExternal) {
+                val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
+                database.getAll()
+            } else {
+                BuiltInDem.getTiles()
+            }
+
+            val sources = tiles.map {
+                val valuePixelOffset = if (isExternal) {
+                    0.5f
+                } else {
+                    // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
+                    0.7f
+                }
+                // TODO: Support tiles with different decoders or an aggregated geographic image source
+                GeographicImageSource(
+                    EncodedDataImageReader(
+                        SingleImageReader(
+                            Size(it.width, it.height), if (!isExternal) {
+                                AssetInputStreamable(it.filename)
+                            } else {
+                                LocalInputStreamable(it.filename)
+                            }
+                        ),
+                        decoder = if (it.compressionMethod == "8-bit") EncodedDataImageReader.scaledDecoder(
+                            it.a,
+                            it.b
+                        ) else EncodedDataImageReader.split16BitDecoder(it.a, it.b),
+                        treatZeroAsNaN = true,
+                        maxChannels = 1
                     ),
-                    decoder = if (it.compressionMethod == "8-bit") EncodedDataImageReader.scaledDecoder(
-                        it.a,
-                        it.b
-                    ) else EncodedDataImageReader.split16BitDecoder(it.a, it.b),
-                    treatZeroAsNaN = true,
-                    maxChannels = 1
-                ),
-                bounds = CoordinateBounds(
-                    it.north,
-                    it.east,
-                    it.south,
-                    it.west
-                ),
-                precision = 10,
-                valuePixelOffset = valuePixelOffset,
-                interpolationOrder = 2,
-            )
+                    bounds = CoordinateBounds(
+                        it.north,
+                        it.east,
+                        it.south,
+                        it.west
+                    ),
+                    precision = 10,
+                    valuePixelOffset = valuePixelOffset,
+                    interpolationOrder = 2,
+                )
+            }
+            cachedSources = sources
+            cachedIsExternal = isExternal
+            sources
         }
     }
 
-    // TODO: If at the border of a tile, load the nearby pixels as well
-    private suspend fun lookupElevations(locations: List<Coordinate>): List<Pair<Coordinate, Float>> =
-        onIO {
-            if (locations.isEmpty()) {
-                return@onIO emptyList()
-            }
-
-            val sources = getSources()
-
-            val lookups = locations.map { location ->
-                location to sources.firstOrNull {
-                    it.contains(location)
-                }
-            }.groupBy { it.second }
-
-            val elevations = mutableListOf<Pair<Coordinate, Float>>()
-            for (lookup in lookups) {
-                if (lookup.key == null) {
-                    elevations.addAll(lookup.value.map { it.first to 0f })
-                    continue
-                }
-
-                val coordinates =
-                    lookup.value.associate { it.second!!.getPixel(it.first) to it.first }
-
-                tryOrDefault(Distance.meters(0f)) {
-                    // TODO: Load pixels without interpolation and interpolate later - or add a multi image lookup?
-                    val readings = lookup.key!!.read(coordinates.keys.toList())
-
-                    elevations.addAll(readings.mapNotNull {
-                        val coordinate = coordinates[it.first] ?: return@mapNotNull null
-                        coordinate to it.second.first()
-                    })
-                }
-            }
-
-
-            elevations
-        }
-
     fun invalidateCache() {
-        cache = GeospatialCache(Distance.meters(cacheDistance), size = cacheSize)
+        cache = GeospatialCache(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
+        cachedSources = null
+        cachedIsExternal = null
     }
 
     fun isExternalModel(): Boolean {
@@ -390,16 +254,15 @@ object DEM {
     }
 
     private fun getGridKey(
-        latitudes: List<Double>,
-        longitudes: List<Double>,
-        resolution: Double,
-        expandBy: Int = 1
+        latitudes: DoubleArray,
+        longitudes: DoubleArray,
+        resolution: Double
     ): String {
-        val minLatitude = latitudes.minOrNull() ?: 0.0
-        val maxLatitude = latitudes.maxOrNull() ?: 0.0
-        val minLongitude = longitudes.minOrNull() ?: 0.0
-        val maxLongitude = longitudes.maxOrNull() ?: 0.0
-        return "${minLatitude}_${maxLatitude}_${minLongitude}_${maxLongitude}_${resolution}_${expandBy}"
+        val minLatitude = latitudes.firstOrNull() ?: 0.0
+        val maxLatitude = latitudes.lastOrNull() ?: 0.0
+        val minLongitude = longitudes.firstOrNull() ?: 0.0
+        val maxLongitude = longitudes.lastOrNull() ?: 0.0
+        return "${minLatitude}_${maxLatitude}_${minLongitude}_${maxLongitude}_$resolution"
     }
 
 }

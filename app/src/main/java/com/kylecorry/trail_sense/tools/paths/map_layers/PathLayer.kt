@@ -1,21 +1,74 @@
 package com.kylecorry.trail_sense.tools.paths.map_layers
 
+import android.os.Bundle
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource()) {
+class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId = LAYER_ID) {
 
-    fun setPreferences(prefs: PathMapLayerPreferences) {
-        percentOpacity = prefs.opacity.get() / 100f
-        renderer.configureLineStringRenderer(backgroundColor = prefs.backgroundColor.get())
+    private val pathService = AppServiceRegistry.get<PathService>()
+    private val task = BackgroundTask {
+        listenerRunner.skipIfRunning {
+            pathService.getPaths().collect {
+                wasBacktrackOn = pathService.getBacktrackPathId() != null
+                // Paths changed, so we need to reload the paths
+                reload()
+            }
+        }
+    }
+    private val listenerRunner = CoroutineQueueRunner()
+    private var wasBacktrackOn = false
+
+    private val prefs = AppServiceRegistry.get<UserPreferences>()
+
+    init {
+        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
     }
 
-    fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
-        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = shouldRenderWithDrawLines)
+    private val onLocationChanged = { _: Bundle ->
+        if (wasBacktrackOn) {
+            invalidate()
+        }
+        true
+    }
+
+    override fun start() {
+        Tools.subscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED, onLocationChanged)
+        task.start()
+    }
+
+    override fun stop() {
+        super.stop()
+        Tools.unsubscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED, onLocationChanged)
+        listenerRunner.cancel()
+        task.stop()
+    }
+
+    override fun setPreferences(preferences: Bundle) {
+        super.setPreferences(preferences)
+        val backgroundColorId = preferences.getString(BACKGROUND_COLOR)?.toLongOrNull()
+        renderer.configureLineStringRenderer(
+            backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId ?: 0)
+                ?: DEFAULT_BACKGROUND_COLOR
+        )
     }
 
     fun reload() {
         source.reload()
         invalidate()
+    }
+
+    companion object {
+        const val LAYER_ID = "path"
+        const val BACKGROUND_COLOR = "background_color"
+        val DEFAULT_BACKGROUND_COLOR = PathBackgroundColor.None
     }
 }

@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.trail_sense.settings.infrastructure.BubbleLevelPreferences
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getColorOnPrimary
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
@@ -22,6 +23,7 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
     private var bubbleColor: Int = Color.BLACK
     private var bubbleRadius: Float = 0f
     private var backgroundColor: Int = Color.WHITE
+    private var levelBackgroundColor: Int = Color.WHITE
     private var textColor: Int = Color.BLACK
     private var textSize: Float = 0f
     private var lineColor: Int = Color.BLACK
@@ -34,14 +36,17 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
     var yAngle: Float = 0f
 
     private val formatter = FormatService.getInstance(this.context)
+    private lateinit var prefs: BubbleLevelPreferences
 
 
     override fun setup() {
+        prefs = BubbleLevelPreferences(context)
         bubbleColor = Resources.getPrimaryColor(context)
         bubbleRadius = dp(16f)
         bubblePadding = dp(8f)
         backgroundColor =
             Resources.getAndroidColorAttr(context, android.R.attr.colorBackgroundFloating)
+        levelBackgroundColor = Resources.getPrimaryColor(context).withAlpha(80)
         textColor = Resources.getColorOnPrimary(context)
         textSize = sp(14f)
         lineColor = Resources.androidTextColorPrimary(context).withAlpha(127)
@@ -63,10 +68,11 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
 
         // Top bar
         noStroke()
-        fill(backgroundColor)
+        fill(if (isLevel(xAngle)) levelBackgroundColor else backgroundColor)
         rect(xBarLeft, xBarTop, barLength, barThickness, barRadius)
 
         // Right bar
+        fill(if (isLevel(yAngle)) levelBackgroundColor else backgroundColor)
         rect(
             yBarLeft,
             yBarTop,
@@ -76,6 +82,7 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
         )
 
         // Center circle
+        fill(if (isLevel(xAngle) && isLevel(yAngle)) levelBackgroundColor else backgroundColor)
         circle(
             xBarLeft + barLength / 2f,
             yBarTop + barLength / 2f,
@@ -135,6 +142,7 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
         )
 
         // Center bubble
+        fill(bubbleColor)
         val centerPercent = hypot(xAngle, yAngle).coerceAtMost(90f) / 90f
         val centerAngle = atan2(yAngle, xAngle)
 
@@ -155,6 +163,10 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
         textMode(TextMode.Center)
         text(xText, xBarLeft + barLength * xPercent, xBarTop + barThickness / 2f)
         text(yText, yBarLeft + barThickness / 2f, yBarTop + barLength * yPercent)
+    }
+
+    private fun isLevel(angle: Float): Boolean {
+        return abs(angle) < prefs.threshold
     }
 
 }

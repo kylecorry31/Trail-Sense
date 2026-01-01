@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Reading
 import java.time.Instant
 
-@Entity(tableName = "clouds")
+@Entity(tableName = "clouds", indices = [Index(value = ["time"])])
 data class CloudReadingEntity(
     @ColumnInfo(name = "time") val time: Instant,
     @ColumnInfo(name = "genus") val genus: CloudGenus?

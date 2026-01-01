@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.navigation.ui
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.ListPreference
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Distance
@@ -16,6 +15,8 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPe
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationCompassLayerManager
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
@@ -90,9 +91,11 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         onClick(preference(R.string.pref_map_layer_button)) {
-            val prefs = AppServiceRegistry.get<UserPreferences>()
             layerSheet?.dismiss()
-            layerSheet = MapLayersBottomSheet(prefs.navigation.layerManager)
+            layerSheet = MapLayersBottomSheet(
+                NavigationToolRegistration.MAP_ID,
+                NavigationCompassLayerManager.defaultLayers
+            )
             layerSheet?.show(this)
         }
     }

@@ -3,12 +3,17 @@ package com.kylecorry.trail_sense.tools.paths
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.paths.actions.PauseBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.actions.ResumeBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.paths.services.BacktrackToolService
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.paths.widgets.AppWidgetBacktrack
 import com.kylecorry.trail_sense.tools.paths.widgets.BacktrackToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -117,6 +122,26 @@ object PathsToolRegistration : ToolRegistration {
             ),
             singletons = listOf(
                 PathService::getInstance
+            ),
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    PathLayer.LAYER_ID,
+                    context.getString(R.string.paths),
+                    description = context.getString(R.string.map_layer_paths_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = PathLayer.BACKGROUND_COLOR,
+                            title = context.getString(R.string.background_color),
+                            type = MapLayerPreferenceType.Enum,
+                            values = listOf(
+                                context.getString(R.string.none) to PathBackgroundColor.None.id.toString(),
+                                context.getString(R.string.color_black) to PathBackgroundColor.Black.id.toString(),
+                                context.getString(R.string.color_white) to PathBackgroundColor.White.id.toString(),
+                            ),
+                            defaultValue = PathLayer.DEFAULT_BACKGROUND_COLOR.id.toString(),
+                        )
+                    )
+                ) { _, _ -> PathLayer() }
             )
         )
     }

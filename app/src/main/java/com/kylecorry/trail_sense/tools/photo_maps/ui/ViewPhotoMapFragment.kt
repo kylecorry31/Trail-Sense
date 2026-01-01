@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -30,6 +33,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -42,6 +46,8 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScree
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
@@ -81,9 +87,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private var shouldLockOnMapLoad = false
 
-    // State
-    private var elevation by state(0f)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
@@ -115,7 +118,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe(gps) {
-            layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            binding.map.userLocation = gps.location
+            binding.map.userLocationAccuracy = gps.horizontalAccuracy?.let { Distance.meters(it) }
             updateDestination()
 
             if (mapLockMode == MapLockMode.Location || mapLockMode == MapLockMode.Compass) {
@@ -126,8 +130,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         observe(compass) {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
-            binding.map.azimuth = bearing
-            layerManager.onBearingChanged(bearing)
+            binding.map.userAzimuth = compass.bearing
             if (mapLockMode == MapLockMode.Compass) {
                 binding.map.mapAzimuth = bearing
             }
@@ -138,9 +141,11 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             setDestination(it)
         }
 
+        binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
+
         reloadMap()
 
-        binding.map.onMapLongClick = {
+        binding.map.setOnLongPressListener {
             onLongPress(it)
         }
 
@@ -149,8 +154,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         // TODO: Don't show if location not on map
 
         // Update initial map rotation
-        binding.map.mapAzimuth = 0f
-        binding.map.keepMapUp = keepMapUp
+        binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
         // Set the button states
         CustomUiUtils.setButtonState(binding.lockBtn, false)
@@ -163,11 +167,24 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         }
 
         binding.zoomOutBtn.setOnClickListener {
-            binding.map.zoomBy(0.5f)
+            binding.map.zoom(0.5f)
         }
 
         binding.zoomInBtn.setOnClickListener {
-            binding.map.zoomBy(2f)
+            binding.map.zoom(2f)
+        }
+
+        scheduleUpdates(5000)
+    }
+
+    private fun getDefaultMapAzimuth(keepMapUp: Boolean): Float {
+        return if (keepMapUp) {
+            -SolMath.deltaAngle(
+                map?.calibration?.rotation ?: 0f,
+                map?.baseRotation()?.toFloat() ?: 0f
+            )
+        } else {
+            0f
         }
     }
 
@@ -227,8 +244,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         if (throttle.isThrottled() || !isBound) {
             return
         }
-
-        elevation = altimeter.altitude
 
         val beacon = destination ?: return
         binding.navigationSheet.updateNavigationSensorValues(
@@ -303,19 +318,22 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun resetLayerManager() {
-        layerManager.resume(requireContext(), binding.map)
+        layerManager.resume(requireContext(), binding.map, mapId)
 
         // Populate the last known location and map bounds
-        map?.boundary()?.let {
-            layerManager.onBoundsChanged(it)
-        }
-        layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        layerManager.onBoundsChanged()
+        binding.map.userLocation = gps.location
+        binding.map.userLocationAccuracy = gps.horizontalAccuracy?.let { Distance.meters(it) }
     }
 
     fun adjustLayers() {
         layerSheet?.dismiss()
-        layerSheet = MapLayersBottomSheet(prefs.photoMaps.layerManager)
-        layerManager.pause(requireContext(), binding.map)
+        layerSheet = MapLayersBottomSheet(
+            PhotoMapsToolRegistration.MAP_ID,
+            PhotoMapToolLayerManager.defaultLayers,
+            PhotoMapToolLayerManager.alwaysEnabledLayers
+        )
+        layerManager.pause(binding.map)
         layerSheet?.setOnDismissListener {
             resetLayerManager()
         }
@@ -362,16 +380,19 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
-        binding.map.onImageLoadedListener = {
-            if (shouldLockOnMapLoad) {
-                updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
-                shouldLockOnMapLoad = false
-            }
+        binding.map.minScale = 0f
+        val bounds = map.boundary() ?: CoordinateBounds(85.0, 180.0, -85.0, -180.0)
+        binding.map.projection = MapProjectionFactory().getProjection(map.metadata.projection)
+        binding.map.fitIntoView(bounds, paddingFactor = 1.05f)
+        binding.map.constraintBounds = bounds
+        binding.map.minScale = binding.map.scale
+        layerManager.improveResolution(binding.map.mapBounds, binding.map.metersPerPixel)
+        if (shouldLockOnMapLoad) {
+            updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
+            shouldLockOnMapLoad = false
         }
-        binding.map.showMap(map)
-        map.boundary()?.let {
-            layerManager.onBoundsChanged(it)
-        }
+        binding.map.mapAzimuth = getDefaultMapAzimuth(prefs.photoMaps.keepMapFacingUp)
+        layerManager.onBoundsChanged()
     }
 
     private fun updateMapLockMode(mode: MapLockMode, keepMapUp: Boolean) {
@@ -395,8 +416,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
 
                 // Reset the rotation
-                binding.map.mapAzimuth = 0f
-                binding.map.keepMapUp = keepMapUp
+                binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as locked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
@@ -414,7 +434,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
 
                 // Rotate
-                binding.map.keepMapUp = false
                 binding.map.mapAzimuth = -compass.rawBearing
 
                 // Show as locked
@@ -430,8 +449,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.isPanEnabled = true
 
                 // Reset the rotation
-                binding.map.mapAzimuth = 0f
-                binding.map.keepMapUp = keepMapUp
+                binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as unlocked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
@@ -451,7 +469,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 )
 
                 // Disable pan
-                binding.map.setPanEnabled(false, false)
+                binding.map.isInteractive = false
                 binding.map.isZoomEnabled = false
 
                 // Show as locked
@@ -475,7 +493,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         super.onPause()
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
-        layerManager.pause(requireContext(), binding.map)
+        layerManager.pause(binding.map)
         // Reset brightness
         screenLight.off()
 
@@ -498,12 +516,18 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     override fun onUpdate() {
         super.onUpdate()
 
-        effect("elevation", elevation, lifecycleHookTrigger.onResume()) {
-            layerManager.onElevationChanged(elevation)
-        }
-
         useEffect(resetOnResume) {
             activity?.let { screenLock.updateLock(it) }
+        }
+
+        effect("attribution", layerManager.key) {
+            inBackground {
+                val attribution = binding.map.getAttribution()
+                onMain {
+                    binding.mapAttribution.text = attribution
+                    binding.mapAttribution.isVisible = attribution != null
+                }
+            }
         }
     }
 

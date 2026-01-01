@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.main.CustomBottomNavigationView
 import com.kylecorry.trail_sense.settings.backup.BackupPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.BubbleLevelPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CameraPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CellSignalPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ClinometerPreferences
@@ -44,8 +45,8 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPrefere
 import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimatePreferenceRepo
 import com.kylecorry.trail_sense.tools.map.infrastructure.MapPreferences
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
 import com.kylecorry.trail_sense.tools.turn_back.infrastructure.TurnBackPreferences
@@ -84,6 +85,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val climate by lazy { ClimatePreferenceRepo(context) }
     val waterBoilTimer by lazy { WaterBoilTimerPreferences(context) }
     val turnBack by lazy { TurnBackPreferences(context) }
+    val bubbleLevel by lazy { BubbleLevelPreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 

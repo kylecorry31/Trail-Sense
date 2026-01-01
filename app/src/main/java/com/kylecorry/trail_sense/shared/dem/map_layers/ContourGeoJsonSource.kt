@@ -67,9 +67,9 @@ class ContourGeoJsonSource : GeoJsonSource {
         bounds: CoordinateBounds,
         metersPerPixel: Float
     ): GeoJsonObject? {
-        val zoomLevel = TileMath.distancePerPixelToZoom(
-            metersPerPixel.toDouble(),
-            (bounds.north + bounds.south) / 2
+        val zoomLevel = TileMath.getZoomLevel(
+            bounds,
+            metersPerPixel
         ).coerceAtMost(maxZoomLevel)
 
         val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()

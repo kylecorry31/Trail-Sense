@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.settings.backup.AutomaticBackupDiagnosticScanne
 import com.kylecorry.trail_sense.settings.backup.BackupFailedAlerter
 import com.kylecorry.trail_sense.settings.backup.BackupToolService
 import com.kylecorry.trail_sense.settings.quickactions.QuickActionSettings
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -90,6 +91,9 @@ object SettingsToolRegistration : ToolRegistration {
                     BROADCAST_UPDATE_IN_APP_WIDGET,
                     "Update in-app widget"
                 )
+            ),
+            singletons = listOf(
+                { SensorService(it) }
             )
         )
     }

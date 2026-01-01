@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared.preferences
 
+import android.widget.NumberPicker
 import androidx.preference.Preference
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.notify.Notify
@@ -79,4 +81,37 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
             decimalPlacesOverride ?: Units.getDecimalPlaces(current.units)
         )
     } ?: getString(R.string.dash)
+}
+
+fun AndromedaPreferenceFragment.setupNumberPickerSetting(
+    holderKey: String,
+    getValue: () -> Int,
+    setValue: (Int) -> Unit,
+    minValue: Int = 1,
+    maxValue: Int = 10,
+    formatValue: (Int) -> String = { it.toString() }
+) {
+    val pref = preferenceManager.findPreference<Preference>(holderKey)
+
+    pref?.setOnPreferenceClickListener {
+        val picker = NumberPicker(requireContext())
+        picker.minValue = minValue
+        picker.maxValue = maxValue
+        picker.value = getValue()
+        picker.wrapSelectorWheel = false
+
+        Alerts.dialog(
+            requireContext(),
+            pref.title.toString(),
+            contentView = picker
+        ) { cancelled ->
+            if (!cancelled) {
+                setValue(picker.value)
+                pref.summary = formatValue(picker.value)
+            }
+        }
+        true
+    }
+
+    pref?.summary = formatValue(getValue())
 }

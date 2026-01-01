@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon

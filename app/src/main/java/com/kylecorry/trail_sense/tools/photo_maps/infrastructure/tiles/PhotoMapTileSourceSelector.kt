@@ -6,17 +6,17 @@ import android.graphics.Canvas
 import android.graphics.Color
 import androidx.core.graphics.alpha
 import androidx.core.graphics.createBitmap
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
-import com.kylecorry.trail_sense.shared.andromeda_temp.intersects2
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
 class PhotoMapTileSourceSelector(
@@ -61,7 +61,7 @@ class PhotoMapTileSourceSelector(
         val canvas = Canvas(image)
 
         loaders.reversed().forEachIndexed { index, loader ->
-            val currentImage = loader.load(tile)?.applyOperationsOrNull(
+            loader.load(tile)?.applyOperationsOrNull(
                 Conditional(
                     index > 0,
                     ReplaceColor(
@@ -72,11 +72,8 @@ class PhotoMapTileSourceSelector(
                         inPlace = true
                     )
                 )
-            )
-
-            if (currentImage != null) {
-                canvas.drawBitmap(currentImage, 0f, 0f, null)
-                currentImage.recycle()
+            )?.use {
+                canvas.drawBitmap(this, 0f, 0f, null)
             }
         }
 
@@ -177,7 +174,7 @@ class PhotoMapTileSourceSelector(
             )
             corners.all { it }
         } else {
-            bounds.intersects2(subBounds)
+            bounds.intersects(subBounds)
         }
     }
 

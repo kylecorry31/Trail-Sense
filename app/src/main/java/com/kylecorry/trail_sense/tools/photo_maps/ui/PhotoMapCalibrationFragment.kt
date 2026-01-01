@@ -17,23 +17,19 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
@@ -55,17 +51,9 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     private lateinit var backCallback: OnBackPressedCallback
 
-    private val prefs by lazy { UserPreferences(requireContext()) }
-
     private val manager = MapCalibrationManager(maxPoints) {
         updateMapCalibration()
     }
-
-    // Layers
-    private var layerManager: ILayerManager? = null
-    private val beaconLayer = BeaconLayer()
-    private val pathLayer = PathLayer()
-    private val myLocationLayer = MyLocationLayer()
 
     // Sensors
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -79,42 +67,32 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private var showPreview = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
     }
 
     override fun onResume() {
         super.onResume()
-        layerManager = MultiLayerManager(
-            listOf(
-                PathLayerManager(pathLayer),
-                MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(requireContext()),
-                    Resources.getPrimaryMarkerColor(requireContext())
-                ),
-                BeaconLayerManager(requireContext(), beaconLayer)
-            )
-        )
-
         // Populate the last known location
-        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        binding.calibrationMap.userLocation = gps.location
+        binding.calibrationMap.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         observe(gps) {
-            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            binding.calibrationMap.userLocation = gps.location
+            binding.calibrationMap.userLocationAccuracy =
+                gps.horizontalAccuracy?.let { Distance.meters(it) }
             compass.declination = declinationStrategy.getDeclination()
         }
 
         observe(compass) {
-            layerManager?.onBearingChanged(compass.rawBearing)
+            binding.calibrationMap.userAzimuth = compass.bearing
         }
     }
 
     override fun onPause() {
         super.onPause()
-        layerManager?.stop()
-        layerManager = null
+        binding.calibrationMap.stop()
     }
 
     override fun generateBinding(
@@ -217,7 +195,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
         calibrateMap()
-        layerManager?.onBoundsChanged(map.boundary())
     }
 
     private fun updateMapCalibration() {
@@ -246,7 +223,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
                 rotation = if (showPreview) rotationCalculator.calculate(map!!) else originalRotation
             )
         )
-        layerManager?.onBoundsChanged(map?.boundary())
         val map = map ?: return
         binding.calibrationMap.mapAzimuth = 0f
         binding.calibrationMap.keepMapUp = true
@@ -328,18 +304,22 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         CustomUiUtils.setButtonState(binding.previewButton, enabled)
 
         showPreview = enabled
-        val layers = if (enabled) listOf(
-            pathLayer,
-            myLocationLayer,
-            beaconLayer
-        ) else emptyList()
-        binding.calibrationMap.setLayers(layers)
         updateMapCalibration()
 
+        binding.calibrationMap.stop()
+
+        val layers = if (enabled) listOf(
+            PathLayer.LAYER_ID,
+            MyLocationLayer.LAYER_ID,
+            BeaconLayer.LAYER_ID
+        ) else emptyList()
+        binding.calibrationMap.setLayersWithPreferences(
+            PhotoMapsToolRegistration.MAP_ID,
+            layers
+        )
+
         if (showPreview) {
-            layerManager?.start()
-        } else {
-            layerManager?.stop()
+            binding.calibrationMap.start()
         }
 
     }

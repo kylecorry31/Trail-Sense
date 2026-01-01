@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.main.automations
 
 import android.content.Context
-import android.util.Log
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.shared.automations.Automation

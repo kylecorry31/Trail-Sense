@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -12,185 +11,99 @@ import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
+import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
+import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class PhotoMapToolLayerManager {
 
-    private val taskRunner = MapLayerBackgroundTask()
-
     private var onBeaconClick: ((Beacon) -> Unit)? = null
-
-    private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer {
-        onBeaconClick?.invoke(it)
-        true
-    }
-    private val myLocationLayer = MyLocationLayer()
-    private val tideLayer = TideMapLayer()
-    private var contourLayer: ContourLayer? = null
-    private val navigationLayer = NavigationLayer()
-    private val scaleBarLayer = ScaleBarLayer()
-    private var myElevationLayer: MyElevationLayer? = null
-    private val compassLayer = CompassOverlayLayer()
+    private val taskRunner = MapLayerBackgroundTask()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
-    private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
-    private val cellTowerLayer = CellTowerMapLayer {
-        CellTowerMapLayer.navigate(it)
-        true
-    }
-
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val formatter = AppServiceRegistry.get<FormatService>()
-    private var layerManager: ILayerManager? = null
+    private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
+    private var photoMapLayer: PhotoMapLayer? = null
 
-    fun resume(context: Context, view: IMapView) {
-        contourLayer = ContourLayer(taskRunner)
+    private val preferences = AppServiceRegistry.get<PreferencesSubsystem>()
 
-        // Location layer
-        val hasCompass = SensorService(context).hasCompass()
-        if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
-        }
+    private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
 
-        // Compass layer
-        compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
-        compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
-        compassLayer.paddingTopDp = 8f
-        compassLayer.paddingRightDp = 8f
+    var key: Int = 0
+        private set
 
-        // Elevation layer
-        myElevationLayer = MyElevationLayer(
-            formatter,
-            PixelCoordinate(
-                Resources.dp(context, 16f),
-                -Resources.dp(context, 16f)
-            )
-        )
+    fun resume(context: Context, view: IMapView, photoMapId: Long) {
+        // User can't disable the photo maps layer
+        preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
 
-        // Scale bar layer
-        scaleBarLayer.units = prefs.baseDistanceUnits
-
-        // Beacon layer
-        beaconLayer.setPreferences(prefs.photoMaps.beaconLayer)
-
-        // Path layer
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        pathLayer.setPreferences(prefs.photoMaps.pathLayer)
-
-        // Navigation layer
-        navigationLayer.setPreferences(prefs.photoMaps.navigationLayer)
-
-        // Contour layer
-        contourLayer?.setPreferences(prefs.photoMaps.contourLayer)
-
-        // Distance layer
-        distanceLayer.isEnabled = false
-        distanceLayer.setOutlineColor(Color.WHITE)
-        distanceLayer.setPathColor(Color.BLACK)
-
-        // Tide layer
-        tideLayer.setPreferences(prefs.photoMaps.tideLayer)
-
-        // My location layer
-        myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
-
-        // Cell tower layer
-        cellTowerLayer.setPreferences(prefs.photoMaps.cellTowerLayer)
-
-        // Start
-        view.setLayers(
-            listOfNotNull(
-                if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
-                if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
-                if (prefs.photoMaps.cellTowerLayer.isEnabled.get()) cellTowerLayer else null,
-                if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
-                if (prefs.photoMaps.myLocationLayer.isEnabled.get()) myLocationLayer else null,
-                if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
-                if (prefs.photoMaps.beaconLayer.isEnabled.get()) beaconLayer else null,
+        view.setLayersWithPreferences(
+            PhotoMapsToolRegistration.MAP_ID,
+            defaultLayers,
+            taskRunner,
+            // TODO: Extract these to layer config
+            listOf(
                 selectedPointLayer,
-                distanceLayer,
-
-                // Overlays
-                scaleBarLayer,
-                myElevationLayer,
-                compassLayer
+                distanceLayer
             )
         )
 
-        layerManager = MultiLayerManager(
-            listOfNotNull(
-                if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(
-                    pathLayer
-                ) else null,
-                if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(context),
-                    Resources.getPrimaryMarkerColor(context)
-                ) else null,
-                if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    tideLayer
-                ) else null,
-                if (prefs.photoMaps.beaconLayer.isEnabled.get()) BeaconLayerManager(
-                    context,
-                    beaconLayer
-                ) else null,
-                if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(
-                    navigationLayer
-                ) else null
-            )
-        )
+        key++
 
-        layerManager?.start()
+        // Hardcoded customization for this tool
+        distanceLayer.isEnabled = false
+        distanceLayer.onPathChanged = { onDistancePathChange(it) }
+        lastMapDetails?.let { improveResolution(it.first, it.second) }
+
+
+        photoMapLayer = view.getLayer<PhotoMapLayer>()
+        photoMapLayer?.setPhotoMapFilter { it.id == photoMapId }
+        photoMapLayer?.setMinZoomLevel(0)
+        view.getLayer<BeaconLayer>()?.onClick = {
+            onBeaconClick?.invoke(it)
+            true
+        }
+        view.getLayer<CellTowerMapLayer>()?.onClick = {
+            CellTowerMapLayer.navigate(it)
+            true
+        }
+        view.getLayer<BackgroundColorMapLayer>()?.color =
+            Resources.color(context, R.color.colorSecondary)
+
+
+        view.start()
     }
 
-    fun pause(context: Context, view: IMapView) {
-        taskRunner.stop()
-        layerManager?.stop()
-        layerManager = null
+    fun pause(view: IMapView) {
+        view.stop()
     }
 
-    fun onBearingChanged(bearing: Float) {
-        layerManager?.onBearingChanged(bearing)
-    }
-
-    fun onLocationChanged(location: Coordinate, accuracy: Float?) {
-        layerManager?.onLocationChanged(location, accuracy)
-    }
-
-    fun onBoundsChanged(bounds: CoordinateBounds) {
-        layerManager?.onBoundsChanged(bounds)
+    fun onBoundsChanged() {
         distanceLayer.invalidate()
     }
 
-    fun onElevationChanged(elevation: Float) {
-        myElevationLayer?.elevation = Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
+    fun improveResolution(bounds: CoordinateBounds, metersPerPixel: Float) {
+        lastMapDetails = bounds to metersPerPixel
+        photoMapLayer?.improveResolution(bounds, metersPerPixel, 70)
     }
 
     fun setSelectedLocation(location: Coordinate?) {
@@ -243,5 +156,31 @@ class PhotoMapToolLayerManager {
 
     fun isMeasuringDistance(): Boolean {
         return distanceLayer.isEnabled
+    }
+
+    companion object {
+        val alwaysEnabledLayers = listOf(
+            PhotoMapLayer.LAYER_ID
+        )
+
+        val defaultLayers = listOf(
+            BackgroundColorMapLayer.LAYER_ID,
+            BaseMapLayer.LAYER_ID,
+            ElevationLayer.LAYER_ID,
+            HillshadeLayer.LAYER_ID,
+            PhotoMapLayer.LAYER_ID,
+            ContourLayer.LAYER_ID,
+            NavigationLayer.LAYER_ID,
+            CellTowerMapLayer.LAYER_ID,
+            TideMapLayer.LAYER_ID,
+            PathLayer.LAYER_ID,
+            BeaconLayer.LAYER_ID,
+            MyLocationLayer.LAYER_ID,
+            // Overlays
+            ScaleBarLayer.LAYER_ID,
+            MyElevationLayer.LAYER_ID,
+            CompassOverlayLayer.LAYER_ID
+        )
+
     }
 }

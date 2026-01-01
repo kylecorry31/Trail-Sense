@@ -9,7 +9,7 @@ import kotlin.math.roundToInt
 interface PixelInterpolator {
     fun interpolate(
         pixel: PixelCoordinate,
-        pixels: Array<Array<FloatArray>>,
+        pixels: FloatBitmap,
         channel: Int
     ): Float?
 }
@@ -17,16 +17,13 @@ interface PixelInterpolator {
 class NearestInterpolator : PixelInterpolator {
     override fun interpolate(
         pixel: PixelCoordinate,
-        pixels: Array<Array<FloatArray>>,
+        pixels: FloatBitmap,
         channel: Int
     ): Float? {
         // TODO: Extract this
-        if (pixels.isEmpty()) {
-            return null
-        }
-        val height = pixels.size
-        val width = pixels.first().size
-        if (width == 0) {
+        val height = pixels.height
+        val width = pixels.width
+        if (width == 0 || height == 0) {
             return null
         }
 
@@ -44,7 +41,7 @@ class NearestInterpolator : PixelInterpolator {
             if (cx < 0 || cy < 0 || cy >= height || cx >= width) {
                 return
             }
-            val value = pixels[cy][cx][channel]
+            val value = pixels.get(cx, cy, channel)
             if (value.isNaN()) {
                 return
             }
@@ -89,7 +86,7 @@ class NearestInterpolator : PixelInterpolator {
 class BilinearInterpolator : PixelInterpolator {
     override fun interpolate(
         pixel: PixelCoordinate,
-        pixels: Array<Array<FloatArray>>,
+        pixels: FloatBitmap,
         channel: Int
     ): Float? {
         // Find the 4 corners
@@ -97,10 +94,10 @@ class BilinearInterpolator : PixelInterpolator {
         val yFloor = pixel.y.toInt()
         val xCeil = xFloor + 1
         val yCeil = yFloor + 1
-        val x1y1 = pixels.getOrNull(yFloor)?.getOrNull(xFloor)?.getOrNull(channel)
-        val x1y2 = pixels.getOrNull(yCeil)?.getOrNull(xFloor)?.getOrNull(channel)
-        val x2y1 = pixels.getOrNull(yFloor)?.getOrNull(xCeil)?.getOrNull(channel)
-        val x2y2 = pixels.getOrNull(yCeil)?.getOrNull(xCeil)?.getOrNull(channel)
+        val x1y1 = pixels.getOrNull(xFloor, yFloor, channel)
+        val x1y2 = pixels.getOrNull(xFloor, yCeil, channel)
+        val x2y1 = pixels.getOrNull(xCeil, yFloor, channel)
+        val x2y2 = pixels.getOrNull(xCeil, yCeil, channel)
 
         // Not enough values to interpolate
         if (x1y1 == null || x1y2 == null || x2y1 == null || x2y2 == null ||
@@ -122,6 +119,8 @@ class BilinearInterpolator : PixelInterpolator {
 }
 
 class BicubicInterpolator : PixelInterpolator {
+    private val rowVals = FloatArray(4)
+
     private fun cubic(t: Float): Float {
         val tAbs = abs(t)
         return when {
@@ -133,7 +132,7 @@ class BicubicInterpolator : PixelInterpolator {
 
     override fun interpolate(
         pixel: PixelCoordinate,
-        pixels: Array<Array<FloatArray>>,
+        pixels: FloatBitmap,
         channel: Int
     ): Float? {
         val x = pixel.x
@@ -145,13 +144,12 @@ class BicubicInterpolator : PixelInterpolator {
         val fx = x - xInt
         val fy = y - yInt
 
-        val rowVals = mutableListOf<Float>()
         for (i in 0 until 4) {
             var value = 0f
             for (j in 0 until 4) {
                 val currentX = xInt + j - 1
                 val currentY = yInt + i - 1
-                val pixelValue = pixels.getOrNull(currentY)?.getOrNull(currentX)?.getOrNull(channel)
+                val pixelValue = pixels.getOrNull(currentX, currentY, channel)
                     ?: return null
 
                 if (pixelValue.isNaN()) {
@@ -160,7 +158,7 @@ class BicubicInterpolator : PixelInterpolator {
 
                 value += pixelValue * cubic(fx - (j - 1).toFloat())
             }
-            rowVals.add(value)
+            rowVals[i] = value
         }
 
         var result = 0f

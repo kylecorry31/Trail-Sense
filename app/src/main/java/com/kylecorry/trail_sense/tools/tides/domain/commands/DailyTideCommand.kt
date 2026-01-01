@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.domain.commands
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.shared.extensions.range
-import com.kylecorry.trail_sense.tools.tides.domain.ITideService
+import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 import com.kylecorry.trail_sense.tools.tides.ui.DailyTideData
@@ -11,7 +11,7 @@ import java.time.LocalDate
 import kotlin.math.max
 import kotlin.math.min
 
-class DailyTideCommand(private val tideService: ITideService) {
+class DailyTideCommand(private val tideService: TideService) {
 
     suspend fun execute(table: TideTable, date: LocalDate): DailyTideData = onDefault {
         val levels = tideService.getWaterLevels(table, date)

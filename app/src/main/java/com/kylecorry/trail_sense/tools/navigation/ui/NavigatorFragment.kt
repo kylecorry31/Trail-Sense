@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +26,7 @@ import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geofence
-import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -37,11 +36,11 @@ import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.direction
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -51,6 +50,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
@@ -144,7 +144,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
-    private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
     private val screenLock by lazy { NavigationScreenLock(userPrefs.navigation.keepScreenUnlockedWhileOpen) }
@@ -302,14 +301,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.roundCompass.setOnClickListener {
             toggleDestinationBearing()
         }
+        binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
         binding.radarCompass.setOnSingleTapListener {
             toggleDestinationBearing()
         }
 
         binding.radarCompass.setOnLongPressListener {
             layerSheet?.dismiss()
-            layerSheet = MapLayersBottomSheet(userPrefs.navigation.layerManager)
-            layers.pause(requireContext(), binding.radarCompass)
+            layerSheet = MapLayersBottomSheet(
+                NavigationToolRegistration.MAP_ID,
+                NavigationCompassLayerManager.defaultLayers
+            )
+            layers.pause(binding.radarCompass)
             layerSheet?.setOnDismissListener {
                 layers.resume(requireContext(), binding.radarCompass)
             }
@@ -390,7 +393,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         errors.reset()
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
-        layers.pause(requireContext(), binding.radarCompass)
+        layers.pause(binding.radarCompass)
         northReferenceHideTimer.stop()
     }
 
@@ -517,6 +520,26 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             handleShowWhenLocked()
         }
 
+        effect(
+            "attribution",
+            layers.key,
+            binding.radarCompass.isVisible
+        ) {
+            inBackground {
+                if (binding.radarCompass.isVisible) {
+                    val attribution = binding.radarCompass.getAttribution()
+                    onMain {
+                        binding.mapAttribution.text = attribution
+                        binding.mapAttribution.isVisible = attribution != null
+                    }
+                } else {
+                    onMain {
+                        binding.mapAttribution.isVisible = false
+                    }
+                }
+            }
+        }
+
         effect("device_orientation", clinometer.incline.toInt(), lifecycleHookTrigger.onResume()) {
             val deviceOrientation = if (clinometer.incline > -30) {
                 DeviceOrientation.Orientation.Portrait
@@ -558,14 +581,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 val azimuthText =
                     formatService.formatDegrees(bearing, replace360 = true)
                         .padStart(4, ' ')
-                val directionText = formatService.formatDirection(Bearing.direction(bearing))
+                val directionText = formatService.formatDirection(CompassDirection.nearest(bearing))
                     .padStart(2, ' ')
                 "$azimuthText   $directionText"
             }
             binding.navigationTitle.title.setTextDistinct(titleText)
         }
-
-        layers.onBearingChanged(bearing)
 
         // Compass
         listOf<ICompassView>(
@@ -588,7 +609,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             formatService.formatLocation(location)
         )
 
-        layers.onLocationChanged(location, gps.horizontalAccuracy)
+        binding.radarCompass.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         // Compass center point
         listOf<ICompassView>(
@@ -600,15 +622,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         updateNearbyBeacons()
-
-        if (useRadarCompass) {
-            val loadGeofence = Geofence(
-                location,
-                Distance.meters(nearbyDistance + 10)
-            )
-            val bounds = CoordinateBounds.from(loadGeofence)
-            layers.onBoundsChanged(bounds)
-        }
     }
 
     private fun updateCompassLayers() {
@@ -624,7 +637,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             // Update beacon layers
             beaconCompassLayer.setBeacons(nearbyBeacons)
             beaconCompassLayer.highlight(destinationBeacon)
-            layers.setDestination(destinationBeacon)
 
             // Destination
             if (destinationBeacon != null) {

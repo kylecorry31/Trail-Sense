@@ -8,70 +8,14 @@ import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
-import com.kylecorry.sol.math.SolMath.deltaAngle
-import com.kylecorry.sol.math.SolMath.isCloseTo
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.CoordinateBounds.Companion.empty
-import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
-import kotlin.math.absoluteValue
-
-fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
-    val x = this.width() * percent
-    val y = this.height() * percent
-    return CoordinateBounds.Companion.from(
-        listOf(
-            northWest.plus(x, Bearing.Companion.from(CompassDirection.West))
-                .plus(y, Bearing.Companion.from(CompassDirection.North)),
-            northEast.plus(x, Bearing.Companion.from(CompassDirection.East))
-                .plus(y, Bearing.Companion.from(CompassDirection.North)),
-            southWest.plus(x, Bearing.Companion.from(CompassDirection.West))
-                .plus(y, Bearing.Companion.from(CompassDirection.South)),
-            southEast.plus(x, Bearing.Companion.from(CompassDirection.East))
-                .plus(y, Bearing.Companion.from(CompassDirection.South)),
-        )
-    )
-}
-
-fun CoordinateBounds.heightDegrees(): Double {
-    return (north - south).absoluteValue
-}
-
-fun CoordinateBounds.widthDegrees(): Double {
-    if (isCloseTo(west, CoordinateBounds.world.west, 0.0001) && isCloseTo(
-            east,
-            CoordinateBounds.world.east,
-            0.0001
-        )
-    ) {
-        return 360.0
-    }
-
-    return (if (east >= west) {
-        east - west
-    } else {
-        (180 - west) + (east + 180)
-    }).absoluteValue
-}
-
-fun CoordinateBounds.intersects2(other: CoordinateBounds): Boolean {
-    if (south > other.north || other.south > north) {
-        return false
-    }
-
-    val union = CoordinateBounds.from(
-        listOf(
-            northEast, northWest, southEast, southWest,
-            other.northEast, other.northWest, other.southEast, other.southWest
-        )
-    )
-
-    return union.widthDegrees() <= (widthDegrees() + other.widthDegrees())
-}
+import kotlin.math.ceil
+import kotlin.math.floor
 
 fun Fragment.observe(
     subscription: ISubscription,
@@ -205,39 +149,43 @@ inline fun IntArray.set(x: Int, y: Int, width: Int, value: Int) {
     this[y * width + x] = value
 }
 
-// TODO: Sol
-fun CoordinateBounds.Companion.from2(points: List<Coordinate>): CoordinateBounds {
-    val west = getWestLongitudeBound(points) ?: return empty
-    val east = getEastLongitudeBound(points) ?: return empty
-    val north = getNorthLatitudeBound(points) ?: return empty
-    val south = getSouthLatitudeBound(points) ?: return empty
-    return CoordinateBounds(north, east, south, west)
+fun CoordinateBounds.grid(resolution: Double): List<Coordinate> {
+    val latitudes = Interpolation.getMultiplesBetween(
+        south - resolution,
+        north + resolution,
+        resolution
+    )
+
+    val longitudes = Interpolation.getMultiplesBetween(
+        west - resolution,
+        (if (west < east) east else east + 360) + resolution,
+        resolution
+    )
+
+    val points = mutableListOf<Coordinate>()
+    for (lat in latitudes) {
+        for (lon in longitudes) {
+            points.add(Coordinate(lat, lon))
+        }
+    }
+    return points
 }
 
-private fun getWestLongitudeBound(locations: List<Coordinate>): Double? {
-    val first = locations.firstOrNull() ?: return null
-    return locations.minByOrNull {
-        deltaAngle(
-            first.longitude.toFloat() + 180,
-            it.longitude.toFloat() + 180
-        )
-    }?.longitude
-}
+fun Interpolation.getMultiplesBetween2(
+    start: Double,
+    end: Double,
+    multiple: Double
+): DoubleArray {
+    val startMultiple = ceil(start / multiple).toInt()
+    val endMultiple = floor(end / multiple).toInt()
+    val size = endMultiple - startMultiple + 1
+    if (size <= 0) return DoubleArray(0)
 
-private fun getEastLongitudeBound(locations: List<Coordinate>): Double? {
-    val first = locations.firstOrNull() ?: return null
-    return locations.maxByOrNull {
-        deltaAngle(
-            first.longitude.toFloat() + 180,
-            it.longitude.toFloat() + 180
-        )
-    }?.longitude
-}
-
-private fun getSouthLatitudeBound(locations: List<Coordinate>): Double? {
-    return locations.minByOrNull { it.latitude }?.latitude
-}
-
-private fun getNorthLatitudeBound(locations: List<Coordinate>): Double? {
-    return locations.maxByOrNull { it.latitude }?.latitude
+    val result = DoubleArray(size)
+    var value = startMultiple * multiple
+    for (i in 0 until size) {
+        result[i] = value
+        value += multiple
+    }
+    return result
 }

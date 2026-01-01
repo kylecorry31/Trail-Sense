@@ -11,7 +11,9 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
@@ -30,7 +32,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     protected var map: PhotoMap? = null
     private var projection: IMapProjection? = null
     private var fullMetersPerPixel = 1f
-    protected val layers = mutableListOf<ILayer>()
+    protected val _layers = mutableListOf<ILayer>()
     private val files = FileSubsystem.getInstance(context)
 
     private var shouldRecenter = true
@@ -39,17 +41,39 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     private val hooks = Hooks()
 
+    override var userLocation: Coordinate = Coordinate.zero
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userLocationAccuracy: Distance? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userAzimuth: Bearing = Bearing.from(0f)
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     override fun addLayer(layer: ILayer) {
-        layers.add(layer)
+        _layers.add(layer)
     }
 
     override fun removeLayer(layer: ILayer) {
-        layers.remove(layer)
+        _layers.remove(layer)
     }
 
     override fun setLayers(layers: List<ILayer>) {
-        this.layers.clear()
-        this.layers.addAll(layers)
+        this._layers.clear()
+        this._layers.addAll(layers)
+    }
+
+    override fun getLayers(): List<ILayer> {
+        return _layers.toList()
     }
 
     override val mapProjection: IMapViewProjection
@@ -85,7 +109,15 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
                 }
 
                 override val metersPerPixel: Float = metersPerPixel
-                override val center: Coordinate by lazy { viewNoRotation?.let { toCoordinate(toPixel(it)) } ?: Coordinate.zero }
+                override val center: Coordinate by lazy {
+                    viewNoRotation?.let {
+                        toCoordinate(
+                            toPixel(
+                                it
+                            )
+                        )
+                    } ?: Coordinate.zero
+                }
             }
         }
 
@@ -189,7 +221,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     override fun onScaleChanged(oldScale: Float, newScale: Float) {
         super.onScaleChanged(oldScale, newScale)
-        layers.forEach { it.invalidate() }
+        _layers.forEach { it.invalidate() }
     }
 
     override fun onTranslateChanged(
@@ -199,7 +231,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         newTranslateY: Float
     ) {
         super.onTranslateChanged(oldTranslateX, oldTranslateY, newTranslateX, newTranslateY)
-        layers.forEach { it.invalidate() }
+        _layers.forEach { it.invalidate() }
     }
 
     override fun draw() {
@@ -216,7 +248,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             onImageLoadedListener?.invoke()
         }
 
-        layers.forEach {
+        _layers.forEach {
             drawer.withLayerOpacity(it.opacity) {
                 it.draw(drawer, this)
             }
@@ -225,7 +257,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     override fun drawOverlay() {
         super.drawOverlay()
-        layers.forEach {
+        _layers.forEach {
             drawer.withLayerOpacity(it.opacity) {
                 it.drawOverlay(drawer, this)
             }
@@ -267,6 +299,15 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     protected fun toViewNoRotation(view: PointF): PointF? {
         val source = toSource(view.x, view.y, true) ?: return null
         return toView(source.x, source.y, false)
+    }
+
+    override fun start() {
+        _layers.forEach { it.start() }
+        invalidate()
+    }
+
+    override fun stop() {
+        _layers.forEach { it.stop() }
     }
 
 }

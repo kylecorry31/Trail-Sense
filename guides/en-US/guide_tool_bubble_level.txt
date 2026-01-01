@@ -7,6 +7,8 @@ To determine if a surface is flat:
 2. Wait for the bubble level to settle.
 3. If the bubble is centered, the surface is flat. If the bubble is to the left of the screen, the surface is higher on the left side. If the bubble is at the top of the screen, the surface is higher on the top side.
 
+When the surface is flat, the background color of the level will change. You can adjust the threshold in 'Settings > Bubble Level > Level threshold'.
+
 The exact angle of the surface in degrees on the X (left/right) and Y (top/bottom) axis is displayed at the top.
 
 It is also possible to hold the device on its side to measure an angle and use the Y axis to measure the angle.

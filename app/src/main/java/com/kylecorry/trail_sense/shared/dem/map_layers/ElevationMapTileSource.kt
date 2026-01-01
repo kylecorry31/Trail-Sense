@@ -5,21 +5,17 @@ import android.util.Size
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundNearest
-import com.kylecorry.trail_sense.shared.andromeda_temp.Parallel
+import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
 class ElevationMapTileSource : TileSource {
 
-    var useDynamicElevationScale = false
     var colorScale: ElevationColorMap = USGSElevationColorMap()
 
-    private val minScaleElevation = 0f
     private val minZoomLevel = 10
     private val maxZoomLevel = 19
     private val baseResolution = 1 / 240.0
@@ -46,30 +42,14 @@ class ElevationMapTileSource : TileSource {
     private suspend fun loadTile(tile: Tile): Bitmap? {
         val zoomLevel = tile.z.coerceIn(minZoomLevel, maxZoomLevel)
 
-        return DEM.elevationImage(
+        return DEM.getElevationImage(
             tile.getBounds(),
             validResolutions[zoomLevel]!!
-        ) { elevation, _, maxElevation ->
-            if (useDynamicElevationScale) {
-                var max = (maxElevation * 1.25f).roundNearest(1000f)
-                if (max < maxElevation) {
-                    max += 1000f
-                }
-                colorScale.getColor(
-                    SolMath.norm(
-                        elevation,
-                        minScaleElevation,
-                        max,
-                        true
-                    )
-                )
-            } else {
-                colorScale.getElevationColor(elevation)
-            }
+        ) { x, y, getElevation ->
+            colorScale.getElevationColor(getElevation(x, y))
         }.applyOperationsOrNull(
             Convert(Bitmap.Config.ARGB_8888),
-            Resize(Size(10, 10), true),
-            Convert(Bitmap.Config.RGB_565),
+            Resize(Size(10, 10), true)
         )
     }
 }

@@ -3,14 +3,10 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 import android.content.Context
 import android.content.res.Configuration
 import android.location.LocationManager
-import android.net.ConnectivityManager
 import android.nfc.NfcAdapter
-import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.core.content.getSystemService
-import com.kylecorry.sol.math.SolMath
-import kotlin.math.roundToInt
 
 
 object SystemSettings {

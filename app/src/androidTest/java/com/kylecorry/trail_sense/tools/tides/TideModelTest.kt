@@ -12,7 +12,6 @@ import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.time.Time.atStartOfDay
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.tools.tides.infrastructure.model.TideModel
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -252,7 +251,7 @@ class TideModelTest {
 //            if (index != 16){
 //                return@flatMapIndexed listOf(0f)
 //            }
-            val harmonics = TideModel.getHarmonics(context, test.first)
+            val harmonics = TideModel.getHarmonics(context, test.first)?.harmonics ?: emptyList()
             check(index, harmonics, test.second)
         }
 

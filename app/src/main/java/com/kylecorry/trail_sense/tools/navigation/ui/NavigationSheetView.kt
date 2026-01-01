@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.flatten
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -23,7 +24,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.direction
 import com.kylecorry.trail_sense.shared.extensions.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.DataPointView
@@ -243,7 +243,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         val value = formatter.formatDegrees(
             azimuth,
             replace360 = true
-        ) + " " + formatter.formatDirection(Bearing.direction(azimuth))
+        ) + " " + formatter.formatDirection(CompassDirection.nearest(azimuth))
         distanceDataView.isVisible = !isTitle
         bearingDataView.isVisible = isTitle
         if (isTitle) {

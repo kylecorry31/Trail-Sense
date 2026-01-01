@@ -1,6 +1,9 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
+import android.text.method.LinkMovementMethod
+import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -10,6 +13,7 @@ import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.pickers.Pickers
@@ -30,11 +34,13 @@ import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
@@ -51,6 +57,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val menuButton = useView<FloatingActionButton>(R.id.menu_btn)
         val navigationSheetView = useView<NavigationSheetView>(R.id.navigation_sheet)
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
+        val attributionView = useView<TextView>(R.id.map_attribution)
         val navigation = useNavigationSensors(trueNorth = true)
         val context = useAndroidContext()
         val sensors = useService<SensorService>()
@@ -80,16 +87,32 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             setLockMode(getNextLockMode(lockMode, hasCompass))
         }
 
+        useEffect(attributionView) {
+            attributionView.movementMethod = LinkMovementMethod.getInstance()
+        }
+
         // Layers
         val manager = useMemo { MapToolLayerManager() }
         useEffectWithCleanup(manager, mapView, resetOnResume) {
             manager.resume(context, mapView)
             return@useEffectWithCleanup {
-                manager.pause(context, mapView)
+                manager.pause(mapView)
             }
         }
+
+        useBackgroundEffect(mapView, manager.key, attributionView) {
+            val attribution = mapView.getAttribution()
+            onMain {
+                attributionView.text = attribution
+                attributionView.isVisible = attribution != null
+            }
+        }
+
         val layerEditSheet = useMemo(prefs) {
-            MapLayersBottomSheet(prefs.map.layerManager)
+            MapLayersBottomSheet(
+                MapToolRegistration.MAP_ID,
+                MapToolLayerManager.defaultLayers
+            )
         }
 
         usePauseEffect(layerEditSheet) {
@@ -100,7 +123,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {
-            manager.pause(context, mapView)
+            manager.pause(mapView)
             layerEditSheet.setOnDismissListener {
                 manager.resume(context, mapView)
             }
@@ -153,23 +176,18 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
 
         // Update layer values
-        useEffect(mapView, manager, navigation.location, navigation.locationAccuracy, manager.key) {
-            manager.onLocationChanged(navigation.location, navigation.locationAccuracy)
+        useEffect(mapView, navigation.location, navigation.locationAccuracy) {
+            mapView.userLocation = navigation.location
+            mapView.userLocationAccuracy = navigation.locationAccuracy
             mapView.invalidate()
         }
 
-        useEffect(mapView, manager, navigation.bearing, manager.key) {
-            manager.onBearingChanged(navigation.bearing)
-            mapView.invalidate()
+        useEffect(mapView, navigation.bearing) {
+            mapView.userAzimuth = navigation.bearing
         }
 
         useEffect(manager, mapView.mapBounds, manager.key) {
-            manager.onBoundsChanged(mapView.mapBounds)
-        }
-
-        useEffect(mapView, manager, navigation.elevation, manager.key) {
-            manager.onElevationChanged(navigation.elevation)
-            mapView.invalidate()
+            manager.onBoundsChanged()
         }
 
         useEffect(lockMode, mapView, lockButton) {

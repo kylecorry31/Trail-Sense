@@ -1,24 +1,32 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
+import android.os.Bundle
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask2
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
+import com.kylecorry.trail_sense.shared.withId
 
-class ElevationLayer(taskRunner: MapLayerBackgroundTask2 = MapLayerBackgroundTask2()) :
+class ElevationLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
     TileMapLayer<ElevationMapTileSource>(
         ElevationMapTileSource(),
         taskRunner,
         minZoomLevel = 10,
     ) {
 
-    init {
-        preRenderBitmaps = true
+    override val layerId: String = LAYER_ID
+
+    override fun setPreferences(preferences: Bundle) {
+        super.setPreferences(preferences)
+        val strategyId = preferences.getString(COLOR)?.toLongOrNull()
+        source.colorScale = ElevationColorMapFactory().getElevationColorMap(
+            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
+        )
     }
 
-    fun setPreferences(prefs: ElevationMapLayerPreferences) {
-        percentOpacity = prefs.opacity.get() / 100f
-        source.colorScale =
-            ElevationColorMapFactory().getElevationColorMap(prefs.colorStrategy.get())
-        invalidate()
+    companion object {
+        const val LAYER_ID = "elevation"
+        const val COLOR = "color"
+        val DEFAULT_COLOR = ElevationColorStrategy.USGS
     }
 }

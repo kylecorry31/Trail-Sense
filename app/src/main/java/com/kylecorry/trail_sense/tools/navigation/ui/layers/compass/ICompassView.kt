@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.layers.compass
 
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappableBearing
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappableReferencePoint

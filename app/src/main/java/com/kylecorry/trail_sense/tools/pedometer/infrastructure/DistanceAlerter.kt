@@ -7,8 +7,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
+import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.toRelativeDistance

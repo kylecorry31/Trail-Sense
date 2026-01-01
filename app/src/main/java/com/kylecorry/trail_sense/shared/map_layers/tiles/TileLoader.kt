@@ -1,12 +1,18 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.Log
+import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.Resize
+import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.trail_sense.shared.andromeda_temp.Pad
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
-class TileLoader {
+class TileLoader(private val padding: Int = 0) {
 
-    var tileCache: Map<Tile, List<Bitmap>> = emptyMap()
+    var tileCache: Map<Tile, Bitmap> = emptyMap()
         private set
 
     var lock = Any()
@@ -16,8 +22,8 @@ class TileLoader {
 
     fun clearCache() {
         synchronized(lock) {
-            tileCache.forEach { (_, bitmaps) ->
-                bitmaps.forEach { it.recycle() }
+            tileCache.forEach { (_, bitmap) ->
+                bitmap.recycle()
             }
             tileCache = emptyMap()
         }
@@ -40,12 +46,20 @@ class TileLoader {
             synchronized(lock) {
                 if (clearTileWhenNullResponse || image != null) {
                     val old = tileCache[tile]
-                    if (image == null) {
+                    val resized = image?.applyOperationsOrNull(
+                        Resize(
+                            tile.size,
+                            exact = false
+                        ),
+                        Convert(Bitmap.Config.ARGB_8888),
+                        Pad(padding, Color.TRANSPARENT)
+                    )
+                    if (resized == null) {
                         tileCache -= tile
                     } else {
-                        tileCache += tile to listOfNotNull(image)
+                        tileCache += tile to resized
                     }
-                    old?.forEach { it.recycle() }
+                    old?.recycle()
                     hasChanges = true
                 }
             }
@@ -56,7 +70,7 @@ class TileLoader {
             val tilesSet = tiles.toSet()
             val keysToRemove = tileCache.keys.filter { it !in tilesSet }
             keysToRemove.forEach { key ->
-                tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
+                tileCache[key]?.recycle()
                 tileCache -= key
                 hasChanges = true
             }
@@ -65,9 +79,7 @@ class TileLoader {
 
         if (hasChanges) {
             System.gc()
-            val memoryUsage = tileCache.values.sumOf { bitmaps ->
-                bitmaps.sumOf { it.allocationByteCount }
-            }
+            val memoryUsage = tileCache.values.sumOf { it.allocationByteCount }
             Log.d("TileLoader", "Tile memory usage: ${memoryUsage / 1024} KB (${tiles.size} tiles)")
         }
     }

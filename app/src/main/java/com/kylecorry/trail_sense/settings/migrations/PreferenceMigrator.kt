@@ -50,7 +50,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 20
+        private const val version = 21
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -224,9 +224,9 @@ class PreferenceMigrator private constructor() {
                 }
             },
             PreferenceMigration(17, 18) { context, prefs ->
-                val userPrefs = UserPreferences(context)
                 // Disable the map layer by default for returning users to not be disruptive
-                userPrefs.navigation.photoMapLayer.isEnabled.set(!AppState.isReturningUser)
+                val key = "pref_navigation_map_layer_enabled"
+                prefs.putBoolean(key, !AppState.isReturningUser)
             },
             PreferenceMigration(18, 19) { context, prefs ->
                 val mapIds = listOf("navigation", "map", "photo_maps")
@@ -247,6 +247,58 @@ class PreferenceMigrator private constructor() {
                     scope.launch {
                         val navigator = Navigator.getInstance(context)
                         navigator.navigateToBearing(bearing)
+                    }
+                }
+            },
+            PreferenceMigration(20, 21) { context, prefs ->
+
+                val disabledByDefault = listOf(
+                    // Elevation
+                    "pref_photo_maps_elevation_layer_enabled",
+                    "pref_navigation_elevation_layer_enabled",
+                    // Hillshade
+                    "pref_photo_maps_hillshade_layer_enabled",
+                    "pref_navigation_hillshade_layer_enabled",
+                    // Contour
+                    "pref_photo_maps_contour_layer_enabled",
+                    "pref_navigation_contour_layer_enabled",
+                    // Base map
+                    "pref_photo_maps_base_map_layer_enabled",
+                    "pref_navigation_base_map_layer_enabled",
+                    // Cell towers
+                    "pref_map_cell_tower_layer_enabled",
+                    "pref_photo_maps_cell_tower_layer_enabled",
+                    "pref_navigation_cell_tower_layer_enabled",
+                    // Navigation
+                    "pref_navigation_navigation_layer_enabled",
+                )
+
+                for (key in disabledByDefault) {
+                    if (!prefs.contains(key)) {
+                        prefs.putBoolean(key, false)
+                    }
+                }
+
+                val halfOpacityByDefault = listOf(
+                    // Elevation
+                    "pref_map_elevation_layer_opacity",
+                    "pref_photo_maps_elevation_layer_opacity",
+                    "pref_navigation_elevation_layer_opacity",
+                    // Hillshade
+                    "pref_map_hillshade_layer_opacity",
+                    "pref_photo_maps_hillshade_layer_opacity",
+                    "pref_navigation_hillshade_layer_opacity",
+                    // Contour
+                    "pref_map_contour_layer_opacity",
+                    "pref_photo_maps_contour_layer_opacity",
+                    "pref_navigation_contour_layer_opacity",
+                    // Photo Maps
+                    "pref_navigation_map_layer_opacity",
+                )
+
+                for (key in halfOpacityByDefault) {
+                    if (!prefs.contains(key)) {
+                        prefs.putInt(key, 50)
                     }
                 }
             }

@@ -25,7 +25,6 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import kotlin.collections.set
 import kotlin.math.roundToInt
 
 fun Fragment.requireMainActivity(): MainActivity {
