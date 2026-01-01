@@ -52,12 +52,11 @@ abstract class FullRegionMapTileLoader(
             }
             fullImage.applyOperationsOrNull(
                 CorrectPerspective2(
-                    // Bounds are inverted on the Y axis from android's pixel coordinate system
                     PercentBounds(
+                        percentTopLeft,
+                        percentTopRight,
                         percentBottomLeft,
                         percentBottomRight,
-                        percentTopLeft,
-                        percentTopRight
                     ),
                     outputSize = outputSize
                 ),

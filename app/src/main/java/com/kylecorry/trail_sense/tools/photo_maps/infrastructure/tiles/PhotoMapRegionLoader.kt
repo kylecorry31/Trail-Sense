@@ -137,12 +137,11 @@ class PhotoMapRegionLoader(
             Conditional(
                 shouldApplyPerspectiveCorrection,
                 CorrectPerspective2(
-                    // Bounds are inverted on the Y axis from android's pixel coordinate system
                     PercentBounds(
+                        percentTopLeft,
+                        percentTopRight,
                         percentBottomLeft,
                         percentBottomRight,
-                        percentTopLeft,
-                        percentTopRight
                     ),
                     maxSize = maxSize,
                     outputSize = maxSize,

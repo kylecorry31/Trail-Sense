@@ -194,7 +194,7 @@ abstract class TileMapLayer<T : TileSource>(
             // Render all tiles into the merged bitmap
             loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmaps) ->
                 val pixelX = (tile.x - minTileX) * tileWidth
-                val pixelY = (maxTileY - tile.y) * tileHeight
+                val pixelY = (tile.y - minTileY) * tileHeight
                 bitmaps.reversed().forEach { bitmap ->
                     mergeCanvas.drawBitmap(bitmap, pixelX.toFloat(), pixelY.toFloat(), null)
                 }
@@ -225,11 +225,10 @@ abstract class TileMapLayer<T : TileSource>(
             1,
             1,
             floatArrayOf(
-                // Intentionally inverted along the Y axis
+                topLeftPixel.x, topLeftPixel.y,
+                topRightPixel.x, topRightPixel.y,
                 bottomLeftPixel.x, bottomLeftPixel.y,
                 bottomRightPixel.x, bottomRightPixel.y,
-                topLeftPixel.x, topLeftPixel.y,
-                topRightPixel.x, topRightPixel.y
             ),
             0,
             null,
