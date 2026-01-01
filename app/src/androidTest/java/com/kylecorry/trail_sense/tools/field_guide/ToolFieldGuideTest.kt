@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
+import java.time.LocalDate
 
 class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
@@ -195,7 +196,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         hasText("No sightings")
         click(R.id.create_btn)
         click(R.id.time)
-        pickDate(2025, 1, 1)
+        pickDate(LocalDate.now().year, 1, 1)
         pickTime(6, 0, true)
         hasText("January 1 6:00 AM")
         input(R.id.location, "42, 72")
