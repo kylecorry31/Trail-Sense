@@ -31,8 +31,7 @@ class TileLoader(private val padding: Int = 0) {
 
     suspend fun loadTiles(
         sourceSelector: TileSource,
-        tiles: List<Tile>,
-        onChange: suspend () -> Unit = {}
+        tiles: List<Tile>
     ) = onDefault {
         val tilesToLoad = if (alwaysReloadTiles) {
             tiles
@@ -63,7 +62,6 @@ class TileLoader(private val padding: Int = 0) {
                     hasChanges = true
                 }
             }
-            onChange()
         }
 
         synchronized(lock) {
@@ -75,7 +73,6 @@ class TileLoader(private val padding: Int = 0) {
                 hasChanges = true
             }
         }
-        onChange()
 
         if (hasChanges) {
             System.gc()
