@@ -1,13 +1,11 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
 import android.graphics.Bitmap
-import android.graphics.BitmapShader
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.Shader
 import android.os.Bundle
 import android.util.Log
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -27,8 +25,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlinx.coroutines.CancellationException
 import kotlin.math.hypot
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.round
 
 abstract class TileMapLayer<T : TileSource>(
@@ -168,8 +164,6 @@ abstract class TileMapLayer<T : TileSource>(
 
         val borderPixels = TILE_BORDER_PIXELS
 
-        val shader = BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-
         // Bitmap pixels, exclude the border pixels
         // Top left
         srcPoints[0] = borderPixels.toFloat()
@@ -201,17 +195,24 @@ abstract class TileMapLayer<T : TileSource>(
         renderMatrix.reset()
         renderMatrix.setPolyToPoly(srcPoints, 0, dstPoints, 0, 4)
 
-        shader.setLocalMatrix(renderMatrix)
-        tilePaint.shader = shader
+        canvas.save()
+        canvas.concat(renderMatrix)
 
-        val minX = min(dstPoints[0], dstPoints[4])
-        val maxX = max(dstPoints[2], dstPoints[6])
-        val minY = min(dstPoints[1], dstPoints[3])
-        val maxY = max(dstPoints[5], dstPoints[7])
+        srcRect.set(
+            borderPixels,
+            borderPixels,
+            bitmap.width - borderPixels,
+            bitmap.height - borderPixels
+        )
+        destRect.set(
+            borderPixels,
+            borderPixels,
+            bitmap.width - borderPixels,
+            bitmap.height - borderPixels
+        )
 
-        canvas.drawRect(minX, minY, maxX, maxY, tilePaint)
-
-        tilePaint.shader = null
+        canvas.drawBitmap(bitmap, srcRect, destRect, tilePaint)
+        canvas.restore()
     }
 
     private fun drawNeighbor(
