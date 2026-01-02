@@ -169,12 +169,10 @@ abstract class TileMapLayer<T : TileSource>(
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
         loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
-            val tileBounds = tile.getBounds()
-            fillNeighborPixels(tile, bitmap)
             renderTile(
+                tile,
                 canvas,
                 map,
-                tileBounds,
                 bitmap
             )
         }
@@ -213,11 +211,12 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTile(
+        tile: Tile,
         canvas: Canvas,
         map: IMapView,
-        bounds: CoordinateBounds,
         bitmap: Bitmap
     ) {
+        val bounds = tile.getBounds()
         val topLeftPixel = map.toPixel(bounds.northWest)
         val topRightPixel = map.toPixel(bounds.northEast)
         val bottomRightPixel = map.toPixel(bounds.southEast)
@@ -238,6 +237,8 @@ abstract class TileMapLayer<T : TileSource>(
         ) {
             return
         }
+
+        fillNeighborPixels(tile, bitmap)
 
         val borderPixels = TILE_BORDER_PIXELS
 
