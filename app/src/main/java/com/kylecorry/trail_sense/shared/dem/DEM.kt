@@ -16,6 +16,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.LRUCache2
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
@@ -39,8 +40,8 @@ object DEM {
     private const val CACHE_DISTANCE = 10f
     private const val CACHE_SIZE = 500
     private var cache = GeospatialCache<Float>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
-    private var pixelCache = LRUCache<String, ElevationBitmap>(1)
-    private var tileCache = LRUCache<String, ElevationBitmap>(50)
+    private var pixelCache = LRUCache2<String, ElevationBitmap>(1)
+    private var tileCache = LRUCache2<String, ElevationBitmap>(50)
     private var cachedSources: List<GeographicImageSource>? = null
     private var cachedIsExternal: Boolean? = null
     private val sourcesLock = Mutex()
