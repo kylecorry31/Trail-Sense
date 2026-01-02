@@ -30,4 +30,11 @@ data class Tile(
             CoordinateBounds(latMax, lonMax - 360, latMin, lonMin - 360)
         }
     }
+
+    fun getNeighbor(dx: Int, dy: Int): Tile {
+        val n = 1 shl z
+        val newX = (x + dx + n) % n
+        val newY = (y + dy + n) % n
+        return Tile(newX, newY, z, size)
+    }
 }

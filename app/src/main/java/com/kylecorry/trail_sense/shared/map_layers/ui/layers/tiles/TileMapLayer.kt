@@ -332,7 +332,7 @@ abstract class TileMapLayer<T : TileSource>(
 
         val canvas = Canvas(originalBitmap)
 
-        val topTile = Tile(tile.x, tile.y - 1, tile.z, tile.size)
+        val topTile = tile.getNeighbor(0, -1)
         drawNeighbor(
             canvas,
             topTile,
@@ -344,7 +344,7 @@ abstract class TileMapLayer<T : TileSource>(
             originalBitmap.height - borderSize * 2
         )
 
-        val bottomTile = Tile(tile.x, tile.y + 1, tile.z, tile.size)
+        val bottomTile = tile.getNeighbor(0, 1)
         drawNeighbor(
             canvas,
             bottomTile,
@@ -356,7 +356,7 @@ abstract class TileMapLayer<T : TileSource>(
             borderSize
         )
 
-        val leftTile = Tile(tile.x - 1, tile.y, tile.z, tile.size)
+        val leftTile = tile.getNeighbor(-1, 0)
         drawNeighbor(
             canvas,
             leftTile,
@@ -368,7 +368,7 @@ abstract class TileMapLayer<T : TileSource>(
             borderSize
         )
 
-        val rightTile = Tile(tile.x + 1, tile.y, tile.z, tile.size)
+        val rightTile = tile.getNeighbor(1, 0)
         drawNeighbor(
             canvas,
             rightTile,
@@ -380,7 +380,7 @@ abstract class TileMapLayer<T : TileSource>(
             borderSize
         )
 
-        val topLeftTile = Tile(tile.x - 1, tile.y - 1, tile.z, tile.size)
+        val topLeftTile = tile.getNeighbor(-1, -1)
         drawNeighbor(
             canvas,
             topLeftTile,
@@ -392,7 +392,7 @@ abstract class TileMapLayer<T : TileSource>(
             originalBitmap.height - borderSize * 2
         )
 
-        val topRightTile = Tile(tile.x + 1, tile.y - 1, tile.z, tile.size)
+        val topRightTile = tile.getNeighbor(1, -1)
         drawNeighbor(
             canvas,
             topRightTile,
@@ -404,7 +404,7 @@ abstract class TileMapLayer<T : TileSource>(
             originalBitmap.height - borderSize * 2
         )
 
-        val bottomLeftTile = Tile(tile.x - 1, tile.y + 1, tile.z, tile.size)
+        val bottomLeftTile = tile.getNeighbor(-1, 1)
         drawNeighbor(
             canvas,
             bottomLeftTile,
@@ -416,7 +416,7 @@ abstract class TileMapLayer<T : TileSource>(
             borderSize
         )
 
-        val bottomRightTile = Tile(tile.x + 1, tile.y + 1, tile.z, tile.size)
+        val bottomRightTile = tile.getNeighbor(1, 1)
         drawNeighbor(
             canvas,
             bottomRightTile,
