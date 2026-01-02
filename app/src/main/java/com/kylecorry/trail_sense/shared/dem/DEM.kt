@@ -59,17 +59,18 @@ object DEM {
     private suspend fun getElevations(
         bounds: CoordinateBounds,
         resolution: Double,
-        isTile: Boolean = false
+        isTile: Boolean = false,
+        expandBy: Int = 1
     ): ElevationBitmap = onDefault {
         val latitudes = Interpolation.getMultiplesBetween2(
-            bounds.south - resolution,
-            bounds.north + resolution,
+            bounds.south - resolution * expandBy,
+            bounds.north + resolution * expandBy,
             resolution
         )
 
         val longitudes = Interpolation.getMultiplesBetween2(
-            bounds.west - resolution,
-            (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution,
+            bounds.west - resolution * expandBy,
+            (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution * expandBy,
             resolution
         )
 
@@ -157,10 +158,11 @@ object DEM {
         bounds: CoordinateBounds,
         resolution: Double,
         config: Bitmap.Config = Bitmap.Config.RGB_565,
+        padding: Int = 0,
         adjuster: (x: Int, y: Int, getElevation: (x: Int, y: Int) -> Float) -> Int
     ): Bitmap = onDefault {
         val expandBy = 1
-        val elevations = getElevations(bounds, resolution)
+        val elevations = getElevations(bounds, resolution, false, expandBy + padding)
         val width = elevations.data.width - expandBy * 2
         val height = elevations.data.height - expandBy * 2
         val pixels = IntArray(width * height)
