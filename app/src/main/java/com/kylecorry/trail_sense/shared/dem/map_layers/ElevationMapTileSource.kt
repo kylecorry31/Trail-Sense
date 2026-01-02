@@ -52,7 +52,8 @@ class ElevationMapTileSource : TileSource {
         }.applyOperationsOrNull(
             Convert(Bitmap.Config.ARGB_8888),
             ResizePadded(tile.size, padding = padding),
-            Flip(horizontal = false)
+            Flip(horizontal = false),
+            Convert(Bitmap.Config.RGB_565),
         )
     }
 }

@@ -145,7 +145,7 @@ class MapLayerBackgroundTask {
         return if (device.getAvailableBitmapMemoryBytes() < threshold) {
             0f
         } else {
-            0.2f
+            0.05f
         }
     }
 
