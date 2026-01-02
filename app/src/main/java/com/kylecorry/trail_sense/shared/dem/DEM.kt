@@ -162,7 +162,7 @@ object DEM {
         adjuster: (x: Int, y: Int, getElevation: (x: Int, y: Int) -> Float) -> Int
     ): Bitmap = onDefault {
         val expandBy = 1
-        val elevations = getElevations(bounds, resolution, false, expandBy + padding)
+        val elevations = getElevations(bounds, resolution, true, expandBy + padding)
         val width = elevations.data.width - expandBy * 2
         val height = elevations.data.height - expandBy * 2
         val pixels = IntArray(width * height)

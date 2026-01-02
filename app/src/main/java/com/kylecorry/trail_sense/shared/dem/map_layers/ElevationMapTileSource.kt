@@ -1,15 +1,18 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
-import android.util.Size
-import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.trail_sense.shared.andromeda_temp.Flip
+import com.kylecorry.trail_sense.shared.andromeda_temp.ResizePadded
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.FullRegionMapTileLoader
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.FullRegionMapTileSource
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
-class ElevationMapTileSource : FullRegionMapTileSource() {
+class ElevationMapTileSource : TileSource {
 
     var colorScale: ElevationColorMap = USGSElevationColorMap()
 
@@ -29,22 +32,27 @@ class ElevationMapTileSource : FullRegionMapTileSource() {
         19 to baseResolution / 4
     )
 
-    override fun getLoader(fullBounds: CoordinateBounds): FullRegionMapTileLoader {
-        return object : FullRegionMapTileLoader(fullBounds, Size(10, 10)) {
-            override suspend fun loadFullImage(
-                bounds: CoordinateBounds,
-                zoomLevel: Int
-            ): Bitmap {
-                val zoomLevel = zoomLevel.coerceIn(minZoomLevel, maxZoomLevel)
-
-                return DEM.getElevationImage(
-                    bounds,
-                    validResolutions[zoomLevel]!!
-                ) { x, y, getElevation ->
-                    colorScale.getElevationColor(getElevation(x, y))
-                }
-            }
-
+    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
+        Parallel.forEach(tiles) {
+            val bitmap = loadTile(it)
+            onLoaded(it, bitmap)
         }
+    }
+
+    private suspend fun loadTile(tile: Tile): Bitmap? {
+        val zoomLevel = tile.z.coerceIn(minZoomLevel, maxZoomLevel)
+
+        val padding = 2
+        return DEM.getElevationImage(
+            tile.getBounds(),
+            validResolutions[zoomLevel]!!,
+            padding = padding
+        ) { x, y, getElevation ->
+            colorScale.getElevationColor(getElevation(x, y))
+        }.applyOperationsOrNull(
+            Convert(Bitmap.Config.ARGB_8888),
+            ResizePadded(tile.size, padding = padding),
+            Flip(horizontal = false)
+        )
     }
 }
