@@ -40,6 +40,7 @@ object DEM {
     private const val CACHE_SIZE = 500
     private var cache = GeospatialCache<Float>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
     private var pixelCache = LRUCache<String, ElevationBitmap>(1)
+    private var tileCache = LRUCache<String, ElevationBitmap>(50)
     private var cachedSources: List<GeographicImageSource>? = null
     private var cachedIsExternal: Boolean? = null
     private val sourcesLock = Mutex()
@@ -57,7 +58,8 @@ object DEM {
 
     private suspend fun getElevations(
         bounds: CoordinateBounds,
-        resolution: Double
+        resolution: Double,
+        isTile: Boolean = false
     ): ElevationBitmap = onDefault {
         val latitudes = Interpolation.getMultiplesBetween2(
             bounds.south - resolution,
@@ -71,7 +73,13 @@ object DEM {
             resolution
         )
 
-        pixelCache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
+        val cache = if (isTile) {
+            tileCache
+        } else {
+            pixelCache
+        }
+
+        cache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
             val width = longitudes.size
             val height = latitudes.size
             val output = FloatBitmap(width, height, 1)
