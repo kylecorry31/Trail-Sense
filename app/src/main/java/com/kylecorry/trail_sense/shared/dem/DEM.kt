@@ -16,7 +16,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.LRUCache2
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
