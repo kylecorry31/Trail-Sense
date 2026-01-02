@@ -1,9 +1,6 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
-import android.os.Build
 import android.os.Bundle
-import androidx.core.graphics.BlendModeCompat
-import androidx.core.graphics.setBlendMode
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
@@ -15,14 +12,11 @@ class HillshadeLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask
     override val layerId: String = LAYER_ID
 
     init {
-        alpha = 127
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            tilePaint.setBlendMode(BlendModeCompat.MULTIPLY)
-        }
+        shouldMultiply = true
     }
 
     override fun setPreferences(preferences: Bundle) {
-        alpha = SolMath.map(
+        multiplyAlpha = SolMath.map(
             preferences.getInt(
                 DefaultMapLayerDefinitions.OPACITY,
                 DefaultMapLayerDefinitions.DEFAULT_OPACITY

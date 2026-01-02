@@ -24,7 +24,7 @@ class PhotoMapTileSource(
     private var internalSelector: TileSource? = null
     private val lock = Mutex()
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, Bitmap?) -> Unit) {
+    override suspend fun load(tiles: List<Tile>, onLoaded: suspend  (Tile, Bitmap?) -> Unit) {
         val selector = lock.withLock {
             if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || filter != lastFilter) {
                 val repo = AppServiceRegistry.get<MapRepo>()

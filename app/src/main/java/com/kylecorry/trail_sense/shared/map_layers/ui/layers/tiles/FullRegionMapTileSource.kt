@@ -14,7 +14,7 @@ abstract class FullRegionMapTileSource : TileSource {
 
     abstract fun getLoader(fullBounds: CoordinateBounds): FullRegionMapTileLoader
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, Bitmap?) -> Unit) {
+    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
         val fullBounds = CoordinateBounds.from(tiles.flatMap {
             val bounds = it.getBounds()
             listOf(

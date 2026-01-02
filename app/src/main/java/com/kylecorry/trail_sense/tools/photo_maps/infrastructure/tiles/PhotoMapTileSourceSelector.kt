@@ -34,7 +34,7 @@ class PhotoMapTileSourceSelector(
         .filter { it.isCalibrated }
         .sortedBy { it.distancePerPixel() }
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: (Tile, Bitmap?) -> Unit) {
+    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
         val loaders = tiles.map { getRegionLoaders(it.getBounds()) }
 
         if (pruneCache) {

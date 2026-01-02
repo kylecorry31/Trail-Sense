@@ -6,8 +6,11 @@ import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.core.graphics.BlendModeCompat
+import androidx.core.graphics.setBlendMode
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -36,15 +39,29 @@ abstract class TileMapLayer<T : TileSource>(
     private var shouldReloadTiles = true
     private var backgroundColor: Int = Color.WHITE
     protected val loader = TileLoader(TILE_BORDER_PIXELS)
-    protected val tilePaint = Paint().apply {
-        isAntiAlias = true
+    private val layerPaint = Paint()
+    private val tilePaint = Paint().apply {
+        isAntiAlias = false
         isFilterBitmap = true
     }
     private val neighborPaint = Paint().apply {
         isFilterBitmap = false
         isAntiAlias = false
     }
-    var alpha: Int = 255
+    var shouldMultiply = false
+        set(value) {
+            field = value
+            if (value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                layerPaint.setBlendMode(BlendModeCompat.MULTIPLY)
+            } else {
+                layerPaint.setBlendMode(BlendModeCompat.SRC_OVER)
+            }
+        }
+    var multiplyAlpha: Int = 255
+        set(value) {
+            field = value
+            layerPaint.alpha = value
+        }
     private var updateListener: (() -> Unit)? = null
     private var zoomOffset: Int = 0
     private val renderMatrix = Matrix()
@@ -117,8 +134,18 @@ abstract class TileMapLayer<T : TileSource>(
 
         // Render loaded tiles
         synchronized(loader.lock) {
-            tilePaint.alpha = alpha
-            renderTiles(drawer.canvas, map)
+            var shouldSaveLayer = false
+            try {
+                if (shouldMultiply) {
+                    drawer.canvas.saveLayer(null, layerPaint)
+                    shouldSaveLayer = true
+                }
+                renderTiles(drawer.canvas, map)
+            } finally {
+                if (shouldSaveLayer) {
+                    drawer.pop()
+                }
+            }
         }
     }
 
