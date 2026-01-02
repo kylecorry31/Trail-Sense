@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Paint
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 

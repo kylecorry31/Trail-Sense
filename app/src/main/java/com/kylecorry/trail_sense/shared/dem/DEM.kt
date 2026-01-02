@@ -40,8 +40,8 @@ object DEM {
     private const val CACHE_DISTANCE = 10f
     private const val CACHE_SIZE = 500
     private var cache = GeospatialCache<Float>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
-    private var pixelCache = LRUCache2<String, ElevationBitmap>(1)
-    private var tileCache = LRUCache2<String, ElevationBitmap>(50)
+    private var pixelCache = LRUCache<String, ElevationBitmap>(1)
+    private var tileCache = LRUCache<String, ElevationBitmap>(50)
     private var cachedSources: List<GeographicImageSource>? = null
     private var cachedIsExternal: Boolean? = null
     private val sourcesLock = Mutex()
