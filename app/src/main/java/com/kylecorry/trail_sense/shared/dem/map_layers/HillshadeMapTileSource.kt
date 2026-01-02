@@ -2,9 +2,7 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.util.Size
 import com.kylecorry.andromeda.bitmaps.operations.Convert
-import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath
@@ -14,6 +12,7 @@ import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.Flip
+import com.kylecorry.trail_sense.shared.andromeda_temp.ResizePadded
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -73,7 +72,8 @@ class HillshadeMapTileSource : TileSource {
         val cosZenith = cos(zenithRad)
         val sinZenith = sin(zenithRad)
 
-        return DEM.getElevationImage(bounds, resolution) { x, y, getElevation ->
+        val padding = 2
+        return DEM.getElevationImage(bounds, resolution, padding = padding) { x, y, getElevation ->
             val a = getElevation(x - 1, y - 1)
             val b = getElevation(x, y - 1)
             val c = getElevation(x + 1, y - 1)
@@ -107,7 +107,7 @@ class HillshadeMapTileSource : TileSource {
             Color.rgb(gray, gray, gray)
         }.applyOperationsOrNull(
             Convert(Bitmap.Config.ARGB_8888),
-            Resize(Size(10, 10), true),
+            ResizePadded(tile.size, padding = padding),
             Flip(horizontal = false)
         )
     }
