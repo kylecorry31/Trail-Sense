@@ -28,6 +28,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlinx.coroutines.CancellationException
 import kotlin.math.hypot
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.round
 
 abstract class TileMapLayer<T : TileSource>(
@@ -178,6 +180,38 @@ abstract class TileMapLayer<T : TileSource>(
         }
     }
 
+    private fun isTooSmall(
+        topLeft: PixelCoordinate,
+        topRight: PixelCoordinate,
+        bottomLeft: PixelCoordinate,
+        bottomRight: PixelCoordinate
+    ): Boolean {
+        val minSize = 10f
+        val width = max(topRight.x, bottomRight.x) - min(topLeft.x, bottomLeft.x)
+        val height = max(bottomLeft.y, bottomRight.y) - min(topLeft.y, topRight.y)
+        return width < minSize || height < minSize
+    }
+
+    private fun isFarOffScreen(
+        topLeft: PixelCoordinate,
+        topRight: PixelCoordinate,
+        bottomLeft: PixelCoordinate,
+        bottomRight: PixelCoordinate,
+        canvasWidth: Int,
+        canvasHeight: Int
+    ): Boolean {
+        val buffer = canvasHeight.coerceAtLeast(canvasWidth) * 2
+        val minX = minOf(topLeft.x, bottomLeft.x)
+        val maxX = maxOf(topRight.x, bottomRight.x)
+        val minY = minOf(topLeft.y, topRight.y)
+        val maxY = maxOf(bottomLeft.y, bottomRight.y)
+
+        return maxX < -buffer ||
+                minX > canvasWidth + buffer ||
+                maxY < -buffer ||
+                minY > canvasHeight + buffer
+    }
+
     private fun renderTile(
         canvas: Canvas,
         map: IMapView,
@@ -188,6 +222,22 @@ abstract class TileMapLayer<T : TileSource>(
         val topRightPixel = map.toPixel(bounds.northEast)
         val bottomRightPixel = map.toPixel(bounds.southEast)
         val bottomLeftPixel = map.toPixel(bounds.southWest)
+
+        if (isTooSmall(topLeftPixel, topRightPixel, bottomLeftPixel, bottomRightPixel)) {
+            return
+        }
+
+        if (isFarOffScreen(
+                topLeftPixel,
+                topRightPixel,
+                bottomLeftPixel,
+                bottomRightPixel,
+                canvas.width,
+                canvas.height
+            )
+        ) {
+            return
+        }
 
         val borderPixels = TILE_BORDER_PIXELS
 
