@@ -1520,4 +1520,16 @@
     <string name="attribution">Dank aan</string>
     <string name="map_attribution_format">Kaartdata © %s</string>
     <string name="show_modeled_tides">Gemodelleerde getijden aan de kustlijn tonen</string>
+    <string name="map_layer_base_map_description">Gekleurde wereldkaart in lage resolutie</string>
+    <string name="map_layer_elevation_description">Kleurgecodeerde hoogtes uit het digitale hoogtemodel</string>
+    <string name="map_layer_hillshade_description">Gekleurd terrein om hoogteverschillen te visualiseren</string>
+    <string name="map_layer_contours_description">Lijnen die hoogteverschillen en terreinhelling aangeven</string>
+    <string name="map_layer_my_location_description">Je huidige locatie, richting en GPS-nauwkeurigheid</string>
+    <string name="map_layer_my_elevation_description">Je huidige hoogte</string>
+    <string name="map_layer_beacons_description">Je opgeslagen bakens</string>
+    <string name="map_layer_paths_description">Je opgeslagen paden</string>
+    <string name="map_layer_tides_description">Je opgeslagen getijdetabellen en gemodelleerde kustgetijden</string>
+    <string name="map_layer_photo_maps_description">Je opgeslagen fotokaarten</string>
+    <string name="map_layer_cell_towers_description">Geschatte locaties van zendmasten</string>
+    <string name="map_layer_navigation_description">Lijn naar je navigatiebestemming</string>
 </resources>
