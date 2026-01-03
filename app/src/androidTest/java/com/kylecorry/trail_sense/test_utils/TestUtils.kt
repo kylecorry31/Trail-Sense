@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.TrailSenseApplicationInitializer
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -222,6 +223,10 @@ object TestUtils {
     fun setupDefaultPreferences() {
         val prefs = PreferencesSubsystem.getInstance(context).preferences
         prefs.clear()
+
+        val migrator = PreferenceMigrator.getInstance()
+        migrator.migrate(context)
+
         prefs.putString(context.getString(R.string.pref_distance_units), "feet_miles")
         prefs.putString(context.getString(R.string.pref_weight_units), "lbs")
         prefs.putBoolean(context.getString(R.string.pref_use_24_hour), false)
