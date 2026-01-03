@@ -7,13 +7,13 @@ import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 
 class SendWeatherAlertsCommand(private val context: Context) : Command<CurrentWeather> {
 
-    override fun execute(weather: CurrentWeather) {
+    override fun execute(value: CurrentWeather) {
         val command = ComposedCommand(
             DailyWeatherAlertCommand.create(context),
             StormAlertCommand.create(context),
             CurrentWeatherAlertCommand.create(context)
         )
-        command.execute(weather)
+        command.execute(value)
     }
 
 }

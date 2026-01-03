@@ -122,6 +122,7 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.fromTarget(JavaVersion.VERSION_11.toString())
+            freeCompilerArgs.add("-Xannotation-default-target=param-property")
         }
     }
 

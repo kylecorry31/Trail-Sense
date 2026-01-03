@@ -52,7 +52,7 @@ class ToolsSettingsFragment : AndromedaPreferenceFragment() {
                         val selected = ids[it]
                         bottomNavSelection =
                             prefs.bottomNavigationTools.mapIndexed { index, id ->
-                                if (index == i) selected.toLong() else id
+                                if (index == i) selected else id
                             }
                         prefs.bottomNavigationTools = bottomNavSelection
                         preference.summary = names[it]

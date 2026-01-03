@@ -337,11 +337,6 @@
             </intent-filter>
         </receiver>
 
-        <!--Trail Sense handles rescheduling, this isn't needed-->
-        <receiver
-            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-            tools:remove="true" />
-
         <!-- Widgets -->
         <receiver
             android:name="com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetMoon"

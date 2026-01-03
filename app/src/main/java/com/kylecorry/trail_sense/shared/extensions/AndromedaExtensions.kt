@@ -81,10 +81,6 @@ fun PixelCoordinate.isSamePixel(other: PixelCoordinate): Boolean {
     return x.safeRoundToInt() == other.x.safeRoundToInt() && y.safeRoundToInt() == other.y.safeRoundToInt()
 }
 
-fun PixelCoordinate.squaredDistanceTo(other: PixelCoordinate): Float {
-    return square(x - other.x) + square(y - other.y)
-}
-
 fun Path.drawLines(lines: FloatArray, smooth: Boolean = false) {
     // Lines are in the form [x1, y1, x2, y2, x3, y3, ...]
     // Where x1, y1 is the first point and x2, y2 is the second point of the line

@@ -45,7 +45,7 @@ class ImportPackingListCommand(private val fragment: AndromedaFragment) : Comman
             var packId = 0L
             Alerts.withLoading(fragment.requireContext(), fragment.getString(R.string.loading)) {
                 packId = repo.addPack(Pack(0, name))
-                for (item in items!!) {
+                for (item in items) {
                     val newItem = item.copy(packId = packId)
                     repo.addItem(newItem)
                 }

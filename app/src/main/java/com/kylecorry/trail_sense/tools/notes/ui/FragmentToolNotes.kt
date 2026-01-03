@@ -65,7 +65,7 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
             if (note.title?.trim().isNullOrEmpty()) {
                 getString(android.R.string.untitled)
             } else {
-                note.title!!
+                note.title
             }
         ) { cancelled ->
             if (!cancelled) {

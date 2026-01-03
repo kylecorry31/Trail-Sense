@@ -23,7 +23,7 @@ class NoteListItemMapper(
             context.getString(android.R.string.untitled)
         } else {
             value.title
-        }!!
+        }
 
         val contents = value.contents ?: ""
 

@@ -81,6 +81,7 @@ internal class TideServiceTest {
         )
     }
 
+    @Suppress("UNCHECKED_CAST")
     @Test
     fun testRealWorldAccuracyHighLow() = runBlocking {
         val testData = provideTides()

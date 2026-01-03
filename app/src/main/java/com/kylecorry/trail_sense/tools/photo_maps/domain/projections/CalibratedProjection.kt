@@ -36,8 +36,8 @@ class CalibratedProjection(
         return projection.toCoordinate(Vector2(x, y))
     }
 
-    override fun toPixels(coordinate: Coordinate): Vector2 {
-        return toPixels(coordinate.latitude, coordinate.longitude)
+    override fun toPixels(location: Coordinate): Vector2 {
+        return toPixels(location.latitude, location.longitude)
     }
 
     override fun toPixels(

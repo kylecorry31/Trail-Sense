@@ -25,7 +25,7 @@ import java.time.Duration
 
 class PreferenceMigrator private constructor() {
 
-    private val lock = Object()
+    private val lock = Any()
 
     fun migrate(context: Context) {
         synchronized(lock) {
@@ -48,7 +48,7 @@ class PreferenceMigrator private constructor() {
 
     companion object {
         private var instance: PreferenceMigrator? = null
-        private val staticLock = Object()
+        private val staticLock = Any()
 
         private const val version = 21
         private val migrations = listOf(

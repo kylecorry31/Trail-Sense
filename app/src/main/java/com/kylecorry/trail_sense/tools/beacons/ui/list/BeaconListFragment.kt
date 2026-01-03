@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.BundleCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -90,7 +91,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (requireArguments().containsKey("initial_location")) {
-            initialLocation = requireArguments().getParcelable("initial_location")
+            initialLocation = BundleCompat.getParcelable(
+                requireArguments(), "initial_location",
+                GeoUri::class.java
+            )
         }
     }
 
@@ -437,10 +441,12 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         Alerts.dialog(
             requireContext(),
             getString(R.string.delete),
-            group?.name?.let { getString(
-                R.string.delete_beacon_group_message,
-                it
-            )} ?: getString(R.string.delete_all_beacons),
+            group?.name?.let {
+                getString(
+                    R.string.delete_beacon_group_message,
+                    it
+                )
+            } ?: getString(R.string.delete_all_beacons),
         ) { cancelled ->
             if (!cancelled) {
                 inBackground {
