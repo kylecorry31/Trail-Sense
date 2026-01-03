@@ -20,8 +20,6 @@ class TileLoader(private val padding: Int = 0) {
         isFilterBitmap = false
         isAntiAlias = false
     }
-    private val srcRect = Rect()
-    private val destRect = Rect()
     private val neighborOffsets = listOf(
         -1 to -1,
         0 to -1,
@@ -220,14 +218,14 @@ class TileLoader(private val padding: Int = 0) {
         srcYStart: Int
     ) {
         val neighborBitmap = tileCache.get(neighborTile) ?: return
-        srcRect.set(
+        val srcRect = Rect(
             srcXStart,
             srcYStart,
             srcXStart + destWidth,
             srcYStart + destHeight
         )
 
-        destRect.set(
+        val destRect = Rect(
             destX,
             destY,
             destX + destWidth,

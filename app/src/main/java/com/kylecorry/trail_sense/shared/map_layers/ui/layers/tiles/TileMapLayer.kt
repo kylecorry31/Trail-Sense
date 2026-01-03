@@ -278,10 +278,10 @@ abstract class TileMapLayer<T : TileSource>(
             bitmap.height - borderPixels
         )
         destRect.set(
-            borderPixels,
-            borderPixels,
-            bitmap.width - borderPixels,
-            bitmap.height - borderPixels
+            0,
+            0,
+            bitmap.width - 2 * borderPixels,
+            bitmap.height - 2 * borderPixels
         )
 
         canvas.drawBitmap(bitmap, srcRect, destRect, tilePaint)
