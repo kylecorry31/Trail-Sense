@@ -62,13 +62,20 @@ class TileLoader(private val padding: Int = 0) {
             } else {
                 tileCache.put(tile, resized)
                 tryOrLog {
-                    populateTileAndNeighbors(tile)
+                    populateBorderAndNeighbors(tile)
                 }
             }
             hasChanges = true
         }
 
-        hasChanges = hasChanges || tileCache.removeOtherThan(tilesSet)
+        for (tile in tileCache.keys()) {
+            tryOrLog {
+                populateBorder(tile)
+            }
+        }
+
+        val removed = tileCache.removeOtherThan(tilesSet)
+        hasChanges = hasChanges || removed
 
         if (hasChanges) {
             val memoryUsage = tileCache.getMemoryAllocation()
@@ -76,21 +83,25 @@ class TileLoader(private val padding: Int = 0) {
         }
     }
 
-    private fun populateTileAndNeighbors(tile: Tile) {
+    private fun populateBorderAndNeighbors(tile: Tile) {
         if (padding <= 0) {
             return
         }
 
-        val bitmap = tileCache.get(tile) ?: return
-        fillNeighborPixels(tile, bitmap)
+        populateBorder(tile)
 
         neighborOffsets.forEach { (dx, dy) ->
             val neighborTile = tile.getNeighbor(dx, dy)
-            val neighborBitmap = tileCache.get(neighborTile)
-            if (neighborBitmap != null) {
-                fillNeighborPixels(neighborTile, neighborBitmap)
-            }
+            populateBorder(neighborTile)
         }
+    }
+
+    private fun populateBorder(tile: Tile) {
+        if (padding <= 0) {
+            return
+        }
+        val bitmap = tileCache.get(tile) ?: return
+        fillNeighborPixels(tile, bitmap)
     }
 
     private fun fillNeighborPixels(tile: Tile, originalBitmap: Bitmap) {

@@ -40,6 +40,10 @@ class TileCache {
         return writable.contains(tile)
     }
 
+    fun keys(): Set<Tile> {
+        return writable.keys
+    }
+
     fun removeOtherThan(tilesToKeep: Set<Tile>): Boolean {
         val keysToRemove = writable.keys.filter { it !in tilesToKeep }
         keysToRemove.forEach { key ->
