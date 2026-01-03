@@ -33,7 +33,7 @@ class ElevationMapTileSource : TileSource {
     )
 
     override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        Parallel.forEach(tiles) {
+        Parallel.forEach(tiles, 16) {
             val bitmap = loadTile(it)
             onLoaded(it, bitmap)
         }
@@ -46,11 +46,11 @@ class ElevationMapTileSource : TileSource {
         return DEM.getElevationImage(
             tile.getBounds(),
             validResolutions[zoomLevel]!!,
+            config = Bitmap.Config.ARGB_8888,
             padding = padding
         ) { x, y, getElevation ->
             colorScale.getElevationColor(getElevation(x, y))
         }.applyOperationsOrNull(
-            Convert(Bitmap.Config.ARGB_8888),
             ResizePadded(tile.size, padding = padding),
             Flip(horizontal = false),
             Convert(Bitmap.Config.RGB_565),

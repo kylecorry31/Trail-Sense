@@ -44,7 +44,7 @@ class HillshadeMapTileSource : TileSource {
     private val astronomy = AstronomyService()
 
     override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        Parallel.forEach(tiles) {
+        Parallel.forEach(tiles, 16) {
             val bitmap = loadTile(it)
             onLoaded(it, bitmap)
         }
@@ -73,7 +73,12 @@ class HillshadeMapTileSource : TileSource {
         val sinZenith = sin(zenithRad)
 
         val padding = 2
-        return DEM.getElevationImage(bounds, resolution, padding = padding) { x, y, getElevation ->
+        return DEM.getElevationImage(
+            bounds,
+            resolution,
+            config = Bitmap.Config.ARGB_8888,
+            padding = padding
+        ) { x, y, getElevation ->
             val a = getElevation(x - 1, y - 1)
             val b = getElevation(x, y - 1)
             val c = getElevation(x + 1, y - 1)
@@ -106,7 +111,6 @@ class HillshadeMapTileSource : TileSource {
             val gray = hillshade.toInt().coerceIn(0, 255)
             Color.rgb(gray, gray, gray)
         }.applyOperationsOrNull(
-            Convert(Bitmap.Config.ARGB_8888),
             ResizePadded(tile.size, padding = padding),
             Flip(horizontal = false),
             Convert(Bitmap.Config.RGB_565),

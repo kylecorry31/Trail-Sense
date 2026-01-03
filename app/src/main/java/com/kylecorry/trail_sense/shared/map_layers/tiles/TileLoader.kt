@@ -17,7 +17,6 @@ class TileLoader(private val padding: Int = 0) {
     var lock = Any()
 
     var alwaysReloadTiles: Boolean = false
-    var clearTileWhenNullResponse: Boolean = true
 
     fun clearCache() {
         synchronized(lock) {
@@ -32,6 +31,7 @@ class TileLoader(private val padding: Int = 0) {
         sourceSelector: TileSource,
         tiles: List<Tile>
     ) = onDefault {
+        val tilesSet = tiles.toSet()
         val tilesToLoad = if (alwaysReloadTiles) {
             tiles
         } else {
@@ -41,32 +41,30 @@ class TileLoader(private val padding: Int = 0) {
         var hasChanges = false
 
         sourceSelector.load(tilesToLoad) { tile, image ->
-            synchronized(lock) {
-                if (clearTileWhenNullResponse || image != null) {
-                    val old = tileCache[tile]
-                    val resized = image?.applyOperationsOrNull(
-                        Resize(
-                            tile.size,
-                            exact = false
-                        ),
-                        Pad(
-                            padding,
-                            if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
-                        )
-                    )
-                    if (resized == null) {
-                        tileCache -= tile
-                    } else {
-                        tileCache += tile to resized
-                    }
-                    old?.recycle()
-                    hasChanges = true
+            val resized = image?.applyOperationsOrNull(
+                Resize(
+                    tile.size,
+                    exact = false
+                ),
+                Pad(
+                    padding,
+                    if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
+                )
+            )
+            val previousBitmap = synchronized(lock) {
+                val old = tileCache[tile]
+                if (resized == null) {
+                    tileCache -= tile
+                } else {
+                    tileCache += tile to resized
                 }
+                hasChanges = true
+                old
             }
+            previousBitmap?.recycle()
         }
 
         synchronized(lock) {
-            val tilesSet = tiles.toSet()
             val keysToRemove = tileCache.keys.filter { it !in tilesSet }
             keysToRemove.forEach { key ->
                 tileCache[key]?.recycle()
@@ -76,7 +74,6 @@ class TileLoader(private val padding: Int = 0) {
         }
 
         if (hasChanges) {
-            System.gc()
             val memoryUsage = tileCache.values.sumOf { it.allocationByteCount }
             Log.d("TileLoader", "Tile memory usage: ${memoryUsage / 1024} KB (${tiles.size} tiles)")
         }

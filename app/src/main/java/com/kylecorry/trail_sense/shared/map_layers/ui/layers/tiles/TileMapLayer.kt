@@ -104,7 +104,6 @@ abstract class TileMapLayer<T : TileSource>(
 
                 updateListener?.invoke()
             } catch (e: CancellationException) {
-                System.gc()
                 throw e
             } catch (e: Throwable) {
                 e.printStackTrace()
