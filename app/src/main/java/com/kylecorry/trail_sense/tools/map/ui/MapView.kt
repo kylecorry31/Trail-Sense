@@ -11,12 +11,12 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.math.optimization.Optimization
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -179,13 +179,21 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override fun removeLayer(layer: ILayer) {
+        if (layer is IAsyncLayer) {
+            layer.setHasUpdateListener(null)
+        }
         layers = layers - layer
     }
 
     override fun setLayers(layers: List<ILayer>) {
+        this.layers.filterIsInstance<IAsyncLayer>()
+            .forEach { it.setHasUpdateListener(null) }
+        
         this.layers = layers.toList()
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { post { invalidate() } } }
+        
+        invalidate()
     }
 
     override fun getLayers(): List<ILayer> {
@@ -321,25 +329,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         invalidate()
     }
 
-    // TODO: Extract to Sol
-    private inline fun newtonRaphsonIteration(
-        initialValue: Float = 0f,
-        tolerance: Float = SolMath.EPSILON_FLOAT,
-        maxIterations: Int = Int.MAX_VALUE,
-        crossinline calculate: (lastValue: Float) -> Float
-    ): Float {
-        var lastValue = initialValue
-        var iterations = 0
-        var delta: Float
-        do {
-            val newValue = calculate(initialValue)
-            delta = newValue - lastValue
-            lastValue = newValue
-            iterations++
-        } while (iterations < maxIterations && delta.absoluteValue > tolerance)
-        return lastValue
-    }
-
     // TODO: This doesn't work for world maps
     fun fitIntoView(bounds: CoordinateBounds, paddingFactor: Float = 1.25f) {
         if (width == 0 || height == 0) {
@@ -347,7 +336,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
         fitToViewBounds = bounds
         fitToViewPadding = paddingFactor
-        newtonRaphsonIteration(scale, 0.001f, 10) {
+        Optimization.newtonRaphsonIteration(scale, 0.001f, 10) {
             mapCenter = bounds.center
             val nePixel = toPixel(bounds.northEast)
             val sePixel = toPixel(bounds.southEast)
