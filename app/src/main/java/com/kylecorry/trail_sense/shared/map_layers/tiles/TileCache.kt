@@ -40,6 +40,10 @@ class TileCache {
         old?.let { toRecycle.add(it) }
     }
 
+    fun get(tile: Tile): Bitmap? {
+        return writable[tile]
+    }
+
     fun remove(tile: Tile) {
         val old = writable.remove(tile)
         old?.let { toRecycle.add(it) }
