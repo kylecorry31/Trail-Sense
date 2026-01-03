@@ -10,6 +10,7 @@ import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -108,7 +109,9 @@ class HillshadeMapTileSource : TileSource {
 
             val gray = hillshade.toInt().coerceIn(0, 255)
             Color.rgb(gray, gray, gray)
-        }
+        }.applyOperationsOrNull(
+            Dither(Bitmap.Config.RGB_565)
+        )
     }
 
     private fun getShadowConfig(location: Coordinate): Pair<Float, Float> {

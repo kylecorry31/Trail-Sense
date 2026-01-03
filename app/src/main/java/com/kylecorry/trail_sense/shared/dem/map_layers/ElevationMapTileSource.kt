@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
+import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
@@ -48,6 +50,8 @@ class ElevationMapTileSource : TileSource {
             padding = padding
         ) { x, y, getElevation ->
             colorScale.getElevationColor(getElevation(x, y))
-        }
+        }.applyOperationsOrNull(
+            Dither(Bitmap.Config.RGB_565)
+        )
     }
 }
