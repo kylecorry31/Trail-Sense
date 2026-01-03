@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.shared.dem
 
 import android.graphics.Bitmap
 import android.util.Size
+import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -16,6 +18,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.CropTile
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
@@ -157,6 +160,7 @@ object DEM {
     suspend fun getElevationImage(
         bounds: CoordinateBounds,
         resolution: Double,
+        size: Size,
         config: Bitmap.Config = Bitmap.Config.RGB_565,
         padding: Int = 0,
         adjuster: (x: Int, y: Int, getElevation: (x: Int, y: Int) -> Float) -> Int
@@ -173,11 +177,28 @@ object DEM {
 
         for (y in expandBy until elevations.data.height - expandBy) {
             for (x in expandBy until elevations.data.width - expandBy) {
-                pixels.set(x - expandBy, y - expandBy, width, adjuster(x, y, getElevation))
+                pixels.set(
+                    x - expandBy,
+                    height - 1 - (y - expandBy),
+                    width,
+                    adjuster(x, y, getElevation)
+                )
             }
         }
 
-        Bitmap.createBitmap(pixels, width, height, config)
+        val bitmap = Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
+
+        val south = elevations.latitudes[expandBy] - resolution / 2.0
+        val north = elevations.latitudes[elevations.data.height - expandBy - 1] + resolution / 2.0
+        val west = elevations.longitudes[expandBy] - resolution / 2.0
+        val east = elevations.longitudes[elevations.data.width - expandBy - 1] + resolution / 2.0
+
+        val imageBounds = CoordinateBounds(north, east, south, west)
+
+        bitmap.applyOperations(
+            CropTile(imageBounds, bounds, size),
+            Convert(config)
+        )
     }
 
     private fun lerpCoordinate(percent: Float, a: Coordinate, b: Coordinate): Coordinate {

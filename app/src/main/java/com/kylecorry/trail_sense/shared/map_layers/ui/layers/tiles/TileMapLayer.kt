@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
+import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -30,7 +31,6 @@ import kotlinx.coroutines.CancellationException
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.round
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
@@ -167,8 +167,7 @@ abstract class TileMapLayer<T : TileSource>(
                     tile,
                     canvas,
                     map,
-                    bitmap,
-                    tileCache
+                    bitmap
                 )
             }
         }
@@ -210,8 +209,7 @@ abstract class TileMapLayer<T : TileSource>(
         tile: Tile,
         canvas: Canvas,
         map: IMapView,
-        bitmap: Bitmap,
-        tileCache: Map<Tile, Bitmap>
+        bitmap: Bitmap
     ) {
         val bounds = tile.getBounds()
         val topLeftPixel = map.toPixel(bounds.northWest)
@@ -253,39 +251,37 @@ abstract class TileMapLayer<T : TileSource>(
 
         // Canvas pixels
         // Top left
-        dstPoints[0] = round(topLeftPixel.x)
-        dstPoints[1] = round(topLeftPixel.y)
+        dstPoints[0] = topLeftPixel.x
+        dstPoints[1] = topLeftPixel.y
         // Top right
-        dstPoints[2] = round(topRightPixel.x)
-        dstPoints[3] = round(topRightPixel.y)
+        dstPoints[2] = topRightPixel.x
+        dstPoints[3] = topRightPixel.y
         // Bottom left
-        dstPoints[4] = round(bottomLeftPixel.x)
-        dstPoints[5] = round(bottomLeftPixel.y)
+        dstPoints[4] = bottomLeftPixel.x
+        dstPoints[5] = bottomLeftPixel.y
         // Bottom right
-        dstPoints[6] = round(bottomRightPixel.x)
-        dstPoints[7] = round(bottomRightPixel.y)
+        dstPoints[6] = bottomRightPixel.x
+        dstPoints[7] = bottomRightPixel.y
 
         renderMatrix.reset()
         renderMatrix.setPolyToPoly(srcPoints, 0, dstPoints, 0, 4)
 
-        canvas.save()
-        canvas.concat(renderMatrix)
+        canvas.withMatrix(renderMatrix) {
+            srcRect.set(
+                borderPixels,
+                borderPixels,
+                bitmap.width - borderPixels,
+                bitmap.height - borderPixels
+            )
+            destRect.set(
+                0,
+                0,
+                bitmap.width - 2 * borderPixels,
+                bitmap.height - 2 * borderPixels
+            )
 
-        srcRect.set(
-            borderPixels,
-            borderPixels,
-            bitmap.width - borderPixels,
-            bitmap.height - borderPixels
-        )
-        destRect.set(
-            0,
-            0,
-            bitmap.width - 2 * borderPixels,
-            bitmap.height - 2 * borderPixels
-        )
-
-        canvas.drawBitmap(bitmap, srcRect, destRect, tilePaint)
-        canvas.restore()
+            drawBitmap(bitmap, srcRect, destRect, tilePaint)
+        }
     }
 
     private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {

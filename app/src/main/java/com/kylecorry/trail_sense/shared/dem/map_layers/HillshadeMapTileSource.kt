@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath
@@ -11,8 +10,6 @@ import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.andromeda_temp.Flip
-import com.kylecorry.trail_sense.shared.andromeda_temp.ResizePadded
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -76,6 +73,7 @@ class HillshadeMapTileSource : TileSource {
         return DEM.getElevationImage(
             bounds,
             resolution,
+            tile.size,
             config = Bitmap.Config.ARGB_8888,
             padding = padding
         ) { x, y, getElevation ->
@@ -110,11 +108,7 @@ class HillshadeMapTileSource : TileSource {
 
             val gray = hillshade.toInt().coerceIn(0, 255)
             Color.rgb(gray, gray, gray)
-        }.applyOperationsOrNull(
-            ResizePadded(tile.size, padding = padding),
-            Flip(horizontal = false),
-            Convert(Bitmap.Config.RGB_565),
-        )
+        }
     }
 
     private fun getShadowConfig(location: Coordinate): Pair<Float, Float> {

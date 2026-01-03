@@ -1,11 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
-import com.kylecorry.andromeda.bitmaps.operations.Convert
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
-import com.kylecorry.trail_sense.shared.andromeda_temp.Flip
-import com.kylecorry.trail_sense.shared.andromeda_temp.ResizePadded
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
@@ -41,19 +37,17 @@ class ElevationMapTileSource : TileSource {
 
     private suspend fun loadTile(tile: Tile): Bitmap? {
         val zoomLevel = tile.z.coerceIn(minZoomLevel, maxZoomLevel)
+        val bounds = tile.getBounds()
 
         val padding = 2
         return DEM.getElevationImage(
-            tile.getBounds(),
+            bounds,
             validResolutions[zoomLevel]!!,
+            tile.size,
             config = Bitmap.Config.ARGB_8888,
             padding = padding
         ) { x, y, getElevation ->
             colorScale.getElevationColor(getElevation(x, y))
-        }.applyOperationsOrNull(
-            ResizePadded(tile.size, padding = padding),
-            Flip(horizontal = false),
-            Convert(Bitmap.Config.RGB_565),
-        )
+        }
     }
 }
