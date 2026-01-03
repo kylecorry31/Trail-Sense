@@ -134,18 +134,16 @@ abstract class TileMapLayer<T : TileSource>(
         )
 
         // Render loaded tiles
-        synchronized(loader.lock) {
-            var shouldSaveLayer = false
-            try {
-                if (shouldMultiply) {
-                    drawer.canvas.saveLayer(null, layerPaint)
-                    shouldSaveLayer = true
-                }
-                renderTiles(drawer.canvas, map)
-            } finally {
-                if (shouldSaveLayer) {
-                    drawer.pop()
-                }
+        var shouldSaveLayer = false
+        try {
+            if (shouldMultiply) {
+                drawer.canvas.saveLayer(null, layerPaint)
+                shouldSaveLayer = true
+            }
+            renderTiles(drawer.canvas, map)
+        } finally {
+            if (shouldSaveLayer) {
+                drawer.pop()
             }
         }
     }
@@ -167,13 +165,16 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
-        loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
-            renderTile(
-                tile,
-                canvas,
-                map,
-                bitmap
-            )
+        loader.tileCache.withRead { tileCache ->
+            tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
+                renderTile(
+                    tile,
+                    canvas,
+                    map,
+                    bitmap,
+                    tileCache
+                )
+            }
         }
     }
 
@@ -213,7 +214,8 @@ abstract class TileMapLayer<T : TileSource>(
         tile: Tile,
         canvas: Canvas,
         map: IMapView,
-        bitmap: Bitmap
+        bitmap: Bitmap,
+        tileCache: Map<Tile, Bitmap>
     ) {
         val bounds = tile.getBounds()
         val topLeftPixel = map.toPixel(bounds.northWest)
@@ -237,7 +239,7 @@ abstract class TileMapLayer<T : TileSource>(
             return
         }
 
-        fillNeighborPixels(tile, bitmap)
+        fillNeighborPixels(tile, bitmap, tileCache)
 
         val borderPixels = TILE_BORDER_PIXELS
 
@@ -294,6 +296,7 @@ abstract class TileMapLayer<T : TileSource>(
 
     private fun drawNeighbor(
         canvas: Canvas,
+        tileCache: Map<Tile, Bitmap>,
         neighborTile: Tile,
         destX: Int,
         destY: Int,
@@ -302,7 +305,7 @@ abstract class TileMapLayer<T : TileSource>(
         srcXStart: Int,
         srcYStart: Int
     ) {
-        loader.tileCache[neighborTile]?.let { neighborBitmap ->
+        tileCache[neighborTile]?.let { neighborBitmap ->
             srcRect.set(
                 srcXStart,
                 srcYStart,
@@ -326,7 +329,11 @@ abstract class TileMapLayer<T : TileSource>(
         }
     }
 
-    private fun fillNeighborPixels(tile: Tile, originalBitmap: Bitmap) {
+    private fun fillNeighborPixels(
+        tile: Tile,
+        originalBitmap: Bitmap,
+        tileCache: Map<Tile, Bitmap>
+    ) {
         val borderSize = TILE_BORDER_PIXELS
 
         val canvas = Canvas(originalBitmap)
@@ -334,6 +341,7 @@ abstract class TileMapLayer<T : TileSource>(
         val topTile = tile.getNeighbor(0, -1)
         drawNeighbor(
             canvas,
+            tileCache,
             topTile,
             borderSize,
             0,
@@ -346,6 +354,7 @@ abstract class TileMapLayer<T : TileSource>(
         val bottomTile = tile.getNeighbor(0, 1)
         drawNeighbor(
             canvas,
+            tileCache,
             bottomTile,
             borderSize,
             originalBitmap.height - borderSize,
@@ -358,6 +367,7 @@ abstract class TileMapLayer<T : TileSource>(
         val leftTile = tile.getNeighbor(-1, 0)
         drawNeighbor(
             canvas,
+            tileCache,
             leftTile,
             0,
             borderSize,
@@ -370,6 +380,7 @@ abstract class TileMapLayer<T : TileSource>(
         val rightTile = tile.getNeighbor(1, 0)
         drawNeighbor(
             canvas,
+            tileCache,
             rightTile,
             originalBitmap.width - borderSize,
             borderSize,
@@ -382,6 +393,7 @@ abstract class TileMapLayer<T : TileSource>(
         val topLeftTile = tile.getNeighbor(-1, -1)
         drawNeighbor(
             canvas,
+            tileCache,
             topLeftTile,
             0,
             0,
@@ -394,6 +406,7 @@ abstract class TileMapLayer<T : TileSource>(
         val topRightTile = tile.getNeighbor(1, -1)
         drawNeighbor(
             canvas,
+            tileCache,
             topRightTile,
             originalBitmap.width - borderSize,
             0,
@@ -406,6 +419,7 @@ abstract class TileMapLayer<T : TileSource>(
         val bottomLeftTile = tile.getNeighbor(-1, 1)
         drawNeighbor(
             canvas,
+            tileCache,
             bottomLeftTile,
             0,
             originalBitmap.height - borderSize,
@@ -418,6 +432,7 @@ abstract class TileMapLayer<T : TileSource>(
         val bottomRightTile = tile.getNeighbor(1, 1)
         drawNeighbor(
             canvas,
+            tileCache,
             bottomRightTile,
             originalBitmap.width - borderSize,
             originalBitmap.height - borderSize,

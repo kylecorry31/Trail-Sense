@@ -11,20 +11,10 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
 class TileLoader(private val padding: Int = 0) {
 
-    var tileCache: Map<Tile, Bitmap> = emptyMap()
-        private set
-
-    var lock = Any()
-
-    var alwaysReloadTiles: Boolean = false
+    val tileCache = TileCache()
 
     fun clearCache() {
-        synchronized(lock) {
-            tileCache.forEach { (_, bitmap) ->
-                bitmap.recycle()
-            }
-            tileCache = emptyMap()
-        }
+        tileCache.clear()
     }
 
     suspend fun loadTiles(
@@ -32,11 +22,7 @@ class TileLoader(private val padding: Int = 0) {
         tiles: List<Tile>
     ) = onDefault {
         val tilesSet = tiles.toSet()
-        val tilesToLoad = if (alwaysReloadTiles) {
-            tiles
-        } else {
-            tiles.filter { !tileCache.containsKey(it) }
-        }
+        val tilesToLoad = tiles.filter { !tileCache.contains(it) }
 
         var hasChanges = false
 
@@ -51,30 +37,18 @@ class TileLoader(private val padding: Int = 0) {
                     if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
                 )
             )
-            val previousBitmap = synchronized(lock) {
-                val old = tileCache[tile]
-                if (resized == null) {
-                    tileCache -= tile
-                } else {
-                    tileCache += tile to resized
-                }
-                hasChanges = true
-                old
+            if (resized == null) {
+                tileCache.remove(tile)
+            } else {
+                tileCache.put(tile, resized)
             }
-            previousBitmap?.recycle()
+            hasChanges = true
         }
 
-        synchronized(lock) {
-            val keysToRemove = tileCache.keys.filter { it !in tilesSet }
-            keysToRemove.forEach { key ->
-                tileCache[key]?.recycle()
-                tileCache -= key
-                hasChanges = true
-            }
-        }
+        hasChanges = hasChanges || tileCache.removeOtherThan(tilesSet)
 
         if (hasChanges) {
-            val memoryUsage = tileCache.values.sumOf { it.allocationByteCount }
+            val memoryUsage = tileCache.getMemoryAllocation()
             Log.d("TileLoader", "Tile memory usage: ${memoryUsage / 1024} KB (${tiles.size} tiles)")
         }
     }
