@@ -28,7 +28,6 @@ class SingleImageReader(
             ) ?: return@onIO null
 
             if (bitmap.width <= 0 || bitmap.height <= 0) {
-                bitmap.recycle()
                 return@onIO null
             }
 

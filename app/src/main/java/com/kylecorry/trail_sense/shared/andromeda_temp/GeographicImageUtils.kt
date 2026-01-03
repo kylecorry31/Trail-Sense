@@ -35,63 +35,58 @@ object GeographicImageUtils {
 
         val fileSystem = AssetFileSystem(context)
         fileSystem.stream(imagePath).use { stream ->
-            var bitmap: Bitmap? = null
-            try {
-                bitmap = loadRegion(stream, actualPixel, searchSize, source.imageSize)
-                val pixels = bitmap.getPixels()
-                val width = bitmap.width
+            val bitmap = loadRegion(stream, actualPixel, searchSize, source.imageSize)
+            val pixels = bitmap.getPixels()
+            val width = bitmap.width
 
-                // Get the nearest non-zero pixel, wrapping around the image
-                val x = searchSize
-                val y = searchSize
+            // Get the nearest non-zero pixel, wrapping around the image
+            val x = searchSize
+            val y = searchSize
 
-                // Search in a grid pattern
-                for (i in 1 until searchSize) {
-                    val topY = y - i
-                    val bottomY = y + i
-                    val leftX = (x - i)
-                    val rightX = (x + i)
+            // Search in a grid pattern
+            for (i in 1 until searchSize) {
+                val topY = y - i
+                val bottomY = y + i
+                val leftX = (x - i)
+                val rightX = (x + i)
 
-                    val hits = mutableListOf<PixelCoordinate>()
+                val hits = mutableListOf<PixelCoordinate>()
 
-                    // Check the top and bottom rows
-                    for (j in leftX..rightX) {
-                        if (hasValue(pixels.get(j, topY, width))) {
-                            hits.add(PixelCoordinate(j.toFloat(), topY.toFloat()))
-                        }
-                        if (hasValue(pixels.get(j, bottomY, width))) {
-                            hits.add(PixelCoordinate(j.toFloat(), bottomY.toFloat()))
-                        }
+                // Check the top and bottom rows
+                for (j in leftX..rightX) {
+                    if (hasValue(pixels.get(j, topY, width))) {
+                        hits.add(PixelCoordinate(j.toFloat(), topY.toFloat()))
                     }
-
-                    // Check the left and right columns
-                    for (j in topY..bottomY) {
-                        if (hasValue(pixels.get(leftX, j, width))) {
-                            hits.add(PixelCoordinate(leftX.toFloat(), j.toFloat()))
-                        }
-                        if (hasValue(pixels.get(rightX, j, width))) {
-                            hits.add(PixelCoordinate(rightX.toFloat(), j.toFloat()))
-                        }
-                    }
-
-                    if (hits.isNotEmpty()) {
-                        val globalHits = hits.map {
-                            // Only x is wrapped
-                            val globalX =
-                                wrap(
-                                    actualPixel.x + it.x - searchSize,
-                                    0f,
-                                    source.imageSize.width.toFloat()
-                                )
-                            val globalY = actualPixel.y + it.y - searchSize
-
-                            PixelCoordinate(globalX, globalY)
-                        }
-                        return globalHits.minByOrNull { it.distanceTo(actualPixel) } ?: actualPixel
+                    if (hasValue(pixels.get(j, bottomY, width))) {
+                        hits.add(PixelCoordinate(j.toFloat(), bottomY.toFloat()))
                     }
                 }
-            } finally {
-                bitmap?.recycle()
+
+                // Check the left and right columns
+                for (j in topY..bottomY) {
+                    if (hasValue(pixels.get(leftX, j, width))) {
+                        hits.add(PixelCoordinate(leftX.toFloat(), j.toFloat()))
+                    }
+                    if (hasValue(pixels.get(rightX, j, width))) {
+                        hits.add(PixelCoordinate(rightX.toFloat(), j.toFloat()))
+                    }
+                }
+
+                if (hits.isNotEmpty()) {
+                    val globalHits = hits.map {
+                        // Only x is wrapped
+                        val globalX =
+                            wrap(
+                                actualPixel.x + it.x - searchSize,
+                                0f,
+                                source.imageSize.width.toFloat()
+                            )
+                        val globalY = actualPixel.y + it.y - searchSize
+
+                        PixelCoordinate(globalX, globalY)
+                    }
+                    return globalHits.minByOrNull { it.distanceTo(actualPixel) } ?: actualPixel
+                }
             }
         }
 
