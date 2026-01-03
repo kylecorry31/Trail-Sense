@@ -18,7 +18,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinate> {
-    override fun execute(location: Coordinate) {
+    override fun execute(value: Coordinate) {
         val prefs = UserPreferences(context)
         val shouldSend = prefs.astronomy.sendMeteorShowerAlerts
 
@@ -28,8 +28,8 @@ class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinat
 
         val astronomyService = AstronomyService()
         val today = LocalDate.now()
-        val todayShower = astronomyService.getMeteorShower(location, today)
-        val tomorrowShower = astronomyService.getMeteorShower(location, today.plusDays(1))
+        val todayShower = astronomyService.getMeteorShower(value, today)
+        val tomorrowShower = astronomyService.getMeteorShower(value, today.plusDays(1))
 
         val shower = listOfNotNull(todayShower, tomorrowShower).firstOrNull {
             val timeUntilPeak = Duration.between(LocalDateTime.now(), it.peak)

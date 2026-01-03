@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.BundleCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -51,7 +52,10 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         super.onCreate(savedInstanceState)
         val beaconId = arguments?.getLong("edit_beacon") ?: 0L
         val groupId = arguments?.getLong("initial_group") ?: 0L
-        initialLocation = arguments?.getParcelable("initial_location")
+        initialLocation = BundleCompat.getParcelable(
+            arguments ?: Bundle(), "initial_location",
+            GeoUri::class.java
+        )
 
         editingBeaconId = if (beaconId == 0L) {
             null

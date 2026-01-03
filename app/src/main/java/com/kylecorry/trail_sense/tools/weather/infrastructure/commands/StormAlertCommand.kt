@@ -19,10 +19,10 @@ class StormAlertCommand(
     private val alerter: IDismissibleAlerter
 ) : Command<CurrentWeather> {
 
-    override fun execute(weather: CurrentWeather) {
+    override fun execute(value: CurrentWeather) {
         val sentAlert = justShownFlag.get()
 
-        if (weather.prediction.alerts.contains(WeatherAlert.Storm)) {
+        if (value.prediction.alerts.contains(WeatherAlert.Storm)) {
             val shouldSend = prefs.sendStormAlerts && prefs.shouldMonitorWeather
             if (shouldSend && !sentAlert) {
                 alerter.alert()

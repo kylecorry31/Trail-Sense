@@ -386,7 +386,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 it.first.slope = it.third
             }
             val first = slopes.lastOrNull()
-            first?.first?.slope = first?.third ?: 0f
+            first?.first?.slope = first.third
         }
         onMain {
             updateElevationPlot()

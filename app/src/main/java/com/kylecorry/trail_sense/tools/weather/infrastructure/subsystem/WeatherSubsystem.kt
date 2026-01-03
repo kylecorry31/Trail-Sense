@@ -61,7 +61,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val location by lazy { LocationSubsystem.getInstance(context) }
 
     private var cachedValue = MemoryCachedValue<CurrentWeather>()
-    private var validLock = Object()
+    private var validLock = Any()
     private var isValid = false
     private var updateWeatherMutex = Mutex()
 

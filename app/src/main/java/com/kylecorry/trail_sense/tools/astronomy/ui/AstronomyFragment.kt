@@ -428,7 +428,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         withContext(Dispatchers.Main) {
-            if (nextSunrise != null && (nextSunset == null || nextSunrise?.isBefore(nextSunset) == true)) {
+            if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))) {
                 binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunrise))
                 binding.astronomyTitle.subtitle.text = getString(R.string.until_sunrise)

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toFile
+import androidx.core.os.BundleCompat
 import androidx.core.view.isVisible
 import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.fragment.findNavController
@@ -65,7 +66,7 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        uri = arguments?.getParcelable("image")
+        uri = BundleCompat.getParcelable(arguments ?: Bundle(), "image", Uri::class.java)
     }
 
     override fun generateBinding(

@@ -69,7 +69,7 @@ class FusedGPS(
     private var currentSpeedAccuracy: Float? = null
     private var referenceLocation = Coordinate.zero
     private var referenceProjection =
-        AzimuthalEquidistantProjection(referenceLocation, scale = PROJECTION_SCALE.toFloat())
+        AzimuthalEquidistantProjection(referenceLocation, scale = PROJECTION_SCALE)
 
     private var gpsReadingTime = Instant.now()
     private var gpsReadingSystemTime = Instant.now()

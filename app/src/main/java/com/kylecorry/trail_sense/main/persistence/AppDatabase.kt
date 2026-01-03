@@ -109,206 +109,206 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): AppDatabase {
 
             val MIGRATION_1_2 = object : Migration(1, 2) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `notes` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `contents` TEXT, `created` INTEGER NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `notes` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `contents` TEXT, `created` INTEGER NOT NULL)")
                 }
             }
 
             val MIGRATION_2_3 = object : Migration(2, 3) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `waypoints` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `altitude` REAL, `createdOn` INTEGER NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `waypoints` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `altitude` REAL, `createdOn` INTEGER NOT NULL)")
                 }
             }
 
             val MIGRATION_3_4 = object : Migration(3, 4) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `pressures` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pressure` REAL NOT NULL, `altitude` REAL NOT NULL, `altitude_accuracy` REAL, `temperature` REAL NOT NULL, `time` INTEGER NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `pressures` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pressure` REAL NOT NULL, `altitude` REAL NOT NULL, `altitude_accuracy` REAL, `temperature` REAL NOT NULL, `time` INTEGER NOT NULL)")
                 }
             }
 
             val MIGRATION_4_5 = object : Migration(4, 5) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `beacons` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `visible` INTEGER NOT NULL DEFAULT 1, `comment` TEXT DEFAULT NULL, `beacon_group_id` INTEGER DEFAULT NULL, `elevation` REAL DEFAULT NULL)")
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `beacon_groups` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `beacons` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `visible` INTEGER NOT NULL DEFAULT 1, `comment` TEXT DEFAULT NULL, `beacon_group_id` INTEGER DEFAULT NULL, `elevation` REAL DEFAULT NULL)")
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `beacon_groups` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)")
                 }
             }
 
             val MIGRATION_5_6 = object : Migration(5, 6) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `beacons` ADD COLUMN `temporary` INTEGER NOT NULL DEFAULT 0")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `beacons` ADD COLUMN `temporary` INTEGER NOT NULL DEFAULT 0")
                 }
             }
 
             val MIGRATION_6_7 = object : Migration(6, 7) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `waypoints` ADD COLUMN `cellType` INTEGER DEFAULT NULL")
-                    database.execSQL("ALTER TABLE `waypoints` ADD COLUMN `cellQuality` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `waypoints` ADD COLUMN `cellType` INTEGER DEFAULT NULL")
+                    db.execSQL("ALTER TABLE `waypoints` ADD COLUMN `cellQuality` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_7_8 = object : Migration(7, 8) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `tides` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reference_high` INTEGER NOT NULL, `name` TEXT DEFAULT NULL, `latitude` REAL DEFAULT NULL, `longitude` REAL DEFAULT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `tides` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reference_high` INTEGER NOT NULL, `name` TEXT DEFAULT NULL, `latitude` REAL DEFAULT NULL, `longitude` REAL DEFAULT NULL)")
                 }
             }
 
             val MIGRATION_8_9 = object : Migration(8, 9) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `pressures` ADD COLUMN `humidity` REAL NOT NULL DEFAULT 0")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `pressures` ADD COLUMN `humidity` REAL NOT NULL DEFAULT 0")
                 }
             }
 
             val MIGRATION_9_10 = object : Migration(9, 10) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `maps` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `filename` TEXT NOT NULL, `latitude1` REAL DEFAULT NULL, `longitude1` REAL DEFAULT NULL, `percentX1` REAL DEFAULT NULL, `percentY1` REAL DEFAULT NULL, `latitude2` REAL DEFAULT NULL, `longitude2` REAL DEFAULT NULL, `percentX2` REAL DEFAULT NULL, `percentY2` REAL DEFAULT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `maps` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `filename` TEXT NOT NULL, `latitude1` REAL DEFAULT NULL, `longitude1` REAL DEFAULT NULL, `percentX1` REAL DEFAULT NULL, `percentY1` REAL DEFAULT NULL, `latitude2` REAL DEFAULT NULL, `longitude2` REAL DEFAULT NULL, `percentX2` REAL DEFAULT NULL, `percentY2` REAL DEFAULT NULL)")
                 }
             }
 
             val MIGRATION_10_11 = object : Migration(10, 11) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `battery` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `percent` REAL NOT NULL, `isCharging` INTEGER NOT NULL, `time` INTEGER NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `battery` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `percent` REAL NOT NULL, `isCharging` INTEGER NOT NULL, `time` INTEGER NOT NULL)")
                 }
             }
 
             val MIGRATION_11_12 = object : Migration(11, 12) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `battery` ADD COLUMN `capacity` REAL NOT NULL DEFAULT 0")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `battery` ADD COLUMN `capacity` REAL NOT NULL DEFAULT 0")
                 }
             }
 
             val MIGRATION_12_13 = object : Migration(12, 13) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `beacons` ADD COLUMN `color` INTEGER NOT NULL DEFAULT 1")
-                    database.execSQL("ALTER TABLE `beacons` ADD COLUMN `owner` INTEGER NOT NULL DEFAULT 0")
-                    database.execSQL("UPDATE `beacons` SET `owner` = 1 WHERE `temporary` = 1")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `beacons` ADD COLUMN `color` INTEGER NOT NULL DEFAULT 1")
+                    db.execSQL("ALTER TABLE `beacons` ADD COLUMN `owner` INTEGER NOT NULL DEFAULT 0")
+                    db.execSQL("UPDATE `beacons` SET `owner` = 1 WHERE `temporary` = 1")
                 }
             }
 
             val MIGRATION_13_14 = object : Migration(13, 14) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `warped` INTEGER NOT NULL DEFAULT 1")
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `rotated` INTEGER NOT NULL DEFAULT 1")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `warped` INTEGER NOT NULL DEFAULT 1")
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `rotated` INTEGER NOT NULL DEFAULT 1")
                 }
             }
 
             val MIGRATION_14_15 = object : Migration(14, 15) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `items` ADD COLUMN `desiredAmount` REAL NOT NULL DEFAULT 0")
-                    database.execSQL("ALTER TABLE `items` ADD COLUMN `weight` REAL DEFAULT NULL")
-                    database.execSQL("ALTER TABLE `items` ADD COLUMN `weightUnits` INTEGER DEFAULT NULL")
-                    database.execSQL("ALTER TABLE `items` ADD COLUMN `packId` INTEGER NOT NULL DEFAULT 0")
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `packs` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `items` ADD COLUMN `desiredAmount` REAL NOT NULL DEFAULT 0")
+                    db.execSQL("ALTER TABLE `items` ADD COLUMN `weight` REAL DEFAULT NULL")
+                    db.execSQL("ALTER TABLE `items` ADD COLUMN `weightUnits` INTEGER DEFAULT NULL")
+                    db.execSQL("ALTER TABLE `items` ADD COLUMN `packId` INTEGER NOT NULL DEFAULT 0")
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `packs` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)")
                 }
             }
 
             val MIGRATION_15_16 = object : Migration(15, 16) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `waypoints` ADD COLUMN `pathId` INTEGER NOT NULL DEFAULT 0")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `waypoints` ADD COLUMN `pathId` INTEGER NOT NULL DEFAULT 0")
                 }
             }
 
             val MIGRATION_16_17 = object : Migration(16, 17) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `clouds` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `cover` REAL NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `clouds` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `cover` REAL NOT NULL)")
                 }
             }
 
             val MIGRATION_17_18 = object : Migration(17, 18) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `paths` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `lineStyle` INTEGER NOT NULL, `pointStyle` INTEGER NOT NULL, `color` INTEGER NOT NULL, `visible` INTEGER NOT NULL, `temporary` INTEGER NOT NULL, `distance` REAL NOT NULL, `numWaypoints` INTEGER NOT NULL, `startTime` INTEGER, `endTime` INTEGER, `north` REAL NOT NULL, `east` REAL NOT NULL, `south` REAL NOT NULL, `west` REAL NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `paths` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `lineStyle` INTEGER NOT NULL, `pointStyle` INTEGER NOT NULL, `color` INTEGER NOT NULL, `visible` INTEGER NOT NULL, `temporary` INTEGER NOT NULL, `distance` REAL NOT NULL, `numWaypoints` INTEGER NOT NULL, `startTime` INTEGER, `endTime` INTEGER, `north` REAL NOT NULL, `east` REAL NOT NULL, `south` REAL NOT NULL, `west` REAL NOT NULL)")
                 }
             }
 
             val MIGRATION_18_19 = object : Migration(18, 19) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `projection` INTEGER NOT NULL DEFAULT 1")
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `rotation` INTEGER NOT NULL DEFAULT 0")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `projection` INTEGER NOT NULL DEFAULT 1")
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `rotation` INTEGER NOT NULL DEFAULT 0")
                 }
             }
 
             val MIGRATION_19_20 = object : Migration(19, 20) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `tides` ADD COLUMN `mtl` REAL DEFAULT NULL")
-                    database.execSQL("ALTER TABLE `tides` ADD COLUMN `mllw` REAL DEFAULT NULL")
-                    database.execSQL("ALTER TABLE `tides` ADD COLUMN `mn` REAL DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `tides` ADD COLUMN `mtl` REAL DEFAULT NULL")
+                    db.execSQL("ALTER TABLE `tides` ADD COLUMN `mllw` REAL DEFAULT NULL")
+                    db.execSQL("ALTER TABLE `tides` ADD COLUMN `mn` REAL DEFAULT NULL")
                 }
             }
 
             val MIGRATION_20_21 = object : Migration(20, 21) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `tides` ADD COLUMN `diurnal` INTEGER NOT NULL DEFAULT 0")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `tides` ADD COLUMN `diurnal` INTEGER NOT NULL DEFAULT 0")
                 }
             }
 
             val MIGRATION_21_22 = object : Migration(21, 22) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `tide_tables` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `latitude` REAL, `longitude` REAL)")
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `tide_table_rows` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `table_id` INTEGER NOT NULL, `time` INTEGER NOT NULL, `high` INTEGER NOT NULL, `height` REAL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `tide_tables` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `latitude` REAL, `longitude` REAL)")
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `tide_table_rows` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `table_id` INTEGER NOT NULL, `time` INTEGER NOT NULL, `high` INTEGER NOT NULL, `height` REAL)")
                 }
             }
 
             val MIGRATION_22_23 = object : Migration(22, 23) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `beacon_groups` ADD COLUMN `parent` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `beacon_groups` ADD COLUMN `parent` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_23_24 = object : Migration(23, 24) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `path_groups` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `parent` INTEGER DEFAULT NULL)")
-                    database.execSQL("ALTER TABLE `paths` ADD COLUMN `parentId` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `path_groups` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `parent` INTEGER DEFAULT NULL)")
+                    db.execSQL("ALTER TABLE `paths` ADD COLUMN `parentId` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_24_25 = object : Migration(24, 25) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("DROP TABLE tides")
-                    database.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `isSemidiurnal` INTEGER NOT NULL DEFAULT 1")
-                    database.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `isVisible` INTEGER NOT NULL DEFAULT 1")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("DROP TABLE tides")
+                    db.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `isSemidiurnal` INTEGER NOT NULL DEFAULT 1")
+                    db.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `isVisible` INTEGER NOT NULL DEFAULT 1")
                 }
             }
 
             val MIGRATION_25_26 = object : Migration(25, 26) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `beacons` ADD COLUMN `icon` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `beacons` ADD COLUMN `icon` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_26_27 = object : Migration(26, 27) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `clouds` ADD COLUMN `genus` INTEGER NOT NULL DEFAULT 1")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `clouds` ADD COLUMN `genus` INTEGER NOT NULL DEFAULT 1")
                 }
             }
 
             val MIGRATION_27_28 = object : Migration(27, 28) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("DROP TABLE `clouds`")
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `clouds` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `genus` INTEGER DEFAULT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("DROP TABLE `clouds`")
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `clouds` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `genus` INTEGER DEFAULT NULL)")
                 }
             }
 
             val MIGRATION_28_29 = object : Migration(28, 29) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `pressures` ADD COLUMN `latitude` REAL NOT NULL DEFAULT 0")
-                    database.execSQL("ALTER TABLE `pressures` ADD COLUMN `longitude` REAL NOT NULL DEFAULT 0")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `pressures` ADD COLUMN `latitude` REAL NOT NULL DEFAULT 0")
+                    db.execSQL("ALTER TABLE `pressures` ADD COLUMN `longitude` REAL NOT NULL DEFAULT 0")
                 }
             }
 
             val MIGRATION_29_30 = object : Migration(29, 30) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `lightning` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `distance` REAL NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `lightning` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `distance` REAL NOT NULL)")
                 }
             }
 
             val MIGRATION_30_31 = object : Migration(30, 31) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `map_groups` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `parent` INTEGER DEFAULT NULL)")
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `parent` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `map_groups` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `parent` INTEGER DEFAULT NULL)")
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `parent` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_31_32 = object : Migration(31, 32) {
-                override fun migrate(database: SupportSQLiteDatabase) {
+                override fun migrate(db: SupportSQLiteDatabase) {
                     val request =
                         OneTimeWorkRequestBuilder<RebaseMapCalibrationWorker>().build()
                     WorkManager.getInstance(context).enqueue(request)
@@ -316,95 +316,95 @@ abstract class AppDatabase : RoomDatabase() {
             }
 
             val MIGRATION_32_33 = object : Migration(32, 33) {
-                override fun migrate(database: SupportSQLiteDatabase) {
+                override fun migrate(db: SupportSQLiteDatabase) {
                     // Multiply the maps rotation column by 10 (adds a decimal place precision since the type can't be changed)
-                    database.execSQL("UPDATE `maps` SET `rotation` = `rotation` * 10")
+                    db.execSQL("UPDATE `maps` SET `rotation` = `rotation` * 10")
                 }
             }
 
             val MIGRATION_33_34 = object : Migration(33, 34) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `estimateType` INTEGER NOT NULL DEFAULT 1")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `estimateType` INTEGER NOT NULL DEFAULT 1")
                 }
             }
 
             val MIGRATION_34_35 = object : Migration(34, 35) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `tide_constituents` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `table_id` INTEGER NOT NULL, `constituent_id` INTEGER NOT NULL, `amplitude` REAL NOT NULL, `phase` REAL NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `tide_constituents` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `table_id` INTEGER NOT NULL, `constituent_id` INTEGER NOT NULL, `amplitude` REAL NOT NULL, `phase` REAL NOT NULL)")
                 }
             }
 
             val MIGRATION_35_36 = object : Migration(35, 36) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `lunitidalInterval` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `lunitidalInterval` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_36_37 = object : Migration(36, 37) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `lunitidalIntervalIsUtc` INTEGER NOT NULL DEFAULT 1")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `lunitidalIntervalIsUtc` INTEGER NOT NULL DEFAULT 1")
                 }
             }
 
             val MIGRATION_37_38 = object : Migration(37, 38) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `pdfWidth` INTEGER DEFAULT NULL")
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `pdfHeight` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `pdfWidth` INTEGER DEFAULT NULL")
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `pdfHeight` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_38_39 = object : Migration(38, 39) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `field_guide_pages` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `images` TEXT NOT NULL, `tags` TEXT NOT NULL, `notes` TEXT DEFAULT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `field_guide_pages` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `images` TEXT NOT NULL, `tags` TEXT NOT NULL, `notes` TEXT DEFAULT NULL)")
                 }
             }
 
             val MIGRATION_39_40 = object : Migration(39, 40) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `field_guide_pages` ADD COLUMN `import_id` INTEGER DEFAULT NULL")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `field_guide_pages` ADD COLUMN `import_id` INTEGER DEFAULT NULL")
                 }
             }
 
             val MIGRATION_40_41 = object : Migration(40, 41) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `field_guide_sightings` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `field_guide_page_id` INTEGER NOT NULL, `time` INTEGER DEFAULT NULL, `latitude` REAL DEFAULT NULL, `longitude` REAL DEFAULT NULL, `altitude` REAL DEFAULT NULL, `harvested` INTEGER DEFAULT NULL, `notes` TEXT DEFAULT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `field_guide_sightings` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `field_guide_page_id` INTEGER NOT NULL, `time` INTEGER DEFAULT NULL, `latitude` REAL DEFAULT NULL, `longitude` REAL DEFAULT NULL, `altitude` REAL DEFAULT NULL, `harvested` INTEGER DEFAULT NULL, `notes` TEXT DEFAULT NULL)")
                 }
             }
 
             val MIGRATION_41_42 = object : Migration(41, 42) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `visible` INTEGER NOT NULL DEFAULT 1")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `maps` ADD COLUMN `visible` INTEGER NOT NULL DEFAULT 1")
                 }
             }
 
             val MIGRATION_42_43 = object : Migration(42, 43) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `dem` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `resolution` INTEGER NOT NULL, `compression_method` TEXT NOT NULL, `version` TEXT NOT NULL, `filename` TEXT NOT NULL, `width` INTEGER NOT NULL, `height` INTEGER NOT NULL, `a` REAL NOT NULL, `b` REAL NOT NULL, `north` REAL NOT NULL, `south` REAL NOT NULL, `east` REAL NOT NULL, `west` REAL NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `dem` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `resolution` INTEGER NOT NULL, `compression_method` TEXT NOT NULL, `version` TEXT NOT NULL, `filename` TEXT NOT NULL, `width` INTEGER NOT NULL, `height` INTEGER NOT NULL, `a` REAL NOT NULL, `b` REAL NOT NULL, `north` REAL NOT NULL, `south` REAL NOT NULL, `east` REAL NOT NULL, `west` REAL NOT NULL)")
                 }
             }
 
             val MIGRATION_43_44 = object : Migration(43, 44) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `navigation_bearings` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bearing` REAL NOT NULL, `start_latitude` REAL DEFAULT NULL, `start_longitude` REAL DEFAULT NULL, `start_time` INTEGER DEFAULT NULL, `is_active` INTEGER NOT NULL)")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `navigation_bearings` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bearing` REAL NOT NULL, `start_latitude` REAL DEFAULT NULL, `start_longitude` REAL DEFAULT NULL, `start_time` INTEGER DEFAULT NULL, `is_active` INTEGER NOT NULL)")
                 }
             }
 
             val MIGRATION_44_45 = object : Migration(44, 45) {
-                override fun migrate(database: SupportSQLiteDatabase) {
+                override fun migrate(db: SupportSQLiteDatabase) {
                     // Group/parent relationships
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_waypoints_pathId ON waypoints(pathId)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_beacons_beacon_group_id ON beacons(beacon_group_id)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_items_packId ON items(packId)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_maps_parent ON maps(parent)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_paths_parentId ON paths(parentId)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_field_guide_sightings_field_guide_page_id ON field_guide_sightings(field_guide_page_id)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_tide_table_rows_table_id ON tide_table_rows(table_id)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_waypoints_pathId ON waypoints(pathId)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_beacons_beacon_group_id ON beacons(beacon_group_id)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_items_packId ON items(packId)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_maps_parent ON maps(parent)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_paths_parentId ON paths(parentId)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_field_guide_sightings_field_guide_page_id ON field_guide_sightings(field_guide_page_id)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_tide_table_rows_table_id ON tide_table_rows(table_id)")
                     // Time-based queries
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_pressures_time ON pressures(time)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_battery_time ON battery(time)")
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_clouds_time ON clouds(time)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_pressures_time ON pressures(time)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_battery_time ON battery(time)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_clouds_time ON clouds(time)")
                     // Beacon filtering
-                    database.execSQL("CREATE INDEX IF NOT EXISTS index_beacons_temporary_owner ON beacons(temporary, owner)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_beacons_temporary_owner ON beacons(temporary, owner)")
                 }
             }
 

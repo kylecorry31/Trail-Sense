@@ -19,7 +19,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinate> {
-    override fun execute(location: Coordinate) {
+    override fun execute(value: Coordinate) {
         val prefs = UserPreferences(context)
         val shouldSend = prefs.astronomy.sendLunarEclipseAlerts
 
@@ -29,9 +29,9 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
 
         val astronomyService = AstronomyService()
         val today = LocalDate.now()
-        val todayEclipse = astronomyService.getLunarEclipse(location, today)
+        val todayEclipse = astronomyService.getLunarEclipse(value, today)
         val tomorrowEclipse =
-            astronomyService.getLunarEclipse(location, today.plusDays(1))
+            astronomyService.getLunarEclipse(value, today.plusDays(1))
 
         val eclipse = listOfNotNull(todayEclipse, tomorrowEclipse).firstOrNull {
             val timeUntilPeak = Duration.between(LocalDateTime.now(), it.peak)

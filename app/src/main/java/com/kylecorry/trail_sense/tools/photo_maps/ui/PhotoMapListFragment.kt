@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.BundleCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -104,7 +105,8 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
             this::onMapGroupAction
         )
 
-        val mapIntentUri: Uri? = arguments?.getParcelable("map_intent_uri")
+        val mapIntentUri =
+            BundleCompat.getParcelable(arguments ?: Bundle(), "map_intent_uri", Uri::class.java)
         arguments?.remove("map_intent_uri")
         if (mapIntentUri != null) {
             createMap(

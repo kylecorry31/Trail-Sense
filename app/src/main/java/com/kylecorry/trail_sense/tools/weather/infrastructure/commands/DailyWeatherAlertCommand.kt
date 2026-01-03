@@ -19,7 +19,7 @@ class DailyWeatherAlertCommand(
     private val timeProvider: ITimeProvider
 ) : Command<CurrentWeather> {
 
-    override fun execute(weather: CurrentWeather) {
+    override fun execute(value: CurrentWeather) {
         if (!prefs.shouldShowDailyWeatherNotification || !prefs.shouldMonitorWeather) {
             return
         }
@@ -36,7 +36,7 @@ class DailyWeatherAlertCommand(
         }
 
         prefs.dailyWeatherLastSent = time.toLocalDate()
-        alerter.alert(weather.prediction)
+        alerter.alert(value.prediction)
     }
 
     companion object {

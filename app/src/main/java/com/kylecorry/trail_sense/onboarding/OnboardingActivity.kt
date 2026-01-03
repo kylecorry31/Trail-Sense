@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.ViewCompat
@@ -44,6 +45,20 @@ class OnboardingActivity : AndromedaActivity() {
             load(pageIdx + 1)
         }
 
+        setupBackPressed()
+
+    }
+
+    private fun setupBackPressed() {
+        onBackPressedDispatcher.addCallback(this) {
+            if (pageIdx == 0) {
+                // Allow default back behavior
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+            } else {
+                load(pageIdx - 1)
+            }
+        }
     }
 
     private fun bindLayoutInsets() {
@@ -98,18 +113,6 @@ class OnboardingActivity : AndromedaActivity() {
             } else {
                 binding.pageContents.text = pageContents.contents
             }
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        val count = supportFragmentManager.backStackEntryCount
-
-        if (count == 0) {
-            super.onBackPressed()
-            //additional code
-        } else {
-            supportFragmentManager.popBackStackImmediate()
         }
     }
 
