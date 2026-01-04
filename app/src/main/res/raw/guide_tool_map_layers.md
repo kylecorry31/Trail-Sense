@@ -19,6 +19,7 @@ This layer shows the elevation from the digital elevation model (DEM) as color. 
 Settings:
 
 - **Color**: The color scale of the pixels. The color will change based on elevation.
+- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
 ## Hillshade
 This layer draws shadows to help see elevation in the terrain from the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
@@ -26,6 +27,7 @@ This layer draws shadows to help see elevation in the terrain from the digital e
 Settings:
 
 - **Draw accurate shadows**: If enabled, shadows will be drawn using the position of the sun and moon, but the 3D appearance may be reduced.
+- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
 ## Photo Maps
 This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.

@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 class ContourGeoJsonSource : GeoJsonSource {
 
     private val units = AppServiceRegistry.get<UserPreferences>().baseDistanceUnits
-    private val maxZoomLevel = 19
 
     var colorScale: ElevationColorMap = TrailSenseVibrantElevationColorMap()
 
@@ -37,27 +36,16 @@ class ContourGeoJsonSource : GeoJsonSource {
             )
         } else {
             mapOf(
-                13 to Distance.Companion.feet(200f).meters().value,
-                14 to Distance.Companion.feet(200f).meters().value,
-                15 to Distance.Companion.feet(200f).meters().value,
-                16 to Distance.Companion.feet(40f).meters().value,
-                17 to Distance.Companion.feet(40f).meters().value,
-                18 to Distance.Companion.feet(40f).meters().value,
-                19 to Distance.Companion.feet(40f).meters().value
+                13 to Distance.feet(200f).meters().value,
+                14 to Distance.feet(200f).meters().value,
+                15 to Distance.feet(200f).meters().value,
+                16 to Distance.feet(40f).meters().value,
+                17 to Distance.feet(40f).meters().value,
+                18 to Distance.feet(40f).meters().value,
+                19 to Distance.feet(40f).meters().value
             )
         }
     }
-
-    private val baseResolution = 1 / 240.0
-    private val validResolutions = mapOf(
-        13 to baseResolution,
-        14 to baseResolution / 2,
-        15 to baseResolution / 4,
-        16 to baseResolution / 4,
-        17 to baseResolution / 4,
-        18 to baseResolution / 4,
-        19 to baseResolution / 4
-    )
 
     private val showLabelsOnAllContoursZoomLevels = setOf(
         14, 15, 19
@@ -66,20 +54,24 @@ class ContourGeoJsonSource : GeoJsonSource {
     override suspend fun load(
         bounds: CoordinateBounds,
         metersPerPixel: Float
-    ): GeoJsonObject? {
+    ): GeoJsonObject {
         val zoomLevel = TileMath.getZoomLevel(
             bounds,
             metersPerPixel
-        ).coerceAtMost(maxZoomLevel)
+        ).coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
 
         val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
-        val contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
+        val contours = DEM.getContourLines(
+            bounds,
+            interval,
+            DEM.LOW_RESOLUTION_ZOOM_TO_RESOLUTION[zoomLevel]!!
+        )
         var i = -10000L
 
         val features = contours.flatMap { level ->
             val isImportantLine = SolMath.isZero((level.elevation / interval) % 5, 0.1f)
             val name = DecimalFormatter.format(
-                Distance.Companion.meters(level.elevation).convertTo(units).value, 0
+                Distance.meters(level.elevation).convertTo(units).value, 0
             )
             val color = colorScale.getElevationColor(level.elevation)
             level.lines.map { line ->

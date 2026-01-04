@@ -70,7 +70,13 @@ object MapToolRegistration : ToolRegistration {
                                 context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
                             ),
                             defaultValue = ElevationLayer.DEFAULT_COLOR.id.toString(),
-                        )
+                        ),
+                        MapLayerPreference(
+                            id = ElevationLayer.HIGH_RESOLUTION,
+                            title = context.getString(R.string.high_resolution),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = ElevationLayer.DEFAULT_HIGH_RESOLUTION,
+                        ),
                     )
                 ) { ElevationLayer() },
                 MapLayerDefinition(
@@ -91,6 +97,12 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.draw_accurate_shadows),
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = HillshadeLayer.DEFAULT_DRAW_ACCURATE_SHADOWS,
+                        ),
+                        MapLayerPreference(
+                            id = HillshadeLayer.HIGH_RESOLUTION,
+                            title = context.getString(R.string.high_resolution),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = HillshadeLayer.DEFAULT_HIGH_RESOLUTION,
                         ),
                     )
                 ) { HillshadeLayer() },

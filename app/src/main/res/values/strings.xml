@@ -1870,4 +1870,5 @@
     <string name="map_layer_photo_maps_description">Your saved photo maps</string>
     <string name="map_layer_cell_towers_description">Approximate cell tower locations</string>
     <string name="map_layer_navigation_description">Line to your navigation destination</string>
+    <string name="high_resolution">High resolution</string>
 </resources>

@@ -19,11 +19,14 @@ class ElevationLayer : TileMapLayer<ElevationMapTileSource>(
         source.colorScale = ElevationColorMapFactory().getElevationColorMap(
             ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
         )
+        source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)
     }
 
     companion object {
         const val LAYER_ID = "elevation"
         const val COLOR = "color"
+        const val HIGH_RESOLUTION = "high_resolution"
         val DEFAULT_COLOR = ElevationColorStrategy.USGS
+        const val DEFAULT_HIGH_RESOLUTION = false
     }
 }

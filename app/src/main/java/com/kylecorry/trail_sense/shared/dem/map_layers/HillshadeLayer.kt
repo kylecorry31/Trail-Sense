@@ -28,11 +28,14 @@ class HillshadeLayer :
         ).toInt()
         source.drawAccurateShadows =
             preferences.getBoolean(DRAW_ACCURATE_SHADOWS, DEFAULT_DRAW_ACCURATE_SHADOWS)
+        source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)
     }
 
     companion object {
         const val LAYER_ID = "hillshade"
         const val DRAW_ACCURATE_SHADOWS = "draw_accurate_shadows"
+        const val HIGH_RESOLUTION = "high_resolution"
         const val DEFAULT_DRAW_ACCURATE_SHADOWS = false
+        const val DEFAULT_HIGH_RESOLUTION = false
     }
 }
