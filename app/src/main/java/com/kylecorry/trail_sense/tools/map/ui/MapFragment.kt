@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
+import android.graphics.Color
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -98,6 +99,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             return@useEffectWithCleanup {
                 manager.pause(mapView)
             }
+        }
+
+        useEffect(mapView){
+            mapView.setBackgroundColor(Color.rgb(127, 127, 127))
         }
 
         useBackgroundEffect(mapView, manager.key, attributionView) {

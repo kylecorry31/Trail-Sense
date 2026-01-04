@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -148,6 +149,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.map.setOnLongPressListener {
             onLongPress(it)
         }
+
+        binding.map.setBackgroundColor(Resources.color(requireContext(), R.color.colorSecondary))
 
         val keepMapUp = prefs.photoMaps.keepMapFacingUp
 

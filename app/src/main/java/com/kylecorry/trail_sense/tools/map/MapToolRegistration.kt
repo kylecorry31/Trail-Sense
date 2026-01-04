@@ -10,7 +10,6 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefi
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
-import com.kylecorry.trail_sense.tools.map.map_layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
@@ -147,11 +146,6 @@ object MapToolRegistration : ToolRegistration {
                         )
                     )
                 ) { MyLocationLayer() },
-                MapLayerDefinition(
-                    BackgroundColorMapLayer.LAYER_ID,
-                    context.getString(R.string.background_color),
-                    isConfigurable = false
-                ) { BackgroundColorMapLayer() },
                 MapLayerDefinition(
                     ScaleBarLayer.LAYER_ID,
                     context.getString(R.string.map_scale_title),
