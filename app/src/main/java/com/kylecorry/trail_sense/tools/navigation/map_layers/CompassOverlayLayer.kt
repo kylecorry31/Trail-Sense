@@ -2,18 +2,16 @@ package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.overlay.OverlayLayer
 
 // TODO: Allow setting of position
-class CompassOverlayLayer : ILayer {
+class CompassOverlayLayer : OverlayLayer() {
 
     override val layerId: String = LAYER_ID
 
@@ -37,17 +35,6 @@ class CompassOverlayLayer : ILayer {
             field = value
             invalidate()
         }
-
-    override fun setPreferences(preferences: Bundle) {
-        // Do nothing
-    }
-
-    override fun draw(
-        drawer: ICanvasDrawer,
-        map: IMapView
-    ) {
-        // Do nothing
-    }
 
     override fun drawOverlay(
         drawer: ICanvasDrawer,
@@ -95,23 +82,6 @@ class CompassOverlayLayer : ILayer {
 
         drawer.pop()
     }
-
-    override fun invalidate() {
-        // Do nothing
-    }
-
-    override fun onClick(
-        drawer: ICanvasDrawer,
-        map: IMapView,
-        pixel: PixelCoordinate
-    ): Boolean {
-        return false
-    }
-
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
 
     companion object {
         const val LAYER_ID = "compass_overlay"

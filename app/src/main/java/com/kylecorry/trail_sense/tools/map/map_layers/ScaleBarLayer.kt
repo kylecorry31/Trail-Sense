@@ -2,20 +2,18 @@ package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Color
 import android.graphics.Path
-import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.overlay.OverlayLayer
 import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
 
 // TODO: Allow position to be adjusted
-class ScaleBarLayer : ILayer {
+class ScaleBarLayer : OverlayLayer() {
 
     override val layerId: String = LAYER_ID
 
@@ -24,22 +22,11 @@ class ScaleBarLayer : ILayer {
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
-    val units = prefs.baseDistanceUnits
+    private val units = prefs.baseDistanceUnits
 
     private val formatter = AppServiceRegistry.get<FormatService>()
 
-    var bottomMargin: Float = 32f
-
-    override fun setPreferences(preferences: Bundle) {
-        // Do nothing
-    }
-
-    override fun draw(
-        drawer: ICanvasDrawer,
-        map: IMapView
-    ) {
-        // Do nothing
-    }
+    private val bottomMargin: Float = 32f
 
     override fun drawOverlay(
         drawer: ICanvasDrawer,
@@ -79,23 +66,6 @@ class ScaleBarLayer : ILayer {
             y + drawer.textHeight(scaleText) / 2
         )
     }
-
-    override fun invalidate() {
-        // Do nothing
-    }
-
-    override fun onClick(
-        drawer: ICanvasDrawer,
-        map: IMapView,
-        pixel: PixelCoordinate
-    ): Boolean {
-        return false
-    }
-
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
 
     companion object {
         const val LAYER_ID = "scale_bar"

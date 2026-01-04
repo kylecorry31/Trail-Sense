@@ -11,14 +11,14 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.overlay.OverlayLayer
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class MyElevationLayer : ILayer {
+class MyElevationLayer : OverlayLayer() {
 
     private var bottomLeft = PixelCoordinate(
         16f,
@@ -52,13 +52,6 @@ class MyElevationLayer : ILayer {
 
     override fun stop() {
         Tools.unsubscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
-    }
-
-    override fun draw(
-        drawer: ICanvasDrawer,
-        map: IMapView
-    ) {
-        // Do nothing
     }
 
     override fun drawOverlay(
@@ -100,30 +93,9 @@ class MyElevationLayer : ILayer {
         drawer.pop()
     }
 
-    override fun invalidate() {
-        // Do nothing
-    }
-
-    override fun onClick(
-        drawer: ICanvasDrawer,
-        map: IMapView,
-        pixel: PixelCoordinate
-    ): Boolean {
-        return false
-    }
-
     protected fun finalize() {
         bitmapLoader.clear()
     }
-
-    override fun setPreferences(preferences: Bundle) {
-        // Do nothing
-    }
-
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
 
     companion object {
         const val LAYER_ID = "my_elevation"
