@@ -108,7 +108,10 @@ class TileLoader(private val padding: Int = 0) {
             return
         }
 
+        val fallback = if (originalBitmap.config != Bitmap.Config.ARGB_8888) originalBitmap else null
         val canvas = Canvas(originalBitmap)
+        val w = originalBitmap.width
+        val h = originalBitmap.height
 
         val topTile = tile.getNeighbor(0, -1)
         drawNeighbor(
@@ -116,10 +119,12 @@ class TileLoader(private val padding: Int = 0) {
             topTile,
             borderSize,
             0,
-            originalBitmap.width,
+            w,
             borderSize,
             borderSize,
-            originalBitmap.height - borderSize * 2
+            h - borderSize * 2,
+            fallback,
+            Rect(borderSize, borderSize, w - borderSize, borderSize + 1)
         )
 
         val bottomTile = tile.getNeighbor(0, 1)
@@ -127,11 +132,13 @@ class TileLoader(private val padding: Int = 0) {
             canvas,
             bottomTile,
             borderSize,
-            originalBitmap.height - borderSize,
-            originalBitmap.width,
+            h - borderSize,
+            w,
             borderSize,
             borderSize,
-            borderSize
+            borderSize,
+            fallback,
+            Rect(borderSize, h - borderSize - 1, w - borderSize, h - borderSize)
         )
 
         val leftTile = tile.getNeighbor(-1, 0)
@@ -141,21 +148,25 @@ class TileLoader(private val padding: Int = 0) {
             0,
             borderSize,
             borderSize,
-            originalBitmap.height,
-            originalBitmap.width - borderSize * 2,
-            borderSize
+            h,
+            w - borderSize * 2,
+            borderSize,
+            fallback,
+            Rect(borderSize, borderSize, borderSize + 1, h - borderSize)
         )
 
         val rightTile = tile.getNeighbor(1, 0)
         drawNeighbor(
             canvas,
             rightTile,
-            originalBitmap.width - borderSize,
+            w - borderSize,
             borderSize,
             borderSize,
-            originalBitmap.height,
+            h,
             borderSize,
-            borderSize
+            borderSize,
+            fallback,
+            Rect(w - borderSize - 1, borderSize, w - borderSize, h - borderSize)
         )
 
         val topLeftTile = tile.getNeighbor(-1, -1)
@@ -166,20 +177,24 @@ class TileLoader(private val padding: Int = 0) {
             0,
             borderSize,
             borderSize,
-            originalBitmap.width - borderSize * 2,
-            originalBitmap.height - borderSize * 2
+            w - borderSize * 2,
+            h - borderSize * 2,
+            fallback,
+            Rect(borderSize, borderSize, borderSize + 1, borderSize + 1)
         )
 
         val topRightTile = tile.getNeighbor(1, -1)
         drawNeighbor(
             canvas,
             topRightTile,
-            originalBitmap.width - borderSize,
+            w - borderSize,
             0,
             borderSize,
             borderSize,
             borderSize,
-            originalBitmap.height - borderSize * 2
+            h - borderSize * 2,
+            fallback,
+            Rect(w - borderSize - 1, borderSize, w - borderSize, borderSize + 1)
         )
 
         val bottomLeftTile = tile.getNeighbor(-1, 1)
@@ -187,23 +202,27 @@ class TileLoader(private val padding: Int = 0) {
             canvas,
             bottomLeftTile,
             0,
-            originalBitmap.height - borderSize,
+            h - borderSize,
             borderSize,
             borderSize,
-            originalBitmap.width - borderSize * 2,
-            borderSize
+            w - borderSize * 2,
+            borderSize,
+            fallback,
+            Rect(borderSize, h - borderSize - 1, borderSize + 1, h - borderSize)
         )
 
         val bottomRightTile = tile.getNeighbor(1, 1)
         drawNeighbor(
             canvas,
             bottomRightTile,
-            originalBitmap.width - borderSize,
-            originalBitmap.height - borderSize,
+            w - borderSize,
+            h - borderSize,
             borderSize,
             borderSize,
             borderSize,
-            borderSize
+            borderSize,
+            fallback,
+            Rect(w - borderSize - 1, h - borderSize - 1, w - borderSize, h - borderSize)
         )
     }
 
@@ -215,9 +234,29 @@ class TileLoader(private val padding: Int = 0) {
         destWidth: Int,
         destHeight: Int,
         srcXStart: Int,
-        srcYStart: Int
+        srcYStart: Int,
+        fallbackBitmap: Bitmap? = null,
+        fallbackSrcRect: Rect? = null
     ) {
-        val neighborBitmap = tileCache.get(neighborTile) ?: return
+        val neighborBitmap = tileCache.get(neighborTile)
+
+        if (neighborBitmap == null) {
+            if (fallbackBitmap != null && fallbackSrcRect != null) {
+                val destRect = Rect(
+                    destX,
+                    destY,
+                    destX + destWidth,
+                    destY + destHeight
+                )
+                canvas.drawBitmap(
+                    fallbackBitmap,
+                    fallbackSrcRect,
+                    destRect,
+                    neighborPaint
+                )
+            }
+            return
+        }
         val srcRect = Rect(
             srcXStart,
             srcYStart,
