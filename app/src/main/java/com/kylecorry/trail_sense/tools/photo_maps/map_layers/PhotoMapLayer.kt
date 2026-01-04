@@ -16,7 +16,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     override val layerId: String = LAYER_ID
 
     init {
-        setBackgroundColor(Color.TRANSPARENT)
+        source.backgroundColor = Color.TRANSPARENT
     }
 
     override fun setPreferences(preferences: Bundle) {
@@ -43,11 +43,6 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
         setZoomOffset(zoomOffset)
         notifyListeners()
-    }
-
-    override fun setBackgroundColor(color: Int) {
-        super.setBackgroundColor(color)
-        source.backgroundColor = color
     }
 
     override fun stop() {

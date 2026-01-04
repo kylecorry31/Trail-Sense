@@ -39,7 +39,6 @@ abstract class TileMapLayer<T : TileSource>(
 ) : IAsyncLayer {
 
     private var shouldReloadTiles = true
-    private var backgroundColor: Int = Color.WHITE
     protected val loader = TileLoader(TILE_BORDER_PIXELS)
     private val layerPaint = Paint()
     private val tilePaint = Paint().apply {
@@ -70,11 +69,6 @@ abstract class TileMapLayer<T : TileSource>(
 
     fun setZoomOffset(offset: Int) {
         zoomOffset = offset
-        shouldReloadTiles = true
-    }
-
-    open fun setBackgroundColor(color: Int) {
-        this.backgroundColor = color
         shouldReloadTiles = true
     }
 
