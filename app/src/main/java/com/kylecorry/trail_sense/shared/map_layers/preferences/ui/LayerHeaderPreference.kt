@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 
 class LayerHeaderPreference(context: Context) : Preference(context) {
@@ -29,19 +28,17 @@ class LayerHeaderPreference(context: Context) : Preference(context) {
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
-        val icon = holder.findViewById(android.R.id.widget_frame) as? android.view.ViewGroup
-        val imageView = icon?.getChildAt(0) as? ImageView
+        val frame = holder.findViewById(android.R.id.widget_frame) as? android.view.ViewGroup
+        val imageView = frame?.getChildAt(0) as? ImageView
         imageView?.setImageResource(
             if (isExpanded) R.drawable.ic_drop_down_expanded else R.drawable.ic_drop_down
         )
 
         val title = holder.findViewById(android.R.id.title) as? TextView
-        title?.setTextColor(
-            if (isLayerEnabled) {
-                Resources.androidTextColorPrimary(context)
-            } else {
-                Resources.androidTextColorSecondary(context)
-            }
-        )
+        title?.alpha = if (isLayerEnabled) {
+            1f
+        } else {
+            0.4f
+        }
     }
 }
