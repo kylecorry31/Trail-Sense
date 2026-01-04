@@ -2,12 +2,11 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.os.Bundle
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 
-class HillshadeLayer(taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
-    TileMapLayer<HillshadeMapTileSource>(HillshadeMapTileSource(), taskRunner, minZoomLevel = 10) {
+class HillshadeLayer :
+    TileMapLayer<HillshadeMapTileSource>(HillshadeMapTileSource(), minZoomLevel = 10) {
 
     override val layerId: String = LAYER_ID
 

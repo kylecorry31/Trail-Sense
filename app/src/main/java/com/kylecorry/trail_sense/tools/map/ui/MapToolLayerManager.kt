@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.extensions.point
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
@@ -35,7 +34,6 @@ import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLaye
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class MapToolLayerManager {
-    private val taskRunner = MapLayerBackgroundTask()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
@@ -46,7 +44,6 @@ class MapToolLayerManager {
         view.setLayersWithPreferences(
             MapToolRegistration.MAP_ID,
             defaultLayers,
-            taskRunner,
             // TODO: Extract these to layer config
             listOf(
                 selectedPointLayer,

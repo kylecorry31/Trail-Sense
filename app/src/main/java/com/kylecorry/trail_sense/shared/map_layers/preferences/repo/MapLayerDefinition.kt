@@ -37,6 +37,6 @@ data class MapLayerDefinition(
     val layerType: MapLayerType = MapLayerType.Feature,
     val attribution: MapLayerAttribution? = null,
     val description: String? = null,
-    val create: (context: Context, taskRunner: MapLayerBackgroundTask) -> ILayer
+    val create: (context: Context) -> ILayer
 )
 

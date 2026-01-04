@@ -6,7 +6,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 import com.kylecorry.trail_sense.shared.map_layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
@@ -77,7 +76,6 @@ fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
 fun IMapView.setLayersWithPreferences(
     mapId: String,
     layerIds: List<String>,
-    taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     additionalLayers: List<ILayer> = emptyList(),
     forceReplaceLayers: Boolean = false
 ) {
@@ -89,7 +87,7 @@ fun IMapView.setLayersWithPreferences(
         currentLayers
     } else {
         layerIds.mapNotNull { id ->
-            loader.getLayer(id, taskRunner)
+            loader.getLayer(id)
         } + additionalLayers
     }
 

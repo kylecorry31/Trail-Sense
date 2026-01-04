@@ -18,13 +18,10 @@ class MapLayerLoader(private val context: Context) {
         return toolLayers.toMap()
     }
 
-    fun getLayer(
-        layerId: String,
-        taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()
-    ): ILayer? {
+    fun getLayer(layerId: String): ILayer? {
         // TODO: This is where it would check the layer ID to see if it is a plugin and create a plugin layer
         // The plugin layer IDs should use a consistent format like plugin__package_name__layer_id__tile / plugin__package_name__layer_id__feature
-        return toolLayers[layerId]?.create(context, taskRunner)
+        return toolLayers[layerId]?.create(context)
     }
 
 }

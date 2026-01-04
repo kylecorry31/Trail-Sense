@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
@@ -21,7 +20,6 @@ import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLaye
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class NavigationCompassLayerManager {
-    private val taskRunner = MapLayerBackgroundTask()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
     var key = 0
@@ -30,8 +28,7 @@ class NavigationCompassLayerManager {
     fun resume(context: Context, view: IMapView) {
         view.setLayersWithPreferences(
             NavigationToolRegistration.MAP_ID,
-            defaultLayers,
-            taskRunner
+            defaultLayers
         )
 
         key += 1

@@ -34,7 +34,7 @@ object SignalFinderToolRegistration : ToolRegistration {
                         context.getString(R.string.cell_tower_disclaimer),
                         true
                     ),
-                ) { _, _ -> CellTowerMapLayer() }
+                ) { CellTowerMapLayer() }
             )
         )
     }

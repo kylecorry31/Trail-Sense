@@ -141,7 +141,7 @@ object PathsToolRegistration : ToolRegistration {
                             defaultValue = PathLayer.DEFAULT_BACKGROUND_COLOR.id.toString(),
                         )
                     )
-                ) { _, _ -> PathLayer() }
+                ) { PathLayer() }
             )
         )
     }

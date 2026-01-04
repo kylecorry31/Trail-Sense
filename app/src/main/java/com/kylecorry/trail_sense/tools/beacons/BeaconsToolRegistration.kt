@@ -104,9 +104,7 @@ object BeaconsToolRegistration : ToolRegistration {
                     MAP_LAYER_BEACONS,
                     context.getString(R.string.beacons),
                     description = context.getString(R.string.map_layer_beacons_description)
-                ) { _, _ ->
-                    BeaconLayer()
-                }
+                ) { BeaconLayer() }
             )
         )
     }

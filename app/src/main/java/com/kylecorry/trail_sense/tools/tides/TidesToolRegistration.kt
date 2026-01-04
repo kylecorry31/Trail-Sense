@@ -48,7 +48,7 @@ object TidesToolRegistration : ToolRegistration {
                             defaultValue = TideMapLayer.DEFAULT_SHOW_MODELED_TIDES
                         )
                     )
-                ) { _, _ -> TideMapLayer() }
+                ) { TideMapLayer() }
             ),
             widgets = listOf(
                 ToolWidget(
