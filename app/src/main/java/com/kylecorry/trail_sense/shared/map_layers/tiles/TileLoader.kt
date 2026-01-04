@@ -6,9 +6,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.Log
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.trail_sense.shared.andromeda_temp.Pad
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -99,7 +101,9 @@ class TileLoader(private val padding: Int = 0) {
             return
         }
         val bitmap = tileCache.get(tile) ?: return
-        fillNeighborPixels(tile, bitmap)
+        tryOrNothing {
+            fillNeighborPixels(tile, bitmap)
+        }
     }
 
     private fun fillNeighborPixels(tile: Tile, originalBitmap: Bitmap) {
@@ -108,7 +112,8 @@ class TileLoader(private val padding: Int = 0) {
             return
         }
 
-        val fallback = if (originalBitmap.config != Bitmap.Config.ARGB_8888) originalBitmap else null
+        val fallback =
+            if (originalBitmap.config != Bitmap.Config.ARGB_8888) originalBitmap else null
         val canvas = Canvas(originalBitmap)
         val w = originalBitmap.width
         val h = originalBitmap.height
@@ -238,44 +243,49 @@ class TileLoader(private val padding: Int = 0) {
         fallbackBitmap: Bitmap? = null,
         fallbackSrcRect: Rect? = null
     ) {
-        val neighborBitmap = tileCache.get(neighborTile)
+        tryOrNothing {
+            val neighborBitmap = tileCache.get(neighborTile)
 
-        if (neighborBitmap == null) {
-            if (fallbackBitmap != null && fallbackSrcRect != null) {
-                val destRect = Rect(
-                    destX,
-                    destY,
-                    destX + destWidth,
-                    destY + destHeight
-                )
-                canvas.drawBitmap(
-                    fallbackBitmap,
-                    fallbackSrcRect,
-                    destRect,
-                    neighborPaint
-                )
+            if (neighborBitmap == null) {
+                if (fallbackBitmap != null && fallbackSrcRect != null) {
+                    val destRect = Rect(
+                        destX,
+                        destY,
+                        destX + destWidth,
+                        destY + destHeight
+                    )
+                    fallbackBitmap.copy(fallbackBitmap.config ?: Bitmap.Config.ARGB_8888, false)
+                        .use {
+                            canvas.drawBitmap(
+                                this,
+                                fallbackSrcRect,
+                                destRect,
+                                neighborPaint
+                            )
+                        }
+                }
+                return
             }
-            return
+            val srcRect = Rect(
+                srcXStart,
+                srcYStart,
+                srcXStart + destWidth,
+                srcYStart + destHeight
+            )
+
+            val destRect = Rect(
+                destX,
+                destY,
+                destX + destWidth,
+                destY + destHeight
+            )
+
+            canvas.drawBitmap(
+                neighborBitmap,
+                srcRect,
+                destRect,
+                neighborPaint
+            )
         }
-        val srcRect = Rect(
-            srcXStart,
-            srcYStart,
-            srcXStart + destWidth,
-            srcYStart + destHeight
-        )
-
-        val destRect = Rect(
-            destX,
-            destY,
-            destX + destWidth,
-            destY + destHeight
-        )
-
-        canvas.drawBitmap(
-            neighborBitmap,
-            srcRect,
-            destRect,
-            neighborPaint
-        )
     }
 }
