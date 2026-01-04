@@ -307,10 +307,14 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             if (placements.isEmpty()) return
 
             val centerPixel = map.toPixel(path.origin)
+            val relativeScale = (path.renderedScale / map.metersPerPixel).real().positive(1f)
             var labelsDrawn = 0
             for (placement in placements) {
                 if (labelsDrawn >= maxLabels) break
-                val center = placement.center + centerPixel
+                val center = PixelCoordinate(
+                    placement.center.x * relativeScale + centerPixel.x,
+                    placement.center.y * relativeScale + centerPixel.y
+                )
                 val drawAngle = placement.angle
 
                 drawer.push()
