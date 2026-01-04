@@ -85,19 +85,23 @@ object ImageRegionLoader {
                 autoClose = false,
                 enforceBounds = enforceBounds
             ) ?: continue
-            val sourceRect = Rect(0, 0, bitmap.width, bitmap.height)
-            val pctLeftX = offset.x / rect.width().toFloat()
-            val pctTopY = offset.y / rect.height().toFloat()
-            val pctRightX = (offset.x + rectToLoad.width()) / rect.width().toFloat()
-            val pctBottomY = (offset.y + rectToLoad.height()) / rect.height().toFloat()
+            try {
+                val sourceRect = Rect(0, 0, bitmap.width, bitmap.height)
+                val pctLeftX = offset.x / rect.width().toFloat()
+                val pctTopY = offset.y / rect.height().toFloat()
+                val pctRightX = (offset.x + rectToLoad.width()) / rect.width().toFloat()
+                val pctBottomY = (offset.y + rectToLoad.height()) / rect.height().toFloat()
 
-            val destRect = Rect(
-                (pctLeftX * destinationSize.width).toInt(),
-                (pctTopY * destinationSize.height).toInt(),
-                (pctRightX * destinationSize.width).toInt(),
-                (pctBottomY * destinationSize.height).toInt()
-            )
-            canvas.drawBitmap(bitmap, sourceRect, destRect, null)
+                val destRect = Rect(
+                    (pctLeftX * destinationSize.width).toInt(),
+                    (pctTopY * destinationSize.height).toInt(),
+                    (pctRightX * destinationSize.width).toInt(),
+                    (pctBottomY * destinationSize.height).toInt()
+                )
+                canvas.drawBitmap(bitmap, sourceRect, destRect, null)
+            } finally {
+                bitmap.recycle()
+            }
         }
 
         return resultBitmap
