@@ -1243,4 +1243,20 @@
     <string name="settings_copied">Innstillinger kopiert</string>
     <string name="show_modeled_tides">Vis modellerte tidevann på kystlinje</string>
     <string name="map_attribution_format">Kartdata © %s</string>
+    <string name="sun_moon_chart">Sol- &amp; månediagram</string>
+    <string name="pressure_chart">Lufttrykkdiagram</string>
+    <string name="tide_chart">Tidevannsdiagram</string>
+    <string name="show_pressure_forecast">Vis lufttrykkprognose i diagram</string>
+    <string name="map_layer_base_map_description">Farget verdenskart med lav oppløsning</string>
+    <string name="map_layer_elevation_description">Fargekodede høyder fra den digitale høydemodellen</string>
+    <string name="map_layer_hillshade_description">Skyggelagt terreng for å visualisere høydeendringer</string>
+    <string name="map_layer_contours_description">Linjer som viser høyde og terrengbratthet</string>
+    <string name="map_layer_my_location_description">Din gjeldende posisjon, kurs og GPS-nøyaktighet</string>
+    <string name="map_layer_my_elevation_description">Din gjeldende høyde</string>
+    <string name="map_layer_beacons_description">Dine lagrede navigeringsmarkører</string>
+    <string name="map_layer_paths_description">Dine lagrede stier</string>
+    <string name="map_layer_tides_description">Dine lagrede tidevannstabeller og modellerte kysttidevann</string>
+    <string name="map_layer_photo_maps_description">Dine lagrede fotokart</string>
+    <string name="map_layer_cell_towers_description">Omtrentlige mobilmastposisjoner</string>
+    <string name="map_layer_navigation_description">Linje til navigeringsmålet ditt</string>
 </resources>
