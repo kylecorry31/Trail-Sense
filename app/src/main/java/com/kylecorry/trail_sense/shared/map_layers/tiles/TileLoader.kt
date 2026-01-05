@@ -43,8 +43,15 @@ class TileLoader(private val padding: Int = 0) {
     ) = onDefault {
         val tilesSet = tiles.toSet()
         val tilesToLoad = tiles.filter { !tileCache.contains(it) }
+        val z = tiles.firstOrNull()?.z
 
         var hasChanges = false
+
+        // Remove unneeded tiles at the same z index
+        if (z != null) {
+            val removed = tileCache.removeOtherThan(tilesSet, z)
+            hasChanges = hasChanges || removed
+        }
 
         sourceSelector.load(tilesToLoad) { tile, image ->
             val resized = image?.applyOperationsOrNull(

@@ -57,8 +57,14 @@ class TileCache {
         return writable.keys
     }
 
-    fun removeOtherThan(tilesToKeep: Set<Tile>): Boolean {
-        val keysToRemove = writable.keys.filter { it !in tilesToKeep }
+    /**
+     * Removes tiles other than the ones in the set
+     * @param tilesToKeep The tiles to keep
+     * @param zFilter If not null, only tiles with a z value matching the filter will be removed
+     */
+    fun removeOtherThan(tilesToKeep: Set<Tile>, zFilter: Int? = null): Boolean {
+        val keysToRemove =
+            writable.keys.filter { it !in tilesToKeep && (zFilter == null || it.z == zFilter) }
         keysToRemove.forEach { key ->
             val old = writable.remove(key)
             old?.let { toRecycle.add(it) }
