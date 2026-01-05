@@ -1,0 +1,19 @@
+Astronomie
+- Možnost zobrazení pásů východu/západu
+
+Mapové vrstvy
+- Možnost vysokého rozlišení stínování/nadmořské výšky
+- Možnost přesného vykreslení stínů
+- Zvětšena mapová vrstva dostupná pro všechny mapy
+- Kopírování nastavení vrstvy do jiných map
+- Zlepšeno rozlišení fotografické mapy
+- Přepracováno rozhraní nastavení mapové vrstvy
+
+Přílivy/odlivy
+- Nastavení mapové vrstvy pro zobrazení přílivů a odlivů
+
+Vodováha
+- Změna barvy při vyrovnání
+
+Uživatelská příručka
+- Příručka pro mapové vrstvy
