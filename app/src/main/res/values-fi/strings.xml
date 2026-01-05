@@ -1442,4 +1442,23 @@
     <string name="pref_bubble_level_threshold_title">Tason kynnysarvo</string>
     <string name="settings_copied">Asetukset kopioitu</string>
     <string name="copy_settings_to_other_maps">Kopioi asetukset muihin karttoihin</string>
-    </resources>
+    <string name="guide_map_layers">Kartan tasot</string>
+    <string name="map_attribution_format">Karttadatan © %s</string>
+    <string name="my_elevation">Oma korkeus</string>
+    <string name="draw_accurate_shadows">Piirrä tarkat varjot</string>
+    <string name="show_modeled_tides">Näytä mallinnetut vuorovedet rantaviivalla</string>
+    <string name="map_layer_base_map_description">Epätarkan resoluution väritetty maailmankartta</string>
+    <string name="map_layer_elevation_description">Värikoodatut korkeudet digitaalisesta korkeusmallista</string>
+    <string name="map_layer_hillshade_description">Varjostettu maasto korkeuserojen hahmottamiseen</string>
+    <string name="map_layer_contours_description">Viivoja näyttämässä korkeuksia ja maaston jyrkkyyttä</string>
+    <string name="map_layer_my_location_description">Nykyinen sijaintisi, suuntima ja GPS-tarkkuus</string>
+    <string name="map_layer_my_elevation_description">Nykyinen korkeutesi</string>
+    <string name="map_layer_beacons_description">Tallentamasi majakat</string>
+    <string name="map_layer_paths_description">Tallentamasi polut</string>
+    <string name="map_layer_tides_description">Tallentamasi vuorovesitaulukot ja mallinnetut vuorovedet</string>
+    <string name="map_layer_photo_maps_description">Tallentamasi valokuvakartat</string>
+    <string name="map_layer_cell_towers_description">Arvioidut puhelinmastojen sijainnit</string>
+    <string name="map_layer_navigation_description">Viiva nykyiseen navigointikohteeseesi</string>
+    <string name="high_resolution">Korkea tarkkuus</string>
+    <string name="attribution">Attribuutio</string>
+</resources>
