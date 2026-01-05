@@ -245,7 +245,6 @@ object DEM {
                             it.a,
                             it.b
                         ) else EncodedDataImageReader.split16BitDecoder(it.a, it.b),
-                        treatZeroAsNaN = true,
                         maxChannels = 1
                     ),
                     bounds = CoordinateBounds(
