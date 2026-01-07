@@ -41,9 +41,7 @@ class EncodedDataImageReader(
             }
 
             pixelGrid = FloatBitmap(w, h, channels)
-            val data = pixelGrid.data
             val buffer = FloatArray(decoder.channels)
-            var idx = 0
 
             for (y in 0 until h) {
                 for (x in 0 until w) {
@@ -57,7 +55,7 @@ class EncodedDataImageReader(
                             isAllNaN = false
                             value
                         }
-                        data[idx++] = finalValue
+                        pixelGrid?.set(x, y, i, finalValue)
                     }
                 }
             }

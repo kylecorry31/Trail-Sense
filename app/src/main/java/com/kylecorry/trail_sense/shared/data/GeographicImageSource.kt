@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.data
 
+import android.graphics.Bitmap
 import android.graphics.Rect
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -8,15 +9,28 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import kotlin.math.floor
 
-class FloatBitmap(val width: Int, val height: Int, val channels: Int) {
-    internal val data = FloatArray(width * height * channels)
+@JvmInline
+value class FloatBitmap(val bitmaps: Array<Bitmap>) {
+
+    constructor(width: Int, height: Int, channels: Int) : this(
+        Array(channels) {
+            Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        }
+    )
+
+    val width: Int
+        get() = if (bitmaps.isNotEmpty()) bitmaps[0].width else 0
+    val height: Int
+        get() = if (bitmaps.isNotEmpty()) bitmaps[0].height else 0
+    val channels: Int
+        get() = bitmaps.size
 
     fun get(x: Int, y: Int, channel: Int): Float {
-        return data[(y * width + x) * channels + channel]
+        return Float.fromBits(bitmaps[channel].getPixel(x, y))
     }
 
     fun set(x: Int, y: Int, channel: Int, value: Float) {
-        data[(y * width + x) * channels + channel] = value
+        bitmaps[channel].setPixel(x, y, value.toRawBits())
     }
 
     fun getOrNull(x: Int, y: Int, channel: Int): Float? {
@@ -24,14 +38,6 @@ class FloatBitmap(val width: Int, val height: Int, val channels: Int) {
             return null
         }
         return get(x, y, channel)
-    }
-
-    fun getX(index: Int): Int {
-        return index % width
-    }
-
-    fun getY(index: Int): Int {
-        return index / width
     }
 }
 
@@ -170,9 +176,8 @@ class GeographicImageSource(
         }
 
         val interpolator = FloatBitmapInterpolator(interpolationOrder)
-        val outputData = output.data
-        val outputWidth = output.width
         val channels = output.channels
+        val pixel = FloatArray(channels)
 
         // Interpolate
         for (yIdx in latitudes.indices) {
@@ -183,8 +188,10 @@ class GeographicImageSource(
                 if (!xInside[xIdx]) continue
                 val x = xPixels[xIdx]
 
-                val outputOffset = (yIdx * outputWidth + xIdx) * channels
-                interpolator.getValue(pixelGrid, rect, x, y, outputData, outputOffset)
+                interpolator.getValue(pixelGrid, rect, x, y, pixel, 0)
+                for (c in 0 until channels) {
+                    output.set(xIdx, yIdx, c, pixel[c])
+                }
             }
         }
     }
