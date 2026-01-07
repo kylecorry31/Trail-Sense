@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.create
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.view.View
+import androidx.core.graphics.createBitmap
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
@@ -50,7 +50,7 @@ class CreateBlankMapCommand(
         val repo = MapRepo.getInstance(context)
 
         val file = files.createTemp(".webp")
-        val bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+        val bitmap = createBitmap(100, 100)
         val canvas = Canvas(bitmap)
         canvas.drawColor(Color.WHITE)
         files.save(files.getLocalPath(file), bitmap, 10, true)
@@ -85,7 +85,7 @@ class CreateBlankMapCommand(
 
     private suspend fun getCalibration(): List<MapCalibrationPoint>? {
         val allUnits = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
-        
+
         val defaultDistance =
             Distance.kilometers(2f).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         var distance = defaultDistance

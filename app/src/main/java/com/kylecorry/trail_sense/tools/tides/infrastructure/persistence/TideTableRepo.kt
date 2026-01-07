@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.science.oceanography.Tide
@@ -68,6 +69,7 @@ class TideTableRepo private constructor(
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var instance: TideTableRepo? = null
 
         @Synchronized

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.settings.backup
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.net.toUri
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.StringPreference
 import com.kylecorry.trail_sense.R
@@ -26,7 +27,7 @@ class BackupPreferences(context: Context) : PreferenceRepo(context) {
             return if (autoBackupUriString.isBlank()) {
                 null
             } else {
-                Uri.parse(autoBackupUriString)
+                autoBackupUriString.toUri()
             }
         }
         set(value) {

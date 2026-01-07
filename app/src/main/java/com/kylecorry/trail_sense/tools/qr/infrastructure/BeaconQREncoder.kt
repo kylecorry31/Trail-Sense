@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.qr.infrastructure
 
-import android.net.Uri
+import androidx.core.net.toUri
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.share.BeaconUriEncoder
 
@@ -13,6 +13,6 @@ class BeaconQREncoder : IQREncoder<Beacon> {
     }
 
     override fun decode(qr: String): Beacon? {
-        return uriConverter.decode(Uri.parse(qr))
+        return uriConverter.decode(qr.toUri())
     }
 }

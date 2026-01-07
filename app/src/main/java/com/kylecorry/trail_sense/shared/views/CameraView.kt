@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.core.content.withStyledAttributes
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.util.Size
@@ -267,25 +268,23 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         zoomSeek = findViewById(R.id.camera_zoom)
         changeCameraBtn = findViewById(R.id.camera_change)
 
-        val a = context.obtainStyledAttributes(attrs, R.styleable.CameraView, 0, 0)
+        context.withStyledAttributes(attrs, R.styleable.CameraView) {
+            if (getBoolean(R.styleable.CameraView_flipEnable, false)) {
+                changeCameraBtn.visibility = View.VISIBLE
+                changeCameraBtn.setOnClickListener {
+                    camera?.flipCamera()
+                }
+            }
+        }
 
         torchBtn.setOnClickListener {
             setTorch(!isTorchOn)
-        }
-
-        if (a.getBoolean(R.styleable.CameraView_flipEnable, false)) {
-            changeCameraBtn.visibility = View.VISIBLE
-            changeCameraBtn.setOnClickListener {
-                camera?.flipCamera()
-            }
         }
 
         zoomSeek.setOnProgressChangeListener { progress, _ ->
             zoomListener?.invoke(progress / 100f)
             setZoom(progress / 100f)
         }
-
-        a.recycle()
     }
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {

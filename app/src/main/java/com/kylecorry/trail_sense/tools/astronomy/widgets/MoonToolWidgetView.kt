@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Build
 import android.widget.RemoteViews
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.RemoteViewsCompat.setViewRotation
 import com.kylecorry.andromeda.core.system.Resources
@@ -48,7 +49,7 @@ class MoonToolWidgetView : SimpleToolWidgetView() {
     }
 
     private fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {
-        val newBitmap = Bitmap.createBitmap(
+        val newBitmap = createBitmap(
             bitmap.width,
             bitmap.height,
             bitmap.config ?: Bitmap.Config.ARGB_8888,

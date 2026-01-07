@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.qr.infrastructure
 
-import android.net.Uri
+import androidx.core.net.toUri
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.uri.LocationUriEncoder
 
@@ -13,6 +13,6 @@ class LocationQREncoder : IQREncoder<Coordinate> {
     }
 
     override fun decode(qr: String): Coordinate? {
-        return uriConverter.decode(Uri.parse(qr))
+        return uriConverter.decode(qr.toUri())
     }
 }

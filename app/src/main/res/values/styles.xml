@@ -6,7 +6,6 @@
 
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
-        <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/orange_10</item>
         <item name="colorAccent">?attr/colorPrimary</item>
 

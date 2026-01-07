@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Size
 
@@ -25,10 +26,9 @@ class ImageMagnifier(private val imageSize: Size, private val magnifierSize: Siz
     fun magnify(
         source: Bitmap,
         sourceCenter: PixelCoordinate,
-        dest: Bitmap = Bitmap.createBitmap(
+        dest: Bitmap = createBitmap(
             magnifierSize.width.toInt(),
-            magnifierSize.height.toInt(),
-            Bitmap.Config.ARGB_8888
+            magnifierSize.height.toInt()
         )
     ): Bitmap {
         val canvas = Canvas(dest)
