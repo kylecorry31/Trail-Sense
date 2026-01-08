@@ -1259,4 +1259,5 @@
     <string name="map_layer_photo_maps_description">Dine lagrede fotokart</string>
     <string name="map_layer_cell_towers_description">Omtrentlige mobilmastposisjoner</string>
     <string name="map_layer_navigation_description">Linje til navigeringsmålet ditt</string>
+    <string name="high_resolution">Høy oppløsning</string>
 </resources>
