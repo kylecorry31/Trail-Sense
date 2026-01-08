@@ -107,9 +107,10 @@ class TileLoader(private val padding: Int = 0) {
         if (padding <= 0) {
             return
         }
-        val bitmap = tileCache.get(tile) ?: return
-        tryOrNothing {
-            fillNeighborPixels(tile, bitmap)
+        tileCache.getLocked(tile) { bitmap ->
+            tryOrNothing {
+                fillNeighborPixels(tile, bitmap)
+            }
         }
     }
 

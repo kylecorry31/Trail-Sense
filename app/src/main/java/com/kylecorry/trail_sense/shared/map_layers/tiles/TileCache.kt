@@ -44,6 +44,13 @@ class TileCache {
         return writable[tile]
     }
 
+    fun getLocked(tile: Tile, block: (Bitmap) -> Unit) {
+        synchronized(lock) {
+            val bitmap = writable[tile] ?: return
+            block(bitmap)
+        }
+    }
+
     fun remove(tile: Tile) {
         val old = writable.remove(tile)
         old?.let { toRecycle.add(it) }
