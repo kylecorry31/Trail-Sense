@@ -50,10 +50,6 @@ class MyElevationLayer : OverlayLayer() {
         Tools.subscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
     }
 
-    override fun stop() {
-        Tools.unsubscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
-    }
-
     override fun drawOverlay(
         drawer: ICanvasDrawer,
         map: IMapView
@@ -93,8 +89,11 @@ class MyElevationLayer : OverlayLayer() {
         drawer.pop()
     }
 
-    protected fun finalize() {
-        bitmapLoader.clear()
+    override fun stop() {
+        Tools.unsubscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
+        if (::bitmapLoader.isInitialized) {
+            bitmapLoader.clear()
+        }
     }
 
     companion object {
