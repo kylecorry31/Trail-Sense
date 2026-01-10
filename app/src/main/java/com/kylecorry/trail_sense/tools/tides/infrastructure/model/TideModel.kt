@@ -33,7 +33,7 @@ object TideModel {
 
     // Image data source
     private val size = Size(720, 360)
-    private val condensedSize = Size(250, 55)
+    private val condensedSize = Size(128, 105)
     private val minAmplitude = 0f
     private val minPhase = -180.0
     private val maxPhase = 180.0
