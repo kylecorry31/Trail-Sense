@@ -6,8 +6,11 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 /**
  * @param bounds The bounds to load the path in
  */
-class ShouldLoadPathSpecification(private val bounds: CoordinateBounds) : Specification<Path>() {
+class ShouldLoadPathSpecification(
+    private val bounds: CoordinateBounds,
+    private val backtrackId: Long? = null
+) : Specification<Path>() {
     override fun isSatisfiedBy(value: Path): Boolean {
-        return value.metadata.bounds.intersects(bounds)
+        return value.id == backtrackId || value.metadata.bounds.intersects(bounds)
     }
 }

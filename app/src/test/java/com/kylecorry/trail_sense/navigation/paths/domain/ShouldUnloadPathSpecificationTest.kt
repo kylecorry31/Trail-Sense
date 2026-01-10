@@ -1,4 +1,4 @@
-package com.kylecorrytrail_sense.tools.paths.domain
+package com.kylecorry.trail_sense.navigation.paths.domain
 
 import android.graphics.Color
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.domain.ShouldUnloadPathSpecification
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -25,6 +26,19 @@ internal class ShouldUnloadPathSpecificationTest {
         val actual = specification.isSatisfiedBy(path(pathBounds))
 
         Assertions.assertEquals(expected, actual)
+    }
+
+    @Test
+    fun isSatisfiedByBacktrack() {
+        val base = bounds(1.0, 1.0, 0.0, 0.0)
+        val pathBounds = bounds(2.0, 2.0, 1.1, 1.1)
+        val backtrackId = 1L
+        val path = path(pathBounds)
+        val specification = ShouldUnloadPathSpecification(base, backtrackId)
+
+        val actual = specification.isSatisfiedBy(path)
+
+        Assertions.assertEquals(false, actual)
     }
 
     companion object {

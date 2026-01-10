@@ -53,8 +53,9 @@ class PathLoader(private val pathService: IPathService) {
         unload: CoordinateBounds,
         reload: Boolean = false
     ) = onIO {
-        val shouldLoad = ShouldLoadPathSpecification(load)
-        val shouldUnload = ShouldUnloadPathSpecification(unload)
+        val backtrackId = pathService.getBacktrackPathId()
+        val shouldLoad = ShouldLoadPathSpecification(load, backtrackId)
+        val shouldUnload = ShouldUnloadPathSpecification(unload, backtrackId)
 
         val toLoad = mutableListOf<Long>()
 
