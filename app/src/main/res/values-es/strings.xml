@@ -1476,4 +1476,20 @@
     <string name="copy_settings_to_other_maps">Copiar la ajustes a otros mapas</string>
     <string name="my_elevation">Mi elevación</string>
     <string name="draw_accurate_shadows">Dibujar sombras exactas</string>
+    <string name="map_attribution_format">Map data © %s</string>
+    <string name="show_modeled_tides">Mostrar mareas modeladas en la costa</string>
+    <string name="map_layer_base_map_description">Mapa mundo baja resolución a color</string>
+    <string name="map_layer_elevation_description">Elevaciones coloreadas según el modelo de elevación del terreno</string>
+    <string name="map_layer_hillshade_description">Terreno sombreado para visualizar cambios de elevaciones</string>
+    <string name="map_layer_contours_description">Lineas que muestran elevaciones y pendiente del terreno</string>
+    <string name="map_layer_my_location_description">Ubicación actual, rumbo y precisión GPS</string>
+    <string name="map_layer_my_elevation_description">Elevación actual</string>
+    <string name="map_layer_beacons_description">Balizas guardadas</string>
+    <string name="map_layer_paths_description">Rutas guardadas</string>
+    <string name="map_layer_tides_description">Tablas de marras guardadas y mareas en costa modeladas</string>
+    <string name="map_layer_photo_maps_description">Mapas calibrados guardados</string>
+    <string name="map_layer_cell_towers_description">Ubicación aproximada torres de telefonía móvil</string>
+    <string name="map_layer_navigation_description">Linea al destino de navegación</string>
+    <string name="high_resolution">Alta resolución</string>
+    <string name="attribution">Atribución</string>
 </resources>
