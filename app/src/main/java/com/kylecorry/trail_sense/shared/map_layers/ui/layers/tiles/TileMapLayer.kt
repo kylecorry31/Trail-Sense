@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Rect
@@ -228,20 +227,22 @@ abstract class TileMapLayer<T : TileSource>(
         }
 
         val borderPixels = TILE_BORDER_PIXELS
+        val actualWidth = bitmap.width - 2 * borderPixels
+        val actualHeight = bitmap.height - 2 * borderPixels
 
-        // Bitmap pixels, exclude the border pixels
+        // Bitmap pixels, exclude the border pixels - this is the bitmap with the borders cropped off (since we only render a region of the bitmap)
         // Top left
-        srcPoints[0] = borderPixels.toFloat()
-        srcPoints[1] = borderPixels.toFloat()
+        srcPoints[0] = 0f
+        srcPoints[1] = 0f
         // Top right
-        srcPoints[2] = (bitmap.width - borderPixels).toFloat()
-        srcPoints[3] = borderPixels.toFloat()
+        srcPoints[2] = actualWidth.toFloat()
+        srcPoints[3] = 0f
         // Bottom left
-        srcPoints[4] = borderPixels.toFloat()
-        srcPoints[5] = (bitmap.height - borderPixels).toFloat()
+        srcPoints[4] = 0f
+        srcPoints[5] = actualHeight.toFloat()
         // Bottom right
-        srcPoints[6] = (bitmap.width - borderPixels).toFloat()
-        srcPoints[7] = (bitmap.height - borderPixels).toFloat()
+        srcPoints[6] = actualWidth.toFloat()
+        srcPoints[7] = actualHeight.toFloat()
 
         // Canvas pixels
         // Top left
@@ -261,17 +262,19 @@ abstract class TileMapLayer<T : TileSource>(
         renderMatrix.setPolyToPoly(srcPoints, 0, dstPoints, 0, 4)
 
         canvas.withMatrix(renderMatrix) {
+            // The region of the bitmap that is valid (no borders)
             srcRect.set(
                 borderPixels,
                 borderPixels,
                 bitmap.width - borderPixels,
                 bitmap.height - borderPixels
             )
+            // The actual bitmap dimensions (after cropping)
             destRect.set(
                 0,
                 0,
-                bitmap.width - 2 * borderPixels,
-                bitmap.height - 2 * borderPixels
+                actualWidth,
+                actualHeight
             )
 
             drawBitmap(bitmap, srcRect, destRect, tilePaint)
