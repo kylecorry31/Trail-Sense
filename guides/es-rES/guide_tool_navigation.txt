@@ -26,55 +26,13 @@ Puedes pellizcar para hacer zoom en la brújula radar, lo que cambiará el radio
 
 Si tu dispositivo no tiene brújula, aún puedes elegir mostrar las marcas del dial de la brújula activando 'Ajustes > Navegación> Mostrar marcas en dial de la brújula radar'. Ten en cuenta que sin un sensor de brújula, mover tu dispositivo no cambiará la dirección de la brújula radar.
 
-Las capas se usan para mostrar información en la brújula radar. Puedes encontrar los ajustes de capas en 'Ajustes > Navegación' o manteniendo pulsada la brújula radar. Puedes ocultar o mostrar capas usando el interruptor junto al nombre de cada capa. El ajuste de opacidad para cada capa determina cuán transparente es la capa. 0 es totalmente transparente y 100 es totalmente opaco.
+Las capas se usan para mostrar información en la brújula radar. Puedes encontrar los ajustes de capas en 'Ajustes > Navegación' o manteniendo pulsada la brújula radar. Más información sobre capas en la guía "Capas del Mapa".
 
-#### Elevación
-Esta capa muestra la elevación del modelo digital de elevación (DEM) como color. Puedes cambiar el DEM en 'Ajustes > Altímetro'.
+Las siguientes capas no están disponibles:
+- Escala
+- Brujula
+-Elevación
 
-Ajustes:
-
-- **Color**: La escala de color de los píxeles. El color cambiará según la elevación.
-
-#### Sombreado de relieve
-Esta capa dibuja sombras para ayudar a ver la elevación del terreno a partir del modelo digital de elevación (DEM). Puedes cambiar el DEM en 'Ajustes > Altímetro'.
-
-#### Mapas Calibrados
-Esta capa muestra los mapas calibrados visibles con el mapa más acercado apareciendo arriba. Puedes añadir nuevos mapas en la herramienta Mapas Calibrados.
-
-Ajustes:
-
-- **Cargar mosaicos PDF**: Si está activado, se cargarán mosaicos PDF para mapas que tengan una versión PDF disponible. Esto es más lento pero proporciona mapas de mayor resolución.
-
-#### Curvas de nivel
-Esta capa muestra líneas de contorno generadas a partir del modelo digital de elevación (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa. Puedes cambiar el DEM en Ajustes > Altímetro.
-
-Ajustes:
-
-- **Mostrar etiquetas**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
-- **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
-
-### Torres de telefonía
-Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations.
-
-#### Rutas
-Esta capa muestra las rutas visibles. Puedes añadir nuevos rutas en la herramienta Rutas.
-
-Ajustes:
-
-- **Color de fondo**: El color de fondo detrás de las rutas para mayor visibilidad.
-
-#### Balizas
-Esta capa muestra las balizas visibles. Puedes añadir nuevas balizas en la herramienta Balizas.
-
-#### Mareas
-Esta capa muestra mareas visibles. Puedes añadir nuevas mareas en la herramienta Mareas.
-
-#### Mi ubicación
-Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújula) y la precisión del GPS.
-
-Ajustes:
-
-- **Mostrar precisión del GPS**: Determina si el círculo de precisión del GPS es visible.
 
 ### Brújula lineal
 
