@@ -1,0 +1,19 @@
+Astronomía
+- Opción para mostrar bandas de salida/puesta del sol
+
+Capas del mapa
+- Sombreado/elevación: opción de alta resolución
+- El sombreado crea sombras precisas
+- Expandir capa del mapa para todos los mapas
+- Copiar ajustes de la capa a otros mapas
+- Mejorar la resolución de Mapas Calibrados
+- Nueva interfaz de ajustes de la capa del mapa
+
+Mareas
+- Ajuste de la capa para mostrar mareas costeras
+
+Nivel de burbuja
+- Cambia de color a nivel
+
+Guía del usuario
+- Guía para capas del mapa
