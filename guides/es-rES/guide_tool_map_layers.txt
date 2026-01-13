@@ -1,0 +1,90 @@
+Las capas se usan para mostrar información en el mapa. Son configurables en Navegar, Mapas Calibrados y Herramienta de Mapa. Consulta las guías de la herramienta correspondiente para saber cómo acceder a los ajustes de capa.
+
+En el panel de ajustes de la capa, cuanto más arriba esté una capa en la lista, más "encima" se dibujará en el mapa. El orden no es configurable en este momento.
+
+Pulsar el nombre de la capa para expandir sus ajustes.
+
+Cada capa tiene los siguientes ajustes:
+
+- **Visible**: Determina si la capa se muestra en el mapa. Cuando no está visible, el título de la capa aparecerá atenuado.
+- **Opacidad**: Determina la transparencia es la capa. 0 es transparente y 100 es opaco.
+- **Copiar ajustes a otros mapas**: Copia los ajustes de la capa a otros mapas. Abre un cuadro de diálogo donde podrás elegir a qué mapas copiar los ajustes.
+
+## Mapa base
+Esta capa muestra un mapa del mundo con colores basados en imágenes satelitales. Tiene muy baja resolución y no es adecuado para navegación.
+
+## Elevación
+Esta capa muestra la elevación del modelo digital de elevación (DEM) como color. Puedes cambiar el DEM en Ajustes > Altímetro.
+
+Ajustes:
+
+- **Color**: La escala de color de los píxeles. El color cambiará según la elevación.
+- **Alta resolución**: Si está activado, la resolución aumentará al alejar el zoom. Esto puede ser más lento.
+
+## Sombreado de relieve
+Esta capa dibuja sombras para ayudar a ver la elevación del terreno a partir del modelo digital de elevación (DEM). Puedes cambiar el DEM en Ajustes > Altímetro.
+
+Ajustes:
+
+- **Dibujar sombras precisas**: Si está activado, las sombras se dibujarán usando la posición del sol y la luna, aunque la apariencia 3D puede reducirse.
+- **Alta resolución**: Si está activado, la resolución aumentará al alejar el zoom. Esto puede ser más lento.
+
+## Mapas Calibrados
+Esta capa muestra los mapas calibrados visibles, con el mapa más acercado apareciendo arriba. Puedes añadir nuevos mapas en la herramienta Mapas Calibrados.
+
+Ajustes:
+
+- **Cargar mosáicos PDF**: Si está activado, se cargarán mosaicos PDF para mapas que tengan una versión PDF disponible. Esto es más lento pero proporciona mapas de mayor resolución.
+
+## Curvas de nivel
+Esta capa muestra líneas de contorno generadas a partir del modelo digital de elevación (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa. Puedes cambiar el DEM en Ajustes > Altímetro.
+
+Ajustes:
+
+- **Mostrar etiquetas**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
+- **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
+
+## Torres de telefonía
+Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations. Puedes pulsar en una torre para navegar hacia ella.
+
+### Senderos
+Esta capa muestra los senderos visibles. Puedes añadir nuevos senderos en la herramienta Rutas.
+
+Ajustes:
+
+- **Color de fondo**: El color de fondo para renderizar detrás de los senderos para mayor visibilidad.
+
+## Balizas
+Esta capa muestra las balizas visibles. Puedes añadir nuevas balizas en la herramienta Balizas. Puedes pulsar en una baliza para navegar hacia ella.
+
+## Navegación
+Esta capa dibuja una línea entre tu ubicación y el punto de destino al que navegas.
+
+## Mareas
+Esta capa muestra mareas visibles. Puedes añadir nuevas mareas en la herramienta Mareas.
+
+Ajustes:
+
+- **Mostrar mareas modeladas**: Las mareas se cargarán desde el modelo integrado de la línea de costa.
+
+## Mi ubicación
+Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújula) y la precisión de tu GPS.
+
+Ajustes:
+
+- **Mostrar precisión GPS**: Determina si el círculo de precisión del GPS es visible.
+
+## Escala
+Esta capa muestra una barra de escala en la esquina inferior izquierda del mapa, que puede usarse para estimar distancias en el mapa.
+
+Esta capa no es actualmente configurable.
+
+### Elevación
+Esta capa muestra tu elevación en la esquina inferior derecha del mapa.
+
+Esta capa no es actualmente configurable.
+
+## Brújula
+Esta capa muestra una brújula en la esquina superior derecha del mapa. Muestra dónde está el norte verdadero en el mapa.
+
+Esta capa no es actualmente configurable.
