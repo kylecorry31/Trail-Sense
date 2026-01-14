@@ -50,7 +50,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 21
+        private const val version = 22
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -299,6 +299,19 @@ class PreferenceMigrator private constructor() {
                 for (key in halfOpacityByDefault) {
                     if (!prefs.contains(key)) {
                         prefs.putInt(key, 50)
+                    }
+                }
+            },
+            PreferenceMigration(21, 22) { _, prefs ->
+                val disabledByDefault = listOf(
+                    "pref_map_slope_layer_enabled",
+                    "pref_photo_maps_slope_layer_enabled",
+                    "pref_navigation_slope_layer_enabled"
+                )
+
+                for (key in disabledByDefault) {
+                    if (!prefs.contains(key)) {
+                        prefs.putBoolean(key, false)
                     }
                 }
             }

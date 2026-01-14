@@ -1861,6 +1861,7 @@
     <string name="map_layer_base_map_description">Low resolution colored world map</string>
     <string name="map_layer_elevation_description">Color-coded elevations from the digital elevation model</string>
     <string name="map_layer_hillshade_description">Shaded terrain to visualize elevation changes</string>
+    <string name="map_layer_slope_description">Colored terrain based on slope</string>
     <string name="map_layer_contours_description">Lines showing elevation and terrain steepness</string>
     <string name="map_layer_my_location_description">Your current location, heading, and GPS accuracy</string>
     <string name="map_layer_my_elevation_description">Your current elevation</string>
