@@ -91,6 +91,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         scrollUntil { hasText("Navigation") }
         scrollUntil { hasText("Contours") }
         scrollUntil { hasText("Photo Maps") }
+        scrollUntil { hasText("Slope") }
         scrollUntil { hasText("Hillshade") }
         scrollUntil { hasText("Elevation") }
         scrollUntil { hasText("Basemap") }
