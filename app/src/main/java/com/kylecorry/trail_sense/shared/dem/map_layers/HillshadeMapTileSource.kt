@@ -5,21 +5,22 @@ import android.graphics.Color
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.dem.getCellSizeX
+import com.kylecorry.trail_sense.shared.dem.getCellSizeY
+import com.kylecorry.trail_sense.shared.dem.getSlopeAngle
+import com.kylecorry.trail_sense.shared.dem.getSlopeVector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import kotlin.math.PI
-import kotlin.math.atan
 import kotlin.math.atan2
 import kotlin.math.cos
-import kotlin.math.hypot
 import kotlin.math.sin
 
 class HillshadeMapTileSource : TileSource {
@@ -48,8 +49,8 @@ class HillshadeMapTileSource : TileSource {
         }
         val resolution = zoomToResolutionMap[zoomLevel] ?: return null
 
-        val cellSizeX = (resolution * 111319.5 * cosDegrees(bounds.center.latitude))
-        val cellSizeY = (resolution * 111319.5)
+        val cellSizeX = getCellSizeX(resolution, bounds)
+        val cellSizeY = getCellSizeY(resolution)
         // https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-hillshade-works.htm
         val zenithRad = (90 - altitude).toRadians()
         val azimuths = mutableListOf<Float>()
@@ -69,25 +70,16 @@ class HillshadeMapTileSource : TileSource {
             config = Bitmap.Config.ARGB_8888,
             padding = padding
         ) { x, y, getElevation ->
-            val a = getElevation(x - 1, y - 1)
-            val b = getElevation(x, y - 1)
-            val c = getElevation(x + 1, y - 1)
-            val d = getElevation(x - 1, y)
-            val f = getElevation(x + 1, y)
-            val g = getElevation(x - 1, y + 1)
-            val h = getElevation(x, y + 1)
-            val i = getElevation(x + 1, y + 1)
-            val dx = (((c + 2 * f + i) - (a + 2 * d + g)) / (8 * cellSizeX)).toFloat()
-            val dy = (((g + 2 * h + i) - (a + 2 * b + c)) / (8 * cellSizeY)).toFloat()
-            val slopeRad = atan(zFactor * hypot(dx, dy))
+            val vector = getSlopeVector(cellSizeX, cellSizeY, x, y, getElevation)
+            val slopeRad = getSlopeAngle(vector, zFactor)
 
             var aspectRad = 0f
-            if (!SolMath.isZero(dx)) {
-                aspectRad = wrap(atan2(dy, -dx), 0f, 2 * PI.toFloat())
+            if (!SolMath.isZero(vector.x)) {
+                aspectRad = wrap(atan2(vector.y, -vector.x), 0f, 2 * PI.toFloat())
             } else {
-                if (dy > 0) {
+                if (vector.y > 0) {
                     aspectRad = PI.toFloat() / 2
-                } else if (dy < 0) {
+                } else if (vector.y < 0) {
                     aspectRad = 3 * PI.toFloat() / 2
                 }
             }

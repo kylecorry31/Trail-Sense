@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeLayer
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
@@ -135,6 +136,7 @@ class MapToolLayerManager {
             BaseMapLayer.LAYER_ID,
             ElevationLayer.LAYER_ID,
             HillshadeLayer.LAYER_ID,
+            SlopeLayer.LAYER_ID,
             PhotoMapLayer.LAYER_ID,
             ContourLayer.LAYER_ID,
             NavigationLayer.LAYER_ID,

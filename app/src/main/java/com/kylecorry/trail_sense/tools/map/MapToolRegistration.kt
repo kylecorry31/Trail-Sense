@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeLayer
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
@@ -106,6 +107,27 @@ object MapToolRegistration : ToolRegistration {
                         ),
                     )
                 ) { HillshadeLayer() },
+                MapLayerDefinition(
+                    SlopeLayer.LAYER_ID,
+                    context.getString(R.string.path_slope),
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_slope_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = "dem_settings",
+                            title = context.getString(R.string.plugin_digital_elevation_model),
+                            type = MapLayerPreferenceType.Label,
+                            summary = context.getString(R.string.open_settings),
+                            openDemSettingsOnClick = true
+                        ),
+                        MapLayerPreference(
+                            id = SlopeLayer.HIGH_RESOLUTION,
+                            title = context.getString(R.string.high_resolution),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = SlopeLayer.DEFAULT_HIGH_RESOLUTION,
+                        ),
+                    )
+                ) { SlopeLayer() },
                 MapLayerDefinition(
                     ContourLayer.LAYER_ID,
                     context.getString(R.string.contours),
