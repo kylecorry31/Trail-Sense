@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.photo_maps.ui
 import android.content.Context
 import android.graphics.PointF
 import android.util.AttributeSet
-import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
@@ -16,6 +15,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
@@ -32,7 +32,9 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     protected var map: PhotoMap? = null
     private var projection: IMapProjection? = null
     private var fullMetersPerPixel = 1f
-    protected val _layers = mutableListOf<ILayer>()
+    protected val _layers = MapViewLayerManager {
+        post { invalidate() }
+    }
     private val files = FileSubsystem.getInstance(context)
 
     private var shouldRecenter = true
@@ -60,20 +62,19 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         }
 
     override fun addLayer(layer: ILayer) {
-        _layers.add(layer)
+        _layers.addLayer(layer)
     }
 
     override fun removeLayer(layer: ILayer) {
-        _layers.remove(layer)
+        _layers.removeLayer(layer)
     }
 
     override fun setLayers(layers: List<ILayer>) {
-        this._layers.clear()
-        this._layers.addAll(layers)
+        this._layers.setLayers(layers)
     }
 
     override fun getLayers(): List<ILayer> {
-        return _layers.toList()
+        return _layers.getLayers()
     }
 
     override val mapProjection: IMapViewProjection
@@ -221,7 +222,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     override fun onScaleChanged(oldScale: Float, newScale: Float) {
         super.onScaleChanged(oldScale, newScale)
-        _layers.forEach { it.invalidate() }
+        _layers.invalidate()
     }
 
     override fun onTranslateChanged(
@@ -231,7 +232,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         newTranslateY: Float
     ) {
         super.onTranslateChanged(oldTranslateX, oldTranslateY, newTranslateX, newTranslateY)
-        _layers.forEach { it.invalidate() }
+        _layers.invalidate()
     }
 
     override fun draw() {
@@ -248,20 +249,12 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             onImageLoadedListener?.invoke()
         }
 
-        _layers.forEach {
-            drawer.withLayerOpacity(it.opacity) {
-                it.draw(context, drawer, this)
-            }
-        }
+        _layers.draw(context, drawer, this)
     }
 
     override fun drawOverlay() {
         super.drawOverlay()
-        _layers.forEach {
-            drawer.withLayerOpacity(it.opacity) {
-                it.drawOverlay(context, drawer, this)
-            }
-        }
+        _layers.drawOverlay(context, drawer, this)
     }
 
     open fun showMap(map: PhotoMap) {
@@ -302,12 +295,11 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     }
 
     override fun start() {
-        _layers.forEach { it.start() }
-        invalidate()
+        _layers.start()
     }
 
     override fun stop() {
-        _layers.forEach { it.stop() }
+        _layers.stop()
     }
 
 }

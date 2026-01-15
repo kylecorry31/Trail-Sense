@@ -12,9 +12,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath
@@ -32,6 +30,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
@@ -68,7 +67,9 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private val navigation = NavigationService()
 
-    private val layers = mutableListOf<ILayer>()
+    private val layers = MapViewLayerManager {
+        post { invalidate() }
+    }
 
     private var singleTapAction: (() -> Unit)? = null
     private var longPressAction: (() -> Unit)? = null
@@ -128,24 +129,12 @@ class RadarCompassView : BaseCompassView, IMapView {
         // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
-        layers.forEach {
-            tryOrLog {
-                withLayerOpacity(it.opacity) {
-                    it.draw(context, this, this)
-                }
-            }
-        }
+        layers.draw(context, this, this)
         pop()
     }
 
     private fun drawOverlays() {
-        layers.forEach {
-            tryOrLog {
-                withLayerOpacity(it.opacity) {
-                    it.drawOverlay(context, this, this)
-                }
-            }
-        }
+        layers.drawOverlay(context, this, this)
     }
 
     private fun drawCompass() {
@@ -350,7 +339,7 @@ class RadarCompassView : BaseCompassView, IMapView {
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
             distanceText = null
-            layers.forEach { it.invalidate() }
+            layers.invalidate()
             return true
         }
     }
@@ -380,29 +369,27 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     override fun addLayer(layer: ILayer) {
-        layers.add(layer)
+        layers.addLayer(layer)
     }
 
     override fun removeLayer(layer: ILayer) {
-        layers.remove(layer)
+        layers.removeLayer(layer)
     }
 
     override fun setLayers(layers: List<ILayer>) {
-        this.layers.clear()
-        this.layers.addAll(layers)
+        this.layers.setLayers(layers)
     }
 
     override fun getLayers(): List<ILayer> {
-        return layers.toList()
+        return layers.getLayers()
     }
 
     override fun start() {
-        layers.forEach { it.start() }
-        invalidate()
+        layers.start()
     }
 
     override fun stop() {
-        layers.forEach { it.stop() }
+        layers.stop()
     }
 
     override val mapProjection: IMapViewProjection
