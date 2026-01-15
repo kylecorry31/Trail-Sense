@@ -1520,4 +1520,5 @@
     <string name="map_layer_cell_towers_description">大致的信号塔位置</string>
     <string name="map_layer_navigation_description">前往导航目的地的路线</string>
     <string name="high_resolution">高分辨率</string>
+    <string name="map_layer_slope_description">根据坡度的彩色地形图</string>
 </resources>
