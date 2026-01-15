@@ -1,0 +1,19 @@
+Astronomy
+- Option to show sunrise/set bands
+
+Map Layers
+- Hillshade/elevation: High resolution option
+- Hillshade draw accurate shadows option
+- Increase map layer available to all maps
+- Copy map layer settings to other maps
+- Improve photo map resolution
+- Redesign map layer settings UI
+
+Tides
+- Map layer setting to show coastal tides
+
+Bubble Level
+- Change color when level
+
+User Guide
+- Guide for map layers
