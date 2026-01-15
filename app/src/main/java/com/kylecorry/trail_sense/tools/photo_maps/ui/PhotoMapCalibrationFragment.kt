@@ -25,6 +25,8 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer

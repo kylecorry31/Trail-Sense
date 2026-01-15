@@ -31,7 +31,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
@@ -67,7 +66,7 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private val navigation = NavigationService()
 
-    private val layers = MapViewLayerManager {
+    override val layerManager = MapViewLayerManager {
         post { invalidate() }
     }
 
@@ -129,12 +128,12 @@ class RadarCompassView : BaseCompassView, IMapView {
         // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
-        layers.draw(context, this, this)
+        layerManager.draw(context, this, this)
         pop()
     }
 
     private fun drawOverlays() {
-        layers.drawOverlay(context, this, this)
+        layerManager.drawOverlay(context, this, this)
     }
 
     private fun drawCompass() {
@@ -339,7 +338,7 @@ class RadarCompassView : BaseCompassView, IMapView {
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
             distanceText = null
-            layers.invalidate()
+            layerManager.invalidate()
             return true
         }
     }
@@ -366,30 +365,6 @@ class RadarCompassView : BaseCompassView, IMapView {
         mGestureDetector.onTouchEvent(event)
         invalidate()
         return true
-    }
-
-    override fun addLayer(layer: ILayer) {
-        layers.addLayer(layer)
-    }
-
-    override fun removeLayer(layer: ILayer) {
-        layers.removeLayer(layer)
-    }
-
-    override fun setLayers(layers: List<ILayer>) {
-        this.layers.setLayers(layers)
-    }
-
-    override fun getLayers(): List<ILayer> {
-        return layers.getLayers()
-    }
-
-    override fun start() {
-        layers.start()
-    }
-
-    override fun stop() {
-        layers.stop()
     }
 
     override val mapProjection: IMapViewProjection

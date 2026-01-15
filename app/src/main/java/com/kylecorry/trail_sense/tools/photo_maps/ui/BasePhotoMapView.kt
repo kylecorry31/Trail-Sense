@@ -16,7 +16,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
@@ -32,7 +31,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     protected var map: PhotoMap? = null
     private var projection: IMapProjection? = null
     private var fullMetersPerPixel = 1f
-    protected val _layers = MapViewLayerManager {
+    override val layerManager = MapViewLayerManager {
         post { invalidate() }
     }
     private val files = FileSubsystem.getInstance(context)
@@ -60,22 +59,6 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             field = value
             invalidate()
         }
-
-    override fun addLayer(layer: ILayer) {
-        _layers.addLayer(layer)
-    }
-
-    override fun removeLayer(layer: ILayer) {
-        _layers.removeLayer(layer)
-    }
-
-    override fun setLayers(layers: List<ILayer>) {
-        this._layers.setLayers(layers)
-    }
-
-    override fun getLayers(): List<ILayer> {
-        return _layers.getLayers()
-    }
 
     override val mapProjection: IMapViewProjection
         get() = hooks.memo(
@@ -222,7 +205,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     override fun onScaleChanged(oldScale: Float, newScale: Float) {
         super.onScaleChanged(oldScale, newScale)
-        _layers.invalidate()
+        layerManager.invalidate()
     }
 
     override fun onTranslateChanged(
@@ -232,7 +215,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         newTranslateY: Float
     ) {
         super.onTranslateChanged(oldTranslateX, oldTranslateY, newTranslateX, newTranslateY)
-        _layers.invalidate()
+        layerManager.invalidate()
     }
 
     override fun draw() {
@@ -249,12 +232,12 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             onImageLoadedListener?.invoke()
         }
 
-        _layers.draw(context, drawer, this)
+        layerManager.draw(context, drawer, this)
     }
 
     override fun drawOverlay() {
         super.drawOverlay()
-        _layers.drawOverlay(context, drawer, this)
+        layerManager.drawOverlay(context, drawer, this)
     }
 
     open fun showMap(map: PhotoMap) {
@@ -292,14 +275,6 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     protected fun toViewNoRotation(view: PointF): PointF? {
         val source = toSource(view.x, view.y, true) ?: return null
         return toView(source.x, source.y, false)
-    }
-
-    override fun start() {
-        _layers.start()
-    }
-
-    override fun stop() {
-        _layers.stop()
     }
 
 }

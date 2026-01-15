@@ -24,7 +24,6 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
@@ -42,7 +41,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private val lookupMatrix = Matrix()
 
-    private val layers = MapViewLayerManager {
+    override val layerManager = MapViewLayerManager {
         post { invalidate() }
     }
     private val hooks = Hooks()
@@ -164,7 +163,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var projection: IMapProjection = MercatorProjection()
         set(value) {
             field = value
-            this@MapView.layers.invalidate()
+            this@MapView.layerManager.invalidate()
             invalidate()
         }
 
@@ -174,30 +173,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private var fitToViewBounds: CoordinateBounds? = null
     private var fitToViewPadding: Float = 1f
-
-    override fun addLayer(layer: ILayer) {
-        layers.addLayer(layer)
-    }
-
-    override fun removeLayer(layer: ILayer) {
-        layers.removeLayer(layer)
-    }
-
-    override fun setLayers(layers: List<ILayer>) {
-        this.layers.setLayers(layers)
-    }
-
-    override fun getLayers(): List<ILayer> {
-        return layers.getLayers()
-    }
-
-    override fun start() {
-        layers.start()
-    }
-
-    override fun stop() {
-        layers.stop()
-    }
 
     override val mapProjection: IMapViewProjection
         get() = hooks.memo(
@@ -265,7 +240,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        this@MapView.layers.invalidate()
+        this@MapView.layerManager.invalidate()
     }
 
     override fun setup() {
@@ -283,17 +258,17 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         drawer.rotate(-mapAzimuth)
         drawLayers()
         pop()
-        layers.drawOverlay(context, this, this)
+        layerManager.drawOverlay(context, this, this)
     }
 
     private fun drawLayers() {
         if (scale != lastScale) {
             lastScale = scale
-            this@MapView.layers.invalidate()
+            this@MapView.layerManager.invalidate()
         }
         // TODO: If map bounds changed, invalidate layers
 
-        layers.draw(context, this, this)
+        layerManager.draw(context, this, this)
     }
 
     private fun getScale(metersPerPixel: Float): Float {
@@ -391,7 +366,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             val pixel = unrotated(PixelCoordinate(e.x, e.y))
-            layers.onClick(this@MapView, this@MapView, pixel)
+            layerManager.onClick(this@MapView, this@MapView, pixel)
             return super.onSingleTapConfirmed(e)
         }
 

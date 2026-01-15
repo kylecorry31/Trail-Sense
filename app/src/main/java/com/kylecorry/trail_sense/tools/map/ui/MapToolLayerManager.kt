@@ -18,6 +18,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer

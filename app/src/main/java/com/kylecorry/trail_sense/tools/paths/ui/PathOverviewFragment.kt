@@ -47,6 +47,9 @@ import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayers
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance

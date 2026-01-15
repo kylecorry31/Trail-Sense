@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.shared.extensions.from
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayers
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.Share
