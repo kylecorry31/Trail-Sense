@@ -47,7 +47,6 @@ class NavigationCompassLayerManager {
             BaseMapLayer.LAYER_ID,
             ElevationLayer.LAYER_ID,
             HillshadeLayer.LAYER_ID,
-            SlopeLayer.LAYER_ID,
             PhotoMapLayer.LAYER_ID,
             ContourLayer.LAYER_ID,
             NavigationLayer.LAYER_ID,
