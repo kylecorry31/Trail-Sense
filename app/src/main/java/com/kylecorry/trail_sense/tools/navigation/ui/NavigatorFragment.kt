@@ -527,7 +527,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ) {
             inBackground {
                 if (binding.radarCompass.isVisible) {
-                    val attribution = binding.radarCompass.getAttribution()
+                    val attribution = binding.radarCompass.getAttribution(requireContext())
                     onMain {
                         binding.mapAttribution.text = attribution
                         binding.mapAttribution.isVisible = attribution != null

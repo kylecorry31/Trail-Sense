@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -75,7 +76,7 @@ class MapDistanceLayer : ILayer {
         // Do nothing
     }
 
-    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+    override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
         if (!isEnabled) {
             return
         }
@@ -83,6 +84,7 @@ class MapDistanceLayer : ILayer {
     }
 
     override fun drawOverlay(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {

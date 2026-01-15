@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
@@ -108,7 +109,7 @@ abstract class TileMapLayer<T : TileSource>(
         return tiles.sortedBy { hypot(it.x - middleX, it.y - middleY) }
     }
 
-    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+    override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
         // Avoid drawing while in safe mode
         if (SafeMode.isEnabled()) {
             return
@@ -137,7 +138,7 @@ abstract class TileMapLayer<T : TileSource>(
         }
     }
 
-    override fun drawOverlay(drawer: ICanvasDrawer, map: IMapView) {
+    override fun drawOverlay(context: Context, drawer: ICanvasDrawer, map: IMapView) {
         // Do nothing
     }
 

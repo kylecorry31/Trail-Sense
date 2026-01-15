@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.overlay
 
+import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -13,6 +14,7 @@ abstract class OverlayLayer : ILayer {
     }
 
     override fun draw(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {

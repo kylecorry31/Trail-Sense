@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 
+import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -66,6 +67,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun draw(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
@@ -79,6 +81,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun drawOverlay(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {

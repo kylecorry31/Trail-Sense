@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.navigation.map_layers
 import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
@@ -15,14 +14,8 @@ class CompassOverlayLayer : OverlayLayer() {
 
     override val layerId: String = LAYER_ID
 
-    private val backgroundColor: Int
-    private val cardinalDirectionColor: Int
-
-    init {
-        val context = AppServiceRegistry.get<Context>()
-        backgroundColor = Resources.color(context, R.color.colorSecondary)
-        cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
-    }
+    private var backgroundColor: Int? = null
+    private var cardinalDirectionColor: Int? = null
 
     var paddingTopDp: Float = 8f
         set(value) {
@@ -37,9 +30,18 @@ class CompassOverlayLayer : OverlayLayer() {
         }
 
     override fun drawOverlay(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
+        if (backgroundColor == null) {
+            backgroundColor = Resources.color(context, R.color.colorSecondary)
+        }
+
+        if (cardinalDirectionColor == null) {
+            cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
+        }
+
         val compassSize = drawer.dp(24f)
         val arrowWidth = drawer.dp(5f)
         val arrowMargin = drawer.dp(3f)
@@ -52,14 +54,14 @@ class CompassOverlayLayer : OverlayLayer() {
 
         // Background circle
         drawer.noTint()
-        drawer.fill(backgroundColor)
+        drawer.fill(backgroundColor ?: Color.WHITE)
         drawer.stroke(Color.WHITE)
         drawer.strokeWeight(drawer.dp(1f))
         drawer.circle(location.x, location.y, compassSize)
 
         // Top triangle
         drawer.noStroke()
-        drawer.fill(cardinalDirectionColor)
+        drawer.fill(cardinalDirectionColor ?: Color.WHITE)
         drawer.triangle(
             location.x,
             location.y - compassSize / 2f + arrowMargin,

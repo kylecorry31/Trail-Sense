@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.map.map_layers
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -29,6 +30,7 @@ class ScaleBarLayer : OverlayLayer() {
     private val bottomMargin: Float = 32f
 
     override fun drawOverlay(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {

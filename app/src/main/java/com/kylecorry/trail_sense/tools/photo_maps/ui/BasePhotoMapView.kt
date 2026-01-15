@@ -250,7 +250,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
         _layers.forEach {
             drawer.withLayerOpacity(it.opacity) {
-                it.draw(drawer, this)
+                it.draw(context, drawer, this)
             }
         }
     }
@@ -259,7 +259,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         super.drawOverlay()
         _layers.forEach {
             drawer.withLayerOpacity(it.opacity) {
-                it.drawOverlay(drawer, this)
+                it.drawOverlay(context, drawer, this)
             }
         }
     }

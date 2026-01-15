@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
+import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -117,7 +118,7 @@ inline fun <reified T : ILayer> IMapView.getLayer(): T? {
     return getLayers().firstOrNull { it is T } as T?
 }
 
-suspend fun IMapView.getAttribution(): CharSequence? {
+suspend fun IMapView.getAttribution(context: Context): CharSequence? {
     val loader = AppServiceRegistry.get<MapLayerLoader>()
-    return loader.getAttribution(getLayers().map { it.layerId })
+    return loader.getAttribution(context, getLayers().map { it.layerId })
 }

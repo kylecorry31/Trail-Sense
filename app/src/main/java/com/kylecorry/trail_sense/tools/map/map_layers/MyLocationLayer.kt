@@ -26,25 +26,18 @@ class MyLocationLayer : IAsyncLayer {
     private val _showDirection = AppServiceRegistry.get<SensorService>().hasCompass()
 
     @ColorInt
-    private var _color: Int = Color.WHITE
-
+    private var _color: Int? = null
 
     private var _drawAccuracy: Boolean = true
 
     @ColorInt
-    private var _accuracyFillColor: Int = Color.WHITE
+    private var _accuracyFillColor: Int? = null
 
     private var updateListener: (() -> Unit)? = null
     private var _percentOpacity: Float = 1f
 
     override val percentOpacity: Float
         get() = _percentOpacity
-
-    init {
-        val context = AppServiceRegistry.get<Context>()
-        _color = Resources.getPrimaryMarkerColor(context)
-        _accuracyFillColor = Resources.getPrimaryMarkerColor(context)
-    }
 
     override fun setPreferences(preferences: Bundle) {
         _percentOpacity = preferences.getInt(
@@ -54,7 +47,15 @@ class MyLocationLayer : IAsyncLayer {
         _drawAccuracy = preferences.getBoolean(SHOW_ACCURACY, DEFAULT_SHOW_ACCURACY)
     }
 
-    override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+    override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
+        if (_color == null) {
+            _color = Resources.getPrimaryMarkerColor(context)
+        }
+
+        if (_accuracyFillColor == null) {
+            _accuracyFillColor = Resources.getPrimaryMarkerColor(context)
+        }
+
         if (_drawAccuracy) {
             drawAccuracy(drawer, map)
         }
@@ -66,6 +67,7 @@ class MyLocationLayer : IAsyncLayer {
     }
 
     override fun drawOverlay(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
@@ -94,7 +96,7 @@ class MyLocationLayer : IAsyncLayer {
 
         val marker = CircleMapMarker(
             location,
-            _accuracyFillColor,
+            _accuracyFillColor ?: Color.WHITE,
             null,
             25,
             sizeDp
@@ -113,7 +115,7 @@ class MyLocationLayer : IAsyncLayer {
     private fun drawCircle(drawer: ICanvasDrawer, map: IMapView) {
         val marker = CircleMapMarker(
             map.userLocation,
-            color = _color,
+            color = _color ?: Color.WHITE,
             strokeColor = Color.WHITE,
             strokeWeight = 2f,
             size = 16f

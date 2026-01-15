@@ -131,7 +131,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         layers.forEach {
             tryOrLog {
                 withLayerOpacity(it.opacity) {
-                    it.draw(this, this)
+                    it.draw(context, this, this)
                 }
             }
         }
@@ -142,7 +142,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         layers.forEach {
             tryOrLog {
                 withLayerOpacity(it.opacity) {
-                    it.drawOverlay(this, this)
+                    it.drawOverlay(context, this, this)
                 }
             }
         }

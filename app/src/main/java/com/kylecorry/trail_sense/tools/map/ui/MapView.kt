@@ -296,7 +296,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         pop()
         layers.forEach {
             withLayerOpacity(it.opacity) {
-                it.drawOverlay(this, this)
+                it.drawOverlay(context, this, this)
             }
         }
     }
@@ -310,7 +310,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
         layers.forEach {
             withLayerOpacity(it.opacity) {
-                it.draw(this, this)
+                it.draw(context, this, this)
             }
         }
     }

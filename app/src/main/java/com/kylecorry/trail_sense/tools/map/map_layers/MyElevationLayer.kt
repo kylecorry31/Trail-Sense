@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.map.map_layers
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -51,6 +52,7 @@ class MyElevationLayer : OverlayLayer() {
     }
 
     override fun drawOverlay(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
