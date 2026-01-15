@@ -1260,4 +1260,5 @@
     <string name="map_layer_cell_towers_description">Omtrentlige mobilmastposisjoner</string>
     <string name="map_layer_navigation_description">Linje til navigeringsmålet ditt</string>
     <string name="high_resolution">Høy oppløsning</string>
+    <string name="map_layer_slope_description">Farget terreng basert på helning</string>
 </resources>
