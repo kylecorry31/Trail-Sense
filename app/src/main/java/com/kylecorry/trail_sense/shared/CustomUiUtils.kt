@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.Color
 import android.net.Uri
 import android.util.Size
 import android.view.View
@@ -551,11 +552,21 @@ object CustomUiUtils {
     }
 
     fun Resources.getPrimaryColor(context: Context): Int {
-        return getAndroidColorAttr(context, com.google.android.material.R.attr.colorPrimaryVariant)
+        return try {
+            getAndroidColorAttr(context, com.google.android.material.R.attr.colorPrimaryVariant)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            AppColor.Orange.color
+        }
     }
 
     fun Resources.getColorOnPrimary(context: Context): Int {
-        return getAndroidColorAttr(context, com.google.android.material.R.attr.colorOnPrimary)
+        return try {
+            getAndroidColorAttr(context, com.google.android.material.R.attr.colorOnPrimary)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Color.WHITE
+        }
     }
 
     fun Resources.getCardinalDirectionColor(context: Context): Int {
