@@ -13,7 +13,7 @@ object BuiltInDem {
         cache.getOrPut {
             val files = AppServiceRegistry.get<FileSubsystem>()
             val indexText = files.readAsset("dem/index.json") ?: ""
-            DigitalElevationModelLoader.getTilesFromIndex(indexText)
+            DigitalElevationModelLoader.getTilesFromIndex(indexText, true)
         }
     }
 }
