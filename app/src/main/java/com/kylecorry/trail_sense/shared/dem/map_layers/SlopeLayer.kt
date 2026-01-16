@@ -18,6 +18,7 @@ class SlopeLayer : TileMapLayer<SlopeMapTileSource>(SlopeMapTileSource(), minZoo
         )
         source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)
         source.smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+        source.hideFlatGround = preferences.getBoolean(HIDE_FLAT_GROUND, DEFAULT_HIDE_FLAT_GROUND)
     }
 
     companion object {
@@ -25,8 +26,10 @@ class SlopeLayer : TileMapLayer<SlopeMapTileSource>(SlopeMapTileSource(), minZoo
         const val COLOR = "color"
         const val HIGH_RESOLUTION = "high_resolution"
         const val SMOOTH = "smooth"
+        const val HIDE_FLAT_GROUND = "hide_flat_ground"
         val DEFAULT_COLOR = SlopeColorStrategy.GreenToRed
         const val DEFAULT_HIGH_RESOLUTION = false
         const val DEFAULT_SMOOTH = true
+        const val DEFAULT_HIDE_FLAT_GROUND = false
     }
 }

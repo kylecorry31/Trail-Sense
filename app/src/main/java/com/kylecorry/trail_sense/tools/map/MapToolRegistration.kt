@@ -139,6 +139,12 @@ object MapToolRegistration : ToolRegistration {
                             defaultValue = SlopeLayer.DEFAULT_SMOOTH,
                         ),
                         MapLayerPreference(
+                            id = SlopeLayer.HIDE_FLAT_GROUND,
+                            title = context.getString(R.string.hide_flat_areas),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = SlopeLayer.DEFAULT_HIDE_FLAT_GROUND,
+                        ),
+                        MapLayerPreference(
                             id = SlopeLayer.HIGH_RESOLUTION,
                             title = context.getString(R.string.high_resolution),
                             type = MapLayerPreferenceType.Switch,

@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
+import android.graphics.Color
+import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath.toDegrees
@@ -20,6 +22,7 @@ class SlopeMapTileSource : TileSource {
     var highResolution: Boolean = false
     var colorMap: SlopeColorMap = GreenToRedSlopeColorMap()
     var smooth = true
+    var hideFlatGround = false
 
     override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
         Parallel.forEach(tiles, 16) {
@@ -53,6 +56,10 @@ class SlopeMapTileSource : TileSource {
             val vector = getSlopeVector(cellSizeX, cellSizeY, x, y, getElevation)
             val slopeDegrees = getSlopeAngle(vector).toDegrees().absoluteValue
 
+            if (hideFlatGround && slopeDegrees <= 10f) {
+                return@getElevationImage Color.TRANSPARENT
+            }
+
             val actualDegrees = if (smooth) {
                 slopeDegrees
             } else {
@@ -65,7 +72,10 @@ class SlopeMapTileSource : TileSource {
 
             colorMap.getSlopeColor(actualDegrees)
         }.applyOperationsOrNull(
-            Dither(Bitmap.Config.RGB_565)
+            Conditional(
+                !hideFlatGround,
+                Dither(Bitmap.Config.RGB_565)
+            )
         )
     }
 
