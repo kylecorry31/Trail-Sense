@@ -11,9 +11,11 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.copyLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullDependencyPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.removeLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
@@ -28,112 +30,163 @@ class MapLayerPreferenceManager(
 
     private val prefs = AppServiceRegistry.get<PreferencesSubsystem>().preferences
     private val markdown = AppServiceRegistry.get<MarkdownService>()
+    private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
+        val selectedLayers = repo.getActiveLayerIds(mapId).toMutableList()
         val factory = MapLayerViewPreferenceConverterFactory()
+        screen.removeAll()
         // Reversing the layers so the highest layer appears at the top of the list like other map apps
-        layers.reversed().forEachIndexed { index, layer ->
-            if (index > 0) {
-                val divider = Preference(context)
-                divider.layoutResource = R.layout.preference_divider
-                divider.isSelectable = false
-                screen.addPreference(divider)
-            }
-
-            val header = LayerHeaderPreference(context)
-            header.title = layer.name
-            header.summary = layer.description
-            screen.addPreference(header)
-
-            val category = createCategory(context)
-            category.isVisible = false
-            screen.addPreference(category)
-
-            header.onPreferenceClickListener = {
-                header.isExpanded = !header.isExpanded
-                category.isVisible = header.isExpanded
-                true
-            }
-
-            val isAlwaysEnabled = alwaysEnabledLayerIds.contains(layer.id)
-            val base = DefaultMapLayerDefinitions.getBasePreferences(
-                context,
-                context.getString(R.string.visible)
-            )
-            val preferences = base + layer.preferences
-            val viewPreferences = preferences.map {
-                it to factory.getConverter(it.type).convert(context, mapId, layer.id, it)
-            }
-
-            viewPreferences.forEach {
-                val preference = it.second
-                if (isAlwaysEnabled && it.first.id == DefaultMapLayerDefinitions.ENABLED) {
-                    preference.isVisible = false
+        layers.filter { selectedLayers.contains(it.id) }
+            .sortedBy { selectedLayers.indexOf(it.id) }
+            .reversed()
+            .forEachIndexed { index, layer ->
+                if (index > 0) {
+                    val divider = Preference(context)
+                    divider.layoutResource = R.layout.preference_divider
+                    divider.isSelectable = false
+                    screen.addPreference(divider)
                 }
 
-                if (it.first.id == DefaultMapLayerDefinitions.ENABLED) {
+                val header = LayerHeaderPreference(context)
+                header.title = layer.name
+                header.summary = layer.description
+                screen.addPreference(header)
 
-                    header.isLayerEnabled = if (isAlwaysEnabled) {
-                        preference.isVisible = true
-                        true
-                    } else {
-                        val key = it.first.getFullPreferenceKey(mapId, layer.id)
-                        prefs.getBoolean(key) ?: (it.first.defaultValue as? Boolean ?: true)
-                    }
+                val category = createCategory(context)
+                category.isVisible = false
+                screen.addPreference(category)
 
-                    preference.onPreferenceChangeListener = { pref, newValue ->
-                        header.isLayerEnabled = newValue as Boolean
-                        true
-                    }
+                header.onPreferenceClickListener = {
+                    header.isExpanded = !header.isExpanded
+                    category.isVisible = header.isExpanded
+                    true
                 }
 
-                category.addPreference(preference)
-
-                val dependency = it.first.getFullDependencyPreferenceKey(mapId, layer.id)
-                if (dependency != null) {
-                    preference.dependency = dependency
-                }
-            }
-
-            val mapIdToName = mapOf(
-                MapToolRegistration.MAP_ID to context.getString(R.string.map),
-                NavigationToolRegistration.MAP_ID to context.getString(R.string.navigation),
-                PhotoMapsToolRegistration.MAP_ID to context.getString(R.string.photo_maps)
-            )
-
-            if (layer.attribution != null) {
-                val licensePreference = createLabelPreference(
+                val isAlwaysEnabled = alwaysEnabledLayerIds.contains(layer.id)
+                val base = DefaultMapLayerDefinitions.getBasePreferences(
                     context,
-                    context.getString(R.string.attribution),
-                    markdown.toMarkdown(
-                        layer.attribution.longAttribution ?: layer.attribution.attribution
-                    )
+                    context.getString(R.string.visible)
                 )
-                category.addPreference(licensePreference)
-            }
+                val preferences = base + layer.preferences
+                val viewPreferences = preferences.map {
+                    it to factory.getConverter(it.type).convert(context, mapId, layer.id, it)
+                }
 
-            val copyPreference = createLabelPreference(
-                context,
-                context.getString(R.string.copy_settings_to_other_maps)
-            ) {
-                val otherMaps = getOtherMapIds()
-                Pickers.items(
-                    context,
-                    context.getString(R.string.copy_settings_to_other_maps),
-                    otherMaps.mapNotNull { mapIdToName[it] },
-                    otherMaps.indices.toList()
-                ) { indices ->
-                    if (indices == null || indices.isEmpty()) {
-                        return@items
+                viewPreferences.forEach {
+                    val preference = it.second
+                    if (isAlwaysEnabled && it.first.id == DefaultMapLayerDefinitions.ENABLED) {
+                        preference.isVisible = false
                     }
 
-                    val destinationIds = indices.map { otherMaps[it] }
-                    prefs.copyLayerPreferences(layer.id, mapId, destinationIds)
-                    Alerts.toast(context, context.getString(R.string.settings_copied))
+                    if (it.first.id == DefaultMapLayerDefinitions.ENABLED) {
+
+                        header.isLayerEnabled = if (isAlwaysEnabled) {
+                            preference.isVisible = true
+                            true
+                        } else {
+                            val key = it.first.getFullPreferenceKey(mapId, layer.id)
+                            prefs.getBoolean(key) ?: (it.first.defaultValue as? Boolean ?: true)
+                        }
+
+                        preference.onPreferenceChangeListener = { pref, newValue ->
+                            header.isLayerEnabled = newValue as Boolean
+                            true
+                        }
+                    }
+
+                    category.addPreference(preference)
+
+                    val dependency = it.first.getFullDependencyPreferenceKey(mapId, layer.id)
+                    if (dependency != null) {
+                        preference.dependency = dependency
+                    }
                 }
+
+                val mapIdToName = mapOf(
+                    MapToolRegistration.MAP_ID to context.getString(R.string.map),
+                    NavigationToolRegistration.MAP_ID to context.getString(R.string.navigation),
+                    PhotoMapsToolRegistration.MAP_ID to context.getString(R.string.photo_maps)
+                )
+
+                if (layer.attribution != null) {
+                    val licensePreference = createLabelPreference(
+                        context,
+                        context.getString(R.string.attribution),
+                        markdown.toMarkdown(
+                            layer.attribution.longAttribution ?: layer.attribution.attribution
+                        )
+                    )
+                    category.addPreference(licensePreference)
+                }
+
+                val copyPreference = createLabelPreference(
+                    context,
+                    context.getString(R.string.copy_settings_to_other_maps)
+                ) {
+                    val otherMaps = getOtherMapIds()
+                    Pickers.items(
+                        context,
+                        context.getString(R.string.copy_settings_to_other_maps),
+                        otherMaps.mapNotNull { mapIdToName[it] },
+                        otherMaps.indices.toList()
+                    ) { indices ->
+                        if (indices == null || indices.isEmpty()) {
+                            return@items
+                        }
+
+                        val destinationIds = indices.map { otherMaps[it] }
+                        prefs.copyLayerPreferences(layer.id, mapId, destinationIds)
+                        Alerts.toast(context, context.getString(R.string.settings_copied))
+                    }
+                }
+                category.addPreference(copyPreference)
+
+                val removePreference = createLabelPreference(
+                    context,
+                    context.getString(R.string.remove_layer)
+                ) {
+                    Alerts.dialog(
+                        context,
+                        context.getString(R.string.remove_layer),
+                        layer.name
+                    ) { cancelled ->
+                        if (!cancelled) {
+                            selectedLayers.remove(layer.id)
+                            repo.setActiveLayerIds(mapId, selectedLayers)
+                            prefs.removeLayerPreferences(mapId, layer.id)
+                            populatePreferences(screen, context)
+                        }
+                    }
+                }
+                removePreference.setIcon(R.drawable.ic_add)
+                category.addPreference(removePreference)
             }
-            category.addPreference(copyPreference)
+
+        // Additional layers
+        val additionalLayersPreference = createLabelPreference(
+            context,
+            context.getString(R.string.additional_layers)
+        ) {
+            val availableLayers = layers.filter { !selectedLayers.contains(it.id) }
+            Pickers.items(
+                context,
+                context.getString(R.string.additional_layers),
+                availableLayers.map { it.name }
+            ) { selection ->
+                if (selection == null) {
+                    return@items
+                }
+                val newLayers = selection.map { availableLayers[it].id }
+                newLayers.forEach {
+                    prefs.removeLayerPreferences(mapId, it)
+                }
+                selectedLayers.addAll(newLayers)
+                repo.setActiveLayerIds(mapId, selectedLayers)
+                populatePreferences(screen, context)
+            }
         }
+        screen.addPreference(additionalLayersPreference)
     }
 
     private fun createLabelPreference(

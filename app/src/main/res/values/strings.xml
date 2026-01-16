@@ -1882,4 +1882,6 @@
     <string name="restart_app">Restart app</string>
     <string name="smooth">Smooth</string>
     <string name="hide_flat_ground">Hide flat ground</string>
+    <string name="remove_layer">Remove layer</string>
+    <string name="additional_layers">Additional layers</string>
 </resources>

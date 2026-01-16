@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationCompassLayerManager
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
@@ -93,8 +92,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         onClick(preference(R.string.pref_map_layer_button)) {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
-                NavigationToolRegistration.MAP_ID,
-                NavigationCompassLayerManager.defaultLayers
+                NavigationToolRegistration.MAP_ID
             )
             layerSheet?.show(this)
         }

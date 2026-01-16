@@ -80,10 +80,7 @@ fun IPreferences.copyLayerPreferences(
 ) {
     // Clear existing preferences for the destination
     for (mapId in toMapIds) {
-        val toPreferences = getLayerPreferences(mapId, listOf(layerId))[layerId] ?: emptyList()
-        for (preference in toPreferences) {
-            remove(getPreferenceKey(mapId, layerId, preference.key))
-        }
+        removeLayerPreferences(mapId, layerId)
     }
 
     // Copy over the new preferences
@@ -92,5 +89,15 @@ fun IPreferences.copyLayerPreferences(
         val newPreferences =
             fromPreferences.map { it.copy(key = getPreferenceKey(mapId, layerId, it.key)) }
         putAll(newPreferences)
+    }
+}
+
+fun IPreferences.removeLayerPreferences(
+    mapId: String,
+    layerId: String
+) {
+    val toPreferences = getLayerPreferences(mapId, listOf(layerId))[layerId] ?: emptyList()
+    for (preference in toPreferences) {
+        remove(getPreferenceKey(mapId, layerId, preference.key))
     }
 }
