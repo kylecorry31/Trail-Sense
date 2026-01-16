@@ -55,6 +55,38 @@ class MapLayerPreferenceManager(
                 header.title = layer.name
                 header.summary = layer.description
                 header.isExpanded = lastExpanded == layer.id
+                // NOTE: Up and down are reversed from what is displayed to the user
+                val currentIndex = selectedLayers.indexOf(layer.id)
+                header.canMoveUp = currentIndex < selectedLayers.size - 1
+                header.canMoveDown = currentIndex > 0
+
+                header.onMoveUp = {
+                    val index = selectedLayers.indexOf(layer.id)
+                    if (index < selectedLayers.size - 1) {
+                        val temp = selectedLayers[index + 1]
+                        selectedLayers[index + 1] = layer.id
+                        selectedLayers[index] = temp
+                        repo.setActiveLayerIds(mapId, selectedLayers)
+                        if (header.isExpanded) {
+                            lastExpanded = layer.id
+                        }
+                        populatePreferences(screen, context)
+                    }
+                }
+
+                header.onMoveDown = {
+                    val index = selectedLayers.indexOf(layer.id)
+                    if (index > 0) {
+                        val temp = selectedLayers[index - 1]
+                        selectedLayers[index - 1] = layer.id
+                        selectedLayers[index] = temp
+                        repo.setActiveLayerIds(mapId, selectedLayers)
+                        if (header.isExpanded) {
+                            lastExpanded = layer.id
+                        }
+                        populatePreferences(screen, context)
+                    }
+                }
                 screen.addPreference(header)
 
                 val category = createCategory(context)
@@ -145,40 +177,6 @@ class MapLayerPreferenceManager(
                     }
                 }
                 category.addPreference(copyPreference)
-
-                // TODO: Replace this with drag and drop
-                // NOTE: Up and down are reversed from what is displayed to the user
-                val upPreference = createLabelPreference(
-                    context,
-                    "Move higher"
-                ) {
-                    val currentIndex = selectedLayers.indexOf(layer.id)
-                    if (currentIndex < selectedLayers.size - 1) {
-                        val temp = selectedLayers[currentIndex + 1]
-                        selectedLayers[currentIndex + 1] = layer.id
-                        selectedLayers[currentIndex] = temp
-                        repo.setActiveLayerIds(mapId, selectedLayers)
-                        lastExpanded = layer.id
-                        populatePreferences(screen, context)
-                    }
-                }
-                category.addPreference(upPreference)
-
-                val downPreference = createLabelPreference(
-                    context,
-                    "Move lower"
-                ) {
-                    val currentIndex = selectedLayers.indexOf(layer.id)
-                    if (currentIndex > 0) {
-                        val temp = selectedLayers[currentIndex - 1]
-                        selectedLayers[currentIndex - 1] = layer.id
-                        selectedLayers[currentIndex] = temp
-                        repo.setActiveLayerIds(mapId, selectedLayers)
-                        lastExpanded = layer.id
-                        populatePreferences(screen, context)
-                    }
-                }
-                category.addPreference(downPreference)
 
                 val removePreference = createLabelPreference(
                     context,
