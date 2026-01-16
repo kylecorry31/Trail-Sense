@@ -1,9 +1,13 @@
 package com.kylecorry.trail_sense.shared.dem
 
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import kotlin.math.PI
 import kotlin.math.atan
+import kotlin.math.atan2
 import kotlin.math.hypot
 
 fun getSlopeVector(
@@ -32,6 +36,20 @@ fun getSlopeAngle(
     zFactor: Float = 1f
 ): Float {
     return atan(zFactor * hypot(slopeVector.x, slopeVector.y))
+}
+
+fun getSlopeAspect(slopeVector: Vector2): Float {
+    var aspectRad = 0f
+    if (!SolMath.isZero(slopeVector.x)) {
+        aspectRad = wrap(atan2(slopeVector.y, -slopeVector.x), 0f, 2 * PI.toFloat())
+    } else {
+        if (slopeVector.y > 0) {
+            aspectRad = PI.toFloat() / 2
+        } else if (slopeVector.y < 0) {
+            aspectRad = 3 * PI.toFloat() / 2
+        }
+    }
+    return aspectRad
 }
 
 fun getCellSizeX(resolution: Double, bounds: CoordinateBounds): Double {

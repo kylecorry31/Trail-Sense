@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy
+import com.kylecorry.trail_sense.shared.dem.map_layers.AspectLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
@@ -152,6 +153,27 @@ object MapToolRegistration : ToolRegistration {
                         ),
                     )
                 ) { SlopeLayer() },
+                MapLayerDefinition(
+                    AspectLayer.LAYER_ID,
+                    context.getString(R.string.aspect),
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_aspect_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = "dem_settings",
+                            title = context.getString(R.string.plugin_digital_elevation_model),
+                            type = MapLayerPreferenceType.Label,
+                            summary = context.getString(R.string.open_settings),
+                            openDemSettingsOnClick = true
+                        ),
+                        MapLayerPreference(
+                            id = AspectLayer.HIGH_RESOLUTION,
+                            title = context.getString(R.string.high_resolution),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = AspectLayer.DEFAULT_HIGH_RESOLUTION,
+                        ),
+                    )
+                ) { AspectLayer() },
                 MapLayerDefinition(
                     ContourLayer.LAYER_ID,
                     context.getString(R.string.contours),

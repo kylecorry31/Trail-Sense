@@ -42,6 +42,14 @@ Settings:
 - **Hide flat ground**: If enabled, flat ground (slope below 10 degrees) will be invisible.
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
+## Aspect
+This layer colors the terrain by aspect (the direction the slope is facing) using the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
+
+Green = North, Blue = East, Red = South, Orange = West
+
+Settings:
+- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
+
 ## Photo Maps
 This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
 
