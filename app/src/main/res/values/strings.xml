@@ -1872,4 +1872,8 @@
     <string name="map_layer_cell_towers_description">Approximate cell tower locations</string>
     <string name="map_layer_navigation_description">Line to your navigation destination</string>
     <string name="high_resolution">High resolution</string>
+    <string name="copy_error">Copy error</string>
+    <string name="view_error_details">View error details</string>
+    <string name="reopen_tool">Reopen tool</string>
+    <string name="restart_app">Restart app</string>
 </resources>
