@@ -33,6 +33,8 @@ class MapLayerPreferenceManager(
     private val markdown = AppServiceRegistry.get<MarkdownService>()
     private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
+    private var lastExpanded: String? = null
+
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val selectedLayers = repo.getActiveLayerIds(mapId).toMutableList()
         val factory = MapLayerViewPreferenceConverterFactory()
@@ -52,10 +54,11 @@ class MapLayerPreferenceManager(
                 val header = LayerHeaderPreference(context)
                 header.title = layer.name
                 header.summary = layer.description
+                header.isExpanded = lastExpanded == layer.id
                 screen.addPreference(header)
 
                 val category = createCategory(context)
-                category.isVisible = false
+                category.isVisible = header.isExpanded
                 screen.addPreference(category)
 
                 header.onPreferenceClickListener = {
@@ -143,6 +146,40 @@ class MapLayerPreferenceManager(
                 }
                 category.addPreference(copyPreference)
 
+                // TODO: Replace this with drag and drop
+                // NOTE: Up and down are reversed from what is displayed to the user
+                val upPreference = createLabelPreference(
+                    context,
+                    "Move higher"
+                ) {
+                    val currentIndex = selectedLayers.indexOf(layer.id)
+                    if (currentIndex < selectedLayers.size - 1) {
+                        val temp = selectedLayers[currentIndex + 1]
+                        selectedLayers[currentIndex + 1] = layer.id
+                        selectedLayers[currentIndex] = temp
+                        repo.setActiveLayerIds(mapId, selectedLayers)
+                        lastExpanded = layer.id
+                        populatePreferences(screen, context)
+                    }
+                }
+                category.addPreference(upPreference)
+
+                val downPreference = createLabelPreference(
+                    context,
+                    "Move lower"
+                ) {
+                    val currentIndex = selectedLayers.indexOf(layer.id)
+                    if (currentIndex > 0) {
+                        val temp = selectedLayers[currentIndex - 1]
+                        selectedLayers[currentIndex - 1] = layer.id
+                        selectedLayers[currentIndex] = temp
+                        repo.setActiveLayerIds(mapId, selectedLayers)
+                        lastExpanded = layer.id
+                        populatePreferences(screen, context)
+                    }
+                }
+                category.addPreference(downPreference)
+
                 val removePreference = createLabelPreference(
                     context,
                     context.getString(R.string.remove_layer)
@@ -189,6 +226,8 @@ class MapLayerPreferenceManager(
         additionalLayersPreference.icon = Resources.drawable(context, R.drawable.ic_add)
         additionalLayersPreference.icon?.setTint(Resources.androidTextColorSecondary(context))
         screen.addPreference(additionalLayersPreference)
+
+        lastExpanded = null
     }
 
     private fun createLabelPreference(
