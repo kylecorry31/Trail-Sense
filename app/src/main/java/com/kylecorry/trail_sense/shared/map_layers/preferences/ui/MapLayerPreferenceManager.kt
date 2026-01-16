@@ -34,6 +34,8 @@ class MapLayerPreferenceManager(
     private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
     private var lastExpanded: String? = null
+    
+    var onScrollToTop: (() -> Unit)? = null
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val selectedLayers = repo.getActiveLayerIds(mapId).toMutableList()
@@ -219,6 +221,7 @@ class MapLayerPreferenceManager(
                 selectedLayers.addAll(newLayers)
                 repo.setActiveLayerIds(mapId, selectedLayers)
                 populatePreferences(screen, context)
+                onScrollToTop?.invoke()
             }
         }
         additionalLayersPreference.icon = Resources.drawable(context, R.drawable.ic_add)
