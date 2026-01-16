@@ -1879,5 +1879,5 @@
     <string name="reopen_tool">Reopen tool</string>
     <string name="restart_app">Restart app</string>
     <string name="smooth">Smooth</string>
-    <string name="hide_flat_areas">Hide flat ground</string>
+    <string name="hide_flat_ground">Hide flat ground</string>
 </resources>

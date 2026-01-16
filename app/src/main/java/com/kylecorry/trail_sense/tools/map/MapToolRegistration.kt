@@ -140,7 +140,7 @@ object MapToolRegistration : ToolRegistration {
                         ),
                         MapLayerPreference(
                             id = SlopeLayer.HIDE_FLAT_GROUND,
-                            title = context.getString(R.string.hide_flat_areas),
+                            title = context.getString(R.string.hide_flat_ground),
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = SlopeLayer.DEFAULT_HIDE_FLAT_GROUND,
                         ),
