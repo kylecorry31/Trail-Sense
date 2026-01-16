@@ -1559,4 +1559,5 @@
     <string name="map_layer_cell_towers_description">Přibližné polohy mobilních věží</string>
     <string name="map_layer_navigation_description">Čára k cíli vaší navigace</string>
     <string name="high_resolution">Vysoké rozlišení</string>
+    <string name="map_layer_slope_description">Barevný terén podle sklonu</string>
 </resources>

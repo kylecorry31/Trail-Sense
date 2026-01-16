@@ -1533,4 +1533,5 @@
     <string name="map_layer_cell_towers_description">Geschatte locaties van zendmasten</string>
     <string name="map_layer_navigation_description">Lijn naar je navigatiebestemming</string>
     <string name="high_resolution">Hoge resolutie</string>
+    <string name="map_layer_slope_description">Gekleurd terrein op basis van helling</string>
 </resources>
