@@ -1,5 +1,8 @@
 package com.kylecorry.trail_sense.tools
 
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
@@ -20,6 +23,31 @@ class ToolsTest : ToolTestBase(0L) {
             isTrue {
                 tool.isOpen(navController.currentDestination?.id ?: 0)
             }
+        }
+    }
+
+    @Test
+    fun openWithDynamicColors() {
+        val prefs = PreferencesSubsystem.getInstance(TestUtils.context).preferences
+        prefs.putBoolean(TestUtils.context.getString(R.string.pref_use_dynamic_colors), true)
+        prefs.putBoolean(
+            TestUtils.context.getString(R.string.pref_use_dynamic_colors_on_compass),
+            true
+        )
+
+        // Restart the app with Navigation tool (default)
+        scenario.close()
+        scenario = TestUtils.startWithTool(Tools.NAVIGATION) {
+            navController = it.findNavController()
+        }
+
+        // Wait for the tool to load
+        Thread.sleep(200)
+
+        // Verify navigation tool is open
+        isTrue {
+            Tools.getTools(TestUtils.context).first { it.id == Tools.NAVIGATION }
+                .isOpen(navController.currentDestination?.id ?: 0)
         }
     }
 }
