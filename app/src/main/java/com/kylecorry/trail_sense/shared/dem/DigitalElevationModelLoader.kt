@@ -30,6 +30,36 @@ class DigitalElevationModelIndex(
     val files: List<DigitalElevationModelFile>
 ) : ProguardIgnore
 
+class CompressedDigitalElevationModelIndex(
+    val r: Int,
+    val c: String,
+    val v: String?,
+    val w: Int,
+    val h: Int,
+    val f: List<List<Number>>
+) : ProguardIgnore {
+    fun toDigitalElevationModelIndex(): DigitalElevationModelIndex {
+        return DigitalElevationModelIndex(
+            r,
+            c,
+            v,
+            f.map {
+                DigitalElevationModelFile(
+                    "${it[0].toInt()}.webp",
+                    if (it.size > 7) it[7].toInt() else w,
+                    if (it.size > 7) it[8].toInt() else h,
+                    it[1].toDouble(),
+                    it[2].toDouble(),
+                    it[4].toDouble(),
+                    it[6].toDouble(),
+                    it[3].toDouble(),
+                    it[5].toDouble()
+                )
+            }
+        )
+    }
+}
+
 class DigitalElevationModelLoader {
 
     suspend fun load(source: Uri) = onIO {
@@ -87,10 +117,18 @@ class DigitalElevationModelLoader {
         private const val MAX_ZIP_FILE_COUNT = 1000
 
 
-        fun getTilesFromIndex(indexText: String): List<DigitalElevationModelEntity> {
-            val parsed =
+        fun getTilesFromIndex(
+            indexText: String,
+            isCompressed: Boolean = false
+        ): List<DigitalElevationModelEntity> {
+            val parsed = if (isCompressed) {
+                JsonConvert.fromJson<CompressedDigitalElevationModelIndex>(indexText)
+                    ?.toDigitalElevationModelIndex()
+                    ?: throw IllegalArgumentException("The provided zip file does not contain a valid compressed DEM index.json file.")
+            } else {
                 JsonConvert.fromJson<DigitalElevationModelIndex>(indexText)
                     ?: throw IllegalArgumentException("The provided zip file does not contain a valid DEM index.json file.")
+            }
             return parsed.files.map {
                 DigitalElevationModelEntity(
                     parsed.resolution_arc_seconds,
