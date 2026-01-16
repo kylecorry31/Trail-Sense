@@ -7,12 +7,17 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
   pull_request:
+    types: [opened, synchronize, labeled]
     branches:
       - main
 
 jobs:
   android_test:
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'run-automation'))
     strategy:
       matrix:
         api-level: [23]
