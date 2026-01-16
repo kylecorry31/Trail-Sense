@@ -120,7 +120,6 @@ class MapLayerPreferenceManager(
                     if (it.first.id == DefaultMapLayerDefinitions.ENABLED) {
 
                         header.isLayerEnabled = if (isAlwaysEnabled) {
-                            preference.isVisible = true
                             true
                         } else {
                             val key = it.first.getFullPreferenceKey(mapId, layer.id)
@@ -197,7 +196,9 @@ class MapLayerPreferenceManager(
                         }
                     }
                 }
-                category.addPreference(removePreference)
+                if (!isAlwaysEnabled) {
+                    category.addPreference(removePreference)
+                }
             }
 
         // Additional layers
