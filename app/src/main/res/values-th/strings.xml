@@ -266,4 +266,17 @@
     <string name="metal_detector_disclaimer">ตรวจจับโลหะที่แม่เหล็กดูดติดได้เท่านั้น (เช่น เหล็ก)</string>
     <string name="calibrate">ปรับเทียบ</string>
     <string name="calibrate_compass_dialog_title">ปรับเทียบเข็มทิศ</string>
+    <string name="pref_ruler_calibration_title">สเกลไม้บรรทัด</string>
+    <string name="pref_ruler_calibration_summary">วิธีการปรับเทียบ:\n\n- ตั้งค่าด้านล่างนี้ไว้ที่ 1\n\n- วัดไม้บรรทัดในแอป Trail Sense เทียบหน่วยต่อหน่วยกับไม้บรรทัดจริง\n\n- กรอกค่าที่วัดได้ด้านล่างนี้</string>
+    <string name="on_import">เมื่อนำเข้า</string>
+    <string name="beacon_qr_import_instructions">แสกนโค้ด QR เพื่อนำเข้า</string>
+    <plurals name="beacons_imported">
+        <item quantity="other">นำเข้า %d บีคอนแล้ว</item>
+    </plurals>
+    <string name="pref_navigation_lock_screen_when_open_title">แสดงบนหน้าจอล็อกไว้ระหว่างที่เปิด</string>
+    <string name="pref_navigation_lock_screen_presence_title">แสดงบนหน้าจอล็อกไว้ระหว่างที่นำทาง</string>
+    <string name="guide_map_layers">ชั้นเลเยอร์แผนที่</string>
+    <string name="layers">เลเยอร์</string>
+    <string name="gps_signal_lost">สัญญาณ GPS ขาดหาย</string>
+    <string name="gps_stale">คาดเคลื่อน</string>
 </resources>
