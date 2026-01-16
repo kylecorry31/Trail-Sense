@@ -6,6 +6,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
@@ -159,7 +160,6 @@ class MapLayerPreferenceManager(
                         }
                     }
                 }
-                removePreference.setIcon(R.drawable.ic_add)
                 category.addPreference(removePreference)
             }
 
@@ -186,6 +186,8 @@ class MapLayerPreferenceManager(
                 populatePreferences(screen, context)
             }
         }
+        additionalLayersPreference.icon = Resources.drawable(context, R.drawable.ic_add)
+        additionalLayersPreference.icon?.setTint(Resources.androidTextColorSecondary(context))
         screen.addPreference(additionalLayersPreference)
     }
 

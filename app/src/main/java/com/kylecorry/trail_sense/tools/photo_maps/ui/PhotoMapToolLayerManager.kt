@@ -9,12 +9,8 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.dem.map_layers.AspectLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeLayer
 import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
@@ -24,17 +20,12 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 
 class PhotoMapToolLayerManager {
 
@@ -45,6 +36,7 @@ class PhotoMapToolLayerManager {
     private var photoMapLayer: PhotoMapLayer? = null
 
     private val preferences = AppServiceRegistry.get<PreferencesSubsystem>()
+    private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
     private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
 
@@ -57,7 +49,11 @@ class PhotoMapToolLayerManager {
 
         view.setLayersWithPreferences(
             PhotoMapsToolRegistration.MAP_ID,
-            defaultLayers,
+            repo.getActiveLayerIds(PhotoMapsToolRegistration.MAP_ID) + listOf(
+                ScaleBarLayer.LAYER_ID,
+                MyElevationLayer.LAYER_ID,
+                CompassOverlayLayer.LAYER_ID
+            ),
             // TODO: Extract these to layer config
             listOf(
                 selectedPointLayer,
@@ -156,26 +152,6 @@ class PhotoMapToolLayerManager {
     companion object {
         val alwaysEnabledLayers = listOf(
             PhotoMapLayer.LAYER_ID
-        )
-
-        val defaultLayers = listOf(
-            BaseMapLayer.LAYER_ID,
-            ElevationLayer.LAYER_ID,
-            HillshadeLayer.LAYER_ID,
-            AspectLayer.LAYER_ID,
-            SlopeLayer.LAYER_ID,
-            PhotoMapLayer.LAYER_ID,
-            ContourLayer.LAYER_ID,
-            NavigationLayer.LAYER_ID,
-            CellTowerMapLayer.LAYER_ID,
-            TideMapLayer.LAYER_ID,
-            PathLayer.LAYER_ID,
-            BeaconLayer.LAYER_ID,
-            MyLocationLayer.LAYER_ID,
-            // Overlays
-            ScaleBarLayer.LAYER_ID,
-            MyElevationLayer.LAYER_ID,
-            CompassOverlayLayer.LAYER_ID
         )
 
     }
