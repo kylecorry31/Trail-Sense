@@ -5,7 +5,7 @@ class SlopeColorMapFactory {
         return when (strategy) {
             SlopeColorStrategy.WhiteToRed -> WhiteToRedSlopeColorMap()
             SlopeColorStrategy.Grayscale -> GrayscaleSlopeColorMap()
-            SlopeColorStrategy.GreenToRed -> GreenToRedSlopeColorMap(true)
+            SlopeColorStrategy.GreenToRed -> GreenToRedSlopeColorMap()
         }
     }
 }

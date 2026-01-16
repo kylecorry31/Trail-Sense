@@ -133,6 +133,12 @@ object MapToolRegistration : ToolRegistration {
                             defaultValue = SlopeLayer.DEFAULT_COLOR.id.toString(),
                         ),
                         MapLayerPreference(
+                            id = SlopeLayer.SMOOTH,
+                            title = context.getString(R.string.smooth),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = SlopeLayer.DEFAULT_SMOOTH,
+                        ),
+                        MapLayerPreference(
                             id = SlopeLayer.HIGH_RESOLUTION,
                             title = context.getString(R.string.high_resolution),
                             type = MapLayerPreferenceType.Switch,

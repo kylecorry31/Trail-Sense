@@ -17,13 +17,16 @@ class SlopeLayer : TileMapLayer<SlopeMapTileSource>(SlopeMapTileSource(), minZoo
             SlopeColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
         )
         source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)
+        source.smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
     }
 
     companion object {
         const val LAYER_ID = "slope"
         const val COLOR = "color"
         const val HIGH_RESOLUTION = "high_resolution"
+        const val SMOOTH = "smooth"
         val DEFAULT_COLOR = SlopeColorStrategy.GreenToRed
         const val DEFAULT_HIGH_RESOLUTION = false
+        const val DEFAULT_SMOOTH = true
     }
 }

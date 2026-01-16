@@ -18,7 +18,8 @@ import kotlin.math.absoluteValue
 
 class SlopeMapTileSource : TileSource {
     var highResolution: Boolean = false
-    var colorMap: SlopeColorMap = GreenToRedSlopeColorMap(true)
+    var colorMap: SlopeColorMap = GreenToRedSlopeColorMap()
+    var smooth = true
 
     override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
         Parallel.forEach(tiles, 16) {
@@ -52,7 +53,17 @@ class SlopeMapTileSource : TileSource {
             val vector = getSlopeVector(cellSizeX, cellSizeY, x, y, getElevation)
             val slopeDegrees = getSlopeAngle(vector).toDegrees().absoluteValue
 
-            colorMap.getSlopeColor(slopeDegrees)
+            val actualDegrees = if (smooth) {
+                slopeDegrees
+            } else {
+                when {
+                    slopeDegrees <= 10f -> 0f
+                    slopeDegrees <= 25f -> 10f
+                    else -> 90f
+                }
+            }
+
+            colorMap.getSlopeColor(actualDegrees)
         }.applyOperationsOrNull(
             Dither(Bitmap.Config.RGB_565)
         )
