@@ -1560,4 +1560,14 @@
     <string name="map_layer_navigation_description">Čára k cíli vaší navigace</string>
     <string name="high_resolution">Vysoké rozlišení</string>
     <string name="map_layer_slope_description">Barevný terén podle sklonu</string>
+    <string name="aspect">Aspekt</string>
+    <string name="slope_color_white_to_red">Z bílé do červené</string>
+    <string name="slope_color_green_to_red">Ze zelené do červené</string>
+    <string name="map_layer_aspect_description">Barevný terén v závislosti na jeho směru</string>
+    <string name="copy_error">Kopírovat chybu</string>
+    <string name="view_error_details">Informace o chybě</string>
+    <string name="reopen_tool">Znovu otevřít nástroj</string>
+    <string name="restart_app">Restartovat aplikaci</string>
+    <string name="smooth">Jemné</string>
+    <string name="hide_flat_ground">Skrýt plochou zemi</string>
 </resources>
