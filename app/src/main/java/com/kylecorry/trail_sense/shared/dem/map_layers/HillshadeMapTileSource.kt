@@ -4,9 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.Parallel
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toRadians
-import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
@@ -14,12 +12,11 @@ import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.getCellSizeX
 import com.kylecorry.trail_sense.shared.dem.getCellSizeY
 import com.kylecorry.trail_sense.shared.dem.getSlopeAngle
+import com.kylecorry.trail_sense.shared.dem.getSlopeAspect
 import com.kylecorry.trail_sense.shared.dem.getSlopeVector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
-import kotlin.math.PI
-import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -72,17 +69,7 @@ class HillshadeMapTileSource : TileSource {
         ) { x, y, getElevation ->
             val vector = getSlopeVector(cellSizeX, cellSizeY, x, y, getElevation)
             val slopeRad = getSlopeAngle(vector, zFactor)
-
-            var aspectRad = 0f
-            if (!SolMath.isZero(vector.x)) {
-                aspectRad = wrap(atan2(vector.y, -vector.x), 0f, 2 * PI.toFloat())
-            } else {
-                if (vector.y > 0) {
-                    aspectRad = PI.toFloat() / 2
-                } else if (vector.y < 0) {
-                    aspectRad = 3 * PI.toFloat() / 2
-                }
-            }
+            val aspectRad = getSlopeAspect(vector)
 
             var hillshade = 0.0
             for (azimuthRad in azimuths) {
