@@ -19,6 +19,8 @@ import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.get
+import androidx.core.view.size
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -330,7 +332,7 @@ class MainActivity : AndromedaActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         binding.bottomNavigation.selectedItemId = savedInstanceState.getInt(
             "page",
-            binding.bottomNavigation.menu.getItem(0).itemId
+            binding.bottomNavigation.menu[0].itemId
         )
         if (savedInstanceState.containsKey("navigation")) {
             tryOrNothing {
@@ -476,8 +478,8 @@ class MainActivity : AndromedaActivity() {
             }
 
         // Loop through each item of the bottom navigation and override the long press behavior
-        for (i in 0 until binding.bottomNavigation.menu.size()) {
-            val item = binding.bottomNavigation.menu.getItem(i)
+        for (i in 0 until binding.bottomNavigation.menu.size) {
+            val item = binding.bottomNavigation.menu[i]
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
                 binding.quickActionsSheet.show(this)
@@ -486,11 +488,15 @@ class MainActivity : AndromedaActivity() {
         }
 
         // Open the left most item by default (and clear the back stack)
-        val leftMostItem = binding.bottomNavigation.menu.getItem(0)
+        val initialItem = if (SafeMode.isEnabled()) {
+            tools.first { it.id == Tools.SETTINGS }.navAction
+        } else {
+            binding.bottomNavigation.menu[0].itemId
+        }
 
         // Only initialize the nav graph once
         effect("navGraph") {
-            initializeNavGraph(leftMostItem.itemId)
+            initializeNavGraph(initialItem)
         }
         // Bind to navigation
         binding.bottomNavigation.setupWithNavController(navController, false)
