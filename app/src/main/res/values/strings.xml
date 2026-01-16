@@ -1799,6 +1799,8 @@
     <string name="color_viridis">Viridis</string>
     <string name="color_inferno">Inferno</string>
     <string name="color_plasma">Plasma</string>
+    <string name="slope_color_white_to_red">White to red</string>
+    <string name="slope_color_green_to_red">Green to red</string>
     <string name="color_black">Black</string>
     <string name="color_brown">Brown</string>
     <string name="color_gray">Gray</string>
@@ -1876,4 +1878,6 @@
     <string name="view_error_details">View error details</string>
     <string name="reopen_tool">Reopen tool</string>
     <string name="restart_app">Restart app</string>
+    <string name="smooth">Smooth</string>
+    <string name="hide_flat_ground">Hide flat ground</string>
 </resources>

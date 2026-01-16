@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.map
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
+import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
@@ -119,6 +120,29 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
                             openDemSettingsOnClick = true
+                        ),
+                        MapLayerPreference(
+                            id = SlopeLayer.COLOR,
+                            title = context.getString(R.string.color),
+                            type = MapLayerPreferenceType.Enum,
+                            values = listOf(
+                                context.getString(R.string.slope_color_green_to_red) to SlopeColorStrategy.GreenToRed.id.toString(),
+                                context.getString(R.string.slope_color_white_to_red) to SlopeColorStrategy.WhiteToRed.id.toString(),
+                                context.getString(R.string.color_grayscale) to SlopeColorStrategy.Grayscale.id.toString(),
+                            ),
+                            defaultValue = SlopeLayer.DEFAULT_COLOR.id.toString(),
+                        ),
+                        MapLayerPreference(
+                            id = SlopeLayer.SMOOTH,
+                            title = context.getString(R.string.smooth),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = SlopeLayer.DEFAULT_SMOOTH,
+                        ),
+                        MapLayerPreference(
+                            id = SlopeLayer.HIDE_FLAT_GROUND,
+                            title = context.getString(R.string.hide_flat_ground),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = SlopeLayer.DEFAULT_HIDE_FLAT_GROUND,
                         ),
                         MapLayerPreference(
                             id = SlopeLayer.HIGH_RESOLUTION,

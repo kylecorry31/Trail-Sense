@@ -289,7 +289,6 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
                 - USGS: U.S. Geological Survey and R. Langford under CC Attribution-NonCommercial 3.0 unported (2021) https://creativecommons.org/licenses/by-nc/3.0/
                 - Muted: Tom Patterson under public domain
                 - Viridis, Magma, Plasma, Inferno: Nathaniel J. Smith, Stefan van der Walt, and Eric Firing under CC0 1.0 Universal (http://creativecommons.org/publicdomain/zero/1.0)
-                - CET-L18 (slope layer): Peter Kovesi under CC Attribution 4.0 International https://creativecommons.org/licenses/by/4.0/. Good Colour Maps: How to Design Them. arXiv:1509.03700 [cs.GR] 2015
             """.trimIndent()
         }
     )
