@@ -793,5 +793,17 @@
         android:id="@+id/toolsSettingsFragment"
         android:name="com.kylecorry.trail_sense.tools.tools.ui.ToolsSettingsFragment"
         android:label="ToolsSettingsFragment" />
+    <fragment
+        android:id="@+id/fragmentToolErrorHandler"
+        android:name="com.kylecorry.trail_sense.main.errors.ErrorHandlerFragment"
+        android:label="ErrorHandlerFragment">
+        <argument
+            android:name="tool_id"
+            app:argType="long" />
+        <argument
+            android:name="error"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
 
 </navigation>

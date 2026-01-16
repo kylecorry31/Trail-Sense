@@ -60,6 +60,9 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MainActivity : AndromedaActivity() {
 
+    var isRunning = false
+        private set
+
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
         get() = _binding!!
@@ -231,6 +234,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onResume() {
         super.onResume()
+        isRunning = true
         updateAllWidgets()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
         PedometerSubsystem.getInstance(this).recalculateState()
@@ -246,6 +250,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onPause() {
         super.onPause()
+        isRunning = false
         FlashlightSubsystem.getInstance(this).stopSystemMonitor()
         Tools.unsubscribe(
             BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED,
