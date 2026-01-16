@@ -8,19 +8,15 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
+import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getLayerPreferencesBundle
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 interface IMapView {
-    fun addLayer(layer: ILayer)
-    fun removeLayer(layer: ILayer)
-    fun setLayers(layers: List<ILayer>)
-    fun getLayers(): List<ILayer>
 
-    fun start()
-    fun stop()
+    val layerManager: MapViewLayerManager
 
     /**
      * The current projection of the map. The response should be fixed, so it doesn't change on consumers using it.
@@ -74,6 +70,18 @@ fun IMapView.toCoordinate(pixel: PixelCoordinate): Coordinate {
     return mapProjection.toCoordinate(pixel)
 }
 
+fun IMapView.setLayers(layers: List<ILayer>) {
+    layerManager.setLayers(layers)
+}
+
+fun IMapView.start() {
+    layerManager.start()
+}
+
+fun IMapView.stop() {
+    layerManager.stop()
+}
+
 fun IMapView.setLayersWithPreferences(
     mapId: String,
     layerIds: List<String>,
@@ -82,7 +90,7 @@ fun IMapView.setLayersWithPreferences(
 ) {
     val loader = AppServiceRegistry.get<MapLayerLoader>()
     val preferences = AppServiceRegistry.get<PreferencesSubsystem>().preferences
-    val currentLayers = getLayers()
+    val currentLayers = layerManager.getLayers()
     val newLayerIds = layerIds + additionalLayers.map { it.layerId }
     val layers = if (!forceReplaceLayers && currentLayers.map { it.layerId } == newLayerIds) {
         currentLayers
@@ -115,10 +123,10 @@ fun IMapView.setLayersWithPreferences(
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : ILayer> IMapView.getLayer(): T? {
-    return getLayers().firstOrNull { it is T } as T?
+    return layerManager.getLayers().firstOrNull { it is T } as T?
 }
 
 suspend fun IMapView.getAttribution(context: Context): CharSequence? {
     val loader = AppServiceRegistry.get<MapLayerLoader>()
-    return loader.getAttribution(context, getLayers().map { it.layerId })
+    return loader.getAttribution(context, layerManager.getLayers().map { it.layerId })
 }

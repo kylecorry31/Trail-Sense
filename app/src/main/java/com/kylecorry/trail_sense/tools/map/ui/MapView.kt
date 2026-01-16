@@ -8,7 +8,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.cosDegrees
@@ -24,8 +23,7 @@ import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
+import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
@@ -43,7 +41,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private val lookupMatrix = Matrix()
 
-    private var layers = listOf<ILayer>()
+    override val layerManager = MapViewLayerManager {
+        post { invalidate() }
+    }
     private val hooks = Hooks()
 
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
@@ -163,7 +163,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var projection: IMapProjection = MercatorProjection()
         set(value) {
             field = value
-            layers.forEach { it.invalidate() }
+            this@MapView.layerManager.invalidate()
             invalidate()
         }
 
@@ -173,41 +173,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private var fitToViewBounds: CoordinateBounds? = null
     private var fitToViewPadding: Float = 1f
-
-    override fun addLayer(layer: ILayer) {
-        layers = layers + layer
-    }
-
-    override fun removeLayer(layer: ILayer) {
-        if (layer is IAsyncLayer) {
-            layer.setHasUpdateListener(null)
-        }
-        layers = layers - layer
-    }
-
-    override fun setLayers(layers: List<ILayer>) {
-        this.layers.filterIsInstance<IAsyncLayer>()
-            .forEach { it.setHasUpdateListener(null) }
-        
-        this.layers = layers.toList()
-        this.layers.filterIsInstance<IAsyncLayer>()
-            .forEach { it.setHasUpdateListener { post { invalidate() } } }
-        
-        invalidate()
-    }
-
-    override fun getLayers(): List<ILayer> {
-        return layers.toList()
-    }
-
-    override fun start() {
-        layers.forEach { it.start() }
-        invalidate()
-    }
-
-    override fun stop() {
-        layers.forEach { it.stop() }
-    }
 
     override val mapProjection: IMapViewProjection
         get() = hooks.memo(
@@ -275,8 +240,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        layers.forEach { it.invalidate() }
-        invalidate()
+        this@MapView.layerManager.invalidate()
     }
 
     override fun setup() {
@@ -294,25 +258,17 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         drawer.rotate(-mapAzimuth)
         drawLayers()
         pop()
-        layers.forEach {
-            withLayerOpacity(it.opacity) {
-                it.drawOverlay(context, this, this)
-            }
-        }
+        layerManager.drawOverlay(context, this, this)
     }
 
     private fun drawLayers() {
         if (scale != lastScale) {
             lastScale = scale
-            layers.forEach { it.invalidate() }
+            this@MapView.layerManager.invalidate()
         }
         // TODO: If map bounds changed, invalidate layers
 
-        layers.forEach {
-            withLayerOpacity(it.opacity) {
-                it.draw(context, this, this)
-            }
-        }
+        layerManager.draw(context, this, this)
     }
 
     private fun getScale(metersPerPixel: Float): Float {
@@ -410,17 +366,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             val pixel = unrotated(PixelCoordinate(e.x, e.y))
-            for (layer in layers.reversed()) {
-                val handled = layer.onClick(
-                    drawer,
-                    this@MapView,
-                    pixel
-                )
-                if (handled) {
-                    break
-                }
-            }
-
+            layerManager.onClick(this@MapView, this@MapView, pixel)
             return super.onSingleTapConfirmed(e)
         }
 

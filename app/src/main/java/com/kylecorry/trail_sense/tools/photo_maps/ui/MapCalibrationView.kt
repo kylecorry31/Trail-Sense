@@ -43,7 +43,7 @@ class MapCalibrationView : BasePhotoMapView {
 
     override fun showMap(map: PhotoMap) {
         super.showMap(map)
-        _layers.forEach { it.invalidate() }
+        layerManager.invalidate()
     }
 
     override fun onSinglePress(e: MotionEvent) {
