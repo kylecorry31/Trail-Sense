@@ -48,6 +48,12 @@ This app can help you identify mushrooms by having you fill out a questionnaire 
 
 [Download](market://details?id=com.mushroom.shroomify)
 
+## whoBIRD
+
+This app can help you identify nearby birds using the sound of their calls.
+
+[Download](https://github.com/woheller69/whoBIRD)
+
 ## FlashDim
 
 This app can be used for fine tuned control over your phone's flashlight. You can also use it to send custom morse code messages.
