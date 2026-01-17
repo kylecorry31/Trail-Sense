@@ -333,7 +333,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         layerSheet?.dismiss()
         layerSheet = MapLayersBottomSheet(
             PhotoMapsToolRegistration.MAP_ID,
-            PhotoMapToolLayerManager.defaultLayers,
             PhotoMapToolLayerManager.alwaysEnabledLayers
         )
         layerManager.pause(binding.map)

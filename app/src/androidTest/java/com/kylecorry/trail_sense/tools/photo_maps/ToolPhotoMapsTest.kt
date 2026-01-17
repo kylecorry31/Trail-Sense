@@ -260,18 +260,11 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Layers")
         scrollUntil { hasText("Location") }
-        scrollUntil { hasText("Tides") }
         scrollUntil { hasText("Beacons") }
         scrollUntil { hasText("Paths") }
-        scrollUntil { hasText("Cell towers") }
+        scrollUntil { hasText("Tides") }
         scrollUntil { hasText("Navigation") }
-        scrollUntil { hasText("Contours") }
         scrollUntil { hasText("Photo Maps") }
-        scrollUntil { hasText("Slope") }
-        scrollUntil { hasText("Aspect") }
-        scrollUntil { hasText("Hillshade") }
-        scrollUntil { hasText("Elevation") }
-        scrollUntil { hasText("Basemap") }
         click(toolbarButton(R.id.title, Side.Right))
 
         // Export

@@ -12,7 +12,6 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 
 class MapLayersBottomSheet(
     private val mapId: String,
-    private val layerIds: List<String>,
     private val alwaysEnabledLayerIds: List<String> = emptyList()
 ) : TrailSenseReactiveBottomSheetFragment(R.layout.fragment_map_layers_bottom_sheet) {
 
@@ -32,9 +31,7 @@ class MapLayersBottomSheet(
         val mainActivity = useActivity() as MainActivity
         val loader = useService<MapLayerLoader>()
         val definitions = useBackgroundMemo {
-            loader.getDefinitions().values
-                .filter { it.isConfigurable && layerIds.contains(it.id) }
-                .sortedBy { layerIds.indexOf(it.id) }
+            loader.getDefinitions().values.filter { it.isConfigurable }
         }
 
         val preferences = useMemo(definitions) {

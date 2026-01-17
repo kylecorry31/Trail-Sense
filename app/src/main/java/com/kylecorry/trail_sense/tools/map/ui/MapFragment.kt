@@ -115,8 +115,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
         val layerEditSheet = useMemo(prefs) {
             MapLayersBottomSheet(
-                MapToolRegistration.MAP_ID,
-                MapToolLayerManager.defaultLayers
+                MapToolRegistration.MAP_ID
             )
         }
 

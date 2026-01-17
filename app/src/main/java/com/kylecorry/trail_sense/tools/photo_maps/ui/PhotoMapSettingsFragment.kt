@@ -31,7 +31,6 @@ class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
                 PhotoMapsToolRegistration.MAP_ID,
-                PhotoMapToolLayerManager.defaultLayers,
                 PhotoMapToolLayerManager.alwaysEnabledLayers
             )
             layerSheet?.show(this)

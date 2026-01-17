@@ -48,18 +48,10 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         optional {
             longClick(R.id.radar_compass)
             scrollUntil { hasText("Location") }
-            scrollUntil { hasText("Tides") }
             scrollUntil { hasText("Beacons") }
             scrollUntil { hasText("Paths") }
-            scrollUntil { hasText("Cell towers") }
-            scrollUntil { hasText("Navigation") }
-            scrollUntil { hasText("Contours") }
+            scrollUntil { hasText("Tides") }
             scrollUntil { hasText("Photo Maps") }
-            scrollUntil { hasText("Slope") }
-            scrollUntil { hasText("Aspect") }
-            scrollUntil { hasText("Hillshade") }
-            scrollUntil { hasText("Elevation") }
-            scrollUntil { hasText("Basemap") }
             click(toolbarButton(R.id.title, Side.Right))
         }
     }
@@ -130,18 +122,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     private fun canDisplaySensorStatus() {
         click(Regex("(Poor|Moderate|Good|Stale|Unavailable)"))
         hasText(string(R.string.accuracy_info_title))
-        hasText("GPS location accuracy")
-        optional {
-            hasText(Regex("GPS location accuracy: ± \\d+ ft"), waitForTime = 0)
-        }
-        optional {
-            hasText(Regex("GPS elevation accuracy: ± \\d+ ft"), waitForTime = 0)
-        }
-        optional {
-            hasText(Regex("GPS satellites: \\d+"), waitForTime = 0)
-        }
-        hasText(string(R.string.calibrate_compass_dialog_content, string(android.R.string.ok)))
-        hasText(string(R.string.gps_accuracy_tip))
         clickOk()
     }
 

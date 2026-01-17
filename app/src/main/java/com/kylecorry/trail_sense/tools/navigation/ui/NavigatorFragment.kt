@@ -309,8 +309,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompass.setOnLongPressListener {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
-                NavigationToolRegistration.MAP_ID,
-                NavigationCompassLayerManager.defaultLayers
+                NavigationToolRegistration.MAP_ID
             )
             layers.pause(binding.radarCompass)
             layerSheet?.setOnDismissListener {
