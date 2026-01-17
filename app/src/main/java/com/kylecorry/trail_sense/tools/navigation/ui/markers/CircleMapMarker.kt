@@ -8,7 +8,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.SizeUnit
 
 class CircleMapMarker(
-    override val location: Coordinate,
+    override val location: Coordinate?,
     @ColorInt private val color: Int,
     @ColorInt private val strokeColor: Int? = null,
     private val opacity: Int = 255,
@@ -16,8 +16,11 @@ class CircleMapMarker(
     private val strokeWeight: Float = 0.5f,
     private val sizeUnit: SizeUnit = SizeUnit.DensityPixels,
     private val useScale: Boolean = true,
+    override val scaleToLocationAccuracy: Boolean = false,
     private val onClickFn: () -> Boolean = { false }
 ) : MapMarker {
+    override val rotation: Float? = null
+    override val rotateWithUser: Boolean = false
     override fun draw(
         drawer: ICanvasDrawer,
         anchor: PixelCoordinate,

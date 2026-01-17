@@ -10,13 +10,17 @@ import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE
+import com.kylecorry.trail_sense.shared.extensions.getBitmap
 import com.kylecorry.trail_sense.shared.extensions.getColor
 import com.kylecorry.trail_sense.shared.extensions.getIcon
 import com.kylecorry.trail_sense.shared.extensions.getIconColor
 import com.kylecorry.trail_sense.shared.extensions.getIconSize
 import com.kylecorry.trail_sense.shared.extensions.getMarkerShape
+import com.kylecorry.trail_sense.shared.extensions.getMoveWithUserLocation
 import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getOpacity
+import com.kylecorry.trail_sense.shared.extensions.getRotateWithUserAzimuth
+import com.kylecorry.trail_sense.shared.extensions.getScaleToLocationAccuracy
 import com.kylecorry.trail_sense.shared.extensions.getSize
 import com.kylecorry.trail_sense.shared.extensions.getSizeUnit
 import com.kylecorry.trail_sense.shared.extensions.getStrokeColor
@@ -78,6 +82,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val point = (feature.geometry as GeoJsonPoint).point ?: return@forEach
                 val shape = feature.getMarkerShape()
                 val icon = feature.getIcon()
+                val bitmap = feature.getBitmap()
                 val beaconIcon = icon?.let { BeaconIcon.entries.withId(it) }
                 val iconRes = beaconIcon?.icon
                 val size = feature.getSize() ?: 12f
@@ -85,18 +90,22 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val iconSize = feature.getIconSize() ?: size
                 val isClickable = feature.isClickable()
                 val name = feature.getName()
+                val rotateWithUserAzimuth = feature.getRotateWithUserAzimuth()
+                val moveWithUserLocation = feature.getMoveWithUserLocation()
+                val scaleToLocationAccuracy = feature.getScaleToLocationAccuracy()
 
-                if (shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null && iconRes == null)) {
+                if (shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null && iconRes == null && bitmap == null)) {
                     newMarkers.add(
                         CircleMapMarker(
-                            point.coordinate,
+                            if (moveWithUserLocation) null else point.coordinate,
                             feature.getColor() ?: Color.TRANSPARENT,
                             feature.getStrokeColor(),
                             feature.getOpacity(),
-                            size,
+                            if (scaleToLocationAccuracy) 1f else size,
                             feature.getStrokeWeight() ?: 0.5f,
-                            sizeUnit,
-                            sizeUnit != SizeUnit.Meters,
+                            if (scaleToLocationAccuracy) SizeUnit.Meters else sizeUnit,
+                            sizeUnit != SizeUnit.Meters || scaleToLocationAccuracy,
+                            scaleToLocationAccuracy,
                             if (isClickable) {
                                 { onClickListener(feature) }
                             } else {
@@ -106,13 +115,30 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 }
 
                 if (iconRes != null) {
-                    val bitmap = bitmapLoader!!.load(iconRes, (iconSize * 2).toInt())
+                    val iconBitmap = bitmapLoader!!.load(iconRes, (iconSize * 2).toInt())
                     newMarkers.add(
                         BitmapMapMarker(
-                            point.coordinate,
+                            if (moveWithUserLocation) null else point.coordinate,
+                            iconBitmap,
+                            iconSize,
+                            rotation = null,
+                            rotateWithUser = rotateWithUserAzimuth,
+                            tint = feature.getIconColor(),
+                            onClickFn = if (isClickable) {
+                                { onClickListener(feature) }
+                            } else {
+                                { false }
+                            }
+                        )
+                    )
+                } else if (bitmap != null) {
+                    newMarkers.add(
+                        BitmapMapMarker(
+                            if (moveWithUserLocation) null else point.coordinate,
                             bitmap,
                             iconSize,
                             rotation = null,
+                            rotateWithUser = rotateWithUserAzimuth,
                             tint = feature.getIconColor(),
                             onClickFn = if (isClickable) {
                                 { onClickListener(feature) }
@@ -157,13 +183,17 @@ class GeoJsonPointRenderer : FeatureRenderer() {
         convertFeaturesToMarkers(drawer, features)
         val bounds = getBounds(drawer)
         markers.forEach {
-            val anchor = map.toPixel(it.location)
+            val anchor = map.toPixel(it.location ?: map.userLocation)
             if (bounds.contains(anchor.toVector2(bounds.top))) {
                 it.draw(
                     drawer,
                     anchor,
-                    map.layerScale,
-                    map.mapAzimuth + map.mapRotation,
+                    if (it.scaleToLocationAccuracy) {
+                        map.userLocationAccuracy?.meters()?.value ?: 0f
+                    } else {
+                        map.layerScale
+                    },
+                    (if (it.rotateWithUser) map.userAzimuth.value else map.mapAzimuth) + map.mapRotation,
                     map.metersPerPixel
                 )
             }
@@ -172,8 +202,16 @@ class GeoJsonPointRenderer : FeatureRenderer() {
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
         val points = markers.map {
-            val anchor = map.toPixel(it.location)
-            val radius = it.calculateSizeInPixels(drawer, map.metersPerPixel, map.layerScale) / 2f
+            val anchor = map.toPixel(it.location ?: map.userLocation)
+            val radius = it.calculateSizeInPixels(
+                drawer,
+                map.metersPerPixel,
+                if (it.scaleToLocationAccuracy) {
+                    map.userLocationAccuracy?.meters()?.value ?: 0f
+                } else {
+                    map.layerScale
+                }
+            ) / 2f
             it to PixelCircle(anchor, radius)
         }
 

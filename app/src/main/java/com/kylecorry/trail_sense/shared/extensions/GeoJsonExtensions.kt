@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.extensions
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import com.kylecorry.andromeda.geojson.GeoJsonBoundingBox
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -110,6 +111,22 @@ fun GeoJsonFeature.getStrokeColor(): Int? {
     return getIntProperty(GEO_JSON_PROPERTY_STROKE_COLOR)
 }
 
+fun GeoJsonFeature.getRotateWithUserAzimuth(): Boolean {
+    return getBooleanProperty(GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH) ?: false
+}
+
+fun GeoJsonFeature.getMoveWithUserLocation(): Boolean {
+    return getBooleanProperty(GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION) ?: false
+}
+
+fun GeoJsonFeature.getScaleToLocationAccuracy(): Boolean {
+    return getBooleanProperty(GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY) ?: false
+}
+
+fun GeoJsonFeature.getBitmap(): Bitmap? {
+    return properties?.get(GEO_JSON_PROPERTY_BITMAP) as? Bitmap
+}
+
 fun GeoJsonFeature.getIcon(): Long? {
     return getNumberProperty(GEO_JSON_PROPERTY_ICON)?.toLong()
 }
@@ -197,6 +214,10 @@ fun GeoJsonFeature.Companion.point(
     size: Float? = null,
     iconSize: Float? = size,
     sizeUnit: String? = null,
+    rotateWithUserAzimuth: Boolean = false,
+    moveWithUserLocation: Boolean = false,
+    scaleToLocationAccuracy: Boolean = false,
+    bitmap: Bitmap? = null,
     bounds: CoordinateBounds? = CoordinateBounds(
         point.latitude,
         point.longitude,
@@ -221,7 +242,11 @@ fun GeoJsonFeature.Companion.point(
             GEO_JSON_PROPERTY_IS_CLICKABLE to isClickable,
             GEO_JSON_PROPERTY_STROKE_COLOR to strokeColor,
             GEO_JSON_PROPERTY_STROKE_WEIGHT to strokeWeight,
-            GEO_JSON_PROPERTY_OPACITY to opacity
+            GEO_JSON_PROPERTY_OPACITY to opacity,
+            GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH to rotateWithUserAzimuth,
+            GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION to moveWithUserLocation,
+            GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY to scaleToLocationAccuracy,
+            GEO_JSON_PROPERTY_BITMAP to bitmap
         ) + additionalProperties,
         boundingBox = boundingBox
     )
@@ -277,4 +302,8 @@ const val GEO_JSON_PROPERTY_SIZE_UNIT = "sizeUnit"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS = "px"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_DENSITY_PIXELS = "dp"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_METERS = "m"
+const val GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH = "rotateWithUserAzimuth"
+const val GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION = "moveWithUserLocation"
+const val GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY = "scaleToLocationAccuracy"
+const val GEO_JSON_PROPERTY_BITMAP = "bitmap"
 const val DEFAULT_LINE_STRING_STROKE_WEIGHT_DP = 2.25f
