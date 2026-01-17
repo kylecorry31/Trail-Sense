@@ -1547,4 +1547,7 @@
     <string name="remove_layer">Laag verwijderen</string>
     <string name="additional_layers">Extra lagen</string>
     <string name="smooth">Vlak</string>
+    <string name="ruggedness">Ruwheid</string>
+    <string name="map_layer_ruggedness_description">Kleurgecodeerde terreinruwheid op basis van hoogteverschil</string>
+    <string name="map_layer_field_guide_sightings_description">Jouw veldgidswaarnemingen</string>
 </resources>
