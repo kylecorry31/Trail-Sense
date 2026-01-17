@@ -2,7 +2,9 @@ package com.kylecorry.trail_sense.tools.field_guide
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
+import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -25,6 +27,13 @@ object FieldGuideToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_field_guide,
             singletons = listOf(
                 FieldGuideRepo::getInstance
+            ),
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    FieldGuideSightingLayer.LAYER_ID,
+                    context.getString(R.string.sightings),
+                    description = context.getString(R.string.map_layer_field_guide_sightings_description)
+                ) { FieldGuideSightingLayer() }
             )
         )
     }

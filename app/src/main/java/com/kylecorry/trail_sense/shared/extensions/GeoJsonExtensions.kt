@@ -93,6 +93,10 @@ fun GeoJsonFeature.getFloatProperty(property: String): Float? {
     return getNumberProperty(property)?.toFloat()
 }
 
+fun GeoJsonFeature.getLongProperty(property: String): Long? {
+    return getNumberProperty(property)?.toLong()
+}
+
 fun GeoJsonFeature.getColor(): Int? {
     return getIntProperty(GEO_JSON_PROPERTY_COLOR)
 }
