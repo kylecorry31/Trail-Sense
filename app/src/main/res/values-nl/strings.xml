@@ -1534,4 +1534,17 @@
     <string name="map_layer_navigation_description">Lijn naar je navigatiebestemming</string>
     <string name="high_resolution">Hoge resolutie</string>
     <string name="map_layer_slope_description">Gekleurd terrein op basis van helling</string>
+    <string name="slope_color_white_to_red">Wit naar rood</string>
+    <string name="slope_color_green_to_red">Groen naar rood</string>
+    <string name="map_layer_aspect_description">Gekleurd terrein op basis van de richting waarin het is gericht</string>
+    <string name="copy_error">Kopieerfout</string>
+    <string name="view_error_details">Foutdetails bekijken</string>
+    <string name="reopen_tool">Hulpmiddel opnieuw openen</string>
+    <string name="restart_app">App herstarten</string>
+    <string name="hide_flat_ground">Vlakke grond verbergen</string>
+    <string name="move_layer_up">Laag omhoog verplaatsen</string>
+    <string name="move_layer_down">Laag omlaag verplaatsen</string>
+    <string name="remove_layer">Laag verwijderen</string>
+    <string name="additional_layers">Extra lagen</string>
+    <string name="smooth">Vlak</string>
 </resources>
