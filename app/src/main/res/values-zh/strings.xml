@@ -1531,4 +1531,8 @@
     <string name="restart_app">重启应用</string>
     <string name="smooth">平滑</string>
     <string name="hide_flat_ground">隐藏平地</string>
+    <string name="move_layer_up">上移图层</string>
+    <string name="move_layer_down">下移图层</string>
+    <string name="remove_layer">删除图层</string>
+    <string name="additional_layers">附加图层</string>
 </resources>
