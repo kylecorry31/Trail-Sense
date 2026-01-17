@@ -34,7 +34,7 @@ class MapLayerPreferenceManager(
     private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
     private var lastExpanded: String? = null
-    
+
     var onScrollToTop: (() -> Unit)? = null
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
@@ -208,12 +208,14 @@ class MapLayerPreferenceManager(
             divider.isSelectable = false
             screen.addPreference(divider)
         }
-        
+
         val additionalLayersPreference = createLabelPreference(
             context,
             context.getString(R.string.additional_layers)
         ) {
-            val availableLayers = layers.filter { !selectedLayers.contains(it.id) }
+            val availableLayers = layers
+                .sortedBy { it.name }
+                .filter { !selectedLayers.contains(it.id) }
             Pickers.items(
                 context,
                 context.getString(R.string.additional_layers),
