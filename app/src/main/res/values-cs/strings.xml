@@ -1570,4 +1570,8 @@
     <string name="restart_app">Restartovat aplikaci</string>
     <string name="smooth">Jemné</string>
     <string name="hide_flat_ground">Skrýt plochou zemi</string>
+    <string name="move_layer_up">Přesunout vrstvu nahoru</string>
+    <string name="move_layer_down">Přesunout vrstvu dolů</string>
+    <string name="remove_layer">Odstranit vrstvu</string>
+    <string name="additional_layers">Dodatečné vrstvy</string>
 </resources>
