@@ -202,6 +202,13 @@ class MapLayerPreferenceManager(
             }
 
         // Additional layers
+        if (selectedLayers.isNotEmpty()) {
+            val divider = Preference(context)
+            divider.layoutResource = R.layout.preference_divider
+            divider.isSelectable = false
+            screen.addPreference(divider)
+        }
+        
         val additionalLayersPreference = createLabelPreference(
             context,
             context.getString(R.string.additional_layers)
