@@ -1,14 +1,17 @@
 Layers are used to display information on the map, they are configurable on the Navigation, Photo Maps, and Map tool. See the respective tool guides for how to access the layer settings.
 
-On the layer settings panel, the higher up a layer is in the list, the more "on top" it will be drawn on the map. The order is not configurable at this time.
+On the layer settings panel, the higher up a layer is in the list, the more "on top" it will be drawn on the map. You can use the arrows on the left side to adjust the order of the layers.
 
 Click on the layer's name to expand its settings.
+
+You can use the "Additional layers" button at the bottom of the layers list to add additional layers.
 
 Each layer has the following settings:
 
 - **Visible**: Determines if the layer is shown on the map. When it is not visible, the layer header will be grayed out.
 - **Opacity**: Determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
 - **Copy settings to other maps**: Copy the layer settings to other maps. Clicking this will open a dialog where you can choose which maps to copy the settings to.
+- **Remove layer**:: Remove this layer from the active layer list. You can re-add it via the "Additional layers" button.
 
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
