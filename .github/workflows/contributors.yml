@@ -39,6 +39,6 @@ jobs:
         if: steps.git-diff.outputs.changes != ''
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Update contributors"
+          title: "chore: update contributors"
           body: "This PR updates the list of contributors in the Licenses.kt file."
           branch: "update-contributors"
