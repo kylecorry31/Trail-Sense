@@ -34,6 +34,6 @@ jobs:
         if: steps.git-diff.outputs.changes != ''
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Update guides"
+          title: "chore: update guides"
           body: "This PR updates the user guide translations."
           branch: "update-user-guide-translations"
