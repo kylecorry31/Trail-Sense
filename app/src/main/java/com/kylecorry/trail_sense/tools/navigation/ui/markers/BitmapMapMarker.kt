@@ -7,10 +7,12 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 
 class BitmapMapMarker(
-    override val location: Coordinate,
+    override val location: Coordinate?,
     private val bitmap: Bitmap,
     override val size: Float = 12f,
-    private val rotation: Float? = null,
+    override val rotation: Float? = null,
+    override val rotateWithUser: Boolean = false,
+    override val scaleToLocationAccuracy: Boolean = false,
     private val tint: Int? = null,
     private val onClickFn: () -> Boolean = { false }
 ) : MapMarker {

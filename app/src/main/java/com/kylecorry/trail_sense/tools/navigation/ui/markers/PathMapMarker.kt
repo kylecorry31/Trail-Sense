@@ -9,7 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import kotlin.math.max
 
 class PathMapMarker(
-    override val location: Coordinate,
+    override val location: Coordinate?,
     private val path: Path,
     override val size: Float = 12f,
     @ColorInt private val color: Int?,
@@ -17,7 +17,9 @@ class PathMapMarker(
     private val strokeWeight: Float = 0f,
     private val pathEffect: PathEffect? = null,
     private val pathCenter: PixelCoordinate = PixelCoordinate(0f, 0f),
-    private val rotation: Float? = null,
+    override val rotation: Float? = null,
+    override val rotateWithUser: Boolean = false,
+    override val scaleToLocationAccuracy: Boolean = false,
     private val onClickFn: () -> Boolean = { false }
 ) : MapMarker {
     override fun draw(

@@ -9,14 +9,16 @@ import com.kylecorry.sol.units.Coordinate
 import kotlin.math.max
 
 class TextMapMarker(
-    override val location: Coordinate,
+    override val location: Coordinate?,
     private val text: String,
     @ColorInt private val color: Int,
     @ColorInt private val strokeColor: Int? = null,
     private val opacity: Int = 255,
     override val size: Float = 12f,
     private val strokeWeight: Float = 0.5f,
-    private val rotation: Float? = null,
+    override val rotation: Float? = null,
+    override val rotateWithUser: Boolean = false,
+    override val scaleToLocationAccuracy: Boolean = false,
     private val onClickFn: () -> Boolean = { false }
 ) : MapMarker {
     override fun draw(

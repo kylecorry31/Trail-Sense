@@ -1,178 +1,89 @@
 package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Path
 import android.os.Bundle
-import androidx.annotation.ColorInt
+import androidx.core.graphics.createBitmap
+import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.PathMapMarker
 
-class MyLocationLayer : IAsyncLayer {
-
-    override val layerId: String = LAYER_ID
-
-    private var _path: Path? = null
+class MyLocationLayer : GeoJsonLayer<MyLocationGeoJsonSource>(
+    MyLocationGeoJsonSource(),
+    layerId = LAYER_ID
+) {
     private val _showDirection = AppServiceRegistry.get<SensorService>().hasCompass()
-
-    @ColorInt
-    private var _color: Int? = null
-
     private var _drawAccuracy: Boolean = true
-
-    @ColorInt
-    private var _accuracyFillColor: Int? = null
-
-    private var updateListener: (() -> Unit)? = null
-    private var _percentOpacity: Float = 1f
-
-    override val percentOpacity: Float
-        get() = _percentOpacity
+    private var isInitialized = false
+    private var _bitmap: Bitmap? = null
 
     override fun setPreferences(preferences: Bundle) {
-        _percentOpacity = preferences.getInt(
-            DefaultMapLayerDefinitions.OPACITY,
-            DefaultMapLayerDefinitions.DEFAULT_OPACITY
-        ) / 100f
+        super.setPreferences(preferences)
         _drawAccuracy = preferences.getBoolean(SHOW_ACCURACY, DEFAULT_SHOW_ACCURACY)
     }
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
-        if (_color == null) {
-            _color = Resources.getPrimaryMarkerColor(context)
+        if (!isInitialized) {
+            val color = Resources.getPrimaryMarkerColor(context)
+            source.setStyle(
+                color,
+                Resources.getPrimaryMarkerColor(context),
+                _drawAccuracy,
+                _showDirection,
+                if (_showDirection) getArrowBitmap(context, drawer, color) else null
+            )
+            isInitialized = true
         }
 
-        if (_accuracyFillColor == null) {
-            _accuracyFillColor = Resources.getPrimaryMarkerColor(context)
+        super.draw(context, drawer, map)
+    }
+
+    private fun getArrowBitmap(context: Context, drawer: ICanvasDrawer, color: Int): Bitmap {
+        if (_bitmap != null) {
+            return _bitmap!!
         }
 
-        if (_drawAccuracy) {
-            drawAccuracy(drawer, map)
-        }
-        if (_showDirection) {
-            drawArrow(drawer, map)
-        } else {
-            drawCircle(drawer, map)
-        }
-    }
+        val size = drawer.dp(16f).toInt()
+        val bitmap = createBitmap(size, size)
+        val canvas = Canvas(bitmap)
+        val bitmapDrawer = CanvasDrawer(context, canvas)
 
-    override fun drawOverlay(
-        context: Context,
-        drawer: ICanvasDrawer,
-        map: IMapView
-    ) {
-        // Do nothing
-    }
+        val path = Path()
+        // Bottom Left
+        path.moveTo(size * 0.1f, size.toFloat())
 
-    override fun invalidate() {
-        updateListener?.invoke()
-    }
+        // Top
+        path.lineTo(size / 2f, 0f)
 
-    override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
-        return false
-    }
+        // Bottom right
+        path.lineTo(size * 0.9f, size.toFloat())
 
-    override fun setHasUpdateListener(listener: (() -> Unit)?) {
-        updateListener = listener
-    }
+        // Middle dip
+        path.lineTo(size / 2f, size * 0.8f)
 
-    private fun drawAccuracy(drawer: ICanvasDrawer, map: IMapView) {
-        val accuracy = map.userLocationAccuracy?.meters()?.value ?: 0f
-        val location = map.userLocation
-        if (map.metersPerPixel <= 0) return
+        path.close()
+        bitmapDrawer.push()
+        bitmapDrawer.fill(color)
+        bitmapDrawer.stroke(Color.WHITE)
+        bitmapDrawer.strokeWeight(2f)
+        bitmapDrawer.path(path)
+        bitmapDrawer.pop()
 
-        val sizePixels = 2 * accuracy / map.metersPerPixel * map.layerScale
-        val sizeDp = sizePixels / drawer.dp(1f)
-
-        val marker = CircleMapMarker(
-            location,
-            _accuracyFillColor ?: Color.WHITE,
-            null,
-            25,
-            sizeDp
-        )
-
-        val anchor = map.toPixel(marker.location)
-        marker.draw(
-            drawer,
-            anchor,
-            map.layerScale,
-            map.mapAzimuth + map.mapRotation,
-            map.metersPerPixel
-        )
-    }
-
-    private fun drawCircle(drawer: ICanvasDrawer, map: IMapView) {
-        val marker = CircleMapMarker(
-            map.userLocation,
-            color = _color ?: Color.WHITE,
-            strokeColor = Color.WHITE,
-            strokeWeight = 2f,
-            size = 16f
-        )
-        val anchor = map.toPixel(marker.location)
-        marker.draw(
-            drawer,
-            anchor,
-            map.layerScale,
-            map.mapAzimuth + map.mapRotation,
-            map.metersPerPixel
-        )
-    }
-
-    private fun drawArrow(drawer: ICanvasDrawer, map: IMapView) {
-        val path = _path ?: Path()
-        if (_path == null) {
-            val size = drawer.dp(16f)
-            // Bottom Left
-            path.moveTo(-size / 2.5f, size / 2f)
-
-            // Top
-            path.lineTo(0f, -size / 2f)
-
-            // Bottom right
-            path.lineTo(size / 2.5f, size / 2f)
-
-            // Middle dip
-            path.lineTo(0f, size / 3f)
-
-            path.close()
-
-            _path = path
-        }
-
-        val marker = PathMapMarker(
-            map.userLocation,
-            path,
-            size = 16f,
-            color = _color,
-            strokeColor = Color.WHITE,
-            strokeWeight = 2f,
-            rotation = map.userAzimuth.value + map.mapRotation
-        )
-
-        val anchor = map.toPixel(marker.location)
-        marker.draw(
-            drawer,
-            anchor,
-            map.layerScale,
-            map.mapAzimuth + map.mapRotation,
-            map.metersPerPixel
-        )
+        _bitmap = bitmap
+        return bitmap
     }
 
     protected fun finalize() {
-        _path = null
+        _bitmap?.recycle()
+        _bitmap = null
     }
 
     companion object {
