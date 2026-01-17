@@ -1520,5 +1520,15 @@
     <string name="map_layer_cell_towers_description">大致的信号塔位置</string>
     <string name="map_layer_navigation_description">前往导航目的地的路线</string>
     <string name="high_resolution">高分辨率</string>
-    <string name="map_layer_slope_description">根据坡度的彩色地形图</string>
+    <string name="map_layer_slope_description">基于坡度给地形着色</string>
+    <string name="aspect">朝向</string>
+    <string name="slope_color_white_to_red">白到红</string>
+    <string name="slope_color_green_to_red">绿到红</string>
+    <string name="map_layer_aspect_description">基于朝向给地形着色</string>
+    <string name="copy_error">复制错误</string>
+    <string name="view_error_details">查看错误详情</string>
+    <string name="reopen_tool">重新打开工具</string>
+    <string name="restart_app">重启应用</string>
+    <string name="smooth">平滑</string>
+    <string name="hide_flat_ground">隐藏平地</string>
 </resources>
