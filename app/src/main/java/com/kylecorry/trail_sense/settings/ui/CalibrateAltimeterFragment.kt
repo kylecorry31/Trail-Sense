@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.URLs
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.withProgress
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.DEMRepo
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelLoader
@@ -430,14 +431,15 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
             val loader = DigitalElevationModelLoader()
             try {
-                Alerts.withLoading(requireContext(), getString(R.string.loading)) {
-                    loader.load(source)
+                Alerts.withProgress(requireContext(), getString(R.string.loading)) { setProgress ->
+                    loader.load(source).collect(setProgress)
                     onMain {
                         onAltimeterModeChanged()
                         toast(getString(R.string.loaded))
                     }
                 }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                e.printStackTrace()
                 onMain {
                     toast(getString(R.string.invalid_dem_file))
                 }

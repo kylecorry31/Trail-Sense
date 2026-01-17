@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -52,7 +53,7 @@ class DEMTest {
                     }
                 }
 
-                DigitalElevationModelLoader().load(cache.getUri("dem.zip"))
+                DigitalElevationModelLoader().load(cache.getUri("dem.zip")).collect()
             } else {
                 DigitalElevationModelLoader().clear()
             }

@@ -2,13 +2,18 @@ package com.kylecorry.trail_sense.shared.dem
 
 import android.net.Uri
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.andromeda.json.JsonConvert
+import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.unzip
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.sync.withLock
 
 class DigitalElevationModelFile(
@@ -62,26 +67,31 @@ class CompressedDigitalElevationModelIndex(
 
 class DigitalElevationModelLoader {
 
-    suspend fun load(source: Uri) = onIO {
+    fun load(source: Uri): Flow<Float> = flow {
         val files = AppServiceRegistry.get<FileSubsystem>()
         val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
         val prefs = AppServiceRegistry.get<UserPreferences>()
-
         // Validate the source URI
-        files.stream(source)?.use {
-            if (!ZipUtils.list(it, MAX_ZIP_FILE_COUNT).any { it.file.name == "index.json" }) {
+        val fileCount = files.stream(source)?.use {
+            val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
+            if (!files.any { it.file.name == "index.json" }) {
                 throw IllegalArgumentException("The provided zip file does not contain a valid DEM index.json file.")
             }
-        }
+            files.size
+        } ?: 0
 
         // Clear the existing files
         DEMRepo.lock.withLock {
             files.getDirectory("dem", create = true).deleteRecursively()
 
             // Unzip the files
+            var count = 0
             files.stream(source)?.use {
-                ZipUtils.unzip(it, files.getDirectory("dem", create = true), MAX_ZIP_FILE_COUNT)
-            } ?: return@onIO
+                ZipUtils.unzip(it, files.getDirectory("dem", create = true), MAX_ZIP_FILE_COUNT) {
+                    count++
+                    emit(count / fileCount.coerceAtLeast(1).toFloat())
+                }
+            } ?: return@flow
 
             // Read the index file
             val indexFile = files.get("dem/index.json")
@@ -100,7 +110,8 @@ class DigitalElevationModelLoader {
         }
 
         DEM.invalidateCache()
-    }
+        emit(1f)
+    }.flowOn(Dispatchers.IO)
 
     suspend fun clear() = onIO {
         val prefs = AppServiceRegistry.get<UserPreferences>()
