@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
-// Last ID: 50
+// Last ID: 60
 enum class BeaconIcon(
     override val id: Long,
     @DrawableRes val icon: Int,
@@ -60,6 +60,17 @@ enum class BeaconIcon(
     Lighthouse(44, R.drawable.ic_lighthouse),
     VisitorCenter(45, R.drawable.ic_visitor_center),
 
+    // Animals and Field Guide Tags
+    Animal(51, R.drawable.paw, isUserSelectable = false),
+    Bird(52, R.drawable.bird, isUserSelectable = false),
+    Mammal(53, R.drawable.ic_deer, isUserSelectable = false),
+    Reptile(54, R.drawable.lizard, isUserSelectable = false),
+    Amphibian(55, R.drawable.frog, isUserSelectable = false),
+    Fish(56, R.drawable.fish, isUserSelectable = false),
+    Invertebrate(57, R.drawable.ant, isUserSelectable = false),
+    Fungus(58, R.drawable.mushroom, isUserSelectable = false),
+    Rock(59, R.drawable.gem, isUserSelectable = false),
+    Weather(60, R.drawable.cloud, isUserSelectable = false),
 
     // Vehicles
     Road(27, R.drawable.ic_road),
