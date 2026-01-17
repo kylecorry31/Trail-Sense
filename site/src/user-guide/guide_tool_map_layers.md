@@ -1,21 +1,14 @@
----
-title: "Map Layers"
----
-
 Layers are used to display information on the map, they are configurable on the Navigation, Photo Maps, and Map tool. See the respective tool guides for how to access the layer settings.
 
-On the layer settings panel, the higher up a layer is in the list, the more "on top" it will be drawn on the map. You can use the arrows on the left side to adjust the order of the layers.
+On the layer settings panel, the higher up a layer is in the list, the more "on top" it will be drawn on the map. The order is not configurable at this time.
 
 Click on the layer's name to expand its settings.
-
-You can use the "Additional layers" button at the bottom of the layers list to add additional layers.
 
 Each layer has the following settings:
 
 - **Visible**: Determines if the layer is shown on the map. When it is not visible, the layer header will be grayed out.
 - **Opacity**: Determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
 - **Copy settings to other maps**: Copy the layer settings to other maps. Clicking this will open a dialog where you can choose which maps to copy the settings to.
-- **Remove layer**:: Remove this layer from the active layer list. You can re-add it via the "Additional layers" button.
 
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
@@ -34,37 +27,6 @@ This layer draws shadows to help see elevation in the terrain from the digital e
 Settings:
 
 - **Draw accurate shadows**: If enabled, shadows will be drawn using the position of the sun and moon, but the 3D appearance may be reduced.
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
-
-## Slope
-This layer colors the terrain by steepness using the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
-
-Settings:
-
-- **Color**: The color scale of the pixels. The color will change based on slope steepness.
-  - **Green to red**: Green for flat areas, yellow for moderate slopes, and red for steep slopes.
-  - **White to red**: White for flat areas, yellow for moderate slopes, and red for steep slopes.
-  - **Grayscale**: Black for flat areas to white for steep slopes.
-- **Smooth**: If enabled, the slope colors will be smoothed so you can better see gradual changes.
-- **Hide flat ground**: If enabled, flat ground (slope below 10 degrees) will be invisible.
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
-
-## Ruggedness
-This layer colors the terrain by how much the elevation changes around it (ruggedness index). You can change the DEM in Settings > Altimeter.
-
-Low ruggedness is green, moderate is yellow/orange, and highly rugged terrain is red.
-
-Settings:
-
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
-
-## Aspect
-This layer colors the terrain by aspect (the direction the slope is facing) using the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
-
-Green = North, Blue = East, Red = South, Orange = West
-
-Settings:
-
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
 ## Photo Maps
@@ -126,4 +88,3 @@ This layer is not currently configurable.
 This layer shows a compass in the top-right corner of the map. It shows where true north is on the map.
 
 This layer is not currently configurable.
-
