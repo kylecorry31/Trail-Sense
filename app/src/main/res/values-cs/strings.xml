@@ -1574,4 +1574,7 @@
     <string name="move_layer_down">Přesunout vrstvu dolů</string>
     <string name="remove_layer">Odstranit vrstvu</string>
     <string name="additional_layers">Dodatečné vrstvy</string>
+    <string name="ruggedness">Členitost</string>
+    <string name="map_layer_ruggedness_description">Barevně odlišená členitost terénu na základě výškových rozdílů</string>
+    <string name="map_layer_field_guide_sightings_description">Vaše pozorování v terénním průvodci</string>
 </resources>
