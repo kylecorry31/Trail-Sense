@@ -96,6 +96,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click("Additional layers")
         click("Aspect")
         click("Cell towers")
+        click("Ruggedness")
         click("Slope")
         clickOk()
 

@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.AspectLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.RuggednessLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeLayer
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
@@ -109,6 +110,27 @@ object MapToolRegistration : ToolRegistration {
                         ),
                     )
                 ) { HillshadeLayer() },
+                MapLayerDefinition(
+                    RuggednessLayer.LAYER_ID,
+                    context.getString(R.string.ruggedness),
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_ruggedness_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = "dem_settings",
+                            title = context.getString(R.string.plugin_digital_elevation_model),
+                            type = MapLayerPreferenceType.Label,
+                            summary = context.getString(R.string.open_settings),
+                            openDemSettingsOnClick = true
+                        ),
+                        MapLayerPreference(
+                            id = RuggednessLayer.HIGH_RESOLUTION,
+                            title = context.getString(R.string.high_resolution),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = RuggednessLayer.DEFAULT_HIGH_RESOLUTION,
+                        ),
+                    )
+                ) { RuggednessLayer() },
                 MapLayerDefinition(
                     SlopeLayer.LAYER_ID,
                     context.getString(R.string.path_slope),

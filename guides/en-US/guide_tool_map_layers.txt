@@ -45,6 +45,15 @@ Settings:
 - **Hide flat ground**: If enabled, flat ground (slope below 10 degrees) will be invisible.
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
+## Ruggedness
+This layer colors the terrain by how much the elevation changes around it (ruggedness index). You can change the DEM in Settings > Altimeter.
+
+Low ruggedness is green, moderate is yellow/orange, and highly rugged terrain is red.
+
+Settings:
+
+- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
+
 ## Aspect
 This layer colors the terrain by aspect (the direction the slope is facing) using the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
 
