@@ -60,6 +60,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
                     markerShape = "circle",
                     size = 12f,
                     isClickable = true,
+                    layerId = FieldGuideSightingLayer.LAYER_ID,
                     additionalProperties = mapOf(
                         FieldGuideSightingLayer.PROPERTY_PAGE_ID to page.id
                     )

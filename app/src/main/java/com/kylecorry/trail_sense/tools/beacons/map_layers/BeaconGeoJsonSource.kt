@@ -24,10 +24,6 @@ class BeaconGeoJsonSource : GeoJsonSource {
 
     private val beaconService = AppServiceRegistry.get<BeaconService>()
 
-    fun getBeacon(feature: GeoJsonFeature): Beacon? {
-        return featureToBeaconMap[feature]
-    }
-
     override suspend fun load(
         bounds: CoordinateBounds,
         metersPerPixel: Float
@@ -58,6 +54,7 @@ class BeaconGeoJsonSource : GeoJsonSource {
                         it.color
                     ),
                     isClickable = true,
+                    layerId = BeaconLayer.LAYER_ID,
                     additionalProperties = mapOf(
                         BeaconLayer.PROPERTY_BEACON_ID to it.id
                     )
