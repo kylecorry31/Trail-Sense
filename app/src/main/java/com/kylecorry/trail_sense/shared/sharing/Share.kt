@@ -41,6 +41,7 @@ object Share {
         fragment: Fragment,
         title: String,
         actions: List<ShareAction>,
+        subtitle: String? = null,
         onAction: (action: ShareAction?) -> Unit
     ) {
 
@@ -49,7 +50,9 @@ object Share {
             ShareAction.QR to fragment.getString(R.string.qr_code),
             ShareAction.Send to fragment.getString(R.string.share_action_send),
             ShareAction.Maps to fragment.getString(R.string.maps),
-            ShareAction.File to fragment.getString(R.string.file)
+            ShareAction.File to fragment.getString(R.string.file),
+            ShareAction.Navigate to fragment.getString(R.string.navigate),
+            ShareAction.Open to fragment.getString(R.string.open)
         )
 
         val icons = mapOf(
@@ -57,7 +60,9 @@ object Share {
             ShareAction.QR to R.drawable.ic_qr_code,
             ShareAction.Send to R.drawable.ic_send,
             ShareAction.Maps to R.drawable.maps,
-            ShareAction.File to R.drawable.ic_file
+            ShareAction.File to R.drawable.ic_file,
+            ShareAction.Navigate to R.drawable.ic_beacon,
+            ShareAction.Open to R.drawable.ic_open
         )
 
         val actionItems = actions.sortedBy { it.ordinal }.map {
@@ -66,7 +71,7 @@ object Share {
             }
         }
 
-        actions(fragment, title, actionItems) {
+        actions(fragment, title, actionItems, subtitle = subtitle) {
             onAction(null)
         }
     }
@@ -102,5 +107,7 @@ enum class ShareAction {
     QR,
     Maps,
     Send,
-    File
+    File,
+    Navigate,
+    Open
 }

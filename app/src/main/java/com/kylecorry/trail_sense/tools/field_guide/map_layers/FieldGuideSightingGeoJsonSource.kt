@@ -61,7 +61,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
                     size = 12f,
                     isClickable = true,
                     additionalProperties = mapOf(
-                        GEO_JSON_PROPERTY_PAGE_ID to page.id
+                        FieldGuideSightingLayer.PROPERTY_PAGE_ID to page.id
                     )
                 )
                 point
@@ -81,10 +81,6 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
             .maxByOrNull { it.parentId != null }
 
         return tagIconMap[lowestTag] ?: BeaconIcon.Information
-    }
-
-    companion object {
-        const val GEO_JSON_PROPERTY_PAGE_ID = "page_id"
     }
 }
 

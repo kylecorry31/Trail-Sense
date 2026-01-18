@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -56,6 +57,11 @@ interface IMapView {
     val mapRotation: Float
 
     val mapBounds: CoordinateBounds
+
+    /**
+     * Set the feature click listener for the map
+     */
+    fun setOnGeoJsonFeatureClickListener(listener: ((GeoJsonFeature) -> Unit)?)
 }
 
 fun IMapView.toPixel(coordinate: Coordinate): PixelCoordinate {

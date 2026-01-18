@@ -57,7 +57,10 @@ class BeaconGeoJsonSource : GeoJsonSource {
                         Color.BLACK,
                         it.color
                     ),
-                    isClickable = true
+                    isClickable = true,
+                    additionalProperties = mapOf(
+                        BeaconLayer.PROPERTY_BEACON_ID to it.id
+                    )
                 )
                 newMap[point] = it
                 point

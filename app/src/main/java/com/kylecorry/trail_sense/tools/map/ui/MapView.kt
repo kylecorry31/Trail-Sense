@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.deltaAngle
@@ -466,5 +467,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     fun setOnCenterChangeListener(callback: ((center: Coordinate) -> Unit)?) {
         onCenterChange = callback
+    }
+
+    override fun setOnGeoJsonFeatureClickListener(listener: ((GeoJsonFeature) -> Unit)?) {
+        layerManager.setOnGeoJsonFeatureClickListener(listener)
     }
 }

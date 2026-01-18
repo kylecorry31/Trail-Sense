@@ -95,13 +95,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         // Layers
         val manager = useMemo { MapToolLayerManager() }
         useEffectWithCleanup(manager, mapView, resetOnResume) {
-            manager.resume(context, mapView)
+            manager.resume(context, mapView, this@MapFragment)
             return@useEffectWithCleanup {
                 manager.pause(mapView)
             }
         }
 
-        useEffect(mapView){
+        useEffect(mapView) {
             mapView.setBackgroundColor(Color.rgb(127, 127, 127))
         }
 
@@ -129,7 +129,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {
             manager.pause(mapView)
             layerEditSheet.setOnDismissListener {
-                manager.resume(context, mapView)
+                manager.resume(context, mapView, this@MapFragment)
             }
             layerEditSheet.show(this)
         }

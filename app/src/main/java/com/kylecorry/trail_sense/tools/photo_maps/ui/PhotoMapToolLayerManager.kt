@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.content.Context
 import android.graphics.Color
+import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -18,18 +19,15 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPrefer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.shared.sharing.GeoJsonFeatureClickHandler
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
-import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 
 class PhotoMapToolLayerManager {
 
-    private var onBeaconClick: ((Beacon) -> Unit)? = null
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
@@ -43,7 +41,7 @@ class PhotoMapToolLayerManager {
     var key: Int = 0
         private set
 
-    fun resume(context: Context, view: IMapView, photoMapId: Long) {
+    fun resume(context: Context, view: IMapView, photoMapId: Long, fragment: Fragment) {
         // User can't disable the photo maps layer
         preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
 
@@ -72,13 +70,9 @@ class PhotoMapToolLayerManager {
         photoMapLayer = view.getLayer<PhotoMapLayer>()
         photoMapLayer?.setPhotoMapFilter { it.id == photoMapId }
         photoMapLayer?.setMinZoomLevel(0)
-        view.getLayer<BeaconLayer>()?.onClick = {
-            onBeaconClick?.invoke(it)
-            true
-        }
-        view.getLayer<CellTowerMapLayer>()?.onClick = {
-            CellTowerMapLayer.navigate(it)
-            true
+
+        view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
+            GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)
         }
 
         view.start()
@@ -108,10 +102,6 @@ class PhotoMapToolLayerManager {
             )
             selectedPointLayer.setData(GeoJsonFeatureCollection(listOf(point)))
         }
-    }
-
-    fun setOnBeaconClickListener(listener: ((Beacon) -> Unit)?) {
-        onBeaconClick = listener
     }
 
     // Distance measurement
