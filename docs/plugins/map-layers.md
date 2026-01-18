@@ -24,6 +24,8 @@ The body of the plugin response must be valid GeoJSON (https://geojson.org/). Al
 
 The following JSON schemas outline what you can provide for the `properties` value for each geometry type.  Other properties in the future may include `description` and `coordinateProperties` (properties of coordinates in a LineString/Polygon).
 
+If your feature is clickable and contains a `name` property, Trail Sense may display it to the user when they select the feature. Users may also be able to show the `name` on the map depending on their settings.
+
 ### Point properties
 
 Used for Point geometries with marker support:

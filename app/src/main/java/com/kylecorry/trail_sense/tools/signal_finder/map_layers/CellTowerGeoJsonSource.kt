@@ -13,10 +13,12 @@ import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerMod
 
 class CellTowerGeoJsonSource : GeoJsonSource {
 
+    var featureName: String? = null
+
     override suspend fun load(
         bounds: CoordinateBounds,
         metersPerPixel: Float
-    ): GeoJsonObject? {
+    ): GeoJsonObject {
         val towers = CellTowerModel.getTowers(bounds)
         return GeoJsonFeatureCollection(
             towers.map {
@@ -30,6 +32,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
                     iconColor = Color.WHITE,
                     iconSize = 12f,
                     isClickable = true,
+                    name = featureName,
                     additionalProperties = mapOf(
                         GEO_JSON_PROPERTY_ACCURACY to it.accuracy.meters().value
                     )

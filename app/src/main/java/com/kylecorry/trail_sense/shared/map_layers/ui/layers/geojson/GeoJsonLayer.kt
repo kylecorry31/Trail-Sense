@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
+import com.kylecorry.trail_sense.shared.extensions.isClickable
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
@@ -14,6 +15,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import kotlinx.coroutines.CancellationException
+
+typealias OnGeoJsonFeatureClickListener = (GeoJsonFeature) -> Unit
 
 open class GeoJsonLayer<T : GeoJsonSource>(
     protected val source: T,
@@ -24,6 +27,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     val renderer = GeoJsonRenderer()
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
+    private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
 
     init {
         renderer.setOnClickListener(this::onClick)
@@ -103,8 +107,16 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         return renderer.onClick(drawer, map, pixel)
     }
 
+    fun setOnFeatureClickListener(listener: OnGeoJsonFeatureClickListener?) {
+        onFeatureClick = listener
+    }
+
     open fun onClick(feature: GeoJsonFeature): Boolean {
-        return false
+        if (onFeatureClick == null || !feature.isClickable()) {
+            return false
+        }
+        onFeatureClick?.invoke(feature)
+        return true
     }
 
     override fun stop() {

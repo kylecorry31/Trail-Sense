@@ -151,6 +151,10 @@ fun GeoJsonFeature.getStrokeWeight(): Float? {
     return getFloatProperty(GEO_JSON_PROPERTY_STROKE_WEIGHT)
 }
 
+fun GeoJsonFeature.getLayerId(): String? {
+    return getStringProperty(GEO_JSON_PROPERTY_LAYER_ID)
+}
+
 
 fun GeoJsonFeature.getSizeUnit(): SizeUnit {
     return when (getStringProperty(GEO_JSON_PROPERTY_SIZE_UNIT)) {
@@ -218,6 +222,7 @@ fun GeoJsonFeature.Companion.point(
     moveWithUserLocation: Boolean = false,
     scaleToLocationAccuracy: Boolean = false,
     bitmap: Bitmap? = null,
+    layerId: String? = null,
     bounds: CoordinateBounds? = CoordinateBounds(
         point.latitude,
         point.longitude,
@@ -246,7 +251,8 @@ fun GeoJsonFeature.Companion.point(
             GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH to rotateWithUserAzimuth,
             GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION to moveWithUserLocation,
             GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY to scaleToLocationAccuracy,
-            GEO_JSON_PROPERTY_BITMAP to bitmap
+            GEO_JSON_PROPERTY_BITMAP to bitmap,
+            GEO_JSON_PROPERTY_LAYER_ID to layerId
         ) + additionalProperties,
         boundingBox = boundingBox
     )
@@ -306,4 +312,5 @@ const val GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH = "rotateWithUserAzimuth"
 const val GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION = "moveWithUserLocation"
 const val GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY = "scaleToLocationAccuracy"
 const val GEO_JSON_PROPERTY_BITMAP = "bitmap"
+const val GEO_JSON_PROPERTY_LAYER_ID = "layerId"
 const val DEFAULT_LINE_STRING_STROKE_WEIGHT_DP = 2.25f

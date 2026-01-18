@@ -58,6 +58,10 @@ class MapCalibrationView : BasePhotoMapView {
         }
     }
 
+    override fun setOnGeoJsonFeatureClickListener(listener: ((com.kylecorry.andromeda.geojson.GeoJsonFeature) -> Unit)?) {
+        // Not supported
+    }
+
     // TODO: Support dragging the coordinates
 
     private fun drawCalibrationPoints() {

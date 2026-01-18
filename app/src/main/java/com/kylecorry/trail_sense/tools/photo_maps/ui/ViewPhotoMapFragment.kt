@@ -103,11 +103,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        layerManager.setOnBeaconClickListener {
-            if (mapLockMode != MapLockMode.Trace) {
-                navigateTo(it)
-            }
-        }
         layerManager.setOnDistanceChangedCallback(this::showDistance)
         resetLayerManager()
 
@@ -321,7 +316,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun resetLayerManager() {
-        layerManager.resume(requireContext(), binding.map, mapId)
+        layerManager.resume(requireContext(), binding.map, mapId, this)
 
         // Populate the last known location and map bounds
         layerManager.onBoundsChanged()

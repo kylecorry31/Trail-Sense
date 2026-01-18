@@ -1,8 +1,12 @@
 package com.kylecorry.trail_sense.tools.field_guide
 
 import android.content.Context
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -32,7 +36,18 @@ object FieldGuideToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     FieldGuideSightingLayer.LAYER_ID,
                     context.getString(R.string.sightings),
-                    description = context.getString(R.string.map_layer_field_guide_sightings_description)
+                    description = context.getString(R.string.map_layer_field_guide_sightings_description),
+                    openFeature = { feature, fragment ->
+                        val fieldGuidePageId =
+                            feature.getLongProperty(FieldGuideSightingLayer.PROPERTY_PAGE_ID)
+                        val navController = fragment.findNavController()
+                        navController.navigateWithAnimation(
+                            R.id.fieldGuidePageFragment,
+                            bundleOf(
+                                "page_id" to fieldGuidePageId
+                            )
+                        )
+                    }
                 ) { FieldGuideSightingLayer() }
             )
         )

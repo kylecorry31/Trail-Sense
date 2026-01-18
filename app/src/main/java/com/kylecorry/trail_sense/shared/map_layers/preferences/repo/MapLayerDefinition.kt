@@ -1,10 +1,9 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.repo
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import androidx.fragment.app.Fragment
+import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 enum class MapLayerType {
     Overlay,
@@ -37,6 +36,7 @@ data class MapLayerDefinition(
     val layerType: MapLayerType = MapLayerType.Feature,
     val attribution: MapLayerAttribution? = null,
     val description: String? = null,
+    val openFeature: ((feature: GeoJsonFeature, fragment: Fragment) -> Unit)? = null,
     val create: (context: Context) -> ILayer
 )
 

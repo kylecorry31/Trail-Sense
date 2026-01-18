@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.map.ui
 import android.content.Context
 import android.graphics.Color
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -17,14 +18,12 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.shared.sharing.GeoJsonFeatureClickHandler
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
-import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 
 class MapToolLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
@@ -34,7 +33,7 @@ class MapToolLayerManager {
 
     var key: Int = 0
 
-    fun resume(context: Context, view: IMapView) {
+    fun resume(context: Context, view: IMapView, fragment: Fragment) {
         view.setLayersWithPreferences(
             MapToolRegistration.MAP_ID,
             repo.getActiveLayerIds(MapToolRegistration.MAP_ID) +
@@ -54,14 +53,9 @@ class MapToolLayerManager {
         distanceLayer.onPathChanged = { onDistancePathChange(it) }
         distanceLayer.isEnabled = false
         view.getLayer<CompassOverlayLayer>()?.paddingTopDp = 48f
-        view.getLayer<CellTowerMapLayer>()?.onClick = {
-            CellTowerMapLayer.navigate(it)
-            true
-        }
-        view.getLayer<BeaconLayer>()?.onClick = {
-            val navigator = AppServiceRegistry.get<Navigator>()
-            navigator.navigateTo(it)
-            true
+
+        view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
+            GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)
         }
 
         view.start()

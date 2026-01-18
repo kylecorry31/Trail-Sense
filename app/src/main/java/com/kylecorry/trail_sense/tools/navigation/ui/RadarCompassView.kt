@@ -436,4 +436,8 @@ class RadarCompassView : BaseCompassView, IMapView {
             )
             return CoordinateBounds.from(geofence)
         }
+
+    override fun setOnGeoJsonFeatureClickListener(listener: ((com.kylecorry.andromeda.geojson.GeoJsonFeature) -> Unit)?) {
+        // Not supported
+    }
 }

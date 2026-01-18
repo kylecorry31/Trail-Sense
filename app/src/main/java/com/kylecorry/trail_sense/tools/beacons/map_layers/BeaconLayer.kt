@@ -1,15 +1,11 @@
 package com.kylecorry.trail_sense.tools.beacons.map_layers
 
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class BeaconLayer : GeoJsonLayer<BeaconGeoJsonSource>(BeaconGeoJsonSource(), layerId = LAYER_ID) {
-
-    var onClick: (beacon: Beacon) -> Boolean = { false }
     private val navigator = AppServiceRegistry.get<Navigator>()
     private var task = BackgroundTask {
         navigator.destination.collect {
@@ -29,16 +25,8 @@ class BeaconLayer : GeoJsonLayer<BeaconGeoJsonSource>(BeaconGeoJsonSource(), lay
         task.stop()
     }
 
-    override fun onClick(feature: GeoJsonFeature): Boolean {
-        val beacon = source.getBeacon(feature)
-        return if (beacon != null) {
-            onClick(beacon)
-        } else {
-            false
-        }
-    }
-
     companion object {
         const val LAYER_ID = "beacon"
+        const val PROPERTY_BEACON_ID = "beaconId"
     }
 }

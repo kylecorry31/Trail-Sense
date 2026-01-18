@@ -7,10 +7,20 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.OnGeoJsonFeatureClickListener
 
 class MapViewLayerManager(private val invalidateView: () -> Unit) {
 
     private var layers = listOf<ILayer>()
+    private var onGeoJsonFeatureClickListener: OnGeoJsonFeatureClickListener? = null
+
+    fun setOnGeoJsonFeatureClickListener(listener: OnGeoJsonFeatureClickListener?) {
+        onGeoJsonFeatureClickListener = listener
+        layers.filter { it is GeoJsonLayer<*> }.forEach {
+            (it as GeoJsonLayer<*>).setOnFeatureClickListener(listener)
+        }
+    }
 
 
     fun invalidate() {
@@ -42,6 +52,8 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
         this.layers = layers.toList()
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { invalidateView() } }
+        this.layers.filter { it is GeoJsonLayer<*> }
+            .forEach { (it as GeoJsonLayer<*>).setOnFeatureClickListener(onGeoJsonFeatureClickListener) }
 
         invalidateView()
     }
