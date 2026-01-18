@@ -13,10 +13,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.copyLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullDependencyPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.removeLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters.MapLayerViewPreferenceConverterFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
@@ -173,7 +171,7 @@ class MapLayerPreferenceManager(
                         }
 
                         val destinationIds = indices.map { otherMaps[it] }
-                        prefs.copyLayerPreferences(layer.id, mapId, destinationIds)
+                        repo.copyLayerPreferences(layer.id, mapId, destinationIds)
                         Alerts.toast(context, context.getString(R.string.settings_copied))
                     }
                 }
@@ -191,7 +189,7 @@ class MapLayerPreferenceManager(
                         if (!cancelled) {
                             selectedLayers.remove(layer.id)
                             repo.setActiveLayerIds(mapId, selectedLayers)
-                            prefs.removeLayerPreferences(mapId, layer.id)
+                            repo.removeLayerPreferences(mapId, layer.id)
                             populatePreferences(screen, context)
                         }
                     }
@@ -226,7 +224,7 @@ class MapLayerPreferenceManager(
                 }
                 val newLayers = selection.map { availableLayers[it].id }
                 newLayers.forEach {
-                    prefs.removeLayerPreferences(mapId, it)
+                    repo.removeLayerPreferences(mapId, it)
                 }
                 selectedLayers.addAll(newLayers)
                 repo.setActiveLayerIds(mapId, selectedLayers)

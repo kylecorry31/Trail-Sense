@@ -12,8 +12,7 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getLayerPreferencesBundle
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 
 interface IMapView {
 
@@ -95,7 +94,7 @@ fun IMapView.setLayersWithPreferences(
     forceReplaceLayers: Boolean = false
 ) {
     val loader = AppServiceRegistry.get<MapLayerLoader>()
-    val preferences = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+    val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
     val currentLayers = layerManager.getLayers()
     val newLayerIds = layerIds + additionalLayers.map { it.layerId }
     val layers = if (!forceReplaceLayers && currentLayers.map { it.layerId } == newLayerIds) {
@@ -106,7 +105,7 @@ fun IMapView.setLayersWithPreferences(
         } + additionalLayers
     }
 
-    val layerPreferences = preferences.getLayerPreferencesBundle(mapId, newLayerIds)
+    val layerPreferences = repo.getLayerPreferencesBundle(mapId, newLayerIds)
 
     val layersToPreference = layers.map { layer ->
         layer to layerPreferences[layer.layerId]
