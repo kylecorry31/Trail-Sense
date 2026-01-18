@@ -1546,4 +1546,5 @@
     <string name="ruggedness">Členitost</string>
     <string name="map_layer_ruggedness_description">Barevně odlišená členitost terénu na základě výškových rozdílů</string>
     <string name="map_layer_field_guide_sightings_description">Vaše pozorování v terénním průvodci</string>
+    <string name="sighting_label">Spatření %s</string>
 </resources>
