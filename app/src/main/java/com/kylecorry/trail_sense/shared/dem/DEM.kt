@@ -92,17 +92,10 @@ object DEM {
 
             val allSources = getSources()
 
-            // The antimeridian does not render properly unless both sides are considered
-            val secondBounds = if (bounds.west == -180.0 || bounds.east == 180.0) {
-                bounds.copy(east = -bounds.west, west = -bounds.east)
-            } else {
-                bounds
-            }
-
+            // Need to expand the bounds because the tile borders don't fully populate without it
+            val expandedBounds = bounds.grow(0.1f)
             val sources = allSources.filter {
-                it.bounds.intersects(bounds) || (bounds != secondBounds && it.bounds.intersects(
-                    secondBounds
-                ))
+                it.bounds.intersects(expandedBounds)
             }
 
             for (i in longitudes.indices) {
