@@ -405,6 +405,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.zoomOutBtn.isVisible = true
         binding.map.isZoomEnabled = true
 
+        // Make it interactive
+        binding.map.isInteractive = true
+        binding.map.isZoomEnabled = true
+
         // Show the bottom navigation
         requireMainActivity().setBottomNavigationEnabled(true)
 
