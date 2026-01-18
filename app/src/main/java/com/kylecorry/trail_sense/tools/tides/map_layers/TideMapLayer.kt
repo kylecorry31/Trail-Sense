@@ -9,6 +9,7 @@ class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource(), layerI
 
     private val timer = CoroutineTimer {
         invalidate()
+        notifyListeners()
     }
 
     override fun start() {
@@ -22,7 +23,8 @@ class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource(), layerI
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        source.showModeledTides = preferences.getBoolean(SHOW_MODELED_TIDES, DEFAULT_SHOW_MODELED_TIDES)
+        source.showModeledTides =
+            preferences.getBoolean(SHOW_MODELED_TIDES, DEFAULT_SHOW_MODELED_TIDES)
     }
 
     companion object {

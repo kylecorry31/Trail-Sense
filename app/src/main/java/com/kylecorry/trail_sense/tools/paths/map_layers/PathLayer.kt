@@ -36,6 +36,7 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
     private val onLocationChanged = { _: Bundle ->
         if (wasBacktrackOn) {
             invalidate()
+            notifyListeners()
         }
         true
     }
@@ -64,6 +65,7 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
     fun reload() {
         source.reload()
         invalidate()
+        notifyListeners()
     }
 
     companion object {

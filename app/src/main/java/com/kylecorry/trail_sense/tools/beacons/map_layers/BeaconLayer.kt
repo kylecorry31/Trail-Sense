@@ -15,6 +15,7 @@ class BeaconLayer : GeoJsonLayer<BeaconGeoJsonSource>(BeaconGeoJsonSource(), lay
         navigator.destination.collect {
             source.highlight(it)
             invalidate()
+            notifyListeners()
         }
     }
 

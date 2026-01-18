@@ -23,6 +23,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
     private var isInvalid = true
+    private var updateListener: (() -> Unit)? = null
 
     init {
         renderer.setOnClickListener(this::onClick)
@@ -56,6 +57,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
+        updateListener = listener
         renderer.setHasUpdateListener(listener)
     }
 
@@ -107,6 +109,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     override fun stop() {
         taskRunner.stop()
+    }
+
+    protected fun notifyListeners() {
+        updateListener?.invoke()
     }
 
     override var percentOpacity: Float = 1f
