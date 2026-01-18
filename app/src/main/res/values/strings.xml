@@ -1889,4 +1889,6 @@
     <string name="move_layer_down">Move layer down</string>
     <string name="remove_layer">Remove layer</string>
     <string name="additional_layers">Additional layers</string>
+    <!--%s is the name of the field guide page-->
+    <string name="sighting_label">%s sighting</string>
 </resources>
