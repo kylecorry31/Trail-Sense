@@ -7,6 +7,8 @@ import android.util.Size
 interface DataImageReader {
     fun getSize(): Size
 
+    val channels: Int
+
     /**
      * Gets a region of the image as a 3D array of floats.
      * @param rect The rectangle region to get.

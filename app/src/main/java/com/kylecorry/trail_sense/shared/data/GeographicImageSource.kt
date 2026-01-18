@@ -57,7 +57,7 @@ class GeographicImageSource(
         return (north - latitude) / verticalRes
     }
 
-    fun getPixel(location: Coordinate): PixelCoordinate {
+    fun getPixel(location: Coordinate, clamp: Boolean = true): PixelCoordinate {
         var x = getX(location.longitude)
         var y = getY(location.latitude)
 
@@ -68,6 +68,14 @@ class GeographicImageSource(
         if (y.isNaN()) {
             y = 0.0
         }
+
+        if (!clamp) {
+            return PixelCoordinate(
+                x.roundPlaces(precision).toFloat(),
+                y.roundPlaces(precision).toFloat()
+            )
+        }
+
         return PixelCoordinate(
             x.roundPlaces(precision).toFloat().coerceIn(
                 -valuePixelOffset,
@@ -90,12 +98,22 @@ class GeographicImageSource(
 
         return Coordinate(
             latitude.roundPlaces(precision),
-            longitude.roundPlaces(precision)
+            Coordinate.toLongitude(longitude.roundPlaces(precision))
         )
     }
 
-    suspend fun read(location: Coordinate): FloatArray = onIO {
-        read(getPixel(location))
+    suspend fun read(
+        location: Coordinate,
+        neighborSources: List<GeographicImageSource> = emptyList()
+    ): FloatArray = onIO {
+        val output = FloatBitmap(1, 1, reader.channels)
+        read(
+            doubleArrayOf(location.latitude),
+            doubleArrayOf(location.longitude),
+            output,
+            neighborSources
+        )
+        output.data
     }
 
     suspend fun read(pixel: PixelCoordinate): FloatArray = onIO {
@@ -105,7 +123,8 @@ class GeographicImageSource(
     suspend fun read(
         latitudes: DoubleArray,
         longitudes: DoubleArray,
-        output: FloatBitmap
+        output: FloatBitmap,
+        neighborSources: List<GeographicImageSource> = emptyList()
     ) = onIO {
         var minX = Float.MAX_VALUE
         var minY = Float.MAX_VALUE
@@ -169,7 +188,24 @@ class GeographicImageSource(
             return@onIO
         }
 
-        val interpolator = FloatBitmapInterpolator(interpolationOrder)
+        val needsCrossBoundary = neighborSources.isNotEmpty() && interpolationOrder > 0 && (
+                left == 0 || top == 0 ||
+                        right == imageSize.width || bottom == imageSize.height
+                )
+
+        val pixelProvider = if (needsCrossBoundary) {
+            val actualNeighbors = neighborSources.filter { it !== this@GeographicImageSource }
+            if (actualNeighbors.isNotEmpty()) {
+                CrossBoundaryPixelProvider(
+                    this@GeographicImageSource,
+                    pixelGrid,
+                    rect,
+                    actualNeighbors
+                )
+            } else null
+        } else null
+
+        val interpolator = FloatBitmapInterpolator(interpolationOrder, pixelProvider)
         val outputData = output.data
         val outputWidth = output.width
         val channels = output.channels
@@ -214,6 +250,10 @@ class GeographicImageSource(
 
     fun contains(location: Coordinate): Boolean {
         return bounds.contains(location)
+    }
+
+    suspend fun getRegion(rect: Rect): Pair<FloatBitmap, Boolean>? = onIO {
+        reader.getRegion(rect)
     }
 
     private fun getRect(pixels: List<PixelCoordinate>, interpolationOrder: Int): Rect? {
