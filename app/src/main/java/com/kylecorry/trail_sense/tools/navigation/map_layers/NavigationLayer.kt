@@ -46,16 +46,19 @@ class NavigationLayer :
         set(value) {
             source.useLocationWithBearing = value
             invalidate()
+            notifyListeners()
         }
 
     fun setMyLocation(location: Coordinate?) {
         source.myLocation = location
         invalidate()
+        notifyListeners()
     }
 
     fun setDestination(destination: Destination?) {
         source.destination = destination
         invalidate()
+        notifyListeners()
     }
 
     companion object {
