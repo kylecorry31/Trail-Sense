@@ -7,26 +7,17 @@ import kotlin.math.floor
 import kotlin.math.roundToInt
 
 interface PixelInterpolator {
-    fun interpolate(
+    suspend fun interpolate(
         pixel: PixelCoordinate,
-        pixels: FloatBitmap,
-        channel: Int
+        getValue: suspend (x: Int, y: Int) -> Float?
     ): Float?
 }
 
-class NearestInterpolator : PixelInterpolator {
-    override fun interpolate(
+class NearestInterpolator(private val maxSearchRadius: Int = 10) : PixelInterpolator {
+    override suspend fun interpolate(
         pixel: PixelCoordinate,
-        pixels: FloatBitmap,
-        channel: Int
+        getValue: suspend (x: Int, y: Int) -> Float?
     ): Float? {
-        // TODO: Extract this
-        val height = pixels.height
-        val width = pixels.width
-        if (width == 0 || height == 0) {
-            return null
-        }
-
         val x = pixel.x
         val y = pixel.y
         val xInt = x.roundToInt()
@@ -35,14 +26,9 @@ class NearestInterpolator : PixelInterpolator {
         var bestValue: Float? = null
         var bestDist = Float.MAX_VALUE
 
-        val maxRadius = maxOf(width, height)
-
-        fun process(cx: Int, cy: Int) {
-            if (cx < 0 || cy < 0 || cy >= height || cx >= width) {
-                return
-            }
-            val value = pixels.get(cx, cy, channel)
-            if (value.isNaN()) {
+        suspend fun process(cx: Int, cy: Int) {
+            val value = getValue(cx, cy)
+            if (value == null || value.isNaN()) {
                 return
             }
             val dx = (cx - x)
@@ -54,7 +40,7 @@ class NearestInterpolator : PixelInterpolator {
             }
         }
 
-        for (r in 0..maxRadius) {
+        for (r in 0..maxSearchRadius) {
             if (r == 0) {
                 process(xInt, yInt)
             } else {
@@ -84,20 +70,19 @@ class NearestInterpolator : PixelInterpolator {
 }
 
 class BilinearInterpolator : PixelInterpolator {
-    override fun interpolate(
+    override suspend fun interpolate(
         pixel: PixelCoordinate,
-        pixels: FloatBitmap,
-        channel: Int
+        getValue: suspend (x: Int, y: Int) -> Float?
     ): Float? {
         // Find the 4 corners
         val xFloor = pixel.x.toInt()
         val yFloor = pixel.y.toInt()
         val xCeil = xFloor + 1
         val yCeil = yFloor + 1
-        val x1y1 = pixels.getOrNull(xFloor, yFloor, channel)
-        val x1y2 = pixels.getOrNull(xFloor, yCeil, channel)
-        val x2y1 = pixels.getOrNull(xCeil, yFloor, channel)
-        val x2y2 = pixels.getOrNull(xCeil, yCeil, channel)
+        val x1y1 = getValue(xFloor, yFloor)
+        val x1y2 = getValue(xFloor, yCeil)
+        val x2y1 = getValue(xCeil, yFloor)
+        val x2y2 = getValue(xCeil, yCeil)
 
         // Not enough values to interpolate
         if (x1y1 == null || x1y2 == null || x2y1 == null || x2y2 == null ||
@@ -130,10 +115,9 @@ class BicubicInterpolator : PixelInterpolator {
         }
     }
 
-    override fun interpolate(
+    override suspend fun interpolate(
         pixel: PixelCoordinate,
-        pixels: FloatBitmap,
-        channel: Int
+        getValue: suspend (x: Int, y: Int) -> Float?
     ): Float? {
         val x = pixel.x
         val y = pixel.y
@@ -149,7 +133,7 @@ class BicubicInterpolator : PixelInterpolator {
             for (j in 0 until 4) {
                 val currentX = xInt + j - 1
                 val currentY = yInt + i - 1
-                val pixelValue = pixels.getOrNull(currentX, currentY, channel)
+                val pixelValue = getValue(currentX, currentY)
                     ?: return null
 
                 if (pixelValue.isNaN()) {

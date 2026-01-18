@@ -18,6 +18,8 @@ class EncodedDataImageReader(
     private val decoder: PixelDecoder = defaultDecoder
 ) : DataImageReader {
 
+    override val channels: Int = maxChannels ?: 4
+
     interface PixelDecoder {
         val channels: Int
         fun decode(pixel: Int, dest: FloatArray)
@@ -51,12 +53,13 @@ class EncodedDataImageReader(
                     decoder.decode(pixel, buffer)
                     for (i in 0 until channels) {
                         val value = buffer[i]
-                        val finalValue = if ((treatZeroAsNaN && SolMath.isZero(value)) || value.isNaN()) {
-                            Float.NaN
-                        } else {
-                            isAllNaN = false
-                            value
-                        }
+                        val finalValue =
+                            if ((treatZeroAsNaN && SolMath.isZero(value)) || value.isNaN()) {
+                                Float.NaN
+                            } else {
+                                isAllNaN = false
+                                value
+                            }
                         data[idx++] = finalValue
                     }
                 }

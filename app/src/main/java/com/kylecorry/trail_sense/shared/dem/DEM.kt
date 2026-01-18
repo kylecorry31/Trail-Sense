@@ -50,10 +50,12 @@ object DEM {
 
     suspend fun getElevation(location: Coordinate): Float = onDefault {
         cache.getOrPut(location) {
-            val source = getSources().firstOrNull { it.contains(location) } ?: return@getOrPut 0f
+            val allSources = getSources()
+            val source = allSources.firstOrNull { it.contains(location) } ?: return@getOrPut 0f
+            val neighbors = getNeighborSources(source, allSources)
             onIO {
                 tryOrDefault(0f) {
-                    source.read(location).first()
+                    source.read(location, neighbors).first()
                 }
             }
         }
@@ -88,14 +90,21 @@ object DEM {
             val height = latitudes.size
             val output = FloatBitmap(width, height, 1)
 
-            val sources = getSources().filter { it.bounds.intersects(bounds) }
+            val allSources = getSources()
+
+            // Need to expand the bounds because the tile borders don't fully populate without it
+            val expandedBounds = bounds.grow(0.1f)
+            val sources = allSources.filter {
+                it.bounds.intersects(expandedBounds)
+            }
 
             for (i in longitudes.indices) {
                 longitudes[i] = Coordinate.toLongitude(longitudes[i])
             }
 
             for (i in sources.indices) {
-                sources[i].read(latitudes, longitudes, output)
+                val neighbors = getNeighborSources(sources[i], allSources)
+                sources[i].read(latitudes, longitudes, output, neighbors)
             }
 
             ElevationBitmap(output, latitudes, longitudes)
@@ -205,6 +214,15 @@ object DEM {
         val distance = a.distanceTo(b)
         val bearing = a.bearingTo(b)
         return a.plus(distance * percent.toDouble(), bearing)
+    }
+
+    private fun getNeighborSources(
+        source: GeographicImageSource,
+        sources: List<GeographicImageSource>
+    ): List<GeographicImageSource> {
+        val expandedBounds = source.bounds.grow(0.1f)
+        val neighbors = sources.filter { it != source && it.bounds.intersects(expandedBounds) }
+        return neighbors
     }
 
     private suspend fun getSources(): List<GeographicImageSource> = onIO {
