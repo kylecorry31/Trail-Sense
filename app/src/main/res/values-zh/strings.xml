@@ -1234,7 +1234,7 @@
     <string name="last_known_gps_location">上个已知的 GPS 位置</string>
     <string name="timezone">时区</string>
     <string name="tide">潮汐</string>
-    <string name="field_guide">野外指南</string>
+    <string name="field_guide">野外图鉴</string>
     <string name="books">书籍</string>
     <plurals name="page_group_summary">
         <item quantity="other">%d 页</item>
@@ -1378,9 +1378,9 @@
     <string name="climate_monsoon_description">有短暂的干燥时期。</string>
     <string name="climate_warm_summer_description">为夏天温热气温进行规划。</string>
     <string name="climate_ice_cap_description">冰全年不化，没有植被。</string>
-    <string name="sightings">发现</string>
-    <string name="record_sighting">记录发现</string>
-    <string name="sightings_count">发现（%d）</string>
+    <string name="sightings">目击</string>
+    <string name="record_sighting">目击记录</string>
+    <string name="sightings_count">目击（%d）</string>
     <string name="harvested">已搜集</string>
     <string name="safe_mode_toast">检测到崩溃，正在停用一些功能几秒。</string>
     <string name="opacity">不透明</string>
@@ -1431,8 +1431,8 @@
     <string name="increase_exposure_at_night">提高夜间曝光度</string>
     <string name="show_constellations">显示星座</string>
     <string name="constellation">星座</string>
-    <string name="no_sightings">无发现</string>
-    <string name="sighting">发现</string>
+    <string name="no_sightings">无目击</string>
+    <string name="sighting">目击</string>
     <string name="sleep_sound_white_noise">白噪声</string>
     <string name="sleep_sound_pink_noise">粉红噪声</string>
     <string name="sleep_sound_brown_noise">褐色噪声</string>
@@ -1535,4 +1535,7 @@
     <string name="move_layer_down">下移图层</string>
     <string name="remove_layer">删除图层</string>
     <string name="additional_layers">附加图层</string>
+    <string name="map_layer_ruggedness_description">基于海拔变化对地形崎岖度着色</string>
+    <string name="map_layer_field_guide_sightings_description">野外图鉴目击记录</string>
+    <string name="ruggedness">崎岖度</string>
 </resources>
