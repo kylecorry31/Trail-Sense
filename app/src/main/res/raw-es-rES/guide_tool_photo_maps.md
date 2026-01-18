@@ -72,56 +72,9 @@ Para crear un sendero desde el mapa, sigue las instrucciones en la sección 'Mea
 Para más detalles sobre senderos, consulta la guía 'Rutas'.
 
 ## Capas
-Las capas se usan para mostrar información en el mapa. Puedes encontrar los ajustes de capas en Ajustes > Mapas Calibrados o a través del menú en la esquina superior derecha de la pantalla del mapa. Puedes ocultar o mostrar capas usando el interruptor junto al nombre de cada capa. El ajuste de opacidad para cada capa determina cuán transparente es la capa. 0 es totalmente transparente y 100 es totalmente opaco.
+Las capas se usan para mostrar información en el mapa. Más información sobre capas en "Capas del Mapa"
 
-### Curvas de nivel
-Esta capa muestra líneas de contorno generadas a partir del modelo digital de elevación (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa. Puedes cambiar el DEM en Ajustes > Altímetro.
-
-Ajustes:
-
-- **Show labels**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
-- **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
-
-### Torres de telefonía
-Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations. Puedes hacer clic en una torre para navegar hacia ella.
-
-### Senderos
-Esta capa muestra los senderos visibles. Puedes añadir nuevos senderos en la herramienta Paths.
-
-Ajustes:
-
-- **Background color**: El color de fondo para renderizar detrás de los senderos para mayor visibilidad.
-
-### Balizas
-Esta capa muestra las balizas visibles. Puedes añadir nuevas balizas en la herramienta Beacons. Puedes hacer clic en una baliza para navegar hacia ella.
-
-### Navegación
-Esta capa dibuja una línea entre tu ubicación y el punto de destino al que navegas.
-
-### Mareas
-Esta capa muestra mareas visibles. Puedes añadir nuevas mareas en la herramienta Tides.
-
-### Mi ubicación
-Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújula) y la precisión de tu GPS.
-
-Ajustes:
-
-- **Show GPS accuracy**: Determina si el círculo de precisión del GPS es visible.
-
-### Escala
-Esta capa muestra una barra de escala en la esquina inferior izquierda del mapa, que puede usarse para estimar distancias en el mapa.
-
-Esta capa no es actualmente configurable.
-
-### Elevación
-Esta capa muestra tu elevación en la esquina inferior derecha del mapa.
-
-Esta capa no es actualmente configurable.
-
-### Brújula
-Esta capa muestra una brújula en la esquina superior derecha del mapa. Muestra dónde está el norte verdadero en el mapa.
-
-Esta capa no es actualmente configurable.
+No puedes deshabilitar la capa "Mapas Calibrados"
 
 ## Medir distancia en un mapa
 Puedes medir distancias en un mapa abriéndolo, haciendo clic en el botón de menú en la esquina superior derecha y seleccionando 'Medir' o 'Crear ruta'. Toca el mapa para colocar marcadores y la distancia total se mostrará en la parte inferior. Para deshacer el último marcador, haz clic en el botón deshacer en la esquina inferior izquierda. Cancela haciendo clic en el botón 'X' en la esquina inferior derecha. También puedes convertir el camino dibujado en un sendero guardado haciendo clic en el botón 'Crear ruta' en la parte inferior.
