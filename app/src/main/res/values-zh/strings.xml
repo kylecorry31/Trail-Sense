@@ -1509,4 +1509,5 @@
     <string name="map_layer_ruggedness_description">基于海拔变化对地形崎岖度着色</string>
     <string name="map_layer_field_guide_sightings_description">野外图鉴目击记录</string>
     <string name="ruggedness">崎岖度</string>
+    <string name="sighting_label">%s 目击</string>
 </resources>
