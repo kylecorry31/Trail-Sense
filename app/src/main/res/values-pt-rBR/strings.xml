@@ -122,10 +122,6 @@
     <string name="degree_format">%.0f°</string>
     <string name="alerts">Alertas</string>
     <string name="storm_alerts">Alertas de tempestade</string>
-    <string name="update_90_minutes">1 hora 30 minutos</string>
-    <string name="update_120_minutes">2 horas</string>
-    <string name="update_150_minutes">2 horas 30 minutos</string>
-    <string name="update_180_minutes">3 horas</string>
     <string name="pref_compass_sensor_title">Bússola</string>
     <string name="sensors">Sensores</string>
     <string name="override_from_gps">Substituir a partir do GPS</string>
@@ -179,8 +175,6 @@
     <string name="tool_user_guide_title">Guia do Usuário</string>
     <string name="error_occurred_message">O Trail Sense encontrou um erro. Por favor, envie um e-mail ao desenvolvedor para corrigir este problema.</string>
     <string name="error_occurred">Ocorreu um erro</string>
-    <string name="update_60_minutes">1 hora</string>
-    <string name="update_30_minutes">30 minutos</string>
     <string name="pref_weather_update_frequency_title">Frequência de atualização do clima</string>
     <string name="pref_max_beacon_distance_title">Raio de pontos de orientação mais próximos</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
@@ -533,12 +527,10 @@
     <string name="pref_meteor_showers_title">Chuvas de meteoros</string>
     <string name="meteors_per_hour">Máximo %d meteoros / h</string>
     <string name="meteor_shower">Chuva de meteoros</string>
-    <string name="menu">Menu</string>
     <string name="no_tides">Sem marés</string>
     <string name="pref_nearby_radar_title">Mostrar bússola de radar nas proximidades</string>
     <string name="pref_stride_length_title">Distância de passos</string>
     <string name="pedometer">Pedômetro</string>
-    <string name="odometer">Odômetro</string>
     <string name="pref_daily_weather_time_title">Horário meteorológico diário</string>
     <string name="time_not_set">Horário não definido</string>
     <string name="half_tide">Média</string>
@@ -994,7 +986,6 @@
     <string name="learn_more">Saiba mais</string>
     <string name="yes">Sim</string>
     <string name="daylight_duration">%s luz do dia</string>
-    <string name="beta">Beta</string>
     <string name="rotation_amount">Rotação: %s</string>
     <string name="backtrack_no_permission">A função \"Recuar\" necessita da permissão de localização para funcionar</string>
     <string name="restore">Restaurar</string>
@@ -1025,7 +1016,6 @@
     <string name="times">Horários</string>
     <string name="astronomy_set">Poente</string>
     <string name="astronomy_rise">Nascente</string>
-    <string name="beta_disclaimer">Esta ferramenta está em desenvolvimento, portanto, informe quaisquer problemas ou comentários para %s.</string>
     <string name="crop_map_instructions_long">Alinhe os cantos da caixa com os cantos do mapa para salvá-lo. O corte reduzirá a resolução do mapa.</string>
     <string name="battery_settings_limit_accuracy">Restrições na bateria podem reduzir a precisão</string>
     <string name="backing_up_loading_message">Fazendo backup…</string>
@@ -1040,8 +1030,6 @@
     <string name="distance_away_from_self">%s distante</string>
     <string name="location_to_triangulate">Localização para triangular</string>
     <string name="missing_sensor_message_1">Seu dispositivo %1$s não possui %2$s disponível. Infelizmente algumas funções do %3$s não estarão disponíveis.</string>
-    <string name="settings_have_moved">As configurações mudaram de lugar</string>
-    <string name="settings_have_moved_message">As configurações do aplicativo mudaram para a barra de ferramentas</string>
     <string name="enter_manually">Colocar manualmente</string>
     <string name="location_number">Localização %d</string>
     <string name="direction">Direção</string>
@@ -1111,7 +1099,6 @@
     <string name="layers">Camadas</string>
     <string name="grid">Grade</string>
     <string name="date">Data</string>
-    <string name="max_s">Máx %s</string>
     <string name="tool_quick_action_name">Ferramenta: %s</string>
     <string name="pref_start_camera_in_3d_view_title">Use a câmera para visualização em 3D</string>
     <string name="pref_start_camera_in_3d_view_summary">Abre a câmera quando você tocar no botão \"Visualizar em 3D\"</string>
@@ -1203,17 +1190,6 @@
     <string name="star">Estrela</string>
     <string name="show_stars">Mostrar estrelas e planetas</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">Usa a posição da lua para estimar as marés. Requer o intervalo lunitidal UTC.</string>
-    <string name="approximate_location">Localização aproximada</string>
-    <string name="last_known_gps_location">Última localização conhecida a partir do GPS</string>
-    <string name="timezone">Fuso-horário</string>
-    <string name="select_star">Escolha uma estrela</string>
-    <string name="nearest_stars">Estrelas mais próximas</string>
-    <string name="stars">Estrelas</string>
-    <plurals name="star_count">
-        <item quantity="one">%d estrela</item>
-        <item quantity="many">%d estrelas</item>
-        <item quantity="other">%d estrelas</item>
-    </plurals>
     <string name="tide">Maré</string>
     <string name="tool_signal_finder">Localizador de Sinal</string>
     <string name="cell_towers">Torres de rede móvel</string>
@@ -1296,7 +1272,6 @@
     <string name="windage_miss">Erro de direção do vento</string>
     <string name="scope_adjustment">Ajuste da mira</string>
     <string name="below">Abaixo</string>
-    <string name="drop_amount">%s queda</string>
     <string name="scope">Mira</string>
     <string name="scope_height">Altura da mira</string>
     <string name="sight_in_range">Alcance da mira</string>
@@ -1383,20 +1358,15 @@
     <string name="altimeter_mode_dem_barometer">MDE + Barómetro</string>
     <string name="plugin_digital_elevation_model">Modelo digital de elevação (MDE)</string>
     <string name="loaded">Carregado</string>
-    <string name="not_set">Não definido</string>
     <string name="invalid_dem_file">Arquivo DEM inválido</string>
     <string name="remove_dem">Remover MDE</string>
     <string name="digital_elevation_model_link">Você pode baixar um modelo de elevação digital em vários tamanhos acesse %s</string>
-    <string name="import_dem_file">Importar arquivo DEM</string>
     <string name="built_in_dem">Integrado (baixa precisão)</string>
     <string name="notification_grouping">Agrupamento de notificações</string>
     <string name="ungroup_all">Desagrupar tudo</string>
     <string name="ungroup_alerts">Desagrupar alertas</string>
-    <string name="map_layer">Camada do mapa</string>
     <string name="contours">Contornos</string>
-    <string name="dem_url">URL do MDE</string>
     <string name="map">Mapa</string>
-    <string name="color_with_elevation">Contornos coloridos com base na elevação</string>
     <string name="show_labels">Mostrar títulos</string>
     <string name="planet_mercury">Mercúrio</string>
     <string name="planet_venus">Vênus</string>
@@ -1437,7 +1407,6 @@
     <string name="color_white">Branco</string>
     <string name="background_color">Cor de fundo</string>
     <string name="add_to_homescreen">Adicionar à tela inicial</string>
-    <string name="transparent">Transparente</string>
     <string name="battery_tip_disable_services">Desative serviços que você não está usando.</string>
     <string name="battery_tip_airplane_mode">Ative o modo avião para desativar todas as conexões sem fio.</string>
     <string name="battery_tip_wifi">Desligue o Wi-Fi quando não estiver no alcance de uma rede Wi-Fi ou não precisar da Internet.</string>

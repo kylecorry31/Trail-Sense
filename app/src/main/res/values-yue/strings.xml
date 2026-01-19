@@ -48,7 +48,6 @@
     <string name="temp_f_short">°F</string>
     <string name="pref_pressure_history_title">氣壓紀錄</string>
     <string name="pressure_24_hours">24 個鐘</string>
-    <string name="update_150_minutes">2 個鐘零 30 分鐘</string>
     <string name="gps_signal_lost">GPS 訊號中斷</string>
     <string name="disclaimer_message_title">免責聲明</string>
     <string name="app_disclaimer_message_title">免責聲明 / 服務條款</string>
@@ -63,11 +62,6 @@
     <string name="pressure_48_hours">48 個鐘</string>
     <string name="pressure_12_hours">12 個鐘</string>
     <string name="pressure_4_hours">4 個鐘</string>
-    <string name="update_90_minutes">1 個鐘零 30 分鐘</string>
-    <string name="update_120_minutes">2 個鐘</string>
-    <string name="update_180_minutes">3 個鐘</string>
-    <string name="update_30_minutes">30 分鐘</string>
-    <string name="update_60_minutes">1 個鐘</string>
     <string name="pref_open_source_licenses_title">授權協議</string>
     <string name="pref_category_about">關於</string>
     <string name="pref_app_version_title">版本</string>
@@ -371,7 +365,6 @@
     <string name="low_tide">退潮</string>
     <string name="half_tide">半潮</string>
     <string name="no_tides">未有潮汐</string>
-    <string name="menu">功能表</string>
     <string name="rename">改過個名</string>
     <string name="import_gpx">匯入 GPX</string>
     <string name="map_auto_calibrated">地圖已自動校正，請查驗準繩</string>
@@ -628,7 +621,6 @@
     <string name="left_quick_action">左手邊快速動作</string>
     <string name="right_quick_action">右手邊快速動作</string>
     <string name="screen_flashlight">螢幕</string>
-    <string name="odometer">里程錶</string>
     <string name="pedometer">步程計</string>
     <string name="search">搵嘢</string>
     <string name="pref_elevation_override_sea_level_dialog_title">輸入海平面氣壓</string>
@@ -729,7 +721,6 @@
     <string name="horizon">地平線</string>
     <string name="illumination">亮面</string>
     <string name="photo_map_summary">用幅相做地圖</string>
-    <string name="beta">試住先</string>
     <string name="map_file">檔案 (JPG、PNG、PDF)</string>
     <string name="peak_time">高峰</string>
     <string name="tool_clinometer_summary">估計雪崩風險同埋物件嘅高度</string>
@@ -838,7 +829,6 @@
     <string name="backing_up_loading_message">備份緊…</string>
     <string name="gps_location_accuracy">GPS 定位準繩</string>
     <string name="destination">目的地</string>
-    <string name="beta_disclaimer">呢項架生目前都係試住先，如有疏漏或意見，歡迎來鴻 %s。</string>
     <string name="missing_sensor_explanation">就算係新機或者貴價機，部份手機生產商或會選擇唔配備呢個感應器。詳情可以睇返您部機生產商嘅網站又或者問返佢哋。</string>
     <string name="why_missing_sensor">我部機新個喎/貴嘢嚟，點會爭噉個感應器㗎？</string>
     <string name="continuous_calibration">持續校正</string>
@@ -864,7 +854,6 @@
     <string name="metal_detector_disclaimer">淨係探測到磁性金屬，例如鐵</string>
     <string name="map_auto_rotated">經校正，地圖轉向已調整</string>
     <string name="pin">置頂</string>
-    <string name="settings_have_moved">設定執咗位喇</string>
     <string name="no_sensor_message">您部機冇配備%s感應器</string>
     <string name="calibrate_map_point">用已知位置校正 (%1$d / %2$d)</string>
     <string name="direction_not_set">方位未設定</string>
@@ -886,7 +875,6 @@
     <string name="missing_sensor_message_1">您部 %1$s 未有內置%2$s感應器。即係話 %3$s 嘅部份功能會用唔到，真係唔好意思。</string>
     <string name="pref_weather_update_frequency_title">氣象幾耐更新一次</string>
     <string name="strobe_warning_title">閃光燈</string>
-    <string name="settings_have_moved_message">個 App 嘅設定，已經搬咗落去架生版面入面</string>
     <string name="no_sensor_unable_to_fix">好可惜，呢個係硬件規格問題，冇得話加返落去。</string>
     <string name="on_map">擺落地圖上面</string>
     <string name="find_next_occurrence">搵下一次幾時出現</string>
@@ -1011,7 +999,6 @@
     <string name="precipitation_snow_grains">毛毛雪</string>
     <string name="temporary">臨時</string>
     <string name="ar_calibration_disclaimer">每次用「擴充實境」架生之前，請查驗個太陽或月亮公仔係咪已經同真實世界對齊。若果唔齊整，請撳一下畫面左上角嘅羅經公仔並跟指示校正。</string>
-    <string name="max_s">最高 %s</string>
     <string name="background">幕後</string>
     <string name="quick_actions">快速動作</string>
     <string name="sunrise_alert_notification_title">太陽就快上山</string>
@@ -1096,9 +1083,6 @@
     <string name="ar_layer_override_message">片區大集會喺 (譬如「天文」指引) 引導之下，旁觀者或被指導成行動派。</string>
     <string name="books">秘笈</string>
     <string name="field_guide">自然要識野</string>
-    <plurals name="star_count">
-        <item quantity="other">%d 粒星星</item>
-    </plurals>
     <plurals name="page_group_summary">
         <item quantity="other">%d 版</item>
     </plurals>

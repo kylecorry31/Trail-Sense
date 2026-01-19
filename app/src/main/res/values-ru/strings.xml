@@ -50,12 +50,6 @@
     <string name="pref_app_version_title">Версия</string>
     <string name="pref_category_about">О программе</string>
     <string name="pref_open_source_licenses_title">Лицензии</string>
-    <string name="update_60_minutes">1 час</string>
-    <string name="update_30_minutes">30 минут</string>
-    <string name="update_180_minutes">3 часа</string>
-    <string name="update_150_minutes">2 часа 30 минут</string>
-    <string name="update_120_minutes">2 часа</string>
-    <string name="update_90_minutes">1 час 30 минут</string>
     <string name="always">Всегда</string>
     <string name="pref_weather_update_frequency_title">Частота обновления погоды</string>
     <string name="pref_monitor_weather_title">Следить за погодой</string>
@@ -472,12 +466,10 @@
     <string name="meteor_shower">Звездопад</string>
     <string name="pedometer_disclaimer">Точность шагомера и его использование батареи зависят от производителя вашего устройства и введенной длины шага. Попробуйте походить немного дома, чтобы проверить разряд батареи и точность перед использованием на тропе.</string>
     <string name="meteors_per_hour">Максимум %d метеоров в час</string>
-    <string name="menu">Меню</string>
     <string name="no_tides">Нет приливов</string>
     <string name="pref_nearby_radar_title">Показать компас ближнего радара</string>
     <string name="pref_stride_length_title">Длина шага</string>
     <string name="pedometer">Шагомер</string>
-    <string name="odometer">Одометр</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="import_gpx">Импорт GPX</string>
     <string name="error_importing_map">Ошибка при импорте карты</string>
@@ -1010,7 +1002,6 @@
     <string name="daylight_duration">%s дневной свет</string>
     <string name="times">Времена</string>
     <string name="astronomy_set">Закат</string>
-    <string name="beta">Бета-версия</string>
     <string name="magnitude">Величина</string>
     <string name="unable_to_find_next_astronomy">Не удается найти следующий %s</string>
     <string name="compass_source_legacy_ts">Старый (Trail Sense)</string>
@@ -1107,14 +1098,11 @@
     <string name="no_sensor_message">На вашем устройстве нет датчика %s</string>
     <string name="no_qr_code_detected">QR-код не обнаружен</string>
     <string name="astronomy_altitude_peak">Пиковая высота</string>
-    <string name="beta_disclaimer">Этот инструмент в настоящее время находится в стадии бета-тестирования, поэтому пожалуйста сообщайте о любых проблемах или отзывах по адресу %s.</string>
     <string name="magnetic_north">Магнитный Север</string>
     <string name="pinned">Прикреплено</string>
     <string name="unpin">Открепить</string>
     <string name="pin">Прикрепить</string>
     <string name="tool_long_press_hint_toast">Длинное нажатие чтобы увидеть больше опций</string>
-    <string name="settings_have_moved">Настройки перемещены</string>
-    <string name="settings_have_moved_message">Настройки приложения были перенесены на вкладку Инструменты</string>
     <string name="missing_sensor_message_1">Ваш %1$s не имеет встроенного датчика %2$s. К сожалению это означает что некоторые функции в %3$s не будут доступны.</string>
     <string name="is_there_a_way_to_fix_this">Есть ли способ исправить это?</string>
     <string name="no_sensor_unable_to_fix">Нет, к сожалению, это аппаратная функция, поэтому нет ничего, что можно сделать, чтобы добавить ее.</string>
@@ -1144,7 +1132,6 @@
     <string name="grid">Сетка</string>
     <string name="ar_layer_override_message">Настройки слоев могут быть переопределены по руководству, таким как руководство по Астрономии.</string>
     <string name="date">Дата</string>
-    <string name="max_s">Макс %s</string>
     <string name="show_dial_ticks_on_nearby_radar">Показать насечки на ближнем радаре</string>
     <string name="map_calibration_instructions">Коснитесь известного местоположения на карте, затем введите реальные координаты. Вы можете сохранить калибровку нажав кнопку «Готово».
 \n
@@ -1207,7 +1194,6 @@
     <string name="sunset">Закат</string>
     <string name="crafting">Ремесло</string>
     <string name="no_directory_selected">Не выбрана папка</string>
-    <string name="stars">Звёзды</string>
     <string name="pref_start_camera_in_3d_view_summary">Открывает камеру, когда вы нажимаете на 3D-кнопку</string>
     <string name="background">Фон</string>
     <string name="estimate_method">Метод оценки</string>
@@ -1218,19 +1204,11 @@
     <string name="pressure_chart">Диаграмма давления</string>
     <string name="nearby_beacons">Ближайшие ориентиры</string>
     <string name="star">Звезда</string>
-    <string name="approximate_location">Приблизительное местоположение</string>
-    <string name="timezone">Часовой пояс</string>
     <plurals name="page_group_summary">
         <item quantity="one">%d страница</item>
         <item quantity="few">%d страницы</item>
         <item quantity="many">%d страниц</item>
         <item quantity="other">%d страниц</item>
-    </plurals>
-    <plurals name="star_count">
-        <item quantity="one">%d звезда</item>
-        <item quantity="few">%d звезды</item>
-        <item quantity="many">%d звёзд</item>
-        <item quantity="other">%d звёзд</item>
     </plurals>
     <plurals name="number_steps">
         <item quantity="one">%d шаг</item>
@@ -1245,10 +1223,8 @@
     <string name="pref_flashlight_control_screen_with_volume_title">Управлять яркостью экрана как фонарика кнопками громкости</string>
     <string name="tide_clock">Часы прилива</string>
     <string name="tide_chart">График приливов</string>
-    <string name="nearest_stars">Ближайшие звёзды</string>
     <string name="tide">Прилив</string>
     <string name="field_guide">Краткое руководство</string>
-    <string name="select_star">Выберите звезду</string>
     <string name="automatic_backup">Автоматическое резервное копирование</string>
     <string name="select_backup_directory">Выберите папку для хранения</string>
     <string name="auto_backup_instructions">Резервное копирование будет создаваться раз в день до %1$s. Будут сохранены только последние %2$d.</string>
@@ -1293,7 +1269,6 @@
     <string name="water">Вода</string>
     <string name="field_required">%s (требуется)</string>
     <string name="on_import">Что импортированно</string>
-    <string name="last_known_gps_location">Последнее известное местоположение GPS</string>
     <string name="communication">Связь</string>
     <string name="arachnid">Арахнид</string>
     <string name="path_distance_performance_disclaimer">Рекомендуемый максимум %s</string>

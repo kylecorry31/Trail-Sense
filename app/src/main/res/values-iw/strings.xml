@@ -318,8 +318,6 @@
     <string name="calibrate_compass_dialog_title">כיול מצפן</string>
     <string name="calibrate_compass_dialog_content">יש לסובב את הטלפון בתבנית איור 8 או בכל הכיוונים מספר פעמים, וללחוץ על %s בסיום.</string>
     <string name="request_permission">בקשת הרשאה</string>
-    <string name="update_150_minutes">שעתיים וחצי</string>
-    <string name="update_30_minutes">30 דקות</string>
     <string name="pref_github_title">GitHub</string>
     <string name="group">קבוצה</string>
     <string name="other">אחר</string>
@@ -379,18 +377,14 @@
     <string name="pref_display_multi_beacons_summary">הצג את המשואות הקרובות ביותר על המצפן</string>
     <string name="pressure_24_hours">24 שעות</string>
     <string name="pref_center_sun_and_moon_title">שמור על מרכז השמש/ירח</string>
-    <string name="update_60_minutes">שעה אחת</string>
     <string name="tool_user_guide_title">מדריך למשתמש</string>
     <string name="error_occurred_message">Trail Sense נתקל בשגיאה. יש לשלח דוא\"ל למפתח כדי לפתור בעיה זו.</string>
-    <string name="update_90_minutes">שעה וחצי</string>
-    <string name="update_120_minutes">שעתיים</string>
     <string name="unit_nautical_miles">מיילים ימיים</string>
     <string name="guide_recommended_apps">יישומים מומלצים</string>
     <string name="three">3</string>
     <string name="water_purification_step_2">הרתחת מים עד לבעבוע</string>
     <string name="water_purification_step_3">הפעל את שעון העצר</string>
     <string name="clock_waiting_for_gps">מעדכן זמן מ-GPS…</string>
-    <string name="update_180_minutes">3 שעות</string>
     <string name="pref_open_source_licenses_title">רישיונות</string>
     <string name="pref_category_about">אודות</string>
     <string name="water_boil_timer">טיימר להרתחת מים</string>
@@ -557,7 +551,6 @@
     <string name="left_quick_action">פעולה מהירה שמאלה</string>
     <string name="right_quick_action">פעולה מהירה ימינה</string>
     <string name="pref_daily_weather_time_title">זמן מזג אוויר יומי</string>
-    <string name="odometer">מד מרחק</string>
     <string name="location_not_set">מיקום לא מוגדר</string>
     <string name="guide_light_meter_description">כיצד לקבוע את מרחק האלומה של פנסים</string>
     <string name="todays_forecast">התחזית להיום</string>
@@ -580,7 +573,6 @@
     <string name="low_tide">נמוך</string>
     <string name="pref_stride_length_title">אורך פסיעה</string>
     <string name="no_tides">אין גאות ושפל</string>
-    <string name="menu">תפריט</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">מקסימום %d מטאורים/שעה</string>
     <string name="on_map">על המפה</string>
     <string name="experimental">ניסיוני</string>
@@ -941,8 +933,6 @@
     <string name="allow_schedule_exact_alarms">אפשר ל-%s להגדיר התראות ותזכורות</string>
     <string name="exact_alarm_permission_denied">התראןת ותזכורות נדחו, התראות עשויות להיות לא מדויקות.</string>
     <string name="photo_map_summary">שימוש בתמונה כמפה</string>
-    <string name="beta">בטא</string>
-    <string name="beta_disclaimer">כלי זה נמצא כעת בגרסת בטא, נא לדווח על בעיות או משוב בכתובת %s.</string>
     <plurals name="map_group_summary">
         <item quantity="one">מפה אחת</item>
         <item quantity="two">%d מפות</item>
@@ -997,8 +987,6 @@
     <string name="missing_sensor_explanation">חלק מיצרני הטלפונים בוחרים שלא להוסיף חיישן זה, אפילו בהתקנים חדשים או יקרים. ניתן לקבל מידע נוסף על ידי ביקור באתר האינטרנט של יצרן ההתקן שלך או יצירת קשר איתם.</string>
     <string name="no_sensor_unable_to_fix">לא, למרבה הצער זו תכונת חומרה, אז אין מה לעשות כדי להוסיף אותה.</string>
     <string name="backup_restore">גיבוי / שחזור</string>
-    <string name="settings_have_moved_message">הגדרות היישום הועברו לכרטיסייה כלים</string>
-    <string name="settings_have_moved">ההגדרות הועברו</string>
     <string name="pinned">מוצמד</string>
     <string name="gps_accuracy_tip">יש לוודא שיש לך נוף ללא הפרעה לשמים, ולהתרחק מבניינים גבוהים ועצים.</string>
     <string name="triangulate_self_location_1_instructions">בחירת מיקום ידוע שבו ניתן לראות ולתעד את הכיוון מהמקום שבו הינך נמצא למיקום זה.</string>
@@ -1025,7 +1013,6 @@
     <string name="restore_disclaimer">פעולה זו תחליף את כל הנתונים הנוכחיים שלך. נא לוודא שיש לך גיבוי לפני שתמשיך.\n\nיש לבחור רק קובץ גיבוי שיצרת עם %s ועם אמון.</string>
     <string name="pin">הצמדה</string>
     <string name="distance_away_from_self">%s משם</string>
-    <string name="select_star">בחירת כוכב</string>
     <string name="sunrise_alert_notification_title">השמש עולה בקרוב</string>
     <string name="sunrise_alerts">התראות זריחה</string>
     <string name="mirror_camera">מצלמת מראה</string>
@@ -1096,19 +1083,12 @@
     <string name="pref_enable_analog_title">שעון אנלוגי</string>
     <string name="augmented_reality_no_gyro_message">עדיין ניתן להשתמש בכלי המציאות הרבודה, אך הוא לא יהיה מדויק באותה מידה.</string>
     <string name="screen_flashlight_full_name">פנס מסך</string>
-    <plurals name="star_count">
-        <item quantity="one">כוכב אחד</item>
-        <item quantity="two">%d כוכבים</item>
-        <item quantity="other">%d כוכבים</item>
-    </plurals>
     <string name="magnetometer_gyro_custom">מגנטומטר + ג\'ירו (מותאם אישית)</string>
     <string name="tool_quick_action_summary">לחיצה ארוכה על הניווט התחתון או צפייה בלשונית הכלים</string>
     <string name="tide_chart">תרשים גאות ושפל</string>
     <string name="tide_estimation_description_lunitidal_interval_auto">משתמש במיקום הירח להערכת גאות ושפל. דורש לפחות גאות אחת ידועה.</string>
     <string name="tide_estimation_description_lunitidal_interval_local">משתמש במיקום הירח להערכת גאות ושפל. דורש את מרווח הזמן הלוניטידלי המקומי ואת המיקום.</string>
     <string name="show_stars">הצגת כוכבים</string>
-    <string name="approximate_location">מיקום משוער</string>
-    <string name="last_known_gps_location">המיקום האחרון הידוע לפי GPS</string>
     <string name="plant">צמחים</string>
     <string name="right">ימין</string>
     <string name="distance_to_target">מרחק למטרה</string>
@@ -1233,7 +1213,6 @@
     <string name="fast_path_rendering_summary">משפר ביצועים על חשבון הניראות</string>
     <string name="fast_path_rendering">רינדור מהיר של נתיב</string>
     <string name="reset_calibration_question">לאפס כיול?</string>
-    <string name="drop_amount">%s ירידה</string>
     <string name="pref_tiles_battery_log">יומן סוללה</string>
     <string name="pref_dialog_battery_log_summary">יומן הסוללה מושבת, ייתכן שההיסטוריה והזמן עד להתרוקנות אינם זמינים. ניתן להפעיל זאת מחדש בהגדרות</string>
     <string name="muzzle_velocity">מהירות לוע</string>
@@ -1253,7 +1232,6 @@
     <string name="dynamic_colors">צבעים דינאמיים</string>
     <string name="show_dial_ticks_on_nearby_radar">הצגת סימני חוגה על מכ\"ם סמוך</string>
     <string name="ar_calibration_instructions_hint">לכיול כלי המציאות הרבודה, יש להקיש על הסמל בפינה השמאלית העליונה של המסך ולפעול לפי ההוראות שמופיעות.</string>
-    <string name="max_s">מקסימום %s</string>
     <string name="climate_temperature_amount">טמפרטורה: %s</string>
     <string name="climate_precipitation_amount">משקעים: %s סך חודשי</string>
     <string name="source_era5">מקור: ERA5</string>
@@ -1277,9 +1255,6 @@
     <string name="harmonic">הרמוני</string>
     <string name="survival_guide">מדריך הישרדות</string>
     <string name="unit_caliber">קליבר</string>
-    <string name="timezone">אזור זמן</string>
-    <string name="nearest_stars">הכוכבים הסמוכים</string>
-    <string name="stars">כוכבים</string>
     <string name="tide">גאות ושפל</string>
     <string name="field_guide">מדריך שטח</string>
     <string name="books">ספרים</string>

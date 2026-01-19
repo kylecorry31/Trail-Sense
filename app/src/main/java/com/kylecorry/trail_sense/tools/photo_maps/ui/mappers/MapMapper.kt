@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.ui.mappers
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Size
+import androidx.core.graphics.createBitmap
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -126,7 +127,7 @@ class MapMapper(
 
     private fun getDefaultMapThumbnail(): Bitmap {
         val size = Resources.dp(context, 48f).toInt()
-        return Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        return createBitmap(size, size)
     }
 
 }

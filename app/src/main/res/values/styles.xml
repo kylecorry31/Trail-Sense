@@ -72,11 +72,6 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="AppTheme.CircleImageView">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
     <style name="AppBottomSheetDialogTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppBottomSheetModalStyle</item>
     </style>
@@ -94,10 +89,6 @@
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
         <item name="dialogCornerRadius">@dimen/rounded_corner_size</item>
-    </style>
-
-    <style name="ButtonTheme" parent="Widget.Material3.Button">
-        <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
     </style>
 
     <style name="ThemeOverlay.App.ElevatedButton" parent="Widget.Material3.Button.ElevatedButton">

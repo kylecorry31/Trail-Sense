@@ -272,12 +272,6 @@
     <string name="always">Always</string>
     <string name="sun_moon_compass_when_up">When up</string>
     <string name="pref_center_sun_and_moon_title">Keep sun/moon centered</string>
-    <string name="update_90_minutes">1 hour 30 minutes</string>
-    <string name="update_120_minutes">2 hours</string>
-    <string name="update_150_minutes">2 hours 30 minutes</string>
-    <string name="update_180_minutes">3 hours</string>
-    <string name="update_30_minutes">30 minutes</string>
-    <string name="update_60_minutes">1 hour</string>
     <string name="pref_sunset_alert_time_title">Sunset alert time</string>
     <string name="pref_sunrise_alert_time_title">Sunrise alert time</string>
     <!--Settings - About-->
@@ -639,7 +633,6 @@
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
     <string name="speedometer">Speedometer</string>
     <string name="since_time">since %s</string>
-    <string name="odometer">Odometer</string>
     <string name="pedometer">Pedometer</string>
     <string name="pref_stride_length_title">Stride length</string>
     <string name="pref_stride_length_holder" translatable="false">pref_stride_length_holder</string>
@@ -650,7 +643,6 @@
     <string name="pref_nearby_radius_holder" translatable="false">pref_nearby_radius_holder</string>
     <string name="pref_view_distance_beacons_holder" translatable="false">pref_view_distance_beacons_holder</string>
     <string name="no_tides">No tides</string>
-    <string name="menu">Menu</string>
     <string name="meteor_shower">Meteor shower</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteors / h</string>
     <string name="pref_meteor_showers_title">Meteor showers</string>
@@ -1075,7 +1067,6 @@
     <string name="distance_alert_distance_reached">You have reached %s</string>
     <string name="off">Off</string>
     <string name="save">Save</string>
-    <string name="transparent">Transparent</string>
     <string name="saved">Saved</string>
     <string name="estimate_stride_length">Estimate stride length</string>
     <string name="pref_estimate_stride_length_holder" translatable="false">pref_estimate_stride_length_holder</string>
@@ -1254,9 +1245,6 @@
     <string name="photo_map_summary">Use a photo as a map</string>
     <string name="photo_map_disclaimer">Always carry a physical map for backup and verify the accuracy of Trail Sense.</string>
     <string name="photo_map_disclaimer_shown" translatable="false">photo_map_disclaimer_shown</string>
-    <string name="beta">Beta</string>
-    <!-- The %s is the email address for Trail Sense-->
-    <string name="beta_disclaimer">This tool is currently in beta, so please report any issues or feedback to %s.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Cropping the map will still reduce resolution. If you need to crop the map at a high resolution, please use a photo editor app. There are plans to fix this in the future.</string>
     <string name="reduce_map_resolution_crop_disclaimer_shown" translatable="false">reduce_map_resolution_crop_disclaimer_shown</string>
     <string name="crop_map_instructions_long">Drag the corners of the box to the corners of the map to outline. Cropping will reduce resolution of the map.</string>
@@ -1333,8 +1321,6 @@
     <string name="pref_tool_quick_action_header_key" translatable="false">pref_tool_quick_action_header_key</string>
     <string name="pref_tool_quick_actions" translatable="false">pref_tool_quick_actions</string>
     <string name="pref_pinned_tools" translatable="false">pref_pinned_tools</string>
-    <string name="settings_have_moved">Settings have moved</string>
-    <string name="settings_have_moved_message">App settings have been moved to the Tools tab</string>
     <!--The first %s is the device model, the second %s is the sensor name, and the third %s is the app name (Trail Sense)-->
     <string name="missing_sensor_message_1">Your %1$s does not have a built-in %2$s sensor. Unfortunately, this means that some features in %3$s won\’t be available.</string>
     <string name="is_there_a_way_to_fix_this">Is there a way to fix this?</string>
@@ -1413,10 +1399,6 @@
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>
     </plurals>
-    <plurals name="star_count">
-        <item quantity="one">%d star</item>
-        <item quantity="other">%d stars</item>
-    </plurals>
     <string name="select_from_gallery">Select from gallery</string>
     <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Custom)</string>
     <string name="pref_augmented_reality_mapper" translatable="false">pref_augmented_reality_mapper</string>
@@ -1446,8 +1428,6 @@
     <string name="date">Date</string>
     <string name="pref_ar_layer_settings_astronomy_date_holder" translatable="false">pref_ar_layer_settings_astronomy_date_holder</string>
     <string name="pref_camera_settings" translatable="false">pref_camera_settings</string>
-    <!--    Maximum value (ex. Max 100 ft)-->
-    <string name="max_s">Max %s</string>
     <!--%s will be distance (ex. 100 ft)-->
     <string name="path_distance_performance_disclaimer">Recommended maximum of %s</string>
     <string name="ar_calibration_disclaimer">Before each use of the Augmented Reality tool, verify the sun or moon icons are properly aligned to the real world. If not, click the compass icon in the top left of the screen and follow the instructions to calibrate.</string>
@@ -1552,12 +1532,6 @@
     <string name="show_below_horizon">Show below horizon</string>
     <string name="pref_show_ar_constellations" translatable="false">pref_show_ar_constellations</string>
     <string name="show_stars">Show stars and planets</string>
-    <string name="approximate_location">Approximate location</string>
-    <string name="last_known_gps_location">Last known GPS location</string>
-    <string name="timezone">Timezone</string>
-    <string name="nearest_stars">Nearest stars</string>
-    <string name="select_star">Select star</string>
-    <string name="stars">Stars</string>
     <string name="tide">Tide</string>
     <string name="field_guide">Field Guide</string>
     <string name="books">Books</string>
@@ -1640,8 +1614,6 @@
     <string name="muzzle_velocity">Muzzle velocity</string>
     <!--The distance that the firearm is sighted in for-->
     <string name="sight_in_range">Sight-in range</string>
-    <!--Bullet drop, %s is the distance of drop-->
-    <string name="drop_amount">%s drop</string>
     <string name="ballistic_coefficient">Ballistic coefficient</string>
     <string name="time_header_units">Time (%s)</string>
     <string name="range_header_units">Range (%s)</string>
@@ -1705,12 +1677,6 @@
     <string name="harvested">Harvested</string>
     <string name="sightings">Sightings</string>
     <string name="sightings_count">Sightings (%d)</string>
-    <string name="pref_navigation_map_layer_enabled" translatable="false">pref_navigation_map_layer_enabled</string>
-    <string name="pref_navigation_map_layer_opacity" translatable="false">pref_navigation_map_layer_opacity</string>
-    <string name="pref_photo_maps_contour_layer_enabled" translatable="false">pref_photo_maps_contour_layer_enabled</string>
-    <string name="pref_photo_maps_contour_layer_opacity" translatable="false">pref_photo_maps_contour_layer_opacity</string>
-    <string name="pref_photo_maps_contour_layer_show_labels" translatable="false">pref_photo_maps_contour_layer_show_labels</string>
-    <string name="pref_photo_maps_contour_layer_color_with_elevation" translatable="false">pref_photo_maps_contour_layer_color_with_elevation</string>
     <string name="safe_mode_toast">Crashes detected, disabling some features for a few seconds.</string>
     <string name="opacity">Opacity</string>
     <string name="pref_navigation_keep_unlocked" translatable="false">pref_navigation_keep_unlocked</string>
@@ -1743,12 +1709,9 @@
     <string name="altimeter_mode_dem_barometer">DEM + Barometer</string>
     <string name="pref_load_dem_button" translatable="false">pref_load_dem_button</string>
     <string name="pref_clear_dem_button" translatable="false">pref_clear_dem_button</string>
-    <string name="not_set">Not set</string>
     <string name="loaded">Loaded</string>
     <!--DEM = Digital Elevation Model-->
     <string name="invalid_dem_file">Invalid DEM file</string>
-    <!--DEM = Digital Elevation Model-->
-    <string name="import_dem_file">Import DEM file</string>
     <string name="built_in_dem">Built-in (low accuracy)</string>
     <string name="pref_altimeter_dem_loaded" translatable="false">pref_altimeter_dem_loaded</string>
     <string name="digital_elevation_model_link">You can download a digital elevation model in various sizes from %s</string>
@@ -1757,15 +1720,11 @@
     <string name="ungroup_all">Ungroup all</string>
     <string name="ungroup_alerts">Ungroup alerts</string>
     <string name="contours">Contours</string>
-    <string name="map_layer">Map layer</string>
     <string name="map_attribution_format">Map data © %s</string>
-    <string name="pref_dem_url" translatable="false">pref_dem_url</string>
-    <string name="dem_url">DEM URL</string>
     <string name="map">Map</string>
     <!--A world map that is the background for the map-->
     <string name="basemap">Basemap</string>
     <string name="show_labels">Show labels</string>
-    <string name="color_with_elevation">Color contours based on elevation</string>
     <string name="planet_mercury">Mercury</string>
     <string name="planet_venus">Venus</string>
     <string name="planet_mars">Mars</string>

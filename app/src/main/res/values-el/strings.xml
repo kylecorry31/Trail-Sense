@@ -418,7 +418,6 @@
     <string name="delete_map_group_message">%s και όλοι οι χάρτες του θα διαγραφούν.</string>
     <string name="tool_thermometer_title">Θερμόμετρο</string>
     <string name="time_until_empty">μέχρι την κένωση</string>
-    <string name="menu">Μενού</string>
     <string name="diamond">Διαμαντοειδές</string>
     <string name="tool_boil_summary">Εκτιμήστε πότε το νερό είναι πόσιμο</string>
     <string name="pref_backtrack_save_cell_title">Καταγραφή σήματος δικτύου κινητής τηλεφωνίας</string>
@@ -531,7 +530,6 @@
     <string name="distance_from">Από</string>
     <string name="action_inventory_clear_confirm">Εκκαθάριση όλων των συσκευασμένων ποσοτήτων;</string>
     <string name="pref_show_sun_moon_compass_title">Εμφάνιση ηλίου/σελήνης στην πυξίδα</string>
-    <string name="update_60_minutes">1 ώρα</string>
     <string name="always">Πάντα</string>
     <string name="unit_kilometers">Χιλιόμετρα</string>
     <string name="clear_cache">Καθαρισμός κρυφής μνήμης</string>
@@ -541,7 +539,6 @@
     <string name="pref_privacy_policy_title">Πολιτική απορρήτου</string>
     <string name="cirrocumulus">Θυσανοσωρείτες</string>
     <string name="unit_centimeters_abbreviation">cm</string>
-    <string name="odometer">Χιλιομετρητής</string>
     <string name="battery_health_overheat">Υπερθέρμανση</string>
     <string name="hide">Απόκρυψη</string>
     <string name="quart_format">%s qt</string>
@@ -670,7 +667,6 @@
     <string name="pref_daily_weather_time_title">Ώρα ημερήσιας πρόγνωσης καιρού</string>
     <string name="elevation_history">Ιστορικό υψομέτρου</string>
     <string name="gps_user">Χρήστης</string>
-    <string name="update_120_minutes">2 ώρες</string>
     <string name="time_until_full">μέχρι την πλήρωση</string>
     <string name="battery_warning">Προειδοποίηση εξάντλησης της μπαταρίας</string>
     <string name="tides">Παλίρροιες</string>
@@ -688,7 +684,6 @@
     <string name="tool_white_noise_summary">Σας βοηθά να αποκοιμηθείτε</string>
     <string name="note">Σημείωση</string>
     <string name="no_issues">Δεν εντοπίστηκαν ζητήματα</string>
-    <string name="update_30_minutes">30 λεπτά</string>
     <string name="elevation">Υψόμετρο</string>
     <string name="pack_sort_weight_low_to_high">Βάρος (χαμηλό προς υψηλό)</string>
     <string name="packed_amount">Συσκευασμένη ποσότητα</string>
@@ -703,11 +698,8 @@
     <string name="battery_health">Υγεία: %s</string>
     <string name="barometer">Βαρόμετρο</string>
     <string name="clouds">Νέφη</string>
-    <string name="update_90_minutes">1 ώρα 30 λεπτά</string>
     <string name="three">3</string>
     <string name="pack_sort_weight_high_to_low">Βάρος (υψηλό προς χαμηλό)</string>
-    <string name="update_180_minutes">3 ώρες</string>
-    <string name="update_150_minutes">2 ώρες 30 λεπτά</string>
     <string name="pref_num_visible_beacons_title">Κοντινά τοπόσημα</string>
     <string name="tool_light_meter_title">Φωτόμετρο</string>
     <string name="beacon">Τοπόσημο</string>
@@ -1013,7 +1005,6 @@
     <string name="photo_map_summary">Χρήση εικόνας ως χάρτη</string>
     <string name="horizon">Ορίζοντας</string>
     <string name="season">Εποχή</string>
-    <string name="beta">Βήτα</string>
     <string name="no_qr_code_detected">Δεν βρέθηκε ραβδοκώδικας γρήγορης ανάγνωσης (QR code)</string>
     <string name="then_weather">μετά %s</string>
     <string name="pref_show_map_previews_title">Εμφάνιση προεπισκόπησης χάρτη</string>

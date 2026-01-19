@@ -145,13 +145,11 @@
     <string name="tool_cliff_height_title">ارتفاع الجرف</string>
     <string name="battery_power_ac">تيار متردد</string>
     <string name="cumulonimbus">سحب ركامية مطرية</string>
-    <string name="menu">القائمة</string>
     <string name="average_speed_backtrack">السرعة المتوسطة (التتبع العكسي)</string>
     <string name="exported">تم التصدير</string>
     <string name="map_export_error">تعذر تصدير الخريطة إلى الملف المختار</string>
     <string name="tide_diurnal">يومي</string>
     <string name="restore">الاستعادة</string>
-    <string name="stars">النجوم</string>
     <string name="category_shelter">المأوى</string>
     <string name="category_safety">السلامة</string>
     <string name="delete_waypoint_prompt">حذف نقطة الطريق؟</string>
@@ -175,7 +173,6 @@
     <string name="high_tide">المد العالي</string>
     <string name="rename">إعادة تسمية</string>
     <string name="location">الموقع</string>
-    <string name="update_180_minutes">3 ساعات</string>
     <string name="pref_sunset_alert_time_title">وقت تنبيه الغروب</string>
     <string name="group">مجموعة</string>
     <string name="gps_stale">قديم</string>
@@ -232,10 +229,6 @@
     <string name="pref_weather_update_frequency_title">تكرار تحديث الطقس</string>
     <string name="always">دائمًا</string>
     <string name="sun_moon_compass_when_up">عندما يكون مشرقًا</string>
-    <string name="update_120_minutes">ساعتان</string>
-    <string name="update_150_minutes">ساعتان ونصف</string>
-    <string name="update_30_minutes">30 دقيقة</string>
-    <string name="update_60_minutes">ساعة واحدة</string>
     <string name="pref_sunrise_alert_time_title">وقت تنبيه الشروق</string>
     <string name="pref_open_source_licenses_title">التراخيص</string>
     <string name="pref_app_version_title">الإصدار</string>
@@ -330,7 +323,6 @@
     <string name="half_tide">المد المتوسط</string>
     <string name="time_not_set">لم يتم تعيين الوقت</string>
     <string name="pref_daily_weather_time_title">وقت الطقس اليومي</string>
-    <string name="odometer">عداد المسافات</string>
     <string name="pref_nearby_radar_title">إظهار رادار المناطق القريبة</string>
     <string name="no_tides">لا توجد مد وجزر</string>
     <string name="meteor_shower">زخة شهب</string>
@@ -456,7 +448,6 @@
     <string name="maps">الخرائط</string>
     <string name="sun_up_no_set">الشمس مشرقة</string>
     <string name="dialog_item_amount">الكمية</string>
-    <string name="update_90_minutes">ساعة ونصف</string>
     <string name="beacon_invalid_name">اسم غير صالح</string>
     <string name="compass_auto_declination">تعديل الانحراف تلقائيًا</string>
     <string name="very_soon">قريبًا جدًا</string>

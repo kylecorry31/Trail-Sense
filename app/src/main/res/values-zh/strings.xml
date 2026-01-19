@@ -228,12 +228,6 @@
     <string name="pref_category_about">关于</string>
     <string name="pref_open_source_licenses_title">许可证</string>
     <string name="pref_sunset_alert_time_title">日落提醒时间</string>
-    <string name="update_60_minutes">1 小时</string>
-    <string name="update_30_minutes">30 分钟</string>
-    <string name="update_180_minutes">3 小时</string>
-    <string name="update_150_minutes">2.5 小时</string>
-    <string name="update_120_minutes">2 小时</string>
-    <string name="update_90_minutes">1.5 小时</string>
     <string name="pref_center_sun_and_moon_title">保持太阳/月亮居中</string>
     <string name="always">始终</string>
     <string name="pref_weather_update_frequency_title">天气更新频率</string>
@@ -459,8 +453,6 @@
     <string name="pref_nearby_radar_title">显示附近的雷达罗盘</string>
     <string name="pref_stride_length_title">步幅</string>
     <string name="pedometer">计步器</string>
-    <string name="odometer">里程表</string>
-    <string name="menu">菜单</string>
     <string name="no_tides">无潮汐</string>
     <string name="tides">潮汐</string>
     <string name="delete_tide_prompt">删除潮汐？</string>
@@ -1007,8 +999,6 @@
     <string name="no">否</string>
     <string name="map_file">文件（JPG, PNG, PDF）</string>
     <string name="photo_map_disclaimer">始终携带一份纸质地图作为备份并验证 Trail Sense 的精确度。</string>
-    <string name="beta">测试</string>
-    <string name="beta_disclaimer">此工具目前处于测试中，请将问题或反馈报告至 %s。</string>
     <string name="photo_map_summary">使用照片作为地图</string>
     <string name="reduce_map_resolution_crop_disclaimer">裁剪地图会降低分辨率。如果你需要以高分辨率裁剪地图，请使用照片编辑器应用。我们计划将来修复此问题。</string>
     <string name="crop_map_instructions_long">将方框的角拖动到地图四角处来绘制轮廓。裁剪会降低地图分辨率。</string>
@@ -1067,8 +1057,6 @@
     <string name="unpin">取消固定</string>
     <string name="pinned">已固定</string>
     <string name="pin">固定</string>
-    <string name="settings_have_moved_message">应用设置已移动到工具标签页</string>
-    <string name="settings_have_moved">设置已移动</string>
     <string name="no_sensor_message">你的设备没有 %s 传感器</string>
     <string name="missing_sensor_message_1">你的 %1$s 没有内置的 %2$s 传感器。不幸的是，这意味着 %3$s 的某些功能将不可用。</string>
     <string name="why_missing_sensor">我的设备刚出/很贵，为什么会缺少这个传感器？</string>
@@ -1128,7 +1116,6 @@
     <string name="astronomy_altitude">仰角</string>
     <string name="grid">网格</string>
     <string name="projection_type">增强现实投影</string>
-    <string name="max_s">最大 %s</string>
     <string name="ar_calibration_disclaimer">在每次使用“增强现实”工具前，请先验证太阳或月亮图标与真实世界的正确对齐。如果不是的话，请点击屏幕左上角的指南针图标，按照指示进行校准。</string>
     <string name="pref_enable_analog_title">模拟时钟</string>
     <string name="no_recorded_cell_signal_nearby">附近没有记录的电话信号</string>
@@ -1224,15 +1211,6 @@
     <string name="tide_estimation_description_lunitidal_interval_utc">使用月亮位置预测潮汐。需要 UTC 月潮间隔。</string>
     <string name="star">星星</string>
     <string name="show_stars">显示星星和行星</string>
-    <string name="nearest_stars">最近的星星</string>
-    <string name="select_star">选择星星</string>
-    <string name="stars">星星</string>
-    <plurals name="star_count">
-        <item quantity="other">%d 颗星星</item>
-    </plurals>
-    <string name="approximate_location">大概位置</string>
-    <string name="last_known_gps_location">上个已知的 GPS 位置</string>
-    <string name="timezone">时区</string>
     <string name="tide">潮汐</string>
     <string name="field_guide">野外图鉴</string>
     <string name="books">书籍</string>
@@ -1313,7 +1291,6 @@
     <string name="scope_adjustment">范围调整</string>
     <string name="elevation_miss">海拔偏差</string>
     <string name="windage_miss">风力扰动偏差</string>
-    <string name="drop_amount">弹道降落距离 %s</string>
     <string name="scope_height">瞄准镜高度</string>
     <string name="scope">瞄准镜</string>
     <string name="sight_in_range">瞄准器校准范围</string>
@@ -1398,23 +1375,18 @@
     <string name="use_alarm_for_sunrise_alert">日出警报使用闹铃</string>
     <string name="altimeter_mode_dem_barometer">数字高程模型+气压计</string>
     <string name="digital_elevation_model_abbreviation">数字高程模型</string>
-    <string name="not_set">未设置</string>
     <string name="loaded">已加载</string>
     <string name="invalid_dem_file">无效的 DEM 文件</string>
     <string name="plugin_digital_elevation_model">数字高程模型（DEM）</string>
     <string name="remove_dem">删除 DEM</string>
-    <string name="import_dem_file">导入 DEM 文件</string>
     <string name="digital_elevation_model_link">你可以从 %s 下载各种大小的数字高程模型</string>
     <string name="notification_grouping">通知分组</string>
     <string name="ungroup_all">全部取消分组</string>
     <string name="ungroup_alerts">取消警报分组</string>
     <string name="built_in_dem">内置（低精度）</string>
     <string name="contours">外形</string>
-    <string name="map_layer">地图层</string>
-    <string name="dem_url">数字高程模型 URL</string>
     <string name="map">地图</string>
     <string name="show_labels">显示标签</string>
-    <string name="color_with_elevation">根据高度着色轮廓</string>
     <string name="planet_mercury">水星</string>
     <string name="planet_venus">金星</string>
     <string name="planet_mars">火星</string>
@@ -1454,7 +1426,6 @@
     <string name="color_white">白</string>
     <string name="background_color">背景色</string>
     <string name="add_to_homescreen">添加到主屏幕</string>
-    <string name="transparent">透明</string>
     <string name="battery_tip_disable_services">停用没在使用的服务。</string>
     <string name="battery_tip_airplane_mode">打开飞行模式停用所有无线连接。</string>
     <string name="battery_tip_wifi">不在 Wi-Fi 网络范围内或不需要互联网时关闭 Wi-Fi。</string>
