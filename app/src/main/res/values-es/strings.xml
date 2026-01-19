@@ -186,12 +186,6 @@
     <string name="pref_category_about">Acerca de</string>
     <string name="pref_open_source_licenses_title">Licencias</string>
     <string name="pref_sunset_alert_time_title">Hora de alerta de puesta de sol</string>
-    <string name="update_60_minutes">1 hora</string>
-    <string name="update_30_minutes">30 minutos</string>
-    <string name="update_180_minutes">3 horas</string>
-    <string name="update_150_minutes">2 horas 30 minutos</string>
-    <string name="update_120_minutes">2 horas</string>
-    <string name="update_90_minutes">1 hora 30 minutos</string>
     <string name="pref_center_sun_and_moon_title">Mantener sol/luna centrados</string>
     <string name="sun_moon_compass_when_up">Al estar arriba</string>
     <string name="always">Siempre</string>
@@ -299,7 +293,6 @@
     <string name="cumulonimbus_desc">Nubes bajas e hinchadas que son muy altas. Por lo general, tienen forma de yunque y son oscuras.</string>
     <string name="cirrus_desc">Nubes altas y finas que parecen mechones de pelo blanco.</string>
     <string name="privacy_and_location">Privacidad y Ubicación</string>
-    <string name="menu">Menú</string>
     <string name="unit_centimeters">Centímetros</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">pulgadas</string>
@@ -346,7 +339,6 @@
     <string name="create_beacon">Crear baliza</string>
     <string name="low">bajo</string>
     <string name="speedometer">Velocímetro</string>
-    <string name="odometer">Odometro</string>
     <string name="pref_meteor_showers_title">Lluvias de meteoros</string>
     <string name="pedometer_disclaimer">La precisión y el uso de la batería del podómetro dependen del fabricante del dispositivo y de la longitud de paso configurada. Pruébalo por un tiempo en casa, para verificar la precisión y la descarga de la batería, antes de usarlo en el camino.</string>
     <string name="rename">Renombrar</string>
@@ -981,9 +973,7 @@
     <string name="horizon">Horizonte</string>
     <string name="map_file">Archivo (JPG, PNG, PDF)</string>
     <string name="photo_map_disclaimer">Lleva siempre un mapa físico como respaldo y verifica la precisión de Trail Sense.</string>
-    <string name="beta_disclaimer">Esta herramienta se encuentra actualmente en versión beta, así que informe de cualquier problema o comentario a %s.</string>
     <string name="photo_map_summary">Usar una imágen como mapa</string>
-    <string name="beta">Beta</string>
     <string name="crop_map_instructions_long">Arrastra las esquinas del recuadro hasta las esquinas del mapa que deseas contornear. Recortar reducirá la resolución del mapa.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Recortar el mapa reducirá aún más la resolución. Si necesitas recortar el mapa a alta resolución, usa una aplicación de edición fotográfica. Hay planes para solucionar este problema en el futuro.</string>
     <string name="rotation_amount">Rotación: %s</string>
@@ -1035,8 +1025,6 @@
     <string name="unpin">Desanclar</string>
     <string name="pinned">Anclado</string>
     <string name="pin">Anclar</string>
-    <string name="settings_have_moved_message">Los ajustes de la aplicación se han trasladado a la pestaña Herramientas</string>
-    <string name="settings_have_moved">Los ajustes se han desplazado</string>
     <string name="no_sensor_message">Su dispositivo no tiene un sensor %s</string>
     <string name="missing_sensor_message_1">Su %1$s no tiene un sensor %2$s incorporado. Lamentablemente, esto significa que algunas funciones de %3$s no estarán disponibles.</string>
     <string name="why_missing_sensor">Mi dispositivo es nuevo/caro, ¿por qué no tiene este sensor?</string>
@@ -1096,7 +1084,6 @@
     <string name="date">Fecha</string>
     <string name="layers">Capas</string>
     <string name="ar_layer_override_message">Las guías como la guía de Astronomía, pueden anular la configuración de capas.</string>
-    <string name="max_s">Máx %s</string>
     <string name="ar_calibration_disclaimer">Antes de cada uso de Realidad Aumentada, comprueba que los iconos del sol o la luna están correctamente alineados con el mundo real. Si no es así, haz clic en el icono de la brújula en la parte superior izquierda de la pantalla y sigue las instrucciones para calibrarlos.</string>
     <string name="pref_enable_analog_title">Reloj analógico</string>
     <string name="return_before_dark">Regresar antes de que oscurezca</string>
@@ -1192,9 +1179,6 @@
     <string name="nearby_beacons">Faros cercanos</string>
     <string name="star">Estrella</string>
     <string name="show_stars">Mostrar estrellas y planetas</string>
-    <string name="approximate_location">Ubicación aproximada</string>
-    <string name="last_known_gps_location">Última ubicación GPS conocida</string>
-    <string name="timezone">Huso horario</string>
     <string name="milligrams">Miligramos</string>
     <string name="milligrams_format">%s mg</string>
     <string name="books">Libros</string>
@@ -1225,11 +1209,6 @@
     </plurals>
     <string name="ballistic_coefficient">Coeficiente balístico</string>
     <string name="habitat">Hábitat</string>
-    <plurals name="star_count">
-        <item quantity="one">%d estrella</item>
-        <item quantity="many">%d estrellas</item>
-        <item quantity="other">%d estrellas</item>
-    </plurals>
     <string name="time_header_units">Duración (%s)</string>
     <string name="south_america">América del Sur</string>
     <string name="nocturnal">Nocturno</string>
@@ -1271,9 +1250,6 @@
     <string name="format_joules">%s julios</string>
     <string name="unit_caliber">Calibre</string>
     <string name="energy">Energía</string>
-    <string name="stars">Estrellas</string>
-    <string name="nearest_stars">Estrellas más cercanas</string>
-    <string name="select_star">Seleccionar estrella</string>
     <string name="ballistics">Balística</string>
     <string name="permits">Permisos</string>
     <string name="no_permits">Ningún permiso</string>
@@ -1361,17 +1337,14 @@
     <string name="plugin_digital_elevation_model">Modelo digital de elevación (DEM)</string>
     <string name="remove_dem">Eliminar DEM</string>
     <string name="altimeter_mode_dem_barometer">DEM + Barómetro</string>
-    <string name="not_set">No definido</string>
     <string name="loaded">Cargado</string>
     <string name="invalid_dem_file">Archivo DEM no válido</string>
-    <string name="import_dem_file">Importar archivo DEM</string>
     <string name="built_in_dem">Integrado (baja precisión)</string>
     <string name="digital_elevation_model_link">Puede descargar un modelo digital de elevación en varios tamaños desde %s</string>
     <string name="notification_grouping">Notificaciones agrupadas</string>
     <string name="ungroup_all">Desagrupar todo</string>
     <string name="ungroup_alerts">Desagrupar alertas</string>
     <string name="contours">Contornos</string>
-    <string name="map_layer">Capa de Mapa</string>
     <string name="map">Mapa</string>
     <string name="scope">Alcance</string>
     <string name="range_header_units">Rango (%s)</string>
@@ -1381,13 +1354,10 @@
     <string name="scope_height">Altura de la mira</string>
     <string name="scope_adjustment">Ajustes del alcance</string>
     <string name="sight_in_range">Distancia de ajuste</string>
-    <string name="drop_amount">%s caída</string>
     <string name="drop_header_units">Caída (%s)</string>
     <string name="format_fpe">%s equivalente en ft·lb</string>
-    <string name="dem_url">DEM URL</string>
     <string name="basemap">Mapa base</string>
     <string name="show_labels">Mostrar etiquetas</string>
-    <string name="color_with_elevation">Contornos coloreados por elevación</string>
     <string name="planet_mercury">Marcurio</string>
     <string name="planet_venus">Venus</string>
     <string name="planet_mars">Marte</string>
@@ -1426,7 +1396,6 @@
     <string name="color_white">Blanco</string>
     <string name="background_color">Color de fondo</string>
     <string name="add_to_homescreen">Añadir a pantalla de inicio</string>
-    <string name="transparent">Transparencia</string>
     <string name="battery_tip_disable_services">Desactiva los servicios que no uses.</string>
     <string name="battery_tip_airplane_mode">Activa el modo avión para desactivar todas las conexiones inalámbricas.</string>
     <string name="battery_tip_wifi">Desactiva el wifi cuando no estés dentro del rango de una red wifi o no necesites Internet.</string>

@@ -74,12 +74,6 @@
     <string name="pref_category_about">Tietoja</string>
     <string name="pref_open_source_licenses_title">Käyttöoikeudet</string>
     <string name="pref_sunset_alert_time_title">Auringonlaskun ilmoitusaika</string>
-    <string name="update_60_minutes">1 tunti</string>
-    <string name="update_30_minutes">30 minuuttia</string>
-    <string name="update_180_minutes">3 tuntia</string>
-    <string name="update_150_minutes">2 tuntia 30 minuuttia</string>
-    <string name="update_120_minutes">2 tuntia</string>
-    <string name="update_90_minutes">1 tunti 30 minuuttia</string>
     <string name="pref_center_sun_and_moon_title">Pidä aurinko/kuu keskitettynä</string>
     <string name="sun_moon_compass_when_up">Kun noussut</string>
     <string name="always">Aina</string>
@@ -482,7 +476,6 @@
     <string name="pref_auto_low_power_title">Automaattinen virransäästö</string>
     <string name="sunset_alerts_background_location_disclaimer">Auringonlaskuilmoitukset voivat olla epätarkkoja matkoilla</string>
     <string name="time_until_empty">tyhjään asti</string>
-    <string name="menu">Valikko</string>
     <string name="diamond">Timantti</string>
     <string name="tool_boil_summary">Kerro milloin vesi on juomakelpoista</string>
     <string name="weather_thunderstorm">Ukonilma</string>
@@ -624,7 +617,6 @@
     <string name="pressure_system">Painejärjestelmä</string>
     <string name="pref_privacy_policy_title">Tietosuojakäytäntö</string>
     <string name="season_summer">Kesä</string>
-    <string name="odometer">Matkamittari</string>
     <string name="solar_eclipses">Auringonpimennykset</string>
     <string name="battery_health_overheat">Ylikuuma</string>
     <string name="hide">Piilota</string>
@@ -805,7 +797,6 @@
     <string name="time">Aika</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Lämpötilat perustuvat %d:n vuoden keskiarvoon historiallisista tiedoista, eivätkä välttämättä vastaa nykyhetken sääolosuhteita.</string>
     <string name="guide_light_meter_description">Kuinka määrittää taskulamppujen valokeilan etäisyys</string>
-    <string name="beta_disclaimer">Tämä työkalu on tällä hetkellä betavaiheessa, joten ilmoita ongelmista tai palautteesta osoitteeseen %s.</string>
     <string name="tool_climate">Ilmasto</string>
     <string name="duration">Kesto</string>
     <string name="gps_timeouts">GPS-aikakatkaisut</string>
@@ -855,7 +846,6 @@
     <string name="zero_shutter_lag">Ei kameran sulkimen viivettä</string>
     <string name="magnetic_north">Magneettinen pohjoinen</string>
     <string name="tool_long_press_hint_toast">Paina työkalua pitkään nähdäksesi lisää vaihtoehtoja</string>
-    <string name="settings_have_moved">Asetuksia on siirretty</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">tm</string>
     <string name="sunrise_alert_notification_text">Aurinko nousee %s</string>
@@ -950,11 +940,9 @@
     <string name="navigate">Navigoi</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="pref_gps_override_title">Sijainnin ohitus</string>
-    <string name="settings_have_moved_message">Sovelluksen asetuksien paikka on vaihdettu Työkalut-lehdelle</string>
     <string name="unit_yards">Jaardia</string>
     <string name="yards_format">%s jaardia</string>
     <string name="liter_format">%s L</string>
-    <string name="beta">Beta</string>
     <string name="backtrack_no_permission">Reitintallennus vaatii sijaintiluvan toimiakseen</string>
     <string name="missing_sensor_message_1">Puhelimesi %1$s ei sisällä sisäänrakennettua %2$s anturia. Valitettavasti tästä johtuen jotkut %3$s-sovelluksen ominaisuudet eivät ole saatavilla.</string>
     <string name="triangulate_destination_location_2_instructions">Liiku vähintään %s ensimmäisestä sijainnistasi. Sen jälkeen tallenna uusi sijaintisi sekä uusi suunta valitsemaasi kohteeseen.</string>
@@ -1078,7 +1066,6 @@
     <string name="tide_model_auto">Vuorovesimalli (automaattinen)</string>
     <string name="audio_error_messsage">Virhe äänentoistossa.</string>
     <string name="visible">Näkyvä</string>
-    <string name="max_s">Max %s</string>
     <string name="pref_start_camera_in_3d_view_title">Käytä kameraa 3D-katselemiseen</string>
     <string name="turn_back_notification_description">Aloita paluumatka nyt ollaksesi takaisin klo %s</string>
     <string name="return_before_dark">Palaa ennen pimeää</string>
@@ -1163,16 +1150,6 @@
     <string name="tide_estimation_description_tide_model">Käyttää sisäänrakennettua mallia vuorovesien arvioimiseen annetussa sijainissa. Käyttää puhelimen sijaintia jos sijaintia ei ole annettu erikseen.</string>
     <string name="star">Tähti</string>
     <string name="show_stars">Näytä tähdet ja planeetat</string>
-    <string name="nearest_stars">Lähimmät tähdet</string>
-    <string name="stars">Tähdet</string>
-    <string name="approximate_location">Arvioitu sijainti</string>
-    <string name="last_known_gps_location">Viimeisin tunnettu GPS-sijainti</string>
-    <string name="timezone">Aikavyöhyke</string>
-    <string name="select_star">Valitse tähti</string>
-    <plurals name="star_count">
-        <item quantity="one">%d tähti</item>
-        <item quantity="other">%d tähteä</item>
-    </plurals>
     <string name="books">Kirjat</string>
     <plurals name="page_group_summary">
         <item quantity="one">%d sivu</item>
@@ -1310,7 +1287,6 @@
     <string name="grains">Graania</string>
     <string name="grains_format">%s gr</string>
     <string name="sight_in_range">Kohdistettu etäisyys</string>
-    <string name="drop_amount">%s tippumista</string>
     <string name="time_header_units">Aika (%s)</string>
     <string name="velocity_header_units">Nopeus (%s)</string>
     <string name="drop_header_units">Pudotus (%s)</string>
@@ -1341,21 +1317,16 @@
     <string name="plugin_digital_elevation_model">Digitaalinen korkeusmalli (DKM)</string>
     <string name="remove_dem">Poista DKM</string>
     <string name="altimeter_mode_dem_barometer">DKM + Barometri</string>
-    <string name="not_set">Ei asetettu</string>
     <string name="loaded">Ladattu</string>
     <string name="invalid_dem_file">Epäkelpo DKM-tiedosto</string>
-    <string name="import_dem_file">Tuo DKM-tiedosto</string>
     <string name="built_in_dem">Sisäänrakennettu (matala tarkkuus)</string>
     <string name="digital_elevation_model_link">Voit ladata erikokoisia digitaalisia korkeusmalleja osoitteesta %s</string>
     <string name="notification_grouping">Ilmoitusten ryhmittely</string>
     <string name="ungroup_all">Poista kaikki ryhmittelyt</string>
     <string name="ungroup_alerts">Poista herätyksien ryhmittelyt</string>
     <string name="contours">Korkeuskäyrät</string>
-    <string name="map_layer">Karttakerros</string>
-    <string name="dem_url">DKM URL</string>
     <string name="map">Kartta</string>
     <string name="show_labels">Näytä nimikkeet</string>
-    <string name="color_with_elevation">Väritä korkeuskäyrät korkeuden perusteella</string>
     <string name="planet_mercury">Merkurius</string>
     <string name="planet_venus">Venus</string>
     <string name="planet_mars">Mars</string>
@@ -1395,7 +1366,6 @@
     <string name="hillshade">Korkeuskäyräväritys</string>
     <string name="background_color">Taustan väri</string>
     <string name="add_to_homescreen">Lisää aloitusnäyttöön</string>
-    <string name="transparent">Läpinäkyvä</string>
     <string name="battery_tip_disable_services">Poista käytöstä palvelut, joita et käytä.</string>
     <string name="battery_tip_airplane_mode">Laita lentokonetila päälle sammuttaaksesi kaikki langattomat yhteydet.</string>
     <string name="battery_tip_wifi">Sammuta Wi-Fi kun et ole Wi-Fi -verkon kuuluvuusalueella, tai et tarvitse Internet-yhteyttä.</string>

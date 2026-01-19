@@ -29,12 +29,6 @@
     <string name="pref_category_about">Quant a</string>
     <string name="pref_open_source_licenses_title">Llicències</string>
     <string name="pref_sunset_alert_time_title">Temps de notificació de l\'ocàs</string>
-    <string name="update_60_minutes">1 hora</string>
-    <string name="update_30_minutes">30 minuts</string>
-    <string name="update_180_minutes">3 hores</string>
-    <string name="update_90_minutes">1 hora i 30 minuts</string>
-    <string name="update_150_minutes">2 hores i 30 minuts</string>
-    <string name="update_120_minutes">2 hores</string>
     <string name="pref_center_sun_and_moon_title">Mantenir el sol i la lluna centrats</string>
     <string name="sun_moon_compass_when_up">Al estar a dalt</string>
     <string name="always">Sempre</string>
@@ -305,7 +299,6 @@
     <string name="my_location">La meva ubicació</string>
     <string name="backup">Còpia de seguretat</string>
     <string name="restore">Restaura</string>
-    <string name="timezone">Fus horari</string>
     <string name="temp_f_short">°F</string>
     <string name="pref_sensor_details_title">Detalls del sensor</string>
     <string name="reset_calibration">Reinicialitza la calibració</string>
@@ -526,9 +519,7 @@
     <string name="sensor_gyroscope">Giroscopi</string>
     <string name="change_map_projection">Canvia la projecció</string>
     <string name="pref_low_power_mode_title">Mode d’estalvi d’energia</string>
-    <string name="odometer">Odòmetre</string>
     <string name="pedometer">Podòmetre</string>
-    <string name="menu">Menú</string>
     <string name="map_auto_calibrated">El mapa s’ha calibrat automàticament; verifiqueu-ne la precisió</string>
     <string name="search">Cerca</string>
     <string name="convert">Converteix</string>

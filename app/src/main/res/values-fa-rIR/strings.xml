@@ -100,7 +100,6 @@
     <string name="temporary">موقت</string>
     <string name="instructions">دستورالعمل ها</string>
     <string name="pref_show_temperature_in_notification_title">نمایش دما در اعلان</string>
-    <string name="update_120_minutes">2 ساعت</string>
     <string name="convert">تبدیل</string>
     <string name="one">1</string>
     <string name="water_boil_timer_done_title">آب به جوش آمد</string>
@@ -148,7 +147,6 @@
     <string name="coordinate_format_utm">UTM</string>
     <string name="compass_accuracy_improved">دقت قطب نما به %s بهبود یافته است</string>
     <string name="sensors">حسگرها</string>
-    <string name="update_60_minutes">1 ساعت</string>
     <string name="pref_adjust_for_temperature_title">فاکتور دما</string>
     <string name="error_occurred">خطایی رخ داد</string>
     <string name="reset">ریست</string>
@@ -491,7 +489,6 @@
     <string name="low">کم</string>
     <string name="no_gps_signal">بدون سیگنال دیجیتال</string>
     <string name="time_not_set">زمان تنظیم نشده</string>
-    <string name="odometer">کیلومتر شمار</string>
     <string name="pref_meteor_showers_title">بارش شهابی</string>
     <string name="next">بعد</string>
     <string name="dotted">خط چین</string>
@@ -666,7 +663,6 @@
     <string name="pref_daily_weather_time_title">زمان آب و هوای روزانه</string>
     <string name="screen_flashlight">صفحه نمایش</string>
     <string name="pref_nearby_radar_title">نمایش قطب نما رادار نزدیک</string>
-    <string name="menu">منو</string>
     <string name="ounces_weight">اونس</string>
     <string name="volume">جلد</string>
     <string name="pounds">پوند</string>
@@ -753,11 +749,7 @@
         <item quantity="one">%d نقطه راه حذف خواهد شد</item>
         <item quantity="other">%d نقطه های راه حذف خواهند شد</item>
     </plurals>
-    <string name="update_90_minutes">1 ساعت 30 دقیقه</string>
-    <string name="update_150_minutes">­2 ساعت و 30 دقیقه</string>
     <string name="pref_center_sun_and_moon_title">خورشید/ماه را در مرکز قرار دهید</string>
-    <string name="update_180_minutes">3 ساعت</string>
-    <string name="update_30_minutes">30 دقیقه</string>
     <string name="error_occurred_message">Trail Sense با خطا مواجه شد. لطفاً برای رفع این مشکل به برنامه‌نویس ایمیل بزنید.</string>
     <string name="delete_path_group_message">%s و تمام مسیرهای آن حذف خواهند شد.</string>
     <string name="tool_user_guide_summary">راهنمای نحوه استفاده از Trail Sense</string>

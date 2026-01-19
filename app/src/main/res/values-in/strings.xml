@@ -254,8 +254,6 @@
     <string name="sun_astronomical">Astronomis</string>
     <string name="sun_moon_compass_when_up">Saat bangun</string>
     <string name="pref_center_sun_and_moon_title">Jaga matahari/bulan tetap di tengah</string>
-    <string name="update_90_minutes">1 jam 30 menit</string>
-    <string name="update_60_minutes">1 jam</string>
     <string name="pref_sunset_alert_time_title">Peringatan matahari terbenam</string>
     <string name="pref_open_source_licenses_title">Lisensi</string>
     <string name="no_group">Tidak ada grup</string>
@@ -268,9 +266,6 @@
     <string name="pref_sun_time_mode_title">Waktu matahari terbit/terbenam</string>
     <string name="pref_show_sun_moon_compass_title">Tunjukkan matahari/bulan di kompas</string>
     <string name="sun_nautical">Bahari</string>
-    <string name="update_150_minutes">2 jam 30 menit</string>
-    <string name="update_180_minutes">3 jam</string>
-    <string name="update_30_minutes">30 menit</string>
     <string name="pref_email_title">Surel pengembang</string>
     <string name="tool_user_guide_title">Panduan pengguna</string>
     <string name="tool_user_guide_summary">Panduan cara menggunakan Trail Sense</string>
@@ -297,7 +292,6 @@
     <string name="pref_display_multi_beacons_summary">Tampilkan suar terdekat di kompas</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrasi sebelum menavigasi</string>
     <string name="pref_monitor_weather_title">Pantauan cuaca</string>
-    <string name="update_120_minutes">2 jam</string>
     <string name="pressure_24_hours">24 jam</string>
     <string name="height">Tinggi</string>
     <string name="todays_forecast">Perkiraan hari ini</string>
@@ -568,11 +562,9 @@
     <string name="right_quick_action">Tindakan cepat kanan</string>
     <string name="left_quick_action">Tindakan cepat kiri</string>
     <string name="since_time">sejak %s</string>
-    <string name="odometer">Odometer</string>
     <string name="pedometer">Pedometer</string>
     <string name="pref_stride_length_title">Panjang langkah</string>
     <string name="pref_nearby_radar_title">Tampilkan kompas radar terdekat</string>
-    <string name="menu">Menu</string>
     <string name="pref_meteor_showers_title">Hujan meteor</string>
     <string name="pedometer_disclaimer">Keakuratan dan penggunaan baterai pedometer tergantung pada produsen perangkant Anda dan panjang langkah yang dimasukkan. Cobalah di rumah sebentar untuk memverifikasi penggunaan baterai dan keakuratannya sebelum menggunakan di jalan.</string>
     <string name="rename">Ubah nama</string>

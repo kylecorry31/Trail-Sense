@@ -69,10 +69,6 @@
     <string name="pref_center_sun_and_moon_title">Sonne/Mond zentriert lassen</string>
     <string name="sun_moon_compass_when_up">Wenn aufgegangen</string>
     <string name="always">Immer</string>
-    <string name="update_90_minutes">1 Stunde 30 Minuten</string>
-    <string name="update_120_minutes">2 Stunden</string>
-    <string name="update_150_minutes">2 Stunden 30 Minuten</string>
-    <string name="update_180_minutes">3 Stunden</string>
     <string name="sunset_alerts">Sonnenuntergangsalarme</string>
     <string name="sunset_alert_channel_title">Sonnenuntergangsalarm</string>
     <string name="pref_sunset_alert_time_title">Sonnenuntergang: Alarmzeit</string>
@@ -144,8 +140,6 @@
     <string name="pref_elevation_override_title">Höhe setzen</string>
     <string name="compass_accuracy_improved">Kompassgenauigkeit verbessert zu %s</string>
     <string name="pref_auto_location_title">Automatisches Anpassen des Ortes</string>
-    <string name="update_60_minutes">1 Stunde</string>
-    <string name="update_30_minutes">30 Minuten</string>
     <string name="pref_max_beacon_distance_title">Radius für nahegelegene Wegpunkte</string>
     <string name="never">Nie</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
@@ -450,10 +444,8 @@
     <string name="pref_meteor_showers_title">Meteorschauer</string>
     <string name="meteors_per_hour">Maximal %d Meteore pro Stunde</string>
     <string name="meteor_shower">Meteorschauer</string>
-    <string name="menu">Menü</string>
     <string name="no_tides">Keine Gezeiten</string>
     <string name="pedometer">Schrittzähler</string>
-    <string name="odometer">Kilometerzähler</string>
     <string name="speedometer">Geschwindigkeitsanzeige</string>
     <string name="screen_flashlight">Bildschirm</string>
     <string name="time_not_set">Zeit nicht festgelegt</string>
@@ -1036,8 +1028,6 @@
     <string name="battery_usage_allowed">Batterie nutzung erlaubt</string>
     <string name="allow_ignore_battery_restrictions">Erlaube %s den Energiesparmodus zu ignorieren</string>
     <string name="sunset_alerts_background_location_disclaimer">Sonnenuntergang Alarme sind vielleicht ungenau während dem Reisen</string>
-    <string name="beta">Beta</string>
-    <string name="beta_disclaimer">Diese Funktion ist zurzeit nicht fertig. Bitte melden Sie Fehler hier: %s .</string>
     <string name="allow_schedule_exact_alarms">Erlaube %s Alarme und Erinnerungen zu starten</string>
     <string name="allow_schedule_exact_alarms_instructions">Dies erlaubt %1$s exakte Alarme und Erinnerungen, wie z.B. Sonnenuntergangs Alarme zu starten.
 \nOhne dies, Alarme starten vielleicht nicht zur richtigen zeit.
@@ -1123,7 +1113,6 @@
     <string name="tablespoon_format">%s Esslöfel</string>
     <string name="turn_back_alert_set">Umdreh-Alarm gesetzt</string>
     <string name="return_before_dark">Zurückkehren, bevor es dunkel wird</string>
-    <string name="timezone">Zeitzone</string>
     <string name="my_location">Meine Position</string>
     <string name="destination">Ziel</string>
     <string name="turn_back_notification_title">Es ist Zeit, umzudrehen</string>
@@ -1166,7 +1155,6 @@
     <string name="restart_services_message">Hintergrunddienste konnten nicht erneut gestartet werden. Für einen Neustart tippen.</string>
     <string name="triangulate_destination_location_1_instructions">Zeichnen Sie Ihre Position und die Richtung zum Ziel auf.</string>
     <string name="triangulate_self_location_1_instructions">Wählen Sie eine bekannte Position aus, die Sie sehen können, und zeichnen Sie auf, in welcher Richtung diese von Ihnen aus ist.</string>
-    <string name="settings_have_moved">Die Einstellungen wurden verschoben</string>
     <string name="magnetic_north_description">Zeigt in die Richtung des magnetischen Nordpols. Dies sollte mit den meisten Kompassen übereinstimmen.</string>
     <string name="continuous_calibration">Kontinuierliche Kalibrierung</string>
     <string name="zero_shutter_lag">Keine Auslöseverzögerung</string>
@@ -1174,7 +1162,6 @@
     <string name="service_restart_channel_description">Eine Benachrichtigung zum Neustarten von Diensten</string>
     <string name="restart_services_title">Dienste neu starten</string>
     <string name="fused_altimeter_force_calibration_summary">GPS-Kalibrierung alle %s erzwingen</string>
-    <string name="settings_have_moved_message">App-Einstellungen wurden zum Reiter Werkzeuge verschoben</string>
     <string name="is_there_a_way_to_fix_this">Kann man das Problem beheben?</string>
     <string name="triangulate_self_location_2_instructions">Wählen Sie eine weitere bekannte Position aus, die Sie sehen können, und zeichnen Sie auf, in welcher Richtung diese von Ihnen aus ist.</string>
     <string name="no_sensor_unable_to_fix">Nein, da diese Funktionalität von der Hardware abhängt, lässt sie sich nicht hinzufügen.</string>
@@ -1214,11 +1201,8 @@
     <string name="view_distance">Entfernung anzeigen</string>
     <string name="reset_calibration_question">Kalibrierung zurücksetzen?</string>
     <string name="date">Datum</string>
-    <string name="nearest_stars">Nächste Sterne</string>
-    <string name="select_star">Wähle einen Stern</string>
     <string name="cloud_scanner">Wolkenradar</string>
     <string name="star">Stern</string>
-    <string name="approximate_location">Genährte Position</string>
     <string name="left">Links</string>
     <string name="no_pages">Keine Seiten</string>
     <string name="right">Rechts</string>
@@ -1228,10 +1212,6 @@
     <string name="smooth_gps_readings">GPS Messungen glätten</string>
     <string name="layers">Ebenen</string>
     <string name="quick_actions_are_unavailable">Schnellzugriff ist nicht verfügbar</string>
-    <plurals name="star_count">
-        <item quantity="one">%d Stern</item>
-        <item quantity="other">%d Sterne</item>
-    </plurals>
     <string name="augmented_reality_no_gyro_message">Augmented Reality lässt sich weiter verwenden, ist aber nicht mehr so genau.</string>
     <string name="audio_error_messsage">Das Abspielen von Ton führte zu einem Fehler.</string>
     <string name="ar_calibration_instructions">Zentrieren Sie den/die %s auf dem Bildschirm und drücken Sie \"Kalibrieren\"</string>
@@ -1255,13 +1235,11 @@
     <string name="climate_desert">Wüste</string>
     <string name="climate_continental">Kontinental</string>
     <string name="tide_chart">Gezeitendiagramm</string>
-    <string name="stars">Sterne</string>
     <string name="tide">Gezeit</string>
     <string name="speed_format_feet_per_second">%s FPS</string>
     <string name="meters_per_second">Meter pro Sekunde</string>
     <string name="speed">Geschwindigkeit</string>
     <string name="direction_not_set">Richtung nicht gesetzt</string>
-    <string name="max_s">Maximal %s</string>
     <string name="climate_temperature_amount">Temperatur: %s</string>
     <string name="climate_precipitation_amount">Niederschlag: %s Monatssumme</string>
     <string name="urban">Städtisch</string>
@@ -1271,7 +1249,6 @@
     <string name="path_distance_performance_disclaimer">Empfohlenes Maximum von %s</string>
     <string name="navigate_to_nearest_cell_signal">Zum nächsten Mobilfunkmast navigieren</string>
     <string name="unit_caliber">Kaliber</string>
-    <string name="last_known_gps_location">Zuletzt bekannte GPS Position</string>
     <string name="mammal">Säugetier</string>
     <string name="reptile">Reptil</string>
     <string name="amphibian">Amphibie</string>
@@ -1322,7 +1299,6 @@
     <string name="pref_navigation_lock_screen_when_open_title">Wenn geöffnet, auf dem Sperrbildschirm anzeigen</string>
     <string name="pref_start_camera_in_3d_view_title">Kamera für 3D-Anzeige nutzen</string>
     <string name="tool_quick_action_summary">Navigationsknopf lange drücken oder im Werkzeugtab ansehen.</string>
-    <string name="drop_amount">%s Fallhöhe</string>
     <string name="muzzle_velocity">Initiale Geschwindigkeit</string>
     <string name="projection_estimated_intrinsics">Geschätze intrinsische Werte</string>
     <string name="field_guide">Naturführer</string>
@@ -1334,7 +1310,6 @@
     <string name="climate_ice_cap_description">Das Eis schmilzt während des Jahres nicht und Vegetation fehlt.</string>
     <string name="ar_calibration_disclaimer">Vor jeder Verwendung des Augmented Reality-Tools überprüfen Sie die Sonnen- oder Mondsymbole richtig auf die reale Welt ausgerichtet. Wenn nicht, klicken Sie auf das Kompass-Symbol in der oberen linken Seite des Bildschirms und folgen Sie den Anweisungen zum Kalibrieren.</string>
     <string name="survival_guide_disclaimer">Dieser Leitfaden ist nur für Informationszwecke vorgesehen, und weder der Autor, Verleger oder alle Mitwirkenden garantieren seine Richtigkeit oder Eignung für jeden Zweck. Durch die Nutzung dieses Leitfadens erkennen Sie an, dass Outdoor-Aktivitäten mit Risiken verbunden sind und dass Sie dies auf eigenes Risiko tun. Sie erklären sich damit einverstanden, den Autor, den Herausgeber und alle Mitwirkenden von jeglichen Ansprüchen oder Schäden freizustellen, die sich aus Ihrer Nutzung dieses Leitfadens ergeben. Wenden Sie sich für eine individuelle Beratung zu Ihrer Situation immer an einen Fachmann, da dieser Leitfaden keine professionelle Beratung ersetzt. Beachten Sie außerdem, dass lokale Gesetze und Vorschriften die legale Anwendung der hier beschriebenen Techniken beeinträchtigen können. Für die Einhaltung dieser Gesetze sind Sie selbst verantwortlich.</string>
-    <string name="not_set">Nicht gesetzt</string>
     <string name="safe_mode_toast">Abstürze erkannt, einige Funktionen werden für einige Sekunden deaktiviert.</string>
     <string name="opacity">Deckkraft</string>
     <string name="delete_all_beacons">Alle Wegpunkte werden gelöscht.</string>
@@ -1395,7 +1370,6 @@
     <string name="nocturnal">Nachtaktiv</string>
     <string name="climate_steppe_description">Es gibt möglicherweise verstreute Wiesen.</string>
     <string name="remove_dem">Entferne DHM</string>
-    <string name="import_dem_file">Importiere DHM datei</string>
     <string name="digital_elevation_model_link">Sie können ein digitales Höhenmodell in verschiedenen Größen von %s herunterladen</string>
     <string name="use_path_elevation">Zeige Pfaderhebungen</string>
     <string name="widget_bottom_sheet_instructions">Drücke lange die Bodennavigation oder verwenden die Widgets schnellaktion.</string>
@@ -1423,7 +1397,6 @@
     <string name="full_service">Voller Service</string>
     <string name="built_in_dem">Eingebaut (geringe Genauigkeit)</string>
     <string name="contours">Konturen</string>
-    <string name="map_layer">Kartenebene</string>
     <string name="map">Karte</string>
     <string name="planet_mercury">Merkur</string>
     <string name="planet_venus">Venus</string>
@@ -1436,7 +1409,6 @@
     <string name="show_labels">Beschriftungen anzeigen</string>
     <string name="map_tool_disclaimer">Dieses Werkzeug zeigt Ihre Wegpunkte, Pfade und Bilderkarten. Es ist kein Ersatz für eine eigene Kartenanwendung.</string>
     <string name="basemap">Hintergrundkarte</string>
-    <string name="color_with_elevation">Farbkonturen aufgrund der Höhe</string>
     <string name="load_pdf_tiles">Lade PDF teile</string>
     <string name="load_pdf_tiles_summary">PDF-Karten sind schärfer, aber die Leistung wird verringert</string>
     <string name="show_gps_accuracy">Zeige GPS-Genauigkeit</string>
@@ -1446,7 +1418,6 @@
     <string name="no_sightings">Keine Sichtungen</string>
     <string name="sighting">Sichtung</string>
     <string name="sleep_sound_white_noise">Weißes Rauschen</string>
-    <string name="dem_url">DEM URL</string>
     <string name="sleep_sound_pink_noise">Pinkes Rauschen</string>
     <string name="sleep_sound_brown_noise">Braunes Rauschen</string>
     <string name="sleep_sound_crickets">Grillen</string>
@@ -1466,7 +1437,6 @@
     <string name="sleep_sound_fan">Lüfter</string>
     <string name="color_usgs">USGS</string>
     <string name="add_to_homescreen">Zum Startbildschirm hinzufügen</string>
-    <string name="transparent">Transparent</string>
     <string name="hillshade">Hügelschatten</string>
     <string name="battery_tip_disable_services">Dienste deaktivieren, die Sie nicht nutzen.</string>
     <string name="battery_tip_airplane_mode">Schalten Sie den Flugzeugmodus ein, um alle drahtlosen Verbindungen zu deaktivieren.</string>

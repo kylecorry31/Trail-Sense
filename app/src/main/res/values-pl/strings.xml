@@ -55,12 +55,6 @@
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">Wersja</string>
     <string name="pref_category_about">O aplikacji</string>
-    <string name="update_60_minutes">1 godzina</string>
-    <string name="update_30_minutes">30 minut</string>
-    <string name="update_180_minutes">3 godziny</string>
-    <string name="update_150_minutes">2 godziny 30 minut</string>
-    <string name="update_120_minutes">2 godziny</string>
-    <string name="update_90_minutes">1 godzina 30 minut</string>
     <string name="always">Zawsze</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometr</string>
     <string name="location">Lokalizacja</string>
@@ -456,11 +450,9 @@
     <string name="turn_off">Wyłącz</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
-    <string name="odometer">Drogomierz</string>
     <string name="delete_tide_prompt">Usunąć pływ\?</string>
     <string name="no_tides">Brak pływów</string>
     <string name="tides">Pływy</string>
-    <string name="menu">Menu</string>
     <string name="pref_meteor_showers_title">Deszcze meteorów</string>
     <string name="meteors_per_hour">Maksymalnie %d meteorów / h</string>
     <string name="meteor_shower">Deszcz meteorów</string>
@@ -936,7 +928,6 @@
     <string name="start_time">Początek</string>
     <string name="end_time">Koniec</string>
     <string name="map_is_not_calibrated">Mapa nie jest skalibrowana</string>
-    <string name="beta_disclaimer">Narzędzie jest obecnie w wersji beta, więc prosimy o zgłaszanie wszelkich problemów lub opinii pod adresem %s.</string>
     <string name="accelerometer">Akcelerometr</string>
     <string name="autofill_source">Źródło autouzupełniania</string>
     <string name="data_source">Źródło: %s</string>
@@ -961,7 +952,6 @@
     <string name="astronomy_set">Zachód</string>
     <string name="astronomy_rise">Wschód</string>
     <string name="horizon">Horyzont</string>
-    <string name="beta">Beta</string>
     <string name="reduce_map_resolution_crop_disclaimer">Przycięcie mapy spowoduje zmniejszenie rozdzielczości. Jeśli chcesz przyciąć mapę w wysokiej rozdzielczości, użyj aplikacji do edycji zdjęć. Istnieją plany naprawienia tego w przyszłości.</string>
     <string name="allow_ignore_battery_restrictions_instructions">Usunięcie ograniczeń baterii dla Trail Sense może poprawić dokładność.
 \n

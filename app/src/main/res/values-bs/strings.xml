@@ -178,11 +178,9 @@
     <string name="pref_meteor_showers_title">Meteorski pljuskovi</string>
     <string name="meteor_shower">Meteorski pljusak</string>
     <string name="meteors_per_hour">Maksimalno %d meteora po satu</string>
-    <string name="menu">Meni</string>
     <string name="pref_nearby_radar_title">Pokaži radarski kompas u blizini</string>
     <string name="pref_stride_length_title">Dužina koraka</string>
     <string name="pedometer">Pedometar</string>
-    <string name="odometer">Odometar</string>
     <string name="speedometer">Brzinomjer</string>
     <string name="screen_flashlight">Zaslon</string>
     <string name="pref_daily_weather_time_title">Svakodnevno vrijeme</string>
@@ -437,12 +435,6 @@
     <string name="pref_category_about">O</string>
     <string name="pref_open_source_licenses_title">Dozvole</string>
     <string name="pref_sunset_alert_time_title">Vrijeme upozorenja za zalazak sunca</string>
-    <string name="update_60_minutes">1 sat</string>
-    <string name="update_30_minutes">30 minuta</string>
-    <string name="update_180_minutes">3 sata</string>
-    <string name="update_150_minutes">2 sata 30 minuta</string>
-    <string name="update_120_minutes">2 sata</string>
-    <string name="update_90_minutes">1 sat 30 minuta</string>
     <string name="pref_center_sun_and_moon_title">Nek bude sunce/mjesec centriran</string>
     <string name="pref_nmea_elevation_summary">Koristi NMEA pomake za pretvaranje visine</string>
     <string name="pref_nmea_elevation_title">NMEA pomake nadmorske visine</string>

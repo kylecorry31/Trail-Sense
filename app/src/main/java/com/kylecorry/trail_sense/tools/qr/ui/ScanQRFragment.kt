@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
+import androidx.core.net.toUri
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
@@ -322,7 +322,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     }
 
     private fun isLocation(text: String): Boolean {
-        return GeoUri.from(Uri.parse(text)) != null
+        return GeoUri.from(text.toUri()) != null
     }
 
     private fun isURL(text: String): Boolean {

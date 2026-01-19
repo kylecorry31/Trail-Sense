@@ -52,12 +52,6 @@
     <string name="pref_app_version_title">Version</string>
     <string name="pref_category_about">À propos</string>
     <string name="pref_open_source_licenses_title">Licences</string>
-    <string name="update_60_minutes">1 heure</string>
-    <string name="update_30_minutes">30 minutes</string>
-    <string name="update_180_minutes">3 heures</string>
-    <string name="update_150_minutes">2 heures 30 minutes</string>
-    <string name="update_120_minutes">2 heures</string>
-    <string name="update_90_minutes">1 heure 30 minutes</string>
     <string name="always">Toujours</string>
     <string name="pref_weather_update_frequency_title">Fréquence de mise à jour des données météo</string>
     <string name="pref_show_pressure_in_notification_title">Afficher la pression dans les notifications</string>
@@ -622,8 +616,6 @@
     <string name="pref_odometer_reset_daily_title">Mise à zéro quotidienne</string>
     <string name="pedometer">Podomètre</string>
     <string name="meteor_shower">Pluie de météores</string>
-    <string name="odometer">Odomètre</string>
-    <string name="menu">Menu</string>
     <string name="kilograms">Kilogrammes</string>
     <string name="weight">Masse</string>
     <string name="pref_navigation_lock_screen_presence_title">Afficher sur l’écran de verrouillage lors de la navigation</string>
@@ -1043,7 +1035,6 @@
 \nPour autoriser cela, cliquez sur \'%2$s\' et activez le paramètre permettant d\'autoriser les alarmes et les rappels.</string>
     <string name="photo_map_summary">Utiliser une photo comme carte</string>
     <string name="photo_map_disclaimer">Toujours avoir une carte physique en sauvegarde et vérifier l\'exactitude de Trail Sense.</string>
-    <string name="beta">Bêta</string>
     <string name="blank">Vide</string>
     <string name="create_blank_map">Créer une carte vierge</string>
     <string name="center">Point central</string>
@@ -1070,7 +1061,6 @@
     <string name="obscuration">Obscurcissement</string>
     <string name="backtrack_no_permission">Historique de l\'itinéraire nécessite une autorisation d\'emplacement pour fonctionner</string>
     <string name="reset_calibration">Réinitialiser la calibration</string>
-    <string name="beta_disclaimer">Cet outil est actuellement en version bêta, veuillez signaler tout problème ou commentaire à %s.</string>
     <string name="i_agree">J\'accepte</string>
     <string name="enter_manually">Saisir manuellement</string>
     <string name="augmented_reality">Réalité augmentée</string>
@@ -1080,8 +1070,6 @@
     <string name="triangulate_destination_location_1_instructions">Enregistre votre position et la direction de la destination.</string>
     <string name="my_location">Ma position</string>
     <string name="distance_away_from_destination">à %s de la destination</string>
-    <string name="settings_have_moved_message">Les paramètres de l\'application ont été déplacés dans l\'onglet Outils</string>
-    <string name="settings_have_moved">Les paramètres ont été déplacés</string>
     <string name="pinned">Épinglé</string>
     <string name="triangulate_self_location_1_instructions">Choisir une position connue que vous pouvez voir puis enregistrer la direction de votre position actuelle à cette position connue.</string>
     <string name="augmented_reality_description">Voir les repères à proximité ainsi que le soleil ou la lune avec votre appareil</string>
@@ -1120,7 +1108,6 @@
     <string name="reset_calibration_question">Réinitialiser l\'étalonnage ?</string>
     <string name="sunrise_alert_scheduled">Alerte planifiée pour %s avant le levé du soleil</string>
     <string name="missing_sensor_message_1">Votre %1$s ne possède pas de capteur %2$s intégré. Malheureusement, cela signifie que certaines fonctionnalités de %3$s ne seront pas disponibles.</string>
-    <string name="stars">Étoiles</string>
     <string name="visible">Visible</string>
     <string name="screen_flashlight_full_name">Lampe de poche à écran</string>
     <string name="view_in_3d">Voir en 3D</string>
@@ -1152,11 +1139,6 @@
     <string name="augmented_reality_no_gyro_message">Vous pouvez toujours utiliser l\'outil de réalité augmentée, mais il ne sera pas aussi précis.</string>
     <string name="ar_calibration_instructions">Centrez les %s sur l\'écran et appuyez sur \"Calibrer\"</string>
     <string name="turn_back_alert_set">Alerte de retour définie</string>
-    <plurals name="star_count">
-        <item quantity="one">%d étoile</item>
-        <item quantity="many">%d étoiles</item>
-        <item quantity="other">%d étoiles</item>
-    </plurals>
     <string name="path_distance_performance_disclaimer">Distance de %s recommandée</string>
     <string name="open_photo_map">Ouvrir une carte photographique</string>
     <string name="turn_back_alerts">Alertes de retour</string>
@@ -1172,7 +1154,6 @@
     <string name="pref_dialog_battery_log_summary">Vous ne pourrez ni accéder à l\'historique de la batterie, ni voir le temps restant avant que votre téléphone soit déchargé. Vous pouvez réactiver ces fonctionnalités dans les paramètres.</string>
     <string name="select_from_gallery">Choisir dans la galerie</string>
     <string name="feature_unavailable">%s indisponible</string>
-    <string name="max_s">Max %s</string>
     <string name="ar_calibration_disclaimer">Avant chaque utilisation de l\'outil de Réalité Augmentée, vérifiez que le soleil ou la lune dans l\'outil est au même emplacement dans le monde réel. Si ce n\'est pas le cas, cliquez sur la boussole en haut à gauche de l\'écran et suivez les instructions de calibration.</string>
     <string name="no_recorded_cell_signal_nearby">Aucun signal cellulaire enregistré à proximité</string>
     <string name="true_north_description">Indique le pôle Nord géographique à l\'aide de votre position. La valeur obtenue fonctionne avec la plupart des cartes.</string>
@@ -1219,7 +1200,6 @@
     <string name="edible">comestible</string>
     <string name="ballistics">balistique</string>
     <string name="unit_caliber">calibre</string>
-    <string name="timezone">fuseau horaire</string>
     <string name="books">livre</string>
     <string name="animal">Animal</string>
     <string name="sunset">crépuscule</string>
@@ -1252,7 +1232,6 @@
     <string name="color_black">Noir</string>
     <string name="color_gray">Gris</string>
     <string name="color_white">Blanc</string>
-    <string name="transparent">transparent</string>
     <string name="no_items_found">Aucun article trouvé</string>
     <string name="estimate_method">Méthode d\'estimation</string>
     <string name="automatic_backup">Sauvegarde automatique</string>
@@ -1263,8 +1242,6 @@
     <string name="survival_guide">Guide de survie</string>
     <string name="imperial_teaspoons">cuillères à café impériales</string>
     <string name="show_stars">Afficher les étoiles et les planètes</string>
-    <string name="approximate_location">Localisation approximative</string>
-    <string name="nearest_stars">Étoiles les plus proches</string>
     <string name="north_america">Amérique du Nord</string>
     <string name="south_america">Amérique du Sud</string>
     <string name="rock">rocher</string>

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.field_guide.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Size
+import androidx.core.graphics.createBitmap
 import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -74,6 +75,6 @@ class FieldGuidePageListItemMapper(
 
     private fun getDefaultThumbnail(): Bitmap {
         val size = Resources.dp(context, 48f).toInt()
-        return Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        return createBitmap(size, size)
     }
 }

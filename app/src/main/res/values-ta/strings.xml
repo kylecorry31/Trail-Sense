@@ -165,10 +165,6 @@
     <string name="always">எப்போதும்</string>
     <string name="sun_moon_compass_when_up">எப்போது</string>
     <string name="pref_center_sun_and_moon_title">சூரியன்/சந்திரனை மையமாக வைத்திருங்கள்</string>
-    <string name="update_90_minutes">1 மணி 30 நிமிடங்கள்</string>
-    <string name="update_120_minutes">2 மணி நேரம்</string>
-    <string name="update_150_minutes">2 மணி 30 நிமிடங்கள்</string>
-    <string name="update_180_minutes">3 மணி நேரம்</string>
     <string name="pref_sunrise_alert_time_title">சன்ரைச் எச்சரிக்கை நேரம்</string>
     <string name="pref_app_version_title">பதிப்பு</string>
     <string name="pref_github_title">கிரப்</string>
@@ -224,8 +220,6 @@
     <string name="pref_monitor_weather_title">வானிலை கண்காணிக்கவும்</string>
     <string name="pref_show_temperature_in_notification_title">அறிவிப்பில் வெப்பநிலையைக் காட்டு</string>
     <string name="pref_weather_update_frequency_title">வானிலை புதுப்பிப்பு அதிர்வெண்</string>
-    <string name="update_30_minutes">30 நிமிடங்கள்</string>
-    <string name="update_60_minutes">1 மணி நேரம்</string>
     <string name="pref_sunset_alert_time_title">சூரிய மறைவு எச்சரிக்கை நேரம்</string>
     <string name="pref_open_source_licenses_title">உரிமங்கள்</string>
     <string name="pref_category_about">பற்றி</string>
@@ -286,7 +280,6 @@
     <string name="unpin">மூள்நீக்கு</string>
     <string name="pin">முள்</string>
     <string name="tool_long_press_hint_toast">மேலும் விருப்பங்களைக் காண ஒரு கருவியை நீண்ட நேரம் அழுத்தவும்</string>
-    <string name="settings_have_moved_message">பயன்பாட்டு அமைப்புகள் கருவிகள் தாவலுக்கு நகர்த்தப்பட்டுள்ளன</string>
     <string name="missing_sensor_message_1">உங்கள் %1$s இல் உள்ளமைக்கப்பட்ட %2$s சென்சார் இல்லை. துரதிர்ச்டவசமாக, இதன் பொருள் %3$s இல் உள்ள சில நற்பொருத்தங்கள் கிடைக்காது.</string>
     <string name="true_north_description">உங்கள் இருப்பிடத்திற்கான வீழ்ச்சியைப் பயன்படுத்தி புவியியல் வட துருவத்தை சுட்டிக்காட்டுகிறது. இது பெரும்பாலான வரைபடங்களுடன் இணைந்திருக்கும்.</string>
     <string name="magnetic_north_description">காந்த வட துருவத்தை சுட்டிக்காட்டுகிறது. இது பெரும்பாலான திசைகாட்டிகளுடன் இணைந்துவிடும்.</string>
@@ -417,7 +410,6 @@
     <string name="pref_stride_length_title">ச்ட்ரைட் நீளம்</string>
     <string name="pref_nearby_radar_title">அருகிலுள்ள ரேடார் திசைகாட்டி காட்டு</string>
     <string name="no_tides">அலைகள் இல்லை</string>
-    <string name="menu">பட்டியல்</string>
     <string name="meteor_shower">விண்கல் மழை</string>
     <string name="map_auto_rotated">வரைபட சுழற்சி அளவுத்திருத்தத்துடன் சரிசெய்யப்பட்டது</string>
     <string name="actual_frequency_disclaimer">சில சாதனங்கள் பின்னணி வரம்புகளைக் கொண்டிருப்பதால் உண்மையான அதிர்வெண் மாறுபடலாம்.</string>
@@ -549,12 +541,6 @@
     <string name="us_teaspoons">அமெரிக்க டீச்பூன்</string>
     <string name="tide_model_auto">அலை மாதிரி</string>
     <string name="show_stars">நட்சத்திரங்கள் மற்றும் கிரகங்களைக் காட்டு</string>
-    <string name="approximate_location">தோராயமான இடம்</string>
-    <string name="last_known_gps_location">கடைசியாக அறியப்பட்ட சி.பி.எச் இருப்பிடம்</string>
-    <string name="timezone">நேர மண்டலம்</string>
-    <string name="nearest_stars">அருகிலுள்ள நட்சத்திரங்கள்</string>
-    <string name="select_star">நட்சத்திரத்தைத் தேர்ந்தெடுக்கவும்</string>
-    <string name="stars">நட்சத்திரங்கள்</string>
     <string name="tide">அலை</string>
     <string name="reptile">ஊர்வன</string>
     <string name="freshwater">நன்னீர்</string>
@@ -568,10 +554,6 @@
     <plurals name="paths_imported">
         <item quantity="one">%d பாதை இறக்குமதி செய்யப்படுகிறது</item>
         <item quantity="other">இறக்குமதி செய்யப்பட்ட %d பாதைகள்</item>
-    </plurals>
-    <plurals name="star_count">
-        <item quantity="one">%d விண்மீன்</item>
-        <item quantity="other">%d நட்சத்திரங்கள்</item>
     </plurals>
     <string name="error_occurred_message">டிரெயில் சென்ச் ஒரு பிழையில் ஓடியது. இந்த சிக்கலை சரிசெய்ய டெவலப்பருக்கு மின்னஞ்சல் அனுப்புங்கள்.</string>
     <string name="tool_user_guide_title">பயனர் வழிகாட்டி</string>
@@ -764,7 +746,6 @@
     <string name="low_tide">குறைந்த</string>
     <string name="half_tide">பாதி</string>
     <string name="since_time">%s என்பதால்</string>
-    <string name="odometer">ஓடோமீட்டர்</string>
     <string name="pedometer">பெடோமீட்டர்</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">அதிகபட்ச %d விண்கற்கள் / ம</string>
     <string name="pref_meteor_showers_title">விண்கல் மழை</string>
@@ -1108,8 +1089,6 @@
     <string name="horizon">அடிவானம்</string>
     <string name="photo_map_summary">ஒரு வரைபடமாக புகைப்படத்தைப் பயன்படுத்தவும்</string>
     <string name="photo_map_disclaimer">காப்புப்பிரதிக்கு எப்போதும் ஒரு உடல் வரைபடத்தை எடுத்துச் சென்று, பாதை உணர்வின் துல்லியத்தை சரிபார்க்கவும்.</string>
-    <string name="beta">பீட்டா</string>
-    <string name="beta_disclaimer">இந்த கருவி தற்போது பீட்டாவில் உள்ளது, எனவே தயவுசெய்து ஏதேனும் சிக்கல்கள் அல்லது கருத்துக்களை %s க்கு புகாரளிக்கவும்.</string>
     <string name="reduce_map_resolution_crop_disclaimer">வரைபடத்தை பயிர் செய்வது இன்னும் தீர்மானத்தை குறைக்கும். உயர் தெளிவுத்திறனில் நீங்கள் வரைபடத்தை பயிர் செய்ய வேண்டும் என்றால், தயவுசெய்து புகைப்பட எடிட்டர் பயன்பாட்டைப் பயன்படுத்தவும். எதிர்காலத்தில் இதை சரிசெய்ய திட்டங்கள் உள்ளன.</string>
     <string name="crop_map_instructions_long">பெட்டியின் மூலைகளை வரைபடத்தின் மூலைகளுக்கு கோடிட்டுக் காட்ட இழுக்கவும். பயிர் செய்வது வரைபடத்தின் தீர்மானத்தை குறைக்கும்.</string>
     <string name="rotation_amount">சுழற்சி: %s</string>
@@ -1139,7 +1118,6 @@
     <string name="triangulate_self_location_1_instructions">நீங்கள் பார்க்கக்கூடிய அறியப்பட்ட இடத்தைத் தேர்ந்தெடுத்து, நீங்கள் இருக்கும் இடத்திலிருந்து அந்த இடத்திற்கு திசையை பதிவு செய்யுங்கள்.</string>
     <string name="distance_away_from_self">%s தொலைவில்</string>
     <string name="augmented_reality_description">உங்கள் கேமரா மூலம் அருகிலுள்ள பீக்கான்கள் மற்றும் சூரியன் / சந்திரனைக் காண்க</string>
-    <string name="settings_have_moved">அமைப்புகள் நகர்ந்தன</string>
     <string name="why_missing_sensor">எனது சாதனம் புதியது/விலை உயர்ந்தது, இது ஏன் இந்த சென்சாரைக் காணவில்லை?</string>
     <string name="missing_sensor_explanation">சில தொலைபேசி உற்பத்தியாளர்கள் புதிய அல்லது விலையுயர்ந்த சாதனங்களில் கூட இந்த சென்சார் சேர்க்க வேண்டாம் என்று தேர்வு செய்கிறார்கள். உங்கள் சாதன உற்பத்தியாளர்கள் வலைத்தளத்தைப் பார்வையிடுவதன் மூலமோ அல்லது அவர்களுடன் தொடர்பு கொள்வதன் மூலமோ கூடுதல் தகவல்களைப் பெறலாம்.</string>
     <string name="high_sensitivity">அதிக உணர்திறன்</string>
@@ -1163,7 +1141,6 @@
     <string name="use_gyroscope_after_calibration_description">திசைகாட்டிக்கு பதிலாக (காந்த சறுக்கலைத் தவிர்க்கிறது)</string>
     <string name="projection_type">பெரிதாக்கப்பட்ட ரியாலிட்டி ப்ரொசெக்சன்</string>
     <string name="date">திகதி</string>
-    <string name="max_s">அதிகபட்சம் %s</string>
     <string name="ar_calibration_disclaimer">பெரிதாக்கப்பட்ட ரியாலிட்டி கருவியின் ஒவ்வொரு பயன்பாட்டிற்கும் முன்பு, சூரியன் அல்லது சந்திரன் சின்னங்களை சரிபார்க்கவும் உண்மையான உலகத்துடன் சரியாக இணைக்கப்பட்டுள்ளது. இல்லையென்றால், திரையின் மேல் இடதுபுறத்தில் உள்ள திசைகாட்டி ஐகானைக் சொடுக்கு செய்து, அளவீடு செய்வதற்கான வழிமுறைகளைப் பின்பற்றவும்.</string>
     <string name="pref_start_camera_in_3d_view_title">3D பார்வைக்கு கேமராவைப் பயன்படுத்தவும்</string>
     <string name="return_time">திரும்பும் நேரம்</string>
@@ -1250,7 +1227,6 @@
     <string name="scope_height">நோக்கம் உயரம்</string>
     <string name="muzzle_velocity">முகவாய் விரைவு</string>
     <string name="sight_in_range">பார்வை வரம்பு</string>
-    <string name="drop_amount">%s துளி</string>
     <string name="ballistic_coefficient">பாலிச்டிக் குணகம்</string>
     <string name="time_header_units">நேரம் (%s)</string>
     <string name="range_header_units">வரம்பு (%s)</string>
@@ -1327,21 +1303,16 @@
     <string name="plugin_digital_elevation_model">டிசிட்டல் உயர மாதிரி (டிஇஎம்)</string>
     <string name="remove_dem">டெம் அகற்று</string>
     <string name="altimeter_mode_dem_barometer">+ பாரேமீட்டர்</string>
-    <string name="not_set">அமைக்கப்படவில்லை</string>
     <string name="loaded">ஏற்றப்பட்டது</string>
     <string name="invalid_dem_file">தவறான டெம் கோப்பு</string>
-    <string name="import_dem_file">டெம் கோப்பை இறக்குமதி செய்க</string>
     <string name="built_in_dem">உள்ளமைக்கப்பட்ட (குறைந்த துல்லியம்)</string>
     <string name="digital_elevation_model_link">%s இலிருந்து பல்வேறு அளவுகளில் டிசிட்டல் உயர மாதிரியை நீங்கள் பதிவிறக்கம் செய்யலாம்</string>
     <string name="notification_grouping">அறிவிப்பு குழு</string>
     <string name="ungroup_all">குழுவை அவிழ்த்து விடுங்கள்</string>
     <string name="ungroup_alerts">குழு விழிப்பூட்டல்கள்</string>
     <string name="contours">வரையறைகள்</string>
-    <string name="map_layer">வரைபட அடுக்கு</string>
-    <string name="dem_url">அவை உங்களுடையவை</string>
     <string name="map">வரைபடம்</string>
     <string name="show_labels">லேபிள்களைக் காட்டு</string>
-    <string name="color_with_elevation">உயரத்தின் அடிப்படையில் வண்ண வரையறைகள்</string>
     <string name="planet_mercury">அறிவன்</string>
     <string name="planet_venus">வீனச்</string>
     <string name="planet_mars">செவ்வாய்</string>
@@ -1353,7 +1324,6 @@
     <string name="load_pdf_tiles_summary">PDF வரைபடங்கள் கூர்மையாக இருக்கும், ஆனால் செயல்திறன் பாதிக்கப்படலாம்</string>
     <string name="map_tool_disclaimer">இந்த கருவி உங்கள் பீக்கான்கள், பாதைகள் மற்றும் புகைப்பட வரைபடங்களைக் காட்டுகிறது. இது ஒரு பிரத்யேக வரைபட பயன்பாட்டிற்கு மாற்றாக இல்லை.</string>
     <string name="open_settings">திறந்த அமைப்புகள்</string>
-    <string name="transparent">வெளிப்படையானது</string>
     <string name="basemap">அடிப்படை வரைபடம்</string>
     <string name="show_gps_accuracy">சிபிஎச் துல்லியத்தைக் காட்டு</string>
     <string name="increase_exposure_at_night">இரவில் வெளிப்பாட்டை அதிகரிக்கவும்</string>

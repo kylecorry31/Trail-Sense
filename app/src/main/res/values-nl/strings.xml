@@ -377,12 +377,6 @@
     <string name="pref_category_about">Over</string>
     <string name="pref_open_source_licenses_title">Licenties</string>
     <string name="pref_sunset_alert_time_title">Tijd zonsondergangwekker</string>
-    <string name="update_60_minutes">1 uur</string>
-    <string name="update_30_minutes">30 minuten</string>
-    <string name="update_180_minutes">3 uur</string>
-    <string name="update_150_minutes">2 uur en 30 minuten</string>
-    <string name="update_120_minutes">2 uur</string>
-    <string name="update_90_minutes">1 uur en 30 minuten</string>
     <string name="pref_center_sun_and_moon_title">Zon/maan gecentreerd houden</string>
     <string name="sun_moon_compass_when_up">Bij opkomst</string>
     <string name="always">Altijd</string>
@@ -578,12 +572,10 @@
     <string name="pref_meteor_showers_title">Meteorenzwermen</string>
     <string name="meteors_per_hour">Max %d meteoren / h</string>
     <string name="meteor_shower">Meteorenzwerm</string>
-    <string name="menu">Menu</string>
     <string name="no_tides">Geen getijden</string>
     <string name="pref_nearby_radar_title">Nabijgelegen radarkompas weergeven</string>
     <string name="pref_stride_length_title">Paslengte</string>
     <string name="pedometer">Stappenteller</string>
-    <string name="odometer">Kilometerteller</string>
     <string name="speedometer">Snelheidsmeter</string>
     <string name="pref_require_satellites_title">Geolocatie bepalen</string>
     <string name="screen_flashlight">Scherm oplichten</string>
@@ -998,7 +990,6 @@
     <string name="delete_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
     <string name="sunset_alerts_background_location_disclaimer">Zonsondergangmeldingen zijn misschien niet accuraat tijdens een reis</string>
     <string name="weather_thunderstorm">Onweersbui</string>
-    <string name="beta">Beta</string>
     <string name="backtrack_no_permission">Terugweg heeft locatietoestemming nodig om te functioneren</string>
     <string name="autofill_source">Bron automatisch invullen</string>
     <string name="create_blank_map">Lege kaart maken</string>
@@ -1063,7 +1054,6 @@
 \n
 \nSelecteer alleen een bestand dat je hebt gemaakt met %s en dat je vertrouwd.</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperaturen zijn gebaseerd op een %d jaar gemiddelde van historische gegevens en wijken mogelijk af van de huidige weersomstandigheden.</string>
-    <string name="beta_disclaimer">Dit hulpmiddel is op dit moment in ontwikkeling, meld problemen of suggesties a.u.b bij %s.</string>
     <string name="tool_climate">Klimaat</string>
     <string name="compass_source_mag_gyro">Magnetometer + Gyroscoop</string>
     <string name="reduce_map_resolution_crop_disclaimer">De kaart bijsnijden zal de resolutie verlagen. Als je de kaart in een hoge resolutie wil bijsnijden, gebruik a.u.b een fotobewerk-app. Er zijn plannen om dit op te lossen.</string>
@@ -1077,8 +1067,6 @@
     <string name="magnetic_north">Magnetisch noorden</string>
     <string name="tool_long_press_hint_toast">Houd een hulpmiddel ingedrukt voor meer opties</string>
     <string name="unpin">Losmaken</string>
-    <string name="settings_have_moved_message">Instellingen zijn verplaatst naar het tabblad Hulpmiddelen</string>
-    <string name="settings_have_moved">Instellingen zijn verplaatst</string>
     <string name="pinned">Vastgezet</string>
     <string name="pin">Vastzetten</string>
     <string name="no_sensor_message">Je apparaat heef geen %ssensor</string>
@@ -1140,7 +1128,6 @@
     <string name="layers">Lagen</string>
     <string name="visible">Zichtbaar</string>
     <string name="date">Datum</string>
-    <string name="max_s">Max. %s</string>
     <string name="pref_enable_analog_title">Analoge klok</string>
     <string name="navigate_to_nearest_cell_signal">Navigeer naar dichtstbijzijnde zendmast</string>
     <string name="tool_quick_action_name">Hulpmiddel: %s</string>
@@ -1235,16 +1222,6 @@
     <string name="tide_estimation_description_tide_model">Gebruikt een ingebouwd getijdenmodel om getijden te schatten voor de ingevoerde locatie, of jouw locatie als geen is ingevoerd.</string>
     <string name="star">Ster</string>
     <string name="show_stars">Sterren en planeten weergeven</string>
-    <string name="nearest_stars">Dichtstbijzijnde sterren</string>
-    <string name="last_known_gps_location">Laatst bekende GPS-locatie</string>
-    <string name="select_star">Selecteer ster</string>
-    <plurals name="star_count">
-        <item quantity="one">%d ster</item>
-        <item quantity="other">%d sterren</item>
-    </plurals>
-    <string name="approximate_location">Geschatte locatie</string>
-    <string name="timezone">Tijdzone</string>
-    <string name="stars">Sterren</string>
     <string name="tide">Getij</string>
     <string name="books">Boeken</string>
     <string name="field_guide">Veldgids</string>
@@ -1326,7 +1303,6 @@
     <string name="elevation_miss">Afwijking hoogte</string>
     <string name="below">Onder</string>
     <string name="above">Boven</string>
-    <string name="drop_amount">%s val</string>
     <string name="scope">Vizier</string>
     <string name="scope_height">Vizierhoogte</string>
     <string name="sight_in_range">Vizierbereik</string>
@@ -1414,20 +1390,15 @@
     <string name="plugin_digital_elevation_model">Digitaal hoogtemodel (DEM)</string>
     <string name="invalid_dem_file">Ongeldig DEM-bestand</string>
     <string name="loaded">Geladen</string>
-    <string name="not_set">Niet ingesteld</string>
     <string name="remove_dem">DEM verwijderen</string>
-    <string name="import_dem_file">DEM-bestand importeren</string>
     <string name="digital_elevation_model_link">Je kunt een digitaal hoogtemodel in verschillende formaten downloaden van %s</string>
     <string name="ungroup_all">Alle groeperingen opheffen</string>
     <string name="ungroup_alerts">Wekkergroeperingen opheffen</string>
     <string name="built_in_dem">Ingebouwd (lage nauwkeurigheid)</string>
     <string name="notification_grouping">Meldingsgroepering</string>
-    <string name="map_layer">Kaartlaag</string>
     <string name="contours">Contouren</string>
-    <string name="dem_url">DEM URL</string>
     <string name="map">Kaart</string>
     <string name="show_labels">Labels weergeven</string>
-    <string name="color_with_elevation">Kleur contouren op basis van hoogte</string>
     <string name="planet_mercury">Mercurius</string>
     <string name="planet_venus">Venus</string>
     <string name="planet_mars">Mars</string>
@@ -1467,7 +1438,6 @@
     <string name="color_white">Wit</string>
     <string name="background_color">Achtergrondkleur</string>
     <string name="add_to_homescreen">Toevoegen aan startscherm</string>
-    <string name="transparent">Transparant</string>
     <string name="battery_tip_disable_services">Activiteiten uitschakelen die je niet gebruikt.</string>
     <string name="battery_tip_airplane_mode">Schakel vliegtuigmodus in om alle draadloze verbindingen te verbreken.</string>
     <string name="battery_tip_wifi">Schakel Wi-Fi uit als je niet in de buurt bent van een Wi-Fi-netwerk of als je geen internet nodig hebt.</string>

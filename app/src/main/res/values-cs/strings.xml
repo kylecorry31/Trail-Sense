@@ -197,10 +197,6 @@
     <string name="sun_nautical">Námořní</string>
     <string name="sun_astronomical">Astronomické</string>
     <string name="always">Vždy</string>
-    <string name="update_120_minutes">2 hodiny</string>
-    <string name="update_150_minutes">2 hodiny 30 minut</string>
-    <string name="update_180_minutes">3 hodiny</string>
-    <string name="update_60_minutes">1 hodina</string>
     <string name="pref_sunset_alert_time_title">Čas upozornění na západ</string>
     <string name="pref_app_version_title">Verze</string>
     <string name="pref_email_title">Napsat e-mail vývojáři</string>
@@ -238,7 +234,6 @@
     <string name="water_boil_timer_channel_description">Voda se vaří</string>
     <string name="tool_cliff_height_description">Měření výšky útesu nebo srázu</string>
     <string name="sun_actual">Aktuální</string>
-    <string name="update_30_minutes">30 minut</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrovat před navigací</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_monitor_weather_summary">Na pozadí</string>
@@ -250,7 +245,6 @@
     <string name="pressure_24_hours">24 hodin</string>
     <string name="pressure_4_hours">4 hodiny</string>
     <string name="sun_civil">Civilní</string>
-    <string name="update_90_minutes">1 hodina 30 minut</string>
     <string name="pref_open_source_licenses_title">Licence</string>
     <string name="pref_category_about">O aplikaci</string>
     <string name="tool_bubble_level_summary">Určete, zda jsou povrchy rovné</string>
@@ -316,7 +310,6 @@
     <string name="right_quick_action">Rychlá akce vpravo</string>
     <string name="experimental">Experimentální</string>
     <string name="tides">Přílivy a odlivy</string>
-    <string name="menu">Menu</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Maximálně %d meteorů / h</string>
     <string name="meteor_shower">Meteorický déšť</string>
     <string name="pref_meteor_showers_title">Meteorické deště</string>
@@ -502,7 +495,6 @@
     <string name="magnetometer">Magnetometr</string>
     <string name="speedometer">Tachometr</string>
     <string name="since_time">od %s</string>
-    <string name="odometer">Počítadlo kilometrů</string>
     <string name="pedometer">Krokoměr</string>
     <string name="tool_notes_title">Poznámky</string>
     <string name="cross">Kříž</string>
@@ -1027,8 +1019,6 @@
         <item quantity="other">%d mapy</item>
     </plurals>
     <string name="updating">Aktualizování</string>
-    <string name="beta_disclaimer">Tento nástroj je ve fázi testování, jakékoliv problémy nebo zpětnou vazbu prosím nahlaste na %s.</string>
-    <string name="beta">Ve fázi testování</string>
     <string name="center">Střed</string>
     <string name="size">Velikost</string>
     <string name="create_blank_map">Vytvořit prázdnou mapu</string>
@@ -1102,8 +1092,6 @@
     <string name="unpin">Odepnout</string>
     <string name="pinned">Připnuto</string>
     <string name="pin">Připnout</string>
-    <string name="settings_have_moved_message">Nastavení aplikace byla přesunuta na kartu Nástroje</string>
-    <string name="settings_have_moved">Přesunuli jsme nastavení</string>
     <string name="no_sensor_message">Vaše zařízení nemá senzor %s</string>
     <string name="missing_sensor_message_1">Vaše zařízení %1$s nemá vestavěný senzor %2$s. To bohužel znamená, že některé funkce v %3$s nebudou dostupné.</string>
     <string name="why_missing_sensor">Moje zařízení je nové/drahé, proč mu chybí tento senzor?</string>
@@ -1163,7 +1151,6 @@
     <string name="grid">Mřížka</string>
     <string name="ar_layer_override_message">Nastavení rozložení mohou být přepsány pokyny, například průvodcem astronomie.</string>
     <string name="date">Datum</string>
-    <string name="max_s">Max. %s</string>
     <string name="ar_calibration_disclaimer">Před každým použitím nástroje Rozšířená realita ověřte, že se ikony slunce nebo měsíce nacházejí ve správné pozici oproti reálnému světu. Pokud ne, klepněte na ikonu kompasu v levém horním rohu obrazovky a následujte pokyny pro kalibraci.</string>
     <string name="pref_enable_analog_title">Analogové hodiny</string>
     <string name="no_recorded_cell_signal_nearby">Poblíž nenalezen žádný zaznamenaný mobilní signál</string>
@@ -1259,17 +1246,6 @@
     <string name="tide_estimation_description_tide_model">Používá vestavěný model přílivu a odlivu k odhadu přílivu a odlivu pro zadanou polohu nebo vaši polohu, pokud není zadána.</string>
     <string name="show_stars">Zobrazit hvězdy a planety</string>
     <string name="star">Hvězda</string>
-    <string name="select_star">Vybrat hvězdu</string>
-    <plurals name="star_count">
-        <item quantity="one">%d hvězda</item>
-        <item quantity="few">%d hvězdy</item>
-        <item quantity="other">%d hvězd</item>
-    </plurals>
-    <string name="approximate_location">Přibližná poloha</string>
-    <string name="last_known_gps_location">Poslední známá poloha GPS</string>
-    <string name="timezone">Časové pásmo</string>
-    <string name="stars">Hvězdy</string>
-    <string name="nearest_stars">Nejbližší hvězdy</string>
     <string name="tide">Příliv a odliv</string>
     <string name="field_guide">Terénní průvodce</string>
     <string name="books">Knihy</string>
@@ -1352,7 +1328,6 @@
     <string name="distance_to_target">Vzdálenost od cíle</string>
     <string name="scope_adjustment">Úprava rozsahu</string>
     <string name="windage_miss">Odchylka směru větru</string>
-    <string name="drop_amount">%s pád</string>
     <string name="scope">Rozsah</string>
     <string name="scope_height">Výška rozsahu</string>
     <string name="sight_in_range">Rozsah dohledu</string>
@@ -1440,20 +1415,15 @@
     <string name="plugin_digital_elevation_model">Digitální model reliéfu (DEM)</string>
     <string name="loaded">Načteno</string>
     <string name="invalid_dem_file">Neplatný soubor DEM</string>
-    <string name="not_set">Nenastaveno</string>
     <string name="remove_dem">Odstranit DEM</string>
-    <string name="import_dem_file">Importovat soubor DEM</string>
     <string name="digital_elevation_model_link">Digitální model reliéfu v různých velikostech si můžete stáhnout z %s</string>
     <string name="ungroup_alerts">Zrušit seskupení upozornění</string>
     <string name="notification_grouping">Seskupování oznámení</string>
     <string name="ungroup_all">Zrušit seskupení všeho</string>
     <string name="built_in_dem">Vestavěný (nízká přesnost)</string>
     <string name="contours">Vrstevnice</string>
-    <string name="map_layer">Vrstva mapy</string>
-    <string name="dem_url">URL DEM</string>
     <string name="map">Mapa</string>
     <string name="show_labels">Zobrazit popisky</string>
-    <string name="color_with_elevation">Barevné vrstevnice podle nadmořské výšky</string>
     <string name="planet_mercury">Merkur</string>
     <string name="planet_venus">Venuše</string>
     <string name="planet_mars">Mars</string>
@@ -1493,7 +1463,6 @@
     <string name="color_white">Bílá</string>
     <string name="background_color">Barva pozadí</string>
     <string name="add_to_homescreen">Přidat na domovskou obrazovku</string>
-    <string name="transparent">Průhledný</string>
     <string name="battery_tip_disable_services">Zakažte služby, které nepoužíváte.</string>
     <string name="battery_tip_airplane_mode">Zapněte režim Letadlo pro zakázání všech bezdrátových připojení.</string>
     <string name="battery_tip_wifi">Vypněte Wi-Fi, pokud nejste v dosahu sítě Wi-Fi nebo nepotřebujete internet.</string>

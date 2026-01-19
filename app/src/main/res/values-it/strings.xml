@@ -264,12 +264,6 @@
     <string name="pref_category_about">Informazioni</string>
     <string name="pref_open_source_licenses_title">Licenze</string>
     <string name="pref_sunset_alert_time_title">Avviso tramonto</string>
-    <string name="update_60_minutes">1 ora</string>
-    <string name="update_30_minutes">30 minuti</string>
-    <string name="update_180_minutes">3 ore</string>
-    <string name="update_150_minutes">2 ore 30 minuti</string>
-    <string name="update_120_minutes">2 ore</string>
-    <string name="update_90_minutes">1 ora 30 minuti</string>
     <string name="pref_center_sun_and_moon_title">Mantenere sole/luna centrati</string>
     <string name="sun_moon_compass_when_up">Quando sorti</string>
     <string name="always">Sempre</string>
@@ -468,7 +462,6 @@
         <item quantity="many">%d segnaposti esportati</item>
         <item quantity="other">%d segnaposti esportati</item>
     </plurals>
-    <string name="menu">Menu</string>
     <string name="import_gpx">Importa GPX</string>
     <string name="duration_second_format">%ds</string>
     <string name="battery_capacity_format">%s mAh</string>
@@ -500,7 +493,6 @@
     <string name="experimental">Sperimentale</string>
     <string name="tides">Maree</string>
     <string name="pref_daily_weather_time_title">Orario meteo giornaliero</string>
-    <string name="odometer">Odometro</string>
     <string name="rename">Rinomina</string>
     <string name="no_maps">Nessuna mappa</string>
     <string name="next">Successivo</string>
@@ -904,7 +896,6 @@
     <string name="obscuration">Oscuramento</string>
     <string name="astronomy_altitude_peak">Altitudine di picco</string>
     <string name="astronomy_direction_peak">Direzione picco</string>
-    <string name="beta">Beta</string>
     <string name="crop_map_instructions_long">Trascina i bordi del riquadro fino ai bordi della mappa per delinearne i bordi. Il ritaglio riduce la risoluzione della mappa.</string>
     <string name="horizon">Orizzonte</string>
     <string name="times">Orari</string>
@@ -969,7 +960,6 @@
         <item quantity="other">%d punti Intermedi verranno eliminati</item>
     </plurals>
     <string name="photo_map_summary">Utilizza una fotografia come mappa</string>
-    <string name="beta_disclaimer">Questo strumento è attualmente in versione beta, si prega quindi di segnalare qualunque errore o suggerimento a %s.</string>
     <string name="paths">Percorsi</string>
     <string name="remove_distance_alert">Rimuovere l\'avviso di distanza (%s)\?</string>
     <string name="until_sunset">Al tramonto</string>
@@ -1084,8 +1074,6 @@
     <string name="distance_away_from_destination">%s dalla destinazione</string>
     <string name="missing_sensor_explanation">Alcuni produttori di telefoni scelgono di non aggiungere questo sensore, anche su dispositivi nuovi o costosi. È possibile ottenere ulteriori informazioni visitando il sito dei produttori di dispositivi o contattandoli.</string>
     <string name="no_sensor_unable_to_fix">No, purtroppo questa è una caratteristica hardware, quindi non c\'è modo di aggiungerlo.</string>
-    <string name="settings_have_moved_message">Le impostazioni dell\'app sono state spostate nella sezione Strumenti</string>
-    <string name="settings_have_moved">Le impostazioni sono state spostate</string>
     <string name="triangulate_self_location_1_instructions">Scegli una posizione conosciuta che puoi vedere in lontananza e registra la tua direzione rispetto a quella posizione.</string>
     <string name="augmented_reality_description">Visualizza i beacon vicini e sole / luna con la fotocamera</string>
     <string name="triangulate_self_location_2_instructions">Scegli un\'altra posizione conosciuta che puoi vedere e registra la direzione da dove sei a quella posizione.</string>
@@ -1177,7 +1165,6 @@
     <string name="imperial_tablespoons">Cucchiai imperiali</string>
     <string name="automatic_backup_invalid_directory">Cartella non valida</string>
     <string name="on_import">Nell\'importazione</string>
-    <string name="max_s">Max %s</string>
     <string name="quick_actions_are_unavailable">Le azioni rapide non sono disponibili</string>
     <string name="bottom_navigation_slot">Slot di navigazione inferiore %d</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Controlla la luminosità della torcia dello schermo con i pulsanti del volume</string>
@@ -1248,17 +1235,6 @@
     <string name="show_stars">Mostra stelle</string>
     <string name="tide_model_auto">Modello marea (auto)</string>
     <string name="nearby_beacons">Segnaposti vicini</string>
-    <string name="nearest_stars">Stelle vicine</string>
-    <string name="select_star">Seleziona stella</string>
-    <string name="stars">Stelle</string>
-    <plurals name="star_count">
-        <item quantity="one">%d stella</item>
-        <item quantity="many">%d di stelle</item>
-        <item quantity="other">%d stelle</item>
-    </plurals>
-    <string name="last_known_gps_location">Ultima posizione GPS nota</string>
-    <string name="timezone">Fuso orario</string>
-    <string name="approximate_location">Posizione approssimativa</string>
     <plurals name="page_group_summary">
         <item quantity="one">pagina</item>
         <item quantity="many">pagine</item>

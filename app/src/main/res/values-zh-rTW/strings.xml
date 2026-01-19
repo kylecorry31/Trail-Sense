@@ -123,10 +123,6 @@
     <string name="no_group">沒有群組</string>
     <string name="tool_user_guide_title">使用者指南</string>
     <string name="pref_email_title">寄送電子郵件給開發者</string>
-    <string name="update_60_minutes">1 小時</string>
-    <string name="update_30_minutes">30 分鐘</string>
-    <string name="update_180_minutes">3 小時</string>
-    <string name="update_120_minutes">2 小時</string>
     <string name="sun_actual">實際</string>
     <string name="pref_elevation_override_title">海拔覆寫</string>
     <string name="map_fractional_separator">:</string>
@@ -206,8 +202,6 @@
     <string name="error_occurred">發生錯誤</string>
     <string name="pref_open_source_licenses_title">許可證</string>
     <string name="pref_sunset_alert_time_title">日落警報時間</string>
-    <string name="update_150_minutes">2 小時 30 分鐘</string>
-    <string name="update_90_minutes">1 小時 30 分鐘</string>
     <string name="pref_center_sun_and_moon_title">保持太陽／月亮置中</string>
     <string name="sun_moon_compass_when_up">當升起時</string>
     <string name="pref_show_sun_moon_compass_title">在指南針上顯示太陽／月亮</string>
@@ -341,7 +335,6 @@
     <string name="turn_back_alerts">折返警報</string>
     <string name="open_photo_map">開啟照片地圖</string>
     <string name="cloud_scanner">雲掃描器</string>
-    <string name="max_s">最大 %s</string>
     <string name="date">日期</string>
     <string name="grid">網格</string>
     <string name="visible">可見</string>
@@ -581,7 +574,6 @@
     <string name="magnetometer">磁強計</string>
     <string name="pref_backtrack_save_cell_summary">在停駐點記錄手機訊號。不使用網路。</string>
     <string name="since_time">自從 %s</string>
-    <string name="odometer">里程表</string>
     <string name="pref_meteor_showers_title">流星雨</string>
     <string name="on_map">在地圖上</string>
     <string name="import_gpx">匯入 GPX</string>
@@ -679,7 +671,6 @@
     <string name="moderate">中等</string>
     <string name="low">低</string>
     <string name="pref_stride_length_title">步幅</string>
-    <string name="menu">選單</string>
     <string name="meteor_shower">流星雨</string>
     <string name="map_auto_calibrated">地圖已自動校正，請驗證其準確性</string>
     <string name="solid">實線</string>
@@ -935,8 +926,6 @@
     <string name="season">季節</string>
     <string name="astronomy_set">落下</string>
     <string name="astronomy_rise">升起</string>
-    <string name="beta">測試</string>
-    <string name="beta_disclaimer">此工具目前處於測試階段，因此請向 %s 報告任何問題或意見反映。</string>
     <string name="learn_more">瞭解更多</string>
     <string name="invalid_backup_file">無效的備份檔案</string>
     <string name="my_location">我的位置</string>
@@ -1065,7 +1054,6 @@
     <string name="pref_keep_map_facing_up_summary">地圖將與螢幕頂部對齊，而不是與實際北方對齊。</string>
     <string name="rate">發生頻率</string>
     <string name="tool_long_press_hint_toast">長按工具以查看更多選項</string>
-    <string name="settings_have_moved_message">應用程式設定已移至「工具」分頁</string>
     <string name="true_north_description">使用你所在位置的赤緯指向地理北極。這將與大多數地圖保持一致。</string>
     <string name="ar_calibration_disclaimer">每次使用「擴增實境」工具之前，請先驗證太陽或月亮圖示是否與現實世界正確對齊。如果沒有，請按一下螢幕左上角的指南針圖示，然後按照說明進行校正。</string>
     <string name="ar_calibration_instructions_hint">若要校正「擴增實境」工具，請點擊螢幕左上角的圖示，然後按照顯示的說明進行操作。</string>
@@ -1084,7 +1072,6 @@
     <string name="no_sensor_unable_to_fix">沒有，不幸的是，這是一個硬體功能，因此無法添加它。</string>
     <string name="is_there_a_way_to_fix_this">有沒有辦法解決這個問題？</string>
     <string name="missing_sensor_message_1">你的 %1$s 沒有內建 %2$s 感測器。不幸的是，這意味著 %3$s 中的某些功能將會無法使用。</string>
-    <string name="settings_have_moved">設定已移動</string>
     <string name="distance_away_from_destination">距離目的地 %s</string>
     <string name="triangulate_self_location_1_instructions">選擇你可以看到的已知位置並記錄從你所在位置到該位置的方向。</string>
     <string name="triangulate_destination_location_2_instructions">從第一個位置移動至少 %s，並再次記錄你的位置和到達目的地的方向。</string>
@@ -1240,12 +1227,6 @@
     <string name="full_service">完整服務</string>
     <string name="cell_tower">訊號塔</string>
     <string name="emergency_calls_only">僅限緊急呼叫</string>
-    <plurals name="star_count">
-        <item quantity="other">%d 顆星星</item>
-    </plurals>
-    <string name="approximate_location">大概位置</string>
-    <string name="last_known_gps_location">最後已知的 GPS 位置</string>
-    <string name="timezone">時區</string>
     <plurals name="page_group_summary">
         <item quantity="other">%d 頁</item>
     </plurals>
@@ -1296,9 +1277,6 @@
     <string name="delete_all_beacons">全部信標都將被刪除。</string>
     <string name="no_pages">沒有頁面</string>
     <string name="tide">潮汐</string>
-    <string name="nearest_stars">最近的星星</string>
-    <string name="select_star">選擇星星</string>
-    <string name="stars">星星</string>
     <string name="create_page">建立頁面</string>
     <string name="no_results">沒有結果</string>
     <string name="milligrams">毫克</string>
@@ -1360,21 +1338,16 @@
     <string name="climate_tropical_rainforest">熱帶雨林</string>
     <string name="climate_ice_cap">冰帽</string>
     <string name="insect_activity">昆蟲活動</string>
-    <string name="not_set">未設定</string>
     <string name="remove_dem">移除 DEM</string>
     <string name="notification_grouping">通知群組</string>
-    <string name="map_layer">地圖圖層</string>
-    <string name="dem_url">DEM 網址</string>
     <string name="altimeter_mode_dem_barometer">DEM + 氣壓計</string>
     <string name="invalid_dem_file">無效的 DEM 檔案</string>
-    <string name="import_dem_file">匯入 DEM 檔案</string>
     <string name="plugin_digital_elevation_model">數位海拔模型（DEM）</string>
     <string name="pref_navigation_lock_screen_when_open_title">開啟時顯示在鎖定畫面上</string>
     <string name="safe_mode_toast">偵測到崩潰，某些功能停用幾秒鐘。</string>
     <string name="alarm_description">即使媒體和通知已靜音也會播放聲音</string>
     <string name="built_in_dem">內置（低準確性）</string>
     <string name="survival_guide_empty_desc">請搜尋有關生存主題的內容，例如水源、醫療、食物、天氣、庇護所或導航技巧。</string>
-    <string name="drop_amount">彈道下墜%s</string>
     <string name="range_header_units">射程（%s）</string>
     <string name="drop_header_units">彈落距 (%s)</string>
     <string name="climate_tropical_savanna">熱帶稀樹草原</string>
@@ -1429,7 +1402,6 @@
     <string name="add_to_homescreen">新增至主螢幕</string>
     <string name="mute_alarm_at_night">在夜間靜音警報</string>
     <string name="increase_exposure_at_night">在夜間增加曝光</string>
-    <string name="transparent">透明</string>
     <string name="climate_savanna_description">有旱季。可能包含樹木稀疏的草地。</string>
     <string name="system">系統</string>
     <string name="airplane_mode">飛航模式</string>
@@ -1461,7 +1433,6 @@
     <string name="wifi">Wi-Fi</string>
     <string name="bluetooth">藍牙</string>
     <string name="nfc">NFC</string>
-    <string name="color_with_elevation">根據海拔高度繪製顏色輪廓</string>
     <string name="battery_tip_disable_services">停用你不使用的服務。</string>
     <string name="show_pressure_forecast">在圖表上顯示氣壓預測</string>
     <string name="climate_hot_description">為全年高溫做好計劃。</string>

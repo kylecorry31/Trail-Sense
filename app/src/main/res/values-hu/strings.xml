@@ -309,9 +309,6 @@
     <string name="pref_auto_location_title">Hely automatikus állítása</string>
     <string name="elevation_override_updated_toast">Magasság-felülírás frissítve</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Tengerszinti nyomás megadása</string>
-    <string name="update_90_minutes">1 óra 30 perc</string>
-    <string name="update_120_minutes">2 óra</string>
-    <string name="update_150_minutes">2 óra 30 perc</string>
     <string name="guide_recommended_apps">Javasolt appok</string>
     <string name="how">Hogyan</string>
     <string name="low_tide">Apály</string>
@@ -319,7 +316,6 @@
     <string name="high_tide">Dagály</string>
     <string name="speedometer">Sebességmérő</string>
     <string name="no_tides">Nincsenek árapályok</string>
-    <string name="menu">Menü</string>
     <string name="whistle_signal_acknowledged">Értettem</string>
     <string name="units">Mértékegységek</string>
     <string name="pref_experimental_metal_direction_title">Fém irányának mutatása</string>
@@ -411,10 +407,7 @@
     <string name="pressure_12_hours">12 óra</string>
     <string name="pressure_4_hours">4 óra</string>
     <string name="pref_sun_time_mode_title">Napkelte / Napnyugta időpontjai</string>
-    <string name="update_180_minutes">3 óra</string>
-    <string name="update_30_minutes">30 perc</string>
     <string name="error_occurred_message">A Trail Sense hibába futott. Kérlek, írj e-mailt a fejlesztőnek a hiba javításához.</string>
-    <string name="update_60_minutes">1 óra</string>
     <string name="pref_sunset_alert_time_title">Napnyugta figyelmeztetés ideje</string>
     <string name="tap_sun_moon_hint">Nyomj a Napra vagy a Holdra a pozíció részleteiért</string>
     <string name="forecasts_category">Előrejelzések</string>
@@ -454,7 +447,6 @@
     <string name="set">Beállít</string>
     <string name="always_on">Mindig be</string>
     <string name="tides">Árapályok</string>
-    <string name="odometer">Távolságmérő</string>
     <string name="pref_meteor_showers_title">Meteorzivatarok</string>
     <string name="next">Következő</string>
     <string name="time_until_full">múlva feltöltődik</string>
@@ -969,7 +961,6 @@
     <string name="delete_map_group_message">%s és minden térképe törölve lesz.</string>
     <string name="sunset_alerts_background_location_disclaimer">A naplemente riasztások pontatlanok lehetnek utazás közben</string>
     <string name="weather_thunderstorm">Zivatar</string>
-    <string name="beta">Béta</string>
     <string name="backtrack_no_permission">A visszakövetés helyhozzáférést igényel</string>
     <string name="autofill_source">Forrás automatikus kitöltése</string>
     <string name="create_blank_map">Üres térkép létrehozása</string>
@@ -1016,7 +1007,6 @@
 \n
 \nCsak olyan mentésfájlt válassz ki amit a %s-szel készítettél és amiben megbízol.</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">A hőmérsékletek a múltbeli adatok %d éves átlagán alapulnak, és nem feltétlenül tükrözik az aktuális időjárási viszonyokat.</string>
-    <string name="beta_disclaimer">Ez az eszköz jelenleg béta állapotban van, ezért kérjük, jelentsd a problémákat vagy visszajelzéseket a(z) %s címre.</string>
     <string name="compass_source_mag_gyro">Magnetométer + giroszkóp</string>
     <string name="reduce_map_resolution_crop_disclaimer">A térkép körbevágása továbbra is csökkenti a felbontást. Ha nagy felbontásban kell körbevágnod a térképet, kérjük, használj egy fotószerkesztő alkalmazást. Ennek tervben van a jövőbeli javítása.</string>
     <string name="solar_eclipse">Napfogyatkozás</string>
@@ -1040,8 +1030,6 @@
     <string name="missing_sensor_explanation">Néhány telefongyártó úgy dönt, hogy nem szerel ilyen szenzort még az új vagy drága eszközeire sem. További információt az eszközöd gyártójának weboldaláról vagy ügyfélszolgálatától kaphatsz.</string>
     <string name="no_sensor_unable_to_fix">Nem, sajnos ez egy hardveres tulajdonság, ezért sehogyan nem lehet utólag hozzáadni.</string>
     <string name="backup_restore">Mentés / visszaállítás</string>
-    <string name="settings_have_moved_message">Az alkalmazás beállításai az Eszközök lapra kerültek</string>
-    <string name="settings_have_moved">A beállítások átköltöztek</string>
     <string name="pinned">Kitűzöttek</string>
     <string name="triangulate_self_location_1_instructions">Válassz egy általad ismert helyet, amire rálátsz és jegyezd fel hogy ez a hely a jelenlegi helyedhez képest milyen irányban van.</string>
     <string name="restoring_loading_message">Visszaállítás…</string>
@@ -1130,7 +1118,6 @@
     <string name="sunrise">Napkelte</string>
     <string name="use_gyroscope_after_calibration_description">Az iránytű helyett (kiküszöböli a mágneses elcsúszást)</string>
     <string name="projection_estimated_intrinsics">Becsült belső értékek</string>
-    <string name="max_s">Max %s</string>
     <string name="ar_calibration_instructions_hint">A Kiterjesztett Valóság eszköz kalibrálásához nyomj a képernyő bal felső részén lévő ikonra, és kövesd a megjelenő utasításokat.</string>
     <string name="harmonic">Harmonikus</string>
     <string name="survival_guide">Túlélési Útmutató</string>
@@ -1170,10 +1157,6 @@
     <string name="audio_error_messsage">Hiba történt a hang lejátszásakor.</string>
     <string name="view_distance">Látótávolság</string>
     <string name="theme_system_black">Rendszer (fekete)</string>
-    <plurals name="star_count">
-        <item quantity="one">%d csillag</item>
-        <item quantity="other">%d csillag</item>
-    </plurals>
     <plurals name="number_steps">
         <item quantity="one">%d lépés</item>
         <item quantity="other">%d lépés</item>
@@ -1203,7 +1186,6 @@
     <string name="us_tablespoons">US evőkanál</string>
     <string name="auto_backup_instructions">Naponta egyszer biztonsági mentés lesz létrehozva a %1$s helyen. Csak a legutóbbi %2$d mentés kerül megőrzésre.</string>
     <string name="automatic_backup_invalid_directory">Érvénytelen könyvtár</string>
-    <string name="stars">Csillagok</string>
     <string name="field_guide">Terepi Útmutató</string>
     <string name="books">Könyvek</string>
     <string name="habitat">Élőhely</string>
@@ -1214,8 +1196,6 @@
     <string name="below">Alá</string>
     <string name="adjustment_per_click">Állítás fokozatonként</string>
     <string name="path_distance_performance_disclaimer">Legfeljebb %s javasolt</string>
-    <string name="timezone">Időzóna</string>
-    <string name="nearest_stars">Legközelebbi csillagok</string>
     <string name="no_cell_towers_found">Nem található adótorony</string>
     <string name="emergency_calls_only">Csak segélyhívások</string>
     <string name="full_service">Teljes szolgáltatás</string>
@@ -1232,7 +1212,6 @@
     <string name="widget_pref_title">Alkalmazásbeli widgetek</string>
     <string name="sun_moon_chart">Nap és hold diagram</string>
     <string name="tide_estimation_description_lunitidal_interval_local">A hold pozíciójából becsli az árapályokat. A helyi árapály-eltolódást és a helyet igényli.</string>
-    <string name="select_star">Csillag kiválasztása</string>
     <string name="pressure_chart">Nyomás diagram</string>
     <string name="tide_estimation_description_tide_clock">Az óra alapján becsli az árapályokat. Legalább egy ismert árapályt igényel.</string>
     <string name="tide_estimation_description_lunitidal_interval_auto">A hold pozíciójából becsli az árapályokat. Legalább egy ismert árapályt igényel.</string>
@@ -1293,7 +1272,6 @@
     <string name="ticks">Tárcsaosztások</string>
     <string name="tide_chart">Árapály diagram</string>
     <string name="field_guide_disclaimer">Ez az eszköz csak tájékoztató jellegű. Mindig körültekintően járj el növények, állatok, gombák azonosításakor. Egyes fajok veszélyesek vagy védettek lehetnek. Ha egy azonosítással kapcsolatban bizonytalan vagy, beszélj egy szakemberrel.</string>
-    <string name="drop_amount">%s esés</string>
     <string name="scope">Távcső</string>
     <string name="scope_height">Távcső magassága</string>
     <string name="muzzle_velocity">Torkolati sebesség</string>
@@ -1315,8 +1293,6 @@
     <string name="tide_estimation_description_lunitidal_interval_utc">A hold pozíciójából becsli az árapályokat. A középidőnél mért árapály-eltolást igényli.</string>
     <string name="star">Csillag</string>
     <string name="show_stars">Csillagok mutatása</string>
-    <string name="approximate_location">Közelítő hely</string>
-    <string name="last_known_gps_location">Utolsó ismert GPS hely</string>
     <string name="tide">Árapály</string>
     <string name="delete_all_beacons">Minden jelzőpont törölve lesz.</string>
     <string name="africa">Afrika</string>

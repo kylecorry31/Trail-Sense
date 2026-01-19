@@ -27,12 +27,10 @@
     <string name="pref_meteor_showers_title">Зорепади</string>
     <string name="meteors_per_hour">Щонайбільше %d метеорів / год</string>
     <string name="meteor_shower">Зорепад</string>
-    <string name="menu">Меню</string>
     <string name="no_tides">Немає припливів</string>
     <string name="pref_nearby_radar_title">Показати компас радару поблизу</string>
     <string name="pref_stride_length_title">Довжина кроку</string>
     <string name="pedometer">Крокомір</string>
-    <string name="odometer">Відстанемір</string>
     <string name="speedometer">Спідометр</string>
     <string name="screen_flashlight">Екран</string>
     <string name="pref_daily_weather_time_title">Щоденний час погоди</string>
@@ -205,10 +203,6 @@
     <string name="pref_category_about">Про застосунок</string>
     <string name="pref_open_source_licenses_title">Ліцензії</string>
     <string name="pref_sunset_alert_time_title">Попереджати про захід за</string>
-    <string name="update_60_minutes">1 годину</string>
-    <string name="update_30_minutes">30 хвилин</string>
-    <string name="update_180_minutes">3 години</string>
-    <string name="update_150_minutes">2 години 30 хвилин</string>
     <string name="contents">Зміст</string>
     <string name="pref_sensor_details_title">Подробиці датників</string>
     <string name="pref_elevation_override_title">Зсув висоти</string>
@@ -219,8 +213,6 @@
     <string name="pref_show_last_signal_beacon_title">Останній сигнал маячка</string>
     <string name="last_signal_beacon_name">Останній сигнал - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Відмовлено в дозволі на камеру, дозвольте, щоб увімкнути функції камери. Ви можете надати дозвіл у налаштуваннях.</string>
-    <string name="update_120_minutes">2 години</string>
-    <string name="update_90_minutes">1 годину 30 хвилин</string>
     <string name="pref_center_sun_and_moon_title">Тримати сонце/місяць посередині</string>
     <string name="sun_moon_compass_when_up">Коли зійшло</string>
     <string name="always">Завжди</string>
@@ -1045,8 +1037,6 @@
     <string name="data_source">Джерело: %s</string>
     <string name="map_file">Файл (JPG, PNG, PDF)</string>
     <string name="photo_map_disclaimer">Завжди майте при собі фізичну мапу для резервного копіювання та перевіряйте точність Trail Sense.</string>
-    <string name="beta">Бета</string>
-    <string name="beta_disclaimer">Наразі цей засіб в стадії бетаверсії, тому, будь ласка, повідомляйте про будь-які проблеми або відгуки на %s.</string>
     <string name="photo_map_summary">Використовувати світлину як мапу</string>
     <string name="reduce_map_resolution_crop_disclaimer">Обрізання мапи призведе до зменшення роздільної здатності. Якщо вам потрібно обрізати мапу з високою роздільною здатністю, скористайтеся застосунком для редагування зображень. У майбутньому це планується виправити.</string>
     <string name="crop_map_instructions_long">Перетягніть кути рамки до кутів мапи, щоб створити контур. Обрізання зменшить роздільність мапи.</string>
@@ -1105,9 +1095,7 @@
     <string name="pinned">Закріплено</string>
     <string name="tool_long_press_hint_toast">Тривало натисніть на засіб, щоб побачити більше опцій</string>
     <string name="invalid_backup_file">Недійсний бекап файл</string>
-    <string name="settings_have_moved">Налаштування перемістилися</string>
     <string name="restore_failure_newer_version">Ця резервна копія була створена з новою версією %s. Будь ласка, оновіть застосунок і спробуйте знову.</string>
-    <string name="settings_have_moved_message">Налаштування програми перенесено на вкладку \"Засоби\"</string>
     <string name="missing_sensor_message_1">Ваш %1$s не має вбудованого датчика %2$s. На жаль, це означає, що деякі функції на %3$s будуть недоступні.</string>
     <string name="no_sensor_unable_to_fix">Ні, на жаль, це апаратна функція, тому ми не можемо нічого зробити, щоб додати її.</string>
     <string name="why_missing_sensor">Мій пристрій новий/дорогий, чому в ньому немає цього датчика?</string>
@@ -1210,7 +1198,6 @@
     <string name="projection_manufacturer_intrinsics">Інтринсики виробника</string>
     <string name="feature_unavailable">%s недоступно</string>
     <string name="audio_error_messsage">Виникла помилка під час спроби відтворення звуку.</string>
-    <string name="max_s">Макс %s</string>
     <string name="tool_quick_action_name">Засіб: %s</string>
     <string name="return_before_dark">Повернутися до темноти</string>
     <string name="turn_back_alert_set">Сповіщення про повернення встановлено</string>

@@ -22,7 +22,6 @@
     <string name="pedometer_disclaimer">Adımsayarın doğruluğu ve pil tüketimi cihazınızın üreticisine ve girilen adım mesafesine bağlıdır. Yolda kullanmadan önce evinizde hassasiyeti doğrulayın.</string>
     <string name="no_tides">Gelgit yok</string>
     <string name="pedometer">Adımsayar</string>
-    <string name="odometer">Odometre/kilometre sayacı</string>
     <string name="speedometer">Hızölçer</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="pref_daily_weather_time_title">Günlük hava durumu vakti</string>
@@ -225,12 +224,6 @@
     <string name="pref_category_about">Hakkında</string>
     <string name="pref_open_source_licenses_title">Lisanslar</string>
     <string name="pref_sunset_alert_time_title">Gün batımı uyarı zamanı</string>
-    <string name="update_60_minutes">1 saat</string>
-    <string name="update_30_minutes">30 dakika</string>
-    <string name="update_180_minutes">3 saat</string>
-    <string name="update_150_minutes">2 saat 30 dakika</string>
-    <string name="update_120_minutes">2 saat</string>
-    <string name="update_90_minutes">1 saat 30 dakika</string>
     <string name="pref_center_sun_and_moon_title">Güneşi/ayı ortalanmış tut</string>
     <string name="sun_moon_compass_when_up">Doğduğunda</string>
     <string name="always">Her zaman</string>
@@ -468,7 +461,6 @@
     <string name="pref_meteor_showers_title">Gök taşı yağmurları</string>
     <string name="meteors_per_hour">Saatte en fazla %d gök taşı</string>
     <string name="meteor_shower">Gök taşı yağmuru</string>
-    <string name="menu">Menü</string>
     <string name="pref_nearby_radar_title">Yakındaki radar pusulasını göster</string>
     <string name="pref_stride_length_title">Adım uzunluğu</string>
     <string name="experimental">Deneysel</string>
@@ -1002,7 +994,6 @@
     <string name="sunset_alert_scheduled">Gün batımından %s öncesi için uyarı zamanlandı</string>
     <string name="backup_restore">Yedekle / geri yükle</string>
     <string name="sunset_alerts_background_location_disclaimer">Seyahat ederken gün batımı uyarıları hatalı olabilir</string>
-    <string name="beta">Beta</string>
     <string name="backtrack_no_permission">Geri iz sürmenin çalıştırması için konum izni gerekir</string>
     <string name="gps_accuracy_tip">Gökyüzünü engelsiz bir şekilde gördüğünüzden emin olun ve yüksek binalardan ve ağaçlardan uzaklaşın.</string>
     <string name="triangulate_self_location_1_instructions">Görebildiğiniz bilinen bir konum seçin ve bulunduğunuz yerden o konuma olan yönü kaydedin.</string>
@@ -1045,7 +1036,6 @@
     <string name="restore_disclaimer">Bu işlem geçerli tüm verilerinizin üzerine yazacaktır. Lütfen devam etmeden önce bir yedeğiniz olduğundan emin olun.
 \n
 \nYalnızca %s ile oluşturduğunuz ve güvendiğiniz bir yedekleme dosyasını seçin.</string>
-    <string name="beta_disclaimer">Bu araç şu anda beta aşamasındadır, bu nedenle lütfen sorunları veya geri bildirimleri %s adresine iletin.</string>
     <string name="compass_source_mag_gyro">Manyetometre + Gyro</string>
     <string name="reduce_map_resolution_crop_disclaimer">Haritanın kırpılması çözünürlüğü düşürmeye devam edecektir. Haritayı yüksek çözünürlükte kırpmanız gerekiyorsa, lütfen bir fotoğraf düzenleyici uygulaması kullanın. Bunu gelecekte düzeltme planları vardır.</string>
     <string name="photo_map_disclaimer">Yedek olarak her zaman fiziksel bir harita taşıyın ve Trail Sense\'in doğruluğunu onaylayın.</string>
@@ -1055,8 +1045,6 @@
     <string name="magnetic_north">Manyetik kuzey</string>
     <string name="tool_long_press_hint_toast">Daha fazla seçenek görmek için bir araca uzun basın</string>
     <string name="unpin">Sabitlemeyi kaldır</string>
-    <string name="settings_have_moved_message">Uygulama ayarları Araçlar sekmesine taşındı</string>
-    <string name="settings_have_moved">Ayarlar taşındı</string>
     <string name="pinned">Sabitlendi</string>
     <string name="pin">Sabitle</string>
     <string name="no_sensor_message">Aygıtınızda %s sensörü yok</string>
@@ -1118,7 +1106,6 @@
     <string name="grid">Izgara</string>
     <string name="ar_layer_override_message">Katman ayarları, gök bilim kılavuzu gibi yönlendirmelerle geçersiz kılınabilir.</string>
     <string name="date">Tarih</string>
-    <string name="max_s">En fazla %s</string>
     <string name="ar_calibration_disclaimer">Artırılmış Gerçeklik aracını her kullanmadan önce, güneş veya ay simgelerinin gerçek dünyaya uygun şekilde hizalandığını doğrulayın. Değilse, ekranın sol üst köşesindeki pusula simgesine tıklayın ve kalibre etmek için talimatları izleyin.</string>
     <string name="pref_enable_analog_title">Analog saat</string>
     <string name="no_recorded_cell_signal_nearby">Yakınlarda kayıtlı telefon sinyali yok</string>
@@ -1173,7 +1160,6 @@
     <string name="lunitidal_interval_auto">Ay gelgit aralığı (otomatik)</string>
     <string name="lunitidal_interval_local">Ay gelgit aralığı (yerel)</string>
     <string name="field_required">%s (gerekli)</string>
-    <string name="select_star">Yıldız seç</string>
     <string name="no_directory_selected">Hiçbir dizin seçilmedi</string>
     <string name="sun_moon_chart">Güneş ve ay çizelgesi</string>
     <string name="unit_millimeters">Milimetre</string>
@@ -1182,19 +1168,12 @@
     <string name="nearby_beacons">Yakındaki işaretçiler</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">Gelgitleri tahmin etmek için ayın konumunu kullanır. UTC gelgit aralığını gerektirir.</string>
     <string name="star">Yıldız</string>
-    <string name="approximate_location">Yaklaşık konum</string>
-    <string name="timezone">Saat dilimi</string>
-    <string name="last_known_gps_location">Bilinen son GPS konumu</string>
     <string name="millimeters_format">%s mm</string>
     <string name="teaspooon_format">%s çay k.</string>
     <string name="tablespoon_format">%s yemek k.</string>
     <plurals name="number_steps">
         <item quantity="one">%d adım</item>
         <item quantity="other">%d adım</item>
-    </plurals>
-    <plurals name="star_count">
-        <item quantity="one">%d yıldız</item>
-        <item quantity="other">%d yıldız</item>
     </plurals>
     <string name="reduce_photo_resolution">Fotoğraf çözünürlüğünü azalt</string>
     <string name="pressure_chart">Basınç çizelgesi</string>
@@ -1222,8 +1201,6 @@
     <string name="tide_estimation_description_lunitidal_interval_local">Gelgitleri tahmin etmek için ayın konumunu kullanır. Yerel gelgit aralığını ve konumu gerektirir.</string>
     <string name="on_import">İçe aktarmada</string>
     <string name="theme_system_black">Sistem (siyah)</string>
-    <string name="nearest_stars">En yakın yıldızlar</string>
-    <string name="stars">Yıldızlar</string>
     <string name="tide">Gelgit</string>
     <string name="reduce_pdf_resolution">PDF çözünürlüğünü azalt</string>
     <string name="tool_signal_finder">Sinyal Bulucu</string>
@@ -1315,7 +1292,6 @@
     <string name="grains_format">%s grain</string>
     <string name="grains">Grain</string>
     <string name="scope">Dürbün</string>
-    <string name="drop_amount">%s mermi düşüşü</string>
     <string name="elevation_miss">Dikey ıska</string>
     <string name="sight_in_range">Sıfır mesafesi</string>
     <string name="range_header_units">Menzil (%s)</string>
@@ -1384,12 +1360,9 @@
     <string name="use_alarm_for_water_boil_timer">Su kaynama sayacı uyarısı için alarm kullan</string>
     <string name="alarm_time_range">Sadece %1$s\'den %2$s\'a çal</string>
     <string name="loaded">Yüklü</string>
-    <string name="not_set">Ayarsız</string>
-    <string name="transparent">Şeffaf</string>
     <string name="built_in_dem">Yerleşik (düşük hassasiyet)</string>
     <string name="notification_grouping">Bildirim gruplama</string>
     <string name="ungroup_all">Tümünü gruptan ayır</string>
-    <string name="map_layer">Harita katmanı</string>
     <string name="map">Harita</string>
     <string name="basemap">Temel harita</string>
     <string name="show_labels">Etiketleri göster</string>
@@ -1457,12 +1430,9 @@
     <string name="remove_dem">DYM\'i Kaldır</string>
     <string name="altimeter_mode_dem_barometer">DYM + Barometre</string>
     <string name="invalid_dem_file">Geçersiz DYM dosyası</string>
-    <string name="import_dem_file">DYM dosyasını içe aktar</string>
     <string name="digital_elevation_model_link">%s adresinden çeşitli boyutlarda dijital yükseklik modelini indirebilirsiniz</string>
     <string name="ungroup_alerts">Gruplandırmayı kaldır</string>
     <string name="contours">Konturlar</string>
-    <string name="dem_url">DYM URL\'si</string>
-    <string name="color_with_elevation">Yüksekliklere göre renk konturları</string>
     <string name="load_pdf_tiles">PDF döşemelerini yükle</string>
     <string name="map_tool_disclaimer">Bu araç, işaretlerinizi, yollarınızı ve fotoğraf haritalarınızı görüntüler. Özel bir harita uygulamasının yerini almaz.</string>
     <string name="increase_exposure_at_night">Geceleri maruz kalma süresini artırın</string>
