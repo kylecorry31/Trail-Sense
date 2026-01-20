@@ -1431,4 +1431,23 @@
     <string name="map_layer_navigation_description">Viiva nykyiseen navigointikohteeseesi</string>
     <string name="high_resolution">Korkea tarkkuus</string>
     <string name="attribution">Attribuutio</string>
+    <string name="aspect">Ominaisuus</string>
+    <string name="slope_color_white_to_red">Valkoista punaiselle</string>
+    <string name="slope_color_green_to_red">Vihreää punaiselle</string>
+    <string name="ruggedness">Epätasaisuus</string>
+    <string name="map_layer_ruggedness_description">Värikoodattu maaston epätasaisuus korkeusvaihteluiden perusteella</string>
+    <string name="map_layer_slope_description">Väritetty maasto kaltevuuden perusteella</string>
+    <string name="map_layer_aspect_description">Väritetty maasto suuntiman perusteella</string>
+    <string name="map_layer_field_guide_sightings_description">Kenttäopashavaintosi</string>
+    <string name="copy_error">Kopiointivirhe</string>
+    <string name="view_error_details">Näytä virhetiedot</string>
+    <string name="reopen_tool">Uudelleenavaa työkalu</string>
+    <string name="restart_app">Uudelleenkäynnistä sovellus</string>
+    <string name="smooth">Sileä</string>
+    <string name="hide_flat_ground">Piilota tasamaa</string>
+    <string name="move_layer_up">Liiku taso ylös</string>
+    <string name="move_layer_down">Liiku taso alas</string>
+    <string name="remove_layer">Poista taso</string>
+    <string name="additional_layers">Lisätasot</string>
+    <string name="sighting_label">%s havainto</string>
 </resources>
