@@ -1235,4 +1235,11 @@
     <string name="map_layer_navigation_description">Linje til navigeringsmålet ditt</string>
     <string name="high_resolution">Høy oppløsning</string>
     <string name="map_layer_slope_description">Farget terreng basert på helning</string>
+    <string name="slope_color_white_to_red">Hvit til rød</string>
+    <string name="slope_color_green_to_red">Grønn til rød</string>
+    <string name="map_layer_aspect_description">Farget terreng basert på retningen det vender mot</string>
+    <string name="copy_error">Kopieringsfeil</string>
+    <string name="view_error_details">Vis feildetaljer</string>
+    <string name="reopen_tool">Åpne verktøy på nytt</string>
+    <string name="restart_app">Start appen på nytt</string>
 </resources>
