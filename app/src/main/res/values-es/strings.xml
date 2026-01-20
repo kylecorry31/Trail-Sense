@@ -1461,4 +1461,23 @@
     <string name="map_layer_navigation_description">Linea al destino de navegación</string>
     <string name="high_resolution">Alta resolución</string>
     <string name="attribution">Atribución</string>
+    <string name="move_layer_up">Mover capa arriba</string>
+    <string name="move_layer_down">Mover capa abajo</string>
+    <string name="remove_layer">Eliminar capa</string>
+    <string name="additional_layers">Capa adicional</string>
+    <string name="slope_color_white_to_red">Blanco a rojo</string>
+    <string name="slope_color_green_to_red">Verde a rojo</string>
+    <string name="map_layer_slope_description">Colorear terreno según la pendiente</string>
+    <string name="map_layer_aspect_description">Colorear terreno según la orientación</string>
+    <string name="copy_error">Error al copiar</string>
+    <string name="view_error_details">Detalles del error</string>
+    <string name="reopen_tool">Reabrir herramienta</string>
+    <string name="restart_app">Reiniciar app</string>
+    <string name="smooth">Suavizar</string>
+    <string name="hide_flat_ground">Ocultar terreno llano</string>
+    <string name="sighting_label">Vistazo %s</string>
+    <string name="map_layer_ruggedness_description">Colorear rugosidad del terreno según el cambio de elevación</string>
+    <string name="map_layer_field_guide_sightings_description">Tus guías de campo visitadas</string>
+    <string name="aspect">Aspecto</string>
+    <string name="ruggedness">Rugosidad</string>
 </resources>
