@@ -11,5 +11,6 @@ data class Sighting(
     val location: Coordinate? = null,
     val altitude: Float? = null,
     val harvested: Boolean? = null,
-    val notes: String? = null
+    val notes: String? = null,
+    val showOnMap: Boolean = true
 ) : Identifiable

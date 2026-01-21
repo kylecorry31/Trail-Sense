@@ -38,6 +38,7 @@ class CreateFieldGuideSightingFragment :
         val elevationView = useElevationInputView(R.id.elevation, lifecycleHookTrigger)
         val notesView = useView<Notepad>(R.id.notes)
         val harvestedSwitchView = useView<MaterialSwitch>(R.id.harvested)
+        val showOnMapSwitchView = useView<MaterialSwitch>(R.id.show_on_map)
         val titleView = useView<Toolbar>(R.id.title)
 
         // Arguments
@@ -50,6 +51,7 @@ class CreateFieldGuideSightingFragment :
         val (elevation, setElevation) = useState<Distance?>(null)
         val (notes, setNotes) = useState<String?>(null)
         val (harvested, setHarvested) = useState(false)
+        val (showOnMap, setShowOnMap) = useState(true)
         val (initialDatetime, setInitialDatetime) = useState<LocalDateTime?>(null)
 
         // Services
@@ -74,20 +76,23 @@ class CreateFieldGuideSightingFragment :
             location,
             elevation,
             notes,
-            harvested
+            harvested,
+            showOnMap
         ) {
             if (initialSighting != null) {
                 datetime?.toZonedDateTime()?.toInstant() != initialSighting.time ||
                         location != initialSighting.location ||
                         elevation?.meters()?.value != initialSighting.altitude ||
                         notes != initialSighting.notes ||
-                        harvested != initialSighting.harvested
+                        harvested != initialSighting.harvested ||
+                        showOnMap != initialSighting.showOnMap
             } else {
                 datetime != initialDatetime ||
                         location != null ||
                         elevation != null ||
                         !notes.isNullOrEmpty() ||
-                        harvested
+                        harvested ||
+                        !showOnMap
             }
         }
 
@@ -125,6 +130,12 @@ class CreateFieldGuideSightingFragment :
             }
         }
 
+        useEffect(showOnMapSwitchView) {
+            showOnMapSwitchView.setOnCheckedChangeListener { _, isChecked ->
+                setShowOnMap(isChecked)
+            }
+        }
+
         useBackgroundEffect(
             initialSighting,
             datetimeView,
@@ -132,6 +143,7 @@ class CreateFieldGuideSightingFragment :
             elevationView,
             notesView,
             harvestedSwitchView,
+            showOnMapSwitchView,
             repo,
             prefs
         ) {
@@ -147,6 +159,7 @@ class CreateFieldGuideSightingFragment :
             elevationView.elevation = elevation
             notesView.setText(sighting.notes)
             harvestedSwitchView.isChecked = sighting.harvested == true
+            showOnMapSwitchView.isChecked = sighting.showOnMap
 
             // Update state
             setDatetime(sighting.time?.toZonedDateTime()?.toLocalDateTime())
@@ -154,6 +167,7 @@ class CreateFieldGuideSightingFragment :
             setElevation(elevation)
             setNotes(sighting.notes)
             setHarvested(sighting.harvested == true)
+            setShowOnMap(sighting.showOnMap)
         }
 
         useEffect(
@@ -167,7 +181,8 @@ class CreateFieldGuideSightingFragment :
             location,
             elevation,
             harvested,
-            notes
+            notes,
+            showOnMap
         ) {
             CustomUiUtils.setButtonState(titleView.rightButton, true)
             titleView.rightButton.setOnClickListener {
@@ -181,7 +196,8 @@ class CreateFieldGuideSightingFragment :
                                 location,
                                 elevation?.meters()?.value,
                                 harvested,
-                                notes
+                                notes,
+                                showOnMap
                             )
                         )
                         onMain {
