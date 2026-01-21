@@ -6,6 +6,8 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingLayer
@@ -37,6 +39,14 @@ object FieldGuideToolRegistration : ToolRegistration {
                     FieldGuideSightingLayer.LAYER_ID,
                     context.getString(R.string.sightings),
                     description = context.getString(R.string.map_layer_field_guide_sightings_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = FieldGuideSightingLayer.PREFERENCE_SHOW_IMAGES,
+                            title = context.getString(R.string.show_images),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = false
+                        )
+                    ),
                     openFeature = { feature, fragment ->
                         val fieldGuidePageId =
                             feature.getLongProperty(FieldGuideSightingLayer.PROPERTY_PAGE_ID)
