@@ -51,6 +51,14 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/harvested" />
 
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/show_on_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:checked="true"
+                android:text="@string/show_on_map" />
+
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="match_parent"

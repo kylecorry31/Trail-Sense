@@ -63,7 +63,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
                     Pair(sighting, page)
                 }
             }
-            .filter { (sighting, _) -> sighting.location != null }
+            .filter { (sighting, _) -> sighting.location != null && sighting.showOnMap }
 
         // Cache pruning
         val currentPageIds = allSightings.map { it.second.id }.toSet()

@@ -1,13 +1,13 @@
 package com.kylecorry.trail_sense.tools.field_guide
 
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
-import java.time.LocalDate
 
 class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
@@ -203,6 +202,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input(R.id.location, "42, 72")
         input(R.id.elevation, "100")
         click("Harvested")
+        click("Show on map")
         input("Notes", "Test")
         click(toolbarButton(R.id.title, Side.Right))
 
@@ -217,6 +217,8 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         hasText("42.000000°,  72.000000°")
         hasText("100")
         isChecked("Harvested")
+        isNotChecked("Show on map")
+        click("Show on map")
         input("Test", "Test 2")
         click(toolbarButton(R.id.title, Side.Right))
 
@@ -229,6 +231,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         hasText("42.000000°,  72.000000°")
         hasText("100")
         isChecked("Harvested")
+        isChecked("Show on map")
         input("Test 2", "Test 3")
         click(toolbarButton(R.id.title, Side.Right))
 

@@ -17,6 +17,7 @@ data class FieldGuideSightingEntity(
     @ColumnInfo(name = "altitude") val altitude: Float? = null,
     @ColumnInfo(name = "harvested") val harvested: Boolean? = null,
     @ColumnInfo(name = "notes") val notes: String? = null,
+    @ColumnInfo(name = "show_on_map") val showOnMap: Boolean = true
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -34,7 +35,8 @@ data class FieldGuideSightingEntity(
             },
             altitude,
             harvested,
-            notes
+            notes,
+            showOnMap
         )
     }
 
@@ -47,7 +49,8 @@ data class FieldGuideSightingEntity(
                 sighting.location?.longitude,
                 sighting.altitude,
                 sighting.harvested,
-                sighting.notes
+                sighting.notes,
+                sighting.showOnMap
             ).apply {
                 id = sighting.id
             }
