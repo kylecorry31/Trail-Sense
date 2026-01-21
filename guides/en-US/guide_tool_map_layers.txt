@@ -103,6 +103,10 @@ Settings:
 ## Sightings
 This layer shows your field guide sightings with location data. The icon displayed represents the classification of the field guide entry (plant, bird, mammal, etc.). You can click on a sighting to navigate to it.
 
+Settings:
+
+- **Show images**: If enabled, the field guide page's image will be displayed instead of the category icon.
+
 ## Location
 This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS.
 
