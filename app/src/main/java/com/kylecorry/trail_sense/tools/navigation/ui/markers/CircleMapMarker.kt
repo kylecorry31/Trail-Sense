@@ -37,12 +37,18 @@ class CircleMapMarker(
         } else {
             drawer.noStroke()
         }
-        if (color != Color.TRANSPARENT) {
+
+        if (color == Color.TRANSPARENT) {
+            drawer.noFill()
+        } else {
             drawer.fill(color)
-            drawer.opacity(opacity)
-            drawer.circle(anchor.x, anchor.y, size)
-            drawer.opacity(255)
         }
+
+        drawer.opacity(opacity)
+        if (color != Color.TRANSPARENT || (strokeWeight > 0 && strokeColor != Color.TRANSPARENT)) {
+            drawer.circle(anchor.x, anchor.y, size)
+        }
+        drawer.opacity(255)
     }
 
     override fun onClick(): Boolean {

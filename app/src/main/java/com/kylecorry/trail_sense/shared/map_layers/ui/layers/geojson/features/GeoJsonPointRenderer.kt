@@ -52,6 +52,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     private var bitmapLoader: DrawerBitmapLoader? = null
 
     private var featuresChanged = false
+    private var selectedFeatureId: String? = null
 
     override fun setFeatures(features: List<GeoJsonFeature>) {
         featuresChanged = true
@@ -69,6 +70,16 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     fun setOnClickListener(listener: (feature: GeoJsonFeature) -> Boolean) {
         this.onClickListener = listener
     }
+
+    fun setSelectedFeature(featureId: String?) {
+        if (selectedFeatureId == featureId) {
+            return
+        }
+        selectedFeatureId = featureId
+        featuresChanged = true
+        notifyListeners()
+    }
+
 
     // TODO: Instead of map markers, render the geojson directly
     private fun convertFeaturesToMarkers(drawer: ICanvasDrawer, features: List<GeoJsonFeature>) {
@@ -93,6 +104,42 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val rotateWithUserAzimuth = feature.getRotateWithUserAzimuth()
                 val moveWithUserLocation = feature.getMoveWithUserLocation()
                 val scaleToLocationAccuracy = feature.getScaleToLocationAccuracy()
+                val isSelected =
+                    selectedFeatureId != null && feature.id?.toString() == selectedFeatureId
+
+                // Add highlight ring behind the marker when selected
+                if (isSelected) {
+                    val ringSize = maxOf(size, iconSize)
+                    // Outer ring
+                    newMarkers.add(
+                        CircleMapMarker(
+                            if (moveWithUserLocation) null else point.coordinate,
+                            Color.TRANSPARENT,
+                            Color.BLACK,
+                            255,
+                            ringSize + HIGHLIGHT_RING_SIZE,
+                            HIGHLIGHT_OUTER_STROKE_WEIGHT,
+                            if (scaleToLocationAccuracy) SizeUnit.Meters else sizeUnit,
+                            sizeUnit != SizeUnit.Meters || scaleToLocationAccuracy,
+                            scaleToLocationAccuracy
+                        ) { false }
+                    )
+
+                    // Inner ring
+                    newMarkers.add(
+                        CircleMapMarker(
+                            if (moveWithUserLocation) null else point.coordinate,
+                            Color.TRANSPARENT,
+                            Color.WHITE,
+                            255,
+                            ringSize + HIGHLIGHT_RING_SIZE,
+                            HIGHLIGHT_INNER_STROKE_WEIGHT,
+                            if (scaleToLocationAccuracy) SizeUnit.Meters else sizeUnit,
+                            sizeUnit != SizeUnit.Meters || scaleToLocationAccuracy,
+                            scaleToLocationAccuracy
+                        ) { false }
+                    )
+                }
 
                 if (shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null && iconRes == null && bitmap == null)) {
                     newMarkers.add(
@@ -243,6 +290,12 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     protected fun finalize() {
         bitmapLoader?.clear()
         bitmapLoader = null
+    }
+
+    companion object {
+        private const val HIGHLIGHT_OUTER_STROKE_WEIGHT = 3f
+        private const val HIGHLIGHT_INNER_STROKE_WEIGHT = 1.5f
+        private const val HIGHLIGHT_RING_SIZE = 4f
     }
 
 }

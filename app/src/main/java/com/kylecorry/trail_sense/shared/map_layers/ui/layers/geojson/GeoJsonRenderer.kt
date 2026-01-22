@@ -89,4 +89,11 @@ class GeoJsonRenderer : IGeoJsonRenderer {
         // TODO: Handle clicks for other layers
         pointRenderer.setOnClickListener(listener)
     }
+
+    fun setSelectedFeature(featureId: String?) {
+        // TODO: Handle selection for other renderers
+        pointRenderer.setSelectedFeature(featureId)
+    }
+
+
 }
