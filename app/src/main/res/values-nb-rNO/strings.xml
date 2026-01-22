@@ -1242,4 +1242,6 @@
     <string name="view_error_details">Vis feildetaljer</string>
     <string name="reopen_tool">Åpne verktøy på nytt</string>
     <string name="restart_app">Start appen på nytt</string>
+    <string name="show_on_map">Vis på kart</string>
+    <string name="show_images">Vis bilder</string>
 </resources>
