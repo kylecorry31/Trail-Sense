@@ -1521,4 +1521,6 @@
     <string name="map_layer_ruggedness_description">Kleurgecodeerde terreinruwheid op basis van hoogteverschil</string>
     <string name="map_layer_field_guide_sightings_description">Jouw veldgidswaarnemingen</string>
     <string name="sighting_label">Waarneming %s</string>
+    <string name="show_on_map">Bekijk op kaart</string>
+    <string name="show_images">Afbeeldingen tonen</string>
 </resources>
