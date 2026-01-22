@@ -1,13 +1,10 @@
-name: Bug report
-description: Report a bug
-title: "<Replace with a short summary of the bug>"
-labels: ["bug"]
+labels: ["unconfirmed-bug"]
 body:
 
   - type: markdown
     attributes:
       value: |
-        By creating this issue, you confirm that you have reviewed and are following the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide. Generative AI use is heavily restricted in this repo, see the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) before creating this issue.
+        By creating this discussion, you confirm that you have reviewed and are following the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide.
 
   - type: input
     id: download_source
@@ -65,7 +62,7 @@ body:
       placeholder: The app should...
     validations:
       required: true
-  
+
   - type: textarea
     id: diagnostics
     attributes:
@@ -74,7 +71,7 @@ body:
       placeholder: No failures / warnings
     validations:
       required: false
-  
+
   - type: textarea
     id: stack
     attributes:
