@@ -1,1 +1,5 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Features, Bug Reports, Questions
+    url: https://github.com/kylecorry31/Trail-Sense/discussions/new/choose
+    about: Use this if you have new feature ideas, bug reports, or questions.

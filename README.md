@@ -93,7 +93,7 @@ Issue priority is denoted by labels on issues.
 - Use your phone as a flashlight
 - [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
-See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/2590)
+See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/discussions/new/choose)
 
 For a list of community contributed device feature support, [go here](https://kylecorry.com/Trail-Sense/devices.html)
 
