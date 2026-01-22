@@ -24,6 +24,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
             towers.map {
                 GeoJsonFeature.point(
                     it.coordinate,
+                    id = it.coordinate.toString(),
                     color = Color.WHITE,
                     opacity = 25,
                     size = 2 * it.accuracy.meters().value,
@@ -33,6 +34,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
                     iconSize = 12f,
                     isClickable = true,
                     name = featureName,
+                    layerId = CellTowerMapLayer.LAYER_ID,
                     additionalProperties = mapOf(
                         GEO_JSON_PROPERTY_ACCURACY to it.accuracy.meters().value
                     )

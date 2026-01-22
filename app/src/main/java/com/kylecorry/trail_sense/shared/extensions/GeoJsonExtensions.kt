@@ -205,7 +205,7 @@ fun GeoJsonFeature.Companion.lineString(
 
 fun GeoJsonFeature.Companion.point(
     point: Coordinate,
-    id: Long? = null,
+    id: Any? = null,
     name: String? = null,
     color: Int? = null,
     icon: Long? = null,

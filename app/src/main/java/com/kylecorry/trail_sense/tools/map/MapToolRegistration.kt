@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -36,10 +37,16 @@ object MapToolRegistration : ToolRegistration {
             ToolCategory.Location,
             settingsNavAction = R.id.mapSettingsFragment,
             guideId = R.raw.guide_tool_map,
-            diagnostics = listOf(
-                ToolDiagnosticFactory.gps(context),
-                *ToolDiagnosticFactory.compass(context)
-            ).distinctBy { it.id },
+             diagnostics = listOf(
+                 ToolDiagnosticFactory.gps(context),
+                 *ToolDiagnosticFactory.compass(context)
+             ).distinctBy { it.id },
+             broadcasts = listOf(
+                 ToolBroadcast(
+                     BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
+                     "GeoJSON feature selection changed"
+                 )
+             ),
             mapLayers = listOf(
                 MapLayerDefinition(
                     BaseMapLayer.LAYER_ID,
@@ -272,4 +279,8 @@ object MapToolRegistration : ToolRegistration {
     }
 
     val MAP_ID = "map"
+
+    const val BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED = "map-broadcast-geojson-feature-selection-changed"
+    const val BROADCAST_PARAM_GEOJSON_FEATURE_ID = "featureId"
+    const val BROADCAST_PARAM_GEOJSON_LAYER_ID = "layerId"
 }
