@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 
 class PhotoMapToolLayerManager {
@@ -34,6 +35,7 @@ class PhotoMapToolLayerManager {
     private var photoMapLayer: PhotoMapLayer? = null
 
     private val preferences = AppServiceRegistry.get<PreferencesSubsystem>()
+    private val photoMapPreferences = PhotoMapPreferences(AppServiceRegistry.get())
     private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
     private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
@@ -88,7 +90,9 @@ class PhotoMapToolLayerManager {
 
     fun improveResolution(bounds: CoordinateBounds, metersPerPixel: Float) {
         lastMapDetails = bounds to metersPerPixel
-        photoMapLayer?.improveResolution(bounds, metersPerPixel, 70)
+        if (photoMapPreferences.highDetailMode) {
+            photoMapLayer?.improveResolution(bounds, metersPerPixel, 70)
+        }
     }
 
     fun setSelectedLocation(location: Coordinate?) {

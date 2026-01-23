@@ -44,4 +44,10 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_photo_maps_keep_unlocked),
         false
     )
+
+    val highDetailMode by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_photo_maps_high_detail_mode),
+        true
+    )
 }

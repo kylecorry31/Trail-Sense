@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.CorrectPerspective2
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import kotlin.math.roundToInt
 
 class PhotoMapRegionLoader(
     private val context: Context,
@@ -25,7 +26,8 @@ class PhotoMapRegionLoader(
     private val decoderCache: PhotoMapDecoderCache,
     private val loadPdfs: Boolean = true,
     private val isPixelPerfect: Boolean = false,
-    private val operations: List<BitmapOperation> = emptyList()
+    private val operations: List<BitmapOperation> = emptyList(),
+    private val sampleSizeMultiplier: Float = 1f
 ) {
 
     suspend fun load(tile: Tile): Bitmap? = onIO {
@@ -82,9 +84,8 @@ class PhotoMapRegionLoader(
         val inSampleSize = calculateInSampleSize(
             region.width(),
             region.height(),
-            // Use twice the required size to get a better quality
-            maxSize.width * 2,
-            maxSize.height * 2
+            (maxSize.width * sampleSizeMultiplier).roundToInt(),
+            (maxSize.height * sampleSizeMultiplier).roundToInt()
         )
 
         val isPdf = loadPdfs && map.hasPdf(context)
