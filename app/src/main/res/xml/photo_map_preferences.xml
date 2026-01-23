@@ -44,6 +44,14 @@
             app:key="@string/pref_photo_maps_keep_unlocked"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_photo_maps_high_detail_mode_summary"
+            android:title="@string/pref_photo_maps_high_detail_mode_title"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_photo_maps_high_detail_mode"
+            app:singleLineTitle="false" />
+
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_map_layer_button"
