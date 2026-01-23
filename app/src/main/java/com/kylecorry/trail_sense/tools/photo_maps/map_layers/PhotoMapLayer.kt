@@ -3,17 +3,20 @@ package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 
 class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
-    PhotoMapTileSource(pruneCache = true),
+    PhotoMapTileSource(),
     minZoomLevel = 4
 ) {
 
     override val layerId: String = LAYER_ID
+    private val recycleTask = BackgroundTask {
+        source.recycle()
+    }
 
     init {
         source.backgroundColor = Color.TRANSPARENT
@@ -47,7 +50,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     override fun stop() {
         super.stop()
-        PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
+        recycleTask.start()
     }
 
     companion object {

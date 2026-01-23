@@ -17,11 +17,13 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapDecoderCache
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
 
 class BaseMapTileSource : TileSource {
 
     private val context = AppServiceRegistry.get<Context>()
+    private val decoderCache = PhotoMapDecoderCache()
     private val internalSelector = PhotoMapTileSourceSelector(
         context,
         listOf(
@@ -51,6 +53,7 @@ class BaseMapTileSource : TileSource {
                 isFullWorld = true // TODO: Derive this using calibration points
             )
         ),
+        decoderCache,
         maxLayers = 1,
         loadPdfs = false,
         isPixelPerfect = true,
@@ -102,6 +105,10 @@ class BaseMapTileSource : TileSource {
 
     override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
         internalSelector.load(tiles, onLoaded)
+    }
+
+    suspend fun recycle() {
+        decoderCache.recycleInactive(emptyList())
     }
 
     companion object {

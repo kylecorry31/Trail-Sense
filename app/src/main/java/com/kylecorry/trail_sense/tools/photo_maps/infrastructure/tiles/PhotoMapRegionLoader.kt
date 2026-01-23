@@ -2,17 +2,12 @@ package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Rect
-import android.util.Size
-import androidx.core.net.toUri
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.luna.coroutines.onIO
@@ -20,30 +15,22 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.ceilToInt
 import com.kylecorry.sol.math.floorToInt
 import com.kylecorry.trail_sense.shared.andromeda_temp.CorrectPerspective2
-import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
-import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class PhotoMapRegionLoader(
     private val context: Context,
     val map: PhotoMap,
+    private val decoderCache: PhotoMapDecoderCache,
     private val loadPdfs: Boolean = true,
     private val isPixelPerfect: Boolean = false,
     private val operations: List<BitmapOperation> = emptyList()
 ) {
 
-    private val improveImageScaling = false
-
     suspend fun load(tile: Tile): Bitmap? = onIO {
         val bounds = tile.getBounds()
         val maxSize = tile.size
-        val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = if (loadPdfs) map.projection else map.imageProjection
 
         val northWest = projection.toPixels(bounds.northWest)
@@ -100,39 +87,8 @@ class PhotoMapRegionLoader(
             maxSize.height * 2
         )
 
-        val bitmap = if (loadPdfs && map.hasPdf(context)) {
-            decodePdfRegion(context, map, region, inSampleSize)
-        } else {
-            val inputStream = if (map.isAsset) {
-                fileSystem.streamAsset(map.filename)!!
-            } else {
-                fileSystem.streamLocal(map.filename)
-            }
-
-            inputStream.use { stream ->
-                val options = BitmapFactory.Options().also {
-                    it.inSampleSize = inSampleSize
-                    it.inScaled = true
-                    it.inPreferredConfig = Bitmap.Config.ARGB_8888
-                    it.inMutable = true
-                }
-
-                val destinationSize = if (shouldApplyPerspectiveCorrection && improveImageScaling) {
-                    Size(region.width() / inSampleSize, region.height() / inSampleSize)
-                } else {
-                    maxSize
-                }
-
-                ImageRegionLoader.decodeBitmapRegionWrapped(
-                    stream,
-                    region,
-                    size.toAndroidSize(),
-                    destinationSize = destinationSize,
-                    options = options,
-                    enforceBounds = false
-                )
-            }
-        }
+        val isPdf = loadPdfs && map.hasPdf(context)
+        val bitmap = decoderCache.decodeRegion(context, map, region, inSampleSize, isPdf)
 
         bitmap?.applyOperationsOrNull(
             Conditional(
@@ -176,48 +132,5 @@ class PhotoMapRegionLoader(
         }
 
         return inSampleSize
-    }
-
-    // TODO: Rather than PDF loaders, change this to cache the photo map region loader and add a recycle method
-    companion object {
-        val loaderLock = Any()
-        val loaders = mutableMapOf<PhotoMap, PdfImageRegionDecoder>()
-        private val scope = CoroutineScope(Dispatchers.IO)
-
-        private fun getLoader(context: Context, map: PhotoMap): PdfImageRegionDecoder {
-            synchronized(loaderLock) {
-                if (!loaders.containsKey(map)) {
-                    val decoder = PdfImageRegionDecoder(Bitmap.Config.ARGB_8888)
-                    decoder.init(
-                        context,
-                        AppServiceRegistry.get<FileSubsystem>().get(map.pdfFileName).toUri()
-                    )
-                    loaders[map] = decoder
-                }
-                return loaders[map]!!
-            }
-        }
-
-        fun removeUnneededLoaders(activeMaps: List<PhotoMap>) {
-            scope.launch {
-                synchronized(loaderLock) {
-                    val loadersToRemove = loaders.keys.filter { it !in activeMaps }
-                    for (map in loadersToRemove) {
-                        loaders.remove(map)
-                        loaders[map]?.recycle()
-                    }
-                }
-            }
-        }
-
-        fun decodePdfRegion(
-            context: Context,
-            map: PhotoMap,
-            region: Rect,
-            sampleSize: Int
-        ): Bitmap? {
-            val loader = getLoader(context, map)
-            return tryOrDefault(null) { loader.decodeRegion(region, sampleSize) }
-        }
     }
 }
