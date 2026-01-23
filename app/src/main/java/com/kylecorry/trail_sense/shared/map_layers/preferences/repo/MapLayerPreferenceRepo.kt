@@ -5,10 +5,12 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.preferences.Preference
 import com.kylecorry.andromeda.preferences.PreferenceType
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.text.LevenshteinDistance
 
 class MapLayerPreferenceRepo {
 
     private val prefs = AppServiceRegistry.get<PreferencesSubsystem>()
+    private val distanceMetric = LevenshteinDistance()
 
     fun getActiveLayerIds(mapId: String): List<String> {
         return prefs.preferences.getString("pref_${mapId}_active_layers")?.split(",") ?: emptyList()
@@ -61,6 +63,8 @@ class MapLayerPreferenceRepo {
         fromMapId: String,
         toMapIds: List<String>
     ) {
+        val sourceLayerOrder = getActiveLayerIds(fromMapId)
+
         // Clear existing preferences for the destination
         for (mapId in toMapIds) {
             removeLayerPreferences(mapId, layerId)
@@ -73,7 +77,36 @@ class MapLayerPreferenceRepo {
             val newPreferences =
                 fromPreferences.map { it.copy(key = getPreferenceKey(mapId, layerId, it.key)) }
             prefs.preferences.putAll(newPreferences)
+
+            // Add the layer to the destination's active layers if not present
+            val destinationLayers = getActiveLayerIds(mapId)
+            if (!destinationLayers.contains(layerId)) {
+                val newLayers =
+                    insertLayer(layerId, sourceLayerOrder, destinationLayers)
+                setActiveLayerIds(mapId, newLayers)
+            }
         }
+    }
+
+    private fun insertLayer(
+        layerId: String,
+        sourceOrder: List<String>,
+        destinationOrder: List<String>
+    ): List<String> {
+        val sourceString = sourceOrder.joinToString(",")
+        var bestDistance = Int.MAX_VALUE
+        var bestOrder = listOf(layerId) + destinationOrder
+        for (i in destinationOrder.indices) {
+            val newOrder = destinationOrder.toMutableList()
+            newOrder.add(i, layerId)
+            val newString = newOrder.joinToString(",")
+            val distance = distanceMetric.editDistance(sourceString, newString)
+            if (distance < bestDistance) {
+                bestDistance = distance
+                bestOrder = newOrder
+            }
+        }
+        return bestOrder
     }
 
 
