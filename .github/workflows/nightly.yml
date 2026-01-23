@@ -16,11 +16,15 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
       - name: Generate changelog
         run: |
-          echo "## Changelog" >> $GITHUB_STEP_SUMMARY
-          sh ./scripts/list-nightly-commits.sh >> $GITHUB_STEP_SUMMARY
+          sh ./scripts/list-nightly-commits.sh | python ./scripts/generate-changelog.py >> $GITHUB_STEP_SUMMARY
 
       - name: Setup Java
         uses: actions/setup-java@v4
