@@ -22,11 +22,11 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 class PhotoMapTileSourceSelector(
     private val context: Context,
     maps: List<PhotoMap>,
+    private val decoderCache: PhotoMapDecoderCache,
     private val maxLayers: Int = 4,
     private val loadPdfs: Boolean = true,
     private val isPixelPerfect: Boolean = false,
     private val backgroundColor: Int = Color.WHITE,
-    private val pruneCache: Boolean = false,
     private val operations: List<BitmapOperation> = emptyList()
 ) : TileSource {
 
@@ -37,10 +37,9 @@ class PhotoMapTileSourceSelector(
     override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
         val loaders = tiles.map { getRegionLoaders(it.getBounds()) }
 
-        if (pruneCache) {
-            val maps = loaders.flatten().map { it.map }.distinct()
-            PhotoMapRegionLoader.removeUnneededLoaders(maps)
-        }
+        // Prune cache
+        val maps = loaders.flatten().map { it.map }.distinct()
+        decoderCache.recycleInactive(maps)
 
         Parallel.forEach(tiles.indices.toList()) { i ->
             val bitmap = loadTile(tiles[i], loaders[i])
@@ -150,6 +149,7 @@ class PhotoMapTileSourceSelector(
             PhotoMapRegionLoader(
                 context,
                 it,
+                decoderCache,
                 loadPdfs,
                 isPixelPerfect,
                 operations
