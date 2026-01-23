@@ -15,7 +15,7 @@ import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.trail_sense.shared.andromeda_temp.Pad
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
-class TileLoader(private val padding: Int = 0) {
+class TileLoader(private val padding: Int = 0, private val tag: String? = null) {
 
     val tileCache = TileCache()
     private val neighborPaint = Paint().apply {
@@ -86,7 +86,10 @@ class TileLoader(private val padding: Int = 0) {
 
         if (hasChanges) {
             val memoryUsage = tileCache.getMemoryAllocation()
-            Log.d("TileLoader", "Tile memory usage: ${memoryUsage / 1024} KB (${tiles.size} tiles)")
+            Log.d(
+                "TileLoader",
+                "Tile memory usage ($tag): ${memoryUsage / 1024} KB (${tiles.size} tiles)"
+            )
         }
     }
 
