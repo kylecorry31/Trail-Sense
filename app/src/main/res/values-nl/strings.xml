@@ -1523,4 +1523,6 @@
     <string name="sighting_label">Waarneming %s</string>
     <string name="show_on_map">Bekijk op kaart</string>
     <string name="show_images">Afbeeldingen tonen</string>
+    <string name="pref_photo_maps_high_detail_mode_title">Hoge detailmodus</string>
+    <string name="pref_photo_maps_high_detail_mode_summary">Laadt meer tegels voor een hogere kwaliteit. Gebruikt meer geheugen.</string>
 </resources>
