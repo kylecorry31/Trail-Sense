@@ -39,7 +39,7 @@ abstract class TileMapLayer<T : TileSource>(
 ) : IAsyncLayer {
 
     private var shouldReloadTiles = true
-    protected val loader = TileLoader(TILE_BORDER_PIXELS)
+    protected val loader by lazy { TileLoader(TILE_BORDER_PIXELS, tag = layerId) }
     private val layerPaint = Paint()
     private val tilePaint = Paint().apply {
         isAntiAlias = false

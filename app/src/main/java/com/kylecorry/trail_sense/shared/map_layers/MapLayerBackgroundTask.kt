@@ -28,7 +28,7 @@ class MapLayerBackgroundTask {
     private val lock = Mutex()
     private val taskLock = Any()
     private var isDirty = true
-    private val growPercent = getGrowPercent()
+    private val tileBorder = getTileBorder()
 
     private val tasks =
         mutableListOf<suspend (viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection) -> Unit>()
@@ -71,7 +71,7 @@ class MapLayerBackgroundTask {
         scope.launch {
             val metersPerPixel = projection.metersPerPixel
             val newBounds =
-                TileMath.snapToTiles(bounds.grow(growPercent), metersPerPixel)
+                TileMath.snapToTiles(bounds, metersPerPixel, growBy = tileBorder)
 
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
@@ -139,13 +139,13 @@ class MapLayerBackgroundTask {
         }
     }
 
-    private fun getGrowPercent(): Float {
+    private fun getTileBorder(): Int {
         val device = AppServiceRegistry.get<DeviceSubsystem>()
         val threshold = 50 * 1024 * 1024 // 50 MB
         return if (device.getAvailableBitmapMemoryBytes() < threshold) {
-            0f
+            0
         } else {
-            0.05f
+            1
         }
     }
 

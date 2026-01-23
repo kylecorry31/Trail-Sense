@@ -32,6 +32,10 @@ data class Tile(
     }
 
     fun getNeighbor(dx: Int, dy: Int): Tile {
+        if (dx == 0 && dy == 0) {
+            return this
+        }
+
         val n = 1 shl z
         val newX = (x + dx + n) % n
         val newY = (y + dy + n) % n

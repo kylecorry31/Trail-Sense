@@ -58,11 +58,15 @@ object TileMath {
     fun snapToTiles(
         bounds: CoordinateBounds,
         metersPerPixel: Float,
-        maxZoom: Int = 20
+        maxZoom: Int = 20,
+        growBy: Int = 0
     ): CoordinateBounds {
         val zoom = getZoomLevel(bounds, metersPerPixel).coerceAtMost(maxZoom)
-        val northWestTile = latLonToTileXY(bounds.north, bounds.west, zoom).getBounds()
-        val southEastTile = latLonToTileXY(bounds.south, bounds.east, zoom).getBounds()
+        val northWestTile =
+            latLonToTileXY(bounds.north, bounds.west, zoom).getNeighbor(-growBy, -growBy)
+                .getBounds()
+        val southEastTile =
+            latLonToTileXY(bounds.south, bounds.east, zoom).getNeighbor(growBy, growBy).getBounds()
         return CoordinateBounds(
             northWestTile.north,
             southEastTile.east,
