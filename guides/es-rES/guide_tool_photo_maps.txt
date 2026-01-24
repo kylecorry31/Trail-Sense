@@ -53,6 +53,8 @@ Haz clic en el botón GPS en la esquina inferior derecha para centrar el mapa en
 
 Por defecto, el mapa se alineará con el Norte, aproximadamente mirando hacia arriba para que el mapa sea cuadrado con la pantalla. Puedes cambiar esto para que el mapa esté alineado con el Norte hacia arriba (rotado) desactivando Ajustes > Mapas Calibrados > 'Mapa orientado hacia arriba'. Nota: Actualmente hay un error donde el desplazamiento y el zoom funcionan regular cuando esta opción está desactivada.
 
+Por defecto Trail Sense carga más bloques para mejorar la calidad del mapa. Para reducir el uso de memoria a cambio de menor calidad, puedes desactivarlo  en Ajustes > Mapas Calibrados > 'Modo de alto detalle'.
+
 ### Usar balizas y navegar
 Si has creado balizas, aparecerán en el mapa.
 
