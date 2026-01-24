@@ -146,11 +146,12 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
     }
 
     private fun useMapViewV2() {
-        val mapViewV2 = useView<MapViewV2>(R.id.mapViewV2)
+        val mapView = useView<MapViewV2>(R.id.mapViewV2)
         val (location, _) = useLocation()
 
-        useEffect(mapViewV2, location) {
-            mapViewV2.setCenter(location.latitude, location.longitude, 15f)
+        useEffect(mapView, location) {
+            mapView.setCenter(location.latitude, location.longitude)
+            mapView.setZoom(16f)
         }
 
         val layers = useBackgroundMemo2(resetOnResume) {
@@ -182,23 +183,27 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
             actualLayers.map { it.first }
         }
 
-        useEffect(mapViewV2, layers) {
-            if (layers != null) {
-                mapViewV2.setLayers(layers)
-            }
+        useEffect(mapView, layers, resetOnResume) {
+            mapView.stop()
+            mapView.layerManager.setLayers(layers ?: emptyList())
+            mapView.start()
         }
 
-        useEffect(mapViewV2) {
-            mapViewV2.setClickListener(object : MapViewV2.MapClickListener {
-                override fun onSingleClick(lat: Double, lon: Double) {
-                    println("Single click: $lat, $lon")
-                }
-
-                override fun onLongClick(lat: Double, lon: Double) {
-                    println("Long click: $lat, $lon")
-                }
-            })
+        usePauseEffect(mapView) {
+            mapView.stop()
         }
+
+//        useEffect(mapView) {
+//            mapView.setClickListener(object : MapViewV2.MapClickListener {
+//                override fun onSingleClick(lat: Double, lon: Double) {
+//                    println("Single click: $lat, $lon")
+//                }
+//
+//                override fun onLongClick(lat: Double, lon: Double) {
+//                    println("Long click: $lat, $lon")
+//                }
+//            })
+//        }
     }
 
     private fun useWormGrunting() {

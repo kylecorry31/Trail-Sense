@@ -1,219 +1,266 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trail Sense Map</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS and JS will be injected here by Android -->
-    <link rel="stylesheet" href="file:///android_asset/ol.css">
+    <link rel="stylesheet" href="file:///android_asset/ol.css" />
     <script src="file:///android_asset/ol.js"></script>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        #map {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #f0f0f0;
-        }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="map"></div>
-    
+
     <script>
-        // Debug logging
-        window.onerror = function(message, source, lineno, colno, error) {
-            console.error("JS Error: " + message + " at " + source + ":" + lineno);
-        };
+      let map;
 
-        // Global state
-        let map = null;
-        let tileLayers = {};
-        let mapReady = false;
+      function reloadLayer(index) {
+        const layer = map.getLayers().item(index);
+        const source = layer.getSource();
+        source.refresh();
+      }
+
+      function setLayers(layers) {
+        map.getLayers().clear();
+        layers.forEach((layer) => {
+          if (layer.type === "tile") {
+            addTileLayer(layer.url, layer.opacity);
+          } else if (layer.type === "geojson") {
+            addGeoJsonLayer(layer.url);
+          }
+        });
+      }
+
+      function setCenter(lat, lon, zoom) {
+        const view = map.getView();
+        const center = ol.proj.fromLonLat([lon, lat]);
+        view.setCenter(center);
+        if (zoom !== undefined) {
+          view.setZoom(zoom);
+        }
+      }
+
+      function setZoom(zoom) {
+        const view = map.getView();
+        view.setZoom(zoom);
+      }
+
+      function addGeoJsonLayer(url) {
+        const vectorSource = new ol.source.Vector({
+          format: new ol.format.GeoJSON(),
+          url: function (extent) {
+            const extent4326 = ol.proj.transformExtent(
+              extent,
+              map.getView().getProjection(),
+              "EPSG:4326",
+            );
+            return url.replace("{bbox}", extent4326.join(","));
+          },
+          strategy: ol.loadingstrategy.bbox,
+        });
+
+        const vectorLayer = new ol.layer.Vector({
+          source: vectorSource,
+          style: function (feature, resolution) {
+            return new ol.style.Style({
+              fill: new ol.style.Fill({
+                color: "rgba(0, 123, 255, 0.5)",
+              }),
+              stroke: new ol.style.Stroke({
+                color: "#007bff",
+                width: 1,
+              }),
+            });
+          },
+        });
+
+        map.addLayer(vectorLayer);
+      }
+
+      function addTileLayer(url, opacity) {
+        const tileLayer = new ol.layer.Tile({
+          source: new ol.source.XYZ({
+            url: url,
+          }),
+          opacity: opacity || 1.0,
+        });
+        map.addLayer(tileLayer);
+      }
+
+      function getFeatures(x, y) {
+        const features = [];
+        map.forEachFeatureAtPixel([x, y], function (feature, layer) {
+          features.push(feature);
+        });
+        return features;
+      }
+
+      function getZoom() {
+        return map.getView().getZoom();
+      }
+
+      function getCenter() {
+        const center = ol.proj.toLonLat(map.getView().getCenter());
+        return { latitude: center[1], longitude: center[0] };
+      }
+
+      function onBoundsChanged() {
+        if (window.AndroidMap && window.AndroidMap.onBoundsChanged) {
+          const bounds = getBounds();
+          window.AndroidMap.onBoundsChanged(
+            bounds.south,
+            bounds.west,
+            bounds.north,
+            bounds.east,
+          );
+        }
+      }
+
+      function setupClickListeners() {
+        let longClickTimer;
+        let startX, startY;
+        const longClickThreshold = 500; // ms
+        const moveThreshold = 10; // pixels
+
+        map.on("pointerdown", function (event) {
+          startX = event.pixel[0];
+          startY = event.pixel[1];
+          longClickTimer = setTimeout(() => {
+            const coord = ol.proj.toLonLat(event.coordinate);
+            if (window.AndroidMap) {
+              window.AndroidMap.onLongClick(coord[1], coord[0]);
+            }
+            longClickTimer = null;
+          }, longClickThreshold);
+        });
+
+        map.on("pointerup", function () {
+          if (longClickTimer) {
+            clearTimeout(longClickTimer);
+            longClickTimer = null;
+          }
+        });
+
+        map.on("pointermove", function (event) {
+          if (longClickTimer) {
+            const dx = event.pixel[0] - startX;
+            const dy = event.pixel[1] - startY;
+            if (Math.abs(dx) > moveThreshold || Math.abs(dy) > moveThreshold) {
+              clearTimeout(longClickTimer);
+              longClickTimer = null;
+            }
+          }
+        });
+
+        map.on("singleclick", function (event) {
+          const coord = ol.proj.toLonLat(event.coordinate);
+          if (window.AndroidMap) {
+            window.AndroidMap.onSingleClick(coord[1], coord[0]);
+          }
+        });
+      }
+
+      function getBounds() {
+        const extent = ol.proj.transformExtent(
+          map.getView().calculateExtent(map.getSize()),
+          map.getView().getProjection(),
+          "EPSG:4326",
+        );
+        return {
+          south: extent[1],
+          west: extent[0],
+          north: extent[3],
+          east: extent[2],
+        };
+      }
+
+      function setRotation(rotation) {
+        map.getView().setRotation(rotation);
+      }
+
+      function initializeMap() {
+        map = new ol.Map({
+          controls: [],
+          target: "map",
+          layers: [],
+          view: new ol.View({
+            center: ol.proj.fromLonLat([0, 0]),
+            zoom: 2
+          }),
+        });
         
-        // Pending state
-        let pendingTileLayerUpdates = { add: [], remove: [] };
-        let pendingCenter = null;
+        // Disable rotation interaction by default
+        map.getInteractions().forEach(function (interaction) {
+          if (interaction instanceof ol.interaction.DragRotate ||
+              interaction instanceof ol.interaction.PinchRotate) {
+            map.removeInteraction(interaction);
+          }
+        });
 
-        // Interface for communication with Android - defined immediately
-        window.MapInterface = {
-            addTileLayer: function(id, tileUrlTemplate, opacity) {
-                pendingTileLayerUpdates.add.push({ id: id, url: tileUrlTemplate, opacity: opacity || 0.8 });
-                updateMapState();
-            },
-            
-            removeTileLayer: function(id) {
-                pendingTileLayerUpdates.remove.push(id);
-                updateMapState();
-            },
-            
-            clearLayers: function() {
-                // Remove all tile layers
-                Object.keys(tileLayers).forEach(id => {
-                    pendingTileLayerUpdates.remove.push(id);
-                });
-                updateMapState();
-            },
-            
-            setLayers: function(layers) {
-                // Clear all existing layers
-                Object.keys(tileLayers).forEach(id => {
-                    pendingTileLayerUpdates.remove.push(id);
-                });
-                // Add new layers in order
-                layers.forEach(layer => {
-                    pendingTileLayerUpdates.add.push({ id: layer.id, url: layer.url });
-                });
-                updateMapState();
-            },
-            
-            setCenter: function(lon, lat, zoom) {
-                pendingCenter = { lon: lon, lat: lat, zoom: zoom };
-                updateMapState();
-            },
-            
-            getCenter: function() {
-                if (!mapReady) return null;
-                const center = ol.proj.toLonLat(map.getView().getCenter());
-                return {
-                    longitude: center[0],
-                    latitude: center[1],
-                    zoom: map.getView().getZoom()
-                };
-            }
-        };
+        map.on("click", function (evt) {
+          const coordinate = ol.proj.toLonLat(evt.coordinate);
+          const lon = coordinate[0];
+          const lat = coordinate[1];
+          const features = getFeatures(evt.pixel[0], evt.pixel[1]);
+          console.log("Map clicked at:", lon, lat);
+          console.log("Features at clicked location:", features);
+        });
 
-        function updateMapState() {
-            if (!mapReady) {
-                return;
-            }
+        map.getView().on("change:resolution", function () {
+          if (window.AndroidMap && window.AndroidMap.onZoomChanged) {
+            const zoom = getZoom();
+            window.AndroidMap.onZoomChanged(zoom);
+          }
+          onBoundsChanged();
+        });
 
-            try {
-                // Update Tile Layers
-                // Handle removals first
-                pendingTileLayerUpdates.remove.forEach(id => {
-                    if (tileLayers[id]) {
-                        map.removeLayer(tileLayers[id]);
-                        delete tileLayers[id];
-                    }
-                });
-                pendingTileLayerUpdates.remove = [];
+        map.getView().on("change:center", function () {
+          if (window.AndroidMap && window.AndroidMap.onCenterChanged) {
+            const center = getCenter();
+            window.AndroidMap.onCenterChanged(
+              center.latitude,
+              center.longitude,
+            );
+          }
+          onBoundsChanged();
+        });
 
-                // Handle additions
-                pendingTileLayerUpdates.add.forEach(item => {
-                    const id = item.id;
-                    const url = item.url;
-                    const opacity = item.opacity;
-                    if (!tileLayers[id]) {
-                        const source = new ol.source.XYZ({
-                            url: url,
-                            tileUrlFunction: function(coord) {
-                                const z = coord[0];
-                                const x = coord[1];
-                                const y = coord[2];
-                                return url.replace('{z}', z).replace('{x}', x).replace('{y}', y);
-                            }
-                        });
-                        
-                        const layer = new ol.layer.Tile({
-                            source: source,
-                            opacity: opacity
-                        });
-                        
-                        tileLayers[id] = layer;
-                        map.addLayer(layer);
-                    }
-                });
-                pendingTileLayerUpdates.add = [];
+        setupClickListeners();
+      }
 
-                // Update Center
-                if (pendingCenter) {
-                    map.getView().setCenter(ol.proj.fromLonLat([pendingCenter.lon, pendingCenter.lat]));
-                    map.getView().setZoom(pendingCenter.zoom);
-                    pendingCenter = null;
-                }
+      function setup() {
+        initializeMap();
 
-            } catch (error) {
-                console.error('Error updating map state:', error);
-            }
+        if (window.onMapReady) {
+          window.onMapReady();
         }
+      }
 
-        function initMap() {
-            try {
-                // Initialize OpenLayers map
-                map = new ol.Map({
-                    target: 'map',
-                    layers: [],
-                    view: new ol.View({
-                        center: ol.proj.fromLonLat([0, 0]),
-                        zoom: 2
-                    })
-                });
+      window.MapInterface = {
+        setLayers: setLayers,
+        setCenter: setCenter,
+        setZoom: setZoom,
+        reloadLayer: reloadLayer,
+        getZoom: getZoom,
+        getCenter: getCenter,
+        getBounds: getBounds,
+        setRotation: setRotation,
+      };
 
-                // Add click event listeners
-                let longClickTimer;
-                let startX, startY;
-                const longClickThreshold = 500; // ms
-                const moveThreshold = 10; // pixels
-
-                map.on('pointerdown', function(event) {
-                    startX = event.pixel[0];
-                    startY = event.pixel[1];
-                    longClickTimer = setTimeout(() => {
-                        const coord = ol.proj.toLonLat(event.coordinate);
-                        if (window.AndroidMap) {
-                            window.AndroidMap.onLongClick(coord[1], coord[0]);
-                        }
-                        longClickTimer = null;
-                    }, longClickThreshold);
-                });
-
-                map.on('pointerup', function() {
-                    if (longClickTimer) {
-                        clearTimeout(longClickTimer);
-                        longClickTimer = null;
-                    }
-                });
-
-                map.on('pointermove', function(event) {
-                    if (longClickTimer) {
-                        const dx = event.pixel[0] - startX;
-                        const dy = event.pixel[1] - startY;
-                        if (Math.abs(dx) > moveThreshold || Math.abs(dy) > moveThreshold) {
-                            clearTimeout(longClickTimer);
-                            longClickTimer = null;
-                        }
-                    }
-                });
-
-                map.on('singleclick', function(event) {
-                    const coord = ol.proj.toLonLat(event.coordinate);
-                    if (window.AndroidMap) {
-                        window.AndroidMap.onSingleClick(coord[1], coord[0]);
-                    }
-                });
-
-                // Apply any pending updates
-                mapReady = true;
-                updateMapState();
-
-                // Map is ready
-                if (window.mapReadyCallback) {
-                    window.mapReadyCallback();
-                }
-            } catch (e) {
-                console.error("Critical error initializing map:", e);
-            }
-        }
-
-        // Initialize map when page loads
-        window.addEventListener('load', initMap);
+      window.addEventListener("load", setup);
     </script>
-</body>
+  </body>
 </html>

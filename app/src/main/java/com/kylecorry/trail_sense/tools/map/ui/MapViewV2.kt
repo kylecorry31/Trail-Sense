@@ -12,9 +12,12 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.graphics.createBitmap
+import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import kotlinx.coroutines.CoroutineScope
@@ -23,22 +26,46 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.util.concurrent.ConcurrentLinkedQueue
+
+
+data class JSTileLayer(val url: String, val opacity: Float = 1f) {
+    val type = "tile"
+}
+
+data class JSGeoJSONLayer(val url: String) {
+    val type = "geojson"
+}
+
+interface JSBridge {
+    fun onZoomChanged(zoom: Float)
+    fun onCenterChanged(lat: Double, lon: Double)
+    fun onBoundsChanged(
+        north: Double,
+        south: Double,
+        east: Double,
+        west: Double
+    )
+
+    fun onSingleClick(lat: Double, lon: Double)
+    fun onLongClick(lat: Double, lon: Double)
+}
 
 class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context, attrs) {
-
-    interface MapClickListener {
-        fun onSingleClick(lat: Double, lon: Double)
-        fun onLongClick(lat: Double, lon: Double)
-    }
-
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
-    private var isMapReady = false
     private val tileSources = mutableMapOf<String, TileSource>()
-    private val pendingLayers = mutableListOf<ILayer>()
-    private var pendingClearLayers = false
-    private var pendingCenter: Triple<Double, Double, Float>? = null
     private val tileCache = android.util.LruCache<String, ByteArray>(100) // Cache up to 100 tiles
-    private var clickListener: MapClickListener? = null
+
+    private val commandQueue = ConcurrentLinkedQueue<String>()
+    private var isReady = false
+    var zoomLevel: Float = 16f
+    var mapCenter: Coordinate = Coordinate.zero
+
+    var bounds: CoordinateBounds = CoordinateBounds.empty
+
+    val layerManager = MapViewLayerManager {
+        // TODO: Invalidate the layer
+    }
 
     private val transparentTile by lazy {
         val bitmap = createBitmap(256, 256)
@@ -57,15 +84,35 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
     private fun setupWebView() {
         settings.javaScriptEnabled = true
 
-        addJavascriptInterface(object {
+        addJavascriptInterface(object : JSBridge {
             @JavascriptInterface
-            fun onSingleClick(lat: Double, lon: Double) {
-                clickListener?.onSingleClick(lat, lon)
+            override fun onZoomChanged(zoom: Float) {
+                zoomLevel = zoom
             }
 
             @JavascriptInterface
-            fun onLongClick(lat: Double, lon: Double) {
-                clickListener?.onLongClick(lat, lon)
+            override fun onCenterChanged(lat: Double, lon: Double) {
+                mapCenter = Coordinate(lat, lon)
+            }
+
+            @JavascriptInterface
+            override fun onBoundsChanged(
+                north: Double,
+                south: Double,
+                east: Double,
+                west: Double
+            ) {
+                bounds = CoordinateBounds(north, east, south, west)
+            }
+
+            @JavascriptInterface
+            override fun onSingleClick(lat: Double, lon: Double) {
+                val coordinate = Coordinate(lat, lon)
+            }
+
+            @JavascriptInterface
+            override fun onLongClick(lat: Double, lon: Double) {
+                val coordinate = Coordinate(lat, lon)
             }
         }, "AndroidMap")
 
@@ -95,24 +142,8 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                setupMapInterface()
-                isMapReady = true
-
-                // Process any pending operations
-                if (pendingClearLayers) {
-                    clearLayers()
-                    pendingClearLayers = false
-                }
-
-                if (pendingLayers.isNotEmpty()) {
-                    setLayers(pendingLayers)
-                    pendingLayers.clear()
-                }
-
-                pendingCenter?.let { (lat, lon, zoom) ->
-                    setCenter(lat, lon, zoom)
-                    pendingCenter = null
-                }
+                isReady = true
+                processCommandQueue()
             }
 
             override fun onReceivedError(
@@ -162,54 +193,22 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
         return context.assets.open(fileName).bufferedReader().use { it.readText() }
     }
 
-    private fun setupMapInterface() {
-        evaluateJavascript(
-            """
-            window.mapReadyCallback = function() {
-                // Map is ready, notify Android if needed
-            };
-            """, null
-        )
+
+    fun setCenter(latitude: Double, longitude: Double) {
+        runCommand("window.MapInterface.setCenter($latitude, $longitude);")
     }
 
-    fun clearLayers() {
-        if (isMapReady) {
-            evaluateJavascript("window.MapInterface.clearLayers();", null)
-        } else {
-            pendingClearLayers = true
-        }
+    fun setZoom(zoom: Float) {
+        runCommand("window.MapInterface.setZoom($zoom);")
     }
 
-    fun setLayers(layers: List<ILayer>) {
-        if (isMapReady) {
-            // Clear existing layers
-            evaluateJavascript("window.MapInterface.clearLayers();", null)
-            // Add new layers in order
-            layers.filterIsInstance<TileMapLayer<*>>().forEach { layer ->
-                tileSources[layer.layerId] = layer.source
-                val url = "https://trailsense.app/tiles/${layer.layerId}/{z}/{x}/{y}.png"
-                evaluateJavascript(
-                    "window.MapInterface.addTileLayer('${layer.layerId}', '$url', ${layer.percentOpacity});",
-                    null
-                )
-            }
-        } else {
-            // Queue the operation
-            pendingLayers.clear()
-            pendingLayers.addAll(layers)
-        }
+    fun start() {
+        updateMapLayers()
+        layerManager.start()
     }
 
-    fun setCenter(latitude: Double, longitude: Double, zoom: Float = 10f) {
-        if (isMapReady) {
-            evaluateJavascript("window.MapInterface.setCenter($longitude, $latitude, $zoom);", null)
-        } else {
-            pendingCenter = Triple(latitude, longitude, zoom)
-        }
-    }
-
-    fun setClickListener(listener: MapClickListener) {
-        clickListener = listener
+    fun stop() {
+        layerManager.stop()
     }
 
     override fun onDetachedFromWindow() {
@@ -219,8 +218,38 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
         }
     }
 
+    private fun updateMapLayers() {
+        val layerObject = layerManager.getLayers().mapNotNull {
+            if (it is TileMapLayer<*>) {
+                JSTileLayer(
+                    "https://trailsense.app/tiles/${it.layerId}/{z}/{x}/{y}.png",
+                    it.percentOpacity
+                )
+            } else {
+                null
+            }
+        }
+
+        val layerJson = JsonConvert.toJson(layerObject)
+        runCommand("window.MapInterface.setLayers($layerJson)")
+    }
+
+    private fun runCommand(command: String) {
+        commandQueue.add(command)
+        if (isReady) {
+            processCommandQueue()
+        }
+    }
+
+    private fun processCommandQueue() {
+        while (commandQueue.isNotEmpty()) {
+            val command = commandQueue.poll() ?: continue
+            evaluateJavascript(command, null)
+        }
+    }
+
     @SuppressLint("WrongThread")
-    private fun loadTile(url: String, source: TileSource): WebResourceResponse? {
+    private fun loadTile(url: String, source: TileSource): WebResourceResponse {
         try {
             val parts = url.split("/")
             // format: https://trailsense.app/tiles/{layerId}/{z}/{x}/{y}.png
@@ -283,15 +312,14 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
         }
     }
 
-    @SuppressLint("WrongThread")
     private fun handleTileRequest(url: String): WebResourceResponse? {
         // Extract layer ID from URL: https://trailsense.app/tiles/{layerId}/{z}/{x}/{y}.png
         val parts = url.split("/")
         if (parts.size < 6) return null
 
-        val layerId = parts[4] // tiles/{layerId}/...
-        val source = tileSources[layerId] ?: return null
-
+        val layerId = parts[4]
+        val layer = layerManager.getLayers().firstOrNull { it.layerId == layerId } ?: return null
+        val source = (layer as? TileMapLayer<*>)?.source ?: return null
         return loadTile(url, source)
     }
 
