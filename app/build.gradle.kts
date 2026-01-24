@@ -1,9 +1,7 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.time.LocalDate
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
 }
@@ -119,12 +117,6 @@ android {
         }
     }
 
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.fromTarget(JavaVersion.VERSION_11.toString())
-            freeCompilerArgs.add("-Xannotation-default-target=param-property")
-        }
-    }
 
     lint {
         abortOnError = false

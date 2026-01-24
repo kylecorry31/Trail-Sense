@@ -19,9 +19,8 @@ junitJupiter = "5.13.4"
 junitPlatformRunner = "1.14.1"
 junitVersion = "1.3.0"
 junit = "4.13.2"
-kotlinAndroidVersion = "2.3.0"
 kotlinxCoroutinesAndroid = "1.10.2"
-ksp = "2.3.3"
+ksp = "2.3.4"
 legacySupportV4 = "1.0.0"
 navVersion = "2.9.6"
 lifecycleVersion = "2.10.0"
@@ -112,5 +111,4 @@ work-testing = { module = "androidx.work:work-testing", version.ref = "workRunti
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidVersion" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
