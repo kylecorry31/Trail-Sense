@@ -34,11 +34,13 @@ The survival guide is heavily curated and all information must be easy to follow
 I sell a physical copy of the survival guide, so I ask that all content is written by me. I'm open to suggestions for areas to improve or add.
 
 ## Generative AI
-Generative AI use is heavily restricted in this repo. It must follow the below rules and always be fully verified by a person (maintainer + contributor). The contributor must verify the accuracy and how well it fits into the existing code base (ex. code style, architecture, etc) before requesting a review.
+Generative AI use is allowed in this repo with extreme caution. It must follow the below rules and always be fully verified by a person (maintainer + contributor). The contributor must verify the accuracy and how well it fits into the existing code base (ex. code style, architecture, etc) before requesting a review. Generative AI content has the tendency to be verbose, include unnecessary details, or be incorrect - please thoroughly review and edit any AI generated content before submitting it for review.
 
-All contributors are expected to be able to answer questions about all of the code/content in their PRs or discussions (regardless of AI use). If you used generative AI in your contribution, you must disclose it in the PR template.
+All contributors are expected to be able to answer questions about all of the code/content in their PRs or discussions (regardless of AI use). Avoid using generative AI for areas that you are not familiar with as it may produce convincing but incorrect results (which causes me more work while reviewing).
 
 This policy is in place to ensure the accuracy and reliability of Trail Sense as well as save me time when reviewing contributed discussions or pull requests. It may change as generative AI gets better (although, I personally enjoy writing the code myself) and I will re-evaluate the state of the tools as they improve.
+
+I recommend you use the available skills in `.claude/skills` or design/plan the change first and then walk the agent through it step by step to ensure it is high quality.
 
 ### Low risk areas
 Generative AI is allowed for areas that are low risk. Most of this can be done by conventional tools.
@@ -48,18 +50,17 @@ Generative AI is allowed for areas that are low risk. Most of this can be done b
 - Translation of text in discussions
 - Translation of text in the app description and changelogs (as long as the translator is **proficient in both languages** and can verify accuracy)
 - Scripts that don't run in production code and don't generate artifacts that are used in production code (ex. experimentation, automation, etc)
-
-### Medium risk areas
-Generative AI is allowed for medium risk areas but extra caution should be used.
-
 - Unit tests (algorithm unit tests should be based on an expected output from a trusted source or calculations done by hand)
 - UI automation tests
 - Writing discussions (any claims/algorithms in the discussion must be confirmed through human research, ideally with sources cited - be careful about AI suggestions in areas you are not familiar with)
 - Writing changelogs
+
+### Medium risk areas
+Generative AI is allowed for medium risk areas but extra caution should be used.
+
 - Translation of text content (as long as the translator is **proficient in both languages** and can verify accuracy)
 - Scripts for generating models/data for use in the app (accuracy must be verified through tests)
 - Boilerplate generation (something that can be easily compared to a reference implementation - typically something you could copy and paste with a few minor changes)
-- Autocomplete (as long as it is like conventional autocomplete - autocompletion of an algorithm, function, etc would be considered high risk)
 - Conversion of one programming language to another (as long as there are unit tests to verify accuracy). You'll likely have better luck using the "Java to Kotlin" conversion in a JetBrains IDE and then cleaning it up.
 - Applying a migration after updating a dependency (if the migration steps are clearly listed by the dependency's author)
 
