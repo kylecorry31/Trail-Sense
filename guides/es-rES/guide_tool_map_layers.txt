@@ -1,33 +1,73 @@
 Las capas se usan para mostrar información en el mapa. Son configurables en Navegar, Mapas Calibrados y Herramienta de Mapa. Consulta las guías de la herramienta correspondiente para saber cómo acceder a los ajustes de capa.
 
-En el panel de ajustes de la capa, cuanto más arriba esté una capa en la lista, más "encima" se dibujará en el mapa. El orden no es configurable en este momento.
+En el panel de ajustes de la capa, cuanto más arriba esté una capa en la lista, más "encima" se dibujará en el mapa. Puedes usar las flechas del lado izquierdo para ordenar las capas.
 
-Pulsar el nombre de la capa para expandir sus ajustes.
+Pulsa sobre el nombre de la capa para ver sus ajustes.
+
+Puedes usar el botón "Capas adicionales" en la parte inferior de la lista de capas para añadir capas adicionales.
 
 Cada capa tiene los siguientes ajustes:
 
 - **Visible**: Determina si la capa se muestra en el mapa. Cuando no está visible, el título de la capa aparecerá atenuado.
 - **Opacidad**: Determina la transparencia es la capa. 0 es transparente y 100 es opaco.
 - **Copiar ajustes a otros mapas**: Copia los ajustes de la capa a otros mapas. Abre un cuadro de diálogo donde podrás elegir a qué mapas copiar los ajustes.
+- **Eliminar capas**: Elimina esta capa de la lista de capas activas. Puedes volver a editarla mediante el botón "Capas adicionales".
 
 ## Mapa base
 Esta capa muestra un mapa del mundo con colores basados en imágenes satelitales. Tiene muy baja resolución y no es adecuado para navegación.
 
 ## Elevación
-Esta capa muestra la elevación del modelo digital de elevación (DEM) como color. Puedes cambiar el DEM en Ajustes > Altímetro.
+Esta capa muestra la elevación del modelo digital de elevación (DEM) como color.
 
 Ajustes:
 
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
 - **Color**: La escala de color de los píxeles. El color cambiará según la elevación.
 - **Alta resolución**: Si está activado, la resolución aumentará al alejar el zoom. Esto puede ser más lento.
 
-## Sombreado de relieve
-Esta capa dibuja sombras para ayudar a ver la elevación del terreno a partir del modelo digital de elevación (DEM). Puedes cambiar el DEM en Ajustes > Altímetro.
+## Sombreado del terreno
+Esta capa dibuja sombras para ayudar a ver la elevación en el terreno a partir del modelo de elevación digital (DEM).
 
 Ajustes:
 
-- **Dibujar sombras precisas**: Si está activado, las sombras se dibujarán usando la posición del sol y la luna, aunque la apariencia 3D puede reducirse.
-- **Alta resolución**: Si está activado, la resolución aumentará al alejar el zoom. Esto puede ser más lento.
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Dibujar sombras precisas**: Las sombras se dibujarán usando la posición del sol y la luna, pero la apariencia 3D puede reducirse.
+- **Sombreado multidireccional**: Las sombras se calcularán desde múltiples direcciones de luz para mejorar los detalles del terreno.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Puede ser más lento.
+
+## Inclinación
+Esta capa colorea el terreno según la inclinación usando el modelo de elevación digital (DEM).
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Color**: La escala de color de los píxeles. El color cambiará según la inclinación.
+  - **Verde a rojo**: Verde para zonas llanas, amarillo para pendientes moderadas y rojo para pendientes pronunciadas.
+  - **Blanco a rojo**: Blanco para zonas llanas, amarillo para pendientes moderadas y rojo para pendientes pronunciadas.
+  - **Escala de grises**: Negro para zonas llanas a blanco para pendientes pronunciadas.
+- **Suavizar**: Los colores de la pendiente se suavizarán para que veas mejor los cambios graduales.
+- **Ocultar terreno plano**: El terreno plano (pendiente por debajo de 10 grados) será invisible.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Puede ser más lento.
+
+## Rugosidad
+Esta capa colorea el terreno según cuánto cambia la elevación a su alrededor (índice de rugosidad).
+
+Baja rugosidad es verde, moderada es amarillo/naranja y terreno muy rugoso es rojo.
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza a ajustes > Altímetro para configurar la fuente del DEM.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Puede ser más lento.
+
+## Orientación
+Esta capa colorea el terreno según la orientación (la dirección hacia la que mira la pendiente) usando el modelo de elevación digital (DEM).
+
+Verde = Norte, Azul = Este, Rojo = Sur, Naranja = Oeste
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Esto puede ser más lento.
 
 ## Mapas Calibrados
 Esta capa muestra los mapas calibrados visibles, con el mapa más acercado apareciendo arriba. Puedes añadir nuevos mapas en la herramienta Mapas Calibrados.
@@ -37,10 +77,11 @@ Ajustes:
 - **Cargar mosáicos PDF**: Si está activado, se cargarán mosaicos PDF para mapas que tengan una versión PDF disponible. Esto es más lento pero proporciona mapas de mayor resolución.
 
 ## Curvas de nivel
-Esta capa muestra líneas de contorno generadas a partir del modelo digital de elevación (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa. Puedes cambiar el DEM en Ajustes > Altímetro.
+Esta capa muestra curvas de nivel generadas a partir del modelo de elevación digital (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa.
 
 Ajustes:
 
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
 - **Mostrar etiquetas**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
 - **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
 
@@ -66,6 +107,13 @@ Esta capa muestra mareas visibles. Puedes añadir nuevas mareas en la herramient
 Ajustes:
 
 - **Mostrar mareas modeladas**: Las mareas se cargarán desde el modelo integrado de la línea de costa.
+
+## Avistamientos
+Esta capa muestra tus avistamientos de la guía de campo con datos de ubicación. El icono mostrado representa la clasificación de la entrada de la guía de campo (planta, ave, mamífero, etc.). Puedes pulsar un avistamiento para navegar hasta él.
+
+Ajustes:
+
+- **Mostrar imágenes**: La imagen de la página de la guía de campo se mostrará en lugar del icono de la categoría.
 
 ## Mi ubicación
 Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújula) y la precisión de tu GPS.
