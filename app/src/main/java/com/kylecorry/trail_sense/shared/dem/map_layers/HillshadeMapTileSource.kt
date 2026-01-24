@@ -26,6 +26,9 @@ class HillshadeMapTileSource : TileSource {
     private val astronomy = AstronomyService()
 
     override suspend fun loadTile(tile: Tile): Bitmap? {
+        if (tile.z !in DEM.IMAGE_MIN_ZOOM_LEVEL..DEM.IMAGE_MAX_ZOOM_LEVEL) {
+            return null
+        }
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
         val zFactor = 3f
