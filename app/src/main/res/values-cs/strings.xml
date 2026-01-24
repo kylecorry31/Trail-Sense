@@ -1551,4 +1551,5 @@
     <string name="show_images">Zobrazit obrázky</string>
     <string name="pref_photo_maps_high_detail_mode_title">Režim vysokých detailů</string>
     <string name="pref_photo_maps_high_detail_mode_summary">Načítá více dlaždic pro vyšší kvalitu. Používá více paměti.</string>
+    <string name="multi_direction_shading">Vícesměrové stínování</string>
 </resources>
