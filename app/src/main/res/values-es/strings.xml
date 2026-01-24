@@ -1480,4 +1480,8 @@
     <string name="map_layer_field_guide_sightings_description">Tus guías de campo visitadas</string>
     <string name="aspect">Aspecto</string>
     <string name="ruggedness">Rugosidad</string>
+    <string name="show_on_map">Ver en mapa</string>
+    <string name="pref_photo_maps_high_detail_mode_title">Modo de alto detalle</string>
+    <string name="pref_photo_maps_high_detail_mode_summary">Carga más bloques para mayor calidad. Usa más memoria.</string>
+    <string name="show_images">Ver imagenes</string>
 </resources>
