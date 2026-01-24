@@ -5,7 +5,6 @@ import android.graphics.Color
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
 import com.kylecorry.trail_sense.shared.dem.DEM
@@ -25,14 +24,7 @@ class SlopeMapTileSource : TileSource {
     var smooth = true
     var hideFlatGround = false
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        Parallel.forEach(tiles, 16) {
-            val bitmap = loadTile(it)
-            onLoaded(it, bitmap)
-        }
-    }
-
-    private suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

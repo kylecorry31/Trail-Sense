@@ -6,7 +6,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
 class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     PhotoMapTileSource(),
@@ -14,6 +13,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 ) {
 
     override val layerId: String = LAYER_ID
+    private var idFilter: Long? = null
     private val recycleTask = BackgroundTask {
         source.recycle()
     }
@@ -27,8 +27,20 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
         source.loadPdfs = preferences.getBoolean(LOAD_PDFS, DEFAULT_LOAD_PDFS)
     }
 
-    fun setPhotoMapFilter(filter: (map: PhotoMap) -> Boolean) {
-        source.filter = filter
+    fun setPhotoMapFilter(id: Long? = null) {
+        idFilter = id
+        source.filter = if (id == null) {
+            { true }
+        } else {
+            { it.id == id }
+        }
+    }
+
+    override fun getCacheKey(): String {
+        val keys = mutableListOf(layerId)
+        keys.add(source.loadPdfs.toString())
+        idFilter?.let { keys.add(it.toString()) }
+        return keys.joinToString(",")
     }
 
     fun improveResolution(
@@ -57,5 +69,15 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
         const val LAYER_ID = "map"
         const val LOAD_PDFS = "load_pdfs"
         const val DEFAULT_LOAD_PDFS = false
+
+        fun getCacheKeysForMap(mapId: Long): List<String> {
+            return listOf(
+                "$LAYER_ID-true-$mapId",
+                "$LAYER_ID-false-$mapId",
+                "$LAYER_ID-true",
+                "$LAYER_ID-false",
+            )
+        }
+
     }
 }

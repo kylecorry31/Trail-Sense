@@ -24,7 +24,11 @@ class PhotoMapTileSource : TileSource {
     private val lock = Mutex()
     private val decoderCache = PhotoMapDecoderCache()
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
+    suspend fun recycle() {
+        decoderCache.recycleInactive(emptyList())
+    }
+
+    override suspend fun loadTile(tile: Tile): Bitmap? {
         val selector = lock.withLock {
             if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || filter != lastFilter) {
                 val repo = AppServiceRegistry.get<MapRepo>()
@@ -42,10 +46,6 @@ class PhotoMapTileSource : TileSource {
             }
             internalSelector
         }
-        selector?.load(tiles, onLoaded)
-    }
-
-    suspend fun recycle() {
-        decoderCache.recycleInactive(emptyList())
+        return selector?.loadTile(tile)
     }
 }

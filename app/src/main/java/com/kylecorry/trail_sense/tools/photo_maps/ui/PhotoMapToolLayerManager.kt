@@ -70,7 +70,7 @@ class PhotoMapToolLayerManager {
 
 
         photoMapLayer = view.getLayer<PhotoMapLayer>()
-        photoMapLayer?.setPhotoMapFilter { it.id == photoMapId }
+        photoMapLayer?.setPhotoMapFilter(photoMapId)
         photoMapLayer?.setMinZoomLevel(0)
 
         view.layerManager.setOnGeoJsonFeatureClickListener { feature ->

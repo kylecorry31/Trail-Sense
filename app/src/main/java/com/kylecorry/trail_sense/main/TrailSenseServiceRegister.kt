@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
+import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -52,6 +53,7 @@ object TrailSenseServiceRegister {
         AppServiceRegistry.register(DeviceSubsystem(appContext))
         AppServiceRegistry.register(MapLayerLoader(appContext))
         AppServiceRegistry.register(MapLayerPreferenceRepo())
+        AppServiceRegistry.register(PersistentTileCache(appContext))
 
         Tools.getTools(context, false).forEach { tool ->
             tool.singletons.forEach { producer ->
