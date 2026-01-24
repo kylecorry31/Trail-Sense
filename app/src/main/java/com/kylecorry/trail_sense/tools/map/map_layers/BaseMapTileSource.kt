@@ -103,8 +103,8 @@ class BaseMapTileSource : TileSource {
         )
     )
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        internalSelector.load(tiles, onLoaded)
+    override suspend fun loadTile(tile: Tile): Bitmap? {
+        return internalSelector.loadTile(tile)
     }
 
     suspend fun recycle() {

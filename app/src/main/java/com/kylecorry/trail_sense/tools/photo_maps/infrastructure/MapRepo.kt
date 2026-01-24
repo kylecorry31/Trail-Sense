@@ -7,18 +7,22 @@ import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroupEntity
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 
 class MapRepo private constructor(private val context: Context) : IMapRepo {
 
     private val mapDao = AppDatabase.getInstance(context).mapDao()
     private val mapGroupDao = AppDatabase.getInstance(context).mapGroupDao()
     private val files = FileSubsystem.getInstance(context)
+    private val tileCache = getAppService<PersistentTileCache>()
 
     override suspend fun getAllMaps(): List<PhotoMap> = onIO {
         val maps = mapDao.getAll()
@@ -38,6 +42,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         tryOrNothing { files.delete(map.filename) }
         tryOrNothing { files.delete(map.pdfFileName) }
         mapDao.delete(MapEntity.from(map))
+        invalidateCache(map.id)
     }
 
     override suspend fun deleteMapGroup(group: MapGroup) {
@@ -54,12 +59,14 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     }
 
     override suspend fun addMap(map: PhotoMap): Long = onIO {
-        if (map.id == 0L) {
+        val newId = if (map.id == 0L) {
             mapDao.insert(MapEntity.from(map))
         } else {
             mapDao.update(MapEntity.from(map))
             map.id
         }
+        invalidateCache(newId)
+        newId
     }
 
     override suspend fun getMaps(parentId: Long?): List<PhotoMap> = onIO {
@@ -70,6 +77,13 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
 
     override suspend fun getMapGroups(parentId: Long?): List<MapGroup> = onIO {
         mapGroupDao.getAllWithParent(parentId).map { it.toMapGroup() }
+    }
+
+    private suspend fun invalidateCache(mapId: Long) {
+        val cacheKeys = PhotoMapLayer.getCacheKeysForMap(mapId)
+        cacheKeys.forEach {
+            tileCache.invalidate(it)
+        }
     }
 
     private fun convertToMap(map: MapEntity): PhotoMap {

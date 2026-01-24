@@ -2,13 +2,12 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.getCellSizeX
-import com.kylecorry.trail_sense.shared.dem.getCellSizeY
 import com.kylecorry.trail_sense.shared.dem.colors.RuggednessColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.RuggednessDefaultColorMap
+import com.kylecorry.trail_sense.shared.dem.getCellSizeX
+import com.kylecorry.trail_sense.shared.dem.getCellSizeY
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import kotlin.math.sqrt
@@ -18,14 +17,7 @@ class RuggednessMapTileSource : TileSource {
     var highResolution: Boolean = false
     var colorMap: RuggednessColorMap = RuggednessDefaultColorMap()
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        Parallel.forEach(tiles, 16) {
-            val bitmap = loadTile(it)
-            onLoaded(it, bitmap)
-        }
-    }
-
-    private suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 
@@ -38,7 +30,7 @@ class RuggednessMapTileSource : TileSource {
 
         val cellSizeX = getCellSizeX(resolution, bounds)
         val cellSizeY = getCellSizeY(resolution)
-        val cellSize =  (cellSizeX + cellSizeY) / 2
+        val cellSize = (cellSizeX + cellSizeY) / 2
 
         val padding = 2
         return DEM.getElevationImage(

@@ -49,6 +49,8 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideCons
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRowEntity
+import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileDao
+import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileEntity
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingDao
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingEntity
 
@@ -57,8 +59,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class],
-    version = 46,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class],
+    version = 47,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -82,6 +84,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun fieldGuideSightingDao(): FieldGuideSightingDao
     abstract fun digitalElevationModelDao(): DigitalElevationModelDao
     abstract fun bearingDao(): NavigationBearingDao
+    abstract fun cachedTileDao(): CachedTileDao
 
     companion object {
 
@@ -414,6 +417,27 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_46_47 = object : Migration(46, 47) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("""
+                        CREATE TABLE IF NOT EXISTS `cached_tiles` (
+                            `_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            `key` TEXT NOT NULL,
+                            `x` INTEGER NOT NULL,
+                            `y` INTEGER NOT NULL,
+                            `z` INTEGER NOT NULL,
+                            `filename` TEXT NOT NULL,
+                            `created_on` INTEGER NOT NULL,
+                            `last_used_on` INTEGER NOT NULL,
+                            `size_bytes` INTEGER NOT NULL,
+                            `has_alpha` INTEGER NOT NULL
+                        )
+                    """.trimIndent())
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_cached_tiles_key_x_y_z ON cached_tiles(`key`, x, y, z)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_cached_tiles_last_used_on ON cached_tiles(last_used_on)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -460,7 +484,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_42_43,
                     MIGRATION_43_44,
                     MIGRATION_44_45,
-                    MIGRATION_45_46
+                    MIGRATION_45_46,
+                    MIGRATION_46_47
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

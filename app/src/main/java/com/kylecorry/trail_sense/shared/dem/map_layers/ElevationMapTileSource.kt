@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
@@ -15,14 +14,7 @@ class ElevationMapTileSource : TileSource {
     var colorScale: ElevationColorMap = USGSElevationColorMap()
     var highResolution: Boolean = false
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        Parallel.forEach(tiles, 16) {
-            val bitmap = loadTile(it)
-            onLoaded(it, bitmap)
-        }
-    }
-
-    private suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

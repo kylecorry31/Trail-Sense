@@ -39,7 +39,7 @@ abstract class TileMapLayer<T : TileSource>(
 ) : IAsyncLayer {
 
     private var shouldReloadTiles = true
-    protected val loader by lazy { TileLoader(TILE_BORDER_PIXELS, tag = layerId) }
+    private var loader: TileLoader? = null
     private val layerPaint = Paint()
     private val tilePaint = Paint().apply {
         isAntiAlias = false
@@ -87,7 +87,7 @@ abstract class TileMapLayer<T : TileSource>(
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
                 ) {
-                    loader.loadTiles(source, sortTiles(tiles))
+                    loader?.loadTiles(source, sortTiles(tiles))
                 } else if (tiles.size > MAX_TILES) {
                     Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
                 }
@@ -100,6 +100,11 @@ abstract class TileMapLayer<T : TileSource>(
                 shouldReloadTiles = true
             }
         }
+    }
+
+    open fun getCacheKey(): String? {
+        // Don't cache by default
+        return null
     }
 
     private fun sortTiles(tiles: List<Tile>): List<Tile> {
@@ -155,7 +160,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
-        loader.tileCache.withRead { tileCache ->
+        loader?.tileCache?.withRead { tileCache ->
             tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
                 renderTile(
                     tile,
@@ -299,11 +304,17 @@ abstract class TileMapLayer<T : TileSource>(
 
     override fun start() {
         shouldReloadTiles = true
+        loader = TileLoader(
+            TILE_BORDER_PIXELS,
+            tag = layerId,
+            key = getCacheKey()
+        )
     }
 
     override fun stop() {
         taskRunner.stop()
-        loader.clearCache()
+        loader?.clearCache()
+        loader = null
     }
 
     override fun setPreferences(preferences: Bundle) {

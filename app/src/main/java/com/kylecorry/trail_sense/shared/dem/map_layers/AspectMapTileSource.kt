@@ -22,13 +22,6 @@ import kotlin.math.absoluteValue
 class AspectMapTileSource : TileSource {
     var highResolution: Boolean = false
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        Parallel.forEach(tiles, 16) {
-            val bitmap = loadTile(it)
-            onLoaded(it, bitmap)
-        }
-    }
-
     private val colorMap = RgbInterpolationColorMap(
         arrayOf(
             AppColor.Green.color,
@@ -43,7 +36,7 @@ class AspectMapTileSource : TileSource {
         )
     )
 
-    private suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

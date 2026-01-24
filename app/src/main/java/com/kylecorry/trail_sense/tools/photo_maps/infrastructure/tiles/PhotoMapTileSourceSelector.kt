@@ -12,12 +12,12 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import java.util.concurrent.ConcurrentLinkedQueue
 
 class PhotoMapTileSourceSelector(
     private val context: Context,
@@ -34,17 +34,25 @@ class PhotoMapTileSourceSelector(
         .filter { it.isCalibrated }
         .sortedBy { it.distancePerPixel() }
 
-    override suspend fun load(tiles: List<Tile>, onLoaded: suspend (Tile, Bitmap?) -> Unit) {
-        val loaders = tiles.map { getRegionLoaders(it.getBounds()) }
+    private var recentMaps = ConcurrentLinkedQueue<PhotoMap>()
 
-        // Prune cache
-        val maps = loaders.flatten().map { it.map }.distinct()
-        decoderCache.recycleInactive(maps)
+    override suspend fun loadTile(tile: Tile): Bitmap? {
+        val loaders = getRegionLoaders(tile.getBounds())
 
-        Parallel.forEach(tiles.indices.toList()) { i ->
-            val bitmap = loadTile(tiles[i], loaders[i])
-            onLoaded(tiles[i], bitmap)
+        val maps = loaders.map { it.map }.distinct()
+        recentMaps.addAll(maps)
+
+        return loadTile(tile, loaders)
+    }
+
+    override suspend fun cleanup() {
+        super.cleanup()
+        val lastUsed = mutableListOf<PhotoMap>()
+        while (recentMaps.isNotEmpty()) {
+            recentMaps.poll()?.let { lastUsed.add(it) }
         }
+
+        decoderCache.recycleInactive(lastUsed)
     }
 
     private suspend fun loadTile(tile: Tile, loaders: List<PhotoMapRegionLoader>): Bitmap? {
