@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.experimentation
 import android.content.Context
 import android.widget.Button
 import android.widget.TextView
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
@@ -24,6 +25,11 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useLocation
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
+import com.kylecorry.trail_sense.tools.map.MapToolRegistration
+import com.kylecorry.trail_sense.tools.map.ui.MapViewV2
 import java.io.Closeable
 import java.time.Duration
 
@@ -31,6 +37,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
     override fun update() {
 //        useWormGrunting()
         useSamplePlugin()
+        useMapViewV2()
     }
 
     private fun useSamplePlugin() {
@@ -136,6 +143,50 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
         }
 
         return service
+    }
+
+    private fun useMapViewV2() {
+        val mapViewV2 = useView<MapViewV2>(R.id.mapViewV2)
+        val (location, _) = useLocation()
+
+        useEffect(mapViewV2, location) {
+            mapViewV2.setCenter(location.latitude, location.longitude, 15f)
+        }
+
+        val layers = useBackgroundMemo2(resetOnResume) {
+            val loader = AppServiceRegistry.get<MapLayerLoader>()
+            val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+            val layerIds = repo.getActiveLayerIds(MapToolRegistration.MAP_ID)
+            val layers = layerIds.mapNotNull { id ->
+                loader.getLayer(id)
+            }
+
+            val layerPreferences =
+                repo.getLayerPreferencesBundle(MapToolRegistration.MAP_ID, layerIds)
+
+            val layersToPreference = layers.map { layer ->
+                layer to layerPreferences[layer.layerId]
+            }
+            val actualLayers =
+                layersToPreference.filter {
+                    it.second?.containsKey(DefaultMapLayerDefinitions.ENABLED) == false ||
+                            it.second?.getBoolean(DefaultMapLayerDefinitions.ENABLED) != false
+                }
+            actualLayers.forEach {
+                it.second?.let { prefs ->
+                    it.first.setPreferences(prefs)
+                    it.first.invalidate()
+                }
+            }
+
+            actualLayers.map { it.first }
+        }
+
+        useEffect(mapViewV2, layers) {
+            if (layers != null) {
+                mapViewV2.setLayers(layers)
+            }
+        }
     }
 
     private fun useWormGrunting() {

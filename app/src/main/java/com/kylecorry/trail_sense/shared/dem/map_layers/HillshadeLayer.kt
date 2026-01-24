@@ -10,22 +10,8 @@ class HillshadeLayer :
 
     override val layerId: String = LAYER_ID
 
-    init {
-        shouldMultiply = true
-    }
-
     override fun setPreferences(preferences: Bundle) {
-        multiplyAlpha = SolMath.map(
-            preferences.getInt(
-                DefaultMapLayerDefinitions.OPACITY,
-                DefaultMapLayerDefinitions.DEFAULT_OPACITY
-            ) / 100f,
-            0f,
-            1f,
-            0f,
-            255f,
-            shouldClamp = true
-        ).toInt()
+        super.setPreferences(preferences)
         source.drawAccurateShadows =
             preferences.getBoolean(DRAW_ACCURATE_SHADOWS, DEFAULT_DRAW_ACCURATE_SHADOWS)
         source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)

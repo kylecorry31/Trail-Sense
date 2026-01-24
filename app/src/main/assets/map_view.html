@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trail Sense Map</title>
+    <!-- CSS and JS will be injected here by Android -->
+    <link rel="stylesheet" href="file:///android_asset/ol.css">
+    <script src="file:///android_asset/ol.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <script>
+        // Debug logging
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("JS Error: " + message + " at " + source + ":" + lineno);
+        };
+
+        // Global state
+        let map = null;
+        let tileLayers = {};
+        let mapReady = false;
+        
+        // Pending state
+        let pendingTileLayerUpdates = { add: [], remove: [] };
+        let pendingCenter = null;
+
+        // Interface for communication with Android - defined immediately
+        window.MapInterface = {
+            addTileLayer: function(id, tileUrlTemplate, opacity) {
+                pendingTileLayerUpdates.add.push({ id: id, url: tileUrlTemplate, opacity: opacity || 0.8 });
+                updateMapState();
+            },
+            
+            removeTileLayer: function(id) {
+                pendingTileLayerUpdates.remove.push(id);
+                updateMapState();
+            },
+            
+            clearLayers: function() {
+                // Remove all tile layers
+                Object.keys(tileLayers).forEach(id => {
+                    pendingTileLayerUpdates.remove.push(id);
+                });
+                updateMapState();
+            },
+            
+            setLayers: function(layers) {
+                // Clear all existing layers
+                Object.keys(tileLayers).forEach(id => {
+                    pendingTileLayerUpdates.remove.push(id);
+                });
+                // Add new layers in order
+                layers.forEach(layer => {
+                    pendingTileLayerUpdates.add.push({ id: layer.id, url: layer.url });
+                });
+                updateMapState();
+            },
+            
+            setCenter: function(lon, lat, zoom) {
+                pendingCenter = { lon: lon, lat: lat, zoom: zoom };
+                updateMapState();
+            },
+            
+            getCenter: function() {
+                if (!mapReady) return null;
+                const center = ol.proj.toLonLat(map.getView().getCenter());
+                return {
+                    longitude: center[0],
+                    latitude: center[1],
+                    zoom: map.getView().getZoom()
+                };
+            }
+        };
+
+        function updateMapState() {
+            if (!mapReady) {
+                return;
+            }
+
+            try {
+                // Update Tile Layers
+                // Handle removals first
+                pendingTileLayerUpdates.remove.forEach(id => {
+                    if (tileLayers[id]) {
+                        map.removeLayer(tileLayers[id]);
+                        delete tileLayers[id];
+                    }
+                });
+                pendingTileLayerUpdates.remove = [];
+
+                // Handle additions
+                pendingTileLayerUpdates.add.forEach(item => {
+                    const id = item.id;
+                    const url = item.url;
+                    const opacity = item.opacity;
+                    if (!tileLayers[id]) {
+                        const source = new ol.source.XYZ({
+                            url: url,
+                            tileUrlFunction: function(coord) {
+                                const z = coord[0];
+                                const x = coord[1];
+                                const y = coord[2];
+                                return url.replace('{z}', z).replace('{x}', x).replace('{y}', y);
+                            }
+                        });
+                        
+                        const layer = new ol.layer.Tile({
+                            source: source,
+                            opacity: opacity
+                        });
+                        
+                        tileLayers[id] = layer;
+                        map.addLayer(layer);
+                    }
+                });
+                pendingTileLayerUpdates.add = [];
+
+                // Update Center
+                if (pendingCenter) {
+                    map.getView().setCenter(ol.proj.fromLonLat([pendingCenter.lon, pendingCenter.lat]));
+                    map.getView().setZoom(pendingCenter.zoom);
+                    pendingCenter = null;
+                }
+
+            } catch (error) {
+                console.error('Error updating map state:', error);
+            }
+        }
+
+        function initMap() {
+            try {
+                // Initialize OpenLayers map
+                map = new ol.Map({
+                    target: 'map',
+                    layers: [],
+                    view: new ol.View({
+                        center: ol.proj.fromLonLat([0, 0]),
+                        zoom: 2
+                    })
+                });
+
+                // Apply any pending updates
+                mapReady = true;
+                updateMapState();
+
+                // Map is ready
+                if (window.mapReadyCallback) {
+                    window.mapReadyCallback();
+                }
+            } catch (e) {
+                console.error("Critical error initializing map:", e);
+            }
+        }
+
+        // Initialize map when page loads
+        window.addEventListener('load', initMap);
+    </script>
+</body>
+</html>

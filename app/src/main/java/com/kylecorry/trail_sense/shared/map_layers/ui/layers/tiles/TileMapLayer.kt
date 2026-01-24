@@ -40,7 +40,7 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 abstract class TileMapLayer<T : TileSource>(
-    protected val source: T,
+    val source: T,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     private var minZoomLevel: Int? = null
 ) : IAsyncLayer {
