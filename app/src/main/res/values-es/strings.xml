@@ -776,7 +776,7 @@
     <string name="night">Horas de noche</string>
     <string name="qr_text_too_long">El texto es demasiado largo; el código QR se ha truncado</string>
     <string name="weather_storm">Tormenta</string>
-    <string name="slope_amount">%s pendiente</string>
+    <string name="slope_amount">%s inclinación</string>
     <string name="compass_accuracy">Precisión de la brújula</string>
     <string name="weather_no_change">Sin cambios</string>
     <string name="very_soon">Muy pronto</string>
@@ -897,7 +897,7 @@
     <string name="cloud_fair_forecast_hours">Puede indicar buen tiempo para las próximas %d horas.</string>
     <string name="icon">Icono</string>
     <string name="path_slope_steep">Empinado</string>
-    <string name="path_slope">Pendiente</string>
+    <string name="path_slope">Inclinación</string>
     <string name="weather_front">Frente meteorológico</string>
     <string name="weather_warm_front">Cálido</string>
     <string name="weather_cold_front">Frío</string>
@@ -1444,7 +1444,7 @@
     <string name="settings_copied">Ajustes copiados</string>
     <string name="copy_settings_to_other_maps">Copiar la ajustes a otros mapas</string>
     <string name="my_elevation">Mi elevación</string>
-    <string name="draw_accurate_shadows">Dibujar sombras exactas</string>
+    <string name="draw_accurate_shadows">Dibujar sombras precisas</string>
     <string name="map_attribution_format">Map data © %s</string>
     <string name="show_modeled_tides">Mostrar mareas modeladas en la costa</string>
     <string name="map_layer_base_map_description">Mapa mundo baja resolución a color</string>
@@ -1464,10 +1464,10 @@
     <string name="move_layer_up">Mover capa arriba</string>
     <string name="move_layer_down">Mover capa abajo</string>
     <string name="remove_layer">Eliminar capa</string>
-    <string name="additional_layers">Capa adicional</string>
+    <string name="additional_layers">Capas adicional</string>
     <string name="slope_color_white_to_red">Blanco a rojo</string>
     <string name="slope_color_green_to_red">Verde a rojo</string>
-    <string name="map_layer_slope_description">Colorear terreno según la pendiente</string>
+    <string name="map_layer_slope_description">Colorear terreno según la inclinación</string>
     <string name="map_layer_aspect_description">Colorear terreno según la orientación</string>
     <string name="copy_error">Error al copiar</string>
     <string name="view_error_details">Detalles del error</string>
@@ -1478,10 +1478,11 @@
     <string name="sighting_label">Vistazo %s</string>
     <string name="map_layer_ruggedness_description">Colorear rugosidad del terreno según el cambio de elevación</string>
     <string name="map_layer_field_guide_sightings_description">Tus guías de campo visitadas</string>
-    <string name="aspect">Aspecto</string>
+    <string name="aspect">Orientación</string>
     <string name="ruggedness">Rugosidad</string>
     <string name="show_on_map">Ver en mapa</string>
     <string name="pref_photo_maps_high_detail_mode_title">Modo de alto detalle</string>
     <string name="pref_photo_maps_high_detail_mode_summary">Carga más bloques para mayor calidad. Usa más memoria.</string>
-    <string name="show_images">Ver imagenes</string>
+    <string name="show_images">Mostar imagenes</string>
+    <string name="multi_direction_shading">Sombreado multidireccional</string>
 </resources>
