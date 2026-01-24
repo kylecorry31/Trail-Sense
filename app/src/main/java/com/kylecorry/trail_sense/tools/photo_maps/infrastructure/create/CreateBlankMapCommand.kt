@@ -70,7 +70,8 @@ class CreateBlankMapCommand(
                     rotated = true,
                     rotation = 0f,
                     calibrationPoints = calibration
-                )
+                ),
+                visible = false
             )
 
             calibrated?.let { repo.addMap(it) }
