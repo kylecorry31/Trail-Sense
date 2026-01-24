@@ -93,7 +93,7 @@ class MapLayerPreferenceManager(
                 category.isVisible = header.isExpanded
                 screen.addPreference(category)
 
-                header.onPreferenceClickListener = {
+                header.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     header.isExpanded = !header.isExpanded
                     category.isVisible = header.isExpanded
                     true
@@ -124,7 +124,7 @@ class MapLayerPreferenceManager(
                             prefs.getBoolean(key) ?: (it.first.defaultValue as? Boolean ?: true)
                         }
 
-                        preference.onPreferenceChangeListener = { pref, newValue ->
+                        preference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref: Preference, newValue: Any ->
                             header.isLayerEnabled = newValue as Boolean
                             true
                         }
