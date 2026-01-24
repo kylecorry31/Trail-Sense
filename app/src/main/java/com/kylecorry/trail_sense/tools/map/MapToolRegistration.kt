@@ -115,6 +115,12 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = HillshadeLayer.DEFAULT_HIGH_RESOLUTION,
                         ),
+                        MapLayerPreference(
+                            id = HillshadeLayer.MULTI_DIRECTION_SHADING,
+                            title = context.getString(R.string.multi_direction_shading),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = HillshadeLayer.DEFAULT_MULTI_DIRECTION_SHADING,
+                        ),
                     )
                 ) { HillshadeLayer() },
                 MapLayerDefinition(
