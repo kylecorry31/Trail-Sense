@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.webkit.ConsoleMessage
+import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -25,6 +26,11 @@ import java.io.ByteArrayOutputStream
 
 class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context, attrs) {
 
+    interface MapClickListener {
+        fun onSingleClick(lat: Double, lon: Double)
+        fun onLongClick(lat: Double, lon: Double)
+    }
+
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private var isMapReady = false
     private val tileSources = mutableMapOf<String, TileSource>()
@@ -32,6 +38,7 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
     private var pendingClearLayers = false
     private var pendingCenter: Triple<Double, Double, Float>? = null
     private val tileCache = android.util.LruCache<String, ByteArray>(100) // Cache up to 100 tiles
+    private var clickListener: MapClickListener? = null
 
     private val transparentTile by lazy {
         val bitmap = createBitmap(256, 256)
@@ -49,6 +56,18 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupWebView() {
         settings.javaScriptEnabled = true
+
+        addJavascriptInterface(object {
+            @JavascriptInterface
+            fun onSingleClick(lat: Double, lon: Double) {
+                clickListener?.onSingleClick(lat, lon)
+            }
+
+            @JavascriptInterface
+            fun onLongClick(lat: Double, lon: Double) {
+                clickListener?.onLongClick(lat, lon)
+            }
+        }, "AndroidMap")
 
         webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
@@ -187,6 +206,10 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
         } else {
             pendingCenter = Triple(latitude, longitude, zoom)
         }
+    }
+
+    fun setClickListener(listener: MapClickListener) {
+        clickListener = listener
     }
 
     override fun onDetachedFromWindow() {

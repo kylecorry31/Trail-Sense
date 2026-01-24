@@ -187,6 +187,18 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
                 mapViewV2.setLayers(layers)
             }
         }
+
+        useEffect(mapViewV2) {
+            mapViewV2.setClickListener(object : MapViewV2.MapClickListener {
+                override fun onSingleClick(lat: Double, lon: Double) {
+                    println("Single click: $lat, $lon")
+                }
+
+                override fun onLongClick(lat: Double, lon: Double) {
+                    println("Long click: $lat, $lon")
+                }
+            })
+        }
     }
 
     private fun useWormGrunting() {

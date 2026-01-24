@@ -156,6 +156,49 @@
                     })
                 });
 
+                // Add click event listeners
+                let longClickTimer;
+                let startX, startY;
+                const longClickThreshold = 500; // ms
+                const moveThreshold = 10; // pixels
+
+                map.on('pointerdown', function(event) {
+                    startX = event.pixel[0];
+                    startY = event.pixel[1];
+                    longClickTimer = setTimeout(() => {
+                        const coord = ol.proj.toLonLat(event.coordinate);
+                        if (window.AndroidMap) {
+                            window.AndroidMap.onLongClick(coord[1], coord[0]);
+                        }
+                        longClickTimer = null;
+                    }, longClickThreshold);
+                });
+
+                map.on('pointerup', function() {
+                    if (longClickTimer) {
+                        clearTimeout(longClickTimer);
+                        longClickTimer = null;
+                    }
+                });
+
+                map.on('pointermove', function(event) {
+                    if (longClickTimer) {
+                        const dx = event.pixel[0] - startX;
+                        const dy = event.pixel[1] - startY;
+                        if (Math.abs(dx) > moveThreshold || Math.abs(dy) > moveThreshold) {
+                            clearTimeout(longClickTimer);
+                            longClickTimer = null;
+                        }
+                    }
+                });
+
+                map.on('singleclick', function(event) {
+                    const coord = ol.proj.toLonLat(event.coordinate);
+                    if (window.AndroidMap) {
+                        window.AndroidMap.onSingleClick(coord[1], coord[0]);
+                    }
+                });
+
                 // Apply any pending updates
                 mapReady = true;
                 updateMapState();
