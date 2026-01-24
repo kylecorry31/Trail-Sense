@@ -22,14 +22,15 @@ import kotlin.math.sin
 class HillshadeMapTileSource : TileSource {
     var drawAccurateShadows: Boolean = false
     var highResolution: Boolean = false
+    var multiDirectionShading: Boolean = false
     private val astronomy = AstronomyService()
 
     override suspend fun loadTile(tile: Tile): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
         val zFactor = 3f
-        val samples = 1
-        val sampleSpacing = 3f
+        val samples = if (multiDirectionShading) 5 else 1
+        val sampleSpacing = 45f
         val (azimuth, altitude) = getShadowConfig(bounds.center)
         val zoomToResolutionMap = if (highResolution) {
             DEM.HIGH_RESOLUTION_ZOOM_TO_RESOLUTION

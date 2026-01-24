@@ -29,13 +29,16 @@ class HillshadeLayer :
         source.drawAccurateShadows =
             preferences.getBoolean(DRAW_ACCURATE_SHADOWS, DEFAULT_DRAW_ACCURATE_SHADOWS)
         source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)
+        source.multiDirectionShading = preferences.getBoolean(MULTI_DIRECTION_SHADING, DEFAULT_MULTI_DIRECTION_SHADING)
     }
 
     companion object {
         const val LAYER_ID = "hillshade"
         const val DRAW_ACCURATE_SHADOWS = "draw_accurate_shadows"
         const val HIGH_RESOLUTION = "high_resolution"
+        const val MULTI_DIRECTION_SHADING = "multi_direction_shading"
         const val DEFAULT_DRAW_ACCURATE_SHADOWS = false
         const val DEFAULT_HIGH_RESOLUTION = false
+        const val DEFAULT_MULTI_DIRECTION_SHADING = false
     }
 }

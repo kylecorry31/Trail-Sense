@@ -32,6 +32,7 @@ Settings:
 
 - **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
 - **Draw accurate shadows**: If enabled, shadows will be drawn using the position of the sun and moon, but the 3D appearance may be reduced.
+- **Multi-direction shading**: If enabled, shadows will be calculated from multiple light directions to enhance terrain details.
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
 ## Slope
