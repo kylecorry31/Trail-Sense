@@ -16,11 +16,6 @@
 - [ ] I have tested my changes on an Android device or emulator
 - [ ] I have added/updated tests where appropriate
 - [ ] I have updated documentation where appropriate
-<!-- Generative AI use is heavily restricted in this repo, see the [Generative AI section of CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#generative-ai) for more information. If you did not use generative AI, leave this box unchecked. -->
-- [ ] Generative AI was used in the creation of this PR
-
-<!-- If generative AI was used, please describe here what generative AI was used for and how you verified the accuracy. -->
-
 
 ## Screenshots
 <!-- Add screenshots or video to help explain your changes (if applicable) -->
