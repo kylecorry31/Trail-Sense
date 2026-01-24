@@ -19,7 +19,7 @@ Para editar una página, pulsa el botón de menú en la fila de la página y sel
 ## Avistamientos
 Puedes ver y registrar avistamientos para una entrada de la Guía de Campo pulsando el enlace "Avistamientos" bajo la imagen. Esto abre la lista de avistamientos que muestra la hora y las notas. El recuento total de avistamientos se muestra junto al enlace de avistamientos en la página principal.
 
-Puedes crear un nuevo avistamiento pulsando el botón añadir en la esquina inferior derecha de la lista de avistamientos. Puedes completar la hora, la ubicación, la elevación, si fue recolectado y las notas. Todos los campos son opcionales. Para guardar los cambios pulsa el botón de verificación en la esquina superior derecha.
+Puedes crear un nuevo avistamiento pulsando el botón añadir en la esquina inferior derecha de la lista de avistamientos. Puedes completar la hora, la ubicación, la elevación, si fue recolectado, si se muestra en el mapa y las notas. Todos los campos son opcionales. Para guardar los cambios pulsa el botón de verificación en la esquina superior derecha.
 
 Puedes editar un avistamiento pulsando sobre él en la lista de avistamientos o usando el menú a la derecha y seleccionando "Editar".
 
@@ -28,6 +28,9 @@ Puedes eliminar un avistamiento usando el menú a la derecha y seleccionando "El
 Puedes Navegar hacia un avistamiento usando el menú a la derecha y seleccionando "Navegar". Esto abrirá la herramienta Navegación con la ubicación del avistamiento como destino.
 
 Puedes crear una baliza a partir de un avistamiento usando el menú a la derecha y seleccionando "Crear baliza". Esto abrirá la herramienta Balizas con una nueva baliza con la ubicación y el nombre del avistamiento rellenados.
+
+## Visibilidad de la capa del mapa
+Puedes ocultar avistamientos individuales para que no aparezcan en la capa de mapa de "Avistamientos". Al crear o editar un avistamiento, pulsa el interruptor "Ver en mapa" para apagarlo y ocultar el avistamiento del mapa. Por defecto, los avistamientos se muestran en el mapa.
 
 ## Eliminar una página
 Para eliminar una página, pulsa el botón de menú en la fila de la página y selecciona "Eliminar". Se pedirá que confirmes la eliminación. Eliminar una página es permanente y no puede deshacerse.
