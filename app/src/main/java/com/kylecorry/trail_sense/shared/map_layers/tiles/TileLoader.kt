@@ -62,7 +62,7 @@ class TileLoader(
             hasChanges = hasChanges || removed
         }
 
-        Parallel.forEach(tilesToLoad, 16) { tile ->
+        Parallel.forEach(tilesToLoad) { tile ->
             val image = loadTile(sourceSelector, tile)
             val resized = image?.applyOperationsOrNull(
                 Resize(

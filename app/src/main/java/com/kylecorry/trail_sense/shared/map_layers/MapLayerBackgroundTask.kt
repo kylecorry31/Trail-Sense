@@ -1,12 +1,9 @@
 package com.kylecorry.trail_sense.shared.map_layers
 
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +25,6 @@ class MapLayerBackgroundTask {
     private val lock = Mutex()
     private val taskLock = Any()
     private var isDirty = true
-    private val tileBorder = getTileBorder()
 
     private val tasks =
         mutableListOf<suspend (viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection) -> Unit>()
@@ -70,13 +66,11 @@ class MapLayerBackgroundTask {
 
         scope.launch {
             val metersPerPixel = projection.metersPerPixel
-            val newBounds =
-                TileMath.snapToTiles(bounds, metersPerPixel, growBy = tileBorder)
 
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
                 if (!isDirty && !isInvalid && areBoundsEqual(
-                        newBounds,
+                        bounds,
                         lastRunBounds ?: CoordinateBounds.empty
                     ) &&
                     metersPerPixel == lastRunMetersPerPixel
@@ -104,25 +98,25 @@ class MapLayerBackgroundTask {
                 } ?: 0f
 
                 val runPercentTranslateDifference = lastRunBounds?.let {
-                    it.center.distanceTo(newBounds.center) / newBounds.width().meters().value
+                    it.center.distanceTo(bounds.center) / bounds.width().meters().value
                 } ?: 0f
 
                 val queuedPercentTranslateDifference = lastQueuedBounds?.let {
-                    it.center.distanceTo(newBounds.center) / newBounds.width().meters().value
+                    it.center.distanceTo(bounds.center) / bounds.width().meters().value
                 } ?: 0f
 
                 // This will be queued up
-                lastQueuedBounds = newBounds
+                lastQueuedBounds = bounds
                 lastQueuedMetersPerPixel = metersPerPixel
                 isDirty = false
 
                 // Otherwise queue it up
                 val run = suspend {
                     lock.withLock {
-                        lastRunBounds = newBounds
+                        lastRunBounds = bounds
                         lastRunMetersPerPixel = metersPerPixel
                     }
-                    update(viewBounds, newBounds, projection)
+                    update(viewBounds, bounds, projection)
                 }
 
                 val scaleSignificantlyChanged =
@@ -136,16 +130,6 @@ class MapLayerBackgroundTask {
                     runner.enqueue(run)
                 }
             }
-        }
-    }
-
-    private fun getTileBorder(): Int {
-        val device = AppServiceRegistry.get<DeviceSubsystem>()
-        val threshold = 50 * 1024 * 1024 // 50 MB
-        return if (device.getAvailableBitmapMemoryBytes() < threshold) {
-            0
-        } else {
-            1
         }
     }
 
