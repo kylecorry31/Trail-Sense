@@ -12,12 +12,14 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.graphics.createBitmap
+import com.kylecorry.andromeda.geojson.GeoJsonConvert
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import kotlinx.coroutines.CoroutineScope
@@ -83,6 +85,8 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupWebView() {
         settings.javaScriptEnabled = true
+        // TODO: Address deprecation
+        settings.allowUniversalAccessFromFileURLs = true
 
         addJavascriptInterface(object : JSBridge {
             @JavascriptInterface
@@ -136,6 +140,8 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
                 val url = request?.url?.toString() ?: return null
                 if (url.startsWith("https://trailsense.app/tiles/")) {
                     return handleTileRequest(url)
+                } else if (url.startsWith("https://trailsense.app/geojson/")) {
+                    return handleGeoJsonRequest(url)
                 }
                 return super.shouldInterceptRequest(view, request)
             }
@@ -220,13 +226,21 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
 
     private fun updateMapLayers() {
         val layerObject = layerManager.getLayers().mapNotNull {
-            if (it is TileMapLayer<*>) {
-                JSTileLayer(
-                    "https://trailsense.app/tiles/${it.layerId}/{z}/{x}/{y}.png",
-                    it.percentOpacity
-                )
-            } else {
-                null
+            when (it) {
+                is TileMapLayer<*> -> {
+                    JSTileLayer(
+                        "https://trailsense.app/tiles/${it.layerId}/{z}/{x}/{y}.png",
+                        it.percentOpacity
+                    )
+                }
+
+                is GeoJsonLayer<*> -> {
+                    JSGeoJSONLayer("https://trailsense.app/geojson/${it.layerId}.json?bbox={bbox}")
+                }
+
+                else -> {
+                    null
+                }
             }
         }
 
@@ -321,6 +335,51 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
         val layer = layerManager.getLayers().firstOrNull { it.layerId == layerId } ?: return null
         val source = (layer as? TileMapLayer<*>)?.source ?: return null
         return loadTile(url, source)
+    }
+
+    private fun handleGeoJsonRequest(url: String): WebResourceResponse? {
+        // Extract layer ID from URL: https://trailsense.app/geojson/{layerId}.json?bbox={bbox}
+        val parts = url.split("/")
+        if (parts.size < 5) return null
+
+        val layerId = parts[4].split("?")[0].replace(".json", "")
+        val bbox = url.substringAfter("bbox=", "")
+        // Parse bbox into CoordinateBounds
+        val bounds = if (bbox.isNotEmpty()) {
+            val coords = bbox.split(",").mapNotNull { it.toDoubleOrNull() }
+            if (coords.size == 4) {
+                CoordinateBounds(
+                    north = coords[3],
+                    east = coords[2],
+                    south = coords[1],
+                    west = coords[0]
+                )
+            } else {
+                CoordinateBounds.world
+            }
+        } else {
+            CoordinateBounds.world
+        }
+
+        val layer = layerManager.getLayers().firstOrNull { it.layerId == layerId } ?: return null
+        val source = (layer as? GeoJsonLayer<*>)?.source ?: return null
+
+        return try {
+            val data = runBlocking {
+                source.load(bounds, zoomLevel.toInt())
+            } ?: return null
+
+            val json = GeoJsonConvert.toJson(data)
+
+            WebResourceResponse(
+                "application/json",
+                "UTF-8",
+                ByteArrayInputStream(json.toByteArray())
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
 }

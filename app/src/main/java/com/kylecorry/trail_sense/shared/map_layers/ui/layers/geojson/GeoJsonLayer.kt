@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 typealias OnGeoJsonFeatureClickListener = (GeoJsonFeature) -> Unit
 
 open class GeoJsonLayer<T : GeoJsonSource>(
-    protected val source: T,
+    val source: T,
     private val minZoomLevel: Int? = null,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     override val layerId: String
