@@ -1,0 +1,20 @@
+Chemins
+- Ajout d'un paramètre permettant d'améliorer les performances de rendu au détriment de l'apparence.
+
+Lampe torche
+- Ajout d'une action rapide pour la lampe torche de l'écran.
+
+Niveau à bulle
+- Augmentation de la taille.
+
+Réalité augmentée (expérimentale)
+- Guide vers le soleil / la lune (bouton sur l'outil Astronomie)
+- Navigation vers les balises
+- Ajout d'un paramètre de distance de vue
+- Application du lissage de la boussole à la RA
+
+Divers
+- Ajout de la prise en charge des couleurs dynamiques (à activer dans les paramètres sur les appareils pris en charge)
+- Épinglage par défaut du guide d'utilisation dans Outils
+- Améliorations des performances
+- Corrections de bugs
