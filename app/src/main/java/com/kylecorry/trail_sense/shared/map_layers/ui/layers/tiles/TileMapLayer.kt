@@ -23,10 +23,12 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
+import com.kylecorry.trail_sense.shared.map_layers.tiles.ImageTile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileQueue
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileState
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
@@ -73,7 +75,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val destRect = Rect()
 
     private val loadTimer = CoroutineTimer {
-        queue.load(8, 4)
+        queue.load(16, 6)
     }
 
     private val sourceCleanupTask = BackgroundTask {
@@ -179,13 +181,45 @@ abstract class TileMapLayer<T : TileSource>(
             TileMath.getZoomLevel(bounds, map.metersPerPixel)
         )
 
-        desiredTiles.forEach { tile ->
-            // TODO: If there isn't a hit, get the parent/children
-            val bitmap = loader?.tileCache?.get(tile)?.image ?: return@forEach
+        getTilesToRender(desiredTiles).forEach { tile ->
+            val bitmap = tile.image ?: return@forEach
             tryOrLog {
-                renderTile(tile, canvas, map, bitmap)
+                renderTile(tile.tile, canvas, map, bitmap)
             }
         }
+    }
+
+    private fun getTilesToRender(desiredTiles: List<Tile>): List<ImageTile> {
+        val toRender = mutableSetOf<ImageTile>()
+        desiredTiles.forEach {
+            toRender.addAll(getTilesToRender(it))
+        }
+        return toRender.sortedBy { it.tile.z }
+    }
+
+    private fun getTilesToRender(desiredTile: Tile): List<ImageTile> {
+        val self = loader?.tileCache?.get(desiredTile)
+        if (isTileAvailable(self)) {
+            return listOf(self!!)
+        }
+
+        // Try to replace with the parent tile(s)
+        var parent = desiredTile.getParent()
+        repeat(2) {
+            val parentImageTile = parent?.let { loader?.tileCache?.get(it) }
+            if (isTileAvailable(parentImageTile)) {
+                return listOf(parentImageTile!!)
+            }
+            parent = parent?.getParent()
+        }
+
+
+        // Try to replace with the direct children tiles
+        return desiredTile.getChildren().mapNotNull { loader?.tileCache?.get(it) }
+    }
+
+    private fun isTileAvailable(tile: ImageTile?): Boolean {
+        return tile?.state == TileState.Loaded || tile?.state == TileState.Empty
     }
 
     private fun isTooSmall(
