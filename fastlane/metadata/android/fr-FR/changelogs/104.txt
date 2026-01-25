@@ -1,0 +1,8 @@
+Chemins
+- Importation/exportation de groupes de chemins
+- Amélioration de l'indicateur de difficulté des randonnées afin de prendre en compte les sections escarpées
+
+Divers
+- Ajout d'une fonctionnalité de sauvegarde/restauration complète des paramètres (paramètres et données)
+- Ajout d'un paramètre expérimental permettant d'utiliser le mode sans délai d'obturation pour prendre des photos
+- Corrections de bugs
