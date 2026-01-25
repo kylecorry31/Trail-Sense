@@ -15,6 +15,7 @@ class TileCache(val source: String, sizeMegabytes: Int) :
         super.entryRemoved(evicted, key, oldValue, newValue)
         oldValue.image?.recycle()
         oldValue.image = null
+        oldValue.state = TileState.Idle
     }
 
     operator fun get(tile: Tile): ImageTile? {
@@ -32,9 +33,7 @@ class TileCache(val source: String, sizeMegabytes: Int) :
     }
 
     override fun sizeOf(key: String, value: ImageTile): Int {
-        return tryOrDefault(0) {
-            value.image?.allocationByteCount ?: 0
-        }
+        return value.sizeBytes
     }
 
     private fun getKey(tile: Tile): String {
