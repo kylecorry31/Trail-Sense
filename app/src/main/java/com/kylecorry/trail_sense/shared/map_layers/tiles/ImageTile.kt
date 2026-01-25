@@ -10,14 +10,6 @@ class ImageTile(
     private val loadFunction: suspend () -> Bitmap?
 ) {
     var loadingStartTime: Long? = null
-    val sizeBytes: Int by lazy { estimateSize() }
-
-    private fun estimateSize(): Int {
-        // Assuming ARGB_8888 with some overhead to produce a consistent estimate for the LRU cache
-        val estimatedPixels = tile.size.width * tile.size.height
-        return (estimatedPixels * 4 * 1.2).toInt()
-    }
-
     fun getAlpha(): Int {
         return loadingStartTime?.let { startTime ->
             val elapsed = System.currentTimeMillis() - startTime

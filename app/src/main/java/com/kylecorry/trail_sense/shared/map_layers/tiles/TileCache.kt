@@ -1,10 +1,8 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import androidx.collection.LruCache
-import com.kylecorry.andromeda.core.tryOrDefault
 
-class TileCache(val source: String, sizeMegabytes: Int) :
-    LruCache<String, ImageTile>(sizeMegabytes * 1024 * 1024) {
+class TileCache(val source: String, maxSize: Int) : LruCache<String, ImageTile>(maxSize) {
 
     override fun entryRemoved(
         evicted: Boolean,
@@ -30,10 +28,6 @@ class TileCache(val source: String, sizeMegabytes: Int) :
         val newValue = provider()
         put(key, newValue)
         return newValue
-    }
-
-    override fun sizeOf(key: String, value: ImageTile): Int {
-        return value.sizeBytes
     }
 
     private fun getKey(tile: Tile): String {
