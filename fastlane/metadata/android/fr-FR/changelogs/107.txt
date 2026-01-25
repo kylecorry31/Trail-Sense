@@ -1,0 +1,18 @@
+Outils
+- Refonte de l'onglet Outils
+- Déplacement des paramètres vers les outils
+- Ajout d'actions rapides aux outils (personnalisables dans les paramètres)
+- Ajout de l'épinglage d'outils
+- Ajout du tri des outils (par catégorie, par ordre alphabétique)
+
+Navigation
+- Amélioration de l'alignement de la caméra de la boussole
+- Ajout d'une étiquette pour le nord géographique et le nord magnétique
+
+Réalité augmentée (expérimentale)
+- Ajout d'un outil de réalité augmentée (à activer dans les paramètres expérimentaux)
+- Affichage des balises à proximité en réalité augmentée
+- Affichage des positions du soleil et de la lune en réalité augmentée
+
+Divers
+- Nouvelles actions rapides : podomètre, moniteur météo, retour sur les traces (à activer/désactiver) et mode nuit
