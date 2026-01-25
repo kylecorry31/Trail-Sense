@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
 class ImageTile(
     val key: String,
@@ -10,8 +9,27 @@ class ImageTile(
     var state: TileState = TileState.Idle,
     private val loadFunction: suspend () -> Bitmap?
 ) {
+    var loadingStartTime: Long? = null
+
+    fun getAlpha(): Int {
+        return loadingStartTime?.let { startTime ->
+            val elapsed = System.currentTimeMillis() - startTime
+            if (elapsed >= 250) {
+                255
+            } else {
+                val t = elapsed / 250f
+                (t * t * t * 255).toInt().coerceIn(0, 255)
+            }
+        } ?: 255
+    }
+
+    fun isFadingIn(): Boolean {
+        return getAlpha() != 255
+    }
+
     suspend fun load() {
         state = TileState.Loading
+        loadingStartTime = System.currentTimeMillis()
         val wasSuccess = try {
             image = loadFunction()
             true

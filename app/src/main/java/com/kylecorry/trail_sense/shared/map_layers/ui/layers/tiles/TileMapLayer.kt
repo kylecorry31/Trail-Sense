@@ -184,7 +184,7 @@ abstract class TileMapLayer<T : TileSource>(
         getTilesToRender(desiredTiles).forEach { tile ->
             val bitmap = tile.image ?: return@forEach
             tryOrLog {
-                renderTile(tile.tile, canvas, map, bitmap)
+                renderTile(tile, canvas, map, bitmap)
             }
         }
     }
@@ -198,24 +198,41 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun getTilesToRender(desiredTile: Tile): List<ImageTile> {
+        val tiles = mutableListOf<ImageTile>()
         val self = loader?.tileCache?.get(desiredTile)
         if (isTileAvailable(self)) {
-            return listOf(self!!)
+            tiles.add(self!!)
+            if (!self.isFadingIn()) {
+                return tiles
+            }
         }
 
         // Try to replace with the parent tile(s)
-        var parent = desiredTile.getParent()
+        val parent = findFirstAvailableParent(desiredTile)
+        if (parent != null) {
+            tiles.add(parent)
+            return tiles
+        }
+
+        // Try to replace with the direct children tiles
+        tiles.addAll(findChildren(desiredTile))
+        return tiles
+    }
+
+    private fun findChildren(tile: Tile): List<ImageTile> {
+        return tile.getChildren().mapNotNull { loader?.tileCache?.get(it) }
+    }
+
+    private fun findFirstAvailableParent(tile: Tile): ImageTile? {
+        var parent = tile.getParent()
         repeat(2) {
             val parentImageTile = parent?.let { loader?.tileCache?.get(it) }
             if (isTileAvailable(parentImageTile)) {
-                return listOf(parentImageTile!!)
+                return parentImageTile
             }
             parent = parent?.getParent()
         }
-
-
-        // Try to replace with the direct children tiles
-        return desiredTile.getChildren().mapNotNull { loader?.tileCache?.get(it) }
+        return null
     }
 
     private fun isTileAvailable(tile: ImageTile?): Boolean {
@@ -255,11 +272,12 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTile(
-        tile: Tile,
+        imageTile: ImageTile,
         canvas: Canvas,
         map: IMapView,
         bitmap: Bitmap
     ) {
+        val tile = imageTile.tile
         val bounds = tile.getBounds()
         val topLeftPixel = map.toPixel(bounds.northWest)
         val topRightPixel = map.toPixel(bounds.northEast)
@@ -333,7 +351,13 @@ abstract class TileMapLayer<T : TileSource>(
                 actualHeight
             )
 
+            // Calculate alpha for fade-in effect
+            val originalAlpha = tilePaint.alpha
+            tilePaint.alpha = imageTile.getAlpha()
+
             drawBitmap(bitmap, srcRect, destRect, tilePaint)
+
+            tilePaint.alpha = originalAlpha
         }
     }
 
