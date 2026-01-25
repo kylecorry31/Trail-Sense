@@ -1,0 +1,9 @@
+- Afficher la vitesse dans l'onglet Navigation
+- Afficher le temps approximatif jusqu'aux balises
+- Réorganisation de l'onglet Navigation
+- Afficher la précision du GPS/de la boussole
+- Ajouter des notes et l'altitude aux balises
+- Ajouter la possibilité de modifier les balises
+- Ajouter un paramètre pour la sensibilité des prévisions
+- Ajouter des informations météo aux notifications
+- Améliorer le calcul de la pression au niveau de la mer
