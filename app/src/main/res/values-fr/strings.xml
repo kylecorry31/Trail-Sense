@@ -239,7 +239,7 @@
     <string name="pref_privacy_policy_title">Politique de confidentialité</string>
     <string name="guide_recommended_apps_description">Applications utiles en situation de survie</string>
     <string name="guide_recommended_apps">Applications recommandées</string>
-    <string name="unit_nautical_miles">Mille nautique</string>
+    <string name="unit_nautical_miles">Milles nautiques</string>
     <string name="unit_feet">Pieds</string>
     <string name="unit_kilometers">Kilomètres</string>
     <string name="unit_meters">Mètres</string>
@@ -272,7 +272,7 @@
     <string name="notification_channel_clock_sync_description">Une notification pour synchroniser votre horloge sur le temps GPS</string>
     <string name="notification_channel_clock_sync">Synchronisation de l\'horloge</string>
     <string name="pip_notification_scheduled">Notification planifiée pour %s</string>
-    <string name="pip_button">Mettre à jour l\'heure du système</string>
+    <string name="pip_button">Mettre à jour l\'heure système</string>
     <string name="could_not_triangulate">Impossible d\'effectuer la triangulation</string>
     <string name="tool_triangulate_title">Triangulation</string>
     <string name="tool_category_signaling">Signalisation</string>
@@ -448,8 +448,8 @@
     <string name="elevation_history_length">Longueur de l’historique d’altitude</string>
     <string name="camera">Caméra</string>
     <string name="dashed">Tirets</string>
-    <string name="pref_nmea_elevation_summary">Utilise la compensation NMEA pour la conversion d’altitude</string>
-    <string name="pref_nmea_elevation_title">Compensation d’altitude NMEA</string>
+    <string name="pref_nmea_elevation_summary">Utilisez NMEA (satellite) pour corriger les altitudes, plutôt que le modèle intégré.</string>
+    <string name="pref_nmea_elevation_title">Correction d\'élévation NMEA</string>
     <string name="sensor_gyroscope">Gyroscope</string>
     <string name="gallon_format">%s gal</string>
     <string name="pounds">Livres</string>
@@ -1087,7 +1087,7 @@
     <string name="theme_system_black">Système (noir)</string>
     <string name="no_qr_code_detected">Aucun code QR détecté</string>
     <string name="continuous_calibration">Étalonnage continu</string>
-    <string name="scanning_image">Numérisation de l\'image</string>
+    <string name="scanning_image">Image numérisée</string>
     <string name="tablespoon_format">%s c. à s.</string>
     <string name="why_missing_sensor">Mon appareil est neuf/cher, pourquoi manque-t-il ce capteur ?</string>
     <string name="millimeters_format">%s mm</string>
@@ -1246,4 +1246,6 @@
     <string name="quick_actions_are_unavailable">Les actions rapides ne sont pas disponibles.</string>
     <string name="sunrise">Lever du soleil</string>
     <string name="pref_night_mode_fullscreen_summary">Masquer l\'interface utilisateur du système pour une meilleure préservation de la vision nocturne</string>
+    <string name="pref_bubble_level_threshold_title">Seuil de niveau</string>
+    <string name="guide_map_layers">Couches cartographiques</string>
 </resources>
