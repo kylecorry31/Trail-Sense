@@ -61,7 +61,7 @@ class TileQueue {
         }
     }
 
-    suspend fun load(maxTotalLoads: Int, maxNewLoads: Int) {
+    suspend fun load(maxTotalLoads: Int, maxNewLoads: Int = maxTotalLoads) {
         val jobs = mutableListOf<ImageTile>()
         val tiles = desiredTiles ?: return
         while (getLoadingCount() < maxTotalLoads && jobs.size < maxNewLoads && count() > 0) {

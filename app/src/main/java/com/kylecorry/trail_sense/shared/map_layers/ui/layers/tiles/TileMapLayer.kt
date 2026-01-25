@@ -75,7 +75,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val destRect = Rect()
 
     private val loadTimer = CoroutineTimer {
-        queue.load(16, 6)
+        queue.load(16)
     }
 
     private val sourceCleanupTask = BackgroundTask {
