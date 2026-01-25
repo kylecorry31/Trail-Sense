@@ -25,8 +25,7 @@ class TileLoader(
     private val updateListener: () -> Unit = {}
 ) {
 
-    // Between 25 and 50 MB
-    val tileCache = TileCache(tag ?: "", 200)
+    val tileCache = TileCache(tag ?: "", 512)
 
     private val persistentCache =
         if (key != null) getAppService<PersistentTileCache>() else null
