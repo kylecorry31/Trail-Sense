@@ -1,0 +1,7 @@
+Triangulation de la position
+- Triangulation d'une position éloignée
+- Refonte de l'outil de triangulation pour inclure une carte, des instructions et une boussole de visée
+
+Divers
+- Augmentation de la taille de certains aperçus de la caméra
+- Corrections de bugs
