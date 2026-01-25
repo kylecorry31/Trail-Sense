@@ -40,7 +40,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
         val keys = mutableListOf(layerId)
         keys.add(source.loadPdfs.toString())
         idFilter?.let { keys.add(it.toString()) }
-        return keys.joinToString(",")
+        return keys.joinToString("-")
     }
 
     fun improveResolution(
