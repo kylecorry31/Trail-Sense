@@ -123,6 +123,12 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+}
+
 dependencies {
     // Kotlin
     implementation(libs.kotlinx.coroutines.android)
