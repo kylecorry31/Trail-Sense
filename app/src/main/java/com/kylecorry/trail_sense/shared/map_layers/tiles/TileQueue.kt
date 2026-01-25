@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import com.kylecorry.luna.coroutines.Parallel
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import java.util.PriorityQueue
 import kotlin.math.log
@@ -16,11 +15,11 @@ class TileQueue {
     private val queue = PriorityQueue(11, comparator)
 
     private var mapProjection: IMapViewProjection? = null
-    private var mapBounds = CoordinateBounds.empty
+    private var desiredTiles: Set<Tile>? = null
 
-    fun setMapState(projection: IMapViewProjection, bounds: CoordinateBounds) {
+    fun setMapState(projection: IMapViewProjection, tiles: List<Tile>) {
         mapProjection = projection
-        mapBounds = bounds
+        desiredTiles = tiles.toSet()
 
         // Reprioritize the queue
         synchronized(queue) {
@@ -34,7 +33,11 @@ class TileQueue {
         synchronized(loadingKeys) {
             if (!loadingKeys.contains(tile.key)) {
                 synchronized(queue) {
-                    queue.add(tile)
+                    // Check if tile with same key is already in queue
+                    val alreadyQueued = queue.any { it.key == tile.key }
+                    if (!alreadyQueued) {
+                        queue.add(tile)
+                    }
                 }
             }
         }
@@ -60,12 +63,10 @@ class TileQueue {
 
     suspend fun load(maxTotalLoads: Int, maxNewLoads: Int) {
         val jobs = mutableListOf<ImageTile>()
-        val projection = mapProjection ?: return
-        val z = TileMath.getZoomLevel(mapBounds, projection.metersPerPixel)
-        val desiredTiles = TileMath.getTiles(mapBounds, z).toSet()
+        val tiles = desiredTiles ?: return
         while (getLoadingCount() < maxTotalLoads && jobs.size < maxNewLoads && count() > 0) {
             val tile = dequeue() ?: continue
-            if (tile.tile !in desiredTiles) {
+            if (tile.tile !in tiles) {
                 // This tile is no longer wanted
                 continue
             }

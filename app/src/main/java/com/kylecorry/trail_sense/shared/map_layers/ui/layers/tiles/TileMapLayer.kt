@@ -93,10 +93,10 @@ abstract class TileMapLayer<T : TileSource>(
     init {
         // Load tiles if needed
         taskRunner.addTask { _: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
-            queue.setMapState(projection, bounds)
             shouldReloadTiles = false
             try {
                 val tiles = getTiles(bounds, projection)
+                queue.setMapState(projection, tiles)
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
                 ) {
