@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import android.util.Log
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
@@ -25,7 +24,8 @@ class TileLoader(
     private val key: String? = null
 ) {
 
-    val tileCache = TileCache()
+    val tileCache = TileCache(tag ?: "", 25)
+
     private val persistentCache =
         if (key != null) getAppService<PersistentTileCache>() else null
     private val neighborPaint = Paint().apply {
@@ -44,79 +44,40 @@ class TileLoader(
     )
 
     fun clearCache() {
-        tileCache.clear()
+        tileCache.evictAll()
     }
 
     suspend fun loadTiles(tiles: List<Tile>) = onDefault {
-        val tilesSet = tiles.toSet()
-        val tilesToLoad = tiles.filter { !tileCache.contains(it) }
-        val z = tiles.firstOrNull()?.z
-
-        var hasChanges = false
-
-        // Remove unneeded tiles at the same z index
-        if (z != null) {
-            val removed = tileCache.removeOtherThan(tilesSet, z)
-            hasChanges = hasChanges || removed
-        }
-
-        // Create image tiles and enqueue them
-        val imageTiles = tilesToLoad.map { tile ->
-            ImageTile(
-                key = "${tag}_${tile.x}_${tile.y}_${tile.z}",
-                tile = tile
-            ) {
-                val image = loadTile(source, tile)
-                image?.applyOperationsOrNull(
-                    Resize(
-                        tile.size,
-                        exact = false
-                    ),
-                    Pad(
-                        padding,
-                        if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
+        val imageTiles = tiles.map { tile ->
+            val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
+            tileCache.getOrPut(key) {
+                ImageTile(
+                    key = key,
+                    tile = tile
+                ) {
+                    val image = loadTile(source, tile)
+                    image?.applyOperationsOrNull(
+                        Resize(
+                            tile.size,
+                            exact = false
+                        ),
+                        Pad(
+                            padding,
+                            if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
+                        )
                     )
-                )
+                }
             }
         }
 
-        // TODO: This should just be used to populate borders, caching should happen before enqueue
         // TODO: This should be handled by a higher level component
         tileQueue.setChangeListener { imageTile ->
-            processLoadedTile(imageTile.tile, imageTile.image)
-            hasChanges = true
+            tryOrLog {
+                populateBorderAndNeighbors(imageTile)
+            }
         }
 
         imageTiles.forEach { tileQueue.enqueue(it) }
-
-        for (tile in tileCache.keys()) {
-            tryOrLog {
-                populateBorder(tile)
-            }
-        }
-
-        // TODO: This is no longer correct - need to switch to an LruCache
-        val removed = tileCache.removeOtherThan(tilesSet)
-        hasChanges = hasChanges || removed
-
-        if (hasChanges) {
-            val memoryUsage = tileCache.getMemoryAllocation()
-            Log.d(
-                "TileLoader",
-                "Tile memory usage ($tag): ${memoryUsage / 1024} KB (${tiles.size} tiles)"
-            )
-        }
-    }
-
-    private fun processLoadedTile(tile: Tile, image: Bitmap?) {
-        if (image == null) {
-            tileCache.remove(tile)
-        } else {
-            tileCache.put(tile, image)
-            tryOrLog {
-                populateBorderAndNeighbors(tile)
-            }
-        }
     }
 
     private suspend fun loadTile(sourceSelector: TileSource, tile: Tile): Bitmap? {
@@ -126,22 +87,22 @@ class TileLoader(
                 persistentCache.getOrPut(cacheKey, tile) {
                     sourceSelector.loadTile(tile) ?: throw NoSuchElementException()
                 }
-            } catch (e: NoSuchElementException) {
+            } catch (_: NoSuchElementException) {
                 null
             }
         }
         return sourceSelector.loadTile(tile)
     }
 
-    private fun populateBorderAndNeighbors(tile: Tile) {
+    private fun populateBorderAndNeighbors(tile: ImageTile) {
         if (padding <= 0) {
             return
         }
 
-        populateBorder(tile)
+        populateBorder(tile.tile)
 
         neighborOffsets.forEach { (dx, dy) ->
-            val neighborTile = tile.getNeighbor(dx, dy)
+            val neighborTile = tile.tile.getNeighbor(dx, dy)
             populateBorder(neighborTile)
         }
     }
@@ -150,10 +111,9 @@ class TileLoader(
         if (padding <= 0) {
             return
         }
-        tileCache.getLocked(tile) { bitmap ->
-            tryOrNothing {
-                fillNeighborPixels(tile, bitmap)
-            }
+        val bitmap = tileCache[tile]?.image ?: return
+        tryOrNothing {
+            fillNeighborPixels(tile, bitmap)
         }
     }
 
@@ -295,7 +255,7 @@ class TileLoader(
         fallbackSrcRect: Rect? = null
     ) {
         tryOrNothing {
-            val neighborBitmap = tileCache.get(neighborTile)
+            val neighborBitmap = tileCache[neighborTile]?.image
 
             if (neighborBitmap == null) {
                 if (fallbackBitmap != null && fallbackSrcRect != null) {
@@ -339,4 +299,5 @@ class TileLoader(
             )
         }
     }
+
 }

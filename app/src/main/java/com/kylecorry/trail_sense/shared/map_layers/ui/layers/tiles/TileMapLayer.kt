@@ -13,6 +13,7 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -172,14 +173,17 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
-        loader?.tileCache?.withRead { tileCache ->
-            tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
-                renderTile(
-                    tile,
-                    canvas,
-                    map,
-                    bitmap
-                )
+        val bounds = map.mapBounds
+        val desiredTiles = TileMath.getTiles(
+            bounds,
+            TileMath.getZoomLevel(bounds, map.metersPerPixel)
+        )
+
+        desiredTiles.forEach { tile ->
+            // TODO: If there isn't a hit, get the parent/children
+            val bitmap = loader?.tileCache?.get(tile)?.image ?: return@forEach
+            tryOrLog {
+                renderTile(tile, canvas, map, bitmap)
             }
         }
     }

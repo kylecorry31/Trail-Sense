@@ -1,86 +1,44 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
-import android.graphics.Bitmap
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentLinkedQueue
+import androidx.collection.LruCache
+import com.kylecorry.andromeda.core.tryOrDefault
 
-class TileCache {
+class TileCache(val source: String, sizeMegabytes: Int) :
+    LruCache<String, ImageTile>(sizeMegabytes * 1024 * 1024) {
 
-    private var readable = mapOf<Tile, Bitmap>()
+    override fun entryRemoved(
+        evicted: Boolean,
+        key: String,
+        oldValue: ImageTile,
+        newValue: ImageTile?
+    ) {
+        super.entryRemoved(evicted, key, oldValue, newValue)
+        oldValue.image?.recycle()
+        oldValue.image = null
+    }
 
-    private val writable = ConcurrentHashMap<Tile, Bitmap>()
+    operator fun get(tile: Tile): ImageTile? {
+        return get(getKey(tile))
+    }
 
-    private val toRecycle = ConcurrentLinkedQueue<Bitmap>()
-    private val lock = Any()
+    fun getOrPut(key: String, provider: () -> ImageTile): ImageTile {
+        val current = get(key)
+        if (current != null) {
+            return current
+        }
+        val newValue = provider()
+        put(key, newValue)
+        return newValue
+    }
 
-    fun clear() {
-        synchronized(lock) {
-            while (toRecycle.isNotEmpty()) {
-                toRecycle.poll()?.recycle()
-            }
-            readable.values.forEach { it.recycle() }
-            writable.values.forEach { it.recycle() }
-            readable = mapOf()
-            writable.clear()
+    override fun sizeOf(key: String, value: ImageTile): Int {
+        return tryOrDefault(0) {
+            value.image?.allocationByteCount ?: 0
         }
     }
 
-    fun withRead(block: (cache: Map<Tile, Bitmap>) -> Unit) {
-        synchronized(lock) {
-            while (toRecycle.isNotEmpty()) {
-                toRecycle.poll()?.recycle()
-            }
-            readable = writable.toMap()
-            block(readable)
-        }
-    }
-
-    fun put(tile: Tile, bitmap: Bitmap) {
-        val old = writable.put(tile, bitmap)
-        old?.let { toRecycle.add(it) }
-    }
-
-    fun get(tile: Tile): Bitmap? {
-        return writable[tile]
-    }
-
-    fun getLocked(tile: Tile, block: (Bitmap) -> Unit) {
-        synchronized(lock) {
-            val bitmap = writable[tile] ?: return
-            block(bitmap)
-        }
-    }
-
-    fun remove(tile: Tile) {
-        val old = writable.remove(tile)
-        old?.let { toRecycle.add(it) }
-    }
-
-    fun contains(tile: Tile): Boolean {
-        return writable.contains(tile)
-    }
-
-    fun keys(): Set<Tile> {
-        return writable.keys
-    }
-
-    /**
-     * Removes tiles other than the ones in the set
-     * @param tilesToKeep The tiles to keep
-     * @param zFilter If not null, only tiles with a z value matching the filter will be removed
-     */
-    fun removeOtherThan(tilesToKeep: Set<Tile>, zFilter: Int? = null): Boolean {
-        val keysToRemove =
-            writable.keys.filter { it !in tilesToKeep && (zFilter == null || it.z == zFilter) }
-        keysToRemove.forEach { key ->
-            val old = writable.remove(key)
-            old?.let { toRecycle.add(it) }
-        }
-        return keysToRemove.isNotEmpty()
-    }
-
-    fun getMemoryAllocation(): Int {
-        return writable.values.sumOf { it.allocationByteCount }
+    private fun getKey(tile: Tile): String {
+        return "${source}_${tile.x}_${tile.y}_${tile.z}"
     }
 
 }
