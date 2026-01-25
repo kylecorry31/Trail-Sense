@@ -1,0 +1,21 @@
+Retour sur trace
+- Toujours afficher les notifications pendant l'exécution
+
+Météo
+- Toujours afficher les notifications pendant l'exécution
+- Améliorer la précision des données historiques de température
+- Améliorer les prévisions météorologiques à l'aide des nuages
+
+Astronomie
+- Ajouter une action rapide pour l'alerte coucher de soleil
+
+Cartes photo
+- Améliorer la rotation automatique
+
+Podomètre
+- Permettre d'arrêter le podomètre à partir de la notification
+
+Divers
+- Prise en charge d'Android 14
+- Améliorer le flux de demande d'autorisation
+- Corrections de bugs

@@ -1,0 +1,12 @@
+Cartes photo
+- Fin de la phase bêta
+- Aperçu des couches cartographiques pendant le calibrage
+
+Itinéraires
+- Importation d'itinéraires à partir de tracés GPX
+
+Divers
+- Amélioration des messages lorsque l'appareil ne dispose pas d'une boussole
+- Sélection automatique des unités
+- Amélioration des performances
+- Correction de bugs

@@ -1,0 +1,16 @@
+Cartes photo (Bêta)
+- L'outil Cartes photo est disponible pour tous en version bêta. Utilisez une photo comme carte.
+- Gestion des cartes qui ne pointent pas vers le nord géographique.
+
+Astronomie
+- Interface astronomique repensée pour une utilisation plus intuitive.
+- Affichage des heures de début et de fin des pluies de météores.
+- Affichage de l'heure de pic des éclipses.
+- Ajout d'un bouton de recherche pour trouver le prochain événement astronomique.
+- Cliquez sur les éléments de la liste Soleil/Lune pour afficher des informations détaillées.
+
+Météo/Climat
+- Amélioration de la précision des températures historiques.
+
+Divers
+- Corrections de bugs.
