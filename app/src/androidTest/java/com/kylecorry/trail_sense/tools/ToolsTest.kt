@@ -9,6 +9,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
@@ -69,7 +71,7 @@ class ToolsTest : ToolTestBase(0L) {
         hasText("Field Guide")
 
         // Settings
-        click("SETTINGS")
+        scrollUntil { click(R.id.open_settings) }
         isTrue {
             Tools.getTool(TestUtils.context, Tools.SETTINGS)!!
                 .isOpen(navController.currentDestination?.id ?: 0)
@@ -79,18 +81,18 @@ class ToolsTest : ToolTestBase(0L) {
         hasText("An error occurred")
 
         // View error details
-        click("VIEW ERROR DETAILS")
+        click(R.id.view_error_details)
         hasText("Build type")
         clickOk()
 
         // Other buttons
-        hasText("EMAIL DEVELOPER")
-        hasText("COPY ERROR")
-        hasText("RESTART APP")
+        isVisible(R.id.email_developer)
+        isVisible(R.id.copy_error)
+        isVisible(R.id.restart_app)
 
         // Fix the issue and reopen tool
         AppServiceRegistry.register(FieldGuideRepo.getInstance(TestUtils.context))
-        click("REOPEN TOOL")
+        click(R.id.reopen_tool)
         hasText("Disclaimer")
     }
 }
