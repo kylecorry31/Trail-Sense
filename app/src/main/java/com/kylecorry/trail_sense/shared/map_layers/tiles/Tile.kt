@@ -53,4 +53,23 @@ data class Tile(
         val newY = (y + dy + n) % n
         return Tile(newX, newY, z, size)
     }
+
+    fun getParent(): Tile? {
+        if (z == 0) {
+            return null
+        }
+        return Tile(x / 2, y / 2, z - 1, size)
+    }
+
+    fun getChildren(): List<Tile> {
+        val childZ = z + 1
+        val childX = x * 2
+        val childY = y * 2
+        return listOf(
+            Tile(childX, childY, childZ, size),
+            Tile(childX + 1, childY, childZ, size),
+            Tile(childX, childY + 1, childZ, size),
+            Tile(childX + 1, childY + 1, childZ, size)
+        )
+    }
 }
