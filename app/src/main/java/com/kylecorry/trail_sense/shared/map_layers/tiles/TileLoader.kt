@@ -21,7 +21,8 @@ class TileLoader(
     private val tileQueue: TileQueue,
     private val padding: Int = 0,
     private val tag: String? = null,
-    private val key: String? = null
+    private val key: String? = null,
+    private val updateListener: () -> Unit = {}
 ) {
 
     val tileCache = TileCache(tag ?: "", 25)
@@ -75,6 +76,7 @@ class TileLoader(
             tryOrLog {
                 populateBorderAndNeighbors(imageTile)
             }
+            updateListener()
         }
 
         imageTiles.forEach { tileQueue.enqueue(it) }

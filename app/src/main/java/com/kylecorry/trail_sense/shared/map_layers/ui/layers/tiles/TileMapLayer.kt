@@ -106,8 +106,6 @@ abstract class TileMapLayer<T : TileSource>(
                 } else if (tiles.size > MAX_TILES) {
                     Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
                 }
-
-                updateListener?.invoke()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Throwable) {
@@ -225,7 +223,8 @@ abstract class TileMapLayer<T : TileSource>(
 
     private fun findFirstAvailableParent(tile: Tile): ImageTile? {
         var parent = tile.getParent()
-        repeat(2) {
+        val maxParentTraversals = 4
+        repeat(maxParentTraversals) {
             val parentImageTile = parent?.let { loader?.tileCache?.get(it) }
             if (isTileAvailable(parentImageTile)) {
                 return parentImageTile
@@ -384,7 +383,9 @@ abstract class TileMapLayer<T : TileSource>(
             TILE_BORDER_PIXELS,
             tag = layerId,
             key = getCacheKey()
-        )
+        ) {
+            updateListener?.invoke()
+        }
         loadTimer.interval(100)
     }
 
