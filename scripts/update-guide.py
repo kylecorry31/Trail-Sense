@@ -4,6 +4,21 @@ import re
 
 root = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/..'
 
+def needs_rename(locale):
+    """Returns True if the locale folder name needs to be renamed to include 'r' before the region code."""
+    if '-' in locale:
+        parts = locale.split('-')
+        if len(parts) >= 2:
+            return not parts[1].startswith('r')
+    return False
+
+def rename_locale(locale):
+    """Renames the locale to include 'r' before the region code."""
+    if '-' in locale:
+        first, rest = locale.split('-', 1)
+        return first + '-r' + rest
+    return locale
+
 def check_url_integrity(original_text: str, translated_text: str) -> bool:
     """Returns True if the URLs in the translated guide are the same as the URLs in the original guide, 
     except for Wikipedia URLs which can have different locales. Otherwise, returns False."""    
@@ -117,6 +132,10 @@ for filename in os.listdir(root + "/guides/en-US"):
 # Step 2
 for language in os.listdir(root + "/guides"):
     if language != "en-US":
+        if needs_rename(language):
+            new_name = rename_locale(language)
+            os.rename(root + "/guides/" + language, root + "/guides/" + new_name)
+            language = new_name
         for filename in os.listdir(root + "/guides/" + language):
             if filename.endswith(".txt"):
                 issues = get_issues(root + "/guides/en-US/" + filename, root + "/guides/" + language + "/" + filename)
