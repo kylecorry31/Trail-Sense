@@ -747,7 +747,7 @@
     <string name="tool_light_meter_title">Luminomètre</string>
     <string name="icon">Icône</string>
     <string name="precipitation_snow_grains">Neige en grains</string>
-    <string name="precipitation_ice_pellets">Grésil</string>
+    <string name="precipitation_ice_pellets">Grêlons</string>
     <string name="privacy_and_location">Confidentialité et localisation</string>
     <string name="location_disabled">La localisation est désactivée</string>
     <string name="measure">Mesure</string>
@@ -1079,7 +1079,7 @@
     <string name="sunrise_alerts">Alertes associées au lever du soleil</string>
     <string name="sunrise_alert_channel_title">Alerte au lever du soleil</string>
     <string name="no_sensor_message">Votre appareil n\'a pas de capteur %s</string>
-    <string name="pref_tiles_battery_log">Journaux de la batterie</string>
+    <string name="pref_tiles_battery_log">Journal de la batterie</string>
     <string name="pref_sunrise_alert_time_title">Heure d\'alerte du lever du soleil</string>
     <string name="pref_enable_analog_title">Horloge analogique</string>
     <string name="exported">Exporté</string>
@@ -1099,7 +1099,7 @@
     <string name="sunrise_alert_scheduled">Alerte planifiée pour %s avant le levé du soleil</string>
     <string name="missing_sensor_message_1">Votre %1$s ne possède pas de capteur %2$s intégré. Malheureusement, cela signifie que certaines fonctionnalités de %3$s ne seront pas disponibles.</string>
     <string name="visible">Visible</string>
-    <string name="screen_flashlight_full_name">Lampe de poche à écran</string>
+    <string name="screen_flashlight_full_name">Lampe torche d\'écran</string>
     <string name="view_in_3d">Voir en 3D</string>
     <plurals name="page_group_summary">
         <item quantity="one">%d page</item>
@@ -1135,7 +1135,7 @@
     <string name="turn_back_notification_title">Il est temps de rentrer</string>
     <string name="turn_back_notification_description">Revenez maintenant pour arriver à %s</string>
     <string name="return_before_dark">Rentrer avant le coucher du soleil</string>
-    <string name="tool_quick_action_summary">Appuyez longuement sur la barre du bas ou regardez dans l\'onglet Outils</string>
+    <string name="tool_quick_action_summary">Appuyez longuement sur la barre de navigation inférieure ou affichez l\'onglet Outils.</string>
     <plurals name="number_steps">
         <item quantity="one">%d pas</item>
         <item quantity="many">%d pas</item>
@@ -1247,5 +1247,27 @@
     <string name="sunrise">Lever du soleil</string>
     <string name="pref_night_mode_fullscreen_summary">Masquer l\'interface utilisateur du système pour une meilleure préservation de la vision nocturne</string>
     <string name="pref_bubble_level_threshold_title">Seuil de niveau</string>
-    <string name="guide_map_layers">Couches cartographiques</string>
+    <string name="guide_map_layers">Couches Cartographiques</string>
+    <string name="pref_navigation_lock_screen_when_open_title">Afficher sur l\'écran verrouillé lorsqu\'il est ouvert</string>
+    <string name="caliber_format">%s cal</string>
+    <string name="grains">Graines</string>
+    <string name="grains_format">%s gr</string>
+    <string name="aspect">Aspect</string>
+    <string name="projection_type">Projection en réalité augmentée</string>
+    <string name="projection_estimated_intrinsics">Intrinsèques estimées</string>
+    <string name="projection_manufacturer_intrinsics">Intrinsèques du fabricant</string>
+    <string name="projection_linear">Linéaire</string>
+    <string name="default_string">Par défaut</string>
+    <string name="layers">Couches</string>
+    <string name="ar_layer_override_message">Les paramètres de couche peuvent être remplacés par des instructions, telles que celles du guide d\'astronomie.</string>
+    <string name="local_talk">Conversation Locale</string>
+    <string name="widget_bottom_sheet_instructions">Appuyez longuement sur la barre de navigation inférieure ou utilisez l\'action rapide Widgets.</string>
+    <string name="widget_pref_title">Widgets intégrés à l\'application</string>
+    <string name="bottom_navigation_slot">Emplacement de navigation inférieur %d</string>
+    <string name="forecast_algorithm">Algorithme de prévision</string>
+    <string name="import_packing_list">Liste de colisage à l\'importation</string>
+    <string name="barometer_offset">Décalage du baromètre</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Contrôler la luminosité de la lampe torche de l\'écran à l\'aide des boutons de volume</string>
+    <string name="tide_clock">Horloge à marée</string>
+    <string name="lunitidal_interval">Intervalle lunatiforme</string>
 </resources>
