@@ -20,6 +20,10 @@ class TileCache(val source: String, maxSize: Int) : LruCache<String, ImageTile>(
         return get(getKey(tile))
     }
 
+    fun peek(tile: Tile): ImageTile? {
+        return snapshot()[getKey(tile)]
+    }
+
     fun getOrPut(key: String, provider: () -> ImageTile): ImageTile {
         val current = get(key)
         if (current != null) {

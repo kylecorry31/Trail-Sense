@@ -205,31 +205,36 @@ abstract class TileMapLayer<T : TileSource>(
             }
         }
 
-        // Try to replace with the parent tile(s)
-        val parent = findFirstAvailableParent(desiredTile)
-        if (parent != null) {
-            tiles.add(parent)
+        // Try to replace with the direct children tiles
+        val children = findChildren(desiredTile)
+        tiles.addAll(children)
+        if (children.size >= 4) {
             return tiles
         }
 
-        // Try to replace with the direct children tiles
-        tiles.addAll(findChildren(desiredTile))
+        // Try to find the parent tile(s)
+        val parent = findParent(desiredTile)
+        if (parent != null) {
+            tiles.add(parent)
+        }
+
         return tiles
     }
 
     private fun findChildren(tile: Tile): List<ImageTile> {
-        return tile.getChildren().mapNotNull { loader?.tileCache?.get(it) }
+        return tile.getChildren()
+            .mapNotNull { loader?.tileCache?.peek(it) }
+            .filter { isTileAvailable(it) }
     }
 
-    private fun findFirstAvailableParent(tile: Tile): ImageTile? {
+    private fun findParent(tile: Tile): ImageTile? {
         var parent = tile.getParent()
-        val maxParentTraversals = 4
-        repeat(maxParentTraversals) {
-            val parentImageTile = parent?.let { loader?.tileCache?.get(it) }
+        while (parent != null) {
+            val parentImageTile = loader?.tileCache?.peek(parent)
             if (isTileAvailable(parentImageTile)) {
                 return parentImageTile
             }
-            parent = parent?.getParent()
+            parent = parent.getParent()
         }
         return null
     }
