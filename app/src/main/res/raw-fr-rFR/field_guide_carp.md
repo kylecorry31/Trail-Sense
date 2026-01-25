@@ -1,0 +1,4 @@
+Carpe
+Poisson d'eau douce doté d'écailles épaisses et larges. On le trouve généralement dans les eaux calmes ou à faible courant, où il se déplace souvent en groupe. La carpe se nourrit d'une grande variété d'aliments et est particulièrement active la nuit.
+
+https://en.m.wikipedia.org/wiki/Cyprinus

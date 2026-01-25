@@ -53,6 +53,8 @@ Click the GPS button in the bottom-right to center the map on your location. Cli
 
 By default, the map will align with North, roughly facing up so that the map is square with the screen. You can change this so the map is aligned with North facing up (rotated) by disabling Settings > Photo Maps > 'Keep map facing up'. Note: There's currently a bug where panning and zooming are a bit off when this setting is disabled.
 
+By default, Trail Sense loads more tiles for higher quality when viewing a map. You can disable this in Settings > Photo Maps > 'High detail mode' to reduce memory usage at the cost of lower quality.
+
 ### Using beacons and navigating
 If you've created beacons, they will appear on the map.
 

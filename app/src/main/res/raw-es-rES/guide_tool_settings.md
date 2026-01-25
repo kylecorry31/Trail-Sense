@@ -225,4 +225,4 @@ Puedes habilitar la Acción rápida en los ajustes de la pestaña donde quieres 
 Para usar la acción rápida, pulsa el botón de acciónes rápidas y se abrirá la página de ajustes de la herramienta activa. Mantén pulsada la acción rápida para abrir los ajustes de la app.
 
 ## Modo seguro
-Si Trail Sense se bloquea varias veces seguidas, entrará en Modo seguro. Por ahora, esto solo deshabilita la capa Mapas Calibrados en la herramienta Navegación, pero en futuras actualizaciones pueden deshabilitarse más funciones. Podrás acceder a Ajustes y deshabilitar cualquier función que pueda estar causando el problema. El modo seguro se desactivará automáticamente después de 20 segundos.
+Si Trail Sense se bloquea varias veces seguidas, entrará en Modo seguro. Esto desactiva las capas de bloques del mapa y abre con los Ajustes por defecto. Podrás acceder a Ajustes y deshabilitar cualquier función que pueda estar causando el problema. El modo seguro se desactivará automáticamente después de 20 segundos.
