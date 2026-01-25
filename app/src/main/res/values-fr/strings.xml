@@ -110,8 +110,8 @@
     <string name="sensors">Capteurs</string>
     <string name="temperature">Unité de température</string>
     <string name="pref_coordinate_format_title">Unité des coordonnées géographiques</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Degrés (notation sexagésimale)</string>
-    <string name="coordinate_format_decimal_degrees">Degrés (notation décimale)</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Degrés minutes secondes</string>
+    <string name="coordinate_format_decimal_degrees">Degrés décimaux</string>
     <string name="set_inclination_instructions">Touchez ou maintenez pour verrouiller ou déverrouiller</string>
     <string name="clinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
     <string name="tool_clinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
@@ -120,10 +120,10 @@
     <string name="sunset_alerts">Alertes associées au coucher de soleil</string>
     <string name="sunset_alert_notification_text">Le soleil se couchera à %s</string>
     <string name="sunset_alert_notification_title">Coucher de soleil imminent</string>
-    <string name="waxing_crescent">Premier croissant</string>
+    <string name="waxing_crescent">Premier croissant de lune</string>
     <string name="first_quarter">Premier quartier</string>
-    <string name="waxing_gibbous">Gibbeuse croissante</string>
-    <string name="waning_gibbous">Gibbeuse décroissante</string>
+    <string name="waxing_gibbous">Lune gibbeuse croissante</string>
+    <string name="waning_gibbous">Lune gibbeuse décroissante</string>
     <string name="third_quarter">Dernier quartier</string>
     <string name="waning_crescent">Dernier croissant</string>
     <string name="new_moon">Nouvelle lune</string>
@@ -157,7 +157,7 @@
     <string name="calibrate_compass_on_navigate_dialog_content">Faites tourner votre téléphone plusieurs fois en formant un « 8 » ou dans toutes les directions, puis cliquez sur %s lorsque vous avez terminé. \n\nCette alerte peut être désactivée dans les paramètres de l\'application.</string>
     <string name="calibrate_compass_dialog_content">Faites tourner votre téléphone plusieurs fois en formant un « 8 » ou dans toutes les directions, puis cliquez sur %s lorsque vous avez terminé.</string>
     <string name="pref_adjust_for_temperature_title">Prendre en compte la température</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Degrés minutes décimales</string>
     <string name="access_background_location_rationale">Trail Sense utilise les données de localisation en arrière-plan pour calibrer la pression atmosphérique au niveau de la mer dans le cadre de la surveillance météorologique et pour fournir des alertes plus précises concernant le coucher du soleil. [Consulter la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Mettre à jour les paramètres de localisation</string>
     <string name="error_occurred_message">Trail Sense a rencontré une erreur. Veuillez envoyer un e-mail au développeur pour résoudre ce problème.</string>
@@ -193,8 +193,8 @@
     <string name="delete">Supprimer</string>
     <string name="subtract">Soustraire</string>
     <string name="add">Ajouter</string>
-    <string name="edit_item_title">Éditer un objet</string>
-    <string name="create_item_title">Créer un objet</string>
+    <string name="edit_item_title">Modifier l\'élément</string>
+    <string name="create_item_title">Créer un élément</string>
     <string name="tool_cliff_height_description">Mesure la hauteur d\'une falaise ou d\'une corniche</string>
     <string name="tool_cliff_height_disclaimer">N\'utilisez cet outil que lorsque cela ne présente aucun danger et assurez-vous de vérifier ce qui se trouve sous la falaise afin d\'éviter toute blessure. Consultez le guide d\'utilisation pour obtenir des instructions.</string>
     <string name="tool_cliff_height_title">Hauteur de falaise</string>
@@ -1245,4 +1245,5 @@
     <string name="pref_night_mode_fullscreen_title">Plein écran en mode nuit</string>
     <string name="quick_actions_are_unavailable">Les actions rapides ne sont pas disponibles.</string>
     <string name="sunrise">Lever du soleil</string>
+    <string name="pref_night_mode_fullscreen_summary">Masquer l\'interface utilisateur du système pour une meilleure préservation de la vision nocturne</string>
 </resources>
