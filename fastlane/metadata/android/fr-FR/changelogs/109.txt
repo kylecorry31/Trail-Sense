@@ -1,0 +1,17 @@
+Clinomètre
+- Définir l'appareil photo comme clinomètre par défaut.
+- Augmenter la taille de l'affichage de l'appareil photo.
+- Ajouter la prise en charge de la réalité augmentée (expérimental).
+
+Détecteur de métaux
+- Améliorer la sensibilité.
+
+Réalité augmentée (expérimental)
+- Améliorer l'alignement
+- Afficher les lignes de la grille
+- Améliorer l'expérience sur les appareils sans gyroscope
+
+Divers
+- Améliorer l'altimètre GPS + baromètre
+- Notifier si les services en arrière-plan ne peuvent pas être démarrés
+- Ajouter d'autres guides d'utilisation

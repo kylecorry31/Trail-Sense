@@ -1,0 +1,8 @@
+- Recevez une notification X heures avant le coucher du soleil (configurable dans les paramètres)
+- Ajout d'informations supplémentaires dans l'onglet Astronomie (positions maximales, altitude, azimut, amplitude des marées)
+- La phase lunaire reflète désormais la date sélectionnée
+- Ajout d'une lampe torche et d'un bouton SOS dans l'onglet Navigation
+- Affichage de la précision brute du GPS lorsque vous cliquez sur les icônes
+- Configuration du format des coordonnées dans les paramètres
+- Correction du décalage lors de l'ouverture de l'onglet Navigation
+- Améliorations de l'interface utilisateur
