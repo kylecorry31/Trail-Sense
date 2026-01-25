@@ -14,15 +14,18 @@ import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
+import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileQueue
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
@@ -40,6 +43,7 @@ abstract class TileMapLayer<T : TileSource>(
 
     private var shouldReloadTiles = true
     private var loader: TileLoader? = null
+    private val queue = TileQueue()
     private val layerPaint = Paint()
     private val tilePaint = Paint().apply {
         isAntiAlias = false
@@ -67,6 +71,14 @@ abstract class TileMapLayer<T : TileSource>(
     private val srcRect = Rect()
     private val destRect = Rect()
 
+    private val loadTimer = CoroutineTimer {
+        queue.load(8, 4)
+    }
+
+    private val sourceCleanupTask = BackgroundTask {
+        source.cleanup()
+    }
+
     fun setZoomOffset(offset: Int) {
         zoomOffset = offset
         shouldReloadTiles = true
@@ -79,15 +91,15 @@ abstract class TileMapLayer<T : TileSource>(
 
     init {
         // Load tiles if needed
-        taskRunner.addTask { viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
+        taskRunner.addTask { _: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
+            queue.setMapState(projection, bounds)
             shouldReloadTiles = false
             try {
                 val tiles = getTiles(bounds, projection)
-
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
                 ) {
-                    loader?.loadTiles(source, sortTiles(tiles))
+                    loader?.loadTiles(sortTiles(tiles))
                 } else if (tiles.size > MAX_TILES) {
                     Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
                 }
@@ -305,16 +317,23 @@ abstract class TileMapLayer<T : TileSource>(
     override fun start() {
         shouldReloadTiles = true
         loader = TileLoader(
+            source,
+            queue,
             TILE_BORDER_PIXELS,
             tag = layerId,
             key = getCacheKey()
         )
+        loadTimer.interval(100)
     }
 
     override fun stop() {
         taskRunner.stop()
         loader?.clearCache()
         loader = null
+        queue.clear()
+        // TODO: This isn't the ideal place to do cleanup since garbage can build up. Likely need some sort of LRU cache for all intermediates.
+        sourceCleanupTask.start()
+        loadTimer.stop()
     }
 
     override fun setPreferences(preferences: Bundle) {

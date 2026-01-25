@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.andromeda_temp.Pad
@@ -19,6 +18,8 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persista
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
 class TileLoader(
+    private val source: TileSource,
+    private val tileQueue: TileQueue,
     private val padding: Int = 0,
     private val tag: String? = null,
     private val key: String? = null
@@ -46,10 +47,7 @@ class TileLoader(
         tileCache.clear()
     }
 
-    suspend fun loadTiles(
-        sourceSelector: TileSource,
-        tiles: List<Tile>
-    ) = onDefault {
+    suspend fun loadTiles(tiles: List<Tile>) = onDefault {
         val tilesSet = tiles.toSet()
         val tilesToLoad = tiles.filter { !tileCache.contains(it) }
         val z = tiles.firstOrNull()?.z
@@ -62,30 +60,34 @@ class TileLoader(
             hasChanges = hasChanges || removed
         }
 
-        Parallel.forEach(tilesToLoad, 16) { tile ->
-            val image = loadTile(sourceSelector, tile)
-            val resized = image?.applyOperationsOrNull(
-                Resize(
-                    tile.size,
-                    exact = false
-                ),
-                Pad(
-                    padding,
-                    if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
+        // Create image tiles and enqueue them
+        val imageTiles = tilesToLoad.map { tile ->
+            ImageTile(
+                key = "${tag}_${tile.x}_${tile.y}_${tile.z}",
+                tile = tile
+            ) {
+                val image = loadTile(source, tile)
+                image?.applyOperationsOrNull(
+                    Resize(
+                        tile.size,
+                        exact = false
+                    ),
+                    Pad(
+                        padding,
+                        if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
+                    )
                 )
-            )
-            if (resized == null) {
-                tileCache.remove(tile)
-            } else {
-                tileCache.put(tile, resized)
-                tryOrLog {
-                    populateBorderAndNeighbors(tile)
-                }
             }
+        }
+
+        // TODO: This should just be used to populate borders, caching should happen before enqueue
+        // TODO: This should be handled by a higher level component
+        tileQueue.setChangeListener { imageTile ->
+            processLoadedTile(imageTile.tile, imageTile.image)
             hasChanges = true
         }
 
-        sourceSelector.cleanup()
+        imageTiles.forEach { tileQueue.enqueue(it) }
 
         for (tile in tileCache.keys()) {
             tryOrLog {
@@ -93,6 +95,7 @@ class TileLoader(
             }
         }
 
+        // TODO: This is no longer correct - need to switch to an LruCache
         val removed = tileCache.removeOtherThan(tilesSet)
         hasChanges = hasChanges || removed
 
@@ -102,6 +105,17 @@ class TileLoader(
                 "TileLoader",
                 "Tile memory usage ($tag): ${memoryUsage / 1024} KB (${tiles.size} tiles)"
             )
+        }
+    }
+
+    private fun processLoadedTile(tile: Tile, image: Bitmap?) {
+        if (image == null) {
+            tileCache.remove(tile)
+        } else {
+            tileCache.put(tile, image)
+            tryOrLog {
+                populateBorderAndNeighbors(tile)
+            }
         }
     }
 
