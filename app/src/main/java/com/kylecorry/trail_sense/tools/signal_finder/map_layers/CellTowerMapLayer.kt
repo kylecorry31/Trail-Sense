@@ -9,7 +9,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLaye
 class CellTowerMapLayer : GeoJsonLayer<CellTowerGeoJsonSource>(
     CellTowerGeoJsonSource(),
     minZoomLevel = 11,
-    layerId = LAYER_ID
+    layerId = LAYER_ID,
+    refreshOnZoom = true
 ) {
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {

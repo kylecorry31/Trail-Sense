@@ -22,7 +22,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.extensions.DEFAULT_LINE_STRING_STROKE_WEIGHT_DP
 import com.kylecorry.trail_sense.shared.extensions.drawLines
-import com.kylecorry.trail_sense.shared.extensions.getColor
+import com.kylecorry.trail_sense.shared.extensions.getStrokeColor
 import com.kylecorry.trail_sense.shared.extensions.getLineStyle
 import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
@@ -160,7 +160,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 coordinates,
                 lineSegments,
                 name,
-                it.getColor() ?: Color.TRANSPARENT,
+                it.getStrokeColor() ?: Color.TRANSPARENT,
                 it.getLineStyle() ?: LineStyle.Solid,
                 (it.getStrokeWeight()
                     ?: DEFAULT_LINE_STRING_STROKE_WEIGHT_DP) / DEFAULT_LINE_STRING_STROKE_WEIGHT_DP,

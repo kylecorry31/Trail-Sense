@@ -26,6 +26,8 @@
 
     <script>
       let map;
+      let vectorSources = [];
+      let lastZoomLevel = null;
 
       function reloadLayer(index) {
         const layer = map.getLayers().item(index);
@@ -35,11 +37,12 @@
 
       function setLayers(layers) {
         map.getLayers().clear();
+        vectorSources = [];
         layers.forEach((layer) => {
           if (layer.type === "tile") {
             addTileLayer(layer.url, layer.opacity);
           } else if (layer.type === "geojson") {
-            addGeoJsonLayer(layer.url);
+            addGeoJsonLayer(layer.url, layer.refreshOnZoom, layer.opacity);
           }
         });
       }
@@ -53,12 +56,46 @@
         }
       }
 
+      function getColorString(color) {
+        if (typeof color === "string") {
+          return color;
+        }
+        const a = (color >>> 24) & 0xff;
+        const r = (color >> 16) & 0xff;
+        const g = (color >> 8) & 0xff;
+        const b = color & 0xff;
+        return `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+      }
+
+      function dpToPixels(dp) {
+        return dp * (window.devicePixelRatio || 1);
+      }
+
       function setZoom(zoom) {
         const view = map.getView();
         view.setZoom(zoom);
       }
 
-      function addGeoJsonLayer(url) {
+      function colorWithOpacity(colorString, opacity) {
+        if (colorString.startsWith("rgba")) {
+          return colorString.replace(
+            /rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/,
+            function (match, r, g, b, a) {
+              return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+            },
+          );
+        } else if (colorString.startsWith("rgb")) {
+          return colorString.replace(
+            /rgb\((\d+),\s*(\d+),\s*(\d+)\)/,
+            function (match, r, g, b) {
+              return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+            },
+          );
+        }
+        return colorString;
+      }
+
+      function addGeoJsonLayer(url, refreshOnZoom, opacity) {
         const vectorSource = new ol.source.Vector({
           format: new ol.format.GeoJSON(),
           url: function (extent) {
@@ -72,18 +109,63 @@
           strategy: ol.loadingstrategy.bbox,
         });
 
+        vectorSources.push({
+          source: vectorSource,
+          refreshOnZoom: refreshOnZoom,
+        });
+
         const vectorLayer = new ol.layer.Vector({
           source: vectorSource,
+          opacity: opacity || 1.0,
           style: function (feature, resolution) {
-            return new ol.style.Style({
-              fill: new ol.style.Fill({
-                color: "rgba(0, 123, 255, 0.5)",
-              }),
+            const geometryType = feature.getGeometry().getType();
+            let strokeColor = getColorString(
+              feature.getProperties()["strokeColor"] || "transparent",
+            );
+            let fillColor = getColorString(
+              feature.getProperties()["color"] || "transparent",
+            );
+            const featureOpacity = feature.getProperties()["opacity"];
+            if (featureOpacity !== undefined) {
+              strokeColor = colorWithOpacity(strokeColor, featureOpacity / 255);
+              fillColor = colorWithOpacity(fillColor, featureOpacity / 255);
+            }
+            const strokeWeight = feature.getProperties()["strokeWeight"] || 1;
+            // TODO: This should be converted from DP to pixels
+            const strokeWidth = strokeWeight;
+
+            const style = {
               stroke: new ol.style.Stroke({
-                color: "#007bff",
-                width: 1,
+                color: strokeColor,
+                width: strokeWidth
               }),
-            });
+            };
+
+            if (geometryType.includes("Polygon")) {
+              style.fill = new ol.style.Fill({
+                color: fillColor
+              });
+            } else if (geometryType.includes("Point")) {
+              let size = feature.getProperties()["size"] || 5;
+              const sizeUnit = feature.getProperties()["sizeUnit"] || "px";
+              if (sizeUnit === "dp") {
+                size = dpToPixels(size);
+              } else if (sizeUnit === "m") {
+                size = size / resolution;
+              }
+              style.image = new ol.style.Circle({
+                radius: size,
+                fill: new ol.style.Fill({
+                  color: fillColor
+                }),
+                stroke: new ol.style.Stroke({
+                  color: strokeColor,
+                  width: 2
+                }),
+              });
+            }
+
+            return new ol.style.Style(style);
           },
         });
 
@@ -198,14 +280,16 @@
           layers: [],
           view: new ol.View({
             center: ol.proj.fromLonLat([0, 0]),
-            zoom: 2
+            zoom: 2,
           }),
         });
-        
+
         // Disable rotation interaction by default
         map.getInteractions().forEach(function (interaction) {
-          if (interaction instanceof ol.interaction.DragRotate ||
-              interaction instanceof ol.interaction.PinchRotate) {
+          if (
+            interaction instanceof ol.interaction.DragRotate ||
+            interaction instanceof ol.interaction.PinchRotate
+          ) {
             map.removeInteraction(interaction);
           }
         });
@@ -225,6 +309,15 @@
             window.AndroidMap.onZoomChanged(zoom);
           }
           onBoundsChanged();
+          const currentZoomLevel = Math.floor(getZoom());
+          if (lastZoomLevel !== currentZoomLevel) {
+            vectorSources.forEach((item) => {
+              if (item.refreshOnZoom) {
+                item.source.refresh();
+              }
+            });
+            lastZoomLevel = currentZoomLevel;
+          }
         });
 
         map.getView().on("change:center", function () {

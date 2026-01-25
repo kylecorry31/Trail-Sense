@@ -196,7 +196,7 @@ fun GeoJsonFeature.Companion.lineString(
         mapOf(
             GEO_JSON_PROPERTY_NAME to name,
             GEO_JSON_PROPERTY_LINE_STYLE to lineStyle.stringId,
-            GEO_JSON_PROPERTY_COLOR to color,
+            GEO_JSON_PROPERTY_STROKE_COLOR to color,
             GEO_JSON_PROPERTY_STROKE_WEIGHT to DEFAULT_LINE_STRING_STROKE_WEIGHT_DP * thicknessScale,
         ),
         boundingBox = bounds?.let { createBoundingBox(it) }

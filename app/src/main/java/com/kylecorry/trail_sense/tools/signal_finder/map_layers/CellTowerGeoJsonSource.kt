@@ -18,7 +18,11 @@ class CellTowerGeoJsonSource : GeoJsonSource {
     override suspend fun load(
         bounds: CoordinateBounds,
         zoom: Int
-    ): GeoJsonObject {
+    ): GeoJsonObject? {
+        if (zoom < 11){
+            return null
+        }
+
         val towers = CellTowerModel.getTowers(bounds)
         return GeoJsonFeatureCollection(
             towers.map {

@@ -24,7 +24,8 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     val source: T,
     private val minZoomLevel: Int? = null,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    override val layerId: String
+    override val layerId: String,
+    val refreshOnZoom: Boolean = false
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
     private var isInvalid = true

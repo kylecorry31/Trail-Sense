@@ -35,7 +35,11 @@ data class JSTileLayer(val url: String, val opacity: Float = 1f) {
     val type = "tile"
 }
 
-data class JSGeoJSONLayer(val url: String) {
+data class JSGeoJSONLayer(
+    val url: String,
+    val refreshOnZoom: Boolean = false,
+    val opacity: Float = 1.0f
+) {
     val type = "geojson"
 }
 
@@ -235,7 +239,11 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
                 }
 
                 is GeoJsonLayer<*> -> {
-                    JSGeoJSONLayer("https://trailsense.app/geojson/${it.layerId}.json?bbox={bbox}")
+                    JSGeoJSONLayer(
+                        "https://trailsense.app/geojson/${it.layerId}.json?bbox={bbox}",
+                        it.refreshOnZoom,
+                        it.percentOpacity
+                    )
                 }
 
                 else -> {

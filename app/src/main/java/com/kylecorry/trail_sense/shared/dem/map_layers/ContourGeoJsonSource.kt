@@ -53,7 +53,11 @@ class ContourGeoJsonSource : GeoJsonSource {
     override suspend fun load(
         bounds: CoordinateBounds,
         zoom: Int
-    ): GeoJsonObject {
+    ): GeoJsonObject? {
+        if (zoom !in DEM.IMAGE_MIN_ZOOM_LEVEL..DEM.IMAGE_MAX_ZOOM_LEVEL) {
+            return null
+        }
+
         val zoomLevel = zoom.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
 
         val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
