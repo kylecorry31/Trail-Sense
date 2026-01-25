@@ -1270,4 +1270,15 @@
     <string name="pref_flashlight_control_screen_with_volume_title">Contrôler la luminosité de la lampe torche de l\'écran à l\'aide des boutons de volume</string>
     <string name="tide_clock">Horloge à marée</string>
     <string name="lunitidal_interval">Intervalle lunatiforme</string>
+    <string name="lunitidal_interval_auto">Intervalle lunatif (auto)</string>
+    <string name="lunitidal_interval_local">Intervalle lunatiforme (local)</string>
+    <string name="lunitidal_interval_utc">Intervalle lunatifère (UTC/Greenwich)</string>
+    <string name="shelter">Refuge</string>
+    <string name="overview">Aperçu</string>
+    <string name="crafting">Artisanat</string>
+    <string name="survival_guide_disclaimer">Ce guide est fourni à titre informatif uniquement, et ni l\'auteur, ni l\'éditeur, ni aucun contributeur ne garantissent son exactitude ou son adéquation à quelque fin que ce soit. En utilisant ce guide, vous reconnaissez que les activités de plein air comportent des risques et que vous les pratiquez à vos propres risques, acceptant de dégager de toute responsabilité et d\'indemniser l\'auteur, l\'éditeur et tout contributeur pour toute réclamation ou tout dommage résultant de votre utilisation de ce guide. Consultez toujours des professionnels pour obtenir des conseils spécifiques à votre situation, car ce guide ne remplace pas les conseils d\'un professionnel. De plus, sachez que les lois et réglementations locales peuvent avoir une incidence sur l\'utilisation légale des techniques décrites dans le présent document, et que vous êtes responsable de leur respect.</string>
+    <string name="field_required">%s (obligatoire)</string>
+    <string name="reduce_photo_resolution">Réduire la résolution des photos</string>
+    <string name="survival_guide_empty_desc">Recherchez des sujets liés à la survie, tels que l\'eau, les soins médicaux, la nourriture, la météo, les abris ou les techniques d\'orientation.</string>
+    <string name="on_import">À l\'importation</string>
 </resources>
