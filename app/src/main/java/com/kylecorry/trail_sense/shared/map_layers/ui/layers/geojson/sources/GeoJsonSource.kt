@@ -4,5 +4,5 @@ import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 
 fun interface GeoJsonSource {
-    suspend fun load(bounds: CoordinateBounds, metersPerPixel: Float): GeoJsonObject?
+    suspend fun load(bounds: CoordinateBounds, zoom: Int): GeoJsonObject?
 }

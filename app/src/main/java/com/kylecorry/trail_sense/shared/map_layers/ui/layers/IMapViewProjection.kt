@@ -4,6 +4,8 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 
 interface IMapViewProjection : IMapProjection {
-    val metersPerPixel: Float
+    val resolutionPixels: Float
+    val zoom: Float
+    val resolution: Float
     val center: Coordinate
 }

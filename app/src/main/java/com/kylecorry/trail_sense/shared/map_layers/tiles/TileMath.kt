@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import kotlin.math.PI
 import kotlin.math.cos
@@ -57,16 +56,17 @@ object TileMath {
 
     fun snapToTiles(
         bounds: CoordinateBounds,
-        metersPerPixel: Float,
+        zoom: Int,
         maxZoom: Int = 20,
         growBy: Int = 0
     ): CoordinateBounds {
-        val zoom = getZoomLevel(bounds, metersPerPixel).coerceAtMost(maxZoom)
+        val actualZoom = zoom.coerceAtMost(maxZoom)
         val northWestTile =
-            latLonToTileXY(bounds.north, bounds.west, zoom).getNeighbor(-growBy, -growBy)
+            latLonToTileXY(bounds.north, bounds.west, actualZoom).getNeighbor(-growBy, -growBy)
                 .getBounds()
         val southEastTile =
-            latLonToTileXY(bounds.south, bounds.east, zoom).getNeighbor(growBy, growBy).getBounds()
+            latLonToTileXY(bounds.south, bounds.east, actualZoom).getNeighbor(growBy, growBy)
+                .getBounds()
         return CoordinateBounds(
             northWestTile.north,
             southEastTile.east,
@@ -83,18 +83,17 @@ object TileMath {
         return Tile(x, y, zoom)
     }
 
-    fun getZoomLevel(bounds: CoordinateBounds, metersPerPixel: Float): Int {
-        val minLat = max(bounds.south, MIN_LATITUDE)
-        val maxLat = min(bounds.north, MAX_LATITUDE)
-        val latitude = (minLat + maxLat) / 2
-        val earthCircumference = Geology.EARTH_AVERAGE_RADIUS * 2 * PI
-        val sourceMetersPerPixel =
-            earthCircumference * cos(Math.toRadians(latitude)) / (WORLD_TILE_SIZE * (1 shl 0))
-        return log2(sourceMetersPerPixel / metersPerPixel).toInt()
+    fun getZoomLevel(coordinate: Coordinate, resolution: Float): Float {
+        val latitude = coordinate.latitude
+        val earthCircumference = WEB_MERCATOR_RADIUS * 2 * PI
+        val sourceResolution =
+            earthCircumference * cos(Math.toRadians(latitude)) / WORLD_TILE_SIZE
+        return log2(sourceResolution / resolution).toFloat()
+
     }
 
     private const val MIN_LATITUDE = -85.0511
     private const val MAX_LATITUDE = 85.0511
     const val WORLD_TILE_SIZE = 256
-
+    const val WEB_MERCATOR_RADIUS = 6378137.0
 }

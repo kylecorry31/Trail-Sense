@@ -20,11 +20,11 @@ import com.kylecorry.sol.math.optimization.Optimization
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
@@ -40,6 +40,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var isPanEnabled = true
     var isZoomEnabled = true
 
+    private val density = context.resources.displayMetrics.density
+
     private val lookupMatrix = Matrix()
 
     override val layerManager = MapViewLayerManager {
@@ -48,7 +50,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private val hooks = Hooks()
 
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
-    private var onScaleChange: ((metersPerPixel: Float) -> Unit)? = null
+    private var onScaleChange: ((resolutionPixels: Float) -> Unit)? = null
     private var onCenterChange: ((center: Coordinate) -> Unit)? = null
 
     override var userLocation: Coordinate = Coordinate.zero
@@ -78,7 +80,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override val mapBounds: CoordinateBounds
-        get() = hooks.memo("bounds", metersPerPixel, mapCenter, width, height, mapAzimuth != 0f) {
+        get() = hooks.memo("bounds",
+            this@MapView.resolutionPixels, mapCenter, width, height, mapAzimuth != 0f) {
             // Increase size to account for 45 degree rotation
             var rotated = Rectangle(
                 0f,
@@ -100,13 +103,25 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             CoordinateBounds.from(corners)
         }
 
-    override var metersPerPixel: Float
+    override var resolution: Float
+        get() = this@MapView.resolutionPixels * density
+        set(value) {
+            this@MapView.resolutionPixels = value / density
+        }
+
+    override val zoom: Float
+        get() = TileMath.getZoomLevel(mapCenter, resolution)
+
+    override var resolutionPixels: Float
         get() {
-            return 1f / scale
+            return (1f / scale) * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
         }
         set(value) {
-            zoomTo(getScale(value))
+            zoomTo(getScale(value / (MercatorProjection.getScaleForLatitude(mapCenter.latitude))))
         }
+
+    private val equatorialResolutionPixels: Float
+        get() = 1f / scale
 
     override val layerScale: Float
         get() = min(1f, max(scale, 0.9f))
@@ -139,7 +154,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var scale = 1f
         private set(value) {
             field = value
-            onScaleChange?.invoke(metersPerPixel)
+            onScaleChange?.invoke(this@MapView.resolutionPixels)
             invalidate()
         }
     private var lastScale = 1f
@@ -181,16 +196,22 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             mapCenter,
             mapCenterPixels,
             projection,
-            metersPerPixel,
+            equatorialResolutionPixels,
             width,
-            height
+            height,
+            zoom,
+            resolution
         ) {
             val mapCenter = mapCenter
             val center = mapCenterPixels
             val projection = projection
-            val metersPerPixel = metersPerPixel
+            val equatorialResolutionPixels = this@MapView.equatorialResolutionPixels
+            val groundResolutionPixels =
+                equatorialResolutionPixels * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
             val width = width
             val height = height
+            val zoom = zoom
+            val resolution = resolution
 
             object : IMapProjection, IMapViewProjection {
                 override fun toPixels(
@@ -208,9 +229,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     )
 
                     val x =
-                        (projected.x - center.x) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel)
+                        (projected.x - center.x) * (TileMath.WEB_MERCATOR_RADIUS / equatorialResolutionPixels)
                     val y =
-                        (center.y - projected.y) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel) // Y inverted
+                        (center.y - projected.y) * (TileMath.WEB_MERCATOR_RADIUS / equatorialResolutionPixels) // Y inverted
 
                     return PixelCoordinate(
                         x.toFloat() + width / 2f,
@@ -219,9 +240,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                 }
 
                 override fun toCoordinate(pixel: Vector2): Coordinate {
-                    val x = (pixel.x - width / 2f) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS
+                    val x =
+                        (pixel.x - width / 2f) * equatorialResolutionPixels / TileMath.WEB_MERCATOR_RADIUS
                     val y =
-                        (height / 2f - pixel.y) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS // Y inverted
+                        (height / 2f - pixel.y) * equatorialResolutionPixels / TileMath.WEB_MERCATOR_RADIUS // Y inverted
 
                     val projected = Vector2(
                         center.x + x.toFloat(),
@@ -234,7 +256,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     return toPixels(location.latitude, location.longitude)
                 }
 
-                override val metersPerPixel: Float = metersPerPixel
+                override val resolutionPixels: Float = groundResolutionPixels
+                override val resolution: Float = resolution
+                override val zoom: Float = zoom
                 override val center: Coordinate = mapCenter
             }
         }
@@ -272,8 +296,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         layerManager.draw(context, this, this)
     }
 
-    private fun getScale(metersPerPixel: Float): Float {
-        return 1f / metersPerPixel
+    private fun getScale(resolutionPixels: Float): Float {
+        return 1f / resolutionPixels
     }
 
     fun recenter(ignoreFitToViewBounds: Boolean = false) {
@@ -461,7 +485,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
     }
 
-    fun setOnScaleChangeListener(callback: ((metersPerPixel: Float) -> Unit)?) {
+    fun setOnScaleChangeListener(callback: ((resolutionPixels: Float) -> Unit)?) {
         onScaleChange = callback
     }
 

@@ -24,7 +24,7 @@ class PathGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject? {
         // If paths haven't been loaded yet, load them
         if (paths.isEmpty()) {

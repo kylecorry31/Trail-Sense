@@ -13,16 +13,22 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
+import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
+import com.kylecorry.trail_sense.shared.map_layers.tiles.ImageTile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileQueue
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileState
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
@@ -31,6 +37,7 @@ import kotlinx.coroutines.CancellationException
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
@@ -40,6 +47,7 @@ abstract class TileMapLayer<T : TileSource>(
 
     private var shouldReloadTiles = true
     private var loader: TileLoader? = null
+    private val queue = TileQueue()
     private val layerPaint = Paint()
     private val tilePaint = Paint().apply {
         isAntiAlias = false
@@ -67,6 +75,14 @@ abstract class TileMapLayer<T : TileSource>(
     private val srcRect = Rect()
     private val destRect = Rect()
 
+    private val loadTimer = CoroutineTimer {
+        queue.load(16)
+    }
+
+    private val sourceCleanupTask = BackgroundTask {
+        source.cleanup()
+    }
+
     fun setZoomOffset(offset: Int) {
         zoomOffset = offset
         shouldReloadTiles = true
@@ -79,20 +95,18 @@ abstract class TileMapLayer<T : TileSource>(
 
     init {
         // Load tiles if needed
-        taskRunner.addTask { viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
+        taskRunner.addTask { _: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
             shouldReloadTiles = false
             try {
                 val tiles = getTiles(bounds, projection)
-
+                queue.setMapState(projection, tiles)
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
                 ) {
-                    loader?.loadTiles(source, sortTiles(tiles))
+                    loader?.loadTiles(sortTiles(tiles))
                 } else if (tiles.size > MAX_TILES) {
                     Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
                 }
-
-                updateListener?.invoke()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Throwable) {
@@ -160,16 +174,76 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
-        loader?.tileCache?.withRead { tileCache ->
-            tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmap) ->
-                renderTile(
-                    tile,
-                    canvas,
-                    map,
-                    bitmap
-                )
+        val bounds = map.mapBounds
+        val desiredTiles = TileMath.getTiles(
+            bounds,
+            map.zoom.roundToInt()
+        )
+
+        getTilesToRender(desiredTiles).forEach { tile ->
+            tile.withImage { bitmap ->
+                bitmap ?: return@withImage
+                tryOrLog {
+                    renderTile(tile, canvas, map, bitmap)
+                }
             }
         }
+    }
+
+    private fun getTilesToRender(desiredTiles: List<Tile>): List<ImageTile> {
+        val toRender = mutableSetOf<ImageTile>()
+        desiredTiles.forEach {
+            toRender.addAll(getTilesToRender(it))
+        }
+        return toRender.sortedBy { it.tile.z }
+    }
+
+    private fun getTilesToRender(desiredTile: Tile): List<ImageTile> {
+        val tiles = mutableListOf<ImageTile>()
+        val self = loader?.tileCache?.get(desiredTile)
+        if (isTileAvailable(self)) {
+            tiles.add(self!!)
+            if (!self.isFadingIn()) {
+                return tiles
+            }
+        }
+
+        // Try to replace with the direct children tiles
+        val children = findChildren(desiredTile)
+        tiles.addAll(children)
+        if (children.size >= 4) {
+            return tiles
+        }
+
+        // Try to find the parent tile(s)
+        val parent = findParent(desiredTile)
+        if (parent != null) {
+            tiles.add(parent)
+        }
+
+        return tiles
+    }
+
+    private fun findChildren(tile: Tile): List<ImageTile> {
+        return tile.getChildren()
+            .mapNotNull { loader?.tileCache?.peek(it) }
+            .filter { isTileAvailable(it) }
+    }
+
+    private fun findParent(tile: Tile): ImageTile? {
+        var parent = tile.getParent()
+        while (parent != null) {
+            val parentImageTile = loader?.tileCache?.peek(parent)
+            if (isTileAvailable(parentImageTile)) {
+                return parentImageTile
+            }
+            parent = parent.getParent()
+        }
+        return null
+    }
+
+    private fun isTileAvailable(tile: ImageTile?): Boolean {
+        return tile?.state == TileState.Loaded || tile?.state == TileState.Empty
     }
 
     private fun isTooSmall(
@@ -205,11 +279,12 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTile(
-        tile: Tile,
+        imageTile: ImageTile,
         canvas: Canvas,
         map: IMapView,
         bitmap: Bitmap
     ) {
+        val tile = imageTile.tile
         val bounds = tile.getBounds()
         val topLeftPixel = map.toPixel(bounds.northWest)
         val topRightPixel = map.toPixel(bounds.northEast)
@@ -283,12 +358,18 @@ abstract class TileMapLayer<T : TileSource>(
                 actualHeight
             )
 
+            // Calculate alpha for fade-in effect
+            val originalAlpha = tilePaint.alpha
+            tilePaint.alpha = imageTile.getAlpha()
+
             drawBitmap(bitmap, srcRect, destRect, tilePaint)
+
+            tilePaint.alpha = originalAlpha
         }
     }
 
     private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
-        val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel)
+        val zoom = projection.zoom.roundToInt()
         var adjustedOffset = zoomOffset + 1
         var tiles: List<Tile>
         do {
@@ -305,16 +386,25 @@ abstract class TileMapLayer<T : TileSource>(
     override fun start() {
         shouldReloadTiles = true
         loader = TileLoader(
+            source,
+            queue,
             TILE_BORDER_PIXELS,
             tag = layerId,
             key = getCacheKey()
-        )
+        ) {
+            updateListener?.invoke()
+        }
+        loadTimer.interval(100)
     }
 
     override fun stop() {
         taskRunner.stop()
         loader?.clearCache()
         loader = null
+        queue.clear()
+        // TODO: This isn't the ideal place to do cleanup since garbage can build up. Likely need some sort of LRU cache for all intermediates.
+        sourceCleanupTask.start()
+        loadTimer.stop()
     }
 
     override fun setPreferences(preferences: Bundle) {

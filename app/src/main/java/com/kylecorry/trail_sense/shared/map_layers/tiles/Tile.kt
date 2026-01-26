@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.util.Size
+import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.SolMath.power
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Coordinate
 import kotlin.math.PI
 import kotlin.math.atan
 import kotlin.math.sinh
@@ -12,6 +15,15 @@ data class Tile(
         TileMath.WORLD_TILE_SIZE
     )
 ) {
+
+    fun getCenter(): Coordinate {
+        return getBounds().center
+    }
+
+    fun getResolution(): Double {
+        val c = 40075016.686
+        return (c * cosDegrees(getCenter().latitude)) / (size.width * power(2, z))
+    }
 
     fun getBounds(): CoordinateBounds {
         val n = 1 shl z
@@ -40,5 +52,24 @@ data class Tile(
         val newX = (x + dx + n) % n
         val newY = (y + dy + n) % n
         return Tile(newX, newY, z, size)
+    }
+
+    fun getParent(): Tile? {
+        if (z == 0) {
+            return null
+        }
+        return Tile(x / 2, y / 2, z - 1, size)
+    }
+
+    fun getChildren(): List<Tile> {
+        val childZ = z + 1
+        val childX = x * 2
+        val childY = y * 2
+        return listOf(
+            Tile(childX, childY, childZ, size),
+            Tile(childX + 1, childY, childZ, size),
+            Tile(childX, childY + 1, childZ, size),
+            Tile(childX + 1, childY + 1, childZ, size)
+        )
     }
 }

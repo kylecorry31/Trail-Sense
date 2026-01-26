@@ -5,13 +5,11 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import android.util.Log
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.andromeda_temp.Pad
@@ -19,12 +17,16 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persista
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 
 class TileLoader(
+    private val source: TileSource,
+    private val tileQueue: TileQueue,
     private val padding: Int = 0,
     private val tag: String? = null,
-    private val key: String? = null
+    private val key: String? = null,
+    private val updateListener: () -> Unit = {}
 ) {
 
-    val tileCache = TileCache()
+    val tileCache = TileCache(tag ?: "", 512)
+
     private val persistentCache =
         if (key != null) getAppService<PersistentTileCache>() else null
     private val neighborPaint = Paint().apply {
@@ -43,66 +45,41 @@ class TileLoader(
     )
 
     fun clearCache() {
-        tileCache.clear()
+        tileCache.evictAll()
     }
 
-    suspend fun loadTiles(
-        sourceSelector: TileSource,
-        tiles: List<Tile>
-    ) = onDefault {
-        val tilesSet = tiles.toSet()
-        val tilesToLoad = tiles.filter { !tileCache.contains(it) }
-        val z = tiles.firstOrNull()?.z
-
-        var hasChanges = false
-
-        // Remove unneeded tiles at the same z index
-        if (z != null) {
-            val removed = tileCache.removeOtherThan(tilesSet, z)
-            hasChanges = hasChanges || removed
-        }
-
-        Parallel.forEach(tilesToLoad, 16) { tile ->
-            val image = loadTile(sourceSelector, tile)
-            val resized = image?.applyOperationsOrNull(
-                Resize(
-                    tile.size,
-                    exact = false
-                ),
-                Pad(
-                    padding,
-                    if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
-                )
-            )
-            if (resized == null) {
-                tileCache.remove(tile)
-            } else {
-                tileCache.put(tile, resized)
-                tryOrLog {
-                    populateBorderAndNeighbors(tile)
+    suspend fun loadTiles(tiles: List<Tile>) = onDefault {
+        val imageTiles = tiles.map { tile ->
+            val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
+            tileCache.getOrPut(key) {
+                ImageTile(
+                    key = key,
+                    tile = tile
+                ) {
+                    val image = loadTile(source, tile)
+                    image?.applyOperationsOrNull(
+                        Resize(
+                            tile.size,
+                            exact = false
+                        ),
+                        Pad(
+                            padding,
+                            if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
+                        )
+                    )
                 }
             }
-            hasChanges = true
         }
 
-        sourceSelector.cleanup()
-
-        for (tile in tileCache.keys()) {
+        // TODO: This should be handled by a higher level component
+        tileQueue.setChangeListener { imageTile ->
             tryOrLog {
-                populateBorder(tile)
+                populateBorderAndNeighbors(imageTile)
             }
+            updateListener()
         }
 
-        val removed = tileCache.removeOtherThan(tilesSet)
-        hasChanges = hasChanges || removed
-
-        if (hasChanges) {
-            val memoryUsage = tileCache.getMemoryAllocation()
-            Log.d(
-                "TileLoader",
-                "Tile memory usage ($tag): ${memoryUsage / 1024} KB (${tiles.size} tiles)"
-            )
-        }
+        imageTiles.forEach { tileQueue.enqueue(it) }
     }
 
     private suspend fun loadTile(sourceSelector: TileSource, tile: Tile): Bitmap? {
@@ -112,22 +89,22 @@ class TileLoader(
                 persistentCache.getOrPut(cacheKey, tile) {
                     sourceSelector.loadTile(tile) ?: throw NoSuchElementException()
                 }
-            } catch (e: NoSuchElementException) {
+            } catch (_: NoSuchElementException) {
                 null
             }
         }
         return sourceSelector.loadTile(tile)
     }
 
-    private fun populateBorderAndNeighbors(tile: Tile) {
+    private fun populateBorderAndNeighbors(tile: ImageTile) {
         if (padding <= 0) {
             return
         }
 
-        populateBorder(tile)
+        populateBorder(tile.tile)
 
         neighborOffsets.forEach { (dx, dy) ->
-            val neighborTile = tile.getNeighbor(dx, dy)
+            val neighborTile = tile.tile.getNeighbor(dx, dy)
             populateBorder(neighborTile)
         }
     }
@@ -136,7 +113,8 @@ class TileLoader(
         if (padding <= 0) {
             return
         }
-        tileCache.getLocked(tile) { bitmap ->
+        tileCache.peek(tile)?.withImage { bitmap ->
+            bitmap ?: return@withImage
             tryOrNothing {
                 fillNeighborPixels(tile, bitmap)
             }
@@ -281,48 +259,49 @@ class TileLoader(
         fallbackSrcRect: Rect? = null
     ) {
         tryOrNothing {
-            val neighborBitmap = tileCache.get(neighborTile)
-
-            if (neighborBitmap == null) {
-                if (fallbackBitmap != null && fallbackSrcRect != null) {
-                    val destRect = Rect(
-                        destX,
-                        destY,
-                        destX + destWidth,
-                        destY + destHeight
-                    )
-                    fallbackBitmap.copy(fallbackBitmap.config ?: Bitmap.Config.ARGB_8888, false)
-                        .use {
-                            canvas.drawBitmap(
-                                this,
-                                fallbackSrcRect,
-                                destRect,
-                                neighborPaint
-                            )
-                        }
+            tileCache.peek(neighborTile)?.withImage { neighborBitmap ->
+                if (neighborBitmap == null) {
+                    if (fallbackBitmap != null && fallbackSrcRect != null) {
+                        val destRect = Rect(
+                            destX,
+                            destY,
+                            destX + destWidth,
+                            destY + destHeight
+                        )
+                        fallbackBitmap.copy(fallbackBitmap.config ?: Bitmap.Config.ARGB_8888, false)
+                            .use {
+                                canvas.drawBitmap(
+                                    this,
+                                    fallbackSrcRect,
+                                    destRect,
+                                    neighborPaint
+                                )
+                            }
+                    }
+                    return@withImage
                 }
-                return
+                val srcRect = Rect(
+                    srcXStart,
+                    srcYStart,
+                    srcXStart + destWidth,
+                    srcYStart + destHeight
+                )
+
+                val destRect = Rect(
+                    destX,
+                    destY,
+                    destX + destWidth,
+                    destY + destHeight
+                )
+
+                canvas.drawBitmap(
+                    neighborBitmap,
+                    srcRect,
+                    destRect,
+                    neighborPaint
+                )
             }
-            val srcRect = Rect(
-                srcXStart,
-                srcYStart,
-                srcXStart + destWidth,
-                srcYStart + destHeight
-            )
-
-            val destRect = Rect(
-                destX,
-                destY,
-                destX + destWidth,
-                destY + destHeight
-            )
-
-            canvas.drawBitmap(
-                neighborBitmap,
-                srcRect,
-                destRect,
-                neighborPaint
-            )
         }
     }
+
 }

@@ -30,9 +30,19 @@ interface IMapView {
     var userAzimuth: Bearing
 
     /**
-     * The scale in meters per pixel
+     * The resolution in meters per pixel
      */
-    var metersPerPixel: Float
+    var resolutionPixels: Float
+
+    /**
+     * Zoom level using resolution
+     */
+    val zoom: Float
+
+    /**
+     * The resolution in meters per density pixel
+     */
+    var resolution: Float
 
     /**
      * The scale for each layer element

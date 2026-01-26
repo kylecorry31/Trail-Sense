@@ -10,7 +10,6 @@ import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.shared.extensions.point
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.map.infrastructure.LandModel
@@ -27,13 +26,13 @@ class TideGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject {
         val context = AppServiceRegistry.get<Context>()
         val tideService = TideService(context)
         val tables = LoadAllTideTablesCommand(context).execute() + getNearbyTideTables(
             bounds,
-            metersPerPixel
+            zoom
         )
         val currentTideCommand = CurrentTideTypeCommand(tideService)
         val tides =
@@ -62,13 +61,12 @@ class TideGeoJsonSource : GeoJsonSource {
 
     private suspend fun getNearbyTideTables(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): List<TideTable> {
         if (!showModeledTides) {
             return emptyList()
         }
 
-        val zoom = TileMath.getZoomLevel(bounds, metersPerPixel)
         if (zoom < minZoomLevel) {
             return emptyList()
         }

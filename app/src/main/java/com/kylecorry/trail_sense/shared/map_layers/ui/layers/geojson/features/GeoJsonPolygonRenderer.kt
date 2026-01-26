@@ -57,7 +57,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
         features: List<GeoJsonFeature>
     ) = onDefault {
         val rdp =
-            RDPFilter<GeoJsonPosition>(projection.metersPerPixel.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
+            RDPFilter<GeoJsonPosition>(projection.resolutionPixels.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
                 Geology.getCrossTrackDistance(
                     point.coordinate,
                     start.coordinate,
@@ -88,7 +88,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
                 feature.getOpacity(),
                 pathPool.get(),
                 projection.center,
-                projection.metersPerPixel
+                projection.resolutionPixels
             )
         }
 
@@ -131,7 +131,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
 
                 drawer.push()
                 drawer.translate(centerPixel.x, centerPixel.y)
-                val relativeScale = (polygon.renderedScale / map.metersPerPixel).real().positive(1f)
+                val relativeScale = (polygon.renderedScale / map.resolutionPixels).real().positive(1f)
                 drawer.scale(relativeScale)
 
                 if (polygon.fillColor != null) {

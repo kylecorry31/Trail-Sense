@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseVibrantElevationColorMap
 import com.kylecorry.trail_sense.shared.extensions.lineString
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
@@ -53,12 +52,9 @@ class ContourGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject {
-        val zoomLevel = TileMath.getZoomLevel(
-            bounds,
-            metersPerPixel
-        ).coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
+        val zoomLevel = zoom.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
 
         val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
         val contours = DEM.getContourLines(

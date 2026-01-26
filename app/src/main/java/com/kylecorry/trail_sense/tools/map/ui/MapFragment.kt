@@ -203,7 +203,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         useEffect(mapView, lockMode, navigation.location) {
             if (mapView.mapCenter == Coordinate.zero) {
                 mapView.mapCenter = navigation.location
-                mapView.metersPerPixel = 0.5f
+                mapView.resolution = 2f
             }
 
             if (lockMode == MapLockMode.Location || lockMode == MapLockMode.Compass) {
@@ -349,7 +349,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 map.isPanEnabled = false
 
                 // Zoom in and center on location
-                map.metersPerPixel = 0.5f
+                map.resolution = 2f
 
                 // Reset the rotation
                 map.mapAzimuth = 0f
@@ -418,7 +418,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             } else {
                 // Intentionally not in the useEffect dependencies
                 center?.let { mapView.mapCenter = it }
-                scale?.let { mapView.metersPerPixel = it }
+                scale?.let { mapView.resolutionPixels = it }
             }
 
             mapView.setOnScaleChangeListener {

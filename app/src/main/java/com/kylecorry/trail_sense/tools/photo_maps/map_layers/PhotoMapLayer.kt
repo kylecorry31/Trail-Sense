@@ -45,10 +45,9 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     fun improveResolution(
         bounds: CoordinateBounds,
-        metersPerPixel: Float,
+        zoom: Int,
         minimumTileCount: Int
     ) {
-        val zoom = TileMath.getZoomLevel(bounds, metersPerPixel)
         var tileCount: Int
         var zoomOffset = -1
         do {

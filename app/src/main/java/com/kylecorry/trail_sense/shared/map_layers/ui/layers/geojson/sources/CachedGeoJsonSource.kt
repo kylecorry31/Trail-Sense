@@ -9,7 +9,7 @@ class CachedGeoJsonSource(private val loader: suspend () -> GeoJsonObject?) : Ge
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject? {
         if (!isLoaded) {
             cached = loader()
