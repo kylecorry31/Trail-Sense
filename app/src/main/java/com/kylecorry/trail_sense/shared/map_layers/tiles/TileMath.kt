@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import kotlin.math.PI
 import kotlin.math.cos
@@ -84,13 +83,19 @@ object TileMath {
     }
 
     fun getZoomLevel(bounds: CoordinateBounds, metersPerPixel: Float): Int {
+        return getZoomLevelFloat(bounds, metersPerPixel).toInt()
+    }
+
+    fun getZoomLevelFloat(bounds: CoordinateBounds, metersPerPixel: Float): Float {
         val minLat = max(bounds.south, MIN_LATITUDE)
         val maxLat = min(bounds.north, MAX_LATITUDE)
         val latitude = (minLat + maxLat) / 2
-        val earthCircumference = Geology.EARTH_AVERAGE_RADIUS * 2 * PI
+        val webMercatorRadius = 6378137.0
+        val earthCircumference = webMercatorRadius * 2 * PI
         val sourceMetersPerPixel =
-            earthCircumference * cos(Math.toRadians(latitude)) / (WORLD_TILE_SIZE * (1 shl 0))
-        return log2(sourceMetersPerPixel / metersPerPixel).toInt()
+            earthCircumference * cos(Math.toRadians(latitude)) / WORLD_TILE_SIZE
+        return log2(sourceMetersPerPixel / metersPerPixel).toFloat()
+
     }
 
     private const val MIN_LATITUDE = -85.0511
