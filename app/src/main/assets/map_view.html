@@ -279,7 +279,7 @@
 
       function initializeMap() {
         map = new ol.Map({
-          controls: [],
+          controls: [new ol.control.ScaleLine()],
           target: "map",
           layers: [],
           view: new ol.View({
