@@ -103,7 +103,7 @@
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
-    <string name="access_background_location_rationale">Trail Sense wykorzystuje dane lokalizacji w tle do kalibracji ciśnienia na poziomie morza, w monitorowaniu pogody i w celu zapewnienia dokładniejszych alertów o zachodzie słońca. [Zobacz politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle do kalibracji ciśnienia na poziomie morza w monitorowaniu pogody, oraz aby zapewnić dokładniejsze alerty o zachodzie słońca. [Przeczytaj o polityce prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
     <string name="third_quarter">Ostatnia kwadra</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
@@ -485,8 +485,8 @@
         <item quantity="other">Zaimportowano %d punktów nawigacyjnych</item>
     </plurals>
     <string name="theme_sunset_sunrise">Wschód/zachód słońca</string>
-    <string name="app_disclaimer_message_title">Zrzeczenie się odpowiedzialności / Warunki korzystania</string>
-    <string name="disclaimer_message_title">Zrzeczenie się odpowiedzialności</string>
+    <string name="app_disclaimer_message_title">Zastrzeżenia / Warunki korzystania</string>
+    <string name="disclaimer_message_title">Zastrzeżenia</string>
     <string name="last_signal_beacon_name">Ostatni sygnał - %1$s (%2$s)</string>
     <string name="color">Kolor</string>
     <string name="noon">Południe</string>
