@@ -128,10 +128,13 @@ internal class TileQueueTest {
 
         tileQueue.load(10, 5)
 
+        var image: Bitmap? = null
+        imageTile.withImage { image = it }
+
         assertEquals(0, tileQueue.count())
         assertEquals(true, called)
         assertEquals(imageTile, expectedResponse)
-        assertEquals(mockBitmap, imageTile.image)
+        assertEquals(mockBitmap, image)
         assertEquals(TileState.Loaded, imageTile.state)
     }
 }
