@@ -8,6 +8,7 @@ import kotlin.math.ln
 import kotlin.math.log2
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.roundToInt
 import kotlin.math.tan
 
 object TileMath {
@@ -90,8 +91,7 @@ object TileMath {
         val minLat = max(bounds.south, MIN_LATITUDE)
         val maxLat = min(bounds.north, MAX_LATITUDE)
         val latitude = (minLat + maxLat) / 2
-        val webMercatorRadius = 6378137.0
-        val earthCircumference = webMercatorRadius * 2 * PI
+        val earthCircumference = WEB_MERCATOR_RADIUS * 2 * PI
         val sourceMetersPerPixel =
             earthCircumference * cos(Math.toRadians(latitude)) / WORLD_TILE_SIZE
         return log2(sourceMetersPerPixel / metersPerPixel).toFloat()
@@ -101,5 +101,5 @@ object TileMath {
     private const val MIN_LATITUDE = -85.0511
     private const val MAX_LATITUDE = 85.0511
     const val WORLD_TILE_SIZE = 256
-
+    const val WEB_MERCATOR_RADIUS = 6378137.0
 }

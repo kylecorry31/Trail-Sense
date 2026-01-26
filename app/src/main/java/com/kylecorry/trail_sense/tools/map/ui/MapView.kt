@@ -20,11 +20,11 @@ import com.kylecorry.sol.math.optimization.Optimization
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
@@ -102,11 +102,14 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var metersPerPixel: Float
         get() {
-            return 1f / scale
+            return (1f / scale) * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
         }
         set(value) {
-            zoomTo(getScale(value))
+            zoomTo(getScale(value / (MercatorProjection.getScaleForLatitude(mapCenter.latitude))))
         }
+
+    private val equatorialMetersPerPixel: Float
+        get() = 1f / scale
 
     override val layerScale: Float
         get() = min(1f, max(scale, 0.9f))
@@ -181,14 +184,16 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             mapCenter,
             mapCenterPixels,
             projection,
-            metersPerPixel,
+            equatorialMetersPerPixel,
             width,
             height
         ) {
             val mapCenter = mapCenter
             val center = mapCenterPixels
             val projection = projection
-            val metersPerPixel = metersPerPixel
+            val equatorialMetersPerPixel = equatorialMetersPerPixel
+            val groundMetersPerPixel =
+                equatorialMetersPerPixel * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
             val width = width
             val height = height
 
@@ -208,9 +213,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     )
 
                     val x =
-                        (projected.x - center.x) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel)
+                        (projected.x - center.x) * (TileMath.WEB_MERCATOR_RADIUS / equatorialMetersPerPixel)
                     val y =
-                        (center.y - projected.y) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel) // Y inverted
+                        (center.y - projected.y) * (TileMath.WEB_MERCATOR_RADIUS / equatorialMetersPerPixel) // Y inverted
 
                     return PixelCoordinate(
                         x.toFloat() + width / 2f,
@@ -219,9 +224,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                 }
 
                 override fun toCoordinate(pixel: Vector2): Coordinate {
-                    val x = (pixel.x - width / 2f) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS
+                    val x =
+                        (pixel.x - width / 2f) * equatorialMetersPerPixel / TileMath.WEB_MERCATOR_RADIUS
                     val y =
-                        (height / 2f - pixel.y) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS // Y inverted
+                        (height / 2f - pixel.y) * equatorialMetersPerPixel / TileMath.WEB_MERCATOR_RADIUS // Y inverted
 
                     val projected = Vector2(
                         center.x + x.toFloat(),
@@ -234,7 +240,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     return toPixels(location.latitude, location.longitude)
                 }
 
-                override val metersPerPixel: Float = metersPerPixel
+                override val metersPerPixel: Float = groundMetersPerPixel
                 override val center: Coordinate = mapCenter
             }
         }
