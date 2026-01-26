@@ -1450,4 +1450,9 @@
     <string name="remove_layer">Poista taso</string>
     <string name="additional_layers">Lisätasot</string>
     <string name="sighting_label">%s havainto</string>
+    <string name="show_on_map">Näytä kartalla</string>
+    <string name="pref_photo_maps_high_detail_mode_title">Yksityiskohtainen tila</string>
+    <string name="pref_photo_maps_high_detail_mode_summary">Lataa enemmän laattoja paremman laadun saavuttamiseksi. Käyttää enemmän muistia.</string>
+    <string name="multi_direction_shading">Monisuuntainen varjostus</string>
+    <string name="show_images">Näytä kuvat</string>
 </resources>
