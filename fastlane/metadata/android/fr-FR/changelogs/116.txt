@@ -1,0 +1,13 @@
+Actions rapides
+- Nouveau : créer une balise, une note
+- Suppression des limites sur les actions rapides disponibles
+
+Réalité augmentée
+- Ajout de la prise en charge des chemins
+- Activation de la barre de zoom
+
+Divers
+- Séparation des paramètres de navigation et de chemin
+- Ajout d'une option de paramètres lorsque vous appuyez longuement sur un outil
+- Ajout d'un mode compact pour la navigation inférieure
+- Corrections de bugs

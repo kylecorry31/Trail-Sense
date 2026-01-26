@@ -1,0 +1,6 @@
+Astronomie
+- Consultez les phases lunaires, les éclipses et les pluies de météores sur le calendrier
+
+Outils
+- Choisissez les outils qui apparaissent dans la barre inférieure
+- Appuyez longuement sur la barre inférieure pour afficher les actions rapides

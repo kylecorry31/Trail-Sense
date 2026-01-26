@@ -1,0 +1,9 @@
+Balises
+- Afficher les marées dans les détails des balises
+
+Réalité augmentée
+- Afficher davantage d'étoiles la nuit
+- Ajouter de la couleur aux étoiles
+
+Marées
+- Préciser les champs obligatoires
