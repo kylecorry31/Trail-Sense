@@ -44,7 +44,7 @@ data class JSGeoJSONLayer(
 }
 
 interface JSBridge {
-    fun onZoomChanged(zoom: Float)
+    fun onZoomChanged(zoom: Float, resolution: Float)
     fun onCenterChanged(lat: Double, lon: Double)
     fun onBoundsChanged(
         north: Double,
@@ -65,6 +65,7 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
     private val commandQueue = ConcurrentLinkedQueue<String>()
     private var isReady = false
     var zoomLevel: Float = 16f
+    var resolution: Float = 1f
     var mapCenter: Coordinate = Coordinate.zero
 
     var bounds: CoordinateBounds = CoordinateBounds.empty
@@ -94,8 +95,9 @@ class MapViewV2(context: Context, attrs: AttributeSet? = null) : WebView(context
 
         addJavascriptInterface(object : JSBridge {
             @JavascriptInterface
-            override fun onZoomChanged(zoom: Float) {
+            override fun onZoomChanged(zoom: Float, resolution: Float) {
                 zoomLevel = zoom
+                this@MapViewV2.resolution = resolution
             }
 
             @JavascriptInterface

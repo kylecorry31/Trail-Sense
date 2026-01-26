@@ -194,6 +194,10 @@
         return map.getView().getZoom();
       }
 
+      function getResolution() {
+        return map.getView().getResolution();
+      }
+
       function getCenter() {
         const center = ol.proj.toLonLat(map.getView().getCenter());
         return { latitude: center[1], longitude: center[0] };
@@ -307,7 +311,8 @@
         map.getView().on("change:resolution", function () {
           if (window.AndroidMap && window.AndroidMap.onZoomChanged) {
             const zoom = getZoom();
-            window.AndroidMap.onZoomChanged(zoom);
+            var resolution = getResolution();
+            window.AndroidMap.onZoomChanged(zoom, resolution);
           }
           onBoundsChanged();
           const currentZoomLevel = Math.floor(getZoom());

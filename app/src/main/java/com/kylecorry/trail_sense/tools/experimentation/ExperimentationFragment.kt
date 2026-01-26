@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.useBackgroundMemo2
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useLocation
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.useTimer
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
@@ -36,7 +37,7 @@ import java.time.Duration
 class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_experimentation) {
     override fun update() {
 //        useWormGrunting()
-        useSamplePlugin()
+//        useSamplePlugin()
         useMapViewV2()
     }
 
@@ -149,9 +150,13 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
         val mapView = useView<MapViewV2>(R.id.mapViewV2)
         val (location, _) = useLocation()
 
-        useEffect(mapView, location) {
-            mapView.setCenter(location.latitude, location.longitude)
-            mapView.setZoom(16f)
+        useEffect(mapView) {
+            mapView.setCenter(19.479687, -155.587219)
+            mapView.setZoom(11.216736f)// - 1.5f)
+        }
+
+        useTimer(100){
+            println(mapView.zoomLevel)
         }
 
         val layers = useBackgroundMemo2(resetOnResume) {
