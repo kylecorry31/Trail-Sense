@@ -1,0 +1,20 @@
+Batterie
+- Ajout d'un paramètre pour activer/désactiver l'enregistrement de la batterie.
+
+Météo
+- Déplacement du paramètre d'historique de pression vers les paramètres météo.
+
+Réalité augmentée (expérimentale)
+- Amélioration des chemins.
+- Calibrage de l'orientation RA à l'aide du soleil ou de la lune.
+- Ajout d'un paramètre pour ajuster les chemins en fonction de l'altitude.
+- Amélioration du calibrage de l'appareil photo sur certains appareils.
+
+Horloge
+- Amélioration de la précision de l'heure GPS.
+
+Divers
+- [Expérimental] Lissage de la localisation
+- Basculer entre la caméra avant et arrière sur la plupart des vues de la caméra
+- Ajouter un magnétomètre + gyrocompas personnalisés ; peut améliorer la précision sur certains appareils
+- Corrections de bugs

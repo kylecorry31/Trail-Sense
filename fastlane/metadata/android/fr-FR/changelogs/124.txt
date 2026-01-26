@@ -1,0 +1,9 @@
+Guide de survie
+- Ajouter un guide de survie
+- Ne remplace pas les conseils et ressources professionnels
+
+Marées
+- Méthode manuelle d'estimation de l'intervalle entre deux marées
+
+Outils
+- Dans l'onglet Outils, appuyez à nouveau sur l'icône Outils pour rechercher rapidement un outil

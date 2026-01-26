@@ -1,0 +1,14 @@
+Cartes photographiques
+- Ajout d'un paramètre permettant de conserver les PDF en pleine résolution.
+- Affichage de l'altitude actuelle.
+
+Astronomie
+- Ajustement de l'orientation de la lune en fonction de l'emplacement.
+
+Conversion
+- Ajout des millimètres, cuillères à café et cuillères à soupe.
+
+Divers
+- Possibilité d'afficher jusqu'à 7 outils dans la barre de navigation inférieure.
+- Ajout d'un thème noir pour le système.
+- Correction de bugs

@@ -1,0 +1,25 @@
+Réalité augmentée
+- Disponible en version bêta - affichez les balises, les trajectoires et le soleil/la lune à l'aide de l'appareil photo.
+- Non disponible sur les appareils sans boussole.
+- Activez/désactivez les couches.
+- Distance d'affichage de la trajectoire réglable.
+- Affichez la précision de la boussole/du GPS.
+
+Clinomètre
+- Affichez les mesures sur l'écran de l'appareil photo.
+
+Astronomie
+- Affichez la trajectoire du soleil/de la lune en 3D.
+- Affichez la direction et l'altitude actuelles du soleil/de la lune en un clic.
+
+Détecteur de métaux
+- Émettre un son lorsque du métal est détecté
+
+Capteurs
+- Lister tous les capteurs
+
+Guide d'utilisation
+- Ajouter des guides pour les paramètres
+
+Horloge
+- Ajouter un paramètre pour utiliser l'horloge numérique

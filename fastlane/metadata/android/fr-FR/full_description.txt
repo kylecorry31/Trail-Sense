@@ -1,0 +1,78 @@
+<p>Explorez au-delà des limites d'Internet avec Trail Sense.</p>
+
+<ul>
+
+<li>Conçu pour la randonnée, le trekking, le camping et le géocaching</li>
+
+<li>Placez des balises et retrouvez-les</li>
+
+<li>Utilisez-le comme une boussole (disponible uniquement sur les appareils équipés d'un capteur de boussole)</li>
+
+<li>Suivez les sentiers</li>
+
+<li>Revenez sur vos pas grâce à la fonction Retour</li>
+
+<li>Utilisez une photo comme carte</li>
+
+<li>Planifiez votre équipement</li>
+
+<li>Soyez alerté avant le coucher du soleil</li>
+
+<li>Prévoyez la météo (disponible uniquement sur les appareils équipés d'un capteur barométrique)</li>
+
+<li>Utilisez votre téléphone comme lampe torche</li>
+
+<li>Et bien plus encore !</li>
+
+</ul>
+
+<p>Trail Sense est un outil, et comme tout outil que vous emportez en pleine nature,
+
+il est essentiel de disposer d'équipement de secours et de compétences adéquates.
+
+ Cette application est uniquement destinée à des fins d'information. La précision des prédictions et des capteurs dépend de nombreux facteurs, notamment l'étalonnage, la qualité des capteurs, les sources externes, etc.
+
+Utilisez-la à vos risques et périls, ayez toujours des outils de secours (ex. : boussole) et restez prudent.
+
+Cette application n'utilise pas, et n'utilisera jamais, Internet. Toutes les informations de Trail Sense proviennent directement des capteurs de votre téléphone, et aucune donnée ne quitte Trail Sense.
+
+Problèmes courants
+
+Absence de boussole : Si votre téléphone ne possède pas de capteur de boussole, je ne peux rien faire pour la rendre fonctionnelle, car il s'agit d'une limitation matérielle.
+
+Vous pourrez néanmoins utiliser les autres fonctionnalités de Trail Sense.
+
+Absence de météo : L'outil Météo est uniquement disponible si votre téléphone possède un capteur barométrique.
+
+Vous avez rencontré un problème ou vous souhaitez une nouvelle fonctionnalité ?  Contactez-moi à trailsense@protonmail.com ou créez un nouveau ticket sur GitHub : github.com/kylecorry31/Trail-Sense</p>
+
+<p>Je suis le seul développeur de Trail Sense. Je ferai donc de mon mieux pour vous aider à résoudre les problèmes, mais je ne dispose que d'un nombre limité d'appareils pour effectuer des tests.</p>
+
+<h3>AUTORISATIONS</h3>
+
+<ul>
+
+<li>Notifications : Autorise Trail Sense à afficher des notifications (retour en arrière, météo, alertes de coucher de soleil, événements astronomiques, minuteur d'ébullition de l'eau, etc.)</li>
+
+<li>Localisation : Autorise Trail Sense à récupérer votre position pour la navigation, la météo (calibration du niveau de la mer) et l'astronomie.</li>
+
+<li>Localisation en arrière-plan : Autorise Trail Sense à récupérer votre position pour les alertes de coucher de soleil lorsqu'il est en arrière-plan.
+
+ Sur certains appareils, cela améliorera également la fiabilité du retour en arrière et des prévisions météorologiques.
+
+Activité physique : Autorise Trail Sense à utiliser le podomètre de votre téléphone pour le calcul des distances.
+
+Appareil photo : Autorise Trail Sense à utiliser votre appareil photo pour la boussole de visée, le clinomètre et pour prendre des photos utilisées par le scanner cloud, le scanner de codes QR et les cartes photo.
+
+Alarmes et rappels : Autorise Trail Sense à envoyer une notification à une heure précise.  Ceci est utilisé par l'outil Horloge (lors de la mise à jour de l'heure système) et les alertes de lever et de coucher du soleil.</li>
+</ul>
+
+<h3>Liens</h3>
+
+<ul>
+<li>Politique de confidentialité : https://kylecorry.com/Trail-Sense/#privacy</li>
+
+<li>FAQ : https://github.com/kylecorry31/Trail-Sense#faq</li>
+
+<li>Trail Sense est disponible sous licence MIT : https://opensource.org/license/mit/</li>
+</ul>
