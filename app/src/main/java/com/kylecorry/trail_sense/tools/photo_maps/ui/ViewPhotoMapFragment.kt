@@ -53,6 +53,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
@@ -383,7 +384,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.map.fitIntoView(bounds, paddingFactor = 1.05f)
         binding.map.constraintBounds = bounds
         binding.map.minScale = binding.map.scale
-        layerManager.improveResolution(binding.map.mapBounds, binding.map.metersPerPixel)
+        layerManager.improveResolution(binding.map.mapBounds, binding.map.zoom.roundToInt())
         if (shouldLockOnMapLoad) {
             updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
             shouldLockOnMapLoad = false
@@ -413,7 +414,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.isPanEnabled = false
 
                 // Zoom in and center on location
-                binding.map.metersPerPixel = 0.5f
+                binding.map.resolution = 2f
                 binding.map.mapCenter = gps.location
 
                 // Reset the rotation

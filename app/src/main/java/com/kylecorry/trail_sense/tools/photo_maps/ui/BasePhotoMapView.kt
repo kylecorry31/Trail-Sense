@@ -16,6 +16,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
@@ -28,9 +29,11 @@ import kotlin.math.min
 
 abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
+    private val density = context.resources.displayMetrics.density
+
     protected var map: PhotoMap? = null
     private var projection: IMapProjection? = null
-    private var fullMetersPerPixel = 1f
+    private var fullResolutionPixels = 1f
     override val layerManager = MapViewLayerManager {
         post { invalidate() }
     }
@@ -64,11 +67,15 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         get() = hooks.memo(
             "mapProjection",
             projection,
-            metersPerPixel
+            resolutionPixels,
+            zoom,
+            resolution,
         ) {
             val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f))
             val projection = projection
-            val metersPerPixel = metersPerPixel
+            val resolutionPixels = resolutionPixels
+            val resolution = resolution
+            val zoom = zoom
 
             object : IMapProjection, IMapViewProjection {
                 override fun toPixels(
@@ -92,7 +99,9 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
                         )
                 }
 
-                override val metersPerPixel: Float = metersPerPixel
+                override val resolutionPixels: Float = resolutionPixels
+                override val zoom: Float = zoom
+                override val resolution: Float = resolution
                 override val center: Coordinate by lazy {
                     viewNoRotation?.let {
                         toCoordinate(
@@ -109,11 +118,20 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         return PixelCoordinate(point.x, point.y)
     }
 
-    override var metersPerPixel: Float
-        get() = fullMetersPerPixel / scale
+    override var resolutionPixels: Float
+        get() = fullResolutionPixels / scale
         set(value) {
             requestScale(getScale(value))
         }
+
+    override var resolution: Float
+        get() = this@BasePhotoMapView.resolutionPixels * density
+        set(value) {
+            this@BasePhotoMapView.resolutionPixels = value / density
+        }
+
+    override val zoom: Float
+        get() = TileMath.getZoomLevel(mapCenter, resolution)
 
     override val mapBounds: CoordinateBounds
         get() {
@@ -139,8 +157,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             )
         }
 
-    private fun getScale(metersPerPixel: Float): Float {
-        return fullMetersPerPixel / metersPerPixel
+    private fun getScale(resolutionPixels: Float): Float {
+        return fullResolutionPixels / resolutionPixels
     }
 
     override var mapCenter: Coordinate
@@ -244,7 +262,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         this.map = map
         val rotation = map.calibration.rotation
         mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
-        fullMetersPerPixel = map.distancePerPixel()?.meters()?.value ?: 1f
+        fullResolutionPixels = map.distancePerPixel()?.meters()?.value ?: 1f
         projection = map.baseProjection
         if (keepMapUp) {
             mapAzimuth = 0f

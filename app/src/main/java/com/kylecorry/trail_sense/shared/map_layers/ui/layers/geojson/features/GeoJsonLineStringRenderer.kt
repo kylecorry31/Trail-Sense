@@ -26,7 +26,6 @@ import com.kylecorry.trail_sense.shared.extensions.getColor
 import com.kylecorry.trail_sense.shared.extensions.getLineStyle
 import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
@@ -36,6 +35,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
 import kotlin.math.absoluteValue
 import kotlin.math.atan2
 import kotlin.math.max
+import kotlin.math.roundToInt
 
 class GeoJsonLineStringRenderer : FeatureRenderer() {
     private var shouldRenderWithDrawLines = false
@@ -167,14 +167,11 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 labelSegments,
                 path,
                 projection.center,
-                projection.metersPerPixel
+                projection.resolutionPixels
             )
         }
 
-        val zoomLevel = TileMath.getZoomLevel(
-            bounds,
-            projection.metersPerPixel
-        )
+        val zoomLevel = projection.zoom.roundToInt()
 
         val gridPoints = if (shouldRenderLabels && zoomLevel >= 13) {
             // Grid spacing based on zoom level (degrees)
@@ -246,7 +243,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
 
                 drawer.push()
                 drawer.translate(centerPixel.x, centerPixel.y)
-                val relativeScale = (path.renderedScale / map.metersPerPixel).real().positive(1f)
+                val relativeScale = (path.renderedScale / map.resolutionPixels).real().positive(1f)
                 drawer.scale(relativeScale)
                 drawer.strokeJoin(StrokeJoin.Round)
                 drawer.strokeCap(StrokeCap.Round)
@@ -307,7 +304,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             if (placements.isEmpty()) return
 
             val centerPixel = map.toPixel(path.origin)
-            val relativeScale = (path.renderedScale / map.metersPerPixel).real().positive(1f)
+            val relativeScale = (path.renderedScale / map.resolutionPixels).real().positive(1f)
             var labelsDrawn = 0
             for (placement in placements) {
                 if (labelsDrawn >= maxLabels) break

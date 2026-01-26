@@ -9,7 +9,7 @@ class ConfigurableGeoJsonSource(initialData: GeoJsonObject? = null) : GeoJsonSou
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject? {
         return data
     }

@@ -53,7 +53,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject {
         val pages = repo.getAllPages()
 

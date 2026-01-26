@@ -19,7 +19,7 @@ class NavigationGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject? {
         val myLocation = myLocation
         val destination = destination

@@ -17,7 +17,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        metersPerPixel: Float
+        zoom: Int
     ): GeoJsonObject {
         val towers = CellTowerModel.getTowers(bounds)
         return GeoJsonFeatureCollection(

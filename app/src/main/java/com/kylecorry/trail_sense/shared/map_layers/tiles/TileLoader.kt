@@ -113,9 +113,11 @@ class TileLoader(
         if (padding <= 0) {
             return
         }
-        val bitmap = tileCache[tile]?.image ?: return
-        tryOrNothing {
-            fillNeighborPixels(tile, bitmap)
+        tileCache.peek(tile)?.withImage { bitmap ->
+            bitmap ?: return@withImage
+            tryOrNothing {
+                fillNeighborPixels(tile, bitmap)
+            }
         }
     }
 
@@ -257,48 +259,48 @@ class TileLoader(
         fallbackSrcRect: Rect? = null
     ) {
         tryOrNothing {
-            val neighborBitmap = tileCache[neighborTile]?.image
-
-            if (neighborBitmap == null) {
-                if (fallbackBitmap != null && fallbackSrcRect != null) {
-                    val destRect = Rect(
-                        destX,
-                        destY,
-                        destX + destWidth,
-                        destY + destHeight
-                    )
-                    fallbackBitmap.copy(fallbackBitmap.config ?: Bitmap.Config.ARGB_8888, false)
-                        .use {
-                            canvas.drawBitmap(
-                                this,
-                                fallbackSrcRect,
-                                destRect,
-                                neighborPaint
-                            )
-                        }
+            tileCache.peek(neighborTile)?.withImage { neighborBitmap ->
+                if (neighborBitmap == null) {
+                    if (fallbackBitmap != null && fallbackSrcRect != null) {
+                        val destRect = Rect(
+                            destX,
+                            destY,
+                            destX + destWidth,
+                            destY + destHeight
+                        )
+                        fallbackBitmap.copy(fallbackBitmap.config ?: Bitmap.Config.ARGB_8888, false)
+                            .use {
+                                canvas.drawBitmap(
+                                    this,
+                                    fallbackSrcRect,
+                                    destRect,
+                                    neighborPaint
+                                )
+                            }
+                    }
+                    return@withImage
                 }
-                return
+                val srcRect = Rect(
+                    srcXStart,
+                    srcYStart,
+                    srcXStart + destWidth,
+                    srcYStart + destHeight
+                )
+
+                val destRect = Rect(
+                    destX,
+                    destY,
+                    destX + destWidth,
+                    destY + destHeight
+                )
+
+                canvas.drawBitmap(
+                    neighborBitmap,
+                    srcRect,
+                    destRect,
+                    neighborPaint
+                )
             }
-            val srcRect = Rect(
-                srcXStart,
-                srcYStart,
-                srcXStart + destWidth,
-                srcYStart + destHeight
-            )
-
-            val destRect = Rect(
-                destX,
-                destY,
-                destX + destWidth,
-                destY + destHeight
-            )
-
-            canvas.drawBitmap(
-                neighborBitmap,
-                srcRect,
-                destRect,
-                neighborPaint
-            )
         }
     }
 

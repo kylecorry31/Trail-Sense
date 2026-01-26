@@ -5,10 +5,13 @@ import android.graphics.Bitmap
 class ImageTile(
     val key: String,
     val tile: Tile,
-    var image: Bitmap? = null,
+    private var image: Bitmap? = null,
     var state: TileState = TileState.Idle,
     private val loadFunction: suspend () -> Bitmap?
 ) {
+
+    private val lock = Any()
+
     var loadingStartTime: Long? = null
     fun getAlpha(): Int {
         return loadingStartTime?.let { startTime ->
@@ -29,21 +32,44 @@ class ImageTile(
     suspend fun load() {
         state = TileState.Loading
         loadingStartTime = System.currentTimeMillis()
-        val wasSuccess = try {
-            image = loadFunction()
-            true
+        var hasImage = false
+        var wasSuccess = false
+        try {
+            val newImage = loadFunction()
+            synchronized(lock) {
+                image?.recycle()
+                image = newImage
+                hasImage = image != null
+            }
+            wasSuccess = true
         } catch (e: Throwable) {
             e.printStackTrace()
-            image = null
-            false
+            synchronized(lock) {
+                image?.recycle()
+                image = null
+            }
         }
 
         state = when {
-            wasSuccess && image != null -> TileState.Loaded
+            wasSuccess && hasImage -> TileState.Loaded
             wasSuccess -> TileState.Empty
             else -> TileState.Error
         }
 
+    }
+
+    fun withImage(block: (image: Bitmap?) -> Unit) {
+        synchronized(lock) {
+            block(image)
+        }
+    }
+
+    fun recycle() {
+        synchronized(lock) {
+            image?.recycle()
+            image = null
+            state = TileState.Idle
+        }
     }
 }
 

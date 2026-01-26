@@ -38,7 +38,7 @@ class PhotoMapToolLayerManager {
     private val photoMapPreferences = PhotoMapPreferences(AppServiceRegistry.get())
     private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
-    private var lastMapDetails: Pair<CoordinateBounds, Float>? = null
+    private var lastMapDetails: Pair<CoordinateBounds, Int>? = null
 
     var key: Int = 0
         private set
@@ -88,10 +88,10 @@ class PhotoMapToolLayerManager {
         distanceLayer.invalidate()
     }
 
-    fun improveResolution(bounds: CoordinateBounds, metersPerPixel: Float) {
-        lastMapDetails = bounds to metersPerPixel
+    fun improveResolution(bounds: CoordinateBounds, zoom: Int) {
+        lastMapDetails = bounds to zoom
         if (photoMapPreferences.highDetailMode) {
-            photoMapLayer?.improveResolution(bounds, metersPerPixel, 70)
+            photoMapLayer?.improveResolution(bounds, zoom, 70)
         }
     }
 

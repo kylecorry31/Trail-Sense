@@ -39,10 +39,10 @@ class ScaleBarLayer : OverlayLayer() {
         drawer.strokeWeight(4f)
 
         val scaleSize =
-            distanceScale.getScaleDistance(units, drawer.canvas.width / 2f, map.metersPerPixel)
+            distanceScale.getScaleDistance(units, drawer.canvas.width / 2f, map.resolutionPixels)
 
         scaleBar.reset()
-        distanceScale.getScaleBar(scaleSize, map.metersPerPixel, scaleBar)
+        distanceScale.getScaleBar(scaleSize, map.resolutionPixels, scaleBar)
         val start = drawer.canvas.width - drawer.dp(16f) - drawer.pathWidth(scaleBar)
         val y = drawer.canvas.height - drawer.dp(bottomMargin)
         drawer.push()

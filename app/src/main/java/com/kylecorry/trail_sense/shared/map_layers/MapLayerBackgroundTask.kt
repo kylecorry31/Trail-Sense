@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.shared.map_layers
 
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import kotlinx.coroutines.CoroutineScope
@@ -14,21 +12,20 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlin.math.abs
+import kotlin.math.roundToInt
 
 class MapLayerBackgroundTask {
 
     private var lastRunBounds: CoordinateBounds? = null
-    private var lastRunMetersPerPixel: Float? = null
+    private var lastRunZoom: Int? = null
     private var lastQueuedBounds: CoordinateBounds? = null
-    private var lastQueuedMetersPerPixel: Float? = null
+    private var lastQueuedZoom: Int? = null
 
     private val scope = CoroutineScope(Dispatchers.Default)
     private val runner = CoroutineQueueRunner(1, queuePolicy = BufferOverflow.DROP_OLDEST)
     private val lock = Mutex()
     private val taskLock = Any()
     private var isDirty = true
-    private val tileBorder = getTileBorder()
 
     private val tasks =
         mutableListOf<suspend (viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection) -> Unit>()
@@ -69,9 +66,8 @@ class MapLayerBackgroundTask {
     ) {
 
         scope.launch {
-            val metersPerPixel = projection.metersPerPixel
-            val newBounds =
-                TileMath.snapToTiles(bounds, metersPerPixel, growBy = tileBorder)
+            val zoom = projection.zoom.roundToInt()
+            val newBounds = TileMath.snapToTiles(bounds, zoom)
 
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
@@ -79,7 +75,7 @@ class MapLayerBackgroundTask {
                         newBounds,
                         lastRunBounds ?: CoordinateBounds.empty
                     ) &&
-                    metersPerPixel == lastRunMetersPerPixel
+                    zoom == lastRunZoom
                 ) {
                     return@launch
                 }
@@ -89,19 +85,19 @@ class MapLayerBackgroundTask {
 //                        newBounds,
 //                        lastQueuedBounds ?: CoordinateBounds.empty
 //                    ) &&
-//                    metersPerPixel == lastQueuedMetersPerPixel
+//                    zoom == lastQueuedZoom
 //                ) {
 //                    return@launch
 //                }
 
-                val runPercentScaleDifference = lastRunMetersPerPixel?.let {
-                    (abs(metersPerPixel - it) / it)
-                } ?: 0f
+                val runPercentScaleDifferent = lastRunZoom?.let {
+                    it != zoom
+                } ?: false
 
 
-                val queuedPercentScaleDifference = lastQueuedMetersPerPixel?.let {
-                    (abs(metersPerPixel - it) / it)
-                } ?: 0f
+                val queuedPercentScaleDifferent = lastQueuedZoom?.let {
+                    it != zoom
+                } ?: false
 
                 val runPercentTranslateDifference = lastRunBounds?.let {
                     it.center.distanceTo(newBounds.center) / newBounds.width().meters().value
@@ -113,20 +109,20 @@ class MapLayerBackgroundTask {
 
                 // This will be queued up
                 lastQueuedBounds = newBounds
-                lastQueuedMetersPerPixel = metersPerPixel
+                lastQueuedZoom = zoom
                 isDirty = false
 
                 // Otherwise queue it up
                 val run = suspend {
                     lock.withLock {
                         lastRunBounds = newBounds
-                        lastRunMetersPerPixel = metersPerPixel
+                        lastRunZoom = zoom
                     }
                     update(viewBounds, newBounds, projection)
                 }
 
                 val scaleSignificantlyChanged =
-                    runPercentScaleDifference > 0.4f && queuedPercentScaleDifference > 0.01f
+                    runPercentScaleDifferent && queuedPercentScaleDifferent
                 val translateSignificantlyChanged =
                     runPercentTranslateDifference > 0.4f && queuedPercentTranslateDifference > 0.01f
 
@@ -136,16 +132,6 @@ class MapLayerBackgroundTask {
                     runner.enqueue(run)
                 }
             }
-        }
-    }
-
-    private fun getTileBorder(): Int {
-        val device = AppServiceRegistry.get<DeviceSubsystem>()
-        val threshold = 50 * 1024 * 1024 // 50 MB
-        return if (device.getAvailableBitmapMemoryBytes() < threshold) {
-            0
-        } else {
-            1
         }
     }
 

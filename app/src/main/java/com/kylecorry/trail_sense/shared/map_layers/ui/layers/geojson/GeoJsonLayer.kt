@@ -10,13 +10,13 @@ import com.kylecorry.trail_sense.shared.extensions.isClickable
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CancellationException
+import kotlin.math.roundToInt
 
 typealias OnGeoJsonFeatureClickListener = (GeoJsonFeature) -> Unit
 
@@ -35,13 +35,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         renderer.setOnClickListener(this::onClick)
         taskRunner.addTask { viewBounds, bounds, projection ->
             isInvalid = false
+            val zoomLevel = projection.zoom.roundToInt()
             try {
                 if (minZoomLevel != null) {
-                    val zoomLevel = TileMath.getZoomLevel(
-                        bounds,
-                        projection.metersPerPixel
-                    )
-
                     if (zoomLevel < minZoomLevel) {
                         renderer.setGeoJsonObject(GeoJsonFeatureCollection(emptyList()))
                         return@addTask
@@ -49,7 +45,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                 }
 
                 val obj =
-                    source.load(bounds, projection.metersPerPixel) ?: GeoJsonFeatureCollection(
+                    source.load(bounds, zoomLevel) ?: GeoJsonFeatureCollection(
                         emptyList()
                     )
                 renderer.setGeoJsonObject(obj)
@@ -122,16 +118,23 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun start() {
-        Tools.subscribe(MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED, this::onSelectionBroadcast)
+        Tools.subscribe(
+            MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
+            this::onSelectionBroadcast
+        )
     }
 
     override fun stop() {
-        Tools.unsubscribe(MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED, this::onSelectionBroadcast)
+        Tools.unsubscribe(
+            MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
+            this::onSelectionBroadcast
+        )
         taskRunner.stop()
     }
 
     private fun onSelectionBroadcast(bundle: Bundle): Boolean {
-        val broadcastLayerId = bundle.getString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID)
+        val broadcastLayerId =
+            bundle.getString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID)
         if (broadcastLayerId == layerId) {
             val featureId = bundle.getString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID)
             renderer.setSelectedFeature(featureId)

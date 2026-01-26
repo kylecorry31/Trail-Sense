@@ -8,7 +8,6 @@ import kotlin.math.ln
 import kotlin.math.log2
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.roundToInt
 import kotlin.math.tan
 
 object TileMath {
@@ -57,16 +56,17 @@ object TileMath {
 
     fun snapToTiles(
         bounds: CoordinateBounds,
-        metersPerPixel: Float,
+        zoom: Int,
         maxZoom: Int = 20,
         growBy: Int = 0
     ): CoordinateBounds {
-        val zoom = getZoomLevel(bounds, metersPerPixel).coerceAtMost(maxZoom)
+        val actualZoom = zoom.coerceAtMost(maxZoom)
         val northWestTile =
-            latLonToTileXY(bounds.north, bounds.west, zoom).getNeighbor(-growBy, -growBy)
+            latLonToTileXY(bounds.north, bounds.west, actualZoom).getNeighbor(-growBy, -growBy)
                 .getBounds()
         val southEastTile =
-            latLonToTileXY(bounds.south, bounds.east, zoom).getNeighbor(growBy, growBy).getBounds()
+            latLonToTileXY(bounds.south, bounds.east, actualZoom).getNeighbor(growBy, growBy)
+                .getBounds()
         return CoordinateBounds(
             northWestTile.north,
             southEastTile.east,
@@ -83,18 +83,12 @@ object TileMath {
         return Tile(x, y, zoom)
     }
 
-    fun getZoomLevel(bounds: CoordinateBounds, metersPerPixel: Float): Int {
-        return getZoomLevelFloat(bounds, metersPerPixel).toInt()
-    }
-
-    fun getZoomLevelFloat(bounds: CoordinateBounds, metersPerPixel: Float): Float {
-        val minLat = max(bounds.south, MIN_LATITUDE)
-        val maxLat = min(bounds.north, MAX_LATITUDE)
-        val latitude = (minLat + maxLat) / 2
+    fun getZoomLevel(coordinate: Coordinate, resolution: Float): Float {
+        val latitude = coordinate.latitude
         val earthCircumference = WEB_MERCATOR_RADIUS * 2 * PI
-        val sourceMetersPerPixel =
+        val sourceResolution =
             earthCircumference * cos(Math.toRadians(latitude)) / WORLD_TILE_SIZE
-        return log2(sourceMetersPerPixel / metersPerPixel).toFloat()
+        return log2(sourceResolution / resolution).toFloat()
 
     }
 

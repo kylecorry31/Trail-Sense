@@ -37,6 +37,7 @@ import kotlinx.coroutines.CancellationException
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
@@ -176,13 +177,15 @@ abstract class TileMapLayer<T : TileSource>(
         val bounds = map.mapBounds
         val desiredTiles = TileMath.getTiles(
             bounds,
-            TileMath.getZoomLevel(bounds, map.metersPerPixel)
+            map.zoom.roundToInt()
         )
 
         getTilesToRender(desiredTiles).forEach { tile ->
-            val bitmap = tile.image ?: return@forEach
-            tryOrLog {
-                renderTile(tile, canvas, map, bitmap)
+            tile.withImage { bitmap ->
+                bitmap ?: return@withImage
+                tryOrLog {
+                    renderTile(tile, canvas, map, bitmap)
+                }
             }
         }
     }
@@ -366,7 +369,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
-        val zoom = TileMath.getZoomLevel(bounds, projection.metersPerPixel)
+        val zoom = projection.zoom.roundToInt()
         var adjustedOffset = zoomOffset + 1
         var tiles: List<Tile>
         do {

@@ -241,7 +241,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                         map.layerScale
                     },
                     (if (it.rotateWithUser) map.userAzimuth.value else map.mapAzimuth) + map.mapRotation,
-                    map.metersPerPixel
+                    map.resolutionPixels
                 )
             }
         }
@@ -252,7 +252,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
             val anchor = map.toPixel(it.location ?: map.userLocation)
             val radius = it.calculateSizeInPixels(
                 drawer,
-                map.metersPerPixel,
+                map.resolutionPixels,
                 if (it.scaleToLocationAccuracy) {
                     map.userLocationAccuracy?.meters()?.value ?: 0f
                 } else {

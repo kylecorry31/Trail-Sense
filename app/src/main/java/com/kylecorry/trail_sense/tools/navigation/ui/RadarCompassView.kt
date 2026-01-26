@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
@@ -38,6 +39,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView, IMapView {
+    private val density = context.resources.displayMetrics.density
     private var centerPixel: PixelCoordinate = PixelCoordinate(0f, 0f)
     private lateinit var compassCircle: Circle
 
@@ -371,10 +373,14 @@ class RadarCompassView : BaseCompassView, IMapView {
         get() = hooks.memo(
             "mapProjection",
             mapCenter,
-            metersPerPixel,
+            resolutionPixels,
+            resolution,
+            zoom
         ) {
             val mapCenter = mapCenter
-            val metersPerPixel = metersPerPixel
+            val resolutionPixels = resolutionPixels
+            val resolution = resolution
+            val zoom = zoom
 
             object : IMapProjection, IMapViewProjection {
                 override fun toPixels(
@@ -393,7 +399,7 @@ class RadarCompassView : BaseCompassView, IMapView {
                     val vector =
                         navigation.navigate(compassCenter, location, declination, useTrueNorth)
                     val angle = SolMath.wrap(-(vector.direction.value - 90), 0f, 360f)
-                    val pixelDistance = vector.distance / metersPerPixel
+                    val pixelDistance = vector.distance / resolutionPixels
                     val xDiff = SolMath.cosDegrees(angle) * pixelDistance
                     val yDiff = SolMath.sinDegrees(angle) * pixelDistance
                     return PixelCoordinate(
@@ -402,16 +408,27 @@ class RadarCompassView : BaseCompassView, IMapView {
                     )
                 }
 
-                override val metersPerPixel: Float = metersPerPixel
+                override val resolutionPixels: Float = resolutionPixels
+                override val resolution: Float = resolution
+                override val zoom: Float = zoom
                 override val center: Coordinate = mapCenter
             }
         }
 
-    override var metersPerPixel: Float
+    override var resolutionPixels: Float
         get() = maxDistanceMeters.value / (compassSize / 2f)
         set(_) {
             // Do nothing yet
         }
+
+    override var resolution: Float
+        get() = this@RadarCompassView.resolutionPixels * density
+        set(value) {
+            this@RadarCompassView.resolutionPixels = value / density
+        }
+
+    override val zoom: Float
+        get() = TileMath.getZoomLevel(mapCenter, resolution)
 
     override val layerScale: Float = 1f
 

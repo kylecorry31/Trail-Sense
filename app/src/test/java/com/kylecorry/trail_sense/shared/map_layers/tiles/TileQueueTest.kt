@@ -25,7 +25,7 @@ internal class TileQueueTest {
     fun setUp() {
         tileQueue = TileQueue()
         mockProjection = mock {
-            on { metersPerPixel } doReturn 10f
+            on { resolutionPixels } doReturn 10f
             on { center } doReturn Coordinate(0.0, 0.0)
             on { toPixels(any<Coordinate>()) } doReturn Vector2(0f, 0f)
         }
@@ -96,7 +96,7 @@ internal class TileQueueTest {
     @Test
     fun canLoad() = runBlocking {
         val newProjection = mock<IMapViewProjection> {
-            on { metersPerPixel } doReturn 20f
+            on { resolutionPixels } doReturn 20f
             on { center } doReturn Coordinate(1.0, 1.0)
             on { toPixels(any<Coordinate>()) } doReturn Vector2(10f, 10f)
         }

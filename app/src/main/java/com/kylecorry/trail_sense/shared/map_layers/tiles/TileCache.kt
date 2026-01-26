@@ -11,9 +11,7 @@ class TileCache(val source: String, maxSize: Int) : LruCache<String, ImageTile>(
         newValue: ImageTile?
     ) {
         super.entryRemoved(evicted, key, oldValue, newValue)
-        oldValue.image?.recycle()
-        oldValue.image = null
-        oldValue.state = TileState.Idle
+        oldValue.recycle()
     }
 
     operator fun get(tile: Tile): ImageTile? {
@@ -25,13 +23,15 @@ class TileCache(val source: String, maxSize: Int) : LruCache<String, ImageTile>(
     }
 
     fun getOrPut(key: String, provider: () -> ImageTile): ImageTile {
-        val current = get(key)
-        if (current != null) {
-            return current
+        synchronized(this) {
+            val current = get(key)
+            if (current != null) {
+                return current
+            }
+            val newValue = provider()
+            put(key, newValue)
+            return newValue
         }
-        val newValue = provider()
-        put(key, newValue)
-        return newValue
     }
 
     private fun getKey(tile: Tile): String {
