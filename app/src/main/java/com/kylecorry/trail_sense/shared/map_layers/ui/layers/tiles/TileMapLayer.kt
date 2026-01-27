@@ -34,7 +34,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlinx.coroutines.CancellationException
-import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -99,11 +98,11 @@ abstract class TileMapLayer<T : TileSource>(
             shouldReloadTiles = false
             try {
                 val tiles = getTiles(bounds, projection)
-                queue.setMapState(projection, tiles)
+                queue.setMapProjection(projection)
                 if (tiles.size <= MAX_TILES &&
                     (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
                 ) {
-                    loader?.loadTiles(sortTiles(tiles))
+                    loader?.loadTiles(tiles)
                 } else if (tiles.size > MAX_TILES) {
                     Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
                 }
@@ -119,13 +118,6 @@ abstract class TileMapLayer<T : TileSource>(
     open fun getCacheKey(): String? {
         // Don't cache by default
         return null
-    }
-
-    private fun sortTiles(tiles: List<Tile>): List<Tile> {
-        if (tiles.isEmpty()) return tiles
-        val middleX = tiles.map { it.x }.average()
-        val middleY = tiles.map { it.y }.average()
-        return tiles.sortedBy { hypot(it.x - middleX, it.y - middleY) }
     }
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
@@ -175,10 +167,11 @@ abstract class TileMapLayer<T : TileSource>(
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
         val bounds = map.mapBounds
-        val desiredTiles = TileMath.getTiles(
+        val desiredTiles = getTiles(
             bounds,
-            map.zoom.roundToInt()
+            map.mapProjection
         )
+        queue.setDesiredTiles(desiredTiles)
 
         getTilesToRender(desiredTiles).forEach { tile ->
             tile.withImage { bitmap ->
