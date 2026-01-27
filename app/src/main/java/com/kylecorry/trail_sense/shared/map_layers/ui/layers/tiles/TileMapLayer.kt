@@ -33,7 +33,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
-import kotlinx.coroutines.CancellationException
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -44,7 +43,6 @@ abstract class TileMapLayer<T : TileSource>(
     private var minZoomLevel: Int? = null
 ) : IAsyncLayer {
 
-    private var shouldReloadTiles = true
     private var loader: TileLoader? = null
     private val queue = TileQueue()
     private val layerPaint = Paint()
@@ -84,34 +82,15 @@ abstract class TileMapLayer<T : TileSource>(
 
     fun setZoomOffset(offset: Int) {
         zoomOffset = offset
-        shouldReloadTiles = true
     }
 
     fun setMinZoomLevel(level: Int) {
         minZoomLevel = level
-        shouldReloadTiles = true
     }
 
     init {
-        // Load tiles if needed
-        taskRunner.addTask { _: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection ->
-            shouldReloadTiles = false
-            try {
-                val tiles = getTiles(bounds, projection)
-                queue.setMapProjection(projection)
-                if (tiles.size <= MAX_TILES &&
-                    (tiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
-                ) {
-                    loader?.loadTiles(tiles)
-                } else if (tiles.size > MAX_TILES) {
-                    Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
-                }
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Throwable) {
-                e.printStackTrace()
-                shouldReloadTiles = true
-            }
+        taskRunner.addTask { _: Rectangle, _: CoordinateBounds, projection: IMapViewProjection ->
+            queue.setMapProjection(projection)
         }
     }
 
@@ -130,8 +109,7 @@ abstract class TileMapLayer<T : TileSource>(
         taskRunner.scheduleUpdate(
             drawer.getBounds(45f), // TODO: Cache this
             map.mapBounds,
-            map.mapProjection,
-            shouldReloadTiles
+            map.mapProjection
         )
 
         // Render loaded tiles
@@ -171,7 +149,15 @@ abstract class TileMapLayer<T : TileSource>(
             bounds,
             map.mapProjection
         )
+
         queue.setDesiredTiles(desiredTiles)
+        if (desiredTiles.size <= MAX_TILES &&
+            (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
+        ) {
+            loader?.loadTiles(desiredTiles)
+        } else if (desiredTiles.size > MAX_TILES) {
+            Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
+        }
 
         getTilesToRender(desiredTiles).forEach { tile ->
             tile.withImage { bitmap ->
@@ -377,7 +363,6 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override fun start() {
-        shouldReloadTiles = true
         loader = TileLoader(
             source,
             queue,
