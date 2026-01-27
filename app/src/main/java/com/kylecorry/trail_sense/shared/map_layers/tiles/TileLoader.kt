@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.andromeda_temp.Pad
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
@@ -44,11 +43,21 @@ class TileLoader(
         1 to 1
     )
 
+    init {
+        // TODO: This should be handled by a higher level component
+        tileQueue.setChangeListener { imageTile ->
+            tryOrLog {
+                populateBorderAndNeighbors(imageTile)
+            }
+            updateListener()
+        }
+    }
+
     fun clearCache() {
         tileCache.evictAll()
     }
 
-    suspend fun loadTiles(tiles: List<Tile>) = onDefault {
+    fun loadTiles(tiles: List<Tile>) {
         val imageTiles = tiles.map { tile ->
             val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
             tileCache.getOrPut(key) {
@@ -69,14 +78,6 @@ class TileLoader(
                     )
                 }
             }
-        }
-
-        // TODO: This should be handled by a higher level component
-        tileQueue.setChangeListener { imageTile ->
-            tryOrLog {
-                populateBorderAndNeighbors(imageTile)
-            }
-            updateListener()
         }
 
         imageTiles.forEach { tileQueue.enqueue(it) }
