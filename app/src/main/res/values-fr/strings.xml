@@ -1363,4 +1363,13 @@
     <string name="remove_layer">Supprimer le calque</string>
     <string name="additional_layers">Couches supplémentaires</string>
     <string name="sighting_label">%s observation</string>
+    <string name="range_header_units">Plage (%s)</string>
+    <string name="velocity_header_units">Vitesse (%s)</string>
+    <string name="drop_header_units">Baisse (%s)</string>
+    <string name="energy">Énergie</string>
+    <string name="bullet_weight">Poids de la balle</string>
+    <string name="format_joules">%s joules</string>
+    <string name="format_fpe">%s FPE</string>
+    <string name="no_permits">Non autorisé</string>
+    <string name="trace">Trace</string>
 </resources>
