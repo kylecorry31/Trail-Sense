@@ -1,12 +1,14 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
+import android.util.Log
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import java.util.PriorityQueue
 import kotlin.math.log
 
 class TileQueue {
-
+    // Enable this to log what tiles are being loaded
+    private val shouldLog = false
     private var changeListener: (tile: ImageTile) -> Unit = {}
     private val loadingKeys = mutableSetOf<String>()
 
@@ -17,9 +19,8 @@ class TileQueue {
     private var mapProjection: IMapViewProjection? = null
     private var desiredTiles: Set<Tile>? = null
 
-    fun setMapState(projection: IMapViewProjection, tiles: List<Tile>) {
+    fun setMapProjection(projection: IMapViewProjection) {
         mapProjection = projection
-        desiredTiles = tiles.toSet()
 
         // Reprioritize the queue
         synchronized(queue) {
@@ -27,6 +28,10 @@ class TileQueue {
             queue.clear()
             queue.addAll(previous)
         }
+    }
+
+    fun setDesiredTiles(tiles: List<Tile>){
+        desiredTiles = tiles.toSet()
     }
 
     fun enqueue(tile: ImageTile) {
@@ -84,7 +89,12 @@ class TileQueue {
         }
         // TODO: Allow cancellation of a job - likely means storing the actual jobs somewhere
         Parallel.forEach(jobs) {
+            val start = System.currentTimeMillis()
             it.load()
+            val end = System.currentTimeMillis()
+            if (shouldLog) {
+                Log.d("TileQueue", "${it.key} (${end - start}ms)")
+            }
             onStateChange(it)
         }
     }

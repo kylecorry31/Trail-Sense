@@ -109,7 +109,8 @@ internal class TileQueueTest {
         val tile = Tile(0, 0, 1, mockSize)
         val desiredTiles = listOf(tile)
 
-        tileQueue.setMapState(newProjection, desiredTiles)
+        tileQueue.setMapProjection(newProjection)
+        tileQueue.setDesiredTiles(desiredTiles)
 
         var called = false
         var expectedResponse: ImageTile? = null

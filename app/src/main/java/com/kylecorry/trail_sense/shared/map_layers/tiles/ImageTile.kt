@@ -31,7 +31,6 @@ class ImageTile(
 
     suspend fun load() {
         state = TileState.Loading
-        loadingStartTime = System.currentTimeMillis()
         var hasImage = false
         var wasSuccess = false
         try {
@@ -49,7 +48,7 @@ class ImageTile(
                 image = null
             }
         }
-
+        loadingStartTime = System.currentTimeMillis()
         state = when {
             wasSuccess && hasImage -> TileState.Loaded
             wasSuccess -> TileState.Empty
