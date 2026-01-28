@@ -16,7 +16,7 @@
     <string name="no_beacons">Brak punktów nawigacyjnych</string>
     <string name="continue_button">KONTYNUUJ</string>
     <string name="stop">Stop</string>
-    <string name="smoothing_summary">Wyższe wartości mogą zmniejszyć zakłócenia</string>
+    <string name="smoothing_summary">Wysokie wartości mogą zmniejszyć zakłócenia</string>
     <string name="pref_theme_title">Motyw</string>
     <string name="pref_display_multi_beacons_title">Pokazuj pobliskie punkty nawigacyjne</string>
     <string name="pref_storm_alert_sensitivity_title">Wrażliwość na burzę</string>
@@ -66,7 +66,7 @@
     <string name="edit">Edytuj</string>
     <string name="delete">Usuń</string>
     <string name="add">Dodaj</string>
-    <string name="moon_phase">Faza Księżyca</string>
+    <string name="moon_phase">Faza księżyca</string>
     <string name="sunset_alerts">Alerty o zachodzie słońca</string>
     <string name="full_moon">Pełnia</string>
     <string name="sun_down_no_set">Słońce zaszło</string>
@@ -139,7 +139,7 @@
     <string name="request_permission">Poproś o uprawnienia</string>
     <string name="compass_reported_accuracy">Zgłoszona dokładność: %s</string>
     <string name="pref_auto_declination_summary">Na podstawie aktualnej lokalizacji</string>
-    <string name="clinometer_rotate_device">Trzymaj telefon pionowo, aby zmierzyć nachylenie</string>
+    <string name="clinometer_rotate_device">Trzymaj telefon pionowo</string>
     <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego i wysokości obiektów</string>
     <string name="sunset_alert_channel_title">Alert o zachodzie słońca</string>
     <string name="sun_up_no_set">Słońce wzeszło</string>
@@ -147,14 +147,14 @@
     <string name="tool_bubble_level_title">Poziomica</string>
     <string name="calibrate_compass_dialog_title">Kalibracja kompasu</string>
     <string name="calibrate">Kalibracja</string>
-    <string name="pref_ruler_calibration_summary">"Protokół kalibracji:\n\n-  Ustaw wartość na 1.\n\n- Zmierz wartość linijki programu Trail Sense odpowiadającą jednej jednostce fizycznej linijki.\n\n- Podaj zmierzoną wartość."</string>
+    <string name="pref_ruler_calibration_summary">"Protokół kalibracji:\n\n-  Ustaw wartość na 1.\n\n- Zmierz wartość linijki Trail Sense, odpowiadającą jednej jednostce fizycznej linijki.\n\n- Podaj zmierzoną wartość."</string>
     <string name="edit_item_title">Edycja elementu</string>
     <string name="create_item_title">Tworzenie elementu</string>
     <string name="dialog_item_amount">Ilość</string>
     <string name="subtract">Odejmij</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Stopnie Minuty</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Stopnie | Minuty</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Stopnie | Minuty | Sekundy</string>
     <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
     <string name="pref_ruler_calibration_title">Skala linijki</string>
     <string name="sensors">Czujniki</string>
@@ -240,7 +240,7 @@
     <string name="discharging_slow">Powolne rozładowywanie (%s)</string>
     <string name="charging_slow">Wolne ładowanie (%s)</string>
     <string name="charging_fast">Szybkie ładowanie (%s)</string>
-    <string name="compass_auto_declination">Automatyczne dostosowanie deklinacji</string>
+    <string name="compass_auto_declination">Automatyczna regulacja deklinacji</string>
     <string name="compass_declination_override">Nadpisanie deklinacji</string>
     <string name="notes_empty_text">Brak notatek</string>
     <string name="delete_note_title">Usunąć notatkę\?</string>
@@ -302,7 +302,7 @@
     <string name="pref_elevation_override_title">Zastępowanie wysokości</string>
     <string name="pref_auto_location_title">Automatycznie dostosuj lokalizację</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="set_inclination_instructions">Dotknij lub przytrzymaj w dowolnym miejscu, aby zablokować lub odblokować</string>
+    <string name="set_inclination_instructions">Naciśnij lub przytrzymaj w dowolnym miejscu, aby zablokować lub odblokować</string>
     <string name="create_at_distance">Utwórz w odległości</string>
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
@@ -484,7 +484,7 @@
         <item quantity="many">Zaimportowano %d punktów nawigacyjnych</item>
         <item quantity="other">Zaimportowano %d punktów nawigacyjnych</item>
     </plurals>
-    <string name="theme_sunset_sunrise">Wschód/zachód słońca</string>
+    <string name="theme_sunset_sunrise">Wschód/Zachód słońca</string>
     <string name="app_disclaimer_message_title">Zastrzeżenia / Warunki korzystania</string>
     <string name="disclaimer_message_title">Zastrzeżenia</string>
     <string name="last_signal_beacon_name">Ostatni sygnał - %1$s (%2$s)</string>
@@ -1013,4 +1013,6 @@
     </plurals>
     <string name="diamond">Diament</string>
     <string name="coordinate_format_osgb">OSGB</string>
+    <string name="pref_night_mode_fullscreen_title">Pełny ekran w trybie ciemnym</string>
+    <string name="pref_night_mode_fullscreen_summary">Ukryj systemowy interfejs, aby zachować lepszą widoczność w ciemności</string>
 </resources>
