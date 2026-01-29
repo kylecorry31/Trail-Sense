@@ -1,0 +1,20 @@
+Réalité augmentée
+- N'est plus en version bêta.
+
+Retour
+- Nouvel outil pour vous rappeler de faire demi-tour à mi-parcours de votre randonnée.
+
+Appareil photo miroir
+- Nouvel outil permettant d'utiliser l'appareil photo avant comme un « miroir ».
+
+Cartes photo
+- Ajout de l'action rapide « Ouvrir la carte photo » (ouvre la carte active).
+
+Clouds
+- Ajouter l'action rapide Cloud Scanner.
+
+Balises
+- Naviguer vers le signal cellulaire le plus proche.
+
+Divers
+- Ouvrir n'importe quel outil en tant qu'action rapide
