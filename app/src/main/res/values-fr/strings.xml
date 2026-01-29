@@ -1325,7 +1325,7 @@
     <string name="cell_towers">Antennes-relais</string>
     <string name="signal_finder_description">Afficher les antennes-relais et les signaux à proximité.</string>
     <string name="no_cell_towers_found">Aucune antenne-relais trouvée</string>
-    <string name="cell_tower_disclaimer">Les emplacements des tours sont approximatifs et proviennent d\'OpenCelliD, du service de localisation Mozilla et des enregistrements d\'antennes FCC.\n\n[Le projet OpenCelliD](https://opencellid.org/) est sous licence [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).</string>
+    <string name="cell_tower_disclaimer">Les emplacements des tours sont approximatifs et proviennent d\'OpenCelliD, du service de localisation Mozilla et des enregistrements d\'antennes FCC.\n\n[OpenCelliD Project](https://opencellid.org/) est sous licence [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).</string>
     <string name="full_service">Service complet</string>
     <string name="australia">Océanie</string>
     <string name="emergency_calls_only">Appels d\'urgence uniquement</string>
@@ -1372,4 +1372,12 @@
     <string name="format_fpe">%s FPE</string>
     <string name="no_permits">Non autorisé</string>
     <string name="trace">Trace</string>
+    <string name="map_trace_instructions">Déplacez-vous dans un endroit ombragé ou protégez-vous du soleil à l\'aide d\'un tissu, puis placez du papier sur votre écran afin de pouvoir voir la carte à travers. Utilisez un stylo ou un crayon pour tracer la carte, mais évitez les marqueurs ou les stylos qui pourraient traverser le papier.\n\nLa navigation inférieure sera désactivée jusqu\'à ce que vous désactiviez le mode de traçage.</string>
+    <string name="speed_format_feet_per_second">%s pps</string>
+    <string name="speed_format_meters_per_second">%s m/s</string>
+    <string name="feet_per_second">Pieds par seconde</string>
+    <string name="meters_per_second">Mètres par seconde</string>
+    <string name="speed">Vitesse</string>
+    <string name="climate_temperature_amount">Température : %s</string>
+    <string name="climate_precipitation_amount">Précipitations : %s total mensuel</string>
 </resources>
