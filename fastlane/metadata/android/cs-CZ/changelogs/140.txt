@@ -1,0 +1,11 @@
+Mapové vrstvy
+- Nové vrstvy: sklon, orientace, index členitosti a pozorování (průvodce terénem)
+- Správa vrstev (přidávání, odebírání, změna pořadí)
+- Možnost vícesměrového stínování svahů
+- Možnost zobrazení fáze přílivu a odlivu
+- Podpora gesta odhození (fling)
+- Vylepšení výkonu
+- Klepnutí na maják pro podrobnosti bez přechodu jinam
+
+Různé
+- Vylepšeno zpracování chyb
