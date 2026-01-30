@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import android.widget.OverScroller
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -39,8 +40,12 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var isInteractive = true
     var isPanEnabled = true
     var isZoomEnabled = true
+    var isFlingEnabled = true
 
     private val density = context.resources.displayMetrics.density
+    private val scroller = OverScroller(context)
+    private var lastFlingX = 0
+    private var lastFlingY = 0
 
     private val lookupMatrix = Matrix()
 
@@ -80,8 +85,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override val mapBounds: CoordinateBounds
-        get() = hooks.memo("bounds",
-            this@MapView.resolutionPixels, mapCenter, width, height, mapAzimuth != 0f) {
+        get() = hooks.memo(
+            "bounds",
+            this@MapView.resolutionPixels, mapCenter, width, height, mapAzimuth != 0f
+        ) {
             // Increase size to account for 45 degree rotation
             var rotated = Rectangle(
                 0f,
@@ -273,6 +280,15 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override fun draw() {
+        if (scroller.computeScrollOffset()) {
+            val dx = lastFlingX - scroller.currX
+            val dy = lastFlingY - scroller.currY
+            lastFlingX = scroller.currX
+            lastFlingY = scroller.currY
+            translatePixels(dx.toFloat(), dy.toFloat())
+            invalidate()
+        }
+
         clear()
 
         // TODO: Is this scale logic needed?
@@ -395,6 +411,31 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             return super.onSingleTapConfirmed(e)
         }
 
+        override fun onFling(
+            e1: MotionEvent?,
+            e2: MotionEvent,
+            velocityX: Float,
+            velocityY: Float
+        ): Boolean {
+            if (isPanEnabled && isFlingEnabled) {
+                val angle = mapAzimuth
+                val vx = velocityX * cosDegrees(angle) - velocityY * sinDegrees(angle)
+                val vy = velocityX * sinDegrees(angle) + velocityY * cosDegrees(angle)
+                val startX = FLING_MULTIPLIER / 2
+                val startY = FLING_MULTIPLIER / 2
+                lastFlingX = startX
+                lastFlingY = startY
+                scroller.fling(
+                    startX, startY,
+                    (vx * FLING_VELOCITY_SCALE).toInt(), (vy * FLING_VELOCITY_SCALE).toInt(),
+                    0, FLING_MULTIPLIER,
+                    0, FLING_MULTIPLIER
+                )
+                invalidate()
+            }
+            return true
+        }
+
         override fun onLongPress(e: MotionEvent) {
             super.onLongPress(e)
 
@@ -447,6 +488,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (isInteractive) {
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                scroller.forceFinished(true)
+            }
             mScaleDetector.onTouchEvent(event)
             gestureDetector.onTouchEvent(event)
         }
@@ -495,5 +539,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override fun setOnGeoJsonFeatureClickListener(listener: ((GeoJsonFeature) -> Unit)?) {
         layerManager.setOnGeoJsonFeatureClickListener(listener)
+    }
+
+    companion object {
+        private const val FLING_MULTIPLIER = 1000000
+        private const val FLING_VELOCITY_SCALE = 0.6f
     }
 }
