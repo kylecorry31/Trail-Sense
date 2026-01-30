@@ -1,0 +1,11 @@
+Map layers
+- New layers: slope, aspect, ruggedness index, and sightings (field guide)
+- Layer management (add, remove, reorder)
+- Hillshade multi-direction shading option
+- Tide phase display option
+- Fling gesture support
+- Improve performance
+- Tap beacon for details rather than navigating
+
+Misc
+- Improve error handling
