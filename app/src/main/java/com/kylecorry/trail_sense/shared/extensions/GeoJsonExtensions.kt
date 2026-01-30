@@ -115,6 +115,10 @@ fun GeoJsonFeature.getRotateWithUserAzimuth(): Boolean {
     return getBooleanProperty(GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH) ?: false
 }
 
+fun GeoJsonFeature.getRotation(): Float? {
+    return getFloatProperty(GEO_JSON_PROPERTY_ROTATION)
+}
+
 fun GeoJsonFeature.getMoveWithUserLocation(): Boolean {
     return getBooleanProperty(GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION) ?: false
 }
@@ -218,6 +222,7 @@ fun GeoJsonFeature.Companion.point(
     size: Float? = null,
     iconSize: Float? = size,
     sizeUnit: String? = null,
+    rotation: Float? = null,
     rotateWithUserAzimuth: Boolean = false,
     moveWithUserLocation: Boolean = false,
     scaleToLocationAccuracy: Boolean = false,
@@ -249,6 +254,7 @@ fun GeoJsonFeature.Companion.point(
             GEO_JSON_PROPERTY_STROKE_WEIGHT to strokeWeight,
             GEO_JSON_PROPERTY_OPACITY to opacity,
             GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH to rotateWithUserAzimuth,
+            GEO_JSON_PROPERTY_ROTATION to rotation,
             GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION to moveWithUserLocation,
             GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY to scaleToLocationAccuracy,
             GEO_JSON_PROPERTY_BITMAP to bitmap,
@@ -309,6 +315,7 @@ const val GEO_JSON_PROPERTY_SIZE_UNIT_PIXELS = "px"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_DENSITY_PIXELS = "dp"
 const val GEO_JSON_PROPERTY_SIZE_UNIT_METERS = "m"
 const val GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH = "rotateWithUserAzimuth"
+const val GEO_JSON_PROPERTY_ROTATION = "rotation"
 const val GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION = "moveWithUserLocation"
 const val GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY = "scaleToLocationAccuracy"
 const val GEO_JSON_PROPERTY_BITMAP = "bitmap"

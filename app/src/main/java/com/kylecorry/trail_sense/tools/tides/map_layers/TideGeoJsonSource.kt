@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.map.infrastructure.LandModel
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTidePhaseCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
@@ -23,6 +24,7 @@ class TideGeoJsonSource : GeoJsonSource {
 
     var showModeledTides: Boolean = false
     private val minZoomLevel = 8
+    var showPhase: Boolean = false
 
     override suspend fun load(
         bounds: CoordinateBounds,
@@ -35,24 +37,39 @@ class TideGeoJsonSource : GeoJsonSource {
             zoom
         )
         val currentTideCommand = CurrentTideTypeCommand(tideService)
+        val tidePhaseCommand = CurrentTidePhaseCommand(tideService)
         val tides =
             tables.filter { it.location != null && it.isVisible }
 
         val features = Parallel.map(tides) { table ->
-            val type = currentTideCommand.execute(table)
             val location = table.location ?: return@map null
-            val icon = when (type) {
-                TideType.High -> BeaconIcon.TideHigh
-                TideType.Low -> BeaconIcon.TideLow
-                null -> BeaconIcon.TideHalf
+
+            val phase = if (showPhase) {
+                tidePhaseCommand.execute(table) ?: return@map null
+            } else {
+                null
+            }
+
+            val icon = if (showPhase) {
+                BeaconIcon.Arrow
+            } else {
+                when (currentTideCommand.execute(table)) {
+                    TideType.High -> BeaconIcon.TideHigh
+                    TideType.Low -> BeaconIcon.TideLow
+                    null -> BeaconIcon.TideHalf
+                }
             }
 
             GeoJsonFeature.point(
                 location,
                 icon = icon.id,
-                iconSize = 12f,
+                iconColor = if (showPhase) {
+                    Color.BLACK
+                } else {
+                    null
+                },
                 color = Color.WHITE,
-                size = 11f,
+                rotation = phase
             )
         }
 

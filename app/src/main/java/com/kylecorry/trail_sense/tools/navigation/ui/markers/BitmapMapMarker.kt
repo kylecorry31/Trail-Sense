@@ -39,8 +39,9 @@ class BitmapMapMarker(
         } else {
             drawer.noTint()
         }
-        drawer.rotate(this.rotation ?: rotation, anchor.x, anchor.y)
-        drawer.image(bitmap, anchor.x, anchor.y, finalWidth, finalHeight)
+        drawer.translate(anchor.x, anchor.y)
+        drawer.rotate(this.rotation ?: rotation, 0f, 0f)
+        drawer.image(bitmap, 0f, 0f, finalWidth, finalHeight)
         drawer.pop()
         drawer.imageMode(ImageMode.Corner)
         drawer.noTint()

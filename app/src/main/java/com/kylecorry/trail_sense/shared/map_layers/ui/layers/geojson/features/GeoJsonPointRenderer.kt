@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.extensions.getMoveWithUserLocation
 import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getOpacity
 import com.kylecorry.trail_sense.shared.extensions.getRotateWithUserAzimuth
+import com.kylecorry.trail_sense.shared.extensions.getRotation
 import com.kylecorry.trail_sense.shared.extensions.getScaleToLocationAccuracy
 import com.kylecorry.trail_sense.shared.extensions.getSize
 import com.kylecorry.trail_sense.shared.extensions.getSizeUnit
@@ -102,6 +103,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val isClickable = feature.isClickable()
                 val name = feature.getName()
                 val rotateWithUserAzimuth = feature.getRotateWithUserAzimuth()
+                val rotation = feature.getRotation()
                 val moveWithUserLocation = feature.getMoveWithUserLocation()
                 val scaleToLocationAccuracy = feature.getScaleToLocationAccuracy()
                 val isSelected =
@@ -168,7 +170,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                             if (moveWithUserLocation) null else point.coordinate,
                             iconBitmap,
                             iconSize,
-                            rotation = null,
+                            rotation = rotation,
                             rotateWithUser = rotateWithUserAzimuth,
                             tint = feature.getIconColor(),
                             onClickFn = if (isClickable) {
@@ -184,7 +186,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                             if (moveWithUserLocation) null else point.coordinate,
                             bitmap,
                             iconSize,
-                            rotation = null,
+                            rotation = rotation,
                             rotateWithUser = rotateWithUserAzimuth,
                             tint = feature.getIconColor(),
                             onClickFn = if (isClickable) {
@@ -207,7 +209,8 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                             point.coordinate,
                             name.trim(),
                             color,
-                            size = size * 0.75f
+                            size = size * 0.75f,
+                            rotation = rotation
                         ) {
                             onClickListener(feature)
                         }
