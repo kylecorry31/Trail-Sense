@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.domain
 import android.content.Context
 import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
@@ -95,6 +96,29 @@ class TideService(private val context: Context) {
         }
     }
 
+    suspend fun getPhase(
+        table: TideTable,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ): Float? {
+        // High = 0
+        // Falling = 90
+        // Low = 180
+        // Rising = 270
+        val next = getNextTide(table, time) ?: return null
+        val previous =
+            getPreviousTide(table, time, type = if (next.isHigh) TideType.Low else TideType.High)
+                ?: return null
+
+        val total = Duration.between(previous.time, next.time).toMillis().toDouble()
+        val delta = Duration.between(previous.time, time).toMillis().toDouble()
+        val progress = (delta / total).toFloat()
+        return if (next.isHigh) {
+            SolMath.map(progress, 0f, 1f, 180f, 270f)
+        } else {
+            SolMath.map(progress, 0f, 1f, 0f, 180f)
+        }
+    }
+
     suspend fun isRising(table: TideTable, time: ZonedDateTime = ZonedDateTime.now()): Boolean {
         return getNextTide(table, time)?.isHigh ?: false
     }
@@ -107,18 +131,50 @@ class TideService(private val context: Context) {
     private suspend fun getNextTide(
         table: TideTable,
         time: ZonedDateTime,
-        iteration: Int = 0
+        iteration: Int = 0,
+        type: TideType? = null
     ): Tide? {
         if (iteration >= maxSearchIterations) {
             return null
         }
-
+        val isTypeHigh = if (type == null) {
+            null
+        } else {
+            type == TideType.High
+        }
         val todayTides = getTides(table, time.toLocalDate())
-        val next = todayTides.firstOrNull { it.time >= time }
+        val next =
+            todayTides.firstOrNull { it.time >= time && (isTypeHigh == null || it.isHigh == isTypeHigh) }
         return next ?: getNextTide(
             table,
             time.toLocalDate().plusDays(1).atStartOfDay().atZone(time.zone),
-            iteration + 1
+            iteration + 1,
+            type
+        )
+    }
+
+    private suspend fun getPreviousTide(
+        table: TideTable,
+        time: ZonedDateTime,
+        iteration: Int = 0,
+        type: TideType? = null
+    ): Tide? {
+        if (iteration >= maxSearchIterations) {
+            return null
+        }
+        val isTypeHigh = if (type == null) {
+            null
+        } else {
+            type == TideType.High
+        }
+        val todayTides = getTides(table, time.toLocalDate())
+        val previous =
+            todayTides.lastOrNull { it.time <= time && (isTypeHigh == null || it.isHigh == isTypeHigh) }
+        return previous ?: getPreviousTide(
+            table,
+            time.toLocalDate().minusDays(1).atStartOfDay().atZone(time.zone),
+            iteration + 1,
+            type
         )
     }
 

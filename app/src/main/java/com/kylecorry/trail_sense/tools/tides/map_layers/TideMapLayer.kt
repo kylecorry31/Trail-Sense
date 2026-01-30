@@ -25,11 +25,15 @@ class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource(), layerI
         super.setPreferences(preferences)
         source.showModeledTides =
             preferences.getBoolean(SHOW_MODELED_TIDES, DEFAULT_SHOW_MODELED_TIDES)
+        source.showPhase =
+            preferences.getBoolean(SHOW_PHASE, DEFAULT_SHOW_PHASE)
     }
 
     companion object {
         const val LAYER_ID = "tide"
         const val SHOW_MODELED_TIDES = "show_modeled_tides"
         const val DEFAULT_SHOW_MODELED_TIDES = false
+        const val SHOW_PHASE = "show_phase"
+        const val DEFAULT_SHOW_PHASE = false
     }
 }

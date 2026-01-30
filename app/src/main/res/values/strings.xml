@@ -1826,6 +1826,7 @@
     <string name="multi_direction_shading">Multi-direction shading</string>
     <string name="attribution">Attribution</string>
     <string name="show_modeled_tides">Show modeled tides on coastline</string>
+    <string name="show_tide_phase">Show tide phase</string>
     <string name="map_layer_base_map_description">Low resolution colored world map</string>
     <string name="map_layer_elevation_description">Color-coded elevations from the digital elevation model</string>
     <string name="map_layer_hillshade_description">Shaded terrain to visualize elevation changes</string>
