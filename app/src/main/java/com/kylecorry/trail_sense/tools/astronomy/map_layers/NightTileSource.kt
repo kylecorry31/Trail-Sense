@@ -15,7 +15,7 @@ import java.time.Instant
 class NightTileSource : TileSource {
 
     var smooth = false
-    private val colorMap = AlphaColorMap()
+    private val colorMap = AlphaColorMap(maxAlpha = 200)
     private val astronomy = AstronomyService()
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {

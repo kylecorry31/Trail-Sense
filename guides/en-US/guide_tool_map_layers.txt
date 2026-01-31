@@ -94,6 +94,11 @@ Settings:
 
 - **Smooth**: If enabled, the eclipse visibility will be smoothed so you can better see gradual changes. Makes it harder to see where the total eclipse is though.
 
+## Lunar Eclipse
+This layer shows the current lunar eclipse visibility.
+
+Orange = eclipse is visible
+
 ## Night
 This layer shows where it is currently nighttime based on the sun's altitude.
 
