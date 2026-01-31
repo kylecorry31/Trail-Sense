@@ -40,7 +40,7 @@ class NightTileSource : TileSource {
             tile.size,
             Bitmap.Config.ARGB_8888,
             padding = 2,
-            useBilinearInterpolation = smooth,
+            smoothPixelEdges = !smooth,
             getValues = TileImageUtils.parallelGridEvaluation { lat, lon ->
                 astronomy.getSunAltitude(Coordinate(lat, lon), time)
             }

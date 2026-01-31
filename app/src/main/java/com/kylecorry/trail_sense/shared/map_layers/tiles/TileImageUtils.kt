@@ -43,6 +43,7 @@ object TileImageUtils {
         padding: Int = 0,
         normalizeLongitudes: Boolean = true,
         useBilinearInterpolation: Boolean = true,
+        smoothPixelEdges: Boolean = false,
         getValues: suspend (latitudes: DoubleArray, longitudes: DoubleArray) -> FloatBitmap,
         getColor: suspend (x: Int, y: Int, getValue: (x: Int, y: Int) -> Float) -> Int
     ): Bitmap = onDefault {
@@ -95,7 +96,13 @@ object TileImageUtils {
         val imageBounds = CoordinateBounds(north, east, south, west)
 
         bitmap.applyOperations(
-            CropTile(imageBounds, bounds, size, useBilinearInterpolation),
+            CropTile(
+                imageBounds,
+                bounds,
+                size,
+                useBilinearInterpolation,
+                smoothPixelEdges
+            ),
             Convert(config)
         )
     }
