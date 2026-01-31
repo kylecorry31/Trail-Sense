@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.os.Bundle
 import androidx.core.graphics.alpha
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
@@ -36,7 +37,7 @@ class PhotoMapTileSourceSelector(
 
     private var recentMaps = ConcurrentLinkedQueue<PhotoMap>()
 
-    override suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val loaders = getRegionLoaders(tile.getBounds())
 
         val maps = loaders.map { it.map }.distinct()

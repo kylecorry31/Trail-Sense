@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -28,7 +29,7 @@ class PhotoMapTileSource : TileSource {
         decoderCache.recycleInactive(emptyList())
     }
 
-    override suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val selector = lock.withLock {
             if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || filter != lastFilter) {
                 val repo = AppServiceRegistry.get<MapRepo>()
@@ -46,6 +47,6 @@ class PhotoMapTileSource : TileSource {
             }
             internalSelector
         }
-        return selector?.loadTile(tile)
+        return selector?.loadTile(tile, params)
     }
 }

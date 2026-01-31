@@ -13,7 +13,8 @@ class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource(), layerI
     }
 
     override fun start() {
-        timer.interval(Duration.ofMinutes(10))
+        super.start()
+        timer.interval(REFRESH_INTERVAL, REFRESH_INTERVAL)
     }
 
     override fun stop() {
@@ -35,5 +36,6 @@ class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource(), layerI
         const val DEFAULT_SHOW_MODELED_TIDES = false
         const val SHOW_PHASE = "show_phase"
         const val DEFAULT_SHOW_PHASE = false
+        private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(10)
     }
 }

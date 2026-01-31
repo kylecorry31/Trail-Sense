@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
+import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -42,7 +43,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     private var minZoomLevel: Int? = null
 ) : IAsyncLayer {
-
+    private var time = Instant.now()
     private var loader: TileLoader? = null
     private val queue = TileQueue()
     private val layerPaint = Paint()
@@ -154,7 +155,7 @@ abstract class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles)
+            loader?.loadTiles(desiredTiles, time)
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
@@ -363,6 +364,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override fun start() {
+        resetTime()
         loader = TileLoader(
             source,
             queue,
@@ -376,13 +378,27 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override fun stop() {
+        loadTimer.stop()
         taskRunner.stop()
         loader?.clearCache()
         loader = null
         queue.clear()
         // TODO: This isn't the ideal place to do cleanup since garbage can build up. Likely need some sort of LRU cache for all intermediates.
         sourceCleanupTask.start()
+    }
+
+    fun refresh() {
+        resetTime()
         loadTimer.stop()
+        queue.clear()
+        loader?.clearCache()
+        loadTimer.interval(100)
+        invalidate()
+        notifyListeners()
+    }
+
+    fun resetTime() {
+        time = Instant.now()
     }
 
     override fun setPreferences(preferences: Bundle) {
