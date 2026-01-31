@@ -96,8 +96,9 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click("Additional layers")
         click("Aspect")
         click("Cell towers")
+        click("Night")
         click("Ruggedness")
-        click("Sightings")
+        scrollUntil { click("Sightings") }
         scrollUntil { hasText("Slope") }
         scrollUntil { click("Solar eclipse") }
         clickOk()

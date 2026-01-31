@@ -94,6 +94,15 @@ Settings:
 
 - **Smooth**: If enabled, the eclipse visibility will be smoothed so you can better see gradual changes. Makes it harder to see where the total eclipse is though.
 
+## Night
+This layer shows where it is currently nighttime based on the sun's altitude.
+
+Black = sun well below horizon, Gray = sun just below horizon
+
+Settings:
+
+- **Smooth**: If enabled, the darkness will be smoothed so you can better see gradual changes between day and night.
+
 ## Cell towers
 This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can click on a cell tower to navigate to it.
 

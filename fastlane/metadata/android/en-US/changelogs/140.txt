@@ -1,5 +1,5 @@
 Map layers
-- New layers: slope, aspect, ruggedness index, sightings (field guide), and solar eclipse
+- New layers: slope, aspect, ruggedness index, sightings (field guide), night, and solar eclipse
 - Layer management (add, remove, reorder)
 - Hillshade multi-direction shading option
 - Tide phase display option
