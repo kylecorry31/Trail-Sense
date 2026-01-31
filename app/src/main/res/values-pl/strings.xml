@@ -255,18 +255,18 @@
     <string name="solar_panel_instructions">Połóż telefon na powierzchni panelu słonecznego.</string>
     <string name="contents">Treść</string>
     <string name="tool_metal_detector_title">Wykrywacz metalu</string>
-    <string name="metal_detector_disclaimer">Wykrywa jedynie metale magnetyczne (np. żelazo, stal)</string>
+    <string name="metal_detector_disclaimer">Wykrywa tylko metale magnetyczne (np. żelazo)</string>
     <string name="tool_triangulate_title">Triangulacja położenia</string>
     <string name="tool_category_angles">Kąty</string>
     <string name="tool_category_signaling">Sygnalizacja</string>
     <string name="note_title_hint">Tytuł</string>
     <string name="map_scale_verbal">Mianowana</string>
     <string name="map_scale_ratio">Liczbowa</string>
-    <string name="tool_white_noise_title">Szum biały</string>
+    <string name="tool_white_noise_title">Biały szum</string>
     <string name="map_scale_title">Skala mapy</string>
     <string name="compass_declination">Deklinacja magnetyczna</string>
     <string name="battery_health">Stan zdrowia baterii: %s</string>
-    <string name="battery_health_dead">Wyładowana</string>
+    <string name="battery_health_dead">Rozładowana</string>
     <string name="pref_backtrack_enabled_summary">Rejestruj historię lokalizacji</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefonu (nieskalibrowana)</string>
@@ -274,9 +274,9 @@
     <string name="max_temp_uncalibrated">Maksymalna temperatura telefonu (nieskalibrowana)</string>
     <string name="max_temp_calibrated">Maksymalna temperatura otoczenia (skalibrowana)</string>
     <string name="tool_white_noise_summary">Pomaga zasnąć</string>
-    <string name="clock_sync_instructions">Ustaw czas na %s, wtedy kiedy pojawi się powiadomienie</string>
+    <string name="clock_sync_instructions">Ustaw czas na %s, gdy pojawi się powiadomienie</string>
     <string name="clock_sync_notification">Synchronizacja zegara - %s</string>
-    <string name="notification_channel_clock_sync_description">Powiadomienie o synchronizacji zegara z czasem GPS</string>
+    <string name="notification_channel_clock_sync_description">Powiadomienie synchronizacji zegara z czasem GPS</string>
     <string name="notification_channel_clock_sync">Synchronizacja zegara</string>
     <string name="pip_notification_scheduled">Powiadomienie zaplanowane na %s</string>
     <string name="pip_button">Zaktualizuj czas systemowy</string>
@@ -293,7 +293,7 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
-    <string name="clock_sync_time_settings">Przejść do ustawień czasu\?</string>
+    <string name="clock_sync_time_settings">Przejść do ustawień daty i godziny?</string>
     <string name="threshold">Próg</string>
     <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia na poziomie morza</string>
     <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
@@ -304,19 +304,7 @@
     <string name="create_at_distance">Utwórz w odległości</string>
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
-    <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00)
-\n
-\nStopnie, minuty (np. 1°23.12\'N, 3°12.1\'W)
-\n
-\nStopnie, minuty, sekundy (np. 1°23\'12.1\"N, 3°12\'1.2\"W)
-\n
-\nUTM (np. 03T 12345E 67890N)
-\n
-\nMGRS (np. 27PXM 09601 05579)
-\n
-\nUSNG (np. 14S NJ 39521 41744)
-\n
-\nOSGB (np. TG 51409 13177)</string>
+    <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00) \n \nStopnie | Minuty (np. 1°23.12\'N, 3°12.1\'W) \n \nStopnie | Minuty | Sekundy (np. 1°23\'12.1\"N, 3°12\'1.2\"W) \n \nUTM (np. 03T 12345E 67890N) \n \nMGRS (np. 27PXM 09601 05579) \n \nUSNG (np. 14S NJ 39521 41744) \n \nOSGB (np. TG 51409 13177)</string>
     <string name="create_beacon">Dodaj punkt nawigacyjny</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
     <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
@@ -325,7 +313,7 @@
     <string name="tool_thermometer_title">Termometr</string>
     <string name="battery_power_usb">USB</string>
     <string name="coordinate_format_mgrs">MGRS</string>
-    <string name="pref_require_satellites_description">Wymaga co najmniej 4 satelitów, poprawia dokładność</string>
+    <string name="pref_require_satellites_description">Wymaga przynajmniej 4 satelitów, poprawia dokładność</string>
     <string name="pref_low_power_mode_summary">Wyłącza niektóre funkcje w celu oszczędzania energii</string>
     <string name="dialog_leave">Opuść</string>
     <string name="unsaved_changes_message">Wprowadzone zmiany nie zostaną zapisane.</string>
@@ -389,7 +377,7 @@
     <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt orientacyjny\?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
-    <string name="location_override_updated">Zaktualizowano zastępowanie lokalizacji</string>
+    <string name="location_override_updated">Zaktualizowano nadpisanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Używaj narzędzia tylko, gdy jest to bezpieczne oraz sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
     <string name="pref_elevation_override_sea_level_title">Użycie znanego ciśnienia na poziomie morza</string>
     <string name="elevation_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
@@ -495,7 +483,7 @@
     <string name="whistle_signal_where_are_you">Gdzie jesteś\?</string>
     <string name="weather_monitor">Monitorowanie pogody</string>
     <string name="no_data">Brak danych</string>
-    <string name="backtrack">Ślad powrotny</string>
+    <string name="backtrack">Szlak powrotny</string>
     <string name="pref_nmea_elevation_title">Przesunięcia wysokości NMEA</string>
     <string name="solid">Stały</string>
     <string name="arrow">Strzałka</string>
@@ -540,9 +528,9 @@
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
     <string name="pref_nearby_radar_title">Pokaż pobliski kompas radarowy</string>
     <string name="cirrocumulus_desc">Tworzy falistą taflę, chmury wyglądają niemal dwuwymiarowo.</string>
-    <string name="backtrack_disabled_low_power_toast">Funkcja śladu powrotnego jest wyłączona w trybie oszczędzania energii</string>
-    <string name="pref_backtrack_frequency_title">Interwał śladu powrotnego</string>
-    <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji śladu powrotnego</string>
+    <string name="backtrack_disabled_low_power_toast">Funkcja szlaku powrotnego jest wyłączona w trybie oszczędzania energii</string>
+    <string name="pref_backtrack_frequency_title">Interwał szlaku powrotnego</string>
+    <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji szlaku powrotnego</string>
     <string name="unit_yards">Jardy</string>
     <string name="yards_format">%s yd</string>
     <string name="find_next_occurrence">Znajdź następne wystąpienie</string>
