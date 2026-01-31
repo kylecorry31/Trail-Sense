@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.analysis.Trigonometry
@@ -25,7 +26,7 @@ class HillshadeMapTileSource : TileSource {
     var multiDirectionShading: Boolean = false
     private val astronomy = AstronomyService()
 
-    override suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
         val zFactor = 3f

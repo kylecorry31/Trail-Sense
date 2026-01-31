@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
@@ -24,7 +25,7 @@ class SlopeMapTileSource : TileSource {
     var smooth = true
     var hideFlatGround = false
 
-    override suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

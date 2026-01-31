@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
+import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
@@ -36,7 +37,7 @@ class AspectMapTileSource : TileSource {
         )
     )
 
-    override suspend fun loadTile(tile: Tile): Bitmap? {
+    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

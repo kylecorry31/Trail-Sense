@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
+import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
@@ -16,6 +17,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.andromeda_temp.Pad
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
+import java.time.Instant
 
 class TileLoader(
     private val source: TileSource,
@@ -60,7 +62,7 @@ class TileLoader(
         tileCache.evictAll()
     }
 
-    fun loadTiles(tiles: List<Tile>) {
+    fun loadTiles(tiles: List<Tile>, time: Instant) {
         val imageTiles = tiles.map { tile ->
             val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
             tileCache.getOrPut(key) {
@@ -68,7 +70,7 @@ class TileLoader(
                     key = key,
                     tile = tile
                 ) {
-                    val image = loadTile(source, tile)
+                    val image = loadTile(source, tile, time)
                     image?.applyOperationsOrNull(
                         Resize(
                             tile.size,
@@ -86,18 +88,19 @@ class TileLoader(
         imageTiles.forEach { tileQueue.enqueue(it) }
     }
 
-    private suspend fun loadTile(sourceSelector: TileSource, tile: Tile): Bitmap? {
+    private suspend fun loadTile(sourceSelector: TileSource, tile: Tile, time: Instant): Bitmap? {
+        val params = bundleOf(TileSource.PARAM_TIME to time.toEpochMilli())
         val cacheKey = key
         if (cacheKey != null && persistentCache != null) {
             return try {
                 persistentCache.getOrPut(cacheKey, tile) {
-                    sourceSelector.loadTile(tile) ?: throw NoSuchElementException()
+                    sourceSelector.loadTile(tile, params) ?: throw NoSuchElementException()
                 }
             } catch (_: NoSuchElementException) {
                 null
             }
         }
-        return sourceSelector.loadTile(tile)
+        return sourceSelector.loadTile(tile, params)
     }
 
     private fun populateBorderAndNeighbors(tile: ImageTile) {
