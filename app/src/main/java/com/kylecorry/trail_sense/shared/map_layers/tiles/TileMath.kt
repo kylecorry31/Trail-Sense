@@ -36,8 +36,14 @@ object TileMath {
         val minLat = max(bounds.south, MIN_LATITUDE)
         val maxLat = min(bounds.north, MAX_LATITUDE)
 
-        val (xMin, yMax) = getTile(minLat, bounds.west, zoom)
-        val (xMax, yMin) = getTile(maxLat, bounds.east, zoom)
+        val southWest = getTile(minLat, bounds.west, zoom)
+        val northEast = getTile(maxLat, bounds.east, zoom)
+
+        val n = 1 shl zoom
+        val xMin = southWest.x.coerceAtMost(n - 1)
+        val xMax = northEast.x.coerceAtMost(n - 1)
+        val yMin = northEast.y.coerceAtMost(n - 1)
+        val yMax = southWest.y.coerceAtMost(n - 1)
 
         // If range is greater than 100, return an empty list
         if (xMax - xMin > 100 || yMax - yMin > 100) {
