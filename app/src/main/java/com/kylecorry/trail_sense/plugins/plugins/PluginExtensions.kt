@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.plugins.plugins
 
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.ipc.InterprocessCommunicationRequest
 import com.kylecorry.andromeda.ipc.InterprocessCommunicationResponse
 import com.kylecorry.andromeda.ipc.client.InterprocessCommunicationClient
 import com.kylecorry.andromeda.json.fromJson
@@ -47,7 +48,7 @@ suspend fun ipcSend(
         setPackage(packageId)
     }
     return InterprocessCommunicationClient(context, intent).use {
-        it.connectAndSend(route, bytes)
+        it.connectAndSend(route, InterprocessCommunicationRequest(payload = bytes))
     }
 }
 

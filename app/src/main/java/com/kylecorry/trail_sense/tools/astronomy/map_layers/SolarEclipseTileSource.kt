@@ -33,7 +33,7 @@ class SolarEclipseTileSource : TileSource {
             return null
         }
 
-        val resolution = TileImageUtils.getRequiredResolution(tile, if (smooth) 10 else 20)
+        val resolution = TileImageUtils.getRequiredResolution(tile, if (smooth) 5 else 10)
         return TileImageUtils.getSampledImage(
             tile.getBounds(),
             resolution,
