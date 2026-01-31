@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.andromeda_temp
 import android.graphics.Bitmap
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
+import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.sol.math.SolMath
@@ -13,7 +14,8 @@ class CropTile(
     private val imageBounds: CoordinateBounds,
     private val tileBounds: CoordinateBounds,
     private val tileSize: Size,
-    private val useBilinearInterpolation: Boolean = true
+    private val useBilinearInterpolation: Boolean = true,
+    private val smoothPixelEdges: Boolean = false
 ) : BitmapOperation {
 
     override fun execute(bitmap: Bitmap): Bitmap {
@@ -34,9 +36,15 @@ class CropTile(
         val newCropX = cropX * scaleX
         val newCropY = cropY * scaleY
 
+        val desiredSize = Size(newWidth.roundToInt(), newHeight.roundToInt())
+
         return bitmap.applyOperations(
+            Conditional(
+                smoothPixelEdges,
+                PixelPreservationUpscale(desiredSize)
+            ),
             Resize(
-                Size(newWidth.roundToInt(), newHeight.roundToInt()),
+                desiredSize,
                 true,
                 useBilinearInterpolation
             ),

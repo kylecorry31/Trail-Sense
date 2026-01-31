@@ -33,14 +33,14 @@ class NightTileSource : TileSource {
             return null
         }
 
-        val resolution = TileImageUtils.getRequiredResolution(tile, if (smooth) 10 else 20)
+        val resolution = TileImageUtils.getRequiredResolution(tile, if (smooth) 5 else 10)
         return TileImageUtils.getSampledImage(
             tile.getBounds(),
             resolution,
             tile.size,
             Bitmap.Config.ARGB_8888,
             padding = 2,
-            useBilinearInterpolation = smooth,
+            smoothPixelEdges = !smooth,
             getValues = TileImageUtils.parallelGridEvaluation { lat, lon ->
                 astronomy.getSunAltitude(Coordinate(lat, lon), time)
             }

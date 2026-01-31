@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.plugin.sample.service
 
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.ipc.InterprocessCommunicationRequest
 import com.kylecorry.andromeda.ipc.client.InterprocessCommunicationClient
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.plugins.plugins.payloadAsString
@@ -18,7 +19,11 @@ class SamplePluginService(private val context: Context) : Closeable {
 
     // Example of a custom endpoint that stays connected (for faster communication)
     suspend fun ping(): String? {
-        return service.connectAndSend("/ping", null, stayConnected = true).payloadAsString()
+        return service.connectAndSend(
+            "/ping",
+            InterprocessCommunicationRequest(),
+            stayConnected = true
+        ).payloadAsString()
     }
 
     override fun close() {
