@@ -19,6 +19,11 @@ import com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetSunAndMoonChar
 import com.kylecorry.trail_sense.tools.astronomy.widgets.MoonToolWidgetView
 import com.kylecorry.trail_sense.tools.astronomy.widgets.SunAndMoonChartToolWidgetView
 import com.kylecorry.trail_sense.tools.astronomy.widgets.SunToolWidgetView
+import com.kylecorry.trail_sense.tools.astronomy.map_layers.SolarEclipseLayer
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -141,6 +146,22 @@ object AstronomyToolRegistration : ToolRegistration {
                     BROADCAST_SUNSET_ALERTS_STATE_CHANGED,
                     "Sunset alerts state changed"
                 )
+            ),
+            mapLayers = listOf(
+                MapLayerDefinition(
+                    SolarEclipseLayer.LAYER_ID,
+                    context.getString(R.string.solar_eclipse),
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_solar_eclipse_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = SolarEclipseLayer.SMOOTH,
+                            title = context.getString(R.string.smooth),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = SolarEclipseLayer.DEFAULT_SMOOTH,
+                        ),
+                    )
+                ) { SolarEclipseLayer() }
             ),
             singletons = listOf(
                 AstronomySubsystem::getInstance

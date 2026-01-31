@@ -98,7 +98,8 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click("Cell towers")
         click("Ruggedness")
         click("Sightings")
-        click("Slope")
+        scrollUntil { hasText("Slope") }
+        scrollUntil { click("Solar eclipse") }
         clickOk()
 
         // Close sheet

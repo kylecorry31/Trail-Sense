@@ -36,8 +36,8 @@ object TileMath {
         val minLat = max(bounds.south, MIN_LATITUDE)
         val maxLat = min(bounds.north, MAX_LATITUDE)
 
-        val (xMin, yMax) = latLonToTileXY(minLat, bounds.west, zoom)
-        val (xMax, yMin) = latLonToTileXY(maxLat, bounds.east, zoom)
+        val (xMin, yMax) = getTile(minLat, bounds.west, zoom)
+        val (xMax, yMin) = getTile(maxLat, bounds.east, zoom)
 
         // If range is greater than 100, return an empty list
         if (xMax - xMin > 100 || yMax - yMin > 100) {
@@ -62,10 +62,10 @@ object TileMath {
     ): CoordinateBounds {
         val actualZoom = zoom.coerceAtMost(maxZoom)
         val northWestTile =
-            latLonToTileXY(bounds.north, bounds.west, actualZoom).getNeighbor(-growBy, -growBy)
+            getTile(bounds.north, bounds.west, actualZoom).getNeighbor(-growBy, -growBy)
                 .getBounds()
         val southEastTile =
-            latLonToTileXY(bounds.south, bounds.east, actualZoom).getNeighbor(growBy, growBy)
+            getTile(bounds.south, bounds.east, actualZoom).getNeighbor(growBy, growBy)
                 .getBounds()
         return CoordinateBounds(
             northWestTile.north,
@@ -75,7 +75,7 @@ object TileMath {
         )
     }
 
-    fun latLonToTileXY(lat: Double, lon: Double, zoom: Int): Tile {
+    fun getTile(lat: Double, lon: Double, zoom: Int): Tile {
         val latRad = Math.toRadians(lat)
         val n = 1 shl zoom
         val x = ((lon + 180.0) / 360.0 * n).toInt()
