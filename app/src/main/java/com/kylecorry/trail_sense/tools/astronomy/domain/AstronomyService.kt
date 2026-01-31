@@ -279,6 +279,13 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         }
     }
 
+    fun getSolarEclipseObscuration(
+        location: Coordinate,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ): Float? {
+        return Astronomy.getEclipseObscuration(time, location, EclipseType.Solar)
+    }
+
     fun getVisibleStars(
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now(),

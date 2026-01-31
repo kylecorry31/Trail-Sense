@@ -4,6 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Resize
@@ -31,6 +33,7 @@ class TileLoader(
     private val neighborPaint = Paint().apply {
         isFilterBitmap = false
         isAntiAlias = false
+        xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC)
     }
     private val neighborOffsets = listOf(
         -1 to -1,

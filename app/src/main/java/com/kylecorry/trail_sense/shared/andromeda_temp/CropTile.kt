@@ -12,7 +12,8 @@ import kotlin.math.roundToInt
 class CropTile(
     private val imageBounds: CoordinateBounds,
     private val tileBounds: CoordinateBounds,
-    private val tileSize: Size
+    private val tileSize: Size,
+    private val useBilinearInterpolation: Boolean = true
 ) : BitmapOperation {
 
     override fun execute(bitmap: Bitmap): Bitmap {
@@ -36,7 +37,8 @@ class CropTile(
         return bitmap.applyOperations(
             Resize(
                 Size(newWidth.roundToInt(), newHeight.roundToInt()),
-                true
+                true,
+                useBilinearInterpolation
             ),
             Crop(
                 newCropX.toFloat(),

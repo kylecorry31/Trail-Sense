@@ -1843,6 +1843,7 @@
     <string name="map_layer_cell_towers_description">Approximate cell tower locations</string>
     <string name="map_layer_navigation_description">Line to your navigation destination</string>
     <string name="map_layer_field_guide_sightings_description">Your field guide sightings</string>
+    <string name="map_layer_solar_eclipse_description">Solar eclipse visibility path</string>
     <string name="show_images">Show images</string>
     <string name="high_resolution">High resolution</string>
     <string name="copy_error">Copy error</string>
