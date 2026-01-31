@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetSunAndMoonChar
 import com.kylecorry.trail_sense.tools.astronomy.widgets.MoonToolWidgetView
 import com.kylecorry.trail_sense.tools.astronomy.widgets.SunAndMoonChartToolWidgetView
 import com.kylecorry.trail_sense.tools.astronomy.widgets.SunToolWidgetView
+import com.kylecorry.trail_sense.tools.astronomy.map_layers.NightLayer
 import com.kylecorry.trail_sense.tools.astronomy.map_layers.SolarEclipseLayer
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
@@ -161,7 +162,21 @@ object AstronomyToolRegistration : ToolRegistration {
                             defaultValue = SolarEclipseLayer.DEFAULT_SMOOTH,
                         ),
                     )
-                ) { SolarEclipseLayer() }
+                ) { SolarEclipseLayer() },
+                MapLayerDefinition(
+                    NightLayer.LAYER_ID,
+                    context.getString(R.string.night),
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_night_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = NightLayer.SMOOTH,
+                            title = context.getString(R.string.smooth),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = NightLayer.DEFAULT_SMOOTH,
+                        ),
+                    )
+                ) { NightLayer() }
             ),
             singletons = listOf(
                 AstronomySubsystem::getInstance
