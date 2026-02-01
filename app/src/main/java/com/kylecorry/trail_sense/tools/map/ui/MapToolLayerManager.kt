@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
+import java.time.Instant
 
 class MapToolLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
@@ -73,6 +74,10 @@ class MapToolLayerManager {
 
     fun onBoundsChanged() {
         distanceLayer.invalidate()
+    }
+
+    fun setTime(view: IMapView, time: Instant?) {
+        view.layerManager.setTime(time)
     }
 
     fun setSelectedLocation(location: Coordinate?) {

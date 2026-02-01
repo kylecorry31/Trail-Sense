@@ -6,12 +6,27 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 
+import java.time.Instant
+
 interface ILayer {
 
     /**
      * The ID of the layer
      */
     val layerId: String
+
+    /**
+     * Whether the layer is time dependent (changes with time)
+     */
+    val isTimeDependent: Boolean
+        get() = false
+
+    /**
+     * Set the time of the layer
+     */
+    fun setTime(time: Instant?) {
+        // Do nothing
+    }
 
     /**
      * Set the preferences of the layer

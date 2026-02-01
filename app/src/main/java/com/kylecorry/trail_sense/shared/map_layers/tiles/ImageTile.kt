@@ -7,10 +7,12 @@ class ImageTile(
     val tile: Tile,
     private var image: Bitmap? = null,
     var state: TileState = TileState.Idle,
-    var loadFunction: suspend () -> Bitmap?
+    loadFunction: (suspend () -> Bitmap?)?
 ) {
 
     private val lock = Any()
+
+    private var _loadFunction: (suspend () -> Bitmap?)? = loadFunction
 
     var loadingStartTime: Long? = null
     fun getAlpha(): Int {
@@ -29,12 +31,41 @@ class ImageTile(
         return getAlpha() != 255
     }
 
+    fun hasImage(): Boolean {
+        synchronized(lock) {
+            return image != null
+        }
+    }
+
+    fun setLoader(loader: (suspend () -> Bitmap?)?) {
+        synchronized(lock) {
+            _loadFunction = loader
+        }
+    }
+
+    fun invalidate() {
+        synchronized(lock) {
+            state = TileState.Stale
+            _loadFunction = null
+        }
+    }
+
     suspend fun load() {
-        val wasIdle = state == TileState.Idle
+        var wasIdle = false
+        val loader = synchronized(lock) {
+            if (_loadFunction == null) {
+                state = TileState.Stale
+                return
+            }
+            wasIdle = state == TileState.Idle
+            state = TileState.Loading
+            _loadFunction
+        }
+
         var hasImage = false
         var wasSuccess = false
         try {
-            val newImage = loadFunction()
+            val newImage = loader?.invoke()
             synchronized(lock) {
                 image?.recycle()
                 image = newImage
@@ -51,11 +82,16 @@ class ImageTile(
         if (wasIdle) {
             loadingStartTime = System.currentTimeMillis()
         }
-        state = when {
-            wasIdle && state == TileState.Stale -> TileState.Stale
-            wasSuccess && hasImage -> TileState.Loaded
-            wasSuccess -> TileState.Empty
-            else -> TileState.Error
+
+        synchronized(lock) {
+            if (state == TileState.Stale) {
+                return
+            }
+            state = when {
+                wasSuccess && hasImage -> TileState.Loaded
+                wasSuccess -> TileState.Empty
+                else -> TileState.Error
+            }
         }
 
     }

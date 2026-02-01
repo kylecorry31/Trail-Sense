@@ -68,13 +68,14 @@ class TileLoader(
             val newTile = tileCache.getOrPut(key) {
                 ImageTile(
                     key = key,
-                    tile = tile
-                ) {
-                    loadTile(source, tile, time)
-                }
+                    tile = tile,
+                    loadFunction = {
+                        loadTile(source, tile, time)
+                    }
+                )
             }
             // Replace the load function every cycle to ensure it uses the latest parameters
-            newTile.loadFunction = {
+            newTile.setLoader {
                 loadTile(source, tile, time)
             }
             newTile

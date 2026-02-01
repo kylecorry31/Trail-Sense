@@ -6,6 +6,8 @@ import java.time.Duration
 
 class LunarEclipseLayer : TileMapLayer<LunarEclipseTileSource>(LunarEclipseTileSource()) {
 
+    override val isTimeDependent = true
+
     override val layerId: String = LAYER_ID
 
     private val timer = CoroutineTimer {

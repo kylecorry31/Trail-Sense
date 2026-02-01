@@ -7,6 +7,8 @@ import java.time.Duration
 
 class NightLayer : TileMapLayer<NightTileSource>(NightTileSource()) {
 
+    override val isTimeDependent = true
+
     override val layerId: String = LAYER_ID
 
     private val timer = CoroutineTimer {

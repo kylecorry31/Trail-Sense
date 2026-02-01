@@ -48,6 +48,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
+import java.time.Instant
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     override fun update() {
@@ -55,10 +56,33 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val lockButton = useView<FloatingActionButton>(R.id.lock_btn)
         val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
         val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
+        val timeButton = useView<FloatingActionButton>(R.id.time_btn)
         val menuButton = useView<FloatingActionButton>(R.id.menu_btn)
         val navigationSheetView = useView<NavigationSheetView>(R.id.navigation_sheet)
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
         val attributionView = useView<TextView>(R.id.map_attribution)
+        val timeSheet = useView<MapTimeSheet>(R.id.time_sheet)
+        val (mapTime, setMapTime) = useState<Instant?>(null)
+
+        useEffect(timeButton, timeSheet, mapTime) {
+            CustomUiUtils.setButtonState(timeButton, mapTime != null || timeSheet.isVisible)
+
+            timeButton.setOnClickListener {
+                if (timeSheet.isVisible) {
+                    setMapTime(null)
+                    timeSheet.hide()
+                } else {
+                    timeSheet.setTime(mapTime)
+                    timeSheet.show()
+                }
+                CustomUiUtils.setButtonState(timeButton, mapTime != null || timeSheet.isVisible)
+            }
+
+            timeSheet.onTimeChanged = {
+                setMapTime(it)
+            }
+        }
+
         val navigation = useNavigationSensors(trueNorth = true)
         val context = useAndroidContext()
         val sensors = useService<SensorService>()
@@ -94,6 +118,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
         // Layers
         val manager = useMemo { MapToolLayerManager() }
+        useEffect(manager, mapView, mapTime) {
+            manager.setTime(mapView, mapTime)
+        }
         useEffectWithCleanup(manager, mapView, resetOnResume) {
             manager.resume(context, mapView, this@MapFragment)
             return@useEffectWithCleanup {
