@@ -7,5 +7,8 @@ Map layers
 - Improve performance
 - Tap beacon for details rather than navigating
 
+Map
+- Adjust the display time for time-dependent layers
+
 Misc
 - Improve error handling
