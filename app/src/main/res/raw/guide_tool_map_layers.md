@@ -85,6 +85,29 @@ Settings:
 - **Show labels**: Determines if contour labels are shown on the map.
 - **Color**: The color of the contour lines, some options are color scales which change based on elevation.
 
+## Solar Eclipse
+This layer shows the current solar eclipse visibility.
+
+Black = total eclipse, Gray = partial eclipse
+
+Settings:
+
+- **Smooth**: If enabled, the eclipse visibility will be smoothed so you can better see gradual changes. Makes it harder to see where the total eclipse is though.
+
+## Lunar Eclipse
+This layer shows the current lunar eclipse visibility.
+
+Orange = eclipse is visible
+
+## Night
+This layer shows where it is currently nighttime based on the sun's altitude.
+
+Black = sun well below horizon, Gray = sun just below horizon
+
+Settings:
+
+- **Smooth**: If enabled, the darkness will be smoothed so you can better see gradual changes between day and night.
+
 ## Cell towers
 This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can click on a cell tower to navigate to it.
 
@@ -107,6 +130,7 @@ This layer shows visible tides. You can add new tides in the Tides tool.
 Settings:
 
 - **Show modeled tides on coastline**: If enabled, tides will be loaded from the built-in model on the coastline.
+- **Show tide phase**: If enabled, tides will display the current phase direction instead of the high/low tide icon.
 
 ## Sightings
 This layer shows your field guide sightings with location data. The icon displayed represents the classification of the field guide entry (plant, bird, mammal, etc.). You can click on a sighting to navigate to it.
