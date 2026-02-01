@@ -63,9 +63,18 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val attributionView = useView<TextView>(R.id.map_attribution)
         val timeSheet = useView<MapTimeSheet>(R.id.time_sheet)
         val (mapTime, setMapTime) = useState<Instant?>(null)
+        val (hasTimeDependentLayers, setHasTimeDependentLayers) = useState(false)
 
-        useEffect(timeButton, timeSheet, mapTime) {
-            CustomUiUtils.setButtonState(timeButton, mapTime != null || timeSheet.isVisible)
+        useEffect(timeButton, timeSheet, mapTime, hasTimeDependentLayers) {
+            timeButton.isVisible = hasTimeDependentLayers
+            if (hasTimeDependentLayers) {
+                CustomUiUtils.setButtonState(timeButton, mapTime != null || timeSheet.isVisible)
+            } else {
+                if (timeSheet.isVisible) {
+                    setMapTime(null)
+                    timeSheet.hide()
+                }
+            }
 
             timeButton.setOnClickListener {
                 if (timeSheet.isVisible) {
@@ -123,6 +132,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
         useEffectWithCleanup(manager, mapView, resetOnResume) {
             manager.resume(context, mapView, this@MapFragment)
+            setHasTimeDependentLayers(mapView.layerManager.getLayers().any { it.isTimeDependent })
             return@useEffectWithCleanup {
                 manager.pause(mapView)
             }
@@ -157,6 +167,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             manager.pause(mapView)
             layerEditSheet.setOnDismissListener {
                 manager.resume(context, mapView, this@MapFragment)
+                setHasTimeDependentLayers(mapView.layerManager.getLayers().any { it.isTimeDependent })
             }
             layerEditSheet.show(this)
         }
