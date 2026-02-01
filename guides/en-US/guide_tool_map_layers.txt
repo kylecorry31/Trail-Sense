@@ -102,6 +102,10 @@ This layer shows the lunar eclipse visibility (time dependent).
 
 Orange = eclipse is visible
 
+Settings:
+
+- **Show path**: If enabled, the path of the eclipse is shown instead of the current visibility.
+
 ## Night
 This layer shows where it is nighttime based on the sun's altitude (time dependent).
 

@@ -174,7 +174,15 @@ object AstronomyToolRegistration : ToolRegistration {
                     LunarEclipseLayer.LAYER_ID,
                     context.getString(R.string.lunar_eclipse),
                     layerType = MapLayerType.Tile,
-                    description = context.getString(R.string.map_layer_lunar_eclipse_description)
+                    description = context.getString(R.string.map_layer_lunar_eclipse_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = LunarEclipseLayer.SHOW_PATH,
+                            title = context.getString(R.string.show_path),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = LunarEclipseLayer.DEFAULT_SHOW_PATH,
+                        ),
+                    )
                 ) { LunarEclipseLayer() },
                 MapLayerDefinition(
                     NightLayer.LAYER_ID,

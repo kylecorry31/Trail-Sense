@@ -15,6 +15,7 @@ import java.time.ZonedDateTime
 
 class LunarEclipseTileSource : TileSource {
 
+    var showPath = false
     private val colorMap = AlphaColorMap(AppColor.Orange.color, 200)
     private val astronomy = AstronomyService()
 
@@ -57,7 +58,7 @@ class LunarEclipseTileSource : TileSource {
     private fun getEclipseObscuration(location: Coordinate, time: ZonedDateTime): Float? {
         val eclipse =
             astronomy.getLunarEclipse(location, time.toLocalDate()) ?: return null
-        if (time < eclipse.start || time > eclipse.end) {
+        if (!showPath && (time < eclipse.start || time > eclipse.end)) {
             return null
         }
         return eclipse.obscuration
