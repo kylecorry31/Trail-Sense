@@ -11,7 +11,9 @@ import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.views.DatePickerView
 import java.time.Instant
 import java.time.LocalTime
@@ -57,6 +59,17 @@ class MapTimeSheet(context: Context, attrs: AttributeSet?) : FrameLayout(context
                 currentTime = currentTime.with(time)
                 updateTimeText()
                 notifyChanged()
+            }
+        }
+
+        timeText.setOnClickListener {
+            val prefs = UserPreferences(context)
+            CustomUiUtils.pickTime(context, prefs.use24HourTime, currentTime.toLocalTime()) {
+                if (it != null) {
+                    currentTime = currentTime.with(it)
+                    updateUI()
+                    notifyChanged()
+                }
             }
         }
     }
