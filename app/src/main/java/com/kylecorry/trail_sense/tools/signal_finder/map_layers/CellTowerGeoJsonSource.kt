@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.signal_finder.map_layers
 
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
@@ -17,7 +18,8 @@ class CellTowerGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        zoom: Int
+        zoom: Int,
+        params: Bundle
     ): GeoJsonObject {
         val towers = CellTowerModel.getTowers(bounds)
         return GeoJsonFeatureCollection(

@@ -7,9 +7,10 @@ import java.time.Duration
 
 class TideMapLayer : GeoJsonLayer<TideGeoJsonSource>(TideGeoJsonSource(), layerId = LAYER_ID) {
 
+    override val isTimeDependent = true
+
     private val timer = CoroutineTimer {
-        invalidate()
-        notifyListeners()
+        refresh()
     }
 
     override fun start() {

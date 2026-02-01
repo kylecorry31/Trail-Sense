@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.map_layers
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -20,6 +21,8 @@ import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeComm
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 
+import java.time.Instant
+
 class TideGeoJsonSource : GeoJsonSource {
 
     var showModeledTides: Boolean = false
@@ -28,8 +31,10 @@ class TideGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        zoom: Int
+        zoom: Int,
+        params: Bundle
     ): GeoJsonObject {
+        val time = Instant.ofEpochMilli(params.getLong(GeoJsonSource.PARAM_TIME))
         val context = AppServiceRegistry.get<Context>()
         val tideService = TideService(context)
         val tables = LoadAllTideTablesCommand(context).execute() + getNearbyTideTables(
@@ -45,7 +50,7 @@ class TideGeoJsonSource : GeoJsonSource {
             val location = table.location ?: return@map null
 
             val phase = if (showPhase) {
-                tidePhaseCommand.execute(table) ?: return@map null
+                tidePhaseCommand.execute(table, time) ?: return@map null
             } else {
                 null
             }
@@ -53,7 +58,7 @@ class TideGeoJsonSource : GeoJsonSource {
             val icon = if (showPhase) {
                 BeaconIcon.Arrow
             } else {
-                when (currentTideCommand.execute(table)) {
+                when (currentTideCommand.execute(table, time)) {
                     TideType.High -> BeaconIcon.TideHigh
                     TideType.Low -> BeaconIcon.TideLow
                     null -> BeaconIcon.TideHalf
