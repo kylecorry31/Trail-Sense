@@ -20,6 +20,12 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import kotlin.math.cos
 import kotlin.math.sin
 
+import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.time.Time.toZonedDateTime
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+
 class HillshadeMapTileSource : TileSource {
     var drawAccurateShadows: Boolean = false
     var highResolution: Boolean = false
@@ -27,12 +33,14 @@ class HillshadeMapTileSource : TileSource {
     private val astronomy = AstronomyService()
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
+        val zonedDateTime = time.toZonedDateTime()
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
         val zFactor = 3f
         val samples = if (multiDirectionShading) 5 else 1
         val sampleSpacing = 45f
-        val (azimuth, altitude) = getShadowConfig(bounds.center)
+        val (azimuth, altitude) = getShadowConfig(bounds.center, zonedDateTime)
         val zoomToResolutionMap = if (highResolution) {
             DEM.HIGH_RESOLUTION_ZOOM_TO_RESOLUTION
         } else {
@@ -78,20 +86,22 @@ class HillshadeMapTileSource : TileSource {
         )
     }
 
-    private fun getShadowConfig(location: Coordinate): Pair<Float, Float> {
+    private fun getShadowConfig(location: Coordinate, time: ZonedDateTime): Pair<Float, Float> {
         if (!drawAccurateShadows) {
             return 315f to 45f
         }
 
-        if (astronomy.getSunAltitude(location) > AstronomyService.SUN_MIN_ALTITUDE_CIVIL) {
-            return astronomy.getSunAzimuth(location).value to astronomy.getSunAltitude(
-                location
+        if (astronomy.getSunAltitude(location, time) > AstronomyService.SUN_MIN_ALTITUDE_CIVIL) {
+            return astronomy.getSunAzimuth(location, time).value to astronomy.getSunAltitude(
+                location,
+                time
             )
         }
 
-        if (astronomy.isMoonUp(location) && astronomy.getCurrentMoonPhase().illumination > 0.25f) {
-            return astronomy.getMoonAzimuth(location).value to astronomy.getMoonAltitude(
-                location
+        if (astronomy.isMoonUp(location, time) && Astronomy.getMoonPhase(time).illumination > 0.25f) {
+            return astronomy.getMoonAzimuth(location, time).value to astronomy.getMoonAltitude(
+                location,
+                time
             )
         }
 
