@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.domain
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
@@ -17,6 +18,7 @@ import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.atStartOfDay
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -284,6 +286,22 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         time: ZonedDateTime = ZonedDateTime.now()
     ): Float? {
         return Astronomy.getEclipseObscuration(time, location, EclipseType.Solar)
+    }
+
+    fun getPeakSolarEclipseObscuration(
+        location: Coordinate,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ): Float? {
+        val hoursToMinutes = 60.0
+        val toleranceMinutes = 5.0
+        val startTime = 6
+        val endTime = 20
+
+        val optimizer = GoldenSearchExtremaFinder(hoursToMinutes, toleranceMinutes)
+        return optimizer.find(Range(startTime * hoursToMinutes, endTime * hoursToMinutes)) {
+            val newTime = time.atStartOfDay().plus(Time.hours(it / hoursToMinutes))
+            getSolarEclipseObscuration(location, newTime)?.toDouble() ?: 0.0
+        }.firstOrNull { it.isHigh }?.point?.y
     }
 
     fun getVisibleStars(

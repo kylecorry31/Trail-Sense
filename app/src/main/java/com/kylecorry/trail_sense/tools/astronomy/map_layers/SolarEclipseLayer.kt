@@ -32,6 +32,6 @@ class SolarEclipseLayer : TileMapLayer<SolarEclipseTileSource>(SolarEclipseTileS
         const val LAYER_ID = "solar_eclipse"
         const val SMOOTH = "smooth"
         const val DEFAULT_SMOOTH = false
-        private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(1)
+        private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(2)
     }
 }
