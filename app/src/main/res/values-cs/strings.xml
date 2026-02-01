@@ -1553,4 +1553,7 @@
     <string name="pref_photo_maps_high_detail_mode_summary">Načítá více dlaždic pro vyšší kvalitu. Používá více paměti.</string>
     <string name="multi_direction_shading">Vícesměrové stínování</string>
     <string name="show_tide_phase">Zobrazit fázi přílivu/odlivu</string>
+    <string name="map_layer_solar_eclipse_description">Trasa viditelnosti slunečního zatmění</string>
+    <string name="map_layer_lunar_eclipse_description">Viditelnost zatmění Měsíce</string>
+    <string name="map_layer_night_description">Noční tmavá vrstva</string>
 </resources>
