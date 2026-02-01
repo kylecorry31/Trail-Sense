@@ -269,6 +269,19 @@ object CustomUiUtils {
         }
     }
 
+    fun pickTime(
+        context: Context,
+        use24Hours: Boolean,
+        default: LocalTime = LocalTime.now(),
+        onTimePick: (time: LocalTime?) -> Unit
+    ) {
+        if (context is FragmentActivity) {
+            MaterialPickers.time(context.supportFragmentManager, use24Hours, default, onTimePick)
+        } else {
+            Pickers.time(context, use24Hours, default, onTimePick)
+        }
+    }
+
     fun oneTimeToast(
         context: Context,
         message: String,
