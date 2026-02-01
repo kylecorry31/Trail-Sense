@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.map.map_layers
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Bundle
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
@@ -32,7 +33,7 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         this.arrowBitmap = arrowBitmap
     }
 
-    override suspend fun load(bounds: CoordinateBounds, zoom: Int): GeoJsonObject {
+    override suspend fun load(bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
         val features = mutableListOf<GeoJsonFeature>()
 
         if (drawAccuracy) {

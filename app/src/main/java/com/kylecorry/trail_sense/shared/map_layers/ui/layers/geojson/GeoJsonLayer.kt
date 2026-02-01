@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 
 import android.content.Context
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -16,6 +17,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.Geo
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CancellationException
+import java.time.Instant
 import kotlin.math.roundToInt
 
 typealias OnGeoJsonFeatureClickListener = (GeoJsonFeature) -> Unit
@@ -31,6 +33,20 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private var updateListener: (() -> Unit)? = null
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
 
+    private var _timeOverride: Instant? = null
+    private var _renderTime: Instant = Instant.now()
+
+    override fun setTime(time: Instant?) {
+        _timeOverride = time
+        refresh()
+    }
+
+    protected fun refresh() {
+        _renderTime = _timeOverride ?: Instant.now()
+        invalidate()
+        notifyListeners()
+    }
+
     init {
         renderer.setOnClickListener(this::onClick)
         taskRunner.addTask { viewBounds, bounds, projection ->
@@ -44,8 +60,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                     }
                 }
 
+                val params = bundleOf(GeoJsonSource.PARAM_TIME to _renderTime.toEpochMilli())
                 val obj =
-                    source.load(bounds, zoomLevel) ?: GeoJsonFeatureCollection(
+                    source.load(bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
                         emptyList()
                     )
                 renderer.setGeoJsonObject(obj)

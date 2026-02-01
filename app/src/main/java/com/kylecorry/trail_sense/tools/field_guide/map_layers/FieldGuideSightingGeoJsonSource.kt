@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.os.Bundle
 import android.util.Size
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
@@ -53,7 +54,8 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        zoom: Int
+        zoom: Int,
+        params: Bundle
     ): GeoJsonObject {
         val pages = repo.getAllPages()
 

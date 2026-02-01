@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
+import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -55,7 +56,8 @@ class ContourGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        zoom: Int
+        zoom: Int,
+        params: Bundle
     ): GeoJsonObject? {
         if (zoom !in minZoom..maxZoom) {
             return null

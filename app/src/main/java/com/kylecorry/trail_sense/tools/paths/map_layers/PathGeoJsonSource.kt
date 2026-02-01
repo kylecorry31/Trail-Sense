@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths.map_layers
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -24,7 +25,8 @@ class PathGeoJsonSource : GeoJsonSource {
 
     override suspend fun load(
         bounds: CoordinateBounds,
-        zoom: Int
+        zoom: Int,
+        params: Bundle
     ): GeoJsonObject? {
         // If paths haven't been loaded yet, load them
         if (paths.isEmpty()) {
