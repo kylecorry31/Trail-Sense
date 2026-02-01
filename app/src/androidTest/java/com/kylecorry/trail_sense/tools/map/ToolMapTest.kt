@@ -29,6 +29,34 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
     }
 
     @Test
+    fun verifyTimeSlider() {
+        // Disclaimer
+        clickOk()
+
+        // Open the layers sheet
+        click(R.id.menu_btn)
+        click("Layers")
+
+        // Enable Night layer (time dependent)
+        scrollUntil { hasText("Additional layers") }
+        click("Additional layers")
+        click("Night")
+        clickOk()
+
+        // Close layers sheet
+        click(toolbarButton(R.id.title, Side.Right))
+
+        // Open time sheet
+        click(R.id.time_btn)
+
+        // Verify elements exist
+        hasText(Regex("\\d{1,2}:\\d{2} [AP]M"))
+
+        // Reset/Close
+        click(R.id.time_btn)
+    }
+
+    @Test
     fun verifyMapLayers(){
         // Disclaimer
         clickOk()

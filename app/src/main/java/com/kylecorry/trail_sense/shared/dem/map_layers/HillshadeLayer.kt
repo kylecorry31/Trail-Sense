@@ -10,6 +10,9 @@ class HillshadeLayer :
 
     override val layerId: String = LAYER_ID
 
+    override val isTimeDependent: Boolean
+        get() = source.drawAccurateShadows
+
     init {
         shouldMultiply = true
     }
