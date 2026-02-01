@@ -336,7 +336,7 @@
     <string name="clouds">Chmury</string>
     <string name="import_btn">Import</string>
     <string name="export">Eksport</string>
-    <string name="cirrostratus_desc">Chmury wysokie, pierzasto-warstwowe, przezroczyste, zakrywają niebo oraz tworzą wokół słońca aureolę.</string>
+    <string name="cirrostratus_desc">Chmury wysokie, pierzasto-warstwowe, przezroczyste, pokrywające niebo oraz tworzące wokół słońca aureolę.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
     <string name="quality_good">Dobra</string>
     <string name="quality_poor">Słaba</string>
@@ -373,7 +373,7 @@
     <string name="stratus_desc">Zasłania niebo, obiekty nie rzucają cieni.</string>
     <string name="nimbostratus_desc">Ciemnoszara chmura średniego pietra, zakrywająca niebo. Może padać deszcz.</string>
     <string name="altostratus_desc">Zakrywa niebo, słońce jest ledwo widoczne.</string>
-    <string name="altocumulus_desc">Wygląda jak puchate kulki z waty.</string>
+    <string name="altocumulus_desc">Chmury średnie, kłębiaste, wyglądające jak kulki z waty, zazwyczaj białe z ciemnymi łatami poniżej.</string>
     <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt orientacyjny\?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
