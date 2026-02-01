@@ -24,6 +24,6 @@ class LunarEclipseLayer : TileMapLayer<LunarEclipseTileSource>(LunarEclipseTileS
 
     companion object {
         const val LAYER_ID = "lunar_eclipse"
-        private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(1)
+        private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(2)
     }
 }
