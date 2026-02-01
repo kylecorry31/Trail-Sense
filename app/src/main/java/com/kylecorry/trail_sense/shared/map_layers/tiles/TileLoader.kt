@@ -65,24 +65,19 @@ class TileLoader(
     fun loadTiles(tiles: List<Tile>, time: Instant) {
         val imageTiles = tiles.map { tile ->
             val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
-            tileCache.getOrPut(key) {
+            val newTile = tileCache.getOrPut(key) {
                 ImageTile(
                     key = key,
                     tile = tile
                 ) {
-                    val image = loadTile(source, tile, time)
-                    image?.applyOperationsOrNull(
-                        Resize(
-                            tile.size,
-                            exact = false
-                        ),
-                        Pad(
-                            padding,
-                            if (image.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
-                        )
-                    )
+                    loadTile(source, tile, time)
                 }
             }
+            // Replace the load function every cycle to ensure it uses the latest parameters
+            newTile.loadFunction = {
+                loadTile(source, tile, time)
+            }
+            newTile
         }
 
         imageTiles.forEach { tileQueue.enqueue(it) }
@@ -91,16 +86,27 @@ class TileLoader(
     private suspend fun loadTile(sourceSelector: TileSource, tile: Tile, time: Instant): Bitmap? {
         val params = bundleOf(TileSource.PARAM_TIME to time.toEpochMilli())
         val cacheKey = key
-        if (cacheKey != null && persistentCache != null) {
-            return try {
+        val existing = if (cacheKey != null && persistentCache != null) {
+            try {
                 persistentCache.getOrPut(cacheKey, tile) {
                     sourceSelector.loadTile(tile, params) ?: throw NoSuchElementException()
                 }
             } catch (_: NoSuchElementException) {
                 null
             }
+        } else {
+            sourceSelector.loadTile(tile, params)
         }
-        return sourceSelector.loadTile(tile, params)
+        return existing?.applyOperationsOrNull(
+            Resize(
+                tile.size,
+                exact = false
+            ),
+            Pad(
+                padding,
+                if (existing.config == Bitmap.Config.ARGB_8888) Color.TRANSPARENT else Color.WHITE
+            )
+        )
     }
 
     private fun populateBorderAndNeighbors(tile: ImageTile) {
