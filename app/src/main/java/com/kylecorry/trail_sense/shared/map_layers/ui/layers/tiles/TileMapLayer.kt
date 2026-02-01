@@ -341,6 +341,10 @@ abstract class TileMapLayer<T : TileSource>(
             // Calculate alpha for fade-in effect
             val originalAlpha = tilePaint.alpha
             tilePaint.alpha = imageTile.getAlpha()
+            // There are still tiles being faded in, so keep re-rendering the map
+            if (tilePaint.alpha != 255){
+                notifyListeners()
+            }
 
             drawBitmap(bitmap, srcRect, destRect, tilePaint)
 
@@ -372,7 +376,7 @@ abstract class TileMapLayer<T : TileSource>(
             tag = layerId,
             key = getCacheKey()
         ) {
-            updateListener?.invoke()
+            notifyListeners()
         }
         loadTimer.interval(100)
     }
