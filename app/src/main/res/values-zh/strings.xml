@@ -1516,4 +1516,7 @@
     <string name="pref_photo_maps_high_detail_mode_summary">加载更多磁贴提升画质。使用更多内存。</string>
     <string name="multi_direction_shading">多方向阴影</string>
     <string name="show_tide_phase">显示潮汐阶段</string>
+    <string name="map_layer_solar_eclipse_description">日食可见性路径</string>
+    <string name="map_layer_lunar_eclipse_description">月食可见性</string>
+    <string name="map_layer_night_description">夜间暗度遮罩</string>
 </resources>
