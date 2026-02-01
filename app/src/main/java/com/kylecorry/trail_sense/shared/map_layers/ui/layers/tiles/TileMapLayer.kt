@@ -44,7 +44,14 @@ abstract class TileMapLayer<T : TileSource>(
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     private var minZoomLevel: Int? = null
 ) : IAsyncLayer {
-    private var time = Instant.now()
+    private var _timeOverride: Instant? = null
+    private var _renderTime: Instant = Instant.now()
+
+    override fun setTime(time: Instant?) {
+        _timeOverride = time
+        refresh()
+    }
+
     private var loader: TileLoader? = null
     private val queue = TileQueue()
     private val layerPaint = Paint()
@@ -157,7 +164,7 @@ abstract class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles, time)
+            loader?.loadTiles(desiredTiles, _renderTime)
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
@@ -236,7 +243,10 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun isTileAvailable(tile: ImageTile?): Boolean {
-        return tile?.state == TileState.Loaded || tile?.state == TileState.Empty || tile?.state == TileState.Stale
+        return tile?.state == TileState.Loaded ||
+                tile?.state == TileState.Empty ||
+                tile?.state == TileState.Stale ||
+                (tile?.state == TileState.Loading && tile.hasImage())
     }
 
     private fun isTooSmall(
@@ -406,7 +416,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override fun start() {
-        resetTime()
+        refreshTime()
         loader = TileLoader(
             source,
             queue,
@@ -430,17 +440,19 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     fun refresh() {
-        resetTime()
+        refreshTime()
         loadTimer.stop()
         queue.clear()
-        loader?.tileCache?.snapshot()?.forEach { it.value.state = TileState.Stale }
+        loader?.tileCache?.snapshot()?.forEach {
+            it.value.invalidate()
+        }
         loadTimer.interval(100)
         invalidate()
         notifyListeners()
     }
 
-    fun resetTime() {
-        time = Instant.now()
+    private fun refreshTime() {
+        _renderTime = _timeOverride ?: Instant.now()
     }
 
     override fun setPreferences(preferences: Bundle) {

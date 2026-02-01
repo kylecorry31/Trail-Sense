@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.OnGeoJsonFeatureClickListener
+import java.time.Instant
 
 class MapViewLayerManager(private val invalidateView: () -> Unit) {
 
@@ -123,6 +124,14 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
             } catch (e: Exception) {
                 e.printStackTrace()
                 // TODO: ERROR HANDLING
+            }
+        }
+    }
+
+    fun setTime(time: Instant?) {
+        layers.forEach {
+            if (it.isTimeDependent) {
+                it.setTime(time)
             }
         }
     }

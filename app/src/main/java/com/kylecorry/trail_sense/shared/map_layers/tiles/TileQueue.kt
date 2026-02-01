@@ -52,6 +52,9 @@ class TileQueue {
         synchronized(queue) {
             queue.clear()
         }
+        synchronized(loadingKeys) {
+            loadingKeys.clear()
+        }
     }
 
     fun count(): Int {
@@ -88,14 +91,20 @@ class TileQueue {
             }
         }
         // TODO: Allow cancellation of a job - likely means storing the actual jobs somewhere
-        Parallel.forEach(jobs) {
-            val start = System.currentTimeMillis()
-            it.load()
-            val end = System.currentTimeMillis()
-            if (shouldLog) {
-                Log.d("TileQueue", "${it.key} (${end - start}ms)")
+        try {
+            Parallel.forEach(jobs) {
+                val start = System.currentTimeMillis()
+                it.load()
+                val end = System.currentTimeMillis()
+                if (shouldLog) {
+                    Log.d("TileQueue", "${it.key} (${end - start}ms)")
+                }
+                onStateChange(it)
             }
-            onStateChange(it)
+        } finally {
+            synchronized(loadingKeys) {
+                jobs.forEach { loadingKeys.remove(it.key) }
+            }
         }
     }
 

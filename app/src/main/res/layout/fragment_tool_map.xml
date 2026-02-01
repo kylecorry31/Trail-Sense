@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:keepScreenOn="true"
-        app:layout_constraintBottom_toTopOf="@id/navigation_sheet"
+        app:layout_constraintBottom_toTopOf="@+id/time_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +41,18 @@
         app:layout_constraintEnd_toEndOf="@id/map"
         app:layout_constraintTop_toTopOf="@id/map"
         app:srcCompat="@drawable/ic_menu_dots" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/time_btn"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.86"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/zoom_in_btn"
+        app:layout_constraintStart_toStartOf="@+id/zoom_in_btn"
+        app:srcCompat="@drawable/ic_tool_clock" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/zoom_in_btn"
@@ -76,7 +88,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="48dp"
         android:alpha="0.86"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
+        app:layout_constraintBottom_toTopOf="@+id/time_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/satellite" />
 
@@ -97,6 +109,16 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+    <com.kylecorry.trail_sense.tools.map.ui.MapTimeSheet
+        android:id="@+id/time_sheet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
