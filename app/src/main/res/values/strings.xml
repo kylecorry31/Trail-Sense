@@ -1860,4 +1860,5 @@
     <string name="additional_layers">Additional layers</string>
     <!--%s is the name of the field guide page-->
     <string name="sighting_label">%s sighting</string>
+    <string name="show_path">Show path</string>
 </resources>

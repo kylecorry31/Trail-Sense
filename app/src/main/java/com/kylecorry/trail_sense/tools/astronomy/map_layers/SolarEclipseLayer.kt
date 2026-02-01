@@ -28,12 +28,15 @@ class SolarEclipseLayer : TileMapLayer<SolarEclipseTileSource>(SolarEclipseTileS
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
         source.smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+        source.showPath = preferences.getBoolean(SHOW_PATH, DEFAULT_SHOW_PATH)
     }
 
     companion object {
         const val LAYER_ID = "solar_eclipse"
         const val SMOOTH = "smooth"
+        const val SHOW_PATH = "show_path"
         const val DEFAULT_SMOOTH = false
+        const val DEFAULT_SHOW_PATH = false
         private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(2)
     }
 }

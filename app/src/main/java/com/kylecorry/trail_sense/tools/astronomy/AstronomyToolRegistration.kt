@@ -162,6 +162,12 @@ object AstronomyToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = SolarEclipseLayer.DEFAULT_SMOOTH,
                         ),
+                        MapLayerPreference(
+                            id = SolarEclipseLayer.SHOW_PATH,
+                            title = context.getString(R.string.show_path),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = SolarEclipseLayer.DEFAULT_SHOW_PATH,
+                        ),
                     )
                 ) { SolarEclipseLayer() },
                 MapLayerDefinition(
