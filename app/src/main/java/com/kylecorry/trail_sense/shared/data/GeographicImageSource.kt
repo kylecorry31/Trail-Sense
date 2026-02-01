@@ -1,39 +1,13 @@
 package com.kylecorry.trail_sense.shared.data
 
 import android.graphics.Rect
+import com.kylecorry.andromeda.bitmaps.FloatBitmap
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import kotlin.math.floor
-
-class FloatBitmap(val width: Int, val height: Int, val channels: Int) {
-    internal val data = FloatArray(width * height * channels)
-
-    fun get(x: Int, y: Int, channel: Int): Float {
-        return data[(y * width + x) * channels + channel]
-    }
-
-    fun set(x: Int, y: Int, channel: Int, value: Float) {
-        data[(y * width + x) * channels + channel] = value
-    }
-
-    fun getOrNull(x: Int, y: Int, channel: Int): Float? {
-        if (x !in 0 until width || y !in 0 until height || channel !in 0 until channels) {
-            return null
-        }
-        return get(x, y, channel)
-    }
-
-    fun getX(index: Int): Int {
-        return index % width
-    }
-
-    fun getY(index: Int): Int {
-        return index / width
-    }
-}
 
 class GeographicImageSource(
     private val reader: DataImageReader,
