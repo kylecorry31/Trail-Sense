@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.data
 
 import android.graphics.Rect
+import com.kylecorry.andromeda.bitmaps.FloatBitmap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import kotlin.math.max
 

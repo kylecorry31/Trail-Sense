@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.data
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.util.Size
+import com.kylecorry.andromeda.bitmaps.FloatBitmap
 
 interface DataImageReader {
     fun getSize(): Size
