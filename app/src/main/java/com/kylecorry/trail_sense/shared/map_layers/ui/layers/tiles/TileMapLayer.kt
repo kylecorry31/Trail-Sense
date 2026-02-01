@@ -223,7 +223,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     private fun isTileAvailable(tile: ImageTile?): Boolean {
-        return tile?.state == TileState.Loaded || tile?.state == TileState.Empty
+        return tile?.state == TileState.Loaded || tile?.state == TileState.Empty || tile?.state == TileState.Stale
     }
 
     private fun isTooSmall(
@@ -342,7 +342,7 @@ abstract class TileMapLayer<T : TileSource>(
             val originalAlpha = tilePaint.alpha
             tilePaint.alpha = imageTile.getAlpha()
             // There are still tiles being faded in, so keep re-rendering the map
-            if (tilePaint.alpha != 255){
+            if (tilePaint.alpha != 255) {
                 notifyListeners()
             }
 
@@ -395,7 +395,7 @@ abstract class TileMapLayer<T : TileSource>(
         resetTime()
         loadTimer.stop()
         queue.clear()
-        loader?.clearCache()
+        loader?.tileCache?.snapshot()?.forEach { it.value.state = TileState.Stale }
         loadTimer.interval(100)
         invalidate()
         notifyListeners()

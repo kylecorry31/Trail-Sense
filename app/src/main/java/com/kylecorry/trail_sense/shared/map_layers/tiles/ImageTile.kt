@@ -7,7 +7,7 @@ class ImageTile(
     val tile: Tile,
     private var image: Bitmap? = null,
     var state: TileState = TileState.Idle,
-    private val loadFunction: suspend () -> Bitmap?
+    var loadFunction: suspend () -> Bitmap?
 ) {
 
     private val lock = Any()
@@ -30,7 +30,7 @@ class ImageTile(
     }
 
     suspend fun load() {
-        state = TileState.Loading
+        val wasIdle = state == TileState.Idle
         var hasImage = false
         var wasSuccess = false
         try {
@@ -48,8 +48,11 @@ class ImageTile(
                 image = null
             }
         }
-        loadingStartTime = System.currentTimeMillis()
+        if (wasIdle) {
+            loadingStartTime = System.currentTimeMillis()
+        }
         state = when {
+            wasIdle && state == TileState.Stale -> TileState.Stale
             wasSuccess && hasImage -> TileState.Loaded
             wasSuccess -> TileState.Empty
             else -> TileState.Error
@@ -77,5 +80,6 @@ enum class TileState {
     Loading,
     Loaded,
     Error,
-    Empty
+    Empty,
+    Stale
 }

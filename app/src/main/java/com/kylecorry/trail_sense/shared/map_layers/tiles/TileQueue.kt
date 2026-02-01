@@ -30,7 +30,7 @@ class TileQueue {
         }
     }
 
-    fun setDesiredTiles(tiles: List<Tile>){
+    fun setDesiredTiles(tiles: List<Tile>) {
         desiredTiles = tiles.toSet()
     }
 
@@ -78,7 +78,7 @@ class TileQueue {
 
             val key = tile.key
             val tileState = tile.state
-            if (tileState == TileState.Idle) {
+            if (tileState == TileState.Idle || tileState == TileState.Stale) {
                 val shouldLoad = synchronized(loadingKeys) {
                     loadingKeys.add(key)
                 }
@@ -100,10 +100,8 @@ class TileQueue {
     }
 
     private fun onStateChange(tile: ImageTile) {
-        if (tile.state == TileState.Loaded || tile.state == TileState.Error || tile.state == TileState.Empty) {
-            synchronized(loadingKeys) {
-                loadingKeys.remove(tile.key)
-            }
+        synchronized(loadingKeys) {
+            loadingKeys.remove(tile.key)
         }
         changeListener(tile)
     }
