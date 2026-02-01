@@ -7,13 +7,15 @@ import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.luna.coroutines.Parallel
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.CropTile
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import com.kylecorry.trail_sense.shared.andromeda_temp.set
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 object TileImageUtils {
     fun parallelGridEvaluation(
@@ -41,10 +43,13 @@ object TileImageUtils {
     ): suspend (latitudes: DoubleArray, longitudes: DoubleArray) -> FloatBitmap {
         val expandBy = 2
         return { latitudes: DoubleArray, longitudes: DoubleArray ->
-            val smallLatitudes = resample(latitudes.first(), latitudes.last(), samples, expandBy)
             val unwrappedLongitudes = unwrapLongitudes(longitudes)
+            val step =
+                (unwrappedLongitudes.last() - unwrappedLongitudes.first()) / (if (samples > 1) samples - 1 else 1)
+
+            val smallLatitudes = resample(latitudes.first(), latitudes.last(), step, expandBy)
             val smallLongitudes =
-                resample(unwrappedLongitudes.first(), unwrappedLongitudes.last(), samples, expandBy)
+                resample(unwrappedLongitudes.first(), unwrappedLongitudes.last(), step, expandBy)
             val smallBitmap = FloatBitmap(smallLongitudes.size, smallLatitudes.size, 1)
             Parallel.forEach(smallLatitudes.indices.toList()) { y ->
                 val latitude = smallLatitudes[y]
@@ -58,8 +63,12 @@ object TileImageUtils {
                 }
             }
 
+            val startX = ((unwrappedLongitudes.first() - smallLongitudes.first()) / step).toFloat()
+            val endX = ((unwrappedLongitudes.last() - smallLongitudes.first()) / step).toFloat()
+            val startY = ((latitudes.first() - smallLatitudes.first()) / step).toFloat()
+            val endY = ((latitudes.last() - smallLatitudes.first()) / step).toFloat()
 
-            smallBitmap.upscale(longitudes.size, latitudes.size, expandBy)
+            smallBitmap.upscale(longitudes.size, latitudes.size, startX, endX, startY, endY)
         }
     }
 
@@ -68,20 +77,13 @@ object TileImageUtils {
         return width / samples
     }
 
-    private fun resample(start: Double, end: Double, count: Int, expandBy: Int = 0): DoubleArray {
-        val array = DoubleArray(count + expandBy * 2)
-        if (array.isEmpty()) {
-            return array
-        }
-
-        val baseCount = if (count > 1) count - 1 else 1
-        val resolution = (end - start) / baseCount
-        val spanStart = start - resolution * expandBy
-        val spanEnd = end + resolution * expandBy
-        val denominator = if (array.size > 1) array.size - 1 else 1
+    private fun resample(start: Double, end: Double, step: Double, expandBy: Int): DoubleArray {
+        val spanStart = floor((start - step * expandBy) / step) * step
+        val spanEnd = ceil((end + step * expandBy) / step) * step
+        val count = ((spanEnd - spanStart) / step).roundToInt() + 1
+        val array = DoubleArray(count)
         for (i in array.indices) {
-            val percent = i / denominator.toDouble()
-            array[i] = SolMath.lerp(percent, spanStart, spanEnd)
+            array[i] = spanStart + i * step
         }
         return array
     }
