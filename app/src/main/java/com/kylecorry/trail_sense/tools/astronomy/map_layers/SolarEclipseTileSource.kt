@@ -88,7 +88,7 @@ class SolarEclipseTileSource : TileSource {
 
     private fun getEclipseObscuration(location: Coordinate, time: ZonedDateTime): Float? {
         return if (showPath) {
-            astronomy.getSolarEclipse(location, time.toLocalDate())?.obscuration
+            astronomy.getPeakSolarEclipseObscuration(location, time)
         } else {
             astronomy.getSolarEclipseObscuration(location, time)
         }?.coerceIn(0f, 1f)
