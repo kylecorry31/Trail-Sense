@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
@@ -72,6 +73,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val dstPoints = FloatArray(8)
     private val srcRect = Rect()
     private val destRect = Rect()
+    private val clipPath = Path()
 
     private val loadTimer = CoroutineTimer {
         queue.load(16)
@@ -160,22 +162,33 @@ abstract class TileMapLayer<T : TileSource>(
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
 
-        getTilesToRender(desiredTiles).forEach { tile ->
-            tile.withImage { bitmap ->
+        getTilesToRender(desiredTiles).forEach { renderTile ->
+            renderTile.imageTile.withImage { bitmap ->
                 bitmap ?: return@withImage
                 tryOrLog {
-                    renderTile(tile, canvas, map, bitmap)
+                    val clipTile = renderTile.clipTo
+                    if (clipTile != null) {
+                        renderTileClipped(renderTile.imageTile, canvas, map, bitmap, clipTile)
+                    } else {
+                        renderTile(renderTile.imageTile, canvas, map, bitmap)
+                    }
                 }
             }
         }
     }
 
-    private fun getTilesToRender(desiredTiles: List<Tile>): List<ImageTile> {
-        val toRender = mutableSetOf<ImageTile>()
-        desiredTiles.forEach {
-            toRender.addAll(getTilesToRender(it))
+    private fun getTilesToRender(desiredTiles: List<Tile>): List<RenderTile> {
+        val toRender = mutableSetOf<RenderTile>()
+        desiredTiles.forEach { desired ->
+            getTilesToRender(desired).forEach { imageTile ->
+                if (imageTile.tile.z < desired.z) {
+                    toRender.add(RenderTile(imageTile, desired))
+                } else {
+                    toRender.add(RenderTile(imageTile))
+                }
+            }
         }
-        return toRender.sortedBy { it.tile.z }
+        return toRender.sortedBy { it.imageTile.tile.z }
     }
 
     private fun getTilesToRender(desiredTile: Tile): List<ImageTile> {
@@ -352,6 +365,31 @@ abstract class TileMapLayer<T : TileSource>(
         }
     }
 
+    private fun renderTileClipped(
+        imageTile: ImageTile,
+        canvas: Canvas,
+        map: IMapView,
+        bitmap: Bitmap,
+        clipTile: Tile
+    ) {
+        val clipBounds = clipTile.getBounds()
+        val clipTopLeft = map.toPixel(clipBounds.northWest)
+        val clipTopRight = map.toPixel(clipBounds.northEast)
+        val clipBottomRight = map.toPixel(clipBounds.southEast)
+        val clipBottomLeft = map.toPixel(clipBounds.southWest)
+
+        canvas.save()
+        clipPath.rewind()
+        clipPath.moveTo(clipTopLeft.x, clipTopLeft.y)
+        clipPath.lineTo(clipTopRight.x, clipTopRight.y)
+        clipPath.lineTo(clipBottomRight.x, clipBottomRight.y)
+        clipPath.lineTo(clipBottomLeft.x, clipBottomLeft.y)
+        clipPath.close()
+        canvas.clipPath(clipPath)
+        renderTile(imageTile, canvas, map, bitmap)
+        canvas.restore()
+    }
+
     private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
         val zoom = projection.zoom.roundToInt()
         var adjustedOffset = zoomOffset + 1
@@ -413,6 +451,11 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override var percentOpacity: Float = 1f
+
+    private data class RenderTile(
+        val imageTile: ImageTile,
+        val clipTo: Tile? = null
+    )
 
     companion object {
         const val MAX_TILES = 150
