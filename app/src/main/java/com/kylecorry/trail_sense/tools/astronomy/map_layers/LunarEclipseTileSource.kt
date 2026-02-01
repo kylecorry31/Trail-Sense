@@ -10,11 +10,13 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
 
 class LunarEclipseTileSource : TileSource {
 
+    var showPath = false
     private val colorMap = AlphaColorMap(AppColor.Orange.color, 200)
     private val astronomy = AstronomyService()
 
@@ -56,8 +58,14 @@ class LunarEclipseTileSource : TileSource {
 
     private fun getEclipseObscuration(location: Coordinate, time: ZonedDateTime): Float? {
         val eclipse =
-            astronomy.getLunarEclipse(location, time.toLocalDate()) ?: return null
-        if (time < eclipse.start || time > eclipse.end) {
+            astronomy.getLunarEclipse(location, time.toLocalDate()) ?: astronomy.getLunarEclipse(
+                location,
+                time.toLocalDate().plusDays(1)
+            ) ?: return null
+
+        val buffer = if (showPath) Duration.ofHours(8) else Duration.ZERO
+
+        if (time < eclipse.start.minus(buffer) || time > eclipse.end.plus(buffer)) {
             return null
         }
         return eclipse.obscuration
