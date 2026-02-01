@@ -4,13 +4,14 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import androidx.core.graphics.alpha
+import com.kylecorry.andromeda.bitmaps.LookupTable
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
-import com.kylecorry.andromeda.bitmaps.operations.MapPixels
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.AlphaColorMap
+import com.kylecorry.trail_sense.shared.andromeda_temp.Lut
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -23,6 +24,8 @@ class NightTileSource : TileSource {
     private val colorMap = AlphaColorMap(maxAlpha = 200)
     private val astronomy = AstronomyService()
 
+    private val lookupTable by lazy { constructLookupTable() }
+
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
             .toZonedDateTime()
@@ -34,21 +37,21 @@ class NightTileSource : TileSource {
             bounds.northEast,
             bounds.southEast
         ).any {
-            astronomy.getSunAltitude(it, time) < 0
+            astronomy.getSunAltitude(it, time) < 1
         }
 
         if (!isNight) {
             return null
         }
 
-        val resolution = TileImageUtils.getRequiredResolution(tile, 20)
+        val resolution = TileImageUtils.getRequiredResolution(tile, 128)
         return TileImageUtils.getSampledImage(
             tile.getBounds(),
             resolution,
             tile.size,
             Bitmap.Config.ARGB_8888,
             padding = 2,
-            getValues = TileImageUtils.parallelGridEvaluation { lat, lon ->
+            getValues = TileImageUtils.interpolatedGridEvaluation(10) { lat, lon ->
                 astronomy.getSunAltitude(Coordinate(lat, lon), time)
             }
         ) { x, y, getValue ->
@@ -69,22 +72,29 @@ class NightTileSource : TileSource {
         }.applyOperationsOrNull(
             Conditional(
                 !smooth,
-                MapPixels(true) {
-                    val value = SolMath.lerp(
-                        it.alpha / 255f,
-                        AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL - 5f,
-                        5f
-                    )
-                    val pct = when {
-                        value <= AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL -> 1f
-                        value <= AstronomyService.SUN_MIN_ALTITUDE_NAUTICAL -> 0.75f
-                        value <= AstronomyService.SUN_MIN_ALTITUDE_CIVIL -> 0.5f
-                        value <= 0 -> 0.25f
-                        else -> 0f
-                    }
-                    colorMap.getColor(1 - pct)
-                }
+                Lut(lookupTable)
             )
         )
     }
+
+    private fun constructLookupTable(): LookupTable {
+        val table = LookupTable()
+        for (i in table.alpha.indices) {
+            val value = SolMath.lerp(
+                i / 255f,
+                AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL - 5f,
+                5f
+            )
+            val pct = when {
+                value <= AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL -> 1f
+                value <= AstronomyService.SUN_MIN_ALTITUDE_NAUTICAL -> 0.75f
+                value <= AstronomyService.SUN_MIN_ALTITUDE_CIVIL -> 0.5f
+                value <= 0 -> 0.25f
+                else -> 0f
+            }
+            table.alpha[i] = colorMap.getColor(1 - pct).alpha.toByte()
+        }
+        return table
+    }
+
 }
