@@ -1,7 +1,12 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
+import androidx.core.graphics.alpha
+import com.kylecorry.andromeda.bitmaps.operations.Conditional
+import com.kylecorry.andromeda.bitmaps.operations.MapPixels
+import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
@@ -36,31 +41,50 @@ class NightTileSource : TileSource {
             return null
         }
 
-        val resolution = TileImageUtils.getRequiredResolution(tile, if (smooth) 5 else 10)
+        val resolution = TileImageUtils.getRequiredResolution(tile, 20)
         return TileImageUtils.getSampledImage(
             tile.getBounds(),
             resolution,
             tile.size,
             Bitmap.Config.ARGB_8888,
             padding = 2,
-            smoothPixelEdges = !smooth,
             getValues = TileImageUtils.parallelGridEvaluation { lat, lon ->
                 astronomy.getSunAltitude(Coordinate(lat, lon), time)
             }
         ) { x, y, getValue ->
             val value = getValue(x, y)
-            val newValue = if (smooth) {
-                SolMath.norm(value, 0f, AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL, true)
+            if (smooth) {
+                val pct =
+                    SolMath.norm(value, 0f, AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL, true)
+                colorMap.getColor(1 - pct)
             } else {
-                when {
-                    value <= AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL -> 1f
-                    value <= AstronomyService.SUN_MIN_ALTITUDE_NAUTICAL -> 0.75f
-                    value <= AstronomyService.SUN_MIN_ALTITUDE_CIVIL -> 0.5f
-                    value <= 0 -> 0.25f
-                    else -> 0f
-                }
+                val gray = (255 * SolMath.norm(
+                    value,
+                    AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL - 5f,
+                    5f,
+                    true
+                )).toInt()
+                return@getSampledImage Color.argb(gray, 0, 0, 0)
             }
-            colorMap.getColor(1 - newValue)
-        }
+        }.applyOperationsOrNull(
+            Conditional(
+                !smooth,
+                MapPixels(true) {
+                    val value = SolMath.lerp(
+                        it.alpha / 255f,
+                        AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL - 5f,
+                        5f
+                    )
+                    val pct = when {
+                        value <= AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL -> 1f
+                        value <= AstronomyService.SUN_MIN_ALTITUDE_NAUTICAL -> 0.75f
+                        value <= AstronomyService.SUN_MIN_ALTITUDE_CIVIL -> 0.5f
+                        value <= 0 -> 0.25f
+                        else -> 0f
+                    }
+                    colorMap.getColor(1 - pct)
+                }
+            )
+        )
     }
 }

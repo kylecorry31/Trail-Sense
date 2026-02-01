@@ -31,8 +31,10 @@ object TileImageUtils {
     }
 
     fun getRequiredResolution(tile: Tile, samples: Int): Double {
-        val width = TileMath.getTile(0.0, 0.0, tile.z).getBounds().widthDegrees()
-        return width / samples
+        val bounds = tile.getBounds()
+        val width = bounds.widthDegrees()
+        val height = bounds.heightDegrees()
+        return minOf(width / samples, height / samples)
     }
 
     suspend fun getSampledImage(
