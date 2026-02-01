@@ -12,7 +12,7 @@
     <string name="general">Algemeen</string>
     <string name="pressure">Druk</string>
     <string name="pref_use_24_hour_title">24-uursnotatie gebruiken</string>
-    <string name="pref_sun_time_mode_title">Zonsopkomst/zonsondergang tijden</string>
+    <string name="pref_sun_time_mode_title">Tijden zonsopkomst/zonsondergang</string>
     <string name="no_beacons">Geen bakens</string>
     <string name="continue_button">DOORGAAN</string>
     <string name="stop">Stop</string>
@@ -55,9 +55,7 @@
     <string name="location">Locatie</string>
     <string name="compass_accuracy_improved">Nauwkeurigheid kompas verbeterd naar %s</string>
     <string name="compass_reported_accuracy">Vastgestelde nauwkeurigheid: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur of in alle richtingen. Druk op %s als je klaar bent.
-\n
-\nDeze melding kun je in de instellingen afzetten.</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Draai je telefoon een paar keer in een 8-vormige figuur of in alle richtingen. Druk op %s als je klaar bent. \n \nDeze melding kun je in de instellingen uitzetten.</string>
     <string name="calibrate_compass_dialog_content">Draai je telefoon een paar keer in een 8-vormig patroon in alle richtingen en klik %s als je klaar bent.</string>
     <string name="calibrate_compass_dialog_title">Kompas kalibreren</string>
     <string name="calibrate">Kalibreren</string>
@@ -1126,7 +1124,7 @@
     <string name="ar_calibration_disclaimer">Controleer vóór gebruik van de Aangevulde Realiteit of de zon- of maanpictogrammen zich in de juiste positie bevinden ten opzichte van de echte wereld. Als dit niet het geval is, klik op het kompaspictogram linksboven in het scherm en volg de instructies om te kalibreren.</string>
     <string name="astronomy_altitude">Hoogte</string>
     <string name="layers">Lagen</string>
-    <string name="visible">Zichtbaar</string>
+    <string name="visible">Weergeven</string>
     <string name="date">Datum</string>
     <string name="pref_enable_analog_title">Analoge klok</string>
     <string name="navigate_to_nearest_cell_signal">Navigeer naar dichtstbijzijnde zendmast</string>
@@ -1480,7 +1478,7 @@
     <string name="pref_night_mode_fullscreen_title">Volledig scherm in nachtmodus</string>
     <string name="pref_night_mode_fullscreen_summary">Verberg systeemelementen voor een beter nachtzicht</string>
     <string name="show_below_horizon">Onder de horizon weergeven</string>
-    <string name="pref_show_astronomy_bands_title">Zonsopkomst/ondergangs-stroken weergeven</string>
+    <string name="pref_show_astronomy_bands_title">Zonsopkomst/ondergangszones weergeven</string>
     <string name="pref_bubble_level_threshold_title">Niveaudrempel</string>
     <string name="settings_copied">Instellingen gekopieerd</string>
     <string name="copy_settings_to_other_maps">Instellingen kopiëren naar andere kaarten</string>
@@ -1527,4 +1525,7 @@
     <string name="pref_photo_maps_high_detail_mode_summary">Laadt meer tegels voor een hogere kwaliteit. Gebruikt meer geheugen.</string>
     <string name="multi_direction_shading">Multidirectionele schaduw</string>
     <string name="show_tide_phase">Getijdenfase weergeven</string>
+    <string name="map_layer_solar_eclipse_description">Zichtbaarheidspad zonsverduistering</string>
+    <string name="map_layer_lunar_eclipse_description">Zichtbaarheid maansverduistering</string>
+    <string name="map_layer_night_description">Nachtelijke duisternislaag</string>
 </resources>
