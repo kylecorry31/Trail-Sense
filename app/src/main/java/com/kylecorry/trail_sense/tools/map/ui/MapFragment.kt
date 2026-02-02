@@ -127,7 +127,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
         // Layers
         val manager = useMemo { MapToolLayerManager() }
-        useEffect(manager, mapView, mapTime) {
+        useEffect(manager, mapView, mapTime, manager.key) {
             manager.setTime(mapView, mapTime)
         }
         useEffectWithCleanup(manager, mapView, resetOnResume) {
