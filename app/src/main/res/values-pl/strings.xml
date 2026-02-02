@@ -336,7 +336,7 @@
     <string name="clouds">Chmury</string>
     <string name="import_btn">Import</string>
     <string name="export">Eksport</string>
-    <string name="cirrostratus_desc">Chmury wysokie, pierzasto-warstwowe, przezroczyste, pokrywające niebo oraz tworzące wokół słońca aureolę.</string>
+    <string name="cirrostratus_desc">Chmury wysokie, pierzasto-warstwowe. Składają się z kryształków lodu. Przejrzyste, mgliste i często prawie niewidoczne. Powodują powstawanie zjawiska halo wokół słońca lub księżyca. Zwiastują pogorszenie pogody.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
     <string name="quality_good">Dobra</string>
     <string name="quality_poor">Słaba</string>
@@ -367,13 +367,13 @@
     <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji programu Trail Sense, korzystając z podręcznika użytkownika. Dostępny jest na samym dole w zakładce Narzędzia.
 \n
 \nWkrótce pojawi się więcej przewodników.</string>
-    <string name="cirrus_desc">Wysokie, delikatne chmury, które wyglądają jak kępki białych włosów.</string>
-    <string name="cumulonimbus_desc">Ciemnoszara, wysoka, o kowadełkowatym kształcie.</string>
-    <string name="cumulus_desc">Wygląda jak puchate kulki z waty.</string>
-    <string name="stratus_desc">Zasłania niebo, obiekty nie rzucają cieni.</string>
-    <string name="nimbostratus_desc">Ciemnoszara chmura średniego pietra, zakrywająca niebo. Może padać deszcz.</string>
-    <string name="altostratus_desc">Zakrywa niebo, słońce jest ledwo widoczne.</string>
-    <string name="altocumulus_desc">Chmury średnie, kłębiaste, wyglądające jak kulki z waty, zazwyczaj białe z ciemnymi łatami poniżej.</string>
+    <string name="cirrus_desc">Chmury wysokie, pierzaste. Składające się z kryształków lodu. Przypominają nici pajęcze, delikatne włókna, \"włosy anielskie\". Zwiastują pogorszenie pogody.</string>
+    <string name="cumulonimbus_desc">Chmury niskie, kłębiaste, deszczowo-burzowe. Składają się z kropel wody w dolnej oraz kryształków lodu w górnej części. Przypominają kowadło. Wysokość ponad 20 km. Silny ciągły opad deszczu, gradu lub śniegu.</string>
+    <string name="cumulus_desc">Chmury niskie, kłębiaste. Składające sie z kropel wody. Płaska podstawa, wypiętrzającą się w górę na kształt kopuły. Chmury \"pięknej pogody\". Możliwy słaby przelotny opad deszczu.</string>
+    <string name="stratus_desc">Chmury niskie, warstwowe. Składające się z kropel wody. Jednolita biała lub szarawa warstwa, pokrywająca całe niebo. Mogą obniżyć się jako mgła. Możliwy słaby ciągły opad mżawki.</string>
+    <string name="nimbostratus_desc">Chmury niskie, warstwowe, deszczowo-śniegowe. O mieszanym składzie. Ciemnoszara jednolita warstwa, pokrywająca całe niebo. Umiarkowany ciągły opad deszczu lub śniegu.</string>
+    <string name="altostratus_desc">Chmury średnie, warstwowe. O mieszanym składzie. Gruba i gęsta, niebieska lub szara warstwa, która matowi prześwit słońca lub księżyca, pokrywająca całe niebo. Możliwy słaby ciągły opad mżawki lub ziaren lodowych.</string>
+    <string name="altocumulus_desc">Chmury średnie, kłębiaste. Zbudowane z kropel wody. Białe lub szare drobne przylegające do siebie obłoki, tworzące warstwę. Zwiastują zmianę pogody.</string>
     <string name="pref_require_satellites_title">Wymagane ustalenie pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt orientacyjny\?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
@@ -527,7 +527,7 @@
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt dla ostatniej lokalizacji z sygnałem komórkowym</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
     <string name="pref_nearby_radar_title">Pokaż pobliski kompas radarowy</string>
-    <string name="cirrocumulus_desc">Chmury wysokie, pierzasto kłębiaste, tzw. „baranki”, jeden z rodzajów chmur lodowych.</string>
+    <string name="cirrocumulus_desc">Chmury wysokie, pierzasto-kłębiaste. Składają się z kryształków lodu. Małe, białe płatki lub kłębki ułożone w szeregi, tzw. „baranki”. Zwiastują polepszenie pogody.</string>
     <string name="backtrack_disabled_low_power_toast">Funkcja szlaku powrotnego jest wyłączona w trybie oszczędzania energii</string>
     <string name="pref_backtrack_frequency_title">Interwał szlaku powrotnego</string>
     <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji szlaku powrotnego</string>
@@ -685,7 +685,7 @@
     <string name="avalanche_risk">Zagrożenie lawinowe</string>
     <string name="slope_amount">nachylenie %s</string>
     <string name="pref_show_last_signal_beacon_title">Ostatni sygnał nadajnika</string>
-    <string name="stratocumulus_desc">Chmury niskie wyglądające jak płaszczyzna z wełnianych kul z przerwami pomiędzy. Białe do ciemno szarych.</string>
+    <string name="stratocumulus_desc">Chmury niskie, kłębiasto-warstwowe. Składające się z kropel wody. Szara warstwa lub wiele płatów przypominających spłaszczone bryły. Możliwy słaby przelotny opad deszczu.</string>
     <string name="pref_default_path_style_title">Domyślny styl ścieżki</string>
     <string name="pref_default_path_color_title">Domyślny kolor ścieżki</string>
     <string name="base_elevation">Wysokość bazowa</string>
@@ -972,8 +972,8 @@
     <string name="gps_accuracy_tip">Upewnij się, że widok na niebo jest niezasłonięty oraz oddal się od wysokich budynków i drzew.</string>
     <string name="map_auto_rotated">Obrót mapy dostosowany za pomocą kalibracji</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na opady w ciągu najbliższych %d godzin.</string>
-    <string name="cumulonimbus_forecast">Może wskazywać na burzę w ciągu kilku minut.</string>
-    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na dobrą pogodę. Jeśli rośnie, może wskazywać na opady lub burzę w ciągu najbliższych %d godzin.</string>
+    <string name="cumulonimbus_forecast">Mogą wskazywać na burzę w ciągu kilku minut.</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na dobrą pogodę, lecz jeśli rozprzestrzeniają się, mogą wskazywać na opady lub burzę w ciągu najbliższych %d godzin.</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Mogą wskazywać na opady w ciągu najbliższych %1$d do %2$d godzin.</string>
     <string name="gps_location_accuracy">Dokładność lokalizacji GPS</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Mogą wskazywać na dobrą pogodę przez następne %d godzin.</string>
