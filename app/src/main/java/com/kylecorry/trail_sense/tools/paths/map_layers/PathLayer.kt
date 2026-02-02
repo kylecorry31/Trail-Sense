@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.tools.paths.map_layers
 
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService

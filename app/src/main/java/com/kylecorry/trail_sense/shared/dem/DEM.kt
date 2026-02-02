@@ -5,6 +5,7 @@ import android.util.Size
 import com.kylecorry.andromeda.bitmaps.FloatBitmap
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
+import com.kylecorry.andromeda.bitmaps.operations.set
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -21,7 +22,6 @@ import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.CropTile
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
-import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource

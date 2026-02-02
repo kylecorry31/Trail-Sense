@@ -12,6 +12,8 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.AlphaColorMap
 import com.kylecorry.trail_sense.shared.andromeda_temp.Lut
+import com.kylecorry.trail_sense.shared.map_layers.tiles.InterpolatedGridValueProvider
+import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -51,15 +53,17 @@ class NightTileSource : TileSource {
             tile.size,
             Bitmap.Config.ARGB_8888,
             padding = 2,
-            getValues = TileImageUtils.interpolatedGridEvaluation(10) { lat, lon ->
-                astronomy.getSunAltitude(Coordinate(lat, lon), time)
-            }
+            valueProvider = InterpolatedGridValueProvider(
+                10,
+                ParallelCoordinateGridValueProvider { lat, lon ->
+                    astronomy.getSunAltitude(Coordinate(lat, lon), time)
+                })
         ) { x, y, getValue ->
             val value = getValue(x, y)
             if (smooth) {
                 val pct =
                     SolMath.norm(value, 0f, AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL, true)
-                colorMap.getColor(1 - pct)
+                colorMap.getColor(pct)
             } else {
                 val gray = (255 * SolMath.norm(
                     value,
@@ -92,7 +96,7 @@ class NightTileSource : TileSource {
                 value <= 0 -> 0.25f
                 else -> 0f
             }
-            table.alpha[i] = colorMap.getColor(1 - pct).alpha.toByte()
+            table.alpha[i] = colorMap.getColor(pct).alpha.toByte()
         }
         return table
     }

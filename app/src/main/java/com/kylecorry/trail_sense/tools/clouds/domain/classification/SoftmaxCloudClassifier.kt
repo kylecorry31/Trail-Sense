@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Rect
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.glcm
 import com.kylecorry.andromeda.bitmaps.ColorChannel
+import com.kylecorry.andromeda.bitmaps.operations.reducePixels
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
@@ -11,7 +12,6 @@ import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.math.statistics.Texture
 import com.kylecorry.sol.math.statistics.TextureFeatures
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.shared.andromeda_temp.reducePixels
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import kotlin.math.sqrt
 

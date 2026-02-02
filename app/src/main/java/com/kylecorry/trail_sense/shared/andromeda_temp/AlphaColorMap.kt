@@ -9,6 +9,6 @@ class AlphaColorMap(private val baseColor: Int = Color.BLACK, private val maxAlp
     override fun getColor(percent: Float): Int {
         val value = percent.coerceIn(0f, 1f) * 255
         val scale = maxAlpha / 255f
-        return baseColor.withAlpha(((255 - value) * scale).toInt())
+        return baseColor.withAlpha((value * scale).toInt())
     }
 }

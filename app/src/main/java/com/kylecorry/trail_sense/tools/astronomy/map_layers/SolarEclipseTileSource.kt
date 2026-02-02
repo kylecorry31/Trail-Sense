@@ -11,6 +11,8 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.AlphaColorMap
 import com.kylecorry.trail_sense.shared.andromeda_temp.Lut
+import com.kylecorry.trail_sense.shared.map_layers.tiles.InterpolatedGridValueProvider
+import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -51,13 +53,15 @@ class SolarEclipseTileSource : TileSource {
             tile.size,
             Bitmap.Config.ARGB_8888,
             padding = 2,
-            getValues = TileImageUtils.interpolatedGridEvaluation(4) { lat, lon ->
-                getEclipseObscuration(Coordinate(lat, lon), time) ?: 0f
-            }
+            valueProvider = InterpolatedGridValueProvider(
+                4,
+                ParallelCoordinateGridValueProvider { lat, lon ->
+                    getEclipseObscuration(Coordinate(lat, lon), time) ?: 0f
+                })
         ) { x, y, getValue ->
             val value = getValue(x, y)
             if (smooth) {
-                colorMap.getColor(1 - value)
+                colorMap.getColor(value)
             } else {
                 Color.argb((255 * value.coerceIn(0f, 1f)).toInt(), 0, 0, 0)
             }
@@ -96,7 +100,7 @@ class SolarEclipseTileSource : TileSource {
                 value > 0.05f -> 0.1f
                 else -> 0f
             }
-            table.alpha[i] = colorMap.getColor(1 - pct).alpha.toByte()
+            table.alpha[i] = colorMap.getColor(pct).alpha.toByte()
         }
         return table
     }
