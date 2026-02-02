@@ -15,7 +15,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.CropTile
 import com.kylecorry.trail_sense.shared.andromeda_temp.PixelPreservationUpscale
-import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.roundToInt
@@ -127,13 +126,13 @@ object TileImageUtils {
         getColor: suspend (x: Int, y: Int, getValue: (x: Int, y: Int) -> Float) -> Int
     ): Bitmap = onDefault {
         val expandBy = 1
-        val latitudes = Interpolation.getMultiplesBetween2(
+        val latitudes = Interpolation.getMultiplesBetween(
             bounds.south - resolution * (expandBy + padding),
             bounds.north + resolution * (expandBy + padding),
             resolution
         )
 
-        val longitudes = Interpolation.getMultiplesBetween2(
+        val longitudes = Interpolation.getMultiplesBetween(
             bounds.west - resolution * (expandBy + padding),
             (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution * (expandBy + padding),
             resolution
