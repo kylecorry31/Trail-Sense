@@ -195,9 +195,11 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         hasText(Regex(".*-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°.*"))
         back()
         click("Leave")
-        longClick(R.id.map)
 
-        click("Navigate")
+        waitFor {
+            longClick(R.id.map)
+            click("Navigate")
+        }
         hasText("Test Map", index = 1)
         hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
