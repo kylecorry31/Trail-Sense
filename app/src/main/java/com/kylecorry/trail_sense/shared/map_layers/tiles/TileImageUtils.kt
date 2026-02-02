@@ -5,6 +5,8 @@ import android.util.Size
 import com.kylecorry.andromeda.bitmaps.FloatBitmap
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.CropTile
+import com.kylecorry.andromeda.bitmaps.operations.PixelPreservationUpscale
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.bitmaps.operations.set
@@ -13,8 +15,6 @@ import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.andromeda_temp.CropTile
-import com.kylecorry.trail_sense.shared.andromeda_temp.PixelPreservationUpscale
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.roundToInt

@@ -6,12 +6,12 @@ import android.os.Bundle
 import androidx.core.graphics.alpha
 import com.kylecorry.andromeda.bitmaps.LookupTable
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
+import com.kylecorry.andromeda.bitmaps.operations.Lut
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.andromeda.core.ui.colormaps.AlphaColorMap
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.andromeda_temp.AlphaColorMap
-import com.kylecorry.trail_sense.shared.andromeda_temp.Lut
 import com.kylecorry.trail_sense.shared.map_layers.tiles.InterpolatedGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile

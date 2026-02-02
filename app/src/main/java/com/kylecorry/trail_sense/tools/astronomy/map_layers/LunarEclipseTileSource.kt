@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import com.kylecorry.andromeda.core.ui.colormaps.AlphaColorMap
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.andromeda_temp.AlphaColorMap
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
