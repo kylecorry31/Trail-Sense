@@ -1519,4 +1519,5 @@
     <string name="map_layer_solar_eclipse_description">日食可见性路径</string>
     <string name="map_layer_lunar_eclipse_description">月食可见性</string>
     <string name="map_layer_night_description">夜间暗度遮罩</string>
+    <string name="show_path">显示路径</string>
 </resources>
