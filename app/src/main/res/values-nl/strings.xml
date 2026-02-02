@@ -1528,4 +1528,5 @@
     <string name="map_layer_solar_eclipse_description">Zichtbaarheidspad zonsverduistering</string>
     <string name="map_layer_lunar_eclipse_description">Zichtbaarheid maansverduistering</string>
     <string name="map_layer_night_description">Nachtelijke duisternislaag</string>
+    <string name="show_path">Pad weergeven</string>
 </resources>
