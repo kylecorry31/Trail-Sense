@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features
 
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Path
+import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
@@ -11,8 +13,6 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPolygon
 import com.kylecorry.andromeda.geojson.GeoJsonPosition
 import com.kylecorry.luna.coroutines.onDefault
-import com.kylecorry.sol.math.SolMath.positive
-import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -36,6 +36,9 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
     private var polygons = listOf<PrecomputedPolygon>()
     private val lock = Any()
     private var updateListener: (() -> Unit)? = null
+    private val matrix = Matrix()
+    private val src = FloatArray(8)
+    private val dst = FloatArray(8)
 
     init {
         setRunInBackgroundWhenChanged(this::renderFeaturesInBackground)
@@ -65,6 +68,19 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
                 ).value.absoluteValue
             }
 
+        // Calculate the projected corners of the reference bounds
+        val projectedNW = projection.toPixels(bounds.northWest)
+        val projectedNE = projection.toPixels(bounds.northEast)
+        val projectedSE = projection.toPixels(bounds.southEast)
+        val projectedSW = projection.toPixels(bounds.southWest)
+
+        val projectedCorners = floatArrayOf(
+            projectedNW.x, projectedNW.y,
+            projectedNE.x, projectedNE.y,
+            projectedSE.x, projectedSE.y,
+            projectedSW.x, projectedSW.y
+        )
+
         val precomputed = features.mapNotNull { feature ->
             val geometry = feature.geometry as GeoJsonPolygon
             val rings = geometry.polygon ?: return@mapNotNull null
@@ -87,8 +103,8 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
                 feature.getStrokeWeight() ?: 0f,
                 feature.getOpacity(),
                 pathPool.get(),
-                projection.center,
-                projection.resolutionPixels
+                bounds,
+                projectedCorners
             )
         }
 
@@ -127,30 +143,57 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
         synchronized(lock) {
             for (polygon in polygons) {
                 val path = polygon.path
-                val centerPixel = map.toPixel(polygon.origin)
 
-                drawer.push()
-                drawer.translate(centerPixel.x, centerPixel.y)
-                val relativeScale = (polygon.renderedScale / map.resolutionPixels).real().positive(1f)
-                drawer.scale(relativeScale)
+                val currentNW = map.toPixel(polygon.referenceBounds.northWest)
+                val currentNE = map.toPixel(polygon.referenceBounds.northEast)
+                val currentSE = map.toPixel(polygon.referenceBounds.southEast)
+                val currentSW = map.toPixel(polygon.referenceBounds.southWest)
 
-                if (polygon.fillColor != null) {
-                    drawer.fill(polygon.fillColor.withAlpha(polygon.opacity))
-                } else {
-                    drawer.noFill()
+                // Source points (precomputed projected corners)
+                System.arraycopy(polygon.projectedCorners, 0, src, 0, 8)
+
+                // Destination points (current screen coordinates)
+                // NW
+                dst[0] = currentNW.x
+                dst[1] = currentNW.y
+                // NE
+                dst[2] = currentNE.x
+                dst[3] = currentNE.y
+                // SE
+                dst[4] = currentSE.x
+                dst[5] = currentSE.y
+                // SW
+                dst[6] = currentSW.x
+                dst[7] = currentSW.y
+
+                matrix.setPolyToPoly(src, 0, dst, 0, 4)
+
+                // Calculate scale from matrix
+                val matrixValues = FloatArray(9)
+                matrix.getValues(matrixValues)
+                val scaleX = matrixValues[Matrix.MSCALE_X]
+                val skewY = matrixValues[Matrix.MSKEW_Y]
+                val relativeScale = kotlin.math.sqrt(scaleX * scaleX + skewY * skewY)
+
+                drawer.canvas.withMatrix(matrix) {
+
+                    if (polygon.fillColor != null) {
+                        drawer.fill(polygon.fillColor.withAlpha(polygon.opacity))
+                    } else {
+                        drawer.noFill()
+                    }
+
+                    if (polygon.strokeColor != null && polygon.strokeWeight > 0) {
+                        drawer.stroke(polygon.strokeColor.withAlpha(polygon.opacity))
+                        drawer.strokeWeight(drawer.dp(polygon.strokeWeight * scale) / relativeScale)
+                        drawer.strokeJoin(StrokeJoin.Round)
+                        drawer.strokeCap(StrokeCap.Round)
+                    } else {
+                        drawer.noStroke()
+                    }
+
+                    drawer.path(path)
                 }
-
-                if (polygon.strokeColor != null && polygon.strokeWeight > 0) {
-                    drawer.stroke(polygon.strokeColor.withAlpha(polygon.opacity))
-                    drawer.strokeWeight(drawer.dp(polygon.strokeWeight * scale) / relativeScale)
-                    drawer.strokeJoin(StrokeJoin.Round)
-                    drawer.strokeCap(StrokeCap.Round)
-                } else {
-                    drawer.noStroke()
-                }
-
-                drawer.path(path)
-                drawer.pop()
             }
         }
 
@@ -165,9 +208,6 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
     ) {
         polygon.path.reset()
         polygon.path.fillType = Path.FillType.EVEN_ODD
-
-        // Calculate origin for relative rendering
-        val originPixel = projection.toPixels(projection.center)
 
         polygon.rings.forEach { ring ->
             if (ring.isEmpty()) {
@@ -184,11 +224,11 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
             }
 
             val start = clipped[0]
-            polygon.path.moveTo(start.x - originPixel.x, start.y - originPixel.y)
+            polygon.path.moveTo(start.x, start.y)
 
             for (i in 1 until clipped.size) {
                 val pixel = clipped[i]
-                polygon.path.lineTo(pixel.x - originPixel.x, pixel.y - originPixel.y)
+                polygon.path.lineTo(pixel.x, pixel.y)
             }
             polygon.path.close()
         }
@@ -202,7 +242,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
         val strokeWeight: Float,
         val opacity: Int,
         val path: Path,
-        val origin: Coordinate,
-        val renderedScale: Float
+        val referenceBounds: CoordinateBounds,
+        val projectedCorners: FloatArray
     )
 }

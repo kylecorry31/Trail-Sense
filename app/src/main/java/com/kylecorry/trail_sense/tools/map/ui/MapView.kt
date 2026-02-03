@@ -107,7 +107,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                 toCoordinate(PixelCoordinate(rotated.left, rotated.top)),
                 toCoordinate(PixelCoordinate(rotated.right, rotated.top))
             )
-            CoordinateBounds.from(corners)
+            val bounds = CoordinateBounds.from(corners)
+            bounds.copy(
+                north = bounds.north.coerceIn(-85.0, 85.0),
+                south = bounds.south.coerceIn(-85.0, 85.0)
+            )
         }
 
     override var resolution: Float
@@ -165,7 +169,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             invalidate()
         }
     private var lastScale = 1f
-    var minScale = 0.0002f
+    var minScale = 0.0001f
         set(value) {
             field = value
             if (scale < minScale) {

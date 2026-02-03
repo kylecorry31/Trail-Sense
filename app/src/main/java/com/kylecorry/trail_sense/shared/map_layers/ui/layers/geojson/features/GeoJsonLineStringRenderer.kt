@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features
 
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Path
+import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
@@ -48,6 +50,10 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     private var filterEpsilon = 0f
     private var reducedPaths = emptyList<PrecomputedLineString>()
     private val lock = Any()
+    private val matrix = Matrix()
+    private val src = FloatArray(8)
+    private val dst = FloatArray(8)
+    private val labelPoint = FloatArray(2)
 
     init {
         setRunInBackgroundWhenChanged(this::renderFeaturesInBackground)
@@ -55,13 +61,12 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
 
     private fun render(
         pixels: List<PixelCoordinate>,
-        originPixel: PixelCoordinate,
         path: Path,
         bounds: Rectangle
     ): FloatArray {
         val segments = mutableListOf<Float>()
 
-        clipper.clip(pixels, bounds, segments, originPixel, rdpFilterEpsilon = filterEpsilon)
+        clipper.clip(pixels, bounds, segments, rdpFilterEpsilon = filterEpsilon)
 
         val segmentArray = segments.toFloatArray()
         path.reset()
@@ -117,8 +122,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             viewBounds.bottom - margin
         )
 
-        val originPixel = projection.toPixels(projection.center)
-
         val precomputed = features.mapNotNull {
             val geometry = it.geometry as GeoJsonLineString
             val line = geometry.line
@@ -138,7 +141,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
 
             val pixelPoints = coordinates.map { coordinate -> projection.toPixels(coordinate) }
             val path = pathPool.get()
-            val lineSegments = render(pixelPoints, originPixel, path, actualViewBounds)
+            val lineSegments = render(pixelPoints, path, actualViewBounds)
             if (lineSegments.isEmpty()) {
                 pathPool.release(path)
                 return@mapNotNull null
@@ -155,6 +158,18 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 emptyList()
             }
 
+            val projectedNW = projection.toPixels(bounds.northWest)
+            val projectedNE = projection.toPixels(bounds.northEast)
+            val projectedSE = projection.toPixels(bounds.southEast)
+            val projectedSW = projection.toPixels(bounds.southWest)
+
+            val projectedCorners = floatArrayOf(
+                projectedNW.x, projectedNW.y,
+                projectedNE.x, projectedNE.y,
+                projectedSE.x, projectedSE.y,
+                projectedSW.x, projectedSW.y
+            )
+
             PrecomputedLineString(
                 it,
                 coordinates,
@@ -166,8 +181,8 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                     ?: DEFAULT_LINE_STRING_STROKE_WEIGHT_DP) / DEFAULT_LINE_STRING_STROKE_WEIGHT_DP,
                 labelSegments,
                 path,
-                projection.center,
-                projection.resolutionPixels
+                bounds,
+                projectedCorners
             )
         }
 
@@ -212,7 +227,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             val canvasHeight = (viewBounds.bottom - viewBounds.top).absoluteValue
             val minSeparationPx = max(canvasWidth, canvasHeight) / 4f
             val maxLabels = 5
-            computeLabelPlacements(precomputed, gridPoints, minSeparationPx, maxLabels, originPixel)
+            computeLabelPlacements(precomputed, gridPoints, minSeparationPx, maxLabels)
         }
 
         synchronized(lock) {
@@ -238,21 +253,72 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                     continue
                 }
 
+                val currentNW = map.toPixel(path.referenceBounds.northWest)
+                val currentNE = map.toPixel(path.referenceBounds.northEast)
+                val currentSE = map.toPixel(path.referenceBounds.southEast)
+                val currentSW = map.toPixel(path.referenceBounds.southWest)
+
+                // Source points (precomputed relative to origin)
+                // NW
+                src[0] = path.projectedCorners[0]
+                src[1] = path.projectedCorners[1]
+                // NE
+                src[2] = path.projectedCorners[2]
+                src[3] = path.projectedCorners[3]
+                // SE
+                src[4] = path.projectedCorners[4]
+                src[5] = path.projectedCorners[5]
+                // SW
+                src[6] = path.projectedCorners[6]
+                src[7] = path.projectedCorners[7]
+
+                // Destination points (current screen coordinates)
+                // NW
+                dst[0] = currentNW.x
+                dst[1] = currentNW.y
+                // NE
+                dst[2] = currentNE.x
+                dst[3] = currentNE.y
+                // SE
+                dst[4] = currentSE.x
+                dst[5] = currentSE.y
+                // SW
+                dst[6] = currentSW.x
+                dst[7] = currentSW.y
+
+                matrix.setPolyToPoly(src, 0, dst, 0, 4)
+
+                // Calculate scale from matrix
+                val matrixValues = FloatArray(9)
+                matrix.getValues(matrixValues)
+                val scaleX = matrixValues[Matrix.MSCALE_X]
+                val skewY = matrixValues[Matrix.MSKEW_Y]
+                val relativeScale = kotlin.math.sqrt(scaleX * scaleX + skewY * skewY)
+
                 val pathDrawer = factory.create(path.lineStyle)
-                val centerPixel = map.toPixel(path.origin)
 
-                drawer.push()
-                drawer.translate(centerPixel.x, centerPixel.y)
-                val relativeScale = (path.renderedScale / map.resolutionPixels).real().positive(1f)
-                drawer.scale(relativeScale)
-                drawer.strokeJoin(StrokeJoin.Round)
-                drawer.strokeCap(StrokeCap.Round)
+                drawer.canvas.withMatrix(matrix) {
+                    drawer.strokeJoin(StrokeJoin.Round)
+                    drawer.strokeCap(StrokeCap.Round)
 
-                backgroundColor?.let { backgroundColor ->
-                    factory.create(LineStyle.Solid).draw(
+                    backgroundColor?.let { backgroundColor ->
+                        factory.create(LineStyle.Solid).draw(
+                            drawer,
+                            backgroundColor,
+                            strokeScale = dpScale * 0.75f * relativeScale * scale / path.thicknessScale
+                        ) {
+                            if (shouldRenderWithDrawLines) {
+                                lines(path.line)
+                            } else {
+                                path(path.path)
+                            }
+                        }
+                    }
+
+                    pathDrawer.draw(
                         drawer,
-                        backgroundColor,
-                        strokeScale = dpScale * 0.75f * relativeScale * scale / path.thicknessScale
+                        path.color,
+                        strokeScale = dpScale * relativeScale * scale / path.thicknessScale
                     ) {
                         if (shouldRenderWithDrawLines) {
                             lines(path.line)
@@ -261,21 +327,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                         }
                     }
                 }
-
-                pathDrawer.draw(
-                    drawer,
-                    path.color,
-                    strokeScale = dpScale * relativeScale * scale / path.thicknessScale
-                ) {
-                    if (shouldRenderWithDrawLines) {
-                        lines(path.line)
-                    } else {
-                        path(path.path)
-                    }
-                }
-
-                drawer.pop()
-                drawLabels(drawer, map, path)
+                drawLabels(drawer, map, path, matrix)
             }
         }
 
@@ -285,7 +337,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     }
 
 
-    private fun drawLabels(drawer: ICanvasDrawer, map: IMapView, path: PrecomputedLineString) {
+    private fun drawLabels(drawer: ICanvasDrawer, map: IMapView, path: PrecomputedLineString, matrix: Matrix) {
         if (shouldRenderLabels && path.name != null) {
             if (path.points.size < 2) return
 
@@ -303,16 +355,33 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             val placements = path.labelPlacements
             if (placements.isEmpty()) return
 
-            val centerPixel = map.toPixel(path.origin)
-            val relativeScale = (path.renderedScale / map.resolutionPixels).real().positive(1f)
+            // Calculate rotation from matrix
+            // We can map a vector (1,0) to get angle
+            labelPoint[0] = 0f
+            labelPoint[1] = 0f
+            matrix.mapPoints(labelPoint)
+            val p0x = labelPoint[0]
+            val p0y = labelPoint[1]
+
+            labelPoint[0] = 1f
+            labelPoint[1] = 0f
+            matrix.mapPoints(labelPoint)
+            val p1x = labelPoint[0]
+            val p1y = labelPoint[1]
+
+            val rotationDelta = atan2(p1y - p0y, p1x - p0x).toDegrees()
+
+
             var labelsDrawn = 0
             for (placement in placements) {
                 if (labelsDrawn >= maxLabels) break
-                val center = PixelCoordinate(
-                    placement.center.x * relativeScale + centerPixel.x,
-                    placement.center.y * relativeScale + centerPixel.y
-                )
-                val drawAngle = placement.angle
+
+                labelPoint[0] = placement.center.x
+                labelPoint[1] = placement.center.y
+                matrix.mapPoints(labelPoint)
+
+                val center = PixelCoordinate(labelPoint[0], labelPoint[1])
+                val drawAngle = placement.angle + rotationDelta
 
                 drawer.push()
                 drawer.rotate(drawAngle, center.x, center.y)
@@ -347,8 +416,8 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         val thicknessScale: Float,
         var labelSegments: List<LabelSegment>,
         val path: Path,
-        val origin: Coordinate,
-        val renderedScale: Float,
+        val referenceBounds: CoordinateBounds,
+        val projectedCorners: FloatArray,
         var labelPlacements: List<LabelPlacement> = emptyList()
     )
 
@@ -366,8 +435,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         paths: List<PrecomputedLineString>,
         gridPoints: List<PixelCoordinate>,
         minSeparationPx: Float,
-        maxLabels: Int,
-        originPixel: PixelCoordinate
+        maxLabels: Int
     ) {
         for (path in paths) {
             val segments = path.labelSegments
@@ -387,7 +455,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                     SolMath.argmin(segments.map { it.center.distanceTo(gridPixel) })
 
                 if (closestIndex >= 0) {
-                    val center = segments[closestIndex].center - originPixel
+                    val center = segments[closestIndex].center
                     if (chosenSegments.contains(closestIndex)) continue
                     if (placedCenters.any { it.distanceTo(center) < minSeparationPx }) continue
 

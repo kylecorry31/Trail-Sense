@@ -38,6 +38,7 @@ import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
+import androidx.core.graphics.withSave
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
@@ -155,9 +156,10 @@ abstract class TileMapLayer<T : TileSource>(
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
         val bounds = map.mapBounds
+        val projection = map.mapProjection
         val desiredTiles = getTiles(
             bounds,
-            map.mapProjection
+            projection
         )
 
         queue.setDesiredTiles(desiredTiles)
@@ -175,9 +177,9 @@ abstract class TileMapLayer<T : TileSource>(
                 tryOrLog {
                     val clipTile = renderTile.clipTo
                     if (clipTile != null) {
-                        renderTileClipped(renderTile.imageTile, canvas, map, bitmap, clipTile)
+                        renderTileClipped(renderTile.imageTile, canvas, projection, bitmap, clipTile)
                     } else {
-                        renderTile(renderTile.imageTile, canvas, map, bitmap)
+                        renderTile(renderTile.imageTile, canvas, projection, bitmap)
                     }
                 }
             }
@@ -284,15 +286,15 @@ abstract class TileMapLayer<T : TileSource>(
     private fun renderTile(
         imageTile: ImageTile,
         canvas: Canvas,
-        map: IMapView,
+        projection: IMapViewProjection,
         bitmap: Bitmap
     ) {
         val tile = imageTile.tile
         val bounds = tile.getBounds()
-        val topLeftPixel = map.toPixel(bounds.northWest)
-        val topRightPixel = map.toPixel(bounds.northEast)
-        val bottomRightPixel = map.toPixel(bounds.southEast)
-        val bottomLeftPixel = map.toPixel(bounds.southWest)
+        val topLeftPixel = projection.toPixels(bounds.northWest)
+        val topRightPixel = projection.toPixels(bounds.northEast)
+        val bottomRightPixel = projection.toPixels(bounds.southEast)
+        val bottomLeftPixel = projection.toPixels(bounds.southWest)
 
         if (isTooSmall(topLeftPixel, topRightPixel, bottomLeftPixel, bottomRightPixel)) {
             return
@@ -378,26 +380,26 @@ abstract class TileMapLayer<T : TileSource>(
     private fun renderTileClipped(
         imageTile: ImageTile,
         canvas: Canvas,
-        map: IMapView,
+        projection: IMapViewProjection,
         bitmap: Bitmap,
         clipTile: Tile
     ) {
         val clipBounds = clipTile.getBounds()
-        val clipTopLeft = map.toPixel(clipBounds.northWest)
-        val clipTopRight = map.toPixel(clipBounds.northEast)
-        val clipBottomRight = map.toPixel(clipBounds.southEast)
-        val clipBottomLeft = map.toPixel(clipBounds.southWest)
+        val clipTopLeft = projection.toPixels(clipBounds.northWest)
+        val clipTopRight = projection.toPixels(clipBounds.northEast)
+        val clipBottomRight = projection.toPixels(clipBounds.southEast)
+        val clipBottomLeft = projection.toPixels(clipBounds.southWest)
 
-        canvas.save()
-        clipPath.rewind()
-        clipPath.moveTo(clipTopLeft.x, clipTopLeft.y)
-        clipPath.lineTo(clipTopRight.x, clipTopRight.y)
-        clipPath.lineTo(clipBottomRight.x, clipBottomRight.y)
-        clipPath.lineTo(clipBottomLeft.x, clipBottomLeft.y)
-        clipPath.close()
-        canvas.clipPath(clipPath)
-        renderTile(imageTile, canvas, map, bitmap)
-        canvas.restore()
+        canvas.withSave {
+            clipPath.rewind()
+            clipPath.moveTo(clipTopLeft.x, clipTopLeft.y)
+            clipPath.lineTo(clipTopRight.x, clipTopRight.y)
+            clipPath.lineTo(clipBottomRight.x, clipBottomRight.y)
+            clipPath.lineTo(clipBottomLeft.x, clipBottomLeft.y)
+            clipPath.close()
+            clipPath(clipPath)
+            renderTile(imageTile, this, projection, bitmap)
+        }
     }
 
     private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
