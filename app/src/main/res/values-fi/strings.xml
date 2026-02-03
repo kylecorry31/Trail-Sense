@@ -1455,4 +1455,9 @@
     <string name="pref_photo_maps_high_detail_mode_summary">Lataa enemmän laattoja paremman laadun saavuttamiseksi. Käyttää enemmän muistia.</string>
     <string name="multi_direction_shading">Monisuuntainen varjostus</string>
     <string name="show_images">Näytä kuvat</string>
+    <string name="show_tide_phase">Näytä vuorovesien vaihe</string>
+    <string name="map_layer_solar_eclipse_description">Näytä auringonpimennyksen reitti</string>
+    <string name="map_layer_lunar_eclipse_description">Kuunpimennyksen näkyvyys</string>
+    <string name="map_layer_night_description">Yöajan pimennyskerros</string>
+    <string name="show_path">Näytä reitti</string>
 </resources>
