@@ -342,31 +342,9 @@
     <string name="quality_poor">Słaba</string>
     <string name="unavailable">Niedostępny</string>
     <string name="gps_searching">Wyszukiwanie</string>
-    <string name="gps_user">Użytkownika</string>
-    <string name="onboarding_privacy">- Program Trail Sense szanuje Twoją prywatność i dane lokalizacji nigdy nieopuszczą Twojego urzadzenia
-\n
-\n- Trail Sense nigdy nie wymaga połączenie z Internetem
-\n
-\n- Zobacz [politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej Twojego telefonu)
-\n
-\n- Niektóre funkcje programu Trail Sense wymagają dostępu do Twojej lokalizacji
-\n
-\n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:
-\n
-\n\t- Nawigowanie do punktów nawigacyjnych
-\n
-\n\t- Poprawi dokładność prognoz (wymaga lokalizacji w tle, co nie jest dostępne we wszystkich urządzeniach)
-\n
-\n\t- Backtrack (wymaga lokalizacji w tle)
-\n
-\n\t- Czasy Słońca i Księżyca dla obecnej lokalizacji
-\n
-\n- Jeśli zdecydujesz się nie udzielać pozwolenia na korzystanie z lokalizacji, możesz ręcznie wprowadzić swoją lokalizację w menu Ustawienia &gt; Kalibracja GPS.
-\n
-\n- Po kliknięciu przycisku Kontynuuj zostanie wyświetlony monit o przyznanie uprawnień do lokalizacji i lokalizacji w tle. Odmowa przyznania tych uprawnień uniemożliwi programowi Trail Sense dostęp do Twojej lokalizacji, dlatego zalecane jest ręczne wprowadzenie lokalizacji.</string>
-    <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji programu Trail Sense, korzystając z podręcznika użytkownika. Dostępny jest na samym dole w zakładce Narzędzia.
-\n
-\nWkrótce pojawi się więcej przewodników.</string>
+    <string name="gps_user">Nadpisany</string>
+    <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urzadzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Zobacz [politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca obecnej lokalizacji (alerty o zachodach słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Kalibracja GPS. \n \n- Po nacisnięciu przycisku Kontynuuj zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
+    <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji aplikacji Trail Sense, korzystając z podręcznika użytkownika. Dostępnym na samym dole w zakładce Narzędzia. \n \nWkrótce pojawi się więcej przewodników.</string>
     <string name="cirrus_desc">Chmury wysokie, pierzaste. Składające się z kryształków lodu. Przypominają nici pajęcze, delikatne włókna, \"włosy anielskie\". Zwiastują pogorszenie pogody.</string>
     <string name="cumulonimbus_desc">Chmury niskie, kłębiaste, deszczowo-burzowe. Składają się z kropel wody w dolnej oraz kryształków lodu w górnej części. Przypominają kowadło. Wysokość ponad 20 km. Silny ciągły opad deszczu, gradu lub śniegu.</string>
     <string name="cumulus_desc">Chmury niskie, kłębiaste. Składające sie z kropel wody. Płaska podstawa, wypiętrzającą się w górę na kształt kopuły. Chmury \"pięknej pogody\". Możliwy słaby przelotny opad deszczu.</string>
@@ -386,7 +364,7 @@
     <string name="magnetometer">Magnetometr</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">Grawitacja</string>
-    <string name="hygrometer">Wilgotnościomierz</string>
+    <string name="hygrometer">Higrometr</string>
     <string name="satellites">satelitów</string>
     <string name="dbm_format">%s dBm</string>
     <string name="cell_signal">Sygnał sieci komórkowej</string>
@@ -409,22 +387,22 @@
     <string name="gps_cache">Pamięć podręczna GPS</string>
     <string name="gps_stale">Nieaktualny</string>
     <string name="pref_daily_weather_notification_title">Codzienne powiadomienia o pogodzie</string>
-    <string name="todays_forecast">Dzisiejsza prognoza</string>
+    <string name="todays_forecast">Prognoza na dziś</string>
     <string name="battery_usage">%s użycie baterii</string>
     <string name="service_update_frequency">Aktualizacje co %s</string>
     <string name="always_on">Zawsze włączone</string>
     <string name="no_gps_signal">Brak sygnału GPS</string>
     <string name="low_tide">Odpływ</string>
     <string name="high_tide">Przypływ</string>
-    <string name="right_quick_action">Prawa szybka akcja</string>
-    <string name="left_quick_action">Lewa szybka akcja</string>
+    <string name="right_quick_action">Akcja prawego przycisku</string>
+    <string name="left_quick_action">Akcja lewego przycisku</string>
     <string name="guide_light_meter_description">Jak określić odległość wiązki światła z latarek</string>
     <string name="none">Brak</string>
     <string name="time_not_set">Czas nieustawiony</string>
     <string name="tool_light_meter_title">Światłomierz</string>
     <string name="beam_distance">%s odległość wiązki</string>
     <string name="pref_daily_weather_time_title">Czas codziennej prognozy pogody</string>
-    <string name="tomorrows_forecast">Jutrzejsza prognoza</string>
+    <string name="tomorrows_forecast">Prognoza na jutro</string>
     <string name="battery_power_ac">AC</string>
     <string name="low">Niskie</string>
     <string name="moderate">Umiarkowane</string>
@@ -432,7 +410,7 @@
     <string name="speedometer">Prędkościomierz</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="half_tide">Połowa przypływu</string>
-    <string name="beacon_export_error">Nie udało się wyeksportować punktów</string>
+    <string name="beacon_export_error">Nie udało się eksportować punktów</string>
     <string name="turn_off">Wyłącz</string>
     <string name="pref_stride_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
@@ -443,7 +421,7 @@
     <string name="meteors_per_hour">Maksymalnie %d meteorów / h</string>
     <string name="meteor_shower">Deszcz meteorów</string>
     <string name="previous">Poprzedni</string>
-    <string name="next">Dalej</string>
+    <string name="next">Następny</string>
     <string name="on_map">Na mapie</string>
     <string name="no_maps">Brak map</string>
     <string name="rename">Zmień nazwę</string>
@@ -457,7 +435,7 @@
     <string name="battery_warning">Ostrzeżenie o nadmiernym rozładowaniu baterii</string>
     <string name="pref_weather_show_detailed_icon_title">Pokaż kolorową ikonę powiadomienia</string>
     <string name="search">Wyszukaj</string>
-    <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź jej dokładność</string>
+    <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź dokładność</string>
     <plurals name="beacons_exported">
         <item quantity="one">Wyeksportowano %d punkt nawigacyjny</item>
         <item quantity="few">Wyeksportowano %d punkty nawigacyjne</item>
@@ -625,7 +603,7 @@
     <string name="clear_amounts">Wyczyść ilości</string>
     <string name="desired_amount">Pożądana ilość</string>
     <string name="packed_amount">Zapakowana ilość</string>
-    <string name="pedometer_disclaimer">Dokładność krokomierza i zużycie baterii zależą od producenta urządzenia i wprowadzonej długości kroku. Wypróbuj go przez chwilę w domu, aby sprawdzić zużycie baterii i dokładność przed użyciem na szlaku.</string>
+    <string name="pedometer_disclaimer">Dokładność i zużycie baterii przez krokomierz zależą od producenta urządzenia oraz wprowadzonej długości kroku. Wypróbuj przez chwilę w domu, aby sprawdzić dokładność oraz zużycie baterii przed użyciem na szlaku.</string>
     <string name="action_inventory_clear_confirm">Wyczyścić wszystkie spakowane ilości\?</string>
     <string name="lightning_dangerously_close">Błyskawica niebezpiecznie blisko</string>
     <string name="partial">Częściowe (%s)</string>
@@ -737,7 +715,7 @@
     <string name="weather_storm">Burza</string>
     <string name="very_soon">Niebawem</string>
     <string name="soon">Wkrótce</string>
-    <string name="dashed">Przerywana</string>
+    <string name="dashed">Przerywany</string>
     <string name="distance_unset">Odległość nieustawiona</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Blokada za pomocą przycisków głośności</string>
     <string name="errors">Błędy</string>
@@ -970,7 +948,7 @@
     <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Opady mogą występować przez następne %d godzin.</string>
     <string name="gps_elevation_accuracy">Dokładność wysokości GPS</string>
     <string name="gps_accuracy_tip">Upewnij się, że widok na niebo jest niezasłonięty oraz oddal się od wysokich budynków i drzew.</string>
-    <string name="map_auto_rotated">Obrót mapy dostosowany za pomocą kalibracji</string>
+    <string name="map_auto_rotated">Obrót mapy regulowany za pomocą kalibracji</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na opady w ciągu najbliższych %d godzin.</string>
     <string name="cumulonimbus_forecast">Mogą wskazywać na burzę w ciągu kilku minut.</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na dobrą pogodę, lecz jeśli rozprzestrzeniają się, mogą wskazywać na opady lub burzę w ciągu najbliższych %d godzin.</string>
