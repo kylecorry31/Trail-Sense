@@ -166,22 +166,13 @@ class PhotoMapTileSourceSelector(
         }
     }
 
-    // TODO: Extract to sol
     private fun contains(
         bounds: CoordinateBounds,
         subBounds: CoordinateBounds,
         fullyContained: Boolean = false
     ): Boolean {
-
         return if (fullyContained) {
-            val corners = listOf(
-                bounds.contains(subBounds.northWest),
-                bounds.contains(subBounds.northEast),
-                bounds.contains(subBounds.southWest),
-                bounds.contains(subBounds.southEast),
-                bounds.contains(subBounds.center)
-            )
-            corners.all { it }
+            bounds.contains(subBounds)
         } else {
             bounds.intersects(subBounds)
         }

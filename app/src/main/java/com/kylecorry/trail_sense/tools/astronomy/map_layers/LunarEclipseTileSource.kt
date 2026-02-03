@@ -2,10 +2,11 @@ package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import com.kylecorry.andromeda.core.ui.colormaps.AlphaColorMap
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.andromeda_temp.AlphaColorMap
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -47,12 +48,12 @@ class LunarEclipseTileSource : TileSource {
             Bitmap.Config.ARGB_8888,
             padding = 2,
             smoothPixelEdges = true,
-            getValues = TileImageUtils.parallelGridEvaluation { lat, lon ->
+            valueProvider = ParallelCoordinateGridValueProvider { lat, lon ->
                 getEclipseObscuration(Coordinate(lat, lon), time) ?: 0f
             }
         ) { x, y, getValue ->
             val value = getValue(x, y)
-            colorMap.getColor(1 - value)
+            colorMap.getColor(value)
         }
     }
 

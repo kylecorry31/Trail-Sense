@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.plugins.plugins.PluginLoader
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.useBackgroundMemo2
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useLocation
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
@@ -55,7 +55,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
             PluginLoader(context)
         }
 
-        val plugins = useBackgroundMemo2(finder) {
+        val plugins = useBackgroundMemo(finder) {
             finder.getPluginResourceServices()
         }
 
@@ -68,7 +68,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
             }
         }
 
-        val data = useBackgroundMemo2(service) {
+        val data = useBackgroundMemo(service) {
             service?.ping()
         }
 

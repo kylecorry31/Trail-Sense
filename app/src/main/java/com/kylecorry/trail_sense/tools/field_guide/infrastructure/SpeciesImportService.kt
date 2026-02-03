@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide.infrastructure
 
 import com.kylecorry.andromeda.files.ZipUtils
+import com.kylecorry.andromeda.files.ZipUtils.unzip
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.coroutines.onIO

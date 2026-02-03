@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.system.AppData
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.andromeda.files.ZipUtils
+import com.kylecorry.andromeda.files.ZipUtils.unzip
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.io.FileSubsystem

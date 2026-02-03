@@ -4,7 +4,9 @@ import android.graphics.Bitmap
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.FloatBitmap
 import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.CropTile
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
+import com.kylecorry.andromeda.bitmaps.operations.set
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -19,9 +21,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.CropTile
-import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
-import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
 import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
@@ -67,13 +66,13 @@ object DEM {
         isTile: Boolean = false,
         expandBy: Int = 1
     ): ElevationBitmap = onDefault {
-        val latitudes = Interpolation.getMultiplesBetween2(
+        val latitudes = Interpolation.getMultiplesBetween(
             bounds.south - resolution * expandBy,
             bounds.north + resolution * expandBy,
             resolution
         )
 
-        val longitudes = Interpolation.getMultiplesBetween2(
+        val longitudes = Interpolation.getMultiplesBetween(
             bounds.west - resolution * expandBy,
             (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution * expandBy,
             resolution
@@ -149,7 +148,7 @@ object DEM {
             minElevation,
             maxElevation,
             interval
-        )
+        ).toList()
 
         Parallel.map(thresholds) { threshold ->
             val segments = Interpolation.getIsoline(

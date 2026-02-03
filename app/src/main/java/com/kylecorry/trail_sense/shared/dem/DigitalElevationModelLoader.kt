@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.shared.dem
 import android.net.Uri
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.files.ZipUtils
+import com.kylecorry.andromeda.files.ZipUtils.unzip
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.unzip
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

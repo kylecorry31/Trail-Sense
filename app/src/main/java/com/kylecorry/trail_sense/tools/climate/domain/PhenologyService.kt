@@ -1,6 +1,13 @@
 package com.kylecorry.trail_sense.tools.climate.domain
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.ecology.Ecology
+import com.kylecorry.sol.science.ecology.GrowingDegreeDaysCalculationType
+import com.kylecorry.sol.science.ecology.LifecycleEvent
+import com.kylecorry.sol.science.ecology.SpeciesPhenology
+import com.kylecorry.sol.science.ecology.triggers.AboveTemperatureTrigger
+import com.kylecorry.sol.science.ecology.triggers.BelowTemperatureTrigger
+import com.kylecorry.sol.science.ecology.triggers.MinimumGrowingDegreeDaysTrigger
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
@@ -125,7 +132,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
                 continue
             }
 
-            val events = Phenology.getLifecycleEventDates(
+            val events = Ecology.getLifecycleEventDates(
                 species.phenology,
                 Range(LocalDate.of(year - 1, 1, 1), LocalDate.of(year, 12, 31))
             ) { date ->

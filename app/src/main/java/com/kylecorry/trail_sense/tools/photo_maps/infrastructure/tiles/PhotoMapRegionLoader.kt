@@ -6,6 +6,7 @@ import android.graphics.Rect
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
+import com.kylecorry.andromeda.bitmaps.operations.CorrectPerspective
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.units.PercentBounds
@@ -14,7 +15,6 @@ import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.ceilToInt
 import com.kylecorry.sol.math.floorToInt
-import com.kylecorry.trail_sense.shared.andromeda_temp.CorrectPerspective2
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
@@ -94,7 +94,7 @@ class PhotoMapRegionLoader(
         bitmap?.applyOperationsOrNull(
             Conditional(
                 shouldApplyPerspectiveCorrection,
-                CorrectPerspective2(
+                CorrectPerspective(
                     PercentBounds(
                         percentTopLeft,
                         percentTopRight,
@@ -103,7 +103,7 @@ class PhotoMapRegionLoader(
                     ),
                     maxSize = maxSize,
                     outputSize = maxSize,
-                    useBilinearScaling = !isPixelPerfect
+                    interpolate = !isPixelPerfect
                 )
             ),
             Resize(maxSize, true, useBilinearScaling = !isPixelPerfect),

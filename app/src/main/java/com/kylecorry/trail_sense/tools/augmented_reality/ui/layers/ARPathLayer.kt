@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.science.geography.projections.IMapProjection
@@ -316,7 +317,6 @@ class ARPathLayer(
         }
     }
 
-    // TODO: Extract this to sol
     private fun projectOntoLine(
         x: Float,
         y: Float,
@@ -327,15 +327,12 @@ class ARPathLayer(
         y2: Float,
         z2: Float
     ): Pair<PixelCoordinate, Float> {
-        val ab = square(x2 - x1) + square(y2 - y1)
-        val ap = square(x - x1) + square(y - y1)
-        val bp = square(x - x2) + square(y - y2)
-
-        val t = ((ap - bp + ab) / (2 * ab)).coerceIn(0f, 1f)
-        val projectedX = x1 + t * (x2 - x1)
-        val projectedY = y1 + t * (y2 - y1)
-        val projectedZ = z1 + t * (z2 - z1)
-        return PixelCoordinate(projectedX, projectedY) to projectedZ
+        val snapped = Geometry.snapToLine(
+            x, y,
+            x1, y1, z1,
+            x2, y2, z2
+        )
+        return PixelCoordinate(snapped.x, snapped.y) to snapped.z
     }
 
     private fun project(

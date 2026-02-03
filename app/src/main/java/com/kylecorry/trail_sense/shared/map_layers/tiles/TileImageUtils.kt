@@ -3,81 +3,74 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles
 import android.graphics.Bitmap
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.FloatBitmap
+import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.CropTile
+import com.kylecorry.andromeda.bitmaps.operations.PixelPreservationUpscale
+import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
+import com.kylecorry.andromeda.bitmaps.operations.set
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.andromeda_temp.CropTile
-import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween2
-import com.kylecorry.trail_sense.shared.andromeda_temp.set
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-object TileImageUtils {
-    fun parallelGridEvaluation(
-        getValue: (latitude: Double, longitude: Double) -> Float
-    ): suspend (latitudes: DoubleArray, longitudes: DoubleArray) -> FloatBitmap {
-        return { latitudes: DoubleArray, longitudes: DoubleArray ->
-            val bitmap = FloatBitmap(longitudes.size, latitudes.size, 1)
-            Parallel.forEach(latitudes.indices.toList()) { y ->
-                val latitude = latitudes[y]
-                for (x in longitudes.indices) {
-                    bitmap.set(x, y, 0, getValue(latitude, longitudes[x]))
-                }
+
+interface CoordinateGridValueProvider {
+    suspend fun getValues(latitudes: DoubleArray, longitudes: DoubleArray): FloatBitmap
+}
+
+class ParallelCoordinateGridValueProvider(
+    private val getValue: (latitude: Double, longitude: Double) -> Float
+) : CoordinateGridValueProvider {
+    override suspend fun getValues(
+        latitudes: DoubleArray,
+        longitudes: DoubleArray
+    ): FloatBitmap {
+        val bitmap = FloatBitmap(longitudes.size, latitudes.size, 1)
+        Parallel.forEach(latitudes.indices.toList()) { y ->
+            val latitude = latitudes[y]
+            Parallel.forEach(longitudes.indices.toList()) { x ->
+                bitmap.set(x, y, 0, getValue(latitude, Coordinate.toLongitude(longitudes[x])))
             }
-            bitmap
         }
+        return bitmap
+    }
+}
+
+class InterpolatedGridValueProvider(
+    private val samples: Int,
+    private val valueProvider: CoordinateGridValueProvider
+) : CoordinateGridValueProvider {
+    private val expandBy = 2
+
+    override suspend fun getValues(
+        latitudes: DoubleArray,
+        longitudes: DoubleArray
+    ): FloatBitmap {
+        val unwrappedLongitudes = unwrapLongitudes(longitudes)
+        val step =
+            (unwrappedLongitudes.last() - unwrappedLongitudes.first()) / (if (samples > 1) samples - 1 else 1)
+
+        val sampledLatitudes = resample(latitudes.first(), latitudes.last(), step)
+        val sampledLongitudes =
+            resample(unwrappedLongitudes.first(), unwrappedLongitudes.last(), step)
+        val sampledBitmap = valueProvider.getValues(sampledLatitudes, sampledLongitudes)
+
+        val startX =
+            ((unwrappedLongitudes.first() - sampledLongitudes.first()) / step).toFloat()
+        val endX = ((unwrappedLongitudes.last() - sampledLongitudes.first()) / step).toFloat()
+        val startY = ((latitudes.first() - sampledLatitudes.first()) / step).toFloat()
+        val endY = ((latitudes.last() - sampledLatitudes.first()) / step).toFloat()
+
+        return sampledBitmap.upscale(longitudes.size, latitudes.size, startX, endX, startY, endY)
     }
 
-    /**
-     * Total lookup points = (samples + 4)^2
-     * If less than 2 samples are used, results will be degraded
-     */
-    fun interpolatedGridEvaluation(
-        samples: Int,
-        getValue: (latitude: Double, longitude: Double) -> Float
-    ): suspend (latitudes: DoubleArray, longitudes: DoubleArray) -> FloatBitmap {
-        val expandBy = 2
-        return { latitudes: DoubleArray, longitudes: DoubleArray ->
-            val unwrappedLongitudes = unwrapLongitudes(longitudes)
-            val step =
-                (unwrappedLongitudes.last() - unwrappedLongitudes.first()) / (if (samples > 1) samples - 1 else 1)
-
-            val smallLatitudes = resample(latitudes.first(), latitudes.last(), step, expandBy)
-            val smallLongitudes =
-                resample(unwrappedLongitudes.first(), unwrappedLongitudes.last(), step, expandBy)
-            val smallBitmap = FloatBitmap(smallLongitudes.size, smallLatitudes.size, 1)
-            Parallel.forEach(smallLatitudes.indices.toList()) { y ->
-                val latitude = smallLatitudes[y]
-                for (x in smallLongitudes.indices) {
-                    smallBitmap.set(
-                        x,
-                        y,
-                        0,
-                        getValue(latitude, Coordinate.toLongitude(smallLongitudes[x]))
-                    )
-                }
-            }
-
-            val startX = ((unwrappedLongitudes.first() - smallLongitudes.first()) / step).toFloat()
-            val endX = ((unwrappedLongitudes.last() - smallLongitudes.first()) / step).toFloat()
-            val startY = ((latitudes.first() - smallLatitudes.first()) / step).toFloat()
-            val endY = ((latitudes.last() - smallLatitudes.first()) / step).toFloat()
-
-            smallBitmap.upscale(longitudes.size, latitudes.size, startX, endX, startY, endY)
-        }
-    }
-
-    fun getRequiredResolution(tile: Tile, samples: Int): Double {
-        val width = TileMath.getTile(0.0, 0.0, tile.z).getBounds().widthDegrees()
-        return width / samples
-    }
-
-    private fun resample(start: Double, end: Double, step: Double, expandBy: Int): DoubleArray {
+    private fun resample(start: Double, end: Double, step: Double): DoubleArray {
         val spanStart = floor((start - step * expandBy) / step) * step
         val spanEnd = ceil((end + step * expandBy) / step) * step
         val count = ((spanEnd - spanStart) / step).roundToInt() + 1
@@ -110,6 +103,16 @@ object TileImageUtils {
         return unwrapped
     }
 
+}
+
+
+object TileImageUtils {
+
+    fun getRequiredResolution(tile: Tile, samples: Int): Double {
+        val width = TileMath.getTile(0.0, 0.0, tile.z).getBounds().widthDegrees()
+        return width / samples
+    }
+
     suspend fun getSampledImage(
         bounds: CoordinateBounds,
         resolution: Double,
@@ -117,19 +120,19 @@ object TileImageUtils {
         config: Bitmap.Config = Bitmap.Config.RGB_565,
         padding: Int = 0,
         normalizeLongitudes: Boolean = true,
-        useBilinearInterpolation: Boolean = true,
+        interpolate: Boolean = true,
         smoothPixelEdges: Boolean = false,
-        getValues: suspend (latitudes: DoubleArray, longitudes: DoubleArray) -> FloatBitmap,
+        valueProvider: CoordinateGridValueProvider,
         getColor: suspend (x: Int, y: Int, getValue: (x: Int, y: Int) -> Float) -> Int
     ): Bitmap = onDefault {
         val expandBy = 1
-        val latitudes = Interpolation.getMultiplesBetween2(
+        val latitudes = Interpolation.getMultiplesBetween(
             bounds.south - resolution * (expandBy + padding),
             bounds.north + resolution * (expandBy + padding),
             resolution
         )
 
-        val longitudes = Interpolation.getMultiplesBetween2(
+        val longitudes = Interpolation.getMultiplesBetween(
             bounds.west - resolution * (expandBy + padding),
             (if (bounds.west < bounds.east) bounds.east else bounds.east + 360) + resolution * (expandBy + padding),
             resolution
@@ -141,7 +144,7 @@ object TileImageUtils {
             }
         }
 
-        val values = getValues(latitudes, longitudes)
+        val values = valueProvider.getValues(latitudes, longitudes)
         val width = values.width - expandBy * 2
         val height = values.height - expandBy * 2
         val pixels = IntArray(width * height)
@@ -174,10 +177,13 @@ object TileImageUtils {
             CropTile(
                 imageBounds,
                 bounds,
-                size,
-                useBilinearInterpolation,
-                smoothPixelEdges
-            ),
+                size
+            ) {
+                listOf(
+                    Conditional(smoothPixelEdges, PixelPreservationUpscale(it)),
+                    Resize(it, true, interpolate)
+                )
+            },
             Convert(config)
         )
     }

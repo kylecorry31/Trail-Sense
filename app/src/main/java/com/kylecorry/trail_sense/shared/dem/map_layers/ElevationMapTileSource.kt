@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import com.kylecorry.andromeda.bitmaps.operations.Dither
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.trail_sense.shared.andromeda_temp.Dither
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap

@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 import android.util.Log
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.shared.andromeda_temp.BackgroundTask
 import com.kylecorry.trail_sense.shared.dem.DEM
 import java.time.Instant
 
