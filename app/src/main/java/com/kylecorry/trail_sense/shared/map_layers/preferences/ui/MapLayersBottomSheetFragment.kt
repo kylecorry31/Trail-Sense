@@ -15,8 +15,8 @@ class MapLayersBottomSheetFragment(
         rootKey: String?
     ) {
         setPreferencesFromResource(R.xml.empty_preferences, rootKey)
-        manager.onScrollToTop = {
-            listView?.scrollToPosition(0)
+        manager.onScrollToPreference = {
+            scrollToPreference(it)
         }
         manager.populatePreferences(preferenceScreen, activity)
     }

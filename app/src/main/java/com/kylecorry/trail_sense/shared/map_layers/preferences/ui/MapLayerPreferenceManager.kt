@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullDependencyPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.getFullPreferenceKey
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters.MapLayerViewPreferenceConverterFactory
@@ -33,7 +34,7 @@ class MapLayerPreferenceManager(
 
     private var lastExpanded: String? = null
 
-    var onScrollToTop: (() -> Unit)? = null
+    var onScrollToPreference: ((preference: Preference) -> Unit)? = null
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val selectedLayers = repo.getActiveLayerIds(mapId).toMutableList()
@@ -87,6 +88,7 @@ class MapLayerPreferenceManager(
                         populatePreferences(screen, context)
                     }
                 }
+                header.key = layer.id
                 screen.addPreference(header)
 
                 val category = createCategory(context)
@@ -124,10 +126,11 @@ class MapLayerPreferenceManager(
                             prefs.getBoolean(key) ?: (it.first.defaultValue as? Boolean ?: true)
                         }
 
-                        preference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref: Preference, newValue: Any ->
-                            header.isLayerEnabled = newValue as Boolean
-                            true
-                        }
+                        preference.onPreferenceChangeListener =
+                            Preference.OnPreferenceChangeListener { pref: Preference, newValue: Any ->
+                                header.isLayerEnabled = newValue as Boolean
+                                true
+                            }
                     }
 
                     category.addPreference(preference)
@@ -222,14 +225,45 @@ class MapLayerPreferenceManager(
                 if (selection == null) {
                     return@items
                 }
-                val newLayers = selection.map { availableLayers[it].id }
+                val newLayers = selection.map { availableLayers[it] }
                 newLayers.forEach {
-                    repo.removeLayerPreferences(mapId, it)
+                    repo.removeLayerPreferences(mapId, it.id)
                 }
-                selectedLayers.addAll(newLayers)
+
+                var lowestNonTileIndex = selectedLayers.indexOfFirst { id ->
+                    val definition = layers.find { it.id == id } ?: return@indexOfFirst false
+                    definition.layerType != MapLayerType.Tile
+                }
+
+                if (selectedLayers.isEmpty()) {
+                    lowestNonTileIndex = 0
+                } else if (lowestNonTileIndex == -1) {
+                    lowestNonTileIndex = selectedLayers.lastIndex
+                }
+
+                // Add geojson layers to the top
+                val nonTileLayers =
+                    newLayers.filter { it.layerType != MapLayerType.Tile }.map { it.id }
+                selectedLayers.addAll(nonTileLayers)
+
+                // Add tile layers right before the lowest non tile index
+                val tileLayers =
+                    newLayers.filter { it.layerType == MapLayerType.Tile }.map { it.id }
+                for (layer in tileLayers) {
+                    selectedLayers.add(lowestNonTileIndex, layer)
+                }
+
                 repo.setActiveLayerIds(mapId, selectedLayers)
                 populatePreferences(screen, context)
-                onScrollToTop?.invoke()
+
+
+                val lowestNewLayer = tileLayers.firstOrNull() ?: nonTileLayers.firstOrNull()
+                if (lowestNewLayer != null) {
+                    val preference = screen.findPreference<Preference>(lowestNewLayer)
+                    if (preference != null) {
+                        onScrollToPreference?.invoke(preference)
+                    }
+                }
             }
         }
         additionalLayersPreference.icon = Resources.drawable(context, R.drawable.ic_add)
