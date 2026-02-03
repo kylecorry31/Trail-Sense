@@ -55,7 +55,8 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
                 drawer.getBounds(45f), // TODO: Cache this
                 map.mapBounds,
                 map.mapProjection,
-                isInvalid
+                isInvalid,
+                snapToTiles = false
             ) { viewBounds, bounds, projection ->
                 isInvalid = false
                 try {
