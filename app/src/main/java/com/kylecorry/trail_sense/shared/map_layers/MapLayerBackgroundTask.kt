@@ -57,6 +57,7 @@ class MapLayerBackgroundTask {
         bounds: CoordinateBounds,
         projection: IMapViewProjection,
         isInvalid: Boolean = false,
+        snapToTiles: Boolean = true,
         update: suspend (viewBounds: Rectangle, bounds: CoordinateBounds, projection: IMapViewProjection) -> Unit = { viewBounds, bounds, projection ->
             val taskCopy = synchronized(taskLock) {
                 tasks.toList()
@@ -67,7 +68,11 @@ class MapLayerBackgroundTask {
 
         scope.launch {
             val zoom = projection.zoom.roundToInt()
-            val newBounds = TileMath.snapToTiles(bounds, zoom)
+            val newBounds = if (snapToTiles) {
+                TileMath.snapToTiles(bounds, zoom)
+            } else {
+                bounds
+            }
 
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
