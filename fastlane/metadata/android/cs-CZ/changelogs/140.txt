@@ -7,5 +7,8 @@ Mapové vrstvy
 - Vylepšení výkonu
 - Klepnutí na maják pro podrobnosti bez přechodu jinam
 
+Mapa
+- Úprava zobrazení času pro vrstvy závislé na čase
+
 Různé
 - Vylepšeno zpracování chyb
