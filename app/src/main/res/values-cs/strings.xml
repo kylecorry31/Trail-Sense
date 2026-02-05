@@ -1556,4 +1556,5 @@
     <string name="map_layer_solar_eclipse_description">Trasa viditelnosti slunečního zatmění</string>
     <string name="map_layer_lunar_eclipse_description">Viditelnost zatmění Měsíce</string>
     <string name="map_layer_night_description">Noční tmavá vrstva</string>
+    <string name="show_path">Zobrazit cestu</string>
 </resources>
