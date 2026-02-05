@@ -1246,4 +1246,9 @@
     <string name="show_images">Vis bilder</string>
     <string name="show_tide_phase">Vis tidevannsfase</string>
     <string name="map_layer_lunar_eclipse_description">Synlighet for måneformørkelse</string>
+    <string name="show_path">Vis bane</string>
+    <string name="move_layer_up">Flytt lag opp</string>
+    <string name="move_layer_down">Flytt lag ned</string>
+    <string name="remove_layer">Fjern lag</string>
+    <string name="additional_layers">Ekstra lag</string>
 </resources>
