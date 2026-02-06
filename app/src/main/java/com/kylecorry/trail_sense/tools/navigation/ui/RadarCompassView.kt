@@ -269,9 +269,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         }
         clear()
 
-        if (Artwork.shouldShowArtwork()) {
-            drawCompassBackgroundArt()
-        }
+        drawCompassBackgroundArt()
 
         push()
         rotate(-azimuth)
