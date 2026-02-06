@@ -213,13 +213,6 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawDirection(degrees: Float, text: String) {
         push()
         rotate(degrees)
-        // Cover the tick behind the label
-        noStroke()
-        fill(bezelColor)
-        val coverWidth = dp(8f)
-        val innerRingTop = height / 2f - compassSize / 2f - (bezelWidth - dp(4f))
-        val innerRingHeight = bezelWidth - dp(4f)
-        rect(width / 2f - coverWidth / 2f, innerRingTop, coverWidth, innerRingHeight)
         // Draw label
         fill(primaryColor)
         text(
@@ -258,7 +251,16 @@ class RadarCompassView : BaseCompassView, IMapView {
         locationStrokeWeight = dp(0.5f)
         val tickLength = dp(6f)
         val tickRadius = compassSize / 2f + (bezelWidth - dp(4f)) / 2f + tickLength / 2f
-        dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor, tickRadius, tickLength)
+        dial = CompassDial(
+            centerPixel,
+            compassSize / 2f,
+            secondaryColor,
+            Color.WHITE,
+            primaryColor,
+            tickRadius,
+            tickLength,
+            hideTrueCardinalTicks = true
+        )
         lastWidth = width
         lastHeight = height
     }
@@ -305,7 +307,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(reference.bearing)
         val bitmap = getBitmap(reference.drawableId, sizeDp)
         push()
-        translate(width / 2f - sizeDp / 2f, artworkPadding + (bezelWidth + dp(4f)) / 2f - sizeDp / 2f)
+        translate(
+            width / 2f - sizeDp / 2f,
+            artworkPadding + (bezelWidth + dp(4f)) / 2f - sizeDp / 2f
+        )
         rotate(reference.rotation, bitmap.width / 2f, bitmap.height / 2f)
         image(bitmap, 0f, 0f)
         pop()
