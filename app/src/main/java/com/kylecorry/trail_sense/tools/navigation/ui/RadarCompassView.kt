@@ -152,6 +152,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         imageMode(ImageMode.Center)
 
         dial.draw(drawer, shouldDrawDial, false)
+        // Directions
+        if (shouldDrawDial) {
+            drawCardinalDirections()
+        }
 
         noFill()
         stroke(Color.WHITE)
@@ -189,12 +193,6 @@ class RadarCompassView : BaseCompassView, IMapView {
             )
         }
         pop()
-
-
-        // Directions
-        if (shouldDrawDial) {
-            drawCardinalDirections()
-        }
 
         imageMode(ImageMode.Corner)
     }
@@ -280,8 +278,8 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(-azimuth)
         dial.draw(drawer, false)
         drawLayers()
-        drawCompassLayers()
         drawCompass()
+        drawCompassLayers()
         pop()
         drawOverlays()
     }
