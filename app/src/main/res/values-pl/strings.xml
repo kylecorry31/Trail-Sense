@@ -632,7 +632,7 @@
     <string name="season_summer">Lato</string>
     <string name="season_spring">Wiosna</string>
     <string name="season_winter">Zima</string>
-    <string name="duration_of_charge">Czas trwania ładowania</string>
+    <string name="duration_of_charge">Czas ładowania</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="moon">Księżyc</string>
     <string name="sun">Słońce</string>
@@ -647,12 +647,12 @@
     <string name="precipitation_rain">Deszcz</string>
     <string name="precipitation_snow">Śnieg</string>
     <string name="take_photo">Zrób zdjęcie</string>
-    <string name="precipitation_small_hail">Mały grad</string>
+    <string name="precipitation_small_hail">Grad (drobny)</string>
     <string name="humidity">Wilgotność</string>
-    <string name="no_clouds">Bezchmurnie</string>
+    <string name="no_clouds">Brak chmur</string>
     <string name="precipitation_hail">Grad</string>
     <string name="precipitation_drizzle">Mżawka</string>
-    <string name="no_camera_access">Nie można uzyskać dostępu do aparatu</string>
+    <string name="no_camera_access">Brak dostępu do aparatu</string>
     <string name="paths">Ścieżki</string>
     <string name="avalanche_risk">Zagrożenie lawinowe</string>
     <string name="slope_amount">nachylenie %s</string>
@@ -691,7 +691,7 @@
     <string name="precipitation_none">Brak opadów</string>
     <string name="precipitation_snow_pellets">Krupa śnieżna</string>
     <string name="precipitation_ice_pellets">Krupa lodowa</string>
-    <string name="precipitation_snow_grains">Śnieg ziarnisty</string>
+    <string name="precipitation_snow_grains">Śnieg (ziarnisty)</string>
     <string name="line_style">Styl linii</string>
     <string name="path_color">Kolor ścieżki</string>
     <string name="temporary">Tymczasowo</string>
