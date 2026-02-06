@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath
@@ -33,7 +32,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.art.Artwork
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -200,7 +198,6 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawCardinalDirections() {
         textMode(TextMode.Center)
         textSize(cardinalSize)
-        textStyle(TextStyle.Bold)
         stroke(secondaryColor)
         opacity(255)
         drawDirection(0f, north)
@@ -281,8 +278,8 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(-azimuth)
         dial.draw(drawer, false)
         drawLayers()
-        drawCompass()
         drawCompassLayers()
+        drawCompass()
         pop()
         drawOverlays()
     }
