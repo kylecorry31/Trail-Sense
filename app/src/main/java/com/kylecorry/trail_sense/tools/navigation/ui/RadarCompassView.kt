@@ -30,6 +30,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.art.Artwork
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -39,6 +40,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView, IMapView {
+
     private val density = context.resources.displayMetrics.density
     private var centerPixel: PixelCoordinate = PixelCoordinate(0f, 0f)
     private lateinit var compassCircle: Circle
@@ -175,7 +177,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         distanceText?.let {
             text(
                 it,
-                (width - compassSize) / 2f + 16,
+                0f,
                 height - (height - compassSize) / 2f + 16
             )
         }
@@ -250,6 +252,11 @@ class RadarCompassView : BaseCompassView, IMapView {
             setup()
         }
         clear()
+
+        if (Artwork.shouldShowArtwork()) {
+            drawCompassBackgroundArt()
+        }
+
         push()
         rotate(-azimuth)
         dial.draw(drawer, false)
@@ -258,6 +265,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         drawCompass()
         pop()
         drawOverlays()
+    }
+
+    private fun drawCompassBackgroundArt() {
+        Artwork.drawCircleHousing(this, centerPixel, compassSize.toFloat())
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
