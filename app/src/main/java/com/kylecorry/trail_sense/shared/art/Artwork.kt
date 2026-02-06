@@ -20,8 +20,20 @@ object Artwork {
     }
 
 
-    fun drawCircleHousing(drawer: ICanvasDrawer, center: PixelCoordinate, dialDiameter: Float) {
-        val bezelSize = drawer.dp(14f)
+    fun circleHousingPadding(drawer: ICanvasDrawer): Float {
+        var padding = 0f
+        if (shouldDrawIn3D()) {
+            if (shouldDrawShadows()) {
+                padding = drawer.dp(10f)
+            } else {
+                padding = drawer.dp(5f)
+            }
+            padding += drawer.dp(STROKE_SIZE_DP)
+        }
+        return padding
+    }
+
+    fun drawCircleHousing(drawer: ICanvasDrawer, center: PixelCoordinate, dialDiameter: Float, bezelSize: Float = drawer.dp(14f)) {
         val strokeSize = drawer.dp(STROKE_SIZE_DP)
 
         if (shouldDrawIn3D()) {

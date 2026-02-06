@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
@@ -61,6 +62,8 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var radarSize = 0
     private var directionSize = 0
     private var compassSize = 0
+    private var bezelWidth = 0f
+    private var artworkPadding = 0f
     private lateinit var compassPath: Path
     private var distanceSize = 0f
     private var cardinalSize = 0f
@@ -153,7 +156,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         push()
         rotate(azimuth)
         if (shouldDrawDial) {
-            line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
+            line(width / 2f, height / 2f, width / 2f, (height - compassSize) / 2f)
         }
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
@@ -195,22 +198,32 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawCardinalDirections() {
         textMode(TextMode.Center)
         textSize(cardinalSize)
+        textStyle(TextStyle.Bold)
         stroke(secondaryColor)
         opacity(255)
         drawDirection(0f, north)
         drawDirection(90f, east)
         drawDirection(180f, south)
         drawDirection(270f, west)
+        textStyle(TextStyle.Normal)
     }
 
     private fun drawDirection(degrees: Float, text: String) {
         push()
         rotate(degrees)
-        fill(Color.WHITE)
+        // Cover the tick behind the label
+        noStroke()
+        fill(Color.BLACK)
+        val coverWidth = dp(8f)
+        val innerRingTop = height / 2f - compassSize / 2f - (bezelWidth - dp(4f))
+        val innerRingHeight = bezelWidth - dp(4f)
+        rect(width / 2f - coverWidth / 2f, innerRingTop, coverWidth, innerRingHeight)
+        // Draw label
+        fill(primaryColor)
         text(
             text,
             width / 2f,
-            height / 2f - compassSize / 4f
+            height / 2f - compassSize / 2f - (bezelWidth - dp(4f)) / 2f
         )
         pop()
     }
@@ -220,12 +233,14 @@ class RadarCompassView : BaseCompassView, IMapView {
         iconSize = dp(24f).toInt()
         radarSize = dp(10f).toInt()
         directionSize = dp(16f).toInt()
-        compassSize = min(height, width) - 2 * iconSize - 2 * Resources.dp(context, 2f).toInt()
+        artworkPadding = Artwork.circleHousingPadding(this)
+        bezelWidth = iconSize + Resources.dp(context, 8f)
+        compassSize = min(height, width) - 2 * bezelWidth.toInt() - 2 * artworkPadding.toInt()
         compassPath = Path().apply {
             addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
         }
         distanceSize = sp(10f)
-        cardinalSize = sp(12f)
+        cardinalSize = bezelWidth - dp(6f)
         primaryColor = Resources.getCardinalDirectionColor(context)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)
@@ -239,7 +254,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         centerPixel = PixelCoordinate(width / 2f, height / 2f)
         compassCircle = Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f)
         locationStrokeWeight = dp(0.5f)
-        dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
+        val tickLength = dp(6f)
+        val tickRadius = compassSize / 2f + (bezelWidth - dp(4f)) / 2f + tickLength / 2f
+        dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor, tickRadius, tickLength)
         lastWidth = width
         lastHeight = height
     }
@@ -268,7 +285,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     private fun drawCompassBackgroundArt() {
-        Artwork.drawCircleHousing(this, centerPixel, compassSize.toFloat())
+        Artwork.drawCircleHousing(this, centerPixel, compassSize.toFloat(), bezelWidth)
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
@@ -288,7 +305,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(reference.bearing)
         val bitmap = getBitmap(reference.drawableId, sizeDp)
         push()
-        translate(width / 2f - sizeDp / 2f, (iconSize - sizeDp) * 0.6f)
+        translate(width / 2f - sizeDp / 2f, artworkPadding + (bezelWidth + dp(4f)) / 2f - sizeDp / 2f)
         rotate(reference.rotation, bitmap.width / 2f, bitmap.height / 2f)
         image(bitmap, 0f, 0f)
         pop()
@@ -304,10 +321,10 @@ class RadarCompassView : BaseCompassView, IMapView {
 
         // To end of compass
         opacity(if (stopAt != null) 25 else 100)
-        val dp2 = dp(2f)
+        val compassOffset = (min(height, width) - compassSize) / 2f
         arc(
-            iconSize.toFloat() + dp2,
-            iconSize.toFloat() + dp2,
+            compassOffset,
+            compassOffset,
             compassSize.toFloat(),
             compassSize.toFloat(),
             azimuth - 90,

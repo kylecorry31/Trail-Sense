@@ -12,29 +12,29 @@ class CompassDial(
     private val radius: Float,
     @ColorInt private val backgroundColor: Int,
     @ColorInt private val tickColor: Int,
-    @ColorInt private val cardinalTickColor: Int = tickColor
+    @ColorInt private val cardinalTickColor: Int = tickColor,
+    private val tickRadius: Float = 0.9f * radius,
+    private val tickLength: Float = 0.03f * radius
 ) {
 
     private val tickThicknessDp = 1.5f
-    private val tickLengthPercent = 0.03f
-    private val tickRadiusPercent = 0.9f
     private val ticks = Dial.ticks(
         center,
-        tickRadiusPercent * radius,
-        tickLengthPercent * radius,
+        tickRadius,
+        tickLength,
         15
     )
     private val cardinalTicks = Dial.ticks(
         center,
-        tickRadiusPercent * radius,
-        tickLengthPercent * radius,
+        tickRadius,
+        tickLength,
         45
     )
 
     private val trueCardinalTicks = Dial.ticks(
         center,
-        tickRadiusPercent * radius,
-        tickLengthPercent * radius,
+        tickRadius,
+        tickLength,
         90
     )
 
