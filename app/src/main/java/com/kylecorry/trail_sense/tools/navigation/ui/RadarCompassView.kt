@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.art.Artwork
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -58,7 +59,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var textColor: Int = Color.WHITE
 
     @ColorInt
-    private val bezelColor: Int = Artwork.COLOR_STROKE
+    private var bezelColor: Int = Artwork.COLOR_STROKE
 
     private val formatService by lazy { FormatService.getInstance(context) }
 
@@ -238,6 +239,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         cardinalSize = bezelWidth - dp(6f)
         primaryColor = Resources.getCardinalDirectionColor(context)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
+        bezelColor = secondaryColor
         textColor = Resources.androidTextColorSecondary(context)
         maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
