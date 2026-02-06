@@ -33,10 +33,10 @@ object Artwork {
         return padding
     }
 
-    fun drawCircleHousing(drawer: ICanvasDrawer, center: PixelCoordinate, dialDiameter: Float, bezelSize: Float = drawer.dp(14f)) {
+    fun drawCircleHousing(drawer: ICanvasDrawer, center: PixelCoordinate, dialDiameter: Float, bezelSize: Float = drawer.dp(14f), drawArtwork: Boolean = shouldShowArtwork()) {
         val strokeSize = drawer.dp(STROKE_SIZE_DP)
 
-        if (shouldDrawIn3D()) {
+        if (drawArtwork && shouldDrawIn3D()) {
             if (shouldDrawShadows()) {
                 // Shadow
                 drawer.fill(COLOR_SHADOW)
@@ -60,9 +60,11 @@ object Artwork {
         drawer.noStroke()
         drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2)
 
-        // Metal
-        drawer.fill(COLOR_METAL_2)
-        drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2 - strokeSize * 2)
+        if (drawArtwork) {
+            // Metal
+            drawer.fill(COLOR_METAL_2)
+            drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2 - strokeSize * 2)
+        }
 
         // Inner ring
         drawer.fill(COLOR_STROKE)
