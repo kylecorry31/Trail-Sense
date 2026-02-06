@@ -62,12 +62,13 @@ object Artwork {
             drawer.circle(center.x, center.y + drawer.dp(5f), dialDiameter + bezelSize * 2)
         }
 
-        // Outer ring
-        drawer.fill(bezelColor)
-        drawer.noStroke()
-        drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2)
-
         if (shouldShowArtwork()) {
+
+            // Outer ring
+            drawer.fill(bezelColor)
+            drawer.noStroke()
+            drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2)
+
             // Metal
             drawer.fill(COLOR_METAL_2)
             drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2 - strokeSize * 2)
