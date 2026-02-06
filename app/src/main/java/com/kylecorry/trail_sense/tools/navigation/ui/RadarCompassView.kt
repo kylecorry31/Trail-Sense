@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath
@@ -55,6 +56,9 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     @ColorInt
     private var textColor: Int = Color.WHITE
+
+    @ColorInt
+    private val bezelColor: Int = Artwork.COLOR_STROKE
 
     private val formatService by lazy { FormatService.getInstance(context) }
 
@@ -213,7 +217,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(degrees)
         // Cover the tick behind the label
         noStroke()
-        fill(Color.BLACK)
+        fill(bezelColor)
         val coverWidth = dp(8f)
         val innerRingTop = height / 2f - compassSize / 2f - (bezelWidth - dp(4f))
         val innerRingHeight = bezelWidth - dp(4f)
@@ -283,7 +287,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     private fun drawCompassBackgroundArt() {
-        Artwork.drawCircleHousing(this, centerPixel, compassSize.toFloat(), bezelWidth)
+        Artwork.drawCircleHousing(this, centerPixel, compassSize.toFloat(), bezelWidth, bezelColor)
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
