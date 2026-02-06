@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.art
 
 import android.graphics.Color
+import androidx.annotation.ColorInt
 import androidx.core.graphics.toColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -22,7 +23,7 @@ object Artwork {
 
     fun circleHousingPadding(drawer: ICanvasDrawer): Float {
         var padding = 0f
-        if (shouldDrawIn3D()) {
+        if (shouldShowArtwork() && shouldDrawIn3D()) {
             if (shouldDrawShadows()) {
                 padding = drawer.dp(10f)
             } else {
@@ -33,10 +34,16 @@ object Artwork {
         return padding
     }
 
-    fun drawCircleHousing(drawer: ICanvasDrawer, center: PixelCoordinate, dialDiameter: Float, bezelSize: Float = drawer.dp(14f), drawArtwork: Boolean = shouldShowArtwork()) {
+    fun drawCircleHousing(
+        drawer: ICanvasDrawer,
+        center: PixelCoordinate,
+        dialDiameter: Float,
+        bezelSize: Float = drawer.dp(14f),
+        @ColorInt bezelColor: Int = COLOR_STROKE
+    ) {
         val strokeSize = drawer.dp(STROKE_SIZE_DP)
 
-        if (drawArtwork && shouldDrawIn3D()) {
+        if (shouldShowArtwork() && shouldDrawIn3D()) {
             if (shouldDrawShadows()) {
                 // Shadow
                 drawer.fill(COLOR_SHADOW)
@@ -51,23 +58,23 @@ object Artwork {
             // Bottom
             drawer.fill(COLOR_METAL_1)
             drawer.strokeWeight(strokeSize)
-            drawer.stroke(COLOR_STROKE)
+            drawer.stroke(bezelColor)
             drawer.circle(center.x, center.y + drawer.dp(5f), dialDiameter + bezelSize * 2)
         }
 
         // Outer ring
-        drawer.fill(COLOR_STROKE)
+        drawer.fill(bezelColor)
         drawer.noStroke()
         drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2)
 
-        if (drawArtwork) {
+        if (shouldShowArtwork()) {
             // Metal
             drawer.fill(COLOR_METAL_2)
             drawer.circle(center.x, center.y, dialDiameter + bezelSize * 2 - strokeSize * 2)
         }
 
         // Inner ring
-        drawer.fill(COLOR_STROKE)
+        drawer.fill(bezelColor)
         drawer.noStroke()
         drawer.circle(
             center.x,
