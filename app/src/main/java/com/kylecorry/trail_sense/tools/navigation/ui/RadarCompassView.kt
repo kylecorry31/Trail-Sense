@@ -165,6 +165,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         if (shouldDrawDial) {
             line(width / 2f, height / 2f, width / 2f, (height - compassSize) / 2f)
         }
+        circle(width / 2f, height / 2f, compassSize.toFloat())
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)
