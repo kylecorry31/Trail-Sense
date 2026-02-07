@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.main.errors
 
 import android.content.Context
+import android.os.Looper
 import com.kylecorry.andromeda.core.system.CurrentApp
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.exceptions.IBugReportGenerator
@@ -72,6 +73,8 @@ abstract class BaseExceptionHandler(
             } finally {
                 if (!handled) {
                     originalHandler?.uncaughtException(thread, throwable)
+                } else if (thread == Looper.getMainLooper().thread) {
+                    Looper.loop()
                 }
             }
         }
