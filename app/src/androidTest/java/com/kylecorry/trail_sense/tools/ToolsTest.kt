@@ -1,7 +1,11 @@
 package com.kylecorry.trail_sense.tools
 
+import android.content.Intent
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.main.errors.TrailSenseExceptionHandler
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -62,20 +66,25 @@ class ToolsTest : ToolTestBase(0L) {
 
     @Test
     fun catchesToolErrors() {
+        scenario.close()
+
+        var calledOriginalHandler = false
+
+        Thread.setDefaultUncaughtExceptionHandler { _, _ ->
+            calledOriginalHandler = true
+        }
+
         // Removing the field guide repo will break the DI for the field guide tool
         AppServiceRegistry.services.remove(FieldGuideRepo::class.java.name)
+        scenario = TestUtils.startWithTool(Tools.FIELD_GUIDE)
 
-        navController.openTool(Tools.FIELD_GUIDE)
-
+        isTrue { calledOriginalHandler }
         hasText("An error occurred")
         hasText("Field Guide")
 
         // Settings
         scrollUntil { click(R.id.open_settings) }
-        isTrue {
-            Tools.getTool(TestUtils.context, Tools.SETTINGS)!!
-                .isOpen(navController.currentDestination?.id ?: 0)
-        }
+        hasText("Units")
 
         back()
         hasText("An error occurred")
