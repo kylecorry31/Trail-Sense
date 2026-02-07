@@ -44,7 +44,7 @@ class NavigationLayer :
         task.stop()
     }
 
-    var useLocationWithBearing: Boolean
+    private var useLocationWithBearing: Boolean
         get() = source.useLocationWithBearing
         set(value) {
             source.useLocationWithBearing = value
@@ -52,13 +52,13 @@ class NavigationLayer :
             notifyListeners()
         }
 
-    fun setMyLocation(location: Coordinate?) {
+    private fun setMyLocation(location: Coordinate?) {
         source.myLocation = location
         invalidate()
         notifyListeners()
     }
 
-    fun setDestination(destination: Destination?) {
+    private fun setDestination(destination: Destination?) {
         source.destination = destination
         invalidate()
         notifyListeners()

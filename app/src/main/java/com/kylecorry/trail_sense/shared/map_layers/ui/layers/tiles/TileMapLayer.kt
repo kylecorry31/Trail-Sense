@@ -20,6 +20,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
@@ -466,10 +467,24 @@ abstract class TileMapLayer<T : TileSource>(
 
     override fun setPreferences(preferences: Bundle) {
         layerPreferences = Bundle(preferences)
-        percentOpacity = preferences.getInt(
-            DefaultMapLayerDefinitions.OPACITY,
-            DefaultMapLayerDefinitions.DEFAULT_OPACITY
-        ) / 100f
+        if (shouldMultiply) {
+            multiplyAlpha = SolMath.map(
+                preferences.getInt(
+                    DefaultMapLayerDefinitions.OPACITY,
+                    DefaultMapLayerDefinitions.DEFAULT_OPACITY
+                ) / 100f,
+                0f,
+                1f,
+                0f,
+                255f,
+                shouldClamp = true
+            ).toInt()
+        } else {
+            percentOpacity = preferences.getInt(
+                DefaultMapLayerDefinitions.OPACITY,
+                DefaultMapLayerDefinitions.DEFAULT_OPACITY
+            ) / 100f
+        }
     }
 
     override var percentOpacity: Float = 1f
