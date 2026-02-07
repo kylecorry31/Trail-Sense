@@ -27,7 +27,12 @@ class BeaconGeoJsonSource : GeoJsonSource {
 
     private val beaconService = AppServiceRegistry.get<BeaconService>()
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject {
         val beacons =
             (beaconService.getBeaconsInRegion(bounds).filter { it.visible } + listOfNotNull(
                 highlighted

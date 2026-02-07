@@ -379,7 +379,11 @@ class PreferenceMigrator private constructor() {
                 // Photo Map
                 repo.setActiveLayerIds(
                     "photo_maps", allLayers.filter {
-                        it == PhotoMapTileSource.SOURCE_ID || isMapLayerEnabled(prefs, "photo_maps", it)
+                        it == PhotoMapTileSource.SOURCE_ID || isMapLayerEnabled(
+                            prefs,
+                            "photo_maps",
+                            it
+                        )
                     }
                 )
             }

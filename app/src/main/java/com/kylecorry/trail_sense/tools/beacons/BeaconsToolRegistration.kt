@@ -109,7 +109,8 @@ object BeaconsToolRegistration : ToolRegistration {
                     context.getString(R.string.beacons),
                     description = context.getString(R.string.map_layer_beacons_description),
                     openFeature = { feature, fragment ->
-                        val beaconId = feature.getLongProperty(BeaconGeoJsonSource.PROPERTY_BEACON_ID)
+                        val beaconId =
+                            feature.getLongProperty(BeaconGeoJsonSource.PROPERTY_BEACON_ID)
                         val navController = fragment.findNavController()
                         navController.navigateWithAnimation(
                             R.id.beaconDetailsFragment,

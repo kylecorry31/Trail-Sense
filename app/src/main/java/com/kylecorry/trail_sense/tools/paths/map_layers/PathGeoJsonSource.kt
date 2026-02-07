@@ -22,7 +22,12 @@ class PathGeoJsonSource : GeoJsonSource {
     private var paths = emptyList<Path>()
     private var loaded = false
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject? {
         // If paths haven't been loaded yet, load them
         if (paths.isEmpty()) {
             paths = pathService.getPaths().first().filter { it.style.visible }

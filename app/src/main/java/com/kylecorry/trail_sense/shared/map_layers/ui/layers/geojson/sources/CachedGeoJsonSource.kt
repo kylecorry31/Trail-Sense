@@ -10,7 +10,12 @@ class CachedGeoJsonSource(private val loader: suspend () -> GeoJsonObject?) : Ge
     private var cached: GeoJsonObject? = null
     private var isLoaded = false
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject? {
         if (!isLoaded) {
             cached = loader()
             isLoaded = true

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features
 
-import android.graphics.Color
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Path
 import androidx.core.graphics.withMatrix

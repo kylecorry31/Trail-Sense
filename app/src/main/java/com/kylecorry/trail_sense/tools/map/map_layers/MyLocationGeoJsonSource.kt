@@ -35,7 +35,12 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         this.arrowBitmap = arrowBitmap
     }
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject {
         val features = mutableListOf<GeoJsonFeature>()
 
         if (drawAccuracy) {

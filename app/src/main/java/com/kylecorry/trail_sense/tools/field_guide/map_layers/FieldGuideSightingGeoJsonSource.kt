@@ -51,7 +51,12 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         FieldGuidePageTag.Other to BeaconIcon.Information
     )
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
         val showImages =
             preferences?.getBoolean(PREFERENCE_SHOW_IMAGES, false) ?: false

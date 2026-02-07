@@ -55,7 +55,12 @@ class ContourGeoJsonSource : GeoJsonSource {
         14, 15, 19
     )
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject? {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
         val strategyId = preferences?.getString(COLOR)?.toLongOrNull()
         val colorScale = ElevationColorMapFactory().getElevationColorMap(

@@ -18,7 +18,12 @@ class CellTowerGeoJsonSource : GeoJsonSource {
 
     private var featureName: String? = null
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject {
 
         if (featureName == null) {
             featureName = context.getString(R.string.cell_tower)

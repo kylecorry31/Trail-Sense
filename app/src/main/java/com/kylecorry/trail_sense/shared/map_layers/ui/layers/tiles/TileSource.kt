@@ -12,6 +12,7 @@ interface TileSource {
         tile: Tile,
         params: Bundle = bundleOf()
     ): Bitmap?
+
     suspend fun cleanup() {
         // Do nothing
     }

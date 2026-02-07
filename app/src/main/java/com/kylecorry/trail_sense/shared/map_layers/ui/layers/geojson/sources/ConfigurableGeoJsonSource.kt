@@ -10,7 +10,12 @@ class ConfigurableGeoJsonSource(initialData: GeoJsonObject? = null) : GeoJsonSou
 
     var data: GeoJsonObject? = initialData
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject? {
         return data
     }
 }

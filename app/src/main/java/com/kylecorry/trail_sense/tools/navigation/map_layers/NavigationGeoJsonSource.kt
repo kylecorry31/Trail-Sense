@@ -20,7 +20,12 @@ class NavigationGeoJsonSource : GeoJsonSource {
     var destination: Destination? = null
     var useLocationWithBearing: Boolean = true
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject? {
         val myLocation = myLocation
         val destination = destination
 

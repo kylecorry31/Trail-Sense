@@ -27,7 +27,12 @@ class TideGeoJsonSource : GeoJsonSource {
 
     private val minZoomLevel = 8
 
-    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
+    override suspend fun load(
+        context: Context,
+        bounds: CoordinateBounds,
+        zoom: Int,
+        params: Bundle
+    ): GeoJsonObject {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
         val showModeledTides =
             preferences?.getBoolean(SHOW_MODELED_TIDES, DEFAULT_SHOW_MODELED_TIDES)
