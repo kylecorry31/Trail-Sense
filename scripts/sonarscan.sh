@@ -1,6 +1,8 @@
+#!/bin/bash
 # Run sonarqube
 
-docker run -d --name sonarqube -p 9000:9000 sonarqube:lts
+docker network create sonarnet
+docker run -d --name sonarqube --network sonarnet -p 9000:9000 sonarqube:lts
 
 echo "Waiting for sonarqube to start..."
 
@@ -14,11 +16,12 @@ done
 echo "Analyzing code..."
 
 docker run --rm \
+  --network sonarnet \
   -v "$(pwd)/../app/src/main/java:/usr/src" \
   sonarsource/sonar-scanner-cli \
   -Dsonar.projectKey=trail-sense \
   -Dsonar.sources=/usr/src \
-  -Dsonar.host.url=http://172.17.0.1:9000 \
+  -Dsonar.host.url=http://sonarqube:9000 \
   -Dsonar.login=admin \
   -Dsonar.password=admin \
   -Dsonar.exclusions=**/*.java
@@ -32,3 +35,4 @@ read -p "Press enter to stop sonarqube"
 
 docker stop sonarqube
 docker rm sonarqube
+docker network rm sonarnet
