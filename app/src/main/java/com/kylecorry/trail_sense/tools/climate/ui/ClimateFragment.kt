@@ -295,7 +295,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         val end = if (isActivityWrapped(activity)) {
             activity[0].end.month
         } else {
-            activity[0].end.month
+            activity.last().end.month
         }
 
         return getString(
