@@ -123,3 +123,5 @@ scripts/experiments/cache.json
 /.idea/migrations.xml
 /.idea/codeStyles/codeStyleConfig.xml
 /.idea/codeStyles/Project.xml
+sonarqube-issues.json
+sonarqube-report.json
