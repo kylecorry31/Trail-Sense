@@ -24,7 +24,7 @@ class PhotoMapTileSource : TileSource {
     private val lock = Mutex()
     private val decoderCache = PhotoMapDecoderCache()
 
-    suspend fun recycle() {
+    override suspend fun cleanup() {
         decoderCache.recycleInactive(emptyList())
     }
 

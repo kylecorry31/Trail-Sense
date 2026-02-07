@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
 import android.graphics.Color
 import android.os.Bundle
-import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
@@ -15,9 +14,6 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     override val layerId: String = PhotoMapTileSource.SOURCE_ID
     private var idFilter: Long? = null
     private var loadPdfs: Boolean = PhotoMapTileSource.DEFAULT_LOAD_PDFS
-    private val recycleTask = BackgroundTask {
-        source.recycle()
-    }
 
     init {
         source.backgroundColor = Color.TRANSPARENT
@@ -61,11 +57,6 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
         setZoomOffset(zoomOffset)
         notifyListeners()
-    }
-
-    override fun stop() {
-        super.stop()
-        recycleTask.start()
     }
 
     companion object {

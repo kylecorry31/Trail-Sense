@@ -108,7 +108,7 @@ class BaseMapTileSource : TileSource {
         return internalSelector.loadTile(tile, params)
     }
 
-    suspend fun recycle() {
+    override suspend fun cleanup() {
         decoderCache.recycleInactive(emptyList())
     }
 
