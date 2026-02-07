@@ -43,16 +43,13 @@ abstract class BaseExceptionHandler(
     private fun setupHandler() {
         val handler = { throwable: Throwable ->
             val details = generator.generate(context, throwable)
-            if (handleException(throwable, details)) {
-                true
-            } else {
+            if (!handleException(throwable, details)) {
                 recordException(details)
                 if (shouldRestartApp) {
                     tryOrLog {
                         CurrentApp.restart(context)
                     }
                 }
-                false
             }
         }
 
@@ -63,16 +60,13 @@ abstract class BaseExceptionHandler(
         fileSystem.write(filename, details, false)
     }
 
-    private fun wrapOnUncaughtException(exceptionHandler: (throwable: Throwable) -> Boolean) {
+    private fun wrapOnUncaughtException(exceptionHandler: (throwable: Throwable) -> Unit) {
         val originalHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-            var handled = false
             try {
-                handled = exceptionHandler(throwable)
+                exceptionHandler(throwable)
             } finally {
-                if (!handled) {
-                    originalHandler?.uncaughtException(thread, throwable)
-                }
+                originalHandler?.uncaughtException(thread, throwable)
             }
         }
     }

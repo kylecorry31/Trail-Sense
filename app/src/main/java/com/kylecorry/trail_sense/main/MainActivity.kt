@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -39,6 +40,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.main.errors.SafeMode
+import com.kylecorry.trail_sense.main.errors.TrailSenseExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
@@ -304,6 +306,16 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun handleIntentAction(intent: Intent) {
+        if (intent.action == TrailSenseExceptionHandler.ACTION_TOOL_ERROR) {
+            val toolId = intent.getLongExtra(TrailSenseExceptionHandler.EXTRA_TOOL_ID, 0L)
+            val error = intent.getStringExtra(TrailSenseExceptionHandler.EXTRA_ERROR) ?: ""
+            navController.navigate(
+                R.id.fragmentToolErrorHandler,
+                bundleOf("tool_id" to toolId, "error" to error)
+            )
+            return
+        }
+
         if (intent.action == "com.kylecorry.trail_sense.OPEN_TOOL") {
             val toolId = intent.getLongExtra("tool_id", -1)
             val tool = Tools.getTool(this, toolId)
