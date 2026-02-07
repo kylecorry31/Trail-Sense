@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
+import androidx.core.graphics.withSave
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -33,12 +34,10 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.TileState
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
-import androidx.core.graphics.withSave
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
@@ -177,7 +176,13 @@ abstract class TileMapLayer<T : TileSource>(
                 tryOrLog {
                     val clipTile = renderTile.clipTo
                     if (clipTile != null) {
-                        renderTileClipped(renderTile.imageTile, canvas, projection, bitmap, clipTile)
+                        renderTileClipped(
+                            renderTile.imageTile,
+                            canvas,
+                            projection,
+                            bitmap,
+                            clipTile
+                        )
                     } else {
                         renderTile(renderTile.imageTile, canvas, projection, bitmap)
                     }

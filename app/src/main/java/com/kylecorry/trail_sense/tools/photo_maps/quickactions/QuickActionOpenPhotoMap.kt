@@ -45,7 +45,8 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
             }
 
 
-            Alerts.withCancelableLoading(fragment.requireContext(),
+            Alerts.withCancelableLoading(
+                fragment.requireContext(),
                 context.getString(R.string.loading),
                 onCancel = { job.cancel() }) {
                 job.join()

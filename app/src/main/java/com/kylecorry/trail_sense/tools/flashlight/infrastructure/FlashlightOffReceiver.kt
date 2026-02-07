@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 
-class FlashlightOffReceiver: BroadcastReceiver() {
+class FlashlightOffReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null) return
 
@@ -24,7 +24,12 @@ class FlashlightOffReceiver: BroadcastReceiver() {
         }
 
         fun pendingIntent(context: Context): PendingIntent {
-            return PendingIntent.getBroadcast(context, PI_ID, intent(context), PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            return PendingIntent.getBroadcast(
+                context,
+                PI_ID,
+                intent(context),
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
         }
     }
 }

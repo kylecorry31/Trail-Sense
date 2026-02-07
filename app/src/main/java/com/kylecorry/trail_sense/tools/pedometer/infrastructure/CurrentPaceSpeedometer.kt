@@ -41,7 +41,7 @@ class CurrentPaceSpeedometer(
         timer.stop()
     }
 
-    private fun updateSpeed(){
+    private fun updateSpeed() {
         if (lastTime == Instant.MIN) {
             lastSteps = pedometer.steps
             lastTime = Instant.now()

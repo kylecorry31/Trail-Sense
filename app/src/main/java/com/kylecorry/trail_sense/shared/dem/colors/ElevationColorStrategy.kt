@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.dem.colors
 
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
-enum class ElevationColorStrategy(override val id: Long): Identifiable {
+enum class ElevationColorStrategy(override val id: Long) : Identifiable {
     Brown(1),
     White(2),
     Black(3),

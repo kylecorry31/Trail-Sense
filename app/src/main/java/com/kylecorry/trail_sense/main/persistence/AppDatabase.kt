@@ -12,6 +12,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelDao
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelEntity
+import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileDao
+import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileEntity
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconDao
@@ -49,8 +51,6 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideCons
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRowEntity
-import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileDao
-import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileEntity
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingDao
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingEntity
 
@@ -419,7 +419,8 @@ abstract class AppDatabase : RoomDatabase() {
 
             val MIGRATION_46_47 = object : Migration(46, 47) {
                 override fun migrate(db: SupportSQLiteDatabase) {
-                    db.execSQL("""
+                    db.execSQL(
+                        """
                         CREATE TABLE IF NOT EXISTS `cached_tiles` (
                             `_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                             `key` TEXT NOT NULL,
@@ -432,7 +433,8 @@ abstract class AppDatabase : RoomDatabase() {
                             `size_bytes` INTEGER NOT NULL,
                             `has_alpha` INTEGER NOT NULL
                         )
-                    """.trimIndent())
+                    """.trimIndent()
+                    )
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_cached_tiles_key_x_y_z ON cached_tiles(`key`, x, y, z)")
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_cached_tiles_last_used_on ON cached_tiles(last_used_on)")
                 }

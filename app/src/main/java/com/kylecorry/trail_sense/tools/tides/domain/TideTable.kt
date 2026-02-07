@@ -24,7 +24,7 @@ data class TideTable(
 
     val principalFrequency: Float
         get() {
-            return if (isSemidiurnal){
+            return if (isSemidiurnal) {
                 TideConstituent.M2.speed
             } else {
                 TideConstituent.M2.speed / 2

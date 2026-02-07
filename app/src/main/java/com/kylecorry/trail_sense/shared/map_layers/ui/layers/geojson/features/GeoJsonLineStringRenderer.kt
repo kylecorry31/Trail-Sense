@@ -14,8 +14,6 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonLineString
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.positive
-import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation
@@ -337,7 +335,12 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     }
 
 
-    private fun drawLabels(drawer: ICanvasDrawer, map: IMapView, path: PrecomputedLineString, matrix: Matrix) {
+    private fun drawLabels(
+        drawer: ICanvasDrawer,
+        map: IMapView,
+        path: PrecomputedLineString,
+        matrix: Matrix
+    ) {
         if (shouldRenderLabels && path.name != null) {
             if (path.points.size < 2) return
 

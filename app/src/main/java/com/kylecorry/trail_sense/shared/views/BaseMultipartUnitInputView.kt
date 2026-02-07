@@ -75,7 +75,7 @@ abstract class BaseMultipartUnitInputView<T, Units : Enum<*>>(
         set(value) {
             unitInput.amount = if (value == null) null else getAmount(value)
             unitInput.secondaryAmount = if (value == null) null else getSecondaryAmount(value)
-            if (value != null){
+            if (value != null) {
                 unitInput.unit = getUnit(value)
             }
         }
@@ -93,7 +93,7 @@ abstract class BaseMultipartUnitInputView<T, Units : Enum<*>>(
         addView(unitInput)
     }
 
-    private fun refreshTextFields(){
+    private fun refreshTextFields() {
         val value = value
         unitInput.setAmountEditText(if (value == null) null else getAmount(value))
         unitInput.setSecondaryAmountEditText(if (value == null) null else getSecondaryAmount(value))

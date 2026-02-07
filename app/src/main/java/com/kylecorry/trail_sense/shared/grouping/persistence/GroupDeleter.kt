@@ -4,7 +4,7 @@ import com.kylecorry.trail_sense.shared.grouping.Groupable
 
 abstract class GroupDeleter<T : Groupable>(private val loader: GroupLoader<T>) {
     suspend fun delete(group: T) {
-        if (!group.isGroup){
+        if (!group.isGroup) {
             deleteItems(listOf(group))
             return
         }

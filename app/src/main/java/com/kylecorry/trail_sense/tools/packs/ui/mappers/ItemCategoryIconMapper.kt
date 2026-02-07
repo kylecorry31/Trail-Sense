@@ -8,7 +8,7 @@ class ItemCategoryIconMapper {
 
     @DrawableRes
     fun getIcon(category: ItemCategory): Int {
-        return when (category){
+        return when (category) {
             ItemCategory.Other -> R.drawable.ic_category_other
             ItemCategory.Food -> R.drawable.ic_category_food
             ItemCategory.Hydration -> R.drawable.ic_category_water

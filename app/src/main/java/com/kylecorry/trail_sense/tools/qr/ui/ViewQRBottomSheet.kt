@@ -29,7 +29,7 @@ class ViewQRBottomSheet(
         binding.qrTitle.text = title
         val size = Resources.dp(requireContext(), 250f).toInt()
 
-        if (text.length > MAX_LENGTH){
+        if (text.length > MAX_LENGTH) {
             toast(getString(R.string.qr_text_too_long))
         }
 

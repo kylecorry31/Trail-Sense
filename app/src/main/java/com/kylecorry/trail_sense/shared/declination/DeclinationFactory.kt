@@ -5,7 +5,10 @@ import com.kylecorry.trail_sense.settings.infrastructure.IDeclinationPreferences
 
 class DeclinationFactory {
 
-    fun getDeclinationStrategy(prefs: IDeclinationPreferences, gps: IGPS? = null): IDeclinationStrategy {
+    fun getDeclinationStrategy(
+        prefs: IDeclinationPreferences,
+        gps: IGPS? = null
+    ): IDeclinationStrategy {
         return if (gps == null || !prefs.useAutoDeclination) {
             OverrideDeclinationStrategy(prefs)
         } else {

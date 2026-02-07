@@ -33,7 +33,10 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
         // Do nothing
     }
 
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val views = getView(context, prefs)
 
         val subsystem = BeaconsSubsystem.getInstance(context)
@@ -122,7 +125,11 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
     }
 
     override fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews {
-        return WidgetHelper.createThemedRemoteViews(context, prefs?.getTheme(), R.layout.widget_layout_list)
+        return WidgetHelper.createThemedRemoteViews(
+            context,
+            prefs?.getTheme(),
+            R.layout.widget_layout_list
+        )
 //        return RemoteViews(Package.getPackageName(context), R.layout.widget_layout_list)
     }
 }

@@ -27,7 +27,8 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
             autoCancel = true,
             mute = useAlarm
         )
-        AppServiceRegistry.get<NotificationSubsystem>().send(STORM_ALERT_NOTIFICATION_ID, notification)
+        AppServiceRegistry.get<NotificationSubsystem>()
+            .send(STORM_ALERT_NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,

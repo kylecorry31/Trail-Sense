@@ -19,7 +19,13 @@ import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.NoDrawPointCo
 import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.SelectedPointDecorator
 
 fun List<PathPoint>.asMappable(context: Context, path: Path): IMappablePath {
-    return MappablePath(path.id, toMappableLocations(context), path.style.color, path.style.line, path.name)
+    return MappablePath(
+        path.id,
+        toMappableLocations(context),
+        path.style.color,
+        path.style.line,
+        path.name
+    )
 }
 
 fun List<PathPoint>.toMappableLocations(

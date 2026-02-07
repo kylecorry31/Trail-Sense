@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.flowOf
 class AlarmDiagnosticScanner : ToolDiagnosticScanner {
     override fun quickScan(context: Context): List<ToolDiagnosticResult> {
         return if (!Permissions.hasPermission(context, SpecialPermission.SCHEDULE_EXACT_ALARMS)) {
-            listOf(ToolDiagnosticResult(
+            listOf(
+                ToolDiagnosticResult(
                 "exact-alarm-no-permission",
                 ToolDiagnosticSeverity.Warning,
                 context.getString(R.string.permission_alarms_and_reminders),

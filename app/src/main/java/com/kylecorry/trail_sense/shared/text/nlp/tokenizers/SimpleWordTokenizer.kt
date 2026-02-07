@@ -9,7 +9,10 @@ class SimpleWordTokenizer(private val preservedWords: Set<String> = emptySet()) 
 
         val preservedWordRegex = Regex(preservedWords.joinToString("|") { Regex.escape(it) })
         val fullWordRegex = if (preservedWords.any()) {
-            Regex("\\b(?:${preservedWordRegex.pattern}|${wordRegex.pattern})\\b", RegexOption.IGNORE_CASE)
+            Regex(
+                "\\b(?:${preservedWordRegex.pattern}|${wordRegex.pattern})\\b",
+                RegexOption.IGNORE_CASE
+            )
         } else {
             wordRegex
         }

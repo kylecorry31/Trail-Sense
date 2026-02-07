@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.shared.UserPreferences
 
-class BatteryLevelReceiver: BroadcastReceiver() {
+class BatteryLevelReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
         intent ?: return
@@ -14,13 +14,13 @@ class BatteryLevelReceiver: BroadcastReceiver() {
 
         val autoBatterySaver = powerPrefs.autoLowPower
 
-        if (!autoBatterySaver){
+        if (!autoBatterySaver) {
             return
         }
 
         if (intent.action == Intent.ACTION_BATTERY_LOW) {
             LowPowerMode(context).enable()
-        } else if (intent.action == Intent.ACTION_BATTERY_OKAY && !powerPrefs.userEnabledLowPower){
+        } else if (intent.action == Intent.ACTION_BATTERY_OKAY && !powerPrefs.userEnabledLowPower) {
             LowPowerMode(context).disable()
         }
     }

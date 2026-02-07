@@ -47,6 +47,7 @@ object DataUtils {
                     merge(reading, smoothed)
                 }
             }
+
             GeospatialSmoothingType.Path -> {
                 // The min distance is used to reflect a temporal association if all values are the same (ex. GPS mocked)
                 val distances = HikingService().getDistances(data.map(location), 0.1f)
@@ -58,6 +59,7 @@ object DataUtils {
                     merge(point, smoothed.y)
                 }
             }
+
             GeospatialSmoothingType.FromStart -> {
                 val start = data.firstOrNull()?.let(location) ?: Coordinate.zero
                 smooth(

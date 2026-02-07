@@ -16,7 +16,10 @@ import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class ElevationWidgetView : SimpleToolWidgetView() {
 
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val views = getView(context, prefs)
         val formatter = FormatService.getInstance(context)
         val locationSubsystem = LocationSubsystem.getInstance(context)

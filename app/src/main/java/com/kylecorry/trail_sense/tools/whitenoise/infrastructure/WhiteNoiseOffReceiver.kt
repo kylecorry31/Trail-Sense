@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
-class WhiteNoiseOffReceiver: BroadcastReceiver() {
+class WhiteNoiseOffReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
         context.stopService(WhiteNoiseService.intent(context))
@@ -20,7 +20,12 @@ class WhiteNoiseOffReceiver: BroadcastReceiver() {
         }
 
         fun pendingIntent(context: Context): PendingIntent {
-            return PendingIntent.getBroadcast(context, PI_ID, intent(context), PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            return PendingIntent.getBroadcast(
+                context,
+                PI_ID,
+                intent(context),
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
         }
     }
 }

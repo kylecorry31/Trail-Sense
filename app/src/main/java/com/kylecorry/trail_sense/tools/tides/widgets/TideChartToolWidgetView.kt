@@ -20,7 +20,10 @@ import java.time.Instant
 
 class TideChartToolWidgetView : ChartToolWidgetViewBase() {
 
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val tides = TidesSubsystem.getInstance(context)
         val tide = tides.getNearestTide()
         val currentWaterLevel = tide?.today?.waterLevels?.minByOrNull {

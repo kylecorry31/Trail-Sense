@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import kotlinx.coroutines.runBlocking
 
-class WeatherStopMonitoringReceiver: BroadcastReceiver() {
+class WeatherStopMonitoringReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return

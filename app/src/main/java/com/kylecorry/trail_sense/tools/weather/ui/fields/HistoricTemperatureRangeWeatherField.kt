@@ -32,9 +32,11 @@ class HistoricTemperatureRangeWeatherField(
             low.value <= WeatherSubsystem.COLD -> {
                 AppColor.Blue.color
             }
+
             high.value >= WeatherSubsystem.HOT -> {
                 AppColor.Red.color
             }
+
             else -> {
                 Resources.androidTextColorSecondary(context)
             }

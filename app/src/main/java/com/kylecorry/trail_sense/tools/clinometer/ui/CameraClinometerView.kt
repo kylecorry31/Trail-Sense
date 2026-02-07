@@ -58,7 +58,7 @@ class CameraClinometerView : CanvasView {
         drawNeedle()
     }
 
-    private fun drawBackground(){
+    private fun drawBackground() {
         background(dialColor)
         val alpha = 150
 
@@ -124,6 +124,7 @@ class CameraClinometerView : CanvasView {
                 )
                 opacity(255)
             }
+
             else -> {
                 stroke(Color.WHITE)
                 strokeWeight(dp(4f))

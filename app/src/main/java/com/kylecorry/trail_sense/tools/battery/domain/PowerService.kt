@@ -18,7 +18,11 @@ class PowerService {
         return hours(hours.toDouble())
     }
 
-    fun getRates(readings: List<BatteryReading>, minDuration: Duration, hasCapacity: Boolean): List<Float> {
+    fun getRates(
+        readings: List<BatteryReading>,
+        minDuration: Duration,
+        hasCapacity: Boolean
+    ): List<Float> {
         if (readings.size < 2) {
             return emptyList()
         }
@@ -92,7 +96,7 @@ class PowerService {
 
         val hours = remaining / capacityGainPerHour
 
-        if (hours < 0){
+        if (hours < 0) {
             return Duration.ZERO
         }
 

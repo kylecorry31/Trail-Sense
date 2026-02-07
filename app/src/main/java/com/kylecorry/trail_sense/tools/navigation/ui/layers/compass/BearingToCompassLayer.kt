@@ -11,10 +11,11 @@ class BearingToCompassLayer : ICompassLayer {
 
     private var destination: Coordinate? = null
     private var bearing: IMappableBearing? = null
+
     @ColorInt
     private var color = 0
 
-    fun setDestination(location: Coordinate, @ColorInt color: Int){
+    fun setDestination(location: Coordinate, @ColorInt color: Int) {
         destination = location
         bearing = null
         this.color = color

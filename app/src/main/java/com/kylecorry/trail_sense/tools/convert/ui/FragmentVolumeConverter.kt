@@ -6,7 +6,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
 
-class FragmentVolumeConverter : SimpleConvertFragment<VolumeUnits>(VolumeUnits.Liters, VolumeUnits.USGallons) {
+class FragmentVolumeConverter :
+    SimpleConvertFragment<VolumeUnits>(VolumeUnits.Liters, VolumeUnits.USGallons) {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 

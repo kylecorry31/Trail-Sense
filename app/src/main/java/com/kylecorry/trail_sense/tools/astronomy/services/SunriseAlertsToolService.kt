@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
-class SunriseAlertsToolService(private val context: Context): ToolService {
+class SunriseAlertsToolService(private val context: Context) : ToolService {
 
     private val prefs = UserPreferences(context)
 

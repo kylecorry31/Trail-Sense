@@ -12,7 +12,7 @@ data class Forecast(
     val current: CurrentWeather,
     val hourly: List<HourlyWeather>,
     val daily: List<DailyWeather>
-): ProguardIgnore
+) : ProguardIgnore
 
 data class CurrentWeather(
     val time: Instant,
@@ -20,7 +20,7 @@ data class CurrentWeather(
     val temperature: Float?,
     val humidity: Float?,
     val windSpeed: Float?
-): ProguardIgnore
+) : ProguardIgnore
 
 data class HourlyWeather(
     val time: Instant,
@@ -31,7 +31,7 @@ data class HourlyWeather(
     val precipitationChance: Float?,
     val rainAmount: Float?,
     val snowAmount: Float?
-): ProguardIgnore
+) : ProguardIgnore
 
 // TODO: Is this needed or can Trail Sense figure this out from the hourly data?
 data class DailyWeather(
@@ -42,4 +42,4 @@ data class DailyWeather(
     val precipitationChance: Float?,
     val rainAmount: Float?,
     val snowAmount: Float?
-): ProguardIgnore
+) : ProguardIgnore

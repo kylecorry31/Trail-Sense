@@ -15,7 +15,7 @@ class RebaseMapCalibrationWorker(
             val repo = MapRepo.getInstance(context)
             val maps = repo.getAllMaps()
             maps.forEach {
-                if (it.calibration.calibrationPoints.isEmpty()){
+                if (it.calibration.calibrationPoints.isEmpty()) {
                     return@forEach
                 }
                 // Convert all calibration points to rotation 0

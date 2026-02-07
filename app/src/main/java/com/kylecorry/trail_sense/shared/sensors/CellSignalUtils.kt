@@ -8,7 +8,7 @@ object CellSignalUtils {
 
     @DrawableRes
     fun getCellQualityImage(quality: Quality?): Int {
-        return when(quality){
+        return when (quality) {
             Quality.Poor -> R.drawable.signal_cellular_1
             Quality.Moderate -> R.drawable.signal_cellular_2
             Quality.Good -> R.drawable.signal_cellular_3

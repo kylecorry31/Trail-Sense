@@ -8,7 +8,11 @@ import java.time.ZonedDateTime
 
 internal interface ITemperatureService {
     suspend fun getTemperature(time: ZonedDateTime): Temperature
-    suspend fun getTemperatures(start: ZonedDateTime, end: ZonedDateTime): List<Reading<Temperature>>
+    suspend fun getTemperatures(
+        start: ZonedDateTime,
+        end: ZonedDateTime
+    ): List<Reading<Temperature>>
+
     suspend fun getTemperatureRange(date: LocalDate): Range<Temperature>
     suspend fun getTemperatureRanges(year: Int): List<Pair<LocalDate, Range<Temperature>>>
     suspend fun getTemperatureRange(start: ZonedDateTime, end: ZonedDateTime): Range<Temperature>

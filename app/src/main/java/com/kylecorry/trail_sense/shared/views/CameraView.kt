@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.core.content.withStyledAttributes
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.util.Size
@@ -15,6 +14,7 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.camera.view.PreviewView
+import androidx.core.content.withStyledAttributes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

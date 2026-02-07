@@ -39,7 +39,7 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
         val fabMenu = findViewById<LinearLayout>(R.id.fab_menu)
 
         var menuId = -1
-        parse(attrs, R.styleable.FloatingActionButtonMenu){
+        parse(attrs, R.styleable.FloatingActionButtonMenu) {
             menuId = getResourceId(R.styleable.FloatingActionButtonMenu_menu, -1)
         }
 

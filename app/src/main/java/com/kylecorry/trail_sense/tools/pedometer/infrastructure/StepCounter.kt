@@ -12,18 +12,18 @@ class StepCounter(private val preferences: IPreferences) : IStepCounter {
     override val steps: Long
         get() = preferences.getLong(STEPS_KEY) ?: 0L
 
-    override fun addSteps(steps: Long){
-        synchronized(this){
+    override fun addSteps(steps: Long) {
+        synchronized(this) {
             val lastSteps = this.steps
             preferences.putLong(STEPS_KEY, steps + lastSteps)
-            if (startTime == null){
+            if (startTime == null) {
                 preferences.putInstant(LAST_RESET_KEY, Instant.now())
             }
         }
     }
 
-    override fun reset(){
-        synchronized(this){
+    override fun reset() {
+        synchronized(this) {
             preferences.remove(STEPS_KEY)
             preferences.putInstant(LAST_RESET_KEY, Instant.now())
         }

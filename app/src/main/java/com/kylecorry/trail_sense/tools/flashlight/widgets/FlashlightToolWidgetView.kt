@@ -17,7 +17,10 @@ import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class FlashlightToolWidgetView : SimpleToolWidgetView() {
 
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val views = getView(context, prefs)
         val flashlight = FlashlightSubsystem.getInstance(context)
         val isOn = flashlight.getMode() != FlashlightMode.Off

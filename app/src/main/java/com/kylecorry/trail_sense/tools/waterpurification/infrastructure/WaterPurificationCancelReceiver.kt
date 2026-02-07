@@ -7,7 +7,7 @@ import android.content.Intent
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.waterpurification.ui.WaterPurificationFragment
 
-class WaterPurificationCancelReceiver: BroadcastReceiver() {
+class WaterPurificationCancelReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
         val cache = PreferencesSubsystem.getInstance(context).preferences
@@ -21,7 +21,12 @@ class WaterPurificationCancelReceiver: BroadcastReceiver() {
         }
 
         fun pendingIntent(context: Context): PendingIntent {
-            return PendingIntent.getBroadcast(context, 21830948, intent(context), PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            return PendingIntent.getBroadcast(
+                context,
+                21830948,
+                intent(context),
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
         }
     }
 

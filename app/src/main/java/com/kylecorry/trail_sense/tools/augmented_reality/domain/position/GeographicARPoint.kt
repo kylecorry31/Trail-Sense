@@ -38,7 +38,7 @@ class GeographicARPoint(
     }
 
     private fun getActualElevation(view: AugmentedRealityView): Float {
-        return if (isElevationRelative){
+        return if (isElevationRelative) {
             view.altitude + (elevation ?: 0f)
         } else {
             elevation ?: view.altitude

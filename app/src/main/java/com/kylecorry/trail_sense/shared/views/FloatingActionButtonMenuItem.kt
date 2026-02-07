@@ -11,7 +11,8 @@ import androidx.core.view.updateLayoutParams
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.trail_sense.R
 
-class FloatingActionButtonMenuItem(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
+class FloatingActionButtonMenuItem(context: Context, attrs: AttributeSet?) :
+    FrameLayout(context, attrs) {
 
     private var textView: TextView
     private var fab: FloatingActionButton
@@ -20,8 +21,18 @@ class FloatingActionButtonMenuItem(context: Context, attrs: AttributeSet?) : Fra
         inflate(context, R.layout.view_floating_action_button_menu_item, this)
         textView = findViewById(R.id.fab_text)
         fab = findViewById(R.id.fab)
-        val a = context.theme.obtainStyledAttributes(attrs, R.styleable.FloatingActionButtonMenuItem, 0, 0)
-        setImageResource(a.getResourceId(R.styleable.FloatingActionButtonMenuItem_android_src, R.drawable.ic_add))
+        val a = context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.FloatingActionButtonMenuItem,
+            0,
+            0
+        )
+        setImageResource(
+            a.getResourceId(
+                R.styleable.FloatingActionButtonMenuItem_android_src,
+                R.drawable.ic_add
+            )
+        )
         textView.text = a.getString(R.styleable.FloatingActionButtonMenuItem_android_text)
         a.recycle()
         layoutParams = generateDefaultLayoutParams()
@@ -44,7 +55,7 @@ class FloatingActionButtonMenuItem(context: Context, attrs: AttributeSet?) : Fra
         textView.text = text
     }
 
-    fun setItemOnClickListener(l: OnClickListener){
+    fun setItemOnClickListener(l: OnClickListener) {
         setOnClickListener(l)
         fab.setOnClickListener(l)
     }

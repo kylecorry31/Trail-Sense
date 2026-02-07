@@ -103,25 +103,29 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
             minTempCalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.minActualTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
+                    Temperature.from(temp, TemperatureUnits.Celsius)
+                        .convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
             minTempUncalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.minBatteryTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
+                    Temperature.from(temp, TemperatureUnits.Celsius)
+                        .convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
             maxTempCalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.maxActualTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
+                    Temperature.from(temp, TemperatureUnits.Celsius)
+                        .convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
             maxTempUncalibratedC?.setOnPreferenceChangeListener { _, newValue ->
                 val temp = (newValue as String).toFloatCompat() ?: 0f
                 prefs.thermometer.maxBatteryTemperatureF =
-                    Temperature.from(temp, TemperatureUnits.Celsius).convertTo(TemperatureUnits.Fahrenheit).value
+                    Temperature.from(temp, TemperatureUnits.Celsius)
+                        .convertTo(TemperatureUnits.Fahrenheit).value
                 true
             }
         } else {

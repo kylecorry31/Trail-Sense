@@ -38,7 +38,7 @@ class ExportPathCommand(
             val paths = all.filterIsInstance<Path>()
             val groups = all.filterIsInstance<PathGroup>().associateBy { it.id }
 
-            if (paths.isEmpty()){
+            if (paths.isEmpty()) {
                 return@inBackground
             }
 
@@ -52,7 +52,7 @@ class ExportPathCommand(
                     List(paths.size) { it }
                 ) ?: return@inBackground
 
-                if (selection.isEmpty()){
+                if (selection.isEmpty()) {
                     return@inBackground
                 }
 

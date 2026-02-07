@@ -31,9 +31,11 @@ class TemperatureWeatherField(
             temperature.value <= WeatherSubsystem.COLD -> {
                 AppColor.Blue.color
             }
+
             temperature.value >= WeatherSubsystem.HOT -> {
                 AppColor.Red.color
             }
+
             else -> {
                 Resources.androidTextColorSecondary(context)
             }
@@ -43,7 +45,11 @@ class TemperatureWeatherField(
             5,
             context.getString(R.string.temperature),
             subtitle = when (source) {
-                ThermometerSource.Historic -> context.getString(R.string.historic_temperature_years, 30)
+                ThermometerSource.Historic -> context.getString(
+                    R.string.historic_temperature_years,
+                    30
+                )
+
                 ThermometerSource.Sensor -> context.getString(R.string.sensor)
             },
             icon = ResourceListIcon(R.drawable.thermometer, color),

@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.bitmaps.operations.Dither
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.analysis.Trigonometry
+import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.getCellSizeX
@@ -17,14 +19,10 @@ import com.kylecorry.trail_sense.shared.dem.getSlopeVector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import java.time.Instant
+import java.time.ZonedDateTime
 import kotlin.math.cos
 import kotlin.math.sin
-
-import com.kylecorry.sol.science.astronomy.Astronomy
-import com.kylecorry.sol.time.Time.toZonedDateTime
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 class HillshadeMapTileSource : TileSource {
     var drawAccurateShadows: Boolean = false
@@ -98,7 +96,11 @@ class HillshadeMapTileSource : TileSource {
             )
         }
 
-        if (astronomy.isMoonUp(location, time) && Astronomy.getMoonPhase(time).illumination > 0.25f) {
+        if (astronomy.isMoonUp(
+                location,
+                time
+            ) && Astronomy.getMoonPhase(time).illumination > 0.25f
+        ) {
             return astronomy.getMoonAzimuth(location, time).value to astronomy.getMoonAltitude(
                 location,
                 time

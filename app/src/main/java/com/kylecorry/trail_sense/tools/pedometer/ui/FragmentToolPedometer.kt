@@ -70,7 +70,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 FeatureState.On -> pedometer.disable()
                 FeatureState.Off -> startStepCounter()
                 else -> {
-                    if (pedometer.isDisabledDueToPermissions()){
+                    if (pedometer.isDisabledDueToPermissions()) {
                         startStepCounter()
                     }
                 }

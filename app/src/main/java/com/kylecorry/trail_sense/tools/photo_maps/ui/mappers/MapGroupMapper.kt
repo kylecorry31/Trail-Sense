@@ -25,7 +25,12 @@ class MapGroupMapper(
                 group.count ?: 0,
                 group.count ?: 0
             ),
-            icon = ResourceListIcon(R.drawable.ic_map_group, AppColor.Gray.color, size = 48f, foregroundSize = 24f),
+            icon = ResourceListIcon(
+                R.drawable.ic_map_group,
+                AppColor.Gray.color,
+                size = 48f,
+                foregroundSize = 24f
+            ),
             menu = listOf(
                 ListMenuItem(context.getString(R.string.rename)) {
                     actionHandler(group, MapGroupAction.Rename)

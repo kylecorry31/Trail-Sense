@@ -73,7 +73,10 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
                 CellTowerListItemMapper(context, location) { towerLocation, action ->
                     when (action) {
                         CellTowerListItemAction.Navigate -> {
-                            navigator.navigateTo(towerLocation.coordinate, getString(R.string.cell_tower))
+                            navigator.navigateTo(
+                                towerLocation.coordinate,
+                                getString(R.string.cell_tower)
+                            )
                             navController.openTool(Tools.NAVIGATION)
                         }
 

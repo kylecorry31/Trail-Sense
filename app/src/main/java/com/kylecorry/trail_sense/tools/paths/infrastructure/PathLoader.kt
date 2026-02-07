@@ -26,7 +26,7 @@ class PathLoader(private val pathService: IPathService) {
         val isTracking = BacktrackScheduler.isOn(context)
         val currentBacktrackPathId = pathService.getBacktrackPathId()
         pointsLock.withLock {
-            if (currentBacktrackPathId == null){
+            if (currentBacktrackPathId == null) {
                 return@onIO points.toMap()
             }
             val point = PathPoint(

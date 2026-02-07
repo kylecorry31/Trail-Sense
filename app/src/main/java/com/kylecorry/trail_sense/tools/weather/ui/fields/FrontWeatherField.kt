@@ -17,6 +17,7 @@ class FrontWeatherField(private val front: WeatherFront?) : WeatherField {
                 frontName = context.getString(R.string.weather_warm_front)
                 icon = R.drawable.ic_warm_weather_front
             }
+
             WeatherFront.Cold -> {
                 frontName = context.getString(R.string.weather_cold_front)
                 icon = R.drawable.ic_cold_weather_front

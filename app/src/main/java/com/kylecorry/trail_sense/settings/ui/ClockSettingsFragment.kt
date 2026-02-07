@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 
 
-class ClockSettingsFragment : AndromedaPreferenceFragment()  {
+class ClockSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.clock_preference, rootKey)
     }

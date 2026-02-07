@@ -56,7 +56,10 @@ data class PathEntity(
             PathMetadata(
                 Distance.meters(distance),
                 numWaypoints,
-                if (startTime != null && endTime != null) Range(Instant.ofEpochMilli(startTime), Instant.ofEpochMilli(endTime)) else null,
+                if (startTime != null && endTime != null) Range(
+                    Instant.ofEpochMilli(startTime),
+                    Instant.ofEpochMilli(endTime)
+                ) else null,
                 CoordinateBounds(north, east, south, west)
             ),
             temporary,

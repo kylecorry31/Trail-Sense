@@ -89,7 +89,7 @@ class DialSelectView : CanvasView {
     var areHapticsEnabled = false
         set(value) {
             field = value
-            if (!value){
+            if (!value) {
                 haptics.off()
             }
             invalidate()
@@ -202,7 +202,7 @@ class DialSelectView : CanvasView {
                 index to deltaAngle(pos, scrollPosition).absoluteValue
             }.minByOrNull { it.second }?.first ?: 0
 
-            if (areHapticsEnabled && nearestOption != selected){
+            if (areHapticsEnabled && nearestOption != selected) {
                 haptics.tick()
             }
 
@@ -218,7 +218,7 @@ class DialSelectView : CanvasView {
         gestureDetector.onTouchEvent(event)
         if (event.action == MotionEvent.ACTION_UP) {
             scrollToOption(selected)
-            if (selected != lastSelection){
+            if (selected != lastSelection) {
                 selectionChangeListener(selected)
                 lastSelection = selected
             }

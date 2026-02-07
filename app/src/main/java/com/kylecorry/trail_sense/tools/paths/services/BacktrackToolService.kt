@@ -61,7 +61,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
             Log.d("BacktrackSubsystem", "Cannot start backtrack")
             return
         }
-        
+
         prefs.backtrackEnabled = true
         Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
         if (!isBlocked()) {

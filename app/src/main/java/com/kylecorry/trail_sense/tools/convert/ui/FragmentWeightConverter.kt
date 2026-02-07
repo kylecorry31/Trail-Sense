@@ -5,7 +5,8 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
 
-class FragmentWeightConverter : SimpleConvertFragment<WeightUnits>(WeightUnits.Kilograms, WeightUnits.Pounds) {
+class FragmentWeightConverter :
+    SimpleConvertFragment<WeightUnits>(WeightUnits.Kilograms, WeightUnits.Pounds) {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 

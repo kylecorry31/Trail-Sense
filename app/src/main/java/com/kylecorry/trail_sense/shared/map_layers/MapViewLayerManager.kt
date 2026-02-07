@@ -54,7 +54,11 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener { invalidateView() } }
         this.layers.filter { it is GeoJsonLayer<*> }
-            .forEach { (it as GeoJsonLayer<*>).setOnFeatureClickListener(onGeoJsonFeatureClickListener) }
+            .forEach {
+                (it as GeoJsonLayer<*>).setOnFeatureClickListener(
+                    onGeoJsonFeatureClickListener
+                )
+            }
 
         invalidateView()
     }

@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.field_guide.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Size
-import androidx.core.graphics.createBitmap
 import android.widget.ImageView
+import androidx.core.graphics.createBitmap
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.Resources

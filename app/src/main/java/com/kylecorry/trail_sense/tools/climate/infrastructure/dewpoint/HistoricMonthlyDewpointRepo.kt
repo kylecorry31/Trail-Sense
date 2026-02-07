@@ -33,7 +33,10 @@ internal object HistoricMonthlyDewpointRepo {
             EncodedDataImageReader(
                 SingleImageReader(size, AssetInputStreamable(file)),
                 maxChannels = 3,
-                decoder = EncodedDataImageReader.scaledDecoder(2.7882964611053467, 62.11231994628906)
+                decoder = EncodedDataImageReader.scaledDecoder(
+                    2.7882964611053467,
+                    62.11231994628906
+                )
             )
         )
     }

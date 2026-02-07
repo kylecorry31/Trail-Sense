@@ -19,7 +19,10 @@ import java.time.Instant
 
 class SunAndMoonChartToolWidgetView : ChartToolWidgetViewBase() {
 
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val astronomy = AstronomySubsystem.getInstance(context)
 
         val moon = astronomy.moon

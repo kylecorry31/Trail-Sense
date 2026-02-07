@@ -79,7 +79,7 @@ class ARBeaconLayer(
 
         hooks.effect("layer_update", visible) {
             // TODO: Change opacity if navigating
-            layer.setMarkers(visible.flatMap {beacon ->
+            layer.setMarkers(visible.flatMap { beacon ->
                 listOfNotNull(
                     ARMarker(
                         GeographicARPoint(
