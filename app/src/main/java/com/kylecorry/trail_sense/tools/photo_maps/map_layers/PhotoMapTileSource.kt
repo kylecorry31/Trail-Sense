@@ -17,7 +17,7 @@ class PhotoMapTileSource : TileSource {
 
     var filter: (map: PhotoMap) -> Boolean = { it.visible }
     private var lastLoadPdfs = DEFAULT_LOAD_PDFS
-    var backgroundColor: Int = Color.WHITE
+    private val backgroundColor: Int = Color.TRANSPARENT
     private var lastBackgroundColor = backgroundColor
     private var lastFilter = filter
     private var internalSelector: TileSource? = null

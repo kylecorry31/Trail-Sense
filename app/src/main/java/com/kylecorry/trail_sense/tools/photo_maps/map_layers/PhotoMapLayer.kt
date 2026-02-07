@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
-import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
@@ -14,10 +13,6 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     override val layerId: String = PhotoMapTileSource.SOURCE_ID
     private var idFilter: Long? = null
     private var loadPdfs: Boolean = PhotoMapTileSource.DEFAULT_LOAD_PDFS
-
-    init {
-        source.backgroundColor = Color.TRANSPARENT
-    }
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
