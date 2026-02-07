@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 
+import android.content.Context
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -59,12 +60,13 @@ class GeoJsonRenderer : IGeoJsonRenderer {
     }
 
     override fun draw(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        polygonRenderer.draw(drawer, map)
-        lineStringRenderer.draw(drawer, map)
-        pointRenderer.draw(drawer, map)
+        polygonRenderer.draw(context, drawer, map)
+        lineStringRenderer.draw(context, drawer, map)
+        pointRenderer.draw(context, drawer, map)
     }
 
     override fun invalidate() {

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -63,7 +64,12 @@ class TileLoader(
         tileCache.evictAll()
     }
 
-    fun loadTiles(tiles: List<Tile>, time: Instant, preferences: Bundle = bundleOf()) {
+    fun loadTiles(
+        tiles: List<Tile>,
+        time: Instant,
+        preferences: Bundle = bundleOf(),
+        context: Context
+    ) {
         val params = bundleOf(
             TileSource.PARAM_TIME to time.toEpochMilli(),
             TileSource.PARAM_PREFERENCES to Bundle(preferences)
@@ -75,13 +81,13 @@ class TileLoader(
                     key = key,
                     tile = tile,
                     loadFunction = {
-                        loadTile(source, tile, params)
+                        loadTile(source, context, tile, params)
                     }
                 )
             }
             // Replace the load function every cycle to ensure it uses the latest parameters
             newTile.setLoader {
-                loadTile(source, tile, params)
+                loadTile(source, context, tile, params)
             }
             newTile
         }
@@ -91,6 +97,7 @@ class TileLoader(
 
     private suspend fun loadTile(
         sourceSelector: TileSource,
+        context: Context,
         tile: Tile,
         params: Bundle
     ): Bitmap? {
@@ -98,13 +105,14 @@ class TileLoader(
         val existing = if (cacheKey != null && persistentCache != null) {
             try {
                 persistentCache.getOrPut(cacheKey, tile) {
-                    sourceSelector.loadTile(tile, params) ?: throw NoSuchElementException()
+                    sourceSelector.loadTile(context, tile, params)
+                        ?: throw NoSuchElementException()
                 }
             } catch (_: NoSuchElementException) {
                 null
             }
         } else {
-            sourceSelector.loadTile(tile, params)
+            sourceSelector.loadTile(context, tile, params)
         }
         return existing?.applyOperationsOrNull(
             Resize(

@@ -17,18 +17,12 @@ import com.kylecorry.trail_sense.tools.paths.ui.asMappable
 import kotlinx.coroutines.flow.first
 
 class PathGeoJsonSource : GeoJsonSource {
-
-    private val context = AppServiceRegistry.get<Context>()
     private val pathService = AppServiceRegistry.get<PathService>()
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()
     private var loaded = false
 
-    override suspend fun load(
-        bounds: CoordinateBounds,
-        zoom: Int,
-        params: Bundle
-    ): GeoJsonObject? {
+    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
         // If paths haven't been loaded yet, load them
         if (paths.isEmpty()) {
             paths = pathService.getPaths().first().filter { it.style.visible }

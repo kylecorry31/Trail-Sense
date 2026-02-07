@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
+import android.content.Context
+
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
@@ -53,11 +55,7 @@ class ContourGeoJsonSource : GeoJsonSource {
         14, 15, 19
     )
 
-    override suspend fun load(
-        bounds: CoordinateBounds,
-        zoom: Int,
-        params: Bundle
-    ): GeoJsonObject? {
+    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
         val strategyId = preferences?.getString(COLOR)?.toLongOrNull()
         val colorScale = ElevationColorMapFactory().getElevationColorMap(

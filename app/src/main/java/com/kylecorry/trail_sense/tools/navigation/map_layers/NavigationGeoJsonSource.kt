@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.map_layers
 
+import android.content.Context
+
 import android.os.Bundle
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -18,11 +20,7 @@ class NavigationGeoJsonSource : GeoJsonSource {
     var destination: Destination? = null
     var useLocationWithBearing: Boolean = true
 
-    override suspend fun load(
-        bounds: CoordinateBounds,
-        zoom: Int,
-        params: Bundle
-    ): GeoJsonObject? {
+    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject? {
         val myLocation = myLocation
         val destination = destination
 

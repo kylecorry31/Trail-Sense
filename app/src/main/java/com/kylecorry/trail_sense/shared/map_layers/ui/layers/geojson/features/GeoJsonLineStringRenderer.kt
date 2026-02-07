@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features
 
 import android.graphics.Color
+import android.content.Context
 import android.graphics.Matrix
 import android.graphics.Path
 import androidx.core.graphics.withMatrix
@@ -106,6 +107,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     }
 
     private suspend fun renderFeaturesInBackground(
+        context: Context,
         viewBounds: Rectangle,
         bounds: CoordinateBounds,
         projection: IMapViewProjection,
@@ -235,6 +237,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     }
 
     override fun draw(
+        context: Context,
         drawer: ICanvasDrawer,
         map: IMapView,
         features: List<GeoJsonFeature>

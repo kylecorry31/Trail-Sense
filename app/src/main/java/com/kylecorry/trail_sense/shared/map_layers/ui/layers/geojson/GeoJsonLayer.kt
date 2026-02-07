@@ -50,7 +50,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     init {
         renderer.setOnClickListener(this::onClick)
-        taskRunner.addTask { viewBounds, bounds, projection ->
+        taskRunner.addTask { context, viewBounds, bounds, projection ->
             isInvalid = false
             val zoomLevel = projection.zoom.roundToInt()
             try {
@@ -64,7 +64,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                 val params = bundleOf(GeoJsonSource.PARAM_TIME to _renderTime.toEpochMilli())
                 params.putBundle(GeoJsonSource.PARAM_PREFERENCES, layerPreferences)
                 val obj =
-                    source.load(bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
+                    source.load(context, bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
                         emptyList()
                     )
                 renderer.setGeoJsonObject(obj)
@@ -95,8 +95,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        renderer.draw(drawer, map)
+        renderer.draw(context, drawer, map)
         taskRunner.scheduleUpdate(
+            context,
             drawer.getBounds(45f),
             map.mapBounds,
             map.mapProjection,

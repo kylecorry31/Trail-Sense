@@ -32,7 +32,6 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
     private val repo = AppServiceRegistry.get<FieldGuideRepo>()
     private val files = AppServiceRegistry.get<FileSubsystem>()
     var nameFormat = ""
-    var context: Context? = null
     private val size = 12f
     private val imageSize = size * 1.5f
     private val bitmapCache = mutableMapOf<Long, Bitmap?>()
@@ -52,16 +51,12 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         FieldGuidePageTag.Other to BeaconIcon.Information
     )
 
-    override suspend fun load(
-        bounds: CoordinateBounds,
-        zoom: Int,
-        params: Bundle
-    ): GeoJsonObject {
+    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
         val showImages =
             preferences?.getBoolean(PREFERENCE_SHOW_IMAGES, false) ?: false
         if (nameFormat.isEmpty()) {
-            nameFormat = context?.getString(R.string.sighting_label) ?: ""
+            nameFormat = context.getString(R.string.sighting_label)
         }
         val pages = repo.getAllPages()
 
@@ -81,7 +76,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         val collection = GeoJsonFeatureCollection(
             allSightings.map { (sighting, page) ->
                 val icon = getIconForPage(page)
-                val bitmap = if (showImages) getBitmapForPage(page) else null
+                val bitmap = if (showImages) getBitmapForPage(page, context) else null
                 val point = GeoJsonFeature.point(
                     sighting.location!!,
                     sighting.id,
@@ -106,7 +101,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         return collection
     }
 
-    private fun getBitmapForPage(page: FieldGuidePage): Bitmap? {
+    private fun getBitmapForPage(page: FieldGuidePage, context: Context): Bitmap? {
         if (page.images.isEmpty()) {
             return null
         }
@@ -116,7 +111,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         }
 
         // Double the size for increased resolution
-        val sizePixels = Resources.dp(context ?: return null, imageSize * 2).toInt()
+        val sizePixels = Resources.dp(context, imageSize * 2).toInt()
 
         val sourceBitmap = tryOrDefault(null) {
             files.bitmap(page.images.first(), Size(sizePixels, sizePixels))

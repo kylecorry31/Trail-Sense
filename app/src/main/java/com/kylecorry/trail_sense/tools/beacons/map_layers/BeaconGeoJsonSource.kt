@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.map_layers
 
+import android.content.Context
+
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
@@ -25,11 +27,7 @@ class BeaconGeoJsonSource : GeoJsonSource {
 
     private val beaconService = AppServiceRegistry.get<BeaconService>()
 
-    override suspend fun load(
-        bounds: CoordinateBounds,
-        zoom: Int,
-        params: Bundle
-    ): GeoJsonObject {
+    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
         val beacons =
             (beaconService.getBeaconsInRegion(bounds).filter { it.visible } + listOfNotNull(
                 highlighted

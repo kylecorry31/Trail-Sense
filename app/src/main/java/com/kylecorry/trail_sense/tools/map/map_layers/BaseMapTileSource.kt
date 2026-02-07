@@ -104,8 +104,12 @@ class BaseMapTileSource : TileSource {
         )
     )
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
-        return internalSelector.loadTile(tile, params)
+    override suspend fun loadTile(
+        context: Context,
+        tile: Tile,
+        params: Bundle
+    ): Bitmap? {
+        return internalSelector.loadTile(context, tile, params)
     }
 
     override suspend fun cleanup() {

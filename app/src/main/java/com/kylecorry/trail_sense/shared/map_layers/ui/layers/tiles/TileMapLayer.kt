@@ -102,7 +102,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     init {
-        taskRunner.addTask { _: Rectangle, _: CoordinateBounds, projection: IMapViewProjection ->
+        taskRunner.addTask { _: Context, _: Rectangle, _: CoordinateBounds, projection: IMapViewProjection ->
             queue.setMapProjection(projection)
         }
     }
@@ -120,6 +120,7 @@ abstract class TileMapLayer<T : TileSource>(
 
         // Load tiles if needed
         taskRunner.scheduleUpdate(
+            context,
             drawer.getBounds(45f), // TODO: Cache this
             map.mapBounds,
             map.mapProjection
@@ -132,7 +133,7 @@ abstract class TileMapLayer<T : TileSource>(
                 drawer.canvas.saveLayer(null, layerPaint)
                 shouldSaveLayer = true
             }
-            renderTiles(drawer.canvas, map)
+            renderTiles(context, drawer.canvas, map)
         } finally {
             if (shouldSaveLayer) {
                 drawer.pop()
@@ -156,7 +157,7 @@ abstract class TileMapLayer<T : TileSource>(
         return false
     }
 
-    private fun renderTiles(canvas: Canvas, map: IMapView) {
+    private fun renderTiles(context: Context, canvas: Canvas, map: IMapView) {
         val bounds = map.mapBounds
         val projection = map.mapProjection
         val desiredTiles = getTiles(
@@ -168,7 +169,7 @@ abstract class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences)
+            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences, context)
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }

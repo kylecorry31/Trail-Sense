@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -28,7 +30,11 @@ class PhotoMapTileSource : TileSource {
         decoderCache.recycleInactive(emptyList())
     }
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+    override suspend fun loadTile(
+        context: Context,
+        tile: Tile,
+        params: Bundle
+    ): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val loadPdfs = preferences?.getBoolean(
             LOAD_PDFS,
@@ -52,7 +58,7 @@ class PhotoMapTileSource : TileSource {
             }
             internalSelector
         }
-        return selector?.loadTile(tile, params)
+        return selector?.loadTile(context, tile, params)
     }
 
     companion object {

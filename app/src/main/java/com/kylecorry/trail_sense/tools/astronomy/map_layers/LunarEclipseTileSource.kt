@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.os.Bundle
 import com.kylecorry.andromeda.core.ui.colormaps.AlphaColorMap
@@ -20,7 +22,7 @@ class LunarEclipseTileSource : TileSource {
     private val colorMap = AlphaColorMap(AppColor.Orange.color, 200)
     private val astronomy = AstronomyService()
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val showPath =
             preferences?.getBoolean(SHOW_PATH, DEFAULT_SHOW_PATH)

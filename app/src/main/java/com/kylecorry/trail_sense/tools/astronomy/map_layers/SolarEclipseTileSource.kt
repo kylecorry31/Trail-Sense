@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -26,7 +28,7 @@ class SolarEclipseTileSource : TileSource {
     private val astronomy = AstronomyService()
     private val lookupTable by lazy { constructLookupTable() }
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val smooth = preferences?.getBoolean(SMOOTH, DEFAULT_SMOOTH)
             ?: DEFAULT_SMOOTH

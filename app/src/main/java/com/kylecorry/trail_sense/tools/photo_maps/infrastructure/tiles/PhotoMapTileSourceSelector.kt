@@ -37,7 +37,7 @@ class PhotoMapTileSourceSelector(
 
     private var recentMaps = ConcurrentLinkedQueue<PhotoMap>()
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
         val loaders = getRegionLoaders(tile.getBounds())
 
         val maps = loaders.map { it.map }.distinct()

@@ -16,18 +16,12 @@ import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerMod
 
 class CellTowerGeoJsonSource : GeoJsonSource {
 
-    var context: Context? = null
-
     private var featureName: String? = null
 
-    override suspend fun load(
-        bounds: CoordinateBounds,
-        zoom: Int,
-        params: Bundle
-    ): GeoJsonObject {
+    override suspend fun load(context: Context, bounds: CoordinateBounds, zoom: Int, params: Bundle): GeoJsonObject {
 
         if (featureName == null) {
-            featureName = context?.getString(R.string.cell_tower)
+            featureName = context.getString(R.string.cell_tower)
         }
 
         val towers = CellTowerModel.getTowers(bounds)

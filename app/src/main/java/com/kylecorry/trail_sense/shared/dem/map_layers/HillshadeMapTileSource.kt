@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -27,7 +29,7 @@ import kotlin.math.sin
 class HillshadeMapTileSource : TileSource {
     private val astronomy = AstronomyService()
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val drawAccurateShadows =
             preferences?.getBoolean(
