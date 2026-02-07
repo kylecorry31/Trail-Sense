@@ -14,6 +14,7 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withSave
+import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -81,6 +82,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val srcRect = Rect()
     private val destRect = Rect()
     private val clipPath = Path()
+    protected var layerPreferences: Bundle = bundleOf()
 
     private val loadTimer = CoroutineTimer {
         queue.load(16)
@@ -165,7 +167,7 @@ abstract class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles, _renderTime)
+            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences)
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
@@ -463,6 +465,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override fun setPreferences(preferences: Bundle) {
+        layerPreferences = Bundle(preferences)
         percentOpacity = preferences.getInt(
             DefaultMapLayerDefinitions.OPACITY,
             DefaultMapLayerDefinitions.DEFAULT_OPACITY

@@ -22,13 +22,18 @@ import java.time.ZonedDateTime
 
 class SolarEclipseTileSource : TileSource {
 
-    var smooth = false
-    var showPath = false
     private val colorMap = AlphaColorMap(maxAlpha = 200)
     private val astronomy = AstronomyService()
     private val lookupTable by lazy { constructLookupTable() }
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val smooth = preferences?.getBoolean(SolarEclipseLayer.SMOOTH, SolarEclipseLayer.DEFAULT_SMOOTH)
+            ?: SolarEclipseLayer.DEFAULT_SMOOTH
+        val showPath =
+            preferences?.getBoolean(SolarEclipseLayer.SHOW_PATH, SolarEclipseLayer.DEFAULT_SHOW_PATH)
+                ?: SolarEclipseLayer.DEFAULT_SHOW_PATH
+
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
             .toZonedDateTime()
         val bounds = tile.getBounds()
@@ -39,7 +44,7 @@ class SolarEclipseTileSource : TileSource {
             bounds.northEast,
             bounds.southEast
         ).any {
-            getEclipseObscuration(it, time) != null
+            getEclipseObscuration(it, time, showPath) != null
         }
 
         if (!isEclipseVisible) {
@@ -56,7 +61,7 @@ class SolarEclipseTileSource : TileSource {
             valueProvider = InterpolatedGridValueProvider(
                 4,
                 ParallelCoordinateGridValueProvider { lat, lon ->
-                    getEclipseObscuration(Coordinate(lat, lon), time) ?: 0f
+                    getEclipseObscuration(Coordinate(lat, lon), time, showPath) ?: 0f
                 })
         ) { x, y, getValue ->
             val value = getValue(x, y)
@@ -74,7 +79,11 @@ class SolarEclipseTileSource : TileSource {
         return bitmap
     }
 
-    private fun getEclipseObscuration(location: Coordinate, time: ZonedDateTime): Float? {
+    private fun getEclipseObscuration(
+        location: Coordinate,
+        time: ZonedDateTime,
+        showPath: Boolean
+    ): Float? {
         return if (showPath) {
             astronomy.getPeakSolarEclipseObscuration(location, time)
         } else {

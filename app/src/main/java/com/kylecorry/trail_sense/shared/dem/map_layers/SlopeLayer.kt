@@ -1,25 +1,11 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
-import android.os.Bundle
-import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorMapFactory
-import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
-import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy
 
 class SlopeLayer : TileMapLayer<SlopeMapTileSource>(SlopeMapTileSource(), minZoomLevel = 10) {
 
     override val layerId: String = LAYER_ID
-
-    override fun setPreferences(preferences: Bundle) {
-        super.setPreferences(preferences)
-        val strategyId = preferences.getString(COLOR)?.toLongOrNull()
-        source.colorMap = SlopeColorMapFactory().getSlopeColorMap(
-            SlopeColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
-        )
-        source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)
-        source.smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
-        source.hideFlatGround = preferences.getBoolean(HIDE_FLAT_GROUND, DEFAULT_HIDE_FLAT_GROUND)
-    }
 
     companion object {
         const val LAYER_ID = "slope"

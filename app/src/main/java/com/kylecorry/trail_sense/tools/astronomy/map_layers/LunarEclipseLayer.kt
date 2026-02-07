@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
-import android.os.Bundle
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import java.time.Duration
@@ -23,11 +22,6 @@ class LunarEclipseLayer : TileMapLayer<LunarEclipseTileSource>(LunarEclipseTileS
     override fun stop() {
         super.stop()
         timer.stop()
-    }
-
-    override fun setPreferences(preferences: Bundle) {
-        super.setPreferences(preferences)
-        source.showPath = preferences.getBoolean(SHOW_PATH, DEFAULT_SHOW_PATH)
     }
 
     companion object {

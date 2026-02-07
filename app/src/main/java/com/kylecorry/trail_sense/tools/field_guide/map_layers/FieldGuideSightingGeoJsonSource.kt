@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
@@ -31,7 +32,6 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
     private val repo = AppServiceRegistry.get<FieldGuideRepo>()
     private val files = AppServiceRegistry.get<FileSubsystem>()
     var nameFormat = ""
-    var showImages = false
     var context: Context? = null
     private val size = 12f
     private val imageSize = size * 1.5f
@@ -57,6 +57,12 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
+        val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
+        val showImages =
+            preferences?.getBoolean(FieldGuideSightingLayer.PREFERENCE_SHOW_IMAGES, false) ?: false
+        if (nameFormat.isEmpty()) {
+            nameFormat = context?.getString(R.string.sighting_label) ?: ""
+        }
         val pages = repo.getAllPages()
 
         val allSightings = pages
@@ -149,4 +155,3 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         return tagIconMap[lowestTag] ?: BeaconIcon.Information
     }
 }
-

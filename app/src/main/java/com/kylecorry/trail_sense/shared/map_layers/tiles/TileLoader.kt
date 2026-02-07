@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
+import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Pad
@@ -62,7 +63,11 @@ class TileLoader(
         tileCache.evictAll()
     }
 
-    fun loadTiles(tiles: List<Tile>, time: Instant) {
+    fun loadTiles(tiles: List<Tile>, time: Instant, preferences: Bundle = bundleOf()) {
+        val params = bundleOf(
+            TileSource.PARAM_TIME to time.toEpochMilli(),
+            TileSource.PARAM_PREFERENCES to Bundle(preferences)
+        )
         val imageTiles = tiles.map { tile ->
             val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
             val newTile = tileCache.getOrPut(key) {
@@ -70,13 +75,13 @@ class TileLoader(
                     key = key,
                     tile = tile,
                     loadFunction = {
-                        loadTile(source, tile, time)
+                        loadTile(source, tile, params)
                     }
                 )
             }
             // Replace the load function every cycle to ensure it uses the latest parameters
             newTile.setLoader {
-                loadTile(source, tile, time)
+                loadTile(source, tile, params)
             }
             newTile
         }
@@ -84,8 +89,11 @@ class TileLoader(
         imageTiles.forEach { tileQueue.enqueue(it) }
     }
 
-    private suspend fun loadTile(sourceSelector: TileSource, tile: Tile, time: Instant): Bitmap? {
-        val params = bundleOf(TileSource.PARAM_TIME to time.toEpochMilli())
+    private suspend fun loadTile(
+        sourceSelector: TileSource,
+        tile: Tile,
+        params: Bundle
+    ): Bitmap? {
         val cacheKey = key
         val existing = if (cacheKey != null && persistentCache != null) {
             try {

@@ -11,17 +11,16 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
-import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseVibrantElevationColorMap
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class ContourGeoJsonSource : GeoJsonSource {
 
     private val units = AppServiceRegistry.get<UserPreferences>().baseDistanceUnits
-
-    var colorScale: ElevationColorMap = TrailSenseVibrantElevationColorMap()
 
     private val validIntervals by lazy {
         if (units.isMetric) {
@@ -59,6 +58,11 @@ class ContourGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject? {
+        val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
+        val strategyId = preferences?.getString(ContourLayer.COLOR)?.toLongOrNull()
+        val colorScale = ElevationColorMapFactory().getElevationColorMap(
+            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: ContourLayer.DEFAULT_COLOR
+        )
         if (zoom !in minZoom..maxZoom) {
             return null
         }

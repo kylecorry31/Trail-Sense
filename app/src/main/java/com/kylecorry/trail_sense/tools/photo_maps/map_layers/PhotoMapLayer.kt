@@ -14,6 +14,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     override val layerId: String = LAYER_ID
     private var idFilter: Long? = null
+    private var loadPdfs: Boolean = DEFAULT_LOAD_PDFS
     private val recycleTask = BackgroundTask {
         source.recycle()
     }
@@ -24,7 +25,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        source.loadPdfs = preferences.getBoolean(LOAD_PDFS, DEFAULT_LOAD_PDFS)
+        loadPdfs = preferences.getBoolean(LOAD_PDFS, DEFAULT_LOAD_PDFS)
     }
 
     fun setPhotoMapFilter(id: Long? = null) {
@@ -38,7 +39,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     override fun getCacheKey(): String {
         val keys = mutableListOf(layerId)
-        keys.add(source.loadPdfs.toString())
+        keys.add(loadPdfs.toString())
         idFilter?.let { keys.add(it.toString()) }
         return keys.joinToString("-")
     }

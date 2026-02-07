@@ -10,14 +10,14 @@ class HillshadeLayer :
 
     override val layerId: String = LAYER_ID
 
-    override val isTimeDependent: Boolean
-        get() = source.drawAccurateShadows
+    override val isTimeDependent: Boolean = true
 
     init {
         shouldMultiply = true
     }
 
     override fun setPreferences(preferences: Bundle) {
+        super.setPreferences(preferences)
         multiplyAlpha = SolMath.map(
             preferences.getInt(
                 DefaultMapLayerDefinitions.OPACITY,
@@ -29,11 +29,6 @@ class HillshadeLayer :
             255f,
             shouldClamp = true
         ).toInt()
-        source.drawAccurateShadows =
-            preferences.getBoolean(DRAW_ACCURATE_SHADOWS, DEFAULT_DRAW_ACCURATE_SHADOWS)
-        source.highResolution = preferences.getBoolean(HIGH_RESOLUTION, DEFAULT_HIGH_RESOLUTION)
-        source.multiDirectionShading =
-            preferences.getBoolean(MULTI_DIRECTION_SHADING, DEFAULT_MULTI_DIRECTION_SHADING)
     }
 
     companion object {

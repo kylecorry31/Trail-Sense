@@ -20,8 +20,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import kotlin.math.absoluteValue
 
 class AspectMapTileSource : TileSource {
-    var highResolution: Boolean = false
-
     private val colorMap = RgbInterpolationColorMap(
         arrayOf(
             AppColor.Green.color,
@@ -37,6 +35,13 @@ class AspectMapTileSource : TileSource {
     )
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val highResolution =
+            preferences?.getBoolean(
+                AspectLayer.HIGH_RESOLUTION,
+                AspectLayer.DEFAULT_HIGH_RESOLUTION
+            ) ?: AspectLayer.DEFAULT_HIGH_RESOLUTION
+
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

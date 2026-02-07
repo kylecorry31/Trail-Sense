@@ -17,11 +17,15 @@ import java.time.ZonedDateTime
 
 class LunarEclipseTileSource : TileSource {
 
-    var showPath = false
     private val colorMap = AlphaColorMap(AppColor.Orange.color, 200)
     private val astronomy = AstronomyService()
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val showPath =
+            preferences?.getBoolean(LunarEclipseLayer.SHOW_PATH, LunarEclipseLayer.DEFAULT_SHOW_PATH)
+                ?: LunarEclipseLayer.DEFAULT_SHOW_PATH
+
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
             .toZonedDateTime()
         val bounds = tile.getBounds()
@@ -33,7 +37,7 @@ class LunarEclipseTileSource : TileSource {
             bounds.northEast,
             bounds.southEast
         ).any {
-            getEclipseObscuration(it, time) != null
+            getEclipseObscuration(it, time, showPath) != null
         }
 
         if (!isEclipseVisible) {
@@ -49,7 +53,7 @@ class LunarEclipseTileSource : TileSource {
             padding = 2,
             smoothPixelEdges = true,
             valueProvider = ParallelCoordinateGridValueProvider { lat, lon ->
-                getEclipseObscuration(Coordinate(lat, lon), time) ?: 0f
+                getEclipseObscuration(Coordinate(lat, lon), time, showPath) ?: 0f
             }
         ) { x, y, getValue ->
             val value = getValue(x, y)
@@ -57,7 +61,11 @@ class LunarEclipseTileSource : TileSource {
         }
     }
 
-    private fun getEclipseObscuration(location: Coordinate, time: ZonedDateTime): Float? {
+    private fun getEclipseObscuration(
+        location: Coordinate,
+        time: ZonedDateTime,
+        showPath: Boolean
+    ): Float? {
         val eclipse =
             astronomy.getLunarEclipse(location, time.toLocalDate()) ?: astronomy.getLunarEclipse(
                 location,

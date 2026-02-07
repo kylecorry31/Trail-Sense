@@ -9,23 +9,38 @@ import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.colors.GreenToRedSlopeColorMap
-import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorMap
+import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorMapFactory
+import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy
 import com.kylecorry.trail_sense.shared.dem.getCellSizeX
 import com.kylecorry.trail_sense.shared.dem.getCellSizeY
 import com.kylecorry.trail_sense.shared.dem.getSlopeAngle
 import com.kylecorry.trail_sense.shared.dem.getSlopeVector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
+import com.kylecorry.trail_sense.shared.withId
 import kotlin.math.absoluteValue
 
 class SlopeMapTileSource : TileSource {
-    var highResolution: Boolean = false
-    var colorMap: SlopeColorMap = GreenToRedSlopeColorMap()
-    var smooth = true
-    var hideFlatGround = false
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val strategyId = preferences?.getString(SlopeLayer.COLOR)?.toLongOrNull()
+        val colorMap = SlopeColorMapFactory().getSlopeColorMap(
+            SlopeColorStrategy.entries.withId(strategyId ?: 0) ?: SlopeLayer.DEFAULT_COLOR
+        )
+        val highResolution =
+            preferences?.getBoolean(
+                SlopeLayer.HIGH_RESOLUTION,
+                SlopeLayer.DEFAULT_HIGH_RESOLUTION
+            ) ?: SlopeLayer.DEFAULT_HIGH_RESOLUTION
+        val smooth = preferences?.getBoolean(SlopeLayer.SMOOTH, SlopeLayer.DEFAULT_SMOOTH)
+            ?: SlopeLayer.DEFAULT_SMOOTH
+        val hideFlatGround =
+            preferences?.getBoolean(
+                SlopeLayer.HIDE_FLAT_GROUND,
+                SlopeLayer.DEFAULT_HIDE_FLAT_GROUND
+            ) ?: SlopeLayer.DEFAULT_HIDE_FLAT_GROUND
+
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

@@ -22,13 +22,16 @@ import java.time.Instant
 
 class NightTileSource : TileSource {
 
-    var smooth = false
     private val colorMap = AlphaColorMap(maxAlpha = 200)
     private val astronomy = AstronomyService()
 
     private val lookupTable by lazy { constructLookupTable() }
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val smooth = preferences?.getBoolean(NightLayer.SMOOTH, NightLayer.DEFAULT_SMOOTH)
+            ?: NightLayer.DEFAULT_SMOOTH
+
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
             .toZonedDateTime()
         val bounds = tile.getBounds()

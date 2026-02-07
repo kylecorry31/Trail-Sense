@@ -16,8 +16,7 @@ import kotlinx.coroutines.sync.withLock
 class PhotoMapTileSource : TileSource {
 
     var filter: (map: PhotoMap) -> Boolean = { it.visible }
-    var loadPdfs = true
-    private var lastLoadPdfs = loadPdfs
+    private var lastLoadPdfs = PhotoMapLayer.DEFAULT_LOAD_PDFS
     var backgroundColor: Int = Color.WHITE
     private var lastBackgroundColor = backgroundColor
     private var lastFilter = filter
@@ -30,6 +29,12 @@ class PhotoMapTileSource : TileSource {
     }
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val loadPdfs = preferences?.getBoolean(
+            PhotoMapLayer.LOAD_PDFS,
+            PhotoMapLayer.DEFAULT_LOAD_PDFS
+        ) ?: PhotoMapLayer.DEFAULT_LOAD_PDFS
+
         val selector = lock.withLock {
             if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || filter != lastFilter) {
                 val repo = AppServiceRegistry.get<MapRepo>()

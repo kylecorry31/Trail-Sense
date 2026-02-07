@@ -32,6 +32,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
+    protected var layerPreferences: Bundle = bundleOf()
 
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -61,6 +62,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                 }
 
                 val params = bundleOf(GeoJsonSource.PARAM_TIME to _renderTime.toEpochMilli())
+                params.putBundle(GeoJsonSource.PARAM_PREFERENCES, layerPreferences)
                 val obj =
                     source.load(bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
                         emptyList()
@@ -81,6 +83,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun setPreferences(preferences: Bundle) {
+        layerPreferences = Bundle(preferences)
         percentOpacity = preferences.getInt(
             DefaultMapLayerDefinitions.OPACITY,
             DefaultMapLayerDefinitions.DEFAULT_OPACITY

@@ -25,21 +25,28 @@ import java.time.Instant
 
 class TideGeoJsonSource : GeoJsonSource {
 
-    var showModeledTides: Boolean = false
     private val minZoomLevel = 8
-    var showPhase: Boolean = false
 
     override suspend fun load(
         bounds: CoordinateBounds,
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
+        val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
+        val showModeledTides =
+            preferences?.getBoolean(TideMapLayer.SHOW_MODELED_TIDES, TideMapLayer.DEFAULT_SHOW_MODELED_TIDES)
+                ?: TideMapLayer.DEFAULT_SHOW_MODELED_TIDES
+        val showPhase =
+            preferences?.getBoolean(TideMapLayer.SHOW_PHASE, TideMapLayer.DEFAULT_SHOW_PHASE)
+                ?: TideMapLayer.DEFAULT_SHOW_PHASE
+
         val time = Instant.ofEpochMilli(params.getLong(GeoJsonSource.PARAM_TIME))
         val context = AppServiceRegistry.get<Context>()
         val tideService = TideService(context)
         val tables = LoadAllTideTablesCommand(context).execute() + getNearbyTideTables(
             bounds,
-            zoom
+            zoom,
+            showModeledTides
         )
         val currentTideCommand = CurrentTideTypeCommand(tideService)
         val tidePhaseCommand = CurrentTidePhaseCommand(tideService)
@@ -83,7 +90,8 @@ class TideGeoJsonSource : GeoJsonSource {
 
     private suspend fun getNearbyTideTables(
         bounds: CoordinateBounds,
-        zoom: Int
+        zoom: Int,
+        showModeledTides: Boolean
     ): List<TideTable> {
         if (!showModeledTides) {
             return emptyList()

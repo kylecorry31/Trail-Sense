@@ -25,12 +25,26 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class HillshadeMapTileSource : TileSource {
-    var drawAccurateShadows: Boolean = false
-    var highResolution: Boolean = false
-    var multiDirectionShading: Boolean = false
     private val astronomy = AstronomyService()
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val drawAccurateShadows =
+            preferences?.getBoolean(
+                HillshadeLayer.DRAW_ACCURATE_SHADOWS,
+                HillshadeLayer.DEFAULT_DRAW_ACCURATE_SHADOWS
+            ) ?: HillshadeLayer.DEFAULT_DRAW_ACCURATE_SHADOWS
+        val highResolution =
+            preferences?.getBoolean(
+                HillshadeLayer.HIGH_RESOLUTION,
+                HillshadeLayer.DEFAULT_HIGH_RESOLUTION
+            ) ?: HillshadeLayer.DEFAULT_HIGH_RESOLUTION
+        val multiDirectionShading =
+            preferences?.getBoolean(
+                HillshadeLayer.MULTI_DIRECTION_SHADING,
+                HillshadeLayer.DEFAULT_MULTI_DIRECTION_SHADING
+            ) ?: HillshadeLayer.DEFAULT_MULTI_DIRECTION_SHADING
+
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
         val zonedDateTime = time.toZonedDateTime()
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
@@ -38,7 +52,8 @@ class HillshadeMapTileSource : TileSource {
         val zFactor = 3f
         val samples = if (multiDirectionShading) 5 else 1
         val sampleSpacing = 45f
-        val (azimuth, altitude) = getShadowConfig(bounds.center, zonedDateTime)
+        val (azimuth, altitude) =
+            getShadowConfig(bounds.center, zonedDateTime, drawAccurateShadows)
         val zoomToResolutionMap = if (highResolution) {
             DEM.HIGH_RESOLUTION_ZOOM_TO_RESOLUTION
         } else {
@@ -84,7 +99,11 @@ class HillshadeMapTileSource : TileSource {
         )
     }
 
-    private fun getShadowConfig(location: Coordinate, time: ZonedDateTime): Pair<Float, Float> {
+    private fun getShadowConfig(
+        location: Coordinate,
+        time: ZonedDateTime,
+        drawAccurateShadows: Boolean
+    ): Pair<Float, Float> {
         if (!drawAccurateShadows) {
             return 315f to 45f
         }

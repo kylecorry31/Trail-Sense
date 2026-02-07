@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Dither
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.colors.RuggednessColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.RuggednessDefaultColorMap
 import com.kylecorry.trail_sense.shared.dem.getCellSizeX
 import com.kylecorry.trail_sense.shared.dem.getCellSizeY
@@ -15,10 +14,15 @@ import kotlin.math.sqrt
 
 class RuggednessMapTileSource : TileSource {
 
-    var highResolution: Boolean = false
-    var colorMap: RuggednessColorMap = RuggednessDefaultColorMap()
-
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val highResolution =
+            preferences?.getBoolean(
+                RuggednessLayer.HIGH_RESOLUTION,
+                RuggednessLayer.DEFAULT_HIGH_RESOLUTION
+            ) ?: RuggednessLayer.DEFAULT_HIGH_RESOLUTION
+        val colorMap = RuggednessDefaultColorMap()
+
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 

@@ -13,5 +13,6 @@ interface TileSource {
 
     companion object {
         const val PARAM_TIME = "time"
+        const val PARAM_PREFERENCES = "preferences"
     }
 }

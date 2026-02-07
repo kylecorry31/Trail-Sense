@@ -1,10 +1,8 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.os.Bundle
-import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
-import com.kylecorry.trail_sense.shared.withId
 
 class ContourLayer : GeoJsonLayer<ContourGeoJsonSource>(
     ContourGeoJsonSource(),
@@ -19,10 +17,6 @@ class ContourLayer : GeoJsonLayer<ContourGeoJsonSource>(
         )
         // TODO: More experimentation required before this is enabled for everyone
 //        renderer.configureLineStringRenderer(shouldRenderSmoothPaths = isDebug())
-        val strategyId = preferences.getString(COLOR)?.toLongOrNull()
-        source.colorScale = ElevationColorMapFactory().getElevationColorMap(
-            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
-        )
     }
 
     companion object {
