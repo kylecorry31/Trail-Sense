@@ -18,7 +18,7 @@ class LineInterpolator {
         zOutput: MutableList<Float>? = null
     ) {
         // Not enough points to interpolate
-        if (line.size % 4 != 0){
+        if (line.size % 4 != 0) {
             lineOutput.addAll(line)
             zOutput?.addAll(z ?: emptyList())
             return
@@ -38,7 +38,7 @@ class LineInterpolator {
             val segments = (squareDistance / squareMinSpacing).toInt()
 
             // Line is too short to interpolate, so keep it as is
-            if (segments < 1){
+            if (segments < 1) {
                 lineOutput.add(x1)
                 lineOutput.add(y1)
                 lineOutput.add(x2)

@@ -22,6 +22,7 @@ class BeaconSender(private val fragment: Fragment) : IBeaconSender {
                     val sender = BeaconCopy(fragment.requireContext())
                     sender.send(beacon)
                 }
+
                 ShareAction.QR -> {
                     CustomUiUtils.showQR(
                         fragment,
@@ -29,14 +30,17 @@ class BeaconSender(private val fragment: Fragment) : IBeaconSender {
                         BeaconQREncoder().encode(beacon)
                     )
                 }
+
                 ShareAction.Maps -> {
                     val sender = BeaconGeoSender(fragment.requireContext())
                     sender.send(beacon)
                 }
+
                 ShareAction.Send -> {
                     val sender = BeaconSharesheet(fragment.requireContext())
                     sender.send(beacon)
                 }
+
                 else -> {
                     // Do nothing
                 }

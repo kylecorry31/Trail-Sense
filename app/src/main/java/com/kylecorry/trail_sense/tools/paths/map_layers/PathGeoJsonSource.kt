@@ -56,7 +56,7 @@ class PathGeoJsonSource : GeoJsonSource {
             )
         })
     }
-    
+
     fun reload() {
         loaded = false
         paths = emptyList()

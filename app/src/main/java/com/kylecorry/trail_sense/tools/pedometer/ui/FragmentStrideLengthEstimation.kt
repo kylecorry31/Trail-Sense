@@ -38,9 +38,11 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
                     prefs.pedometer.strideLength = estimator.strideLength ?: Distance.meters(0f)
                     toast(getString(R.string.saved))
                 }
+
                 !isRunning -> {
                     start()
                 }
+
                 else -> {
                     isRunning = false
                     estimator.stop(this::onStrideLengthChanged)
@@ -103,9 +105,9 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
         }
     }
 
-    private fun start(){
+    private fun start() {
         requestActivityRecognition { hasPermission ->
-            if (hasPermission){
+            if (hasPermission) {
                 isRunning = true
                 estimator.start(this::onStrideLengthChanged)
             } else {

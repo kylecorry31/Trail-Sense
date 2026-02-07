@@ -17,7 +17,7 @@ class ColorButton(context: Context, attrs: AttributeSet?) : FrameLayout(context,
 
     var isButtonSelected: Boolean
         get() = _isSelected
-        set(value){
+        set(value) {
             _isSelected = value
             backgroundView.visibility = if (value) View.VISIBLE else View.INVISIBLE
         }
@@ -42,7 +42,7 @@ class ColorButton(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         isButtonSelected = false
     }
 
-    fun setButtonColor(@ColorInt color: Int){
+    fun setButtonColor(@ColorInt color: Int) {
         foregroundView.imageTintList = ColorStateList.valueOf(color)
     }
 }

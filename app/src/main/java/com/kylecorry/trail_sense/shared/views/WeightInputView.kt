@@ -7,7 +7,8 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 
-class WeightInputView(context: Context, attributeSet: AttributeSet? = null) : BaseUnitInputView<Weight, WeightUnits>(context, attributeSet) {
+class WeightInputView(context: Context, attributeSet: AttributeSet? = null) :
+    BaseUnitInputView<Weight, WeightUnits>(context, attributeSet) {
 
     private val formatService by lazy { FormatService.getInstance(context) }
 

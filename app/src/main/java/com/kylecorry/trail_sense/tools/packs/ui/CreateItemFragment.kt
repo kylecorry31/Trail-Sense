@@ -140,7 +140,8 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                     binding.categorySpinner.setSelection(sortedCategories.indexOf(it.category))
                     binding.itemWeightInput.value = it.weight
                     if (it.weight == null) {
-                        binding.itemWeightInput.unit = defaultWeightUnit ?: binding.itemWeightInput.units.firstOrNull()
+                        binding.itemWeightInput.unit =
+                            defaultWeightUnit ?: binding.itemWeightInput.units.firstOrNull()
                     }
                 }
             }

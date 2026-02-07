@@ -13,7 +13,7 @@ import java.io.InputStream
 /**
  * A converter for NOAA HC and metadata tide tables (https://opendap.co-ops.nos.noaa.gov/axis/webservices/harmonicconstituents/index.jsp)
  */
-class NoaaHcAndMetadataTideTableConverter: TideTableParser {
+class NoaaHcAndMetadataTideTableConverter : TideTableParser {
 
     override fun parse(stream: InputStream): TideTable? {
         return tryOrDefault(null) {
@@ -35,7 +35,9 @@ class NoaaHcAndMetadataTideTableConverter: TideTableParser {
 
             val units = converted.children.find { it.tag == "unit" }?.text
             val amplitudeToMeters =
-                if (units?.lowercase()?.contains("feet") == true) DistanceUnits.Feet.meters.toFloat() else 1f
+                if (units?.lowercase()
+                        ?.contains("feet") == true
+                ) DistanceUnits.Feet.meters.toFloat() else 1f
 
             val data = converted.children.find { it.tag == "data" } ?: return null
 

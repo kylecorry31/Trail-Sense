@@ -51,7 +51,8 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
 
         if (Permissions.canGetLocationCustom(applicationContext)) {
             val parallelRunner = ParallelCoroutineRunner()
-            parallelRunner.run(listOfNotNull(
+            parallelRunner.run(
+                listOfNotNull(
                 if (locationSubsystem.locationAge.toMinutes() > 30) {
                     suspend {
                         sensorSubsystem.getLocation(SensorRefreshPolicy.Refresh)

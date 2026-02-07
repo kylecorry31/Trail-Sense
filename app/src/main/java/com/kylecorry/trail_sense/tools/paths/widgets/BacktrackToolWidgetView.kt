@@ -18,7 +18,10 @@ import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class BacktrackToolWidgetView : SimpleToolWidgetView() {
 
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val views = getView(context, prefs)
         val pathService = PathService.getInstance(context)
         val isBacktrackActive =

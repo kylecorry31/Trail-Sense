@@ -34,11 +34,11 @@ class ShutterButton(context: Context, attrs: AttributeSet? = null) : CanvasView(
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (event?.action == MotionEvent.ACTION_DOWN){
+        if (event?.action == MotionEvent.ACTION_DOWN) {
             isShutterPressed = true
         }
 
-        if (event?.action == MotionEvent.ACTION_UP){
+        if (event?.action == MotionEvent.ACTION_UP) {
             isShutterPressed = false
         }
 

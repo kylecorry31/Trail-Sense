@@ -419,7 +419,8 @@ class ARAstronomyLayer(
         drawer: ICanvasDrawer
     ) = onDefault {
         val markers = if (drawStars) {
-            val planets = astro.getVisiblePlanets(location, time, if (drawBelowHorizon) null else 0f)
+            val planets =
+                astro.getVisiblePlanets(location, time, if (drawBelowHorizon) null else 0f)
             planets.mapNotNull {
                 val resId = planetMapper?.getImage(it.first) ?: return@mapNotNull null
                 val bitmap = bitmapLoader?.load(
@@ -460,7 +461,8 @@ class ARAstronomyLayer(
         drawer: ICanvasDrawer
     ) = onDefault {
         val horizon = -10f
-        val showers = astro.getVisibleMeteorShowers(location, time, if (drawBelowHorizon) null else horizon)
+        val showers =
+            astro.getVisibleMeteorShowers(location, time, if (drawBelowHorizon) null else horizon)
         val markers = showers.mapNotNull {
             val bitmap =
                 bitmapLoader?.load(R.drawable.meteor_shower_radiant, drawer.dp(100f).toInt())

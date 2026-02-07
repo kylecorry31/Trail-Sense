@@ -13,7 +13,7 @@ data class Eclipse(
     val obscuration: Float,
     val peakAltitude: Float,
     val peakDirection: Bearing
-){
+) {
     val isTotal: Boolean = magnitude.roundPlaces(2) >= 1f
     val duration: Duration = Duration.between(start, end)
 }

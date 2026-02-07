@@ -28,7 +28,8 @@ class SensorSettingsFragment : AndromedaPreferenceFragment() {
             navigateOnClick(preference(nav.key), nav.value)
         }
 
-        preference(R.string.pref_barometer_calibration)?.isVisible = Sensors.hasBarometer(requireContext())
+        preference(R.string.pref_barometer_calibration)?.isVisible =
+            Sensors.hasBarometer(requireContext())
     }
 
 }

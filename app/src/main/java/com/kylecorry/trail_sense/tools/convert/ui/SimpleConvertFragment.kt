@@ -11,7 +11,8 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSimpleConvertBinding
 
-abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val defaultTo: T) : BoundFragment<FragmentToolSimpleConvertBinding>() {
+abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val defaultTo: T) :
+    BoundFragment<FragmentToolSimpleConvertBinding>() {
 
     abstract val units: List<T>
 
@@ -47,7 +48,7 @@ abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val 
             update()
         }
 
-        binding.fromUnits.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        binding.fromUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -62,7 +63,7 @@ abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val 
             }
         }
 
-        binding.toUnits.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        binding.toUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -80,7 +81,7 @@ abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val 
         update()
     }
 
-    fun update(){
+    fun update() {
         val amount = binding.unitEdit.text?.toString()?.toFloatOrNull() ?: 0.0f
         val from = units[binding.fromUnits.selectedItemPosition]
         val to = units[binding.toUnits.selectedItemPosition]

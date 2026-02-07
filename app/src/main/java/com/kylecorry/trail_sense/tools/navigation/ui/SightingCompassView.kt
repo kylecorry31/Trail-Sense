@@ -77,8 +77,8 @@ class SightingCompassView(
         flashlight.set(FlashlightMode.Off)
     }
 
-    fun update(){
-        if (!isRunning()){
+    fun update() {
+        if (!isRunning()) {
             compass.range = 180f
             return
         }

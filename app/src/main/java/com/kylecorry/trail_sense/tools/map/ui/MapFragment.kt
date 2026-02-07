@@ -167,7 +167,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             manager.pause(mapView)
             layerEditSheet.setOnDismissListener {
                 manager.resume(context, mapView, this@MapFragment)
-                setHasTimeDependentLayers(mapView.layerManager.getLayers().any { it.isTimeDependent })
+                setHasTimeDependentLayers(
+                    mapView.layerManager.getLayers().any { it.isTimeDependent })
             }
             layerEditSheet.show(this)
         }

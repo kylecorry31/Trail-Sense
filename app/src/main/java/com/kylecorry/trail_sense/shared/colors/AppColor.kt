@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.colors
 import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
-enum class AppColor(override val id: Long, @ColorInt override val color: Int): IAppColor {
+enum class AppColor(override val id: Long, @ColorInt override val color: Int) : IAppColor {
     Red(0, -1092784), // #ef5350
     Orange(1, -37632), // #FF6D00
     Yellow(2, -2240980), // #DDCE2C
@@ -20,6 +20,6 @@ fun Array<AppColor>.fromColor(@ColorInt color: Int): AppColor? {
     return firstOrNull { it.color == color }
 }
 
-interface IAppColor: Identifiable {
+interface IAppColor : Identifiable {
     val color: Int
 }

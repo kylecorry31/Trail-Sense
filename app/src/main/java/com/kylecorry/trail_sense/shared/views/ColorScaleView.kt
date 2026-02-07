@@ -57,8 +57,12 @@ class ColorScaleView(context: Context, attrs: AttributeSet? = null) : CanvasView
 
         noStroke()
         fill(textColor)
-        for (label in labels){
-            text(label.value, width * label.key, height.toFloat() - textHeight(label.value) / 2 - labelPadding)
+        for (label in labels) {
+            text(
+                label.value,
+                width * label.key,
+                height.toFloat() - textHeight(label.value) / 2 - labelPadding
+            )
         }
 
 

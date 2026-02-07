@@ -17,7 +17,7 @@ class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
         val prefs = UserPreferences(requireContext()).flashlight
 
         val hasFlashlight = FlashlightSubsystem.getInstance(requireContext()).isAvailable()
-        if (!hasFlashlight){
+        if (!hasFlashlight) {
             preference(R.string.pref_flashlight_toggle_with_volume)?.isVisible = false
             preference(R.string.pref_flashlight_should_timeout)?.isVisible = false
             preference(R.string.pref_flashlight_timeout)?.isVisible = false

@@ -35,7 +35,8 @@ class WaypointListItem(
             val elevation = Distance.meters(item.elevation)
                 .convertTo(UserPreferences(context).baseDistanceUnits)
 
-            val slope = context.getString(R.string.slope_amount, formatService.formatPercentage(item.slope))
+            val slope =
+                context.getString(R.string.slope_amount, formatService.formatPercentage(item.slope))
 
             @SuppressLint("SetTextI18n")
             itemBinding.waypointCoordinates.text =
@@ -83,9 +84,11 @@ class WaypointListItem(
                     R.id.action_waypoint_create_beacon -> {
                         createBeacon(item)
                     }
+
                     R.id.action_waypoint_delete -> {
                         delete(item)
                     }
+
                     R.id.action_waypoint_navigate -> {
                         navigate(item)
                     }

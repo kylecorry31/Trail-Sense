@@ -5,7 +5,7 @@ import com.kylecorry.sol.units.Coordinate
 internal class MapSiteService {
 
     fun getUrl(coordinate: Coordinate, site: MapSite): String {
-        return when(site){
+        return when (site) {
             MapSite.Google -> "https://www.google.com/maps/@${coordinate.latitude},${coordinate.longitude},16z"
             MapSite.OSM -> "https://www.openstreetmap.org/#map=16/${coordinate.latitude}/${coordinate.longitude}"
             MapSite.Bing -> "https://www.bing.com/maps?lvl=16&cp=${coordinate.latitude}~${coordinate.longitude}"

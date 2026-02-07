@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.shared.sharing
 
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPoint
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import androidx.core.os.bundleOf
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.getLayerId
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
@@ -81,7 +81,10 @@ object GeoJsonFeatureClickHandler {
                 MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID to null,
                 MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID to layerId
             )
-            Tools.broadcast(MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED, deselectBundle)
+            Tools.broadcast(
+                MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
+                deselectBundle
+            )
         }
     }
 

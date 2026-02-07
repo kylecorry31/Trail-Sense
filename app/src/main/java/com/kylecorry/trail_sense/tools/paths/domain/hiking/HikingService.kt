@@ -50,7 +50,12 @@ class HikingService : IHikingService {
     override fun getAveragePace(difficulty: HikingDifficulty, factor: Float): Speed {
         return when (difficulty) {
             HikingDifficulty.Easy -> Speed.from(1.5f * factor, DistanceUnits.Miles, TimeUnits.Hours)
-            HikingDifficulty.Moderate -> Speed.from(1.4f * factor, DistanceUnits.Miles, TimeUnits.Hours)
+            HikingDifficulty.Moderate -> Speed.from(
+                1.4f * factor,
+                DistanceUnits.Miles,
+                TimeUnits.Hours
+            )
+
             HikingDifficulty.Hard -> Speed.from(1.2f * factor, DistanceUnits.Miles, TimeUnits.Hours)
         }
     }

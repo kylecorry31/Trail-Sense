@@ -40,7 +40,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             binding.viewCamera,
             binding.viewCameraLine,
             binding.linearCompass
-        ){
+        ) {
             // Forward the click event from the sighting compass
             callOnClick()
         }

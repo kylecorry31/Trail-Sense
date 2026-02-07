@@ -13,7 +13,11 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.IMapRepo
 
-class CreateMapFromImageCommand(context: Context, private val repo: IMapRepo, private val name: String) {
+class CreateMapFromImageCommand(
+    context: Context,
+    private val repo: IMapRepo,
+    private val name: String
+) {
 
     private val files = FileSubsystem.getInstance(context)
 

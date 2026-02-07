@@ -88,7 +88,7 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
-        effect("notes", notes, lifecycleHookTrigger.onResume()){
+        effect("notes", notes, lifecycleHookTrigger.onResume()) {
             binding.noteList.setItems(notes.sortedByDescending { it.createdOn }, listMapper)
         }
     }

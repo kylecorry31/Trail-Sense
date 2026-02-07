@@ -6,12 +6,13 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 
-class MetalDetectorPreferences(context: Context): PreferenceRepo(context) {
+class MetalDetectorPreferences(context: Context) : PreferenceRepo(context) {
 
     val showMetalDirection: Boolean
-        get(){
+        get() {
             val hasGyro = Sensors.hasSensor(context, Sensor.TYPE_GYROSCOPE)
-            val enabled = cache.getBoolean(getString(R.string.pref_experimental_metal_direction)) ?: false
+            val enabled =
+                cache.getBoolean(getString(R.string.pref_experimental_metal_direction)) ?: false
             return hasGyro && enabled
         }
 

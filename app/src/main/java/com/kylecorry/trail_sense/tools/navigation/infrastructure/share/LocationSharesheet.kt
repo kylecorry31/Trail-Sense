@@ -19,17 +19,21 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
     override fun send(location: Coordinate, format: BuiltInCoordinateFormat?) {
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, getShareString(location, format ?: prefs.navigation.coordinateFormat))
+            putExtra(
+                Intent.EXTRA_TEXT,
+                getShareString(location, format ?: prefs.navigation.coordinateFormat)
+            )
             type = "text/plain"
         }
         Intents.openChooser(context, intent, context.getString(R.string.share_action_send))
     }
 
     private fun getShareString(coordinate: Coordinate, format: BuiltInCoordinateFormat): String {
-        val location = formatService.formatLocation(coordinate, BuiltInCoordinateFormat.DecimalDegrees)
+        val location =
+            formatService.formatLocation(coordinate, BuiltInCoordinateFormat.DecimalDegrees)
         val mapUrl = mapService.getUrl(coordinate, prefs.mapSite)
 
-        if (format == BuiltInCoordinateFormat.DecimalDegrees){
+        if (format == BuiltInCoordinateFormat.DecimalDegrees) {
             return "${location}\n\n${
                 context.getString(
                     R.string.maps

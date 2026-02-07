@@ -52,8 +52,10 @@ class MetalDetectorChart(private val chart: Chart, color: Int) {
             maximum = max(maximum, data.maxOrNull() ?: maximum)
         )
 
-        thresholdArea.lower = listOf(Vector2(0f, lowerThreshold), Vector2(data.lastIndex.toFloat(), lowerThreshold))
-        thresholdArea.upper = listOf(Vector2(0f, upperThreshold), Vector2(data.lastIndex.toFloat(), upperThreshold))
+        thresholdArea.lower =
+            listOf(Vector2(0f, lowerThreshold), Vector2(data.lastIndex.toFloat(), lowerThreshold))
+        thresholdArea.upper =
+            listOf(Vector2(0f, upperThreshold), Vector2(data.lastIndex.toFloat(), upperThreshold))
 
         line.data = Chart.indexedData(data)
 

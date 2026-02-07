@@ -112,7 +112,8 @@ class MapMapper(
             getDefaultMapThumbnail()
         }
 
-        val rotation = if (prefs.photoMaps.keepMapFacingUp) map.baseRotation().toFloat() else map.calibration.rotation
+        val rotation = if (prefs.photoMaps.keepMapFacingUp) map.baseRotation()
+            .toFloat() else map.calibration.rotation
 
         if (rotation != 0f) {
             val rotated = bitmap.rotate(rotation)

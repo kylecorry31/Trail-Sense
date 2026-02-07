@@ -18,7 +18,10 @@ import kotlin.jvm.optionals.getOrNull
 
 class PedometerToolWidgetView : SimpleToolWidgetView() {
 
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val views = getView(context, prefs)
         val subsystem = PedometerSubsystem.getInstance(context)
         val prefs = UserPreferences(context)

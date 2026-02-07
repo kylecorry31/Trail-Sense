@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 class ItemCategoryColorMapper {
 
     fun map(category: ItemCategory): AppColor {
-        return when (category){
+        return when (category) {
             ItemCategory.Other -> AppColor.Gray
             ItemCategory.Food -> AppColor.Green
             ItemCategory.Hydration -> AppColor.Blue

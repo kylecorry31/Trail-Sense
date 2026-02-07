@@ -54,7 +54,8 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             }
             binding.rulerUnitBtn.text = getUnitText(rulerUnits)
             val displayDistance = currentDistance.convertTo(rulerUnits)
-            binding.measurement.text = formatService.formatDistance(displayDistance, precision, false)
+            binding.measurement.text =
+                formatService.formatDistance(displayDistance, precision, false)
             binding.ruler.metric = rulerUnits.isMetric
             calculateMapDistance()
         }
@@ -80,9 +81,11 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
         binding.verbalMapScaleFrom.hint = getString(R.string.distance_from)
         binding.verbalMapScaleTo.hint = getString(R.string.distance_to)
 
-        binding.verbalMapScaleFrom.units = formatService.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
+        binding.verbalMapScaleFrom.units =
+            formatService.sortDistanceUnits(DistanceUtils.rulerDistanceUnits)
 
-        binding.verbalMapScaleTo.units = formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
+        binding.verbalMapScaleTo.units =
+            formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
 
         binding.verbalMapScaleFrom.setOnValueChangeListener {
             calculateMapDistance()
@@ -131,6 +134,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
                     )
                 }
             }
+
             MapScaleMode.Fractional -> {
                 val ratioFrom: Float? = binding.fractionalMapFrom.text.toString().toFloatOrNull()
                 val ratioTo: Float? = binding.fractionalMapTo.text.toString().toFloatOrNull()

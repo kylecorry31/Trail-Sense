@@ -63,27 +63,29 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
         }
     }
 
-    private fun turnOn(){
+    private fun turnOn() {
         setBrightness(cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100)
     }
 
-    private fun turnOff(){
+    private fun turnOff() {
         flashlight.off()
     }
 
-    private fun setBrightness(percent: Int){
+    private fun setBrightness(percent: Int) {
         binding.brightnessSeek.progress = percent
         cache.putInt(getString(R.string.pref_screen_torch_brightness), percent)
         flashlight.on(map(percent / 100f, 0f, 1f, 0.1f, 1f))
     }
 
     fun increaseBrightness() {
-        val currentBrightness = cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
+        val currentBrightness =
+            cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
         setBrightness((currentBrightness + 10).coerceAtMost(100))
     }
 
     fun decreaseBrightness() {
-        val currentBrightness = cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
+        val currentBrightness =
+            cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
         setBrightness((currentBrightness - 10).coerceAtLeast(0))
     }
 

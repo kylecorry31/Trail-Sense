@@ -133,9 +133,11 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
             shouldUseRealGPS() -> {
                 CustomGPS(requireContext())
             }
+
             shouldUseCachedGPS() -> {
                 CachedGPS(requireContext())
             }
+
             else -> {
                 OverrideGPS(requireContext())
             }

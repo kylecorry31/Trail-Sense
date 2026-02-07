@@ -9,7 +9,8 @@ import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 
-class CoordinatePreference(context: Context, attributeSet: AttributeSet) : Preference(context, attributeSet) {
+class CoordinatePreference(context: Context, attributeSet: AttributeSet) :
+    Preference(context, attributeSet) {
 
     private var coordinateInputView: CoordinateInputView? = null
     private var titleTextView: TextView? = null
@@ -25,7 +26,8 @@ class CoordinatePreference(context: Context, attributeSet: AttributeSet) : Prefe
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.itemView.isClickable = false
-        coordinateInputView = holder.findViewById(R.id.preference_coordinate_input) as CoordinateInputView
+        coordinateInputView =
+            holder.findViewById(R.id.preference_coordinate_input) as CoordinateInputView
         titleTextView = holder.findViewById(R.id.preference_coordinate_input_title) as TextView
 
         title?.let {
@@ -50,27 +52,27 @@ class CoordinatePreference(context: Context, attributeSet: AttributeSet) : Prefe
         listener = null
     }
 
-    fun setTitle(title: String){
+    fun setTitle(title: String) {
         this.title = title
         titleTextView?.text = title
     }
 
-    fun setGPS(gps: IGPS){
+    fun setGPS(gps: IGPS) {
         coordinateInputView?.gps = gps
         this.gps = gps
     }
 
-    fun setLocation(coordinate: Coordinate?){
+    fun setLocation(coordinate: Coordinate?) {
         coordinateInputView?.coordinate = coordinate
         initialCoordinate = coordinate
     }
 
-    fun setOnLocationChangeListener(listener: ((coordinate: Coordinate?) -> Unit)?){
+    fun setOnLocationChangeListener(listener: ((coordinate: Coordinate?) -> Unit)?) {
         coordinateInputView?.setOnCoordinateChangeListener(listener)
         this.listener = listener
     }
 
-    fun pause(){
+    fun pause() {
         coordinateInputView?.pause()
     }
 

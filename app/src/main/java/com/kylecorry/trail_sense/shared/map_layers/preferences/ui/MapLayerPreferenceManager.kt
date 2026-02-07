@@ -124,10 +124,11 @@ class MapLayerPreferenceManager(
                             prefs.getBoolean(key) ?: (it.first.defaultValue as? Boolean ?: true)
                         }
 
-                        preference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { pref: Preference, newValue: Any ->
-                            header.isLayerEnabled = newValue as Boolean
-                            true
-                        }
+                        preference.onPreferenceChangeListener =
+                            Preference.OnPreferenceChangeListener { pref: Preference, newValue: Any ->
+                                header.isLayerEnabled = newValue as Boolean
+                                true
+                            }
                     }
 
                     category.addPreference(preference)

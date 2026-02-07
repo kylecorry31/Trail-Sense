@@ -82,7 +82,8 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
                 }
 
 
-                Alerts.withCancelableLoading(requireContext(),
+                Alerts.withCancelableLoading(
+                    requireContext(),
                     getString(R.string.loading),
                     onCancel = { job.cancel() }) {
                     job.join()

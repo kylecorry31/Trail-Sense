@@ -55,7 +55,7 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         binding.playBarTitle.setShowDescription(showSubtitle)
     }
 
-    fun setState(state: FeatureState, frequency: Duration? = null){
+    fun setState(state: FeatureState, frequency: Duration? = null) {
         setState(state == FeatureState.On, frequency)
     }
 
@@ -67,11 +67,13 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             } else {
                 context.getString(R.string.off)
             } + (frequency?.let {
-                " ${context.getString(R.string.dash)} ${formatter.formatDuration(
-                    frequency,
-                    short = true,
-                    includeSeconds = true
-                )}"
+                " ${context.getString(R.string.dash)} ${
+                    formatter.formatDuration(
+                        frequency,
+                        short = true,
+                        includeSeconds = true
+                    )
+                }"
             } ?: "")
         }
         CustomUiUtils.setButtonState(binding.playBtn, true)

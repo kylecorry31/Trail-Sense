@@ -19,7 +19,7 @@ class MapRotationCalculator {
      * @return The rotation in degrees
      */
     fun calculate(map: PhotoMap): Float {
-        if (!map.isCalibrated){
+        if (!map.isCalibrated) {
             return 0f
         }
 
@@ -28,12 +28,12 @@ class MapRotationCalculator {
         val bounds = CoordinateBounds.from(map.calibration.calibrationPoints.map { it.location })
         val east = bounds.east
         val west = bounds.west
-        if ((east - west).absoluteValue > 180){
+        if ((east - west).absoluteValue > 180) {
             // Min and max are flipped because it is dealing with image coordinates from the top left
             val top = map.calibration.calibrationPoints.minBy { it.imageLocation.y }.location
             val bottom = map.calibration.calibrationPoints.maxBy { it.imageLocation.y }.location
 
-            if (top.latitude < bottom.latitude){
+            if (top.latitude < bottom.latitude) {
                 return 180f
             }
 

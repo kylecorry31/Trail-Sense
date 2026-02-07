@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.tools.qr.ui
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.core.net.toUri
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController

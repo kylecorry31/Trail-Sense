@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 
-class BeaconGeoSender(private val context: Context): IBeaconSender {
+class BeaconGeoSender(private val context: Context) : IBeaconSender {
 
     override fun send(beacon: Beacon) {
         val uri = BeaconUriEncoder().encode(beacon)

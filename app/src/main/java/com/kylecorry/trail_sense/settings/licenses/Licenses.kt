@@ -10,7 +10,148 @@ object Licenses {
             "Trail Sense",
             "https://github.com/kylecorry31/Trail-Sense"
         ) {
-            val contributors = arrayOf("kylecorry31", "qwerty287", "muryno", "Fjuro", "oersen", "ChuckMichael", "weblate", "laralem", "ojppe", "inavleb", "tosinonikute", "Mickael81", "fitojb", "comradekingu", "bowornsin", "AlessandroFrangiamone", "beriain", "ebraminio", "zsbetu", "CloneWith", "shilonit", "SecularSteve", "Jakarrrg", "jer194", "Kamilkampfwagen-II", "raphaelventura", "SantosSi", "ACABMAN666", "CesPaul", "delthia", "khwolf", "cleveHEX", "another-sapiens", "BorATICI", "LosstarottArt", "naoliv", "trymbf", "eagledofc", "Craftefix", "gustavi", "fnogcps", "comcloudway", "Leopardus4", "mfrancesconi", "Xoronic", "carter-oswald-dev", "crlambda", "github-actions[bot]", "s3n-w6i", "mrestivill", "StarSkyGeminid", "Portagoras", "AsmodeumX", "TamilNeram", "paulle", "olczcolor", "notramo", "NaserKhoshfetrat", "Tyxiel", "tacostea", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "AHOHNMYC", "Ricky-Tigg", "imBigo", "SebV60", "yurtpage", "naoritzio", "bgo-eiu", "huuhaa", "lucasmz-dev", "mellvie", "volodymyr-ahafonov", "asafran", "sguinetti", "tetrdd", "ygorigor", "LuccoJ", "L-P", "NicolaSmaniotto", "Oymate", "Poussinou", "rezaalmanda", "f4n0", "efraletti", "WuerfelDev", "VasilisKos", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "mgorny", "ARtHryDr", "hrachmnam", "kaile1234", "Mohammadshir2004", "nautilusx", "doomed-neko", "kasmide", "tct123", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "love80312", "Abdulkarim28", "Akamar", "dasrecht", "realgooseman", "helloiamcait", "CanUCMeSharp", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "IgotDlore", "iRomanyshyn", "teketemdn", "croozer4", "LightFOSS", "LucFreitas", "Luiz-bro", "BatuAtlas", "xmbhasin", "TomasCartman", "Kapral67")
+            val contributors = arrayOf(
+                "kylecorry31",
+                "qwerty287",
+                "muryno",
+                "Fjuro",
+                "oersen",
+                "ChuckMichael",
+                "weblate",
+                "laralem",
+                "ojppe",
+                "inavleb",
+                "tosinonikute",
+                "Mickael81",
+                "fitojb",
+                "comradekingu",
+                "bowornsin",
+                "AlessandroFrangiamone",
+                "beriain",
+                "ebraminio",
+                "zsbetu",
+                "CloneWith",
+                "shilonit",
+                "SecularSteve",
+                "Jakarrrg",
+                "jer194",
+                "Kamilkampfwagen-II",
+                "raphaelventura",
+                "SantosSi",
+                "ACABMAN666",
+                "CesPaul",
+                "delthia",
+                "khwolf",
+                "cleveHEX",
+                "another-sapiens",
+                "BorATICI",
+                "LosstarottArt",
+                "naoliv",
+                "trymbf",
+                "eagledofc",
+                "Craftefix",
+                "gustavi",
+                "fnogcps",
+                "comcloudway",
+                "Leopardus4",
+                "mfrancesconi",
+                "Xoronic",
+                "carter-oswald-dev",
+                "crlambda",
+                "github-actions[bot]",
+                "s3n-w6i",
+                "mrestivill",
+                "StarSkyGeminid",
+                "Portagoras",
+                "AsmodeumX",
+                "TamilNeram",
+                "paulle",
+                "olczcolor",
+                "notramo",
+                "NaserKhoshfetrat",
+                "Tyxiel",
+                "tacostea",
+                "Sak94664",
+                "le-jun",
+                "LiJu09",
+                "ingfabby",
+                "hphan9",
+                "KovalevArtem",
+                "AHOHNMYC",
+                "Ricky-Tigg",
+                "imBigo",
+                "SebV60",
+                "yurtpage",
+                "naoritzio",
+                "bgo-eiu",
+                "huuhaa",
+                "lucasmz-dev",
+                "mellvie",
+                "volodymyr-ahafonov",
+                "asafran",
+                "sguinetti",
+                "tetrdd",
+                "ygorigor",
+                "LuccoJ",
+                "L-P",
+                "NicolaSmaniotto",
+                "Oymate",
+                "Poussinou",
+                "rezaalmanda",
+                "f4n0",
+                "efraletti",
+                "WuerfelDev",
+                "VasilisKos",
+                "Tijs-B",
+                "swltr",
+                "A5468",
+                "Shadowstrike-code",
+                "rherilier",
+                "VectorKappa",
+                "Pastitas",
+                "the7thNightmare",
+                "mgorny",
+                "ARtHryDr",
+                "hrachmnam",
+                "kaile1234",
+                "Mohammadshir2004",
+                "nautilusx",
+                "doomed-neko",
+                "kasmide",
+                "tct123",
+                "xax",
+                "jacoii",
+                "zaioti",
+                "jere-a",
+                "btsmartx",
+                "love80312",
+                "Abdulkarim28",
+                "Akamar",
+                "dasrecht",
+                "realgooseman",
+                "helloiamcait",
+                "CanUCMeSharp",
+                "E440QF",
+                "EnderPicture",
+                "Estebastien",
+                "fparri",
+                "Johnny846",
+                "FrameXX",
+                "W113565456",
+                "gerrydoro",
+                "gustavosilveiragss",
+                "IgotDlore",
+                "iRomanyshyn",
+                "teketemdn",
+                "croozer4",
+                "LightFOSS",
+                "LucFreitas",
+                "Luiz-bro",
+                "BatuAtlas",
+                "xmbhasin",
+                "TomasCartman",
+                "Kapral67"
+            )
             "${
                 mit(
                     "2020-2025",
@@ -234,7 +375,7 @@ F. Point of Contact: Any Recipient contact with Government Agency is to be direc
         Library(
             "ERA5",
             "https://cds.climate.copernicus.eu"
-        ){
+        ) {
             """Contains modified Copernicus Climate Change Service information 1991 - 2020. Neither the European Commission nor ECMWF is responsible for any use that may be made of the Copernicus information or data it contains.
 
 Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2023): ERA5 monthly averaged data on pressure levels from 1940 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.6860a573 (Accessed on 17-NOV-2023)"""
@@ -267,10 +408,13 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
         Library("OpenCelliD", "https://opencellid.org/") {
             "OpenCelliD Project is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License"
         },
-        Library("Mozilla Location Service", "https://archive.org/details/MLS_Full_Cell_Export_Final"){
+        Library(
+            "Mozilla Location Service",
+            "https://archive.org/details/MLS_Full_Cell_Export_Final"
+        ) {
             "Mozilla Corporation - Public Domain - Final data export, no longer maintained."
         },
-        Library("FCC Antenna Registrations", "https://www.fcc.gov/uls/transactions/daily-weekly"){
+        Library("FCC Antenna Registrations", "https://www.fcc.gov/uls/transactions/daily-weekly") {
             "FCC - Public Domain"
         },
         Library(
@@ -282,7 +426,7 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
         Library(
             "Color maps",
             ""
-        ){
+        ) {
             """
                 The color maps were designed by various authors.
                 

@@ -26,19 +26,19 @@ class FilteredBarometer(
     }
 
     private fun onUpdate(): Boolean {
-        if (!barometer.hasValidReading || barometer.pressure == 0f){
+        if (!barometer.hasValidReading || barometer.pressure == 0f) {
             return true
         }
 
         readingCount++
 
-        if (filter == null){
+        if (filter == null) {
             filter = filterProvider(barometer.pressure)
         }
 
         filteredPressure = filter?.filter(barometer.pressure)
 
-        if (readingCount < minimumReadingCount){
+        if (readingCount < minimumReadingCount) {
             return true
         }
 

@@ -64,17 +64,17 @@ class LightBarView : View {
         invalidate()
     }
 
-    fun setCandela(candela: Float){
+    fun setCandela(candela: Float) {
         this.candela = candela
         updateGradients()
     }
 
-    fun setDistanceUnits(distanceUnits: DistanceUnits){
+    fun setDistanceUnits(distanceUnits: DistanceUnits) {
         units = distanceUnits
         updateGradients()
     }
 
-    private fun updateGradients(){
+    private fun updateGradients() {
         val intensities = (1..100).map {
             val distance = if (units == DistanceUnits.Feet) it * 3 else it
             Optics.luxAtDistance(candela, Distance.from(distance.toFloat(), units))
@@ -87,7 +87,7 @@ class LightBarView : View {
     }
 
     private fun drawGradient(canvas: Canvas) {
-        if (gradient.isEmpty()){
+        if (gradient.isEmpty()) {
             return
         }
 
@@ -96,7 +96,7 @@ class LightBarView : View {
 
         val treeIndices = listOf(9, 24, 49, 74)
 
-        for (i in gradient.indices){
+        for (i in gradient.indices) {
             paint.color = gradient[i]
 
             if (treeIndices.contains(i)) {

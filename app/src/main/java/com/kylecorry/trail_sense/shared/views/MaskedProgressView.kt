@@ -46,11 +46,12 @@ class MaskedProgressView : CanvasView {
 
 
     constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         if (attrs != null) {
             loadAttributes(attrs)
         }
     }
+
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
@@ -65,7 +66,7 @@ class MaskedProgressView : CanvasView {
         runEveryCycle = false
     }
 
-    private fun loadAttributes(attrs: AttributeSet){
+    private fun loadAttributes(attrs: AttributeSet) {
         val a = context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.MaskedProgressView,
@@ -81,7 +82,7 @@ class MaskedProgressView : CanvasView {
 
         progressColor = try {
             a.getColorOrThrow(R.styleable.MaskedProgressView_android_progressTint)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Resources.getPrimaryColor(context)
         }
 
@@ -93,7 +94,8 @@ class MaskedProgressView : CanvasView {
 
     override fun setup() {
         val imageSize = min(width, height)
-        backgroundBitmap = loadImage(backgroundImageId ?: R.drawable.rectangle, imageSize, imageSize)
+        backgroundBitmap =
+            loadImage(backgroundImageId ?: R.drawable.rectangle, imageSize, imageSize)
         imageMode(ImageMode.Center)
         noStroke()
     }
@@ -104,13 +106,13 @@ class MaskedProgressView : CanvasView {
         drawProgress()
     }
 
-    private fun drawProgress(){
-        val progressBitmap = mask(backgroundBitmap){
+    private fun drawProgress() {
+        val progressBitmap = mask(backgroundBitmap) {
             fill(progressColor)
             val w = backgroundBitmap.width.toFloat()
             val h = backgroundBitmap.height.toFloat()
 
-            if (horizontal){
+            if (horizontal) {
                 rect(0f, h, w * progress, h)
             } else {
                 rect(0f, h * (1 - progress), w, h * progress)
@@ -121,8 +123,8 @@ class MaskedProgressView : CanvasView {
         progressBitmap.recycle()
     }
 
-    private fun drawBackground(){
-        if (backgroundColor == null){
+    private fun drawBackground() {
+        if (backgroundColor == null) {
             noTint()
         } else {
             tint(backgroundColor ?: Color.BLACK)

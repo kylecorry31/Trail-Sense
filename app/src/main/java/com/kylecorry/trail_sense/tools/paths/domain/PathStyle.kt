@@ -8,7 +8,7 @@ data class PathStyle(
     val point: PathPointColoringStyle,
     @ColorInt val color: Int,
     val visible: Boolean
-){
+) {
     companion object {
         fun default(): PathStyle {
             return PathStyle(

@@ -5,7 +5,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import java.time.Instant
 import java.time.LocalDate
 
-class IsTodaySpecification: Specification<Instant>() {
+class IsTodaySpecification : Specification<Instant>() {
     override fun isSatisfiedBy(value: Instant): Boolean {
         return value.toZonedDateTime().toLocalDate() == LocalDate.now()
     }

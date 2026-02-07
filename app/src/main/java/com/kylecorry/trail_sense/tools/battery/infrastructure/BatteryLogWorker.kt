@@ -27,9 +27,9 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
          * enabled: Boolean: true start the process
          */
         fun enableBatteryLog(context: Context, enabled: Boolean) {
-            if(enabled) {
+            if (enabled) {
                 scheduler(context).interval(Duration.ofHours(1))
-            }else {
+            } else {
                 scheduler(context).cancel()
             }
         }

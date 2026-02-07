@@ -44,7 +44,7 @@ class PowerSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         onClick(switch(R.string.pref_battery_log_enabled)) {
-            BatteryLogWorker.enableBatteryLog(requireContext(),prefs.power.enableBatteryLog)
+            BatteryLogWorker.enableBatteryLog(requireContext(), prefs.power.enableBatteryLog)
         }
 
 

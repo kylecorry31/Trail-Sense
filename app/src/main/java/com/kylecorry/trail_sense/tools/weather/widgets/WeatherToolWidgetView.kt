@@ -13,7 +13,10 @@ import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 class WeatherToolWidgetView : SimpleToolWidgetView() {
-    override suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews {
+    override suspend fun getPopulatedView(
+        context: Context,
+        prefs: WidgetPreferences?
+    ): RemoteViews {
         val views = getView(context, prefs)
         val weather = WeatherSubsystem.getInstance(context)
         val formatter = FormatService.getInstance(context)

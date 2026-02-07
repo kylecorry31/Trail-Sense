@@ -224,6 +224,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         context.getString(R.string.pref_lock_bearing_to_location),
         false
     )
+
     enum class SpeedometerMode {
         Backtrack,
         GPS,
