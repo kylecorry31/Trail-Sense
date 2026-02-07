@@ -28,11 +28,11 @@ class SolarEclipseTileSource : TileSource {
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
-        val smooth = preferences?.getBoolean(SolarEclipseLayer.SMOOTH, SolarEclipseLayer.DEFAULT_SMOOTH)
-            ?: SolarEclipseLayer.DEFAULT_SMOOTH
+        val smooth = preferences?.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+            ?: DEFAULT_SMOOTH
         val showPath =
-            preferences?.getBoolean(SolarEclipseLayer.SHOW_PATH, SolarEclipseLayer.DEFAULT_SHOW_PATH)
-                ?: SolarEclipseLayer.DEFAULT_SHOW_PATH
+            preferences?.getBoolean(SHOW_PATH, DEFAULT_SHOW_PATH)
+                ?: DEFAULT_SHOW_PATH
 
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
             .toZonedDateTime()
@@ -112,5 +112,13 @@ class SolarEclipseTileSource : TileSource {
             table.alpha[i] = colorMap.getColor(pct).alpha.toByte()
         }
         return table
+    }
+
+    companion object {
+        const val SOURCE_ID = "solar_eclipse"
+        const val SMOOTH = "smooth"
+        const val SHOW_PATH = "show_path"
+        const val DEFAULT_SMOOTH = false
+        const val DEFAULT_SHOW_PATH = false
     }
 }

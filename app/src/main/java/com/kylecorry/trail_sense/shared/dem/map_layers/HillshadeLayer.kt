@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 class HillshadeLayer :
     TileMapLayer<HillshadeMapTileSource>(HillshadeMapTileSource(), minZoomLevel = 10) {
 
-    override val layerId: String = LAYER_ID
+    override val layerId: String = HillshadeMapTileSource.SOURCE_ID
 
     override val isTimeDependent: Boolean = true
 
@@ -31,13 +31,4 @@ class HillshadeLayer :
         ).toInt()
     }
 
-    companion object {
-        const val LAYER_ID = "hillshade"
-        const val DRAW_ACCURATE_SHADOWS = "draw_accurate_shadows"
-        const val HIGH_RESOLUTION = "high_resolution"
-        const val MULTI_DIRECTION_SHADING = "multi_direction_shading"
-        const val DEFAULT_DRAW_ACCURATE_SHADOWS = false
-        const val DEFAULT_HIGH_RESOLUTION = false
-        const val DEFAULT_MULTI_DIRECTION_SHADING = false
-    }
 }

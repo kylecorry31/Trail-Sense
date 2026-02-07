@@ -113,6 +113,7 @@ class BaseMapTileSource : TileSource {
     }
 
     companion object {
+        const val SOURCE_ID = "base_map"
         private val SOURCE_MAP_COLOR_DESERT = Color.rgb(232, 225, 182)
         private val SOURCE_MAP_COLOR_ROCK = Color.rgb(202, 195, 184)
         private val SOURCE_MAP_COLOR_GRASS = Color.rgb(189, 204, 150)

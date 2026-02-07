@@ -15,15 +15,15 @@ class ElevationMapTileSource : TileSource {
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
-        val strategyId = preferences?.getString(ElevationLayer.COLOR)?.toLongOrNull()
+        val strategyId = preferences?.getString(COLOR)?.toLongOrNull()
         val colorScale = ElevationColorMapFactory().getElevationColorMap(
-            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: ElevationLayer.DEFAULT_COLOR
+            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
         )
         val highResolution =
             preferences?.getBoolean(
-                ElevationLayer.HIGH_RESOLUTION,
-                ElevationLayer.DEFAULT_HIGH_RESOLUTION
-            ) ?: ElevationLayer.DEFAULT_HIGH_RESOLUTION
+                HIGH_RESOLUTION,
+                DEFAULT_HIGH_RESOLUTION
+            ) ?: DEFAULT_HIGH_RESOLUTION
 
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
@@ -46,5 +46,13 @@ class ElevationMapTileSource : TileSource {
         }.applyOperationsOrNull(
             Dither(Bitmap.Config.RGB_565)
         )
+    }
+
+    companion object {
+        const val SOURCE_ID = "elevation"
+        const val COLOR = "color"
+        const val HIGH_RESOLUTION = "high_resolution"
+        val DEFAULT_COLOR = ElevationColorStrategy.USGS
+        const val DEFAULT_HIGH_RESOLUTION = false
     }
 }

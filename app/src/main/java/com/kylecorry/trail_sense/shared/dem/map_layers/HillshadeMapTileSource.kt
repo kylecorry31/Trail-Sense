@@ -31,19 +31,19 @@ class HillshadeMapTileSource : TileSource {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val drawAccurateShadows =
             preferences?.getBoolean(
-                HillshadeLayer.DRAW_ACCURATE_SHADOWS,
-                HillshadeLayer.DEFAULT_DRAW_ACCURATE_SHADOWS
-            ) ?: HillshadeLayer.DEFAULT_DRAW_ACCURATE_SHADOWS
+                DRAW_ACCURATE_SHADOWS,
+                DEFAULT_DRAW_ACCURATE_SHADOWS
+            ) ?: DEFAULT_DRAW_ACCURATE_SHADOWS
         val highResolution =
             preferences?.getBoolean(
-                HillshadeLayer.HIGH_RESOLUTION,
-                HillshadeLayer.DEFAULT_HIGH_RESOLUTION
-            ) ?: HillshadeLayer.DEFAULT_HIGH_RESOLUTION
+                HIGH_RESOLUTION,
+                DEFAULT_HIGH_RESOLUTION
+            ) ?: DEFAULT_HIGH_RESOLUTION
         val multiDirectionShading =
             preferences?.getBoolean(
-                HillshadeLayer.MULTI_DIRECTION_SHADING,
-                HillshadeLayer.DEFAULT_MULTI_DIRECTION_SHADING
-            ) ?: HillshadeLayer.DEFAULT_MULTI_DIRECTION_SHADING
+                MULTI_DIRECTION_SHADING,
+                DEFAULT_MULTI_DIRECTION_SHADING
+            ) ?: DEFAULT_MULTI_DIRECTION_SHADING
 
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
         val zonedDateTime = time.toZonedDateTime()
@@ -97,6 +97,16 @@ class HillshadeMapTileSource : TileSource {
         }.applyOperationsOrNull(
             Dither(Bitmap.Config.RGB_565)
         )
+    }
+
+    companion object {
+        const val SOURCE_ID = "hillshade"
+        const val DRAW_ACCURATE_SHADOWS = "draw_accurate_shadows"
+        const val HIGH_RESOLUTION = "high_resolution"
+        const val MULTI_DIRECTION_SHADING = "multi_direction_shading"
+        const val DEFAULT_DRAW_ACCURATE_SHADOWS = false
+        const val DEFAULT_HIGH_RESOLUTION = false
+        const val DEFAULT_MULTI_DIRECTION_SHADING = false
     }
 
     private fun getShadowConfig(

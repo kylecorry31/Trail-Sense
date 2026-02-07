@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.Geo
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.paths.ui.asMappable
 import kotlinx.coroutines.flow.first
 
@@ -60,5 +61,11 @@ class PathGeoJsonSource : GeoJsonSource {
     fun reload() {
         loaded = false
         paths = emptyList()
+    }
+
+    companion object {
+        const val SOURCE_ID = "path"
+        const val BACKGROUND_COLOR = "background_color"
+        val DEFAULT_BACKGROUND_COLOR = PathBackgroundColor.None
     }
 }

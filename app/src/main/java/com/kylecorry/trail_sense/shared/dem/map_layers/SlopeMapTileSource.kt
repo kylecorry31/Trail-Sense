@@ -24,22 +24,22 @@ class SlopeMapTileSource : TileSource {
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
-        val strategyId = preferences?.getString(SlopeLayer.COLOR)?.toLongOrNull()
+        val strategyId = preferences?.getString(COLOR)?.toLongOrNull()
         val colorMap = SlopeColorMapFactory().getSlopeColorMap(
-            SlopeColorStrategy.entries.withId(strategyId ?: 0) ?: SlopeLayer.DEFAULT_COLOR
+            SlopeColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
         )
         val highResolution =
             preferences?.getBoolean(
-                SlopeLayer.HIGH_RESOLUTION,
-                SlopeLayer.DEFAULT_HIGH_RESOLUTION
-            ) ?: SlopeLayer.DEFAULT_HIGH_RESOLUTION
-        val smooth = preferences?.getBoolean(SlopeLayer.SMOOTH, SlopeLayer.DEFAULT_SMOOTH)
-            ?: SlopeLayer.DEFAULT_SMOOTH
+                HIGH_RESOLUTION,
+                DEFAULT_HIGH_RESOLUTION
+            ) ?: DEFAULT_HIGH_RESOLUTION
+        val smooth = preferences?.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+            ?: DEFAULT_SMOOTH
         val hideFlatGround =
             preferences?.getBoolean(
-                SlopeLayer.HIDE_FLAT_GROUND,
-                SlopeLayer.DEFAULT_HIDE_FLAT_GROUND
-            ) ?: SlopeLayer.DEFAULT_HIDE_FLAT_GROUND
+                HIDE_FLAT_GROUND,
+                DEFAULT_HIDE_FLAT_GROUND
+            ) ?: DEFAULT_HIDE_FLAT_GROUND
 
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
@@ -98,6 +98,18 @@ class SlopeMapTileSource : TileSource {
                 )
             )
         )
+    }
+
+    companion object {
+        const val SOURCE_ID = "slope"
+        const val COLOR = "color"
+        const val HIGH_RESOLUTION = "high_resolution"
+        const val SMOOTH = "smooth"
+        const val HIDE_FLAT_GROUND = "hide_flat_ground"
+        val DEFAULT_COLOR = SlopeColorStrategy.GreenToRed
+        const val DEFAULT_HIGH_RESOLUTION = false
+        const val DEFAULT_SMOOTH = true
+        const val DEFAULT_HIDE_FLAT_GROUND = false
     }
 
 }

@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLaye
 
 class FieldGuideSightingLayer : GeoJsonLayer<FieldGuideSightingGeoJsonSource>(
     FieldGuideSightingGeoJsonSource(),
-    layerId = LAYER_ID
+    layerId = FieldGuideSightingGeoJsonSource.SOURCE_ID
 ) {
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
@@ -15,9 +15,4 @@ class FieldGuideSightingLayer : GeoJsonLayer<FieldGuideSightingGeoJsonSource>(
         super.draw(context, drawer, map)
     }
 
-    companion object {
-        const val LAYER_ID = "field_guide_sighting"
-        const val PROPERTY_PAGE_ID = "pageId"
-        const val PREFERENCE_SHOW_IMAGES = "show_images"
-    }
 }

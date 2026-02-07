@@ -73,4 +73,10 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         return GeoJsonFeatureCollection(features)
     }
 
+    companion object {
+        const val SOURCE_ID = "my_location"
+        const val SHOW_ACCURACY = "show_accuracy"
+        const val DEFAULT_SHOW_ACCURACY = true
+    }
+
 }

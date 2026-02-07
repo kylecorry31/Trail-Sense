@@ -29,8 +29,8 @@ class NightTileSource : TileSource {
 
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
-        val smooth = preferences?.getBoolean(NightLayer.SMOOTH, NightLayer.DEFAULT_SMOOTH)
-            ?: NightLayer.DEFAULT_SMOOTH
+        val smooth = preferences?.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+            ?: DEFAULT_SMOOTH
 
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
             .toZonedDateTime()
@@ -102,6 +102,12 @@ class NightTileSource : TileSource {
             table.alpha[i] = colorMap.getColor(pct).alpha.toByte()
         }
         return table
+    }
+
+    companion object {
+        const val SOURCE_ID = "night"
+        const val SMOOTH = "smooth"
+        const val DEFAULT_SMOOTH = false
     }
 
 }

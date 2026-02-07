@@ -8,7 +8,7 @@ class NightLayer : TileMapLayer<NightTileSource>(NightTileSource()) {
 
     override val isTimeDependent = true
 
-    override val layerId: String = LAYER_ID
+    override val layerId: String = NightTileSource.SOURCE_ID
 
     private val timer = CoroutineTimer {
         refresh()
@@ -25,9 +25,6 @@ class NightLayer : TileMapLayer<NightTileSource>(NightTileSource()) {
     }
 
     companion object {
-        const val LAYER_ID = "night"
-        const val SMOOTH = "smooth"
-        const val DEFAULT_SMOOTH = false
         private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(1)
     }
 }

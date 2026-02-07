@@ -18,9 +18,9 @@ class RuggednessMapTileSource : TileSource {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val highResolution =
             preferences?.getBoolean(
-                RuggednessLayer.HIGH_RESOLUTION,
-                RuggednessLayer.DEFAULT_HIGH_RESOLUTION
-            ) ?: RuggednessLayer.DEFAULT_HIGH_RESOLUTION
+                HIGH_RESOLUTION,
+                DEFAULT_HIGH_RESOLUTION
+            ) ?: DEFAULT_HIGH_RESOLUTION
         val colorMap = RuggednessDefaultColorMap()
 
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
@@ -63,5 +63,11 @@ class RuggednessMapTileSource : TileSource {
         }.applyOperationsOrNull(
             Dither(Bitmap.Config.RGB_565)
         )
+    }
+
+    companion object {
+        const val SOURCE_ID = "ruggedness"
+        const val HIGH_RESOLUTION = "high_resolution"
+        const val DEFAULT_HIGH_RESOLUTION = false
     }
 }

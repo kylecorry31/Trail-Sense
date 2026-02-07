@@ -38,9 +38,9 @@ class AspectMapTileSource : TileSource {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val highResolution =
             preferences?.getBoolean(
-                AspectLayer.HIGH_RESOLUTION,
-                AspectLayer.DEFAULT_HIGH_RESOLUTION
-            ) ?: AspectLayer.DEFAULT_HIGH_RESOLUTION
+                HIGH_RESOLUTION,
+                DEFAULT_HIGH_RESOLUTION
+            ) ?: DEFAULT_HIGH_RESOLUTION
 
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
@@ -81,6 +81,12 @@ class AspectMapTileSource : TileSource {
         }.applyOperationsOrNull(
             Dither(Bitmap.Config.RGB_565)
         )
+    }
+
+    companion object {
+        const val SOURCE_ID = "aspect"
+        const val HIGH_RESOLUTION = "high_resolution"
+        const val DEFAULT_HIGH_RESOLUTION = false
     }
 
 }

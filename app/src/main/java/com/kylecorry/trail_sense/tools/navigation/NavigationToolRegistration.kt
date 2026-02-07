@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -30,7 +31,7 @@ object NavigationToolRegistration : ToolRegistration {
             singletons = listOf(Navigator::getInstance),
             mapLayers = listOf(
                 MapLayerDefinition(
-                    NavigationLayer.LAYER_ID,
+                    NavigationGeoJsonSource.SOURCE_ID,
                     context.getString(R.string.navigation),
                     description = context.getString(R.string.map_layer_navigation_description)
                 ) { NavigationLayer() }

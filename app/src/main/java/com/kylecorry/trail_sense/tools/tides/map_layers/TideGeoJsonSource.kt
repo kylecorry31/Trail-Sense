@@ -34,11 +34,11 @@ class TideGeoJsonSource : GeoJsonSource {
     ): GeoJsonObject {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
         val showModeledTides =
-            preferences?.getBoolean(TideMapLayer.SHOW_MODELED_TIDES, TideMapLayer.DEFAULT_SHOW_MODELED_TIDES)
-                ?: TideMapLayer.DEFAULT_SHOW_MODELED_TIDES
+            preferences?.getBoolean(SHOW_MODELED_TIDES, DEFAULT_SHOW_MODELED_TIDES)
+                ?: DEFAULT_SHOW_MODELED_TIDES
         val showPhase =
-            preferences?.getBoolean(TideMapLayer.SHOW_PHASE, TideMapLayer.DEFAULT_SHOW_PHASE)
-                ?: TideMapLayer.DEFAULT_SHOW_PHASE
+            preferences?.getBoolean(SHOW_PHASE, DEFAULT_SHOW_PHASE)
+                ?: DEFAULT_SHOW_PHASE
 
         val time = Instant.ofEpochMilli(params.getLong(GeoJsonSource.PARAM_TIME))
         val context = AppServiceRegistry.get<Context>()
@@ -115,5 +115,12 @@ class TideGeoJsonSource : GeoJsonSource {
         }
     }
 
+    companion object {
+        const val SOURCE_ID = "tide"
+        const val SHOW_MODELED_TIDES = "show_modeled_tides"
+        const val DEFAULT_SHOW_MODELED_TIDES = false
+        const val SHOW_PHASE = "show_phase"
+        const val DEFAULT_SHOW_PHASE = false
+    }
 
 }

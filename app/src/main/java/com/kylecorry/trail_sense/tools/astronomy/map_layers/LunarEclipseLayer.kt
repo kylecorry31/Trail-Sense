@@ -8,7 +8,7 @@ class LunarEclipseLayer : TileMapLayer<LunarEclipseTileSource>(LunarEclipseTileS
 
     override val isTimeDependent = true
 
-    override val layerId: String = LAYER_ID
+    override val layerId: String = LunarEclipseTileSource.SOURCE_ID
 
     private val timer = CoroutineTimer {
         refresh()
@@ -25,9 +25,6 @@ class LunarEclipseLayer : TileMapLayer<LunarEclipseTileSource>(LunarEclipseTileS
     }
 
     companion object {
-        const val LAYER_ID = "lunar_eclipse"
-        const val SHOW_PATH = "show_path"
-        const val DEFAULT_SHOW_PATH = false
         private val REFRESH_INTERVAL: Duration = Duration.ofMinutes(2)
     }
 }

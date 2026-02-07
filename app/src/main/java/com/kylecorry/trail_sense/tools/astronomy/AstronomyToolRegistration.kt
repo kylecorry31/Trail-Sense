@@ -12,8 +12,11 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.Astrono
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.map_layers.LunarEclipseLayer
+import com.kylecorry.trail_sense.tools.astronomy.map_layers.LunarEclipseTileSource
 import com.kylecorry.trail_sense.tools.astronomy.map_layers.NightLayer
+import com.kylecorry.trail_sense.tools.astronomy.map_layers.NightTileSource
 import com.kylecorry.trail_sense.tools.astronomy.map_layers.SolarEclipseLayer
+import com.kylecorry.trail_sense.tools.astronomy.map_layers.SolarEclipseTileSource
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunriseAlert
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
@@ -151,50 +154,50 @@ object AstronomyToolRegistration : ToolRegistration {
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
-                    SolarEclipseLayer.LAYER_ID,
+                    SolarEclipseTileSource.SOURCE_ID,
                     context.getString(R.string.solar_eclipse),
                     layerType = MapLayerType.Tile,
                     description = context.getString(R.string.map_layer_solar_eclipse_description),
                     preferences = listOf(
                         MapLayerPreference(
-                            id = SolarEclipseLayer.SMOOTH,
+                            id = SolarEclipseTileSource.SMOOTH,
                             title = context.getString(R.string.smooth),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = SolarEclipseLayer.DEFAULT_SMOOTH,
+                            defaultValue = SolarEclipseTileSource.DEFAULT_SMOOTH,
                         ),
                         MapLayerPreference(
-                            id = SolarEclipseLayer.SHOW_PATH,
+                            id = SolarEclipseTileSource.SHOW_PATH,
                             title = context.getString(R.string.show_path),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = SolarEclipseLayer.DEFAULT_SHOW_PATH,
+                            defaultValue = SolarEclipseTileSource.DEFAULT_SHOW_PATH,
                         ),
                     )
                 ) { SolarEclipseLayer() },
                 MapLayerDefinition(
-                    LunarEclipseLayer.LAYER_ID,
+                    LunarEclipseTileSource.SOURCE_ID,
                     context.getString(R.string.lunar_eclipse),
                     layerType = MapLayerType.Tile,
                     description = context.getString(R.string.map_layer_lunar_eclipse_description),
                     preferences = listOf(
                         MapLayerPreference(
-                            id = LunarEclipseLayer.SHOW_PATH,
+                            id = LunarEclipseTileSource.SHOW_PATH,
                             title = context.getString(R.string.show_path),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = LunarEclipseLayer.DEFAULT_SHOW_PATH,
+                            defaultValue = LunarEclipseTileSource.DEFAULT_SHOW_PATH,
                         ),
                     )
                 ) { LunarEclipseLayer() },
                 MapLayerDefinition(
-                    NightLayer.LAYER_ID,
+                    NightTileSource.SOURCE_ID,
                     context.getString(R.string.night),
                     layerType = MapLayerType.Tile,
                     description = context.getString(R.string.map_layer_night_description),
                     preferences = listOf(
                         MapLayerPreference(
-                            id = NightLayer.SMOOTH,
+                            id = NightTileSource.SMOOTH,
                             title = context.getString(R.string.smooth),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = NightLayer.DEFAULT_SMOOTH,
+                            defaultValue = NightTileSource.DEFAULT_SMOOTH,
                         ),
                     )
                 ) { NightLayer() }

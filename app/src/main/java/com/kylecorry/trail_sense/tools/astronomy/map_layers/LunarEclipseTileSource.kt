@@ -23,8 +23,8 @@ class LunarEclipseTileSource : TileSource {
     override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
         val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
         val showPath =
-            preferences?.getBoolean(LunarEclipseLayer.SHOW_PATH, LunarEclipseLayer.DEFAULT_SHOW_PATH)
-                ?: LunarEclipseLayer.DEFAULT_SHOW_PATH
+            preferences?.getBoolean(SHOW_PATH, DEFAULT_SHOW_PATH)
+                ?: DEFAULT_SHOW_PATH
 
         val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
             .toZonedDateTime()
@@ -78,6 +78,12 @@ class LunarEclipseTileSource : TileSource {
             return null
         }
         return eclipse.obscuration
+    }
+
+    companion object {
+        const val SOURCE_ID = "lunar_eclipse"
+        const val SHOW_PATH = "show_path"
+        const val DEFAULT_SHOW_PATH = false
     }
 
 }

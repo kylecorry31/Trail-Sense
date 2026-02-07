@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLaye
 class CellTowerMapLayer : GeoJsonLayer<CellTowerGeoJsonSource>(
     CellTowerGeoJsonSource(),
     minZoomLevel = 11,
-    layerId = LAYER_ID
+    layerId = CellTowerGeoJsonSource.SOURCE_ID
 ) {
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
@@ -19,7 +19,4 @@ class CellTowerMapLayer : GeoJsonLayer<CellTowerGeoJsonSource>(
         super.draw(context, drawer, map)
     }
 
-    companion object {
-        const val LAYER_ID = "cell_tower"
-    }
 }

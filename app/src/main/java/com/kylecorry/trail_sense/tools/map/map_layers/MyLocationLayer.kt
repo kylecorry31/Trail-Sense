@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class MyLocationLayer : GeoJsonLayer<MyLocationGeoJsonSource>(
     MyLocationGeoJsonSource(),
-    layerId = LAYER_ID
+    layerId = MyLocationGeoJsonSource.SOURCE_ID
 ) {
     private val _showDirection = AppServiceRegistry.get<SensorService>().hasCompass()
     private var _drawAccuracy: Boolean = true
@@ -27,7 +27,10 @@ class MyLocationLayer : GeoJsonLayer<MyLocationGeoJsonSource>(
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        _drawAccuracy = preferences.getBoolean(SHOW_ACCURACY, DEFAULT_SHOW_ACCURACY)
+        _drawAccuracy = preferences.getBoolean(
+            MyLocationGeoJsonSource.SHOW_ACCURACY,
+            MyLocationGeoJsonSource.DEFAULT_SHOW_ACCURACY
+        )
     }
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
@@ -86,9 +89,4 @@ class MyLocationLayer : GeoJsonLayer<MyLocationGeoJsonSource>(
         _bitmap = null
     }
 
-    companion object {
-        const val LAYER_ID = "my_location"
-        const val SHOW_ACCURACY = "show_accuracy"
-        const val DEFAULT_SHOW_ACCURACY = true
-    }
 }

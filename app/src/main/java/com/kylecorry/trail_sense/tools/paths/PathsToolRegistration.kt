@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.tools.paths.actions.PauseBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.actions.ResumeBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.paths.services.BacktrackToolService
@@ -125,12 +126,12 @@ object PathsToolRegistration : ToolRegistration {
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
-                    PathLayer.LAYER_ID,
+                    PathGeoJsonSource.SOURCE_ID,
                     context.getString(R.string.paths),
                     description = context.getString(R.string.map_layer_paths_description),
                     preferences = listOf(
                         MapLayerPreference(
-                            id = PathLayer.BACKGROUND_COLOR,
+                            id = PathGeoJsonSource.BACKGROUND_COLOR,
                             title = context.getString(R.string.background_color),
                             type = MapLayerPreferenceType.Enum,
                             values = listOf(
@@ -138,7 +139,7 @@ object PathsToolRegistration : ToolRegistration {
                                 context.getString(R.string.color_black) to PathBackgroundColor.Black.id.toString(),
                                 context.getString(R.string.color_white) to PathBackgroundColor.White.id.toString(),
                             ),
-                            defaultValue = PathLayer.DEFAULT_BACKGROUND_COLOR.id.toString(),
+                            defaultValue = PathGeoJsonSource.DEFAULT_BACKGROUND_COLOR.id.toString(),
                         )
                     )
                 ) { PathLayer() }

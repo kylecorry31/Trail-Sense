@@ -59,9 +59,9 @@ class ContourGeoJsonSource : GeoJsonSource {
         params: Bundle
     ): GeoJsonObject? {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
-        val strategyId = preferences?.getString(ContourLayer.COLOR)?.toLongOrNull()
+        val strategyId = preferences?.getString(COLOR)?.toLongOrNull()
         val colorScale = ElevationColorMapFactory().getElevationColorMap(
-            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: ContourLayer.DEFAULT_COLOR
+            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
         )
         if (zoom !in minZoom..maxZoom) {
             return null
@@ -105,5 +105,13 @@ class ContourGeoJsonSource : GeoJsonSource {
         }
 
         return GeoJsonFeatureCollection(features)
+    }
+
+    companion object {
+        const val SOURCE_ID = "contour"
+        const val SHOW_LABELS = "show_labels"
+        const val DEFAULT_SHOW_LABELS = true
+        const val COLOR = "color"
+        val DEFAULT_COLOR = ElevationColorStrategy.Brown
     }
 }

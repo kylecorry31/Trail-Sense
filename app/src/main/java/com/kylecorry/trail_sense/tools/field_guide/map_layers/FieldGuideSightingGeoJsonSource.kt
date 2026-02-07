@@ -59,7 +59,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
     ): GeoJsonObject {
         val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
         val showImages =
-            preferences?.getBoolean(FieldGuideSightingLayer.PREFERENCE_SHOW_IMAGES, false) ?: false
+            preferences?.getBoolean(PREFERENCE_SHOW_IMAGES, false) ?: false
         if (nameFormat.isEmpty()) {
             nameFormat = context?.getString(R.string.sighting_label) ?: ""
         }
@@ -93,10 +93,10 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
                     markerShape = if (bitmap == null) "circle" else null,
                     size = size,
                     isClickable = true,
-                    layerId = FieldGuideSightingLayer.LAYER_ID,
+                    layerId = SOURCE_ID,
                     bitmap = bitmap,
                     additionalProperties = mapOf(
-                        FieldGuideSightingLayer.PROPERTY_PAGE_ID to page.id
+                        PROPERTY_PAGE_ID to page.id
                     )
                 )
                 point
@@ -153,5 +153,11 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
             .maxByOrNull { it.parentId != null }
 
         return tagIconMap[lowestTag] ?: BeaconIcon.Information
+    }
+
+    companion object {
+        const val SOURCE_ID = "field_guide_sighting"
+        const val PROPERTY_PAGE_ID = "pageId"
+        const val PREFERENCE_SHOW_IMAGES = "show_images"
     }
 }

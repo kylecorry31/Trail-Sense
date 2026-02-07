@@ -11,11 +11,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.AppState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
-import com.kylecorry.trail_sense.shared.dem.map_layers.AspectLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.AspectMapTileSource
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourGeoJsonSource
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapTileSource
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
+import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
@@ -23,16 +23,16 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrappe
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
+import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
-import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
+import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerGeoJsonSource
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -347,19 +347,19 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(23, 24) { _, prefs ->
                 val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
                 val allLayers = listOf(
-                    BaseMapLayer.LAYER_ID,
-                    ElevationLayer.LAYER_ID,
-                    HillshadeLayer.LAYER_ID,
-                    AspectLayer.LAYER_ID,
-                    SlopeLayer.LAYER_ID,
-                    PhotoMapLayer.LAYER_ID,
-                    ContourLayer.LAYER_ID,
-                    NavigationLayer.LAYER_ID,
-                    CellTowerMapLayer.LAYER_ID,
-                    TideMapLayer.LAYER_ID,
-                    PathLayer.LAYER_ID,
-                    BeaconLayer.LAYER_ID,
-                    MyLocationLayer.LAYER_ID,
+                    BaseMapTileSource.SOURCE_ID,
+                    ElevationMapTileSource.SOURCE_ID,
+                    HillshadeMapTileSource.SOURCE_ID,
+                    AspectMapTileSource.SOURCE_ID,
+                    SlopeMapTileSource.SOURCE_ID,
+                    PhotoMapTileSource.SOURCE_ID,
+                    ContourGeoJsonSource.SOURCE_ID,
+                    NavigationGeoJsonSource.SOURCE_ID,
+                    CellTowerGeoJsonSource.SOURCE_ID,
+                    TideGeoJsonSource.SOURCE_ID,
+                    PathGeoJsonSource.SOURCE_ID,
+                    BeaconGeoJsonSource.SOURCE_ID,
+                    MyLocationGeoJsonSource.SOURCE_ID,
                 )
 
                 // Navigation
@@ -379,7 +379,7 @@ class PreferenceMigrator private constructor() {
                 // Photo Map
                 repo.setActiveLayerIds(
                     "photo_maps", allLayers.filter {
-                        it == PhotoMapLayer.LAYER_ID || isMapLayerEnabled(prefs, "photo_maps", it)
+                        it == PhotoMapTileSource.SOURCE_ID || isMapLayerEnabled(prefs, "photo_maps", it)
                     }
                 )
             }

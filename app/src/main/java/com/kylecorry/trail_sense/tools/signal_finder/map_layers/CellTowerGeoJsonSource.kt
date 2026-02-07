@@ -36,7 +36,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
                     iconSize = 12f,
                     isClickable = true,
                     name = featureName,
-                    layerId = CellTowerMapLayer.LAYER_ID,
+                    layerId = SOURCE_ID,
                     additionalProperties = mapOf(
                         GEO_JSON_PROPERTY_ACCURACY to it.accuracy.meters().value
                     )
@@ -45,6 +45,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
     }
 
     companion object {
+        const val SOURCE_ID = "cell_tower"
         const val GEO_JSON_PROPERTY_ACCURACY = "accuracy"
     }
 }

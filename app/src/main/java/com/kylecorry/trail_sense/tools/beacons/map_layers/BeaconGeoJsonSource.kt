@@ -56,9 +56,9 @@ class BeaconGeoJsonSource : GeoJsonSource {
                         it.color
                     ),
                     isClickable = true,
-                    layerId = BeaconLayer.LAYER_ID,
+                    layerId = SOURCE_ID,
                     additionalProperties = mapOf(
-                        BeaconLayer.PROPERTY_BEACON_ID to it.id
+                        PROPERTY_BEACON_ID to it.id
                     )
                 )
                 newMap[point] = it
@@ -67,5 +67,10 @@ class BeaconGeoJsonSource : GeoJsonSource {
         )
         featureToBeaconMap = newMap
         return collection
+    }
+
+    companion object {
+        const val SOURCE_ID = "beacon"
+        const val PROPERTY_BEACON_ID = "beaconId"
     }
 }

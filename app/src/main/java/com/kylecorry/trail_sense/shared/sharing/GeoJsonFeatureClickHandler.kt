@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.extensions.getLayerId
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -59,7 +59,7 @@ object GeoJsonFeatureClickHandler {
             when (action) {
                 ShareAction.Navigate -> {
                     val navigator = AppServiceRegistry.get<Navigator>()
-                    val beaconId = feature.getLongProperty(BeaconLayer.PROPERTY_BEACON_ID)
+                    val beaconId = feature.getLongProperty(BeaconGeoJsonSource.PROPERTY_BEACON_ID)
                     if (beaconId != null) {
                         navigator.navigateTo(beaconId)
                     } else {

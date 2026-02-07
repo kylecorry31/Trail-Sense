@@ -12,9 +12,9 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     minZoomLevel = 4
 ) {
 
-    override val layerId: String = LAYER_ID
+    override val layerId: String = PhotoMapTileSource.SOURCE_ID
     private var idFilter: Long? = null
-    private var loadPdfs: Boolean = DEFAULT_LOAD_PDFS
+    private var loadPdfs: Boolean = PhotoMapTileSource.DEFAULT_LOAD_PDFS
     private val recycleTask = BackgroundTask {
         source.recycle()
     }
@@ -25,7 +25,10 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        loadPdfs = preferences.getBoolean(LOAD_PDFS, DEFAULT_LOAD_PDFS)
+        loadPdfs = preferences.getBoolean(
+            PhotoMapTileSource.LOAD_PDFS,
+            PhotoMapTileSource.DEFAULT_LOAD_PDFS
+        )
     }
 
     fun setPhotoMapFilter(id: Long? = null) {
@@ -66,18 +69,13 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     }
 
     companion object {
-        const val LAYER_ID = "map"
-        const val LOAD_PDFS = "load_pdfs"
-        const val DEFAULT_LOAD_PDFS = false
-
         fun getCacheKeysForMap(mapId: Long): List<String> {
             return listOf(
-                "$LAYER_ID-true-$mapId",
-                "$LAYER_ID-false-$mapId",
-                "$LAYER_ID-true",
-                "$LAYER_ID-false",
+                "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
+                "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
+                "${PhotoMapTileSource.SOURCE_ID}-true",
+                "${PhotoMapTileSource.SOURCE_ID}-false",
             )
         }
-
     }
 }

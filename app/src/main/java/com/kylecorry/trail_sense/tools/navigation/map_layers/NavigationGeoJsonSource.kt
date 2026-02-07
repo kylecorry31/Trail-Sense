@@ -98,4 +98,8 @@ class NavigationGeoJsonSource : GeoJsonSource {
         val style: LineStyle,
         val thicknessScale: Float
     )
+
+    companion object {
+        const val SOURCE_ID = "navigation"
+    }
 }

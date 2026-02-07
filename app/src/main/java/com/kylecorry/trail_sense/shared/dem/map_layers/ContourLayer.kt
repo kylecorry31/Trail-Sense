@@ -1,29 +1,24 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.os.Bundle
-import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 
 class ContourLayer : GeoJsonLayer<ContourGeoJsonSource>(
     ContourGeoJsonSource(),
     minZoomLevel = 13,
-    layerId = LAYER_ID
+    layerId = ContourGeoJsonSource.SOURCE_ID
 ) {
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
         renderer.configureLineStringRenderer(
-            shouldRenderLabels = preferences.getBoolean(SHOW_LABELS, DEFAULT_SHOW_LABELS)
+            shouldRenderLabels = preferences.getBoolean(
+                ContourGeoJsonSource.SHOW_LABELS,
+                ContourGeoJsonSource.DEFAULT_SHOW_LABELS
+            )
         )
         // TODO: More experimentation required before this is enabled for everyone
 //        renderer.configureLineStringRenderer(shouldRenderSmoothPaths = isDebug())
     }
 
-    companion object {
-        const val LAYER_ID = "contour"
-        const val SHOW_LABELS = "show_labels"
-        const val DEFAULT_SHOW_LABELS = true
-        const val COLOR = "color"
-        val DEFAULT_COLOR = ElevationColorStrategy.Brown
-    }
 }

@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.beacons.widgets.AppWidgetNearbyBeacons
@@ -108,7 +109,7 @@ object BeaconsToolRegistration : ToolRegistration {
                     context.getString(R.string.beacons),
                     description = context.getString(R.string.map_layer_beacons_description),
                     openFeature = { feature, fragment ->
-                        val beaconId = feature.getLongProperty(BeaconLayer.PROPERTY_BEACON_ID)
+                        val beaconId = feature.getLongProperty(BeaconGeoJsonSource.PROPERTY_BEACON_ID)
                         val navController = fragment.findNavController()
                         navController.navigateWithAnimation(
                             R.id.beaconDetailsFragment,
