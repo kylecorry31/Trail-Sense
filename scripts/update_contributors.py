@@ -23,7 +23,8 @@ usernames = [contributor["login"] for contributor in contributors]
 
 print(len(usernames))
 
-kotlin_array = "val contributors = arrayOf(" + ", ".join([f'"{username}"' for username in usernames]) + ")"
+padding = '                '
+kotlin_array = "val contributors = arrayOf(\n" + ",\n".join([f'{padding}"{username}"' for username in usernames]) + "\n            )"
 
 ## Find the contributors array in the Licenses.kt file and replace it
 with open(licenses_file, "r") as file:
