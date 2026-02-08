@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -25,12 +24,6 @@ class PathLayer :
     }
     private val listenerRunner = CoroutineQueueRunner()
     private var wasBacktrackOn = false
-
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-
-    init {
-        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
-    }
 
     private val onLocationChanged = { _: Bundle ->
         if (wasBacktrackOn) {

@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.isClickable
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
@@ -57,6 +59,8 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     init {
+        val prefs = AppServiceRegistry.get<UserPreferences>()
+        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
         renderer.setOnClickListener(this::onClick)
         taskRunner.addTask { context, viewBounds, bounds, projection ->
             isInvalid = false
