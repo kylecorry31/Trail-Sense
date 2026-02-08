@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
@@ -17,18 +18,20 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
@@ -37,6 +40,8 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration.MapRotationCalculator
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PreviewPhotoMapLayer
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 
@@ -70,6 +75,16 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     private var showPreview = false
 
+    private val previewLayer = PreviewPhotoMapLayer()
+    private val calibrationLayer = PhotoMapCalibrationLayer(
+        getMap = { map },
+        getHighlightedIndex = { calibrationIndex },
+        onPointMoved = { percent ->
+            manager.calibrate(calibrationIndex, percent)
+        }
+    )
+    private val mapLayerPreferences by lazy { AppServiceRegistry.get<MapLayerPreferenceRepo>() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
@@ -78,26 +93,26 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     override fun onResume() {
         super.onResume()
         // Populate the last known location
-        binding.calibrationMap.useDensityPixelsForZoom = !prefs.photoMaps.highDetailMode
-        binding.calibrationMap.userLocation = gps.location
-        binding.calibrationMap.userLocationAccuracy =
+        binding.previewMap.useDensityPixelsForZoom = !prefs.photoMaps.highDetailMode
+        binding.previewMap.userLocation = gps.location
+        binding.previewMap.userLocationAccuracy =
             gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         observe(gps) {
-            binding.calibrationMap.userLocation = gps.location
-            binding.calibrationMap.userLocationAccuracy =
+            binding.previewMap.userLocation = gps.location
+            binding.previewMap.userLocationAccuracy =
                 gps.horizontalAccuracy?.let { Distance.meters(it) }
             compass.declination = declinationStrategy.getDeclination()
         }
 
         observe(compass) {
-            binding.calibrationMap.userAzimuth = compass.bearing
+            binding.previewMap.userAzimuth = compass.bearing
         }
     }
 
     override fun onPause() {
         super.onPause()
-        binding.calibrationMap.stop()
+        binding.previewMap.stop()
     }
 
     override fun generateBinding(
@@ -160,15 +175,27 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             setPreviewMode(!showPreview)
         }
 
+        binding.previewMap.setBackgroundColor(
+            Resources.color(requireContext(), R.color.colorSecondary)
+        )
+
         CustomUiUtils.setButtonState(binding.zoomInBtn, false)
         CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
 
         binding.zoomOutBtn.setOnClickListener {
-            binding.calibrationMap.zoomBy(0.5f)
+            if (showPreview) {
+                binding.previewMap.zoom(0.5f)
+            } else {
+                binding.calibrationMap.zoomBy(0.5f)
+            }
         }
 
         binding.zoomInBtn.setOnClickListener {
-            binding.calibrationMap.zoomBy(2f)
+            if (showPreview) {
+                binding.previewMap.zoom(2f)
+            } else {
+                binding.calibrationMap.zoomBy(2f)
+            }
         }
 
         backCallback = promptIfUnsavedChanges {
@@ -199,6 +226,9 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.calibrationMap.mapAzimuth = 0f
         binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
+        if (showPreview) {
+            updatePreviewMap(map, resetView = true)
+        }
         calibrateMap()
     }
 
@@ -233,6 +263,9 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
         binding.calibrationMap.highlightedIndex = calibrationIndex
+        if (showPreview) {
+            updatePreviewMap(map, resetView = false)
+        }
         updateCompletionState()
         updateRotation()
     }
@@ -311,22 +344,62 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         showPreview = enabled
         updateMapCalibration()
 
-        binding.calibrationMap.stop()
+        binding.previewMap.stop()
+        binding.calibrationMap.isVisible = !enabled
+        binding.previewMap.isVisible = enabled
+        if (enabled) {
+            map?.let { updatePreviewMap(it, resetView = true) }
+            binding.previewMap.start()
+        }
+    }
 
-        val layers = if (enabled) listOf(
-            PathGeoJsonSource.SOURCE_ID,
-            MyLocationGeoJsonSource.SOURCE_ID,
-            BeaconGeoJsonSource.SOURCE_ID
-        ) else emptyList()
-        binding.calibrationMap.setLayersWithPreferences(
-            PhotoMapsToolRegistration.MAP_ID,
-            layers
-        )
-
+    private fun updatePreviewMap(map: PhotoMap, resetView: Boolean) {
         if (showPreview) {
-            binding.calibrationMap.start()
+            previewLayer.stop()
         }
 
+        val layerPreferences = mapLayerPreferences.getLayerPreferencesBundle(
+            PhotoMapsToolRegistration.MAP_ID,
+            listOf(PhotoMapTileSource.SOURCE_ID)
+        )
+        previewLayer.setPreferences(
+            layerPreferences[PhotoMapTileSource.SOURCE_ID] ?: Bundle()
+        )
+        previewLayer.setMap(map)
+        binding.previewMap.setLayersWithPreferences(
+            PhotoMapsToolRegistration.MAP_ID,
+            listOf(
+                PathGeoJsonSource.SOURCE_ID,
+                MyLocationGeoJsonSource.SOURCE_ID,
+                BeaconGeoJsonSource.SOURCE_ID
+            ),
+            additionalLayersBefore = listOf(previewLayer),
+            additionalLayers = listOf(calibrationLayer)
+        )
+
+        val azimuth = -SolMath.deltaAngle(
+            map.calibration.rotation,
+            map.baseRotation().toFloat()
+        )
+
+        val bounds =
+            map.boundary() ?: CoordinateBounds(85.0, 180.0, -85.0, -180.0)
+        binding.previewMap.post {
+            binding.previewMap.mapAzimuth = azimuth
+            val previousScale = binding.previewMap.scale
+            binding.previewMap.minScale = 0f
+            binding.previewMap.fitIntoView(bounds, paddingFactor = 1.05f)
+            binding.previewMap.constraintBounds = bounds
+            binding.previewMap.minScale = binding.previewMap.scale
+            if (!resetView) {
+                binding.previewMap.zoomTo(previousScale)
+            }
+            previewLayer.refresh()
+        }
+
+        if (showPreview) {
+            previewLayer.start()
+        }
     }
 
     private fun isFullyCalibrated(): Boolean {

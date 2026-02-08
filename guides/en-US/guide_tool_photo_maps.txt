@@ -13,7 +13,7 @@ To create a map, you have three options: take a photo of an existing map, import
     - Input the real-world location in the provided field, such as a trail sign, trailhead, or point of interest.
     - Tap on the map to select where the location is.
     - Utilize 'Previous'/'Next' to switch between calibration points.
-    - Once you have two calibration points, click 'Preview' to preview the calibrated map, displaying nearby paths and beacons.
+    - Once you have two calibration points, click 'Preview' to preview the calibrated map, displaying nearby paths and beacons. While previewing, tap the map to move the selected calibration point.
     - You can recenter the map on your screen by clicking the recenter button in the top-right corner.
     - Use pinch-to-zoom or the zoom buttons in the bottom-right to more accurately select locations.
     - Calibration automatically aligns the map with North facing up, with the calculated rotation amount displayed under the map name at the top.

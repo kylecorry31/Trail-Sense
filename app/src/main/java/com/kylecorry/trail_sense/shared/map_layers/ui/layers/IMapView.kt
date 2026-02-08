@@ -101,16 +101,18 @@ fun IMapView.setLayersWithPreferences(
     mapId: String,
     layerIds: List<String>,
     additionalLayers: List<ILayer> = emptyList(),
+    additionalLayersBefore: List<ILayer> = emptyList(),
     forceReplaceLayers: Boolean = false
 ) {
     val loader = AppServiceRegistry.get<MapLayerLoader>()
     val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
     val currentLayers = layerManager.getLayers()
-    val newLayerIds = layerIds + additionalLayers.map { it.layerId }
+    val newLayerIds =
+        additionalLayersBefore.map { it.layerId } + layerIds + additionalLayers.map { it.layerId }
     val layers = if (!forceReplaceLayers && currentLayers.map { it.layerId } == newLayerIds) {
         currentLayers
     } else {
-        layerIds.mapNotNull { id ->
+        additionalLayersBefore + layerIds.mapNotNull { id ->
             loader.getLayer(id)
         } + additionalLayers
     }

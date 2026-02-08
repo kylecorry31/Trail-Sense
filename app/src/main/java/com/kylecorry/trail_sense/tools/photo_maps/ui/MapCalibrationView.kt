@@ -41,11 +41,6 @@ class MapCalibrationView : BasePhotoMapView {
         invalidate()
     }
 
-    override fun showMap(map: PhotoMap) {
-        super.showMap(map)
-        layerManager.invalidate()
-    }
-
     override fun onSinglePress(e: MotionEvent) {
         super.onSinglePress(e)
         val pixel = toSource(e.x, e.y, true)
@@ -56,10 +51,6 @@ class MapCalibrationView : BasePhotoMapView {
             val percent = PercentCoordinate(percentX, percentY)
             onMapClick?.invoke(percent.rotate(-orientation))
         }
-    }
-
-    override fun setOnGeoJsonFeatureClickListener(listener: ((com.kylecorry.andromeda.geojson.GeoJsonFeature) -> Unit)?) {
-        // Not supported
     }
 
     // TODO: Support dragging the coordinates
