@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
 import android.os.Bundle
-import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 
 class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
@@ -35,22 +33,6 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
         keys.add(loadPdfs.toString())
         idFilter?.let { keys.add(it.toString()) }
         return keys.joinToString("-")
-    }
-
-    fun improveResolution(
-        bounds: CoordinateBounds,
-        zoom: Int,
-        minimumTileCount: Int
-    ) {
-        var tileCount: Int
-        var zoomOffset = -1
-        do {
-            zoomOffset++
-            tileCount = TileMath.getTiles(bounds, zoom + zoomOffset).size
-        } while (tileCount < minimumTileCount && zoomOffset < 10)
-
-        setZoomOffset(zoomOffset)
-        notifyListeners()
     }
 
     companion object {

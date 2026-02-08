@@ -470,6 +470,22 @@ abstract class TileMapLayer<T : TileSource>(
         notifyListeners()
     }
 
+    fun improveResolution(
+        bounds: CoordinateBounds,
+        zoom: Int,
+        minimumTileCount: Int
+    ) {
+        var tileCount: Int
+        var zoomOffset = -1
+        do {
+            zoomOffset++
+            tileCount = TileMath.getTiles(bounds, zoom + zoomOffset).size
+        } while (tileCount < minimumTileCount && zoomOffset < 10)
+
+        setZoomOffset(zoomOffset)
+        notifyListeners()
+    }
+
     private fun refreshTime() {
         _renderTime = _timeOverride ?: Instant.now()
     }
