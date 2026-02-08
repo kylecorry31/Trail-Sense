@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPrefer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
@@ -40,6 +41,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration.Map
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
     private var map: PhotoMap? = null
@@ -76,6 +78,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     override fun onResume() {
         super.onResume()
         // Populate the last known location
+        binding.calibrationMap.useDensityPixelsForZoom = !prefs.photoMaps.highDetailMode
         binding.calibrationMap.userLocation = gps.location
         binding.calibrationMap.userLocationAccuracy =
             gps.horizontalAccuracy?.let { Distance.meters(it) }

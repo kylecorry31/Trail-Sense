@@ -109,6 +109,12 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             NavigationScreenLock(prefs.map.keepScreenUnlockedWhileOpen)
         }
 
+        useEffect(mapView, prefs, resetOnResume) {
+            mapView.useDensityPixelsForZoom = !prefs.map.highDetailMode
+            mapView.layerManager.invalidate()
+            mapView.invalidate()
+        }
+
         useEffect(screenLock, activity, resetOnResume, destination) {
             screenLock.updateLock(activity)
         }

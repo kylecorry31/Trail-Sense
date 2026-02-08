@@ -45,8 +45,8 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:summary="@string/pref_photo_maps_high_detail_mode_summary"
-            android:title="@string/pref_photo_maps_high_detail_mode_title"
+            android:summary="@string/pref_high_detail_mode_summary"
+            android:title="@string/pref_high_detail_mode_title"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_photo_maps_high_detail_mode"

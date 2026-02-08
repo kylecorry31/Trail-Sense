@@ -106,6 +106,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         super.onResume()
         layerManager.setOnDistanceChangedCallback(this::showDistance)
         resetLayerManager()
+        binding.map.useDensityPixelsForZoom = !prefs.photoMaps.highDetailMode
 
         if (mapLockMode == MapLockMode.Trace) {
             updateMapLockMode(MapLockMode.Trace, prefs.photoMaps.keepMapFacingUp)

@@ -126,6 +126,15 @@
             app:singleLineTitle="false"
             app:title="@string/pref_nearby_radar_title" />
 
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_nearby_radar"
+            android:summary="@string/pref_high_detail_mode_summary"
+            android:title="@string/pref_high_detail_mode_title"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_high_detail_mode"
+            app:singleLineTitle="false" />
+
         <Preference
             app:dependency="@string/pref_nearby_radar"
             app:iconSpaceReserved="false"
