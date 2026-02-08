@@ -64,7 +64,6 @@ class PathGeoJsonSource : GeoJsonSource {
 
     companion object {
         const val SOURCE_ID = "path"
-        const val BACKGROUND_COLOR = "background_color"
         val DEFAULT_BACKGROUND_COLOR = PathBackgroundColor.None
     }
 }

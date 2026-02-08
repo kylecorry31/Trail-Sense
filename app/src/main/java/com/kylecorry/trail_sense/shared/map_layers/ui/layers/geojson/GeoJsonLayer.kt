@@ -15,7 +15,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.luna.timer.CoroutineTimer
 import kotlinx.coroutines.CancellationException
@@ -94,6 +96,15 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             DefaultMapLayerDefinitions.OPACITY,
             DefaultMapLayerDefinitions.DEFAULT_OPACITY
         ) / 100f
+        // TODO: Eventually make this a geojson feature property instead of a global setting
+        if (preferences.containsKey(DefaultMapLayerDefinitions.BACKGROUND_COLOR)) {
+            val backgroundColorId =
+                preferences.getString(DefaultMapLayerDefinitions.BACKGROUND_COLOR)?.toLongOrNull()
+            renderer.configureLineStringRenderer(
+                backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId ?: 0)
+                    ?: PathBackgroundColor.None
+            )
+        }
     }
 
     override fun draw(

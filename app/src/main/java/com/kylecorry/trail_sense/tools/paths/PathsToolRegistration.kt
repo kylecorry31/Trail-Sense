@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.paths.actions.PauseBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.actions.ResumeBacktrackAction
@@ -131,7 +132,7 @@ object PathsToolRegistration : ToolRegistration {
                     description = context.getString(R.string.map_layer_paths_description),
                     preferences = listOf(
                         MapLayerPreference(
-                            id = PathGeoJsonSource.BACKGROUND_COLOR,
+                            id = DefaultMapLayerDefinitions.BACKGROUND_COLOR,
                             title = context.getString(R.string.background_color),
                             type = MapLayerPreferenceType.Enum,
                             values = listOf(

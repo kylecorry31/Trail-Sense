@@ -6,9 +6,7 @@ import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
-import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -52,16 +50,6 @@ class PathLayer :
         Tools.unsubscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED, onLocationChanged)
         listenerRunner.cancel()
         task.stop()
-    }
-
-    override fun setPreferences(preferences: Bundle) {
-        super.setPreferences(preferences)
-        val backgroundColorId =
-            preferences.getString(PathGeoJsonSource.BACKGROUND_COLOR)?.toLongOrNull()
-        renderer.configureLineStringRenderer(
-            backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId ?: 0)
-                ?: PathGeoJsonSource.DEFAULT_BACKGROUND_COLOR
-        )
     }
 
     fun reload() {
