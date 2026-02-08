@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.os.Bundle
 import com.kylecorry.andromeda.core.ui.colormaps.AlphaColorMap
@@ -9,6 +11,8 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Duration
@@ -17,12 +21,14 @@ import java.time.ZonedDateTime
 
 class LunarEclipseTileSource : TileSource {
 
-    var showPath = false
     private val colorMap = AlphaColorMap(AppColor.Orange.color, 200)
     private val astronomy = AstronomyService()
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
-        val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getPreferences()
+        val showPath = preferences.getBoolean(SHOW_PATH, DEFAULT_SHOW_PATH)
+
+        val time = Instant.ofEpochMilli(params.getLong(MapLayerParams.PARAM_TIME))
             .toZonedDateTime()
         val bounds = tile.getBounds()
 
@@ -33,7 +39,7 @@ class LunarEclipseTileSource : TileSource {
             bounds.northEast,
             bounds.southEast
         ).any {
-            getEclipseObscuration(it, time) != null
+            getEclipseObscuration(it, time, showPath) != null
         }
 
         if (!isEclipseVisible) {
@@ -49,7 +55,7 @@ class LunarEclipseTileSource : TileSource {
             padding = 2,
             smoothPixelEdges = true,
             valueProvider = ParallelCoordinateGridValueProvider { lat, lon ->
-                getEclipseObscuration(Coordinate(lat, lon), time) ?: 0f
+                getEclipseObscuration(Coordinate(lat, lon), time, showPath) ?: 0f
             }
         ) { x, y, getValue ->
             val value = getValue(x, y)
@@ -57,7 +63,11 @@ class LunarEclipseTileSource : TileSource {
         }
     }
 
-    private fun getEclipseObscuration(location: Coordinate, time: ZonedDateTime): Float? {
+    private fun getEclipseObscuration(
+        location: Coordinate,
+        time: ZonedDateTime,
+        showPath: Boolean
+    ): Float? {
         val eclipse =
             astronomy.getLunarEclipse(location, time.toLocalDate()) ?: astronomy.getLunarEclipse(
                 location,
@@ -70,6 +80,12 @@ class LunarEclipseTileSource : TileSource {
             return null
         }
         return eclipse.obscuration
+    }
+
+    companion object {
+        const val SOURCE_ID = "lunar_eclipse"
+        const val SHOW_PATH = "show_path"
+        const val DEFAULT_SHOW_PATH = false
     }
 
 }

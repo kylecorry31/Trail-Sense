@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.map_layers
 
+import android.content.Context
+
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
@@ -26,6 +28,7 @@ class BeaconGeoJsonSource : GeoJsonSource {
     private val beaconService = AppServiceRegistry.get<BeaconService>()
 
     override suspend fun load(
+        context: Context,
         bounds: CoordinateBounds,
         zoom: Int,
         params: Bundle
@@ -56,9 +59,9 @@ class BeaconGeoJsonSource : GeoJsonSource {
                         it.color
                     ),
                     isClickable = true,
-                    layerId = BeaconLayer.LAYER_ID,
+                    layerId = SOURCE_ID,
                     additionalProperties = mapOf(
-                        BeaconLayer.PROPERTY_BEACON_ID to it.id
+                        PROPERTY_BEACON_ID to it.id
                     )
                 )
                 newMap[point] = it
@@ -67,5 +70,10 @@ class BeaconGeoJsonSource : GeoJsonSource {
         )
         featureToBeaconMap = newMap
         return collection
+    }
+
+    companion object {
+        const val SOURCE_ID = "beacon"
+        const val PROPERTY_BEACON_ID = "beaconId"
     }
 }

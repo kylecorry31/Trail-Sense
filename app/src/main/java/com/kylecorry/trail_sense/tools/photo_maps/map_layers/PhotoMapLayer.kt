@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
-import android.graphics.Color
 import android.os.Bundle
-import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
@@ -12,19 +10,16 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     minZoomLevel = 4
 ) {
 
-    override val layerId: String = LAYER_ID
+    override val layerId: String = PhotoMapTileSource.SOURCE_ID
     private var idFilter: Long? = null
-    private val recycleTask = BackgroundTask {
-        source.recycle()
-    }
-
-    init {
-        source.backgroundColor = Color.TRANSPARENT
-    }
+    private var loadPdfs: Boolean = PhotoMapTileSource.DEFAULT_LOAD_PDFS
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        source.loadPdfs = preferences.getBoolean(LOAD_PDFS, DEFAULT_LOAD_PDFS)
+        loadPdfs = preferences.getBoolean(
+            PhotoMapTileSource.LOAD_PDFS,
+            PhotoMapTileSource.DEFAULT_LOAD_PDFS
+        )
     }
 
     fun setPhotoMapFilter(id: Long? = null) {
@@ -38,7 +33,7 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
 
     override fun getCacheKey(): String {
         val keys = mutableListOf(layerId)
-        keys.add(source.loadPdfs.toString())
+        keys.add(loadPdfs.toString())
         idFilter?.let { keys.add(it.toString()) }
         return keys.joinToString("-")
     }
@@ -59,24 +54,14 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
         notifyListeners()
     }
 
-    override fun stop() {
-        super.stop()
-        recycleTask.start()
-    }
-
     companion object {
-        const val LAYER_ID = "map"
-        const val LOAD_PDFS = "load_pdfs"
-        const val DEFAULT_LOAD_PDFS = false
-
         fun getCacheKeysForMap(mapId: Long): List<String> {
             return listOf(
-                "$LAYER_ID-true-$mapId",
-                "$LAYER_ID-false-$mapId",
-                "$LAYER_ID-true",
-                "$LAYER_ID-false",
+                "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
+                "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
+                "${PhotoMapTileSource.SOURCE_ID}-true",
+                "${PhotoMapTileSource.SOURCE_ID}-false",
             )
         }
-
     }
 }

@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -9,23 +11,38 @@ import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.colors.GreenToRedSlopeColorMap
-import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorMap
+import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorMapFactory
+import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy
 import com.kylecorry.trail_sense.shared.dem.getCellSizeX
 import com.kylecorry.trail_sense.shared.dem.getCellSizeY
 import com.kylecorry.trail_sense.shared.dem.getSlopeAngle
 import com.kylecorry.trail_sense.shared.dem.getSlopeVector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
+import com.kylecorry.trail_sense.shared.withId
 import kotlin.math.absoluteValue
 
 class SlopeMapTileSource : TileSource {
-    var highResolution: Boolean = false
-    var colorMap: SlopeColorMap = GreenToRedSlopeColorMap()
-    var smooth = true
-    var hideFlatGround = false
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getPreferences()
+        val strategyId = preferences.getString(COLOR)?.toLongOrNull()
+        val colorMap = SlopeColorMapFactory().getSlopeColorMap(
+            SlopeColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
+        )
+        val highResolution =
+            preferences.getBoolean(
+                HIGH_RESOLUTION,
+                DEFAULT_HIGH_RESOLUTION
+            )
+        val smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+        val hideFlatGround =
+            preferences.getBoolean(
+                HIDE_FLAT_GROUND,
+                DEFAULT_HIDE_FLAT_GROUND
+            )
+
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()
 
@@ -83,6 +100,18 @@ class SlopeMapTileSource : TileSource {
                 )
             )
         )
+    }
+
+    companion object {
+        const val SOURCE_ID = "slope"
+        const val COLOR = "color"
+        const val HIGH_RESOLUTION = "high_resolution"
+        const val SMOOTH = "smooth"
+        const val HIDE_FLAT_GROUND = "hide_flat_ground"
+        val DEFAULT_COLOR = SlopeColorStrategy.GreenToRed
+        const val DEFAULT_HIGH_RESOLUTION = false
+        const val DEFAULT_SMOOTH = true
+        const val DEFAULT_HIDE_FLAT_GROUND = false
     }
 
 }

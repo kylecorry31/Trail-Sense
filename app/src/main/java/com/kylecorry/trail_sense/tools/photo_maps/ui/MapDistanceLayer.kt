@@ -80,7 +80,7 @@ class MapDistanceLayer : ILayer {
         if (!isEnabled) {
             return
         }
-        renderer.draw(drawer, map)
+        renderer.draw(context, drawer, map)
     }
 
     override fun drawOverlay(

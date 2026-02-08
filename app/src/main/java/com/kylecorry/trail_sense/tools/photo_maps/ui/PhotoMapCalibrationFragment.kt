@@ -28,9 +28,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPrefer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
@@ -311,9 +311,9 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.calibrationMap.stop()
 
         val layers = if (enabled) listOf(
-            PathLayer.LAYER_ID,
-            MyLocationLayer.LAYER_ID,
-            BeaconLayer.LAYER_ID
+            PathGeoJsonSource.SOURCE_ID,
+            MyLocationGeoJsonSource.SOURCE_ID,
+            BeaconGeoJsonSource.SOURCE_ID
         ) else emptyList()
         binding.calibrationMap.setLayersWithPreferences(
             PhotoMapsToolRegistration.MAP_ID,

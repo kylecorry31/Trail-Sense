@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -32,6 +33,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
+    protected var layerPreferences: Bundle = bundleOf()
 
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -49,7 +51,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     init {
         renderer.setOnClickListener(this::onClick)
-        taskRunner.addTask { viewBounds, bounds, projection ->
+        taskRunner.addTask { context, viewBounds, bounds, projection ->
             isInvalid = false
             val zoomLevel = projection.zoom.roundToInt()
             try {
@@ -60,9 +62,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                     }
                 }
 
-                val params = bundleOf(GeoJsonSource.PARAM_TIME to _renderTime.toEpochMilli())
+                val params = bundleOf(MapLayerParams.PARAM_TIME to _renderTime.toEpochMilli())
+                params.putBundle(MapLayerParams.PARAM_PREFERENCES, layerPreferences)
                 val obj =
-                    source.load(bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
+                    source.load(context, bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
                         emptyList()
                     )
                 renderer.setGeoJsonObject(obj)
@@ -81,6 +84,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun setPreferences(preferences: Bundle) {
+        layerPreferences = Bundle(preferences)
         percentOpacity = preferences.getInt(
             DefaultMapLayerDefinitions.OPACITY,
             DefaultMapLayerDefinitions.DEFAULT_OPACITY
@@ -92,8 +96,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        renderer.draw(drawer, map)
+        renderer.draw(context, drawer, map)
         taskRunner.scheduleUpdate(
+            context,
             drawer.getBounds(45f),
             map.mapBounds,
             map.mapProjection,

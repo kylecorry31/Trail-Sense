@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
+import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -36,12 +37,12 @@ object FieldGuideToolRegistration : ToolRegistration {
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
-                    FieldGuideSightingLayer.LAYER_ID,
+                    FieldGuideSightingGeoJsonSource.SOURCE_ID,
                     context.getString(R.string.sightings),
                     description = context.getString(R.string.map_layer_field_guide_sightings_description),
                     preferences = listOf(
                         MapLayerPreference(
-                            id = FieldGuideSightingLayer.PREFERENCE_SHOW_IMAGES,
+                            id = FieldGuideSightingGeoJsonSource.PREFERENCE_SHOW_IMAGES,
                             title = context.getString(R.string.show_images),
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = false
@@ -49,7 +50,7 @@ object FieldGuideToolRegistration : ToolRegistration {
                     ),
                     openFeature = { feature, fragment ->
                         val fieldGuidePageId =
-                            feature.getLongProperty(FieldGuideSightingLayer.PROPERTY_PAGE_ID)
+                            feature.getLongProperty(FieldGuideSightingGeoJsonSource.PROPERTY_PAGE_ID)
                         val navController = fragment.findNavController()
                         navController.navigateWithAnimation(
                             R.id.fieldGuidePageFragment,

@@ -104,15 +104,20 @@ class BaseMapTileSource : TileSource {
         )
     )
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
-        return internalSelector.loadTile(tile, params)
+    override suspend fun loadTile(
+        context: Context,
+        tile: Tile,
+        params: Bundle
+    ): Bitmap? {
+        return internalSelector.loadTile(context, tile, params)
     }
 
-    suspend fun recycle() {
+    override suspend fun cleanup() {
         decoderCache.recycleInactive(emptyList())
     }
 
     companion object {
+        const val SOURCE_ID = "base_map"
         private val SOURCE_MAP_COLOR_DESERT = Color.rgb(232, 225, 182)
         private val SOURCE_MAP_COLOR_ROCK = Color.rgb(202, 195, 184)
         private val SOURCE_MAP_COLOR_GRASS = Color.rgb(189, 204, 150)

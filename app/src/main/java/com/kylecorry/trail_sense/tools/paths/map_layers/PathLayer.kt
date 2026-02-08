@@ -12,7 +12,8 @@ import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId = LAYER_ID) {
+class PathLayer :
+    GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId = PathGeoJsonSource.SOURCE_ID) {
 
     private val pathService = AppServiceRegistry.get<PathService>()
     private val task = BackgroundTask {
@@ -55,10 +56,11 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
 
     override fun setPreferences(preferences: Bundle) {
         super.setPreferences(preferences)
-        val backgroundColorId = preferences.getString(BACKGROUND_COLOR)?.toLongOrNull()
+        val backgroundColorId =
+            preferences.getString(PathGeoJsonSource.BACKGROUND_COLOR)?.toLongOrNull()
         renderer.configureLineStringRenderer(
             backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId ?: 0)
-                ?: DEFAULT_BACKGROUND_COLOR
+                ?: PathGeoJsonSource.DEFAULT_BACKGROUND_COLOR
         )
     }
 
@@ -68,9 +70,4 @@ class PathLayer : GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId =
         notifyListeners()
     }
 
-    companion object {
-        const val LAYER_ID = "path"
-        const val BACKGROUND_COLOR = "background_color"
-        val DEFAULT_BACKGROUND_COLOR = PathBackgroundColor.None
-    }
 }

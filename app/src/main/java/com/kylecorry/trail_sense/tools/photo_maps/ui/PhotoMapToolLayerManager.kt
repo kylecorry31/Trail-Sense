@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
 
 class PhotoMapToolLayerManager {
 
@@ -145,7 +146,7 @@ class PhotoMapToolLayerManager {
 
     companion object {
         val alwaysEnabledLayers = listOf(
-            PhotoMapLayer.LAYER_ID
+            PhotoMapTileSource.SOURCE_ID
         )
 
     }

@@ -1,11 +1,13 @@
 package com.kylecorry.trail_sense.tools.signal_finder.map_layers
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.GEO_JSON_PROPERTY_SIZE_UNIT_METERS
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
@@ -14,13 +16,19 @@ import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerMod
 
 class CellTowerGeoJsonSource : GeoJsonSource {
 
-    var featureName: String? = null
+    private var featureName: String? = null
 
     override suspend fun load(
+        context: Context,
         bounds: CoordinateBounds,
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
+
+        if (featureName == null) {
+            featureName = context.getString(R.string.cell_tower)
+        }
+
         val towers = CellTowerModel.getTowers(bounds)
         return GeoJsonFeatureCollection(
             towers.map {
@@ -36,7 +44,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
                     iconSize = 12f,
                     isClickable = true,
                     name = featureName,
-                    layerId = CellTowerMapLayer.LAYER_ID,
+                    layerId = SOURCE_ID,
                     additionalProperties = mapOf(
                         GEO_JSON_PROPERTY_ACCURACY to it.accuracy.meters().value
                     )
@@ -45,6 +53,7 @@ class CellTowerGeoJsonSource : GeoJsonSource {
     }
 
     companion object {
+        const val SOURCE_ID = "cell_tower"
         const val GEO_JSON_PROPERTY_ACCURACY = "accuracy"
     }
 }

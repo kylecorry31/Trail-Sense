@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -15,6 +17,8 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.InterpolatedGridValuePr
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Instant
@@ -22,14 +26,16 @@ import java.time.ZonedDateTime
 
 class SolarEclipseTileSource : TileSource {
 
-    var smooth = false
-    var showPath = false
     private val colorMap = AlphaColorMap(maxAlpha = 200)
     private val astronomy = AstronomyService()
     private val lookupTable by lazy { constructLookupTable() }
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
-        val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getPreferences()
+        val smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+        val showPath = preferences.getBoolean(SHOW_PATH, DEFAULT_SHOW_PATH)
+
+        val time = Instant.ofEpochMilli(params.getLong(MapLayerParams.PARAM_TIME))
             .toZonedDateTime()
         val bounds = tile.getBounds()
         val isEclipseVisible = arrayOf(
@@ -39,7 +45,7 @@ class SolarEclipseTileSource : TileSource {
             bounds.northEast,
             bounds.southEast
         ).any {
-            getEclipseObscuration(it, time) != null
+            getEclipseObscuration(it, time, showPath) != null
         }
 
         if (!isEclipseVisible) {
@@ -56,7 +62,7 @@ class SolarEclipseTileSource : TileSource {
             valueProvider = InterpolatedGridValueProvider(
                 4,
                 ParallelCoordinateGridValueProvider { lat, lon ->
-                    getEclipseObscuration(Coordinate(lat, lon), time) ?: 0f
+                    getEclipseObscuration(Coordinate(lat, lon), time, showPath) ?: 0f
                 })
         ) { x, y, getValue ->
             val value = getValue(x, y)
@@ -74,7 +80,11 @@ class SolarEclipseTileSource : TileSource {
         return bitmap
     }
 
-    private fun getEclipseObscuration(location: Coordinate, time: ZonedDateTime): Float? {
+    private fun getEclipseObscuration(
+        location: Coordinate,
+        time: ZonedDateTime,
+        showPath: Boolean
+    ): Float? {
         return if (showPath) {
             astronomy.getPeakSolarEclipseObscuration(location, time)
         } else {
@@ -103,5 +113,13 @@ class SolarEclipseTileSource : TileSource {
             table.alpha[i] = colorMap.getColor(pct).alpha.toByte()
         }
         return table
+    }
+
+    companion object {
+        const val SOURCE_ID = "solar_eclipse"
+        const val SMOOTH = "smooth"
+        const val SHOW_PATH = "show_path"
+        const val DEFAULT_SMOOTH = false
+        const val DEFAULT_SHOW_PATH = false
     }
 }

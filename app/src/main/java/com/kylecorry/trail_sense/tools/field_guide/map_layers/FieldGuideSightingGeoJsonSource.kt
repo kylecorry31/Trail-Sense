@@ -17,9 +17,11 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
@@ -31,8 +33,6 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
     private val repo = AppServiceRegistry.get<FieldGuideRepo>()
     private val files = AppServiceRegistry.get<FileSubsystem>()
     var nameFormat = ""
-    var showImages = false
-    var context: Context? = null
     private val size = 12f
     private val imageSize = size * 1.5f
     private val bitmapCache = mutableMapOf<Long, Bitmap?>()
@@ -53,10 +53,17 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
     )
 
     override suspend fun load(
+        context: Context,
         bounds: CoordinateBounds,
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
+        val preferences = params.getPreferences()
+        val showImages =
+            preferences.getBoolean(PREFERENCE_SHOW_IMAGES, false)
+        if (nameFormat.isEmpty()) {
+            nameFormat = context.getString(R.string.sighting_label)
+        }
         val pages = repo.getAllPages()
 
         val allSightings = pages
@@ -75,7 +82,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         val collection = GeoJsonFeatureCollection(
             allSightings.map { (sighting, page) ->
                 val icon = getIconForPage(page)
-                val bitmap = if (showImages) getBitmapForPage(page) else null
+                val bitmap = if (showImages) getBitmapForPage(page, context) else null
                 val point = GeoJsonFeature.point(
                     sighting.location!!,
                     sighting.id,
@@ -87,10 +94,10 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
                     markerShape = if (bitmap == null) "circle" else null,
                     size = size,
                     isClickable = true,
-                    layerId = FieldGuideSightingLayer.LAYER_ID,
+                    layerId = SOURCE_ID,
                     bitmap = bitmap,
                     additionalProperties = mapOf(
-                        FieldGuideSightingLayer.PROPERTY_PAGE_ID to page.id
+                        PROPERTY_PAGE_ID to page.id
                     )
                 )
                 point
@@ -100,7 +107,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         return collection
     }
 
-    private fun getBitmapForPage(page: FieldGuidePage): Bitmap? {
+    private fun getBitmapForPage(page: FieldGuidePage, context: Context): Bitmap? {
         if (page.images.isEmpty()) {
             return null
         }
@@ -110,7 +117,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         }
 
         // Double the size for increased resolution
-        val sizePixels = Resources.dp(context ?: return null, imageSize * 2).toInt()
+        val sizePixels = Resources.dp(context, imageSize * 2).toInt()
 
         val sourceBitmap = tryOrDefault(null) {
             files.bitmap(page.images.first(), Size(sizePixels, sizePixels))
@@ -148,5 +155,10 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
 
         return tagIconMap[lowestTag] ?: BeaconIcon.Information
     }
-}
 
+    companion object {
+        const val SOURCE_ID = "field_guide_sighting"
+        const val PROPERTY_PAGE_ID = "pageId"
+        const val PREFERENCE_SHOW_IMAGES = "show_images"
+    }
+}

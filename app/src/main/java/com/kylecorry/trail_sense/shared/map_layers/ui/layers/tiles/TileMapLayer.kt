@@ -14,11 +14,13 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withSave
+import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
@@ -81,6 +83,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val srcRect = Rect()
     private val destRect = Rect()
     private val clipPath = Path()
+    protected var layerPreferences: Bundle = bundleOf()
 
     private val loadTimer = CoroutineTimer {
         queue.load(16)
@@ -99,7 +102,7 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     init {
-        taskRunner.addTask { _: Rectangle, _: CoordinateBounds, projection: IMapViewProjection ->
+        taskRunner.addTask { _: Context, _: Rectangle, _: CoordinateBounds, projection: IMapViewProjection ->
             queue.setMapProjection(projection)
         }
     }
@@ -117,6 +120,7 @@ abstract class TileMapLayer<T : TileSource>(
 
         // Load tiles if needed
         taskRunner.scheduleUpdate(
+            context,
             drawer.getBounds(45f), // TODO: Cache this
             map.mapBounds,
             map.mapProjection
@@ -129,7 +133,7 @@ abstract class TileMapLayer<T : TileSource>(
                 drawer.canvas.saveLayer(null, layerPaint)
                 shouldSaveLayer = true
             }
-            renderTiles(drawer.canvas, map)
+            renderTiles(context, drawer.canvas, map)
         } finally {
             if (shouldSaveLayer) {
                 drawer.pop()
@@ -153,7 +157,7 @@ abstract class TileMapLayer<T : TileSource>(
         return false
     }
 
-    private fun renderTiles(canvas: Canvas, map: IMapView) {
+    private fun renderTiles(context: Context, canvas: Canvas, map: IMapView) {
         val bounds = map.mapBounds
         val projection = map.mapProjection
         val desiredTiles = getTiles(
@@ -165,7 +169,7 @@ abstract class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles, _renderTime)
+            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences, context)
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
@@ -463,10 +467,25 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     override fun setPreferences(preferences: Bundle) {
-        percentOpacity = preferences.getInt(
-            DefaultMapLayerDefinitions.OPACITY,
-            DefaultMapLayerDefinitions.DEFAULT_OPACITY
-        ) / 100f
+        layerPreferences = Bundle(preferences)
+        if (shouldMultiply) {
+            multiplyAlpha = SolMath.map(
+                preferences.getInt(
+                    DefaultMapLayerDefinitions.OPACITY,
+                    DefaultMapLayerDefinitions.DEFAULT_OPACITY
+                ) / 100f,
+                0f,
+                1f,
+                0f,
+                255f,
+                shouldClamp = true
+            ).toInt()
+        } else {
+            percentOpacity = preferences.getInt(
+                DefaultMapLayerDefinitions.OPACITY,
+                DefaultMapLayerDefinitions.DEFAULT_OPACITY
+            ) / 100f
+        }
     }
 
     override var percentOpacity: Float = 1f

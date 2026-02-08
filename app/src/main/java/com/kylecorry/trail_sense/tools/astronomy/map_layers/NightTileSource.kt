@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
+import android.content.Context
+
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -16,20 +18,24 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.InterpolatedGridValuePr
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Instant
 
 class NightTileSource : TileSource {
 
-    var smooth = false
     private val colorMap = AlphaColorMap(maxAlpha = 200)
     private val astronomy = AstronomyService()
 
     private val lookupTable by lazy { constructLookupTable() }
 
-    override suspend fun loadTile(tile: Tile, params: Bundle): Bitmap? {
-        val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
+    override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
+        val preferences = params.getPreferences()
+        val smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
+
+        val time = Instant.ofEpochMilli(params.getLong(MapLayerParams.PARAM_TIME))
             .toZonedDateTime()
         val bounds = tile.getBounds()
         val isNight = arrayOf(
@@ -99,6 +105,12 @@ class NightTileSource : TileSource {
             table.alpha[i] = colorMap.getColor(pct).alpha.toByte()
         }
         return table
+    }
+
+    companion object {
+        const val SOURCE_ID = "night"
+        const val SMOOTH = "smooth"
+        const val DEFAULT_SMOOTH = false
     }
 
 }

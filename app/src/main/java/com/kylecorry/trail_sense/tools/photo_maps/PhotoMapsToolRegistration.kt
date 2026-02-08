@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.photo_maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -64,16 +65,16 @@ object PhotoMapsToolRegistration : ToolRegistration {
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
-                    PhotoMapLayer.LAYER_ID,
+                    PhotoMapTileSource.SOURCE_ID,
                     context.getString(R.string.photo_maps),
                     layerType = MapLayerType.Tile,
                     description = context.getString(R.string.map_layer_photo_maps_description),
                     preferences = listOf(
                         MapLayerPreference(
-                            id = PhotoMapLayer.LOAD_PDFS,
+                            id = PhotoMapTileSource.LOAD_PDFS,
                             title = context.getString(R.string.load_pdf_tiles),
                             type = MapLayerPreferenceType.Switch,
-                            defaultValue = PhotoMapLayer.DEFAULT_LOAD_PDFS,
+                            defaultValue = PhotoMapTileSource.DEFAULT_LOAD_PDFS,
                             summary = context.getString(R.string.load_pdf_tiles_summary)
                         )
                     )

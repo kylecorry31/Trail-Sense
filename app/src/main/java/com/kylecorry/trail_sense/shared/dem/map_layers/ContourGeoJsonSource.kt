@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
+import android.content.Context
+
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
@@ -11,17 +13,17 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
-import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseVibrantElevationColorMap
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class ContourGeoJsonSource : GeoJsonSource {
 
     private val units = AppServiceRegistry.get<UserPreferences>().baseDistanceUnits
-
-    var colorScale: ElevationColorMap = TrailSenseVibrantElevationColorMap()
 
     private val validIntervals by lazy {
         if (units.isMetric) {
@@ -55,10 +57,16 @@ class ContourGeoJsonSource : GeoJsonSource {
     )
 
     override suspend fun load(
+        context: Context,
         bounds: CoordinateBounds,
         zoom: Int,
         params: Bundle
     ): GeoJsonObject? {
+        val preferences = params.getPreferences()
+        val strategyId = preferences.getString(COLOR)?.toLongOrNull()
+        val colorScale = ElevationColorMapFactory().getElevationColorMap(
+            ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
+        )
         if (zoom !in minZoom..maxZoom) {
             return null
         }
@@ -101,5 +109,13 @@ class ContourGeoJsonSource : GeoJsonSource {
         }
 
         return GeoJsonFeatureCollection(features)
+    }
+
+    companion object {
+        const val SOURCE_ID = "contour"
+        const val SHOW_LABELS = "show_labels"
+        const val DEFAULT_SHOW_LABELS = true
+        const val COLOR = "color"
+        val DEFAULT_COLOR = ElevationColorStrategy.Brown
     }
 }
