@@ -1,5 +1,7 @@
 Layers are used to display information on the map, they are configurable on the Navigation, Photo Maps, and Map tool. See the respective tool guides for how to access the layer settings.
 
+Some layers are time dependent (marked below). When viewing these layers in the Map tool, you can change the map time to see them at different times. In other tools, they always display the current time.
+
 On the layer settings panel, the higher up a layer is in the list, the more "on top" it will be drawn on the map. You can use the arrows on the left side to adjust the order of the layers.
 
 Click on the layer's name to expand its settings.
@@ -31,7 +33,7 @@ This layer draws shadows to help see elevation in the terrain from the digital e
 Settings:
 
 - **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
-- **Draw accurate shadows**: If enabled, shadows will be drawn using the position of the sun and moon, but the 3D appearance may be reduced.
+- **Draw accurate shadows**: If enabled, shadows will be drawn using the position of the sun and moon (time dependent), but the 3D appearance may be reduced.
 - **Multi-direction shading**: If enabled, shadows will be calculated from multiple light directions to enhance terrain details.
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
@@ -86,21 +88,26 @@ Settings:
 - **Color**: The color of the contour lines, some options are color scales which change based on elevation.
 
 ## Solar Eclipse
-This layer shows the current solar eclipse visibility.
+This layer shows the solar eclipse visibility (time dependent).
 
 Black = total eclipse, Gray = partial eclipse
 
 Settings:
 
 - **Smooth**: If enabled, the eclipse visibility will be smoothed so you can better see gradual changes. Makes it harder to see where the total eclipse is though.
+- **Show path**: If enabled, the path of the eclipse is shown instead of the current visibility.
 
 ## Lunar Eclipse
-This layer shows the current lunar eclipse visibility.
+This layer shows the lunar eclipse visibility (time dependent).
 
 Orange = eclipse is visible
 
+Settings:
+
+- **Show path**: If enabled, the path of the eclipse is shown instead of the current visibility.
+
 ## Night
-This layer shows where it is currently nighttime based on the sun's altitude.
+This layer shows where it is nighttime based on the sun's altitude (time dependent).
 
 Black = sun well below horizon, Gray = sun just below horizon
 
@@ -125,7 +132,7 @@ This layer shows visible beacons. You can add new beacons in the Beacons tool. Y
 This layer draws a line between your location and the destination point you are navigating to.
 
 ## Tides
-This layer shows visible tides. You can add new tides in the Tides tool.
+This layer shows visible tides (time dependent). You can add new tides in the Tides tool.
 
 Settings:
 
