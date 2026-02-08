@@ -17,7 +17,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.luna.timer.CoroutineTimer
 import kotlinx.coroutines.CancellationException
+import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
 
@@ -28,13 +30,15 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     override val layerId: String,
     private val minZoomLevel: Int? = null,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    override val isTimeDependent: Boolean = false
+    override val isTimeDependent: Boolean = false,
+    private val refreshInterval: Duration? = null
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
     protected var layerPreferences: Bundle = bundleOf()
+    private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
 
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -145,6 +149,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
         )
+        refreshInterval?.let { refreshTimer?.interval(it, it) }
     }
 
     override fun stop() {
@@ -152,6 +157,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
         )
+        refreshTimer?.stop()
         taskRunner.stop()
     }
 

@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import java.time.Instant
+import java.time.Duration
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -47,7 +48,8 @@ abstract class TileMapLayer<T : TileSource>(
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     private var minZoomLevel: Int? = null,
     shouldMultiply: Boolean = false,
-    override val isTimeDependent: Boolean = false
+    override val isTimeDependent: Boolean = false,
+    private val refreshInterval: Duration? = null
 ) : IAsyncLayer {
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -91,6 +93,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val loadTimer = CoroutineTimer {
         queue.load(16)
     }
+    private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
 
     private val sourceCleanupTask = BackgroundTask {
         source.cleanup()
@@ -441,10 +444,12 @@ abstract class TileMapLayer<T : TileSource>(
             notifyListeners()
         }
         loadTimer.interval(100)
+        refreshInterval?.let { refreshTimer?.interval(it, it) }
     }
 
     override fun stop() {
         loadTimer.stop()
+        refreshTimer?.stop()
         taskRunner.stop()
         loader?.clearCache()
         loader = null
