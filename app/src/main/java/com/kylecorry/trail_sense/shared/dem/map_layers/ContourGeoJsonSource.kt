@@ -113,7 +113,6 @@ class ContourGeoJsonSource : GeoJsonSource {
 
     companion object {
         const val SOURCE_ID = "contour"
-        const val SHOW_LABELS = "show_labels"
         const val DEFAULT_SHOW_LABELS = true
         const val COLOR = "color"
         val DEFAULT_COLOR = ElevationColorStrategy.Brown

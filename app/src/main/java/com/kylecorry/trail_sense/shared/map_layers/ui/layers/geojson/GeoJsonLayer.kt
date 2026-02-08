@@ -105,6 +105,14 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                     ?: PathBackgroundColor.None
             )
         }
+        if (preferences.containsKey(DefaultMapLayerDefinitions.SHOW_LABELS)) {
+            renderer.configureLineStringRenderer(
+                shouldRenderLabels = preferences.getBoolean(
+                    DefaultMapLayerDefinitions.SHOW_LABELS,
+                    true
+                )
+            )
+        }
     }
 
     override fun draw(
