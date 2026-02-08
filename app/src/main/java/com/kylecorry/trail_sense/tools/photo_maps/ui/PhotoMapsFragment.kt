@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -74,12 +75,15 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         binding.mapTitle.rightButton.setOnClickListener {
             val fragment = currentFragment
             val isMapView = fragment != null && fragment is ViewPhotoMapFragment
+            val isCalibrationFragment = fragment != null && fragment is PhotoMapCalibrationFragment
 
             val actions = listOf(
                 MapContextualAction.Calibrate to if (isMapView) getString(R.string.calibrate) else null,
                 MapContextualAction.Guide to getString(R.string.tool_user_guide_title),
                 MapContextualAction.Rename to getString(R.string.rename),
-                MapContextualAction.ChangeProjection to if (isMapView) getString(R.string.change_map_projection) else null,
+                MapContextualAction.ChangeProjection to if (isMapView || isCalibrationFragment) getString(
+                    R.string.change_map_projection
+                ) else null,
                 MapContextualAction.Measure to if (isMapView) getString(R.string.measure) else null,
                 MapContextualAction.CreatePath to if (isMapView) getString(R.string.create_path) else null,
                 MapContextualAction.AdjustLayers to if (isMapView) getString(R.string.layers) else null,
@@ -98,7 +102,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
                     MapContextualAction.Calibrate -> calibrate()
                     MapContextualAction.Guide -> openGuide()
                     MapContextualAction.Rename -> rename()
-                    MapContextualAction.ChangeProjection -> changeProjection()
+                    MapContextualAction.ChangeProjection -> changeProjection(isCalibrationFragment)
                     MapContextualAction.Measure, MapContextualAction.CreatePath -> measure()
                     MapContextualAction.Export -> export()
                     MapContextualAction.Print -> print()
@@ -198,7 +202,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         }
     }
 
-    private fun changeProjection() {
+    private fun changeProjection(showConfirmation: Boolean) {
         val projections = MapProjectionType.values()
         val projectionNames = projections.map { formatter.formatMapProjection(it) }
         Pickers.item(
@@ -208,15 +212,31 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
             projections.indexOf(map?.metadata?.projection)
         ) {
             it ?: return@item
-            map?.let { m ->
-                val newProjection = projections[it]
-                inBackground {
-                    val updated = mapRepo.getMap(m.id) ?: return@inBackground
-                    map = mapService.setProjection(updated, newProjection)
-                    onMain {
-                        reload()
+            val newProjection = projections[it]
+            val applyProjectionChange = {
+                map?.let { m ->
+                    inBackground {
+                        val updated = mapRepo.getMap(m.id) ?: return@inBackground
+                        map = mapService.setProjection(updated, newProjection)
+                        onMain {
+                            reload()
+                        }
                     }
                 }
+            }
+
+            if (showConfirmation) {
+                Alerts.dialog(
+                    requireContext(),
+                    getString(R.string.change_map_projection),
+                    getString(R.string.map_calibration_clear_message)
+                ) { cancelled ->
+                    if (!cancelled) {
+                        applyProjectionChange()
+                    }
+                }
+            } else {
+                applyProjectionChange()
             }
         }
     }

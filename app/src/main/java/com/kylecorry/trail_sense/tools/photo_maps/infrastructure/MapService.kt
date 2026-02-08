@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration.MapRotationCalculator
 
 class MapService private constructor(private val repo: IMapRepo) {
 
@@ -40,8 +41,16 @@ class MapService private constructor(private val repo: IMapRepo) {
 
     suspend fun setProjection(map: PhotoMap, projection: MapProjectionType): PhotoMap {
         val newMap = map.copy(metadata = map.metadata.copy(projection = projection))
-        repo.addMap(newMap)
-        return newMap
+        val recalculatedRotation = if (newMap.isCalibrated) {
+            MapRotationCalculator().calculate(newMap)
+        } else {
+            newMap.calibration.rotation
+        }
+        val updatedMap = newMap.copy(
+            calibration = newMap.calibration.copy(rotation = recalculatedRotation)
+        )
+        repo.addMap(updatedMap)
+        return updatedMap
     }
 
     private suspend fun getGroups(parent: Long?): List<MapGroup> {
