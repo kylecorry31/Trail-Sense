@@ -1557,4 +1557,5 @@
     <string name="map_layer_lunar_eclipse_description">Viditelnost zatmění Měsíce</string>
     <string name="map_layer_night_description">Noční tmavá vrstva</string>
     <string name="show_path">Zobrazit cestu</string>
+    <string name="map_calibration_clear_message">Změna mapové projekce vymaže vaše kalibrační změny.</string>
 </resources>
