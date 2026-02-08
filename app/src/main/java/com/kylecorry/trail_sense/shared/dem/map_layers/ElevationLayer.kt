@@ -4,8 +4,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 
 class ElevationLayer : TileMapLayer<ElevationMapTileSource>(
     ElevationMapTileSource(),
-    minZoomLevel = 10,
-) {
-
-    override val layerId: String = ElevationMapTileSource.SOURCE_ID
-}
+    ElevationMapTileSource.SOURCE_ID,
+    minZoomLevel = 10
+)

@@ -11,7 +11,7 @@ class ConfigurableGeoJsonLayer(
 ) :
     GeoJsonLayer<ConfigurableGeoJsonSource>(
         ConfigurableGeoJsonSource(initialData),
-        layerId = layerId
+        layerId
     ) {
 
     private var onClickListener: ((GeoJsonFeature) -> Boolean)? = null

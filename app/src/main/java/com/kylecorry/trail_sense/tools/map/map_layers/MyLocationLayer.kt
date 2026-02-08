@@ -4,5 +4,5 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLaye
 
 class MyLocationLayer : GeoJsonLayer<MyLocationGeoJsonSource>(
     MyLocationGeoJsonSource(),
-    layerId = MyLocationGeoJsonSource.SOURCE_ID
+    MyLocationGeoJsonSource.SOURCE_ID
 )

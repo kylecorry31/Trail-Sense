@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.isClickable
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
@@ -15,9 +17,13 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.luna.timer.CoroutineTimer
 import kotlinx.coroutines.CancellationException
+import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
 
@@ -25,15 +31,18 @@ typealias OnGeoJsonFeatureClickListener = (GeoJsonFeature) -> Unit
 
 open class GeoJsonLayer<T : GeoJsonSource>(
     protected val source: T,
+    override val layerId: String,
     private val minZoomLevel: Int? = null,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    override val layerId: String
+    override val isTimeDependent: Boolean = false,
+    private val refreshInterval: Duration? = null
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
     protected var layerPreferences: Bundle = bundleOf()
+    private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
 
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -50,6 +59,8 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     init {
+        val prefs = AppServiceRegistry.get<UserPreferences>()
+        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
         renderer.setOnClickListener(this::onClick)
         taskRunner.addTask { context, viewBounds, bounds, projection ->
             isInvalid = false
@@ -89,6 +100,23 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             DefaultMapLayerDefinitions.OPACITY,
             DefaultMapLayerDefinitions.DEFAULT_OPACITY
         ) / 100f
+        // TODO: Eventually make this a geojson feature property instead of a global setting
+        if (preferences.containsKey(DefaultMapLayerDefinitions.BACKGROUND_COLOR)) {
+            val backgroundColorId =
+                preferences.getString(DefaultMapLayerDefinitions.BACKGROUND_COLOR)?.toLongOrNull()
+            renderer.configureLineStringRenderer(
+                backgroundColor = PathBackgroundColor.entries.withId(backgroundColorId ?: 0)
+                    ?: PathBackgroundColor.None
+            )
+        }
+        if (preferences.containsKey(DefaultMapLayerDefinitions.SHOW_LABELS)) {
+            renderer.configureLineStringRenderer(
+                shouldRenderLabels = preferences.getBoolean(
+                    DefaultMapLayerDefinitions.SHOW_LABELS,
+                    true
+                )
+            )
+        }
     }
 
     override fun draw(
@@ -144,6 +172,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
         )
+        refreshInterval?.let { refreshTimer?.interval(it, it) }
     }
 
     override fun stop() {
@@ -151,6 +180,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
         )
+        refreshTimer?.stop()
         taskRunner.stop()
     }
 

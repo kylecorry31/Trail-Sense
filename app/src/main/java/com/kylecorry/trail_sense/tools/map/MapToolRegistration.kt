@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
@@ -230,7 +231,7 @@ object MapToolRegistration : ToolRegistration {
                             openDemSettingsOnClick = true
                         ),
                         MapLayerPreference(
-                            id = ContourGeoJsonSource.SHOW_LABELS,
+                            id = DefaultMapLayerDefinitions.SHOW_LABELS,
                             title = context.getString(R.string.show_labels),
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = ContourGeoJsonSource.DEFAULT_SHOW_LABELS,

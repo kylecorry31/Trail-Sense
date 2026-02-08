@@ -4,6 +4,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLaye
 
 class CellTowerMapLayer : GeoJsonLayer<CellTowerGeoJsonSource>(
     CellTowerGeoJsonSource(),
-    minZoomLevel = 11,
-    layerId = CellTowerGeoJsonSource.SOURCE_ID
+    CellTowerGeoJsonSource.SOURCE_ID,
+    minZoomLevel = 11
 )

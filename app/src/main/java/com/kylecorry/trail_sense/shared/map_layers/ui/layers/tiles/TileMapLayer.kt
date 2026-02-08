@@ -37,14 +37,19 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import java.time.Instant
+import java.time.Duration
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
+    override val layerId: String,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    private var minZoomLevel: Int? = null
+    private var minZoomLevel: Int? = null,
+    private val shouldMultiply: Boolean = false,
+    override val isTimeDependent: Boolean = false,
+    private val refreshInterval: Duration? = null
 ) : IAsyncLayer {
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -61,15 +66,6 @@ abstract class TileMapLayer<T : TileSource>(
         isAntiAlias = false
         isFilterBitmap = true
     }
-    var shouldMultiply = false
-        set(value) {
-            field = value
-            if (value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                layerPaint.setBlendMode(BlendModeCompat.MULTIPLY)
-            } else {
-                layerPaint.setBlendMode(BlendModeCompat.SRC_OVER)
-            }
-        }
     var multiplyAlpha: Int = 255
         set(value) {
             field = value
@@ -88,6 +84,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val loadTimer = CoroutineTimer {
         queue.load(16)
     }
+    private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
 
     private val sourceCleanupTask = BackgroundTask {
         source.cleanup()
@@ -102,6 +99,11 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     init {
+        if (shouldMultiply && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            layerPaint.setBlendMode(BlendModeCompat.MULTIPLY)
+        } else {
+            layerPaint.setBlendMode(BlendModeCompat.SRC_OVER)
+        }
         taskRunner.addTask { _: Context, _: Rectangle, _: CoordinateBounds, projection: IMapViewProjection ->
             queue.setMapProjection(projection)
         }
@@ -438,10 +440,12 @@ abstract class TileMapLayer<T : TileSource>(
             notifyListeners()
         }
         loadTimer.interval(100)
+        refreshInterval?.let { refreshTimer?.interval(it, it) }
     }
 
     override fun stop() {
         loadTimer.stop()
+        refreshTimer?.stop()
         taskRunner.stop()
         loader?.clearCache()
         loader = null
@@ -459,6 +463,22 @@ abstract class TileMapLayer<T : TileSource>(
         }
         loadTimer.interval(100)
         invalidate()
+        notifyListeners()
+    }
+
+    fun improveResolution(
+        bounds: CoordinateBounds,
+        zoom: Int,
+        minimumTileCount: Int
+    ) {
+        var tileCount: Int
+        var zoomOffset = -1
+        do {
+            zoomOffset++
+            tileCount = TileMath.getTiles(bounds, zoom + zoomOffset).size
+        } while (tileCount < minimumTileCount && zoomOffset < 10)
+
+        setZoomOffset(zoomOffset)
         notifyListeners()
     }
 
