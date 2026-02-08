@@ -1539,4 +1539,5 @@
     <string name="map_layer_night_description">Superposition de l\'obscurité nocturne</string>
     <string name="show_images">Afficher les images</string>
     <string name="show_path">Afficher le chemin</string>
+    <string name="map_calibration_clear_message">La modification de la projection cartographique effacera vos modifications de calibrage.</string>
 </resources>
