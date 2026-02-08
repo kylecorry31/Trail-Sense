@@ -47,7 +47,7 @@ abstract class TileMapLayer<T : TileSource>(
     override val layerId: String,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     private var minZoomLevel: Int? = null,
-    shouldMultiply: Boolean = false,
+    private val shouldMultiply: Boolean = false,
     override val isTimeDependent: Boolean = false,
     private val refreshInterval: Duration? = null
 ) : IAsyncLayer {
@@ -66,15 +66,6 @@ abstract class TileMapLayer<T : TileSource>(
         isAntiAlias = false
         isFilterBitmap = true
     }
-    var shouldMultiply = shouldMultiply
-        set(value) {
-            field = value
-            if (value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                layerPaint.setBlendMode(BlendModeCompat.MULTIPLY)
-            } else {
-                layerPaint.setBlendMode(BlendModeCompat.SRC_OVER)
-            }
-        }
     var multiplyAlpha: Int = 255
         set(value) {
             field = value
@@ -108,6 +99,11 @@ abstract class TileMapLayer<T : TileSource>(
     }
 
     init {
+        if (shouldMultiply && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            layerPaint.setBlendMode(BlendModeCompat.MULTIPLY)
+        } else {
+            layerPaint.setBlendMode(BlendModeCompat.SRC_OVER)
+        }
         taskRunner.addTask { _: Context, _: Rectangle, _: CoordinateBounds, projection: IMapViewProjection ->
             queue.setMapProjection(projection)
         }
