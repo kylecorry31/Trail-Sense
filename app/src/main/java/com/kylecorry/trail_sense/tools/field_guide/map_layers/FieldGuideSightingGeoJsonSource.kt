@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
@@ -57,9 +58,9 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
-        val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
+        val preferences = params.getPreferences()
         val showImages =
-            preferences?.getBoolean(PREFERENCE_SHOW_IMAGES, false) ?: false
+            preferences.getBoolean(PREFERENCE_SHOW_IMAGES, false)
         if (nameFormat.isEmpty()) {
             nameFormat = context.getString(R.string.sighting_label)
         }

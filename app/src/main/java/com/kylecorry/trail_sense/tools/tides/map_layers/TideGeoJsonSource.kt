@@ -11,7 +11,9 @@ import com.kylecorry.luna.coroutines.Parallel
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.map.infrastructure.LandModel
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
@@ -33,15 +35,13 @@ class TideGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
-        val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
+        val preferences = params.getPreferences()
         val showModeledTides =
-            preferences?.getBoolean(SHOW_MODELED_TIDES, DEFAULT_SHOW_MODELED_TIDES)
-                ?: DEFAULT_SHOW_MODELED_TIDES
+            preferences.getBoolean(SHOW_MODELED_TIDES, DEFAULT_SHOW_MODELED_TIDES)
         val showPhase =
-            preferences?.getBoolean(SHOW_PHASE, DEFAULT_SHOW_PHASE)
-                ?: DEFAULT_SHOW_PHASE
+            preferences.getBoolean(SHOW_PHASE, DEFAULT_SHOW_PHASE)
 
-        val time = Instant.ofEpochMilli(params.getLong(GeoJsonSource.PARAM_TIME))
+        val time = Instant.ofEpochMilli(params.getLong(MapLayerParams.PARAM_TIME))
         val context = AppServiceRegistry.get<Context>()
         val tideService = TideService(context)
         val tables = LoadAllTideTablesCommand(context).execute() + getNearbyTideTables(

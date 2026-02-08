@@ -11,18 +11,19 @@ import com.kylecorry.trail_sense.shared.dem.colors.RuggednessDefaultColorMap
 import com.kylecorry.trail_sense.shared.dem.getCellSizeX
 import com.kylecorry.trail_sense.shared.dem.getCellSizeY
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import kotlin.math.sqrt
 
 class RuggednessMapTileSource : TileSource {
 
     override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
-        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val preferences = params.getPreferences()
         val highResolution =
-            preferences?.getBoolean(
+            preferences.getBoolean(
                 HIGH_RESOLUTION,
                 DEFAULT_HIGH_RESOLUTION
-            ) ?: DEFAULT_HIGH_RESOLUTION
+            )
         val colorMap = RuggednessDefaultColorMap()
 
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)

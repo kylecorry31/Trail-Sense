@@ -18,6 +18,8 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.InterpolatedGridValuePr
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Instant
@@ -30,11 +32,10 @@ class NightTileSource : TileSource {
     private val lookupTable by lazy { constructLookupTable() }
 
     override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
-        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
-        val smooth = preferences?.getBoolean(SMOOTH, DEFAULT_SMOOTH)
-            ?: DEFAULT_SMOOTH
+        val preferences = params.getPreferences()
+        val smooth = preferences.getBoolean(SMOOTH, DEFAULT_SMOOTH)
 
-        val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
+        val time = Instant.ofEpochMilli(params.getLong(MapLayerParams.PARAM_TIME))
             .toZonedDateTime()
         val bounds = tile.getBounds()
         val isNight = arrayOf(

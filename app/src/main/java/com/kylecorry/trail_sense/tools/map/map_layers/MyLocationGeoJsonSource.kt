@@ -18,6 +18,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class MyLocationGeoJsonSource : GeoJsonSource {
@@ -31,7 +32,7 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
-        val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES) ?: Bundle()
+        val preferences = params.getPreferences()
         val drawAccuracy = preferences.getBoolean(
             SHOW_ACCURACY,
             DEFAULT_SHOW_ACCURACY

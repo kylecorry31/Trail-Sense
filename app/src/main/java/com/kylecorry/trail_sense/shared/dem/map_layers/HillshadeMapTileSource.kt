@@ -19,6 +19,8 @@ import com.kylecorry.trail_sense.shared.dem.getSlopeAngle
 import com.kylecorry.trail_sense.shared.dem.getSlopeAspect
 import com.kylecorry.trail_sense.shared.dem.getSlopeVector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Instant
@@ -30,24 +32,24 @@ class HillshadeMapTileSource : TileSource {
     private val astronomy = AstronomyService()
 
     override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
-        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
+        val preferences = params.getPreferences()
         val drawAccurateShadows =
-            preferences?.getBoolean(
+            preferences.getBoolean(
                 DRAW_ACCURATE_SHADOWS,
                 DEFAULT_DRAW_ACCURATE_SHADOWS
-            ) ?: DEFAULT_DRAW_ACCURATE_SHADOWS
+            )
         val highResolution =
-            preferences?.getBoolean(
+            preferences.getBoolean(
                 HIGH_RESOLUTION,
                 DEFAULT_HIGH_RESOLUTION
-            ) ?: DEFAULT_HIGH_RESOLUTION
+            )
         val multiDirectionShading =
-            preferences?.getBoolean(
+            preferences.getBoolean(
                 MULTI_DIRECTION_SHADING,
                 DEFAULT_MULTI_DIRECTION_SHADING
-            ) ?: DEFAULT_MULTI_DIRECTION_SHADING
+            )
 
-        val time = Instant.ofEpochMilli(params.getLong(TileSource.PARAM_TIME))
+        val time = Instant.ofEpochMilli(params.getLong(MapLayerParams.PARAM_TIME))
         val zonedDateTime = time.toZonedDateTime()
         val zoomLevel = tile.z.coerceIn(DEM.IMAGE_MIN_ZOOM_LEVEL, DEM.IMAGE_MAX_ZOOM_LEVEL)
         val bounds = tile.getBounds()

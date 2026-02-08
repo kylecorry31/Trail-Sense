@@ -18,6 +18,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import java.time.Instant
 
@@ -71,8 +72,8 @@ class TileLoader(
         context: Context
     ) {
         val params = bundleOf(
-            TileSource.PARAM_TIME to time.toEpochMilli(),
-            TileSource.PARAM_PREFERENCES to Bundle(preferences)
+            MapLayerParams.PARAM_TIME to time.toEpochMilli(),
+            MapLayerParams.PARAM_PREFERENCES to Bundle(preferences)
         )
         val imageTiles = tiles.map { tile ->
             val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"

@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
@@ -35,11 +36,11 @@ class PhotoMapTileSource : TileSource {
         tile: Tile,
         params: Bundle
     ): Bitmap? {
-        val preferences = params.getBundle(TileSource.PARAM_PREFERENCES)
-        val loadPdfs = preferences?.getBoolean(
+        val preferences = params.getPreferences()
+        val loadPdfs = preferences.getBoolean(
             LOAD_PDFS,
             DEFAULT_LOAD_PDFS
-        ) ?: DEFAULT_LOAD_PDFS
+        )
 
         val selector = lock.withLock {
             if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || filter != lastFilter) {

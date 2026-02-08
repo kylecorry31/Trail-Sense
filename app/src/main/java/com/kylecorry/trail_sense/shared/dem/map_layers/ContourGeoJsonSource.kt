@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
@@ -61,8 +62,8 @@ class ContourGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject? {
-        val preferences = params.getBundle(GeoJsonSource.PARAM_PREFERENCES)
-        val strategyId = preferences?.getString(COLOR)?.toLongOrNull()
+        val preferences = params.getPreferences()
+        val strategyId = preferences.getString(COLOR)?.toLongOrNull()
         val colorScale = ElevationColorMapFactory().getElevationColorMap(
             ElevationColorStrategy.entries.withId(strategyId ?: 0) ?: DEFAULT_COLOR
         )

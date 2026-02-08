@@ -14,8 +14,4 @@ interface GeoJsonSource {
         params: Bundle = bundleOf()
     ): GeoJsonObject?
 
-    companion object {
-        const val PARAM_TIME = "time"
-        const val PARAM_PREFERENCES = "preferences"
-    }
 }

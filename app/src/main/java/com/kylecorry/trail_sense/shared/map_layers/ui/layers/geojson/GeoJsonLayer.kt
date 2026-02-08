@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -61,8 +62,8 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                     }
                 }
 
-                val params = bundleOf(GeoJsonSource.PARAM_TIME to _renderTime.toEpochMilli())
-                params.putBundle(GeoJsonSource.PARAM_PREFERENCES, layerPreferences)
+                val params = bundleOf(MapLayerParams.PARAM_TIME to _renderTime.toEpochMilli())
+                params.putBundle(MapLayerParams.PARAM_PREFERENCES, layerPreferences)
                 val obj =
                     source.load(context, bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
                         emptyList()
