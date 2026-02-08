@@ -41,6 +41,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var isPanEnabled = true
     var isZoomEnabled = true
     var isFlingEnabled = true
+    var useDensityPixelsForZoom = true
 
     private val density = context.resources.displayMetrics.density
     private val scroller = OverScroller(context)
@@ -121,7 +122,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
     override val zoom: Float
-        get() = TileMath.getZoomLevel(mapCenter, resolution)
+        get() = TileMath.getZoomLevel(
+            mapCenter,
+            if (useDensityPixelsForZoom) resolution else resolutionPixels
+        )
 
     override var resolutionPixels: Float
         get() {

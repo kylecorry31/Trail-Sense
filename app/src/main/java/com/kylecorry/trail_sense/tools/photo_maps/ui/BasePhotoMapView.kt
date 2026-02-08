@@ -43,6 +43,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     var onImageLoadedListener: (() -> Unit)? = null
 
+    var useDensityPixelsForZoom = true
+
     private val hooks = Hooks()
 
     override var userLocation: Coordinate = Coordinate.zero
@@ -131,7 +133,10 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         }
 
     override val zoom: Float
-        get() = TileMath.getZoomLevel(mapCenter, resolution)
+        get() = TileMath.getZoomLevel(
+            mapCenter,
+            if (useDensityPixelsForZoom) resolution else resolutionPixels
+        )
 
     override val mapBounds: CoordinateBounds
         get() {

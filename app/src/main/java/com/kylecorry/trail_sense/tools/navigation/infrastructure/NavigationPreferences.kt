@@ -79,6 +79,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         false
     )
 
+    val highDetailMode by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_high_detail_mode),
+        false
+    )
+
     var defaultPathColor: AppColor
         get() {
             val id = cache.getLong(context.getString(R.string.pref_backtrack_path_color))

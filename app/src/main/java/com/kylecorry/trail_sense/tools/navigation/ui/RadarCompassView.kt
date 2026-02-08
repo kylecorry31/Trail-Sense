@@ -42,6 +42,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private val density = context.resources.displayMetrics.density
     private var centerPixel: PixelCoordinate = PixelCoordinate(0f, 0f)
     private lateinit var compassCircle: Circle
+    var useDensityPixelsForZoom = true
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -428,7 +429,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         }
 
     override val zoom: Float
-        get() = TileMath.getZoomLevel(mapCenter, resolution)
+        get() = TileMath.getZoomLevel(
+            mapCenter,
+            if (useDensityPixelsForZoom) resolution else resolutionPixels
+        )
 
     override val layerScale: Float = 1f
 

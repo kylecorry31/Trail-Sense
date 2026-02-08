@@ -1521,8 +1521,8 @@
     <string name="sighting_label">Waarneming %s</string>
     <string name="show_on_map">Bekijk op kaart</string>
     <string name="show_images">Afbeeldingen tonen</string>
-    <string name="pref_photo_maps_high_detail_mode_title">Hoge detailmodus</string>
-    <string name="pref_photo_maps_high_detail_mode_summary">Laadt meer tegels voor een hogere kwaliteit. Gebruikt meer geheugen.</string>
+    <string name="pref_high_detail_mode_title">Hoge detailmodus</string>
+    <string name="pref_high_detail_mode_summary">Laadt meer tegels voor een hogere kwaliteit. Gebruikt meer geheugen.</string>
     <string name="multi_direction_shading">Multidirectionele schaduw</string>
     <string name="show_tide_phase">Getijdenfase weergeven</string>
     <string name="map_layer_solar_eclipse_description">Zichtbaarheidspad zonsverduistering</string>

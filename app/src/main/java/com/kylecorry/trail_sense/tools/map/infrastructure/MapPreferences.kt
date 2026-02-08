@@ -18,4 +18,10 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_save_map_state),
         false
     )
+
+    val highDetailMode by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_map_high_detail_mode),
+        false
+    )
 }

@@ -377,6 +377,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
 
+        binding.radarCompass.useDensityPixelsForZoom =
+            !userPrefs.navigation.highDetailMode
         layers.resume(requireContext(), binding.radarCompass)
 
         // Show the north reference indicator
