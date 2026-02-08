@@ -4,11 +4,11 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import java.time.Duration
 
-class SolarEclipseLayer : TileMapLayer<SolarEclipseTileSource>(SolarEclipseTileSource()) {
-
-    override val isTimeDependent = true
-
-    override val layerId: String = SolarEclipseTileSource.SOURCE_ID
+class SolarEclipseLayer : TileMapLayer<SolarEclipseTileSource>(
+    SolarEclipseTileSource(),
+    SolarEclipseTileSource.SOURCE_ID,
+    isTimeDependent = true
+) {
 
     private val timer = CoroutineTimer {
         refresh()

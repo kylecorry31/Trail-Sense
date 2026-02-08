@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 class NavigationLayer :
     GeoJsonLayer<NavigationGeoJsonSource>(
         NavigationGeoJsonSource(),
-        layerId = NavigationGeoJsonSource.SOURCE_ID
+        NavigationGeoJsonSource.SOURCE_ID
     ) {
 
     private val navigator = AppServiceRegistry.get<Navigator>()

@@ -4,5 +4,5 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLaye
 
 class FieldGuideSightingLayer : GeoJsonLayer<FieldGuideSightingGeoJsonSource>(
     FieldGuideSightingGeoJsonSource(),
-    layerId = FieldGuideSightingGeoJsonSource.SOURCE_ID
+    FieldGuideSightingGeoJsonSource.SOURCE_ID
 )

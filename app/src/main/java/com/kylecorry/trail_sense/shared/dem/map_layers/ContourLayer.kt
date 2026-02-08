@@ -5,8 +5,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLaye
 
 class ContourLayer : GeoJsonLayer<ContourGeoJsonSource>(
     ContourGeoJsonSource(),
-    minZoomLevel = 13,
-    layerId = ContourGeoJsonSource.SOURCE_ID
+    ContourGeoJsonSource.SOURCE_ID,
+    minZoomLevel = 13
 ) {
 
     override fun setPreferences(preferences: Bundle) {

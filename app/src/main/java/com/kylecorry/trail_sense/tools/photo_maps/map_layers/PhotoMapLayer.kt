@@ -7,10 +7,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 
 class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     PhotoMapTileSource(),
+    PhotoMapTileSource.SOURCE_ID,
     minZoomLevel = 4
 ) {
-
-    override val layerId: String = PhotoMapTileSource.SOURCE_ID
     private var idFilter: Long? = null
     private var loadPdfs: Boolean = PhotoMapTileSource.DEFAULT_LOAD_PDFS
 

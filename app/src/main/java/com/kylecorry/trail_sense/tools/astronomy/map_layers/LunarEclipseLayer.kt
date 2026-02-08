@@ -4,11 +4,11 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import java.time.Duration
 
-class LunarEclipseLayer : TileMapLayer<LunarEclipseTileSource>(LunarEclipseTileSource()) {
-
-    override val isTimeDependent = true
-
-    override val layerId: String = LunarEclipseTileSource.SOURCE_ID
+class LunarEclipseLayer : TileMapLayer<LunarEclipseTileSource>(
+    LunarEclipseTileSource(),
+    LunarEclipseTileSource.SOURCE_ID,
+    isTimeDependent = true
+) {
 
     private val timer = CoroutineTimer {
         refresh()

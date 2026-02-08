@@ -4,11 +4,11 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import java.time.Duration
 
-class NightLayer : TileMapLayer<NightTileSource>(NightTileSource()) {
-
-    override val isTimeDependent = true
-
-    override val layerId: String = NightTileSource.SOURCE_ID
+class NightLayer : TileMapLayer<NightTileSource>(
+    NightTileSource(),
+    NightTileSource.SOURCE_ID,
+    isTimeDependent = true
+) {
 
     private val timer = CoroutineTimer {
         refresh()

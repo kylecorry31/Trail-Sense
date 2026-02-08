@@ -25,9 +25,10 @@ typealias OnGeoJsonFeatureClickListener = (GeoJsonFeature) -> Unit
 
 open class GeoJsonLayer<T : GeoJsonSource>(
     protected val source: T,
+    override val layerId: String,
     private val minZoomLevel: Int? = null,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    override val layerId: String
+    override val isTimeDependent: Boolean = false
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
     private var isInvalid = true

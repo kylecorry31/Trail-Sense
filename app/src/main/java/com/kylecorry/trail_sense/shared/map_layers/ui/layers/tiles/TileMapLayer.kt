@@ -43,8 +43,11 @@ import kotlin.math.roundToInt
 
 abstract class TileMapLayer<T : TileSource>(
     protected val source: T,
+    override val layerId: String,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
-    private var minZoomLevel: Int? = null
+    private var minZoomLevel: Int? = null,
+    shouldMultiply: Boolean = false,
+    override val isTimeDependent: Boolean = false
 ) : IAsyncLayer {
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -61,7 +64,7 @@ abstract class TileMapLayer<T : TileSource>(
         isAntiAlias = false
         isFilterBitmap = true
     }
-    var shouldMultiply = false
+    var shouldMultiply = shouldMultiply
         set(value) {
             field = value
             if (value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 class BeaconLayer :
     GeoJsonLayer<BeaconGeoJsonSource>(
         BeaconGeoJsonSource(),
-        layerId = BeaconGeoJsonSource.SOURCE_ID
+        BeaconGeoJsonSource.SOURCE_ID
     ) {
     private val navigator = AppServiceRegistry.get<Navigator>()
     private var task = BackgroundTask {

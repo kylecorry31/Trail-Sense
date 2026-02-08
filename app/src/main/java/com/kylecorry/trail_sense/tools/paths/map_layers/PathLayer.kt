@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class PathLayer :
-    GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), layerId = PathGeoJsonSource.SOURCE_ID) {
+    GeoJsonLayer<PathGeoJsonSource>(PathGeoJsonSource(), PathGeoJsonSource.SOURCE_ID) {
 
     private val pathService = AppServiceRegistry.get<PathService>()
     private val task = BackgroundTask {
