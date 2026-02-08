@@ -170,11 +170,12 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         get() {
             val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f))
                 ?: return Coordinate.zero
-            return toCoordinate(toPixel(viewNoRotation))
+            val source = toSource(viewNoRotation.x, viewNoRotation.y) ?: return Coordinate.zero
+            return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
         }
         set(value) {
-            val pixel = toPixel(value)
-            requestCenter(toSource(pixel.x, pixel.y))
+            val source = projection?.toPixels(value.latitude, value.longitude) ?: return
+            requestCenter(PointF(source.x, source.y))
         }
     override var mapAzimuth: Float = 0f
         set(value) {
