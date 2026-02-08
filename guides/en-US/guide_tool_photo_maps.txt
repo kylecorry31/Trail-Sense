@@ -90,7 +90,9 @@ Long press a location on the map to view the elevation (from the DEM).
 To recalibrate a map, open the map, click the menu button in the top-right, and choose 'Calibrate'. Follow the instructions above to recalibrate.
 
 ## Changing map projection
-If your map points are not aligning correctly after calibrating (try calibrating again with different points first), consider changing the map projection. To do this, open the map, click the menu button in the top-right, and select 'Change projection'.
+If your map points are not aligning correctly while calibrating (try calibrating again with different points first), consider changing the map projection. To do this, open the map, click the menu button in the top-right, and select 'Change projection'.
+
+Changing the projection while calibrating will clear any unsaved changes.
 
 ## Rename a map
 To rename a map, click the menu button on the map row you wish to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top-right, and choose 'Rename'.
