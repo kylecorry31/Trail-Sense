@@ -13,8 +13,9 @@ import java.util.UUID
 
 class PersistentTileCache(context: Context) {
 
-    private val repo = CachedTileRepo.getInstance(context)
-    private val files = CacheFileSystem(context)
+    private val appContext = context.applicationContext
+    private val repo = CachedTileRepo.getInstance(appContext)
+    private val files = CacheFileSystem(appContext)
     private val imageSaver = ImageSaver()
 
     suspend fun getOrPut(key: String, tile: Tile, producer: suspend () -> Bitmap): Bitmap = onIO {
@@ -39,6 +40,7 @@ class PersistentTileCache(context: Context) {
         val totalSize = repo.getTotalSizeBytes()
         if (totalSize > MAX_CACHE_SIZE_BYTES) {
             repo.deleteLeastRecentlyUsed(EVICTION_COUNT)
+            CachedTileCleanupWorker.start(appContext)
         }
 
         bitmap
