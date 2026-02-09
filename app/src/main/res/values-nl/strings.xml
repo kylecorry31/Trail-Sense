@@ -163,7 +163,7 @@
     <string name="kilometers_per_hour_format">%.1f km/u</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
-    <string name="precise_nautical_miles_format">%s NM</string>
+    <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mijl</string>
     <string name="precise_feet_format">%s voet</string>
     <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond voor het kalibreren van de zeeniveauluchtdrukmeter, voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
@@ -1529,4 +1529,6 @@
     <string name="map_layer_lunar_eclipse_description">Zichtbaarheid maansverduistering</string>
     <string name="map_layer_night_description">Nachtelijke duisternislaag</string>
     <string name="show_path">Pad weergeven</string>
+    <string name="map_calibration_clear_message">De kaartprojectie veranderen maakt je kalibratiewijzigingen ongedaan.</string>
+    <string name="aspect">Aspect</string>
 </resources>
