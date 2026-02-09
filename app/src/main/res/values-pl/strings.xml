@@ -911,11 +911,7 @@
     <string name="astronomy_rise">Wschód</string>
     <string name="horizon">Horyzont</string>
     <string name="reduce_map_resolution_crop_disclaimer">Przycięcie mapy spowoduje zmniejszenie rozdzielczości. Jeśli chcesz przyciąć mapę w wysokiej rozdzielczości, użyj aplikacji do edycji zdjęć. Istnieją plany naprawienia tego w przyszłości.</string>
-    <string name="allow_ignore_battery_restrictions_instructions">Usunięcie ograniczeń baterii dla Trail Sense może poprawić dokładność.
-\n
-\nNa większości urządzeń kliknij \"%s\", a następnie przejdź do wszystkich aplikacji i wyłącz optymalizację baterii dla Trail Sense.
-\n
-\nOdwiedź stronę [Don\'t kill my app](https://dontkillmyapp.com/), aby uzyskać instrukcje dotyczące konkretnego urządzenia.</string>
+    <string name="allow_ignore_battery_restrictions_instructions">Ustawienie korzystania z baterii w tle bez ograniczeń dla Trail Sense może poprawić dokładność. \n \nKliknij \"%s\", następnie przejdź do wszystkich aplikacji i ustaw korzystanie z baterii w tle bez ograniczeń dla Trail Sense. \n \nOdwiedź stronę [Don\'t kill my app](https://dontkillmyapp.com/), aby uzyskać instrukcje dotyczące konkretnego urządzenia.</string>
     <string name="crop_map_instructions_long">Przeciągnij rogi ramki do rogów mapy, aby ją obrysować.</string>
     <string name="i_agree">Zgadzam się</string>
     <string name="battery_settings_limit_accuracy">Ograniczenia baterii mogą zmniejszyć dokładność</string>
