@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.trail_sense.shared.andromeda_temp.OffsetLifecycleEventTrigger
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_END
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_START
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.IWeatherSubsystem
@@ -65,6 +66,32 @@ enum class BiologicalActivity(
                 LifecycleEvent(
                     EVENT_ACTIVE_END,
                     BelowTemperatureTrigger(Temperature.celsius(0f))
+                )
+            )
+        ),
+        listOf(
+            "BWh",
+            "BWk",
+            "ET",
+            "EF"
+        )
+    ),
+    BlackFly(
+        BiologicalActivityType.Insect, SpeciesPhenology(
+            Temperature.celsius(0f),
+            listOf(
+                LifecycleEvent(
+                    EVENT_ACTIVE_START,
+                    MinimumGrowingDegreeDaysTrigger(220f, TemperatureUnits.Fahrenheit)
+                ),
+                LifecycleEvent(
+                    EVENT_ACTIVE_END,
+                    OffsetLifecycleEventTrigger(
+                        MinimumGrowingDegreeDaysTrigger(
+                            220f,
+                            TemperatureUnits.Fahrenheit
+                        ), 60
+                    )
                 )
             )
         ),

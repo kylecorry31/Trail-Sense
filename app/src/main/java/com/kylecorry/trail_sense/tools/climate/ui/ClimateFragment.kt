@@ -281,6 +281,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
     private fun getBiologicalActivityName(activity: BiologicalActivity): String {
         return when (activity) {
             BiologicalActivity.Mosquito -> getString(R.string.mosquitoes)
+            BiologicalActivity.BlackFly -> getString(R.string.black_flies)
             BiologicalActivity.Tick -> getString(R.string.ticks)
         }
     }
