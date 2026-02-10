@@ -1251,4 +1251,6 @@
     <string name="move_layer_down">Flytt lag ned</string>
     <string name="remove_layer">Fjern lag</string>
     <string name="additional_layers">Ekstra lag</string>
+    <string name="pref_high_detail_mode_title">Høydetaljert modus</string>
+    <string name="pref_high_detail_mode_summary">Laster flere fliser for høyere kvalitet. Bruker mere minne.</string>
 </resources>
