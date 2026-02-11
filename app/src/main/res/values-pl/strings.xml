@@ -7,7 +7,7 @@
     <string name="astronomy">Astronomia</string>
     <string name="sunrise_label">Wschód słońca</string>
     <string name="sunset_label">Zachód słońca</string>
-    <string name="true_north">Prawdziwa północ</string>
+    <string name="true_north">Rzeczywista północ</string>
     <string name="pref_use_sea_level_pressure_title">Ciśnienie na poziomie morza</string>
     <string name="general">Ogólne</string>
     <string name="pressure">Ciśnienie</string>
@@ -850,7 +850,7 @@
     <string name="weather_thunderstorm">Burza z piorunami</string>
     <string name="sensor">Czujnik</string>
     <string name="yes">Tak</string>
-    <string name="rate">Skala</string>
+    <string name="rate">Częstość</string>
     <string name="season">Sezon</string>
     <string name="times">Czasy</string>
     <string name="no">Nie</string>
@@ -899,12 +899,10 @@
     <string name="photo_maps">Mapy ze zdjęć</string>
     <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historyczne (%d rok)</string>
     <string name="astronomy_altitude_peak">Wysokość górowania</string>
-    <string name="map_calibration_instructions">Dotknij znanej lokalizacji na mapie, a następnie wprowadź współrzędne rzeczywiste. Kalibrację można zapisać, klikając przycisk \"Gotowe\".
-\n
-\nPrzykłady dobrych punktów kalibracji to parking, punkt oznakowania, punkt orientacyjny lub skrzyżowanie wzdłuż szlaku.</string>
+    <string name="map_calibration_instructions">Naciśnij znaną lokalizację na mapie, następnie wprowadź współrzędne rzeczywiste. Zapisz kalibrację naciskając przycisk \"Gotowe\". \n \nPrzykłady dobrych punktów kalibracji to parking, punkt informacyjny, punkt orientacyjny lub skrzyżowanie wzdłuż szlaku.</string>
     <string name="compass_source_mag_gyro">Magnetometr + Żyroskop</string>
-    <string name="pref_keep_map_facing_up_title">Trzymaj mapę skierowaną do góry</string>
-    <string name="pref_keep_map_facing_up_summary">Mapa zostanie wyrównana do górnej części ekranu zamiast do prawdziwej północy.</string>
+    <string name="pref_keep_map_facing_up_title">Zablokuj orientację mapy, aby północ była na górze</string>
+    <string name="pref_keep_map_facing_up_summary">Wyrównaj mapę do górnej krawędzi ekranu, zamiast do rzeczywistej północy.</string>
     <string name="illumination">Oświetlenie</string>
     <string name="until_sunrise">do wschodu słońca</string>
     <string name="astronomy_set">Zachód</string>
@@ -916,7 +914,7 @@
     <string name="i_agree">Zgadzam się</string>
     <string name="battery_settings_limit_accuracy">Ograniczenia baterii mogą zmniejszyć dokładność</string>
     <string name="photo_map_summary">Użyj zdjęcia jako mapy</string>
-    <string name="photo_map_disclaimer">Zawsze miej przy sobie mapę fizyczną jako kopię zapasową i weryfikuj dokładność Trail Sense.</string>
+    <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako kopię zapasową oraz weryfikuj dokładność Trail Sense.</string>
     <string name="map_file">Plik (JPG, PNG, PDF)</string>
     <string name="map_calibration">Kalibracja mapy</string>
     <string name="peak_time">Górowanie</string>
@@ -1015,4 +1013,7 @@
     <string name="then_weather">następnie %s</string>
     <string name="weather_overcast">Pochmurno</string>
     <string name="blank">Pusta</string>
+    <string name="compass_source_legacy_ts">Starsze (Trail Sense)</string>
+    <string name="compass_source_legacy_android">Starsze (Android)</string>
+    <string name="true_north_description">Wskaż na geograficzny biegun północny używając deklinacji magnetycznej dla bierzącej lokacji. Zgodne z większością map.</string>
 </resources>
