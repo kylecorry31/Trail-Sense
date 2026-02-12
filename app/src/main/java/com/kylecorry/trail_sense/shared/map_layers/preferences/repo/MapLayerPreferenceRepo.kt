@@ -13,7 +13,10 @@ class MapLayerPreferenceRepo {
     private val distanceMetric = LevenshteinDistance()
 
     fun getActiveLayerIds(mapId: String): List<String> {
-        return prefs.preferences.getString("pref_${mapId}_active_layers")?.split(",") ?: emptyList()
+        return prefs.preferences.getString("pref_${mapId}_active_layers")
+            ?.split(",")
+            ?.filter { it.isNotBlank() }
+            ?: emptyList()
     }
 
     fun setActiveLayerIds(mapId: String, layerIds: List<String>) {
@@ -96,7 +99,7 @@ class MapLayerPreferenceRepo {
         val sourceString = sourceOrder.joinToString(",")
         var bestDistance = Int.MAX_VALUE
         var bestOrder = listOf(layerId) + destinationOrder
-        for (i in destinationOrder.indices) {
+        for (i in 0..destinationOrder.size) {
             val newOrder = destinationOrder.toMutableList()
             newOrder.add(i, layerId)
             val newString = newOrder.joinToString(",")
