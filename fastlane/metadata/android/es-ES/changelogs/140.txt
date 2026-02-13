@@ -1,0 +1,14 @@
+Capas del mapa
+- Nuevas capas: pendiente, orientación, índice de rugosidad, avistamientos (guía de campo), noche y eclipse solar/lunar
+- Gestión de capas (añadir, eliminar, reordenar)
+- Opción de sombreado multi-direccional del terreno
+- Opción de mostrar la fase de la marea
+- Soporte de gesto "fling"
+- Rendimiento mejorado
+- Pulsar baliza para ver detalles en lugar de Navegar
+
+Mapa
+- Ajustar el tiempo de visualización para capas dependientes del tiempo
+
+Varios
+- Mejorar el manejo de errores
