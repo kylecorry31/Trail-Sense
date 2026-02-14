@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense
 
 import android.Manifest
 import android.os.Build
+import android.util.Log
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.ScreenshotFailureRule
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clearAppData
@@ -24,9 +26,13 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.closeApp
 import com.kylecorry.trail_sense.test_utils.TestUtils.grantPermission
 import com.kylecorry.trail_sense.test_utils.views.viewWithResourceId
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Rule
 import org.junit.Test
 
 class SmokeTest {
+
+    @get:Rule
+    val screenshotRule: ScreenshotFailureRule = ScreenshotFailureRule()
 
     private val packageName = "com.kylecorry.trail_sense.staging"
 
@@ -100,6 +106,7 @@ class SmokeTest {
     }
 
     private fun openTool(id: Long, name: String) {
+        Log.i(TAG, "Running smoke test for tool: $name ($id)")
         input("Search", name)
         scrollUntil { click(name, index = 1) }
         delay(200)
@@ -210,6 +217,10 @@ class SmokeTest {
         back()
         back()
         back()
+    }
+
+    companion object {
+        private const val TAG = "SmokeTest"
     }
 
 }

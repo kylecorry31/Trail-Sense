@@ -38,9 +38,22 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
 
       - name: Run staging smoke test
+        id: testing
+        continue-on-error: true
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           arch: ${{ matrix.api-level == 23 && 'x86' || 'x86_64' }}
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
           script: ./scripts/run-staging-smoke-test.sh
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-api-${{ matrix.api-level }}
+          path: app/emulator.log
+
+      - name: Raise error on test failure
+        if: steps.testing.outcome != 'success'
+        run: exit 1
