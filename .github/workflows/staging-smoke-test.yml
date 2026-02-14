@@ -10,6 +10,9 @@ on:
 jobs:
   staging_smoke_test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        api-level: [23, 36]
 
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +40,7 @@ jobs:
       - name: Run staging smoke test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 23
-          arch: x86
+          api-level: ${{ matrix.api-level }}
+          arch: ${{ matrix.api-level == 23 && 'x86' || 'x86_64' }}
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
           script: ./scripts/run-staging-smoke-test.sh
