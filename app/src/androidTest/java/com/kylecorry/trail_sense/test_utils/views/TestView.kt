@@ -25,6 +25,13 @@ fun view(
     return view(selector, index)
 }
 
+fun viewWithResourceId(
+    id: String,
+    index: Int = 0
+): TestView {
+    return view(By.res(id), index)
+}
+
 fun viewWithText(
     text: String,
     contains: Boolean = false,

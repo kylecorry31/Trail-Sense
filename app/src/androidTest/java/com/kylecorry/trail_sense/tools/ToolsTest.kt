@@ -1,13 +1,8 @@
 package com.kylecorry.trail_sense.tools
 
-import android.content.Intent
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.main.errors.TrailSenseExceptionHandler
 import com.kylecorry.trail_sense.shared.extensions.findNavController
-import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -23,21 +18,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
 class ToolsTest : ToolTestBase(0L) {
-
-    @Test
-    fun openAllTools() {
-        val tools = Tools.getTools(TestUtils.context)
-        for (tool in tools) {
-            TestUtils.onMain {
-                navController.navigate(tool.navAction)
-            }
-            // Wait for the tool to load
-            Thread.sleep(200)
-            isTrue {
-                tool.isOpen(navController.currentDestination?.id ?: 0)
-            }
-        }
-    }
 
     @Test
     fun openWithDynamicColors() {

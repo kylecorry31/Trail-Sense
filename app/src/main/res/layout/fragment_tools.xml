@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <com.kylecorry.trail_sense.shared.views.SearchView
-        android:id="@+id/searchbox"
+        android:id="@+id/tool_searchbox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@id/searchbox"
+        app:layout_constraintBottom_toBottomOf="@id/tool_searchbox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/searchbox"
+        app:layout_constraintTop_toTopOf="@id/tool_searchbox"
         app:srcCompat="@drawable/ic_settings"
         app:tint="?android:textColorSecondary" />
 
@@ -36,7 +36,7 @@
         app:alignItems="center"
         app:flexWrap="wrap"
         app:justifyContent="center"
-        app:layout_constraintTop_toBottomOf="@id/searchbox"
+        app:layout_constraintTop_toBottomOf="@id/tool_searchbox"
         app:layout_goneMarginTop="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView

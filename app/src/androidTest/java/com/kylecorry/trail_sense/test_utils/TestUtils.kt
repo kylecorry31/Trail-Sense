@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.test_utils
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.os.Build
@@ -149,6 +151,43 @@ object TestUtils {
         val prefs = UserPreferences(context)
         prefs.useAutoLocation = false
         prefs.locationOverride = coordinate
+    }
+
+    fun runShellCommand(command: String){
+        device.executeShellCommand(command)
+    }
+
+    fun clearAppData(packageName: String) {
+        runShellCommand("pm clear $packageName")
+    }
+
+    fun grantPermission(packageName: String, permission: String) {
+        runShellCommand("pm grant $packageName $permission")
+    }
+
+    fun closeApp(packageName: String) {
+        runShellCommand("am force-stop $packageName")
+    }
+
+    fun launchApp(packageName: String) {
+        val packageManager = context.packageManager
+        var intent = packageManager.getLaunchIntentForPackage(packageName)
+        if (intent == null) {
+            intent = packageManager.getLeanbackLaunchIntentForPackage(packageName)
+        }
+        if (intent == null) {
+            intent = Intent(Intent.ACTION_MAIN).apply { setPackage(packageName) }
+            val resolveInfo = packageManager.resolveActivity(intent, 0)
+            if (resolveInfo != null && resolveInfo.activityInfo != null) {
+                intent.setComponent(
+                    ComponentName(
+                        resolveInfo.activityInfo.packageName,
+                        resolveInfo.activityInfo.name,
+                    )
+                )
+            }
+        }
+        context.startActivity(intent)
     }
 
     fun startWithTool(
