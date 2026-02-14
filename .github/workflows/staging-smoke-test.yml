@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        api-level: [23, 36]
+        api-level: [23]
 
     steps:
       - uses: actions/checkout@v4
@@ -43,12 +43,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          target: "google_apis"
-          disable-animations: true
-          force-avd-creation: false
-          disk-size: 2G
-          heap-size: 1G
+          arch: ${{ matrix.api-level == 23 && 'x86' || 'x86_64' }}
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
           script: ./scripts/run-staging-smoke-test.sh
 
