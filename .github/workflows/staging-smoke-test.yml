@@ -44,8 +44,16 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: ${{ matrix.api-level == 23 && 'x86' || 'x86_64' }}
-          emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
-          script: ./scripts/run-staging-smoke-test.sh
+          profile: pixel_6
+          cores: 4
+          ram-size: 4096M
+          heap-size: 1024M
+          disable-animations: true
+          emulator-options: -no-snapshot -no-window -no-boot-anim -no-audio -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
+          script: |
+            adb wait-for-device
+            adb shell wm dismiss-keyguard || true
+            ./scripts/run-staging-smoke-test.sh
 
       - name: Upload Test Results
         if: always()
