@@ -30,6 +30,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.AndromedaFragment
@@ -84,6 +85,7 @@ class MainActivity : AndromedaActivity() {
     )
 
     private var bottomInsets = 0
+    private var appInitialized = false
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -106,6 +108,11 @@ class MainActivity : AndromedaActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
+        if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            return
+        }
+
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -127,32 +134,7 @@ class MainActivity : AndromedaActivity() {
         }
 
         updateFullscreenMode()
-        updateBottomNavigation()
-
-        navController.addOnDestinationChangedListener { _, _, _ ->
-            binding.quickActionsSheet.close()
-            updateBottomNavSelection()
-        }
-
         bindLayoutInsets()
-
-        if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
-            startActivity(Intent(this, OnboardingActivity::class.java))
-            finish()
-            return
-        }
-
-        val previousPermissionStatus = permissions.map {
-            Permissions.hasPermission(this, it)
-        }
-        requestPermissions(permissions) {
-            val currentPermissionStatus = permissions.map {
-                Permissions.hasPermission(this, it)
-            }
-            val permissionsChanged =
-                previousPermissionStatus.zip(currentPermissionStatus).any { it.first != it.second }
-            startApp(permissionsChanged)
-        }
     }
 
     override fun onDestroy() {
@@ -232,6 +214,31 @@ class MainActivity : AndromedaActivity() {
         updateFullscreenMode()
         cache.putBoolean("pref_theme_just_changed", true)
         recreate()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!appInitialized && _binding != null) {
+            appInitialized = true
+            updateBottomNavigation()
+
+            navController.addOnDestinationChangedListener { _, _, _ ->
+                binding.quickActionsSheet.close()
+                updateBottomNavSelection()
+            }
+
+            val previousPermissionStatus = permissions.map {
+                Permissions.hasPermission(this, it)
+            }
+            requestPermissions(permissions) {
+                val currentPermissionStatus = permissions.map {
+                    Permissions.hasPermission(this, it)
+                }
+                val permissionsChanged =
+                    previousPermissionStatus.zip(currentPermissionStatus).any { it.first != it.second }
+                startApp(permissionsChanged)
+            }
+        }
     }
 
     override fun onResume() {
@@ -361,12 +368,14 @@ class MainActivity : AndromedaActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("page", binding.bottomNavigation.selectedItemId)
-        navController.currentBackStackEntry?.arguments?.let {
-            outState.putBundle("navigation_arguments", it)
-        }
-        navController.currentDestination?.id?.let {
-            outState.putInt("navigation", it)
+        tryOrLog {
+            outState.putInt("page", binding.bottomNavigation.selectedItemId)
+            navController.currentBackStackEntry?.arguments?.let {
+                outState.putBundle("navigation_arguments", it)
+            }
+            navController.currentDestination?.id?.let {
+                outState.putInt("navigation", it)
+            }
         }
     }
 
