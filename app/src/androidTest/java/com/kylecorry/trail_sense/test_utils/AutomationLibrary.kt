@@ -128,6 +128,16 @@ object AutomationLibrary {
     }
 
     fun isChecked(
+        viewLookup: () -> TestView,
+        isChecked: Boolean = true,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            viewLookup().isChecked(isChecked)
+        }
+    }
+
+    fun isChecked(
         viewText: String,
         isChecked: Boolean = true,
         index: Int = 0,
@@ -278,6 +288,15 @@ object AutomationLibrary {
     }
 
     fun longClick(
+        viewLookup: () -> TestView,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            viewLookup().longClick()
+        }
+    }
+
+    fun longClick(
         text: String,
         index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
@@ -361,6 +380,12 @@ object AutomationLibrary {
         }
     }
 
+    fun isVisible(viewLookup: () -> TestView, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            viewLookup()
+        }
+    }
+
     fun isTrue(waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT, predicate: () -> Boolean) {
         waitFor(waitForTime) {
             assertTrue(predicate())
@@ -416,6 +441,10 @@ object AutomationLibrary {
             waitForTime,
             action
         )
+    }
+
+    fun delay(milliseconds: Long) {
+        Thread.sleep(milliseconds)
     }
 
     fun scrollUntil(

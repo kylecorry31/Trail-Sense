@@ -103,7 +103,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                 findNavController().navigate(R.id.action_settings)
             }
 
-            binding.searchbox.setOnSearchListener {
+            binding.toolSearchbox.setOnSearchListener {
                 updateTools()
             }
 
@@ -165,7 +165,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     }
 
     private fun filterTools(tools: List<Tool>): List<Tool> {
-        val filter = binding.searchbox.query
+        val filter = binding.toolSearchbox.query
         return if (filter.isNullOrBlank()) {
             tools
         } else {
@@ -179,7 +179,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     }
 
     private fun updateList() {
-        val filter = binding.searchbox.query
+        val filter = binding.toolSearchbox.query
 
         // Hide pinned when searching
         synchronized(listLock) {
