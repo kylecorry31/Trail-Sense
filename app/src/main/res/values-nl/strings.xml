@@ -1531,4 +1531,7 @@
     <string name="show_path">Pad weergeven</string>
     <string name="map_calibration_clear_message">De kaartprojectie veranderen maakt je kalibratiewijzigingen ongedaan.</string>
     <string name="aspect">Aspect</string>
+    <string name="black_flies">Kriebelmuggen</string>
+    <string name="deer_horse_flies">Dazen</string>
+    <string name="stable_flies">Stalvliegen</string>
 </resources>
