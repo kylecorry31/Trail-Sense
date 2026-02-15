@@ -82,14 +82,14 @@ enum class BiologicalActivity(
             listOf(
                 LifecycleEvent(
                     EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(220f, TemperatureUnits.Fahrenheit)
+                    MinimumGrowingDegreeDaysTrigger(220f, TemperatureUnits.Celsius)
                 ),
                 LifecycleEvent(
                     EVENT_ACTIVE_END,
                     OffsetLifecycleEventTrigger(
                         MinimumGrowingDegreeDaysTrigger(
                             220f,
-                            TemperatureUnits.Fahrenheit
+                            TemperatureUnits.Celsius
                         ), 60
                     )
                 )
@@ -101,7 +101,50 @@ enum class BiologicalActivity(
             "ET",
             "EF"
         )
-    )
+    ),
+    // Deer/horse flies
+    Tabanidae(
+        BiologicalActivityType.Insect, SpeciesPhenology(
+            Temperature.celsius(10f),
+            listOf(
+                LifecycleEvent(
+                    EVENT_ACTIVE_START,
+                    MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
+                ),
+                LifecycleEvent(
+                    EVENT_ACTIVE_END,
+                    BelowTemperatureTrigger(Temperature.celsius(18f))
+                )
+            )
+        ),
+        listOf(
+            "BWh",
+            "BWk",
+            "ET",
+            "EF"
+        )
+    ),
+    StableFlies(
+        BiologicalActivityType.Insect, SpeciesPhenology(
+            Temperature.celsius(10f),
+            listOf(
+                LifecycleEvent(
+                    EVENT_ACTIVE_START,
+                    MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
+                ),
+                LifecycleEvent(
+                    EVENT_ACTIVE_END,
+                    BelowTemperatureTrigger(Temperature.celsius(10f))
+                )
+            )
+        ),
+        listOf(
+            "BWh",
+            "BWk",
+            "ET",
+            "EF"
+        )
+    ),
 }
 
 class PhenologyService(private val weather: IWeatherSubsystem) {

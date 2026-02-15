@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.climate.ui
 
+import android.util.Log
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.ui.useService
@@ -250,6 +251,8 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
                 ?.filter { it.key.type == BiologicalActivityType.Insect && it.value.isNotEmpty() }
                 ?: emptyList()
 
+            Log.d("ClimateFragment", insects.toString())
+
             insectActivityDescriptionView.text = insects
                 .joinToString("\n") {
                     "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
@@ -282,6 +285,8 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         return when (activity) {
             BiologicalActivity.Mosquito -> getString(R.string.mosquitoes)
             BiologicalActivity.BlackFly -> getString(R.string.black_flies)
+            BiologicalActivity.Tabanidae -> getString(R.string.deer_horse_flies)
+            BiologicalActivity.StableFlies -> getString(R.string.stable_flies)
             BiologicalActivity.Tick -> getString(R.string.ticks)
         }
     }

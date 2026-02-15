@@ -11,15 +11,11 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
-import org.junit.Test
 import java.time.LocalDate
+import java.time.Month
+import kotlin.math.roundToInt
 
 class GrowingDegreeDaysThresholdTest {
-
-    private data class ThresholdSample(
-        val date: LocalDate,
-        val coordinate: Coordinate
-    )
 
     private lateinit var weather: WeatherSubsystem
 
@@ -30,54 +26,49 @@ class GrowingDegreeDaysThresholdTest {
         weather = WeatherSubsystem.getInstance(context)
     }
 
-//    @Test
-    fun calculateGddThreshold() = runBlocking {
+    //    @Test
+    fun getCumulativeGDDChart() = runBlocking {
+        // RI
+        val location = Coordinate(41.890833, -71.690556)
+        val year = 2026
         val baseTemperature = Temperature.celsius(10f)
 
-        val samples = listOf(
-            ThresholdSample(
-                date = LocalDate.of(2026, 4, 30),
-                coordinate = Coordinate(41.825226, -71.418884)
-            ),
-            ThresholdSample(
-                date = LocalDate.of(2026, 5, 15),
-                coordinate = Coordinate(43.207359, -71.551247)
-            ),
-            ThresholdSample(
-                date = LocalDate.of(2026, 6, 15),
-                coordinate = Coordinate(39.742043, -104.991531)
-            )
+        val early = 5
+        val mid = 15
+        val late = 25
+
+        val elevation = Distance.meters(DEM.getElevation(location))
+        val temperatures = weather.getTemperatureRanges(
+            year,
+            location,
+            elevation,
+            calibrated = false
         )
 
-        val totals = samples.map { sample ->
-            val elevation = Distance.meters(DEM.getElevation(sample.coordinate))
-            val temperatures = weather.getTemperatureRanges(
-                sample.date.year,
-                sample.coordinate,
-                elevation,
-                calibrated = false
+        val dates = Month.entries.flatMap {
+            listOf(
+                LocalDate.of(year, it, early),
+                LocalDate.of(year, it, mid),
+                LocalDate.of(year, it, late),
             )
-
-            val dates = temperatures.map { it.first }.filter { !it.isAfter(sample.date) }
-            val cumulative = Ecology.getCumulativeGrowingDegreeDays(
-                dates = dates,
-                baseTemperature = baseTemperature,
-                temperatureProvider = { date ->
-                    val range = temperatures.firstOrNull { it.first == date }?.second
-                        ?: temperatures.firstOrNull {
-                            it.first.month == date.month && it.first.dayOfMonth == date.dayOfMonth
-                        }?.second
-                    requireNotNull(range) { "Missing temperature for $date" }
-                }
-            )
-            val total = cumulative.lastOrNull()?.second ?: 0f
-
-            val label = "${sample.coordinate.latitude}, ${sample.coordinate.longitude}"
-            println("$label (${sample.date}): $total")
-            total
         }
+        val cumulative = Ecology.getCumulativeGrowingDegreeDays(
+            dates = dates,
+            baseTemperature = baseTemperature,
+            temperatureProvider = { date ->
+                val range = temperatures.firstOrNull { it.first == date }?.second
+                    ?: temperatures.firstOrNull {
+                        it.first.month == date.month && it.first.dayOfMonth == date.dayOfMonth
+                    }?.second
+                requireNotNull(range) { "Missing temperature for $date" }
+            }
+        )
 
-        val average = if (totals.isEmpty()) 0f else totals.sum() / totals.size
-        println("Average GDD threshold: $average")
+        Month.entries.forEach { month ->
+            println(month.name)
+            val values = cumulative.filter { it.first.month == month }
+            println("Early: ${values[0].second.roundToInt()}\tMid: ${values[1].second.roundToInt()}\tLate: ${values[2].second.roundToInt()}")
+            println()
+        }
     }
 }
