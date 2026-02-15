@@ -1864,4 +1864,7 @@
     <!--%s is the name of the field guide page-->
     <string name="sighting_label">%s sighting</string>
     <string name="show_path">Show path</string>
+    <string name="black_flies">Black flies</string>
+    <string name="deer_horse_flies">Deer/horse flies</string>
+    <string name="stable_flies">Stable flies</string>
 </resources>
