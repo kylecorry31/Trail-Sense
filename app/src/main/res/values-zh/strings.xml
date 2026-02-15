@@ -1521,4 +1521,7 @@
     <string name="map_layer_night_description">夜间暗度遮罩</string>
     <string name="show_path">显示路径</string>
     <string name="map_calibration_clear_message">更改地图投影会清除校准更改。</string>
+    <string name="black_flies">黑蝇</string>
+    <string name="deer_horse_flies">鹿蝇/马蝇</string>
+    <string name="stable_flies">螫蝇</string>
 </resources>
