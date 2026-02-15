@@ -110,9 +110,9 @@ class ToolsTabTest : ToolTestBase(0L) {
     }
 
     private fun canSearch() {
-        input(R.id.searchbox, "Sett")
+        input(R.id.tool_searchbox, "Sett")
         hasText(string(R.string.settings))
-        input(R.id.searchbox, "")
+        input(R.id.tool_searchbox, "")
         hasText(string(R.string.flashlight_title))
     }
 
