@@ -28,10 +28,8 @@ Long press a location on the map to view the elevation (from the DEM).
 ## Layers
 Layers are used to display information on the map. For more information on layers, refer to the 'Map Layers' guide.
 
-
-
-
-
+## Settings
+You can change tile detail in "Settings > Map > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
 
 
 
