@@ -1558,4 +1558,7 @@
     <string name="map_layer_night_description">Noční tmavá vrstva</string>
     <string name="show_path">Zobrazit cestu</string>
     <string name="map_calibration_clear_message">Změna mapové projekce vymaže vaše kalibrační změny.</string>
+    <string name="black_flies">Muchničkovití</string>
+    <string name="deer_horse_flies">Ovádovití</string>
+    <string name="stable_flies">Bodalky</string>
 </resources>
