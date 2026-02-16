@@ -1,8 +1,10 @@
 Las capas se usan para mostrar información en el mapa. Son configurables en Navegar, Mapas Calibrados y Herramienta de Mapa. Consulta las guías de la herramienta correspondiente para saber cómo acceder a los ajustes de capa.
 
-En el panel de ajustes de la capa, cuanto más arriba esté una capa en la lista, más "encima" se dibujará en el mapa. Puedes usar las flechas del lado izquierdo para ordenar las capas.
+Algunas capas dependen del tiempo (marcadas abajo). Al ver estas capas en la herramienta Mapa, puedes cambiar la hora del mapa para verlas en distintos momentos. En otras herramientas, siempre muestran la hora actual.
 
-Pulsa sobre el nombre de la capa para ver sus ajustes.
+En el panel de ajustes de capas, cuanto más arriba esté una capa en la lista, más "encima" se dibujará en el mapa. Puedes usar las flechas en el lado izquierdo para ajustar el orden de las capas.
+
+Pulsa  el nombre de la capa para ver sus ajustes.
 
 Puedes usar el botón "Capas adicionales" en la parte inferior de la lista de capas para añadir capas adicionales.
 
@@ -85,6 +87,35 @@ Ajustes:
 - **Mostrar etiquetas**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
 - **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
 
+## Eclipse solar
+Esta capa muestra la visibilidad del eclipse solar (dependiente del tiempo).
+
+Negro = eclipse total, Gris = eclipse parcial
+
+Ajustes:
+
+- **Suavizado**: Si está activado, la visibilidad del eclipse se suavizará para que puedas ver mejor los cambios graduales. Sin embargo, hace más difícil ver dónde está el eclipse total.
+- **Mostrar ruta**: Si está activado, se muestra la trayectoria del eclipse en lugar de la visibilidad actual.
+
+## Eclipse lunar
+Esta capa muestra la visibilidad del eclipse lunar (dependiente del tiempo).
+
+Naranja = el eclipse es visible
+
+Ajustes:
+
+- **Mostrar ruta**: Si está activado, se muestra la trayectoria del eclipse en lugar de la visibilidad actual.
+
+## Noche
+Esta capa muestra dónde es de noche basándose en la altitud del sol (dependiente del tiempo).
+
+Negro = sol muy por debajo del horizonte, Gris = sol justo por debajo del horizonte
+
+Ajustes:
+
+- **Suavizado**: Si está activado, la oscuridad se suavizará para que puedas ver mejor los cambios graduales entre el día y la noche.
+
+
 ## Torres de telefonía
 Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations. Puedes pulsar en una torre para navegar hacia ella.
 
@@ -102,7 +133,7 @@ Esta capa muestra las balizas visibles. Puedes añadir nuevas balizas en la herr
 Esta capa dibuja una línea entre tu ubicación y el punto de destino al que navegas.
 
 ## Mareas
-Esta capa muestra mareas visibles. Puedes añadir nuevas mareas en la herramienta Mareas.
+Esta capa muestra mareas visibles (dependientes del tiempo). Puedes añadir nuevas mareas en la herramienta Mareas.
 
 Ajustes:
 
