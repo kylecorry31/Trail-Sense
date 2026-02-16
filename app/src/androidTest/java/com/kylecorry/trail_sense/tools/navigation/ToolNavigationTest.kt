@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
@@ -87,6 +88,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
 
         click(R.id.beaconBtn)
         click("Test Beacon")
+        delay(200)
         click(string(R.string.navigate))
 
         hasText(string(R.string.calibrate_compass_dialog_title))

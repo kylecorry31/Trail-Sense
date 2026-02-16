@@ -190,16 +190,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         hasText("Navigate")
         hasText("Distance")
 
-        click("Beacon")
-        hasText("Create beacon")
-        hasText(Regex(".*-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°.*"))
-        back()
-        click("Leave")
-
-        waitFor {
-            longClick(R.id.map)
-            click("Navigate")
-        }
+        click("Navigate")
         hasText("Test Map", index = 1)
         hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
@@ -211,6 +202,13 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
         hasText("Create path")
         click(toolbarButton(R.id.map_distance_title, Side.Right))
+
+        longClick(R.id.map)
+        click("Beacon")
+        hasText("Create beacon")
+        hasText(Regex(".*-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°.*"))
+        back()
+        click("Leave")
     }
 
     private fun verifyMapMenuOptions() {
