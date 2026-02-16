@@ -90,7 +90,9 @@ Mantén pulsada una ubicación en el mapa para ver la elevación (del DEM).
 Para recalibrar un mapa, ábrelo, haz clic en el botón de menú en la esquina superior derecha y elige 'Calibrar'. Sigue las instrucciones anteriores para recalibrar.
 
 ## Cambiar la proyección del mapa
-Si los puntos de tu mapa no se alinean correctamente después de calibrar (primero intenta calibrar de nuevo con puntos diferentes), considera cambiar la proyección del mapa. Para ello, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y selecciona 'Cambiar proyección'.
+Si los puntos de tu mapa no se alinean correctamente mientras calibras (primero intenta calibrar de nuevo con puntos diferentes), considera cambiar la proyección del mapa. Para ello, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y selecciona 'Cambiar proyección'.
+
+Cambiar la proyección mientras calibras eliminará cualquier cambio no guardado.
 
 ## Renombrar un mapa
 Para renombrar un mapa, haz clic en el botón de menú en la fila del mapa que deseas renombrar y luego selecciona 'Renombrar' y proporciona un nuevo nombre. Alternativamente, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y elige 'Renombrar'.
