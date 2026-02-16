@@ -24,6 +24,8 @@ La brújula radar muestra balizas, rutas y mareas cercanos como una visualizaci�
 
 Puedes pellizcar para hacer zoom en la brújula radar, lo que cambiará el radio de balizas cercanas.
 
+Puedes ajustar el detalle de los mosaicos en la brújula radar en "Ajustes > Navegación > Modo de alto detalle" si los mosaicos aparecen borrosos, pero usará más memoria y tardará más en cargar.
+
 Si tu dispositivo no tiene brújula, aún puedes elegir mostrar las marcas del dial de la brújula activando 'Ajustes > Navegación> Mostrar marcas en dial de la brújula radar'. Ten en cuenta que sin un sensor de brújula, mover tu dispositivo no cambiará la dirección de la brújula radar.
 
 Las capas se usan para mostrar información en la brújula radar. Puedes encontrar los ajustes de capas en 'Ajustes > Navegación' o manteniendo pulsada la brújula radar. Más información sobre capas en la guía "Capas del Mapa".

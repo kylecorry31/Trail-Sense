@@ -5,6 +5,9 @@ Puedes arrastrar para desplazar, pellizcar para hacer zoom o pulsar los botones 
 
 Pulsa el botón GPS en la esquina inferior derecha para centrar el mapa en tu ubicación. Al pulsarlo de nuevo bloquearás tanto tu ubicación como tu orientación; un último pulso los desbloquea.
 
+## Cambiar la hora
+Si tienes una capa dependiente del tiempo activada (como mareas o eclipse solar), aparecerá un botón de reloj en la esquina superior derecha. Pulsa dicho botón para cambiar la hora usada por estas capas. Usa el control deslizante para recorrer el tiempo, o pulsa el texto de la hora para introducir una hora específica. El mapa se actualizará para reflejar la hora seleccionada. Pulsa el botón de nuevo para restablecer a la hora actual.
+
 ## Navegar y crear balizas
 Al navegar a una baliza, la distancia, la dirección y el tiempo estimado de llegada (ETA o Elapsed Time of Arrival) se muestran en la parte inferior. Para cancelar la navegación, pulsa el botón 'X'. Puedes abrir la baliza pulsando el nombre de la baliza en la hoja de navegación.
 
@@ -24,3 +27,6 @@ Mantén pulsada una ubicación en el mapa para ver la elevación (del DEM).
 
 ## Capas
 Las capas se usan para mostrar información en el mapa. Más información sobre capas en la guía "Capas del Mapa".
+
+## Ajustes
+Puedes cambiar el detalle de los mosaicos en **Ajustes > Mapa > Modo de alto detalle** si los mosaicos aparecen borrosos pero usará más memoria y tardará más en cargar.
