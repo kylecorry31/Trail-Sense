@@ -1491,4 +1491,7 @@
     <string name="map_layer_lunar_eclipse_description">Visibilidad del eclipse lunar</string>
     <string name="map_layer_night_description">Capa de oscuridad nocturna</string>
     <string name="show_path">Mostrar ruta</string>
+    <string name="black_flies">Moscas negras</string>
+    <string name="deer_horse_flies">Mosca del caballo</string>
+    <string name="stable_flies">Moscas de establo</string>
 </resources>
