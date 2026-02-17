@@ -22,6 +22,8 @@ import org.junit.Assert.assertTrue
 
 object AutomationLibrary {
 
+    var packageName: String? = null
+
     fun hasText(
         id: Int,
         text: String,
@@ -33,7 +35,7 @@ object AutomationLibrary {
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id, childId = childId, index = index).hasText(
+            view(id, childId = childId, index = index, packageName = packageName).hasText(
                 text,
                 ignoreCase = ignoreCase,
                 checkDescendants = checkDescendants,
@@ -51,7 +53,7 @@ object AutomationLibrary {
         predicate: (String) -> Boolean
     ) {
         waitFor(waitForTime) {
-            view(id, index = index).hasText(
+            view(id, index = index, packageName = packageName).hasText(
                 checkDescendants = checkDescendants,
                 message = message,
                 predicate = predicate
@@ -67,7 +69,7 @@ object AutomationLibrary {
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id, index = index).hasText(text, checkDescendants = checkDescendants)
+            view(id, index = index, packageName = packageName).hasText(text, checkDescendants = checkDescendants)
         }
     }
 
@@ -123,7 +125,7 @@ object AutomationLibrary {
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id, index = index).isChecked(isChecked)
+            view(id, index = index, packageName = packageName).isChecked(isChecked)
         }
     }
 
@@ -214,7 +216,7 @@ object AutomationLibrary {
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id, index = index).click(holdDuration, xPercent, yPercent)
+            view(id, index = index, packageName = packageName).click(holdDuration, xPercent, yPercent)
         }
     }
 
@@ -283,7 +285,7 @@ object AutomationLibrary {
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id, index = index).longClick()
+            view(id, index = index, packageName = packageName).longClick()
         }
     }
 
@@ -343,7 +345,7 @@ object AutomationLibrary {
         closeKeyboardOnCompletion: Boolean = false
     ) {
         waitFor(waitForTime) {
-            view(id).input(text, checkDescendants)
+            view(id, packageName = packageName).input(text, checkDescendants)
         }
         if (closeKeyboardOnCompletion) {
             TestUtils.back(false)
@@ -370,13 +372,13 @@ object AutomationLibrary {
 
     fun isNotVisible(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            TestUtils.not { view(id, index = index) }
+            TestUtils.not { view(id, index = index, packageName = packageName) }
         }
     }
 
     fun isVisible(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            view(id, index = index)
+            view(id, index = index, packageName = packageName)
         }
     }
 
@@ -399,7 +401,7 @@ object AutomationLibrary {
     }
 
     fun scrollToEnd(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
-        scrollToEnd({ view(id, index = index) }, waitForTime)
+        scrollToEnd({ view(id, index = index, packageName = packageName) }, waitForTime)
     }
 
     fun scrollToEnd(
@@ -412,7 +414,7 @@ object AutomationLibrary {
     }
 
     fun scrollToStart(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
-        scrollToStart({ view(id, index = index) }, waitForTime)
+        scrollToStart({ view(id, index = index, packageName = packageName) }, waitForTime)
     }
 
     fun scrollToStart(
@@ -434,7 +436,7 @@ object AutomationLibrary {
         action: () -> Unit
     ) {
         scrollUntil(
-            { view(id, index = index) },
+            { view(id, index = index, packageName = packageName) },
             direction,
             maxScrolls,
             amountPerScroll,

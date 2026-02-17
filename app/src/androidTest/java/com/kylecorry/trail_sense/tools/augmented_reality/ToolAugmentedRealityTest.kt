@@ -55,13 +55,13 @@ class ToolAugmentedRealityTest : ToolTestBase(Tools.AUGMENTED_REALITY) {
     }
 
     private fun canCalibrate() {
-        click(view(R.id.calibrate_btn))
+        click(R.id.calibrate_btn)
         clickOk()
         click(R.id.confirm_calibration_button)
     }
 
     private fun canToggleLayers() {
-        click(view(R.id.layers_btn))
+        click(R.id.layers_btn)
         // Verify the layers panel is visible
         hasText(string(R.string.beacons))
 

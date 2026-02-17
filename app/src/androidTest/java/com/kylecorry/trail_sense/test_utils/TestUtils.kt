@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.packageName
 import com.kylecorry.trail_sense.test_utils.views.childWithIndex
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.input
@@ -215,10 +216,10 @@ object TestUtils {
 
     fun openQuickActions() {
         waitFor {
-            view(R.id.bottom_navigation).longClick()
+            view(R.id.bottom_navigation, packageName = packageName).longClick()
         }
         waitFor {
-            view(R.id.quick_actions_sheet)
+            view(R.id.quick_actions_sheet, packageName = packageName)
         }
     }
 
@@ -364,11 +365,11 @@ object TestUtils {
 
     fun pickDate(year: Int, month: Int, day: Int, waitForClose: Boolean = true) {
         waitFor {
-            view(com.google.android.material.R.id.mtrl_picker_header_toggle).click()
+            view(com.google.android.material.R.id.mtrl_picker_header_toggle, packageName = packageName).click()
         }
 
         waitFor {
-            view(com.google.android.material.R.id.mtrl_picker_text_input_date)
+            view(com.google.android.material.R.id.mtrl_picker_text_input_date, packageName = packageName)
                 .childWithIndex(0)
                 .childWithIndex(0)
                 .input(
@@ -384,19 +385,19 @@ object TestUtils {
 
         if (waitForClose) {
             waitFor {
-                not { view(com.google.android.material.R.id.mtrl_calendar_main_pane) }
+                not { view(com.google.android.material.R.id.mtrl_calendar_main_pane, packageName = packageName) }
             }
         }
     }
 
     fun pickTime(hour: Int, minute: Int, am: Boolean, waitForClose: Boolean = true) {
         waitFor {
-            view(com.google.android.material.R.id.material_timepicker_mode_button).click()
+            view(com.google.android.material.R.id.material_timepicker_mode_button, packageName = packageName).click()
         }
 
         waitFor {
-            view(com.google.android.material.R.id.material_hour_text_input).click()
-            view(com.google.android.material.R.id.material_hour_text_input)
+            view(com.google.android.material.R.id.material_hour_text_input, packageName = packageName).click()
+            view(com.google.android.material.R.id.material_hour_text_input, packageName = packageName)
                 .childWithIndex(0)
                 .childWithIndex(0)
                 .childWithIndex(0)
@@ -405,10 +406,10 @@ object TestUtils {
                 )
         }
 
-        view(com.google.android.material.R.id.material_minute_text_input).click()
+        view(com.google.android.material.R.id.material_minute_text_input, packageName = packageName).click()
 
         waitFor {
-            view(com.google.android.material.R.id.material_minute_text_input)
+            view(com.google.android.material.R.id.material_minute_text_input, packageName = packageName)
                 .childWithIndex(0)
                 .childWithIndex(0)
                 .childWithIndex(0)
@@ -418,9 +419,9 @@ object TestUtils {
         }
 
         if (am) {
-            view(com.google.android.material.R.id.material_clock_period_am_button).click()
+            view(com.google.android.material.R.id.material_clock_period_am_button, packageName = packageName).click()
         } else {
-            view(com.google.android.material.R.id.material_clock_period_pm_button).click()
+            view(com.google.android.material.R.id.material_clock_period_pm_button, packageName = packageName).click()
         }
 
         waitFor {

@@ -1,11 +1,15 @@
 package com.kylecorry.trail_sense.tools.astronomy
 
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
@@ -56,10 +60,13 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY) {
                 )
             }
             click(R.id.button_3d)
-            isTrue {
-                Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
-                    ?.isOpen(navController.currentDestination?.id ?: 0) == true
+
+            // Verify the AR tool is open
+            clickOk()
+            if (!Sensors.hasGyroscope(TestUtils.context)) {
+                clickOk()
             }
+            isVisible(R.id.ar_view)
         } else {
             isNotVisible(R.id.button_3d)
         }
@@ -70,10 +77,13 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY) {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_NIGHT_MODE))
 
-        waitFor {
-            scenario.onActivity {
-                assertTrue(it.isDarkThemeOn())
-                // TODO: Verify the color filter is applied
+        // TODO: Need to find a way to test this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            waitFor {
+                scenario.onActivity {
+                    assertTrue(it.isDarkThemeOn())
+                    // TODO: Verify the color filter is applied
+                }
             }
         }
 
