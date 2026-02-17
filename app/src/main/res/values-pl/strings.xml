@@ -488,7 +488,7 @@
     <string name="moved_to">Przeniesiono do %s</string>
     <string name="move">Przenieś</string>
     <string name="pref_privacy_screenshot_protection_title">Zablokuj zrzuty ekranu</string>
-    <string name="map_perspective_instructions">Pokaż kontur mapy</string>
+    <string name="map_perspective_instructions">Obrysuj mapę</string>
     <string name="location_not_mocked">Korzystanie z rzeczywistej lokalizacji</string>
     <string name="roll_pitch_yaw">Przechylenie: %1$s, Nachylenie: %2$s, Odchylenie: %3$s</string>
     <string name="sleep_timer">Minutnik</string>
@@ -816,14 +816,14 @@
     <string name="pref_include_leading_zero_title">Dodaj wiodące zero do czasu</string>
     <string name="delete_path_group_message">%s oraz wszystkie zawarte ścieżki zostaną usunięte.</string>
     <string name="elevation">Wysokość</string>
-    <string name="create_path">Stwórz ścieżkę</string>
+    <string name="create_path">Utwórz ścieżkę</string>
     <string name="smoothing">Wygładzanie</string>
     <string name="source">Źródło</string>
     <string name="pref_backfill_temperatures_title">Zaktualizuj zarejestrowane temperatury</string>
     <string name="loading">Ładowanie</string>
     <string name="reset_calibration">Zresetuj kalibrację</string>
     <string name="weather_wind">Wiatr</string>
-    <string name="learn_more">Dowiedz się więcej</string>
+    <string name="learn_more">Dodatkowe informacje</string>
     <string name="samples">Próbki</string>
     <string name="size">Rozmiar</string>
     <plurals name="map_group_summary">
@@ -844,7 +844,7 @@
     <string name="sensor_summary">Kompas, GPS, wysokościomierz, barometr itp.</string>
     <string name="weather_alert_storm_description">Przygotuj się na silny wiatr i opady.</string>
     <string name="weather_alert_hot_description">Przygotuj się na wysokie temperatury. Zachowaj dodatkowe środki ostrożności przeciwko wyczerpaniu i udarowi cieplnemu.</string>
-    <string name="backtrack_no_permission">Ślad powrotny wymaga uprawnień lokalizacji do uruchomienia</string>
+    <string name="backtrack_no_permission">Szlak powrotny wymaga uprawnień dostępu do lokalizacji, aby działać</string>
     <string name="notifications_channel">Powiadomienia (%s)</string>
     <string name="sunset_alert_scheduled">Alert zaplanowany na %s przed zachodem słońca</string>
     <string name="weather_thunderstorm">Burza z piorunami</string>
@@ -877,11 +877,9 @@
         <item quantity="other">%d punktów usuniętych</item>
     </plurals>
     <string name="battery_usage_allowed">Dozwolone użycie baterii</string>
-    <string name="allow_ignore_battery_restrictions">Zezwalaj %s na ignorowanie ograniczeń dotyczących baterii</string>
-    <string name="allow_schedule_exact_alarms">Zezwalaj %s na ustawianie alarmów i przypomnień</string>
-    <string name="allow_schedule_exact_alarms_instructions">Pozwala to %1$s ustawić dokładne alarmy i przypomnienia, takie jak alerty o zachodzie słońca. Bez tej opcji alarmy mogą nie uruchamiać się we właściwym czasie.
-\n
-\nAby zezwolić, kliknij \"%2$s\" i włącz ustawienie zezwalające na alarmy i przypomnienia.</string>
+    <string name="allow_ignore_battery_restrictions">Zezwól %s na ignorowanie ograniczeń użycia baterii</string>
+    <string name="allow_schedule_exact_alarms">Zezwól %s na ustawianie alarmów i przypomnień</string>
+    <string name="allow_schedule_exact_alarms_instructions">Zezwól %1$s ustawiać dokładne alarmy i przypomnienia, jak alerty o zachodzie słońca. W przeciwnym razie alarmy mogą nie uruchamiać się we właściwym czasie. \n \nAby zezwolić, kliknij \"%2$s\" żeby przyznać dostęp do alarmów i przypomnień.</string>
     <string name="sunset_alerts_background_location_disclaimer">Alerty o zachodzie słońca mogą być niedokładne podczas podróży</string>
     <string name="start_time">Początek</string>
     <string name="end_time">Koniec</string>
@@ -908,11 +906,11 @@
     <string name="astronomy_set">Zachód</string>
     <string name="astronomy_rise">Wschód</string>
     <string name="horizon">Horyzont</string>
-    <string name="reduce_map_resolution_crop_disclaimer">Przycięcie mapy spowoduje zmniejszenie rozdzielczości. Jeśli chcesz przyciąć mapę w wysokiej rozdzielczości, użyj aplikacji do edycji zdjęć. Istnieją plany naprawienia tego w przyszłości.</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Przycięcie mapy zmniejszy rozdzielczość. Aby przyciąć mapę w wysokiej rozdzielczości, użyj aplikacji do edycji zdjęć. Istnieją plany naprawy w przyszłości.</string>
     <string name="allow_ignore_battery_restrictions_instructions">Ustawienie korzystania z baterii w tle bez ograniczeń dla Trail Sense może poprawić dokładność. \n \nKliknij \"%s\", następnie przejdź do wszystkich aplikacji i ustaw korzystanie z baterii w tle bez ograniczeń dla Trail Sense. \n \nOdwiedź stronę [Don\'t kill my app](https://dontkillmyapp.com/), aby uzyskać instrukcje dotyczące konkretnego urządzenia.</string>
-    <string name="crop_map_instructions_long">Przeciągnij rogi ramki do rogów mapy, aby ją obrysować.</string>
+    <string name="crop_map_instructions_long">Przeciągnij rogi ramki do rogów mapy, aby obrysować. Przycięcie mapy zmniejszy rozdzielczość.</string>
     <string name="i_agree">Zgadzam się</string>
-    <string name="battery_settings_limit_accuracy">Ograniczenia baterii mogą zmniejszyć dokładność</string>
+    <string name="battery_settings_limit_accuracy">Ograniczenie użycia baterii może zmniejszyć dokładność</string>
     <string name="photo_map_summary">Użyj zdjęcia jako mapy</string>
     <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako kopię zapasową oraz weryfikuj dokładność Trail Sense.</string>
     <string name="map_file">Plik (JPG, PNG, PDF)</string>
@@ -920,10 +918,10 @@
     <string name="peak_time">Górowanie</string>
     <string name="unable_to_find_next_astronomy">Nie można znaleźć następnego %s</string>
     <string name="until_sunset">do zachodu słońca</string>
-    <string name="exact_alarm_permission_denied">Odmowa pozwolenia na alarmy i przypomnienia, powiadomienia mogą być niedokładne. Można je włączyć w ustawieniach.</string>
+    <string name="exact_alarm_permission_denied">Odmowa uprawnień dostępu do alarmów i przypomnień, powiadomienia mogą być niedokładne.</string>
     <string name="daylight_duration">%s światła dziennego</string>
     <string name="center">Środek</string>
-    <string name="create_blank_map">Stwórz pustą mapę</string>
+    <string name="create_blank_map">Utwórz pustą mapę</string>
     <string name="solar_eclipses">Zaćmienia słońca</string>
     <string name="high_tide_letter">P</string>
     <string name="weather_clear">Bezchmurno</string>
@@ -1016,4 +1014,20 @@
     <string name="compass_source_legacy_ts">Starsze (Trail Sense)</string>
     <string name="compass_source_legacy_android">Starsze (Android)</string>
     <string name="true_north_description">Wskaż na geograficzny biegun północny używając deklinacji magnetycznej dla bierzącej lokacji. Zgodne z większością map.</string>
+    <string name="create_page">Utwórz stronę</string>
+    <string name="backup">Kopia zapasowa</string>
+    <string name="sunrise_alert_scheduled">Alert zaplanowany na %s przed wschodem słońca</string>
+    <string name="restore">Przywracanie</string>
+    <string name="restore_disclaimer">Akcja nadpisze wszystkie obecne dane. Proszę, upewnij się że posiadasz kopię zapasową przed kontynuacją.\n\nWybieraj wyłącznie plik kopii zapasowej który został utworzony przez %s.</string>
+    <string name="backup_disclaimer">Akcja wyeksportuje wszystkie obecne dane do pliku. Włączając ustawienia, ścieżki, punkty nawigacyjne, mapy, itp.\n\nPlik nie jest szyfrowany. Nie udostępniaj go osobom trzecim.</string>
+    <string name="backing_up_loading_message">Tworzenie kopii…</string>
+    <string name="restoring_loading_message">Przywracanie…</string>
+    <string name="restore_complete_message">Przywracanie powiodlo się. Uruchamianie ponownie, aby zastosować zmiany</string>
+    <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
+    <string name="backup_restore">Kopia zapasowa / Przywracanie</string>
+    <string name="restore_failure_newer_version">Plik kopii zapasiwej został utworzony przy użyciu nowszej wersji %s. Proszę, zaktualizuj aplikację i spróbuj ponownie.</string>
+    <string name="zero_shutter_lag">Brak opóźnień migawki</string>
+    <string name="my_location">Moja lokalizacja</string>
+    <string name="destination">Miejsce docelowe</string>
+    <string name="triangulate_destination_location_1_instructions">Rejestruj lokalizacje oraz kierunek do miejsca docelowego.</string>
 </resources>
