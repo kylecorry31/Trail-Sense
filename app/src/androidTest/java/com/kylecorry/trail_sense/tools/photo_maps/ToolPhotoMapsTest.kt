@@ -301,6 +301,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Delete
         click(toolbarButton(R.id.map_title, Side.Right))
         click(string(R.string.delete))
+        // TODO: This fails?
         clickOk()
 
         isVisible(R.id.map_list_title)

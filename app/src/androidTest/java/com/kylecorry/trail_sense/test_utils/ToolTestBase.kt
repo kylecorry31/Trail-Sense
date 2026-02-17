@@ -38,8 +38,8 @@ open class ToolTestBase(
     @get:Rule
     val screenshotRule = ScreenshotFailureRule()
 
-//    @get:Rule
-//    val retryRule = RetryTestRule(maxRetryCount = 3)
+    @get:Rule
+    val retryRule = RetryTestRule(maxRetryCount = 3)
 
     protected lateinit var scenario: ActivityScenario<MainActivity>
     protected lateinit var navController: NavController

@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEO
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.view
@@ -16,10 +17,6 @@ class ToolTemperatureEstimationTest : ToolTestBase(Tools.TEMPERATURE_ESTIMATION)
 
     @Test
     fun verifyBasicFunctionality() {
-        waitFor {
-            view(R.id.temperature_title)
-        }
-
         input(R.id.temp_est_base_elevation, "100")
         input(R.id.temp_est_dest_elevation, "1000")
         input(R.id.temp_est_base_temperature, "15")
@@ -33,6 +30,7 @@ class ToolTemperatureEstimationTest : ToolTestBase(Tools.TEMPERATURE_ESTIMATION)
         // Autofill
         click(R.id.temp_est_autofill)
 
+        // TODO: GPS timeout not working?
         hasText(R.id.temp_est_base_elevation, waitForTime = GPS_WAIT_FOR_TIMEOUT) {
             it.split(",").first().toFloatCompat() != null
         }

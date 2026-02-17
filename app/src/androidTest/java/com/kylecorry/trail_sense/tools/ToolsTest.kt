@@ -4,6 +4,7 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -21,6 +22,11 @@ class ToolsTest : ToolTestBase(0L) {
 
     @Test
     fun openWithDynamicColors() {
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName != null) {
+            return
+        }
+
         val prefs = PreferencesSubsystem.getInstance(TestUtils.context).preferences
         prefs.putBoolean(TestUtils.context.getString(R.string.pref_use_dynamic_colors), true)
         prefs.putBoolean(
@@ -46,6 +52,11 @@ class ToolsTest : ToolTestBase(0L) {
 
     @Test
     fun catchesToolErrors() {
+        // TODO: Figure out how to check this on staging builds (not sure if it will be possible)
+        if (AutomationLibrary.packageName != null) {
+            return
+        }
+
         scenario.close()
 
         var calledOriginalHandler = false
