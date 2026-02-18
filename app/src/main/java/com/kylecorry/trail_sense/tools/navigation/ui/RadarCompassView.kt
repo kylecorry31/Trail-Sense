@@ -238,7 +238,7 @@ class RadarCompassView : BaseCompassView, IMapView {
             addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
         }
         distanceSize = sp(10f)
-        cardinalSize = sp(16f)
+        cardinalSize = sp(20f)
         primaryColor = Resources.getCardinalDirectionColor(context)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)
