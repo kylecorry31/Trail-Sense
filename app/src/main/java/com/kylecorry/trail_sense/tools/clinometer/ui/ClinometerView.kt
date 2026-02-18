@@ -61,7 +61,7 @@ class ClinometerView : CanvasView, IClinometerView {
     override fun setup() {
         dialColor = Resources.color(context, R.color.colorSecondary)
         textSize(sp(10f))
-        radius = min(width.toFloat(), height.toFloat()) / 2 - dp(24f)
+        radius = min(width.toFloat(), height.toFloat()) / 2
         tickLength = radius * tickLengthPercent
 
         avalancheRiskClipPath.addCircle(

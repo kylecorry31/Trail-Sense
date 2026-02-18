@@ -226,7 +226,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         radarSize = dp(10f).toInt()
         directionSize = dp(16f).toInt()
         bezelWidth = iconSize + Resources.dp(context, 8f)
-        compassSize = min(height, width) - 2 * bezelWidth.toInt() - 2
+        compassSize = min(height, width) - (2 * bezelWidth).toInt()
         compassPath = Path().apply {
             addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
         }
@@ -271,7 +271,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         }
         clear()
 
-        drawCompassBackgroundArt()
+        drawBezel()
 
         push()
         rotate(-azimuth)
@@ -283,7 +283,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         drawOverlays()
     }
 
-    private fun drawCompassBackgroundArt() {
+    private fun drawBezel() {
         drawer.fill(bezelColor)
         drawer.noStroke()
         drawer.circle(
