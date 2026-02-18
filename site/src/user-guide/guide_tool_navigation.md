@@ -28,6 +28,8 @@ The radar compass shows nearby beacons, paths, and tides as a map-like radar dis
 
 You can pinch to zoom the radar compass, which will change the nearby beacon radius.
 
+You can adjust tile detail on the radar compass in "Settings > Navigation > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
+
 If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the radar compass.
 
 Layers are used to display information on the radar compass. You can find layer settings in Settings > Navigation or by long pressing the radar compass. For more information on layers, refer to the 'Map Layers' guide.
@@ -126,3 +128,4 @@ The following widgets can be placed on your device's homescreen or viewed in-app
 
 - **Elevation**: Shows your current elevation.
 - **Location**: Shows your current location.
+

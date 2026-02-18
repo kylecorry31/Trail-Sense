@@ -58,6 +58,8 @@ Click the GPS button in the bottom-right to center the map on your location. Cli
 
 By default, the map will align with North, roughly facing up so that the map is square with the screen. You can change this so the map is aligned with North facing up (rotated) by disabling Settings > Photo Maps > 'Keep map facing up'. Note: There's currently a bug where panning and zooming are a bit off when this setting is disabled.
 
+By default, Trail Sense loads more tiles for higher quality when viewing a map. You can disable this in Settings > Photo Maps > 'High detail mode' to reduce memory usage at the cost of lower quality.
+
 ### Using beacons and navigating
 If you've created beacons, they will appear on the map.
 
@@ -93,7 +95,9 @@ Long press a location on the map to view the elevation (from the DEM).
 To recalibrate a map, open the map, click the menu button in the top-right, and choose 'Calibrate'. Follow the instructions above to recalibrate.
 
 ## Changing map projection
-If your map points are not aligning correctly after calibrating (try calibrating again with different points first), consider changing the map projection. To do this, open the map, click the menu button in the top-right, and select 'Change projection'.
+If your map points are not aligning correctly while calibrating (try calibrating again with different points first), consider changing the map projection. To do this, open the map, click the menu button in the top-right, and select 'Change projection'.
+
+Changing the projection while calibrating will clear any unsaved changes.
 
 ## Rename a map
 To rename a map, click the menu button on the map row you wish to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top-right, and choose 'Rename'.
@@ -143,3 +147,4 @@ To use the quick action, tap the quick action button and the active map will be 
 
 ## Video guide
 If you prefer a video guide on using Photo Maps, here's a video by one of Trail Sense's users: [YouTube: Turn Photos into Navigational Maps with Trail Sense! by DeathfireD](https://www.youtube.com/watch?v=RT4PmBODdzw)
+

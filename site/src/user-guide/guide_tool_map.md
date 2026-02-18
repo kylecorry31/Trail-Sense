@@ -9,6 +9,9 @@ You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right.
 
 Click the GPS button in the bottom-right to center the map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it.
 
+## Changing time
+If you have a time dependent layer enabled (like tides or solar eclipse), a clock button will appear in the top-right corner. Click it to change the time used for these layers. Use the slider to scrub through time, or click the time text to enter a specific time. The map will update to reflect the selected time. Click the button again to reset to the current time.
+
 ## Navigating and creating beacons
 When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
 
@@ -29,10 +32,8 @@ Long press a location on the map to view the elevation (from the DEM).
 ## Layers
 Layers are used to display information on the map. For more information on layers, refer to the 'Map Layers' guide.
 
-
-
-
-
+## Settings
+You can change tile detail in "Settings > Map > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
 
 
 
