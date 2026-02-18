@@ -581,7 +581,6 @@
     <string name="pref_meteor_showers_title">מטר מטאורים</string>
     <string name="pedometer_disclaimer">הדיוק והשימוש בסוללה של מד הצעדים תלויים ביצרן ההתקן ובאורך הפסיעה שהוזן. נסה את זה בבית עבור קצת כדי לאמת את התרקנות הסוללה ודיוק לפני השימוש במסלול.</string>
     <string name="since_time">מאז %s</string>
-    <string name="pref_nearby_radar_title">הצג מצפן מכ\"ם קרוב</string>
     <string name="rename">שינוי שם</string>
     <string name="meteor_shower">מטר מטאורים</string>
     <string name="pref_odometer_reset_daily_title">איפוס יומי</string>

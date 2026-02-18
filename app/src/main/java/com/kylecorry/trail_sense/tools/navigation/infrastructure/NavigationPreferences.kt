@@ -58,20 +58,17 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     val showMultipleBeacons: Boolean
         get() = !sensors.hasCompass() || cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: true
 
+    val showNearbyBeaconsOnlyOnLinearCompass by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_nearby_linear_only),
+        false
+    )
+
     val numberOfVisibleBeacons: Int
         get() {
             val raw = cache.getString(context.getString(R.string.pref_num_visible_beacons)) ?: "10"
             return raw.toIntOrNull() ?: 10
         }
-
-    private val _useRadarCompassPref by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_nearby_radar),
-        true
-    )
-
-    override val useRadarCompass: Boolean
-        get() = !sensors.hasCompass() || (showMultipleBeacons && _useRadarCompassPref)
 
     override val showDialTicksWhenNoCompass by BooleanPreference(
         cache,
@@ -159,6 +156,23 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             val meters = Distance.meters(value.coerceIn(1f, 25000000f))
             cache.putString(
                 context.getString(R.string.pref_max_beacon_distance),
+                meters.convertTo(DistanceUnits.Kilometers).value.toString()
+            )
+        }
+
+    var radarViewDistance: Float
+        get() {
+            val raw =
+                cache.getString(context.getString(R.string.pref_navigation_view_distance)) ?: "0.5"
+            return Distance.kilometers(raw.toFloatCompat() ?: 0.5f)
+                .meters()
+                .value
+                .coerceIn(1f, 25000000f)
+        }
+        set(value) {
+            val meters = Distance.meters(value.coerceIn(1f, 25000000f))
+            cache.putString(
+                context.getString(R.string.pref_navigation_view_distance),
                 meters.convertTo(DistanceUnits.Kilometers).value.toString()
             )
         }

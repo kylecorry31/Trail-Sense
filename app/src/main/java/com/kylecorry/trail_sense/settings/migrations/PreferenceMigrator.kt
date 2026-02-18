@@ -66,7 +66,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 24
+        private const val version = 25
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -386,6 +386,20 @@ class PreferenceMigrator private constructor() {
                         )
                     }
                 )
+            },
+            PreferenceMigration(24, 25) { context, prefs ->
+                val viewDistanceKey = context.getString(R.string.pref_navigation_view_distance)
+                val nearbyDistanceKey = context.getString(R.string.pref_max_beacon_distance)
+                val nearbyDistance = prefs.getString(nearbyDistanceKey)
+                if (nearbyDistance != null) {
+                    prefs.putString(viewDistanceKey, nearbyDistance)
+                }
+                val linearOnlyKey = context.getString(R.string.pref_nearby_linear_only)
+                val nearbyRadarKey = context.getString(R.string.pref_nearby_radar)
+                val wasNearbyRadarEnabled = prefs.getBoolean(nearbyRadarKey) ?: true
+                if (wasNearbyRadarEnabled) {
+                    prefs.putBoolean(linearOnlyKey, true)
+                }
             }
         )
 

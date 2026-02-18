@@ -79,7 +79,9 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             // Hide the preferences
             listOf(
                 preference(R.string.pref_display_multi_beacons),
-                preference(R.string.pref_nearby_radar),
+                preference(R.string.pref_num_visible_beacons),
+                preference(R.string.pref_nearby_radius_holder),
+                preference(R.string.pref_nearby_linear_only),
                 preference(R.string.pref_show_linear_compass),
                 preference(R.string.pref_show_calibrate_on_navigate_dialog)
             ).forEach {

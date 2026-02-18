@@ -442,7 +442,6 @@
     <string name="pref_daily_weather_time_title">Hora meteorología diaria</string>
     <string name="screen_flashlight">Pantalla</string>
     <string name="pref_stride_length_title">Longitud de la zancada</string>
-    <string name="pref_nearby_radar_title">Mostrar brújula radar de balizas cercanas</string>
     <string name="meteor_shower">Lluvia de meteoros</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Máximo %d meteoros / h</string>
     <string name="no_maps">Sin mapas</string>

@@ -408,7 +408,6 @@
     <string name="screen_flashlight">திரை</string>
     <string name="speedometer">ச்பீடோமீட்டர்</string>
     <string name="pref_stride_length_title">ச்ட்ரைட் நீளம்</string>
-    <string name="pref_nearby_radar_title">அருகிலுள்ள ரேடார் திசைகாட்டி காட்டு</string>
     <string name="no_tides">அலைகள் இல்லை</string>
     <string name="meteor_shower">விண்கல் மழை</string>
     <string name="map_auto_rotated">வரைபட சுழற்சி அளவுத்திருத்தத்துடன் சரிசெய்யப்பட்டது</string>

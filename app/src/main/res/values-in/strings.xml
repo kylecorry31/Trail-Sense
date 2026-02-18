@@ -564,7 +564,6 @@
     <string name="since_time">sejak %s</string>
     <string name="pedometer">Pedometer</string>
     <string name="pref_stride_length_title">Panjang langkah</string>
-    <string name="pref_nearby_radar_title">Tampilkan kompas radar terdekat</string>
     <string name="pref_meteor_showers_title">Hujan meteor</string>
     <string name="pedometer_disclaimer">Keakuratan dan penggunaan baterai pedometer tergantung pada produsen perangkant Anda dan panjang langkah yang dimasukkan. Cobalah di rumah sebentar untuk memverifikasi penggunaan baterai dan keakuratannya sebelum menggunakan di jalan.</string>
     <string name="rename">Ubah nama</string>

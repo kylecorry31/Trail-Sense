@@ -91,6 +91,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var lastHeight = 0
 
     var shouldDrawDial: Boolean = true
+    var shouldDrawAzimuthIndicator: Boolean = true
 
     private val hooks = Hooks()
 
@@ -126,6 +127,17 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     fun setOnLongPressListener(action: (() -> Unit)?) {
         longPressAction = action
+    }
+
+    private fun drawAzimuth() {
+        tint(Resources.androidTextColorPrimary(context))
+        imageMode(ImageMode.Corner)
+        image(
+            getBitmap(R.drawable.ic_arrow_target, iconSize),
+            width / 2f - iconSize / 2f,
+            0f
+        )
+        noTint()
     }
 
     private fun drawLayers() {
@@ -230,7 +242,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         primaryColor = Resources.getCardinalDirectionColor(context)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)
-        maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
+        maxDistanceMeters = Distance.meters(prefs.navigation.radarViewDistance)
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
         distanceText = null
         north = context.getString(R.string.direction_north)
@@ -253,6 +265,9 @@ class RadarCompassView : BaseCompassView, IMapView {
             setup()
         }
         clear()
+        if (shouldDrawAzimuthIndicator) {
+            drawAzimuth()
+        }
         push()
         rotate(-azimuth)
         dial.draw(drawer, false)
@@ -340,8 +355,8 @@ class RadarCompassView : BaseCompassView, IMapView {
         }
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            prefs.navigation.maxBeaconDistance /= detector.scaleFactor
-            maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
+            prefs.navigation.radarViewDistance /= detector.scaleFactor
+            maxDistanceMeters = Distance.meters(prefs.navigation.radarViewDistance)
             maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
             distanceText = null
             layerManager.invalidate()

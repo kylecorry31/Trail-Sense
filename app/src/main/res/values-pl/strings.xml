@@ -504,7 +504,6 @@
     <string name="battery_history">Historia baterii - ostatnio %s</string>
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt nawigacyjny dla ostatniej lokalizacji sygnału komórkowego</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
-    <string name="pref_nearby_radar_title">Pokaż najbliższy kompas radarowy</string>
     <string name="cirrocumulus_desc">Chmury wysokie, pierzasto-kłębiaste. Składają się z kryształków lodu. Małe, białe płatki lub kłębki ułożone w szeregi, tzw. „baranki”. Zwiastują polepszenie pogody.</string>
     <string name="backtrack_disabled_low_power_toast">Funkcja szlaku powrotnego jest wyłączona w trybie oszczędzania energii</string>
     <string name="pref_backtrack_frequency_title">Interwał szlaku powrotnego</string>

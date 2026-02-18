@@ -528,7 +528,6 @@
     <string name="meteors_per_hour">Máximo %d meteoros / h</string>
     <string name="meteor_shower">Chuva de meteoros</string>
     <string name="no_tides">Sem marés</string>
-    <string name="pref_nearby_radar_title">Mostrar bússola de radar nas proximidades</string>
     <string name="pref_stride_length_title">Distância de passos</string>
     <string name="pedometer">Pedômetro</string>
     <string name="pref_daily_weather_time_title">Horário meteorológico diário</string>

@@ -535,7 +535,6 @@
     <string name="pref_show_last_signal_beacon_summary">Oppretter en navigeringsmarkør for den siste posisjonen med mobiltelefonsignal</string>
     <string name="pref_show_last_signal_beacon_title">Siste signal navigeringsmarkør</string>
     <string name="last_signal_beacon_name">Siste signal — %1$s (%2$s)</string>
-    <string name="pref_nearby_radar_title">Vis radarkompass for nære</string>
     <string name="gps_signal_lost">GPS-signal mistet</string>
     <string name="elevation_history_length">Lengde på høydehistorikk</string>
     <string name="last_duration">Siste %s</string>

@@ -5,6 +5,28 @@
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
         app:title="@string/general">
+
+        <ListPreference
+            app:defaultValue="1009"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_quick_action_left"
+            app:singleLineTitle="false"
+            app:title="@string/left_quick_action"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="1008"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_quick_action_right"
+            app:singleLineTitle="false"
+            app:title="@string/right_quick_action"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/navigation">
         <SwitchPreferenceCompat
             android:title="@string/pref_show_calibrate_on_navigate_dialog_title"
             app:defaultValue="true"
@@ -34,6 +56,22 @@
             app:summary="@string/lock_bearing_to_location_description"
             app:title="@string/lock_bearing_to_location" />
 
+        <ListPreference
+            android:entries="@array/speedometer_entries"
+            android:entryValues="@array/speedometer_values"
+            app:defaultValue="instant"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_speedometer_type"
+            app:singleLineTitle="false"
+            app:title="@string/speedometer"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/pref_compass_sensor_title">
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
@@ -59,38 +97,6 @@
             app:singleLineTitle="false"
             app:title="@string/pref_show_sun_moon_compass_title"
             app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            android:entries="@array/speedometer_entries"
-            android:entryValues="@array/speedometer_values"
-            app:defaultValue="instant"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_navigation_speedometer_type"
-            app:singleLineTitle="false"
-            app:title="@string/speedometer"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="1009"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_navigation_quick_action_left"
-            app:singleLineTitle="false"
-            app:title="@string/left_quick_action"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="1008"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_navigation_quick_action_right"
-            app:singleLineTitle="false"
-            app:title="@string/right_quick_action"
-            app:useSimpleSummaryProvider="true" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
-        app:title="@string/navigation_nearby_category">
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
@@ -119,15 +125,20 @@
             app:title="@string/pref_max_beacon_distance_title" />
 
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_display_multi_beacons"
-            app:defaultValue="true"
+            app:defaultValue="false"
+            app:dependency="@string/pref_display_multi_beacons"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_nearby_radar"
+            app:key="@string/pref_nearby_linear_only"
             app:singleLineTitle="false"
-            app:title="@string/pref_nearby_radar_title" />
+            app:title="@string/pref_nearby_linear_only_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/map">
 
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_nearby_radar"
             android:summary="@string/pref_high_detail_mode_summary"
             android:title="@string/pref_high_detail_mode_title"
             app:defaultValue="false"
@@ -136,7 +147,6 @@
             app:singleLineTitle="false" />
 
         <Preference
-            app:dependency="@string/pref_nearby_radar"
             app:iconSpaceReserved="false"
             app:key="@string/pref_map_layer_button"
             app:singleLineTitle="false"

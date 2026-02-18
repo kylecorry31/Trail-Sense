@@ -528,7 +528,6 @@
     <string name="pedometer_disclaimer">Přesnost a spotřeba baterie krokoměru závisí na výrobci zařízení a na zadané délce kroku. Před použitím na trase si jej doma na chvíli vyzkoušejte, abyste si ověřili spotřebu baterie a přesnost.</string>
     <string name="actual_frequency_disclaimer">Skutečná frekvence se může lišit, protože některá zařízení mají nastavené limity na pozadí.</string>
     <string name="rename">Přejmenovat</string>
-    <string name="pref_nearby_radar_title">Zobrazit radarový kompas v okolí</string>
     <string name="last_signal_beacon_name">Poslední signál - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_title">Maják posledního signálu</string>
     <string name="pref_show_last_signal_beacon_summary">Vytvoří maják pro poslední lokaci signálu</string>

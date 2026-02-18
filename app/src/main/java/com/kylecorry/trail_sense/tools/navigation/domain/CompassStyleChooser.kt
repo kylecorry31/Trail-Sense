@@ -9,7 +9,6 @@ class CompassStyleChooser(
 ) {
 
     private val useLinearCompass = prefs.useLinearCompass
-    private val useRadarCompass = prefs.useRadarCompass
 
     fun getStyle(orientation: DeviceOrientation.Orientation): CompassStyle {
         if (!isCompassAvailable) {
@@ -18,10 +17,8 @@ class CompassStyleChooser(
 
         return if (useLinearCompass && orientation == DeviceOrientation.Orientation.Portrait) {
             CompassStyle.Linear
-        } else if (useRadarCompass) {
-            CompassStyle.Radar
         } else {
-            CompassStyle.Round
+            CompassStyle.Radar
         }
     }
 
