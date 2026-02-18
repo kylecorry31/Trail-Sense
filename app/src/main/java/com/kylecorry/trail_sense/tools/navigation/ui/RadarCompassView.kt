@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
@@ -194,6 +195,8 @@ class RadarCompassView : BaseCompassView, IMapView {
         textMode(TextMode.Center)
         textSize(cardinalSize)
         stroke(secondaryColor)
+        textStyle(TextStyle.Bold)
+        strokeWeight(dp(1f))
         opacity(255)
         drawDirection(0f, north)
         drawDirection(90f, east)
@@ -204,11 +207,11 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawDirection(degrees: Float, text: String) {
         push()
         rotate(degrees)
-        fill(Color.WHITE)
+        fill(primaryColor)
         text(
             text,
             width / 2f,
-            height / 2f - compassSize / 4f
+            height / 2f - (compassSize / 2f) * 0.9f
         )
         pop()
     }
@@ -223,7 +226,7 @@ class RadarCompassView : BaseCompassView, IMapView {
             addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
         }
         distanceSize = sp(10f)
-        cardinalSize = sp(12f)
+        cardinalSize = sp(16f)
         primaryColor = Resources.getCardinalDirectionColor(context)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)
@@ -237,7 +240,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         centerPixel = PixelCoordinate(width / 2f, height / 2f)
         compassCircle = Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f)
         locationStrokeWeight = dp(0.5f)
-        dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
+        dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor, hideTrueCardinalTicks = true)
         lastWidth = width
         lastHeight = height
     }
