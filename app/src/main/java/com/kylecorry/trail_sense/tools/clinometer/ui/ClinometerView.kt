@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.art.Artwork
 import com.kylecorry.trail_sense.shared.canvas.Dial
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
@@ -81,10 +80,6 @@ class ClinometerView : CanvasView, IClinometerView {
     }
 
     override fun draw() {
-        if (Artwork.shouldShowArtwork()) {
-            Artwork.drawCircleHousing(this, PixelCoordinate(width / 2f, height / 2f), radius * 2)
-        }
-
         push()
         drawBackground()
         drawTicks()

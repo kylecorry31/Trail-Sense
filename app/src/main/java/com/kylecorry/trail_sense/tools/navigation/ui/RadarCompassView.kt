@@ -31,7 +31,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.art.Artwork
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -57,7 +56,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var textColor: Int = Color.WHITE
 
     @ColorInt
-    private var bezelColor: Int = Artwork.COLOR_STROKE
+    private var bezelColor: Int = Color.BLACK
 
     private val formatService by lazy { FormatService.getInstance(context) }
 
@@ -66,7 +65,6 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var directionSize = 0
     private var compassSize = 0
     private var bezelWidth = 0f
-    private var artworkPadding = 0f
     private lateinit var compassPath: Path
     private var distanceSize = 0f
     private var cardinalSize = 0f
@@ -227,9 +225,8 @@ class RadarCompassView : BaseCompassView, IMapView {
         iconSize = dp(24f).toInt()
         radarSize = dp(10f).toInt()
         directionSize = dp(16f).toInt()
-        artworkPadding = Artwork.circleHousingPadding(this)
         bezelWidth = iconSize + Resources.dp(context, 8f)
-        compassSize = min(height, width) - 2 * bezelWidth.toInt() - 2 * artworkPadding.toInt()
+        compassSize = min(height, width) - 2 * bezelWidth.toInt() - 2
         compassPath = Path().apply {
             addCircle(width / 2f, height / 2f, compassSize / 2f, Path.Direction.CW)
         }
@@ -287,7 +284,13 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     private fun drawCompassBackgroundArt() {
-        Artwork.drawCircleHousing(this, centerPixel, compassSize.toFloat(), bezelWidth, bezelColor)
+        drawer.fill(bezelColor)
+        drawer.noStroke()
+        drawer.circle(
+            centerPixel.x,
+            centerPixel.y,
+            compassSize + bezelWidth * 2
+        )
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
@@ -309,7 +312,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         push()
         translate(
             width / 2f - sizeDp / 2f,
-            artworkPadding + (bezelWidth + dp(4f)) / 2f - sizeDp / 2f
+            (bezelWidth + dp(4f)) / 2f - sizeDp / 2f
         )
         rotate(reference.rotation, bitmap.width / 2f, bitmap.height / 2f)
         image(bitmap, 0f, 0f)
