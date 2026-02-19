@@ -77,6 +77,7 @@ class OnboardingActivity : AndromedaActivity() {
         cache.putBoolean(getString(R.string.pref_main_disclaimer_shown_key), true)
         cache.putBoolean(getString(R.string.pref_onboarding_completed), true)
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
