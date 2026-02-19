@@ -115,7 +115,7 @@ class SmokeTest {
         additionalTests?.invoke()
 
         backUntil {
-            isVisible({ viewWithResourceId("$packageName:id/tool_searchbox") }, waitForTime = 200)
+            isVisible({ viewWithResourceId("$packageName:id/tool_searchbox") })
         }
         input(name, "")
     }
@@ -126,7 +126,7 @@ class SmokeTest {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
+            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
         }
 
         // Wait for the path to be created

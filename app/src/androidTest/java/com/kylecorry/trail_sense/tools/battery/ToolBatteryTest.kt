@@ -31,7 +31,7 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
 
         // Stop the battery log
         click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-        not { hasText("Battery log", waitForTime = 0) }
+        not { hasText("Battery log") }
 
         scrollUntil {
             click("Airplane mode")

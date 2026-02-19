@@ -135,7 +135,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         input(R.id.searchbox, "Blank")
         hasText("Blank Map")
         hasText("Blank Map", index = 1)
-        not { hasText("Test Map", waitForTime = 0) }
+        not { hasText("Test Map") }
         input(R.id.searchbox, "")
         hasText("Test Group 2")
     }
@@ -143,7 +143,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
     private fun canDeleteGroup() {
         clickListItemMenu(string(R.string.delete), index = 0)
         clickOk()
-        not { hasText("Test Group 2", waitForTime = 0) }
+        not { hasText("Test Group 2") }
     }
 
     private fun canRenameGroup() {
@@ -260,22 +260,12 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Layers
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Layers")
-        scrollUntil { hasText("Location", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
-        scrollUntil { hasText("Beacons", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
-        scrollUntil { hasText("Paths", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
-        scrollUntil { hasText("Tides", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
-        scrollUntil {
-            hasText(
-                "Navigation",
-                waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT
-            )
-        }
-        scrollUntil {
-            hasText(
-                "Photo Maps",
-                waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT
-            )
-        }
+        scrollUntil { hasText("Location") }
+        scrollUntil { hasText("Beacons") }
+        scrollUntil { hasText("Paths") }
+        scrollUntil { hasText("Tides") }
+        scrollUntil { hasText("Navigation")}
+        scrollUntil { hasText("Photo Maps") }
         click(toolbarButton(R.id.title, Side.Right))
 
         // Export
@@ -283,10 +273,10 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Export")
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("test-map-2.pdf", waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
+            hasText("test-map-2.pdf")
         }
         backUntil {
-            isVisible(R.id.map, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
+            isVisible(R.id.map)
         }
 
         // Print
@@ -294,15 +284,15 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Print")
         hasText("Copies")
         backUntil {
-            isVisible(R.id.map, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
+            isVisible(R.id.map)
         }
 
         // Trace
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Trace")
         clickOk()
-        not { isVisible(R.id.zoom_in_btn, waitForTime = 0) }
-        not { isVisible(R.id.zoom_out_btn, waitForTime = 0) }
+        not { isVisible(R.id.zoom_in_btn) }
+        not { isVisible(R.id.zoom_out_btn) }
         // Bottom nav does nothing
         click(R.id.bottom_navigation)
         click(R.id.lock_btn)
@@ -315,7 +305,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         clickOk()
 
         isVisible(R.id.map_list_title)
-        not { hasText("Test Map 2", waitForTime = 0) }
+        not { hasText("Test Map 2") }
 
         // Recreate the map
         canCreateMapFromCamera(false)
@@ -333,7 +323,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Test Group 2")
         click("Move")
         hasText("2 maps")
-        not { hasText("Test Map 2", waitForTime = 0) }
+        not { hasText("Test Map 2") }
         click("Test Group 2")
         hasText("Test Map 2")
         back(false)
@@ -350,10 +340,10 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         clickListItemMenu(string(R.string.export), index = 1)
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("blank-map.pdf", waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
+            hasText("blank-map.pdf")
         }
         backUntil {
-            isVisible(R.id.map_list_title, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
+            isVisible(R.id.map_list_title)
         }
     }
 
@@ -361,14 +351,14 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         clickListItemMenu(string(R.string.print), index = 1)
         hasText("Copies")
         backUntil {
-            isVisible(R.id.map_list_title, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
+            isVisible(R.id.map_list_title)
         }
     }
 
     private fun canDeleteMap() {
         clickListItemMenu(string(R.string.delete))
         clickOk()
-        not { hasText("Blank Map", waitForTime = 0) }
+        not { hasText("Blank Map") }
     }
 
 }

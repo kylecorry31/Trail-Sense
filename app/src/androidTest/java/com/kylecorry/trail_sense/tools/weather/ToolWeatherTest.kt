@@ -31,10 +31,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         clickOk()
 
         not(waitForTime = AutomationLibrary.GPS_WAIT_FOR_TIMEOUT) {
-            hasText(
-                "Updating weather",
-                waitForTime = 0
-            )
+            hasText("Updating weather")
         }
 
         // Weather prediction
@@ -91,7 +88,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
+            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
         }
 
         hasText(R.id.play_bar_title, "On - 15m")
@@ -119,7 +116,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
+            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
         }
 
         click(quickAction(Tools.QUICK_ACTION_WEATHER_MONITOR))

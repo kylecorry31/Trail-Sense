@@ -19,7 +19,7 @@ class ToolDeclinationTest : ToolTestBase(Tools.DECLINATION) {
     fun verifyBasicFunctionality() {
         // Wait for it to load the GPS location
         not(waitForTime = GPS_WAIT_FOR_TIMEOUT) {
-            hasText(string(R.string.loading), waitForTime = 0)
+            hasText(string(R.string.loading))
         }
 
         input(R.id.utm, "42, -72")
