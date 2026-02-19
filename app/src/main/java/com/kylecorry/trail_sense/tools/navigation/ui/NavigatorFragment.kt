@@ -141,6 +141,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     // Cached preferences
     private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
     private val isNearbyEnabled by lazy { userPrefs.navigation.showMultipleBeacons }
+    private val isNearbyLinearOnly by lazy { userPrefs.navigation.showNearbyBeaconsOnlyOnLinearCompass }
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
@@ -209,14 +210,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateSensorStatus()
         }
 
-        binding.roundCompass.setCompassLayers(
-            listOf(
-                astronomyCompassLayer,
-                beaconCompassLayer,
-                navigationCompassLayer
-            )
-        )
-
         binding.linearCompass.setCompassLayers(
             listOf(
                 astronomyCompassLayer,
@@ -224,10 +217,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 navigationCompassLayer
             )
         )
-
         binding.radarCompass.setCompassLayers(
-            listOf(
+            listOfNotNull(
                 astronomyCompassLayer,
+                if (isNearbyLinearOnly) null else beaconCompassLayer,
                 navigationCompassLayer
             )
         )
@@ -298,9 +291,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
-        binding.roundCompass.setOnClickListener {
-            toggleDestinationBearing()
-        }
         binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
         binding.radarCompass.setOnSingleTapListener {
             toggleDestinationBearing()
@@ -324,6 +314,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (!hasCompass) {
             binding.radarCompass.shouldDrawDial = userPrefs.navigation.showDialTicksWhenNoCompass
+            binding.radarCompass.shouldDrawAzimuthIndicator = false
             binding.compassStatus.isVisible = false
             binding.navigationTitle.title.isVisible = false
             binding.northReferenceIndicator.isVisible = false
@@ -551,7 +542,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 styleChooser.getStyle(deviceOrientation)
 
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
-            binding.roundCompass.isInvisible = style != CompassStyle.Round
             binding.radarCompass.isInvisible = style != CompassStyle.Radar
         }
 
@@ -591,7 +581,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Compass
         listOf<ICompassView>(
-            binding.roundCompass,
             binding.radarCompass,
             binding.linearCompass
         ).forEach {
@@ -615,7 +604,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Compass center point
         listOf<ICompassView>(
-            binding.roundCompass,
             binding.radarCompass,
             binding.linearCompass
         ).forEach {

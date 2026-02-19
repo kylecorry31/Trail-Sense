@@ -627,7 +627,6 @@
     <string name="create_path">建立路線</string>
     <string name="pref_keep_map_facing_up_title">保持地圖朝上</string>
     <string name="no">否</string>
-    <string name="pref_nearby_radar_title">顯示鄰近雷達指南針</string>
     <string name="no_maps">沒有地圖</string>
     <string name="previous">上一頁</string>
     <string name="last_signal_beacon_name">最後一個訊號—%1$s（%2$s）</string>

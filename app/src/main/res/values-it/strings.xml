@@ -517,7 +517,6 @@
     <string name="photo_maps">Mappe fotografiche</string>
     <string name="location_override_updated">Override della posizione aggiornato</string>
     <string name="map_fractional_separator">:</string>
-    <string name="pref_nearby_radar_title">Mostra bussola radar nelle vicinanze</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percorso</item>
         <item quantity="many">%d percorsi</item>

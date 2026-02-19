@@ -461,7 +461,6 @@
     <string name="pref_meteor_showers_title">Gök taşı yağmurları</string>
     <string name="meteors_per_hour">Saatte en fazla %d gök taşı</string>
     <string name="meteor_shower">Gök taşı yağmuru</string>
-    <string name="pref_nearby_radar_title">Yakındaki radar pusulasını göster</string>
     <string name="pref_stride_length_title">Adım uzunluğu</string>
     <string name="experimental">Deneysel</string>
     <string name="no_gps_signal">GPS Sinyali Yok</string>

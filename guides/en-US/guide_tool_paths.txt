@@ -71,10 +71,8 @@ You can navigate to the nearest point on a path by opening the path and clicking
 
 By default, this will only navigate to recorded waypoints on the path. However, you can choose to navigate to any position on the path by disabling Settings > Paths > 'Only navigate to recorded points'. This will assume that the path is a straight line between points.
 
-Paths are also visible on the radar compass (see the 'Navigation' guide) and photo maps (see the 'Photo Maps' guide).
-
 ## Path visibility
-You can choose which paths are visible on the Navigation and Photo Maps tools by clicking the eye icon on the right side of the path row.
+You can choose which paths are visible on maps by clicking the eye icon on the right side of the path row. They will show up on maps that have the Paths layer enabled.
 
 ## Delete a path
 To delete a path, click the menu button on the path row you want to remove, then select 'Delete'.

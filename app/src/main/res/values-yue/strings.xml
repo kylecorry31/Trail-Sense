@@ -959,7 +959,6 @@
     <string name="size">大細</string>
     <string name="group">路綫</string>
     <string name="tool_cliff_height_disclaimer">請事必確保人身安全之下，至好用呢項架生，並務必查探懸崖下嘅狀況，以免傷亡。請查閱使用指南中嘅指示。</string>
-    <string name="pref_nearby_radar_title">騷埋就近嘅雷達羅經</string>
     <string name="keep_forever">永遠保留</string>
     <string name="location_to_triangulate">要三角定位嘅位置</string>
     <string name="pref_dialog_battery_log_summary">電量紀錄已停用，過去紀錄同續航時間或會欠奉。您可以喺設定入面重新啟用</string>

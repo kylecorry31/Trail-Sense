@@ -460,7 +460,6 @@
     <string name="beam_distance">%s Reichweite</string>
     <string name="stratocumulus_desc">Niedrige Wolken, die wie eine Schicht aus Wattebäuschen mit kleinen Lücken aussehen. Die Farbe ist weiß bis dunkelgrau.</string>
     <string name="on_map">Auf der Karte</string>
-    <string name="pref_nearby_radar_title">Kompass in Radarform anzeigen</string>
     <string name="pref_stride_length_title">Schrittlänge</string>
     <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
     <string name="none">Keine</string>

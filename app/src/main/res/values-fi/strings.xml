@@ -353,7 +353,6 @@
     </plurals>
     <string name="unit_meters">Metriä</string>
     <string name="clock_sync_time_settings">Avataanko aika-asetukset?</string>
-    <string name="pref_nearby_radar_title">Näytä lähellä oleva tutkakompassi</string>
     <string name="icon">Kuvake</string>
     <string name="num_satellites">%d satelliittia</string>
     <string name="battery_history">Akkuhistoria – viimeinen %s</string>

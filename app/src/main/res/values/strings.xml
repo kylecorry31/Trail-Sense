@@ -247,8 +247,9 @@
     <string name="pref_show_linear_compass_summary">When the phone is vertical</string>
     <string name="pref_num_visible_beacons_title">Nearby beacons</string>
     <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
+    <string name="pref_nearby_linear_only_title">Only show nearby beacons on linear compass</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
-    <string name="pref_max_beacon_distance_title">Nearby beacon radius</string>
+    <string name="pref_max_beacon_distance_title">Nearby beacon distance</string>
     <!--Settings - Weather-->
     <string name="pref_storm_alert_sensitivity_title">Storm sensitivity</string>
     <string name="pref_pressure_history_title">Pressure history</string>
@@ -296,6 +297,7 @@
     <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_night_mode_fullscreen" translatable="false">pref_night_mode_fullscreen</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
+    <string name="pref_nearby_linear_only" translatable="false">pref_nearby_linear_only</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>
     <string name="pref_show_sun_moon_compass" translatable="false">pref_show_sun_moon_compass_2</string>
     <string name="pref_show_linear_compass" translatable="false">pref_show_linear_compass</string>
@@ -631,6 +633,7 @@
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
     <string name="screen_flashlight">Screen</string>
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
+    <string name="pref_navigation_view_distance" translatable="false">pref_navigation_view_distance</string>
     <string name="speedometer">Speedometer</string>
     <string name="since_time">since %s</string>
     <string name="pedometer">Pedometer</string>
@@ -639,7 +642,6 @@
     <string name="pref_stride_length" translatable="false">pref_stride_length</string>
     <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
-    <string name="pref_nearby_radar_title">Show nearby radar compass</string>
     <string name="pref_nearby_radius_holder" translatable="false">pref_nearby_radius_holder</string>
     <string name="pref_view_distance_beacons_holder" translatable="false">pref_view_distance_beacons_holder</string>
     <string name="no_tides">No tides</string>
@@ -1360,7 +1362,7 @@
     <string name="view_distance">View distance</string>
     <string name="pref_augmented_reality_view_distance" translatable="false">pref_augmented_reality_view_distance</string>
     <string name="pref_show_dial_ticks_when_no_compass" translatable="false">pref_show_dial_ticks_when_no_compass</string>
-    <string name="show_dial_ticks_on_nearby_radar">Show dial ticks on nearby radar</string>
+    <string name="show_dial_ticks_on_nearby_radar">Show dial ticks</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Your device does not have a compass, but you can still see what direction beacons are.</string>
     <string name="pref_tool_category_holder_key" translatable="false">pref_tool_category_holder_key</string>
     <string name="augmented_reality_no_gyro_message">You can still use the Augmented Reality tool, but it will not be as accurate.</string>

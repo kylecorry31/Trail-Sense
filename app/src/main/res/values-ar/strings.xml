@@ -323,7 +323,6 @@
     <string name="half_tide">المد المتوسط</string>
     <string name="time_not_set">لم يتم تعيين الوقت</string>
     <string name="pref_daily_weather_time_title">وقت الطقس اليومي</string>
-    <string name="pref_nearby_radar_title">إظهار رادار المناطق القريبة</string>
     <string name="no_tides">لا توجد مد وجزر</string>
     <string name="meteor_shower">زخة شهب</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">الحد الأقصى %d شهاب/ساعة</string>

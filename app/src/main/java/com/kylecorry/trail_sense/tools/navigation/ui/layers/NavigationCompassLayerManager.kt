@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.navigation.ui.layers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
@@ -11,7 +10,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 
 class NavigationCompassLayerManager {
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
 
     var key = 0
@@ -24,10 +22,7 @@ class NavigationCompassLayerManager {
         )
 
         key += 1
-
-        if (prefs.navigation.useRadarCompass) {
-            view.start()
-        }
+        view.start()
     }
 
     fun pause(view: IMapView) {

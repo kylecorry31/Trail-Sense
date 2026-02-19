@@ -17,13 +17,11 @@ internal class CompassStyleChooserTest {
     @MethodSource("provideStyle")
     fun getStyle(
         useLinear: Boolean,
-        useRadar: Boolean,
         orientation: DeviceOrientation.Orientation,
         expected: CompassStyle
     ) {
         val prefs = mock<ICompassStylePreferences>()
         whenever(prefs.useLinearCompass).thenReturn(useLinear)
-        whenever(prefs.useRadarCompass).thenReturn(useRadar)
         val chooser = CompassStyleChooser(prefs, true)
         assertEquals(expected, chooser.getStyle(orientation))
     }
@@ -32,7 +30,6 @@ internal class CompassStyleChooserTest {
     fun getStylesReturnsRadarWhenNoCompassInsteadOfLinear() {
         val prefs = mock<ICompassStylePreferences>()
         whenever(prefs.useLinearCompass).thenReturn(true)
-        whenever(prefs.useRadarCompass).thenReturn(false)
         val chooser = CompassStyleChooser(prefs, false)
         assertEquals(CompassStyle.Radar, chooser.getStyle(DeviceOrientation.Orientation.Portrait))
     }
@@ -41,7 +38,6 @@ internal class CompassStyleChooserTest {
     fun getStylesReturnsRadarWhenNoCompassInsteadOfRound() {
         val prefs = mock<ICompassStylePreferences>()
         whenever(prefs.useLinearCompass).thenReturn(true)
-        whenever(prefs.useRadarCompass).thenReturn(false)
         val chooser = CompassStyleChooser(prefs, false)
         assertEquals(CompassStyle.Radar, chooser.getStyle(DeviceOrientation.Orientation.Flat))
     }
@@ -51,30 +47,18 @@ internal class CompassStyleChooserTest {
         @JvmStatic
         fun provideStyle(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(true, false, DeviceOrientation.Orientation.Portrait, CompassStyle.Linear),
-                Arguments.of(true, false, DeviceOrientation.Orientation.PortraitInverse, CompassStyle.Round),
-                Arguments.of(true, false, DeviceOrientation.Orientation.Landscape, CompassStyle.Round),
-                Arguments.of(true, false, DeviceOrientation.Orientation.LandscapeInverse, CompassStyle.Round),
-                Arguments.of(true, false, DeviceOrientation.Orientation.Flat, CompassStyle.Round),
-                Arguments.of(true, false, DeviceOrientation.Orientation.FlatInverse, CompassStyle.Round),
-                Arguments.of(true, true, DeviceOrientation.Orientation.Portrait, CompassStyle.Linear),
-                Arguments.of(true, true, DeviceOrientation.Orientation.PortraitInverse, CompassStyle.Radar),
-                Arguments.of(true, true, DeviceOrientation.Orientation.Landscape, CompassStyle.Radar),
-                Arguments.of(true, true, DeviceOrientation.Orientation.LandscapeInverse, CompassStyle.Radar),
-                Arguments.of(true, true, DeviceOrientation.Orientation.Flat, CompassStyle.Radar),
-                Arguments.of(true, true, DeviceOrientation.Orientation.FlatInverse, CompassStyle.Radar),
-                Arguments.of(false, false, DeviceOrientation.Orientation.Portrait, CompassStyle.Round),
-                Arguments.of(false, false, DeviceOrientation.Orientation.PortraitInverse, CompassStyle.Round),
-                Arguments.of(false, false, DeviceOrientation.Orientation.Landscape, CompassStyle.Round),
-                Arguments.of(false, false, DeviceOrientation.Orientation.LandscapeInverse, CompassStyle.Round),
-                Arguments.of(false, false, DeviceOrientation.Orientation.Flat, CompassStyle.Round),
-                Arguments.of(false, false, DeviceOrientation.Orientation.FlatInverse, CompassStyle.Round),
-                Arguments.of(false, true, DeviceOrientation.Orientation.Portrait, CompassStyle.Radar),
-                Arguments.of(false, true, DeviceOrientation.Orientation.PortraitInverse, CompassStyle.Radar),
-                Arguments.of(false, true, DeviceOrientation.Orientation.Landscape, CompassStyle.Radar),
-                Arguments.of(false, true, DeviceOrientation.Orientation.LandscapeInverse, CompassStyle.Radar),
-                Arguments.of(false, true, DeviceOrientation.Orientation.Flat, CompassStyle.Radar),
-                Arguments.of(false, true, DeviceOrientation.Orientation.FlatInverse, CompassStyle.Radar),
+                Arguments.of(true, DeviceOrientation.Orientation.Portrait, CompassStyle.Linear),
+                Arguments.of(true, DeviceOrientation.Orientation.PortraitInverse, CompassStyle.Radar),
+                Arguments.of(true, DeviceOrientation.Orientation.Landscape, CompassStyle.Radar),
+                Arguments.of(true, DeviceOrientation.Orientation.LandscapeInverse, CompassStyle.Radar),
+                Arguments.of(true, DeviceOrientation.Orientation.Flat, CompassStyle.Radar),
+                Arguments.of(true, DeviceOrientation.Orientation.FlatInverse, CompassStyle.Radar),
+                Arguments.of(false, DeviceOrientation.Orientation.Portrait, CompassStyle.Radar),
+                Arguments.of(false, DeviceOrientation.Orientation.PortraitInverse, CompassStyle.Radar),
+                Arguments.of(false, DeviceOrientation.Orientation.Landscape, CompassStyle.Radar),
+                Arguments.of(false, DeviceOrientation.Orientation.LandscapeInverse, CompassStyle.Radar),
+                Arguments.of(false, DeviceOrientation.Orientation.Flat, CompassStyle.Radar),
+                Arguments.of(false, DeviceOrientation.Orientation.FlatInverse, CompassStyle.Radar),
             )
         }
     }
