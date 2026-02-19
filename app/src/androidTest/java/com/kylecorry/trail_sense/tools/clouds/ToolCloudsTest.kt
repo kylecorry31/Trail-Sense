@@ -75,7 +75,7 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         isNotVisible(R.id.add_btn)
 
         backUntil {
-            isVisible(R.id.cloud_list_title, waitForTime = 1000)
+            isVisible(R.id.cloud_list_title)
         }
     }
 

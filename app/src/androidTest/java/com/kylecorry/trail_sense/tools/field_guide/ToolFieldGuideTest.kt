@@ -68,7 +68,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
         for (category in categories) {
             scrollUntil {
-                hasText(category, waitForTime = 500)
+                hasText(category)
             }
         }
 
@@ -82,7 +82,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
     private fun canDeletePage() {
         clickListItemMenu("Delete")
         clickOk()
-        not { hasText("A Test 3", waitForTime = 0) }
+        not { hasText("A Test 3") }
     }
 
     private fun canEditPage() {
@@ -119,7 +119,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         )
         for (tag in tags) {
             scrollUntil {
-                hasText(tag, waitForTime = 0)
+                hasText(tag)
             }
         }
         back()
@@ -184,7 +184,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
         for (tag in tags) {
             scrollUntil {
-                hasText(tag, waitForTime = 0)
+                hasText(tag)
             }
         }
 

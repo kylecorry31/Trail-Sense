@@ -70,7 +70,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
 
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
         click("Yes")
-        not { hasText("Bearing", waitForTime = 0) }
+        not { hasText("Bearing") }
     }
 
     private fun canNavigate() {
@@ -111,7 +111,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
 
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
         click("Yes")
-        not { hasText("Test Beacon", waitForTime = 0) }
+        not { hasText("Test Beacon") }
 
         hasWorkingTrueNorthIndicator()
 

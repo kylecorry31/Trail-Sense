@@ -55,8 +55,7 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY) {
             // Wait for the toast do disappear
             not {
                 hasText(
-                    string(R.string.sunset_alerts_background_location_disclaimer),
-                    waitForTime = 0
+                    string(R.string.sunset_alerts_background_location_disclaimer)
                 )
             }
             click(R.id.button_3d)

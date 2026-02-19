@@ -48,7 +48,7 @@ class ToolsTabTest : ToolTestBase(0L) {
         clickOk()
 
         hasText(string(R.string.astronomy))
-        not { hasText(string(R.string.tool_category_signaling), waitForTime = 0L) }
+        not { hasText(string(R.string.tool_category_signaling)) }
 
         click(R.id.icon, index = 1)
         click(string(R.string.category))
@@ -71,7 +71,7 @@ class ToolsTabTest : ToolTestBase(0L) {
         click(string(R.string.tool_user_guide_title))
         clickOk()
 
-        not { hasText(string(R.string.astronomy), waitForTime = 0L) }
+        not { hasText(string(R.string.astronomy)) }
 
         // Pin Flashlight
         longClick(string(R.string.flashlight_title))

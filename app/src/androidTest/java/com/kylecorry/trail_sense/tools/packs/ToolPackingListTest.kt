@@ -215,7 +215,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
 //            viewWithText("SAVE").click()
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("test-pack-2.csv", waitForTime = 1000)
+            hasText("test-pack-2.csv")
         }
         backUntil {
             hasText(R.id.inventory_list_title, "Test Pack 2")
@@ -316,7 +316,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         click(R.id.category_spinner)
 
         scrollUntil(direction = Direction.UP) {
-            click(category, waitForTime = 1000)
+            click(category)
         }
         clickOk()
         input(R.id.item_weight_input, weight.toString())

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.turn_back
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
@@ -38,7 +39,7 @@ class ToolTurnBackTest : ToolTestBase(Tools.TURN_BACK) {
         // Loading dialog is possible
         optional {
             hasText(string(R.string.loading))
-            not(12000) { hasText(string(R.string.loading), waitForTime = 0) }
+            not(GPS_WAIT_FOR_TIMEOUT) { hasText(string(R.string.loading)) }
         }
 
         handleExactAlarmsDialog()

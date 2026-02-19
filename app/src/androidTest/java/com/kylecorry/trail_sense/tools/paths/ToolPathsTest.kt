@@ -77,7 +77,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         clickOk()
         isVisible(R.id.path_title)
         hasText("Empty Path")
-        backUntil { isVisible(R.id.paths_title, waitForTime = 1000) }
+        backUntil { isVisible(R.id.paths_title) }
     }
 
     private fun groupOperations() {
@@ -114,7 +114,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         hasText("Test Group 2")
         clickListItemMenu(string(R.string.delete))
         clickOk()
-        not { hasText("Test Group 2", waitForTime = 0) }
+        not { hasText("Test Group 2") }
         back(false)
     }
 
@@ -161,13 +161,13 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         // Delete path
         clickListItemMenu(string(R.string.delete), index = 1)
         clickOk()
-        not { hasText("Empty Path 2", waitForTime = 0) }
+        not { hasText("Empty Path 2") }
     }
 
     private fun searchPath() {
         input(R.id.searchbox, "Path")
         hasText("Empty Path")
-        not { hasText("Dest Group", waitForTime = 0) }
+        not { hasText("Dest Group") }
         input(R.id.searchbox, "")
         hasText("Dest Group")
     }
@@ -243,7 +243,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
             click(R.id.add_point_btn)
         }
 
-        not(waitForTime = GPS_WAIT_FOR_TIMEOUT) { hasText("Loading", waitForTime = 0) }
+        not(waitForTime = GPS_WAIT_FOR_TIMEOUT) { hasText("Loading") }
 
         scrollUntil(R.id.path_scroll, direction = Direction.UP) {
             hasText("2")
@@ -316,7 +316,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         click(toolbarButton(R.id.path_title, Side.Right))
         click("Keep forever")
         click(toolbarButton(R.id.path_title, Side.Right))
-        not { hasText("Keep forever", waitForTime = 0) }
+        not { hasText("Keep forever") }
 
         backUntil { isVisible(R.id.paths_title) }
     }
@@ -364,7 +364,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
+            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
         }
 
         hasText(R.id.play_bar_title, "On - 15m")
