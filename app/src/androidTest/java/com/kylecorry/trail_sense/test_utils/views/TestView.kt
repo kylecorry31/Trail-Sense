@@ -15,12 +15,13 @@ class TestView(val uiObject: UiObject2)
 fun view(
     @IdRes id: Int,
     @IdRes childId: Int? = null,
-    index: Int = 0
+    index: Int = 0,
+    packageName: String? = null
 ): TestView {
     val selector = if (childId == null) {
-        byResId(id)
+        byResId(id, packageName)
     } else {
-        byResId(childId).hasAncestor(byResId(id))
+        byResId(childId, packageName).hasAncestor(byResId(id, packageName))
     }
     return view(selector, index)
 }

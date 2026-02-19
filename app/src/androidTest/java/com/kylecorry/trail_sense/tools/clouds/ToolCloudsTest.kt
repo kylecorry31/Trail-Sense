@@ -80,7 +80,7 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
     }
 
     private fun canManuallyEnterCloud() {
-        click(view(R.id.add_btn))
+        click(R.id.add_btn)
 
         click(string(R.string.manual))
 

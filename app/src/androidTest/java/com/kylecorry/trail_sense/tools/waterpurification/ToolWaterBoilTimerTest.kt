@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.waterpurification
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -37,7 +38,11 @@ class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
         // Verify it is started
         hasText(R.id.boil_button, string(android.R.string.cancel))
         hasText(R.id.time_left) { it.toInt() <= 60 }
-        notification(WaterPurificationTimerService.NOTIFICATION_ID).hasTitle(R.string.water_boil_timer_title)
+
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            notification(WaterPurificationTimerService.NOTIFICATION_ID).hasTitle(R.string.water_boil_timer_title)
+        }
 
         // TODO: Wait for the timer to finish and verify the finished state (simulate time passing)
 
@@ -47,6 +52,10 @@ class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
         // Verify it is stopped
         hasText(R.id.boil_button, string(R.string.start))
         hasText(R.id.time_left, "60")
-        not { notification(WaterPurificationTimerService.NOTIFICATION_ID) }
+
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            not { notification(WaterPurificationTimerService.NOTIFICATION_ID) }
+        }
     }
 }

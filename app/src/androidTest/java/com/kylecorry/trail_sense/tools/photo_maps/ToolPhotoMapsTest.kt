@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -259,12 +260,22 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Layers
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Layers")
-        scrollUntil { hasText("Location") }
-        scrollUntil { hasText("Beacons") }
-        scrollUntil { hasText("Paths") }
-        scrollUntil { hasText("Tides") }
-        scrollUntil { hasText("Navigation") }
-        scrollUntil { hasText("Photo Maps") }
+        scrollUntil { hasText("Location", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
+        scrollUntil { hasText("Beacons", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
+        scrollUntil { hasText("Paths", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
+        scrollUntil { hasText("Tides", waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT) }
+        scrollUntil {
+            hasText(
+                "Navigation",
+                waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT
+            )
+        }
+        scrollUntil {
+            hasText(
+                "Photo Maps",
+                waitForTime = AutomationLibrary.SCROLL_WAIT_FOR_TIMEOUT
+            )
+        }
         click(toolbarButton(R.id.title, Side.Right))
 
         // Export
@@ -272,10 +283,10 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Export")
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("test-map-2.pdf")
+            hasText("test-map-2.pdf", waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
         }
         backUntil {
-            isVisible(R.id.map)
+            isVisible(R.id.map, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
         }
 
         // Print
@@ -283,7 +294,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Print")
         hasText("Copies")
         backUntil {
-            isVisible(R.id.map)
+            isVisible(R.id.map, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
         }
 
         // Trace
@@ -339,10 +350,10 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         clickListItemMenu(string(R.string.export), index = 1)
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("blank-map.pdf")
+            hasText("blank-map.pdf", waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
         }
         backUntil {
-            isVisible(R.id.map_list_title)
+            isVisible(R.id.map_list_title, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
         }
     }
 
@@ -350,7 +361,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         clickListItemMenu(string(R.string.print), index = 1)
         hasText("Copies")
         backUntil {
-            isVisible(R.id.map_list_title)
+            isVisible(R.id.map_list_title, waitForTime = AutomationLibrary.BACK_WAIT_FOR_TIMEOUT)
         }
     }
 

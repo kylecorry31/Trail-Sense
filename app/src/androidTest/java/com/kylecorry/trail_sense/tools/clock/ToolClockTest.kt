@@ -1,26 +1,19 @@
 package com.kylecorry.trail_sense.tools.clock
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.core.app.ActivityScenario
-import androidx.test.uiautomator.By
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
-import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
-class ToolClockTest: ToolTestBase(Tools.CLOCK) {
+class ToolClockTest : ToolTestBase(Tools.CLOCK) {
 
     @Test
     fun verifyBasicFunctionality() {
@@ -43,9 +36,6 @@ class ToolClockTest: ToolTestBase(Tools.CLOCK) {
 
         // Verify the system time settings are opened
         // Check if the settings app is opened
-        waitFor {
-            view(By.textContains("time"))
-//            viewWithText(Pattern.compile("time", Pattern.CASE_INSENSITIVE))
-        }
+        hasText("time")
     }
 }

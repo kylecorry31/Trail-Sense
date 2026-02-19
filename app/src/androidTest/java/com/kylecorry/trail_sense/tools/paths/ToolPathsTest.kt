@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.paths
 
 import androidx.test.uiautomator.Direction
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
@@ -242,7 +243,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
             click(R.id.add_point_btn)
         }
 
-        not { hasText("Loading", waitForTime = GPS_WAIT_FOR_TIMEOUT) }
+        not(waitForTime = GPS_WAIT_FOR_TIMEOUT) { hasText("Loading", waitForTime = 0) }
 
         scrollUntil(R.id.path_scroll, direction = Direction.UP) {
             hasText("2")
@@ -353,8 +354,11 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         click(R.id.play_btn)
 
 
-        waitFor {
-            notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            waitFor {
+                notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
+            }
         }
 
         // Wait for the battery restriction warning to go away
@@ -371,15 +375,21 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         // Stop backtrack
         click(R.id.play_btn)
 
-        not { notification(BacktrackAlerter.NOTIFICATION_ID) }
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            not { notification(BacktrackAlerter.NOTIFICATION_ID) }
+        }
     }
 
     private fun verifyQuickAction() {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
 
-        waitFor {
-            notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            waitFor {
+                notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
+            }
         }
 
         // Wait for the path to be created
@@ -391,7 +401,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
 
         click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
 
-        not { notification(BacktrackAlerter.NOTIFICATION_ID) }
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            not { notification(BacktrackAlerter.NOTIFICATION_ID) }
+        }
 
         TestUtils.closeQuickActions()
     }

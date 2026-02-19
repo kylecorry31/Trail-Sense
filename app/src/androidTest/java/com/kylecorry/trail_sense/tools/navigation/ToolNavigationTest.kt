@@ -14,11 +14,13 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.viewWithResourceId
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -59,7 +61,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
 
     private fun canSetDestinationBearing() {
         any(
-            { click(R.id.round_compass, waitForTime = 0) },
             { click(R.id.radar_compass, waitForTime = 0) },
             { click(R.id.linear_compass, waitForTime = 0) }
         )
@@ -73,20 +74,18 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     }
 
     private fun canNavigate() {
-        // Create a beacon
-        runBlocking {
-            BeaconService(context).add(
-                Beacon(
-                    0,
-                    "Test Beacon",
-                    Coordinate(1.0, -1.0),
-                    comment = "Test Comment",
-                    elevation = Distance.feet(100f).meters().value
-                )
-            )
-        }
-
         click(R.id.beaconBtn)
+
+        // Create a beacon
+        click(R.id.create_btn)
+        click("Beacon", exact = true)
+        input("Name", "Test Beacon")
+        input("Location", "1.0, -1.0")
+        input("Elevation", "100")
+        scrollUntil { input(R.id.comment, "Test Comment") }
+        click(toolbarButton(R.id.create_beacon_title, Side.Right))
+
+        // Navigate to it
         click("Test Beacon")
         delay(200)
         click(string(R.string.navigate))
