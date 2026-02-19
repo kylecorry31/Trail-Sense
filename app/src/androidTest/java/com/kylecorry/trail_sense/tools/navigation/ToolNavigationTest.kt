@@ -61,7 +61,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
 
     private fun canSetDestinationBearing() {
         any(
-            { click(R.id.round_compass, waitForTime = 0) },
             { click(R.id.radar_compass, waitForTime = 0) },
             { click(R.id.linear_compass, waitForTime = 0) }
         )
