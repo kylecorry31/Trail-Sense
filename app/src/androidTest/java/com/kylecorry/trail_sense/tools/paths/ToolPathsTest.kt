@@ -243,7 +243,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
             click(R.id.add_point_btn)
         }
 
-        // TODO: GPS timeout not working?
         not(waitForTime = GPS_WAIT_FOR_TIMEOUT) { hasText("Loading", waitForTime = 0) }
 
         scrollUntil(R.id.path_scroll, direction = Direction.UP) {

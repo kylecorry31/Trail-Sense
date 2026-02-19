@@ -94,18 +94,18 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY) {
     private fun verifyQuickActions() {
         // Verify the sunset alert quick action
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_SUNSET_ALERT))
+        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
 
         handleExactAlarmsDialog()
 
-        click(quickAction(Tools.QUICK_ACTION_SUNSET_ALERT))
+        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
 
 
-        click(quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT))
+        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
 
         handleExactAlarmsDialog()
 
-        click(quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT))
+        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
 
         // TODO: Simulate time passing to verify the alerts are shown
 

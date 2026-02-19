@@ -30,7 +30,6 @@ class ToolTemperatureEstimationTest : ToolTestBase(Tools.TEMPERATURE_ESTIMATION)
         // Autofill
         click(R.id.temp_est_autofill)
 
-        // TODO: GPS timeout not working?
         hasText(R.id.temp_est_base_elevation, waitForTime = GPS_WAIT_FOR_TIMEOUT) {
             it.split(",").first().toFloatCompat() != null
         }

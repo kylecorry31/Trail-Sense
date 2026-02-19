@@ -154,7 +154,7 @@ object TestUtils {
         prefs.locationOverride = coordinate
     }
 
-    fun runShellCommand(command: String){
+    fun runShellCommand(command: String) {
         device.executeShellCommand(command)
     }
 
@@ -365,11 +365,17 @@ object TestUtils {
 
     fun pickDate(year: Int, month: Int, day: Int, waitForClose: Boolean = true) {
         waitFor {
-            view(com.google.android.material.R.id.mtrl_picker_header_toggle, packageName = packageName).click()
+            view(
+                com.google.android.material.R.id.mtrl_picker_header_toggle,
+                packageName = packageName
+            ).click()
         }
 
         waitFor {
-            view(com.google.android.material.R.id.mtrl_picker_text_input_date, packageName = packageName)
+            view(
+                com.google.android.material.R.id.mtrl_picker_text_input_date,
+                packageName = packageName
+            )
                 .childWithIndex(0)
                 .childWithIndex(0)
                 .input(
@@ -385,19 +391,33 @@ object TestUtils {
 
         if (waitForClose) {
             waitFor {
-                not { view(com.google.android.material.R.id.mtrl_calendar_main_pane, packageName = packageName) }
+                not {
+                    view(
+                        com.google.android.material.R.id.mtrl_calendar_main_pane,
+                        packageName = packageName
+                    )
+                }
             }
         }
     }
 
     fun pickTime(hour: Int, minute: Int, am: Boolean, waitForClose: Boolean = true) {
         waitFor {
-            view(com.google.android.material.R.id.material_timepicker_mode_button, packageName = packageName).click()
+            view(
+                com.google.android.material.R.id.material_timepicker_mode_button,
+                packageName = packageName
+            ).click()
         }
 
         waitFor {
-            view(com.google.android.material.R.id.material_hour_text_input, packageName = packageName).click()
-            view(com.google.android.material.R.id.material_hour_text_input, packageName = packageName)
+            view(
+                com.google.android.material.R.id.material_hour_text_input,
+                packageName = packageName
+            ).click()
+            view(
+                com.google.android.material.R.id.material_hour_text_input,
+                packageName = packageName
+            )
                 .childWithIndex(0)
                 .childWithIndex(0)
                 .childWithIndex(0)
@@ -406,10 +426,16 @@ object TestUtils {
                 )
         }
 
-        view(com.google.android.material.R.id.material_minute_text_input, packageName = packageName).click()
+        view(
+            com.google.android.material.R.id.material_minute_text_input,
+            packageName = packageName
+        ).click()
 
         waitFor {
-            view(com.google.android.material.R.id.material_minute_text_input, packageName = packageName)
+            view(
+                com.google.android.material.R.id.material_minute_text_input,
+                packageName = packageName
+            )
                 .childWithIndex(0)
                 .childWithIndex(0)
                 .childWithIndex(0)
@@ -419,9 +445,15 @@ object TestUtils {
         }
 
         if (am) {
-            view(com.google.android.material.R.id.material_clock_period_am_button, packageName = packageName).click()
+            view(
+                com.google.android.material.R.id.material_clock_period_am_button,
+                packageName = packageName
+            ).click()
         } else {
-            view(com.google.android.material.R.id.material_clock_period_pm_button, packageName = packageName).click()
+            view(
+                com.google.android.material.R.id.material_clock_period_pm_button,
+                packageName = packageName
+            ).click()
         }
 
         waitFor {
@@ -462,25 +494,7 @@ object TestUtils {
                 SpecialPermission.SCHEDULE_EXACT_ALARMS
             )
         ) {
-            waitFor {
-                viewWithText(
-                    context.getString(
-                        R.string.allow_schedule_exact_alarms,
-                        context.getString(R.string.app_name)
-                    )
-                )
-                viewWithText(android.R.string.cancel).click()
-            }
-            waitFor {
-                not {
-                    viewWithText(
-                        context.getString(
-                            R.string.allow_schedule_exact_alarms,
-                            R.string.app_name
-                        )
-                    )
-                }
-            }
+            click("Cancel")
         }
     }
 

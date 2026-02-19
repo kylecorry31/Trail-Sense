@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -75,7 +76,11 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
 
         hasText(R.id.beacon_altitude, "1000 ft")
         hasText(R.id.beacon_altitude, string(R.string.elevation))
-        hasText(R.id.beacon_distance, Regex("\\d+\\.?\\d* (mi|ft)"))
+        hasText(
+            R.id.beacon_distance,
+            Regex("\\d+\\.?\\d* (mi|ft)"),
+            waitForTime = AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
+        )
         hasText(R.id.beacon_distance, string(R.string.distance))
         hasText(R.id.beacon_temperature, Regex("\\d+ °F / \\d+ °F"))
         hasText(R.id.beacon_temperature, string(R.string.temperature_high_low))
