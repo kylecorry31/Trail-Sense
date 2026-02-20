@@ -1,0 +1,14 @@
+Map layers
+- New layers: slope, aspect, ruggedness index, sightings (field guide), night, and solar/lunar eclipse
+- Layer management (add, remove, reorder)
+- Hillshade multi-direction shading option
+- Tide phase display option
+- Fling gesture support
+- Improve performance
+- Tap beacon for details rather than navigating
+
+Map
+- Adjust the display time for time-dependent layers
+
+Misc
+- Improve error handling
