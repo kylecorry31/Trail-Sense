@@ -322,6 +322,14 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             activity.last().end
         }
 
+        if (start.month == end.month) {
+            return getString(R.string.active_in_month, formatter.formatMonth(start.month))
+        }
+
+        if (start.month == Month.JANUARY && start.dayOfMonth < 10 && end.month == Month.DECEMBER && end.dayOfMonth > 20) {
+            return getString(R.string.active_all_year)
+        }
+
         return getString(
             R.string.active_period, if (showTimeOfMonth) {
                 formatTimeOfMonth(formatter, start)

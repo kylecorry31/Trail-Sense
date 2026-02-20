@@ -1875,4 +1875,6 @@
     <string name="mid_month">mid %s</string>
     <!--%s is month name-->
     <string name="late_month">late %s</string>
+    <string name="active_in_month">Active in %s</string>
+    <string name="active_all_year">Active all year</string>
 </resources>
