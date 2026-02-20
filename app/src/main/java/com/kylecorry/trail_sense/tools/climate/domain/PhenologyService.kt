@@ -225,7 +225,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
 
             val events = Ecology.getLifecycleEventDates(
                 species.phenology,
-                Range(LocalDate.of(year - 1, 1, 1), LocalDate.of(year, 12, 31)),
+                Range(LocalDate.of(year, 1, 1), LocalDate.of(year, 12, 31)),
                 // TODO: This isn't needed right now, but it should be an interpolated version of astronomy get daylight length (for performance)
                 { Duration.ofHours(12) }
             ) { date ->
