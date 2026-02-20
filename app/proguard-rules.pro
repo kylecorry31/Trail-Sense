@@ -23,8 +23,8 @@
 -keepnames class * extends java.io.Serializable
 -keep class * extends com.kylecorry.trail_sense.shared.ProguardIgnore { *; }
 -keep class * extends androidx.fragment.app.Fragment{}
--keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageDecoder
--keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
+-keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageDecoder { *; }
+-keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder { *; }
 -keep class com.kylecorry.andromeda.bitmaps.Range2d { *; }
 -keep class com.kylecorry.andromeda.bitmaps.Toolkit { *; }
 
