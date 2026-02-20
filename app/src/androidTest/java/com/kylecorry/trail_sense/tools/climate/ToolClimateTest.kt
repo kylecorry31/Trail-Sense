@@ -46,7 +46,7 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
 
         // Verify ecology is displayed
         val expectedActivityLines = listOf(
-            "Biting flies/mosquitoes: Active from April to October",
+            "Biting flies/mosquitoes: Active from April to September",
             "Ticks: Active from March to November",
         )
         scrollUntil {
