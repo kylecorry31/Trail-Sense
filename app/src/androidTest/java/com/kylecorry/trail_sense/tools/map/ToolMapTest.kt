@@ -38,8 +38,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click("Layers")
 
         // Enable Night layer (time dependent)
-        scrollUntil { hasText("Additional layers") }
-        click("Additional layers")
+        scrollUntil { click("Additional layers") }
         click("Night")
         clickOk()
 
