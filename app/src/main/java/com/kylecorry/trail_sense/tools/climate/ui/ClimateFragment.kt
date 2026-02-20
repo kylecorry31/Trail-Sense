@@ -70,9 +70,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
                 DistanceUnits.Inches
             }
         }
-        val isInsectActivityEnabled = useMemo(prefs) {
-            prefs.climate.isInsectActivityEnabled
-        }
 
         // State
         val (date, setDate) = useState(LocalDate.now())
@@ -260,9 +257,8 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
                     "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
                 }
 
-            insectActivityDescriptionView.isVisible =
-                isInsectActivityEnabled && insects.isNotEmpty()
-            insectActivityTitleView.isVisible = isInsectActivityEnabled && insects.isNotEmpty()
+            insectActivityDescriptionView.isVisible = insects.isNotEmpty()
+            insectActivityTitleView.isVisible = insects.isNotEmpty()
             insectActivityDescriptionView.setOnClickListener {
                 val fullText = insects
                     .sortedBy { getBiologicalActivityName(it.key) }

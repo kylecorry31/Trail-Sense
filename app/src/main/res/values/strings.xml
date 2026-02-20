@@ -1673,7 +1673,6 @@
     <string name="climate_very_cold_winter_description">Plan for extremely cold temperatures during the winter.</string>
     <string name="insect_activity">Insect activity</string>
     <string name="mosquitoes">Mosquitoes</string>
-    <string name="pref_climate_insect_activity_enabled" translatable="false">pref_climate_insect_activity_enabled</string>
     <string name="active_period">Active from %1$s to %2$s</string>
     <string name="ticks">Ticks</string>
     <string name="record_sighting">Record sighting</string>
