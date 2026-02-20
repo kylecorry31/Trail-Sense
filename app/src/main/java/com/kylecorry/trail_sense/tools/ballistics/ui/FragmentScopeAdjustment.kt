@@ -4,7 +4,7 @@ import android.widget.TextView
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -201,7 +201,7 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
         val referenceYards = referenceDistance.convertTo(DistanceUnits.Yards).value
         val inchesPerClick = distancePerClick.convertTo(DistanceUnits.Inches).value
 
-        if (SolMath.isZero(inchesPerClick) || SolMath.isZero(distanceToTargetYards)) {
+        if (Arithmetic.isZero(inchesPerClick) || Arithmetic.isZero(distanceToTargetYards)) {
             return null
         }
 

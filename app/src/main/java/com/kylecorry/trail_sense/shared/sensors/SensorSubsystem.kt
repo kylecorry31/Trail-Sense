@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.readAll
-import com.kylecorry.sol.math.SolMath.real
+import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences

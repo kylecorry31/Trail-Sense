@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.dem.colors
 
 import android.graphics.Color
 import com.kylecorry.andromeda.core.ui.colormaps.SampledColorMap
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 
 /*
 <copying>
@@ -56,6 +56,6 @@ class USGSElevationColorMap : SampledColorMap(
     override fun getElevationColor(meters: Float): Int {
         val low = 0f
         val high = 3048f
-        return getColor(SolMath.norm(meters, low, high, shouldClamp = true))
+        return getColor(Interpolation.norm(meters, low, high, shouldClamp = true))
     }
 }

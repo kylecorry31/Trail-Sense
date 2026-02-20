@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.domain
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geography.projections.IMapProjection

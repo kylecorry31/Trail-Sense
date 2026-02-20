@@ -19,6 +19,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -195,7 +196,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
     }
 
     private fun onUpdateDeclinationFromGpsCallback(): Boolean {
-        val declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
+        val declination = Geophysics.getGeomagneticDeclination(gps.location, gps.altitude)
         prefs.declinationOverride = declination
         declinationOverrideEdit.text = declination.toString()
         Alerts.toast(requireContext(), getString(R.string.declination_override_updated_toast))

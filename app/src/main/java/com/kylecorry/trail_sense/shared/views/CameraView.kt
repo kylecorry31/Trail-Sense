@@ -26,7 +26,7 @@ import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.R
 import java.io.File
 import java.time.Duration
@@ -171,7 +171,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         val state = camera?.zoom
         val min = state?.ratioRange?.start ?: 1f
         val max = state?.ratioRange?.end ?: 2f
-        camera?.setZoomRatio(SolMath.map(zoom, 0f, 1f, min, max))
+        camera?.setZoomRatio(Interpolation.map(zoom, 0f, 1f, min, max))
         hasPendingChanges = true
     }
 
@@ -180,7 +180,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         val state = camera?.zoom
         val min = state?.ratioRange?.start ?: 1f
         val max = state?.ratioRange?.end ?: 2f
-        val pct = SolMath.norm(ratio, min, max)
+        val pct = Interpolation.norm(ratio, min, max)
         setZoom(pct)
     }
 
@@ -203,7 +203,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         val mapped = if (range.start == range.end) {
             range.start
         } else {
-            SolMath.map(value, -1f, 1f, range.start.toFloat(), range.end.toFloat()).roundToInt()
+            Interpolation.map(value, -1f, 1f, range.start.toFloat(), range.end.toFloat())
+                .roundToInt()
         }
 
         camera?.setExposure(mapped)

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.paths.domain.hiking
 
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -63,8 +64,8 @@ class HikingService : IHikingService {
     override fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
         val elevations =
             path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
-        val gain = Geology.getElevationGain(elevations)
-        val loss = Geology.getElevationLoss(elevations)
+        val gain = Geography.getElevationGain(elevations)
+        val loss = Geography.getElevationLoss(elevations)
         return loss to gain
     }
 
@@ -89,7 +90,7 @@ class HikingService : IHikingService {
         val speed = pace.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed
         val gain = getElevationGain(path).meters().value
 
-        val distance = Geology.getPathDistance(path.map { it.coordinate }).meters().value
+        val distance = Geography.getPathDistance(path.map { it.coordinate }).meters().value
 
         val scarfs = distance + 7.92f * gain
 
@@ -109,7 +110,7 @@ class HikingService : IHikingService {
     override fun getElevationGain(path: List<PathPoint>): Distance {
         val elevations =
             path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
-        return Geology.getElevationGain(elevations)
+        return Geography.getElevationGain(elevations)
     }
 
 

@@ -4,8 +4,9 @@ import android.view.View
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.toolbar.Toolbar
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -26,7 +27,7 @@ class ToolDeclinationFragment : TrailSenseReactiveFragment(R.layout.fragment_too
         val formatter = useService<FormatService>()
         val (location, setLocation) = useState(initialLocation)
         val declination = useBackgroundMemo(location) {
-            Geology.getGeomagneticDeclination(location)
+            Geophysics.getGeomagneticDeclination(location)
         }
         val loadingIndicator = useMemo(locationView, loadingView) {
             MultiLoadingIndicator(
@@ -59,7 +60,7 @@ class ToolDeclinationFragment : TrailSenseReactiveFragment(R.layout.fragment_too
         useEffect(titleView, declination, formatter) {
             val actualDeclination = declination ?: 0f
 
-            titleView.title.text = if (SolMath.isZero(actualDeclination, 0.05f)) {
+            titleView.title.text = if (Arithmetic.isZero(actualDeclination, 0.05f)) {
                 formatter.formatDegrees(actualDeclination, 1)
             } else {
                 "${formatter.formatDegrees(actualDeclination, 1)} (${

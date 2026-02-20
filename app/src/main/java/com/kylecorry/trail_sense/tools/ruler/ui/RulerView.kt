@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
@@ -176,7 +176,7 @@ class RulerView : CanvasView {
 
     private fun approxDivisibleBy(value: Float, divisor: Float): Boolean {
         val rounded = (value / divisor).safeRoundToInt() * divisor
-        return SolMath.isCloseTo(rounded, value, 0.05f)
+        return Arithmetic.isCloseTo(rounded, value, 0.05f)
     }
 
     private fun drawLine(distance: Distance, lineWidth: Float, lineColor: Int, lineWeight: Float) {

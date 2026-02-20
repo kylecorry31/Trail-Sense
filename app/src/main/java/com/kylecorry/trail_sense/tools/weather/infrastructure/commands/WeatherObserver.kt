@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.readAll
-import com.kylecorry.sol.math.SolMath.real
+import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper

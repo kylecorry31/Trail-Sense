@@ -5,11 +5,11 @@ import android.opengl.Matrix
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.toDegrees
-import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.MathExtensions.toDegrees
+import com.kylecorry.sol.math.MathExtensions.toRadians
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.LinearCameraAnglePixelMapper
@@ -51,7 +51,7 @@ object AugmentedRealityUtils {
         fov: Size
     ): PixelCoordinate {
 
-        val newBearing = SolMath.deltaAngle(azimuth, bearing)
+        val newBearing = Trigonometry.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
 
         return synchronized(rectLock) {

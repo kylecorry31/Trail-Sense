@@ -15,9 +15,9 @@ import com.kylecorry.andromeda.views.subscaleview.ImageSource
 import com.kylecorry.andromeda.views.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageDecoder
 import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageRegionDecoder
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageDecoder
 import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -151,7 +151,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
                 else -> ORIENTATION_0
             }
         }
-        rotationOffset = SolMath.deltaAngle(
+        rotationOffset = Trigonometry.deltaAngle(
             baseRotation.toFloat(),
             rotation
         )

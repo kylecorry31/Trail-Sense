@@ -4,7 +4,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.math.statistics.Statistics
-import com.kylecorry.sol.science.oceanography.OceanographyService
+import com.kylecorry.sol.science.oceanography.Oceanography
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.waterlevel.HarmonicWaterLevelCalculator
@@ -334,10 +334,10 @@ class TideModelTest {
         expected: List<Tide>
     ): List<Float> {
         val calculator = HarmonicWaterLevelCalculator(harmonics)
-        val ocean = OceanographyService()
         val start = expected.first().time.atStartOfDay().minusHours(12)
         val end = expected.first().time.atEndOfDay().plusHours(12)
-        val actual = ocean.getTides(calculator, start, end, GoldenSearchExtremaFinder(30.0, 1.0))
+        val actual =
+            Oceanography.getTides(calculator, start, end, GoldenSearchExtremaFinder(30.0, 1.0))
         // Match each tide
         val matchedTides = expected.map {
             val closest = actual.minBy { actualTide ->

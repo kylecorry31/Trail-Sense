@@ -17,7 +17,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.print.Printer
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPhotoMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -301,7 +301,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         if (!updatedMap.isCalibrated) return
         val newRotation = MapRotationCalculator().calculate(updatedMap)
 
-        val delta = SolMath.deltaAngle(newRotation, updatedMap.calibration.rotation).absoluteValue
+        val delta = Trigonometry.deltaAngle(newRotation, updatedMap.calibration.rotation).absoluteValue
         if (delta > 1f) {
             toast(getString(R.string.map_auto_rotated))
         }

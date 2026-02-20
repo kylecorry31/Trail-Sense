@@ -14,10 +14,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonLineString
 import com.kylecorry.luna.coroutines.onDefault
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation
+import com.kylecorry.sol.math.lists.Lists
+import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
@@ -458,7 +459,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 if (placements.size >= maxLabels) break
 
                 val closestIndex =
-                    SolMath.argmin(segments.map { it.center.distanceTo(gridPixel) })
+                    Lists.argmin(segments.map { it.center.distanceTo(gridPixel) })
 
                 if (closestIndex >= 0) {
                     val center = segments[closestIndex].center

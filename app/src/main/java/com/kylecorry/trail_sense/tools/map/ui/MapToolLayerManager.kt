@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
-import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.extensions.point
@@ -97,7 +97,7 @@ class MapToolLayerManager {
 
     private fun onDistancePathChange(points: List<Coordinate>) {
         // Display distance
-        val distance = Geology.getPathDistance(points)
+        val distance = Geography.getPathDistance(points)
         onDistanceChangedCallback?.invoke(distance)
     }
 

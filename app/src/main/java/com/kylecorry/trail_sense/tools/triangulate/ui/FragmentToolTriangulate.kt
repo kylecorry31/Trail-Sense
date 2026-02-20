@@ -19,9 +19,10 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.preferences.putOrRemoveCoordinate
 import com.kylecorry.andromeda.preferences.putOrRemoveFloat
 import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
-import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -310,7 +311,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             if (locationIdx == 1) binding.bearing1.trueNorth else binding.bearing2.trueNorth
 
         val end = if (start != null && direction != null) {
-            val declination = if (trueNorth) 0f else Geology.getGeomagneticDeclination(start)
+            val declination = if (trueNorth) 0f else Geophysics.getGeomagneticDeclination(start)
             val bearing = Bearing.from(direction).withDeclination(declination)
             destination ?: start.plus(
                 Distance.kilometers(1f),
@@ -372,16 +373,16 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         // All information is available to triangulate
         val declination1 =
-            if (binding.bearing1.trueNorth) 0f else Geology.getGeomagneticDeclination(location1)
+            if (binding.bearing1.trueNorth) 0f else Geophysics.getGeomagneticDeclination(location1)
         val declination2 =
-            if (binding.bearing2.trueNorth) 0f else Geology.getGeomagneticDeclination(location2)
+            if (binding.bearing2.trueNorth) 0f else Geophysics.getGeomagneticDeclination(location2)
         val bearing1 = Bearing.from(direction1).withDeclination(declination1)
         val bearing2 = Bearing.from(direction2).withDeclination(declination2)
 
         val location = if (shouldCalculateMyLocation) {
-            Geology.triangulateSelf(location1, bearing1, location2, bearing2)
+            Geography.triangulateSelf(location1, bearing1, location2, bearing2)
         } else {
-            Geology.triangulateDestination(location1, bearing1, location2, bearing2)
+            Geography.triangulateDestination(location1, bearing1, location2, bearing2)
         }
         setLocation(location)
     }

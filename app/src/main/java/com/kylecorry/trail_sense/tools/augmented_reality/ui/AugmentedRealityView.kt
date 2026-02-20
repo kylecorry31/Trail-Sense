@@ -28,8 +28,8 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
-import com.kylecorry.sol.math.SolMath.deltaAngle
-import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
+import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Bearing

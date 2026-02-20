@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
 import com.kylecorry.andromeda.list.GridView
 import com.kylecorry.luna.text.toFloatCompat
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.physics.NoDragModel
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -220,7 +220,7 @@ class FragmentBallisticsCalculator :
     ): List<TrajectoryPoint> {
         return tryOrDefault(emptyList()) {
             val dragModel =
-                if (ballisticCoefficient == null || SolMath.isZero(ballisticCoefficient)) {
+                if (ballisticCoefficient == null || Arithmetic.isZero(ballisticCoefficient)) {
                     NoDragModel()
                 } else {
                     G1DragModel(ballisticCoefficient)

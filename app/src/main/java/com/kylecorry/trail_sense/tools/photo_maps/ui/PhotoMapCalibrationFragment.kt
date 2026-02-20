@@ -15,8 +15,8 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundNearestAngle
+import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
@@ -247,7 +247,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
         val baseRotation = rotation.roundNearestAngle(90f)
 
-        showRotation(SolMath.deltaAngle(baseRotation, rotation))
+        showRotation(Trigonometry.deltaAngle(baseRotation, rotation))
     }
 
 

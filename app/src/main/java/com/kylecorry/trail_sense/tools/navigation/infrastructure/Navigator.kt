@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -114,7 +115,7 @@ class Navigator private constructor(context: Context) {
     val bearingDestination = navigationBearing.map {
         it?.let {
             val declination = if (userPrefs.useAutoDeclination) {
-                Geology.getGeomagneticDeclination(it.startLocation ?: locationSubsystem.location)
+                Geophysics.getGeomagneticDeclination(it.startLocation ?: locationSubsystem.location)
             } else {
                 userPrefs.declinationOverride
             }
@@ -196,7 +197,7 @@ class Navigator private constructor(context: Context) {
             val actualLocation = location ?: locationSubsystem.location
             runBlocking {
                 declinationCache.getOrPut(actualLocation) {
-                    Geology.getGeomagneticDeclination(
+                    Geophysics.getGeomagneticDeclination(
                         actualLocation,
                         elevation ?: locationSubsystem.elevation.meters().value
                     )

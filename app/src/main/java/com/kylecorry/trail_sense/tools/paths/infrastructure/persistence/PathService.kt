@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
@@ -171,7 +172,7 @@ class PathService(
             PathSimplificationQuality.High -> 2f
         }
         val filter = RDPFilter<PathPoint>(epsilon) { point, start, end ->
-            Geology.getCrossTrackDistance(
+            Geography.getCrossTrackDistance(
                 point.coordinate,
                 start.coordinate,
                 end.coordinate
@@ -285,10 +286,10 @@ class PathService(
         val start = points.firstOrNull()?.time
         val end = points.lastOrNull()?.time
         val metadata = PathMetadata(
-            Geology.getPathDistance(coords),
+            Geography.getPathDistance(coords),
             points.size,
             if (start != null && end != null) Range(start, end) else null,
-            Geology.getBounds(coords)
+            Geography.getBounds(coords)
         )
 
         addPath(path.copy(metadata = metadata))

@@ -21,8 +21,8 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.normalizeAngle
+import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.normalizeAngle
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance

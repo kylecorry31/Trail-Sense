@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Dither
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorMapFactory
 import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy

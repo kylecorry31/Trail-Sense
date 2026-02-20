@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.tides.domain
 import android.content.Context
 import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
-import com.kylecorry.sol.science.oceanography.OceanographyService
+import com.kylecorry.sol.science.oceanography.Oceanography
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
@@ -23,8 +23,6 @@ class TideService(private val context: Context) {
 
     private val maxSearchIterations = 10
 
-    private val ocean = OceanographyService()
-
     private val cache = LRUCache<TideTable, TideTableWaterLevelCalculator>(100)
 
     suspend fun getTides(
@@ -36,7 +34,7 @@ class TideService(private val context: Context) {
         val end = date.plusDays(1).atStartOfDay().toZonedDateTime(zone)
         val waterLevelCalculator = getTableCalculator(table)
         val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
-        val tides = ocean.getTides(waterLevelCalculator, start, end, extremaFinder)
+        val tides = Oceanography.getTides(waterLevelCalculator, start, end, extremaFinder)
         return tides.filter { it.time.toLocalDate() == date }
     }
 
@@ -113,9 +111,9 @@ class TideService(private val context: Context) {
         val delta = Duration.between(previous.time, time).toMillis().toDouble()
         val progress = (delta / total).toFloat()
         return if (next.isHigh) {
-            SolMath.map(progress, 0f, 1f, 180f, 270f)
+            Interpolation.map(progress, 0f, 1f, 180f, 270f)
         } else {
-            SolMath.map(progress, 0f, 1f, 0f, 180f)
+            Interpolation.map(progress, 0f, 1f, 0f, 180f)
         }
     }
 

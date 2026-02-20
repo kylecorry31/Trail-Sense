@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.math.SolMath.map
+import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor

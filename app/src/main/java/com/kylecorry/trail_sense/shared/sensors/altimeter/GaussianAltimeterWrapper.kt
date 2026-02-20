@@ -4,9 +4,9 @@ import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.sol.math.MathExtensions.positive
+import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.math.RingBuffer
-import com.kylecorry.sol.math.SolMath.positive
-import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.statistics.GaussianDistribution
 import com.kylecorry.sol.math.statistics.Statistics
 

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration
 
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration

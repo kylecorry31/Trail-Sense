@@ -12,12 +12,12 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.deltaAngle
-import com.kylecorry.sol.math.SolMath.sinDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.optimization.Optimization
+import com.kylecorry.sol.math.trigonometry.Trigonometry.sinDegrees
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.util.Size
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.power
+import com.kylecorry.sol.math.arithmetic.Arithmetic.power
+import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import kotlin.math.PI

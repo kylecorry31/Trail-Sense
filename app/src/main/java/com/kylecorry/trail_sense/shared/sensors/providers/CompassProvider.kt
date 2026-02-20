@@ -23,8 +23,8 @@ import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.RotationSensor
 import com.kylecorry.andromeda.sense.orientation.filter.FilteredOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.filter.LowPassOrientationSensorFilter
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.filters.MovingAverageFilter
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
@@ -141,7 +141,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             )
         }
 
-        val alpha = SolMath.map((1 - smoothing / 100f).pow(2), 0f, 1f, 0.005f, 1f)
+        val alpha = Interpolation.map((1 - smoothing / 100f).pow(2), 0f, 1f, 0.005f, 1f)
 
         return MagQualityOrientationWrapper(
             FilteredOrientationSensor(

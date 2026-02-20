@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.dem.colors
 
 import android.graphics.Color
 import com.kylecorry.andromeda.core.ui.colormaps.SampledColorMap
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 
 // http://seaviewsensing.com/pub/cpt-city/tp/index.html
 class TomPattersonElevationColorMap : SampledColorMap(
@@ -24,6 +24,6 @@ class TomPattersonElevationColorMap : SampledColorMap(
     override fun getElevationColor(meters: Float): Int {
         val min = 0f
         val max = 8000f
-        return getColor(SolMath.norm(meters, min, max, shouldClamp = true))
+        return getColor(Interpolation.norm(meters, min, max, shouldClamp = true))
     }
 }

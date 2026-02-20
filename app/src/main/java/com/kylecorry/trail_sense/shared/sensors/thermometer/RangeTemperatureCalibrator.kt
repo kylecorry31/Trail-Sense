@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.thermometer
 
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.units.Temperature
 
 class RangeTemperatureCalibrator(
@@ -11,7 +11,7 @@ class RangeTemperatureCalibrator(
 ) : ITemperatureCalibrator {
     override fun calibrate(temperature: Temperature): Temperature {
         return Temperature.celsius(
-            SolMath.map(
+            Interpolation.map(
                 temperature.celsius().value,
                 sensorMinC,
                 sensorMaxC,

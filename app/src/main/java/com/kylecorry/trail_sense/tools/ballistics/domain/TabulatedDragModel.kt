@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.ballistics.domain
 
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.interpolation.LocalNewtonInterpolator
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.physics.DragModel
 import kotlin.math.abs
 
@@ -24,8 +24,8 @@ abstract class TabulatedDragModel(val bc: Float = 1f) : DragModel {
         val magnitude = velocity.magnitude()
         val angle = velocity.angle()
         val drag = interpolator.interpolate(magnitude)
-        val dragX = drag * SolMath.cosDegrees(angle)
-        val dragY = drag * SolMath.sinDegrees(angle)
+        val dragX = drag * Trigonometry.cosDegrees(angle)
+        val dragY = drag * Trigonometry.sinDegrees(angle)
 
         // Always in the direction opposite to the velocity
         val xSign = if (velocity.x < 0) 1 else -1

@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.sound.stream.AudioStream
 import com.kylecorry.andromeda.sound.stream.PrecomputedAudioStream
 import com.kylecorry.andromeda.sound.stream.SineWaveAudioStream
 import com.kylecorry.andromeda.sound.stream.SumAudioStream
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 import kotlin.math.PI
 
 class CricketsAudioStream(private val includeNearbyCricket: Boolean = true) : AudioStream {
@@ -29,7 +29,7 @@ class CricketsAudioStream(private val includeNearbyCricket: Boolean = true) : Au
             numOscillators = 10,
             evenDistribution = true
         ) { frequency, _ ->
-            val normFrequency = SolMath.norm(frequency, 4200.0, 5000.0)
+            val normFrequency = Interpolation.norm(frequency, 4200.0, 5000.0)
             BandedNoiseAudioStream.Oscillator(
                 normFrequency,
                 frequency,

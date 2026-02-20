@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.declination
 
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
@@ -25,7 +26,7 @@ class ToolDeclinationTest : ToolTestBase(Tools.DECLINATION) {
         input(R.id.utm, "42, -72")
 
         // This varies with time, so look it up
-        val declination1 = Geology.getGeomagneticDeclination(Coordinate(42.0, -72.0))
+        val declination1 = Geophysics.getGeomagneticDeclination(Coordinate(42.0, -72.0))
         val formatted1 = DecimalFormatter.format(declination1, 1)
 
         // Verify the declination is displayed
@@ -34,7 +35,7 @@ class ToolDeclinationTest : ToolTestBase(Tools.DECLINATION) {
         input(R.id.utm, "-42, -72")
 
         // This varies with time, so look it up
-        val declination2 = Geology.getGeomagneticDeclination(Coordinate(-42.0, -72.0))
+        val declination2 = Geophysics.getGeomagneticDeclination(Coordinate(-42.0, -72.0))
         val formatted2 = DecimalFormatter.format(declination2, 1)
 
         // Verify the declination is displayed

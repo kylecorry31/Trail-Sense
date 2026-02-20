@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.luna.coroutines.onIO
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.ceilToInt
 import com.kylecorry.sol.math.floorToInt
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
@@ -79,7 +79,7 @@ class PhotoMapRegionLoader(
             percentTopRight.y,
             percentBottomLeft.x,
             percentBottomLeft.y
-        ).any { !SolMath.isZero(it % 1f) }
+        ).any { !Arithmetic.isZero(it % 1f) }
 
         val inSampleSize = calculateInSampleSize(
             region.width(),

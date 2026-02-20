@@ -20,9 +20,11 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.trigonometry.Trigonometry
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -125,7 +127,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         }
         observe(altimeter) { updateDestination() }
         observe(compass) {
-            compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
+            compass.declination = Geophysics.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
             binding.map.userAzimuth = compass.bearing
             if (mapLockMode == MapLockMode.Compass) {
@@ -178,7 +180,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun getDefaultMapAzimuth(keepMapUp: Boolean): Float {
         return if (keepMapUp) {
-            -SolMath.deltaAngle(
+            -Trigonometry.deltaAngle(
                 map?.calibration?.rotation ?: 0f,
                 map?.baseRotation()?.toFloat() ?: 0f
             )

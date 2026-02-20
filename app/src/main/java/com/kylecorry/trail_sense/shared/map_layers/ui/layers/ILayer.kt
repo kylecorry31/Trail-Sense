@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 
 import java.time.Instant
 
@@ -73,7 +73,7 @@ interface ILayer {
     val percentOpacity: Float
 
     val opacity: Int
-        get() = SolMath.map(
+        get() = Interpolation.map(
             percentOpacity,
             0f,
             1f,

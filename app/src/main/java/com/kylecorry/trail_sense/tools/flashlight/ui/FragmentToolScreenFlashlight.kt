@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.torch.ScreenTorch
-import com.kylecorry.sol.math.SolMath.map
+import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem

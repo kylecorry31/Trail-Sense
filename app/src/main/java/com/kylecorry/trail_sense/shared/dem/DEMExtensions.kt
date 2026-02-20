@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.dem
 
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.arithmetic.Arithmetic
+import com.kylecorry.sol.math.arithmetic.Arithmetic.wrap
+import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import kotlin.math.PI
 import kotlin.math.atan
@@ -40,7 +40,7 @@ fun getSlopeAngle(
 
 fun getSlopeAspect(slopeVector: Vector2): Float {
     var aspectRad = 0f
-    if (!SolMath.isZero(slopeVector.x)) {
+    if (!Arithmetic.isZero(slopeVector.x)) {
         aspectRad = wrap(atan2(slopeVector.y, -slopeVector.x), 0f, 2 * PI.toFloat())
     } else {
         if (slopeVector.y > 0) {

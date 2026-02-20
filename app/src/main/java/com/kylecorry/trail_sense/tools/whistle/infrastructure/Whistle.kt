@@ -4,7 +4,7 @@ import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
 import com.kylecorry.andromeda.sound.SoundPlayer
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import kotlin.math.sin
 
 class Whistle : SoundPlayer(WhistleGenerator().getTone(3800, 100))
@@ -25,7 +25,7 @@ private class WhistleGenerator {
         val adjustedDoubleAmount = doubleFrequencyAmount / totalAmount
 
         // Calculate the shortest possible duration that is seamless
-        val lcm = SolMath.leastCommonMultiple(1f / frequency, 1f / warbleFrequency)
+        val lcm = Arithmetic.leastCommonMultiple(1f / frequency, 1f / warbleFrequency)
         var duration = lcm.coerceIn(0f, 1f)
         if (duration == 0f) {
             duration = 1f

@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.paths.domain.point_finder
 
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.PathLine
@@ -15,7 +16,7 @@ class NearestPathLineCalculator {
     }
 
     private fun getDistance(location: Coordinate, line: PathLine): Float {
-        return Geology.getNearestPoint(
+        return Geography.getNearestPoint(
             location,
             line.first.coordinate,
             line.second.coordinate

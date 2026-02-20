@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Lut
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.ui.colormaps.AlphaColorMap
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.tiles.InterpolatedGridValueProvider
@@ -67,10 +67,10 @@ class NightTileSource : TileSource {
             val value = getValue(x, y)
             if (smooth) {
                 val pct =
-                    SolMath.norm(value, 0f, AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL, true)
+                    Interpolation.norm(value, 0f, AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL, true)
                 colorMap.getColor(pct)
             } else {
-                val gray = (255 * SolMath.norm(
+                val gray = (255 * Interpolation.norm(
                     value,
                     AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL - 5f,
                     5f,
@@ -89,7 +89,7 @@ class NightTileSource : TileSource {
     private fun constructLookupTable(): LookupTable {
         val table = LookupTable()
         for (i in table.alpha.indices) {
-            val value = SolMath.lerp(
+            val value = Interpolation.lerp(
                 i / 255f,
                 AstronomyService.SUN_MIN_ALTITUDE_ASTRONOMICAL - 5f,
                 5f

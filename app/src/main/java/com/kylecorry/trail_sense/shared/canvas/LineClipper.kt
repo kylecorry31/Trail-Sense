@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.canvas
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.real
+import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Geometry

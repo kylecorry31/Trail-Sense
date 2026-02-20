@@ -5,11 +5,10 @@ import android.graphics.Rect
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.glcm
 import com.kylecorry.andromeda.bitmaps.ColorChannel
 import com.kylecorry.andromeda.bitmaps.operations.reducePixels
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.statistics.Statistics
-import com.kylecorry.sol.math.statistics.Texture
 import com.kylecorry.sol.math.statistics.TextureFeatures
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
@@ -45,7 +44,7 @@ class SoftmaxCloudClassifier(
                 levels = GLCM_LEVELS,
                 region = it
             )
-            Texture.features(glcm)
+            Statistics.textureFeatures(glcm)
         }
 
         val texture = TextureFeatures(
@@ -65,12 +64,12 @@ class SoftmaxCloudClassifier(
 
         val features = listOf(
             // Color
-            SolMath.norm(averageNRBR.toFloat(), -1f, 1f) * 2,
+            Interpolation.norm(averageNRBR.toFloat(), -1f, 1f) * 2,
             // Texture
             texture.energy,
             texture.contrast,
-            SolMath.norm(texture.verticalMean, 0f, GLCM_LEVELS.toFloat()),
-            SolMath.norm(sqrt(texture.verticalVariance), 0f, 3f),
+            Interpolation.norm(texture.verticalMean, 0f, GLCM_LEVELS.toFloat()),
+            Interpolation.norm(sqrt(texture.verticalVariance), 0f, 3f),
             // Bias
             1f
         )

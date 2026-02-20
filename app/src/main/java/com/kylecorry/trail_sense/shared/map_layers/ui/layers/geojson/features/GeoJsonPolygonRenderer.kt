@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.geojson.GeoJsonPosition
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
@@ -63,7 +64,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
     ) = onDefault {
         val rdp =
             RDPFilter<GeoJsonPosition>(projection.resolutionPixels.coerceAtLeast(1f) * filterEpsilon) { point, start, end ->
-                Geology.getCrossTrackDistance(
+                Geography.getCrossTrackDistance(
                     point.coordinate,
                     start.coordinate,
                     end.coordinate

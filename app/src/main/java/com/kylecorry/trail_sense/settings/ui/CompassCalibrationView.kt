@@ -7,9 +7,10 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.arithmetic.Arithmetic
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.PI
@@ -98,7 +99,7 @@ class CompassCalibrationView : CanvasView {
     }
 
     private fun getT(time: Float): Float {
-        return SolMath.wrap(SolMath.map(time, 0f, loopTime, tMin, tMax), tMin, tMax)
+        return Arithmetic.wrap(Interpolation.map(time, 0f, loopTime, tMin, tMax), tMin, tMax)
     }
 
     private fun loop() {
