@@ -3,12 +3,13 @@ package com.kylecorry.trail_sense.tools.climate.ui
 import android.util.Log
 import android.widget.TextView
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.toolbar.Toolbar
-import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateGroup
 import com.kylecorry.sol.science.meteorology.KoppenGeigerSeasonalPrecipitationPattern
 import com.kylecorry.sol.science.meteorology.KoppenGeigerTemperaturePattern
@@ -262,6 +263,21 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             insectActivityDescriptionView.isVisible =
                 isInsectActivityEnabled && insects.isNotEmpty()
             insectActivityTitleView.isVisible = isInsectActivityEnabled && insects.isNotEmpty()
+            insectActivityDescriptionView.setOnClickListener {
+                val fullText = insects
+                    .sortedBy { getBiologicalActivityName(it.key) }
+                    .joinToString("\n\n") {
+                        "${getBiologicalActivityName(it.key)}\n${
+                            formatActivity(
+                                formatter,
+                                it.value,
+                                true
+                            )
+                        }"
+                    }
+
+                dialog(getString(R.string.insect_activity), fullText, cancelText = null)
+            }
         }
     }
 
@@ -293,24 +309,43 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         }
     }
 
-    private fun formatActivity(formatter: FormatService, activity: List<Range<LocalDate>>): String {
+    private fun formatActivity(
+        formatter: FormatService,
+        activity: List<Range<LocalDate>>,
+        showTimeOfMonth: Boolean = false
+    ): String {
         val start = if (isActivityWrapped(activity)) {
-            activity[1].start.month
+            activity[1].start
         } else {
-            activity[0].start.month
+            activity[0].start
         }
 
         val end = if (isActivityWrapped(activity)) {
-            activity[0].end.month
+            activity[0].end
         } else {
-            activity.last().end.month
+            activity.last().end
         }
 
         return getString(
-            R.string.active_period, formatter.formatMonth(start), formatter.formatMonth(
-                end
-            )
+            R.string.active_period, if (showTimeOfMonth) {
+                formatTimeOfMonth(formatter, start)
+            } else {
+                formatter.formatMonth(start.month)
+            }, if (showTimeOfMonth) {
+                formatTimeOfMonth(formatter, end)
+            } else {
+                formatter.formatMonth(end.month)
+            }
         )
+    }
+
+    private fun formatTimeOfMonth(formatter: FormatService, date: LocalDate): String {
+        val month = formatter.formatMonth(date.month)
+        return when {
+            date.dayOfMonth < 10 -> getString(R.string.early_month, month)
+            date.dayOfMonth < 20 -> getString(R.string.mid_month, month)
+            else -> getString(R.string.late_month, month)
+        }
     }
 
     private fun getClimateDescription(

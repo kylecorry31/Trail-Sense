@@ -1870,4 +1870,10 @@
     <string name="deer_horse_flies">Deer/horse flies</string>
     <string name="stable_flies">Stable flies</string>
     <string name="biting_midges">Biting midges</string>
+    <!--%s is month name-->
+    <string name="early_month">early %s</string>
+    <!--%s is month name-->
+    <string name="mid_month">mid %s</string>
+    <!--%s is month name-->
+    <string name="late_month">late %s</string>
 </resources>
