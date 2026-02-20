@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.climate.domain
 
+import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.SunTimesMode
@@ -21,6 +22,7 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_END
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_START
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.IWeatherSubsystem
+import java.time.Duration
 import java.time.LocalDate
 import java.time.Month
 
@@ -204,7 +206,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
         location: Coordinate? = null,
         elevation: Distance? = null,
         calibrated: Boolean = true
-    ): Map<BiologicalActivity, List<Range<LocalDate>>> {
+    ): Map<BiologicalActivity, List<Range<LocalDate>>> = onDefault {
         val actualLocation = location ?: getAppService<LocationSubsystem>().location
 
         val climate = weather.getClimateClassification(location, elevation, calibrated)
@@ -228,12 +230,12 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
                 continue
             }
 
-            val astronomy = AstronomyService()
 
             val events = Ecology.getLifecycleEventDates(
                 species.phenology,
                 Range(LocalDate.of(year - 1, 1, 1), LocalDate.of(year, 12, 31)),
-                { astronomy.getLengthOfDay(actualLocation, SunTimesMode.Actual, it) }
+                // TODO: This isn't needed right now, but it should be an interpolated version of astronomy get daylight length (for performance)
+                { Duration.ofHours(12) }
             ) { date ->
                 (if (date.month == Month.FEBRUARY && date.dayOfMonth == 29 && !containsLeapDay) {
                     temperatures.first { it.first.month == Month.FEBRUARY && it.first.dayOfMonth == 28 }
@@ -246,7 +248,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
                 getActivePeriodsForYear(year, events, EVENT_ACTIVE_START, EVENT_ACTIVE_END)
         }
 
-        return activeDays
+        activeDays
     }
 
     companion object {
