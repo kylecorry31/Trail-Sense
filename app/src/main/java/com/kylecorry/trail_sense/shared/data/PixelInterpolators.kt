@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.shared.data
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.algebra.Algebra
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.roundToInt
@@ -109,8 +110,8 @@ class BicubicInterpolator : PixelInterpolator {
     private fun cubic(t: Float): Float {
         val tAbs = abs(t)
         return when {
-            tAbs <= 1f -> SolMath.polynomial(tAbs.toDouble(), 1.0, 0.0, -2.5, 1.5).toFloat()
-            tAbs <= 2f -> SolMath.polynomial(tAbs.toDouble(), 2.0, -4.0, 2.5, -0.5).toFloat()
+            tAbs <= 1f -> Algebra.polynomial(tAbs.toDouble(), 1.0, 0.0, -2.5, 1.5).toFloat()
+            tAbs <= 2f -> Algebra.polynomial(tAbs.toDouble(), 2.0, -4.0, 2.5, -0.5).toFloat()
             else -> 0f
         }
     }

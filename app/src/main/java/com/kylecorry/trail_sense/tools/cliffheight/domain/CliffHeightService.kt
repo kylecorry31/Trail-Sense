@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.cliffheight.domain
 
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -19,7 +20,7 @@ class CliffHeightService {
             "gravity",
             location
         ) {
-            location?.let { Geology.getGravity(it) } ?: Geology.GRAVITY
+            location?.let { Geophysics.getGravity(it) } ?: Geophysics.GRAVITY
         }
 
         return Physics.fallHeight(time, gravity)

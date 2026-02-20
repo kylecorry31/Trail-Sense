@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -80,7 +80,7 @@ class ContourGeoJsonSource : GeoJsonSource {
         var i = -10000L
 
         val features = contours.flatMap { level ->
-            val isImportantLine = SolMath.isZero((level.elevation / interval) % 5, 0.1f)
+            val isImportantLine = Arithmetic.isZero((level.elevation / interval) % 5, 0.1f)
             val name = DecimalFormatter.format(
                 Distance.meters(level.elevation).convertTo(units).value, 0
             )

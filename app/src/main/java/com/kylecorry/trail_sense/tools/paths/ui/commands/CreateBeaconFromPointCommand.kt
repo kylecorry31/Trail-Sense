@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.paths.ui.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.tools.paths.domain.Path

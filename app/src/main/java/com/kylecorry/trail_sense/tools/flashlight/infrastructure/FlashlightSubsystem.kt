@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.torch.ITorch
 import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.andromeda.torch.TorchStateChangedTopic
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -148,7 +148,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     internal fun turnOn() = synchronized(torchLock) {
         if (brightnessLevels > 0) {
-            val mapped = SolMath.map(brightness, 0f, 1f, 1f / (brightnessLevels + 1), 1f)
+            val mapped = Interpolation.map(brightness, 0f, 1f, 1f / (brightnessLevels + 1), 1f)
             torch?.on(mapped)
         } else {
             torch?.on()

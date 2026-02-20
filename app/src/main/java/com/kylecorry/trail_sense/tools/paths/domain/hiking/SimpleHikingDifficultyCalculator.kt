@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.tools.paths.domain.hiking
 
 import android.util.Log
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.shared.debugging.ifDebug
@@ -16,7 +17,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
 
     override fun calculate(points: List<PathPoint>): HikingDifficulty {
         // Distance
-        val distance = Geology.getPathDistance(points.map { it.coordinate })
+        val distance = Geography.getPathDistance(points.map { it.coordinate })
             .convertTo(DistanceUnits.Miles)
             .value
 

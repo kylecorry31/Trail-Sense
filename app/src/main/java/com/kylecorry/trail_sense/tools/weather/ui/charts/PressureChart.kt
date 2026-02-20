@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.chart.data.LineChartLayer
 import com.kylecorry.andromeda.views.chart.data.ScatterChartLayer
 import com.kylecorry.andromeda.views.chart.label.NumberChartLabelFormatter
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits

@@ -16,10 +16,11 @@ import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.geometry.Circle
+import com.kylecorry.sol.math.trigonometry.Trigonometry
+import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
@@ -252,7 +253,14 @@ class RadarCompassView : BaseCompassView, IMapView {
         centerPixel = PixelCoordinate(width / 2f, height / 2f)
         compassCircle = Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f)
         locationStrokeWeight = dp(0.5f)
-        dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor, hideTrueCardinalTicks = true)
+        dial = CompassDial(
+            centerPixel,
+            compassSize / 2f,
+            secondaryColor,
+            Color.WHITE,
+            primaryColor,
+            hideTrueCardinalTicks = true
+        )
         lastWidth = width
         lastHeight = height
     }
@@ -417,10 +425,10 @@ class RadarCompassView : BaseCompassView, IMapView {
                 override fun toPixels(location: Coordinate): PixelCoordinate {
                     val vector =
                         navigation.navigate(compassCenter, location, declination, useTrueNorth)
-                    val angle = SolMath.wrap(-(vector.direction.value - 90), 0f, 360f)
+                    val angle = Arithmetic.wrap(-(vector.direction.value - 90), 0f, 360f)
                     val pixelDistance = vector.distance / resolutionPixels
-                    val xDiff = SolMath.cosDegrees(angle) * pixelDistance
-                    val yDiff = SolMath.sinDegrees(angle) * pixelDistance
+                    val xDiff = Trigonometry.cosDegrees(angle) * pixelDistance
+                    val yDiff = Trigonometry.sinDegrees(angle) * pixelDistance
                     return PixelCoordinate(
                         compassCircle.center.x + xDiff,
                         compassCircle.center.y - yDiff

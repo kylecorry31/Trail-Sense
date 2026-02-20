@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.bitmaps.operations.getPixels
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
@@ -99,7 +99,7 @@ object LandModel {
 
                             if (landNeighbors >= minLandNeighbors && waterNeighbors >= minWaterNeighbors) {
                                 val globalX =
-                                    SolMath.wrap(
+                                    Arithmetic.wrap(
                                         rect.left + x.toFloat() + offset,
                                         0f,
                                         size.width.toFloat()

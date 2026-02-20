@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -139,7 +139,7 @@ class PhotoMapTileSourceSelector(
             }
             containedMaps.add(firstContained)
             containedMaps
-        } else if (firstContained != null && SolMath.isZero(
+        } else if (firstContained != null && Arithmetic.isZero(
                 firstContained.baseRotation() - firstContained.calibration.rotation,
                 0.5f
             )

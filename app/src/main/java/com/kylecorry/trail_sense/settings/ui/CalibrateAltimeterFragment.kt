@@ -29,7 +29,6 @@ import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -278,7 +277,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             onDefault {
                 overridePopulationRunner.replace {
                     barometer.read()
-                    val elevation = Geology.getAltitude(
+                    val elevation = Meteorology.getAltitude(
                         Pressure.hpa(barometer.pressure),
                         Pressure.hpa(seaLevelPressure)
                     )

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams
 
 import com.kylecorry.andromeda.sound.stream.AudioStream
 import com.kylecorry.andromeda.sound.stream.SineWaveAudioStream
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 
 class OceanWavesAudioStream : AudioStream {
 
@@ -13,7 +13,7 @@ class OceanWavesAudioStream : AudioStream {
     override suspend fun next(sampleRate: Int): Float {
         val noise1 = brownNoise1.next(sampleRate)
         val noise2 = brownNoise2.next(sampleRate)
-        return 0.95f * noise1 * SolMath.power(wave.next(sampleRate), 3) + 0.05f * noise2
+        return 0.95f * noise1 * Arithmetic.power(wave.next(sampleRate), 3) + 0.05f * noise2
     }
 
     override suspend fun reset() {

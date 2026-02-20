@@ -20,8 +20,8 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.luna.timer.CoroutineTimer
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.getBounds
@@ -489,7 +489,7 @@ abstract class TileMapLayer<T : TileSource>(
     override fun setPreferences(preferences: Bundle) {
         layerPreferences = Bundle(preferences)
         if (shouldMultiply) {
-            multiplyAlpha = SolMath.map(
+            multiplyAlpha = Interpolation.map(
                 preferences.getInt(
                     DefaultMapLayerDefinitions.OPACITY,
                     DefaultMapLayerDefinitions.DEFAULT_OPACITY

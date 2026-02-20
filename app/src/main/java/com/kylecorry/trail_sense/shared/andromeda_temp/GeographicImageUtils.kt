@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.bitmaps.operations.get
 import com.kylecorry.andromeda.bitmaps.operations.getPixels
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
-import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.arithmetic.Arithmetic.wrap
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import java.io.InputStream

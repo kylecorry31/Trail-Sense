@@ -6,8 +6,8 @@ import android.util.AttributeSet
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import kotlin.math.max
@@ -267,7 +266,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     open fun showMap(map: PhotoMap) {
         this.map = map
         val rotation = map.calibration.rotation
-        mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
+        mapRotation = Trigonometry.deltaAngle(rotation, map.baseRotation().toFloat())
         fullResolutionPixels = map.distancePerPixel()?.meters()?.value ?: 1f
         projection = map.baseProjection
         if (keepMapUp) {

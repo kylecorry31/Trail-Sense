@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.tools.photo_maps.domain.projections
 
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.arithmetic.Arithmetic
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionFactory
@@ -51,12 +52,12 @@ class PhotoMapProjection(
             0f
         }
 
-        val angle = SolMath.deltaAngle(
+        val angle = Trigonometry.deltaAngle(
             baseRotation.toFloat(),
             map.calibration.rotation
         )
 
-        if (SolMath.isZero(angle)) {
+        if (Arithmetic.isZero(angle)) {
             return projection
         }
 

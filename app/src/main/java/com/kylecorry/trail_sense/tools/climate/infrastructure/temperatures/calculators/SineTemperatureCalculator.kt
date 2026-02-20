@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.calculators
 
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.analysis.Trigonometry
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature

@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 import android.content.Context
 import com.kylecorry.luna.cache.MemoryCachedValue
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.MathExtensions.toRadians
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
-import com.kylecorry.sol.science.oceanography.OceanographyService
+import com.kylecorry.sol.science.oceanography.Oceanography
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.waterlevel.HarmonicWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
@@ -29,7 +29,6 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
     private val range = TideTableRangeCalculator().getRange(table)
     private val tides = table.tides.sortedBy { it.time }.map { populateHeight(it) }
     private val piecewise = MemoryCachedValue<IWaterLevelCalculator>()
-    private val ocean = OceanographyService()
     private val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
     private val locationSubsystem = LocationSubsystem.getInstance(context)
     private val harmonic = MemoryCachedValue<IWaterLevelCalculator?>()
@@ -178,7 +177,7 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
         start: ZonedDateTime,
         end: ZonedDateTime
     ): List<Tide> {
-        return ocean.getTides(calculator, start, end, extremaFinder)
+        return Oceanography.getTides(calculator, start, end, extremaFinder)
     }
 
     private fun getLunitidalCalculator(): IWaterLevelCalculator? {
@@ -205,11 +204,11 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
         val highTides = tides.filter { it.isHigh }
         val lowTides = tides.filter { !it.isHigh }
 
-        val highInterval = ocean.getMeanLunitidalInterval(
+        val highInterval = Oceanography.getMeanLunitidalInterval(
             highTides.map { it.time },
             table.location ?: Coordinate.zero
         ) ?: return null
-        val lowInterval = ocean.getMeanLunitidalInterval(
+        val lowInterval = Oceanography.getMeanLunitidalInterval(
             lowTides.map { it.time },
             table.location ?: Coordinate.zero
         )

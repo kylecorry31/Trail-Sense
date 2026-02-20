@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.signal_finder.infrastructure
 import android.graphics.Rect
 import android.util.Size
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.sol.math.SolMath.roundNearest
+import com.kylecorry.sol.math.MathExtensions.roundNearest
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate

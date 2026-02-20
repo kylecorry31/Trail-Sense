@@ -6,11 +6,11 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.analysis.Trigonometry
+import com.kylecorry.sol.math.arithmetic.Arithmetic
+import com.kylecorry.sol.math.trigonometry.Trigonometry
+import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.sinDegrees
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -187,7 +187,7 @@ class FusedGPS(
         val newLocation = getKalmanLocation()
         currentLocation = Coordinate(
             newLocation.latitude.coerceIn(-90.0, 90.0),
-            SolMath.wrap(newLocation.longitude, -180.0, 180.0)
+            Arithmetic.wrap(newLocation.longitude, -180.0, 180.0)
         )
         currentAccuracy = getKalmanLocationAccuracy()
         currentSpeed = getKalmanSpeed()

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.astronomy.domain
 
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.units.Bearing
 import java.time.Duration
 import java.time.ZonedDateTime

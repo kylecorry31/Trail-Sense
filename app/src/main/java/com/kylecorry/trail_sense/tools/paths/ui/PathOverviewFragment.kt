@@ -27,8 +27,9 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.statistics.Statistics
+import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
@@ -468,7 +469,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         if (!isBound) {
             return
         }
-        lastBounds = Geology.getBounds(waypoints.map { it.coordinate })
+        lastBounds = Geography.getBounds(waypoints.map { it.coordinate })
         binding.pathImage.fitIntoView(lastBounds)
         updateMapLayer()
     }

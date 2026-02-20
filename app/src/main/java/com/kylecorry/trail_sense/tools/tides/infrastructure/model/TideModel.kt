@@ -12,9 +12,9 @@ import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundPlaces
-import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
+import com.kylecorry.sol.math.arithmetic.Arithmetic.wrap
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
@@ -163,13 +163,13 @@ object TideModel {
                     (largeAmplitudes.firstOrNull { it[0] == harmonic && it[1] == pixel.x.roundToInt() && it[2] == pixel.y.roundToInt() }
                         ?.get(3) as Double?)?.toFloat()
 
-                val amplitude = (largeAmplitude ?: SolMath.lerp(
+                val amplitude = (largeAmplitude ?: Interpolation.lerp(
                     (getColorIndex(amplitudePixel, j).toDouble() / 255),
                     minAmplitude.toDouble(),
                     amplitudes[harmonic]!!
                 ).toFloat()) / 100f
                 val phase = wrap(
-                    SolMath.lerp(
+                    Interpolation.lerp(
                         (getColorIndex(phasePixel, j).toDouble() / 255),
                         minPhase,
                         maxPhase

@@ -16,9 +16,9 @@ import com.kylecorry.andromeda.sound.SoundPlayer
 import com.kylecorry.andromeda.sound.ToneGenerator
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.Quaternion
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.filters.LowPassFilter
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
@@ -256,7 +256,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             return
         }
         val delta = (reading - referenceMagnitude).absoluteValue
-        val volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
+        val volume = Interpolation.map(delta - threshold, 0f, 30f, 0f, 1f, true)
         audio?.setVolume(volume)
         if (audio?.isOn() != true) {
             audio?.on()

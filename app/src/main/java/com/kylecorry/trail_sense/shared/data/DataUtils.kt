@@ -2,11 +2,11 @@
 
 package com.kylecorry.trail_sense.shared.data
 
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.filters.LoessFilter
 import com.kylecorry.sol.math.filters.LoessFilter2D
+import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.sinDegrees
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService

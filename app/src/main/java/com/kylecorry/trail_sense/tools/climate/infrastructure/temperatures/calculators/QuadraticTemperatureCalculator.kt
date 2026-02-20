@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.calculators
 
-import com.kylecorry.sol.math.SolMath.square
+import com.kylecorry.sol.math.arithmetic.Arithmetic.square
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature

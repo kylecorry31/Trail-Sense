@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration
 
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.analysis.Trigonometry
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionFactory
@@ -67,7 +66,7 @@ class MapRotationCalculator {
             false
         )
 
-        return SolMath.normalizeAngle(SolMath.deltaAngle(pixelAngle, locationAngle))
+        return Trigonometry.normalizeAngle(Trigonometry.deltaAngle(pixelAngle, locationAngle))
     }
 
 }

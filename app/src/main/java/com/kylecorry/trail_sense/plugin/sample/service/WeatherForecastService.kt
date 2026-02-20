@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.plugin.sample.service
 import android.Manifest
 import android.content.Context
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugin.sample.domain.WeatherRequest

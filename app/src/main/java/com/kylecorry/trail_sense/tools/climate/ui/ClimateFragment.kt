@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateGroup
 import com.kylecorry.sol.science.meteorology.KoppenGeigerSeasonalPrecipitationPattern
 import com.kylecorry.sol.science.meteorology.KoppenGeigerTemperaturePattern

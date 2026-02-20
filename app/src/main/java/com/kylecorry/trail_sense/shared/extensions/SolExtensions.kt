@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.extensions
 
+import com.kylecorry.sol.math.MathExtensions.roundNearest
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence

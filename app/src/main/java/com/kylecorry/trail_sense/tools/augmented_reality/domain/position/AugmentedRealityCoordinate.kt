@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.domain.position
 
-import com.kylecorry.sol.math.SolMath.real
-import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.MathExtensions.real
+import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import kotlin.math.abs

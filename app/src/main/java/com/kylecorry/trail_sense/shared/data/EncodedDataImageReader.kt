@@ -10,7 +10,7 @@ import androidx.core.graphics.red
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.FloatBitmap
 import com.kylecorry.andromeda.bitmaps.operations.getPixels
-import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 
 class EncodedDataImageReader(
     private val reader: ImageReader,
@@ -55,7 +55,7 @@ class EncodedDataImageReader(
                     for (i in 0 until channels) {
                         val value = buffer[i]
                         val finalValue =
-                            if ((treatZeroAsNaN && SolMath.isZero(value)) || value.isNaN()) {
+                            if ((treatZeroAsNaN && Arithmetic.isZero(value)) || value.isNaN()) {
                                 Float.NaN
                             } else {
                                 isAllNaN = false

@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.chart.data.AreaChartLayer
 import com.kylecorry.andromeda.views.chart.data.ScatterChartLayer
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.SolMath.norm
+import com.kylecorry.sol.math.interpolation.Interpolation.norm
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
