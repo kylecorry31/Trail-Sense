@@ -1405,7 +1405,6 @@
     <string name="climate_warm_summer_description">Prévoyez des températures élevées pendant l\'été.</string>
     <string name="climate_cold_summer_description">Prévoyez des températures fraîches pendant l\'été.</string>
     <string name="climate_very_cold_winter_description">Prévoyez des températures extrêmement froides pendant l\'hiver.</string>
-    <string name="insect_activity">Activité des insectes</string>
     <string name="active_period">Active de %1$s à %2$s</string>
     <string name="ticks">Tiques</string>
     <string name="record_sighting">Observation enregistrée</string>

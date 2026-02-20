@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.climate.ui
 
-import android.util.Log
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
@@ -26,7 +25,6 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DatePickerView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
-import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivity
 import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivityType
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
@@ -47,8 +45,8 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         val climateZoneDescriptionView = useView<TextView>(R.id.climate_zone_description)
         val temperatureTitleView = useView<TextView>(R.id.temperature_title)
         val precipitationTitleView = useView<TextView>(R.id.precipitation_title)
-        val insectActivityTitleView = useView<TextView>(R.id.insect_activity)
-        val insectActivityDescriptionView = useView<TextView>(R.id.insect_activity_description)
+        val ecologyTitleView = useView<TextView>(R.id.ecology)
+        val ecologyDescriptionView = useView<TextView>(R.id.ecology_description)
 
         // Services
         val locationSubsystem = useService<LocationSubsystem>()
@@ -244,23 +242,21 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         }
 
         // Activity
-        useEffect(activityPatterns, insectActivityDescriptionView, formatter) {
-            val insects = activityPatterns?.entries
-                ?.filter { (it.key == BiologicalActivityType.FliesAndMosquitoes || it.key == BiologicalActivityType.Ticks) && it.value.isNotEmpty() }
+        useEffect(activityPatterns, ecologyDescriptionView, formatter) {
+            val activeEntries = activityPatterns?.entries
+                ?.filter { it.value.isNotEmpty() }
                 ?: emptyList()
 
-            Log.d("ClimateFragment", insects.toString())
-
-            insectActivityDescriptionView.text = insects
+            ecologyDescriptionView.text = activeEntries
                 .sortedBy { getBiologicalActivityName(it.key) }
                 .joinToString("\n") {
                     "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
                 }
 
-            insectActivityDescriptionView.isVisible = insects.isNotEmpty()
-            insectActivityTitleView.isVisible = insects.isNotEmpty()
-            insectActivityDescriptionView.setOnClickListener {
-                val fullText = insects
+            ecologyDescriptionView.isVisible = activeEntries.isNotEmpty()
+            ecologyTitleView.isVisible = activeEntries.isNotEmpty()
+            ecologyDescriptionView.setOnClickListener {
+                val fullText = activeEntries
                     .sortedBy { getBiologicalActivityName(it.key) }
                     .joinToString("\n\n") {
                         "${getBiologicalActivityName(it.key)}\n${
@@ -272,7 +268,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
                         }"
                     }
 
-                dialog(getString(R.string.insect_activity), fullText, cancelText = null)
+                dialog(getString(R.string.ecology), fullText, cancelText = null)
             }
         }
     }

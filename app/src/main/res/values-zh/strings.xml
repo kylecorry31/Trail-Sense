@@ -1332,7 +1332,6 @@
     <string name="climate_tundra_description">夏天一些冰可能解冻，但植被极少。</string>
     <string name="climate_hot_description">为全年高温进行规划。</string>
     <string name="climate_cold_summer_description">为夏天凉爽气温进行规划。</string>
-    <string name="insect_activity">昆虫活动</string>
     <string name="active_period">活跃时期 %1$s 到 %2$s</string>
     <string name="climate_tropical_monsoon">热带季风</string>
     <string name="climate_tropical_description">全年有大量降水的湿热气候。</string>

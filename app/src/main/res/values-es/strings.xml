@@ -1282,7 +1282,6 @@
     <string name="climate_dry_winter_description">Hay una estación seca durante el invierno.</string>
     <string name="climate_polar_description">Clima extremadamente frío con veranos cortos.</string>
     <string name="climate_cold_summer_description">Previsibles temperaturas frescas durante el verano.</string>
-    <string name="insect_activity">Actividad de los insectos</string>
     <string name="climate_tropical_description">Clima cálido y húmedo con precipitaciones importantes durante todo el año.</string>
     <string name="climate_dry_description">Clima árido con pocas precipitaciones y vegetación escasa.</string>
     <string name="climate_temperate_description">Clima templado con estaciones bien diferenciadas y precipitaciones moderadas.</string>

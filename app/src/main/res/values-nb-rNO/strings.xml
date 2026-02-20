@@ -1105,7 +1105,6 @@
     <string name="tool_signal_finder">Signalfinner</string>
     <string name="speed">Hastighet</string>
     <string name="climate_temperature_amount">Temperatur: %s</string>
-    <string name="insect_activity">Insektaktivitet</string>
     <string name="active_period">Aktive fra %1$s til %2$s</string>
     <string name="automatic_backup">Automatisk sikkerhetskopi</string>
     <string name="select_backup_directory">Velg sikkerhetskopimappe</string>

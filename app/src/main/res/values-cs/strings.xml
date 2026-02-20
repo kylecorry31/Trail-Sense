@@ -1388,7 +1388,6 @@
     <string name="climate_cold_summer_description">Očekávejte nižší teploty během léta.</string>
     <string name="climate_tropical_savanna">Tropická savana</string>
     <string name="active_period">Aktivní od %1$s do %2$s</string>
-    <string name="insect_activity">Aktivita hmyzu</string>
     <string name="ticks">Klíšťata</string>
     <string name="sightings">Pozorování</string>
     <string name="sightings_count">Pozorování (%d)</string>

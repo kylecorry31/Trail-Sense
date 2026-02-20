@@ -1273,7 +1273,6 @@
     <string name="inedible">Nicht essbar</string>
     <string name="time_header_units">Zeit (%s)</string>
     <string name="energy">Energie</string>
-    <string name="insect_activity">Insektenaktivität</string>
     <string name="cell_tower">Mobilfunkmast</string>
     <string name="nearby_beacons">Nahegelegene Wegpunkte</string>
     <string name="climate_tundra">Tundra</string>

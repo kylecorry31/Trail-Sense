@@ -44,17 +44,13 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
             )
         }
 
-        // Verify insect activity is displayed
+        // Verify ecology is displayed
         val expectedActivityLines = listOf(
-            "Mosquitoes: Active from May to October",
+            "Biting flies/mosquitoes: Active from April to October",
             "Ticks: Active from March to November",
-            "Black flies: Active from April to June",
-            "Deer/horse flies: Active from June to October",
-            "Stable flies: Active from June to September",
-            "Biting midges: Active from June to September"
         )
         scrollUntil {
-            hasText(string(R.string.insect_activity))
+            hasText(string(R.string.ecology))
             expectedActivityLines.forEach { hasText(it) }
         }
     }
