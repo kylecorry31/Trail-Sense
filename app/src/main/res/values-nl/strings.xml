@@ -383,7 +383,7 @@
     <string name="pref_forecast_sensitivity_title">Voorspellingsgevoeligheid</string>
     <string name="pref_monitor_weather_title">Meet het weer</string>
     <string name="pref_monitor_weather_summary">Op de achtergrond</string>
-    <string name="pref_max_beacon_distance_title">Nabijgelegen bakenradius</string>
+    <string name="pref_max_beacon_distance_title">Nabijgelegen bakenafstand</string>
     <string name="pref_num_visible_beacons_title">Bakens in de buurt</string>
     <string name="app_disclaimer_message_title">Disclaimer / servicevoorwaarden</string>
     <string name="disclaimer_message_title">Vrijwaring</string>
@@ -1093,7 +1093,7 @@
     <string name="fast_path_rendering">Paden snel weergeven</string>
     <string name="fast_path_rendering_summary">Verbeterd prestaties ten koste van uiterlijk</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Je apparaat heeft geen kompas, maar je kan nog steeds zien in welke richting bakens zijn.</string>
-    <string name="show_dial_ticks_on_nearby_radar">Wijzers op nabijgelegen radar weergeven</string>
+    <string name="show_dial_ticks_on_nearby_radar">Wijzers weergeven</string>
     <string name="creating_beacon">Baken maken</string>
     <string name="augmented_reality_no_gyro_message">Je kunt nog steeds de Augmented Reality-tool gebruiken, maar deze zal niet zo nauwkeurig zijn.</string>
     <string name="compact_mode">Compacte modus</string>
@@ -1501,7 +1501,7 @@
     <string name="map_layer_slope_description">Gekleurd terrein op basis van helling</string>
     <string name="slope_color_white_to_red">Wit naar rood</string>
     <string name="slope_color_green_to_red">Groen naar rood</string>
-    <string name="map_layer_aspect_description">Gekleurd terrein op basis van de richting waarin het is gericht</string>
+    <string name="map_layer_aspect_description">Gekleurd terrein op basis van de richting waarin het ligt</string>
     <string name="copy_error">Kopieerfout</string>
     <string name="view_error_details">Foutdetails bekijken</string>
     <string name="reopen_tool">Hulpmiddel opnieuw openen</string>
@@ -1527,5 +1527,6 @@
     <string name="map_layer_night_description">Nachtelijke duisternislaag</string>
     <string name="show_path">Pad weergeven</string>
     <string name="map_calibration_clear_message">De kaartprojectie veranderen maakt je kalibratiewijzigingen ongedaan.</string>
-    <string name="aspect">Aspect</string>
-    </resources>
+    <string name="aspect">Expositie</string>
+    <string name="pref_nearby_linear_only_title">Nabijgelegen bakens alleen op lineair kompas weergeven</string>
+</resources>

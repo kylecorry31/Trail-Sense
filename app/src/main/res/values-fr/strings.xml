@@ -57,7 +57,7 @@
     <string name="pref_show_pressure_in_notification_title">Afficher la pression dans la notification</string>
     <string name="pref_monitor_weather_title">Suivi des données météo</string>
     <string name="pref_monitor_weather_summary">En arrière-plan</string>
-    <string name="pref_max_beacon_distance_title">Rayon de visibilité des balises de proximité</string>
+    <string name="pref_max_beacon_distance_title">Distance de la balise la plus proche</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrer avant de naviguer</string>
     <string name="pref_display_multi_beacons_summary">Afficher les balises les plus proches sur la boussole</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Entrez la pression actuelle au niveau de la mer en hPa</string>
@@ -1123,7 +1123,7 @@
     <string name="compass_dynamic_colors">Couleurs dynamiques de la boussole</string>
     <string name="view_distance">Voir la distance</string>
     <string name="compass_dynamic_colors_summary">Utiliser des couleurs dynamiques pour les directions cardinales</string>
-    <string name="show_dial_ticks_on_nearby_radar">Afficher les graduations du cadran sur le radar à proximité</string>
+    <string name="show_dial_ticks_on_nearby_radar">Afficher les graduations du cadran</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Votre appareil n\'est pas équipé d\'une boussole, mais vous pouvez tout de même voir dans quelle direction se trouvent les balises.</string>
     <string name="augmented_reality_no_gyro_message">Vous pouvez toujours utiliser l\'outil de réalité augmentée, mais il ne sera pas aussi précis.</string>
     <string name="ar_calibration_instructions">Centrez les %s sur l\'écran et appuyez sur \"Calibrer\"</string>
@@ -1537,4 +1537,5 @@
     <string name="show_images">Afficher les images</string>
     <string name="show_path">Afficher le chemin</string>
     <string name="map_calibration_clear_message">La modification de la projection cartographique effacera vos modifications de calibrage.</string>
-    </resources>
+    <string name="pref_nearby_linear_only_title">Afficher uniquement les balises à proximité sur la boussole linéaire</string>
+</resources>

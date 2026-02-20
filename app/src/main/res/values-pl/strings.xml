@@ -1029,4 +1029,21 @@
     <string name="my_location">Moja lokalizacja</string>
     <string name="destination">Miejsce docelowe</string>
     <string name="triangulate_destination_location_1_instructions">Rejestruj lokalizacje oraz kierunek do miejsca docelowego.</string>
+    <string name="triangulate_destination_location_2_instructions">Oddal się od pierwszej lokalizacji przynajmniej o %s, ponownie rozpocznij rejestrację lokalizacji oraz kierunku do miejsca docelowego.</string>
+    <string name="triangulate_self_location_1_instructions">Wybierz znaną lokalizację w zasięgu wzroku, rozpocznij nagrywanie kierunku z obecnego do wyznaczonego miejsca docelowego.</string>
+    <string name="triangulate_self_location_2_instructions">Wybierz kolejną znaną lokalizację w zasięgu wzroku, rozpocznij nagrywanie kierunku z obecnego do wyznaczonego miejsca docelowego.</string>
+    <string name="location_to_triangulate">Lokalizacja do triangulacji</string>
+    <string name="distance_away_from_self">Oddalone o %s</string>
+    <string name="distance_away_from_destination">Oddalone o %s od miejsca docelowego</string>
+    <string name="location_number">Lokalizacja %d</string>
+    <string name="enter_manually">Wprowadź ręcznie</string>
+    <string name="direction_not_set">Kierunek nieustawiony</string>
+    <string name="direction">Kierunek</string>
+    <string name="augmented_reality">Rzeczywistość rozszerzona</string>
+    <string name="augmented_reality_description">Zobacz pobliskie punkty nawigacyjne oraz słońce / księżyc używając aparatu</string>
+    <string name="magnetic_north">Magnetyczna północ</string>
+    <string name="pinned">Przypięte</string>
+    <string name="unpin">Odepnij</string>
+    <string name="pin">Przypnij</string>
+    <string name="tool_long_press_hint_toast">Przytrzymaj narzędzie, aby wyświetlić więcej opcji</string>
 </resources>
