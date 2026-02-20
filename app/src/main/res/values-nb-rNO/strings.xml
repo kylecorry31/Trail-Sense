@@ -1095,7 +1095,6 @@
     <string name="map">Kart</string>
     <string name="altimeter_mode_dem_barometer">DEM + Barometer</string>
     <string name="digital_elevation_model_abbreviation">DEM</string>
-    <string name="mosquitoes">Mygg</string>
     <string name="desert">Ørken</string>
     <string name="forest">Skog</string>
     <string name="mountain">Fjell</string>
@@ -1106,7 +1105,6 @@
     <string name="tool_signal_finder">Signalfinner</string>
     <string name="speed">Hastighet</string>
     <string name="climate_temperature_amount">Temperatur: %s</string>
-    <string name="insect_activity">Insektaktivitet</string>
     <string name="active_period">Aktive fra %1$s til %2$s</string>
     <string name="automatic_backup">Automatisk sikkerhetskopi</string>
     <string name="select_backup_directory">Velg sikkerhetskopimappe</string>

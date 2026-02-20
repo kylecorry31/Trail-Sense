@@ -1154,8 +1154,6 @@
     <string name="us_teaspoons">כפיות אמריקאיות</string>
     <string name="automatic_backup_invalid_directory">תיקייה לא חוקית</string>
     <string name="widget_updater">מעדכן ווידג\'טים</string>
-    <string name="insect_activity">פעילות חרקים</string>
-    <string name="mosquitoes">יתושים</string>
     <string name="astronomy_altitude">גובה</string>
     <string name="ar_calibration_instructions">יש למרכז את %s במסך וללחוץ על \"כיול\"</string>
     <string name="climate_tropical_monsoon">מונסון טרופי</string>

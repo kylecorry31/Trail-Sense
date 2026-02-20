@@ -1326,7 +1326,6 @@
     <string name="climate_tundra">凍原</string>
     <string name="climate_temperate">溫帶</string>
     <string name="climate_continental">大陸</string>
-    <string name="mosquitoes">蚊子</string>
     <string name="opacity">不透明度</string>
     <string name="declination">赤緯</string>
     <string name="digital_elevation_model_abbreviation">DEM</string>
@@ -1336,7 +1335,6 @@
     <string name="climate_tropical_monsoon">熱帶季候風</string>
     <string name="climate_tropical_rainforest">熱帶雨林</string>
     <string name="climate_ice_cap">冰帽</string>
-    <string name="insect_activity">昆蟲活動</string>
     <string name="remove_dem">移除 DEM</string>
     <string name="notification_grouping">通知群組</string>
     <string name="altimeter_mode_dem_barometer">DEM + 氣壓計</string>

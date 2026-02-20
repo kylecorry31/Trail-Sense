@@ -1274,7 +1274,6 @@
     <string name="climate_temperate">Templado</string>
     <string name="climate_continental">Continental</string>
     <string name="climate_steppe">Estepa</string>
-    <string name="mosquitoes">Mosquitos</string>
     <string name="ticks">Garrapatas</string>
     <string name="muzzle_velocity">Velocidad inicial</string>
     <string name="tool_signal_finder">Buscador de Señal</string>
@@ -1283,7 +1282,6 @@
     <string name="climate_dry_winter_description">Hay una estación seca durante el invierno.</string>
     <string name="climate_polar_description">Clima extremadamente frío con veranos cortos.</string>
     <string name="climate_cold_summer_description">Previsibles temperaturas frescas durante el verano.</string>
-    <string name="insect_activity">Actividad de los insectos</string>
     <string name="climate_tropical_description">Clima cálido y húmedo con precipitaciones importantes durante todo el año.</string>
     <string name="climate_dry_description">Clima árido con pocas precipitaciones y vegetación escasa.</string>
     <string name="climate_temperate_description">Clima templado con estaciones bien diferenciadas y precipitaciones moderadas.</string>
@@ -1490,7 +1488,4 @@
     <string name="map_layer_lunar_eclipse_description">Visibilidad del eclipse lunar</string>
     <string name="map_layer_night_description">Capa de oscuridad nocturna</string>
     <string name="show_path">Mostrar ruta</string>
-    <string name="black_flies">Moscas negras</string>
-    <string name="deer_horse_flies">Mosca del caballo</string>
-    <string name="stable_flies">Moscas de establo</string>
-</resources>
+    </resources>

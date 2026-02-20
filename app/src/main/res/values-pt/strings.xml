@@ -1371,8 +1371,6 @@
     <string name="climate_warm_summer_description">Planeje-se para temperaturas quentes durante o verão.</string>
     <string name="climate_cold_summer_description">Planeje-se para temperaturas baixas durante o verão.</string>
     <string name="climate_very_cold_winter_description">Planeje-se para temperaturas extremamente baixas durante o inverno.</string>
-    <string name="insect_activity">Atividade de insetos</string>
-    <string name="mosquitoes">Mosquitos</string>
     <string name="active_period">Ativo de %1$s a %2$s</string>
     <string name="ticks">Carrapatos</string>
     <string name="record_sighting">Registar observações</string>

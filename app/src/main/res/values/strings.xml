@@ -1671,9 +1671,6 @@
     <string name="climate_warm_summer_description">Plan for warm temperatures during the summer.</string>
     <string name="climate_cold_summer_description">Plan for cool temperatures during the summer.</string>
     <string name="climate_very_cold_winter_description">Plan for extremely cold temperatures during the winter.</string>
-    <string name="insect_activity">Insect activity</string>
-    <string name="mosquitoes">Mosquitoes</string>
-    <string name="pref_climate_insect_activity_enabled" translatable="false">pref_climate_insect_activity_enabled</string>
     <string name="active_period">Active from %1$s to %2$s</string>
     <string name="ticks">Ticks</string>
     <string name="record_sighting">Record sighting</string>
@@ -1866,8 +1863,14 @@
     <!--%s is the name of the field guide page-->
     <string name="sighting_label">%s sighting</string>
     <string name="show_path">Show path</string>
-    <string name="black_flies">Black flies</string>
-    <string name="deer_horse_flies">Deer/horse flies</string>
-    <string name="stable_flies">Stable flies</string>
-    <string name="biting_midges">Biting midges</string>
+    <!--%s is month name-->
+    <string name="early_month">early %s</string>
+    <!--%s is month name-->
+    <string name="mid_month">mid %s</string>
+    <!--%s is month name-->
+    <string name="late_month">late %s</string>
+    <string name="active_in_month">Active in %s</string>
+    <string name="active_all_year">Active all year</string>
+    <string name="biting_flies_mosquitoes">Biting flies/mosquitoes</string>
+    <string name="ecology">Ecology</string>
 </resources>

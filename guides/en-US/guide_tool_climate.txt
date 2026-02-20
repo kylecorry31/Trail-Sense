@@ -11,6 +11,15 @@ The historical monthly precipitation totals for your selected location are also 
 ## Climate classification
 The climate for your current location is classified based on temperatures and precipitation. Different climates have different vegetation types as well as unique hazards that you should be aware of. 
 
+## Ecology
+The ecology section shows details about animal and plant activity at the location.
+
+It currently shows the following where applicable:
+- Biting flies/mosquitoes
+- Ticks
+
+Each entry shows an estimated active period (for example, "Active from May to September"). Tap the activity text to view more detailed timing ranges.
+
 ## Changing the date
 To change the date, you can tap the calendar icon above the chart and select a date. Additionally, you can use the arrows to move to the next/previous date or long press the calendar to quickly jump to today's date.
 

@@ -1388,8 +1388,6 @@
     <string name="climate_cold_summer_description">Očekávejte nižší teploty během léta.</string>
     <string name="climate_tropical_savanna">Tropická savana</string>
     <string name="active_period">Aktivní od %1$s do %2$s</string>
-    <string name="mosquitoes">Komáři</string>
-    <string name="insect_activity">Aktivita hmyzu</string>
     <string name="ticks">Klíšťata</string>
     <string name="sightings">Pozorování</string>
     <string name="sightings_count">Pozorování (%d)</string>
@@ -1557,7 +1555,4 @@
     <string name="map_layer_night_description">Noční tmavá vrstva</string>
     <string name="show_path">Zobrazit cestu</string>
     <string name="map_calibration_clear_message">Změna mapové projekce vymaže vaše kalibrační změny.</string>
-    <string name="black_flies">Muchničkovití</string>
-    <string name="deer_horse_flies">Ovádovití</string>
-    <string name="stable_flies">Bodalky</string>
-</resources>
+    </resources>

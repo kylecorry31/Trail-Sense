@@ -1278,8 +1278,6 @@
     <string name="climate_warm_summer_description">கோடையில் சூடான வெப்பநிலைக்கான திட்டம்.</string>
     <string name="climate_cold_summer_description">கோடையில் குளிர்ந்த வெப்பநிலைக்கான திட்டம்.</string>
     <string name="climate_very_cold_winter_description">குளிர்காலத்தில் மிகவும் குளிர்ந்த வெப்பநிலைக்கான திட்டம்.</string>
-    <string name="insect_activity">பூச்சி செயல்பாடு</string>
-    <string name="mosquitoes">கொசுக்கள்</string>
     <string name="active_period">%1$s முதல் %2$s வரை செயலில் உள்ளது</string>
     <string name="ticks">உண்ணி</string>
     <string name="record_sighting">பதிவு பார்வை</string>

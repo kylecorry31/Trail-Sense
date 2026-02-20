@@ -1,14 +1,14 @@
 package com.kylecorry.trail_sense.tools.climate.ui
 
-import android.util.Log
 import android.widget.TextView
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.toolbar.Toolbar
-import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateGroup
 import com.kylecorry.sol.science.meteorology.KoppenGeigerSeasonalPrecipitationPattern
 import com.kylecorry.sol.science.meteorology.KoppenGeigerTemperaturePattern
@@ -25,7 +25,6 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DatePickerView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
-import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivity
 import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivityType
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
@@ -46,8 +45,8 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         val climateZoneDescriptionView = useView<TextView>(R.id.climate_zone_description)
         val temperatureTitleView = useView<TextView>(R.id.temperature_title)
         val precipitationTitleView = useView<TextView>(R.id.precipitation_title)
-        val insectActivityTitleView = useView<TextView>(R.id.insect_activity)
-        val insectActivityDescriptionView = useView<TextView>(R.id.insect_activity_description)
+        val ecologyTitleView = useView<TextView>(R.id.ecology)
+        val ecologyDescriptionView = useView<TextView>(R.id.ecology_description)
 
         // Services
         val locationSubsystem = useService<LocationSubsystem>()
@@ -68,9 +67,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             } else {
                 DistanceUnits.Inches
             }
-        }
-        val isInsectActivityEnabled = useMemo(prefs) {
-            prefs.climate.isInsectActivityEnabled
         }
 
         // State
@@ -246,22 +242,34 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         }
 
         // Activity
-        useEffect(activityPatterns, insectActivityDescriptionView, formatter) {
-            val insects = activityPatterns?.entries
-                ?.filter { it.key.type == BiologicalActivityType.Insect && it.value.isNotEmpty() }
+        useEffect(activityPatterns, ecologyDescriptionView, formatter) {
+            val activeEntries = activityPatterns?.entries
+                ?.filter { it.value.isNotEmpty() }
                 ?: emptyList()
 
-            Log.d("ClimateFragment", insects.toString())
-
-            insectActivityDescriptionView.text = insects
+            ecologyDescriptionView.text = activeEntries
                 .sortedBy { getBiologicalActivityName(it.key) }
                 .joinToString("\n") {
                     "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
                 }
 
-            insectActivityDescriptionView.isVisible =
-                isInsectActivityEnabled && insects.isNotEmpty()
-            insectActivityTitleView.isVisible = isInsectActivityEnabled && insects.isNotEmpty()
+            ecologyDescriptionView.isVisible = activeEntries.isNotEmpty()
+            ecologyTitleView.isVisible = activeEntries.isNotEmpty()
+            ecologyDescriptionView.setOnClickListener {
+                val fullText = activeEntries
+                    .sortedBy { getBiologicalActivityName(it.key) }
+                    .joinToString("\n\n") {
+                        "${getBiologicalActivityName(it.key)}\n${
+                            formatActivity(
+                                formatter,
+                                it.value,
+                                true
+                            )
+                        }"
+                    }
+
+                dialog(getString(R.string.ecology), fullText, cancelText = null)
+            }
         }
     }
 
@@ -282,35 +290,60 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         return first.start.dayOfYear == 1 && second.end.month == Month.DECEMBER && second.end.dayOfMonth == 31
     }
 
-    private fun getBiologicalActivityName(activity: BiologicalActivity): String {
+    private fun getBiologicalActivityName(activity: BiologicalActivityType): String {
         return when (activity) {
-            BiologicalActivity.Mosquito -> getString(R.string.mosquitoes)
-            BiologicalActivity.BlackFly -> getString(R.string.black_flies)
-            BiologicalActivity.Tabanidae -> getString(R.string.deer_horse_flies)
-            BiologicalActivity.StableFlies -> getString(R.string.stable_flies)
-            BiologicalActivity.Tick -> getString(R.string.ticks)
-            BiologicalActivity.BitingMidges -> getString(R.string.biting_midges)
+            BiologicalActivityType.FliesAndMosquitoes -> getString(R.string.biting_flies_mosquitoes)
+            BiologicalActivityType.Ticks -> getString(R.string.ticks)
+            // TODO: Eventually add more
+            else -> ""
         }
     }
 
-    private fun formatActivity(formatter: FormatService, activity: List<Range<LocalDate>>): String {
+    private fun formatActivity(
+        formatter: FormatService,
+        activity: List<Range<LocalDate>>,
+        showTimeOfMonth: Boolean = false
+    ): String {
         val start = if (isActivityWrapped(activity)) {
-            activity[1].start.month
+            activity[1].start
         } else {
-            activity[0].start.month
+            activity[0].start
         }
 
         val end = if (isActivityWrapped(activity)) {
-            activity[0].end.month
+            activity[0].end
         } else {
-            activity.last().end.month
+            activity.last().end
+        }
+
+        if (start.month == end.month) {
+            return getString(R.string.active_in_month, formatter.formatMonth(start.month))
+        }
+
+        if (start.month == Month.JANUARY && start.dayOfMonth < 10 && end.month == Month.DECEMBER && end.dayOfMonth > 20) {
+            return getString(R.string.active_all_year)
         }
 
         return getString(
-            R.string.active_period, formatter.formatMonth(start), formatter.formatMonth(
-                end
-            )
+            R.string.active_period, if (showTimeOfMonth) {
+                formatTimeOfMonth(formatter, start)
+            } else {
+                formatter.formatMonth(start.month)
+            }, if (showTimeOfMonth) {
+                formatTimeOfMonth(formatter, end)
+            } else {
+                formatter.formatMonth(end.month)
+            }
         )
+    }
+
+    private fun formatTimeOfMonth(formatter: FormatService, date: LocalDate): String {
+        val month = formatter.formatMonth(date.month)
+        return when {
+            date.dayOfMonth < 10 -> getString(R.string.early_month, month)
+            date.dayOfMonth < 20 -> getString(R.string.mid_month, month)
+            else -> getString(R.string.late_month, month)
+        }
     }
 
     private fun getClimateDescription(
