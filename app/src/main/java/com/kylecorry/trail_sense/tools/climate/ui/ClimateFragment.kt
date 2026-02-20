@@ -254,6 +254,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             Log.d("ClimateFragment", insects.toString())
 
             insectActivityDescriptionView.text = insects
+                .sortedBy { getBiologicalActivityName(it.key) }
                 .joinToString("\n") {
                     "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
                 }
@@ -288,6 +289,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             BiologicalActivity.Tabanidae -> getString(R.string.deer_horse_flies)
             BiologicalActivity.StableFlies -> getString(R.string.stable_flies)
             BiologicalActivity.Tick -> getString(R.string.ticks)
+            BiologicalActivity.BitingMidges -> getString(R.string.biting_midges)
         }
     }
 

@@ -145,6 +145,25 @@ enum class BiologicalActivity(
             "EF"
         )
     ),
+    BitingMidges(
+        BiologicalActivityType.Insect, SpeciesPhenology(
+            Temperature.celsius(5.4f),
+            listOf(
+                LifecycleEvent(
+                    EVENT_ACTIVE_START,
+                    MinimumGrowingDegreeDaysTrigger(151f, TemperatureUnits.Celsius)
+                ),
+                LifecycleEvent(
+                    EVENT_ACTIVE_END,
+                    BelowTemperatureTrigger(Temperature.celsius(5.4f))
+                )
+            )
+        ),
+        listOf(
+            "ET",
+            "EF"
+        )
+    )
 }
 
 class PhenologyService(private val weather: IWeatherSubsystem) {
