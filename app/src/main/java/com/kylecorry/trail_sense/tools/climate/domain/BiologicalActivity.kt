@@ -12,155 +12,166 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.BelowTemperatureTrigger
 import com.kylecorry.trail_sense.shared.andromeda_temp.TemperatureTriggerType
 import java.time.Duration
 
-// TODO: Instead of excluded climates, use a regex string for if the climate is valid
-enum class BiologicalActivity(
+data class BiologicalActivity(
+    val id: String,
     val type: BiologicalActivityType,
     val phenology: SpeciesPhenology,
     val excludedClimates: List<String>
 ) {
-    Mosquito(
-        BiologicalActivityType.Insect, // https://www.nrcc.cornell.edu/industry/mosquito/degreedays.html
-        SpeciesPhenology(
-            Temperature.Companion.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(230f, TemperatureUnits.Fahrenheit)
+    companion object {
+
+        val ENTRIES = listOf(
+            BiologicalActivity(
+                "mosquitoes",
+                BiologicalActivityType.FliesAndMosquitoes,
+                SpeciesPhenology(
+                    Temperature.celsius(10f),
+                    listOf(
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_START,
+                            MinimumGrowingDegreeDaysTrigger(230f, TemperatureUnits.Fahrenheit)
+                        ),
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_END,
+                            BelowTemperatureTrigger(
+                                Temperature.celsius(5f),
+                                TemperatureTriggerType.Low
+                            )
+                        )
+                    ),
+                    growingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.BaseMax
                 ),
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(
-                        Temperature.Companion.celsius(5f),
-                        TemperatureTriggerType.Low
-                    )
+                listOf(
+                    "BWh",
+                    "BWk",
+                    "ET",
+                    "EF"
                 )
             ),
-            growingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.BaseMax
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    Tick(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            // Ticks have lifecycles of 2 years, adults aren't driven by GDD - they are active whenever the temperature is ideal for them
-            Temperature.Companion.celsius(7.2f),
-            listOf(
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_START,
-                    AboveTemperatureTrigger(Temperature.Companion.celsius(7.2f))
-                ),
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(
-                        Temperature.Companion.celsius(0f),
-                        TemperatureTriggerType.Low
+            BiologicalActivity(
+                "ticks",
+                BiologicalActivityType.Ticks, SpeciesPhenology(
+                    // Ticks have lifecycles of 2 years, adults aren't driven by GDD - they are active whenever the temperature is ideal for them
+                    Temperature.celsius(7.2f),
+                    listOf(
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_START,
+                            AboveTemperatureTrigger(Temperature.celsius(7.2f))
+                        ),
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_END,
+                            BelowTemperatureTrigger(
+                                Temperature.celsius(0f),
+                                TemperatureTriggerType.Low
+                            )
+                        )
                     )
-                )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    BlackFly(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.Companion.celsius(0f),
-            listOf(
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(220f, TemperatureUnits.Celsius)
                 ),
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_END,
-                    MinimumGrowingDegreeDaysTrigger(
-                        220f,
-                        TemperatureUnits.Celsius
-                    ),
-                    offset = Duration.ofDays(60)
+                listOf(
+                    "BWh",
+                    "BWk",
+                    "ET",
+                    "EF"
                 )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
+            ),
+            BiologicalActivity(
+                "black-flies",
+                BiologicalActivityType.FliesAndMosquitoes, SpeciesPhenology(
+                    Temperature.celsius(0f),
+                    listOf(
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_START,
+                            MinimumGrowingDegreeDaysTrigger(220f, TemperatureUnits.Celsius)
+                        ),
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_END,
+                            MinimumGrowingDegreeDaysTrigger(
+                                220f,
+                                TemperatureUnits.Celsius
+                            ),
+                            offset = Duration.ofDays(60)
+                        )
+                    )
+                ),
+                listOf(
+                    "BWh",
+                    "BWk",
+                    "ET",
+                    "EF"
+                )
+            ),
 
-    // Deer/horse flies
-    Tabanidae(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.Companion.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_START,
-                    MultiTrigger(
-                        AboveTemperatureTrigger(Temperature.Companion.celsius(18f)),
-                        MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
+            // Deer/horse flies
+            BiologicalActivity(
+                "deer-horse-flies",
+                BiologicalActivityType.FliesAndMosquitoes, SpeciesPhenology(
+                    Temperature.celsius(10f),
+                    listOf(
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_START,
+                            MultiTrigger(
+                                AboveTemperatureTrigger(Temperature.celsius(18f)),
+                                MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
+                            )
+                        ),
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_END,
+                            BelowTemperatureTrigger(
+                                Temperature.celsius(18f),
+                                TemperatureTriggerType.High
+                            )
+                        )
                     )
                 ),
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(
-                        Temperature.Companion.celsius(18f),
-                        TemperatureTriggerType.High
+                listOf(
+                    "BWh",
+                    "BWk",
+                    "ET",
+                    "EF"
+                )
+            ),
+            BiologicalActivity(
+                "stable-flies",
+                BiologicalActivityType.FliesAndMosquitoes, SpeciesPhenology(
+                    Temperature.celsius(10f),
+                    listOf(
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_START,
+                            MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
+                        ),
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_END,
+                            BelowTemperatureTrigger(Temperature.celsius(10f))
+                        )
                     )
-                )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    StableFlies(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.Companion.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
                 ),
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.Companion.celsius(10f))
+                listOf(
+                    "BWh",
+                    "BWk",
+                    "ET",
+                    "EF"
                 )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    BitingMidges(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.Companion.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(200f, TemperatureUnits.Celsius)
+            ),
+            BiologicalActivity(
+                "biting-midges",
+                BiologicalActivityType.FliesAndMosquitoes, SpeciesPhenology(
+                    Temperature.celsius(10f),
+                    listOf(
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_START,
+                            MinimumGrowingDegreeDaysTrigger(200f, TemperatureUnits.Celsius)
+                        ),
+                        LifecycleEvent(
+                            PhenologyService.EVENT_ACTIVE_END,
+                            BelowTemperatureTrigger(Temperature.celsius(10f))
+                        )
+                    )
                 ),
-                LifecycleEvent(
-                    PhenologyService.Companion.EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.Companion.celsius(10f))
+                listOf(
+                    "ET",
+                    "EF"
                 )
             )
-        ),
-        listOf(
-            "ET",
-            "EF"
         )
-    )
+    }
 }

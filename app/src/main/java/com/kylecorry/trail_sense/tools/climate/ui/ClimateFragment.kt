@@ -246,7 +246,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         // Activity
         useEffect(activityPatterns, insectActivityDescriptionView, formatter) {
             val insects = activityPatterns?.entries
-                ?.filter { it.key.type == BiologicalActivityType.Insect && it.value.isNotEmpty() }
+                ?.filter { (it.key == BiologicalActivityType.FliesAndMosquitoes || it.key == BiologicalActivityType.Ticks) && it.value.isNotEmpty() }
                 ?: emptyList()
 
             Log.d("ClimateFragment", insects.toString())
@@ -294,14 +294,12 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         return first.start.dayOfYear == 1 && second.end.month == Month.DECEMBER && second.end.dayOfMonth == 31
     }
 
-    private fun getBiologicalActivityName(activity: BiologicalActivity): String {
+    private fun getBiologicalActivityName(activity: BiologicalActivityType): String {
         return when (activity) {
-            BiologicalActivity.Mosquito -> getString(R.string.mosquitoes)
-            BiologicalActivity.BlackFly -> getString(R.string.black_flies)
-            BiologicalActivity.Tabanidae -> getString(R.string.deer_horse_flies)
-            BiologicalActivity.StableFlies -> getString(R.string.stable_flies)
-            BiologicalActivity.Tick -> getString(R.string.ticks)
-            BiologicalActivity.BitingMidges -> getString(R.string.biting_midges)
+            BiologicalActivityType.FliesAndMosquitoes -> getString(R.string.biting_flies_mosquitoes)
+            BiologicalActivityType.Ticks -> getString(R.string.ticks)
+            // TODO: Eventually add more
+            else -> ""
         }
     }
 

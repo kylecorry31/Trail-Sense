@@ -138,7 +138,7 @@
     <string name="start">Começar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até se tornar potável</item>
-        <item quantity="many" />
+        <item quantity="many"></item>
         <item quantity="other">%d segundos até se tornar potável</item>
     </plurals>
     <string name="water_boil_timer_done_content">A água agora é potável</string>
@@ -297,7 +297,7 @@
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d alfinete</item>
-        <item quantity="many" />
+        <item quantity="many"></item>
         <item quantity="other">%d alfinetes</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -778,7 +778,7 @@
     <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>
-        <item quantity="many" />
+        <item quantity="many"></item>
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="path">Percurso</string>
@@ -1372,7 +1372,6 @@
     <string name="climate_cold_summer_description">Planeje-se para temperaturas baixas durante o verão.</string>
     <string name="climate_very_cold_winter_description">Planeje-se para temperaturas extremamente baixas durante o inverno.</string>
     <string name="insect_activity">Atividade de insetos</string>
-    <string name="mosquitoes">Mosquitos</string>
     <string name="active_period">Ativo de %1$s a %2$s</string>
     <string name="ticks">Carrapatos</string>
     <string name="record_sighting">Registar observações</string>

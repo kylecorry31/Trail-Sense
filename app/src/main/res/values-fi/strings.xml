@@ -1232,7 +1232,6 @@
     <string name="elevation_miss">Pystyhuti</string>
     <string name="trace">Jäljennä</string>
     <string name="insect_activity">Hyönteisaktiivisuus</string>
-    <string name="mosquitoes">Hyttyset</string>
     <string name="active_period">Aktiivisia välillä %1$s - %2$s</string>
     <string name="climate_tropical_monsoon">Trooppinen monsuuni-ilmasto</string>
     <string name="climate_tropical_savanna">Trooppinen savanni-ilmasto</string>

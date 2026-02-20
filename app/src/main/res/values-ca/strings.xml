@@ -558,7 +558,6 @@
     <string name="climate_ice_cap">Casquet glacial</string>
     <string name="climate_temperate">Temperat</string>
     <string name="climate_continental">Continental</string>
-    <string name="mosquitoes">Mosquits</string>
     <string name="ticks">Paparres</string>
     <string name="muzzle_velocity">Velocitat inicial</string>
 </resources>

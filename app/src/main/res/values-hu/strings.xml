@@ -1237,7 +1237,6 @@
     <string name="dangerous">Veszélyes</string>
     <string name="medicinal">Gyógyhatású</string>
     <string name="insect_activity">Rovar aktivitás</string>
-    <string name="mosquitoes">Szúnyogok</string>
     <string name="active_period">Aktív %1$s és %2$s között</string>
     <string name="diurnal">Nappali</string>
     <string name="nocturnal">Éjszakai</string>

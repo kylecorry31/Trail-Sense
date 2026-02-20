@@ -1208,7 +1208,6 @@
     <string name="permits">permis</string>
     <string name="climate_tundra">toundra</string>
     <string name="climate_continental">continental</string>
-    <string name="mosquitoes">moustiques</string>
     <string name="map">carte</string>
     <string name="planet_mercury">Mercure</string>
     <string name="planet_venus">Vénus</string>
@@ -1539,7 +1538,4 @@
     <string name="show_images">Afficher les images</string>
     <string name="show_path">Afficher le chemin</string>
     <string name="map_calibration_clear_message">La modification de la projection cartographique effacera vos modifications de calibrage.</string>
-    <string name="black_flies">Mouches noires</string>
-    <string name="deer_horse_flies">Taons</string>
-    <string name="stable_flies">Mouches piquantes</string>
-</resources>
+    </resources>
