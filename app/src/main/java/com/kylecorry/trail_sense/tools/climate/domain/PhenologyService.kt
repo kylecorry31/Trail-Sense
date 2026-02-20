@@ -3,199 +3,14 @@ package com.kylecorry.trail_sense.tools.climate.domain
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.ecology.Ecology
-import com.kylecorry.sol.science.ecology.GrowingDegreeDaysCalculationType
-import com.kylecorry.sol.science.ecology.LifecycleEvent
-import com.kylecorry.sol.science.ecology.SpeciesPhenology
-import com.kylecorry.sol.science.ecology.triggers.AboveTemperatureTrigger
-import com.kylecorry.sol.science.ecology.triggers.MinimumGrowingDegreeDaysTrigger
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.sol.units.TemperatureUnits
-import com.kylecorry.trail_sense.shared.andromeda_temp.BelowTemperatureTrigger
-import com.kylecorry.trail_sense.shared.andromeda_temp.OffsetLifecycleEventTrigger
-import com.kylecorry.trail_sense.shared.andromeda_temp.TemperatureTriggerType
-import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_END
-import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_START
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.IWeatherSubsystem
 import java.time.Duration
 import java.time.LocalDate
 
-enum class BiologicalActivityType {
-    Insect,
-    Pollen,
-    Foliage,
-}
-
-// TODO: Instead of excluded climates, use a regex string for if the climate is valid
-enum class BiologicalActivity(
-    val type: BiologicalActivityType,
-    val phenology: SpeciesPhenology,
-    val excludedClimates: List<String>
-) {
-    Mosquito(
-        BiologicalActivityType.Insect, // https://www.nrcc.cornell.edu/industry/mosquito/degreedays.html
-        SpeciesPhenology(
-            Temperature.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(230f, TemperatureUnits.Fahrenheit)
-                ),
-                LifecycleEvent(
-                    EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.celsius(5f), TemperatureTriggerType.Low)
-                )
-            ),
-            growingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.BaseMax
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    Tick(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            // Ticks have lifecycles of 2 years, adults aren't driven by GDD - they are active whenever the temperature is ideal for them
-            Temperature.celsius(7.2f),
-            listOf(
-                LifecycleEvent(
-                    EVENT_ACTIVE_START,
-                    AboveTemperatureTrigger(Temperature.celsius(7.2f))
-                ),
-                LifecycleEvent(
-                    EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.celsius(0f), TemperatureTriggerType.Low)
-                )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    BlackFly(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.celsius(0f),
-            listOf(
-                LifecycleEvent(
-                    EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(220f, TemperatureUnits.Celsius)
-                ),
-                LifecycleEvent(
-                    EVENT_ACTIVE_END,
-                    OffsetLifecycleEventTrigger(
-                        MinimumGrowingDegreeDaysTrigger(
-                            220f,
-                            TemperatureUnits.Celsius
-                        ), 60
-                    )
-                )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-
-    // Deer/horse flies
-    Tabanidae(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
-                ),
-                LifecycleEvent(
-                    EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.celsius(18f), TemperatureTriggerType.High)
-                )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    StableFlies(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(225f, TemperatureUnits.Celsius)
-                ),
-                LifecycleEvent(
-                    EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.celsius(10f))
-                )
-            )
-        ),
-        listOf(
-            "BWh",
-            "BWk",
-            "ET",
-            "EF"
-        )
-    ),
-    BitingMidges(
-        BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.celsius(10f),
-            listOf(
-                LifecycleEvent(
-                    EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(200f, TemperatureUnits.Celsius)
-                ),
-                LifecycleEvent(
-                    EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.celsius(10f))
-                )
-            )
-        ),
-        listOf(
-            "ET",
-            "EF"
-        )
-    )
-}
-
 class PhenologyService(private val weather: IWeatherSubsystem) {
-
-    private fun getActivePeriodsForYear(
-        year: Int,
-        events: List<Pair<LocalDate, LifecycleEvent>>,
-        activeStart: String,
-        activeEnd: String
-    ): List<Range<LocalDate>> {
-        val activePeriods = mutableListOf<Range<LocalDate>>()
-        var startDate: LocalDate = LocalDate.of(year, 1, 1)
-        var hasStartDate = false
-        for (event in events.filter { it.first.year == year }) {
-            if (event.second.name == activeEnd) {
-                activePeriods.add(Range(startDate, event.first))
-                hasStartDate = false
-            } else if (event.second.name == activeStart) {
-                startDate = event.first
-                hasStartDate = true
-            }
-        }
-
-        if (hasStartDate) {
-            activePeriods.add(Range(startDate, LocalDate.of(year, 12, 31)))
-        }
-
-        return activePeriods
-    }
 
     suspend fun getYearlyActiveDays(
         year: Int,
@@ -234,7 +49,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
             }
 
             activeDays[species] =
-                getActivePeriodsForYear(year, events, EVENT_ACTIVE_START, EVENT_ACTIVE_END)
+                Ecology.getActivePeriodsForYear(year, events, EVENT_ACTIVE_START, EVENT_ACTIVE_END)
         }
 
         activeDays
