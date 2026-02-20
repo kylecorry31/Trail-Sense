@@ -150,15 +150,15 @@ enum class BiologicalActivity(
     ),
     BitingMidges(
         BiologicalActivityType.Insect, SpeciesPhenology(
-            Temperature.celsius(5.4f),
+            Temperature.celsius(10f),
             listOf(
                 LifecycleEvent(
                     EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(151f, TemperatureUnits.Celsius)
+                    MinimumGrowingDegreeDaysTrigger(200f, TemperatureUnits.Celsius)
                 ),
                 LifecycleEvent(
                     EVENT_ACTIVE_END,
-                    BelowTemperatureTrigger(Temperature.celsius(5.4f))
+                    BelowTemperatureTrigger(Temperature.celsius(10f))
                 )
             )
         ),
