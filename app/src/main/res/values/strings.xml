@@ -1740,7 +1740,7 @@
     <string name="planet_neptune">Neptune</string>
     <string name="load_pdf_tiles">Load PDF tiles</string>
     <string name="load_pdf_tiles_summary">PDF maps will be sharper, but performance may be impacted</string>
-    <string name="map_tool_disclaimer">This tool displays your beacons, paths, and photo maps. It is not a substitute for a dedicated maps application.</string>
+    <string name="map_tool_disclaimer">This tool does not include built-in street maps, satellite imagery, or trail data. It does not download maps from the internet. To display a map background, you must import your own image using the Photo Maps tool. If you need live or preloaded street, satellite, or trail maps, use a dedicated mapping application instead.</string>
     <string name="open_settings">Open settings</string>
     <string name="pref_map_layer_button" translatable="false">pref_map_layer_button</string>
     <string name="show_gps_accuracy">Show GPS accuracy</string>
