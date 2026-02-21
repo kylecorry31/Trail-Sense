@@ -41,6 +41,11 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
                 temperatureMap[newDate]?.second ?: Range(Temperature.zero, Temperature.zero)
             }.toMutableList()
 
+            if (events.none { it.second.name == EVENT_ACTIVE_START }){
+                // Species is never active
+                continue
+            }
+
             activeDays[species] =
                 Ecology.getActivePeriodsForYear(year, events, EVENT_ACTIVE_START, EVENT_ACTIVE_END)
                     .filter { it.start.daysUntil(it.end) > 1 }
