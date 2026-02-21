@@ -1443,7 +1443,7 @@
     <string name="show_labels">Afficher les étiquettes</string>
     <string name="load_pdf_tiles">Charger les tuiles PDF</string>
     <string name="load_pdf_tiles_summary">Les cartes PDF seront plus nettes, mais les performances pourraient être affectées.</string>
-    <string name="map_tool_disclaimer">Cet outil affiche vos balises, vos itinéraires et vos cartes photographiques. Il ne remplace pas une application cartographique dédiée.</string>
+    <string name="map_tool_disclaimer">Cet outil ne comprend pas de cartes routières, d\'images satellites ou de données sur les sentiers intégrées. Il ne télécharge pas de cartes depuis Internet. Pour afficher un fond de carte, vous devez importer votre propre image à l\'aide de l\'outil Photo Maps. Si vous avez besoin de cartes routières, satellites ou de sentiers en direct ou préchargées, utilisez plutôt une application cartographique dédiée.</string>
     <string name="open_settings">Ouvrir les paramètres</string>
     <string name="show_gps_accuracy">Afficher la précision du GPS</string>
     <string name="increase_exposure_at_night">Augmenter l\'exposition nocturne</string>
