@@ -1529,4 +1529,11 @@
     <string name="map_calibration_clear_message">De kaartprojectie veranderen maakt je kalibratiewijzigingen ongedaan.</string>
     <string name="aspect">Expositie</string>
     <string name="pref_nearby_linear_only_title">Nabijgelegen bakens alleen op lineair kompas weergeven</string>
+    <string name="early_month">begin %s</string>
+    <string name="mid_month">midden %s</string>
+    <string name="late_month">eind %s</string>
+    <string name="active_in_month">Actief in %s</string>
+    <string name="active_all_year">Hele jaar actief</string>
+    <string name="biting_flies_mosquitoes">Steekvliegen/muggen</string>
+    <string name="ecology">Ecologie</string>
 </resources>
