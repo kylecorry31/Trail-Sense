@@ -1539,4 +1539,11 @@
     <string name="map_calibration_clear_message">La modification de la projection cartographique effacera vos modifications de calibrage.</string>
     <string name="pref_nearby_linear_only_title">Afficher uniquement les balises à proximité sur la boussole linéaire</string>
     <string name="biting_midges">Moucherons piqueurs</string>
+    <string name="early_month">début %s</string>
+    <string name="mid_month">mi-%s</string>
+    <string name="late_month">fin %s</string>
+    <string name="active_in_month">Actif en %s</string>
+    <string name="active_all_year">Actif toute l\'année</string>
+    <string name="biting_flies_mosquitoes">Mouches/moustiques piqueurs</string>
+    <string name="ecology">Écologie</string>
 </resources>
