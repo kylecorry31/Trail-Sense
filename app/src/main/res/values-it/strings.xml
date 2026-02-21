@@ -1244,4 +1244,6 @@
     <string name="grains">Gravi</string>
     <string name="milligrams_format">%s mg</string>
     <string name="grains_format">%s gr</string>
+    <string name="pref_night_mode_fullscreen_title">Schermo intero in modalità notturna</string>
+    <string name="pref_night_mode_fullscreen_summary">Nascondi l\'interfaccia di sistema per una migliore conservazione della visione notturna</string>
 </resources>
