@@ -1519,4 +1519,11 @@
     <string name="show_path">显示路径</string>
     <string name="map_calibration_clear_message">更改地图投影会清除校准更改。</string>
     <string name="pref_nearby_linear_only_title">在线性罗盘上只显示附近的信标</string>
+    <string name="early_month">%s 月初</string>
+    <string name="mid_month">%s 月中</string>
+    <string name="late_month">%s 月末</string>
+    <string name="active_in_month">在 %s 月活跃</string>
+    <string name="active_all_year">全年活跃</string>
+    <string name="biting_flies_mosquitoes">咬蝇/蚊子</string>
+    <string name="ecology">生态</string>
 </resources>
