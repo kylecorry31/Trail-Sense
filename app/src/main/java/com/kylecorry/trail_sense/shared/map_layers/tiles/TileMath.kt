@@ -1,5 +1,8 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
+import android.util.Log
+import com.kylecorry.sol.math.MathExtensions.real
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import kotlin.math.PI
@@ -90,11 +93,15 @@ object TileMath {
     }
 
     fun getZoomLevel(coordinate: Coordinate, resolution: Float): Float {
-        val latitude = coordinate.latitude
+        if (Arithmetic.isZero(resolution)) {
+            Log.d("TileMath", "Resolution is 0")
+        }
+
+        val latitude = coordinate.latitude.coerceIn(MIN_LATITUDE, MAX_LATITUDE)
         val earthCircumference = WEB_MERCATOR_RADIUS * 2 * PI
         val sourceResolution =
             earthCircumference * cos(Math.toRadians(latitude)) / WORLD_TILE_SIZE
-        return log2(sourceResolution / resolution).toFloat()
+        return log2(sourceResolution / resolution).toFloat().real(1f)
 
     }
 
