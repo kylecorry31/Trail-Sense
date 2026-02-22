@@ -16,19 +16,13 @@ You can choose to display nearby beacons on the compass. The following settings 
 
 Nearby beacons will be shown as arrows around the compass. The arrows will point to the beacon, and when you are facing the beacon, more information about it will be shown at the bottom of the screen.
 
-If you have the radar compass enabled, the nearby beacons will be shown on the compass itself.
+### Round compass
 
-### Radar compass
+You can pinch to zoom the compass, which will change the nearby beacon radius.
 
-The radar compass shows nearby beacons, paths, and tides as a map-like radar display. The radar compass is available with nearby beacons enabled. Once nearby beacons are enabled, you can turn on the radar compass using "Settings > Navigation > Show nearby radar compass".
+If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks' option. Please note, that without a compass sensor, moving your device will not change the direction of the compass.
 
-You can pinch to zoom the radar compass, which will change the nearby beacon radius.
-
-You can adjust tile detail on the radar compass in "Settings > Navigation > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
-
-If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the radar compass.
-
-Layers are used to display information on the radar compass. You can find layer settings in Settings > Navigation or by long pressing the radar compass. For more information on layers, refer to the 'Map Layers' guide.
+Layers are used to display information on the compass. You can find layer settings in Settings > Navigation or by long pressing the compass. For more information on layers, refer to the 'Map Layers' guide.
 
 The following layers are not available:
 - Scale
@@ -89,7 +83,7 @@ Settings > Navigation > Lock bearing to location'. This is similar to creating a
 
 ## Path navigation
 
-If you have the radar compass enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass to see where the path is relative to you. If you have Backtrack running, you can see your current position on the path. For more information, see the Paths guide.
+If you have the Paths map layer enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass to see where the path is relative to you. If you have Backtrack running, you can see your current position on the path. For more information, see the Paths guide.
 
 ## Location
 
