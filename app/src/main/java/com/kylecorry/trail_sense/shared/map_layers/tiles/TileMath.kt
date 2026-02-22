@@ -94,7 +94,7 @@ object TileMath {
 
     fun getZoomLevel(coordinate: Coordinate, resolution: Float): Float {
         if (Arithmetic.isZero(resolution)) {
-            Log.d("TileMath", "Resolution is 0")
+            println("TileMath - resolution is 0")
         }
 
         val latitude = coordinate.latitude.coerceIn(MIN_LATITUDE, MAX_LATITUDE)
