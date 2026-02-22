@@ -27,11 +27,11 @@ import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Euler
-import com.kylecorry.sol.math.Quaternion
-import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.math.MathExtensions.toDegrees
+import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.FormatService
@@ -452,8 +452,19 @@ class AugmentedRealityView : CanvasView {
      * @param coordinate The augmented reality coordinate of the point
      * @return The pixel coordinate of the point
      */
-    fun toPixel(coordinate: AugmentedRealityCoordinate): PixelCoordinate {
+    fun toPixel(
+        coordinate: AugmentedRealityCoordinate,
+        nanIfBehindCamera: Boolean = false
+    ): PixelCoordinate {
         val actual = getActualPoint(coordinate.position, coordinate.isTrueNorth)
+
+        if (nanIfBehindCamera) {
+            val arPoint = AugmentedRealityUtils.enuToAr(actual, rotationMatrix)
+            if (arPoint.z <= 0f || !arPoint.z.isFinite()) {
+                return PixelCoordinate(Float.NaN, Float.NaN)
+            }
+        }
+
         val screenPixel = AugmentedRealityUtils.getPixel(
             actual,
             rotationMatrix,
