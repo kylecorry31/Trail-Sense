@@ -187,7 +187,7 @@
     <string name="pref_show_linear_compass_title">Ukazovat lineární kompas</string>
     <string name="pref_show_linear_compass_summary">Když je telefon na výšku</string>
     <string name="pref_display_multi_beacons_summary">Ukazovat nejbližší maják na kompasu</string>
-    <string name="pref_max_beacon_distance_title">Poloměr blízkých majáků</string>
+    <string name="pref_max_beacon_distance_title">Vzdálenost blízkých majáků</string>
     <string name="pref_storm_alert_sensitivity_title">Citlivost na bouře</string>
     <string name="pressure_48_hours">48 hodin</string>
     <string name="pref_monitor_weather_title">Monitorovat počasí</string>
@@ -1118,7 +1118,7 @@
     <string name="view_distance">Zobrazovací vzdálenost</string>
     <string name="fast_path_rendering_summary">Zvýší výkon na úkor vzhledu</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Vaše zařízení nemá kompas, stále si ale můžete zobrazit, kterým směrem jsou navigační majáky.</string>
-    <string name="show_dial_ticks_on_nearby_radar">Zobrazit ukazatele u blízkého radaru</string>
+    <string name="show_dial_ticks_on_nearby_radar">Zobrazit ukazatele</string>
     <string name="augmented_reality_no_gyro_message">Stále můžete použít nástroj Rozšířená realita, nebude ale tak přesný.</string>
     <string name="creating_beacon">Vytváření majáku</string>
     <string name="compact_mode">Kompaktní režim</string>
@@ -1430,7 +1430,7 @@
     <string name="planet_neptune">Neptun</string>
     <string name="load_pdf_tiles">Načíst dlaždice PDF</string>
     <string name="load_pdf_tiles_summary">PDF mapy budou ostřejší, může to mít ale vliv na výkon</string>
-    <string name="map_tool_disclaimer">Tento nástroj zobrazuje vaše majáky, cesty a fotografické mapy. Nejedná se o náhradu vlastní mapové aplikace.</string>
+    <string name="map_tool_disclaimer">Tento nástroj neobsahuje vestavěné uliční mapy, satelitní snímky ani data o turistických trasách. Nestahuje mapy z internetu. Chcete-li zobrazit mapové pozadí, musíte importovat vlastní obrázek pomocí nástroje Fotografické mapy. Pokud potřebujete živé nebo předem načtené uliční, satelitní nebo turistické mapy, použijte místo toho specializovanou mapovou aplikaci.</string>
     <string name="open_settings">Otevřít nastavení</string>
     <string name="basemap">Podkladová mapa</string>
     <string name="show_gps_accuracy">Zobrazit přesnost GPS</string>
@@ -1555,4 +1555,12 @@
     <string name="map_layer_night_description">Noční tmavá vrstva</string>
     <string name="show_path">Zobrazit cestu</string>
     <string name="map_calibration_clear_message">Změna mapové projekce vymaže vaše kalibrační změny.</string>
+    <string name="pref_nearby_linear_only_title">Na lineárním kompasu zobrazit pouze blízké majáky</string>
+    <string name="early_month">začátek měsíce %s</string>
+    <string name="mid_month">střed měsíce %s</string>
+    <string name="late_month">konec měsíce %s</string>
+    <string name="active_in_month">Aktivní v měsíci %s</string>
+    <string name="active_all_year">Aktivní celý rok</string>
+    <string name="biting_flies_mosquitoes">Pakomárcovití/komárovití</string>
+    <string name="ecology">Ekologie</string>
 </resources>
