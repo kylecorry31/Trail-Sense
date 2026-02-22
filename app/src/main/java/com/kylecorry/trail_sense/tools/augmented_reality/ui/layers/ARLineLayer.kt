@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getViewBounds
@@ -127,7 +128,7 @@ class ARLineLayer(
         view: AugmentedRealityView
     ): FloatArray {
         val bounds = view.getViewBounds()
-        val pixels = points.map { view.toPixel(it) }
+        val pixels = points.map { view.toPixel(it, true) }
 
         val lines = mutableListOf<Float>()
         clipper.clip(pixels, bounds, lines, preventLineWrapping = true)
