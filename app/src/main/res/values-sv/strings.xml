@@ -1,3 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation">Navigering</string>
+    <string name="weather">Väder</string>
+    <string name="settings">Inställningar</string>
+    <string name="astronomy">Astronomi</string>
+    <string name="tools">Verktyg</string>
+    <string name="access_background_location">Uppdatera positionsinställningar</string>
+    <string name="direction_west">V</string>
+    <string name="direction_north_east">NÖ</string>
+    <string name="direction_south_east">SÖ</string>
+    <string name="direction_north_west">NV</string>
+    <string name="direction_south_west">SV</string>
+    <string name="increase">+</string>
+    <string name="flashlight_title">Ficklampa</string>
+    <string name="sos">SOS</string>
+    <string name="share_action_send">Skicka</string>
+    <string name="maps">Kartor</string>
+    <string name="name">Namn</string>
+    <string name="units_hpa">hPa</string>
+    <string name="weather_storm">Storm</string>
+    <string name="soon">Snart</string>
+    <string name="today">Idag</string>
+    <string name="tomorrow">Imorgon</string>
+    <string name="yesterday">Igår</string>
+    <string name="sunrise_label">Soluppgång</string>
+    <string name="sunset_label">Solnedgång</string>
+    <string name="subtract">Dra ifrån</string>
+    <string name="delete">Ta bort</string>
+    <string name="edit">Modifiera</string>
+    <string name="category">Kategori</string>
+    <string name="dialog_item_amount">Mängd</string>
+    <string name="general">Allmänna</string>
+    <string name="pressure">Tryck</string>
+    <string name="pref_theme_title">Tema</string>
+    <string name="theme_light">Ljust</string>
+    <string name="theme_dark">Mörkt</string>
+    <string name="theme_black">Svart</string>
+    <string name="theme_system">System</string>
+    <string name="theme_sunset_sunrise">Soluppgång/nedgång</string>
+    <string name="sensors">Sensorer</string>
+    <string name="pref_compass_sensor_title">Kompass</string>
+    <string name="calibrate">Kalibrera</string>
+    <string name="location">Position</string>
 </resources>
