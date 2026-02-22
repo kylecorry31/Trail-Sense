@@ -29,7 +29,8 @@ class TileMathTest {
         assertEquals(18.0f, TileMath.getZoomLevel(Coordinate.zero, 0.60f), 0.01f)
         assertEquals(19.0f, TileMath.getZoomLevel(Coordinate.zero, 0.30f), 0.01f)
         assertEquals(20.0f, TileMath.getZoomLevel(Coordinate.zero, 0.15f), 0.01f)
+        assertEquals(1.0f, TileMath.getZoomLevel(Coordinate.zero, 0f), 0.01f)
+        assertEquals(16.458f, TileMath.getZoomLevel(Coordinate(90.0, 0.0), 0.15f), 0.01f)
+        assertEquals(16.458f, TileMath.getZoomLevel(Coordinate(-90.0, 0.0), 0.15f), 0.01f)
     }
-
-
 }

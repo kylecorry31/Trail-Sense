@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps
 
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -264,7 +263,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         scrollUntil { hasText("Beacons") }
         scrollUntil { hasText("Paths") }
         scrollUntil { hasText("Tides") }
-        scrollUntil { hasText("Navigation")}
+        scrollUntil { hasText("Navigation") }
         scrollUntil { hasText("Photo Maps") }
         click(toolbarButton(R.id.title, Side.Right))
 

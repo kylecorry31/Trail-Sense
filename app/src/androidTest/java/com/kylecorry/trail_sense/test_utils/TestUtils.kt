@@ -100,7 +100,7 @@ object TestUtils {
         return context.getString(id, *args)
     }
 
-    fun setWaitForIdleTimeout(timeout: Long = 50) {
+    fun setWaitForIdleTimeout(timeout: Long = 200) {
         Configurator.getInstance().setWaitForIdleTimeout(timeout)
     }
 
