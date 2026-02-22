@@ -1403,7 +1403,7 @@
     <string name="planet_neptune">Neptunus</string>
     <string name="load_pdf_tiles">PDF-tegels laden</string>
     <string name="load_pdf_tiles_summary">PDF-kaarten zijn scherper, maar de prestaties kunnen worden beïnvloed</string>
-    <string name="map_tool_disclaimer">Dit hulpmiddel toont je bakens, paden en fotokaarten. Het is geen vervanging voor een speciale kaartapplicatie.</string>
+    <string name="map_tool_disclaimer">Dit hulpmiddel bevat geen ingebouwde wegenkaarten, satellietbeelden of routegegevens. Het haalt geen kaarten op van het internet. Om een kaartachtergrond weer te geven moet je je eigen foto importeren met het Fotokaarten-hulpmiddel. Gebruik een speciale kaartapplicatie als je actuele straten, satelliet, of wandelkaarten nodig hebt.</string>
     <string name="open_settings">Instellingen openen</string>
     <string name="basemap">Basiskaart</string>
     <string name="show_gps_accuracy">GPS-nauwkeurigheid weergeven</string>
