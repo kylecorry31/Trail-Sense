@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
+import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.system.Resources
@@ -32,7 +33,6 @@ class QuickActionRuler(
         val ruler = RulerView(context)
         this.ruler = ruler
         ruler.isVisible = false
-        ruler.elevation = Resources.dp(context, 4f)
         ruler.setBackgroundColor(
             Resources.getAndroidColorAttr(
                 context,
@@ -42,10 +42,21 @@ class QuickActionRuler(
 
         ruler.x = 0f
         ruler.y = 0f
-        ruler.layoutParams = ViewGroup.LayoutParams(
+        val layoutParams = CoordinatorLayout.LayoutParams(
             Resources.dp(context, 80f).toInt(),
             ViewGroup.LayoutParams.MATCH_PARENT
         )
+        val bottomNavigation = fragment.requireActivity().findViewById<ViewGroup>(R.id.bottom_navigation)
+        if (bottomNavigation.height > 0) {
+            layoutParams.bottomMargin = bottomNavigation.height
+        } else {
+            bottomNavigation.doOnLayout {
+                val params = ruler.layoutParams as? CoordinatorLayout.LayoutParams ?: return@doOnLayout
+                params.bottomMargin = it.height
+                ruler.layoutParams = params
+            }
+        }
+        ruler.layoutParams = layoutParams
 
         val root = fragment.requireActivity().findViewById(R.id.coordinator) as? CoordinatorLayout
         root?.addView(ruler)
