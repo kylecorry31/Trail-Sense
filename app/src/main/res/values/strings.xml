@@ -190,6 +190,7 @@
 \n-  Set this value to 1.
 \n- Measure the Trail Sense ruler value corresponding to one unit of a physical ruler.
 \n- Report the measured value here."</string>
+    <string name="pref_ruler_flip_direction_title">Reverse ruler direction</string>
     <!--Settings - Sensors - Compass-->
     <string name="pref_compass_sensor_title">Compass</string>
     <string name="true_north">True north</string>
@@ -304,6 +305,7 @@
     <string name="pref_pressure_history" translatable="false">pref_pressure_history</string>
     <string name="pref_monitor_weather" translatable="false">pref_monitor_weather</string>
     <string name="pref_ruler_calibration" translatable="false">pref_ruler_calibration</string>
+    <string name="pref_ruler_flip_direction" translatable="false">pref_ruler_flip_direction</string>
     <string name="pref_num_visible_beacons" translatable="false">pref_num_visible_beacons</string>
     <string name="pref_center_sun_and_moon" translatable="false">pref_center_sun_and_moon</string>
     <string name="pref_forecast_sensitivity" translatable="false">pref_forecast_sensitivity</string>

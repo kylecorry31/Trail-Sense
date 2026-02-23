@@ -116,7 +116,7 @@ class PreferenceMigrator private constructor() {
                 prefs.remove("last_odometer_location")
             },
             PreferenceMigration(7, 8) { context, _ ->
-                val prefs = UserPreferences(context).navigation
+                val prefs = UserPreferences(context).ruler
                 val currentScale = prefs.rulerScale
                 if (currentScale == 1f || currentScale == 0f) {
                     return@PreferenceMigration
