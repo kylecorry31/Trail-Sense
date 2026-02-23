@@ -192,7 +192,7 @@
     <string name="pref_weather_update_frequency_title">Frecuencia actualización meteo</string>
     <string name="pref_show_pressure_in_notification_title">Mostrar presión en notificación</string>
     <string name="pref_forecast_sensitivity_title">Sensibilidad pronóstico</string>
-    <string name="pref_max_beacon_distance_title">Radio de balizas cercanas</string>
+    <string name="pref_max_beacon_distance_title">Distancia de balizas cercanas</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar antes de navegar</string>
     <string name="pref_adjust_for_temperature_summary">Usar temperatura en conversiones de presión a nivel del mar</string>
     <string name="pref_adjust_for_temperature_title">Considerar la temperatura</string>
@@ -646,7 +646,7 @@
     <string name="background_location_permission">Ubicación (Permitir todo el tiempo)</string>
     <string name="activity_recognition">Reconocimiento de actividad</string>
     <string name="unblock_notification_channel">Desbloquear la notificación %s para Trail Sense</string>
-    <string name="elevation_override_resolution">Habilite la calibración automática en la configuración.</string>
+    <string name="elevation_override_resolution">Habilita la calibración automática en la configuración.</string>
     <string name="location_override_not_set_resolution">Establecer la anulación de la ubicación en la configuración</string>
     <string name="power_saving_mode_resolution">Desactivar modo ahorro de energía</string>
     <string name="battery_restricted_resolution">Establecer Trail Sense como no optimizado</string>
@@ -790,7 +790,7 @@
     <string name="clinometer_measure_height_title">Distancia al blanco</string>
     <string name="compass_unavailable">Brújula no disponible</string>
     <string name="gps_unavailable">GPS no disponible</string>
-    <string name="weather_monitor_disabled_resolution">Habilitar seguimiento meteorológico en ajustes</string>
+    <string name="weather_monitor_disabled_resolution">Habilita el seguimiento meteorológico en ajustes</string>
     <string name="estimated">Estimado</string>
     <string name="disclaimer_estimated_tide">Las mareas estimadas podrían no ser precisas. Use una tabla de mareas oficial para saber los tiempos exactos.</string>
     <string name="disclaimer_estimated_tide_title">Marea estimada</string>
@@ -1050,7 +1050,7 @@
     <string name="fast_path_rendering">Representación rápida de la ruta</string>
     <string name="fast_path_rendering_summary">Mejora el rendimiento a costa de la apariencia</string>
     <string name="view_distance">Distancia de vista</string>
-    <string name="show_dial_ticks_on_nearby_radar">Mostrar marcas en dial de la brújula radar</string>
+    <string name="show_dial_ticks_on_nearby_radar">Mostrar marcas en el dial</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Tu dispositivo no tiene brújula, pero aún así puedes ver en qué dirección están las balizas.</string>
     <string name="augmented_reality_no_gyro_message">Puede seguir usando la herramienta de Realidad Aumentada pero no será tan precisa.</string>
     <string name="compact_mode">Modo compacto</string>
@@ -1364,7 +1364,7 @@
     <string name="planet_neptune">Neptuno</string>
     <string name="load_pdf_tiles">Cargar mosaicos PDF</string>
     <string name="load_pdf_tiles_summary">Los mapas PDF serán más nítidos, pero el rendimiento puede verse afectado</string>
-    <string name="map_tool_disclaimer">Esta herramienta muestra tus balizas, rutas y mapas fotográficos. No sustituye a una aplicación de mapas dedicada.</string>
+    <string name="map_tool_disclaimer">Esta herramienta no incluye mapas integrados con calles, imágenes de satélite o datos de rutas. Tampoco descarga mapas desde internet. Para mostrar mapas de fondo debes importar tus propias imágenes usando la herramienta Mapas Calibrados. Si necesitas mapas precargados o en vivo de calles, imágenes de satélite o mapas con rutas, utiliza alguna aplicación dedicada de cartografía.</string>
     <string name="open_settings">Abrir ajustes</string>
     <string name="show_gps_accuracy">Mostrar precisión GPS</string>
     <string name="increase_exposure_at_night">Aumentar exposición por la noche</string>
@@ -1488,4 +1488,12 @@
     <string name="map_layer_lunar_eclipse_description">Visibilidad del eclipse lunar</string>
     <string name="map_layer_night_description">Capa de oscuridad nocturna</string>
     <string name="show_path">Mostrar ruta</string>
+    <string name="pref_nearby_linear_only_title">Mostrar sólo balizas cercanas en la brújula lineal</string>
+    <string name="early_month">a comienzos de %s</string>
+    <string name="mid_month">a mediados de %s</string>
+    <string name="late_month">a finales de %s</string>
+    <string name="active_in_month">Activo en %s</string>
+    <string name="active_all_year">Activo todo el año</string>
+    <string name="biting_flies_mosquitoes">Mosquitos</string>
+    <string name="ecology">Ecología</string>
 </resources>
