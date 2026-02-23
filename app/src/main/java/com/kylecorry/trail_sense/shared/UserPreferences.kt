@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.hardware.SensorManager
+import com.google.android.material.color.DynamicColors
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
@@ -210,17 +211,23 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             _theme = value
         }
 
-    val useDynamicColors by BooleanPreference(
+    private val _useDynamicColors by BooleanPreference(
         cache,
         context.getString(R.string.pref_use_dynamic_colors),
         false
     )
 
-    val useDynamicColorsOnCompass by BooleanPreference(
+    val useDynamicColors: Boolean
+        get() = DynamicColors.isDynamicColorAvailable() && _useDynamicColors
+
+    private val _useDynamicColorsOnCompass by BooleanPreference(
         cache,
         context.getString(R.string.pref_use_dynamic_colors_on_compass),
         false
     )
+
+    val useDynamicColorsOnCompass: Boolean
+        get() = DynamicColors.isDynamicColorAvailable() && _useDynamicColorsOnCompass
 
     var useCompactMode by BooleanPreference(
         cache,
