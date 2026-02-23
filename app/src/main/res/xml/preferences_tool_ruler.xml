@@ -10,7 +10,7 @@
             android:inputType="numberDecimal"
             app:defaultValue="1"
             app:dialogMessage="@string/pref_ruler_calibration_summary"
-            app:icon="@drawable/ruler"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_ruler_calibration"
             app:min="0"
             app:singleLineTitle="false"
