@@ -21,6 +21,7 @@ class RulerView : CanvasView {
 
     private var dpi: Float = 1f
     private var scale: Float = 1f
+    private var flipped: Boolean = false
     private var lineThickness: Float = 2f
     private var highlightLineThickness: Float = 4f
     private var lineColor: Int = Color.BLACK
@@ -60,7 +61,8 @@ class RulerView : CanvasView {
 
     override fun setup() {
         dpi = Screen.ydpi(context)
-        scale = prefs.navigation.rulerScale
+        scale = prefs.ruler.rulerScale
+        flipped = prefs.ruler.rulerFlipped
         lineColor = Resources.androidTextColorPrimary(context)
         highlightColor = Resources.getPrimaryColor(context)
         offset = dp(8f)
@@ -189,8 +191,14 @@ class RulerView : CanvasView {
 
     private fun getPosition(distance: Distance): Float {
         val rulerHeight = getRulerHeight()
+        val usableHeight = height - offset
         val d = distance.convertTo(rulerHeight.units).value
-        return d / rulerHeight.value * height + offset
+        val position = d / rulerHeight.value * usableHeight
+        return if (flipped) {
+            height - offset - position
+        } else {
+            offset + position
+        }
     }
 
     private fun getRulerHeight(): Distance {
@@ -204,7 +212,12 @@ class RulerView : CanvasView {
 
     private fun getDistance(y: Float): Distance {
         val rulerHeight = getRulerHeight()
-        val distance = (y - offset) / height * rulerHeight.value
+        val usableHeight = height - offset
+        val distance = if (flipped) {
+            (height - offset - y) / usableHeight * rulerHeight.value
+        } else {
+            (y - offset) / usableHeight * rulerHeight.value
+        }.coerceIn(0f, rulerHeight.value)
         return Distance.from(distance, rulerHeight.units)
     }
 }
