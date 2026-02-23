@@ -220,7 +220,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawDirection(degrees: Float, text: String) {
         push()
         rotate(degrees)
-        fill(primaryColor)
+        fill(Color.WHITE)
         text(
             text,
             width / 2f,
