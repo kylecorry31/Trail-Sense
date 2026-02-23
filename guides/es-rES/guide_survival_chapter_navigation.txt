@@ -244,7 +244,7 @@ Para obtener tus coordenadas GPS en un mapa en UTM (un sistema de coordenadas mu
 1. Encuentra el número de zona UTM, que es un número de una o dos cifras seguido de una letra (por ejemplo, "16T").
 2. Localiza los valores de Este y Norte en los bordes del mapa. Normalmente están marcados y pueden tener de 3 a 6 o 7 dígitos. Añade tres ceros si solo hay 3 dígitos (por ejemplo, 123 se convierte en 123000). El Este estará en la parte superior o inferior; el Norte estará a la izquierda o derecha.
 3. Observa las líneas de cuadrícula en el mapa para identificar la zona de cuadrícula donde está tu ubicación. Estas líneas representan los primeros dígitos de tu ubicación (por ejemplo, 123000E y 234000N).
-4. Para mayor precisión, divide la cuadrícula en 10 secciones iguales vertical y horizontalmente. Determina qué línea está más cerca de tu ubicación dentro de la cuadrícula. Usa una regla para mayor exactitud. Por ejemplo, si tu ubicación está a dos décimas hacia la derecha y una décima hacia arriba desde la esquina inferior derecha de la cuadrícula, tu nueva ubicación será 123200E y 234100N.
+4. Para mayor precisión, divide la cuadrícula en 10 secciones iguales vertical y horizontalmente. Determina qué línea está más cerca de tu ubicación dentro de la cuadrícula. Usa una regla para mayor exactitud. Por ejemplo, si tu ubicación está a dos décimas hacia la derecha y una décima hacia arriba desde la esquina inferior de la cuadrícula, tu nueva ubicación será 123200E y 234100N.
 
 ![](file:///android_asset/survival_guide/map_location.webp)
 

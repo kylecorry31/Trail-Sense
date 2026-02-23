@@ -85,3 +85,9 @@ Esta app permite personalizar el modo de ahorro de batería del dispositivo. La 
 App muy completa de meteorología de código abierto.
 
 [Download](https://github.com/breezy-weather/breezy-weather)
+
+## Specie
+
+App de conversión de divisas de código abierto.
+
+[Download](https://github.com/billthefarmer/specie)
