@@ -63,7 +63,7 @@ Puedes eliminar una tabla de mareas con los siguientes pasos:
 3. Elige 'Eliminar.'
 
 ## Ver mareas en el mapa
-Por defecto, las mareas con una ubicación introducida aparecerán en la brújula radar de la herramienta Navegar y en Mapas Calibrados. Para ocultar/mostrar una marea, sigue estos pasos:
+Por defecto, las mareas con una ubicación introducida aparecerán en la capa de Mareas. Para ocultar/mostrar una marea, sigue estos pasos:
 
 1. Pulsa el botón de mareas en la esquina superior derecha de la pantalla.
 2. Pulsa el botón de menú a la derecha de la marea que quieras ocultar o mostrar.
@@ -80,8 +80,11 @@ Para localizar una tabla de mareas oficial, busca en Internet las mareas de tu u
 - [tide-forecast.com](https://www.tide-forecast.com/)
 - [SHOM](https://maree.shom.fr/)
 
+Australia
+- [Bureau of Meteorology: Tidal Predictions](https://www.bom.gov.au/australia/tides/)
+
 ### Alemania
-- [BSH](https://www.bsh.de/DE/DATEN/Vorhersagen/Gezeiten/gezeiten_node.html)
+- [BSH](https://gezeiten.bsh.de/)
 
 ### Países Bajos
 - [Rijkswaterstaat](https://www.rijkswaterstaat.nl/water/waterdata-en-waterberichtgeving/waterdata/getij)

@@ -16,19 +16,13 @@ Puedes elegir mostrar las balizas cercanas en la brújula. Los siguientes ajuste
 
 Las balizas cercanas se mostrarán como flechas alrededor de la brújula. Las flechas apuntarán a la baliza y, cuando estés mirando hacia la baliza, se mostrará más información sobre ella en la parte inferior de la pantalla.
 
-Si tienes activada la brújula radar, las balizas cercanas se mostrarán en la propia brújula.
+### Brújula circular
 
-### Brújula radar
+Puedes pellizcar para hacer zoom en la brújula, lo que cambiará el radio de balizas cercanas.
 
-La brújula radar muestra balizas, rutas y mareas cercanos como una visualización tipo radar similar a un mapa. La brújula radar está disponible con las balizas cercanas activadas. Una vez activadas las balizas cercanas, puedes activar la brújula radar en 'Ajustes > Navegación > Mostrar brújula radar de balizas cercanas'.
+Si tu dispositivo no tiene brújula, aún puedes elegir mostrar las marcas del dial de la brújula activando 'Ajustes > Navegación> Mostrar marcas en el dial'. Ten en cuenta que sin un sensor de brújula, mover tu dispositivo no cambiará la dirección de la brújul.
 
-Puedes pellizcar para hacer zoom en la brújula radar, lo que cambiará el radio de balizas cercanas.
-
-Puedes ajustar el detalle de los mosaicos en la brújula radar en "Ajustes > Navegación > Modo de alto detalle" si los mosaicos aparecen borrosos, pero usará más memoria y tardará más en cargar.
-
-Si tu dispositivo no tiene brújula, aún puedes elegir mostrar las marcas del dial de la brújula activando 'Ajustes > Navegación> Mostrar marcas en dial de la brújula radar'. Ten en cuenta que sin un sensor de brújula, mover tu dispositivo no cambiará la dirección de la brújula radar.
-
-Las capas se usan para mostrar información en la brújula radar. Puedes encontrar los ajustes de capas en 'Ajustes > Navegación' o manteniendo pulsada la brújula radar. Más información sobre capas en la guía "Capas del Mapa".
+Las capas se usan para mostrar información en la brújula. Puedes encontrar los ajustes de capas en 'Ajustes > Navegación' o manteniendo pulsada la brújula. Más información sobre capas en la guía "Capas del Mapa".
 
 Las siguientes capas no están disponibles:
 - Escala
@@ -89,7 +83,7 @@ Por defecto, los rumbos no cambian cuando te desplazas a otra ubicación. Si qui
 
 ## Navegación por rutas.
 
-Si tienes activada la brújula radar, puedes ver rutas cercanas en la brújula. Actualmente no puedes navegar a lo largo de una ruta, pero puedes usar la brújula para ver dónde está la ruta en relación contigo. Si tienes Backtrack en ejecución, puedes ver tu posición actual en el sendero. Para más información, consulta la guía Rutas.
+Si tienes activada la capa de mapa Rutas, podrás ver rutas cercanas en la brújula. Actualmente no puedes navegar a lo largo de una ruta, pero puedes usar la brújula para ver dónde está la ruta en relación contigo. Si tienes Backtrack en ejecución, puedes ver tu posición actual en el sendero. Para más información, consulta la guía Rutas.
 
 ## Ubicación
 
