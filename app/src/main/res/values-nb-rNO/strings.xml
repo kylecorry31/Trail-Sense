@@ -494,7 +494,7 @@
     <string name="create_beacon">Opprett navigeringsmarkør</string>
     <string name="pref_map_url_source_title">Posisjonsdelingskart</string>
     <string name="delete_beacon_group_message">%s og alle tilhørende navigeringsmarkører blir slettet.</string>
-    <string name="pref_max_beacon_distance_title">Radius for navigeringsmarkører i nærheten</string>
+    <string name="pref_max_beacon_distance_title">Avstand til navigeringsmarkører i nærheten</string>
     <string name="pref_display_multi_beacons_summary">Vis nærmeste navigeringsmarkører på kompasset</string>
     <string name="pref_num_visible_beacons_title">Navigeringsmarkører i nærheten</string>
     <string name="pref_display_multi_beacons_title">Vis navigeringsmarkører i nærheten</string>
@@ -1250,4 +1250,6 @@
     <string name="additional_layers">Ekstra lag</string>
     <string name="pref_high_detail_mode_title">Høydetaljert modus</string>
     <string name="pref_high_detail_mode_summary">Laster flere fliser for høyere kvalitet. Bruker mere minne.</string>
+    <string name="ecology">Økologi</string>
+    <string name="active_all_year">Aktive hele året</string>
 </resources>
