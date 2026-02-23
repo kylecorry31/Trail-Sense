@@ -80,8 +80,11 @@ To locate an official tide table, search the Internet for tides at your location
 - [tide-forecast.com](https://www.tide-forecast.com/)
 - [SHOM](https://maree.shom.fr/)
 
+### Australia
+- [Bureau of Meteorology: Tidal Predictions](https://www.bom.gov.au/australia/tides/)
+
 ### Germany
-- [BSH](https://www.bsh.de/DE/DATEN/Vorhersagen/Gezeiten/gezeiten_node.html)
+- [BSH](https://gezeiten.bsh.de/)
 
 ### Netherlands
 - [Rijkswaterstaat](https://www.rijkswaterstaat.nl/water/waterdata-en-waterberichtgeving/waterdata/getij)
