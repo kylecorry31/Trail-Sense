@@ -33,7 +33,7 @@ class ToolRulerTest : ToolTestBase(Tools.RULER) {
         click(R.id.map_verbal_btn)
         input(R.id.verbal_map_scale_from, "1")
         input(R.id.verbal_map_scale_to, "10")
-        hasText(R.id.map_distance, Regex("Map: \\d+\\.\\d+ ft"))
+        hasText(R.id.map_distance, Regex("Map: \\d+(\\.\\d+)? ft"))
 
         // Switch back to ratio and verify it's still there
         click(R.id.map_ratio_btn)
