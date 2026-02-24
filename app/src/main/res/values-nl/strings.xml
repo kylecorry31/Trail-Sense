@@ -1536,4 +1536,5 @@
     <string name="active_all_year">Hele jaar actief</string>
     <string name="biting_flies_mosquitoes">Steekvliegen/muggen</string>
     <string name="ecology">Ecologie</string>
+    <string name="pref_ruler_flip_direction_title">Omgekeerde liniaalrichting</string>
 </resources>
