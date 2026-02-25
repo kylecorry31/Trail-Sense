@@ -125,33 +125,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <LinearLayout
+        <com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
             android:id="@+id/accuracy_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="@dimen/default_bottom_margin"
             android:alpha="0.6"
-            android:gravity="start"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.kylecorry.andromeda.views.badge.Badge
-                android:id="@+id/gps_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:foregroundTint="@android:color/black"
-                app:icon="@drawable/satellite" />
-
-            <com.kylecorry.andromeda.views.badge.Badge
-                android:id="@+id/compass_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:foregroundTint="@android:color/black"
-                app:icon="@drawable/ic_compass_icon" />
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView

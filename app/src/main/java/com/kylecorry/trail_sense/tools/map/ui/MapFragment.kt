@@ -21,6 +21,8 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -47,6 +49,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
 import java.time.Instant
 
@@ -62,6 +65,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
         val attributionView = useView<TextView>(R.id.map_attribution)
         val timeSheet = useView<MapTimeSheet>(R.id.time_sheet)
+        val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.sensor_status_badges)
         val (mapTime, setMapTime) = useState<Instant?>(null)
         val (hasTimeDependentLayers, setHasTimeDependentLayers) = useState(false)
 
@@ -380,6 +384,16 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 getString(R.string.map_tool_disclaimer),
                 "pref_map_tool_disclaimer_shown"
             )
+        }
+
+        // Sensor status
+        useEffect(sensorStatusBadges, navigation.gps, navigation.compass) {
+            val gps = navigation.gps ?: return@useEffect
+            val compass = navigation.compass ?: return@useEffect
+            sensorStatusBadges.setSensors(gps as ISatelliteGPS, compass)
+            sensorStatusBadges.setOnClickListener {
+                ImproveAccuracyAlerter(context).alert(sensorStatusBadges.getSensors())
+            }
         }
     }
 

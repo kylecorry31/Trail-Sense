@@ -47,9 +47,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
-import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
-import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
@@ -103,16 +100,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var destination: Destination? = null
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
-    // Status badges
-    private val gpsStatusBadgeProvider by lazy { GpsStatusBadgeProvider(gps, requireContext()) }
-    private val compassStatusBadgeProvider by lazy {
-        SensorStatusBadgeProvider(
-            compass,
-            requireContext(),
-            R.drawable.ic_compass_icon
-        )
-    }
-
     // Diagnostics
     private val errors by lazy { NavigatorUserErrors(this) }
 
@@ -151,8 +138,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
 
     // State
-    private var compassStatusBadge: StatusBadge? = null
-    private var gpsStatusBadge: StatusBadge? = null
     private var diagnosticResults by state<Map<Int, List<String>>>(emptyMap())
 
     private val northReferenceHideTimer = CoroutineTimer {
@@ -204,10 +189,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // TODO: This shouldn't be needed - layers can be updated when the data changes
         interval(100) {
             updateCompassLayers()
-        }
-
-        interval(Duration.ofSeconds(1)) {
-            updateSensorStatus()
         }
 
         binding.linearCompass.setCompassLayers(
@@ -289,6 +270,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             true
         }
 
+        binding.accuracyView.setSensors(gps, compass)
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
@@ -315,7 +297,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (!hasCompass) {
             binding.radarCompass.shouldDrawDial = userPrefs.navigation.showDialTicksWhenNoCompass
             binding.radarCompass.shouldDrawAzimuthIndicator = false
-            binding.compassStatus.isVisible = false
             binding.navigationTitle.title.isVisible = false
             binding.northReferenceIndicator.isVisible = false
         }
@@ -455,20 +436,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 binding.navigationSheet.show(currentDestination, destination != null)
             } else {
                 binding.navigationSheet.hide()
-            }
-        }
-
-        effect("gps_status", gpsStatusBadge, lifecycleHookTrigger.onResume()) {
-            gpsStatusBadge?.let {
-                binding.gpsStatus.setStatusText(it.name)
-                binding.gpsStatus.setBackgroundTint(it.color)
-            }
-        }
-
-        effect("compass_status", compassStatusBadge, lifecycleHookTrigger.onResume()) {
-            compassStatusBadge?.let {
-                binding.compassStatus.setStatusText(it.name)
-                binding.compassStatus.setBackgroundTint(it.color)
             }
         }
 
@@ -655,13 +622,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 cancelOnOutsideTouch = false,
                 scrollable = true
             )
-        }
-    }
-
-    private fun updateSensorStatus() {
-        inBackground {
-            compassStatusBadge = compassStatusBadgeProvider.getBadge()
-            gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
         }
     }
 

@@ -61,9 +61,6 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARSatelliteLayer
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
-import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
-import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.map_layers.AugmentedRealityPathLayerManager
@@ -166,22 +163,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     private val calibrationFactory = ARCalibratorFactory()
     private val astronomyService = AstronomyService()
 
-    // Status badges
-    private val gpsStatusBadgeProvider by lazy {
-        GpsStatusBadgeProvider(
-            binding.arView.gps,
-            requireContext()
-        )
-    }
-    private val compassStatusBadgeProvider by lazy {
-        SensorStatusBadgeProvider(
-            binding.arView.geomagneticOrientationSensor,
-            requireContext(),
-            R.drawable.ic_compass_icon
-        )
-    }
-    private var compassStatusBadge by state<StatusBadge?>(null)
-    private var gpsStatusBadge by state<StatusBadge?>(null)
     private var visibleLayersOverride by state<List<ARLayer>?>(null)
     private var visibleLayers by state<List<ARLayer>>(emptyList())
 
@@ -196,9 +177,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             beaconLayer.destination = it
         }
 
-        interval(1000) {
-            updateSensorStatus()
-        }
+        binding.accuracyView.setSensors(binding.arView.gps, binding.arView.geomagneticOrientationSensor)
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
@@ -322,20 +301,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     override fun onUpdate() {
         super.onUpdate()
 
-        effect("compass_status", compassStatusBadge, lifecycleHookTrigger.onResume()) {
-            compassStatusBadge?.let {
-                binding.compassStatus.setStatusText(it.name)
-                binding.compassStatus.setBackgroundTint(it.color)
-            }
-        }
-
-        effect("gps_status", gpsStatusBadge, lifecycleHookTrigger.onResume()) {
-            gpsStatusBadge?.let {
-                binding.gpsStatus.setStatusText(it.name)
-                binding.gpsStatus.setBackgroundTint(it.color)
-            }
-        }
-
         effect(
             "layer_visibility",
             visibleLayers,
@@ -436,15 +401,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         }
 
         return true
-    }
-
-    private fun updateSensorStatus() {
-        inBackground {
-            onDefault {
-                compassStatusBadge = compassStatusBadgeProvider.getBadge()
-                gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
-            }
-        }
     }
 
     override fun generateBinding(

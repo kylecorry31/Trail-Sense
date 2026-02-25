@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
@@ -22,10 +23,11 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         // Disclaimer
         clickOk()
 
-        canZoom()
-        canLock()
-        canLongPressMap()
-        verifyMapMenuOptions()
+       canZoom()
+       canLock()
+       canLongPressMap()
+       verifyMapMenuOptions()
+        verifySensorStatusBadges()
     }
 
     @Test
@@ -56,7 +58,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
     }
 
     @Test
-    fun verifyMapLayers(){
+    fun verifyMapLayers() {
         // Disclaimer
         clickOk()
 
@@ -135,6 +137,12 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click(toolbarButton(R.id.title, Side.Right))
     }
 
+
+    private fun verifySensorStatusBadges() {
+        click(R.id.sensor_status_badges)
+        hasText(string(R.string.accuracy_info_title))
+        clickOk()
+    }
 
     private fun canLock() {
         click(R.id.lock_btn)
