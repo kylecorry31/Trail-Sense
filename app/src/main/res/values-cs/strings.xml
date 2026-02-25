@@ -1563,4 +1563,5 @@
     <string name="active_all_year">Aktivní celý rok</string>
     <string name="biting_flies_mosquitoes">Pakomárcovití/komárovití</string>
     <string name="ecology">Ekologie</string>
+    <string name="pref_ruler_flip_direction_title">Opačný směr pravítka</string>
 </resources>
