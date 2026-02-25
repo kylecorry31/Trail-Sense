@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
-// Last ID: 61
+// Last ID: 64
 enum class BeaconIcon(
     override val id: Long,
     @DrawableRes val icon: Int,
@@ -32,6 +32,7 @@ enum class BeaconIcon(
     Tree(21, R.drawable.tree),
     Field(37, R.drawable.ic_grass),
     Plant(38, R.drawable.ic_category_natural),
+    Track(62, R.drawable.paw),
 
     // Amenities
     Food(12, R.drawable.ic_category_food),
@@ -84,5 +85,7 @@ enum class BeaconIcon(
     Information(14, R.drawable.ic_help_simple),
     Map(15, R.drawable.maps),
     Sign(35, R.drawable.ic_sign),
-    Arrow(61, R.drawable.ic_arrow, isUserSelectable = false)
+    Arrow(61, R.drawable.ic_arrow, isUserSelectable = false),
+    TrailCam(63, R.drawable.trailcam),
+    Trap(64, R.drawable.trap)
 }
