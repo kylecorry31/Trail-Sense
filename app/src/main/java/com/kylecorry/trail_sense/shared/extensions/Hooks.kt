@@ -104,7 +104,9 @@ data class NavigationSensorValues(
     val bearing: Bearing,
     val declination: Float,
     val speed: Speed,
-    val gpsSpeed: Speed
+    val gpsSpeed: Speed,
+    val gps: IGPS? = null,
+    val compass: ICompass? = null
 )
 
 fun AndromedaFragment.useNavigationSensors(
@@ -177,7 +179,9 @@ fun AndromedaFragment.useNavigationSensors(
         bearing,
         declination,
         speed,
-        gpsSpeed
+        gpsSpeed,
+        gps,
+        compass
     ) {
         NavigationSensorValues(
             location,
@@ -187,7 +191,9 @@ fun AndromedaFragment.useNavigationSensors(
             bearing,
             declination,
             speed,
-            gpsSpeed
+            gpsSpeed,
+            gps,
+            compass
         )
     }
 }

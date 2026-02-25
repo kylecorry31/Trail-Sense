@@ -92,6 +92,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/satellite" />
 
+    <com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
+        android:id="@+id/sensor_status_badges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="32dp"
+        android:alpha="0.6"
+        app:layout_constraintBottom_toTopOf="@+id/time_sheet"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
         android:id="@+id/navigation_sheet"
         android:layout_width="0dp"

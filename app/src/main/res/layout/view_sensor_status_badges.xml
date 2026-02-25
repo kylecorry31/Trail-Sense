@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kylecorry.andromeda.views.badge.Badge
+        android:id="@+id/gps_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:foregroundTint="@android:color/black"
+        app:icon="@drawable/satellite" />
+
+    <com.kylecorry.andromeda.views.badge.Badge
+        android:id="@+id/compass_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:foregroundTint="@android:color/black"
+        app:icon="@drawable/ic_compass_icon" />
+
+</merge>
