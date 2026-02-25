@@ -86,6 +86,10 @@ class RulerView : CanvasView {
         val rulerHeight = getRulerHeight()
         val units = rulerHeight.units
 
+        highlight?.let {
+            drawHighlightBackground(it)
+        }
+
         if (metric) {
             drawLines(
                 Distance.from(0f, units),
@@ -179,6 +183,19 @@ class RulerView : CanvasView {
     private fun approxDivisibleBy(value: Float, divisor: Float): Boolean {
         val rounded = (value / divisor).safeRoundToInt() * divisor
         return Arithmetic.isCloseTo(rounded, value, 0.05f)
+    }
+
+    private fun drawHighlightBackground(distance: Distance) {
+        val rulerHeight = getRulerHeight()
+        val zeroPosition = getPosition(Distance.from(0f, rulerHeight.units))
+        val highlightPosition = getPosition(distance)
+        val top = minOf(zeroPosition, highlightPosition)
+        val bottom = maxOf(zeroPosition, highlightPosition)
+        noStroke()
+        fill(highlightColor)
+        opacity(50)
+        rect(0f, top, width.toFloat(), bottom - top)
+        opacity(255)
     }
 
     private fun drawLine(distance: Distance, lineWidth: Float, lineColor: Int, lineWeight: Float) {
