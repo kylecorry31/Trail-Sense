@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.map.ui
 
 import android.graphics.Color
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -12,6 +13,7 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
@@ -37,6 +39,7 @@ import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -108,6 +111,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val activity = useActivity()
         val navController = useNavController()
         val (lockMode, setLockMode) = useLockMode()
+
+        val screenLight = useMemo(activity) {
+            ScreenTorch(activity.window)
+        }
 
         val screenLock = useMemo(prefs) {
             NavigationScreenLock(prefs.map.keepScreenUnlockedWhileOpen)
@@ -243,8 +250,17 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             manager.onBoundsChanged()
         }
 
-        useEffect(lockMode, mapView, lockButton) {
-            switchMapLockMode(lockMode, mapView, lockButton)
+        val traceViews = useMemo(zoomInButton, zoomOutButton, timeButton, menuButton, sensorStatusBadges) {
+            listOf(zoomInButton, zoomOutButton, timeButton, menuButton, sensorStatusBadges)
+        }
+
+        useEffect(lockMode, mapView, lockButton, traceViews, screenLight, context, resetOnResume) {
+            switchMapLockMode(lockMode, mapView, lockButton, traceViews, screenLight, context)
+        }
+
+        usePauseEffect(screenLight) {
+            screenLight.off()
+            requireMainActivity().setBottomNavigationEnabled(true)
         }
 
         useSavedMapState(mapView)
@@ -356,9 +372,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             val actions = listOf(
                 MapAction.Measure to getString(R.string.measure),
                 MapAction.CreatePath to getString(R.string.create_path),
-                MapAction.AdjustLayers to getString(R.string.layers)
+                MapAction.AdjustLayers to getString(R.string.layers),
+                MapAction.Trace to getString(R.string.trace)
             )
-
 
             Pickers.menu(
                 menuButton,
@@ -371,6 +387,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                     )
 
                     MapAction.AdjustLayers -> adjustLayers()
+                    MapAction.Trace -> setLockMode(MapLockMode.Trace)
                 }
                 true
             }
@@ -400,8 +417,18 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     private fun switchMapLockMode(
         mode: MapLockMode,
         map: MapView,
-        button: FloatingActionButton
+        button: FloatingActionButton,
+        traceViews: List<View>,
+        screenLight: ScreenTorch,
+        context: android.content.Context
     ) {
+        // Reset trace mode defaults
+        map.isInteractive = true
+        map.isZoomEnabled = true
+        traceViews.forEach { it.isVisible = true }
+        screenLight.off()
+        requireMainActivity().setBottomNavigationEnabled(true)
+
         when (mode) {
             MapLockMode.Location -> {
                 // Disable pan
@@ -438,6 +465,33 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 button.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(button, false)
             }
+
+            MapLockMode.Trace -> {
+                CustomUiUtils.disclaimer(
+                    context,
+                    getString(R.string.trace),
+                    getString(R.string.map_trace_instructions),
+                    "disclaimer_shown_map_trace",
+                    cancelText = null
+                )
+
+                // Disable all interaction
+                map.isInteractive = false
+                map.isZoomEnabled = false
+
+                // Show as locked
+                button.setImageResource(R.drawable.lock)
+                CustomUiUtils.setButtonState(button, true)
+
+                // Full brightness
+                screenLight.on()
+
+                // Hide buttons
+                traceViews.forEach { it.isVisible = false }
+
+                // Hide the bottom navigation
+                requireMainActivity().setBottomNavigationEnabled(false)
+            }
         }
     }
 
@@ -457,6 +511,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
             MapLockMode.Free -> {
                 MapLockMode.Location
+            }
+
+            MapLockMode.Trace -> {
+                MapLockMode.Free
             }
         }
     }
@@ -501,7 +559,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val key = "cache_map_state"
         val (savedLockModeId, setSavedLockModeId) = useIntPreference("${key}_lock_mode")
         val savedLockMode = useMemo(savedLockModeId) {
-            MapLockMode.entries.firstOrNull { it.id == savedLockModeId }
+            MapLockMode.entries.firstOrNull { it.id == savedLockModeId && it != MapLockMode.Trace }
         }
         val (lockMode, setLockMode) = useState(savedLockMode ?: MapLockMode.Free)
         val exposedSetLockMode = useCallback(shouldSave) { newLockMode: MapLockMode ->
@@ -523,6 +581,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     private enum class MapLockMode(val id: Int) {
         Location(1),
         Compass(2),
-        Free(3)
+        Free(3),
+        Trace(4)
     }
 }
