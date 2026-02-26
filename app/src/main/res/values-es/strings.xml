@@ -1496,4 +1496,5 @@
     <string name="active_all_year">Activo todo el año</string>
     <string name="biting_flies_mosquitoes">Mosquitos</string>
     <string name="ecology">Ecología</string>
+    <string name="pref_ruler_flip_direction_title">Invertir dirección de regla</string>
 </resources>
