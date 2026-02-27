@@ -36,8 +36,9 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.TileState
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
-import java.time.Instant
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
+import java.time.Instant
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -49,7 +50,8 @@ abstract class TileMapLayer<T : TileSource>(
     private var minZoomLevel: Int? = null,
     private val shouldMultiply: Boolean = false,
     override val isTimeDependent: Boolean = false,
-    private val refreshInterval: Duration? = null
+    private val refreshInterval: Duration? = null,
+    private val refreshBroadcasts: List<String> = emptyList()
 ) : IAsyncLayer {
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -88,6 +90,11 @@ abstract class TileMapLayer<T : TileSource>(
 
     private val sourceCleanupTask = BackgroundTask {
         source.cleanup()
+    }
+
+    private fun onRefreshBroadcastReceived(data: Bundle): Boolean {
+        refresh()
+        return true
     }
 
     fun setZoomOffset(offset: Int) {
@@ -440,11 +447,17 @@ abstract class TileMapLayer<T : TileSource>(
             notifyListeners()
         }
         loadTimer.interval(100)
+        refreshBroadcasts.forEach {
+            Tools.subscribe(it, this::onRefreshBroadcastReceived)
+        }
         refreshInterval?.let { refreshTimer?.interval(it, it) }
     }
 
     override fun stop() {
         loadTimer.stop()
+        refreshBroadcasts.forEach {
+            Tools.unsubscribe(it, this::onRefreshBroadcastReceived)
+        }
         refreshTimer?.stop()
         taskRunner.stop()
         loader?.clearCache()
