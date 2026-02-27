@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -17,14 +17,17 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -49,6 +52,53 @@ class Navigator private constructor(context: Context) {
     val destination = destinationId
         .combine(_forceUpdate) { id, _ -> id }
         .map { it?.let { beacons.getBeacon(it) } }
+
+    // Bearings
+    val navigationBearing = bearings.getBearing()
+
+    val bearingDestination = navigationBearing.map {
+        it?.let {
+            val declination = if (userPrefs.useAutoDeclination) {
+                Geophysics.getGeomagneticDeclination(it.startLocation ?: locationSubsystem.location)
+            } else {
+                userPrefs.declinationOverride
+            }
+            Destination.Bearing(
+                Bearing.from(it.bearing),
+                userPrefs.compass.useTrueNorth,
+                declination,
+                it.startLocation
+            )
+        }
+    }
+
+    // TODO: Standardized navigation instructions
+    // NavigationInstructions
+    // Bearing
+    // Distance?
+    // ETA?
+    // Elevation change?
+    // Beacons = always to the beacon, bearings = if off track, then back to the bearing reading otherwise bearing end point (or just the bearing if no location info)
+
+    val beaconDestination = destination.map {
+        it?.let {
+            Destination.Beacon(it)
+        }
+    }
+
+    val destination2 = bearingDestination.combine(beaconDestination) { bearing, beacon ->
+        beacon ?: bearing
+    }
+
+    private val listenTask = BackgroundTask {
+        destination2.collect {
+            Tools.broadcast(NavigationToolRegistration.BROADCAST_DESTINATION_CHANGED)
+        }
+    }
+
+    init {
+        listenTask.start()
+    }
 
     fun navigateTo(
         location: Coordinate,
@@ -109,41 +159,8 @@ class Navigator private constructor(context: Context) {
         return getDestination() != null && bearings.isNavigating()
     }
 
-    // Bearings
-    val navigationBearing = bearings.getBearing()
-
-    val bearingDestination = navigationBearing.map {
-        it?.let {
-            val declination = if (userPrefs.useAutoDeclination) {
-                Geophysics.getGeomagneticDeclination(it.startLocation ?: locationSubsystem.location)
-            } else {
-                userPrefs.declinationOverride
-            }
-            Destination.Bearing(
-                Bearing.from(it.bearing),
-                userPrefs.compass.useTrueNorth,
-                declination,
-                it.startLocation
-            )
-        }
-    }
-
-    // TODO: Standardized navigation instructions
-    // NavigationInstructions
-    // Bearing
-    // Distance?
-    // ETA?
-    // Elevation change?
-    // Beacons = always to the beacon, bearings = if off track, then back to the bearing reading otherwise bearing end point (or just the bearing if no location info)
-
-    val beaconDestination = destination.map {
-        it?.let {
-            Destination.Beacon(it)
-        }
-    }
-
-    val destination2 = bearingDestination.combine(beaconDestination) { bearing, beacon ->
-        beacon ?: bearing
+    suspend fun getDestination2(): Destination? {
+        return destination2.firstOrNull()
     }
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
