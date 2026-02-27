@@ -4,10 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.isClickable
 import com.kylecorry.trail_sense.shared.getBounds
@@ -21,7 +22,6 @@ import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.luna.timer.CoroutineTimer
 import kotlinx.coroutines.CancellationException
 import java.time.Duration
 import java.time.Instant
@@ -35,7 +35,8 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private val minZoomLevel: Int? = null,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),
     override val isTimeDependent: Boolean = false,
-    private val refreshInterval: Duration? = null
+    private val refreshInterval: Duration? = null,
+    private val refreshBroadcasts: List<String> = emptyList()
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
     private var isInvalid = true
@@ -56,6 +57,11 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         _renderTime = _timeOverride ?: Instant.now()
         invalidate()
         notifyListeners()
+    }
+
+    private fun onRefreshBroadcastReceived(data: Bundle): Boolean {
+        refresh()
+        return true
     }
 
     init {
@@ -172,6 +178,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
         )
+        refreshBroadcasts.forEach {
+            Tools.subscribe(it, this::onRefreshBroadcastReceived)
+        }
         refreshInterval?.let { refreshTimer?.interval(it, it) }
     }
 
@@ -180,6 +189,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
         )
+        refreshBroadcasts.forEach {
+            Tools.unsubscribe(it, this::onRefreshBroadcastReceived)
+        }
         refreshTimer?.stop()
         taskRunner.stop()
     }
