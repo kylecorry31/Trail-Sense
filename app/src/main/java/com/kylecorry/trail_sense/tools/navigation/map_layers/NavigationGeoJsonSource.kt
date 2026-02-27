@@ -1,24 +1,27 @@
 package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.content.Context
-
 import android.os.Bundle
 import androidx.annotation.ColorInt
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class NavigationGeoJsonSource : GeoJsonSource {
 
-    var myLocation: Coordinate? = null
-    var destination: Destination? = null
-    var useLocationWithBearing: Boolean = true
+    private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
+    private val navigator = AppServiceRegistry.get<Navigator>()
 
     override suspend fun load(
         context: Context,
@@ -26,12 +29,8 @@ class NavigationGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject? {
-        val myLocation = myLocation
-        val destination = destination
-
-        if (destination == null || myLocation == null) {
-            return null
-        }
+        val myLocation = locationSubsystem.location
+        val destination = navigator.getDestination2() ?: return null
 
         val paths = createPath(myLocation, destination)
 
@@ -69,7 +68,7 @@ class NavigationGeoJsonSource : GeoJsonSource {
         myLocation: Coordinate,
         bearing: Destination.Bearing
     ): List<MappablePath> {
-        return if (bearing.startingLocation != null && useLocationWithBearing) {
+        return if (bearing.startingLocation != null && prefs.navigation.lockBearingToLocation) {
             listOf(
                 createPath(
                     bearing.startingLocation,

@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -35,9 +36,16 @@ object NavigationToolRegistration : ToolRegistration {
                     context.getString(R.string.navigation),
                     description = context.getString(R.string.map_layer_navigation_description)
                 ) { NavigationLayer() }
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_DESTINATION_CHANGED,
+                    "Destination changed"
+                )
             )
         )
     }
 
     const val MAP_ID = "navigation"
+    const val BROADCAST_DESTINATION_CHANGED = "navigation-broadcast-destination-changed"
 }

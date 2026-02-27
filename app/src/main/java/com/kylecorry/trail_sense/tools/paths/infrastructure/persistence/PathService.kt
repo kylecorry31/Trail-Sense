@@ -33,7 +33,7 @@ import java.util.stream.Collectors
 import kotlin.math.absoluteValue
 
 class PathService(
-    private val pathRepo: IPathRepo,
+    private val pathRepo: PathRepo,
     private val waypointRepo: IWaypointRepo,
     private val pathPreferences: IPathPreferences,
     private val cache: IPreferences,
@@ -43,6 +43,8 @@ class PathService(
     private val backtrackLock = Mutex()
     private val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
+    val changeKey: Int
+        get() = pathRepo.changeKey
     private val deleter = object : GroupDeleter<IPath>(loader) {
         override suspend fun deleteItems(items: List<IPath>) {
             items.forEach { deletePath(it as Path) }

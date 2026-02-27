@@ -16,6 +16,13 @@ class PathRepo private constructor(context: Context) : IPathRepo {
     private val pathDao = AppDatabase.getInstance(context).pathDao()
     private val groupDao = AppDatabase.getInstance(context).pathGroupDao()
 
+    /**
+     * A key that increments when a change is made
+     */
+    var changeKey: Int = 0
+        private set
+    private val changeLock = Any()
+
     override suspend fun add(value: Path): Long {
         val id = if (value.id != 0L) {
             pathDao.update(PathEntity.from(value))
@@ -23,12 +30,18 @@ class PathRepo private constructor(context: Context) : IPathRepo {
         } else {
             pathDao.insert(PathEntity.from(value))
         }
+        synchronized(changeLock) {
+            changeKey++
+        }
         Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
         return id
     }
 
     override suspend fun delete(value: Path) {
         pathDao.delete(PathEntity.from(value))
+        synchronized(changeLock) {
+            changeKey++
+        }
         Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
     }
 

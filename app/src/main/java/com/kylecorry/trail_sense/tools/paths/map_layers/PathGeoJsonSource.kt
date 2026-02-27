@@ -20,6 +20,7 @@ class PathGeoJsonSource : GeoJsonSource {
     private val pathService = AppServiceRegistry.get<PathService>()
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()
+    private var lastChangeKey = 0
     private var loaded = false
 
     override suspend fun load(
@@ -27,7 +28,12 @@ class PathGeoJsonSource : GeoJsonSource {
         bounds: CoordinateBounds,
         zoom: Int,
         params: Bundle
-    ): GeoJsonObject? {
+    ): GeoJsonObject {
+        if (pathService.changeKey != lastChangeKey) {
+            lastChangeKey = pathService.changeKey
+            reload()
+        }
+
         // If paths haven't been loaded yet, load them
         if (paths.isEmpty()) {
             paths = pathService.getPaths().first().filter { it.style.visible }
@@ -57,7 +63,7 @@ class PathGeoJsonSource : GeoJsonSource {
         })
     }
 
-    fun reload() {
+    private fun reload() {
         loaded = false
         paths = emptyList()
     }

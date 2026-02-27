@@ -40,7 +40,6 @@ class BacktrackCommand(
         val point = recordWaypoint()
         CreateLastSignalBeaconCommand(context).execute(point)
         showNotification()
-        Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
     }
 
     private suspend fun showNotification() {
