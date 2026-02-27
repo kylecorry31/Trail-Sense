@@ -6,6 +6,9 @@ Coloca el objeto junto a la regla y pulsa la pantalla para marcar el extremo del
 ## Cambiar unidades
 Por defecto, la regla respetará las unidades de distancia en 'Ajustes > Unidades. Puedes cambiar las unidades de la regla entre centímetros y pulgadas pulsando las unidades en la parte superior de la pantalla.
 
+## Cambiar la dirección
+Por defecto, 0 está en la parte superior de la regla. Puedes mover el 0 a la parte inferior en Ajustes > Regla > Invertir dirección de regla.
+
 ## Medir distancias en un mapa
 Para medir distancias en un mapa, necesitas conocer la escala del mapa. Si indica algo como 'Escala 1:62500', entonces puedes usar la escala 'Proporción' en la Regla. Si indica algo como '1 inch = 1 mile' o tiene barras que se pueden medir, entonces puedes usar la escala 'Verbal'.
 
