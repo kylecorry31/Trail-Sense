@@ -1024,7 +1024,7 @@
     <string name="restore_complete_message">Przywracanie powiodlo się. Uruchamianie ponownie, aby zastosować zmiany</string>
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
     <string name="backup_restore">Kopia zapasowa / Przywracanie</string>
-    <string name="restore_failure_newer_version">Plik kopii zapasiwej został utworzony przy użyciu nowszej wersji %s. Proszę, zaktualizuj aplikację i spróbuj ponownie.</string>
+    <string name="restore_failure_newer_version">Plik kopii zapasowej został utworzony przy użyciu nowszej wersji %s. Proszę, zaktualizuj aplikację i spróbuj ponownie.</string>
     <string name="zero_shutter_lag">Brak opóźnień migawki</string>
     <string name="my_location">Moja lokalizacja</string>
     <string name="destination">Miejsce docelowe</string>
@@ -1166,4 +1166,16 @@
     <string name="automatic_backup">Automatyczna kopia zapasowa</string>
     <string name="select_backup_directory">Wybierz katalog kopii zapasowej</string>
     <string name="no_directory_selected">Brak wybranego katalogu</string>
+    <string name="auto_backup_instructions">Kopia zapasowa będzie tworzona raz dziennie w katalogu %1$s. Przechowywane będą ostatnie %2$d kopie zapasowe.</string>
+    <string name="backup_failed">Nie udało się wykonać kopii zapasowej</string>
+    <string name="unable_to_create_an_automatic_backup">Nie udało się wykonać automatycznej kopii zapasowej</string>
+    <string name="automatic_backup_invalid_directory">Nieprawidłowy katalog</string>
+    <string name="automatic_backup_invalid_directory_resolution">Wyłącz i włącz ponownie automatyczną kopię zapasową, aby wybrać nowy katalog.</string>
+    <string name="widgets">Widżety</string>
+    <string name="widget_updater">Odświeżanie widżetu</string>
+    <string name="sun_moon_chart">Wykres wschodów/zachodów słońca i księżyca</string>
+    <string name="pressure_chart">Wykres ciśnienia</string>
+    <string name="tide_chart">Wykres pływów</string>
+    <string name="nearby_beacons">Pobliskie punkty nawigacyjne</string>
+    <string name="tide_model_auto">Model pływów (Automatyczny)</string>
 </resources>
