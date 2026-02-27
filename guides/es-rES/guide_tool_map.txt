@@ -28,5 +28,15 @@ Mantén pulsada una ubicación en el mapa para ver la elevación (del DEM).
 ## Capas
 Las capas se usan para mostrar información en el mapa. Más información sobre capas en la guía "Capas del Mapa".
 
+## Calcar un mapa
+Para calcar un mapa, pulsa el botón de menú en la esquina superior derecha y elige 'Calcar. Muévete a una zona sombreada o tapa el sol con un paño y coloca papel sobre la pantalla de modo que puedas ver el mapa a través del papel. Usa un bolígrafo o lápiz para calcar el mapa, pero evita rotuladores o bolígrafos que puedan traspasar el papel. Mantén el papel firme mientras calcas.
+
+La navegación inferior estará deshabilitada hasta que desactives el modo calcar.
+
+Cuando termines de calcar, pulsa el icono de candado en la esquina inferior derecha para desactivar el modo calcar.
+
+## Estado del sensor
+La precisión del GPS y de la brújula se muestran como insignias de estado en la esquina inferior izquierda del mapa. Púlsalas para ver consejos sobre cómo mejorar la precisión de la ubicación y de la brújula.
+
 ## Ajustes
 Puedes cambiar el detalle de los mosaicos en **Ajustes > Mapa > Modo de alto detalle** si los mosaicos aparecen borrosos pero usará más memoria y tardará más en cargar.
