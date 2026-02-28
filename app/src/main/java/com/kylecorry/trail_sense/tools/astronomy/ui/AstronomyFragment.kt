@@ -207,12 +207,15 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         scheduleUpdates(INTERVAL_1_FPS)
     }
 
-    private fun showTimeSeeker() {
+    private fun showTimeSeeker(time: ZonedDateTime?) {
+        if (isSeeking && time == null) {
+            return
+        }
         isSeeking = true
         binding.timeSeekerPanel.isVisible = true
         binding.astronomyDetailList.isVisible = false
         binding.button3d.isVisible = false
-        currentSeekChartTime = ZonedDateTime.now()
+        currentSeekChartTime = time ?: ZonedDateTime.now()
         binding.seekTime.text =
             formatService.formatTime(currentSeekChartTime.toLocalTime(), includeSeconds = false)
 

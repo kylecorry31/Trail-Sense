@@ -9,7 +9,7 @@ You can also click the search icon to find the next occurrence of an astronomica
 The time until sunrise or sunset is shown at the top of the screen. This respects the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see the Sun section below.
 
 ## Chart
-The chart shows the position of the sun and moon throughout the day. The X-axis is time, and the Y-axis is the altitude or height in the sky. You can tap on the sun or moon icon in the chart to see its current position. When you do this, a slider will appear so you can see its position at a different time of the day.
+The chart shows the position of the sun and moon throughout the day. The X-axis is time, and the Y-axis is the altitude or height in the sky. You can tap on the sun or moon icon in the chart to see its current position or tap the chart to see its position at a different time. When you do this, a slider will appear so you can see its position at a different time of the day.
 
 You can also choose to keep the current time centered in the chart by enabling 'Keep sun/moon centered' in Settings > Astronomy. This will keep the current time centered in the chart when you have today selected and will show 12 hours before and after the current time. If you have a different date selected, it will show the entire day instead.
 
