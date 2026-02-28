@@ -5,7 +5,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerGeoJsonSource
-import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerMapLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -35,7 +34,9 @@ object SignalFinderToolRegistration : ToolRegistration {
                         context.getString(R.string.cell_tower_disclaimer),
                         true
                     ),
-                ) { CellTowerMapLayer() }
+                    geoJsonSource = ::CellTowerGeoJsonSource,
+                    minZoomLevel = 11
+                )
             )
         )
     }

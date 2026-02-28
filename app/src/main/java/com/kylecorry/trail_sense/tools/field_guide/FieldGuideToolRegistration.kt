@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
-import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -58,8 +57,9 @@ object FieldGuideToolRegistration : ToolRegistration {
                                 "page_id" to fieldGuidePageId
                             )
                         )
-                    }
-                ) { FieldGuideSightingLayer() }
+                    },
+                    geoJsonSource = ::FieldGuideSightingGeoJsonSource
+                )
             )
         )
     }

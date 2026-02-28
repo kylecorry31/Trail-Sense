@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.photo_maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -77,8 +76,13 @@ object PhotoMapsToolRegistration : ToolRegistration {
                             defaultValue = PhotoMapTileSource.DEFAULT_LOAD_PDFS,
                             summary = context.getString(R.string.load_pdf_tiles_summary)
                         )
+                    ),
+                    tileSource = ::PhotoMapTileSource,
+                    minZoomLevel = 4,
+                    cacheKeys = listOf(
+                        PhotoMapTileSource.LOAD_PDFS
                     )
-                ) { PhotoMapLayer() }
+                )
             )
         )
     }

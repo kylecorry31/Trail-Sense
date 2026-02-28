@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefi
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTideChart
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTides
 import com.kylecorry.trail_sense.tools.tides.widgets.TideChartToolWidgetView
@@ -18,6 +17,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
+import java.time.Duration
 
 object TidesToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -54,8 +54,11 @@ object TidesToolRegistration : ToolRegistration {
                             MapLayerPreferenceType.Switch,
                             defaultValue = TideGeoJsonSource.DEFAULT_SHOW_PHASE
                         )
-                    )
-                ) { TideMapLayer() }
+                    ),
+                    geoJsonSource = ::TideGeoJsonSource,
+                    isTimeDependent = true,
+                    refreshInterval = Duration.ofMinutes(10)
+                )
             ),
             widgets = listOf(
                 ToolWidget(
