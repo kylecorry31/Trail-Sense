@@ -51,7 +51,8 @@ abstract class TileMapLayer<T : TileSource>(
     private val shouldMultiply: Boolean = false,
     override val isTimeDependent: Boolean = false,
     private val refreshInterval: Duration? = null,
-    private val refreshBroadcasts: List<String> = emptyList()
+    private val refreshBroadcasts: List<String> = emptyList(),
+    private val cacheKeys: List<String>? = null
 ) : IAsyncLayer {
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
@@ -117,18 +118,19 @@ abstract class TileMapLayer<T : TileSource>(
         }
     }
 
-    open fun getBaseCacheKey(): String? {
-        // Don't cache by default
-        return null
-    }
-
     fun getCacheKey(): String? {
-        val baseKey = getBaseCacheKey() ?: return null
-        return if (featureId != null) {
-            "$baseKey-$featureId"
-        } else {
-            baseKey
+        if (cacheKeys == null) {
+            return null
         }
+
+        val keys = mutableListOf(layerId)
+        for (key in cacheKeys) {
+            @Suppress("DEPRECATION")
+            val preference = layerPreferences.get(key)?.toString() ?: "null"
+            keys.add(preference)
+        }
+        featureId?.let { keys.add(it) }
+        return keys.joinToString("-")
     }
 
     override fun setFeatureFilter(id: String?) {
