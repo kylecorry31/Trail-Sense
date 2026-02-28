@@ -11,11 +11,8 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
-import com.kylecorry.trail_sense.tools.astronomy.map_layers.LunarEclipseLayer
 import com.kylecorry.trail_sense.tools.astronomy.map_layers.LunarEclipseTileSource
-import com.kylecorry.trail_sense.tools.astronomy.map_layers.NightLayer
 import com.kylecorry.trail_sense.tools.astronomy.map_layers.NightTileSource
-import com.kylecorry.trail_sense.tools.astronomy.map_layers.SolarEclipseLayer
 import com.kylecorry.trail_sense.tools.astronomy.map_layers.SolarEclipseTileSource
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunriseAlert
@@ -39,6 +36,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
+import java.time.Duration
 
 object AstronomyToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -171,8 +169,11 @@ object AstronomyToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = SolarEclipseTileSource.DEFAULT_SHOW_PATH,
                         ),
-                    )
-                ) { SolarEclipseLayer() },
+                    ),
+                    tileSource = ::SolarEclipseTileSource,
+                    isTimeDependent = true,
+                    refreshInterval = Duration.ofMinutes(2)
+                ),
                 MapLayerDefinition(
                     LunarEclipseTileSource.SOURCE_ID,
                     context.getString(R.string.lunar_eclipse),
@@ -185,8 +186,11 @@ object AstronomyToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = LunarEclipseTileSource.DEFAULT_SHOW_PATH,
                         ),
-                    )
-                ) { LunarEclipseLayer() },
+                    ),
+                    tileSource = ::LunarEclipseTileSource,
+                    isTimeDependent = true,
+                    refreshInterval = Duration.ofMinutes(2)
+                ),
                 MapLayerDefinition(
                     NightTileSource.SOURCE_ID,
                     context.getString(R.string.night),
@@ -199,8 +203,11 @@ object AstronomyToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = NightTileSource.DEFAULT_SMOOTH,
                         ),
-                    )
-                ) { NightLayer() }
+                    ),
+                    tileSource = ::NightTileSource,
+                    isTimeDependent = true,
+                    refreshInterval = Duration.ofMinutes(1)
+                )
             ),
             singletons = listOf(
                 AstronomySubsystem::getInstance
