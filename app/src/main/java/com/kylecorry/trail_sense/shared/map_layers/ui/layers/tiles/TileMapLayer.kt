@@ -43,7 +43,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-abstract class TileMapLayer<T : TileSource>(
+open class TileMapLayer<T : TileSource>(
     protected val source: T,
     override val layerId: String,
     private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask(),

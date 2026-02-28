@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.repo
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
+import java.time.Duration
 
 enum class MapLayerType {
     Overlay,
@@ -36,7 +38,15 @@ data class MapLayerDefinition(
     val layerType: MapLayerType = MapLayerType.Feature,
     val attribution: MapLayerAttribution? = null,
     val description: String? = null,
+    val minZoomLevel: Int? = null,
+    val isTimeDependent: Boolean = false,
+    val refreshInterval: Duration? = null,
+    val refreshBroadcasts: List<String> = emptyList(),
+    val cacheKeys: List<String>? = null,
+    val shouldMultiply: Boolean = false,
+    val geoJsonSource: (() -> GeoJsonSource)? = null,
+    val tileSource: (() -> TileSource)? = null,
     val openFeature: ((feature: GeoJsonFeature, fragment: Fragment) -> Unit)? = null,
-    val create: (context: Context) -> ILayer
+    val layer: (() -> ILayer)? = null
 )
 

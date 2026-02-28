@@ -6,12 +6,13 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.LayerFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class MapLayerLoader(private val context: Context) {
-
+class MapLayerLoader(context: Context) {
 
     private val toolLayers = Tools.getTools(context).flatMap { it.mapLayers }.associateBy { it.id }
+    private val factory = LayerFactory()
 
     suspend fun getDefinitions(): Map<String, MapLayerDefinition> {
         // TODO: This is where it would query the plugins
@@ -21,7 +22,7 @@ class MapLayerLoader(private val context: Context) {
     fun getLayer(layerId: String): ILayer? {
         // TODO: This is where it would check the layer ID to see if it is a plugin and create a plugin layer
         // The plugin layer IDs should use a consistent format like plugin__package_name__layer_id__tile / plugin__package_name__layer_id__feature
-        return toolLayers[layerId]?.create(context)
+        return toolLayers[layerId]?.let { factory.createLayer(it) }
     }
 
 }
