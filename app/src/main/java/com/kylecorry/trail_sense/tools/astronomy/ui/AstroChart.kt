@@ -12,16 +12,23 @@ import com.kylecorry.andromeda.views.chart.data.HorizontalLineChartLayer
 import com.kylecorry.andromeda.views.chart.data.LineChartLayer
 import com.kylecorry.andromeda.views.chart.data.TextChartLayer
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.andromeda_temp.ClickChartLayer
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.navigation.ui.BitmapLoader
 import java.time.Instant
+import java.time.ZonedDateTime
 
 
-class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit) {
+class AstroChart(
+    private val chart: Chart,
+    private val onChartClicked: (time: ZonedDateTime?) -> Unit
+) {
 
     private var startTime = Instant.now()
 
@@ -126,12 +133,18 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
 
     private val imageSize = Resources.dp(chart.context, 24f)
 
+    private val clickLayer = ClickChartLayer { data ->
+        val time = startTime.plus(Time.hours(data.x.toDouble())).toZonedDateTime()
+        onChartClicked(time)
+        true
+    }
+
     private val sunImage = BitmapChartLayer(
         emptyList(),
         bitmapLoader.load(R.drawable.ic_sun, imageSize.toInt()),
         16f,
     ) {
-        onImageClick()
+        onChartClicked(null)
         true
     }
 
@@ -140,7 +153,7 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
         bitmapLoader.load(R.drawable.ic_moon, imageSize.toInt()),
         16f
     ) {
-        onImageClick()
+        onChartClicked(null)
         true
     }
 
@@ -179,8 +192,9 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
             sunArea,
             moonLine,
             sunLine,
+            clickLayer,
             moonImage,
-            sunImage
+            sunImage,
         )
 
         if (showBands) {
