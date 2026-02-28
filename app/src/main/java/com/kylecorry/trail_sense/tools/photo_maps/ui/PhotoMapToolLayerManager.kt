@@ -14,10 +14,11 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayerById
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileMapLayer
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.GeoJsonFeatureClickHandler
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
@@ -25,7 +26,6 @@ import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
 
 class PhotoMapToolLayerManager {
@@ -33,7 +33,7 @@ class PhotoMapToolLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
-    private var photoMapLayer: PhotoMapLayer? = null
+    private var photoMapLayer: TileMapLayer<*>? = null
 
     private val preferences = AppServiceRegistry.get<PreferencesSubsystem>()
     private val photoMapPreferences = PhotoMapPreferences(AppServiceRegistry.get())
@@ -70,8 +70,8 @@ class PhotoMapToolLayerManager {
         lastMapDetails?.let { improveResolution(it.first, it.second) }
 
 
-        photoMapLayer = view.getLayer<PhotoMapLayer>()
-        photoMapLayer?.setPhotoMapFilter(photoMapId)
+        photoMapLayer = view.getLayerById(PhotoMapTileSource.SOURCE_ID) as? TileMapLayer<*>
+        photoMapLayer?.setFeatureFilter(photoMapId.toString())
         photoMapLayer?.setMinZoomLevel(0)
 
         view.layerManager.setOnGeoJsonFeatureClickListener { feature ->

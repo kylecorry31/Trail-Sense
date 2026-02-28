@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayerById
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
@@ -53,7 +53,8 @@ class MapToolLayerManager {
         // Hardcoded configuration
         distanceLayer.onPathChanged = { onDistancePathChange(it) }
         distanceLayer.isEnabled = false
-        view.getLayer<CompassOverlayLayer>()?.paddingTopDp = 48f
+        (view.getLayerById(CompassOverlayLayer.LAYER_ID) as? CompassOverlayLayer)?.paddingTopDp =
+            48f
 
         view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
             GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)

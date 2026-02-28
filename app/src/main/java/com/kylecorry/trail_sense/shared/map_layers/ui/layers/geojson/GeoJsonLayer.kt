@@ -43,6 +43,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private var updateListener: (() -> Unit)? = null
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
     protected var layerPreferences: Bundle = bundleOf()
+    private var featureId: String? = null
     private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
 
     private var _timeOverride: Instant? = null
@@ -57,6 +58,11 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         _renderTime = _timeOverride ?: Instant.now()
         invalidate()
         notifyListeners()
+    }
+
+    override fun setFeatureFilter(id: String?) {
+        featureId = id
+        refresh()
     }
 
     private fun onRefreshBroadcastReceived(data: Bundle): Boolean {
@@ -81,6 +87,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
                 val params = bundleOf(MapLayerParams.PARAM_TIME to _renderTime.toEpochMilli())
                 params.putBundle(MapLayerParams.PARAM_PREFERENCES, layerPreferences)
+                featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }
                 val obj =
                     source.load(context, bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
                         emptyList()

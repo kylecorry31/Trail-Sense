@@ -69,12 +69,14 @@ class TileLoader(
         tiles: List<Tile>,
         time: Instant,
         preferences: Bundle = bundleOf(),
+        featureId: String? = null,
         context: Context
     ) {
         val params = bundleOf(
             MapLayerParams.PARAM_TIME to time.toEpochMilli(),
             MapLayerParams.PARAM_PREFERENCES to Bundle(preferences)
         )
+        featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }
         val imageTiles = tiles.map { tile ->
             val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
             val newTile = tileCache.getOrPut(key) {

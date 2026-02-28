@@ -82,6 +82,7 @@ abstract class TileMapLayer<T : TileSource>(
     private val destRect = Rect()
     private val clipPath = Path()
     protected var layerPreferences: Bundle = bundleOf()
+    private var featureId: String? = null
 
     private val loadTimer = CoroutineTimer {
         queue.load(16)
@@ -116,9 +117,23 @@ abstract class TileMapLayer<T : TileSource>(
         }
     }
 
-    open fun getCacheKey(): String? {
+    open fun getBaseCacheKey(): String? {
         // Don't cache by default
         return null
+    }
+
+    fun getCacheKey(): String? {
+        val baseKey = getBaseCacheKey() ?: return null
+        return if (featureId != null) {
+            "$baseKey-$featureId"
+        } else {
+            baseKey
+        }
+    }
+
+    override fun setFeatureFilter(id: String?) {
+        featureId = id
+        refresh()
     }
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
@@ -178,7 +193,7 @@ abstract class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences, context)
+            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences, featureId, context)
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }

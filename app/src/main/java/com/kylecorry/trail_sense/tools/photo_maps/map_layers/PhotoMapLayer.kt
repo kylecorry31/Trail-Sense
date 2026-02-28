@@ -8,7 +8,6 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
     PhotoMapTileSource.SOURCE_ID,
     minZoomLevel = 4
 ) {
-    private var idFilter: Long? = null
     private var loadPdfs: Boolean = PhotoMapTileSource.DEFAULT_LOAD_PDFS
 
     override fun setPreferences(preferences: Bundle) {
@@ -19,30 +18,9 @@ class PhotoMapLayer : TileMapLayer<PhotoMapTileSource>(
         )
     }
 
-    fun setPhotoMapFilter(id: Long? = null) {
-        idFilter = id
-        source.filter = if (id == null) {
-            { true }
-        } else {
-            { it.id == id }
-        }
-    }
-
-    override fun getCacheKey(): String {
+    override fun getBaseCacheKey(): String {
         val keys = mutableListOf(layerId)
         keys.add(loadPdfs.toString())
-        idFilter?.let { keys.add(it.toString()) }
         return keys.joinToString("-")
-    }
-
-    companion object {
-        fun getCacheKeysForMap(mapId: Long): List<String> {
-            return listOf(
-                "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
-                "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
-                "${PhotoMapTileSource.SOURCE_ID}-true",
-                "${PhotoMapTileSource.SOURCE_ID}-false",
-            )
-        }
     }
 }
