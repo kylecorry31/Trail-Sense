@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroupEntity
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
 
 class MapRepo private constructor(private val context: Context) : IMapRepo {
 
@@ -80,7 +80,12 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     }
 
     private suspend fun invalidateCache(mapId: Long) {
-        val cacheKeys = PhotoMapLayer.getCacheKeysForMap(mapId)
+        val cacheKeys = listOf(
+            "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
+            "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
+            "${PhotoMapTileSource.SOURCE_ID}-true",
+            "${PhotoMapTileSource.SOURCE_ID}-false",
+        )
         cacheKeys.forEach {
             tileCache.invalidate(it)
         }

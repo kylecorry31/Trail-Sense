@@ -7,9 +7,9 @@ import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapDecoderCache
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
@@ -18,11 +18,10 @@ import kotlinx.coroutines.sync.withLock
 
 class PhotoMapTileSource : TileSource {
 
-    var filter: (map: PhotoMap) -> Boolean = { it.visible }
     private var lastLoadPdfs = DEFAULT_LOAD_PDFS
     private val backgroundColor: Int = Color.TRANSPARENT
     private var lastBackgroundColor = backgroundColor
-    private var lastFilter = filter
+    private var lastFeatureId: Long? = null
     private var internalSelector: TileSource? = null
     private val lock = Mutex()
     private val decoderCache = PhotoMapDecoderCache()
@@ -41,13 +40,19 @@ class PhotoMapTileSource : TileSource {
             LOAD_PDFS,
             DEFAULT_LOAD_PDFS
         )
+        val featureId = params.getString(MapLayerParams.PARAM_FEATURE_ID)?.toLongOrNull()
 
         val selector = lock.withLock {
-            if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || filter != lastFilter) {
+            if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || featureId != lastFeatureId) {
                 val repo = AppServiceRegistry.get<MapRepo>()
+                val maps = if (featureId == null) {
+                    repo.getAllMaps().filter { it.visible }
+                } else {
+                    repo.getAllMaps().filter { it.id == featureId }
+                }
                 internalSelector = PhotoMapTileSourceSelector(
                     AppServiceRegistry.get(),
-                    repo.getAllMaps().filter(filter),
+                    maps,
                     decoderCache,
                     8,
                     loadPdfs,
@@ -55,7 +60,7 @@ class PhotoMapTileSource : TileSource {
                 )
                 lastLoadPdfs = loadPdfs
                 lastBackgroundColor = backgroundColor
-                lastFilter = filter
+                lastFeatureId = featureId
             }
             internalSelector
         }

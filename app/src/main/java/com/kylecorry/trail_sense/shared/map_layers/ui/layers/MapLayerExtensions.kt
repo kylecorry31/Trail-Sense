@@ -5,6 +5,7 @@ import android.os.Bundle
 object MapLayerParams {
     const val PARAM_TIME = "time"
     const val PARAM_PREFERENCES = "preferences"
+    const val PARAM_FEATURE_ID = "feature_id"
 }
 
 fun Bundle.getPreferences(): Bundle {

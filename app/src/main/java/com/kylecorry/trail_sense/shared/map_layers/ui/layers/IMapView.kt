@@ -135,10 +135,8 @@ fun IMapView.setLayersWithPreferences(
     setLayers(actualLayers.map { it.first })
 }
 
-
-@Suppress("UNCHECKED_CAST")
-inline fun <reified T : ILayer> IMapView.getLayer(): T? {
-    return layerManager.getLayers().firstOrNull { it is T } as T?
+fun IMapView.getLayerById(layerId: String): ILayer? {
+    return layerManager.getLayers().firstOrNull { it.layerId == layerId }
 }
 
 suspend fun IMapView.getAttribution(context: Context): CharSequence? {

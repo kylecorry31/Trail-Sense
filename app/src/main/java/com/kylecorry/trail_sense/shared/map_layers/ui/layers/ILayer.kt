@@ -70,6 +70,13 @@ interface ILayer {
         // Do nothing
     }
 
+    /**
+     * Filter to just the provided feature ID. Pass null to clear the filter.
+     */
+    fun setFeatureFilter(id: String?) {
+        // Do nothing
+    }
+
     val percentOpacity: Float
 
     val opacity: Int
