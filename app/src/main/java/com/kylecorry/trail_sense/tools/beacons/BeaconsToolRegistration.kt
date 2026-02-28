@@ -12,10 +12,10 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefi
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.beacons.widgets.AppWidgetNearbyBeacons
 import com.kylecorry.trail_sense.tools.beacons.widgets.NearbyBeaconsToolWidgetView
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -118,8 +118,12 @@ object BeaconsToolRegistration : ToolRegistration {
                                 "beacon_id" to beaconId
                             )
                         )
-                    }
-                ) { BeaconLayer() }
+                    },
+                    geoJsonSource = ::BeaconGeoJsonSource,
+                    refreshBroadcasts = listOf(
+                        NavigationToolRegistration.BROADCAST_DESTINATION_CHANGED
+                    )
+                )
             )
         )
     }

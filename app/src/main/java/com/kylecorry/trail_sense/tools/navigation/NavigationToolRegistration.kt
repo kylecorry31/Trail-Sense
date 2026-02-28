@@ -5,7 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -34,8 +34,13 @@ object NavigationToolRegistration : ToolRegistration {
                 MapLayerDefinition(
                     NavigationGeoJsonSource.SOURCE_ID,
                     context.getString(R.string.navigation),
-                    description = context.getString(R.string.map_layer_navigation_description)
-                ) { NavigationLayer() }
+                    description = context.getString(R.string.map_layer_navigation_description),
+                    geoJsonSource = ::NavigationGeoJsonSource,
+                    refreshBroadcasts = listOf(
+                        SensorsToolRegistration.BROADCAST_LOCATION_CHANGED,
+                        BROADCAST_DESTINATION_CHANGED
+                    )
+                )
             ),
             broadcasts = listOf(
                 ToolBroadcast(

@@ -3,21 +3,21 @@ package com.kylecorry.trail_sense.tools.paths
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.paths.actions.PauseBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.actions.ResumeBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.paths.services.BacktrackToolService
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.paths.widgets.AppWidgetBacktrack
 import com.kylecorry.trail_sense.tools.paths.widgets.BacktrackToolWidgetView
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -142,8 +142,13 @@ object PathsToolRegistration : ToolRegistration {
                             ),
                             defaultValue = PathGeoJsonSource.DEFAULT_BACKGROUND_COLOR.id.toString(),
                         )
+                    ),
+                    geoJsonSource = ::PathGeoJsonSource,
+                    refreshBroadcasts = listOf(
+                        SensorsToolRegistration.BROADCAST_LOCATION_CHANGED,
+                        BROADCAST_PATHS_CHANGED
                     )
-                ) { PathLayer() }
+                )
             )
         )
     }
