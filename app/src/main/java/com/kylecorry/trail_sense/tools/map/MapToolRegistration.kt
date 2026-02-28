@@ -4,28 +4,20 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorStrategy
-import com.kylecorry.trail_sense.shared.dem.map_layers.AspectLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.AspectMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourGeoJsonSource
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
-import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapTileSource
-import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
-import com.kylecorry.trail_sense.shared.dem.map_layers.RuggednessLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.RuggednessMapTileSource
-import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
-import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -61,8 +53,9 @@ object MapToolRegistration : ToolRegistration {
                     BaseMapTileSource.SOURCE_ID,
                     context.getString(R.string.basemap),
                     layerType = MapLayerType.Tile,
-                    description = context.getString(R.string.map_layer_base_map_description)
-                ) { BaseMapLayer() },
+                    description = context.getString(R.string.map_layer_base_map_description),
+                    tileSource = ::BaseMapTileSource
+                ),
                 MapLayerDefinition(
                     ElevationMapTileSource.SOURCE_ID,
                     context.getString(R.string.elevation),
@@ -97,8 +90,10 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = ElevationMapTileSource.DEFAULT_HIGH_RESOLUTION,
                         ),
-                    )
-                ) { ElevationLayer() },
+                    ),
+                    tileSource = ::ElevationMapTileSource,
+                    minZoomLevel = 10
+                ),
                 MapLayerDefinition(
                     HillshadeMapTileSource.SOURCE_ID,
                     context.getString(R.string.hillshade),
@@ -130,8 +125,12 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = HillshadeMapTileSource.DEFAULT_MULTI_DIRECTION_SHADING,
                         ),
-                    )
-                ) { HillshadeLayer() },
+                    ),
+                    tileSource = ::HillshadeMapTileSource,
+                    minZoomLevel = 10,
+                    shouldMultiply = true,
+                    isTimeDependent = true
+                ),
                 MapLayerDefinition(
                     RuggednessMapTileSource.SOURCE_ID,
                     context.getString(R.string.ruggedness),
@@ -151,8 +150,10 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = RuggednessMapTileSource.DEFAULT_HIGH_RESOLUTION,
                         ),
-                    )
-                ) { RuggednessLayer() },
+                    ),
+                    tileSource = ::RuggednessMapTileSource,
+                    minZoomLevel = 10
+                ),
                 MapLayerDefinition(
                     SlopeMapTileSource.SOURCE_ID,
                     context.getString(R.string.path_slope),
@@ -195,8 +196,10 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = SlopeMapTileSource.DEFAULT_HIGH_RESOLUTION,
                         ),
-                    )
-                ) { SlopeLayer() },
+                    ),
+                    tileSource = ::SlopeMapTileSource,
+                    minZoomLevel = 10
+                ),
                 MapLayerDefinition(
                     AspectMapTileSource.SOURCE_ID,
                     context.getString(R.string.aspect),
@@ -216,8 +219,10 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = AspectMapTileSource.DEFAULT_HIGH_RESOLUTION,
                         ),
-                    )
-                ) { AspectLayer() },
+                    ),
+                    tileSource = ::AspectMapTileSource,
+                    minZoomLevel = 10
+                ),
                 MapLayerDefinition(
                     ContourGeoJsonSource.SOURCE_ID,
                     context.getString(R.string.contours),
@@ -255,8 +260,10 @@ object MapToolRegistration : ToolRegistration {
                             ),
                             defaultValue = ContourGeoJsonSource.DEFAULT_COLOR.id.toString(),
                         )
-                    )
-                ) { ContourLayer() },
+                    ),
+                    geoJsonSource = ::ContourGeoJsonSource,
+                    minZoomLevel = 13
+                ),
                 MapLayerDefinition(
                     MyLocationGeoJsonSource.SOURCE_ID,
                     context.getString(R.string.location),
@@ -268,27 +275,31 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = true,
                         )
-                    )
-                ) { MyLocationLayer() },
+                    ),
+                    geoJsonSource = ::MyLocationGeoJsonSource
+                ),
                 MapLayerDefinition(
                     ScaleBarLayer.LAYER_ID,
                     context.getString(R.string.map_scale_title),
                     isConfigurable = false,
-                    layerType = MapLayerType.Overlay
-                ) { ScaleBarLayer() },
+                    layerType = MapLayerType.Overlay,
+                    layer = ::ScaleBarLayer
+                ),
                 MapLayerDefinition(
                     CompassOverlayLayer.LAYER_ID,
                     context.getString(R.string.pref_compass_sensor_title),
                     isConfigurable = false,
-                    layerType = MapLayerType.Overlay
-                ) { CompassOverlayLayer() },
+                    layerType = MapLayerType.Overlay,
+                    layer = ::CompassOverlayLayer
+                ),
                 MapLayerDefinition(
                     MyElevationLayer.LAYER_ID,
                     context.getString(R.string.my_elevation),
                     isConfigurable = false,
                     layerType = MapLayerType.Overlay,
-                    description = context.getString(R.string.map_layer_my_elevation_description)
-                ) { MyElevationLayer() }
+                    description = context.getString(R.string.map_layer_my_elevation_description),
+                    layer = ::MyElevationLayer
+                )
             )
         )
     }
