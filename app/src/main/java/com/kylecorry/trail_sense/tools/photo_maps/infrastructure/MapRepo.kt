@@ -83,8 +83,10 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         val cacheKeys = listOf(
             "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
             "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
+            "${PhotoMapTileSource.SOURCE_ID}-null-$mapId",
             "${PhotoMapTileSource.SOURCE_ID}-true",
             "${PhotoMapTileSource.SOURCE_ID}-false",
+            "${PhotoMapTileSource.SOURCE_ID}-null",
         )
         cacheKeys.forEach {
             tileCache.invalidate(it)
