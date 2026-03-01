@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Vector2
@@ -132,7 +133,11 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     private fun drawAzimuth() {
-        tint(Resources.androidTextColorPrimary(context))
+        tint(
+            if (drawDialBezel) Color.WHITE.withAlpha(220) else Resources.androidTextColorPrimary(
+                context
+            )
+        )
         imageMode(ImageMode.Corner)
         image(
             getBitmap(R.drawable.ic_arrow_target, iconSize),
