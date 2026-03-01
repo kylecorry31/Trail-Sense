@@ -24,6 +24,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 class MyLocationGeoJsonSource : GeoJsonSource {
 
     private var arrowBitmap: Bitmap? = null
+    private var arrowBitmapSizeDp: Float? = null
+    private var arrowBitmapStrokeWeight: Float? = null
     private val hasCompass = AppServiceRegistry.get<SensorService>().hasCompass()
 
     override suspend fun load(
@@ -37,6 +39,12 @@ class MyLocationGeoJsonSource : GeoJsonSource {
             SHOW_ACCURACY,
             DEFAULT_SHOW_ACCURACY
         )
+        val largeIndicator = preferences.getBoolean(
+            LARGE_INDICATOR,
+            DEFAULT_LARGE_INDICATOR
+        )
+        val userLocationSizeDp = if (largeIndicator) LARGE_SIZE_DP else DEFAULT_SIZE_DP
+        val strokeWeight = if (largeIndicator) 4f else 2f
         val color = Resources.getPrimaryMarkerColor(context)
         val features = mutableListOf<GeoJsonFeature>()
 
@@ -56,8 +64,8 @@ class MyLocationGeoJsonSource : GeoJsonSource {
             features.add(
                 GeoJsonFeature.point(
                     Coordinate.zero,
-                    bitmap = getArrowBitmap(context, color),
-                    size = 16f,
+                    bitmap = getArrowBitmap(context, color, userLocationSizeDp, strokeWeight),
+                    size = userLocationSizeDp,
                     moveWithUserLocation = true,
                     rotateWithUserAzimuth = true
                 )
@@ -68,8 +76,8 @@ class MyLocationGeoJsonSource : GeoJsonSource {
                     Coordinate.zero,
                     color = color,
                     strokeColor = Color.WHITE,
-                    strokeWeight = 2f,
-                    size = 16f,
+                    strokeWeight = strokeWeight,
+                    size = userLocationSizeDp,
                     moveWithUserLocation = true
                 )
             )
@@ -77,12 +85,12 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         return GeoJsonFeatureCollection(features)
     }
 
-    private fun getArrowBitmap(context: Context, color: Int): Bitmap {
-        if (arrowBitmap != null) {
+    private fun getArrowBitmap(context: Context, color: Int, sizeDp: Float, strokeWeight: Float): Bitmap {
+        if (arrowBitmap != null && arrowBitmapSizeDp == sizeDp && arrowBitmapStrokeWeight == strokeWeight) {
             return arrowBitmap!!
         }
 
-        val size = Resources.dp(context, 16f).toInt()
+        val size = Resources.dp(context, sizeDp).toInt()
         val bitmap = createBitmap(size, size)
         val canvas = Canvas(bitmap)
         val bitmapDrawer = CanvasDrawer(context, canvas)
@@ -104,11 +112,13 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         bitmapDrawer.push()
         bitmapDrawer.fill(color)
         bitmapDrawer.stroke(Color.WHITE)
-        bitmapDrawer.strokeWeight(2f)
+        bitmapDrawer.strokeWeight(strokeWeight)
         bitmapDrawer.path(path)
         bitmapDrawer.pop()
 
         arrowBitmap = bitmap
+        arrowBitmapSizeDp = sizeDp
+        arrowBitmapStrokeWeight = strokeWeight
         return bitmap
     }
 
@@ -116,6 +126,10 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         const val SOURCE_ID = "my_location"
         const val SHOW_ACCURACY = "show_accuracy"
         const val DEFAULT_SHOW_ACCURACY = true
+        const val LARGE_INDICATOR = "large_indicator"
+        const val DEFAULT_LARGE_INDICATOR = false
+        private const val DEFAULT_SIZE_DP = 20f
+        private const val LARGE_SIZE_DP = 28f
     }
 
 }
