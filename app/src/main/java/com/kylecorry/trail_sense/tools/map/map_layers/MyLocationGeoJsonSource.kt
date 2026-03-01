@@ -26,6 +26,8 @@ class MyLocationGeoJsonSource : GeoJsonSource {
     private var arrowBitmap: Bitmap? = null
     private val hasCompass = AppServiceRegistry.get<SensorService>().hasCompass()
 
+    private val userLocationSizeDp = 20f
+
     override suspend fun load(
         context: Context,
         bounds: CoordinateBounds,
@@ -57,7 +59,7 @@ class MyLocationGeoJsonSource : GeoJsonSource {
                 GeoJsonFeature.point(
                     Coordinate.zero,
                     bitmap = getArrowBitmap(context, color),
-                    size = 16f,
+                    size = userLocationSizeDp,
                     moveWithUserLocation = true,
                     rotateWithUserAzimuth = true
                 )
@@ -69,7 +71,7 @@ class MyLocationGeoJsonSource : GeoJsonSource {
                     color = color,
                     strokeColor = Color.WHITE,
                     strokeWeight = 2f,
-                    size = 16f,
+                    size = userLocationSizeDp,
                     moveWithUserLocation = true
                 )
             )
@@ -82,7 +84,7 @@ class MyLocationGeoJsonSource : GeoJsonSource {
             return arrowBitmap!!
         }
 
-        val size = Resources.dp(context, 16f).toInt()
+        val size = Resources.dp(context, userLocationSizeDp).toInt()
         val bitmap = createBitmap(size, size)
         val canvas = Canvas(bitmap)
         val bitmapDrawer = CanvasDrawer(context, canvas)
