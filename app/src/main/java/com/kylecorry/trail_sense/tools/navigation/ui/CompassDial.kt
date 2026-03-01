@@ -11,7 +11,8 @@ import com.kylecorry.trail_sense.shared.canvas.Dial
 
 class CompassDial(
     private val center: PixelCoordinate,
-    private val radius: Float,
+    private val tickRadius: Float,
+    private val backgroundRadius: Float = tickRadius,
     @ColorInt private val backgroundColor: Int,
     @ColorInt private val tickColor: Int,
     @ColorInt private val cardinalTickColor: Int = tickColor,
@@ -23,20 +24,20 @@ class CompassDial(
     private val tickThicknessDp = 2f
     private val ticks = Dial.ticks(
         center,
-        radius,
+        tickRadius,
         tickLength,
         15
     )
     private val cardinalTicks = Dial.ticks(
         center,
-        radius,
+        tickRadius,
         cardinalTickLength,
         45
     )
 
     private val trueCardinalTicks = Dial.ticks(
         center,
-        radius,
+        tickRadius,
         cardinalTickLength,
         90
     )
@@ -50,7 +51,7 @@ class CompassDial(
         drawer.noStroke()
         drawer.fill(backgroundColor)
         if (drawBackground) {
-            drawer.circle(center.x, center.y, radius * 2)
+            drawer.circle(center.x, center.y, backgroundRadius * 2)
         }
 
         if (!drawTicks) return

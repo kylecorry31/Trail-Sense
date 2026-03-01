@@ -66,6 +66,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var cardinalSize = 0f
     private var locationStrokeWeight = 0f
     private var dialTickRadius = 0f
+    private val drawDialBezel = false
 
     private var maxDistanceBaseUnits: Distance = Distance.meters(0f)
     private var maxDistanceMeters: Distance = Distance.meters(0f)
@@ -255,10 +256,15 @@ class RadarCompassView : BaseCompassView, IMapView {
         centerPixel = PixelCoordinate(width / 2f, height / 2f)
         compassCircle = Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f)
         locationStrokeWeight = dp(0.5f)
-        dialTickRadius = (compassSize / 2f) * 0.9f
+        dialTickRadius = if (drawDialBezel) {
+            compassSize / 2f + iconSize / 2f + dp(2f)
+        } else {
+            (compassSize / 2f) * 0.9f
+        }
         dial = CompassDial(
             centerPixel,
             dialTickRadius,
+            if (drawDialBezel) min(height, width) / 2f else (compassSize / 2f),
             secondaryColor,
             Color.WHITE,
             Color.WHITE,
