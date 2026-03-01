@@ -131,6 +131,14 @@
             app:key="@string/pref_nearby_linear_only"
             app:singleLineTitle="false"
             app:title="@string/pref_nearby_linear_only_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_draw_compass_dial_bezel"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_navigation_draw_compass_dial_bezel_summary"
+            app:title="@string/pref_navigation_draw_compass_dial_bezel_title" />
     </PreferenceCategory>
 
     <PreferenceCategory

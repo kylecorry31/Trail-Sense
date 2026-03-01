@@ -67,7 +67,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var cardinalSize = 0f
     private var locationStrokeWeight = 0f
     private var dialTickRadius = 0f
-    private val drawDialBezel = false
+    private val drawDialBezel = prefs.navigation.drawDialBezel
     private var maxDistanceBaseUnits: Distance = Distance.meters(0f)
     private var maxDistanceMeters: Distance = Distance.meters(0f)
 
@@ -173,6 +173,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         if (shouldDrawDial) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
+        circle(width / 2f, height / 2f, compassSize.toFloat())
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)

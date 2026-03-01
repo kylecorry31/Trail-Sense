@@ -230,6 +230,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
+    val drawDialBezel by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_draw_compass_dial_bezel),
+        false
+    )
+
     var lockBearingToLocation by BooleanPreference(
         cache,
         context.getString(R.string.pref_lock_bearing_to_location),
