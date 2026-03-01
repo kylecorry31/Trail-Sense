@@ -7,6 +7,7 @@ import android.provider.Settings
 import com.kylecorry.andromeda.battery.IBattery
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryUsage
@@ -154,7 +155,7 @@ class BatteryService {
     private fun getSystemAction(context: Context, action: String): ((Context) -> Unit)? {
         val intent = Intent(action)
         if (Intents.hasReceiver(context, intent)) {
-            return { context: Context -> context.startActivity(intent) }
+            return { context: Context -> tryOrLog { context.startActivity(intent) } }
         }
         return null
     }
