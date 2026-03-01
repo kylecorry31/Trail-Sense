@@ -211,7 +211,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         textStyle(TextStyle.Bold)
         strokeWeight(dp(1f))
         opacity(255)
+        fill(primaryColor)
         drawDirection(0f, north)
+        fill(Color.WHITE)
         drawDirection(90f, east)
         drawDirection(180f, south)
         drawDirection(270f, west)
@@ -220,7 +222,6 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawDirection(degrees: Float, text: String) {
         push()
         rotate(degrees)
-        fill(Color.WHITE)
         text(
             text,
             width / 2f,
@@ -258,7 +259,7 @@ class RadarCompassView : BaseCompassView, IMapView {
             compassSize / 2f,
             secondaryColor,
             Color.WHITE,
-            primaryColor,
+            Color.WHITE,
             hideTrueCardinalTicks = true
         )
         lastWidth = width
