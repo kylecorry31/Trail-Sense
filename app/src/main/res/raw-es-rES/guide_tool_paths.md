@@ -71,10 +71,8 @@ Puedes navegar hacia el punto más cercano en una ruta abriéndola y pulsando el
 
 Por defecto, esto solo navegará hacia los waypoints registrados en la ruta. Sin embargo, puedes elegir navegar hacia cualquier posición en la ruta desactivando Ajustes > Rutas > 'Navegar solo a puntos guardados'. Esto asumirá que la ruta es una línea recta entre puntos.
 
-Las rutas también son visibles en la brújula de radar (consulta la guía 'Navegación') y en Mapas Calibrados (consulta la guía 'Mapas Calibrados').
-
 ## Visibilidad de rutas
-Puedes elegir qué rutas son visibles en las herramientas Navegación y Mapas Calibrados pulsando el icono de ojo en el lado derecho de la fila de la ruta.
+Puedes elegir qué rutas son visibles sobre el mapa pulsando el icono de ojo en el lado derecho de la fila de la ruta. Se mostrarán en los mapas que tengan habilitada la capa Rutas.
 
 ## Eliminar una ruta
 Para eliminar una ruta, pulsa el botón de menú en la fila de la ruta que quieras eliminar, luego selecciona 'Eliminar'.

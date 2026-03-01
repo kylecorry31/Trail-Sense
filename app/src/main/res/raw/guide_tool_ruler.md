@@ -6,6 +6,9 @@ Place the object next to the ruler and tap the screen to mark the end of the obj
 ## Changing units
 By default, the ruler will respect the distance units in Settings > Units. You can change the units of the ruler between centimeters and inches by tapping the units at the top of the screen.
 
+## Changing direction
+By default, 0 is at the top of the ruler. You can move 0 to the bottom in Settings > Ruler > Reverse ruler direction.
+
 ## Measuring distances on a map
 To measure distances on a map, you need to know the map scale. If it says something like 'Scale 1:62500', then you can use the 'Ratio' scale on the Ruler. If it says something like '1 inch = 1 mile' or has bars that can be measured, then you can use the 'Verbal' scale.
 

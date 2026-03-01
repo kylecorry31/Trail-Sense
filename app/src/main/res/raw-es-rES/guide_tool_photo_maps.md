@@ -42,7 +42,7 @@ Las intersecciones de las líneas de la cuadrícula son los puntos de calibraci�
 Si tienes acceso a Internet, puedes buscar las coordenadas de una característica del mapa (p. ej., cima de una montaña, inicio del sendero). Luego, en Trail Sense, toca la misma ubicación en el mapa e introduce las coordenadas.
 
 ### Encontrar un PDF geoespacial
-Una buena fuente de PDFs geoespaciales es [CalTopo](https://caltopo.com), aunque hay muchas otras fuentes disponibles en línea.
+Una buena fuente de PDFs geoespaciales es [CalTopo](https://caltopo.com) o [QGIS](https://qgis.org) (avanzado, requiere instalación en un PC), aunque hay muchas otras fuentes disponibles en línea.
 
 ## Uso de un mapa
 Una vez hayas creado un mapa, puedes usarlo para navegación. El mapa muestra tu ubicación, elevación, senderos y balizas.
@@ -90,7 +90,9 @@ Mantén pulsada una ubicación en el mapa para ver la elevación (del DEM).
 Para recalibrar un mapa, ábrelo, haz clic en el botón de menú en la esquina superior derecha y elige 'Calibrar'. Sigue las instrucciones anteriores para recalibrar.
 
 ## Cambiar la proyección del mapa
-Si los puntos de tu mapa no se alinean correctamente después de calibrar (primero intenta calibrar de nuevo con puntos diferentes), considera cambiar la proyección del mapa. Para ello, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y selecciona 'Cambiar proyección'.
+Si los puntos de tu mapa no se alinean correctamente mientras calibras (primero intenta calibrar de nuevo con puntos diferentes), considera cambiar la proyección del mapa. Para ello, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y selecciona 'Cambiar proyección'.
+
+Cambiar la proyección mientras calibras eliminará cualquier cambio no guardado.
 
 ## Renombrar un mapa
 Para renombrar un mapa, haz clic en el botón de menú en la fila del mapa que deseas renombrar y luego selecciona 'Renombrar' y proporciona un nuevo nombre. Alternativamente, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y elige 'Renombrar'.
