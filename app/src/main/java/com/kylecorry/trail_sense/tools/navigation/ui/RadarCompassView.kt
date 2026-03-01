@@ -256,11 +256,13 @@ class RadarCompassView : BaseCompassView, IMapView {
         locationStrokeWeight = dp(0.5f)
         dial = CompassDial(
             centerPixel,
-            compassSize / 2f,
+            (compassSize / 2f) * 0.9f,
             secondaryColor,
             Color.WHITE,
             Color.WHITE,
-            hideTrueCardinalTicks = true
+            hideTrueCardinalTicks = true,
+            tickLength = dp(6f),
+            cardinalTickLength = dp(10f)
         )
         lastWidth = width
         lastHeight = height

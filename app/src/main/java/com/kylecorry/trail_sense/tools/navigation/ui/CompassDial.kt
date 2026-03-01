@@ -15,37 +15,36 @@ class CompassDial(
     @ColorInt private val backgroundColor: Int,
     @ColorInt private val tickColor: Int,
     @ColorInt private val cardinalTickColor: Int = tickColor,
-    private val hideTrueCardinalTicks: Boolean = false
+    private val hideTrueCardinalTicks: Boolean = false,
+    tickLength: Float = 1f,
+    cardinalTickLength: Float = tickLength
 ) {
 
     private val tickThicknessDp = 2f
-    private val tickLengthPercent = 0.03f
-    private val cardinalTickLengthPercent = 0.05f
-    private val tickRadiusPercent = 0.9f
     private val ticks = Dial.ticks(
         center,
-        tickRadiusPercent * radius,
-        tickLengthPercent * radius,
+        radius,
+        tickLength,
         15
     )
     private val cardinalTicks = Dial.ticks(
         center,
-        tickRadiusPercent * radius,
-        cardinalTickLengthPercent * radius,
+        radius,
+        cardinalTickLength,
         45
     )
 
     private val trueCardinalTicks = Dial.ticks(
         center,
-        tickRadiusPercent * radius,
-        cardinalTickLengthPercent * radius,
+        radius,
+        cardinalTickLength,
         90
     )
 
     private var clipPath: Path? = null
 
     fun draw(drawer: ICanvasDrawer, drawTicks: Boolean = true, drawBackground: Boolean = true) {
-        val trueCardinalTickSize = tickThicknessDp * 2f
+        val trueCardinalTickSize = tickThicknessDp * 1.5f
 
         drawer.opacity(255)
         drawer.noStroke()
@@ -76,9 +75,9 @@ class CompassDial(
         drawer.noFill()
         drawer.stroke(Color.BLACK)
         drawer.path(ticks)
+        drawer.strokeWeight(drawer.dp(trueCardinalTickSize + 1))
         drawer.path(cardinalTicks)
         if (!hideTrueCardinalTicks) {
-            drawer.strokeWeight(drawer.dp(trueCardinalTickSize + 1))
             drawer.path(trueCardinalTicks)
         }
 
@@ -89,10 +88,10 @@ class CompassDial(
         drawer.path(ticks)
 
         // Cardinal ticks
+        drawer.strokeWeight(drawer.dp(trueCardinalTickSize))
         drawer.stroke(cardinalTickColor)
         drawer.path(cardinalTicks)
         if (!hideTrueCardinalTicks) {
-            drawer.strokeWeight(drawer.dp(trueCardinalTickSize))
             drawer.path(trueCardinalTicks)
         }
 
