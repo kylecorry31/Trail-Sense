@@ -67,7 +67,6 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var locationStrokeWeight = 0f
     private var dialTickRadius = 0f
     private val drawDialBezel = false
-
     private var maxDistanceBaseUnits: Distance = Distance.meters(0f)
     private var maxDistanceMeters: Distance = Distance.meters(0f)
 
@@ -284,13 +283,16 @@ class RadarCompassView : BaseCompassView, IMapView {
             setup()
         }
         clear()
-        if (shouldDrawAzimuthIndicator) {
-            drawAzimuth()
-        }
         push()
         rotate(-azimuth)
         dial.draw(drawer, false)
         drawLayers()
+        if (shouldDrawAzimuthIndicator) {
+            push()
+            rotate(azimuth)
+            drawAzimuth()
+            pop()
+        }
         drawCompassLayers()
         drawCompass()
         pop()
@@ -314,8 +316,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(reference.bearing)
         val bitmap = getBitmap(reference.drawableId, sizeDp)
         push()
-        translate(width / 2f - sizeDp / 2f, (iconSize - sizeDp) * 0.6f)
-        rotate(reference.rotation, bitmap.width / 2f, bitmap.height / 2f)
+        imageMode(ImageMode.Center)
+        translate(width / 2f, iconSize / 2f + dp(1f))
+        rotate(reference.rotation, 0f, 0f)
         image(bitmap, 0f, 0f)
         pop()
         pop()
