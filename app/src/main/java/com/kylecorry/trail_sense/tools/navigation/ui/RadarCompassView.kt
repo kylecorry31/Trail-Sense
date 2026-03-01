@@ -223,10 +223,11 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawDirection(degrees: Float, text: String) {
         push()
         rotate(degrees)
+        textMode(TextMode.Center)
         text(
             text,
             width / 2f,
-            height / 2f - dialTickRadius
+            height / 2f - dialTickRadius + dp(1f)
         )
         pop()
     }
