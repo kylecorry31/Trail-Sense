@@ -85,3 +85,9 @@ This app allows you to customize the battery saver mode on your device. It requi
 An open source weather app.
 
 [Download](https://github.com/breezy-weather/breezy-weather)
+
+## Specie
+
+An open source currency conversion app.
+
+[Download](https://github.com/billthefarmer/specie)

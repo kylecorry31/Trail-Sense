@@ -11,6 +11,15 @@ También se muestran los totales mensuales de precipitación históricos para la
 ## Clasificación climática
 El clima de tu ubicación actual se clasifica en función de las temperaturas y las precipitaciónes. Diferentes climas tienen distintos tipos de vegetación, así como riesgos únicos que debes conocer.
 
+## Ecología
+La sección de ecología muestra detalles sobre la actividad de animales y plantas en la ubicación.
+
+Actualmente muestra lo siguiente cuando procede:
+- Mosquitos
+- Garrapatas
+
+Cada entrada muestra un periodo de actividad estimado (por ejemplo, "Activo de mayo a septiembre"). Pulsar el texto de actividad para ver intervalos de tiempo más detallados.
+
 ## Cambiar la fecha
 Para cambiar la fecha, puedes tocar el icono del calendario encima del gráfico y seleccionar una fecha. Además, puedes usar las flechas para avanzar/retroceder a la fecha siguiente/anterior o mantener pulsado el calendario para saltar rápidamente a la fecha de hoy.
 

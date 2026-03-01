@@ -28,6 +28,16 @@ Long press a location on the map to view the elevation (from the DEM).
 ## Layers
 Layers are used to display information on the map. For more information on layers, refer to the 'Map Layers' guide.
 
+## Trace a map
+To trace a map, click the menu button in the top-right and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
+
+Bottom navigation will be disabled until you turn off trace mode.
+
+When you are finished tracing, click the lock icon in the bottom-right to turn off trace mode.
+
+## Sensor status
+The GPS and compass accuracy are displayed as status badges in the bottom-left corner of the map. Tap them to see tips on improving location and compass accuracy.
+
 ## Settings
 You can change tile detail in "Settings > Map > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
 
