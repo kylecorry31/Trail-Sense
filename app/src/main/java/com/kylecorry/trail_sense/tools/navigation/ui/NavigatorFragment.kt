@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -278,14 +279,22 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             toggleDestinationBearing()
         }
 
+        binding.radarCompass.setOnScaleListener { scaleFactor ->
+            binding.radarMap.zoom(scaleFactor)
+        }
+
+        binding.radarMap.setOnScaleChangeListener {
+            updateRadarDistanceLabel()
+        }
+
         binding.radarCompass.setOnLongPressListener {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
                 NavigationToolRegistration.MAP_ID
             )
-            layers.pause(binding.radarCompass)
+            layers.pause(binding.radarMap)
             layerSheet?.setOnDismissListener {
-                layers.resume(requireContext(), binding.radarCompass)
+                layers.resume(requireContext(), binding.radarMap)
             }
             layerSheet?.show(this)
         }
@@ -293,6 +302,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.linearCompass.setOnClickListener {
             toggleDestinationBearing()
         }
+
+        // Configure the radar map view
+        binding.radarMap.isInteractive = true
+        binding.radarMap.isPanEnabled = false
+        binding.radarMap.isZoomEnabled = true
+        binding.radarMap.isFlingEnabled = false
 
         if (!hasCompass) {
             binding.radarCompass.shouldDrawDial = userPrefs.navigation.showDialTicksWhenNoCompass
@@ -349,9 +364,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
 
-        binding.radarCompass.useDensityPixelsForZoom =
-            !userPrefs.navigation.highDetailMode
-        layers.resume(requireContext(), binding.radarCompass)
+        binding.radarMap.useDensityPixelsForZoom = !userPrefs.navigation.highDetailMode
+        layers.resume(requireContext(), binding.radarMap)
+        updateRadarDistanceLabel()
 
         // Show the north reference indicator
         binding.northReferenceIndicator.showDetailsOnClick = true
@@ -366,7 +381,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         errors.reset()
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
-        layers.pause(binding.radarCompass)
+        layers.pause(binding.radarMap)
         northReferenceHideTimer.stop()
     }
 
@@ -486,7 +501,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ) {
             inBackground {
                 if (binding.radarCompass.isVisible) {
-                    val attribution = binding.radarCompass.getAttribution(requireContext())
+                    val attribution = binding.radarMap.getAttribution(requireContext())
                     onMain {
                         binding.mapAttribution.text = attribution
                         binding.mapAttribution.isVisible = attribution != null
@@ -510,6 +525,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
             binding.radarCompass.isInvisible = style != CompassStyle.Radar
+            binding.radarMapContainer.isInvisible = style != CompassStyle.Radar
         }
 
         effect("sighting_compass_flashlight", binding.linearCompass.isCameraActive) {
@@ -554,6 +570,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.azimuth = bearing
             it.declination = declination
         }
+
+        // Map
+        binding.radarMap.mapAzimuth = bearing
+        binding.radarMap.userAzimuth = com.kylecorry.sol.units.Bearing.from(bearing)
     }
 
     private fun updateLocation() {
@@ -566,9 +586,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             formatService.formatLocation(location)
         )
 
-        binding.radarCompass.userLocationAccuracy =
-            gps.horizontalAccuracy?.let { Distance.meters(it) }
-
         // Compass center point
         listOf<ICompassView>(
             binding.radarCompass,
@@ -577,7 +594,22 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.compassCenter = location
         }
 
+        // Map center and location
+        binding.radarMap.mapCenter = location
+        binding.radarMap.userLocation = location
+        binding.radarMap.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
+        updateRadarDistanceLabel()
+
         updateNearbyBeacons()
+    }
+
+    private fun updateRadarDistanceLabel() {
+        if (!isBound || view == null || !lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            return
+        }
+
+        binding.radarCompass.setMapResolution(binding.radarMap.resolutionPixels)
     }
 
     private fun updateCompassLayers() {

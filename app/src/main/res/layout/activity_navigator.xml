@@ -49,6 +49,27 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/radar_map_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="26dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/colorSecondary"
+        android:clipToOutline="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/radar_compass"
+        app:layout_constraintEnd_toEndOf="@id/radar_compass"
+        app:layout_constraintStart_toStartOf="@id/radar_compass"
+        app:layout_constraintTop_toTopOf="@id/radar_compass">
+
+        <com.kylecorry.trail_sense.tools.map.ui.MapView
+            android:id="@+id/radar_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
     <com.kylecorry.trail_sense.tools.navigation.ui.RadarCompassView
         android:id="@+id/radar_compass"
         android:layout_width="0dp"
