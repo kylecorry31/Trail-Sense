@@ -274,6 +274,12 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.show_gps_accuracy),
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = true,
+                        ),
+                        MapLayerPreference(
+                            id = MyLocationGeoJsonSource.LARGE_INDICATOR,
+                            title = context.getString(R.string.large_location_indicator),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = MyLocationGeoJsonSource.DEFAULT_LARGE_INDICATOR,
                         )
                     ),
                     geoJsonSource = ::MyLocationGeoJsonSource
