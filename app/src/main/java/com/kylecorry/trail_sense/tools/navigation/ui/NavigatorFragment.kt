@@ -299,6 +299,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.radarCompass.shouldDrawAzimuthIndicator = false
             binding.navigationTitle.title.isVisible = false
             binding.northReferenceIndicator.isVisible = false
+        } else {
+            binding.radarCompass.shouldDrawAzimuthIndicator = userPrefs.navigation.showAzimuthIndicator
         }
 
         scheduleUpdates(INTERVAL_30_FPS)

@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Vector2
@@ -65,7 +66,8 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var distanceSize = 0f
     private var cardinalSize = 0f
     private var locationStrokeWeight = 0f
-
+    private var dialTickRadius = 0f
+    private val drawDialBezel = prefs.navigation.drawDialBezel
     private var maxDistanceBaseUnits: Distance = Distance.meters(0f)
     private var maxDistanceMeters: Distance = Distance.meters(0f)
 
@@ -131,7 +133,11 @@ class RadarCompassView : BaseCompassView, IMapView {
     }
 
     private fun drawAzimuth() {
-        tint(Resources.androidTextColorPrimary(context))
+        tint(
+            if (drawDialBezel) Color.WHITE.withAlpha(220) else Resources.androidTextColorPrimary(
+                context
+            )
+        )
         imageMode(ImageMode.Corner)
         image(
             getBitmap(R.drawable.ic_arrow_target, iconSize),
@@ -167,6 +173,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         if (shouldDrawDial) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
+        circle(width / 2f, height / 2f, compassSize.toFloat())
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)
@@ -211,7 +218,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         textStyle(TextStyle.Bold)
         strokeWeight(dp(1f))
         opacity(255)
+        fill(primaryColor)
         drawDirection(0f, north)
+        fill(Color.WHITE)
         drawDirection(90f, east)
         drawDirection(180f, south)
         drawDirection(270f, west)
@@ -220,11 +229,11 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawDirection(degrees: Float, text: String) {
         push()
         rotate(degrees)
-        fill(Color.WHITE)
+        textMode(TextMode.Center)
         text(
             text,
             width / 2f,
-            height / 2f - (compassSize / 2f) * 0.9f
+            height / 2f - dialTickRadius + dp(1f)
         )
         pop()
     }
@@ -253,13 +262,21 @@ class RadarCompassView : BaseCompassView, IMapView {
         centerPixel = PixelCoordinate(width / 2f, height / 2f)
         compassCircle = Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f)
         locationStrokeWeight = dp(0.5f)
+        dialTickRadius = if (drawDialBezel) {
+            compassSize / 2f + iconSize / 2f + dp(2f)
+        } else {
+            (compassSize / 2f) * 0.9f
+        }
         dial = CompassDial(
             centerPixel,
-            compassSize / 2f,
+            dialTickRadius,
+            if (drawDialBezel) min(height, width) / 2f else (compassSize / 2f),
             secondaryColor,
             Color.WHITE,
-            primaryColor,
-            hideTrueCardinalTicks = true
+            Color.WHITE,
+            hideTrueCardinalTicks = true,
+            tickLength = dp(6f),
+            cardinalTickLength = dp(10f)
         )
         lastWidth = width
         lastHeight = height
@@ -273,13 +290,16 @@ class RadarCompassView : BaseCompassView, IMapView {
             setup()
         }
         clear()
-        if (shouldDrawAzimuthIndicator) {
-            drawAzimuth()
-        }
         push()
         rotate(-azimuth)
         dial.draw(drawer, false)
         drawLayers()
+        if (shouldDrawAzimuthIndicator) {
+            push()
+            rotate(azimuth)
+            drawAzimuth()
+            pop()
+        }
         drawCompassLayers()
         drawCompass()
         pop()
@@ -303,8 +323,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         rotate(reference.bearing)
         val bitmap = getBitmap(reference.drawableId, sizeDp)
         push()
-        translate(width / 2f - sizeDp / 2f, (iconSize - sizeDp) * 0.6f)
-        rotate(reference.rotation, bitmap.width / 2f, bitmap.height / 2f)
+        imageMode(ImageMode.Center)
+        translate(width / 2f, iconSize / 2f + dp(1f))
+        rotate(reference.rotation, 0f, 0f)
         image(bitmap, 0f, 0f)
         pop()
         pop()

@@ -73,7 +73,7 @@ class ClinometerView : CanvasView, IClinometerView {
         tickPath =
             Dial.ticks(
                 PixelCoordinate(width / 2f, height / 2f),
-                radius * tickRadiusPercent,
+                radius * tickRadiusPercent - tickLength / 2f,
                 tickLength,
                 tickInterval
             )
