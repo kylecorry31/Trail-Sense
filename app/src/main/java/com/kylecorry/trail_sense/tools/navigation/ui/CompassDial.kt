@@ -20,6 +20,7 @@ class CompassDial(
 
     private val tickThicknessDp = 2f
     private val tickLengthPercent = 0.03f
+    private val cardinalTickLengthPercent = 0.05f
     private val tickRadiusPercent = 0.9f
     private val ticks = Dial.ticks(
         center,
@@ -30,14 +31,14 @@ class CompassDial(
     private val cardinalTicks = Dial.ticks(
         center,
         tickRadiusPercent * radius,
-        tickLengthPercent * radius,
+        cardinalTickLengthPercent * radius,
         45
     )
 
     private val trueCardinalTicks = Dial.ticks(
         center,
         tickRadiusPercent * radius,
-        tickLengthPercent * radius,
+        cardinalTickLengthPercent * radius,
         90
     )
 
