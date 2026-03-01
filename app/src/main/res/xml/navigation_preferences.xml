@@ -139,6 +139,14 @@
             app:singleLineTitle="false"
             app:summary="@string/pref_navigation_draw_compass_dial_bezel_summary"
             app:title="@string/pref_navigation_draw_compass_dial_bezel_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_show_azimuth_indicator"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_navigation_show_azimuth_indicator_summary"
+            app:title="@string/pref_navigation_show_azimuth_indicator_title" />
     </PreferenceCategory>
 
     <PreferenceCategory

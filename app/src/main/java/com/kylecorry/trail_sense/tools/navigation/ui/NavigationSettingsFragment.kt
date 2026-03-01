@@ -83,7 +83,8 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                 preference(R.string.pref_nearby_radius_holder),
                 preference(R.string.pref_nearby_linear_only),
                 preference(R.string.pref_show_linear_compass),
-                preference(R.string.pref_show_calibrate_on_navigate_dialog)
+                preference(R.string.pref_show_calibrate_on_navigate_dialog),
+                preference(R.string.pref_navigation_show_azimuth_indicator)
             ).forEach {
                 it?.isVisible = false
             }

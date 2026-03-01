@@ -253,6 +253,8 @@
     <string name="pref_max_beacon_distance_title">Nearby beacon distance</string>
     <string name="pref_navigation_draw_compass_dial_bezel_title">Show compass dial bezel</string>
     <string name="pref_navigation_draw_compass_dial_bezel_summary">Draw degree markings around the compass dial</string>
+    <string name="pref_navigation_show_azimuth_indicator_title">Show azimuth indicator</string>
+    <string name="pref_navigation_show_azimuth_indicator_summary">Highlight the current bearing on the compass</string>
     <!--Settings - Weather-->
     <string name="pref_storm_alert_sensitivity_title">Storm sensitivity</string>
     <string name="pref_pressure_history_title">Pressure history</string>
@@ -1878,4 +1880,5 @@
     <string name="biting_flies_mosquitoes">Biting flies/mosquitoes</string>
     <string name="ecology">Ecology</string>
     <string name="pref_navigation_draw_compass_dial_bezel" translatable="false">pref_navigation_draw_compass_dial_bezel</string>
+    <string name="pref_navigation_show_azimuth_indicator" translatable="false">pref_navigation_show_azimuth_indicator</string>
 </resources>
