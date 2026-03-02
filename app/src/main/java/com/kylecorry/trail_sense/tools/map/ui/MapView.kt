@@ -177,10 +177,12 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var scale = 1f
         private set(value) {
             field = value
+            isScaleExplicitlySet = true
             onScaleChange?.invoke(this@MapView.resolutionPixels)
             invalidate()
         }
     private var lastScale = 1f
+    private var isScaleExplicitlySet = false
     var minScale = 0.0001f
         set(value) {
             field = value
@@ -309,7 +311,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override fun setup() {
-        recenter()
+        if (!isScaleExplicitlySet) {
+            recenter()
+        }
     }
 
     override fun draw() {
