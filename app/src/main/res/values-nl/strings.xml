@@ -1471,7 +1471,7 @@
     <string name="uses_g1_drag_model">Gebruikt G1-luchtweerstandsmodel</string>
     <string name="remember_map_state">Kaartstatus onthouden</string>
     <string name="lock_bearing_to_location">Peiling vastzetten op locatie</string>
-    <string name="lock_bearing_to_location_description">Vergrendel de koerslijn aan je startlocatie</string>
+    <string name="lock_bearing_to_location_description">Vergrendel de peiling aan je startlocatie</string>
     <string name="pref_night_mode_fullscreen_title">Volledig scherm in nachtmodus</string>
     <string name="pref_night_mode_fullscreen_summary">Verberg systeemelementen voor een beter nachtzicht</string>
     <string name="show_below_horizon">Onder de horizon weergeven</string>
@@ -1537,4 +1537,9 @@
     <string name="biting_flies_mosquitoes">Steekvliegen/muggen</string>
     <string name="ecology">Ecologie</string>
     <string name="pref_ruler_flip_direction_title">Omgekeerde liniaalrichting</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_title">Kompasrand weergeven</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_summary">Graadmarkeringen rond het kompas</string>
+    <string name="pref_navigation_show_azimuth_indicator_title">Azimutindicator weergeven</string>
+    <string name="pref_navigation_show_azimuth_indicator_summary">Huidige peiling op het kompas markeren</string>
+    <string name="large_location_indicator">Grote locatieindicator</string>
 </resources>
