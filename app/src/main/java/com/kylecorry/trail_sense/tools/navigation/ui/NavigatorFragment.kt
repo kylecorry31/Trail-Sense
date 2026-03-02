@@ -274,18 +274,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
-        binding.radarCompass.setOnSingleTapListener {
+        binding.radarCompassMap.setOnSingleTapListener {
             toggleDestinationBearing()
         }
 
-        binding.radarCompass.setOnLongPressListener {
+        binding.radarCompassMap.setOnLongPressListener {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(
                 NavigationToolRegistration.MAP_ID
             )
-            layers.pause(binding.radarCompass)
+            layers.pause(binding.radarCompassMap)
             layerSheet?.setOnDismissListener {
-                layers.resume(requireContext(), binding.radarCompass)
+                layers.resume(requireContext(), binding.radarCompassMap)
             }
             layerSheet?.show(this)
         }
@@ -294,13 +294,26 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             toggleDestinationBearing()
         }
 
+        binding.radarCompassMap.isPanEnabled = false
+        binding.radarCompassMap.isFlingEnabled = false
+        binding.radarCompassMap.backgroundColorOverride =
+            Resources.color(requireContext(), R.color.colorSecondary)
+        binding.radarCompassMap.mapCenter = gps.location
+        binding.radarCompassMap.resolutionPixels = userPrefs.navigation.radarCompassScale
+        binding.radarCompassMap.setOnScaleChangeListener(true) { resolutionPixels ->
+            val radiusMeters = resolutionPixels * binding.radarCompassMap.width / 2f
+            binding.radarCompass.setRadiusDistance(Distance.meters(radiusMeters))
+            userPrefs.navigation.radarCompassScale = resolutionPixels
+        }
+
         if (!hasCompass) {
             binding.radarCompass.shouldDrawDial = userPrefs.navigation.showDialTicksWhenNoCompass
             binding.radarCompass.shouldDrawAzimuthIndicator = false
             binding.navigationTitle.title.isVisible = false
             binding.northReferenceIndicator.isVisible = false
         } else {
-            binding.radarCompass.shouldDrawAzimuthIndicator = userPrefs.navigation.showAzimuthIndicator
+            binding.radarCompass.shouldDrawAzimuthIndicator =
+                userPrefs.navigation.showAzimuthIndicator
         }
 
         scheduleUpdates(INTERVAL_30_FPS)
@@ -351,9 +364,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
 
-        binding.radarCompass.useDensityPixelsForZoom =
+        binding.radarCompassMap.useDensityPixelsForZoom =
             !userPrefs.navigation.highDetailMode
-        layers.resume(requireContext(), binding.radarCompass)
+        layers.resume(requireContext(), binding.radarCompassMap)
+        binding.radarCompass.bindMapView(binding.radarCompassMap)
 
         // Show the north reference indicator
         binding.northReferenceIndicator.showDetailsOnClick = true
@@ -368,7 +382,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         errors.reset()
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
-        layers.pause(binding.radarCompass)
+        layers.pause(binding.radarCompassMap)
         northReferenceHideTimer.stop()
     }
 
@@ -488,7 +502,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ) {
             inBackground {
                 if (binding.radarCompass.isVisible) {
-                    val attribution = binding.radarCompass.getAttribution(requireContext())
+                    val attribution = binding.radarCompassMap.getAttribution(requireContext())
                     onMain {
                         binding.mapAttribution.text = attribution
                         binding.mapAttribution.isVisible = attribution != null
@@ -556,6 +570,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.azimuth = bearing
             it.declination = declination
         }
+
+        val actualBearing = if (useTrueNorth) {
+            compass.bearing
+        } else {
+            compass.bearing.withDeclination(declination)
+        }
+        binding.radarCompassMap.userAzimuth = actualBearing
+        binding.radarCompassMap.mapAzimuth = actualBearing.value
     }
 
     private fun updateLocation() {
@@ -568,7 +590,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             formatService.formatLocation(location)
         )
 
-        binding.radarCompass.userLocationAccuracy =
+        binding.radarCompassMap.userLocationAccuracy =
             gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         // Compass center point
@@ -578,6 +600,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ).forEach {
             it.compassCenter = location
         }
+
+        binding.radarCompassMap.mapCenter = location
+        binding.radarCompassMap.userLocation = location
+
+//        binding.radarCompassMap.projection = AzimuthalEquidistantProjection(
+//            location,
+//            PixelCoordinate(
+//                binding.radarCompassMap.width / 2f,
+//                binding.radarCompassMap.height / 2f
+//            ),
+//            scale = binding.radarCompassMap.scale,
+//            isYFlipped = true
+//        )
 
         updateNearbyBeacons()
     }
