@@ -137,10 +137,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var resolutionPixels: Float
         get() {
-            return (1f / scale) * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
+            return (1f / scale) * latitudeScaleFactor(mapCenter.latitude)
         }
         set(value) {
-            zoomTo(getScale(value / (MercatorProjection.getScaleForLatitude(mapCenter.latitude))))
+            zoomTo(getScale(value / latitudeScaleFactor(mapCenter.latitude)))
         }
 
     private val equatorialResolutionPixels: Float
@@ -206,6 +206,20 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             invalidate()
         }
 
+    var metersPerProjectedUnit: Double = TileMath.WEB_MERCATOR_RADIUS
+        set(value) {
+            field = value
+            this@MapView.layerManager.invalidate()
+            invalidate()
+        }
+
+    var latitudeScaleFactor: (Double) -> Float = { MercatorProjection.getScaleForLatitude(it) }
+        set(value) {
+            field = value
+            this@MapView.layerManager.invalidate()
+            invalidate()
+        }
+
 
     private var maxScale = 1f
     private var isScaling = false
@@ -223,14 +237,17 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             width,
             height,
             zoom,
-            resolution
+            resolution,
+            metersPerProjectedUnit,
+            latitudeScaleFactor
         ) {
             val mapCenter = mapCenter
             val center = mapCenterPixels
             val projection = projection
             val equatorialResolutionPixels = this@MapView.equatorialResolutionPixels
+            val metersPerProjectedUnit = metersPerProjectedUnit
             val groundResolutionPixels =
-                equatorialResolutionPixels * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
+                equatorialResolutionPixels * latitudeScaleFactor(mapCenter.latitude)
             val width = width
             val height = height
             val zoom = zoom
@@ -252,9 +269,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     )
 
                     val x =
-                        (projected.x - center.x) * (TileMath.WEB_MERCATOR_RADIUS / equatorialResolutionPixels)
+                        (projected.x - center.x) * (metersPerProjectedUnit / equatorialResolutionPixels)
                     val y =
-                        (center.y - projected.y) * (TileMath.WEB_MERCATOR_RADIUS / equatorialResolutionPixels) // Y inverted
+                        (center.y - projected.y) * (metersPerProjectedUnit / equatorialResolutionPixels) // Y inverted
 
                     return PixelCoordinate(
                         x.toFloat() + width / 2f,
@@ -264,9 +281,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
                 override fun toCoordinate(pixel: Vector2): Coordinate {
                     val x =
-                        (pixel.x - width / 2f) * equatorialResolutionPixels / TileMath.WEB_MERCATOR_RADIUS
+                        (pixel.x - width / 2f) * equatorialResolutionPixels / metersPerProjectedUnit
                     val y =
-                        (height / 2f - pixel.y) * equatorialResolutionPixels / TileMath.WEB_MERCATOR_RADIUS // Y inverted
+                        (height / 2f - pixel.y) * equatorialResolutionPixels / metersPerProjectedUnit // Y inverted
 
                     val projected = Vector2(
                         center.x + x.toFloat(),

@@ -26,6 +26,7 @@ import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -299,6 +300,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompassMap.backgroundColorOverride =
             Resources.color(requireContext(), R.color.colorSecondary)
         binding.radarCompassMap.mapCenter = gps.location
+        binding.radarCompassMap.metersPerProjectedUnit = 1.0
+        binding.radarCompassMap.latitudeScaleFactor = { 1f }
+        binding.radarCompassMap.projection = AzimuthalEquidistantProjection(gps.location)
         binding.radarCompassMap.resolutionPixels = userPrefs.navigation.radarCompassScale
         binding.radarCompassMap.setOnScaleChangeListener(true) { resolutionPixels ->
             val radiusMeters = resolutionPixels * binding.radarCompassMap.width / 2f
@@ -605,15 +609,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompassMap.mapCenter = location
         binding.radarCompassMap.userLocation = location
 
-//        binding.radarCompassMap.projection = AzimuthalEquidistantProjection(
-//            location,
-//            PixelCoordinate(
-//                binding.radarCompassMap.width / 2f,
-//                binding.radarCompassMap.height / 2f
-//            ),
-//            scale = binding.radarCompassMap.scale,
-//            isYFlipped = true
-//        )
+        binding.radarCompassMap.projection = AzimuthalEquidistantProjection(location)
 
         updateNearbyBeacons()
     }
