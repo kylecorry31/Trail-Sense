@@ -94,7 +94,7 @@
     <string name="pressure_48_hours">48 tuntia</string>
     <string name="pref_pressure_history_title">Ilmanpaineloki</string>
     <string name="pref_storm_alert_sensitivity_title">Myrskyvaroituksen herkkyys</string>
-    <string name="pref_max_beacon_distance_title">Läheisen majakan säde</string>
+    <string name="pref_max_beacon_distance_title">Läheisten majakoiden etäisyys</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibroi ennen suunnistusta</string>
     <string name="pref_display_multi_beacons_summary">Näytä lähimmät majakat kompassissa</string>
     <string name="pref_num_visible_beacons_title">Läheiset majakat</string>
@@ -1047,7 +1047,7 @@
     <string name="compass_dynamic_colors_summary">Käytä dynaamisia värejä pääilmansuunnissa</string>
     <string name="screen_flashlight_full_name">Näyttötaskulamppu</string>
     <string name="view_in_3d">Näytä 3D-tilassa</string>
-    <string name="show_dial_ticks_on_nearby_radar">Näytä säätöasteikkon piirut läheisessä tutkassa</string>
+    <string name="show_dial_ticks_on_nearby_radar">Näytä säätöasteikkon piirut</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Laitteessa ei ole kompassia, mutta voit silti nähdä missä suunnassa majakat ovat.</string>
     <string name="augmented_reality_no_gyro_message">Voit silti käyttää Parannettu todellisuus -työkalua, mutta se ei tule olemaan yhtä tarkka.</string>
     <string name="use_gyroscope_after_calibration_description">Kompassin sijasta (välttää magneettisen heilunnan)</string>
@@ -1333,7 +1333,7 @@
     <string name="planet_neptune">Neptunus</string>
     <string name="load_pdf_tiles">Lataa PDF-laatat</string>
     <string name="load_pdf_tiles_summary">PDF-kartat ovat terävämpiä, mutta saattavat vaikuttaa suorituskykyyn</string>
-    <string name="map_tool_disclaimer">Tämä työkalu näyttää majakkasi, polkusi ja valokuvakarttasi. Se ei kuitenkaan ole korvike erikseen valmistetuille karttasovelluksille.</string>
+    <string name="map_tool_disclaimer">Tämä työkalu ei sisällä sisäänrakennettuja katukarttoja, satelliittikuvia tai polkudataa, eikä se lataa karttoja internetistä. Näyttääksesi kartan työkalun taustalla, sinun on itse tuotava omat karttakuvasi käyttäen Valokuvakartat-työkalua. Jos tarvitset reaaliaikaista tai etukäteen ladattua katu-, satelliitti- tai polkukarttaa, käytä siihen erikseen valmistettua karttasovellusta tämän työkalun sijaan.</string>
     <string name="open_settings">Avaa asetukset</string>
     <string name="basemap">Taustakartta</string>
     <string name="show_gps_accuracy">Näytä GPS-tarkkuus</string>
@@ -1457,4 +1457,19 @@
     <string name="map_layer_lunar_eclipse_description">Kuunpimennyksen näkyvyys</string>
     <string name="map_layer_night_description">Yöajan pimennyskerros</string>
     <string name="show_path">Näytä reitti</string>
+    <string name="pref_ruler_flip_direction_title">Käännä viivoittimen suunta</string>
+    <string name="pref_nearby_linear_only_title">Näytä lähellä olevat majakat vain tutkakompassissa</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_title">Näytä kompassikehys</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_summary">Piirrä astemerkinnät kompassin ympärille</string>
+    <string name="pref_navigation_show_azimuth_indicator_title">Näytä atsimuutin ilmaisin</string>
+    <string name="pref_navigation_show_azimuth_indicator_summary">Korosta nykyistä suuntimaa kompassissa</string>
+    <string name="map_calibration_clear_message">Karttaprojektion muuttaminen tyhjentää kalibrointimuutoksesi.</string>
+    <string name="large_location_indicator">Iso sijainti-ilmaisin</string>
+    <string name="early_month">aikainen %s</string>
+    <string name="mid_month">%s:n keskivaihe</string>
+    <string name="late_month">myöhäinen %s</string>
+    <string name="active_in_month">Aktiivinen %s:ssa</string>
+    <string name="active_all_year">Aktiivinen vuoden ympäri</string>
+    <string name="biting_flies_mosquitoes">Purevat kärpäset/hyttyset</string>
+    <string name="ecology">Ekologia</string>
 </resources>
