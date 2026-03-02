@@ -526,6 +526,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
             binding.radarCompass.isInvisible = style != CompassStyle.Radar
+            binding.radarCompassMap.isInvisible = style != CompassStyle.Radar
         }
 
         effect("sighting_compass_flashlight", binding.linearCompass.isCameraActive) {
