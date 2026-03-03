@@ -299,6 +299,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompassMap.isFlingEnabled = false
         binding.radarCompassMap.backgroundColorOverride =
             Resources.color(requireContext(), R.color.colorSecondary)
+        binding.radarCompassMap.minScale = 0.001f
         binding.radarCompassMap.mapCenter = gps.location
         binding.radarCompassMap.metersPerProjectedUnit = 1.0
         binding.radarCompassMap.latitudeScaleFactor = { 1f }
