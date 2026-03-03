@@ -104,7 +104,7 @@ class RadarCompassView : BaseCompassView {
         strokeWeight(3f)
         push()
         rotate(azimuth)
-        if (shouldDrawDial) {
+        if (shouldDrawDial && shouldDrawAzimuthIndicator) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
         circle(width / 2f, height / 2f, compassSize.toFloat())
@@ -213,13 +213,16 @@ class RadarCompassView : BaseCompassView {
         dial = CompassDial(
             centerPixel,
             dialTickRadius,
-            if (drawDialBezel) min(height, width) / 2f else (compassSize / 2f),
+            compassSize / 2f,
             Color.TRANSPARENT,
             Color.WHITE,
             Color.WHITE,
             hideTrueCardinalTicks = true,
             tickLength = dp(6f),
-            cardinalTickLength = dp(10f)
+            cardinalTickLength = dp(10f),
+            bezelThickness = if (drawDialBezel) (min(height, width) - compassSize) / 2f else 0f,
+            bezelColor = secondaryColor
+
         )
         lastWidth = width
         lastHeight = height
