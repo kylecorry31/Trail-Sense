@@ -61,8 +61,8 @@
         <item quantity="other">%d páxinas</item>
     </plurals>
     <plurals name="path_group_summary">
-        <item quantity="one">%d camiño</item>
-        <item quantity="other">%d camiños</item>
+        <item quantity="one">%d ruta</item>
+        <item quantity="other">%d rutas</item>
     </plurals>
     <string name="share_action_send">Enviar</string>
     <string name="maps">Mapas</string>
@@ -219,7 +219,7 @@
     <string name="sun_nautical">Náutico</string>
     <string name="sun_astronomical">Astronómico</string>
     <string name="always">Sempre</string>
-    <string name="sun_moon_compass_when_up">Cando está elevado</string>
+    <string name="sun_moon_compass_when_up">Cando está por riba do horizonte</string>
     <string name="pref_center_sun_and_moon_title">Manter sol/lúa centrados</string>
     <string name="pref_sunset_alert_time_title">Hora de alerta do solpor</string>
     <string name="pref_sunrise_alert_time_title">Hora de alerta do abrente</string>
@@ -234,7 +234,7 @@
     <string name="tool_user_guide_title">Guía do usuario</string>
     <string name="tool_user_guide_summary">Unha guía práctica para usar Trail Sense</string>
     <string name="delete_beacon_group_message">Eliminaranse %s e tódalas súas balizas.</string>
-    <string name="delete_path_group_message">Eliminaranse %s e tódolos seus camiños.</string>
+    <string name="delete_path_group_message">%s e eliminaranse tódalas súas rutas.</string>
     <string name="delete_map_group_message">Eliminaranse %s e tódolos seus mapas.</string>
     <string name="group">Grupo</string>
     <string name="no_group">Sen grupo</string>
@@ -350,12 +350,12 @@
     <string name="min_temp_calibrated">Temperatura ambiente mínima (calibrada)</string>
     <string name="min_temp_uncalibrated">Temperatura mínima do teléfono (sen calibrar)</string>
     <string name="create_at_distance">Crear a distancia</string>
-    <string name="backtrack">Retroceder</string>
-    <string name="backtrack_notification_channel_description">Actualizacións da localización ao desfacer o camiño</string>
+    <string name="backtrack">Recuar</string>
+    <string name="backtrack_notification_channel_description">Actualizar localizacións para recuar</string>
     <string name="create_beacon">Crear baliza</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="pref_backtrack_enabled_summary">Rexistrar o historial de localizacións</string>
-    <string name="pref_backtrack_frequency_title">Intervalo para Retroceder</string>
+    <string name="pref_backtrack_frequency_title">Intervalo para Recuar</string>
     <string name="location_input_help_title">Formatos de localización compatibles</string>
     <string name="location_input_help">Graos decimais (ex. 1,00, -2,00)\n\nGraos minutos decimais (ex. 1°23,12\'N, 3°12,1\'O)\n\nGraos minutos segundos (ex. 1°23\'12,1\"N, 3°12\'1,2\"O)\n\nUTM (ex. 03T 12345E 67890N)\n\nMGRS (ex. 27PXM 09601 05579)\n\nUSNG (ex. 14S NJ 39521 41744)\n\nOSGB (ex. TG 51409 13177)</string>
     <string name="coordinate_input_invalid_location">Localización non válida</string>
@@ -372,7 +372,7 @@
     <string name="unsaved_changes">Trocos non gardados</string>
     <string name="unsaved_changes_message">Os trocos que fixeches non se gardarán.</string>
     <string name="dialog_leave">Saír</string>
-    <string name="backtrack_disabled_low_power_toast">O retroceder está desactivado no modo de aforro de enerxía</string>
+    <string name="backtrack_disabled_low_power_toast">Recuar está desactivado no modo de aforro de enerxía</string>
     <string name="pref_low_power_mode_summary">Desactiva algunhas funcións para aforrar enerxía</string>
     <string name="open_beacon_in_maps">Ver no mapa</string>
     <string name="compass_calibrate_toast">Precisión do compás %s, recoméndase a calibración</string>
@@ -409,7 +409,7 @@
     <string name="cirrus_desc">Nubes altas e finas que parecen guechos de cabelo branco.</string>
     <string name="privacy_and_location">Privacidade e localización</string>
     <string name="onboarding_user_guide">Aprende a usar as funcións de Trail Sense coa guía do usuario. Dispoñible na parte inferior da lapela Ferramentas.\n\nPróximamente haberá máis guías.</string>
-    <string name="onboarding_privacy">- Trail Sense respecta a túa privacidade e os datos de localización nunca saen do teu dispositivo\n\n- Trail Sense nunca requirirá permiso de Internet\n\n- Consulta a [política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html) (ábrese no navegador do teu teléfono)\n\n- Algunhas funcións de Trail Sense requiren acceso á túa localización\n\n- Conceder o permiso de localización activará as seguintes funcións:\n\n- Navegar ata balizas\n\n- Mellora da precisión da previsión (non dispoñible en todos os dispositivos)\n\n- Retroceder\n\n- Horas do sol e da lúa para a túa localización actual (as alertas do solpor poden requirir localización en segundo plano)\n\n- Se decides non conceder o permiso de localización, podes introducir unha localización manualmente no menú Configuración &gt; Sensores &gt; Calibración GPS en Trail Sense.\n\n- Despois de facer clic en Continuar, solicitaráselle que conceda o permiso de localización. Denegar este permiso impedirá que Trail Sense acceda á túa localización, polo que se recomenda unha entrada manual da localización.</string>
+    <string name="onboarding_privacy">- Trail Sense respecta a túa privacidade e os datos de localización nunca saen do teu dispositivo\n\n- Trail Sense nunca requirirá permiso de Internet\n\n- Consulta a [política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html) (ábrese no navegador do teu teléfono)\n\n- Algunhas funcións de Trail Sense requiren acceso á túa localización\n\n- Conceder o permiso de localización activará as seguintes funcións:\n\n- Navegar ata balizas\n\n- Mellora da precisión da previsión (non dispoñible en todos os dispositivos)\n\n- Recuar\n\n- Horas do sol e da lúa para a túa localización actual (as alertas do solpor poden requirir localización en segundo plano)\n\n- Se decides non conceder o permiso de localización, podes introducir unha localización manualmente no menú Configuración &gt; Sensores &gt; Calibración GPS en Trail Sense.\n\n- Despois de facer clic en Continuar, solicitaráselle que conceda o permiso de localización. Denegar este permiso impedirá que Trail Sense acceda á túa localización, polo que se recomenda unha entrada manual da localización.</string>
     <string name="export">Exportar</string>
     <plurals name="beacons_imported">
         <item quantity="one">%d baliza importada</item>
@@ -447,7 +447,7 @@
     <string name="candela_format">%s cd</string>
     <string name="beam_distance">%s de distancia do sinal</string>
     <string name="tool_light_meter_title">Medidor de luz</string>
-    <string name="pref_backtrack_save_cell_summary">Rexistra o sinal da rede móbil no punto de paso. Non usa internet.</string>
+    <string name="pref_backtrack_save_cell_summary">Rexistra o sinal da rede móbil no punto de referencia. Non usa internet.</string>
     <string name="pref_backtrack_save_cell_title">Rexistrar sinal da rede móbil</string>
     <string name="location_not_set">Localización non definida</string>
     <string name="set">Establecer</string>
@@ -469,8 +469,8 @@
     <string name="right_quick_action">Acción rápida dereita</string>
     <string name="experimental">Experimental</string>
     <string name="tides">Mareas</string>
-    <string name="high_tide">Alta</string>
-    <string name="low_tide">Baixa</string>
+    <string name="high_tide">Alta (preamar)</string>
+    <string name="low_tide">Baixa (baixamar)</string>
     <string name="half_tide">Media</string>
     <string name="time_not_set">Hora non definida</string>
     <string name="pref_daily_weather_time_title">Hora meteorolóxica diaria</string>
@@ -510,8 +510,8 @@
     <string name="diamond">Diamante</string>
     <string name="cross">Cruz</string>
     <string name="arrow">Frecha</string>
-    <string name="pref_default_path_style_title">Estilo de camiño predeterminado</string>
-    <string name="pref_default_path_color_title">Cor do camiño predeterminado</string>
+    <string name="pref_default_path_style_title">Estilo de ruta predeterminado</string>
+    <string name="pref_default_path_color_title">Cor da ruta predeterminada</string>
     <string name="battery_warning">Aviso de descarga da batería</string>
     <string name="backtrack_battery_warning">Os intervalos curtos (menos de 15 minutos) poden provocar un consumo excesivo da batería</string>
     <string name="calibrate_new_tide">Calibrar para unha nova marea?</string>
@@ -549,7 +549,7 @@
     <string name="import_map">Importar mapa</string>
     <string name="sensor_gyroscope">Xiroscopio</string>
     <string name="roll_pitch_yaw">Rolamento: %1$s, Cabeceo: %2$s, Guinada: %3$s</string>
-    <string name="pref_backtrack_history_days_title">Historial de retroceso</string>
+    <string name="pref_backtrack_history_days_title">Historial de recuar</string>
     <plurals name="number_days">
         <item quantity="one">%d día</item>
         <item quantity="other">%d días</item>
@@ -655,7 +655,7 @@
     <string name="last_duration">Último %s</string>
     <string name="elevation_history_length">Lonxitude do historial de elevación</string>
     <string name="gps_signal_lost">Perdeuse o sinal GPS</string>
-    <string name="quarter_moon">Lúa en cuarto</string>
+    <string name="quarter_moon">Cuarto de Lúa</string>
     <string name="camera">Cámara</string>
     <string name="no_permission">Permiso non concedido</string>
     <string name="diagnostics">Diagnóstico</string>
@@ -681,14 +681,14 @@
     <string name="autofill">Autocompletar</string>
     <string name="lightning_dangerously_close">Lóstrego perigosamente preto</string>
     <string name="auto">Automático</string>
-    <string name="delete_path">Eliminar camiño?</string>
+    <string name="delete_path">Eliminar ruta?</string>
     <string name="units_mmhg_short">mm</string>
     <string name="old">Vello</string>
     <string name="new_text">Novo</string>
     <string name="navigate">Navegar</string>
-    <string name="no_paths">Sen camiños</string>
-    <string name="path_exported">Camiño exportado</string>
-    <string name="export_path_error">Non se puido exportar o camiño</string>
+    <string name="no_paths">Sen rutas</string>
+    <string name="path_exported">Ruta exportada</string>
+    <string name="export_path_error">Non se puido exportar a ruta</string>
     <string name="pick_file">Escoller ficheiro</string>
     <string name="low_amount">Baixa (%s)</string>
     <string name="medium_amount">Media (%s)</string>
@@ -733,22 +733,22 @@
     <string name="precipitation_rain">Choiva</string>
     <string name="precipitation_drizzle">Orballo</string>
     <string name="precipitation_snow">Neve</string>
-    <string name="precipitation_snow_pellets">sarabia</string>
+    <string name="precipitation_snow_pellets">Neve granulada</string>
     <string name="precipitation_hail">Pedrazo</string>
-    <string name="precipitation_small_hail">Sarabia miúda</string>
-    <string name="precipitation_ice_pellets">Pelotas de xeo</string>
+    <string name="precipitation_small_hail">Saraiba</string>
+    <string name="precipitation_ice_pellets">Pedras de xeo</string>
     <string name="precipitation_snow_grains">Folerpas</string>
     <string name="precipitation_chance">Probabilidade de precipitación: %s</string>
     <string name="take_photo">Sacar foto</string>
     <string name="no_camera_access">Non se pode acceder á cámara</string>
-    <string name="paths">Camiños</string>
-    <string name="path">Camiño</string>
+    <string name="paths">Rutas</string>
+    <string name="path">Ruta</string>
     <string name="keep_forever">Manter para sempre</string>
     <string name="hide">Ocultar</string>
     <string name="show">Amosar</string>
     <string name="point_style">Estilo do punto</string>
     <string name="line_style">Estilo de liña</string>
-    <string name="path_color">Cor do camiño</string>
+    <string name="path_color">Cor da ruta</string>
     <string name="temporary">Temporal</string>
     <string name="sort_by">Ordenar: %s</string>
     <string name="most_recent">Máis recente</string>
@@ -769,7 +769,7 @@
     <string name="simplify">Simplificar</string>
     <string name="simplifying">Simplificando</string>
     <string name="simplification_quality">Calidade da simplificación</string>
-    <string name="pref_auto_simplify_paths_title">Simplificar camiños na importación</string>
+    <string name="pref_auto_simplify_paths_title">Simplificar rutas na importación</string>
     <string name="saving">Gardando</string>
     <string name="change_map_projection">Trocar a proxección</string>
     <string name="map_projection_mercator">Mercator</string>
@@ -820,7 +820,7 @@
     <string name="tool_temperature_estimation_description">Predicir a temperatura a unha altitude diferente</string>
     <string name="pressure_tendency">Tendencia</string>
     <string name="explore">Explorar</string>
-    <string name="onboarding_explore">- Deseñado para sendeirismo, mochileiro, acampada e xeocaching\n\n- Coloca balizas e navega ata elas\n\n- Segue os camiños\n\n- Revisa os teus pasos con Voltar para atrás\n\n- Planifica que levar\n\n- Recibe alertas antes do solpor\n\n- Consulta a previsión do tempo\n\n- Usa o teu teléfono como lanterna\n\n- E moito máis!</string>
+    <string name="onboarding_explore">- Deseñado para sendeirismo, mochileiro, acampada e xeocaching\n\n- Coloca balizas e navega ata elas\n\n- Segue as rutas\n\n- Revisa os teus pasos con recuar\n\n- Planifica que levar\n\n- Recibe alertas antes do solpor\n\n- Consulta a previsión do tempo\n\n- Usa o teu teléfono como lanterna\n\n- E moito máis!</string>
     <string name="average_speed">Velocidade media</string>
     <string name="steps">Pasos</string>
     <string name="distance_alert">Alerta de distancia</string>
@@ -836,9 +836,9 @@
     <string name="current_speed_pedometer">Velocidade actual (podómetro)</string>
     <string name="current_speed_gps">Velocidade actual (GPS)</string>
     <string name="average_speed_pedometer">Velocidade media (podómetro)</string>
-    <string name="average_speed_backtrack">Velocidade media (Refacer o camiño)</string>
+    <string name="average_speed_backtrack">Velocidade media (Recuar)</string>
     <string name="reset_distance_title">Restablecer distancia?</string>
-    <string name="navigating_to_nearest_path_point">Navegando ata o punto de camiño máis próximo</string>
+    <string name="navigating_to_nearest_path_point">Navegando ata o punto de ruta máis próxima</string>
     <string name="beacons">Balizas</string>
     <string name="pref_start_on_boot_title">Comezar ao arrancar</string>
     <string name="pref_enable_analog_title">reloxo analóxico</string>
@@ -855,13 +855,13 @@
     <string name="map_file">Ficheiro (JPG, PNG, PDF)</string>
     <string name="map_export_error">Non se pode exportar o mapa ao ficheiro escollido</string>
     <string name="point">Punto</string>
-    <string name="point_added">Punto engadido ao camiño</string>
+    <string name="point_added">Punto engadido á ruta</string>
     <string name="tide_diurnal">diúrna</string>
     <string name="tide_instructions">Use unha táboa oficial de mareas para introducir as mareas de referencia para a duración da túa viaxe.</string>
     <string name="tide_user_guide_recommendation">Os sitios web oficiais das táboas de mareas pódense atopar na guía do usuario.</string>
     <string name="tide_semidiurnal">Semidiúrna</string>
     <string name="frequency">Frecuencia</string>
-    <string name="tide_frequency_description">O número de mareas altas por día. A maioría das mareas son semidiúrnas.</string>
+    <string name="tide_frequency_description">O número de preamares por día. A maioría das mareas son semidiúrnas.</string>
     <string name="permission_alarms_and_reminders">Alarmas e recordatorios</string>
     <string name="change_resolution">Trocar resolución</string>
     <string name="done">Feito</string>
@@ -927,7 +927,7 @@
     <string name="center">Centro</string>
     <string name="size">Tamaño</string>
     <string name="create_blank_map">Crear mapa en branco</string>
-    <string name="create_path">Crear camiño</string>
+    <string name="create_path">Crear ruta</string>
     <string name="map_is_not_calibrated">O mapa non está calibrado</string>
     <string name="loading">Cargando</string>
     <string name="unable_to_find_next_astronomy">Non se pode atopar o seguinte %s</string>
@@ -975,7 +975,7 @@
     <string name="backup">Copia de seguridade</string>
     <string name="restore">Restaurar</string>
     <string name="restore_disclaimer">Esta acción sobrescribirá tódolos teus datos actuais. Asegúrate de ter unha copia de seguridade antes de continuar.\n\nSelecciona só un ficheiro de copia de seguridade que creaches con %s e no que confíes.</string>
-    <string name="backup_disclaimer">Crearase un ficheiro de copia de seguridade que conterá todos os teus datos actuais. Incluirá configuracións, camiños, balizas, mapas, etc.\n\nEste ficheiro non está cifrado. Non o compartas con ninguén en quen non confíes.</string>
+    <string name="backup_disclaimer">Crearase un ficheiro de copia de seguridade que conterá todos os teus datos actuais. Incluirá configuracións, rutas, balizas, mapas, etc.\n\nEste ficheiro non está cifrado. Non o compartas con ninguén en quen non confíes.</string>
     <string name="backing_up_loading_message">Facendo copia de seguranza…</string>
     <string name="restoring_loading_message">Restaurando…</string>
     <string name="restore_complete_message">Restauración feita, reiniciando para aplicar os trocos</string>
@@ -1026,7 +1026,7 @@
     <string name="screen_flashlight_full_name">Lanterna de pantalla</string>
     <string name="view_in_3d">Ver en 3D</string>
     <string name="locate">Localizar</string>
-    <string name="fast_path_rendering">Renderización rápida do camiño</string>
+    <string name="fast_path_rendering">Renderización rápida da ruta</string>
     <string name="fast_path_rendering_summary">Mellora o rendemento a costa da aparencia</string>
     <string name="view_distance">Distancia de visualización</string>
     <string name="show_dial_ticks_on_nearby_radar">Amosar as marcas do dial</string>
@@ -1037,7 +1037,7 @@
     <string name="use_gyroscope_after_calibration">Usar o xiroscopio despois da calibración</string>
     <string name="use_gyroscope_after_calibration_description">En lugar do compás (evita a deriva magnética)</string>
     <string name="reset_calibration_question">Restablecer a calibración?</string>
-    <string name="use_path_elevation">Usar a elevación do camiño</string>
+    <string name="use_path_elevation">Usar a elevación da ruta</string>
     <string name="smooth_gps_readings">Lecturas de GPS suavizadas</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d mapa</item>
@@ -1056,8 +1056,8 @@
         <item quantity="other">Eliminaronse %d puntos de referencia</item>
     </plurals>
     <plurals name="paths_imported">
-        <item quantity="one">Importouse %d camiño</item>
-        <item quantity="other">Importáronse %d camiños</item>
+        <item quantity="one">%d ruta importada</item>
+        <item quantity="other">%d rutas importadas</item>
     </plurals>
     <string name="select_from_gallery">Seleccionar da galería</string>
     <string name="magnetometer_gyro_custom">Magnetómetro + Xiroscopio (Personalizado)</string>
@@ -1099,7 +1099,7 @@
     <string name="local_talk">Conversa local</string>
     <string name="quick_actions">Accións rápidas</string>
     <string name="tool_quick_action_summary">Prema e manteña a barra de navegación inferior ou vexa na lapela de ferramentas.</string>
-    <string name="widget_bottom_sheet_instructions">Mantén premida a navegación inferior ou usa a acción rápida dos widgets.</string>
+    <string name="widget_bottom_sheet_instructions">Mantén premida na navegación inferior ou usa a acción rápida dos widgets.</string>
     <string name="widget_pref_title">Widgets na aplicación</string>
     <string name="quick_actions_are_unavailable">As accións rápidas non están dispoñibles</string>
     <string name="bottom_navigation_slot">Espazo de navegación inferior %d</string>
@@ -1113,10 +1113,10 @@
     <string name="pref_flashlight_control_screen_with_volume_title">Controla o brillo da lanterna da pantalla cos botóns de volume</string>
     <string name="estimate_method">Método de estimación</string>
     <string name="tide_clock">reloxo das mareas</string>
-    <string name="lunitidal_interval">Intervalo lunar</string>
-    <string name="lunitidal_interval_auto">Intervalo lunar (automático)</string>
-    <string name="lunitidal_interval_local">Intervalo lunitidal (local)</string>
-    <string name="lunitidal_interval_utc">Intervalo lunar (UTC/Greenwich)</string>
+    <string name="lunitidal_interval">Intervalo Lúa–preamar</string>
+    <string name="lunitidal_interval_auto">Intervalo Lúa–preamar (automático)</string>
+    <string name="lunitidal_interval_local">Intervalo Lúa–preamar (local)</string>
+    <string name="lunitidal_interval_utc">Intervalo Lúa–preamar (UTC/Greenwich)</string>
     <string name="harmonic">Harmónico</string>
     <string name="survival_guide">Guía de supervivencia</string>
     <string name="water">Auga</string>
@@ -1152,8 +1152,8 @@
     <string name="tide_model_auto">Modelo de mareas (automático)</string>
     <string name="tide_estimation_description_tide_clock">Usa o reloxo para estimar as mareas. Require polo menos unha marea coñecida.</string>
     <string name="tide_estimation_description_lunitidal_interval_auto">Emprega a posición da lúa para estimar as mareas. Require polo menos unha marea coñecida.</string>
-    <string name="tide_estimation_description_lunitidal_interval_local">Emprega a posición da lúa para estimar as mareas. Require o intervalo lunitidal local e a localización.</string>
-    <string name="tide_estimation_description_lunitidal_interval_utc">Emprega a posición da lúa para estimar as mareas. Require o intervalo lunimarítimo UTC.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Emprega a posición da lúa para estimar as mareas. Require o intervalo Lúa–preamar local e a localización.</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Emprega a posición da lúa para estimar as mareas. Require o intervalo Lúa–preamar UTC.</string>
     <string name="tide_estimation_description_tide_model">Emprega un modelo de mareas integrado para estimar as mareas da localización introducida ou da túa localización se non se introduciu ningunha.</string>
     <string name="star">Estrela</string>
     <string name="show_below_horizon">Amosar por baixo do horizonte</string>
@@ -1423,13 +1423,13 @@
     <string name="map_layer_my_location_description">A túa localización actual, o rumbo e a precisión do GPS</string>
     <string name="map_layer_my_elevation_description">A túa altitude actual</string>
     <string name="map_layer_beacons_description">As túas balizas gardadas</string>
-    <string name="map_layer_paths_description">Os teus camiños gardados</string>
+    <string name="map_layer_paths_description">As túas rutas gardadas</string>
     <string name="map_layer_tides_description">As túas táboas de mareas gardadas e as mareas costeiras modeladas</string>
     <string name="map_layer_photo_maps_description">Os teus mapas fotográficos gardados</string>
     <string name="map_layer_cell_towers_description">Localizacións aproximadas das torres de telefonía móbil</string>
     <string name="map_layer_navigation_description">Liña ata o teu destino de navegación</string>
     <string name="map_layer_field_guide_sightings_description">Avistamentos da guía de campo</string>
-    <string name="map_layer_solar_eclipse_description">Camiño de visibilidade da eclipse solar</string>
+    <string name="map_layer_solar_eclipse_description">ruta de visibilidade da eclipse solar</string>
     <string name="map_layer_lunar_eclipse_description">Visibilidade da eclipse lunar</string>
     <string name="map_layer_night_description">Superposición de escuridade nocturna</string>
     <string name="show_images">Amosar imaxes</string>
@@ -1445,7 +1445,7 @@
     <string name="remove_layer">Eliminar capa</string>
     <string name="additional_layers">Capas adicionais</string>
     <string name="sighting_label">Avistamento de %s</string>
-    <string name="show_path">Amosar camiño</string>
+    <string name="show_path">Amosar ruta</string>
     <string name="early_month">a comenzos de %s</string>
     <string name="mid_month">a mediados de %s</string>
     <string name="late_month">a finais de %s</string>
