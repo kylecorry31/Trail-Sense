@@ -20,6 +20,10 @@ Las balizas cercanas se mostrarán como flechas alrededor de la brújula. Las fl
 
 Puedes pellizcar para hacer zoom en la brújula, lo que cambiará el radio de balizas cercanas.
 
+Por defecto, la brújula muestra las marcas de grados dentro del dial. Puedes habilitar Ajustes > Navegar > Mostrar bisel de la brújula, para mover estas marcas a un bisel alrededor del exterior de la brújula.
+
+El indicador de acimut resalta tu rumbo actual en la brújula, apuntando siempre hacia la parte superior del dispositivo. Se muestra por defecto y puede desactivarse en Ajustes > Navegar > Mostrar indicador de acimut.
+
 Si tu dispositivo no tiene brújula, aún puedes elegir mostrar las marcas del dial de la brújula activando 'Ajustes > Navegación> Mostrar marcas en el dial'. Ten en cuenta que sin un sensor de brújula, mover tu dispositivo no cambiará la dirección de la brújul.
 
 Las capas se usan para mostrar información en la brújula. Puedes encontrar los ajustes de capas en 'Ajustes > Navegación' o manteniendo pulsada la brújula. Más información sobre capas en la guía "Capas del Mapa".
