@@ -161,7 +161,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             )
         }
 
-    // TODO: migrate from pref_navigation_view_distance (kilometers)
     var radarCompassScale: Float by FloatPreference(
         cache,
         "cache_radar_compass_state_scale",

@@ -639,7 +639,6 @@
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
     <string name="screen_flashlight">Screen</string>
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
-    <string name="pref_navigation_view_distance" translatable="false">pref_navigation_view_distance</string>
     <string name="speedometer">Speedometer</string>
     <string name="since_time">since %s</string>
     <string name="pedometer">Pedometer</string>
