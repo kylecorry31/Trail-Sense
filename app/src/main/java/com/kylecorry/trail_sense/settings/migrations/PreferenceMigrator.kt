@@ -66,7 +66,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 25
+        private const val version = 26
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -388,7 +388,7 @@ class PreferenceMigrator private constructor() {
                 )
             },
             PreferenceMigration(24, 25) { context, prefs ->
-                val viewDistanceKey = context.getString(R.string.pref_navigation_view_distance)
+                val viewDistanceKey = "pref_navigation_view_distance"
                 val nearbyDistanceKey = context.getString(R.string.pref_max_beacon_distance)
                 val nearbyDistance = prefs.getString(nearbyDistanceKey)
                 if (nearbyDistance != null) {
@@ -400,6 +400,23 @@ class PreferenceMigrator private constructor() {
                 if (wasNearbyRadarEnabled) {
                     prefs.putBoolean(linearOnlyKey, true)
                 }
+            },
+            PreferenceMigration(25, 26) { context, prefs ->
+                val viewDistanceKey = "pref_navigation_view_distance"
+                val distanceKm = prefs.getString(viewDistanceKey)?.toFloatOrNull()
+                if (distanceKm != null) {
+                    val metrics = context.resources.displayMetrics
+                    val density = metrics.density
+                    // compassSize mirrors RadarCompassView: width - 2*dp(24) - 2*dp(2)
+                    val compassSize = metrics.widthPixels - (2 * 24 + 2 * 2) * density
+                    if (compassSize > 0f) {
+                        val resolutionPixels = (distanceKm * 1000f) / (compassSize / 2f)
+                        if (resolutionPixels > 0f) {
+                            prefs.putFloat("cache_radar_compass_state_scale", resolutionPixels)
+                        }
+                    }
+                }
+                prefs.remove(viewDistanceKey)
             }
         )
 

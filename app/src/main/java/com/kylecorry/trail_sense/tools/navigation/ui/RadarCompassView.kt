@@ -4,9 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArcMode
@@ -16,16 +13,9 @@ import com.kylecorry.andromeda.canvas.TextStyle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.geometry.Circle
-import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
-import com.kylecorry.sol.science.geography.projections.IMapProjection
-import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geofence
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -33,19 +23,13 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
-import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.tools.map.ui.MapView
 import kotlin.math.min
 
-class RadarCompassView : BaseCompassView, IMapView {
-    private val density = context.resources.displayMetrics.density
+class RadarCompassView : BaseCompassView {
     private var centerPixel: PixelCoordinate = PixelCoordinate(0f, 0f)
     private lateinit var compassCircle: Circle
-    var useDensityPixelsForZoom = true
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -57,6 +41,8 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var textColor: Int = Color.WHITE
 
     private val formatService by lazy { FormatService.getInstance(context) }
+
+    private var mapView: MapView? = null
 
     private var iconSize = 0
     private var radarSize = 0
@@ -70,18 +56,6 @@ class RadarCompassView : BaseCompassView, IMapView {
     private val drawDialBezel = prefs.navigation.drawDialBezel
     private var maxDistanceBaseUnits: Distance = Distance.meters(0f)
     private var maxDistanceMeters: Distance = Distance.meters(0f)
-
-    private val navigation = NavigationService()
-
-    override val layerManager = MapViewLayerManager {
-        post { invalidate() }
-    }
-
-    private var singleTapAction: (() -> Unit)? = null
-    private var longPressAction: (() -> Unit)? = null
-
-    private var isScaling = false
-
     private var north = ""
     private var south = ""
     private var east = ""
@@ -96,26 +70,6 @@ class RadarCompassView : BaseCompassView, IMapView {
     var shouldDrawDial: Boolean = true
     var shouldDrawAzimuthIndicator: Boolean = true
 
-    private val hooks = Hooks()
-
-    override var userLocation: Coordinate
-        get() = compassCenter
-        set(value) {
-            compassCenter = value
-        }
-
-    override var userLocationAccuracy: Distance? = null
-        set(value) {
-            field = value
-            invalidate()
-        }
-
-    override var userAzimuth: Bearing
-        get() = Bearing.from(azimuth)
-        set(value) {
-            azimuth = value.value
-        }
-
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -123,14 +77,6 @@ class RadarCompassView : BaseCompassView, IMapView {
         attrs,
         defStyleAttr
     )
-
-    fun setOnSingleTapListener(action: (() -> Unit)?) {
-        singleTapAction = action
-    }
-
-    fun setOnLongPressListener(action: (() -> Unit)?) {
-        longPressAction = action
-    }
 
     private fun drawAzimuth() {
         tint(
@@ -147,18 +93,6 @@ class RadarCompassView : BaseCompassView, IMapView {
         noTint()
     }
 
-    private fun drawLayers() {
-        // TODO: Handle beacon highlighting
-        push()
-        clip(compassPath)
-        layerManager.draw(context, this, this)
-        pop()
-    }
-
-    private fun drawOverlays() {
-        layerManager.drawOverlay(context, this, this)
-    }
-
     private fun drawCompass() {
         imageMode(ImageMode.Center)
 
@@ -170,7 +104,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         strokeWeight(3f)
         push()
         rotate(azimuth)
-        if (shouldDrawDial) {
+        if (shouldDrawDial && shouldDrawAzimuthIndicator) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
         circle(width / 2f, height / 2f, compassSize.toFloat())
@@ -211,6 +145,13 @@ class RadarCompassView : BaseCompassView, IMapView {
         imageMode(ImageMode.Corner)
     }
 
+    fun setRadiusDistance(distance: Distance) {
+        maxDistanceMeters = distance.meters()
+        maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
+        distanceText = null
+        invalidate()
+    }
+
     private fun drawCardinalDirections() {
         textMode(TextMode.Center)
         textSize(cardinalSize)
@@ -238,6 +179,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         pop()
     }
 
+    fun bindMapView(view: MapView) {
+        mapView = view
+    }
+
     override fun setup() {
         super.setup()
         iconSize = dp(24f).toInt()
@@ -252,8 +197,6 @@ class RadarCompassView : BaseCompassView, IMapView {
         primaryColor = Resources.getCardinalDirectionColor(context)
         secondaryColor = Resources.color(context, R.color.colorSecondary)
         textColor = Resources.androidTextColorSecondary(context)
-        maxDistanceMeters = Distance.meters(prefs.navigation.radarViewDistance)
-        maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
         distanceText = null
         north = context.getString(R.string.direction_north)
         south = context.getString(R.string.direction_south)
@@ -270,16 +213,20 @@ class RadarCompassView : BaseCompassView, IMapView {
         dial = CompassDial(
             centerPixel,
             dialTickRadius,
-            if (drawDialBezel) min(height, width) / 2f else (compassSize / 2f),
-            secondaryColor,
+            compassSize / 2f,
+            Color.TRANSPARENT,
             Color.WHITE,
             Color.WHITE,
             hideTrueCardinalTicks = true,
             tickLength = dp(6f),
-            cardinalTickLength = dp(10f)
+            cardinalTickLength = dp(10f),
+            bezelThickness = if (drawDialBezel) (min(height, width) - compassSize) / 2f else 0f,
+            bezelColor = secondaryColor
+
         )
         lastWidth = width
         lastHeight = height
+        mapView?.clipPath = compassPath
     }
 
     override fun draw() {
@@ -293,7 +240,6 @@ class RadarCompassView : BaseCompassView, IMapView {
         push()
         rotate(-azimuth)
         dial.draw(drawer, false)
-        drawLayers()
         if (shouldDrawAzimuthIndicator) {
             push()
             rotate(azimuth)
@@ -303,7 +249,6 @@ class RadarCompassView : BaseCompassView, IMapView {
         drawCompassLayers()
         drawCompass()
         pop()
-        drawOverlays()
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {
@@ -353,7 +298,7 @@ class RadarCompassView : BaseCompassView, IMapView {
 
         // To highlighted location
         stopAt?.let {
-            val pixel = toPixel(it)
+            val pixel = mapView?.toPixel(it) ?: return@let
             val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)
             opacity(75)
             arc(
@@ -369,143 +314,5 @@ class RadarCompassView : BaseCompassView, IMapView {
 
         opacity(255)
         pop()
-    }
-
-    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-
-        override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
-            isScaling = true
-            return super.onScaleBegin(detector)
-        }
-
-        override fun onScaleEnd(detector: ScaleGestureDetector) {
-            super.onScaleEnd(detector)
-            isScaling = false
-        }
-
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-            prefs.navigation.radarViewDistance /= detector.scaleFactor
-            maxDistanceMeters = Distance.meters(prefs.navigation.radarViewDistance)
-            maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
-            distanceText = null
-            layerManager.invalidate()
-            return true
-        }
-    }
-
-    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            singleTapAction?.invoke()
-            return super.onSingleTapConfirmed(e)
-        }
-
-        override fun onLongPress(e: MotionEvent) {
-            super.onLongPress(e)
-            if (!isScaling) {
-                longPressAction?.invoke()
-            }
-        }
-    }
-
-    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
-    private val mGestureDetector = GestureDetector(context, gestureListener)
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        mGestureDetector.onTouchEvent(event)
-        invalidate()
-        return true
-    }
-
-    override val mapProjection: IMapViewProjection
-        get() = hooks.memo(
-            "mapProjection",
-            mapCenter,
-            resolutionPixels,
-            resolution,
-            zoom
-        ) {
-            val mapCenter = mapCenter
-            val resolutionPixels = resolutionPixels
-            val resolution = resolution
-            val zoom = zoom
-
-            object : IMapProjection, IMapViewProjection {
-                override fun toPixels(
-                    latitude: Double,
-                    longitude: Double
-                ): PixelCoordinate {
-                    return toPixels(Coordinate(latitude, longitude))
-                }
-
-                override fun toCoordinate(pixel: Vector2): Coordinate {
-                    // Not implemented
-                    return mapCenter
-                }
-
-                override fun toPixels(location: Coordinate): PixelCoordinate {
-                    val vector =
-                        navigation.navigate(compassCenter, location, declination, useTrueNorth)
-                    val angle = Arithmetic.wrap(-(vector.direction.value - 90), 0f, 360f)
-                    val pixelDistance = vector.distance / resolutionPixels
-                    val xDiff = Trigonometry.cosDegrees(angle) * pixelDistance
-                    val yDiff = Trigonometry.sinDegrees(angle) * pixelDistance
-                    return PixelCoordinate(
-                        compassCircle.center.x + xDiff,
-                        compassCircle.center.y - yDiff
-                    )
-                }
-
-                override val resolutionPixels: Float = resolutionPixels
-                override val resolution: Float = resolution
-                override val zoom: Float = zoom
-                override val center: Coordinate = mapCenter
-            }
-        }
-
-    override var resolutionPixels: Float
-        get() = maxDistanceMeters.value / (compassSize / 2f)
-        set(_) {
-            // Do nothing yet
-        }
-
-    override var resolution: Float
-        get() = this@RadarCompassView.resolutionPixels * density
-        set(value) {
-            this@RadarCompassView.resolutionPixels = value / density
-        }
-
-    override val zoom: Float
-        get() = TileMath.getZoomLevel(
-            mapCenter,
-            if (useDensityPixelsForZoom) resolution else resolutionPixels
-        )
-
-    override val layerScale: Float = 1f
-
-    override var mapCenter: Coordinate
-        get() = compassCenter
-        set(value) {
-            compassCenter = value
-        }
-    override var mapAzimuth: Float
-        get() = azimuth
-        set(value) {
-            azimuth = value
-        }
-
-    override val mapRotation: Float = 0f
-
-    override val mapBounds: CoordinateBounds
-        get() {
-            val geofence = Geofence(
-                mapCenter,
-                maxDistanceBaseUnits
-            )
-            return CoordinateBounds.from(geofence)
-        }
-
-    override fun setOnGeoJsonFeatureClickListener(listener: ((com.kylecorry.andromeda.geojson.GeoJsonFeature) -> Unit)?) {
-        // Not supported
     }
 }

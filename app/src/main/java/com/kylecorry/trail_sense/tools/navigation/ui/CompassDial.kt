@@ -18,7 +18,9 @@ class CompassDial(
     @ColorInt private val cardinalTickColor: Int = tickColor,
     private val hideTrueCardinalTicks: Boolean = false,
     tickLength: Float = 1f,
-    cardinalTickLength: Float = tickLength
+    cardinalTickLength: Float = tickLength,
+    private val bezelThickness: Float = 0f,
+    @ColorInt private val bezelColor: Int = backgroundColor
 ) {
 
     private val tickThicknessDp = 2f
@@ -44,6 +46,10 @@ class CompassDial(
 
     private var clipPath: Path? = null
 
+    private var backgroundPath = Path().apply {
+        addCircle(center.x, center.y, backgroundRadius, Path.Direction.CW)
+    }
+
     fun draw(drawer: ICanvasDrawer, drawTicks: Boolean = true, drawBackground: Boolean = true) {
         val trueCardinalTickSize = tickThicknessDp * 1.5f
 
@@ -52,6 +58,13 @@ class CompassDial(
         drawer.fill(backgroundColor)
         if (drawBackground) {
             drawer.circle(center.x, center.y, backgroundRadius * 2)
+            if (bezelThickness > 0f) {
+                drawer.push()
+                drawer.clipInverse(backgroundPath)
+                drawer.fill(bezelColor)
+                drawer.circle(center.x, center.y, backgroundRadius * 2 + bezelThickness * 2)
+                drawer.pop()
+            }
         }
 
         if (!drawTicks) return

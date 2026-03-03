@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.map.ui
 
 import android.content.Context
 import android.graphics.Matrix
+import android.graphics.Path
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -12,11 +13,11 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
-import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.optimization.Optimization
+import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.math.trigonometry.Trigonometry.sinDegrees
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
@@ -42,7 +43,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var isZoomEnabled = true
     var isFlingEnabled = true
     var useDensityPixelsForZoom = true
-
+    var clipPath: Path? = null
+    var backgroundColorOverride: Int? = null
     private val density = context.resources.displayMetrics.density
     private val scroller = OverScroller(context)
     private var lastFlingX = 0
@@ -56,6 +58,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private val hooks = Hooks()
 
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
+    private var onSingleTapCallback: ((Coordinate) -> Unit)? = null
+    private var pendingScaleChangeCallback = false
     private var onScaleChange: ((resolutionPixels: Float) -> Unit)? = null
     private var onCenterChange: ((center: Coordinate) -> Unit)? = null
 
@@ -83,6 +87,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     fun setOnLongPressListener(callback: ((Coordinate) -> Unit)?) {
         onLongPressCallback = callback
+    }
+
+    fun setOnSingleTapListener(callback: ((Coordinate) -> Unit)?) {
+        onSingleTapCallback = callback
     }
 
     override val mapBounds: CoordinateBounds
@@ -129,10 +137,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var resolutionPixels: Float
         get() {
-            return (1f / scale) * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
+            return (1f / scale) * latitudeScaleFactor(mapCenter.latitude)
         }
         set(value) {
-            zoomTo(getScale(value / (MercatorProjection.getScaleForLatitude(mapCenter.latitude))))
+            zoomTo(getScale(value / latitudeScaleFactor(mapCenter.latitude)))
         }
 
     private val equatorialResolutionPixels: Float
@@ -169,10 +177,12 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var scale = 1f
         private set(value) {
             field = value
+            isScaleExplicitlySet = true
             onScaleChange?.invoke(this@MapView.resolutionPixels)
             invalidate()
         }
     private var lastScale = 1f
+    private var isScaleExplicitlySet = false
     var minScale = 0.0001f
         set(value) {
             field = value
@@ -198,6 +208,20 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             invalidate()
         }
 
+    var metersPerProjectedUnit: Double = TileMath.WEB_MERCATOR_RADIUS
+        set(value) {
+            field = value
+            this@MapView.layerManager.invalidate()
+            invalidate()
+        }
+
+    var latitudeScaleFactor: (Double) -> Float = { MercatorProjection.getScaleForLatitude(it) }
+        set(value) {
+            field = value
+            this@MapView.layerManager.invalidate()
+            invalidate()
+        }
+
 
     private var maxScale = 1f
     private var isScaling = false
@@ -215,14 +239,17 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             width,
             height,
             zoom,
-            resolution
+            resolution,
+            metersPerProjectedUnit,
+            latitudeScaleFactor
         ) {
             val mapCenter = mapCenter
             val center = mapCenterPixels
             val projection = projection
             val equatorialResolutionPixels = this@MapView.equatorialResolutionPixels
+            val metersPerProjectedUnit = metersPerProjectedUnit
             val groundResolutionPixels =
-                equatorialResolutionPixels * MercatorProjection.getScaleForLatitude(mapCenter.latitude)
+                equatorialResolutionPixels * latitudeScaleFactor(mapCenter.latitude)
             val width = width
             val height = height
             val zoom = zoom
@@ -244,9 +271,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     )
 
                     val x =
-                        (projected.x - center.x) * (TileMath.WEB_MERCATOR_RADIUS / equatorialResolutionPixels)
+                        (projected.x - center.x) * (metersPerProjectedUnit / equatorialResolutionPixels)
                     val y =
-                        (center.y - projected.y) * (TileMath.WEB_MERCATOR_RADIUS / equatorialResolutionPixels) // Y inverted
+                        (center.y - projected.y) * (metersPerProjectedUnit / equatorialResolutionPixels) // Y inverted
 
                     return PixelCoordinate(
                         x.toFloat() + width / 2f,
@@ -256,9 +283,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
                 override fun toCoordinate(pixel: Vector2): Coordinate {
                     val x =
-                        (pixel.x - width / 2f) * equatorialResolutionPixels / TileMath.WEB_MERCATOR_RADIUS
+                        (pixel.x - width / 2f) * equatorialResolutionPixels / metersPerProjectedUnit
                     val y =
-                        (height / 2f - pixel.y) * equatorialResolutionPixels / TileMath.WEB_MERCATOR_RADIUS // Y inverted
+                        (height / 2f - pixel.y) * equatorialResolutionPixels / metersPerProjectedUnit // Y inverted
 
                     val projected = Vector2(
                         center.x + x.toFloat(),
@@ -284,7 +311,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     override fun setup() {
-        recenter()
+        if (!isScaleExplicitlySet) {
+            recenter()
+        }
     }
 
     override fun draw() {
@@ -298,16 +327,26 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
         clear()
+        push()
+        clipPath?.let { clip(it) }
+        backgroundColorOverride?.let { drawer.background(it) }
 
         // TODO: Is this scale logic needed?
         maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
         zoomTo(clampScale(scale))
+
+        if (pendingScaleChangeCallback) {
+            pendingScaleChangeCallback = false
+            onScaleChange?.invoke(resolutionPixels)
+        }
 
         push()
         drawer.rotate(-mapAzimuth)
         drawLayers()
         pop()
         layerManager.drawOverlay(context, this, this)
+
+        pop()
     }
 
     private fun drawLayers() {
@@ -416,6 +455,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             val pixel = unrotated(PixelCoordinate(e.x, e.y))
             layerManager.onClick(this@MapView, this@MapView, pixel)
+            onSingleTapCallback?.invoke(toCoordinate(pixel))
             return super.onSingleTapConfirmed(e)
         }
 
@@ -537,7 +577,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
     }
 
-    fun setOnScaleChangeListener(callback: ((resolutionPixels: Float) -> Unit)?) {
+    fun setOnScaleChangeListener(
+        invokeOnNextRender: Boolean = false,
+        callback: ((resolutionPixels: Float) -> Unit)?
+    ) {
+        pendingScaleChangeCallback = invokeOnNextRender
         onScaleChange = callback
     }
 

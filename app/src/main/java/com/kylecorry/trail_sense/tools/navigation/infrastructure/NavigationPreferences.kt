@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
@@ -160,22 +161,11 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             )
         }
 
-    var radarViewDistance: Float
-        get() {
-            val raw =
-                cache.getString(context.getString(R.string.pref_navigation_view_distance)) ?: "0.5"
-            return Distance.kilometers(raw.toFloatCompat() ?: 0.5f)
-                .meters()
-                .value
-                .coerceIn(1f, 25000000f)
-        }
-        set(value) {
-            val meters = Distance.meters(value.coerceIn(1f, 25000000f))
-            cache.putString(
-                context.getString(R.string.pref_navigation_view_distance),
-                meters.convertTo(DistanceUnits.Kilometers).value.toString()
-            )
-        }
+    var radarCompassScale: Float by FloatPreference(
+        cache,
+        "cache_radar_compass_state_scale",
+        2f
+    )
 
     val coordinateFormat: BuiltInCoordinateFormat
         get() {
