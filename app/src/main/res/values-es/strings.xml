@@ -1497,4 +1497,9 @@
     <string name="biting_flies_mosquitoes">Mosquitos</string>
     <string name="ecology">Ecología</string>
     <string name="pref_ruler_flip_direction_title">Invertir dirección de regla</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_title">Mostrar bisel de la brújula</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_summary">Dibujar marcas de grados en el dial de la brújula</string>
+    <string name="pref_navigation_show_azimuth_indicator_title">Mostrar indicador de acimut</string>
+    <string name="pref_navigation_show_azimuth_indicator_summary">Resaltar rumbo actual en la brújula</string>
+    <string name="large_location_indicator">Indicador de ubicación grande</string>
 </resources>
