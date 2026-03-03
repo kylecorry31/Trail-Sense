@@ -115,7 +115,6 @@ Ajustes:
 
 - **Suavizado**: Si está activado, la oscuridad se suavizará para que puedas ver mejor los cambios graduales entre el día y la noche.
 
-
 ## Torres de telefonía
 Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations. Puedes pulsar en una torre para navegar hacia ella.
 
@@ -138,6 +137,7 @@ Esta capa muestra mareas visibles (dependientes del tiempo). Puedes añadir nuev
 Ajustes:
 
 - **Mostrar mareas modeladas**: Las mareas se cargarán desde el modelo integrado de la línea de costa.
+- **Mostrar fase de marea**: Las mareas mostrarán la dirección de la fase actual en lugar del icono de marea alta/baja.
 
 ## Avistamientos
 Esta capa muestra tus avistamientos de la guía de campo con datos de ubicación. El icono mostrado representa la clasificación de la entrada de la guía de campo (planta, ave, mamífero, etc.). Puedes pulsar un avistamiento para navegar hasta él.
@@ -152,6 +152,7 @@ Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújul
 Ajustes:
 
 - **Mostrar precisión GPS**: Determina si el círculo de precisión del GPS es visible.
+- **Indicador de ubicación grande**: Hace el marcador de ubicación más grande.
 
 ## Escala
 Esta capa muestra una barra de escala en la esquina inferior izquierda del mapa, que puede usarse para estimar distancias en el mapa.
