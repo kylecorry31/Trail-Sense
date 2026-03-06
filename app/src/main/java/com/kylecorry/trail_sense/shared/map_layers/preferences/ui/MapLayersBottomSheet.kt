@@ -9,6 +9,8 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.replaceChildFragment
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
+import com.kylecorry.trail_sense.tools.map.MapToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MapLayersBottomSheet(
     private val mapId: String,
@@ -24,6 +26,9 @@ class MapLayersBottomSheet(
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
+        if (mapId == MapToolRegistration.MAP_ID) {
+            Tools.triggerWidgetUpdate(requireContext(), MapToolRegistration.WIDGET_MAP)
+        }
     }
 
     override fun update() {
