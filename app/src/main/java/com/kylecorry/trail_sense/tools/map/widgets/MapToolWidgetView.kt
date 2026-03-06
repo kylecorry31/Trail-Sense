@@ -59,7 +59,7 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
             mapView.mapCenter = location
             mapView.mapAzimuth = 0f
             mapView.userLocation = location
-            mapView.resolution = 2.5f
+            mapView.resolution = 2f
 
             val layerIds =
                 repo.getActiveLayerIds(MapToolRegistration.MAP_ID) + listOf(
