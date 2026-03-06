@@ -41,7 +41,7 @@ The GPS and compass accuracy are displayed as status badges in the bottom-left c
 ## Widgets
 The following widgets can be placed on your device's home screen or viewed in-app:
 
-- **Map**: Displays a live snapshot of your configured map layers centered on your current location, always oriented north-up. The widget updates automatically and tapping it opens the Map tool.
+- **Map**: Displays your map layers centered on your current location, always oriented north-up. The widget updates automatically and tapping it opens the Map tool.
 
 ## Settings
 You can change tile detail in "Settings > Map > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
