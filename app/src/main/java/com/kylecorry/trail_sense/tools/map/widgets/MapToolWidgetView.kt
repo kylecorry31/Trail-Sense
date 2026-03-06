@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.map.ui.MapView
+import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.widgets.ChartToolWidgetViewBase
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
@@ -61,7 +62,10 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
             mapView.resolution = 2.5f
 
             val layerIds =
-                repo.getActiveLayerIds(MapToolRegistration.MAP_ID) + listOf(ScaleBarLayer.LAYER_ID)
+                repo.getActiveLayerIds(MapToolRegistration.MAP_ID) + listOf(
+                    ScaleBarLayer.LAYER_ID,
+                    CompassOverlayLayer.LAYER_ID
+                )
             mapView.setLayersWithPreferences(MapToolRegistration.MAP_ID, layerIds)
 
             if (drawAsCircle) {
