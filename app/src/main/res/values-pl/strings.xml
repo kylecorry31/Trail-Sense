@@ -336,7 +336,6 @@
     <string name="clouds">Chmury</string>
     <string name="import_btn">Import</string>
     <string name="export">Eksport</string>
-    <string name="cirrostratus_desc">Chmury wysokie, pierzasto-warstwowe. Składają się z kryształków lodu. Przejrzyste, mgliste i często prawie niewidoczne. Powodują powstawanie zjawiska halo wokół słońca lub księżyca. Zwiastują pogorszenie pogody.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
     <string name="quality_good">Precyzyjna</string>
     <string name="quality_poor">Dopuszczalna</string>
@@ -345,13 +344,6 @@
     <string name="gps_user">Nadpisany</string>
     <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urzadzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Zobacz [politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca obecnej lokalizacji (alerty o zachodach słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki&gt;Kalibracja GPS. \n \n- Po nacisnięciu przycisku Kontynuuj zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
     <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji aplikacji Trail Sense, korzystając z podręcznika użytkownika. Dostępnym na samym dole w zakładce Narzędzia. \n \nWkrótce pojawi się więcej przewodników.</string>
-    <string name="cirrus_desc">Chmury wysokie, pierzaste. Składające się z kryształków lodu. Przypominają nici pajęcze, delikatne włókna, \"włosy anielskie\". Zwiastują pogorszenie pogody.</string>
-    <string name="cumulonimbus_desc">Chmury niskie, kłębiaste, deszczowo-burzowe. Składają się z kropel wody w dolnej oraz kryształków lodu w górnej części. Przypominają kowadło. Wysokość ponad 20 km. Silny ciągły opad deszczu, gradu lub śniegu.</string>
-    <string name="cumulus_desc">Chmury niskie, kłębiaste. Składające sie z kropel wody. Płaska podstawa, wypiętrzającą się w górę na kształt kopuły. Chmury \"pięknej pogody\". Możliwy słaby przelotny opad deszczu.</string>
-    <string name="stratus_desc">Chmury niskie, warstwowe. Składające się z kropel wody. Jednolita biała lub szarawa warstwa, pokrywająca całe niebo. Mogą obniżyć się jako mgła. Możliwy słaby ciągły opad mżawki.</string>
-    <string name="nimbostratus_desc">Chmury niskie, warstwowe, deszczowo-śniegowe. O mieszanym składzie. Ciemnoszara jednolita warstwa, pokrywająca całe niebo. Umiarkowany ciągły opad deszczu lub śniegu.</string>
-    <string name="altostratus_desc">Chmury średnie, warstwowe. O mieszanym składzie. Gruba i gęsta, niebieska lub szara warstwa, która matowi prześwit słońca lub księżyca, pokrywająca całe niebo. Możliwy słaby ciągły opad mżawki lub ziaren lodowych.</string>
-    <string name="altocumulus_desc">Chmury średnie, kłębiaste. Zbudowane z kropel wody. Białe lub szare drobne przylegające do siebie obłoki, tworzące warstwę. Zwiastują zmianę pogody.</string>
     <string name="pref_require_satellites_title">Wymagaj ustalenia pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt trasy?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
@@ -504,7 +496,6 @@
     <string name="battery_history">Historia baterii - ostatnio %s</string>
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt nawigacyjny dla ostatniej lokalizacji sygnału komórkowego</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
-    <string name="cirrocumulus_desc">Chmury wysokie, pierzasto-kłębiaste. Składają się z kryształków lodu. Małe, białe płatki lub kłębki ułożone w szeregi, tzw. „baranki”. Zwiastują polepszenie pogody.</string>
     <string name="backtrack_disabled_low_power_toast">Funkcja szlaku powrotnego jest wyłączona w trybie oszczędzania energii</string>
     <string name="pref_backtrack_frequency_title">Interwał szlaku powrotnego</string>
     <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji szlaku powrotnego</string>
@@ -984,7 +975,6 @@
     <string name="clinometer_measure_height_instructions">Aby wykonać pomiar wysokości obiektu oddalonego o %s:\n\n1. Wyrównaj klinometr z podstawą obiektu\n2. Naciśnij i przytrzymaj ekran\n3. Wyrównaj klinometr ze szczytem obiektu\n4. Puść ekran, aby zablokować i zakończyć pomiar</string>
     <string name="clinometer_measure_distance_instructions">Aby wykonać pomiar odległości od obiektu o wysokości %s:\n\n1. Wyrównaj klinometr z podstawą obiektu\n2. Naciśnij i przytrzymaj ekran\n3. Wyrównaj klinometr ze szczytem obiektu\n4. Puść ekran, aby zablokować i zakończyć pomiar</string>
     <string name="disclaimer_estimated_tide">Szacowane pływy mogą być niedokładne. Proszę, użyj oficjalnej tabeli pływów dla dokładnych czasów.</string>
-    <string name="onboarding_explore">- Zaprojektowane z myślą o wspinaczce, podróżach, biwakowaniu oraz geocachingu\n\n- Twórz i kieruj się do punktów nawigacyjnych\n\n- Podążaj ścieżkami\n\n- Wracaj szlakami powrotnymi\n\n- Planuj co zapakować\n\n- Bądź informowany zanim zajdzie słońce\n\n- Przewiduj pogodę\n\n- Używaj telefonu jako latarki\n\n- ...oraz o wiele więcej!</string>
     <string name="beacons">Punkty nawigacyjne</string>
     <string name="tide_diurnal">Dzienny</string>
     <string name="exported">Wyeksportowano</string>
@@ -1138,7 +1128,6 @@
     <string name="enter_the_current_pressure">Wprowadź aktualne ciśnienie</string>
     <string name="sunset">Zachód słońca</string>
     <string name="sunrise">Wschód słońca</string>
-    <string name="pref_flashlight_control_screen_with_volume_title">Kontroluj jasność latarki przyciskami głośności</string>
     <string name="estimate_method">Metoda szacowania</string>
     <string name="tide_clock">Zegar pływów</string>
     <string name="lunitidal_interval">Odstep księżycowo-przypływowy</string>
@@ -1218,14 +1207,12 @@
     <string name="echinoderm">Szkarłupień</string>
     <string name="forest">Leśny</string>
     <string name="desert">Pustynny</string>
-    <string name="grassland">Stepowy</string>
     <string name="wetland">Podmokły</string>
     <string name="mountain">Górski</string>
     <string name="urban">Miejski</string>
     <string name="marine">Morski</string>
     <string name="freshwater">Słodkowodny</string>
     <string name="cave">Podziemny</string>
-    <string name="tundra">Polarny</string>
     <string name="diurnal">Dzienny</string>
     <string name="nocturnal">Nocny</string>
     <string name="crepuscular">Zmierzchowe (Zmierzch / Świt)</string>
@@ -1244,7 +1231,6 @@
     <string name="habitat">Środowisko</string>
     <string name="classification">Klasyfikacja</string>
     <string name="activity_pattern">Schemat aktywności</string>
-    <string name="human_interaction">Interakcja międzyludzka</string>
     <string name="no_pages">Brak stron</string>
     <string name="field_guide_disclaimer">Narzędzie jest przeznaczone wyłącznie do celów edukacyjnych. Zawsze zachowuj ostrożność podczas identyfikacji roślin, zwierząt oraz grzybów. Niektóre gatunki mogą być niebezpieczne lub chronione. Jeżeli nie masz pewności odnośnie identyfikacji, skonsultuj się ze specjalista.</string>
     <string name="no_results">Brak wyników</string>
@@ -1274,7 +1260,6 @@
     <string name="permits">Pozwolenie</string>
     <string name="no_permits">Brak pozwolenia</string>
     <string name="trace">Ślad</string>
-    <string name="map_trace_instructions">Przejdź do zacienionego miejsca lub zasłoń słońce materiałem oraz połóż kartkę papieru na ekranie, aby widzieć mapę przez kartkę. Użyj długopisu lub ołówka, aby zaznaczyć ślady na mapie. Unikaj markerów, które przebiją się przez papier.\n\nDolna nawigacja będzie wyświetlana, dopóki nie wyłączysz trybu śladu.</string>
     <string name="speed_format_feet_per_second">%s ft/s</string>
     <string name="speed_format_meters_per_second">%s m/s</string>
     <string name="feet_per_second">Stopy na sekundę</string>
