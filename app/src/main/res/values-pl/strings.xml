@@ -1278,4 +1278,7 @@
     <string name="climate_ice_cap">Polarny (Lądolód)</string>
     <string name="climate_temperate">Umiarkowany</string>
     <string name="climate_continental">Kontynentalny</string>
+    <string name="climate_tropical_description">Gorący i wilgotny klimat, z wysokimi opadami przez cały rok.</string>
+    <string name="climate_dry_description">Suchy klimat, z niskimi opadami oraz rzadką roślinnością.</string>
+    <string name="climate_temperate_description">Umiarkowany klimat, ze średnimi opadami oraz zróżnicowanymi porami roku.</string>
 </resources>
