@@ -84,13 +84,9 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
 
             mapView.layerManager.start()
 
-            // Initial draw
+            // Render the map (it needs time to load)
             val bitmap = createBitmap(size, size)
             val canvas = Canvas(bitmap)
-            mapView.draw(canvas)
-            canvas.drawColor(Color.TRANSPARENT)
-
-            // Wait for map to load and redraw
             var totalDelay = 0
             val maxDelay = 2000
             while (totalDelay < maxDelay) {
