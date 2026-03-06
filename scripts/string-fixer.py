@@ -81,9 +81,12 @@ class NonTranslatableTranslated(StringDiagnostic):
 
 class URLMismatch(StringDiagnostic):
     def check(self, source_tree, tree, element) -> bool:
-        if source_tree != tree:
+        if source_tree == tree:
             return False
-        source_string_value = get_string_element(source_tree, element.get('name')).text.strip()
+        source_element = get_string_element(source_tree, element.get('name'))
+        if source_element is None:
+            return False
+        source_string_value = source_element.text.strip()
         string_value = element.text.strip()
 
         source_urls = self.__get_urls(source_string_value)
@@ -100,7 +103,7 @@ class URLMismatch(StringDiagnostic):
 
     def __get_urls(self, text):
         # Regex to get all URLs
-        r = r'(https?://[^\s]+)'
+        r = r'\b((?:(?:https?|ftp):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))'
         # Find all matches
         return re.findall(r, text)
 
@@ -274,7 +277,7 @@ diagnostics = [
 
 # Run diagnostics on reference file
 for diagnostic in diagnostics:
-    for string_elem in reference_tree.iter('string'):
+    for string_elem in list(reference_tree.iter('string')):
         if diagnostic.check(reference_tree, reference_tree, string_elem):
             address_issue(reference_tree, string_elem, diagnostic, reference_file)
 if should_fix_issues:
@@ -291,7 +294,7 @@ for root, dirs, files in os.walk(script_dir + '/../app/src/main/res'):
             tree = read_xml(strings_file_path)
             root = tree.getroot()
             for diagnostic in diagnostics:
-                for string_elem in root.iter('string'):
+                for string_elem in list(root.iter('string')):
                     if diagnostic.check(reference_tree, tree, string_elem):
                         address_issue(tree, string_elem, diagnostic, strings_file_path)
             if should_fix_issues:
