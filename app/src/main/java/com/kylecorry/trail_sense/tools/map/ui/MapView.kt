@@ -38,6 +38,7 @@ import kotlin.math.min
 
 class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
     IMapView {
+    override var isWidget: Boolean = false
     var isInteractive = true
     var isPanEnabled = true
     var isZoomEnabled = true

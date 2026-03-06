@@ -54,6 +54,7 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
                 }
             }
             mapView.isInteractive = false
+            mapView.isWidget = true
             mapView.mapCenter = location
             mapView.mapAzimuth = 0f
             mapView.userLocation = location

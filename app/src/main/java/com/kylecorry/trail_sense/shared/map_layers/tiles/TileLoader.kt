@@ -70,10 +70,12 @@ class TileLoader(
         time: Instant,
         preferences: Bundle = bundleOf(),
         featureId: String? = null,
+        isWidget: Boolean = false,
         context: Context
     ) {
         val params = bundleOf(
             MapLayerParams.PARAM_TIME to time.toEpochMilli(),
+            MapLayerParams.PARAM_IS_WIDGET to isWidget,
             MapLayerParams.PARAM_PREFERENCES to Bundle(preferences)
         )
         featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }

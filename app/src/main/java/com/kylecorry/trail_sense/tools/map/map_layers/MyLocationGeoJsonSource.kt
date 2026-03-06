@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class MyLocationGeoJsonSource : GeoJsonSource {
@@ -60,7 +61,9 @@ class MyLocationGeoJsonSource : GeoJsonSource {
             )
         }
 
-        if (hasCompass) {
+        val isWidget = params.getBoolean(MapLayerParams.PARAM_IS_WIDGET, false)
+
+        if (hasCompass && !isWidget) {
             features.add(
                 GeoJsonFeature.point(
                     Coordinate.zero,

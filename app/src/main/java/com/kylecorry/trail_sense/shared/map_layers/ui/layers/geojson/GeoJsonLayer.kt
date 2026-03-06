@@ -44,6 +44,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
     protected var layerPreferences: Bundle = bundleOf()
     private var featureId: String? = null
+    private var isWidget = false
     private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
 
     private var _timeOverride: Instant? = null
@@ -85,7 +86,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                     }
                 }
 
-                val params = bundleOf(MapLayerParams.PARAM_TIME to _renderTime.toEpochMilli())
+                val params = bundleOf(
+                    MapLayerParams.PARAM_TIME to _renderTime.toEpochMilli(),
+                    MapLayerParams.PARAM_IS_WIDGET to isWidget
+                )
                 params.putBundle(MapLayerParams.PARAM_PREFERENCES, layerPreferences)
                 featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }
                 val obj =
@@ -137,6 +141,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
+        isWidget = map.isWidget
         renderer.draw(context, drawer, map)
         taskRunner.scheduleUpdate(
             context,
