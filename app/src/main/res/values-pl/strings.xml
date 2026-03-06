@@ -338,9 +338,9 @@
     <string name="export">Eksport</string>
     <string name="cirrostratus_desc">Chmury wysokie, pierzasto-warstwowe. Składają się z kryształków lodu. Przejrzyste, mgliste i często prawie niewidoczne. Powodują powstawanie zjawiska halo wokół słońca lub księżyca. Zwiastują pogorszenie pogody.</string>
     <string name="update_gps_override">Zaktualizuj nadpisanie GPS</string>
-    <string name="quality_good">Dobra</string>
-    <string name="quality_poor">Słaba</string>
-    <string name="unavailable">Niedostępny</string>
+    <string name="quality_good">Precyzyjna</string>
+    <string name="quality_poor">Dopuszczalna</string>
+    <string name="unavailable">Niedostępna</string>
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Nadpisany</string>
     <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urzadzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Zobacz [politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca obecnej lokalizacji (alerty o zachodach słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki&gt;Kalibracja GPS. \n \n- Po nacisnięciu przycisku Kontynuuj zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
@@ -405,7 +405,7 @@
     <string name="tomorrows_forecast">Prognoza na jutro</string>
     <string name="battery_power_ac">AC</string>
     <string name="low">Niskie</string>
-    <string name="moderate">Umiarkowane</string>
+    <string name="moderate">Umiarkowana</string>
     <string name="high">Wysokie</string>
     <string name="speedometer">Prędkościomierz</string>
     <string name="screen_flashlight">Ekran</string>
@@ -1293,4 +1293,4 @@
     <string name="climate_ice_cap">Polarny (Lądolód)</string>
     <string name="climate_temperate">Umiarkowany</string>
     <string name="climate_continental">Kontynentalny</string>
-    </resources>
+</resources>
