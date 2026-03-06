@@ -344,9 +344,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         drawer.rotate(-mapAzimuth)
         drawLayers()
         pop()
-        layerManager.drawOverlay(context, this, this)
-
         pop()
+        layerManager.drawOverlay(context, this, this)
     }
 
     private fun drawLayers() {

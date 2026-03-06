@@ -38,6 +38,11 @@ When you are finished tracing, click the lock icon in the bottom-right to turn o
 ## Sensor status
 The GPS and compass accuracy are displayed as status badges in the bottom-left corner of the map. Tap them to see tips on improving location and compass accuracy.
 
+## Widgets
+The following widgets can be placed on your device's home screen or viewed in-app:
+
+- **Map**: Displays a live snapshot of your configured map layers centered on your current location, always oriented north-up. The widget updates automatically and tapping it opens the Map tool.
+
 ## Settings
 You can change tile detail in "Settings > Map > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
 

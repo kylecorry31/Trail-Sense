@@ -20,10 +20,14 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
+import com.kylecorry.trail_sense.tools.map.widgets.AppWidgetMap
+import com.kylecorry.trail_sense.tools.map.widgets.MapToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
@@ -46,6 +50,16 @@ object MapToolRegistration : ToolRegistration {
                 ToolBroadcast(
                     BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
                     "GeoJSON feature selection changed"
+                )
+            ),
+            widgets = listOf(
+                ToolWidget(
+                    WIDGET_MAP,
+                    context.getString(R.string.map),
+                    ToolSummarySize.TallFull,
+                    MapToolWidgetView(),
+                    AppWidgetMap::class.java,
+                    usesLocation = true
                 )
             ),
             mapLayers = listOf(
@@ -309,6 +323,8 @@ object MapToolRegistration : ToolRegistration {
             )
         )
     }
+
+    const val WIDGET_MAP = "map_widget"
 
     val MAP_ID = "map"
 
