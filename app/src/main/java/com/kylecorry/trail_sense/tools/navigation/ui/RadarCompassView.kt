@@ -79,6 +79,7 @@ class RadarCompassView : BaseCompassView {
     )
 
     private fun drawAzimuth() {
+        fill(Color.WHITE)
         tint(
             if (drawDialBezel) Color.WHITE.withAlpha(220) else Resources.androidTextColorPrimary(
                 context
