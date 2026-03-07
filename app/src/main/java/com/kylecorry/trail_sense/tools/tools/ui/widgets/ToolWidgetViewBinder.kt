@@ -19,6 +19,7 @@ import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -73,10 +74,14 @@ class ToolWidgetViewBinder(
 
             layout.layoutParams = FlexboxLayout.LayoutParams(
                 FlexboxLayout.LayoutParams.MATCH_PARENT,
-                if (widget.size == ToolSummarySize.Full) fullSummaryHeight else halfSummaryHeight
+                when (widget.size) {
+                    ToolSummarySize.Half -> halfSummaryHeight
+                    ToolSummarySize.Full -> fullSummaryHeight
+                    ToolSummarySize.TallFull -> (fullSummaryHeight * 1.5f).safeRoundToInt()
+                }
             ).apply {
                 flexBasisPercent = when (widget.size) {
-                    ToolSummarySize.Full -> 1f
+                    ToolSummarySize.Full, ToolSummarySize.TallFull -> 1f
                     ToolSummarySize.Half -> 0.5f
                 }
             }

@@ -195,7 +195,7 @@ open class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences, featureId, context)
+            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences, featureId, map.isWidget, context)
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }

@@ -20,5 +20,6 @@ data class ToolWidget(
 
 enum class ToolSummarySize {
     Half,
-    Full
+    Full,
+    TallFull
 }

@@ -23,6 +23,11 @@ interface IMapView {
      */
     val mapProjection: IMapViewProjection
 
+    /**
+     * Whether this map view is being rendered as a widget (e.g. home screen widget).
+     */
+    var isWidget: Boolean
+
     var userLocation: Coordinate
 
     var userLocationAccuracy: Distance?

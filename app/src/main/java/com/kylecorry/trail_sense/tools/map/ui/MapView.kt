@@ -38,6 +38,7 @@ import kotlin.math.min
 
 class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
     IMapView {
+    override var isWidget: Boolean = false
     var isInteractive = true
     var isPanEnabled = true
     var isZoomEnabled = true
@@ -344,9 +345,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         drawer.rotate(-mapAzimuth)
         drawLayers()
         pop()
-        layerManager.drawOverlay(context, this, this)
-
         pop()
+        layerManager.drawOverlay(context, this, this)
     }
 
     private fun drawLayers() {

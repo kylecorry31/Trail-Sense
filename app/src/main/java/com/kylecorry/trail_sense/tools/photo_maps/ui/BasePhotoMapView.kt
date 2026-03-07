@@ -46,6 +46,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     private val hooks = Hooks()
 
+    override var isWidget: Boolean = false
+
     override var userLocation: Coordinate = Coordinate.zero
         set(value) {
             field = value
