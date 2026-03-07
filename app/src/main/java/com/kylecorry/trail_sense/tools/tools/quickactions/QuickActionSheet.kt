@@ -88,7 +88,7 @@ class QuickActionSheet @JvmOverloads constructor(
 
         widgetBinder?.unbind()
         quickActionBinder = MainActivityQuickActionBinder(fragment, binding)
-        widgetBinder = ToolWidgetViewBinder(fragment, binding)
+        widgetBinder = ToolWidgetViewBinder(fragment, binding.widgets)
         quickActionBinder?.bind()
         widgetBinder?.bind()
         binding.quickActionsSheet.isVisible = true

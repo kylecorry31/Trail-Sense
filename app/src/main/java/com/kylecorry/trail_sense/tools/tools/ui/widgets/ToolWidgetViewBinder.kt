@@ -14,24 +14,28 @@ import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
 class ToolWidgetViewBinder(
     private val fragment: Fragment,
-    private val binding: ViewQuickActionSheetBinding
+    private val widgetsContainer: FlexboxLayout,
+    private val showBackground: Boolean = true
 ) {
 
     private val widgets = mutableListOf<WidgetInstance>()
     private val prefs by lazy { UserPreferences(fragment.requireContext()) }
     private val context by lazy { fragment.requireContext() }
+    private val gps: IGPS by lazy { SensorService(context).getGPS(Duration.ofSeconds(1)) }
 
     private val lifecycleEventObserver = LifecycleEventObserver { _, event ->
         when (event) {
@@ -53,7 +57,7 @@ class ToolWidgetViewBinder(
         // Only show the selected widgets
         val widgets = allWidgets.filter { selectedWidgets.contains(it.id) }
 
-        binding.widgets.removeAllViews()
+        widgetsContainer.removeAllViews()
 
         // 2 cells on a Pixel phone = 102dp
         val halfSummaryHeight = Resources.dp(context, 102f).toInt()
@@ -87,7 +91,7 @@ class ToolWidgetViewBinder(
             }
             layout.setPadding(summaryGap)
 
-            binding.widgets.addView(layout)
+            widgetsContainer.addView(layout)
 
             val updateFunction = {
                 fragment.inBackground {
@@ -97,12 +101,16 @@ class ToolWidgetViewBinder(
                     onMain {
                         tryOrLog {
                             layout.updateAppWidget(views)
-                            layout.getChildAt(0)?.backgroundTintList =
-                                ColorStateList.valueOf(
-                                    Resources.androidBackgroundColorSecondary(
-                                        context
+                            if (showBackground) {
+                                layout.getChildAt(0)?.backgroundTintList =
+                                    ColorStateList.valueOf(
+                                        Resources.androidBackgroundColorSecondary(
+                                            context
+                                        )
                                     )
-                                )
+                            } else {
+                                layout.getChildAt(0)?.background = null
+                            }
                         }
                     }
                 }
@@ -113,8 +121,16 @@ class ToolWidgetViewBinder(
             val widgetView =
                 widget.widgetView.getView(context, null)
             layout.updateAppWidget(widgetView)
-            layout.getChildAt(0)?.backgroundTintList =
-                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(context))
+            if (showBackground) {
+                layout.getChildAt(0)?.backgroundTintList =
+                    ColorStateList.valueOf(
+                        Resources.androidBackgroundColorSecondary(
+                            context
+                        )
+                    )
+            } else {
+                layout.getChildAt(0)?.background = null
+            }
         }
 
         this.widgets.forEach {
@@ -136,8 +152,7 @@ class ToolWidgetViewBinder(
 
     private fun onResume() {
         Tools.subscribe(SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET, this::onUpdate)
-
-        // TODO: Get a GPS / elevation reading
+        gps.start(this::onGpsUpdate)
 
         // Update all widgets
         widgets.forEach { it.updateFunction() }
@@ -152,6 +167,7 @@ class ToolWidgetViewBinder(
 
     private fun onPause() {
         Tools.unsubscribe(SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET, this::onUpdate)
+        gps.stop(this::onGpsUpdate)
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
                 context,
@@ -170,6 +186,10 @@ class ToolWidgetViewBinder(
             )
         }
         this.widgets.clear()
+    }
+
+    private fun onGpsUpdate(): Boolean {
+        return true
     }
 
     private fun onUpdate(data: Bundle): Boolean {

@@ -418,6 +418,7 @@
     <string name="pref_sensor_details" translatable="false">pref_sensor_details</string>
     <string name="pref_sensor_details_title">Sensor details</string>
     <string name="tool_clock_title">Clock</string>
+    <string name="tool_dashboard_title">Dashboard</string>
     <string name="lightning">Lightning</string>
     <string name="thunder">Thunder</string>
     <string name="reset">Reset</string>

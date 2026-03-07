@@ -392,6 +392,10 @@
         android:name="com.kylecorry.trail_sense.tools.clock.ui.ToolClockFragment"
         android:label="ToolClockFragment" />
     <fragment
+        android:id="@+id/toolDashboardFragment"
+        android:name="com.kylecorry.trail_sense.tools.dashboard.ui.DashboardFragment"
+        android:label="DashboardFragment" />
+    <fragment
         android:id="@+id/fragmentToolLightning"
         android:name="com.kylecorry.trail_sense.tools.lightning.ui.FragmentToolLightning"
         android:label="FragmentToolLightning" />

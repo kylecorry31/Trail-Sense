@@ -59,6 +59,7 @@ import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.triangulate.TriangulateLocationToolRegistration
 import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
+import com.kylecorry.trail_sense.tools.dashboard.DashboardToolRegistration
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.whistle.WhistleToolRegistration
 import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
@@ -116,7 +117,8 @@ object Tools {
         BallisticsToolRegistration,
         PermitsToolRegistration,
         DeclinationToolRegistration,
-        MapToolRegistration
+        MapToolRegistration,
+        DashboardToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
@@ -296,6 +298,7 @@ object Tools {
     const val PERMITS = 45L
     const val DECLINATION = 46L
     const val MAP = 47L
+    const val DASHBOARD = 48L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
