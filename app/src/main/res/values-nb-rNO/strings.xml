@@ -1252,4 +1252,6 @@
     <string name="pref_high_detail_mode_summary">Laster flere fliser for høyere kvalitet. Bruker mere minne.</string>
     <string name="ecology">Økologi</string>
     <string name="active_all_year">Aktive hele året</string>
+    <string name="pref_navigation_show_azimuth_indicator_summary">Framhev den gjeldende kursen på kompasset</string>
+    <string name="pref_navigation_show_azimuth_indicator_title">Vis asimutindikator</string>
 </resources>
