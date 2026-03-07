@@ -49,6 +49,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
+    override var isLoaded: Boolean = false
 
     override fun setTime(time: Instant?) {
         _timeOverride = time
@@ -57,6 +58,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     protected fun refresh() {
         _renderTime = _timeOverride ?: Instant.now()
+        isLoaded = false
         invalidate()
         notifyListeners()
     }
@@ -79,8 +81,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             isInvalid = false
             val zoomLevel = projection.zoom.roundToInt()
             try {
+                isLoaded = false
                 if (minZoomLevel != null) {
                     if (zoomLevel < minZoomLevel) {
+                        isLoaded = true
                         renderer.setGeoJsonObject(GeoJsonFeatureCollection(emptyList()))
                         return@addTask
                     }
@@ -97,6 +101,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                         emptyList()
                     )
                 renderer.setGeoJsonObject(obj)
+                isLoaded = true
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Throwable) {
