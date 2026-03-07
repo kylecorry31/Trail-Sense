@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.map.widgets
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Path
 import android.view.View
 import android.widget.RemoteViews
@@ -89,10 +88,14 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
             val canvas = Canvas(bitmap)
             var totalDelay = 0
             val maxDelay = 2000
-            while (totalDelay < maxDelay) {
+            while (totalDelay < maxDelay && mapView.layerManager.getLayers().any { !it.isLoaded }) {
                 mapView.draw(canvas)
                 delay(100)
                 totalDelay += 100
+            }
+            // A few more draws just in case
+            repeat(3) {
+                mapView.draw(canvas)
             }
             views.setImageViewBitmap(CHART, bitmap)
             mapView.layerManager.stop()

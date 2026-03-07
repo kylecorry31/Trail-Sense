@@ -21,6 +21,9 @@ interface ILayer {
     val isTimeDependent: Boolean
         get() = false
 
+    val isLoaded: Boolean
+        get() = true
+
     /**
      * Set the time of the layer
      */

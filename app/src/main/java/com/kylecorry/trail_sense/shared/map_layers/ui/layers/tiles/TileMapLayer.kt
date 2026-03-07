@@ -56,6 +56,7 @@ open class TileMapLayer<T : TileSource>(
 ) : IAsyncLayer {
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
+    override var isLoaded: Boolean = false
 
     override fun setTime(time: Instant?) {
         _timeOverride = time
@@ -87,6 +88,7 @@ open class TileMapLayer<T : TileSource>(
 
     private val loadTimer = CoroutineTimer {
         queue.load(16)
+        isLoaded = queue.count() == 0
     }
     private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
 
@@ -195,7 +197,14 @@ open class TileMapLayer<T : TileSource>(
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
-            loader?.loadTiles(desiredTiles, _renderTime, layerPreferences, featureId, map.isWidget, context)
+            loader?.loadTiles(
+                desiredTiles,
+                _renderTime,
+                layerPreferences,
+                featureId,
+                map.isWidget,
+                context
+            )
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
@@ -491,6 +500,7 @@ open class TileMapLayer<T : TileSource>(
         loader?.tileCache?.snapshot()?.forEach {
             it.value.invalidate()
         }
+        isLoaded = false
         loadTimer.interval(100)
         invalidate()
         notifyListeners()
