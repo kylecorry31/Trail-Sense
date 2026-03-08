@@ -9,7 +9,7 @@ También puedes pulsar el icono de búsqueda para encontrar la próxima ocurrenc
 El tiempo hasta la salida o la puesta del sol se muestra en la parte superior de la pantalla. Esto respeta los 'Tiempos de salida/puesta del sol' en 'Ajustes > Astronomía. Para la descripción de cada tiempo, consulta la sección Sol más abajo.
 
 ## Gráfico
-El gráfico muestra la posición del sol y la luna a lo largo del día. El eje X es el tiempo y el eje Y es la altitud o altura en el cielo. Puedes pulsar el icono del sol o la luna en el gráfico para ver su posición actual. Cuando lo hagas, aparecerá un deslizador para que veas su posición en otro momento del día.
+El gráfico muestra la posición del sol y la luna a lo largo del día. El eje X es el tiempo y el eje Y es la altitud o altura en el cielo. Puedes pulsar el icono del sol o la luna en el gráfico para ver su posición actual o pulsa en el gráfico para ver su posición en otro momento. Cuando lo hagas, aparecerá un deslizador para que veas su posición en otro momento del día.
 
 También puedes optar por mantener la hora actual centrada en el gráfico activando 'Mantener sol/luna centrados' en Ajustes > Astronomía. Esto mantendrá la hora actual centrada en el gráfico cuando tengas seleccionado hoy y mostrará 12 horas antes y después de la hora actual. Si tienes seleccionada otra fecha, mostrará el día completo.
 

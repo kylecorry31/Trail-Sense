@@ -1,0 +1,170 @@
+Las capas se usan para mostrar información en el mapa. Son configurables en Navegar, Mapas Calibrados y Herramienta de Mapa. Consulta las guías de la herramienta correspondiente para saber cómo acceder a los ajustes de capa.
+
+Algunas capas dependen del tiempo (marcadas abajo). Al ver estas capas en la herramienta Mapa, puedes cambiar la hora del mapa para verlas en distintos momentos. En otras herramientas, siempre muestran la hora actual.
+
+En el panel de ajustes de capas, cuanto más arriba esté una capa en la lista, más "encima" se dibujará en el mapa. Puedes usar las flechas en el lado izquierdo para ajustar el orden de las capas.
+
+Pulsa  el nombre de la capa para ver sus ajustes.
+
+Puedes usar el botón "Capas adicionales" en la parte inferior de la lista de capas para añadir capas adicionales.
+
+Cada capa tiene los siguientes ajustes:
+
+- **Visible**: Determina si la capa se muestra en el mapa. Cuando no está visible, el título de la capa aparecerá atenuado.
+- **Opacidad**: Determina la transparencia es la capa. 0 es transparente y 100 es opaco.
+- **Copiar ajustes a otros mapas**: Copia los ajustes de la capa a otros mapas. Abre un cuadro de diálogo donde podrás elegir a qué mapas copiar los ajustes.
+- **Eliminar capas**: Elimina esta capa de la lista de capas activas. Puedes volver a editarla mediante el botón "Capas adicionales".
+
+## Mapa base
+Esta capa muestra un mapa del mundo con colores basados en imágenes satelitales. Tiene muy baja resolución y no es adecuado para navegación.
+
+## Elevación
+Esta capa muestra la elevación del modelo digital de elevación (DEM) como color.
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Color**: La escala de color de los píxeles. El color cambiará según la elevación.
+- **Alta resolución**: Si está activado, la resolución aumentará al alejar el zoom. Esto puede ser más lento.
+
+## Sombreado del terreno
+Esta capa dibuja sombras para ayudar a ver la elevación en el terreno a partir del modelo de elevación digital (DEM).
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Dibujar sombras precisas**: Las sombras se dibujarán usando la posición del sol y la luna, pero la apariencia 3D puede reducirse.
+- **Sombreado multidireccional**: Las sombras se calcularán desde múltiples direcciones de luz para mejorar los detalles del terreno.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Puede ser más lento.
+
+## Inclinación
+Esta capa colorea el terreno según la inclinación usando el modelo de elevación digital (DEM).
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Color**: La escala de color de los píxeles. El color cambiará según la inclinación.
+  - **Verde a rojo**: Verde para zonas llanas, amarillo para pendientes moderadas y rojo para pendientes pronunciadas.
+  - **Blanco a rojo**: Blanco para zonas llanas, amarillo para pendientes moderadas y rojo para pendientes pronunciadas.
+  - **Escala de grises**: Negro para zonas llanas a blanco para pendientes pronunciadas.
+- **Suavizar**: Los colores de la pendiente se suavizarán para que veas mejor los cambios graduales.
+- **Ocultar terreno plano**: El terreno plano (pendiente por debajo de 10 grados) será invisible.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Puede ser más lento.
+
+## Rugosidad
+Esta capa colorea el terreno según cuánto cambia la elevación a su alrededor (índice de rugosidad).
+
+Baja rugosidad es verde, moderada es amarillo/naranja y terreno muy rugoso es rojo.
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza a ajustes > Altímetro para configurar la fuente del DEM.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Puede ser más lento.
+
+## Orientación
+Esta capa colorea el terreno según la orientación (la dirección hacia la que mira la pendiente) usando el modelo de elevación digital (DEM).
+
+Verde = Norte, Azul = Este, Rojo = Sur, Naranja = Oeste
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Alta resolución**: La resolución aumentará al alejar el zoom. Esto puede ser más lento.
+
+## Mapas Calibrados
+Esta capa muestra los mapas calibrados visibles, con el mapa más acercado apareciendo arriba. Puedes añadir nuevos mapas en la herramienta Mapas Calibrados.
+
+Ajustes:
+
+- **Cargar mosáicos PDF**: Si está activado, se cargarán mosaicos PDF para mapas que tengan una versión PDF disponible. Esto es más lento pero proporciona mapas de mayor resolución.
+
+## Curvas de nivel
+Esta capa muestra curvas de nivel generadas a partir del modelo de elevación digital (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa.
+
+Ajustes:
+
+- **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
+- **Mostrar etiquetas**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
+- **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
+
+## Eclipse solar
+Esta capa muestra la visibilidad del eclipse solar (dependiente del tiempo).
+
+Negro = eclipse total, Gris = eclipse parcial
+
+Ajustes:
+
+- **Suavizado**: Si está activado, la visibilidad del eclipse se suavizará para que puedas ver mejor los cambios graduales. Sin embargo, hace más difícil ver dónde está el eclipse total.
+- **Mostrar ruta**: Si está activado, se muestra la trayectoria del eclipse en lugar de la visibilidad actual.
+
+## Eclipse lunar
+Esta capa muestra la visibilidad del eclipse lunar (dependiente del tiempo).
+
+Naranja = el eclipse es visible
+
+Ajustes:
+
+- **Mostrar ruta**: Si está activado, se muestra la trayectoria del eclipse en lugar de la visibilidad actual.
+
+## Noche
+Esta capa muestra dónde es de noche basándose en la altitud del sol (dependiente del tiempo).
+
+Negro = sol muy por debajo del horizonte, Gris = sol justo por debajo del horizonte
+
+Ajustes:
+
+- **Suavizado**: Si está activado, la oscuridad se suavizará para que puedas ver mejor los cambios graduales entre el día y la noche.
+
+## Torres de telefonía
+Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations. Puedes pulsar en una torre para navegar hacia ella.
+
+### Senderos
+Esta capa muestra los senderos visibles. Puedes añadir nuevos senderos en la herramienta Rutas.
+
+Ajustes:
+
+- **Color de fondo**: El color de fondo para renderizar detrás de los senderos para mayor visibilidad.
+
+## Balizas
+Esta capa muestra las balizas visibles. Puedes añadir nuevas balizas en la herramienta Balizas. Puedes pulsar en una baliza para navegar hacia ella.
+
+## Navegación
+Esta capa dibuja una línea entre tu ubicación y el punto de destino al que navegas.
+
+## Mareas
+Esta capa muestra mareas visibles (dependientes del tiempo). Puedes añadir nuevas mareas en la herramienta Mareas.
+
+Ajustes:
+
+- **Mostrar mareas modeladas**: Las mareas se cargarán desde el modelo integrado de la línea de costa.
+- **Mostrar fase de marea**: Las mareas mostrarán la dirección de la fase actual en lugar del icono de marea alta/baja.
+
+## Avistamientos
+Esta capa muestra tus avistamientos de la guía de campo con datos de ubicación. El icono mostrado representa la clasificación de la entrada de la guía de campo (planta, ave, mamífero, etc.). Puedes pulsar un avistamiento para navegar hasta él.
+
+Ajustes:
+
+- **Mostrar imágenes**: La imagen de la página de la guía de campo se mostrará en lugar del icono de la categoría.
+
+## Mi ubicación
+Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújula) y la precisión de tu GPS.
+
+Ajustes:
+
+- **Mostrar precisión GPS**: Determina si el círculo de precisión del GPS es visible.
+- **Indicador de ubicación grande**: Hace el marcador de ubicación más grande.
+
+## Escala
+Esta capa muestra una barra de escala en la esquina inferior izquierda del mapa, que puede usarse para estimar distancias en el mapa.
+
+Esta capa no es actualmente configurable.
+
+### Elevación
+Esta capa muestra tu elevación en la esquina inferior derecha del mapa.
+
+Esta capa no es actualmente configurable.
+
+## Brújula
+Esta capa muestra una brújula en la esquina superior derecha del mapa. Muestra dónde está el norte verdadero en el mapa.
+
+Esta capa no es actualmente configurable.
