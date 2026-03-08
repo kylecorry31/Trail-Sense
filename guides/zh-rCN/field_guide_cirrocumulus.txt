@@ -1,4 +1,5 @@
 卷积云
-高层云层形成波浪状的云层。这张纸由小点组成，几乎看起来像二维的。未来8至12小时内可能有降水。
 
-https://en.wikipedia.org/wiki/Cirrocumulus_cloud
+形成波浪状薄片的高层云。该薄片由几乎看起来是二维的小点组成。可能预示未来8至12小时内将有降水。
+
+https://zh.wikipedia.org/wiki/卷积云

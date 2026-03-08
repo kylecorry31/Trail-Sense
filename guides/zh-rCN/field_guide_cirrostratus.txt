@@ -1,4 +1,5 @@
-卷云
-：覆盖天空的高云。它是透明的，通常会在太阳周围形成晕。未来10至15小时内可能有降水迹象。
+卷层云
 
-https://en.wikipedia.org/wiki/Cirrostratus_cloud
+一种覆盖天空的高层云。它呈透明状，通常会导致太阳周围形成光晕。可能预示未来10至15小时内将有降水。
+
+https://zh.wikipedia.org/wiki/卷层云
