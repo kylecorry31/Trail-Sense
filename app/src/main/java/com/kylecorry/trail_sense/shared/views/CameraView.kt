@@ -56,6 +56,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var captureListener: ((Bitmap) -> Unit)? = null
     private var isTorchOn = false
     private var zoom: Float = -1f
+    var defaultZoomRatio: Float = 1f
+    var minZoomRatio: Float? = null
     private var isCapturing = false
     private var exposureCompensation = 0f
     private var exposureTime: Duration? = null
@@ -169,7 +171,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         zoomSeek.progress = (zoom * 100).toInt()
         this.zoom = zoom
         val state = camera?.zoom
-        val min = state?.ratioRange?.start ?: 1f
+        val min = minZoomRatio ?: state?.ratioRange?.start ?: 1f
         val max = state?.ratioRange?.end ?: 2f
         camera?.setZoomRatio(Interpolation.map(zoom, 0f, 1f, min, max))
         hasPendingChanges = true
@@ -178,7 +180,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     @Suppress("MemberVisibilityCanBePrivate")
     fun setZoomRatio(ratio: Float) {
         val state = camera?.zoom
-        val min = state?.ratioRange?.start ?: 1f
+        val min = minZoomRatio ?: state?.ratioRange?.start ?: 1f
         val max = state?.ratioRange?.end ?: 2f
         val pct = Interpolation.norm(ratio, min, max)
         setZoom(pct)
@@ -228,7 +230,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
         if (zoom == -1f) {
-            setZoomRatio(1f)
+            setZoomRatio(defaultZoomRatio)
         }
         if (hasPendingChanges) {
             println("Applying changes")

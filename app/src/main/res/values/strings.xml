@@ -1448,6 +1448,7 @@
     <string name="cloud_scanner">Cloud Scanner</string>
     <string name="open_photo_map">Open photo map</string>
     <string name="mirror_camera">Mirror Camera</string>
+    <string name="tool_magnifier_title">Magnifier</string>
     <string name="tool_turn_back">Turn Back</string>
     <string name="return_time">Return time</string>
     <!--    First %s is the time to turn back (10:24), the second is the countdown to turn back (1h 10m), the third is the time of return (14:24)-->
