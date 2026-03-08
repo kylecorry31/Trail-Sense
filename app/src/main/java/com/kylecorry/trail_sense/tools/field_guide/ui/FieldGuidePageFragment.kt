@@ -1,10 +1,13 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Color
+import android.text.util.Linkify.WEB_URLS
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
+import androidx.core.text.toSpannable
+import androidx.core.text.util.LinkifyCompat
 import androidx.core.view.isVisible
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
@@ -57,7 +60,9 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
                 )
             }
             titleView.title.text = page?.name
-            notesView.text = page?.notes
+            val noteText = page?.notes?.toSpannable()
+            noteText?.let { LinkifyCompat.addLinks(it, WEB_URLS) }
+            notesView.text = noteText
             val image = page?.images?.firstOrNull()
             imageView.setImageDrawable(
                 image?.let { files.drawable(it) }
