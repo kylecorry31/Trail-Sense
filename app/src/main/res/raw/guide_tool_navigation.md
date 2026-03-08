@@ -20,6 +20,10 @@ Nearby beacons will be shown as arrows around the compass. The arrows will point
 
 You can pinch to zoom the compass, which will change the nearby beacon radius.
 
+By default, the compass displays degree markings inside the dial. You can enable Settings > Navigation > Show compass dial bezel to move these markings to a bezel around the outside of the compass instead.
+
+The azimuth indicator highlights your current bearing on the compass, always facing the top of the device. It is shown by default and can be turned off in Settings > Navigation > Show azimuth indicator.
+
 If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks' option. Please note, that without a compass sensor, moving your device will not change the direction of the compass.
 
 Layers are used to display information on the compass. You can find layer settings in Settings > Navigation or by long pressing the compass. For more information on layers, refer to the 'Map Layers' guide.
