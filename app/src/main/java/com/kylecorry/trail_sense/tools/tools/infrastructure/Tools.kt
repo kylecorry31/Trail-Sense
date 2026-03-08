@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.tools.guide.UserGuideToolRegistration
 import com.kylecorry.trail_sense.tools.level.BubbleLevelToolRegistration
 import com.kylecorry.trail_sense.tools.light.LightMeterToolRegistration
 import com.kylecorry.trail_sense.tools.lightning.LightningStrikeDistanceToolRegistration
+import com.kylecorry.trail_sense.tools.magnifier.MagnifierToolRegistration
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.metaldetector.MetalDetectorToolRegistration
 import com.kylecorry.trail_sense.tools.mirror.MirrorCameraToolRegistration
@@ -116,7 +117,8 @@ object Tools {
         BallisticsToolRegistration,
         PermitsToolRegistration,
         DeclinationToolRegistration,
-        MapToolRegistration
+        MapToolRegistration,
+        MagnifierToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
@@ -296,6 +298,7 @@ object Tools {
     const val PERMITS = 45L
     const val DECLINATION = 46L
     const val MAP = 47L
+    const val MAGNIFIER = 48L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
