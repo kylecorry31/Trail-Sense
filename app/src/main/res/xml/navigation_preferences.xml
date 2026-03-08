@@ -91,7 +91,7 @@
         <ListPreference
             android:entries="@array/sun_moon_compass_entries"
             android:entryValues="@array/sun_moon_compass_values"
-            app:defaultValue="never"
+            app:defaultValue="when_up"
             app:iconSpaceReserved="false"
             app:key="@string/pref_show_sun_moon_compass"
             app:singleLineTitle="false"

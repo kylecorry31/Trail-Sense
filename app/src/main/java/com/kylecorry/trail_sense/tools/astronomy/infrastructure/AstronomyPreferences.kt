@@ -32,14 +32,14 @@ class AstronomyPreferences(private val context: Context) {
     val showOnCompass: Boolean
         get() {
             val raw =
-                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "never"
+                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "when_up"
             return raw == "always" || raw == "when_up"
         }
 
     val showOnCompassWhenDown: Boolean
         get() {
             val raw =
-                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "never"
+                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "when_up"
             return raw == "always"
         }
 
