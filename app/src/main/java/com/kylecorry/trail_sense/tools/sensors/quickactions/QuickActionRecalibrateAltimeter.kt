@@ -29,7 +29,7 @@ class QuickActionRecalibrateAltimeter(btn: ImageButton, fragment: Fragment) :
 
     override fun onCreate() {
         super.onCreate()
-        setIcon(R.drawable.ic_altitude)
+        setIcon(R.drawable.refresh_altitude)
     }
 
     override fun onClick() {
