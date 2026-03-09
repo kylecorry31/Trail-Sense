@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.settings.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
 import android.text.util.Linkify.WEB_URLS
@@ -76,6 +77,13 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private val overridePopulationRunner = CoroutineQueueRunner(dispatcher = Dispatchers.Default)
+
+    private val seaLevelPressureListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == getString(R.string.pref_sea_level_pressure_override)) {
+                restartAltimeter()
+            }
+        }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.altimeter_calibration, rootKey)
@@ -248,12 +256,14 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     override fun onResume() {
         super.onResume()
+        preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(seaLevelPressureListener)
         startAltimeter()
         updateTimer.interval(200)
     }
 
     override fun onPause() {
         super.onPause()
+        preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(seaLevelPressureListener)
         stopAltimeter()
         updateTimer.stop()
         overridePopulationRunner.cancel()
