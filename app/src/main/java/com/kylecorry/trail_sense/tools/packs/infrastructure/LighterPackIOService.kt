@@ -41,7 +41,8 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
             HEADER_WEIGHT_AMOUNT,
             HEADER_WEIGHT_UNIT,
             HEADER_PACKED_QUANTITY,
-            HEADER_DESIRED_QUANTITY
+            HEADER_DESIRED_QUANTITY,
+            HEADER_OPTIONAL
         )
 
         val items = pack.map {
@@ -53,7 +54,8 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
                 (it.weight?.value ?: 0f).toString(),
                 formatWeightUnit(it.weight?.units ?: WeightUnits.Grams),
                 it.amount.toString(),
-                it.desiredAmount.toString()
+                it.desiredAmount.toString(),
+                it.isOptional.toString()
             )
         }
         return listOf(headers) + items
@@ -72,6 +74,7 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
         val qtyIdx = headerRow.indexOf(HEADER_QUANTITY.lowercase())
         val packedQtyIdx = headerRow.indexOf(HEADER_PACKED_QUANTITY.lowercase())
         val desiredQtyIdx = headerRow.indexOf(HEADER_DESIRED_QUANTITY.lowercase())
+        val optionalIdx = headerRow.indexOf(HEADER_OPTIONAL.lowercase())
 
         return data.drop(1).map { it ->
             val name = it.getOrNull(nameIdx) ?: ""
@@ -81,6 +84,7 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
             val packedQty = it.getOrNull(packedQtyIdx)?.toDoubleCompat() ?: 0.0
             val desiredQty = it.getOrNull(desiredQtyIdx)?.toDoubleCompat() ?: it.getOrNull(qtyIdx)
                 ?.toDoubleCompat() ?: 0.0
+            val isOptional = parseOptional(it.getOrNull(optionalIdx))
             PackItem(
                 0,
                 0,
@@ -88,7 +92,16 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
                 category,
                 amount = packedQty,
                 desiredAmount = desiredQty,
-                weight = weight?.let { Weight.from(it, unit) })
+                weight = weight?.let { Weight.from(it, unit) },
+                isOptional = isOptional
+            )
+        }
+    }
+
+    private fun parseOptional(value: String?): Boolean {
+        return when (value?.trim()?.lowercase()) {
+            "true", "1", "yes", "y" -> true
+            else -> false
         }
     }
 
@@ -127,6 +140,7 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
         private const val HEADER_WEIGHT_UNIT = "unit"
         private const val HEADER_PACKED_QUANTITY = "packed qty"
         private const val HEADER_DESIRED_QUANTITY = "desired qty"
+        private const val HEADER_OPTIONAL = "optional"
 
         private val weightUnitMap = mapOf(
             WeightUnits.Grams to "gram",

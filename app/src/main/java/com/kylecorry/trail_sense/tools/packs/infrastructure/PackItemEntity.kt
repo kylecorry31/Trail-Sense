@@ -18,7 +18,8 @@ data class PackItemEntity(
     @ColumnInfo(name = "amount") val amount: Double = 0.0,
     @ColumnInfo(name = "desiredAmount") val desiredAmount: Double = 0.0,
     @ColumnInfo(name = "weight") val weight: Float? = null,
-    @ColumnInfo(name = "weightUnits") val weightUnits: WeightUnits? = null
+    @ColumnInfo(name = "weightUnits") val weightUnits: WeightUnits? = null,
+    @ColumnInfo(name = "isOptional") val isOptional: Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

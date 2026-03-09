@@ -19,7 +19,8 @@ class PackMapper {
             item.category,
             item.amount,
             item.desiredAmount,
-            weight
+            weight,
+            item.isOptional
         )
     }
 
@@ -31,7 +32,8 @@ class PackMapper {
             item.amount,
             item.desiredAmount,
             item.weight?.value,
-            item.weight?.units
+            item.weight?.units,
+            item.isOptional
         ).also {
             it.id = item.id
         }

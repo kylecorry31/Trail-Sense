@@ -73,6 +73,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             val category = sortedCategories[binding.categorySpinner.selectedItemPosition]
             val weight = binding.itemWeightInput.value
             val selectedUnit = binding.itemWeightInput.unit
+            val isOptional = binding.optionalSwitch.isChecked
 
             if (name != null) {
                 inBackground {
@@ -89,7 +90,8 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                                 category,
                                 amount,
                                 desiredAmount,
-                                weight
+                                weight,
+                                isOptional
                             )
                         )
                     }
@@ -139,6 +141,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                     )
                     binding.categorySpinner.setSelection(sortedCategories.indexOf(it.category))
                     binding.itemWeightInput.value = it.weight
+                    binding.optionalSwitch.isChecked = it.isOptional
                     if (it.weight == null) {
                         binding.itemWeightInput.unit =
                             defaultWeightUnit ?: binding.itemWeightInput.units.firstOrNull()
@@ -155,8 +158,9 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
         val category = sortedCategories[binding.categorySpinner.selectedItemPosition]
         val weight = binding.itemWeightInput.value
+        val isOptional = binding.optionalSwitch.isChecked
 
-        return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || desiredAmount != editingItem?.desiredAmount || category != editingItem?.category || weight != editingItem?.weight)
+        return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || desiredAmount != editingItem?.desiredAmount || category != editingItem?.category || weight != editingItem?.weight || isOptional != editingItem?.isOptional)
     }
 
     private fun nothingEntered(): Boolean {

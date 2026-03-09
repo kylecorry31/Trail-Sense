@@ -39,9 +39,10 @@ internal class PackServiceTest {
         private fun packItem(
             amount: Double,
             desiredAmount: Double = 0.0,
-            weight: Weight? = null
+            weight: Weight? = null,
+            isOptional: Boolean = false
         ): PackItem {
-            return PackItem(0, 0, "", ItemCategory.Other, amount, desiredAmount, weight)
+            return PackItem(0, 0, "", ItemCategory.Other, amount, desiredAmount, weight, isOptional)
         }
 
         @JvmStatic
@@ -92,6 +93,19 @@ internal class PackServiceTest {
                         packItem(0.0, desiredAmount = 1.0),
                     ),
                     0f
+                ),
+                Arguments.of(
+                    listOf(
+                        packItem(1.0, desiredAmount = 1.0),
+                        packItem(0.0, desiredAmount = 1.0, isOptional = true),
+                    ),
+                    100f
+                ),
+                Arguments.of(
+                    listOf(
+                        packItem(0.0, desiredAmount = 1.0, isOptional = true),
+                    ),
+                    100f
                 ),
             )
         }
@@ -152,6 +166,19 @@ internal class PackServiceTest {
                         packItem(0.0, desiredAmount = 1.0),
                     ),
                     false
+                ),
+                Arguments.of(
+                    listOf(
+                        packItem(1.0, desiredAmount = 1.0),
+                        packItem(0.0, desiredAmount = 1.0, isOptional = true),
+                    ),
+                    true
+                ),
+                Arguments.of(
+                    listOf(
+                        packItem(0.0, desiredAmount = 1.0, isOptional = true),
+                    ),
+                    true
                 ),
             )
         }
