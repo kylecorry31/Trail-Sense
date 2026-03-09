@@ -1541,6 +1541,8 @@
     <string name="show_below_horizon">Show below horizon</string>
     <string name="pref_show_ar_constellations" translatable="false">pref_show_ar_constellations</string>
     <string name="show_stars">Show stars and planets</string>
+    <string name="pref_show_ar_low_brightness" translatable="false">pref_show_ar_low_brightness</string>
+    <string name="show_low_brightness_objects">Show low brightness stars/planets</string>
     <string name="tide">Tide</string>
     <string name="field_guide">Field Guide</string>
     <string name="books">Books</string>

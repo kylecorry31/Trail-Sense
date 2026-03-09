@@ -87,6 +87,12 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         false
     )
 
+    var showLowBrightnessObjects by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_ar_low_brightness),
+        false
+    )
+
     val increaseExposureAtNight by BooleanPreference(
         cache,
         context.getString(R.string.pref_increase_ar_exposure_at_night),

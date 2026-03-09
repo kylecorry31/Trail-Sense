@@ -42,6 +42,7 @@ class ARAstronomyLayer(
     private val drawBelowHorizon: Boolean,
     private val drawStars: Boolean,
     private val drawConstellations: Boolean,
+    private val drawLowBrightnessObjects: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
     private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean,
     private val onStarFocus: (star: Star) -> Boolean,
@@ -343,7 +344,12 @@ class ARAstronomyLayer(
     }
 
     private suspend fun updateStarLayer(location: Coordinate, time: ZonedDateTime) = onDefault {
-        val stars = astro.getVisibleStars(location, time, if (drawBelowHorizon) null else 0f)
+        val stars = astro.getVisibleStars(
+            location,
+            time,
+            if (drawBelowHorizon) null else 0f,
+            maxMagnitude = if (drawLowBrightnessObjects) null else 4.0f
+        )
         val starMarkers = if (drawStars) {
             stars.map {
                 val alpha = if (it.second.second < 0) 255 / belowHorizonAlphaDivisor else 255
@@ -420,7 +426,12 @@ class ARAstronomyLayer(
     ) = onDefault {
         val markers = if (drawStars) {
             val planets =
-                astro.getVisiblePlanets(location, time, if (drawBelowHorizon) null else 0f)
+                astro.getVisiblePlanets(
+                    location,
+                    time,
+                    if (drawBelowHorizon) null else 0f,
+                    includeDimPlanets = drawLowBrightnessObjects
+                )
             planets.mapNotNull {
                 val resId = planetMapper?.getImage(it.first) ?: return@mapNotNull null
                 val bitmap = bitmapLoader?.load(
