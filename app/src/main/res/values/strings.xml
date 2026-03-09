@@ -229,6 +229,8 @@
     <string name="pref_elevation_override_title">Elevation override</string>
     <!--    The popup which appears when the elevation override is updated from the GPS or barometer-->
     <string name="elevation_override_updated_toast">Elevation override updated</string>
+    <string name="quick_action_recalibrate_altimeter">Recalibrate altimeter</string>
+    <string name="recalibrating">Recalibrating</string>
     <!--    The content of the edit text dialog which pops up when the user clicks the set override from barometer button (asks user to enter the sea level pressure)-->
     <string name="pref_elevation_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
     <!--    The title of the sea level pressure override edit text dialog-->

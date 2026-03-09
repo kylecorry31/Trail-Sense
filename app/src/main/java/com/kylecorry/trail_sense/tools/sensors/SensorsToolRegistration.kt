@@ -11,6 +11,8 @@ import com.kylecorry.trail_sense.tools.sensors.widgets.LocationWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.sensors.quickactions.QuickActionRecalibrateAltimeter
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
@@ -26,6 +28,13 @@ object SensorsToolRegistration : ToolRegistration {
             R.id.sensorDetailsFragment,
             ToolCategory.Other,
             guideId = R.raw.guide_tool_sensors,
+            quickActions = listOf(
+                ToolQuickAction(
+                    Tools.QUICK_ACTION_RECALIBRATE_ALTIMETER,
+                    context.getString(R.string.quick_action_recalibrate_altimeter),
+                    ::QuickActionRecalibrateAltimeter
+                )
+            ),
             initialize = {
                 LocationSubsystem.getInstance(it)
                 SensorSubsystem.getInstance(it)
