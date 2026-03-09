@@ -1533,4 +1533,8 @@
     <string name="pref_navigation_show_azimuth_indicator_summary">在指南针上高亮当前方位角</string>
     <string name="large_location_indicator">大号位置指示器</string>
     <string name="tool_magnifier_title">放大镜</string>
+    <string name="quick_action_recalibrate_altimeter">重新校准高度计</string>
+    <string name="recalibrating">重新校准中</string>
+    <string name="packing_list_optional">可选</string>
+    <string name="show_low_brightness_objects">显示低亮度恒星/行星</string>
 </resources>
