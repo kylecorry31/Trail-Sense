@@ -9,7 +9,8 @@ data class PackItem(
     val category: ItemCategory,
     val amount: Double = 0.0,
     val desiredAmount: Double = 0.0,
-    val weight: Weight? = null
+    val weight: Weight? = null,
+    val isOptional: Boolean = false
 ) {
     val packedWeight: Weight?
         get() {

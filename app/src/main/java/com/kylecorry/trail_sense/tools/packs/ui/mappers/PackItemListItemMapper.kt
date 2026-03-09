@@ -41,11 +41,22 @@ class PackItemListItemMapper(
         } else {
             currentAmount
         }
-        val tag = ListItemTag(
+        val categoryTag = ListItemTag(
             categoryTextMapper.getString(value.category),
             ResourceListIcon(imgMapper.getIcon(value.category), size = 16f),
             colorMapper.map(value.category).color
         )
+
+        val tags = mutableListOf(categoryTag)
+        if (value.isOptional) {
+            tags.add(
+                ListItemTag(
+                    context.getString(R.string.packing_list_optional),
+                    null,
+                    Resources.androidTextColorSecondary(context)
+                )
+            )
+        }
 
         val weight = value.weight?.let {
             val packed = value.packedWeight!!
@@ -94,7 +105,7 @@ class PackItemListItemMapper(
                     )
                 },
             ),
-            tags = listOf(tag),
+            tags = tags,
             checkbox = ListItemCheckbox(value.isFullyPacked) {
                 actionHandler(
                     value,

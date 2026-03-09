@@ -12,16 +12,17 @@ class PackService {
     }
 
     fun getPercentPacked(items: List<PackItem>): Float {
-        if (items.isEmpty()) {
+        val requiredItems = items.filter { !it.isOptional }
+        if (requiredItems.isEmpty()) {
             return 100f
         }
 
-        val sum = items.sumOf { it.percentPacked.toDouble().coerceAtMost(100.0) }
-        return (sum / items.size).toFloat()
+        val sum = requiredItems.sumOf { it.percentPacked.toDouble().coerceAtMost(100.0) }
+        return (sum / requiredItems.size).toFloat()
     }
 
     fun isFullyPacked(items: List<PackItem>): Boolean {
-        return items.all { it.isFullyPacked }
+        return items.filter { !it.isOptional }.all { it.isFullyPacked }
     }
 
 }
