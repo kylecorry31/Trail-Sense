@@ -9,7 +9,7 @@ Audit the translation accuracy of Android string resources changed in a GitHub p
 
 ## Workflow
 
-1. Run the extraction script to get the changed strings from the PR:
+1. Run the extraction script from the skill's folder to get the changed strings from the PR:
    ```
    python scripts/extract_pr_strings.py <pr-number>
    ```
