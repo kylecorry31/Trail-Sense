@@ -102,6 +102,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             drawBelowHorizon = userPrefs.augmentedReality.showAstronomyBelowHorizon,
             drawStars = userPrefs.augmentedReality.showStars,
             drawConstellations = userPrefs.augmentedReality.showConstellations,
+            drawLowBrightnessObjects = userPrefs.augmentedReality.showLowBrightnessObjects,
             onSunFocus = this::onSunFocused,
             onMoonFocus = this::onMoonFocused,
             onStarFocus = this::onStarFocused,

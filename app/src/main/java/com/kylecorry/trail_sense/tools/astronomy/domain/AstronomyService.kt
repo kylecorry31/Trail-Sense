@@ -307,13 +307,14 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     fun getVisibleStars(
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now(),
-        thresholdElevation: Float? = 0f
+        thresholdElevation: Float? = 0f,
+        maxMagnitude: Float? = 4.0f
     ): List<Pair<Star, Pair<Bearing, Float>>> {
         if (isSunUp(location, time)) {
             return emptyList()
         }
 
-        return STAR_CATALOG.filter { it.magnitude <= 4.0 }.map {
+        return STAR_CATALOG.filter { maxMagnitude == null || it.magnitude <= maxMagnitude }.map {
             val azimuth = Astronomy.getStarAzimuth(it, time, location)
             val altitude = Astronomy.getStarAltitude(it, time, location, true)
             it to (azimuth to altitude)
@@ -337,19 +338,25 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     fun getVisiblePlanets(
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now(),
-        thresholdElevation: Float? = 0f
+        thresholdElevation: Float? = 0f,
+        includeDimPlanets: Boolean = false
     ): List<Pair<Planet, CelestialObservation>> {
         if (isSunUp(location, time)) {
             return emptyList()
         }
 
         // Initial filter based on magnitude / proximity to the sun
-        val planetsToConsider = listOf(
-            Planet.Venus,
-            Planet.Mars,
-            Planet.Jupiter,
-            Planet.Saturn
-        )
+        val planetsToConsider = buildList {
+            add(Planet.Venus)
+            add(Planet.Mars)
+            add(Planet.Jupiter)
+            add(Planet.Saturn)
+            if (includeDimPlanets) {
+                add(Planet.Mercury)
+                add(Planet.Uranus)
+                add(Planet.Neptune)
+            }
+        }
 
         return planetsToConsider.map {
             it to Astronomy.getPlanetPosition(it, time, location, withRefraction = true)

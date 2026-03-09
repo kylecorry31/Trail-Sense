@@ -68,6 +68,14 @@
             app:title="@string/show_stars" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:dependency="@string/pref_show_ar_stars"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_ar_low_brightness"
+            app:singleLineTitle="false"
+            app:title="@string/show_low_brightness_objects" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="true"
             app:dependency="@string/pref_show_ar_astronomy_layer"
             app:iconSpaceReserved="false"
