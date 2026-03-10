@@ -103,7 +103,7 @@
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
-    <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle, do kalibracji ciśnienia na poziomie morza podczas monitorowania pogody oraz aby zapewnić dokładniejsze alerty zachodu słońca. [Przeczytaj o polityce prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle, do kalibracji ciśnienia na poziomie morza podczas monitorowania pogody oraz aby zapewnić dokładniejsze alerty zachodu słońca. [Wyświetl Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
     <string name="third_quarter">Ostatnia kwadra</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
@@ -123,7 +123,7 @@
     <string name="category_safety">Bezpieczeństwo</string>
     <string name="category_clothing">Odzież</string>
     <string name="category_hydration">Nawodnienie</string>
-    <string name="navigation_nearby_category">W pobliżu</string>
+    <string name="navigation_nearby_category">Pobliskie</string>
     <string name="forecasts_category">Prognozy</string>
     <string name="tool_user_guide_summary">Poradnik korzystania z Trail Sense</string>
     <string name="pref_monitor_weather_title">Monitoruj pogodę</string>
@@ -140,21 +140,21 @@
     <string name="compass_reported_accuracy">Zgłoszona dokładność: %s</string>
     <string name="pref_auto_declination_summary">Na podstawie aktualnej lokalizacji</string>
     <string name="clinometer_rotate_device">Trzymaj telefon pionowo</string>
-    <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego i wysokości obiektów</string>
+    <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego oraz wysokości obiektów</string>
     <string name="sunset_alert_channel_title">Alert zachodu słońca</string>
     <string name="sun_up_no_set">Słońce wzeszło</string>
     <string name="tool_bubble_level_summary">Określ, czy powierzchnie są płaskie</string>
     <string name="tool_bubble_level_title">Poziomica</string>
     <string name="calibrate_compass_dialog_title">Kalibracja kompasu</string>
     <string name="calibrate">Kalibracja</string>
-    <string name="pref_ruler_calibration_summary">"Protokół kalibracji:\n\n-  Ustaw wartość na 1.\n\n- Zmierz wartość linijki w aplikacji, odpowiadającą jednej jednostce fizycznej linijki.\n\n- Podaj zmierzoną wartość."</string>
+    <string name="pref_ruler_calibration_summary">"Protokół kalibracji:\n\n-  Ustaw wartość na 1.\n\n- Zmierz wartość linijki w aplikacji, odpowiadającą jednej jednostce fizycznej linijki.\n\n- Wprowadź zmierzoną wartość."</string>
     <string name="edit_item_title">Edytuj element</string>
-    <string name="create_item_title">Tworzenie elementu</string>
+    <string name="create_item_title">Utwórz element</string>
     <string name="dialog_item_amount">Ilość</string>
     <string name="subtract">Odejmij</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Stopnie | Minuty</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Stopnie i minuty dziesiętne</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Stopnie | Minuty | Sekundy</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Stopnie|Minuty|Sekundy</string>
     <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
     <string name="pref_ruler_calibration_title">Skala linijki</string>
     <string name="sensors">Czujniki</string>
@@ -305,7 +305,7 @@
     <string name="coordinate_input_invalid_location">Niepoprawna lokalizacja</string>
     <string name="location_input_help_title">Wspierane formaty współrzędnych</string>
     <string name="location_input_help">Stopnie dziesiętne (np. 1.00, -2.00) \n \nStopnie | Minuty (np. 1°23.12\'N, 3°12.1\'W) \n \nStopnie | Minuty | Sekundy (np. 1°23\'12.1\"N, 3°12\'1.2\"W) \n \nUTM (np. 03T 12345E 67890N) \n \nMGRS (np. 27PXM 09601 05579) \n \nUSNG (np. 14S NJ 39521 41744) \n \nOSGB (np. TG 51409 13177)</string>
-    <string name="create_beacon">Dodaj punkt nawigacyjny</string>
+    <string name="create_beacon">Utwórz punkt nawigacyjny</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
     <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
     <string name="charging_wireless">Ładowanie (%s)</string>
@@ -342,14 +342,14 @@
     <string name="unavailable">Niedostępna</string>
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Nadpisany</string>
-    <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urządzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Zobacz [politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca obecnej lokalizacji (alerty o zachodach słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki&gt;Kalibracja GPS. \n \n- Po nacisnięciu przycisku Kontynuuj zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
+    <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urządzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Wyświetl [Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak Powrotny\n\n\t- Czasy słońca i księżyca obecnej lokalizacji (alerty zachodów słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki &gt; Kalibracja GPS. \n \n- Po nacisnięciu przycisku Kontynuuj zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
     <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji aplikacji Trail Sense, korzystając z podręcznika użytkownika. Dostępnym na samym dole w zakładce Narzędzia. \n \nWkrótce pojawi się więcej przewodników.</string>
     <string name="pref_require_satellites_title">Wymagaj ustalenia pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt trasy?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
     <string name="location_override_updated">Zaktualizowano nadpisanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Użyj narzędzia tylko, gdy jest to bezpieczne oraz sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
-    <string name="pref_elevation_override_sea_level_title">Użycie znanego ciśnienia na poziomie morza</string>
+    <string name="pref_elevation_override_sea_level_title">Użyj znane ciśnienie na poziomie morza</string>
     <string name="elevation_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
     <string name="unit_inches_abbreviation">cal</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -698,7 +698,7 @@
     <string name="weather_no_change">Bez zmian</string>
     <string name="weather_storm">Burza</string>
     <string name="very_soon">Niebawem</string>
-    <string name="soon">Wkrótce</string>
+    <string name="soon">Niedługo</string>
     <string name="dashed">Przerywany</string>
     <string name="distance_unset">Odległość nieustawiona</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Blokuj przyciskami głośności</string>
@@ -847,7 +847,7 @@
     <string name="historic_temperatures">Historyczne temperatury</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperatury są oparte na %d-letniej średniej danych historycznych i mogą nie odzwierciedlać aktualnych warunków pogodowych.</string>
     <string name="weather_cold_front">Zimno</string>
-    <string name="tool_climate_summary">Zobacz historyczne temperatury</string>
+    <string name="tool_climate_summary">Wyświetl historyczne temperatury</string>
     <string name="cold">Zimno</string>
     <string name="print">Drukuj</string>
     <plurals name="tides_entered_count">
@@ -931,9 +931,9 @@
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Mogą wskazywać na opady w ciągu najbliższych %1$d do %2$d godzin.</string>
     <string name="gps_location_accuracy">Dokładność lokalizacji GPS</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Mogą wskazywać na dobrą pogodę przez następne %d godzin.</string>
-    <string name="sunrise_alert_notification_text">Wschód słońca o %s</string>
+    <string name="sunrise_alert_notification_text">Słońce wzejdzie o %s</string>
     <string name="sunrise_alerts">Alerty wschodu słońca</string>
-    <string name="sunrise_alert_notification_title">Słońce wkrótce wzejdzie</string>
+    <string name="sunrise_alert_notification_title">Słońce niedługo wzejdzie</string>
     <string name="pref_sunrise_alert_time_title">Czas alertu wschodu słońca</string>
     <string name="magnitude">Wielkość</string>
     <string name="bearing">Namiar</string>
@@ -1008,7 +1008,7 @@
     <string name="sunrise_alert_scheduled">Alert zaplanowany na %s przed wschodem słońca</string>
     <string name="restore">Przywracanie</string>
     <string name="restore_disclaimer">Akcja nadpisze wszystkie obecne dane. Proszę, upewnij się że posiadasz kopię zapasową przed kontynuacją.\n\nWybieraj wyłącznie plik kopii zapasowej który został utworzony przez %s.</string>
-    <string name="backup_disclaimer">Akcja wyeksportuje wszystkie obecne dane do pliku. Włączając ustawienia, ścieżki, punkty nawigacyjne, mapy, itp.\n\nPlik nie jest szyfrowany. Nie udostępniaj go osobom trzecim.</string>
+    <string name="backup_disclaimer">Plik kopii zapasowej zostanie utworzony, zawierając wszystkie obecne dane. Włączając ustawienia, ścieżki, punkty nawigacyjne, mapy, itp.\n\nPlik nie jest szyfrowany. Nie udostępniaj go osobom trzecim.</string>
     <string name="backing_up_loading_message">Tworzenie kopii…</string>
     <string name="restoring_loading_message">Przywracanie…</string>
     <string name="restore_complete_message">Przywracanie powiodlo się. Uruchamianie ponownie, aby zastosować zmiany</string>
@@ -1019,7 +1019,7 @@
     <string name="my_location">Moja lokalizacja</string>
     <string name="destination">Miejsce docelowe</string>
     <string name="triangulate_destination_location_1_instructions">Rejestruj lokalizacje oraz kierunek do miejsca docelowego.</string>
-    <string name="triangulate_destination_location_2_instructions">Oddal się od pierwszej lokalizacji przynajmniej o %s, ponownie rozpocznij rejestrację lokalizacji oraz kierunku do miejsca docelowego.</string>
+    <string name="triangulate_destination_location_2_instructions">Oddal się od pierwszej lokalizacji przynajmniej o %s, rozpocznij ponownie rejestrację lokalizacji oraz kierunku do miejsca docelowego.</string>
     <string name="triangulate_self_location_1_instructions">Wybierz znaną lokalizację w zasięgu wzroku, rozpocznij nagrywanie kierunku z obecnego do wyznaczonego miejsca docelowego.</string>
     <string name="triangulate_self_location_2_instructions">Wybierz kolejną znaną lokalizację w zasięgu wzroku, rozpocznij nagrywanie kierunku z obecnego do wyznaczonego miejsca docelowego.</string>
     <string name="location_to_triangulate">Lokalizacja do triangulacji</string>
@@ -1030,7 +1030,7 @@
     <string name="direction_not_set">Kierunek nieustawiony</string>
     <string name="direction">Kierunek</string>
     <string name="augmented_reality">Rzeczywistość rozszerzona</string>
-    <string name="augmented_reality_description">Zobacz pobliskie punkty nawigacyjne oraz słońce / księżyc używając aparatu</string>
+    <string name="augmented_reality_description">Wyświetl pobliskie punkty nawigacyjne oraz słońce/księżyc używając aparatu</string>
     <string name="magnetic_north">Magnetyczna północ</string>
     <string name="pinned">Przypięte</string>
     <string name="unpin">Odepnij</string>
@@ -1045,7 +1045,7 @@
     <string name="high_sensitivity">Wysoka czułość</string>
     <string name="continuous_calibration">Kalibracja w czasie rzeczywistym</string>
     <string name="continuous_calibration_description">Skalibruj przy każdym ustaleniu pozycji GPS</string>
-    <string name="service_restart">Uruchomienie ponowne usług</string>
+    <string name="service_restart">Uruchamianie ponowne usług</string>
     <string name="service_restart_channel_description">Powiadomienie, aby uruchomić ponownie usługi</string>
     <string name="restart_services_title">Uruchom ponownie usługi</string>
     <string name="restart_services_message">Usługi w tle nie mogą zostać uruchomione ponownie. Kliknij, aby uruchomić ponownie.</string>
@@ -1095,7 +1095,7 @@
     <string name="date">Data</string>
     <string name="path_distance_performance_disclaimer">Zalecane maksymalnie %s</string>
     <string name="ar_calibration_disclaimer">Przed każdym użyciem Rzeczywistosci Rozszerzonej zweryfikuj, czy ikony slońca i księżyca pokrywają się z właściwym położeniem. Aby skalibrować położenie, naciśnij ikonę kompasu w lewym górnym rogu ekranu oraz postępuj zgodnie z wyświetlonymi instrukcjami.</string>
-    <string name="no_recorded_cell_signal_nearby">Brak zarejestrowanego sygnalu sieci w pobliżu</string>
+    <string name="no_recorded_cell_signal_nearby">Brak pobliskich zarejestrowanych sygnalów sieci</string>
     <string name="navigate_to_nearest_cell_signal">Nawiguj do najbliższego sygnału sieci</string>
     <string name="tool_quick_action_name">Narzędzie: %s</string>
     <string name="pref_start_camera_in_3d_view_title">Użyj aparatu do wyświetlania w 3D</string>
@@ -1155,7 +1155,7 @@
     <string name="automatic_backup">Automatyczna kopia zapasowa</string>
     <string name="select_backup_directory">Wybierz katalog kopii zapasowej</string>
     <string name="no_directory_selected">Brak wybranego katalogu</string>
-    <string name="auto_backup_instructions">Kopia zapasowa będzie tworzona raz dziennie w katalogu %1$s. Przechowywane będą ostatnie %2$d kopie zapasowe.</string>
+    <string name="auto_backup_instructions">Kopia zapasowa zostanie utworzona raz dziennie w katalogu %1$s. Przechowywane będą ostatnie %2$d kopie zapasowe.</string>
     <string name="backup_failed">Nie udało się wykonać kopii zapasowej</string>
     <string name="unable_to_create_an_automatic_backup">Nie udało się wykonać automatycznej kopii zapasowej</string>
     <string name="automatic_backup_invalid_directory">Nieprawidłowy katalog</string>
@@ -1447,7 +1447,7 @@
     <string name="show_images">Pokaż obrazy</string>
     <string name="high_resolution">Wysoka rozdzielczość</string>
     <string name="copy_error">Kopiuj błąd</string>
-    <string name="view_error_details">Pokaż szczegóły błędu</string>
+    <string name="view_error_details">Wyświetl szczegóły błędu</string>
     <string name="reopen_tool">Uruchom ponownie narzędzie</string>
     <string name="restart_app">Uruchom ponownie aplikację</string>
     <string name="smooth">Wygładzanie</string>
@@ -1466,14 +1466,31 @@
     <string name="active_all_year">Aktywne cały rok</string>
     <string name="biting_flies_mosquitoes">Owady kłujące/Komary</string>
     <string name="ecology">Ekologia</string>
-    <string name="onboarding_explore">- Zaprojektowane z myślą o wspinaczce, podróżach, biwakowaniu oraz geocachingu\n\n- Twórz i nawiguj do punktów nawigacyjnych\n\n- Podążaj ścieżkami\n\n- Wracaj własnymi śladami ze szlakiem powrotnym \n\n- Planuj co zapakować\n\n- Bądź informowany zanim zajdzie słońce\n\n- Przewiduj pogodę\n\n- Używaj telefonu jako latarki\n\n- Oraz o wiele więcej!</string>
+    <string name="onboarding_explore">- Zaprojektowane z myślą o wspinaczce, podróżach, biwakowaniu oraz geocachingu\n\n- Twórz i prowadź do punktów nawigacyjnych\n\n- Podążaj ścieżkami\n\n- Wracaj własnymi śladami ze szlakiem powrotnym \n\n- Planuj co zapakować\n\n- Bądź informowany zanim zajdzie słońce\n\n- Przewiduj pogodę\n\n- Używaj telefonu jako latarki\n\n- Oraz o wiele więcej!</string>
     <string name="grassland">Step</string>
     <string name="tundra">Tundra</string>
-    <string name="human_interaction">Interakcja człowieka</string>
+    <string name="human_interaction">Kontakt z człowiekiem</string>
     <string name="pref_ruler_flip_direction_title">Odwróć kierunek linijki</string>
     <string name="pref_nearby_linear_only_title">Pokaż tylko pobliskie punkty nawigacyjne na kompasie liniowym</string>
     <string name="pref_navigation_draw_compass_dial_bezel_title">Pokaż obrotowy pierścień kompasu</string>
     <string name="pref_navigation_draw_compass_dial_bezel_summary">Pokaż symbole stopni dookoła pierścienia obrotowego kompasu</string>
     <string name="pref_navigation_show_azimuth_indicator_title">Pokaż wskaźnik azymutu</string>
     <string name="pref_navigation_show_azimuth_indicator_summary">Podświetl aktualny namiar na kompasie</string>
+    <string name="quick_action_recalibrate_altimeter">Skalibruj ponownie wysokościomierz</string>
+    <string name="recalibrating">Ponowna kalibracja</string>
+    <string name="cirrocumulus_desc">Chmury wysokie, ułożone w szereg. Składający się z małych kropek, które wyglądają prawie dwuwymiarowo.</string>
+    <string name="cirrostratus_desc">Chmury wysokie, zakrywające niebo. Są przezroczyste oraz zazwyczaj powodują powstawanie aureoli wokół słońca.</string>
+    <string name="altocumulus_desc">Chmury średnie, puszyste, przypominające kulki z waty. Zazwyczaj białe z ciemniejszymi łatami od spodu oraz występują w rozproszeniu lub tworzą warstwę.</string>
+    <string name="altostratus_desc">Chmury średnie, zakrywające niebo. Słońce ledwie widać jako jasną łatę.</string>
+    <string name="nimbostratus_desc">Chmury średnie, ciemnoszare oraz zakrywajace niebo. Jeśli nie pada, może to być chmura stratus.</string>
+    <string name="stratus_desc">Niskie chmury zakrywające niebo. Obiekty nie rzucają cieni oraz może być mgliście.</string>
+    <string name="cumulus_desc">Chmury średnie, puszyste, przypominające kulki z waty. Występują w rozproszeniu oraz są zazwyczaj białe z ciemniejszymi łatami od spodu.</string>
+    <string name="cumulonimbus_desc">Chmury niskie, bardzo wysokie. Zazwyczaj mają kształt kowadła oraz są ciemne.</string>
+    <string name="cirrus_desc">Wysokie chmury, strzępiaste. Wyglądające jak kępki bialych włosów.</string>
+    <string name="map_calibration_clear_message">Zmiana rzutowania mapy usunie kalibrację.</string>
+    <string name="packing_list_optional">Opcjonalne</string>
+    <string name="tool_magnifier_title">Lupa</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Kontroluj jasność światła ekranu przyciskami głośności</string>
+    <string name="show_low_brightness_objects">Pokaż słabo świecące gwiazdy/planety</string>
+    <string name="map_trace_instructions">Przejdź do zacienionego miejsca lub zasłoń słońce materiałem oraz połóż kartkę papieru na ekranie, aby widzieć mapę przez kartkę. Użyj długopisu lub ołówka, aby zaznaczyć ślady na mapie. Unikaj markerów, które przebiją się przez papier.\n\nDolna nawigacja będzie ukryta, dopóki nie wyłączysz trybu śladu.</string>
 </resources>
