@@ -5,6 +5,8 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -642,21 +644,44 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun showCalibrationDialog() {
         if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
+            val calibrationView = CompassCalibrationView(requireContext())
+            val doNotAskAgain = CheckBox(requireContext()).apply {
+                text = getString(R.string.do_not_ask_again)
+            }
+            val contentView = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.VERTICAL
+                addView(
+                    calibrationView,
+                    LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        Resources.dp(requireContext(), 200f).toInt()
+                    )
+                )
+                addView(
+                    doNotAskAgain,
+                    LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        topMargin = Resources.dp(requireContext(), 8f).toInt()
+                    }
+                )
+            }
             dialog(
                 getString(R.string.calibrate_compass_dialog_title),
                 getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
                     getString(android.R.string.ok)
                 ),
-                contentView = CompassCalibrationView.sized(
-                    requireContext(),
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    Resources.dp(requireContext(), 200f).toInt()
-                ),
+                contentView = contentView,
                 cancelText = null,
                 cancelOnOutsideTouch = false,
                 scrollable = true
-            )
+            ) { cancelled ->
+                if (!cancelled && doNotAskAgain.isChecked) {
+                    userPrefs.navigation.showCalibrationOnNavigateDialog = false
+                }
+            }
         }
     }
 

@@ -31,14 +31,17 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val sensors by lazy { SensorService(context) }
 
-    private val _showCalibrationOnNavigateDialog by BooleanPreference(
+    private var _showCalibrationOnNavigateDialog by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_calibrate_on_navigate_dialog),
         true
     )
 
-    val showCalibrationOnNavigateDialog: Boolean
+    var showCalibrationOnNavigateDialog: Boolean
         get() = sensors.hasCompass() && _showCalibrationOnNavigateDialog
+        set(value) {
+            _showCalibrationOnNavigateDialog = value
+        }
 
     val keepScreenUnlockedWhileNavigating: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_navigation_lock_screen_presence))
