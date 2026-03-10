@@ -1434,6 +1434,8 @@
     <string name="pref_show_ar_beacon_layer" translatable="false">pref_show_ar_beacon_layer</string>
     <string name="pref_show_ar_astronomy_layer" translatable="false">pref_show_ar_astronomy_layer</string>
     <string name="visible">Visible</string>
+    <string name="show_all">Show all</string>
+    <string name="hide_all">Hide all</string>
     <string name="pref_show_ar_grid_layer" translatable="false">pref_show_ar_grid_layer</string>
     <string name="grid">Grid</string>
     <string name="ar_layer_override_message">Layer settings may be overridden by guidance, such as the Astronomy guide.</string>

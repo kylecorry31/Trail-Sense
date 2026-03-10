@@ -42,6 +42,8 @@ class BeaconGroupListItemMapper(
         action: (BeaconGroupAction) -> Unit
     ): List<ListMenuItem> {
         return listOf(
+            ListMenuItem(context.getString(R.string.show_all)) { action(BeaconGroupAction.ShowAll) },
+            ListMenuItem(context.getString(R.string.hide_all)) { action(BeaconGroupAction.HideAll) },
             ListMenuItem(context.getString(R.string.rename)) { action(BeaconGroupAction.Edit) },
             ListMenuItem(context.getString(R.string.move_to)) { action(BeaconGroupAction.Move) },
             ListMenuItem(context.getString(R.string.delete)) { action(BeaconGroupAction.Delete) },
