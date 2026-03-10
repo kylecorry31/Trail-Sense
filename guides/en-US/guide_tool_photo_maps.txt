@@ -100,6 +100,8 @@ To rename a map, click the menu button on the map row you wish to rename, then s
 ## Map visibility
 You can choose which maps are visible on the Navigation tool by clicking the eye icon on the right side of the map row.
 
+To show or hide all maps in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
+
 ## Delete a map
 To delete a map, click the menu button on the map row you want to remove, then select 'Delete'. Alternatively, open the map, click the menu button in the top-right, and choose 'Delete'.
 

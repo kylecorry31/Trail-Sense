@@ -32,6 +32,12 @@ class MapGroupMapper(
                 foregroundSize = 24f
             ),
             menu = listOf(
+                ListMenuItem(context.getString(R.string.show_all)) {
+                    actionHandler(group, MapGroupAction.ShowAll)
+                },
+                ListMenuItem(context.getString(R.string.hide_all)) {
+                    actionHandler(group, MapGroupAction.HideAll)
+                },
                 ListMenuItem(context.getString(R.string.rename)) {
                     actionHandler(group, MapGroupAction.Rename)
                 },

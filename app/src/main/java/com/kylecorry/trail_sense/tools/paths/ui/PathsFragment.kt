@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -244,6 +247,25 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
             PathGroupAction.Open -> manager.open(group.id)
             PathGroupAction.Move -> movePath(group)
             PathGroupAction.Export -> exportPath(group)
+            PathGroupAction.ShowAll -> setGroupVisibility(group, true)
+            PathGroupAction.HideAll -> setGroupVisibility(group, false)
+        }
+    }
+
+    private fun setGroupVisibility(group: PathGroup, visible: Boolean) {
+        inBackground {
+            Alerts.withLoading(requireContext(), getString(R.string.loading)) {
+                val paths = onIO {
+                    pathService.loader().getChildren(group.id, null).filterIsInstance<Path>()
+                }
+
+                onIO {
+                    paths
+                        .asSequence()
+                        .filter { it.style.visible != visible }
+                        .forEach { pathService.addPath(it.copy(style = it.style.copy(visible = visible))) }
+                }
+            }
         }
     }
 

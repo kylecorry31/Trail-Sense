@@ -74,6 +74,8 @@ By default, this will only navigate to recorded waypoints on the path. However, 
 ## Path visibility
 You can choose which paths are visible on maps by clicking the eye icon on the right side of the path row. They will show up on maps that have the Paths layer enabled.
 
+To show or hide all paths in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
+
 ## Delete a path
 To delete a path, click the menu button on the path row you want to remove, then select 'Delete'.
 

@@ -4,5 +4,7 @@ enum class MapGroupAction {
     View,
     Delete,
     Rename,
-    Move
+    Move,
+    ShowAll,
+    HideAll
 }
