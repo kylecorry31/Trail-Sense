@@ -69,6 +69,8 @@ See the 'Navigation' guide for more information on how to use the navigation too
 ## Beacon visibility
 You can choose which beacons are visible on the Navigation and Photo Maps tools by clicking the eye icon on the right side of the beacon row. This will toggle the visibility of the beacon.
 
+To show or hide all beacons in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
+
 ## Share a beacon
 You can share a beacon by clicking the menu button on the beacon row you want to share, then selecting 'Share...'. Alternatively, open the beacon and click the menu button in the top-right, then choose 'Share...'. You can choose from the following options:
 
