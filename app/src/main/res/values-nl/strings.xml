@@ -1543,4 +1543,8 @@
     <string name="pref_navigation_show_azimuth_indicator_summary">Huidige peiling op het kompas markeren</string>
     <string name="large_location_indicator">Grote locatieindicator</string>
     <string name="tool_magnifier_title">Vergrootglas</string>
+    <string name="quick_action_recalibrate_altimeter">Hoogtemeter kalibreren</string>
+    <string name="recalibrating">Herkalibreren</string>
+    <string name="packing_list_optional">Optioneel</string>
+    <string name="show_low_brightness_objects">Sterren/planeten met een lage helderheid weergeven</string>
 </resources>
