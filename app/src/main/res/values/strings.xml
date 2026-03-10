@@ -211,6 +211,7 @@
     <string name="calibrate_compass_on_navigate_dialog_content">Rotate your phone in a figure 8 pattern or in all directions several times, click %s when finished.
 \n
 \nThis alert can be disabled in the app settings.</string>
+    <string name="do_not_ask_again">Do not ask again</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
     <!--Settings - Sensors - GPS-->
