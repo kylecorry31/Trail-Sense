@@ -9,11 +9,13 @@ import androidx.core.os.BundleCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -200,6 +202,29 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
             MapGroupAction.Delete -> delete(group)
             MapGroupAction.Rename -> rename(group)
             MapGroupAction.Move -> move(group)
+            MapGroupAction.ShowAll -> setGroupVisibility(group, true)
+            MapGroupAction.HideAll -> setGroupVisibility(group, false)
+        }
+    }
+
+    private fun setGroupVisibility(group: MapGroup, visible: Boolean) {
+        inBackground {
+            Alerts.withLoading(requireContext(), getString(R.string.loading)) {
+                val maps = onIO {
+                    mapService.loader.getChildren(group.id, null).filterIsInstance<PhotoMap>()
+                }
+
+                onIO {
+                    maps
+                        .asSequence()
+                        .filter { it.visible != visible }
+                        .forEach { mapService.add(it.copy(visible = visible)) }
+                }
+
+                onMain {
+                    manager.refresh()
+                }
+            }
         }
     }
 

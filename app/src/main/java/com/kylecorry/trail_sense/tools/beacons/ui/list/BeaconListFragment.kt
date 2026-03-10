@@ -501,12 +501,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         inBackground {
             Alerts.withLoading(requireContext(), getString(R.string.loading)) {
                 val beacons = onIO {
-                    beaconService.getBeacons(
-                        group.id,
-                        includeGroups = false,
-                        maxDepth = null,
-                        includeRoot = false
-                    ).filterIsInstance<Beacon>()
+                    beaconService.loader.getChildren(group.id, null).filterIsInstance<Beacon>()
                 }
 
                 onIO {

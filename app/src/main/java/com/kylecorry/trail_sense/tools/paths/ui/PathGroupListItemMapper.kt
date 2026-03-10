@@ -15,6 +15,12 @@ class PathGroupListItemMapper(
 ) : ListItemMapper<PathGroup> {
     override fun map(value: PathGroup): ListItem {
         val menu = listOfNotNull(
+            ListMenuItem(context.getString(R.string.show_all)) {
+                actionHandler(value, PathGroupAction.ShowAll)
+            },
+            ListMenuItem(context.getString(R.string.hide_all)) {
+                actionHandler(value, PathGroupAction.HideAll)
+            },
             ListMenuItem(context.getString(R.string.rename)) {
                 actionHandler(
                     value,

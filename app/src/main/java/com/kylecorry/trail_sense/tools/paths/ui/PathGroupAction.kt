@@ -5,5 +5,7 @@ enum class PathGroupAction {
     Delete,
     Rename,
     Open,
-    Move
+    Move,
+    ShowAll,
+    HideAll
 }
