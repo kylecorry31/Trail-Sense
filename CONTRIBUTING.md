@@ -1,5 +1,8 @@
 - [Post a feature idea, bug report, or question](https://github.com/kylecorry31/Trail-Sense/discussions/new/choose)
-- [Translate Trail Sense](https://github.com/kylecorry31/Trail-Sense/issues/213)
+- Translations can be added on Weblate:
+  - In app strings: https://hosted.weblate.org/projects/trail-sense/trail-sense-android/
+  - Guides: https://hosted.weblate.org/projects/trail-sense/trail-sense-user-guide/
+  - Store metadata: https://hosted.weblate.org/projects/trail-sense/trail-sense-store-metadata/
 - [Test out nightly builds](https://github.com/kylecorry31/Trail-Sense/discussions/1940)
 - [Test out experimental features](https://github.com/kylecorry31/Trail-Sense/discussions/2099)
 
