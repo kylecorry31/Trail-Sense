@@ -395,9 +395,9 @@
     <string name="pref_daily_weather_time_title">Czas codziennej prognozy pogody</string>
     <string name="tomorrows_forecast">Prognoza na jutro</string>
     <string name="battery_power_ac">AC</string>
-    <string name="low">Niskie</string>
+    <string name="low">Niska</string>
     <string name="moderate">Średnia</string>
-    <string name="high">Wysokie</string>
+    <string name="high">Wysoka</string>
     <string name="speedometer">Prędkościomierz</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="half_tide">Połowa przypływu</string>
