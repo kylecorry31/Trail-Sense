@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import java.time.Duration
 import kotlin.math.absoluteValue
 
@@ -78,6 +79,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.calibrateBtn.setOnClickListener {
             calibrate()
         }
+        binding.accuracyView.setSensors(null, magnetometer)
+        binding.accuracyView.setOnClickListener { displayAccuracyTips() }
         binding.magnetometerView.isVisible = prefs.metalDetector.showMetalDirection
 
         binding.highSensitivityToggle.setOnCheckedChangeListener { _, isChecked ->
@@ -331,6 +334,12 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 }
             }
         }
+    }
+
+    private fun displayAccuracyTips() {
+        context ?: return
+        val alerter = ImproveAccuracyAlerter(requireContext())
+        alerter.alert(listOf(magnetometer))
     }
 
     companion object {
