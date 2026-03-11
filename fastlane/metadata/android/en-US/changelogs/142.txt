@@ -1,0 +1,33 @@
+Navigation
+- Redesign compass dial
+- Option to show nearby beacons
+
+Climate
+- Estimate insect activity
+
+Map
+- Trace mode
+- Option to increase location indicator size
+
+Beacons
+- Add more icons
+
+Ruler
+- Option to reverse direction
+- Highlight measurement
+
+Astronomy
+- Tap chart to change time
+
+Magnifier
+- New tool
+
+Augmented Reality
+- Option to show low brightness stars/planets
+
+Sensors
+- Quick action to recalibrate altimeter
+
+Packing Lists
+- Mark items as optional
+- Pound + ounces weight entry
