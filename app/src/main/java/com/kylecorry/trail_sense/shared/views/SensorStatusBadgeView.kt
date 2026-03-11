@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnDetach
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.findViewTreeLifecycleOwner
@@ -68,10 +69,11 @@ class SensorStatusBadgeView(
         }
     }
 
-    fun setSensors(gps: ISatelliteGPS, compass: ISensor) {
+    fun setSensors(gps: ISatelliteGPS?, compass: ISensor) {
+        gpsBadge.isVisible = gps != null
         this.gps = gps
         this.compassSensor = compass
-        gpsStatusBadgeProvider = GpsStatusBadgeProvider(gps, context)
+        gpsStatusBadgeProvider = gps?.let { GpsStatusBadgeProvider(it, context) }
         compassStatusBadgeProvider = SensorStatusBadgeProvider(compass, context, R.drawable.ic_compass_icon)
         // Immediately update so badges don't show stale data
         updateBadges()

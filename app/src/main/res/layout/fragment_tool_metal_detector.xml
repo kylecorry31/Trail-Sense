@@ -80,7 +80,7 @@
         app:layout_constraintBottom_toTopOf="@id/metal_chart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/high_sensitivity_toggle" />
+        app:layout_constraintTop_toBottomOf="@+id/accuracy_view" />
 
     <com.kylecorry.andromeda.views.chart.Chart
         android:id="@+id/metal_chart"
@@ -101,5 +101,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
+        android:id="@+id/accuracy_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/high_sensitivity_toggle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

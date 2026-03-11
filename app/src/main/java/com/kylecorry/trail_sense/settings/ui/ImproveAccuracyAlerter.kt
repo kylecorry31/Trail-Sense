@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.units.Distance
@@ -32,7 +33,8 @@ class ImproveAccuracyAlerter(
 
     override fun alert(value: List<ISensor>) {
         val gps = value.firstOrNull { it is ISatelliteGPS } as? ISatelliteGPS
-        val compass = value.firstOrNull { it is ICompass } as? ICompass
+        val compass = (value.firstOrNull { it is ICompass } as? ICompass)
+            ?: value.firstOrNull { it is IMagnetometer }
         val orientation = value.firstOrNull { it is IOrientationSensor } as? IOrientationSensor
         val hasCompass = compass !is MockSensor
         val content = buildSpannedString {
