@@ -1537,4 +1537,7 @@
     <string name="recalibrating">重新校准中</string>
     <string name="packing_list_optional">可选</string>
     <string name="show_low_brightness_objects">显示低亮度恒星/行星</string>
+    <string name="do_not_ask_again">不再询问</string>
+    <string name="show_all">显示全部</string>
+    <string name="hide_all">隐藏全部</string>
 </resources>
