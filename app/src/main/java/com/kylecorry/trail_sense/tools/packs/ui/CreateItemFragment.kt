@@ -62,6 +62,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.itemWeightInput.units = formatService.sortWeightUnits(WeightUnits.entries)
+        binding.itemWeightInput.showPoundsAndOunces = true
         if (itemId == 0L && defaultWeightUnit != null) {
             binding.itemWeightInput.unit = defaultWeightUnit
         }
