@@ -1547,4 +1547,7 @@
     <string name="recalibrating">Herkalibreren</string>
     <string name="packing_list_optional">Optioneel</string>
     <string name="show_low_brightness_objects">Sterren/planeten met een lage helderheid weergeven</string>
+    <string name="do_not_ask_again">Vraag niet opnieuw</string>
+    <string name="show_all">Alles weergeven</string>
+    <string name="hide_all">Alles verbergen</string>
 </resources>
