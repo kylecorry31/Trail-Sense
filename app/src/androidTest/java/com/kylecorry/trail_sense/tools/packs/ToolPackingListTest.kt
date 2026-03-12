@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.packs
 
 import androidx.test.uiautomator.Direction
+import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
@@ -19,6 +20,7 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
+import kotlin.math.roundToInt
 
 class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
 
@@ -272,7 +274,21 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         hasText(R.id.count_edit) { it.startsWith(amount.toString()) }
         hasText(R.id.desired_amount_edit) { it.startsWith(desiredAmount.toString()) }
         hasText(R.id.category_spinner) { it.startsWith(category) }
-        hasText(R.id.item_weight_input) { it.startsWith(weight.toString()) }
+
+        if (weight % 1 != 0f){
+            val pounds = (weight - weight % 1).roundToInt()
+            val ounces = (weight - pounds).roundPlaces(1) * 16
+            hasText(R.id.item_weight_input){
+                it.startsWith(pounds.toString())
+            }
+            hasText(R.id.item_weight_input){
+                it.startsWith(ounces.toString())
+            }
+        } else {
+            hasText(R.id.item_weight_input) {
+                it.startsWith(weight.toString())
+            }
+        }
     }
 
     private fun hasItem(
