@@ -260,9 +260,9 @@
     <string name="delete_waypoint_prompt">Routepunt verwijderen\?</string>
     <string name="pref_gps_override_title">Locatie overschrijven</string>
     <string name="coordinate_input_invalid_location">Locatie ongeldig</string>
-    <string name="pref_backtrack_history_days_title">Terugweg-geschiedenis</string>
+    <string name="pref_backtrack_history_days_title">Terugweggeschiedenis</string>
     <string name="backtrack_battery_warning">Kleine intervallen (minder dan 15 minuten) kunnen de batterij snel doen leeglopen</string>
-    <string name="pref_backtrack_save_cell_title">Mobiele signaal opnemen</string>
+    <string name="pref_backtrack_save_cell_title">Mobiel signaal opnemen</string>
     <string name="pref_backtrack_save_cell_summary">Het mobiele signaal opnemen bij het routepunt. Het internet wordt niet gebruikt.</string>
     <string name="onboarding_privacy">- Trail Sense respecteert je privacy. Locatiegegevens verlaten nooit je apparaat
 \n
@@ -863,8 +863,8 @@
     <string name="delete_path_group_message">%s en al zijn paden zullen worden verwijderd.</string>
     <string name="since_time">sinds %s</string>
     <string name="cross">Kruis</string>
-    <string name="pref_default_path_style_title">Stijl standaard pad</string>
-    <string name="pref_default_path_color_title">Kleur standaard pad</string>
+    <string name="pref_default_path_style_title">Standaardpad stijl</string>
+    <string name="pref_default_path_color_title">Standaardpad kleur</string>
     <string name="move_to">Verplaatsen naar</string>
     <string name="season_spring">Lente</string>
     <string name="tilt">Helling</string>
@@ -875,13 +875,13 @@
     <string name="pref_show_nearest_tide_title">Dichtstbijzijnde getijde weergeven</string>
     <string name="no_camera_access">Kan camera niet bereiken</string>
     <string name="path">Pad</string>
-    <string name="point_style">Stijl punten</string>
-    <string name="path_color">Kleur paden</string>
+    <string name="point_style">Puntenstijl</string>
+    <string name="path_color">Padkleur</string>
     <string name="sort_by">Sorteren: %s</string>
     <string name="shortest">Kortste</string>
     <string name="up_to_amount">Tot %s</string>
     <string name="kwh_per_meter_squared_format">%s kWh /m²</string>
-    <string name="line_style">Stijl lijnen</string>
+    <string name="line_style">Lijnenstijl</string>
     <string name="map_projection_mercator">Mercatorprojectie</string>
     <string name="pref_only_navigate_path_points_title">Alleen padvinden naar opgeslagen punten</string>
     <string name="error">Fout</string>
