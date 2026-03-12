@@ -140,7 +140,7 @@
     <string name="compass_reported_accuracy">Zgłoszona dokładność: %s</string>
     <string name="pref_auto_declination_summary">Na podstawie aktualnej lokalizacji</string>
     <string name="clinometer_rotate_device">Trzymaj telefon pionowo</string>
-    <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego oraz wysokości obiektów</string>
+    <string name="tool_clinometer_summary">Szacowanie zagrożenia lawinowego oraz wysokości obiektów</string>
     <string name="sunset_alert_channel_title">Alert zachodu słońca</string>
     <string name="sun_up_no_set">Słońce wzeszło</string>
     <string name="tool_bubble_level_summary">Określ, czy powierzchnie są płaskie</string>
@@ -238,7 +238,7 @@
     <string name="discharging_slow">Powolne rozładowywanie (%s)</string>
     <string name="charging_slow">Wolne ładowanie (%s)</string>
     <string name="charging_fast">Szybkie ładowanie (%s)</string>
-    <string name="compass_auto_declination">Automatyczna regulacja deklinacji</string>
+    <string name="compass_auto_declination">Automatyczna korekcja deklinacji</string>
     <string name="compass_declination_override">Nadpisanie deklinacji</string>
     <string name="notes_empty_text">Brak notatek</string>
     <string name="delete_note_title">Usunąć notatkę\?</string>
@@ -297,7 +297,7 @@
     <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia na poziomie morza</string>
     <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
     <string name="pref_elevation_override_title">Nadpisanie wysokości</string>
-    <string name="pref_auto_location_title">Automatyczna aktualizacja lokalizacji</string>
+    <string name="pref_auto_location_title">Automatyczna korekcja lokalizacji</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="set_inclination_instructions">Naciśnij lub przytrzymaj w dowolnym miejscu, aby zablokować lub odblokować</string>
     <string name="create_at_distance">Utwórz w odległości</string>
@@ -341,14 +341,14 @@
     <string name="unavailable">Niedostępna</string>
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Nadpisana</string>
-    <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urządzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Wyświetl [Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca obecnej lokalizacji (alerty zachodów słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki &gt; Kalibracja GPS. \n \n- Po nacisnięciu \"Kontynuuj\" zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
+    <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urządzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Wyświetl [Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca aktualnej lokalizacji (alerty zachodów słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki &gt; Kalibracja GPS. \n \n- Po nacisnięciu \"Kontynuuj\" zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
     <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji aplikacji Trail Sense, korzystając z Podręcznika użytkownika. Dostępny na samym dole w zakładce Narzędzia. \n \nWkrótce pojawi się więcej przewodników.</string>
     <string name="pref_require_satellites_title">Wymagaj ustalenia pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt trasy?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
     <string name="location_override_updated">Zaktualizowano nadpisanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Użyj narzędzia tylko, gdy jest to bezpieczne oraz sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
-    <string name="pref_elevation_override_sea_level_title">Użyj znanego ciśnienia na poziomie morza</string>
+    <string name="pref_elevation_override_sea_level_title">Używanie znanego ciśnienia na poziomie morza</string>
     <string name="elevation_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
     <string name="unit_inches_abbreviation">cal</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -448,7 +448,7 @@
     <string name="time_until_full">pozostało do naładowania</string>
     <string name="time_until_empty">pozostało do rozładowania</string>
     <string name="whistle_signal_come_here">Podejdź tutaj</string>
-    <string name="whistle_signal_acknowledged">Potwierdzony</string>
+    <string name="whistle_signal_acknowledged">Potwierdzono</string>
     <string name="whistle_signal_where_are_you">Gdzie jesteś\?</string>
     <string name="weather_monitor">Monitorowanie pogody</string>
     <string name="no_data">Brak danych</string>
@@ -464,7 +464,7 @@
     <string name="no_groups">Brak grup</string>
     <string name="preview">Podgląd</string>
     <string name="import_map">Importuj mapę</string>
-    <string name="camera_permission_denied">Odmowa uprawnień dostępu do aparatu, nie można włączyć funkcji aparatu. Możesz to włączyć w ustawieniach.</string>
+    <string name="camera_permission_denied">Odmowa uprawnień dostępu do aparatu, nie można włączyć funkcji używających aparatu. Możesz to zmienić w ustawieniach.</string>
     <string name="days">Dni</string>
     <plurals name="number_days">
         <item quantity="one">%d dzień</item>
@@ -483,13 +483,13 @@
     <string name="location_not_mocked">Używanie rzeczywistej lokalizacji</string>
     <string name="roll_pitch_yaw">Przechylenie: %1$s, Nachylenie: %2$s, Odchylenie: %3$s</string>
     <string name="sleep_timer">Minutnik</string>
-    <string name="pref_experimental_metal_direction_title">Pokaż kierunek przedmiotu z metalu</string>
+    <string name="pref_experimental_metal_direction_title">Pokaż kierunek wykrytego metalu</string>
     <string name="pref_backtrack_history_days_title">Historia Szlaku powrotnego</string>
     <string name="location_mocked">Używanie pozorowanej lokalizacji</string>
     <string name="pref_tiles_enabled_summary">Może zapobiec zatrzymaniu Trail Sense przez aplikacje oszczędzające baterię</string>
-    <string name="pref_cell_signal_refresh_cache_summary">Wymuś wczytanie ostatnich danych o mocy sygnału</string>
+    <string name="pref_cell_signal_refresh_cache_summary">Wymuś wczytanie aktualnych danych mocy sygnału</string>
     <string name="pref_cell_signal_refresh_cache_title">Odśwież pamięć podręczną sygnału</string>
-    <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigowania</string>
+    <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigacji</string>
     <string name="pref_nmea_elevation_summary">Użyj NMEA (satelita) do korekty wysokości, zamiast wbudowanego modelu</string>
     <string name="pref_barometer_info_summary">Ciśnienie może różnić się od podanego w pobliskich stacjach</string>
     <string name="battery_history">Historia baterii - ostatnio %s</string>
@@ -500,7 +500,7 @@
     <string name="backtrack_notification_channel_description">Aktualizacje lokalizacji Szlaku powrotnego</string>
     <string name="unit_yards">Jardy</string>
     <string name="yards_format">%s yd</string>
-    <string name="find_next_occurrence">Znajdź następne wystąpienie</string>
+    <string name="find_next_occurrence">Znajdź następne zdarzenie</string>
     <string name="daylight">Światło dzienne</string>
     <string name="pref_auto_low_power_title">Automatyczne oszczędzanie energii</string>
     <string name="pref_auto_low_power_summary">Gdy poziom baterii jest niski</string>
@@ -553,10 +553,10 @@
     <string name="new_packing_list">Nowa lista rzeczy do spakowania</string>
     <string name="no_packing_lists">Brak list rzeczy do spakowania</string>
     <string name="packing_lists">Listy rzeczy do spakowania</string>
-    <string name="location_override_resolution">Włącz automatyczne dopasowanie lokalizacji w ustawieniach.</string>
+    <string name="location_override_resolution">Włącz automatyczną korekcję lokalizacji w ustawieniach.</string>
     <string name="gps_unavailable_resolution">Włącz lokalizację lub zmień źródło lokalizacji na \"Tylko urządzenie\" lub \"Wysoka dokładność\"</string>
     <string name="unblock_notification_channel">Odblokuj powiadomienie %s dla Trail Sense</string>
-    <string name="battery_restricted_resolution">Ustaw Trail Sense w trybie \"Bez optymalizacji\"</string>
+    <string name="battery_restricted_resolution">Ustaw Trail Sense jako \"Nieograniczone\"</string>
     <string name="autofill">Automatyczne wypełnianie</string>
     <string name="imperial_pints">Pinty imperialne</string>
     <string name="imperial_quarts">Kwarty imperialne</string>
@@ -580,8 +580,8 @@
     <string name="diagnostics">Diagnostyka</string>
     <string name="camera">Aparat</string>
     <string name="gps_signal_lost">Utracono sygnał GPS</string>
-    <string name="beacon_qr_import_instructions">Zeskanuj kod QR, aby zaimportować</string>
-    <string name="export_path_error">Nie udało się wyeksportować ścieżek</string>
+    <string name="beacon_qr_import_instructions">Zeskanuj kod QR, aby importować</string>
+    <string name="export_path_error">Nie udało się wyeksportować ścieżki</string>
     <string name="get_gps_signal">Wyjdź na zewnątrz gdzie widok na niebo jest niezasłonięty.</string>
     <string name="no_resolution">Brak rozwiązania</string>
     <string name="sighting_compass">Kompas celowniczy</string>
@@ -630,8 +630,8 @@
 \n
 \n**Azymut**: %3$s</string>
     <string name="pref_show_nearest_tide_title">Pokaż najbliższy przypływ</string>
-    <string name="weather_exported">Wyeksportowano odczyty pogody</string>
-    <string name="pref_export_weather_csv_title">Eksportuj odczyty pogody</string>
+    <string name="weather_exported">Wyeksportowano odczyt pogody</string>
+    <string name="pref_export_weather_csv_title">Eksportuj odczyt pogody</string>
     <string name="weather_monitoring_disabled">Monitorowanie pogody wyłączone</string>
     <string name="precipitation_rain">Deszcz</string>
     <string name="precipitation_snow">Śnieg</string>
@@ -645,7 +645,7 @@
     <string name="paths">Ścieżki</string>
     <string name="avalanche_risk">Zagrożenie lawinowe</string>
     <string name="slope_amount">nachylenie %s</string>
-    <string name="pref_show_last_signal_beacon_title">Ostatni sygnał nadajnika</string>
+    <string name="pref_show_last_signal_beacon_title">Punkt nawigacyjny ostatniego sygnału</string>
     <string name="stratocumulus_desc">Chmury średnie, przypominające kulki z waty ułożone w szereg w niewielkich odstępach. Kolor waha się od białego do ciemnoszarego.</string>
     <string name="pref_default_path_style_title">Domyślny styl ścieżki</string>
     <string name="pref_default_path_color_title">Domyślny kolor ścieżki</string>
@@ -743,7 +743,7 @@
     <string name="clinometer_measure_height_title">Odległość od obiektu</string>
     <string name="clinometer_measure_distance_title">Wysokość obiektu</string>
     <string name="measure">Pomiar</string>
-    <string name="weather_monitor_disabled_resolution">Włącz monitorowanie pogody z ustawień pogody</string>
+    <string name="weather_monitor_disabled_resolution">Włącz monitorowanie pogody w ustawieniach pogody</string>
     <string name="error_banners">Komunikaty błędów</string>
     <string name="duration_second_format">%ds</string>
     <string name="simplification_quality">Jakość uproszczenia</string>
@@ -764,9 +764,9 @@
     <string name="saved">Zapisano</string>
     <string name="stride_length_stand_still">Stój w miejscu</string>
     <string name="stride_length_walk">Idź linią prostą, naciśnij \"Stop\", aby zakończyć</string>
-    <string name="current_speed">Obecna prędkość</string>
-    <string name="current_speed_pedometer">Obecna prędkość (Krokomierz)</string>
-    <string name="current_speed_gps">Obecna prędkość (GPS)</string>
+    <string name="current_speed">Aktualna prędkość</string>
+    <string name="current_speed_pedometer">Aktualna prędkość (Krokomierz)</string>
+    <string name="current_speed_gps">Aktualna prędkość (GPS)</string>
     <string name="average_speed_pedometer">Średnia prędkość (Krokomierz)</string>
     <string name="average_speed_backtrack">Średnia prędkość (Szlak powrotny)</string>
     <string name="navigating_to_nearest_path_point">Nawigacja do najbliższego punktu ścieżki</string>
@@ -786,7 +786,7 @@
     <string name="pref_only_navigate_path_points_title">Nawiguj tylko do zarejestrowanych punktów</string>
     <string name="camera_capture">Przechwyć</string>
     <string name="point">Punkt</string>
-    <string name="map_export_error">Nie udało się wyeksportować map do wybranego pliku</string>
+    <string name="map_export_error">Nie udało się wyeksportować mapy do wybranego pliku</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d ścieżka</item>
         <item quantity="few">%d ścieżki</item>
@@ -829,11 +829,11 @@
     <string name="now_value">Teraz: %s</string>
     <string name="for_historic_temperatures">Dla historycznych temperatur</string>
     <string name="hot">Gorąco</string>
-    <string name="temperature_high_low">Wysoka / Niska</string>
+    <string name="temperature_high_low">Wysoka/Niska</string>
     <string name="sensor_summary">Kompas, GPS, wysokościomierz, barometr itp.</string>
     <string name="weather_alert_storm_description">Przygotuj się na silny wiatr i opady.</string>
     <string name="weather_alert_hot_description">Przygotuj się na wysokie temperatury. Zachowaj dodatkowe środki ostrożności przeciwko wyczerpaniu i udarowi cieplnemu.</string>
-    <string name="backtrack_no_permission">Szlak powrotny wymaga uprawnień dostępu do lokalizacji, aby działać</string>
+    <string name="backtrack_no_permission">Szlak powrotny wymaga uprawnień dostępu do lokalizacji, aby funkcjonować</string>
     <string name="notifications_channel">Powiadomienia (%s)</string>
     <string name="sunset_alert_scheduled">Alert zaplanowany na %s przed zachodem słońca</string>
     <string name="weather_thunderstorm">Burza z piorunami</string>
@@ -844,7 +844,7 @@
     <string name="times">Czasy</string>
     <string name="no">Nie</string>
     <string name="historic_temperatures">Historyczne temperatury</string>
-    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperatury są oparte na %d-letniej średniej danych historycznych i mogą nie odzwierciedlać aktualnych warunków pogodowych.</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperatury są oparte na %d letniej średniej danych historycznych oraz mogą nie odzwierciedlać aktualnych warunków pogodowych.</string>
     <string name="weather_cold_front">Zimno</string>
     <string name="tool_climate_summary">Wyświetl historyczne temperatury</string>
     <string name="cold">Zimno</string>
@@ -868,7 +868,7 @@
     <string name="battery_usage_allowed">Dozwolone użycie baterii</string>
     <string name="allow_ignore_battery_restrictions">Zezwól %s na ignorowanie ograniczeń użycia baterii</string>
     <string name="allow_schedule_exact_alarms">Zezwól %s na ustawianie alarmów i przypomnień</string>
-    <string name="allow_schedule_exact_alarms_instructions">Zezwól %1$s ustawiać dokładne alarmy i przypomnienia, jak alerty zachodu słońca. W przeciwnym razie alarmy mogą nie uruchamiać się we właściwym czasie. \n \nAby zezwolić, kliknij \"%2$s\" żeby przyznać dostęp do alarmów i przypomnień.</string>
+    <string name="allow_schedule_exact_alarms_instructions">Zezwól %1$s na ustawianie dokładnych alarmów i przypomnień, jak alerty zachodu słońca. W przeciwnym razie alarmy mogą nie uruchamiać się we właściwym czasie. \n \nAby zezwolić, kliknij \"%2$s\" żeby przyznać dostęp do alarmów i przypomnień.</string>
     <string name="sunset_alerts_background_location_disclaimer">Alerty zachodu słońca mogą być niedokładne podczas podróży</string>
     <string name="start_time">Początek</string>
     <string name="end_time">Koniec</string>
@@ -896,7 +896,7 @@
     <string name="astronomy_rise">Wschód</string>
     <string name="horizon">Horyzont</string>
     <string name="reduce_map_resolution_crop_disclaimer">Przycięcie mapy zmniejszy rozdzielczość. Aby przyciąć mapę w wysokiej rozdzielczości, użyj aplikacji do edycji zdjęć. Istnieją plany naprawy w przyszłości.</string>
-    <string name="allow_ignore_battery_restrictions_instructions">Ustawienie korzystania z baterii w tle bez ograniczeń dla Trail Sense może poprawić dokładność. \n \nKliknij \"%s\", następnie przejdź do wszystkich aplikacji i ustaw korzystanie z baterii w tle bez ograniczeń dla Trail Sense. \n \nOdwiedź stronę [Don\'t kill my app](https://dontkillmyapp.com/), aby uzyskać instrukcje dotyczące konkretnego urządzenia.</string>
+    <string name="allow_ignore_battery_restrictions_instructions">Ustawienie użycia baterii w tle na \"Nieograniczone\" dla Trail Sense może poprawić dokładność. \n \nKliknij \"%s\", następnie przejdź do wszystkich aplikacji i ustaw użycie baterii w tle na \"Nieograniczone\" dla Trail Sense. \n \nOdwiedź stronę [Don\'t kill my app](https://dontkillmyapp.com/), aby uzyskać instrukcje dotyczące konkretnego urządzenia.</string>
     <string name="crop_map_instructions_long">Przeciągnij rogi ramki do rogów mapy, aby obrysować. Przycięcie mapy zmniejszy rozdzielczość.</string>
     <string name="i_agree">Zgadzam się</string>
     <string name="battery_settings_limit_accuracy">Ograniczenie użycia baterii może zmniejszyć dokładność</string>
@@ -923,7 +923,7 @@
     <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na opady przez następne %d godzin/y.</string>
     <string name="gps_elevation_accuracy">Dokładność wysokości GPS</string>
     <string name="gps_accuracy_tip">Upewnij się, że widok na niebo jest niezasłonięty oraz oddal się od wysokich budynków i drzew.</string>
-    <string name="map_auto_rotated">Obrót mapy regulowany za pomocą kalibracji</string>
+    <string name="map_auto_rotated">Obrót mapy korygowany za pomocą kalibracji</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na opady w ciągu najbliższych %d godzin.</string>
     <string name="cumulonimbus_forecast">Mogą wskazywać na burzę w ciągu kilku minut.</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na dobrą pogodę, lecz jeśli rozprzestrzeniają się, mogą wskazywać na opady lub burzę w ciągu najbliższych %d godzin.</string>
@@ -957,7 +957,7 @@
     <string name="pref_navigation_lock_screen_when_open_title">Pokaż na ekranie blokady po otworzeniu</string>
     <string name="pref_tiles_battery_log">Dziennik baterii</string>
     <string name="pref_dialog_battery_log_summary">Dziennik baterii jest wyłączony, historia oraz czas do całkowitego rozładowania mogą być niedostępne. Możesz to zmienić w ustawieniach</string>
-    <string name="pref_tiles_enabled_battery_log_summary">Rejestruje procentowe użycie baterii, aby oszacować czas do całkowitego rozładowania</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Rejestruje procentowe użycie baterii, aby szacować czas do całkowitego rozładowania</string>
     <string name="milligrams">Miligramy</string>
     <string name="caliber_format">%s cal</string>
     <string name="millimeters_format">%s mm</string>
@@ -971,8 +971,8 @@
     <string name="no_sensor_message">Urządzenie nie posiada wbudowanego czujnika: %s</string>
     <string name="no_qr_code_detected">Nie wykryto kodu QR</string>
     <string name="obscuration">Zaćmienie</string>
-    <string name="clinometer_measure_height_instructions">Aby wykonać pomiar wysokości obiektu oddalonego o %s:\n\n1. Wyrównaj klinometr z podstawą obiektu\n2. Naciśnij i przytrzymaj ekran\n3. Wyrównaj klinometr ze szczytem obiektu\n4. Puść ekran, aby zablokować i zakończyć pomiar</string>
-    <string name="clinometer_measure_distance_instructions">Aby wykonać pomiar odległości od obiektu o wysokości %s:\n\n1. Wyrównaj klinometr z podstawą obiektu\n2. Naciśnij i przytrzymaj ekran\n3. Wyrównaj klinometr ze szczytem obiektu\n4. Puść ekran, aby zablokować i zakończyć pomiar</string>
+    <string name="clinometer_measure_height_instructions">Aby wykonać pomiar wysokości obiektu oddalonego o %s:\n\n1. Wyrównaj Klinometr z podstawą obiektu\n2. Naciśnij i przytrzymaj ekran\n3. Wyrównaj Klinometr ze szczytem obiektu\n4. Puść ekran, aby zablokować i zakończyć pomiar</string>
+    <string name="clinometer_measure_distance_instructions">Aby wykonać pomiar odległości od obiektu o wysokości %s:\n\n1. Wyrównaj Klinometr z podstawą obiektu\n2. Naciśnij i przytrzymaj ekran\n3. Wyrównaj Klinometr ze szczytem obiektu\n4. Puść ekran, aby zablokować i zakończyć pomiar</string>
     <string name="disclaimer_estimated_tide">Szacowane pływy mogą być niedokładne. Proszę, użyj oficjalnej tabeli pływów dla dokładnych czasów.</string>
     <string name="beacons">Punkty nawigacyjne</string>
     <string name="tide_diurnal">Dzienny</string>
@@ -995,7 +995,7 @@
     <string name="pressure_system">Układ baryczny</string>
     <string name="high_pressure_system_description">Kojarzony z dobrą pogodą, bezchmurnym niebem oraz chłodniejszymi temperaturami.</string>
     <string name="low_pressure_system_description">Kojarzony ze złą pogodą, zachmurzonym niebem oraz cieplejszymi temperaturami.</string>
-    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na dobrą pogodę w najbliższych %d godz. jeśli jest mgliście, w przeciwnym razie może wskazywać na nadchodzące opady.</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na dobrą pogodę w ciągu najbliższych %d godzin, jeśli jest mgliście, w przeciwnym razie może wskazywać na nadchodzące opady.</string>
     <string name="then_weather">następnie %s</string>
     <string name="weather_overcast">Pochmurno</string>
     <string name="blank">Pusta</string>
@@ -1006,21 +1006,21 @@
     <string name="backup">Kopia zapasowa</string>
     <string name="sunrise_alert_scheduled">Alert zaplanowany na %s przed wschodem słońca</string>
     <string name="restore">Przywracanie</string>
-    <string name="restore_disclaimer">Akcja nadpisze wszystkie obecne dane. Proszę, upewnij się że posiadasz kopię zapasową przed kontynuacją.\n\nWybieraj wyłącznie plik kopii zapasowej który został utworzony przez %s.</string>
-    <string name="backup_disclaimer">Plik kopii zapasowej zostanie utworzony, zawierając wszystkie obecne dane. Włączając ustawienia, ścieżki, punkty nawigacyjne, mapy, itp.\n\nPlik nie jest szyfrowany. Nie udostępniaj go osobom trzecim.</string>
+    <string name="restore_disclaimer">Akcja nadpisze wszystkie aktualne dane. Proszę, upewnij się że posiadasz kopię zapasową przed kontynuacją.\n\nWybieraj wyłącznie plik kopii zapasowej który został utworzony przez %s.</string>
+    <string name="backup_disclaimer">Plik kopii zapasowej zostanie utworzony, zawierając wszystkie aktualne dane. Włączając ustawienia, ścieżki, punkty nawigacyjne, mapy, itp.\n\nPlik nie jest szyfrowany. Nie udostępniaj go osobom trzecim.</string>
     <string name="backing_up_loading_message">Tworzenie kopii…</string>
     <string name="restoring_loading_message">Przywracanie…</string>
     <string name="restore_complete_message">Przywracanie powiodlo się. Uruchamianie ponownie, aby zastosować zmiany</string>
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
-    <string name="backup_restore">Kopia zapasowa / Przywracanie</string>
+    <string name="backup_restore">Kopia zapasowa/Przywracanie</string>
     <string name="restore_failure_newer_version">Plik kopii zapasowej został utworzony przy użyciu nowszej wersji %s. Proszę, zaktualizuj aplikację i spróbuj ponownie.</string>
     <string name="zero_shutter_lag">Brak opóźnień migawki</string>
     <string name="my_location">Moja lokalizacja</string>
     <string name="destination">Miejsce docelowe</string>
     <string name="triangulate_destination_location_1_instructions">Rejestruj lokalizacje oraz kierunek do miejsca docelowego.</string>
-    <string name="triangulate_destination_location_2_instructions">Oddal się od pierwszej lokalizacji przynajmniej o %s, rozpocznij ponownie rejestrację lokalizacji oraz kierunku do miejsca docelowego.</string>
-    <string name="triangulate_self_location_1_instructions">Wybierz znaną lokalizację w zasięgu wzroku, rozpocznij nagrywanie kierunku z obecnego do wyznaczonego miejsca docelowego.</string>
-    <string name="triangulate_self_location_2_instructions">Wybierz kolejną znaną lokalizację w zasięgu wzroku, rozpocznij nagrywanie kierunku z obecnego do wyznaczonego miejsca docelowego.</string>
+    <string name="triangulate_destination_location_2_instructions">Oddal się od pierwszej lokalizacji przynajmniej o %s, rozpocznij ponownie rejestrowanie lokalizacji oraz kierunku do miejsca docelowego.</string>
+    <string name="triangulate_self_location_1_instructions">Wybierz znaną lokalizację w zasięgu wzroku, rozpocznij rejestrowanie kierunku z aktualnego do wyznaczonego miejsca docelowego.</string>
+    <string name="triangulate_self_location_2_instructions">Wybierz kolejną znaną lokalizację w zasięgu wzroku, rozpocznij rejestrowanie kierunku z aktualnego do wyznaczonego miejsca docelowego.</string>
     <string name="location_to_triangulate">Lokalizacja do triangulacji</string>
     <string name="distance_away_from_self">Oddalone o %s</string>
     <string name="distance_away_from_destination">Oddalone o %s od miejsca docelowego</string>
@@ -1039,7 +1039,7 @@
     <string name="is_there_a_way_to_fix_this">Czy istnieje możliwość rozwiązania problemu?</string>
     <string name="no_sensor_unable_to_fix">Niestety, funkcjonalność zależy od sprzętu, brak możliwości rozwiazania problemu.</string>
     <string name="why_missing_sensor">Urządzenie jest nowe/drogie, dlaczego brakuje wymaganego czujnika?</string>
-    <string name="missing_sensor_explanation">Niektórzy producenci nie instaluja wszystkich czujników nawet w nowych czy najdroższych urządzeniach. Aby dowiedzieć się więcej, odwiedź stronę producenta lub skontaktuj się z działem technicznym.</string>
+    <string name="missing_sensor_explanation">Niektórzy producenci nie instalują wszystkich czujników nawet w nowych czy najdroższych urządzeniach. Aby dowiedzieć się więcej, odwiedź stronę producenta lub skontaktuj się z działem technicznym.</string>
     <string name="magnetic_north_description">Wskaż na magnetyczny biegun północny. Zgodne z większością kompasów.</string>
     <string name="high_sensitivity">Wysoka czułość</string>
     <string name="continuous_calibration">Kalibracja w czasie rzeczywistym</string>
@@ -1077,9 +1077,9 @@
         <item quantity="other">%d kroków</item>
     </plurals>
     <string name="select_from_gallery">Wybierz z galerii</string>
-    <string name="magnetometer_gyro_custom">Magnetometr + Żyroskop (niestandardowy)</string>
+    <string name="magnetometer_gyro_custom">Magnetometr + Żyroskop (Niestandardowy)</string>
     <string name="projection_type">Projekcja Rzeczywistości Rozszerzonej</string>
-    <string name="projection_estimated_intrinsics">Oszacowane parametry obiektywu</string>
+    <string name="projection_estimated_intrinsics">Szacowane parametry obiektywu</string>
     <string name="projection_manufacturer_intrinsics">Rzeczywiste parametry obiektywu</string>
     <string name="projection_perspective">Perspektywiczna</string>
     <string name="projection_linear">Zbieżna</string>
@@ -1093,7 +1093,7 @@
     <string name="ar_layer_override_message">Ustawienia warstw mogą być nadpisywane przez poradniki, np. Astronomiczny.</string>
     <string name="date">Data</string>
     <string name="path_distance_performance_disclaimer">Zalecane maksymalnie %s</string>
-    <string name="ar_calibration_disclaimer">Przed każdym użyciem Rzeczywistosci Rozszerzonej zweryfikuj, czy ikony slońca i księżyca pokrywają się z właściwym położeniem. Aby skalibrować położenie, naciśnij kompas w lewym górnym rogu ekranu oraz postępuj zgodnie z wyświetlonymi instrukcjami.</string>
+    <string name="ar_calibration_disclaimer">Przed każdym użyciem Rzeczywistosci Rozszerzonej zweryfikuj, czy slońce i księżyc pokrywają się z właściwym położeniem. Aby skalibrować położenie, naciśnij Kompas w lewym górnym rogu ekranu oraz postępuj zgodnie z wyświetlonymi instrukcjami.</string>
     <string name="no_recorded_cell_signal_nearby">Brak pobliskich zarejestrowanych sygnalów sieci</string>
     <string name="navigate_to_nearest_cell_signal">Nawiguj do najbliższego sygnału sieci</string>
     <string name="tool_quick_action_name">Narzędzie: %s</string>
@@ -1166,11 +1166,11 @@
     <string name="tide_chart">Wykres pływów</string>
     <string name="nearby_beacons">Pobliskie punkty nawigacyjne</string>
     <string name="tide_model_auto">Model pływów (Automatyczny)</string>
-    <string name="tide_estimation_description_tide_clock">Użyj zegara pływów do oszacowania czasu. Wymaga przynajmniej jednego znanego pływu.</string>
-    <string name="tide_estimation_description_lunitidal_interval_auto">Użyj pozycji księżyca do oszacowania czasu. Wymaga przynajmniej jednego znanego pływu.</string>
-    <string name="tide_estimation_description_lunitidal_interval_local">Użyj pozycji księżyca do oszacowania czasu. Wymaga odstępu księżycowo-przypływowego oraz lokalizacji.</string>
-    <string name="tide_estimation_description_lunitidal_interval_utc">Użyj pozycji księżyca do oszacowania czasu. Wymaga odstępu księżycowo-przypływowego (UCK/GMT).</string>
-    <string name="tide_estimation_description_tide_model">Użyj wbudowanego modelu pływów do oszacowania czasu. Wymaga wprowadzonych współrzędnych rzeczywistych lub lokalizacji.</string>
+    <string name="tide_estimation_description_tide_clock">Użyj zegara pływów do szacowania czasu. Wymaga przynajmniej jednego znanego pływu.</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">Użyj pozycji księżyca do szacowania czasu. Wymaga przynajmniej jednego znanego pływu.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Użyj pozycji księżyca do szacowania czasu. Wymaga odstępu księżycowo-przypływowego oraz lokalizacji.</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Użyj pozycji księżyca do szacowania czasu. Wymaga odstępu księżycowo-przypływowego (UCK/GMT).</string>
+    <string name="tide_estimation_description_tide_model">Użyj wbudowanego modelu pływów do szacowania czasu dla wprowadzonych współrzędnych lub lokalizacji.</string>
     <string name="star">Gwiazda</string>
     <string name="show_below_horizon">Pokaż poniżej horyzontu</string>
     <string name="show_stars">Pokaż planety oraz gwiazdy</string>
@@ -1239,10 +1239,10 @@
     <string name="below">Poniżej</string>
     <string name="distance_to_target">Odległość do obiektu</string>
     <string name="scope">Luneta</string>
-    <string name="scope_adjustment">Regulacja lunety</string>
+    <string name="scope_adjustment">Korekcja lunety</string>
     <string name="windage_miss">Chybienie w poziomie (Poprawka na wiatr)</string>
     <string name="elevation_miss">Chybienie w pionie (Poprawka na grawitację)</string>
-    <string name="adjustment_per_click">Zakres regulacji kliknięcia</string>
+    <string name="adjustment_per_click">Zakres korekcji kliknięcia</string>
     <string name="scope_height">Wysokość lunety nad środkiem lufy</string>
     <string name="muzzle_velocity">Prędkość wylotowa</string>
     <string name="sight_in_range">Odległość na jaką broń jest przystosowana</string>
@@ -1343,7 +1343,7 @@
     <string name="climate_warm_summer_description">Planuj na wyższe temperatury podczas lata.</string>
     <string name="climate_cold_summer_description">Planuj na niższe temperatury podczas lata.</string>
     <string name="climate_very_cold_winter_description">Planuj na ekstremalnie niskie temperatury podczas zimy.</string>
-    <string name="map_tool_disclaimer">Narzędzie nie zawiera wbudowanych map, obrazów satelitarnych czy danych szlaków. Nie pobiera map z internetu. Aby wyświetlić podkład mapy, zaimportuj własny obraz używając narzędzia Mapy Ze Zdjęć. Jeżeli potrzebujesz podglądu na żywo lub wstępnie załadowanych map, obrazów satelitarnych, czy danych szlaków użyj dedykowanej aplikacji.</string>
+    <string name="map_tool_disclaimer">Narzędzie nie zawiera wbudowanych map, obrazów satelitarnych czy danych szlaków. Nie pobiera map z internetu. Aby wyświetlić podkład mapy, importuj własny obraz używając narzędzia Mapy Ze Zdjęć. Jeżeli potrzebujesz podglądu na żywo lub wstępnie załadowanych map, obrazów satelitarnych, czy danych szlaków użyj dedykowanej aplikacji.</string>
     <string name="open_settings">Otwórz ustawienia</string>
     <string name="show_gps_accuracy">Pokaż dokładność GPS</string>
     <string name="large_location_indicator">Zwiększ rozmiar wskaźnika lokacji</string>
@@ -1386,7 +1386,7 @@
     <string name="dark_theme">Tryb ciemny</string>
     <string name="restrict_app_background_activity">Limity użycia w tle</string>
     <string name="system">System</string>
-    <string name="battery_tip_system">Dostosuj ustawienia systemu, aby zmniejszyć użycie baterii.</string>
+    <string name="battery_tip_system">Zmień ustawienia systemu, aby zmniejszyć użycie baterii.</string>
     <string name="other_tips">Inne wskazówki</string>
     <string name="theme_transparent_type">Przezroczysty (%s)</string>
     <string name="widget_theme_black_text">Czarny tekst</string>
@@ -1481,7 +1481,7 @@
     <string name="cirrostratus_desc">Chmury wysokie, zakrywające niebo. Przezroczyste oraz zazwyczaj powodujące powstawanie aureoli wokół słońca.</string>
     <string name="altocumulus_desc">Chmury średnie, puszyste, przypominające kulki z waty. Zazwyczaj białe z ciemniejszymi łatami od spodu oraz występujące w rozproszeniu lub ułożone w szereg.</string>
     <string name="altostratus_desc">Chmury średnie, zakrywające niebo. Słońce ledwie widać jako jasną łatę.</string>
-    <string name="nimbostratus_desc">Chmury średnie, zakrywajace niebo. Ciemnoszare oraz jeśli nie pada, mogą to być chmury stratus.</string>
+    <string name="nimbostratus_desc">Chmury średnie, zakrywajace niebo. Ciemnoszare oraz jeśli nie pada, to mogą być chmury stratus.</string>
     <string name="stratus_desc">Chmury niskie, zakrywające niebo. Obiekty nie rzucają cieni oraz może być mglisto.</string>
     <string name="cumulus_desc">Chmury średnie, puszyste, przypominające kulki z waty. Zazwyczaj białe z ciemniejszymi łatami od spodu oraz występujące w rozproszeniu.</string>
     <string name="cumulonimbus_desc">Chmury niskie, puszyste, bardzo wysokie. Ciemne oraz zazwyczaj mające kształt kowadła.</string>
