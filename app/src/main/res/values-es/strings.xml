@@ -1497,9 +1497,18 @@
     <string name="biting_flies_mosquitoes">Mosquitos</string>
     <string name="ecology">Ecología</string>
     <string name="pref_ruler_flip_direction_title">Invertir dirección de regla</string>
-    <string name="pref_navigation_draw_compass_dial_bezel_title">Mostrar bisel de la brújula</string>
-    <string name="pref_navigation_draw_compass_dial_bezel_summary">Dibujar marcas de grados en el dial de la brújula</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_title">Mostrar bisel en la brújula</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_summary">Marcas de grados en la esfera de la brújula</string>
     <string name="pref_navigation_show_azimuth_indicator_title">Mostrar indicador de acimut</string>
     <string name="pref_navigation_show_azimuth_indicator_summary">Resaltar rumbo actual en la brújula</string>
     <string name="large_location_indicator">Indicador de ubicación grande</string>
+    <string name="do_not_ask_again">No volver a preguntar</string>
+    <string name="quick_action_recalibrate_altimeter">Recalibrar altímetro</string>
+    <string name="recalibrating">Recalibrando</string>
+    <string name="packing_list_optional">Opcional</string>
+    <string name="show_all">Mostrar todo</string>
+    <string name="hide_all">Ocultar todo</string>
+    <string name="tool_magnifier_title">Lupa</string>
+    <string name="show_low_brightness_objects">Mostrar estrellas/planetas de baja luminosidad</string>
+    <string name="pref_default_beacon_color_title">Color balizas predeterminado</string>
 </resources>
