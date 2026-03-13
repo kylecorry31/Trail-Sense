@@ -1138,7 +1138,7 @@
     <string name="water">Woda</string>
     <string name="shelter">Schronienie</string>
     <string name="overview">Przegląd</string>
-    <string name="crafting">Rzemiosło</string>
+    <string name="crafting">Rzemieślnicze</string>
     <string name="field_required">%s (wymagane)</string>
     <string name="reduce_photo_resolution">Zmniejsz rozdzielczość obrazu</string>
     <string name="survival_guide_empty_desc">Szukaj zagadnień dotyczących przetrwania, np; nawodnienie, medycyna, pożywienie, pogoda, schronienie oraz techniki nawigacyjne.</string>
@@ -1466,9 +1466,9 @@
     <string name="biting_flies_mosquitoes">Owady kłujące/Komary</string>
     <string name="ecology">Ekologia</string>
     <string name="onboarding_explore">- Zaprojektowane z myślą o wspinaczce, podróżach, biwakowaniu oraz geocachingu\n\n- Twórz i prowadź do punktów nawigacyjnych\n\n- Podążaj ścieżkami\n\n- Wracaj własnymi śladami ze Szlakiem powrotnym \n\n- Planuj co zapakować\n\n- Bądź informowany zanim zajdzie słońce\n\n- Przewiduj pogodę\n\n- Używaj telefonu jako latarki\n\n- Oraz o wiele więcej!</string>
-    <string name="grassland">Step</string>
-    <string name="tundra">Tundra</string>
-    <string name="human_interaction">Kontakt z człowiekiem</string>
+    <string name="grassland">Stepowe</string>
+    <string name="tundra">Tundrowe</string>
+    <string name="human_interaction">Interakcja człowieka</string>
     <string name="pref_ruler_flip_direction_title">Odwróć kierunek linijki</string>
     <string name="pref_nearby_linear_only_title">Pokaż tylko pobliskie punkty nawigacyjne na kompasie liniowym</string>
     <string name="pref_navigation_draw_compass_dial_bezel_title">Pokaż obrotowy pierścień kompasu</string>
