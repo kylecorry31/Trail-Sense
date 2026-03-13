@@ -44,6 +44,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPreferences
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimatePreferenceRepo
 import com.kylecorry.trail_sense.tools.map.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
@@ -62,6 +63,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
 
     val navigation by lazy { NavigationPreferences(context) }
+    val beacons by lazy { BeaconPreferences(context) }
     val photoMaps by lazy { PhotoMapPreferences(context) }
     val map by lazy { MapPreferences(context) }
     val weather by lazy { WeatherPreferences(context) }

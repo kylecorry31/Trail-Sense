@@ -67,7 +67,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val beaconService by lazy { BeaconService(requireContext()) }
-    private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.navigation) }
+    private val beaconLoader by lazy { BeaconLoader(beaconService, prefs.beacons) }
     private var sort = BeaconSortMethod.Closest
 
     private val listMapper by lazy {
@@ -103,7 +103,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
         navController = findNavController()
 
-        sort = prefs.navigation.beaconSort
+        sort = prefs.beacons.beaconSort
 
         binding.beaconRecycler.emptyView = binding.beaconEmptyText
         manager = GroupListManager(
@@ -124,7 +124,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         }
 
         binding.beaconTitle.rightButton.setOnClickListener {
-            val defaultSort = prefs.navigation.beaconSort
+            val defaultSort = prefs.beacons.beaconSort
             Pickers.menu(
                 it, listOf(
                     getString(R.string.sort_by, getSortString(defaultSort)),
@@ -282,10 +282,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             requireContext(),
             getString(R.string.sort),
             sortOptions.map { getSortString(it) },
-            sortOptions.indexOf(prefs.navigation.beaconSort)
+            sortOptions.indexOf(prefs.beacons.beaconSort)
         ) { newSort ->
             if (newSort != null) {
-                prefs.navigation.beaconSort = sortOptions[newSort]
+                prefs.beacons.beaconSort = sortOptions[newSort]
                 sort = sortOptions[newSort]
                 onSortChanged()
             }

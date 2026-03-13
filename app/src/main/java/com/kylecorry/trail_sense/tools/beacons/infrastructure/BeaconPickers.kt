@@ -29,7 +29,7 @@ object BeaconPickers {
         sort: IBeaconSort = NameBeaconSort(),
         filter: (List<IBeacon>) -> List<IBeacon> = { it }
     ): Beacon? = suspendCoroutine { cont ->
-        val loader = BeaconLoader(BeaconService(context), UserPreferences(context).navigation)
+        val loader = BeaconLoader(BeaconService(context), UserPreferences(context).beacons)
         val manager = GroupListManager(
             scope,
             loader,
@@ -67,7 +67,7 @@ object BeaconPickers {
         sort: IBeaconSort = NameBeaconSort(),
         filter: (List<BeaconGroup>) -> List<BeaconGroup> = { it }
     ): Pair<Boolean, BeaconGroup?> = suspendCoroutine { cont ->
-        val loader = BeaconLoader(BeaconService(context), UserPreferences(context).navigation)
+        val loader = BeaconLoader(BeaconService(context), UserPreferences(context).beacons)
         val manager = GroupListManager(
             scope,
             loader,

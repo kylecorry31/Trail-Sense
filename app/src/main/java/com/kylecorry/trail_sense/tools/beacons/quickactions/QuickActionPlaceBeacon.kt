@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -46,6 +46,7 @@ class QuickActionPlaceBeacon(btn: ImageButton, fragment: Fragment) :
                 val formatter = FormatService.getInstance(fragment.requireContext())
                 val time = formatter.formatDateTime(ZonedDateTime.now())
 
+                val prefs = UserPreferences(fragment.requireContext())
                 val beaconService = BeaconService(fragment.requireContext())
                 id = beaconService.add(
                     Beacon(
@@ -53,7 +54,7 @@ class QuickActionPlaceBeacon(btn: ImageButton, fragment: Fragment) :
                         time,
                         gps.location,
                         elevation = altimeter.altitude,
-                        color = AppColor.Orange.color,
+                        color = prefs.beacons.defaultBeaconColor.color,
                     )
                 )
 
