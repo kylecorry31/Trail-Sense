@@ -10,13 +10,11 @@ import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
@@ -26,7 +24,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
-    IPathPreferences, IBeaconPreferences {
+    IPathPreferences {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val sensors by lazy { SensorService(context) }
@@ -52,9 +50,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         context.getString(R.string.pref_navigation_keep_unlocked),
         false
     )
-
-    override val showLastSignalBeacon: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_show_last_signal_beacon)) ?: true
 
     override val useLinearCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
@@ -182,13 +177,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 else -> BuiltInCoordinateFormat.DecimalDegrees
             }
         }
-
-    override var beaconSort: BeaconSortMethod by IntEnumPreference(
-        cache,
-        context.getString(R.string.pref_beacon_sort),
-        BeaconSortMethod.values().associateBy { it.id.toInt() },
-        BeaconSortMethod.Closest
-    )
 
     var pathSort: PathSortMethod by IntEnumPreference(
         cache,

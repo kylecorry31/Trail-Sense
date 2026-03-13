@@ -111,6 +111,9 @@ You can disable this beacon in Settings > Paths > 'Last signal beacon'.
 
 You can also choose to navigate to the nearest cell signal by clicking the menu button at the top-right of the beacon list and selecting 'Navigate to nearest cell signal'. This will start navigation to the nearest recorded location that has a cell signal.
 
+## Settings
+- **Default beacon color**: The color that will be pre-selected when creating a new beacon. This can be changed in Settings > Beacons > 'Default beacon color'.
+
 ## Quick action
 You can enable the Create Beacon quick action in the settings for the desired tab.
 

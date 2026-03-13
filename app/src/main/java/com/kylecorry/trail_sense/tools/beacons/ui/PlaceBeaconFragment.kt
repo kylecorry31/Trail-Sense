@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.beacons.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.BundleCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.TextViewCompat
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -115,6 +117,14 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             updateSubmitButton()
         }
 
+        if (editingBeaconId == null) {
+            val defaultColor = prefs.beacons.defaultBeaconColor
+            form.onColorChanged(defaultColor)
+            updateColor()
+            hasChanges =
+                DoesBeaconFormDataHaveChanges(CreateBeaconData.empty.copy(color = defaultColor))
+        }
+
         binding.beaconName.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && !hasValidName()) {
                 binding.beaconName.error = getString(R.string.beacon_invalid_name)
@@ -209,7 +219,10 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun updateColor() {
-        CustomUiUtils.setImageColor(binding.beaconColorPicker, form.data.color.color)
+        TextViewCompat.setCompoundDrawableTintList(
+            binding.beaconColorPicker,
+            ColorStateList.valueOf(form.data.color.color)
+        )
     }
 
     private fun updateIcon() {

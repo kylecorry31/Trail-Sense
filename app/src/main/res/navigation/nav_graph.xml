@@ -273,6 +273,10 @@
         android:name="com.kylecorry.trail_sense.settings.ui.PathsSettingsFragment"
         android:label="PathsSettingsFragment" />
     <fragment
+        android:id="@+id/beaconsSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.BeaconSettingsFragment"
+        android:label="BeaconSettingsFragment" />
+    <fragment
         android:id="@+id/astronomySettingsFragment"
         android:name="com.kylecorry.trail_sense.tools.astronomy.ui.AstronomySettingsFragment"
         android:label="AstronomySettingsFragment" />

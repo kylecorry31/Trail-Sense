@@ -64,6 +64,7 @@ object BeaconsToolRegistration : ToolRegistration {
             R.id.beacon_list,
             ToolCategory.Location,
             guideId = R.raw.guide_tool_beacons,
+            settingsNavAction = R.id.beaconsSettingsFragment,
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_CREATE_BEACON,
