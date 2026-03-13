@@ -1,0 +1,33 @@
+Navegación
+- Nueva esfera de la brújula
+- Mostrar balizas cercanas
+
+Clima
+- Estimar actividad de insectos
+
+Mapa
+- Modo calcar
+- Tamaño indicador de ubicación
+
+Balizas
+- Añadir más iconos
+
+Regla
+- Invertir la dirección
+- Resaltar medida
+
+Astronomía
+- Pulsar gráfico para cambiar la hora
+
+Lupa
+- Nueva herramienta
+
+Realidad aumentada
+- Estrellas/planetas de baja luminosidad
+
+Sensores
+- Acción rápida para recalibrar el altímetro
+
+Listas de embalaje
+- Elementos como opcionales
+- Peso en libras + onzas
