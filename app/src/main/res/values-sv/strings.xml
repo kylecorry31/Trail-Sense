@@ -121,4 +121,20 @@
     <string name="season_spring">Vår</string>
     <string name="season_summer">Sommar</string>
     <string name="season_fall">Höst</string>
+    <string name="simplify">Förenkla</string>
+    <string name="height">Höjd</string>
+    <string name="instructions">Instruktioner</string>
+    <string name="measure">Mät</string>
+    <string name="errors">Fel</string>
+    <string name="open">Öppna</string>
+    <string name="share_ellipsis">Dela…</string>
+    <string name="night">Natt</string>
+    <string name="view">Visa</string>
+    <string name="explore">Utforska</string>
+    <string name="steps">Steg</string>
+    <string name="off">Av</string>
+    <string name="save">Spara</string>
+    <string name="saved">Sparat</string>
+    <string name="error">Fel</string>
+    <string name="warning">Varning</string>
 </resources>
