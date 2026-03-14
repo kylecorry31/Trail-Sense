@@ -103,7 +103,7 @@
     <string name="kilometers_per_hour_format">%.1f km/h</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
-    <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle, do kalibracji ciśnienia na poziomie morza podczas monitorowania pogody oraz aby zapewnić dokładniejsze alerty zachodu słońca. [Wyświetl Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle, do kalibracji ciśnienia na poziomie morza podczas monitorowania pogody, oraz aby zapewnić dokładniejsze alerty zachodu słońca. [Wyświetl Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
     <string name="third_quarter">Ostatnia kwadra</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
@@ -168,7 +168,7 @@
     <string name="category_shelter">Schronienie</string>
     <string name="category_food">Pożywienie</string>
     <string name="other">Inne</string>
-    <string name="tool_user_guide_title">Podręcznik użytkownika</string>
+    <string name="tool_user_guide_title">Podręcznik Użytkownika</string>
     <string name="pref_open_source_licenses_title">Licencje</string>
     <string name="pref_weather_update_frequency_title">Częstotliwość aktualizacji pogody</string>
     <string name="pref_show_pressure_in_notification_title">Pokaż ciśnienie w powiadomieniu</string>
@@ -342,12 +342,12 @@
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Nadpisana</string>
     <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urządzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Wyświetl [Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnienia dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca aktualnej lokalizacji (alerty zachodów słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki &gt; Kalibracja GPS. \n \n- Po nacisnięciu \"Kontynuuj\" zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
-    <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji aplikacji Trail Sense, korzystając z Podręcznika użytkownika. Dostępny na samym dole w zakładce Narzędzia. \n \nWkrótce pojawi się więcej przewodników.</string>
+    <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji aplikacji Trail Sense, korzystając z Podręcznika Użytkownika. Dostępny na samym dole w zakładce Narzędzia. \n \nWkrótce pojawi się więcej przewodników.</string>
     <string name="pref_require_satellites_title">Wymagaj ustalenia pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt trasy?</string>
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
     <string name="location_override_updated">Zaktualizowano nadpisanie lokalizacji</string>
-    <string name="tool_cliff_height_disclaimer">Użyj narzędzia tylko, gdy jest to bezpieczne oraz sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w podręczniku użytkownika.</string>
+    <string name="tool_cliff_height_disclaimer">Użyj narzędzia tylko, gdy jest to bezpieczne oraz sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w Podręczniku Użytkownika.</string>
     <string name="pref_elevation_override_sea_level_title">Używanie znanego ciśnienia na poziomie morza</string>
     <string name="elevation_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
     <string name="unit_inches_abbreviation">cal</string>
@@ -977,7 +977,7 @@
     <string name="beacons">Punkty nawigacyjne</string>
     <string name="tide_diurnal">Dzienny</string>
     <string name="exported">Wyeksportowano</string>
-    <string name="tide_user_guide_recommendation">Oficjalne strony z tabelami pływów są dostępne w podręczniku użytkownika.</string>
+    <string name="tide_user_guide_recommendation">Oficjalne strony z tabelami pływów są dostępne w Podręczniku Użytkownika.</string>
     <string name="tide_semidiurnal">Półdobowy</string>
     <string name="tide_frequency_description">Liczba przypływów dziennie. Większość pływów jest półdobowa.</string>
     <string name="tide_instructions">Użyj oficjalnej tabeli pływów, aby wprowadzić pływy referencyjne do długości podróży.</string>
@@ -1294,7 +1294,7 @@
     <string name="use_alarm_for_storm_alert">Użyj alarmu dla alertu burzowego</string>
     <string name="use_alarm_for_sunset_alert">Użyj alarmu dla alertu zachodu słońca</string>
     <string name="use_alarm_for_sunrise_alert">Użyj alarmu dla alertu wschodu słońca</string>
-    <string name="alarm_description">Odtwórz dźwięk nawet gdy multimedia oraz powiadomienia są wyciszone</string>
+    <string name="alarm_description">Odtwórz dźwięk nawet gdy multimedia i powiadomienia są wyciszone</string>
     <string name="mute_alarm_at_night">Wycisz alarm w nocy</string>
     <string name="alarm_time_range">Odtwórz od %1$s do %2$s</string>
     <string name="digital_elevation_model_abbreviation">NMT</string>
