@@ -20,7 +20,7 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
             try {
                 val location = gps.location
                 val gpsIsValid = gps.hasValidReading
-                demAltitude = DEM.getElevation(location)
+                demAltitude = DEM.getElevation(location).elevation
                 onMain {
                     if (gpsIsValid) {
                         notifyListeners()

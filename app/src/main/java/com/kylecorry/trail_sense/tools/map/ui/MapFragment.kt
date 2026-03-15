@@ -312,7 +312,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 }
                 manager.setSelectedLocation(location)
                 inBackground {
-                    val elevation = Distance.meters(DEM.getElevation(location))
+                    val elevation = Distance.meters(DEM.getElevation(location).elevation)
 
                     onMain {
                         Share.actions(

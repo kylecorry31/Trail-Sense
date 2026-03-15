@@ -172,7 +172,7 @@ class DEMTest {
         val errors = tests.map { test ->
             val actual = runBlocking { DEM.getElevation(test.first) }
             assertNotNull(actual)
-            actual - test.second
+            actual.elevation - test.second
         }
 
         assertQuantile(errors, model.maxQuantile50Error, 0.5f, model.path ?: "Built-in")

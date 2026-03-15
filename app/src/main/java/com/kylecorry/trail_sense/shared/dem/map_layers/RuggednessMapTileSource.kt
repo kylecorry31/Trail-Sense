@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 import android.content.Context
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Dither
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
@@ -46,7 +47,8 @@ class RuggednessMapTileSource : TileSource {
             resolution,
             tile.size,
             config = Bitmap.Config.ARGB_8888,
-            padding = padding
+            padding = padding,
+            oceanColor = colorMap.getRuggednessColor(0f)
         ) { x, y, getElevation ->
             val center = getElevation(x, y)
             var sum = 0f

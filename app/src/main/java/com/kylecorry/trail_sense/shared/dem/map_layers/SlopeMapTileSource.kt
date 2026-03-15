@@ -64,7 +64,8 @@ class SlopeMapTileSource : TileSource {
             resolution,
             tile.size,
             config = Bitmap.Config.ARGB_8888,
-            padding = padding
+            padding = padding,
+            oceanColor = flatColor
         ) { x, y, getElevation ->
             val vector = getSlopeVector(cellSizeX, cellSizeY, x, y, getElevation)
             val slopeDegrees = getSlopeAngle(vector).toDegrees().absoluteValue

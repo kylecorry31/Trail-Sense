@@ -197,7 +197,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         selectLocation(location)
 
         inBackground {
-            val elevation = Distance.meters(DEM.getElevation(location))
+            val elevation = Distance.meters(DEM.getElevation(location).elevation)
 
             onMain {
                 Share.actions(

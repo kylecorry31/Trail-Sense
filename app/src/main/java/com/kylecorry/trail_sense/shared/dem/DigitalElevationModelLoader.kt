@@ -32,7 +32,8 @@ class DigitalElevationModelIndex(
     val resolution_arc_seconds: Int,
     val compression_method: String,
     val version: String?,
-    val files: List<DigitalElevationModelFile>
+    val files: List<DigitalElevationModelFile>,
+    val has_ocean_mask: Boolean? = null
 ) : ProguardIgnore
 
 class CompressedDigitalElevationModelIndex(
@@ -41,7 +42,8 @@ class CompressedDigitalElevationModelIndex(
     val v: String?,
     val w: Int,
     val h: Int,
-    val f: List<List<Number>>
+    val f: List<List<Number>>,
+    val om: Boolean? = null
 ) : ProguardIgnore {
     fun toDigitalElevationModelIndex(): DigitalElevationModelIndex {
         return DigitalElevationModelIndex(
@@ -60,7 +62,8 @@ class CompressedDigitalElevationModelIndex(
                     it[3].toDouble(),
                     it[5].toDouble()
                 )
-            }
+            },
+            om
         )
     }
 }
@@ -153,7 +156,8 @@ class DigitalElevationModelLoader {
                     it.latitude_start,
                     it.latitude_end,
                     it.longitude_end,
-                    it.longitude_start
+                    it.longitude_start,
+                    parsed.has_ocean_mask ?: false
                 )
             }
         }

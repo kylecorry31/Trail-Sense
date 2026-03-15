@@ -129,7 +129,7 @@ class BaseMapTileSource : TileSource {
         private val DESTINATION_MAP_COLOR_ROCK = SOURCE_MAP_COLOR_ROCK
         private val DESTINATION_MAP_COLOR_GRASS = SOURCE_MAP_COLOR_GRASS
         private val DESTINATION_MAP_COLOR_ICE = SOURCE_MAP_COLOR_ICE
-        private val DESTINATION_MAP_COLOR_OCEAN = "#AAD3DF".toColorInt()
+        val DESTINATION_MAP_COLOR_OCEAN = "#AAD3DF".toColorInt()
         private val DESTINATION_MAP_COLOR_LAKES = "#AAD3DF".toColorInt()
     }
 }
