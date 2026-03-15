@@ -69,6 +69,8 @@ See the 'Navigation' guide for more information on how to use the navigation too
 ## Beacon visibility
 You can choose which beacons are visible on the Navigation and Photo Maps tools by clicking the eye icon on the right side of the beacon row. This will toggle the visibility of the beacon.
 
+To show or hide all beacons in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
+
 ## Share a beacon
 You can share a beacon by clicking the menu button on the beacon row you want to share, then selecting 'Share...'. Alternatively, open the beacon and click the menu button in the top-right, then choose 'Share...'. You can choose from the following options:
 
@@ -108,6 +110,9 @@ If you have Backtrack enabled (see the 'Paths' guide) and it is configured to re
 You can disable this beacon in Settings > Paths > 'Last signal beacon'.
 
 You can also choose to navigate to the nearest cell signal by clicking the menu button at the top-right of the beacon list and selecting 'Navigate to nearest cell signal'. This will start navigation to the nearest recorded location that has a cell signal.
+
+## Settings
+- **Default beacon color**: The color that will be pre-selected when creating a new beacon. This can be changed in Settings > Beacons > 'Default beacon color'.
 
 ## Quick action
 You can enable the Create Beacon quick action in the settings for the desired tab.

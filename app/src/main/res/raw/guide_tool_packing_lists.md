@@ -24,6 +24,7 @@ With a packing list open, click the '+' button in the bottom-right corner. On th
 - **Desired amount**: The number of items you would like to pack, can be blank or a number (with decimal places)
 - **Category**: The category to group this item by, defaults to "Other"
 - **Weight**: The weight of 1 item in your desired units. Trail Sense will scale this by the amount of packed items to determine the total weight.
+- **Optional**: Marks the item as optional. Optional items show an "Optional" tag in the list and do not count toward the packed percentage.
 
 When finished, click the check button in the bottom-right corner to save the item.
 
