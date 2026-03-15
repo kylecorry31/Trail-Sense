@@ -18,7 +18,7 @@ data class DigitalElevationModelEntity(
     @ColumnInfo(name = "south") val south: Double,
     @ColumnInfo(name = "east") val east: Double,
     @ColumnInfo(name = "west") val west: Double,
-    @ColumnInfo(name = "has_ocean_mask") val hasOceanMask: Boolean = false,
+    @ColumnInfo(name = "has_water_mask") val hasWaterMask: Boolean = false,
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

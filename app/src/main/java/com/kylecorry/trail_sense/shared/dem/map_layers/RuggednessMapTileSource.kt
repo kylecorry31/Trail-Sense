@@ -48,7 +48,8 @@ class RuggednessMapTileSource : TileSource {
             tile.size,
             config = Bitmap.Config.ARGB_8888,
             padding = padding,
-            oceanColor = colorMap.getRuggednessColor(0f)
+            oceanColor = colorMap.getRuggednessColor(0f),
+            inlandWaterColor = colorMap.getRuggednessColor(0f)
         ) { x, y, getElevation ->
             val center = getElevation(x, y)
             var sum = 0f

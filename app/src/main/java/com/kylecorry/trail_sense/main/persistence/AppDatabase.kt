@@ -448,7 +448,7 @@ abstract class AppDatabase : RoomDatabase() {
 
             val MIGRATION_48_49 = object : Migration(48, 49) {
                 override fun migrate(db: SupportSQLiteDatabase) {
-                    db.execSQL("ALTER TABLE `dem` ADD COLUMN `has_ocean_mask` INTEGER NOT NULL DEFAULT 0")
+                    db.execSQL("ALTER TABLE `dem` ADD COLUMN `has_water_mask` INTEGER NOT NULL DEFAULT 0")
                 }
             }
 

@@ -45,7 +45,8 @@ class ElevationMapTileSource : TileSource {
             tile.size,
             config = Bitmap.Config.ARGB_8888,
             padding = padding,
-            oceanColor = OCEAN_COLOR
+            oceanColor = OCEAN_COLOR,
+            inlandWaterColor = INLAND_WATER_COLOR
         ) { x, y, getElevation ->
             colorScale.getElevationColor(getElevation(x, y))
         }.applyOperationsOrNull(
@@ -55,6 +56,7 @@ class ElevationMapTileSource : TileSource {
 
     companion object {
         private val OCEAN_COLOR = BaseMapTileSource.DESTINATION_MAP_COLOR_OCEAN
+        private val INLAND_WATER_COLOR = BaseMapTileSource.DESTINATION_MAP_COLOR_INLAND_WATER
         const val SOURCE_ID = "elevation"
         const val COLOR = "color"
         const val HIGH_RESOLUTION = "high_resolution"
