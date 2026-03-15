@@ -428,7 +428,7 @@ internal class WeatherSubsystemTest {
                     latitude.toDouble(),
                     longitude.toDouble()
                 )
-                )
+                ).elevation
             Location(
                 Coordinate(latitude.toDouble(), longitude.toDouble()),
                 Distance.meters(ele)

@@ -37,7 +37,7 @@ class GrowingDegreeDaysThresholdTest {
         val mid = 15
         val late = 25
 
-        val elevation = Distance.meters(DEM.getElevation(location))
+        val elevation = Distance.meters(DEM.getElevation(location).elevation)
         val temperatures = weather.getTemperatureRanges(
             year,
             location,

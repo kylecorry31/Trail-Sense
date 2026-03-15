@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 import android.content.Context
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Dither
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
@@ -64,7 +65,9 @@ class AspectMapTileSource : TileSource {
             resolution,
             tile.size,
             config = Bitmap.Config.ARGB_8888,
-            padding = padding
+            padding = padding,
+            oceanColor = AppColor.Gray.color,
+            inlandWaterColor = AppColor.Gray.color
         ) { x, y, getElevation ->
             val vector = getSlopeVector(cellSizeX, cellSizeY, x, y, getElevation)
             val slopeDegrees = getSlopeAngle(vector).toDegrees().absoluteValue

@@ -126,5 +126,35 @@ class EncodedDataImageReader(
             }
         }
 
+        fun scaledDecoderWithMask(a: Double, b: Double, maskChannel: Int = 2): PixelDecoder {
+            return object : PixelDecoder {
+                override val channels = 2
+                override fun decode(pixel: Int, dest: FloatArray) {
+                    dest[0] = (pixel.red / a - b).toFloat()
+                    dest[1] = when (maskChannel) {
+                        0 -> pixel.red
+                        1 -> pixel.green
+                        2 -> pixel.blue
+                        else -> pixel.alpha
+                    }.toFloat()
+                }
+            }
+        }
+
+        fun split16BitDecoderWithMask(a: Double = 1.0, b: Double = 0.0, maskChannel: Int = 2): PixelDecoder {
+            return object : PixelDecoder {
+                override val channels = 2
+                override fun decode(pixel: Int, dest: FloatArray) {
+                    dest[0] = ((pixel.green shl 8 or pixel.red).toDouble() / a - b).toFloat()
+                    dest[1] = when (maskChannel) {
+                        0 -> pixel.red
+                        1 -> pixel.green
+                        2 -> pixel.blue
+                        else -> pixel.alpha
+                    }.toFloat()
+                }
+            }
+        }
+
     }
 }

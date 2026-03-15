@@ -35,26 +35,38 @@ object DEM {
     private class ElevationBitmap(
         val data: FloatBitmap,
         val latitudes: DoubleArray,
-        val longitudes: DoubleArray
+        val longitudes: DoubleArray,
+        val hasWaterMask: Boolean = false
     )
 
     private const val CACHE_DISTANCE = 10f
     private const val CACHE_SIZE = 500
-    private var cache = GeospatialCache<Float>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
+    private var cache =
+        GeospatialCache<DEMElevation>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
     private var pixelCache = LRUCache<String, ElevationBitmap>(1)
     private var tileCache = LRUCache<String, ElevationBitmap>(16)
     private var cachedSources: List<GeographicImageSource>? = null
+    private var cachedHasWaterMask: Boolean = false
     private var cachedIsExternal: Boolean? = null
     private val sourcesLock = Mutex()
 
-    suspend fun getElevation(location: Coordinate): Float = onDefault {
+    suspend fun getElevation(location: Coordinate): DEMElevation = onDefault {
         cache.getOrPut(location) {
             val allSources = getSources()
-            val source = allSources.firstOrNull { it.contains(location) } ?: return@getOrPut 0f
+            val source = allSources.firstOrNull { it.contains(location) }
+                ?: return@getOrPut DEMElevation(0f, null)
+            val hasWaterMask = cachedHasWaterMask
             val neighbors = getNeighborSources(source, allSources)
             onIO {
-                tryOrDefault(0f) {
-                    source.read(location, neighbors).first()
+                tryOrDefault(DEMElevation(0f, null)) {
+                    val data = source.read(location, neighbors)
+                    val elevation = data[0]
+                    if (hasWaterMask) {
+                        val waterType = toElevationType(data.getOrElse(1) { 0f })
+                        DEMElevation(elevation, waterType)
+                    } else {
+                        DEMElevation(elevation, null)
+                    }
                 }
             }
         }
@@ -87,7 +99,6 @@ object DEM {
         cache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
             val width = longitudes.size
             val height = latitudes.size
-            val output = FloatBitmap(width, height, 1)
 
             val allSources = getSources()
 
@@ -96,6 +107,10 @@ object DEM {
             val sources = allSources.filter {
                 it.bounds.intersects(expandedBounds)
             }
+
+            val hasWaterMask = cachedHasWaterMask
+            val channels = if (hasWaterMask) 2 else 1
+            val output = FloatBitmap(width, height, channels)
 
             for (i in longitudes.indices) {
                 longitudes[i] = Coordinate.toLongitude(longitudes[i])
@@ -106,7 +121,7 @@ object DEM {
                 sources[i].read(latitudes, longitudes, output, neighbors)
             }
 
-            ElevationBitmap(output, latitudes, longitudes)
+            ElevationBitmap(output, latitudes, longitudes, hasWaterMask)
         }
     }
 
@@ -171,6 +186,8 @@ object DEM {
         size: Size,
         config: Bitmap.Config = Bitmap.Config.RGB_565,
         padding: Int = 0,
+        oceanColor: Int? = null,
+        inlandWaterColor: Int? = null,
         adjuster: (x: Int, y: Int, getElevation: (x: Int, y: Int) -> Float) -> Int
     ): Bitmap = onDefault {
         val expandBy = 1
@@ -183,13 +200,27 @@ object DEM {
             elevations.data.get(x, y, 0)
         }
 
+        val getElevationType = { x: Int, y: Int ->
+            if (!elevations.hasWaterMask) {
+                null
+            } else {
+                toElevationType(elevations.data.get(x, y, 1))
+            }
+        }
+
         for (y in expandBy until elevations.data.height - expandBy) {
             for (x in expandBy until elevations.data.width - expandBy) {
+                val waterType = getElevationType(x, y)
+                val color = when (waterType) {
+                    DEMElevationType.Ocean if oceanColor != null -> oceanColor
+                    DEMElevationType.InlandWater if inlandWaterColor != null -> inlandWaterColor
+                    else -> adjuster(x, y, getElevation)
+                }
                 pixels.set(
                     x - expandBy,
                     height - 1 - (y - expandBy),
                     width,
-                    adjuster(x, y, getElevation)
+                    color
                 )
             }
         }
@@ -207,6 +238,14 @@ object DEM {
             CropTile(imageBounds, bounds, size),
             Convert(config)
         )
+    }
+
+    private fun toElevationType(maskValue: Float): DEMElevationType {
+        return when {
+            maskValue < 64f -> DEMElevationType.Land
+            maskValue < 192f -> DEMElevationType.InlandWater
+            else -> DEMElevationType.Ocean
+        }
     }
 
     private fun lerpCoordinate(percent: Float, a: Coordinate, b: Coordinate): Coordinate {
@@ -241,6 +280,7 @@ object DEM {
                 BuiltInDem.getTiles()
             }
 
+            val hasWaterMask = tiles.any { it.hasWaterMask }
             val sources = tiles.map {
                 val valuePixelOffset = if (isExternal) {
                     0.5f
@@ -248,6 +288,20 @@ object DEM {
                     // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
                     0.7f
                 }
+                val decoder = when {
+                    it.compressionMethod == "8-bit" && it.hasWaterMask ->
+                        EncodedDataImageReader.scaledDecoderWithMask(it.a, it.b)
+
+                    it.compressionMethod == "8-bit" ->
+                        EncodedDataImageReader.scaledDecoder(it.a, it.b)
+
+                    it.hasWaterMask ->
+                        EncodedDataImageReader.split16BitDecoderWithMask(it.a, it.b)
+
+                    else ->
+                        EncodedDataImageReader.split16BitDecoder(it.a, it.b)
+                }
+                val maxChannels = if (it.hasWaterMask) 2 else 1
                 // TODO: Support tiles with different decoders or an aggregated geographic image source
                 GeographicImageSource(
                     EncodedDataImageReader(
@@ -258,11 +312,8 @@ object DEM {
                                 LocalInputStreamable(it.filename)
                             }
                         ),
-                        decoder = if (it.compressionMethod == "8-bit") EncodedDataImageReader.scaledDecoder(
-                            it.a,
-                            it.b
-                        ) else EncodedDataImageReader.split16BitDecoder(it.a, it.b),
-                        maxChannels = 1
+                        decoder = decoder,
+                        maxChannels = maxChannels
                     ),
                     bounds = CoordinateBounds(
                         it.north,
@@ -276,6 +327,7 @@ object DEM {
                 )
             }
             cachedSources = sources
+            cachedHasWaterMask = hasWaterMask
             cachedIsExternal = isExternal
             sources
         }
@@ -284,6 +336,7 @@ object DEM {
     fun invalidateCache() {
         cache = GeospatialCache(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
         cachedSources = null
+        cachedHasWaterMask = false
         cachedIsExternal = null
     }
 

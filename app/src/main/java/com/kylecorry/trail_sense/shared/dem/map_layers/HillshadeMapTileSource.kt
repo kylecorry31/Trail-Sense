@@ -84,7 +84,9 @@ class HillshadeMapTileSource : TileSource {
             resolution,
             tile.size,
             config = Bitmap.Config.ARGB_8888,
-            padding = padding
+            padding = padding,
+            oceanColor = Color.WHITE,
+            inlandWaterColor = Color.WHITE
         ) { x, y, getElevation ->
             val vector = getSlopeVector(cellSizeX, cellSizeY, x, y, getElevation)
             val slopeRad = getSlopeAngle(vector, zFactor)
