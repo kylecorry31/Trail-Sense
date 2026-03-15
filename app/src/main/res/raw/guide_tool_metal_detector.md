@@ -21,6 +21,8 @@ The graph shows magnetic field strength over time. Metal causes spikes up or dow
 
 Readings at the top of the screen show field strength in microteslas (uT).
 
+The badge shows compass (magnetometer) accuracy. Tap it to view calibration and accuracy tips.
+
 ## Threshold
 Lower threshold values increase sensitivity. Higher values decrease it. Adjust with the on-screen slider.
 
