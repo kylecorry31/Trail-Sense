@@ -23,9 +23,9 @@ class DEMTest {
 
     private val models = listOf(
         Model(null, 11f, 60f),
-        Model("dem/dem-0.3.0-low.zip", 11f, 40f),
-        Model("dem/dem-0.3.0-medium.zip", 8f, 24f),
-        Model("dem/dem-0.3.0-high.zip", 3f, 16f),
+        Model("dem/dem-0.4.0-low.zip", 11f, 40f),
+        Model("dem/dem-0.4.0-medium.zip", 8f, 24f),
+        Model("dem/dem-0.4.0-high.zip", 3f, 16f),
     )
 
     @Test
@@ -166,7 +166,8 @@ class DEMTest {
             Coordinate(63.704397818148095, -133.05309532551377) to 954f,
             Coordinate(43.647619177809645, -72.7550532260068) to 730f,
             Coordinate(24.925649893578097, -8.829460501857874) to 301f,
-            Coordinate(19.665019, -155.834663) to 1986f
+            Coordinate(19.665019, -155.834663) to 1986f,
+            Coordinate(40.8, 43.4) to 1653f
         )
 
         val errors = tests.map { test ->
