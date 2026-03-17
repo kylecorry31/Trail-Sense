@@ -21,6 +21,8 @@ El gráfico muestra la intensidad del campo magnético a lo largo del tiempo. El
 
 La lectura en la parte superior de la pantalla muestra la intensidad del campo en microteslas (uT).
 
+La insignia muestra la precisión de la brújula (magnetómetro). Pulsa sobre ella para ver consejos de calibración y precisión.
+
 ## Umbral
 Los valores de umbral bajos aumentan la sensibilidad y los valores altos la disminuyen. Se ajusta con el control deslizante.
 

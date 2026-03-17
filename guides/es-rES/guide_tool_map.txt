@@ -38,5 +38,10 @@ Cuando termines de calcar, pulsa el icono de candado en la esquina inferior dere
 ## Estado del sensor
 La precisión del GPS y de la brújula se muestran como insignias de estado en la esquina inferior izquierda del mapa. Púlsalas para ver consejos sobre cómo mejorar la precisión de la ubicación y de la brújula.
 
+## Widgets
+Los siguientes widgets se pueden colocar en la pantalla de inicio del dispositivo o en la app:
+
+- **Mapa:** Muestra tus capas del mapa centradas en tu ubicación actual, siempre orientado con el norte hacia arriba. El widget se actualiza automáticamente y al pulsarlo abre la herramienta Mapas.
+
 ## Ajustes
 Puedes cambiar el detalle de los mosaicos en **Ajustes > Mapa > Modo de alto detalle** si los mosaicos aparecen borrosos pero usará más memoria y tardará más en cargar.
