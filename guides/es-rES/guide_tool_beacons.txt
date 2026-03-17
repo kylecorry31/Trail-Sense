@@ -69,6 +69,8 @@ Consulta la guía 'Navegación' para más información sobre cómo usar la herra
 ## Visibilidad de balizas
 Puedes elegir qué balizas son visibles en las herramientas Navegación y Mapas Calibrados pulsando el icono de ojo en el lado derecho de la fila de la baliza. Esto alternará la visibilidad de la baliza.
 
+Para mostrar u ocultar todas las balizas de un grupo, pulsa el botón del menú en la fila del grupo y selecciona 'Mostrar todo' o 'Ocultar todo'.
+
 ## Compartir una baliza
 Puedes compartir una baliza pulsando el botón de menú en la fila de la baliza que quieras compartir, y luego seleccionando 'Compartir...'. Alternativamente, abre la baliza y pulsa el botón de menú en la esquina superior derecha, luego elige 'Compartir...'. Puedes elegir entre las siguientes opciones:
 
@@ -108,6 +110,9 @@ Si tienes Retroceder activado (ver la guía 'Rutas') y está configurado para re
 Puedes desactivar esta baliza en Ajustes > Rutas > 'Última baliza con señal móvil'.
 
 También puedes elegir navegar a la señal de móvil más cercana pulsando el botón de menú en la parte superior derecha de la lista de balizas y seleccionando 'Navegar a zona con señal móvil más cercana'. Esto empezará la navegación hacia la ubicación grabada más cercana que tenga señal de móvil.
+
+## Ajustes
+- **Color predeterminado balizas**: El color que se seleccionará al crear una nueva baliza. Esto se puede cambiar en Ajustes > Balizas > 'Color predeterminado baliza'
 
 ## Acción rápida
 Puedes activar la acción rápida Crear baliza en los ajustes para la pestaña deseada.
