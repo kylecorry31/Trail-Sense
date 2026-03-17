@@ -363,7 +363,7 @@
     <string name="units_mmhg">mmHg</string>
     <string name="water_boil_timer">Temporizador de Hervir Agua</string>
     <string name="battery_power_ac">AC</string>
-    <string name="none">Ninguna</string>
+    <string name="none">Ninguno</string>
     <string name="network_no_signal">Sin señal</string>
     <string name="pref_gps_override_title">Ubicación simulada</string>
     <string name="delete_waypoint_prompt">¿Eliminar punto de referencia\?</string>
@@ -462,7 +462,7 @@
     <string name="dashed">Punteado</string>
     <string name="arrow">Flecha</string>
     <string name="pref_default_path_style_title">Estilo de ruta predeterminado</string>
-    <string name="pref_default_path_color_title">Color de ruta predeterminado</string>
+    <string name="pref_default_path_color_title">Color predeterminado rutas</string>
     <string name="battery_warning">Advertencia de descarga de batería</string>
     <string name="calibrate_new_tide">¿Calibrar a una nueva marea\?</string>
     <string name="last_signal_beacon_name">Última señal móvil -%1$s (%2$s)</string>
@@ -1510,5 +1510,5 @@
     <string name="hide_all">Ocultar todo</string>
     <string name="tool_magnifier_title">Lupa</string>
     <string name="show_low_brightness_objects">Mostrar estrellas/planetas de baja luminosidad</string>
-    <string name="pref_default_beacon_color_title">Color balizas predeterminado</string>
+    <string name="pref_default_beacon_color_title">Color predeterminado balizas</string>
 </resources>
