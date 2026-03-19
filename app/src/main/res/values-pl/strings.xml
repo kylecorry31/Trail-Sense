@@ -395,9 +395,9 @@
     <string name="pref_daily_weather_time_title">Czas codziennej prognozy pogody</string>
     <string name="tomorrows_forecast">Prognoza na jutro</string>
     <string name="battery_power_ac">AC</string>
-    <string name="low">Niska</string>
+    <string name="low">Niskie</string>
     <string name="moderate">Średnia</string>
-    <string name="high">Wysoka</string>
+    <string name="high">Wysokie</string>
     <string name="speedometer">Prędkościomierz</string>
     <string name="screen_flashlight">Ekran</string>
     <string name="half_tide">Połowa przypływu</string>
@@ -1451,7 +1451,7 @@
     <string name="restart_app">Uruchom ponownie aplikację</string>
     <string name="smooth">Wygładzanie</string>
     <string name="hide_flat_ground">Ukryj płaski teren</string>
-    <string name="cell_tower_disclaimer">Lokalizacje masztów komórkowych są przybliżone na podstawie projektu OpenCelliD, usługi lokalizacji Mozilla oraz rejestrów anten Federalnej Komisji Łączności.\n\n[Projekt OpenCelliD](https://opencellid.org/) jest objęty licencją [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower_disclaimer">Lokalizacje masztów komórkowych są przybliżone na podstawie projektu OpenCelliD, usługi lokalizacji Mozilla oraz rejestrów anten FCC.\n\n[Projekt OpenCelliD](https://opencellid.org/) jest objęty licencją [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="move_layer_up">Przenieś wyżej warstwę</string>
     <string name="move_layer_down">Przenieś niżej warstwę</string>
     <string name="remove_layer">Usuń warstwę</string>
