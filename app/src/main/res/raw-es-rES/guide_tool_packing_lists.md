@@ -24,6 +24,7 @@ Con una lista de equipaje abierta, pulsa el botón '+' en la esquina inferior de
 - **Cantidad deseada**: El número de elementos que quieres empaquetar; puede estar en blanco o un número (con decimales)
 - **Categoría**: La categoría para agrupar este elemento; por defecto es "Otro"
 - **Peso**: El peso de 1 elemento en tus unidades deseadas. Trail Sense escalará esto por la cantidad de elementos empaquetados para determinar el peso total.
+- **Opcional**: Marca el elemento como opcional. Los elementos opcionales muestran una etiqueta "Opcional" en la lista y no cuentan para el porcentaje cargado.
 
 Cuando termines, pulsa el botón de verificación en la esquina inferior derecha para guardar el elemento.
 

@@ -47,15 +47,15 @@ Para ver una ruta, pulsa la ruta en la lista. Esto abrirá la página de detalle
 ## Estilos de ruta
 Ajusta la apariencia de la ruta abriéndola y seleccionando el estilo de línea o el color de línea desde los desplegables en la parte superior de la pantalla. Cambia la apariencia de los puntos de la ruta seleccionando el estilo de punto desde el desplegable en la parte superior derecha. Elige entre los siguientes estilos de punto:
 
-- **None:** No mostrar puntos.
-- **Cell signal:** Mostrar la intensidad de la señal de móvil en cada punto.
-- **Elevation:** Mostrar la elevación en cada punto.
-- **Time:** Mostrar la hora en que se registró cada punto.
-- **Slope:** Mostrar la pendiente en cada punto.
+- **Ninguno** No muestra puntos.
+- **Señal móvil** Muestra la intensidad de la señal móvil en cada punto.
+- **Elevación**: Muestra la elevación en cada punto.
+- **Tiempo:** Muestra la hora en que se registró cada punto.
+- **Inclinación:** Muestra la pendiente en cada punto.
 
 Una leyenda debajo del mapa de la ruta explica los colores.
 
-Configura los estilos de ruta por defecto en Ajustes > Rutas > 'Estilo de ruta predeterminado' para el estilo de línea y Ajustes > Navegación > 'Color de ruta predeterminado' para el color de línea.
+Configura los estilos de ruta por defecto en Ajustes > Rutas > 'Estilo de ruta predeterminado' para el estilo de línea y Ajustes > Navegación > 'Color predeterminado rutas' o para el color de línea.
 
 ## Simplificar una ruta
 Las rutas pueden simplificarse para reducir el número de puntos. Esto puede ser útil para mejorar el rendimiento del renderizado de la ruta y puede mejorar la precisión de la ruta eliminando errores de GPS.
@@ -73,6 +73,8 @@ Por defecto, esto solo navegará hacia los waypoints registrados en la ruta. Sin
 
 ## Visibilidad de rutas
 Puedes elegir qué rutas son visibles sobre el mapa pulsando el icono de ojo en el lado derecho de la fila de la ruta. Se mostrarán en los mapas que tengan habilitada la capa Rutas.
+
+Para mostrar u ocultar todas las rutas de un grupo, pulsa el botón del menú en la fila del grupo y selecciona 'Mostrar todo' o 'Ocultar todo'.
 
 ## Eliminar una ruta
 Para eliminar una ruta, pulsa el botón de menú en la fila de la ruta que quieras eliminar, luego selecciona 'Eliminar'.
