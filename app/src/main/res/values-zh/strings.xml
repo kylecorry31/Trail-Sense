@@ -1541,4 +1541,6 @@
     <string name="show_all">显示全部</string>
     <string name="hide_all">隐藏全部</string>
     <string name="pref_default_beacon_color_title">默认信标颜色</string>
+    <string name="stone">英石</string>
+    <string name="stone_format">%s 英石</string>
 </resources>
