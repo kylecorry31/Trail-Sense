@@ -66,13 +66,6 @@ This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other 
 - Performance, stability, and codebase cleanup
 - Release of the first plugins (map layers / coordinate formats)
 
-### Priorities
-Issue priority is denoted by labels on issues.
-- **p1**: Critical priority, requires a hotfix in most cases.
-- **p2**: High priority, at least one is likely to be included in each release during the year. These are typically the goals for the year.
-- **p3**: Moderate priority, may be included in a couple releases during the year. These will get promoted to p2 as features are completed.
-- **p4**: Low priority, I may not have time to implement these or are likely years away. Many are open for community contribution.
-
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
 - Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
