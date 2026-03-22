@@ -122,7 +122,8 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         getString(R.string.pref_weight_units),
         mapOf(
             "kg" to WeightUnits.Kilograms,
-            "lbs" to WeightUnits.Pounds
+            "lbs" to WeightUnits.Pounds,
+            "stone" to WeightUnits.Stone
         ),
         if (isMetricPreferred) WeightUnits.Kilograms else WeightUnits.Pounds,
         saveDefault = true

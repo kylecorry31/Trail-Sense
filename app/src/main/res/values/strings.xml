@@ -819,12 +819,15 @@
     <string name="milligrams">Milligrams</string>
     <!--Weight unit grains-->
     <string name="grains">Grains</string>
+    <!--Weight unit stone-->
+    <string name="stone">Stone</string>
     <string name="pounds_format">%s lb</string>
     <string name="ounces_weight_format">%s oz</string>
     <string name="kilograms_format">%s kg</string>
     <string name="grams_format">%s g</string>
     <string name="milligrams_format">%s mg</string>
     <string name="grains_format">%s gr</string>
+    <string name="stone_format">%s st</string>
     <string name="weight">Weight</string>
     <string name="seconds">Seconds</string>
     <string name="minutes">Minutes</string>
