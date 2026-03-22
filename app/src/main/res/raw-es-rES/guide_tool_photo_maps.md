@@ -100,6 +100,8 @@ Para renombrar un mapa, haz clic en el botón de menú en la fila del mapa que d
 ## Visibilidad del mapa
 Puedes elegir qué mapas son visibles en la herramienta Navigation haciendo clic en el icono de ojo en el lado derecho de la fila del mapa.
 
+Para mostrar u ocultar todos los mapas de un grupo, pulsa el botón del menú en la fila del grupo y selecciona 'Mostrar todo' o 'Ocultar todo'.
+
 ## Eliminar un mapa
 Para eliminar un mapa, haz clic en el botón de menú en la fila del mapa que quieres quitar y luego selecciona 'Eliminar'. Alternativamente, abre el mapa, haz clic en el botón de menú en la esquina superior derecha y elige 'Eliminar'.
 

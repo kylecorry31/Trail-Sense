@@ -5,3 +5,14 @@ La lista de sensores muestra todos los sensores disponibles en el dispositivo y 
 
 ## Todos los sensores
 Para ver todos los sensores disponibles en el dispositivo, pulsa el botón en la esquina superior derecha de la pantalla. Se mostrará una lista de todos los sensores disponibles en el dispositivo, incluidos aquellos que Trail Sense no usa.
+
+## Acción rápida
+Puedes habilitar la acción rápida Recalibrar altímetro en los ajustes de la pestaña deseada.
+
+Para usar la acción rápida, pulsa el botón Recalibrar altímetro. Lo que ocurra depende de tu modo de altímetro actual:
+
+- **Barómetro o Manual**: Aparecerá un cuadro de diálogo donde puedes introducir tu elevación actual. Una vez confirmado, se actualizará la calibración del altímetro.
+- **GPS + Barómetro o DEM + Barómetro**: Trail Sense leerá inmediatamente tu GPS y barómetro para recalibrar la línea base del altímetro. Aparecerá un indicador de carga mientras la recalibración está en curso.
+- **GPS o DEM**: Abre los ajustes de calibración del altímetro.
+
+Mantener pulsada la acción rápida siempre abre los ajustes de calibración del altímetro.

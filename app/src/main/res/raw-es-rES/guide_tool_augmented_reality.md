@@ -34,6 +34,8 @@ Estrellas brillantes, planetas, constelaciones y lluvias de meteoros se muestran
 
 Puedes desactivar estrellas y planetas desactivando Ajustes > Realidad Aumentada > "Mostrar estrellas y planetas".
 
+Por defecto, solo se muestran las estrellas más brillantes y los planetas más visibles (Venus, Marte, Júpiter, Saturno). Puedes habilitar Ajustes > Realidad Aumentada > "Mostrar estrellas/planetas de baja luminosidad" para ver también estrellas y planetas más tenues.
+
 Puedes desactivar las constelaciones desactivando Ajustes > Realidad Aumentada > "Mostrar constelaciones".
 
 Las estrellas, planetas, constelaciones y lluvias de meteoros bajo el horizonte también pueden verse activando Ajustes > Realidad Aumentada > "Mostrar bajo el horizonte".
