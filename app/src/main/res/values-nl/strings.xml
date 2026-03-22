@@ -1551,4 +1551,6 @@
     <string name="show_all">Alles weergeven</string>
     <string name="hide_all">Alles verbergen</string>
     <string name="pref_default_beacon_color_title">Standaardbaken kleur</string>
+    <string name="stone">Stone</string>
+    <string name="stone_format">%s st</string>
 </resources>
