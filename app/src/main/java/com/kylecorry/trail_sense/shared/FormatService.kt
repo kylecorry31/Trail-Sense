@@ -381,6 +381,7 @@ class FormatService private constructor(private val context: Context) {
             WeightUnits.Grams -> strings.getString(R.string.grams_format, formatted)
             WeightUnits.Milligrams -> strings.getString(R.string.milligrams_format, formatted)
             WeightUnits.Grains -> strings.getString(R.string.grains_format, formatted)
+            WeightUnits.Stone -> strings.getString(R.string.stone_format, formatted)
         }
     }
 
@@ -634,6 +635,7 @@ class FormatService private constructor(private val context: Context) {
                 WeightUnits.Grams -> strings.getString(R.string.grams_format, "")
                 WeightUnits.Milligrams -> strings.getString(R.string.milligrams_format, "")
                 WeightUnits.Grains -> strings.getString(R.string.grains_format, "")
+                WeightUnits.Stone -> strings.getString(R.string.stone_format, "")
             }.replace(" ", "")
         }
         return when (unit) {
@@ -643,6 +645,7 @@ class FormatService private constructor(private val context: Context) {
             WeightUnits.Grams -> strings.getString(R.string.grams)
             WeightUnits.Milligrams -> strings.getString(R.string.milligrams)
             WeightUnits.Grains -> strings.getString(R.string.grains)
+            WeightUnits.Stone -> strings.getString(R.string.stone)
         }
     }
 

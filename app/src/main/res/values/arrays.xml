@@ -197,11 +197,13 @@
     <string-array name="weight_entries">
         <item>@string/kilograms</item>
         <item>@string/pounds</item>
+        <item>@string/stone</item>
     </string-array>
 
     <string-array name="weight_values">
         <item>kg</item>
         <item>lbs</item>
+        <item>stone</item>
     </string-array>
 
 </resources>

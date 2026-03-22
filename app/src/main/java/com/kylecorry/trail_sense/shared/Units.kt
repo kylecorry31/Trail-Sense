@@ -24,7 +24,7 @@ object Units {
     fun getDecimalPlaces(units: WeightUnits): Int {
         return when (units) {
             WeightUnits.Ounces -> 1
-            WeightUnits.Pounds, WeightUnits.Kilograms -> 2
+            WeightUnits.Pounds, WeightUnits.Kilograms, WeightUnits.Stone -> 2
             WeightUnits.Grams, WeightUnits.Milligrams, WeightUnits.Grains -> 0
         }
     }
