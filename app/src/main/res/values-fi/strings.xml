@@ -1472,4 +1472,15 @@
     <string name="active_all_year">Aktiivinen vuoden ympäri</string>
     <string name="biting_flies_mosquitoes">Purevat kärpäset/hyttyset</string>
     <string name="ecology">Ekologia</string>
+    <string name="do_not_ask_again">Älä kysy uudestaan</string>
+    <string name="quick_action_recalibrate_altimeter">Uudelleenkalibroi korkeusmittari</string>
+    <string name="recalibrating">Uudelleenkalibroidaan</string>
+    <string name="pref_default_beacon_color_title">Majakan oletusväri</string>
+    <string name="stone">Kivi</string>
+    <string name="stone_format">%s kv</string>
+    <string name="packing_list_optional">Valinnainen</string>
+    <string name="show_all">Näytä kaikki</string>
+    <string name="hide_all">Piilota kaikki</string>
+    <string name="tool_magnifier_title">Suurennuslasi</string>
+    <string name="show_low_brightness_objects">Näytä himmeät tähdet/planeetat</string>
 </resources>
