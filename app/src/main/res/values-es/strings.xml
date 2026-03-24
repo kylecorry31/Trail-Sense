@@ -1511,4 +1511,6 @@
     <string name="tool_magnifier_title">Lupa</string>
     <string name="show_low_brightness_objects">Mostrar estrellas/planetas de baja luminosidad</string>
     <string name="pref_default_beacon_color_title">Color predeterminado balizas</string>
+    <string name="stone">Piedra</string>
+    <string name="stone_format">%s pi</string>
 </resources>
