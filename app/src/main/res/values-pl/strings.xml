@@ -1485,7 +1485,7 @@
     <string name="stratus_desc">Chmury niskie, zakrywające niebo. Obiekty nie rzucają cieni oraz może być mglisto.</string>
     <string name="cumulus_desc">Chmury średnie, puszyste, przypominające kulki z waty. Zazwyczaj białe z ciemniejszymi łatami od spodu oraz występujące w rozproszeniu.</string>
     <string name="cumulonimbus_desc">Chmury niskie, puszyste, bardzo wysokie. Ciemne oraz zazwyczaj mające kształt kowadła.</string>
-    <string name="cirrus_desc">Wysokie chmury, strzępiaste. Przypominające kępki bialych włosów.</string>
+    <string name="cirrus_desc">Chmury wysokie, strzępiaste. Przypominające kępki bialych włosów.</string>
     <string name="map_calibration_clear_message">Zmiana rzutowania mapy usunie kalibrację.</string>
     <string name="packing_list_optional">Opcjonalnie</string>
     <string name="tool_magnifier_title">Lupa</string>
