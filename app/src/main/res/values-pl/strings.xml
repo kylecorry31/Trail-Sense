@@ -995,7 +995,7 @@
     <string name="pressure_system">Układ baryczny</string>
     <string name="high_pressure_system_description">Kojarzony z dobrą pogodą, bezchmurnym niebem oraz chłodniejszymi temperaturami.</string>
     <string name="low_pressure_system_description">Kojarzony ze złą pogodą, zachmurzonym niebem oraz cieplejszymi temperaturami.</string>
-    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na dobrą pogodę w ciągu najbliższych %d godzin, jeśli jest mgliście, w przeciwnym razie może wskazywać na nadchodzące opady.</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Mogą wskazywać na dobrą pogodę w ciągu najbliższych %d godzin, jeśli jest mgliście, w przeciwnym razie mogą wskazywać na nadchodzące opady.</string>
     <string name="then_weather">następnie %s</string>
     <string name="weather_overcast">Pochmurno</string>
     <string name="blank">Pusta</string>
