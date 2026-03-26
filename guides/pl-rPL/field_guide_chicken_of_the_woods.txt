@@ -1,4 +1,4 @@
-Żółciak siarkowy (Chicken of the Woods)
-Jaskrawo pomarańczowo-żółty grzyb półkowy rosnący na drzewach, najczęściej na drzewach liściastych w lasach. Spód kapelusza ma pory zamiast blaszek i jest biały lub żółtawy. Jest jadalny, gdy młody i miękki, jednak u niektórych osób może powodować dolegliwości żołądkowo-jelitowe.
+Żółciak siarkowy (Kurczak leśny)
+Jaskrawo pomarańczowo-żółty grzyb nadrzewny, powszechnie spotykany na drzewach liściastych w lasach. Ma porowaty zamiast blaszkowatego spód kapelusza oraz jest biały lub żółty. Jest jadalny, gdy jest młody i miękki, lecz u niektórych osób może powodować dolegliwości żołądkowo-jelitowe.
 
 https://pl.wikipedia.org/wiki/Laetiporus
