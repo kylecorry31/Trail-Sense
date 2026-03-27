@@ -1528,4 +1528,14 @@
     <string name="active_in_month">在 %s 月活躍</string>
     <string name="active_all_year">全年活躍</string>
     <string name="ecology">生態</string>
+    <string name="stone">英石</string>
+    <string name="data_saver">網路流量節省器</string>
+    <string name="mil_amount">%s 毫弧度</string>
+    <string name="biting_flies_mosquitoes">蠓／蚊子</string>
+    <string name="stone_format">%s 英石</string>
+    <string name="lock_bearing_to_location_description">鎖定方位線至你的起始位置</string>
+    <string name="climate_tundra_description">夏季期間部分冰層可能會融化，但植被會很少。</string>
+    <string name="climate_ice_cap_description">冰層全年不融化，寸草不生。</string>
+    <string name="climate_desert_description">極度缺雨導致地形鬆軟，水源匱乏。</string>
+    <string name="battery_tip_data_saver">開啟網路流量節省器以限制應用程式在背景使用行動數據。</string>
 </resources>
