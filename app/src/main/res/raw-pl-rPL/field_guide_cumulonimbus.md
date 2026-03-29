@@ -1,4 +1,4 @@
-Cumulonimbus (chmury kłębiaste deszczowe / burzowe)
-Niskie u podstawy, ale bardzo wysokie chmury kłębiaste. Zwykle mają kształt kowadła i są ciemne. Mogą zapowiadać burzę w ciągu kilku minut.
+Cumulonimbus
+Chmury niskie, puszyste, bardzo wysokie. Ciemne oraz zazwyczaj mające kształt kowadła. Mogą wskazywać na burzę w ciągu kilku minut.
 
 https://pl.wikipedia.org/wiki/Cumulonimbus
