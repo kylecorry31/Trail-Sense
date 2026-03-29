@@ -1,6 +1,6 @@
-Rak (crayfish)
-Słodkowodny skorupiak przypominający małego homara. Najczęściej występuje na dnie strumieni, rzek i jezior. Raki są wszystkożerne — jedzą rośliny, owady i małe ryby — i są najbardziej aktywne nocą.
+Rak
+Słodkowodny skorupiak przypominający małego homara. Powszechnie spotykany na dnie strumieni, rzek i jezior. Raki są wszystkożerne, żywią się roślinami, owadami, małymi rybami, oraz najbardziej aktywne są w porze nocnej.
 
-Znany także jako: crawfish, crawdads, freshwater lobsters, mudbugs lub yabbies.
+Znane również jako: homary słodkowodne.
 
 https://pl.wikipedia.org/wiki/Astacoidea

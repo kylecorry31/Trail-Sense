@@ -1,4 +1,4 @@
-Koniczyna (clover)
-Niska roślina z trzema listkami, często spotykana na polach i łąkach. Zarówno liście, jak i kwiaty są jadalne.
+Koniczyna
+Niewielka roślina z trzema liśćmi, powszechnie spotykana na polach i łąkach. Jej liście oraz kwiaty są jadalne.
 
 https://pl.wikipedia.org/wiki/Koniczyna

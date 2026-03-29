@@ -1,4 +1,4 @@
 Karp
-Słodkowodna ryba o grubych, dużych łuskach. Najczęściej występuje w wolno płynących rzekach oraz wodach stojących i często porusza się w stadach. Karpie odżywiają się różnorodnym pokarmem i są najbardziej aktywne nocą.
+Słodkowodna ryba o grubych, dużych łuskach. Powszechnie spotykana w wolno płynących lub stojących wodach oraz często poruszająca się w grupie. Karpie żywią się niemal wszystkim oraz najbardziej aktywne są w porze nocnej.
 
 https://pl.wikipedia.org/wiki/Cyprinus
