@@ -15,7 +15,7 @@ object UserGuideUtils {
         val guides = Guides.guides(fragment.requireContext())
         val guide =
             guides.flatMap { it.guides }.firstOrNull { it.contents == guideId } ?: return null
-        val sheet = GuideBottomSheetFragment(guide)
+        val sheet = GuideBottomSheetFragment.create(guide)
         sheet.show(fragment)
         return sheet
     }
