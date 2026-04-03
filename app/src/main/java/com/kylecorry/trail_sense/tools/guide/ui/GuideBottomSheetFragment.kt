@@ -11,8 +11,14 @@ import com.kylecorry.trail_sense.databinding.FragmentGuideBinding
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
 
-class GuideBottomSheetFragment(private val guide: UserGuide) :
-    BoundBottomSheetDialogFragment<FragmentGuideBinding>() {
+class GuideBottomSheetFragment : BoundBottomSheetDialogFragment<FragmentGuideBinding>() {
+
+    private val guide: UserGuide by lazy {
+        UserGuide(
+            name = requireArguments().getString(ARG_GUIDE_NAME) ?: "",
+            contents = requireArguments().getInt(ARG_GUIDE_CONTENTS)
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,5 +40,19 @@ class GuideBottomSheetFragment(private val guide: UserGuide) :
         container: ViewGroup?
     ): FragmentGuideBinding {
         return FragmentGuideBinding.inflate(layoutInflater, container, false)
+    }
+
+    companion object {
+        private const val ARG_GUIDE_NAME = "guide_name"
+        private const val ARG_GUIDE_CONTENTS = "guide_contents"
+
+        fun create(guide: UserGuide): GuideBottomSheetFragment {
+            return GuideBottomSheetFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_GUIDE_NAME, guide.name)
+                    putInt(ARG_GUIDE_CONTENTS, guide.contents)
+                }
+            }
+        }
     }
 }

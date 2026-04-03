@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sharing
 
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.trail_sense.shared.andromeda_temp.dismissOnPause
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -98,6 +99,7 @@ object Share {
         }
         val sheet = ActionSheet(title, subtitle, actions, customOnAction)
         sheet.show(fragment)
+        sheet.dismissOnPause(fragment)
     }
 
 }

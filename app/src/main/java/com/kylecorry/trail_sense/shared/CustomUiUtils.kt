@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
+import com.kylecorry.trail_sense.shared.andromeda_temp.dismissOnPause
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -369,6 +370,7 @@ object CustomUiUtils {
     ): BottomSheetDialogFragment {
         val sheet = ViewQRBottomSheet(title, qr)
         sheet.show(fragment)
+        sheet.dismissOnPause(fragment)
         return sheet
     }
 
@@ -379,6 +381,7 @@ object CustomUiUtils {
     ): BottomSheetDialogFragment {
         val sheet = ScanQRBottomSheet(title, onScan)
         sheet.show(fragment)
+        sheet.dismissOnPause(fragment)
         return sheet
     }
 
@@ -388,6 +391,7 @@ object CustomUiUtils {
     ): BottomSheetDialogFragment {
         val sheet = BottomSheetFragmentWrapper(contentFragment)
         sheet.show(parentFragment)
+        sheet.dismissOnPause(parentFragment)
         return sheet
     }
 
