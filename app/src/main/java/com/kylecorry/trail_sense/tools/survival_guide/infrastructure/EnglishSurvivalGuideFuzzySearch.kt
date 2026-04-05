@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.text.TextUtils
-import kotlin.math.max
+import com.kylecorry.trail_sense.shared.text.search.EnglishFuzzySearchStrategy
+import com.kylecorry.trail_sense.shared.text.search.SearchItem
 
 class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: GuideLoader) :
     BaseSurvivalGuideSearch(loader) {
@@ -289,78 +289,34 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
         ),
     )
 
+    private val search = EnglishFuzzySearchStrategy(
+        preservedWords,
+        additionalStopWords,
+        synonyms,
+        additionalContractions,
+        additionalStemWords
+    )
+
     override fun getSectionScore(
         query: String,
         section: GuideSection
     ): Float {
-        val sectionKeywords = section.keywords.joinToString(", ")
-
-        val additionalPreservedWords =
-            section.keywords.filter { it.contains(" ") || it.contains("-") }.toMutableSet()
-
-        // Any keywords with a dash should have a synonym with a space
-        val additionalSynonyms = section.keywords
-            .filter { it.contains("-") }
-            .map { setOf(it, it.replace("-", " ")) }
-
-        // Add the synonyms to the preserved words
-        additionalPreservedWords.addAll(additionalSynonyms.flatten())
-
-        var sectionMatch = TextUtils.getQueryMatchPercent(
-            query,
-            sectionKeywords,
-            preservedWords = preservedWords + additionalPreservedWords,
-            additionalStopWords = additionalStopWords,
-            synonyms = synonyms + additionalSynonyms,
-            additionalContractions = additionalContractions,
-            additionalStemWords = additionalStemWords
-        )
-
-        var headerMatch = TextUtils.getQueryMatchPercent(
-            query,
-            section.title ?: context.getString(R.string.overview),
-            preservedWords = preservedWords + additionalPreservedWords,
-            additionalStopWords = additionalStopWords,
-            synonyms = synonyms + additionalSynonyms,
-            additionalContractions = additionalContractions,
-            additionalStemWords = additionalStemWords
-        )
-
-        var inverseHeaderMatch = TextUtils.getQueryMatchPercent(
-            section.title ?: context.getString(R.string.overview),
-            query,
-            preservedWords = preservedWords + additionalPreservedWords,
-            additionalStopWords = additionalStopWords,
-            synonyms = synonyms + additionalSynonyms,
-            additionalContractions = additionalContractions,
-            additionalStemWords = additionalStemWords
-        )
-
-        val chapterMatch = TextUtils.getQueryMatchPercent(
-            query,
-            section.chapter.title,
-            preservedWords = preservedWords + additionalPreservedWords,
-            additionalStopWords = additionalStopWords,
-            synonyms = synonyms + additionalSynonyms,
-            additionalContractions = additionalContractions,
-            additionalStemWords = additionalStemWords
-        )
-
         // Rank the be prepared and overview sections lower
-        if (section.title?.uppercase()?.trim() == "BE PREPARED" || section.title == null) {
-            sectionMatch *= 0.9f
-        }
+        val scoreMultiplier =
+            if (section.title?.uppercase()?.trim() == "BE PREPARED" || section.title == null) {
+                0.9f
+            } else {
+                1f
+            }
 
-        if (chapterMatch > 0.8f) {
-            // If the chapter matches, boost the section match a little
-            sectionMatch *= 1.15f
-        }
+        val item = SearchItem(
+            "${section.chapter.title} ${section.title}",
+            section.title ?: context.getString(R.string.overview),
+            section.keywords,
+            parent = SearchItem(section.chapter.title, section.chapter.title),
+            scoreMultiplier = scoreMultiplier
+        )
 
-        // If the header has a good match, increase it
-        if (headerMatch == 1f && inverseHeaderMatch == 1f) {
-            headerMatch = 1.1f
-        }
-
-        return max(sectionMatch, headerMatch)
+        return search.getSearchScore(query, item)
     }
 }
