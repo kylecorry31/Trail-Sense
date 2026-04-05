@@ -32,13 +32,13 @@ object Licenses {
                 "beriain",
                 "zsbetu",
                 "ebraminio",
+                "hao123111230",
                 "SecularSteve",
                 "shilonit",
                 "CloneWith",
                 "Jakarrrg",
                 "jer194",
                 "raphaelventura",
-                "hao123111230",
                 "SantosSi",
                 "Kamilkampfwagen-II",
                 "ACABMAN666",
@@ -114,7 +114,7 @@ object Licenses {
                 "the7thNightmare",
                 "mgorny",
                 "Kapral67",
-                "ARtHryDr",
+                "MateusRodCosta",
                 "f4n0",
                 "hrachmnam",
                 "kaile1234",
@@ -128,11 +128,13 @@ object Licenses {
                 "jere-a",
                 "btsmartx",
                 "love80312",
+                "ARtHryDr",
                 "Abdulkarim28",
                 "Akamar",
                 "arifpedia",
                 "dasrecht",
                 "realgooseman",
+                "CgtyC",
                 "helloiamcait",
                 "CanUCMeSharp",
                 "E440QF",
@@ -152,8 +154,7 @@ object Licenses {
                 "Luiz-bro",
                 "BatuAtlas",
                 "xmbhasin",
-                "TomasCartman",
-                "MateusRodCosta"
+                "TomasCartman"
             )
             "${
                 mit(
