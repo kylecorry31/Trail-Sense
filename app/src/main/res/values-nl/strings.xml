@@ -64,7 +64,7 @@
     <string name="compass_azimuth">Azimut</string>
     <string name="compass_auto_declination">Pas de afwijking automatisch aan</string>
     <string name="compass_declination_override">Geef de afwijking handmatig op</string>
-    <string name="override_from_gps">Gebruik de waarde van de GPS</string>
+    <string name="override_from_gps">Waarde van GPS gebruiken</string>
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="pref_ruler_calibration_summary">Kalibratieprotocol:
 \n
@@ -295,7 +295,7 @@
     <string name="clock_sync_time_settings">Tijdsinstellingen openen\?</string>
     <string name="clock_sync_instructions">Stel de tijd in op %s wanneer de melding binnenkomt</string>
     <string name="clock_sync_notification">Kloksynchronisatie - %s</string>
-    <string name="notification_channel_clock_sync_description">Een melding om je klok te synchroniseren met gps-tijd</string>
+    <string name="notification_channel_clock_sync_description">Een melding om je klok te synchroniseren naar GPS-tijd</string>
     <string name="notification_channel_clock_sync">Kloksynchronisatie</string>
     <string name="pip_notification_scheduled">Melding gepland voor %s</string>
     <string name="pip_button">Systeemtijd bijwerken</string>
@@ -312,7 +312,7 @@
     <string name="tool_battery_title">Batterij</string>
     <string name="strobe_warning_content">De stroboscoopfunctie bevat lichtflitsen, die voor sommige gebruikers gevaarlijk kunnen zijn.</string>
     <string name="strobe_warning_title">Lichtflitsen</string>
-    <string name="clock_waiting_for_gps">Tijd bijwerken middels gps…</string>
+    <string name="clock_waiting_for_gps">Tijd bijwerken middels GPS…</string>
     <string name="water_purification_step_3">Start de timer</string>
     <string name="water_purification_step_2">Breng water aan de kook, zodat het sterk borrelt</string>
     <string name="water_purification_step_1">Filter het water</string>
@@ -338,7 +338,7 @@
     <string name="delete_note_title">Notitie verwijderen\?</string>
     <string name="notes_empty_text">Geen notities</string>
     <string name="location_override_updated">Locatieoverschrijving bijgewerkt</string>
-    <string name="update_gps_override">Gps-overschrijving bijwerken</string>
+    <string name="update_gps_override">GPS-overschrijving bijwerken</string>
     <string name="metal_detector_disclaimer">Detecteert alleen magnetische metalen (bijv. ijzer)</string>
     <string name="tool_metal_detector_title">Metaaldetector</string>
     <string name="threshold">Drempelwaarde</string>
@@ -390,7 +390,7 @@
     <string name="pref_adjust_for_temperature_title">Temperatuur meenemen</string>
     <string name="pref_adjust_for_temperature_summary">Temperatuur gebruiken in zeeniveau druk-conversies</string>
     <string name="never">Nooit</string>
-    <string name="altimeter_mode_gps_barometer">Gps + barometer</string>
+    <string name="altimeter_mode_gps_barometer">GPS + barometer</string>
     <string name="pref_elevation_override_sea_level_title">Een bekende zeespiegeldruk gebruiken</string>
     <string name="request_permission">Toestemming vragen</string>
     <string name="compass_declination">Magnetische afwijking</string>
@@ -641,7 +641,7 @@
     <string name="no_permission">Geen toestemming verleend</string>
     <string name="camera">Camera</string>
     <string name="quarter_moon">Kwartier</string>
-    <string name="gps_signal_lost">gps-signaal verloren</string>
+    <string name="gps_signal_lost">GPS-signaal verloren</string>
     <string name="elevation_history_length">Lengte hoogtegeschiedenis</string>
     <string name="last_duration">Afgelopen %s</string>
     <string name="units_mmhg">mmHg</string>
@@ -698,7 +698,7 @@
     <string name="measure">Meten</string>
     <string name="compass_unavailable">Kompas niet beschikbaar</string>
     <string name="gps_unavailable">GPS niet beschikbaar</string>
-    <string name="gps_timeouts">GPS onderbrekingen</string>
+    <string name="gps_timeouts">GPS-onderbrekingen</string>
     <string name="qr_code_scanner">QR code lezer</string>
     <string name="no_qr_code_found">Geen QR code herkend</string>
     <string name="share_ellipsis">Delen…</string>
@@ -863,8 +863,8 @@
     <string name="delete_path_group_message">%s en al zijn paden zullen worden verwijderd.</string>
     <string name="since_time">sinds %s</string>
     <string name="cross">Kruis</string>
-    <string name="pref_default_path_style_title">Standaardpad stijl</string>
-    <string name="pref_default_path_color_title">Standaardpad kleur</string>
+    <string name="pref_default_path_style_title">Stijl standaardpad</string>
+    <string name="pref_default_path_color_title">Kleur standaardpad</string>
     <string name="move_to">Verplaatsen naar</string>
     <string name="season_spring">Lente</string>
     <string name="tilt">Helling</string>
@@ -938,7 +938,7 @@
     <string name="altocumulus_forecast">Kan duiden op neerslag of onweer in de komende %d uren.</string>
     <string name="weather_front">Weerfront</string>
     <string name="size">Omvang</string>
-    <string name="pref_include_leading_zero_title">Voeg voorloopnul toe aan de tijd</string>
+    <string name="pref_include_leading_zero_title">Voorloopnul aan tijd toevoegen</string>
     <string name="center">Centrum</string>
     <string name="pref_keep_map_facing_up_summary">De kaart zal uitlijnen met de bovenkant van het scherm, in plaats van het ware noorden.</string>
     <string name="last_lightning_strike_at">Laatste blikseminslag om %s</string>
@@ -950,7 +950,7 @@
     <string name="rotation_amount">Rotatie: %s</string>
     <string name="horizon">Horizon</string>
     <string name="restore_failure_newer_version">Deze back-up was gemaakt met een nieuwere versie van %s. Werk a.u.b de app bij en probeer opnieuw.</string>
-    <string name="gps_satellites">GPS satellieten</string>
+    <string name="gps_satellites">GPS-satellieten</string>
     <string name="start_time">Begin</string>
     <string name="weather_alert_hot_description">Bereid je voor op hoge temperaturen. Neem extra voorzorgsmaatregelen tegen uitputting en hitteberoerte.</string>
     <string name="create_path">Maak pad</string>
@@ -965,7 +965,7 @@
     <string name="map_is_not_calibrated">Kaart is niet gekalibreerd</string>
     <string name="hot">Heet</string>
     <string name="calibrate_map_point">Calibreer met bekende locaties (%1$d / %2$d)</string>
-    <string name="gps_elevation_accuracy">GPS hoogtenauwkeurigheid</string>
+    <string name="gps_elevation_accuracy">GPS-hoogtenauwkeurigheid</string>
     <string name="restore">Herstel</string>
     <string name="compass_source_legacy_android">Verouderd (Android)</string>
     <string name="my_location">Mijn locatie</string>
@@ -1028,7 +1028,7 @@
     <string name="triangulate_destination_location_2_instructions">Beweeg tenminste %s van de eerste locatie en neem je locatie en richting van de bestemming opnieuw op.</string>
     <string name="battery_settings_limit_accuracy">Energiebesparing kan de nauwkeurigheid beïnvloeden</string>
     <string name="backing_up_loading_message">Reservekopie maken…</string>
-    <string name="gps_location_accuracy">GPS locatienauwkeurigheid</string>
+    <string name="gps_location_accuracy">GPS-locatienauwkeurigheid</string>
     <string name="restore_complete_message">Herstel geslaagd, herstarten om veranderingen toe te passen</string>
     <string name="until_sunrise">Tot zonsopkomst</string>
     <string name="at_time">om %s</string>
@@ -1550,7 +1550,7 @@
     <string name="do_not_ask_again">Vraag niet opnieuw</string>
     <string name="show_all">Alles weergeven</string>
     <string name="hide_all">Alles verbergen</string>
-    <string name="pref_default_beacon_color_title">Standaardbaken kleur</string>
+    <string name="pref_default_beacon_color_title">Kleur standaardbaken</string>
     <string name="stone">Stone</string>
     <string name="stone_format">%s st</string>
 </resources>
