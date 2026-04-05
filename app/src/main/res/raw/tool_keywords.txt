@@ -1,0 +1,48 @@
+1 (Flashlight): flashlight, torch, light, strobe, sos, screen, lamp, flash
+2 (Whistle): whistle, signal, emergency, sos, sound, alert
+3 (Ruler): ruler, measure, distance, length, inches, centimeters, scale
+4 (Pedometer): pedometer, steps, walk, distance, odometer, hike, step counter
+5 (Cliff Height): cliff, height, drop, fall, measure
+6 (Navigation): navigation, compass, navigate, direction, bearing, heading, gps
+7 (Beacons): beacon, waypoint, marker, location, poi, point of interest
+8 (Photo Maps): photo map, image, pdf, map, maps
+9 (Paths): path, track, backtrack, trail, route, record, gps, breadcrumb
+10 (Triangulate Location): triangulate, location, position, bearing, compass, sighting
+11 (Clinometer): clinometer, angle, slope, incline, avalanche, height, tilt, distance
+12 (Bubble Level): level, bubble, flat, surface, tilt
+13 (Clock): clock, time, gps, timer
+14 (Astronomy): astronomy, sun, moon, sunrise, sunset, moonrise, moonset, eclipse, solar, lunar, stars, night
+15 (Water Boil Timer): water, boil, purify, purification, timer, potable, safe, drink
+16 (Tides): tide, tides, ocean, sea, coast, lunar, high tide, low tide
+17 (Battery): battery, power, charge, low power, energy
+18 (Solar Panel Aligner): solar, panel, align, sun, power, energy, angle
+19 (Light Meter): light, meter, lux, brightness, beam, flashlight, candela, flash
+20 (Weather): weather, barometer, pressure, forecast, storm, rain, front, prediction, temperature, wind, humidity
+21 (Climate): climate, temperature, historic, history, average, seasonal, insect, activity
+22 (Temperature Estimation): temperature, elevation, estimate, altitude, predict
+23 (Clouds): cloud, clouds, identify, scan, weather, type, classification, sky
+24 (Lightning Strike Distance): lightning, thunder, storm, distance, strike
+25 (Augmented Reality): augmented reality, ar, camera, 3d
+26 (Convert): convert, unit, conversion, calculator, measurement, distance, weight, temperature, time
+27 (Packing Lists): packing, list, pack, gear, trip, checklist, inventory, items
+28 (Metal Detector): metal, detector, magnetometer, magnetic, find, detect
+29 (White Noise): white noise, sleep, noise, relax, sound, rest
+30 (Notes): note, notes, write, text, memo, journal, log
+31 (QR Code Scanner): qr, code, scan, barcode, camera, read
+32 (Sensors): sensor, sensors, gps, altimeter, barometer, compass, accelerometer, location, elevation
+33 (Diagnostics): diagnostics, diagnose, test, troubleshoot, check, system, help
+34 (Settings): settings, preferences, configure, options, setup, customize
+35 (User Guide): guide, help, how to, instructions, manual, documentation, tutorial
+36 (Experimentation): experiment, debug, test, sandbox
+37 (Mirror Camera): mirror, camera, front, reflection, selfie
+38 (Turn Back): turn back, reminder, time, alarm, return, turnaround
+39 (Local Messaging): message, messaging, text, communicate, send, receive, local
+40 (Local Talk): talk, voice, walkie talkie, communicate, speak, radio, local
+41 (Survival Guide): survival, guide, wilderness, emergency, bushcraft, outdoor
+42 (Field Guide): field, guide, identify, plant, animal, fungi, mushroom, wildlife, nature, species, log, record
+43 (Signal Finder): signal, cell, tower, reception, coverage, network, cellular, strength
+44 (Ballistics): ballistics, bullet, trajectory, shooting, firearm, drop, velocity
+45 (Permits): permit, license, pass, authorization, reservation
+46 (Declination): declination, magnetic, north, true north, variation, compass, correction
+47 (Map): map, maps, terrain, elevation, topographic, slope, contour, hillshade
+48 (Magnifier): magnifier, magnify, zoom, magnifying glass, enlarge, camera

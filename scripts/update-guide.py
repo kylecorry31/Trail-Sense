@@ -123,9 +123,9 @@ def get_issues(original, translated):
 
 # Step 1
 for filename in os.listdir(root + "/guides/en-US"):
-    if filename.endswith(".txt") and not filename.startswith("field_guide"):
+    if filename.endswith(".txt") and not filename.startswith("field_guide") and not filename.startswith("tool_keywords"):
         shutil.copy2(root + "/guides/en-US/" + filename, root + "/app/src/main/res/raw/" + filename[:-4] + ".md")
-    elif filename.endswith(".md") or filename.startswith("field_guide"):
+    elif filename.endswith(".md") or filename.startswith("field_guide") or filename.startswith("tool_keywords"):
         # These files are not translatable
         shutil.copy2(root + "/guides/en-US/" + filename, root + "/app/src/main/res/raw/" + filename)
 
