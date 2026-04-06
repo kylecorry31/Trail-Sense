@@ -25,8 +25,7 @@ class LabelMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
         androidPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             // TODO: Find a better way to do this
             if (preference.openDemSettingsOnClick && context is MainActivity) {
-                context.findNavController()
-                    .navigateWithAnimation(R.id.calibrateAltimeterFragment)
+                context.findNavController()?.navigateWithAnimation(R.id.calibrateAltimeterFragment)
             }
             true
         }

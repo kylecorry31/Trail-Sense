@@ -54,7 +54,7 @@ class NavigationScreenLock(private val alwaysLock: Boolean = false) {
 
     private fun removeNavigationListener(activity: Activity) {
         val mainActivity = activity as? MainActivity ?: return
-        val navController = mainActivity.findNavController()
+        val navController = mainActivity.findNavController() ?: return
         navController.removeOnDestinationChangedListener(listener)
     }
 
@@ -62,8 +62,8 @@ class NavigationScreenLock(private val alwaysLock: Boolean = false) {
         val weakActivity = WeakReference(activity)
         val mainActivity = weakActivity.get() as? MainActivity ?: return
         val navController = mainActivity.findNavController()
-        selfDestinationId = navController.currentDestination?.id
-        navController.addOnDestinationChangedListener(listener)
+        selfDestinationId = navController?.currentDestination?.id
+        navController?.addOnDestinationChangedListener(listener)
     }
 
 }

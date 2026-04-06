@@ -70,7 +70,7 @@ class MainActivity : AndromedaActivity() {
     private val binding: ActivityMainBinding
         get() = _binding!!
 
-    private val navController: NavController
+    private val navController: NavController?
         get() = findNavController()
 
     val errorBanner: ErrorBannerView
@@ -146,7 +146,7 @@ class MainActivity : AndromedaActivity() {
      * Update the bottom nav selection based on the current navigation destination
      */
     private fun updateBottomNavSelection() {
-        val currentNavId = navController.currentDestination?.id
+        val currentNavId = navController?.currentDestination?.id
         val tools = Tools.getTools(this)
         val selectedTool = tools.firstOrNull { it.isOpen(currentNavId ?: 0) }
         // If the tool appears in the bottom nav, select it. Otherwise, select the Tools tab
@@ -222,7 +222,7 @@ class MainActivity : AndromedaActivity() {
             appInitialized = true
             updateBottomNavigation()
 
-            navController.addOnDestinationChangedListener { _, _, _ ->
+            navController?.addOnDestinationChangedListener { _, _, _ ->
                 binding.quickActionsSheet.close()
                 updateBottomNavSelection()
             }
@@ -280,11 +280,11 @@ class MainActivity : AndromedaActivity() {
         errorBanner.dismissAll()
 
         if (shouldReloadNavigation) {
-            navController.navigate(
+            navController?.navigate(
                 binding.bottomNavigation.selectedItemId,
                 null,
                 NavOptions.Builder().setPopUpTo(
-                    navController.currentDestination?.id ?: R.id.action_experimental_tools, true
+                    navController?.currentDestination?.id ?: R.id.action_experimental_tools, true
                 ).build()
             )
         }
@@ -316,7 +316,7 @@ class MainActivity : AndromedaActivity() {
         if (intent.action == TrailSenseExceptionHandler.ACTION_TOOL_ERROR) {
             val toolId = intent.getLongExtra(TrailSenseExceptionHandler.EXTRA_TOOL_ID, 0L)
             val error = intent.getStringExtra(TrailSenseExceptionHandler.EXTRA_ERROR) ?: ""
-            navController.navigate(
+            navController?.navigate(
                 R.id.fragmentToolErrorHandler,
                 bundleOf("tool_id" to toolId, "error" to error)
             )
@@ -327,8 +327,8 @@ class MainActivity : AndromedaActivity() {
             val toolId = intent.getLongExtra("tool_id", -1)
             val tool = Tools.getTool(this, toolId)
             if (tool != null) {
-                if (navController.currentDestination?.id != tool.navAction) {
-                    navController.navigate(tool.navAction)
+                if (navController?.currentDestination?.id != tool.navAction) {
+                    navController?.navigate(tool.navAction)
                 }
                 binding.bottomNavigation.selectedItemId = tool.navAction
             }
@@ -361,7 +361,7 @@ class MainActivity : AndromedaActivity() {
         if (savedInstanceState.containsKey("navigation")) {
             tryOrNothing {
                 val bundle = savedInstanceState.getBundle("navigation_arguments")
-                navController.navigate(savedInstanceState.getInt("navigation"), bundle)
+                navController?.navigate(savedInstanceState.getInt("navigation"), bundle)
             }
         }
     }
@@ -370,10 +370,10 @@ class MainActivity : AndromedaActivity() {
         super.onSaveInstanceState(outState)
         tryOrLog {
             outState.putInt("page", binding.bottomNavigation.selectedItemId)
-            navController.currentBackStackEntry?.arguments?.let {
+            navController?.currentBackStackEntry?.arguments?.let {
                 outState.putBundle("navigation_arguments", it)
             }
-            navController.currentDestination?.id?.let {
+            navController?.currentDestination?.id?.let {
                 outState.putInt("navigation", it)
             }
         }
@@ -412,7 +412,7 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun getVolumeAction(): VolumeAction? {
-        val navigationId = navController.currentDestination?.id
+        val navigationId = navController?.currentDestination?.id
         val fragment = getFragment() as? AndromedaFragment ?: return null
         val tools = Tools.getTools(this)
 
@@ -492,7 +492,7 @@ class MainActivity : AndromedaActivity() {
             getString(R.string.tools)
         ).setIcon(R.drawable.apps)
             .setOnMenuItemClickListener {
-                if (navController.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isOpen()) {
+                if (navController?.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isOpen()) {
                     val searchinput = findViewById<TextInputEditText>(R.id.search_view_edit_text)
                     if (searchinput?.requestFocus() == true) {
                         val imm = getSystemService(InputMethodManager::class.java)
@@ -525,15 +525,16 @@ class MainActivity : AndromedaActivity() {
             initializeNavGraph(initialItem)
         }
         // Bind to navigation
-        binding.bottomNavigation.setupWithNavController(navController, false)
+        navController?.let { binding.bottomNavigation.setupWithNavController(it, false) }
 
         updateBottomNavSelection()
     }
 
     private fun initializeNavGraph(startDestination: Int) {
-        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+        val nav = navController ?: return
+        val navGraph = nav.navInflater.inflate(R.navigation.nav_graph)
         navGraph.setStartDestination(startDestination)
-        navController.graph = navGraph
+        nav.graph = navGraph
     }
 
     private fun onPowerSavingModeChanged(data: Bundle): Boolean {

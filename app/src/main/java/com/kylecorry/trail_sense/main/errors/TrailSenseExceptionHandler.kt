@@ -52,7 +52,7 @@ class TrailSenseExceptionHandler(
                 return false
             }
 
-            val currentNavId = activity.findNavController().currentDestination?.id ?: return false
+            val currentNavId = activity.findNavController()?.currentDestination?.id ?: return false
             val tools = Tools.getTools(activity)
             val selectedTool = tools.firstOrNull { it.isOpen(currentNavId) } ?: return false
 
