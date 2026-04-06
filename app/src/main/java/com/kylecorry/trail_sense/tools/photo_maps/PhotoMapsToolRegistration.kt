@@ -29,7 +29,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
 
         val intentUri = intent.clipData?.getItemAt(0)?.uri ?: return@ToolIntentHandler false
         val bundle = bundleOf("map_intent_uri" to intentUri)
-        activity.findNavController().navigate(R.id.mapListFragment, bundle)
+        activity.findNavController()?.navigate(R.id.mapListFragment, bundle)
         true
     }
 

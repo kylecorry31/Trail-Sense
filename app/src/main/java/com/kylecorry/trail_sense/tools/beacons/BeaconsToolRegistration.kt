@@ -37,7 +37,7 @@ object BeaconsToolRegistration : ToolRegistration {
             val geo = GeoUri.from(intentData) ?: return@ToolIntentHandler false
 
             val bundle = bundleOf("initial_location" to geo)
-            activity.findNavController().navigate(
+            activity.findNavController()?.navigate(
                 R.id.beacon_list,
                 bundle
             )
@@ -49,7 +49,7 @@ object BeaconsToolRegistration : ToolRegistration {
             val beaconId = intent.getLongExtra("beacon_id", -1L)
             if (beaconId == -1L) return@ToolIntentHandler false
             val bundle = bundleOf("beacon_id" to beaconId)
-            activity.findNavController().navigate(
+            activity.findNavController()?.navigate(
                 R.id.beaconDetailsFragment,
                 bundle
             )
