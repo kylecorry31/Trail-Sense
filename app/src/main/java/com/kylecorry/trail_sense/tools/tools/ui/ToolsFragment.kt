@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSearch
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.tools.tools.ui.items.ToolListItem
@@ -45,6 +46,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     private val toolSortFactory by lazy { ToolSortFactory(requireContext()) }
 
     private val pinnedSorter = AlphabeticalToolSort()
+    private val toolSearch by lazy { ToolSearch(requireContext()) }
 
     private lateinit var toolListView: GridView<ToolListItem>
 
@@ -155,9 +157,15 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     private fun updateTools() {
         inBackground {
             onDefault {
+                val filter = binding.toolSearchbox.query
                 val filteredTools = filterTools(tools)
-                val sorter = toolSortFactory.getToolSort(prefs.toolSort)
-                toolListItems = listOf(toolHeader) + getToolItemList(sorter.sort(filteredTools))
+                if (filter.isNullOrBlank()) {
+                    val sorter = toolSortFactory.getToolSort(prefs.toolSort)
+                    toolListItems =
+                        listOf(toolHeader) + getToolItemList(sorter.sort(filteredTools))
+                } else {
+                    toolListItems = listOf(toolHeader) + filteredTools.map { getToolListItem(it) }
+                }
             }
 
             updateList()
@@ -169,12 +177,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         return if (filter.isNullOrBlank()) {
             tools
         } else {
-            tools.filter {
-                it.name.contains(filter, true) || it.description?.contains(
-                    filter,
-                    true
-                ) == true
-            }
+            toolSearch.search(filter)
         }
     }
 
