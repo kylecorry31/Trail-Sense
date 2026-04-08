@@ -37,7 +37,7 @@ class ToolsTest : ToolTestBase(0L) {
         // Restart the app with Navigation tool (default)
         scenario.close()
         scenario = TestUtils.startWithTool(Tools.NAVIGATION) {
-            navController = it.findNavController()
+            navController = it.findNavController()!!
         }
 
         // Wait for the tool to load

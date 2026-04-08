@@ -199,11 +199,11 @@ object TestUtils {
         scenario.onActivity { activity ->
             onActivityCallback(activity)
             if (toolId == 0L) {
-                activity.findNavController().navigate(R.id.action_experimental_tools)
+                activity.findNavController()!!.navigate(R.id.action_experimental_tools)
             } else {
                 val tool = Tools.getTool(context, toolId)
                 tool?.let {
-                    activity.findNavController().navigate(tool.navAction)
+                    activity.findNavController()!!.navigate(tool.navAction)
                 }
             }
         }

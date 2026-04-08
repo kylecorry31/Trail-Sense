@@ -84,7 +84,7 @@ open class ToolTestBase(
         volume = TestUtils.mute()
         if (packageName == null) {
             scenario = TestUtils.startWithTool(toolId) {
-                navController = it.findNavController()
+                navController = it.findNavController()!!
             }
         } else {
             clearAppData(packageName)
