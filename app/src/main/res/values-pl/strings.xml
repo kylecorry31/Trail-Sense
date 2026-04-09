@@ -23,7 +23,7 @@
     <string name="pref_show_sun_moon_compass_title">Pokaż słońce/księżyc na kompasie</string>
     <string name="pref_show_linear_compass_title">Pokaż kompas liniowy</string>
     <string name="pref_show_linear_compass_summary">Gdy telefon jest trzymany pionowo</string>
-    <string name="feet_miles">Stopy / Mile</string>
+    <string name="feet_miles">Stopy/Mile</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
@@ -77,7 +77,7 @@
     <string name="storm_alerts">Alerty burzowe</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s temu</string>
     <string name="pressure_format">%1$s %2$s</string>
-    <string name="pressure_tendency_format_2">%s / 3h</string>
+    <string name="pressure_tendency_format_2">%s/3h</string>
     <string name="beacon_comment">Uwagi (opcjonalnie)</string>
     <string name="maps">Mapy</string>
     <string name="sos">SOS</string>
@@ -409,7 +409,7 @@
     <string name="no_tides">Brak pływów</string>
     <string name="tides">Pływy</string>
     <string name="pref_meteor_showers_title">Deszcze meteorów</string>
-    <string name="meteors_per_hour">Maksymalnie %d meteorów / h</string>
+    <string name="meteors_per_hour">Maksymalnie %d meteorów/godzinę</string>
     <string name="meteor_shower">Deszcz meteorów</string>
     <string name="previous">Poprzedni</string>
     <string name="next">Następny</string>
@@ -439,8 +439,8 @@
         <item quantity="many">Zaimportowano %d punktów nawigacyjnych</item>
         <item quantity="other">Zaimportowano %d punktów nawigacyjnych</item>
     </plurals>
-    <string name="theme_sunset_sunrise">Wschód/Zachód słońca</string>
-    <string name="app_disclaimer_message_title">Zastrzeżenia / Warunki korzystania</string>
+    <string name="theme_sunset_sunrise">Wschód/Zachód</string>
+    <string name="app_disclaimer_message_title">Zastrzeżenia/Warunki korzystania</string>
     <string name="disclaimer_message_title">Zastrzeżenia</string>
     <string name="last_signal_beacon_name">Ostatni sygnał - %1$s (%2$s)</string>
     <string name="color">Kolor</string>
@@ -622,7 +622,7 @@
     <string name="season_spring">Wiosna</string>
     <string name="season_winter">Zima</string>
     <string name="duration_of_charge">Czas ładowania</string>
-    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="kwh_per_meter_squared_format">%s kWh/m²</string>
     <string name="moon">Księżyc</string>
     <string name="sun">Słońce</string>
     <string name="sun_moon_position_template">### %1$s
@@ -708,7 +708,7 @@
     <string name="pref_clinometer_baseline_distance_title">Odległość bazowa</string>
     <string name="undo">Cofnij</string>
     <string name="share_ellipsis">Udostępnij…</string>
-    <string name="night">Noc</string>
+    <string name="night">Nocny</string>
     <string name="result_deleted">Wynik usunięty</string>
     <string name="tool_temperature_estimation_title">Szacowanie temperatury</string>
     <string name="tool_temperature_estimation_description">Przewidź temperaturę na innej wysokości</string>
@@ -981,7 +981,7 @@
     <string name="tide_semidiurnal">Półdobowy</string>
     <string name="tide_frequency_description">Liczba przypływów dziennie. Większość pływów jest półdobowa.</string>
     <string name="tide_instructions">Użyj oficjalnej tabeli pływów, aby wprowadzić pływy referencyjne do długości podróży.</string>
-    <string name="calibrate_map_point">Skalibruj ze znanymi lokalizacjami (%1$d / %2$d)</string>
+    <string name="calibrate_map_point">Skalibruj ze znanymi lokalizacjami (%1$d/%2$d)</string>
     <string name="ascent">Wzniesienie</string>
     <string name="descent">Opadanie</string>
     <string name="path_slope_flat">Płaskie</string>
@@ -1214,7 +1214,7 @@
     <string name="cave">Podziemne</string>
     <string name="diurnal">Dzienny</string>
     <string name="nocturnal">Nocny</string>
-    <string name="crepuscular">Zmierzchowy (Zmierzch / Świt)</string>
+    <string name="crepuscular">Zmierzchowy (Zmierzch/Świt)</string>
     <string name="edible">Jadalne</string>
     <string name="inedible">Niejadalne</string>
     <string name="dangerous">Niebezpieczne</string>
@@ -1496,6 +1496,6 @@
     <string name="show_all">Pokaż wszystko</string>
     <string name="hide_all">Ukryj wszystko</string>
     <string name="pref_default_beacon_color_title">Domyślny kolor punktu nawigacyjnego</string>
-    <string name="stone">Kamień</string>
+    <string name="stone">Kamienie</string>
     <string name="stone_format">%s st</string>
 </resources>
