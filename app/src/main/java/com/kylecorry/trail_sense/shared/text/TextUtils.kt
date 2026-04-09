@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.text.nlp.processors.PorterStemmer
 import com.kylecorry.trail_sense.shared.text.nlp.processors.SequentialProcessor
 import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.PostProcessedTokenizer
 import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.SimpleWordTokenizer
+import com.kylecorry.trail_sense.shared.text.search.TextMatchStrategy
 import com.kylecorry.trail_sense.shared.views.TrailSenseTextView
 import com.kylecorry.trail_sense.shared.views.Views
 
@@ -164,6 +165,19 @@ object TextUtils {
             )
         )
         return tokenizer.tokenize(text).toSet()
+    }
+
+    fun isMatch(
+        text: String,
+        query: String,
+        strategy: TextMatchStrategy,
+        ignoreCase: Boolean = true
+    ): Boolean {
+        return when (strategy) {
+            TextMatchStrategy.Contains -> text.contains(query, ignoreCase = ignoreCase)
+            TextMatchStrategy.StartsWith -> text.startsWith(query, ignoreCase = ignoreCase)
+            TextMatchStrategy.Equals -> text.equals(query, ignoreCase = ignoreCase)
+        }
     }
 
     fun getQueryMatchPercent(
