@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.shared.text.search
 
-import com.kylecorry.sol.math.statistics.Statistics
-
 class AggregateSearchStrategy(
     private vararg val strategies: Pair<SearchStrategy, Float>
 ) : SearchStrategy {
@@ -9,9 +7,11 @@ class AggregateSearchStrategy(
         query: String,
         item: SearchItem
     ): Float {
-        val results = strategies.map {
-            it.first.getSearchScore(query, item) to it.second
-        }
-        return Statistics.weightedMean(results)
+        val totalWeight = strategies.sumOf { it.second.toDouble() }.toFloat()
+        if (totalWeight == 0f) return 0f
+        val weightedSum = strategies.sumOf {
+            (it.first.getSearchScore(query, item) * it.second).toDouble()
+        }.toFloat()
+        return weightedSum / totalWeight
     }
 }
