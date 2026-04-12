@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.map.ui
+package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
@@ -14,13 +14,12 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.views.DatePickerView
 import java.time.Instant
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.util.UUID
 
-class MapTimeSheet(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
+class DateTimeSliderSheet(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
     private val formatter = getAppService<FormatService>()
     private val hooks = Hooks(
@@ -41,7 +40,7 @@ class MapTimeSheet(context: Context, attrs: AttributeSet?) : FrameLayout(context
     private var currentTime: ZonedDateTime = ZonedDateTime.now()
 
     init {
-        inflate(context, R.layout.view_map_time_sheet, this)
+        inflate(context, R.layout.view_date_time_slider_sheet, this)
         datePicker = findViewById(R.id.date_picker)
         timeText = findViewById(R.id.time_text)
         timeSlider = findViewById(R.id.time_slider)
@@ -82,8 +81,7 @@ class MapTimeSheet(context: Context, attrs: AttributeSet?) : FrameLayout(context
     private fun updateUI() {
         datePicker.date = currentTime.toLocalDate()
         updateTimeText()
-        val minutes = currentTime.hour * 60 + currentTime.minute
-        timeSlider.progress = minutes
+        timeSlider.progress = currentTime.hour * 60 + currentTime.minute
     }
 
     private fun updateTimeText() {

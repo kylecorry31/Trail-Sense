@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.sol.science.astronomy.Astronomy
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewArAstronomyGuideBinding
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -13,12 +12,10 @@ import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
-import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class AstronomyARGuide(
     private val astronomyLayer: ARAstronomyLayer,
-    private val initialTimeOverride: ZonedDateTime?,
     private val onCancel: () -> Unit
 ) : ARGuide {
 
@@ -27,21 +24,9 @@ class AstronomyARGuide(
     private var arView: AugmentedRealityView? = null
     private var binding: ViewArAstronomyGuideBinding? = null
 
-    private var timeOverride: ZonedDateTime? = null
-
-    fun setDate(date: LocalDate) {
-        binding?.arGuideDatePicker?.date = date
-    }
-
     private val timer = CoroutineTimer {
         val arView = arView ?: return@CoroutineTimer
-        val time = timeOverride ?: ZonedDateTime.now()
-
-        // Clear the guide if the date is not today
-        if (timeOverride != null && time.toLocalDate() != LocalDate.now()) {
-            arView.clearGuide()
-            return@CoroutineTimer
-        }
+        val time = getDisplayedTime()
 
         val destination = when (objectToTrack) {
             AstronomyObject.Sun -> {
@@ -88,37 +73,14 @@ class AstronomyARGuide(
             startTimer()
         }
 
-        // Configure the date picker
-        val actualTimeOverride = initialTimeOverride?.let {
-            if (it.toLocalDate() == LocalDate.now()) {
-                null
-            } else {
-                it
-            }
-        }
-
-        timeOverride = actualTimeOverride
-        astronomyLayer.timeOverride = actualTimeOverride
-        binding?.arGuideDatePicker?.date = actualTimeOverride?.toLocalDate() ?: LocalDate.now()
-        binding?.arGuideDatePicker?.setOnDateChangeListener {
-            timeOverride = if (it == LocalDate.now()) {
-                null
-            } else {
-                it.atTime(12, 0).toZonedDateTime()
-            }
-            astronomyLayer.timeOverride = timeOverride
-            startTimer()
-        }
-
         updateTrackingIcon()
-
-
         startTimer()
     }
 
     private fun updateTrackingIcon() {
-        binding?.arGuideIcon?.setImageResource(getOptionIcon(objectToTrack, ZonedDateTime.now()))
-        binding?.arGuideIcon?.rotation = getOptionIconRotation(objectToTrack, ZonedDateTime.now())
+        val time = getDisplayedTime()
+        binding?.arGuideIcon?.setImageResource(getOptionIcon(objectToTrack, time))
+        binding?.arGuideIcon?.rotation = getOptionIconRotation(objectToTrack, time)
     }
 
     override fun stop(arView: AugmentedRealityView, panel: FrameLayout) {
@@ -127,11 +89,14 @@ class AstronomyARGuide(
         panel.removeAllViews()
         binding = null
         arView.clearGuide()
-        astronomyLayer.timeOverride = null
     }
 
     private fun startTimer() {
         timer.interval(1000)
+    }
+
+    private fun getDisplayedTime(): ZonedDateTime {
+        return astronomyLayer.timeOverride ?: ZonedDateTime.now()
     }
 
     private fun getOptionName(context: Context, option: AstronomyObject): String {

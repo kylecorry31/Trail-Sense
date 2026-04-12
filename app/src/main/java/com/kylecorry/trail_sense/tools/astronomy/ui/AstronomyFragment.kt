@@ -122,11 +122,18 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         binding.button3d.isVisible =
             Tools.isToolAvailable(requireContext(), Tools.AUGMENTED_REALITY)
         binding.button3d.setOnClickListener {
+            val time = if (isSeeking) {
+                currentSeekChartTime
+            } else if (binding.displayDate.date == LocalDate.now()) {
+                ZonedDateTime.now()
+            } else {
+                binding.displayDate.date.atTime(ZonedDateTime.now().toLocalTime()).toZonedDateTime()
+            }
             AugmentedRealityFragment.open(
                 findNavController(),
                 ARMode.Astronomy,
                 enableCamera = prefs.astronomy.startCameraIn3DView,
-                bundleOf("date" to binding.displayDate.date.toString())
+                bundleOf("time" to time.toString())
             )
         }
 

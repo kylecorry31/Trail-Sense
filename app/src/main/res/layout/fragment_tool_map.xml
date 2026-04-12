@@ -123,7 +123,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
-    <com.kylecorry.trail_sense.tools.map.ui.MapTimeSheet
+    <com.kylecorry.trail_sense.shared.views.DateTimeSliderSheet
         android:id="@+id/time_sheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -25,7 +25,7 @@ The paths that the sun and moon will take today are displayed as markers on the 
 
 If you bring the sun or moon into the reticle, you will see more details about the marker such as the time.
 
-If you tapped the "View in 3D" button on the Astronomy tool, you can use the guide to see where the sun or moon currently is and change the previewed date in the bottom panel.
+If you tapped the "View in 3D" button on the Astronomy tool, you can use the guide to see where the sun or moon is for the selected date and time.
 
 You can view the sun and moon when they are below the horizon by enabling Settings > Augmented Reality > "Show below horizon".
 
@@ -71,4 +71,5 @@ The Augmented Reality tool respects the compass source in Settings > Sensors > C
 ## Layers
 You can toggle the visibility of the beacons, paths, astronomy, and grid layers by clicking the layer icon in the top-left corner of the screen or by changing the "Visible" setting in Settings > Augmented Reality.
 
-The preview date for the astronomy layer can be adjusted in the layers menu on the Augmented Reality tool.
+## Date / time slider
+Tap the clock icon on the left side of the screen to open the date and time slider. You can use this panel to preview a different time of day on a given date. Tap the clock icon again to return to the live time.
