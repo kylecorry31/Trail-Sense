@@ -55,9 +55,9 @@ class BackupService(
      * Restores the app data from the given source zip file
      * @param source the source file - must be a zip file
      */
-    suspend fun restore(source: Uri): Unit = onIO {
+    suspend fun restore(source: Uri, onProgress: ((Float) -> Unit)? = null): Unit = onIO {
         // Check the validity of the zip file
-        verifyBackupFile(source)
+        val fileCount = verifyBackupFile(source)
 
         // Get the root directory where the files will be restored to
         val root = AppData.getDataDirectory(context)
@@ -72,8 +72,12 @@ class BackupService(
         AppData.getSharedPrefsDirectory(context).deleteRecursively()
 
         // Unzip the files to the root directory (this will overwrite existing files)
+        var count = 0
         fileSubsystem.stream(source)?.use {
-            ZipUtils.unzip(it, root, MAX_ZIP_FILE_COUNT)
+            ZipUtils.unzip(it, root, MAX_ZIP_FILE_COUNT) {
+                count++
+                onProgress?.invoke(count / fileCount.coerceAtLeast(1).toFloat())
+            }
         } ?: return@onIO
 
         // Rename the shared prefs file
@@ -81,6 +85,7 @@ class BackupService(
 
         // Clear cache
         CacheFileSystem(context).delete(CachedTileRepo.TILES_FOLDER, true)
+        onProgress?.invoke(1f)
     }
 
     private suspend fun renameSharedPrefsFile(): Unit = onIO {
@@ -93,7 +98,7 @@ class BackupService(
         prefsFile.renameTo(File(sharedPrefsDir, "${context.packageName}_preferences.xml"))
     }
 
-    private suspend fun verifyBackupFile(backupUri: Uri): Unit = onIO {
+    private suspend fun verifyBackupFile(backupUri: Uri): Int = onIO {
         // Retrieve the files in the zip file
         val files = fileSubsystem.stream(backupUri)?.use {
             ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
@@ -115,6 +120,8 @@ class BackupService(
         if (files.none { (file, _) -> pathsToLookFor.any { re -> re.matches(file.path) } }) {
             throw InvalidBackupException()
         }
+
+        files.size
     }
 
     private fun getFilesToBackup(): List<File> {
