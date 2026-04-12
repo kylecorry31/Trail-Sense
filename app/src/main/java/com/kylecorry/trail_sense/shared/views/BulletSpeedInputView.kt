@@ -16,6 +16,7 @@ class BulletSpeedInputView(context: Context, attributeSet: AttributeSet? = null)
 
     init {
         hint = context.getString(R.string.speed)
+        allowNegative = false
     }
 
     override fun createDisplayUnit(units: DistanceUnits): UnitInputView.DisplayUnit<DistanceUnits> {

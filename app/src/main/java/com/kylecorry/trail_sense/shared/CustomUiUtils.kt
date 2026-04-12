@@ -98,6 +98,7 @@ object CustomUiUtils {
         default: Distance? = null,
         title: String,
         showFeetAndInches: Boolean = false,
+        allowNegative: Boolean = false,
         hint: String = context.getString(R.string.distance),
         description: String? = null,
         onDistancePick: (distance: Distance?, cancelled: Boolean) -> Unit
@@ -116,6 +117,7 @@ object CustomUiUtils {
         }
 
         distanceInput?.showFeetAndInches = showFeetAndInches
+        distanceInput?.allowNegative = allowNegative
 
         Alerts.dialog(
             context,

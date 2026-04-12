@@ -29,6 +29,7 @@ class WeightInputView(context: Context, attributeSet: AttributeSet? = null) :
 
     init {
         hint = defaultHint
+        allowNegative = false
         setOnValueChangeListener(null)
     }
 

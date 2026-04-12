@@ -43,6 +43,7 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
     setDistance: (Distance?) -> Unit,
     units: List<DistanceUnits>,
     showFeetAndInches: Boolean = false,
+    allowNegative: Boolean = false,
     decimalPlacesOverride: Int? = null,
     description: String? = null
 ) {
@@ -56,6 +57,7 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
             getDistance(),
             pref.title.toString(),
             showFeetAndInches = showFeetAndInches,
+            allowNegative = allowNegative,
             description = description
         ) { distance, cancelled ->
             if (cancelled) {

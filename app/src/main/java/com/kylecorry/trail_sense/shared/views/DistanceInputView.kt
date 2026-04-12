@@ -29,6 +29,7 @@ class DistanceInputView(context: Context, attrs: AttributeSet? = null) :
 
     init {
         hint = defaultHint
+        allowNegative = false
         setOnValueChangeListener(null)
     }
 
