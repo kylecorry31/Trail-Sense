@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.pdf.GeospatialPDFParser
 import com.kylecorry.andromeda.pdf.PDFRenderer
 import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
@@ -50,7 +51,7 @@ class CreateMapFromPDFCommand(
 
             val points = listOf(first, second).map {
                 MapCalibrationPoint(
-                    it.second,
+                    Coordinate.constrained(it.second.latitude, it.second.longitude),
                     PercentCoordinate(scale * it.first.x / bp.width, scale * it.first.y / bp.height)
                 )
             }
