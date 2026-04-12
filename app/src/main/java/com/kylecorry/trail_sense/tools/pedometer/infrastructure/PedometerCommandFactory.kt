@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.domain.DailyStepResetCommand
 import com.kylecorry.trail_sense.tools.pedometer.domain.DistanceAlertCommand
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.PedometerSessionRepo
 
 class PedometerCommandFactory(private val context: Context) {
 
@@ -23,8 +24,13 @@ class PedometerCommandFactory(private val context: Context) {
         )
     }
 
+    // #1397: Inject session repo and pace calculator so daily reset saves history
     fun getDailyStepReset(): Command {
-        return DailyStepResetCommand(prefs.pedometer, counter)
+        return DailyStepResetCommand(
+            counter,
+            PedometerSessionRepo.getInstance(context),
+            paceCalculator
+        )
     }
 
 }

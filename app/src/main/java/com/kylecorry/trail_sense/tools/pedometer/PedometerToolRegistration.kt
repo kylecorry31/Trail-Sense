@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.pedometer.actions.PausePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.actions.ResumePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.PedometerSessionRepo
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.pedometer.services.PedometerToolService
@@ -38,6 +39,10 @@ object PedometerToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_pedometer,
             settingsNavAction = R.id.calibrateOdometerFragment,
             initialize = { PedometerSubsystem.getInstance(it) },
+            // #1397: Register session repo singleton for lifecycle management
+            singletons = listOf(
+                PedometerSessionRepo::getInstance
+            ),
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_PEDOMETER,
@@ -123,7 +128,7 @@ object PedometerToolRegistration : ToolRegistration {
                     ToolSummarySize.Half,
                     PedometerToolWidgetView(),
                     AppWidgetPedometer::class.java,
-                    updateBroadcasts = listOf(BROADCAST_DISTANCE_CHANGED)
+                    updateBroadcasts = listOf(BROADCAST_DISTANCE_CHANGED, BROADCAST_STEPS_CHANGED)
                 )
             )
         )

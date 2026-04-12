@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.tools.pedometer.widgets
 
 import android.content.Context
-import android.graphics.drawable.Icon
+import android.view.View
 import android.widget.RemoteViews
+import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.andromeda.views.remote.setImageViewResourceAsIcon
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -10,11 +12,15 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.PedometerSessionRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
-import kotlin.jvm.optionals.getOrNull
+import java.time.LocalDate
+import java.time.ZoneId
 
 class PedometerToolWidgetView : SimpleToolWidgetView() {
 
@@ -23,28 +29,44 @@ class PedometerToolWidgetView : SimpleToolWidgetView() {
         prefs: WidgetPreferences?
     ): RemoteViews {
         val views = getView(context, prefs)
-        val subsystem = PedometerSubsystem.getInstance(context)
-        val prefs = UserPreferences(context)
         val formatter = FormatService.getInstance(context)
-        val steps = subsystem.steps.value.getOrNull() ?: 0
-        val distance = subsystem.distance.value.getOrNull() ?: Distance.meters(0f)
-        val converted = distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        val formattedDistance =
-            formatter.formatDistance(converted, Units.getDecimalPlaces(converted.units))
+        val userPrefs = UserPreferences(context)
+        val counter = StepCounter(PreferencesSubsystem.getInstance(context).preferences)
+        val paceCalc = StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
+        val repo = PedometerSessionRepo.getInstance(context)
 
-        views.setTextViewText(TITLE_TEXTVIEW, formattedDistance)
-        val icon = Icon.createWithResource(context, R.drawable.steps)
-        views.setViewVisibility(ICON_IMAGEVIEW, android.view.View.GONE)
-        views.setViewVisibility(ICON_IMAGEVIEW_TEXT_COLOR, android.view.View.VISIBLE)
-        views.setImageViewIcon(ICON_IMAGEVIEW_TEXT_COLOR, icon)
-        views.setTextViewText(
-            SUBTITLE_TEXTVIEW,
-            context.resources.getQuantityString(
-                R.plurals.number_steps,
-                steps.toInt(),
-                steps.toInt()
-            )
+        val zone = ZoneId.systemDefault()
+        val today = LocalDate.now()
+
+        // Always daily: today's completed sessions + live counter
+        val start = today.atStartOfDay(zone).toInstant()
+        val end = today.plusDays(1).atStartOfDay(zone).toInstant()
+        val sessions = repo.getRange(start, end)
+        val dbSteps = sessions.sumOf { it.steps }
+        val dbDist = sessions.sumOf { it.distance.toDouble() }.toFloat()
+        val liveSteps = counter.steps
+        val liveDist = paceCalc.distance(liveSteps).meters().value
+        val totalSteps = dbSteps + liveSteps
+        val totalDist = dbDist + liveDist
+
+        val converted = Distance.meters(totalDist)
+            .convertTo(userPrefs.baseDistanceUnits)
+            .toRelativeDistance()
+        val distanceText = formatter.formatDistance(
+            converted, Units.getDecimalPlaces(converted.units), false
         )
+
+        // Title: step count
+        views.setTextViewText(TITLE_TEXTVIEW, DecimalFormatter.format(totalSteps, 0))
+
+        // Icon
+        views.setImageViewResourceAsIcon(context, ICON_IMAGEVIEW_TEXT_COLOR, R.drawable.steps)
+        views.setViewVisibility(ICON_IMAGEVIEW_TEXT_COLOR, View.VISIBLE)
+        views.setViewVisibility(ICON_IMAGEVIEW, View.GONE)
+
+        // Subtitle: distance
+        views.setTextViewText(SUBTITLE_TEXTVIEW, distanceText)
+
         views.setOnClickPendingIntent(
             ROOT,
             NavigationUtils.toolPendingIntent(context, Tools.PEDOMETER)

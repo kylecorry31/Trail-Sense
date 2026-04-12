@@ -11,8 +11,7 @@ import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.getOrNull
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.andromeda.sense.pedometer.Pedometer
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -27,11 +26,14 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.views.CustomViewPagerAdapter
+import com.kylecorry.trail_sense.tools.pedometer.domain.PedometerSession
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.PedometerSessionRepo
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
+import com.google.android.material.tabs.TabLayoutMediator
+import java.time.Instant
 import java.time.LocalDate
 
 class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
@@ -39,14 +41,11 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private val pedometer by lazy { PedometerSubsystem.getInstance(requireContext()) }
     private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(requireContext()).preferences) }
     private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
-    private val averageSpeedometer by lazy {
-        AveragePaceSpeedometer(counter, paceCalculator)
-    }
-    private val instantSpeedometer by lazy {
-        CurrentPaceSpeedometer(Pedometer(requireContext()), paceCalculator)
-    }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val sessionRepo by lazy { PedometerSessionRepo.getInstance(requireContext()) }
+
+    private val historyPages = mutableListOf<FragmentPedometerPeriodHistory>()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -57,26 +56,19 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.resetBtn.setOnClickListener {
+
+        // Reset button in the toolbar left position
+        binding.pedometerTitle.leftButton.setOnClickListener {
             Alerts.dialog(requireContext(), getString(R.string.reset_distance_title)) {
                 if (!it) {
+                    saveCurrentSession()
                     counter.reset()
+                    refreshHistoryTabs()
                 }
             }
         }
 
-        binding.pedometerPlayBar.setOnPlayButtonClickListener {
-            when (pedometer.state.getOrNull()) {
-                FeatureState.On -> pedometer.disable()
-                FeatureState.Off -> startStepCounter()
-                else -> {
-                    if (pedometer.isDisabledDueToPermissions()) {
-                        startStepCounter()
-                    }
-                }
-            }
-        }
-
+        // Distance alert in toolbar right position
         binding.pedometerTitle.rightButton.setOnClickListener {
             val alertDistance = prefs.pedometer.alertDistance
             if (alertDistance == null) {
@@ -111,25 +103,71 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             }
         }
 
-        observe(averageSpeedometer) { onUpdate() }
+        binding.pedometerPlayBar.setOnPlayButtonClickListener {
+            when (pedometer.state.getOrNull()) {
+                FeatureState.On -> pedometer.disable()
+                FeatureState.Off -> startStepCounter()
+                else -> {
+                    if (pedometer.isDisabledDueToPermissions()) {
+                        startStepCounter()
+                    }
+                }
+            }
+        }
 
-        observe(instantSpeedometer) { onUpdate() }
+        setupHistoryTabs()
 
         pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
-
-        // TODO: Use pedometer subsystem topics
         scheduleUpdates(500L)
+    }
+
+    private fun setupHistoryTabs() {
+        historyPages.clear()
+        historyPages.addAll(
+            FragmentPedometerPeriodHistory.PeriodType.entries.map {
+                FragmentPedometerPeriodHistory.newInstance(it)
+            }
+        )
+
+        val tabNames = listOf(
+            getString(R.string.day),
+            getString(R.string.week),
+            getString(R.string.month),
+            getString(R.string.year)
+        )
+
+        binding.historyViewpager.adapter = CustomViewPagerAdapter(this, historyPages)
+        binding.historyViewpager.isUserInputEnabled = true
+        // Keep all 4 tabs in memory so switching never triggers a visible reload/flicker
+        binding.historyViewpager.offscreenPageLimit = 3
+
+        TabLayoutMediator(binding.historyTabs, binding.historyViewpager) { tab, position ->
+            tab.text = tabNames[position]
+        }.attach()
+    }
+
+    private fun refreshHistoryTabs() {
+        for (page in historyPages) {
+            page.refresh()
+        }
     }
 
     override fun onUpdate() {
         super.onUpdate()
-        val distance = getDistance(counter.steps)
+        val steps = counter.steps
+        val distance = getDistance(steps)
         val lastReset = counter.startTime?.toZonedDateTime()
 
         CustomUiUtils.setButtonState(
             binding.pedometerTitle.rightButton,
             prefs.pedometer.alertDistance != null
         )
+
+        val stepsText = DecimalFormatter.format(steps, 0)
+        val distText = formatService.formatDistance(
+            distance, Units.getDecimalPlaces(distance.units), false
+        )
+        binding.pedometerTitle.title.text = "$stepsText ${getString(R.string.steps)} · $distText"
 
         if (lastReset != null) {
             val dateString = if (lastReset.toLocalDate() == LocalDate.now()) {
@@ -140,18 +178,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             binding.pedometerTitle.subtitle.text = getString(R.string.since_time, dateString)
         }
 
-        binding.pedometerSteps.title = DecimalFormatter.format(counter.steps, 0)
-
         binding.pedometerTitle.subtitle.isVisible = lastReset != null
-
-        binding.pedometerTitle.title.text = formatService.formatDistance(
-            distance,
-            Units.getDecimalPlaces(distance.units),
-            false
-        )
-
-        updateAverageSpeed()
-        updateCurrentSpeed()
     }
 
     private fun updateStatusBar() {
@@ -160,27 +187,27 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         )
     }
 
-    private fun updateAverageSpeed() {
-        val speed = averageSpeedometer.speed
-        binding.pedometerAverageSpeed.title = if (averageSpeedometer.hasValidReading) {
-            formatService.formatSpeed(speed.speed)
-        } else {
-            getString(R.string.dash)
-        }
-    }
-
-    private fun updateCurrentSpeed() {
-        val speed = instantSpeedometer.speed
-        binding.pedometerSpeed.title = if (averageSpeedometer.hasValidReading) {
-            formatService.formatSpeed(speed.speed)
-        } else {
-            getString(R.string.dash)
-        }
-    }
-
     private fun getDistance(steps: Long): Distance {
         val distance = paceCalculator.distance(steps)
         return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+    }
+
+    private fun saveCurrentSession() {
+        val steps = counter.steps
+        val startTime = counter.startTime ?: return
+        if (steps <= 0) return
+
+        val distance = paceCalculator.distance(steps).meters().value
+        val session = PedometerSession(
+            0,
+            startTime,
+            Instant.now(),
+            steps,
+            distance
+        )
+        inBackground {
+            sessionRepo.add(session)
+        }
     }
 
     private fun startStepCounter() {
@@ -193,5 +220,4 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             }
         }
     }
-
 }

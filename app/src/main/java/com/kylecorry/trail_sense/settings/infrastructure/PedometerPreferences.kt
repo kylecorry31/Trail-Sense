@@ -12,10 +12,11 @@ class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedomet
         false
     )
 
+    // Default changed to true so daily session history is captured out of the box
     override val resetDaily by BooleanPreference(
         cache,
         getString(R.string.pref_odometer_reset_daily),
-        false
+        true
     )
 
     override var strideLength: Distance

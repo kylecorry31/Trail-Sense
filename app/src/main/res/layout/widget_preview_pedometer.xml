@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
-        android:text="XX m"
+        android:text="4,521"
         android:textAlignment="center" />
 
     <android.widget.ImageView
@@ -29,9 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:drawablePadding="4dp"
-        android:drawableTint="?android:attr/textColorSecondary"
-        android:text="XX steps"
+        android:text="3.2 km"
         android:textAlignment="center" />
 
 </FrameLayout>

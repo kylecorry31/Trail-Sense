@@ -10,59 +10,21 @@
         android:id="@+id/pedometer_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:leftButtonIcon="@drawable/ic_undo"
         app:rightButtonIcon="@drawable/ic_notification"
         tools:subtitle="since 10:00 AM"
         tools:title="5.0 mi" />
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/beacon_grid"
+    <!-- History tabs: Day / Week / Month / Year -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/history_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:columnCount="2"
-        app:useDefaultMargins="false">
+        app:tabMode="fixed"
+        app:tabGravity="fill" />
 
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/pedometer_steps"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/steps"
-            app:dataPointIcon="@drawable/steps"
-            app:layout_columnWeight="1" />
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/pedometer_speed"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/current_speed"
-            app:dataPointIcon="@drawable/ic_speed"
-            app:layout_columnWeight="1" />
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/pedometer_average_speed"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/average_speed"
-            app:dataPointIcon="@drawable/ic_speed"
-            app:layout_columnWeight="1" />
-
-    </androidx.gridlayout.widget.GridLayout>
-
-    <Button
-        android:id="@+id/reset_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="@string/reset" />
-
-    <View
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/history_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

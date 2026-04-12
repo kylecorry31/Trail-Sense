@@ -88,15 +88,23 @@ class StepCounterService : AndromedaService() {
             R.drawable.ic_cancel
         )
 
+        // #1285: Show step count alongside distance in the notification
+        val steps = counter.steps
+        val stepsText = resources.getQuantityString(
+            R.plurals.number_steps, steps.toInt(), steps.toInt()
+        )
+        val distanceText = formatService.formatDistance(
+            distance,
+            Units.getDecimalPlaces(distance.units),
+            false
+        )
+        val contentText = "$stepsText - $distanceText"
+
         return Notify.persistent(
             this,
             CHANNEL_ID,
             getString(R.string.pedometer),
-            formatService.formatDistance(
-                distance,
-                Units.getDecimalPlaces(distance.units),
-                false
-            ),
+            contentText,
             R.drawable.steps,
             intent = openIntent,
             group = NOTIFICATION_GROUP_PEDOMETER,

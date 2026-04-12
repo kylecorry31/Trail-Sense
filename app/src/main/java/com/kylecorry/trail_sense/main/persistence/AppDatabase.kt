@@ -51,6 +51,8 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideCons
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRowEntity
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.PedometerSessionDao
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.PedometerSessionEntity
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingDao
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingEntity
 
@@ -59,8 +61,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class],
-    version = 49,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PedometerSessionEntity::class],
+    version = 50,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -85,6 +87,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun digitalElevationModelDao(): DigitalElevationModelDao
     abstract fun bearingDao(): NavigationBearingDao
     abstract fun cachedTileDao(): CachedTileDao
+    abstract fun pedometerSessionDao(): PedometerSessionDao
 
     companion object {
 
@@ -452,6 +455,24 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            // #1397: Add pedometer session history table
+            val MIGRATION_49_50 = object : Migration(49, 50) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL(
+                        """
+                        CREATE TABLE IF NOT EXISTS `pedometer_sessions` (
+                            `_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            `start_time` INTEGER NOT NULL,
+                            `end_time` INTEGER NOT NULL,
+                            `steps` INTEGER NOT NULL,
+                            `distance` REAL NOT NULL
+                        )
+                    """.trimIndent()
+                    )
+                    db.execSQL("CREATE INDEX IF NOT EXISTS index_pedometer_sessions_start_time ON pedometer_sessions(start_time)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -501,7 +522,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_45_46,
                     MIGRATION_46_47,
                     MIGRATION_47_48,
-                    MIGRATION_48_49
+                    MIGRATION_48_49,
+                    MIGRATION_49_50
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

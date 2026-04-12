@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Period navigation: prev / label / next -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+            <ImageButton
+                android:id="@+id/period_prev"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/previous"
+                android:rotation="180"
+                android:src="@drawable/ic_keyboard_arrow_right"
+                app:tint="?android:textColorSecondary" />
+
+            <TextView
+                android:id="@+id/period_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                tools:text="Apr 7 – Apr 13" />
+
+            <ImageButton
+                android:id="@+id/period_next"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/next"
+                android:src="@drawable/ic_keyboard_arrow_right"
+                app:tint="?android:textColorSecondary" />
+
+        </LinearLayout>
+
+        <!-- Line chart -->
+        <com.kylecorry.andromeda.views.chart.Chart
+            android:id="@+id/period_chart"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp" />
+
+        <!--
+            Stats layout: two side-by-side LinearLayout columns.
+            Left = steps-related, Right = distance-related.
+            GONE views collapse cleanly in LinearLayout (unlike GridLayout).
+            Avg speed sits full-width at the bottom.
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <!-- Left column: step counts -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    app:dataPointDescription="@string/steps"
+                    app:dataPointIcon="@drawable/steps" />
+
+                <!-- Day only: current speed -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_current_speed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/current_speed"
+                    app:dataPointIcon="@drawable/ic_speed" />
+
+                <!-- Week / Month / Year: daily avg steps -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_daily_avg_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/daily_average"
+                    app:dataPointIcon="@drawable/steps" />
+
+                <!-- Month / Year: weekly avg steps -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_weekly_avg_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/weekly_average"
+                    app:dataPointIcon="@drawable/steps" />
+
+                <!-- Year only: monthly avg steps -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_monthly_avg_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/monthly_average"
+                    app:dataPointIcon="@drawable/steps" />
+
+            </LinearLayout>
+
+            <!-- Right column: distances -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    app:dataPointDescription="@string/distance"
+                    app:dataPointIcon="@drawable/ic_tool_distance_convert" />
+
+                <!-- Week / Month / Year: daily avg distance -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_daily_avg_dist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/daily_average"
+                    app:dataPointIcon="@drawable/ic_tool_distance_convert" />
+
+                <!-- Month / Year: weekly avg distance -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_weekly_avg_dist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/weekly_average"
+                    app:dataPointIcon="@drawable/ic_tool_distance_convert" />
+
+                <!-- Year only: monthly avg distance -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_monthly_avg_dist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/monthly_average"
+                    app:dataPointIcon="@drawable/ic_tool_distance_convert" />
+
+                <!-- Avg speed: last in right column, always visible.
+                     On Day tab this aligns with Current Speed in the left column. -->
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/stat_avg_speed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    app:dataPointDescription="@string/average_speed_value"
+                    app:dataPointIcon="@drawable/ic_speed" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
