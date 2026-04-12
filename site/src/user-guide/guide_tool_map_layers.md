@@ -156,6 +156,7 @@ This layer shows your location, which direction you are facing (if you have a co
 Settings:
 
 - **Show GPS accuracy**: Determines if the GPS accuracy circle is visible.
+- **Large location indicator**: If enabled, the location marker will be larger.
 
 ## Scale
 This layer shows a scale bar in the bottom-left corner of the map, which can be used to estimate distances on the map.

@@ -38,6 +38,8 @@ Bright stars, planets, constellations, and meteor showers are shown at night. If
 
 You can turn off the stars and planets by disabling Settings > Augmented Reality > "Show stars and planets".
 
+By default, only the brightest stars and the most visible planets (Venus, Mars, Jupiter, Saturn) are shown. You can enable Settings > Augmented Reality > "Show low brightness stars/planets" to also display dimmer stars and planets.
+
 You can turn off the constellations by disabling Settings > Augmented Reality > "Show constellations".
 
 Stars, planets, constellations, and meteor showers below the horizon can also be viewed by enabling Settings > Augmented Reality > "Show below horizon".

@@ -47,7 +47,7 @@ The intersections of gridlines are the easiest calibration points.
 If you have Internet access, you can look up the coordinates of a map feature (e.g., mountain summit, trailhead). Then in Trail Sense, tap the same location on the map and enter the coordinates.
 
 ### Finding a geospatial PDF
-A good source for geospatial PDFs is [CalTopo](https://caltopo.com), though there are many other sources available online.
+A good source for geospatial PDFs is [CalTopo](https://caltopo.com) or [QGIS](https://qgis.org) (advanced, requires installation on a computer), though there are many other sources available online.
 
 ## Using a map
 Once you've created a map, you can use it for navigation. The map displays your location, elevation, paths, and beacons.
@@ -104,6 +104,8 @@ To rename a map, click the menu button on the map row you wish to rename, then s
 
 ## Map visibility
 You can choose which maps are visible on the Navigation tool by clicking the eye icon on the right side of the map row.
+
+To show or hide all maps in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
 
 ## Delete a map
 To delete a map, click the menu button on the map row you want to remove, then select 'Delete'. Alternatively, open the map, click the menu button in the top-right, and choose 'Delete'.

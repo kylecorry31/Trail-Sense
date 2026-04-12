@@ -67,7 +67,7 @@ You can delete a tide table using the following steps:
 3. Choose 'Delete.'
 
 ## Viewing tides on the map
-By default, tides with a location entered will appear on the Navigation tool's radar compass and Photo Maps. To hide/show a tide, follow these steps:
+By default, tides with a location entered will appear on the Tides map layer. To hide/show a tide, follow these steps:
 
 1. Click the tides button in the top-right corner of the screen.
 2. Click the menu button to the right of the tide you wish to hide or show.
@@ -85,9 +85,13 @@ To locate an official tide table, search the Internet for tides at your location
 - [tide-forecast.com](https://www.tide-forecast.com/)
 - [SHOM](https://maree.shom.fr/)
 
+### Australia
+
+- [Bureau of Meteorology: Tidal Predictions](https://www.bom.gov.au/australia/tides/)
+
 ### Germany
 
-- [BSH](https://www.bsh.de/DE/DATEN/Vorhersagen/Gezeiten/gezeiten_node.html)
+- [BSH](https://gezeiten.bsh.de/)
 
 ### Netherlands
 
