@@ -107,7 +107,7 @@
     <string name="beacon_comment">Notater (valgfritt)</string>
     <string name="sos">SOS</string>
     <string name="dash">-</string>
-    <string name="kilometers_per_hour_format">%.1f km/t</string>
+    <string name="kilometers_per_hour_format">%s km/t</string>
     <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Dette brukes til kalibrering av lufttrykk ved havnivå i værvarsling og for å gi mer nøyaktige solnedgangsvarsler. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Oppdater posisjonsinnstillinger</string>
     <string name="tool_user_guide_summary">Veiledning for bruk av Trail Sense</string>
@@ -175,7 +175,7 @@
     <string name="create_item_title">Opprett element</string>
     <string name="dialog_item_amount">Mengde</string>
     <string name="units_inhg_short">in</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="miles_per_hour_format">%s mph</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>

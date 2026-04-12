@@ -8,8 +8,8 @@
     <string name="copied_to_clipboard_toast">Kopieret til udklipsholderen</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="kilometers_per_hour_format">%.1f km/t</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="kilometers_per_hour_format">%s km/t</string>
+    <string name="miles_per_hour_format">%s mph</string>
     <string name="duration_hour_format">%d t</string>
     <string name="duration_minute_format">%d m</string>
     <string name="direction_north">N</string>

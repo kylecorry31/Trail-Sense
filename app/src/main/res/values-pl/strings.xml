@@ -100,7 +100,7 @@
     <string name="direction_north">N</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dg</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
     <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle, do kalibracji ciśnienia na poziomie morza podczas monitorowania pogody, oraz aby zapewnić dokładniejsze alerty zachodu słońca. [Wyświetl Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
@@ -117,7 +117,7 @@
         <item quantity="many">%d punktów nawigacyjnych</item>
         <item quantity="other">%d punktów nawigacyjnych</item>
     </plurals>
-    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="miles_per_hour_format">%s mph</string>
     <string name="sunset_alert_notification_title">Słońce niedługo zajdzie</string>
     <string name="tool_cliff_height_title">Wysokość klifu</string>
     <string name="category_safety">Bezpieczeństwo</string>

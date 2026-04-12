@@ -100,8 +100,8 @@
     <string name="direction_north">N</string>
     <string name="duration_minute_format">%d m</string>
     <string name="duration_hour_format">%d h</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="miles_per_hour_format">%s mph</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="fahrenheit">Degré Fahrenheit (°F)</string>
     <string name="celsius">Degré Celsius (°C)</string>
     <string name="pref_compass_sensor_title">Boussole</string>

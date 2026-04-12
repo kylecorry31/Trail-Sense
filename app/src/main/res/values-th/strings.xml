@@ -2,14 +2,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="direction_north_west">ตะวันตกเฉียงเหนือ</string>
     <string name="direction_west">ตะวันตก</string>
-    <string name="kilometers_per_hour_format">%.1f กม/ชม.</string>
+    <string name="kilometers_per_hour_format">%s กม/ชม.</string>
     <string name="maps">แผนที่</string>
     <string name="direction_north_east">ตะวันออกเฉียงเหนือ</string>
     <string name="navigation">การนำทาง</string>
     <string name="direction_east">ตะวันออก</string>
     <string name="current_format">%s มิลลิแอมป์</string>
     <string name="gps_satellites">ดาวเทียม GPS</string>
-    <string name="miles_per_hour_format">%.1f ไมล์/ชม.</string>
+    <string name="miles_per_hour_format">%s ไมล์/ชม.</string>
     <string name="charging_slow">กำลังชาร์จอย่างช้าๆ (%s)</string>
     <string name="direction_south_west">ตะวันตกเฉียงใต้</string>
     <string name="unknown">ไม่รู้จัก</string>

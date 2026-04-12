@@ -49,6 +49,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
+            <com.kylecorry.trail_sense.shared.views.TextInputView
+                android:id="@+id/temp_est_humidity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.kylecorry.trail_sense.shared.views.UnitInputView
+                android:id="@+id/temp_est_wind_speed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
             <Button
                 android:id="@+id/temp_est_autofill"
                 android:layout_width="wrap_content"

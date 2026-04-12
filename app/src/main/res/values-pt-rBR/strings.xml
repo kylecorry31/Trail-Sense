@@ -8,8 +8,8 @@
     <!--Dialogs-->
     <!--Disclaimer-->
     <!--Navigation Tab - Unit Formats-->
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
+    <string name="miles_per_hour_format">%s mph</string>
     <string name="duration_hour_format">%dh</string>
     <string name="duration_minute_format">%dm</string>
     <string name="direction_north">N</string>

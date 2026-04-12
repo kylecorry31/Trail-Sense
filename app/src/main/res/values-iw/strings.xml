@@ -31,8 +31,8 @@
     <string name="precise_meters_format">%s מ</string>
     <string name="degree">%s°</string>
     <string name="precise_percent_format">%s%%</string>
-    <string name="kilometers_per_hour_format">%.1f קמ\"ש</string>
-    <string name="miles_per_hour_format">%.1f מייל לשעה</string>
+    <string name="kilometers_per_hour_format">%s קמ\"ש</string>
+    <string name="miles_per_hour_format">%s מייל לשעה</string>
     <string name="duration_hour_format">%dש</string>
     <string name="duration_minute_format">%d דק</string>
     <string name="elevation_diff_format">%1$s%2$s</string>

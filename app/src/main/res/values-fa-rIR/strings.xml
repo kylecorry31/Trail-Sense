@@ -400,7 +400,7 @@
     <string name="accuracy_info_title">نکاتی برای بهبود دقت داده های حسگر</string>
     <string name="speedometer">سرعت سنج</string>
     <string name="start_time">شروع</string>
-    <string name="miles_per_hour_format">%.1f متر در ساعت</string>
+    <string name="miles_per_hour_format">%s متر در ساعت</string>
     <string name="last_duration">آخر %s</string>
     <string name="access_background_location">بروز کردن تنظیمات مکانی</string>
     <string name="pref_flashlight_toggle_with_volume_summary">در حالی که Trail Sense باز است</string>
@@ -580,7 +580,7 @@
     <string name="pref_clinometer_baseline_distance_title">فاصله پایه</string>
     <string name="precise_kilometers_format">%s کیلومتر</string>
     <string name="precise_nautical_miles_format">%s نانومتر</string>
-    <string name="kilometers_per_hour_format">%.1f کیلومتر در ساعت</string>
+    <string name="kilometers_per_hour_format">%s کیلومتر در ساعت</string>
     <string name="duration_hour_format">%d ساعت</string>
     <string name="duration_minute_format">%d متر</string>
     <string name="direction_west">غرب</string>

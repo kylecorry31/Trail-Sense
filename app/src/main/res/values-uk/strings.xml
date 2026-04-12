@@ -497,8 +497,8 @@
     <string name="direction_south">Пд</string>
     <string name="duration_minute_format">%d хв.</string>
     <string name="duration_hour_format">%d год.</string>
-    <string name="miles_per_hour_format">%.1f миль/год</string>
-    <string name="kilometers_per_hour_format">%.1f км/год</string>
+    <string name="miles_per_hour_format">%s миль/год</string>
+    <string name="kilometers_per_hour_format">%s км/год</string>
     <string name="precise_nautical_miles_format">%s морські хвилі</string>
     <string name="precise_feet_format">%s фт</string>
     <string name="precise_kilometers_format">%s км</string>

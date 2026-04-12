@@ -128,7 +128,7 @@
     <string name="access_background_location">更新定位设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
-    <string name="kilometers_per_hour_format">%.1f 公里 / 小时</string>
+    <string name="kilometers_per_hour_format">%s 公里 / 小时</string>
     <string name="sun_moon_compass_when_up">升起时</string>
     <string name="pref_max_beacon_distance_title">附近信标的距离</string>
     <string name="water_boil_timer_done_title">水已烧开</string>
@@ -266,7 +266,7 @@
     <string name="battery_capacity_format">%s 毫安时</string>
     <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
-    <string name="miles_per_hour_format">%.1f 英里/小时</string>
+    <string name="miles_per_hour_format">%s 英里/小时</string>
     <string name="precise_kilometers_format">%s 公里</string>
     <string name="precise_meters_format">%s 米</string>
     <string name="precise_nautical_miles_format">%s 海里</string>

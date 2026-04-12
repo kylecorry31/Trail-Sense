@@ -12,8 +12,8 @@
     <string name="precise_nautical_miles_format">%s mil laut</string>
     <string name="precise_meters_format">%s meter</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="kilometers_per_hour_format">%.1f km/jam</string>
-    <string name="miles_per_hour_format">%.1f mil/jam</string>
+    <string name="kilometers_per_hour_format">%s km/jam</string>
+    <string name="miles_per_hour_format">%s mil/jam</string>
     <string name="duration_minute_format">%d menit</string>
     <string name="copied_to_clipboard_toast">Disalin ke papan-klip</string>
     <string name="access_background_location_rationale">Trail Sense menggunakan data lokasi di latar belakang untuk kalibrasi tekanan permukaan laut dalam pemantauan cuaca dan untuk memberikan peringatan matahari terbenam yang lebih akurat. [Lihat Kebijakan Privasi](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
