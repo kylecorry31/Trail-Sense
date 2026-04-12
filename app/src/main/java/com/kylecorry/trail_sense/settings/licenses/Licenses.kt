@@ -23,8 +23,8 @@ object Licenses {
                 "ojppe",
                 "Mickael81",
                 "inavleb",
-                "tosinonikute",
                 "github-actions[bot]",
+                "tosinonikute",
                 "fitojb",
                 "comradekingu",
                 "bowornsin",
@@ -101,8 +101,8 @@ object Licenses {
                 "Oymate",
                 "Poussinou",
                 "rezaalmanda",
-                "efraletti",
                 "WuerfelDev",
+                "PineappleSnackz",
                 "VasilisKos",
                 "Tijs-B",
                 "swltr",
@@ -114,7 +114,8 @@ object Licenses {
                 "the7thNightmare",
                 "mgorny",
                 "Kapral67",
-                "MateusRodCosta",
+                "ARtHryDr",
+                "efraletti",
                 "f4n0",
                 "hrachmnam",
                 "kaile1234",
@@ -128,7 +129,6 @@ object Licenses {
                 "jere-a",
                 "btsmartx",
                 "love80312",
-                "ARtHryDr",
                 "Abdulkarim28",
                 "Akamar",
                 "arifpedia",
@@ -154,7 +154,8 @@ object Licenses {
                 "Luiz-bro",
                 "BatuAtlas",
                 "xmbhasin",
-                "TomasCartman"
+                "TomasCartman",
+                "MateusRodCosta"
             )
             "${
                 mit(
