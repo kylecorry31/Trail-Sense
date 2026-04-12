@@ -95,6 +95,14 @@ class MultipartUnitInputView<Units : Enum<*>>(
             secondaryAmountEditHolder.isVisible = value
         }
 
+    var allowNegative: Boolean = true
+        set(value) {
+            field = value
+            amountEdit.inputType = InputType.TYPE_CLASS_NUMBER or
+                    InputType.TYPE_NUMBER_FLAG_DECIMAL or
+                    if (value) InputType.TYPE_NUMBER_FLAG_SIGNED else 0
+        }
+
     private var unitPickerTitle: CharSequence = ""
 
 
@@ -142,9 +150,7 @@ class MultipartUnitInputView<Units : Enum<*>>(
         amountEdit = findViewById(R.id.amount)
         secondaryAmountEditHolder = findViewById(R.id.secondary_amount_holder)
         secondaryAmountEdit = findViewById(R.id.secondary_amount)
-        amountEdit.inputType = InputType.TYPE_CLASS_NUMBER or
-                InputType.TYPE_NUMBER_FLAG_DECIMAL or
-                InputType.TYPE_NUMBER_FLAG_SIGNED
+        allowNegative = true
 
         secondaryAmountEdit.inputType = InputType.TYPE_CLASS_NUMBER or
                 InputType.TYPE_NUMBER_FLAG_DECIMAL

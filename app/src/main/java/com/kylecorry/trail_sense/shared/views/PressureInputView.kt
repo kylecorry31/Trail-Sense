@@ -14,6 +14,7 @@ class PressureInputView(context: Context, attributeSet: AttributeSet? = null) :
 
     init {
         hint = context.getString(R.string.pressure)
+        allowNegative = false
     }
 
     override fun createDisplayUnit(units: PressureUnits): UnitInputView.DisplayUnit<PressureUnits> {

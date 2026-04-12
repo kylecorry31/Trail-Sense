@@ -62,6 +62,12 @@ abstract class BaseMultipartUnitInputView<T, Units : Enum<*>>(
             }
         }
 
+    var allowNegative: Boolean
+        get() = unitInput.allowNegative
+        set(value) {
+            unitInput.allowNegative = value
+        }
+
     var value: T?
         get() {
             val amount = unitInput.amount

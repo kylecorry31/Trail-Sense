@@ -39,6 +39,12 @@ abstract class BaseUnitInputView<T, Units : Enum<*>>(
             unitInput.hint = value
         }
 
+    var allowNegative: Boolean
+        get() = unitInput.allowNegative
+        set(value) {
+            unitInput.allowNegative = value
+        }
+
     var unit: Units?
         get() = unitInput.unit
         set(value) {

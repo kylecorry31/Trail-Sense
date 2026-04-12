@@ -78,6 +78,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
             elevationInput.defaultHint = it.getString(R.string.elevation)
             elevationInput.hint = it.getString(R.string.elevation)
             elevationInput.showFeetAndInches = false
+            elevationInput.allowNegative = true
             elevationInput.units = formatter.sortDistanceUnits(DistanceUtils.elevationDistanceUnits)
             elevationInput.setOnValueChangeListener { distance ->
                 changeListener?.invoke(distance)
