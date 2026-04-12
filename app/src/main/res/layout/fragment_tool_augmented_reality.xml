@@ -54,6 +54,18 @@
         app:srcCompat="@drawable/ic_layers"
         app:tint="@color/white" />
 
+    <ImageButton
+        android:id="@+id/time_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@id/layers_btn"
+        app:layout_constraintStart_toStartOf="@id/layers_btn"
+        app:layout_constraintTop_toBottomOf="@id/layers_btn"
+        app:srcCompat="@drawable/ic_tool_clock"
+        app:tint="@color/white" />
+
     <com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
         android:id="@+id/accuracy_view"
         android:layout_width="wrap_content"
@@ -107,6 +119,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorBackgroundFloating"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/time_sheet" />
+
+    <com.kylecorry.trail_sense.shared.views.DateTimeSliderSheet
+        android:id="@+id/time_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

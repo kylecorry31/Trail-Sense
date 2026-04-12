@@ -35,7 +35,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Duration
-import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class ARAstronomyLayer(
@@ -117,16 +116,12 @@ class ARAstronomyLayer(
         // NOTE: The moon renders in front of the sun, but the focus/click order prioritizes the sun
         sunLayer.draw(drawer, view)
         moonLayer.draw(drawer, view)
-
-        // Only draw the current position when the time is today (this will change in the future)
-        if (timeOverride == null || timeOverride?.toLocalDate() == LocalDate.now()) {
-            constellationLayer.draw(drawer, view)
-            starLayer.draw(drawer, view)
-            planetLayer.draw(drawer, view)
-            meteorShowerLayer.draw(drawer, view)
-            currentSunLayer.draw(drawer, view)
-            currentMoonLayer.draw(drawer, view)
-        }
+        constellationLayer.draw(drawer, view)
+        starLayer.draw(drawer, view)
+        planetLayer.draw(drawer, view)
+        meteorShowerLayer.draw(drawer, view)
+        currentSunLayer.draw(drawer, view)
+        currentMoonLayer.draw(drawer, view)
     }
 
     override fun invalidate() {
@@ -257,12 +252,11 @@ class ARAstronomyLayer(
                 } else {
                     emptyList()
                 }
+                val moonAltitude = astro.getMoonAltitude(location, time)
+                val moonAzimuth = astro.getMoonAzimuth(location, time).value
 
-                val moonAltitude = astro.getMoonAltitude(location)
-                val moonAzimuth = astro.getMoonAzimuth(location).value
-
-                val sunAltitude = astro.getSunAltitude(location)
-                val sunAzimuth = astro.getSunAzimuth(location).value
+                val sunAltitude = astro.getSunAltitude(location, time)
+                val sunAzimuth = astro.getSunAzimuth(location, time).value
 
                 val phase = Astronomy.getMoonPhase(time)
                 val moonIconId = MoonPhaseImageMapper().getPhaseImage(phase.phase)

@@ -64,6 +64,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.map_layers.AugmentedRealityPathLayerManager
+import java.time.Instant
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot
@@ -71,6 +72,7 @@ import kotlin.math.hypot
 class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBinding>() {
 
     private var mode = ARMode.Normal
+    private var timeOverride: Instant? = null
 
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy {
@@ -193,8 +195,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
         isCameraEnabled = arguments.getBoolean("camera_enabled", true)
 
-        setMode(desiredMode, requireArguments().getBundle("extras"))
-
         binding.cameraToggle.setOnClickListener {
             if (isCameraEnabled) {
                 stopCamera()
@@ -210,6 +210,24 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         binding.layersBtn.setOnClickListener {
             showLayersSheet()
         }
+
+        binding.timeBtn.setOnClickListener {
+            if (binding.timeSheet.isVisible) {
+                setTimeOverride(null)
+                binding.timeSheet.hide()
+            } else {
+                binding.timeSheet.setTime(timeOverride)
+                binding.timeSheet.show()
+            }
+            updateTimeButtonState()
+        }
+
+        binding.timeSheet.onTimeChanged = {
+            setTimeOverride(it)
+            updateTimeButtonState()
+        }
+
+        setMode(desiredMode, requireArguments().getBundle("extras"))
 
         binding.calibrateBtn.setOnLongClickListener {
             dialog(getString(R.string.reset_calibration_question)) { cancelled ->
@@ -259,6 +277,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
         updateLayerVisibility()
         guide?.start(binding.arView, binding.guidancePanel)
+        updateTimeButtonState()
     }
 
     // TODO: Move this to the AR view
@@ -294,6 +313,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
+        binding.timeSheet.hide()
         guide?.stop(binding.arView, binding.guidancePanel)
         pathLayerManager?.stop()
         layerManagementUpdater.stop()
@@ -420,10 +440,21 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
             ARMode.Astronomy -> {
                 visibleLayersOverride = listOf(gridLayer, astronomyLayer)
-                val extraDate = extras?.getString("date")?.let {
-                    LocalDate.parse(it).atTime(12, 0).toZonedDateTime()
+                val overrideTime = extras?.getString("time")?.let {
+                    ZonedDateTime.parse(it)
                 }
-                changeGuide(AstronomyARGuide(astronomyLayer, extraDate) { setMode(ARMode.Normal) })
+                overrideTime?.let {
+                    setTimeOverride(it.toInstant())
+                    binding.timeSheet.setTime(timeOverride)
+                    binding.timeSheet.show()
+                    updateTimeButtonState()
+                }
+                changeGuide(AstronomyARGuide(astronomyLayer) {
+                    setTimeOverride(null)
+                    binding.timeSheet.hide()
+                    updateTimeButtonState()
+                    setMode(ARMode.Normal)
+                })
 
             }
         }
@@ -437,19 +468,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     private fun showLayersSheet() {
         val sheet = ARLayersBottomSheet()
-        sheet.astronomyOverrideDate = astronomyLayer.timeOverride?.toLocalDate()
         sheet.setOnDismissListener {
-            // Update the date of the astronomy guide and layer
-            // TODO: It would be cleaner for the astronomy guide to emit the date, then it can be set via state
-            sheet.astronomyOverrideDate?.let {
-                val guide = this.guide
-                if (guide is AstronomyARGuide) {
-                    guide.setDate(it)
-                }
-                astronomyLayer.timeOverride =
-                    if (it == LocalDate.now()) null else it.atTime(12, 0).toZonedDateTime()
-            }
-
             updateLayerVisibility()
         }
         sheet.show(this)
@@ -506,6 +525,16 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
             if (userPrefs.augmentedReality.showBeaconLayer) beaconLayer else null
         )
+    }
+
+    private fun setTimeOverride(time: Instant?) {
+        timeOverride = time
+        astronomyLayer.timeOverride = time?.toZonedDateTime()
+    }
+
+    private fun updateTimeButtonState() {
+        val isActive = timeOverride != null || binding.timeSheet.isVisible
+        binding.timeBtn.alpha = if (isActive) 1f else 0.7f
     }
 
     companion object {
