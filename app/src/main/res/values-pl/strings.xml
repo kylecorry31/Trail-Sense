@@ -8,7 +8,7 @@
     <string name="sunrise_label">Wschód słońca</string>
     <string name="sunset_label">Zachód słońca</string>
     <string name="true_north">Rzeczywista północ</string>
-    <string name="pref_use_sea_level_pressure_title">Ciśnienie na poziomie morza</string>
+    <string name="pref_use_sea_level_pressure_title">Ciśnienie nad poziomem morza</string>
     <string name="general">Ogólne</string>
     <string name="pressure">Ciśnienie</string>
     <string name="pref_use_24_hour_title">Użyj formatu 24-godzinnego</string>
@@ -103,7 +103,7 @@
     <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
-    <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle, do kalibracji ciśnienia na poziomie morza podczas monitorowania pogody, oraz aby zapewnić dokładniejsze alerty zachodu słońca. [Wyświetl Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense używa danych lokalizacji w tle, do kalibracji ciśnienia nad poziomem morza podczas monitorowania pogody, oraz aby zapewnić dokładniejsze alerty zachodu słońca. [Wyświetl Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Zaktualizuj ustawienia lokalizacji</string>
     <string name="third_quarter">Ostatnia kwadra</string>
     <string name="notification_monitoring_weather">Monitorowanie pogody w tle</string>
@@ -132,8 +132,8 @@
     <string name="pref_display_multi_beacons_summary">Pokaż najbliższe punkty nawigacjne na kompasie</string>
     <string name="pref_num_visible_beacons_title">Pobliskie punkty nawigacyjne</string>
     <string name="never">Nigdy</string>
-    <string name="pref_elevation_override_sea_level_dialog_title">Wprowadź ciśnienie na poziomie morza</string>
-    <string name="pref_elevation_override_sea_level_dialog_msg">Wprowadź aktualne ciśnienie na poziomie morza w hPa</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Wprowadź ciśnienie nad poziomem morza</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Wprowadź aktualne ciśnienie nad poziomem morza w hPa</string>
     <string name="elevation_from_pressure">Ustaw nadpisanie z barometru</string>
     <string name="pref_altimeter_calibration_title">Wysokościomierz</string>
     <string name="request_permission">Przyznaj uprawnienia</string>
@@ -294,7 +294,7 @@
     <string name="degree">%s°</string>
     <string name="clock_sync_time_settings">Przejść do ustawień daty i godziny?</string>
     <string name="threshold">Próg</string>
-    <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia na poziomie morza</string>
+    <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia nad poziomem morza</string>
     <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
     <string name="pref_elevation_override_title">Nadpisanie wysokości</string>
     <string name="pref_auto_location_title">Automatyczna korekcja lokalizacji</string>
@@ -348,7 +348,7 @@
     <string name="pref_gps_override_title">Nadpisanie lokalizacji</string>
     <string name="location_override_updated">Zaktualizowano nadpisanie lokalizacji</string>
     <string name="tool_cliff_height_disclaimer">Użyj narzędzia tylko, gdy jest to bezpieczne oraz sprawdź, co znajduje się pod urwiskiem, aby uniknąć obrażeń. Instrukcje znajdują się w Podręczniku Użytkownika.</string>
-    <string name="pref_elevation_override_sea_level_title">Używanie znanego ciśnienia na poziomie morza</string>
+    <string name="pref_elevation_override_sea_level_title">Używanie znanego ciśnienia nad poziomem morza</string>
     <string name="elevation_override_updated_toast">Zaktualizowano nadpisanie wysokości</string>
     <string name="unit_inches_abbreviation">cal</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -711,7 +711,7 @@
     <string name="night">Nocny</string>
     <string name="result_deleted">Wynik usunięty</string>
     <string name="tool_temperature_estimation_title">Szacowanie temperatury</string>
-    <string name="tool_temperature_estimation_description">Przewidź temperaturę na innej wysokości</string>
+    <string name="tool_temperature_estimation_description">Przewidź temperaturę przy innej wysokości, prędkości wiatru, wilgotności</string>
     <string name="off">Wyłączone</string>
     <string name="no_qr_code_found">Nie wykryto kodu QR</string>
     <string name="saved_to_note">Zapisano do notatki</string>
@@ -901,7 +901,7 @@
     <string name="i_agree">Zgadzam się</string>
     <string name="battery_settings_limit_accuracy">Ograniczenie użycia baterii może zmniejszyć dokładność</string>
     <string name="photo_map_summary">Użyj zdjęcia jako mapy</string>
-    <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako kopię zapasową oraz weryfikuj dokładność Trail Sense.</string>
+    <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako zapasowe narzędzie oraz weryfikuj dokładność Trail Sense.</string>
     <string name="map_file">Plik (JPG, PNG, PDF)</string>
     <string name="map_calibration">Kalibracja mapy</string>
     <string name="peak_time">Górowanie</string>
@@ -1037,9 +1037,9 @@
     <string name="tool_long_press_hint_toast">Przytrzymaj narzędzie, aby wyświetlić więcej opcji</string>
     <string name="missing_sensor_message_1">Urządzenie %1$s nie posiada wbudowanego czujnika %2$s. Niektóre funkcje w %3$s nie beda dostępne.</string>
     <string name="is_there_a_way_to_fix_this">Czy istnieje możliwość rozwiązania problemu?</string>
-    <string name="no_sensor_unable_to_fix">Niestety, funkcjonalność zależy od sprzętu, brak możliwości rozwiazania problemu.</string>
+    <string name="no_sensor_unable_to_fix">Niestety, funkcjonalność zależy od podzespołów, brak możliwości rozwiazania problemu.</string>
     <string name="why_missing_sensor">Urządzenie jest nowe/drogie, dlaczego brakuje wymaganego czujnika?</string>
-    <string name="missing_sensor_explanation">Niektórzy producenci nie instalują wszystkich czujników nawet w nowych czy najdroższych urządzeniach. Aby dowiedzieć się więcej, odwiedź stronę producenta lub skontaktuj się z działem technicznym.</string>
+    <string name="missing_sensor_explanation">Niektórzy producenci nie instalują wszystkich czujników, nawet w nowych czy najdroższych urządzeniach. Aby dowiedzieć się więcej, odwiedź stronę producenta lub skontaktuj się z działem technicznym.</string>
     <string name="magnetic_north_description">Wskaż na magnetyczny biegun północny. Zgodne z większością kompasów.</string>
     <string name="high_sensitivity">Wysoka czułość</string>
     <string name="continuous_calibration">Kalibracja w czasie rzeczywistym</string>
@@ -1465,7 +1465,7 @@
     <string name="active_all_year">Aktywne cały rok</string>
     <string name="biting_flies_mosquitoes">Owady kłujące/Komary</string>
     <string name="ecology">Ekologia</string>
-    <string name="onboarding_explore">- Zaprojektowane z myślą o wspinaczce, podróżach, biwakowaniu oraz geocachingu\n\n- Twórz oraz prowadź do punktów nawigacyjnych\n\n- Podążaj ścieżkami\n\n- Wracaj własnymi śladami ze Szlakiem powrotnym \n\n- Planuj co zapakować\n\n- Bądź informowany zanim zajdzie słońce\n\n- Przewiduj pogodę\n\n- Używaj telefonu jako latarki\n\n- Oraz o wiele więcej!</string>
+    <string name="onboarding_explore">- Zaprojektowany z myślą o wspinaczce, podróżach, biwakowaniu oraz geocachingu\n\n- Twórz oraz prowadź do punktów nawigacyjnych\n\n- Podążaj ścieżkami\n\n- Wracaj własnymi śladami ze szlakiem powrotnym \n\n- Planuj co zapakować\n\n- Otrzymuj powiadomienia zanim zajdzie słońce\n\n- Przewiduj pogodę\n\n- Używaj telefonu jako latarki\n\n- Oraz o wiele więcej!</string>
     <string name="grassland">Stepowe</string>
     <string name="tundra">Tundrowe</string>
     <string name="human_interaction">Interakcja człowieka</string>
@@ -1498,4 +1498,7 @@
     <string name="pref_default_beacon_color_title">Domyślny kolor punktu nawigacyjnego</string>
     <string name="stone">Kamienie</string>
     <string name="stone_format">%s st</string>
+    <string name="wind_speed">Prędkość wiatru</string>
+    <string name="humidity_must_be_between_0_and_100">Wilgotność musi wynosić od 0 do 100</string>
+    <string name="current_temperature">Aktualna temperatura</string>
 </resources>
