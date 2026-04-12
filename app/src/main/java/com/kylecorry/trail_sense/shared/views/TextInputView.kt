@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
@@ -30,6 +31,14 @@ class TextInputView(context: Context, attrs: AttributeSet?) :
 
     fun setHint(hint: String?) {
         holder.hint = hint
+    }
+
+    fun setInputType(inputType: Int) {
+        edittext.inputType = inputType
+    }
+
+    fun setError(error: CharSequence?) {
+        holder.error = error
     }
 
     fun setOnTextChangeListener(callback: (text: CharSequence?) -> Unit) {

@@ -23,8 +23,8 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
+    <string name="miles_per_hour_format">%s mph</string>
     <string name="duration_hour_format">%dh</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_second_format">%ds</string>
@@ -784,6 +784,7 @@
     <string name="unit_yards">Yards</string>
     <string name="base_elevation">Base elevation</string>
     <string name="base_temperature">Base temperature</string>
+    <string name="current_temperature">Current temperature</string>
     <string name="destination_elevation">Destination elevation</string>
     <string name="clear_cache">Clear cache</string>
     <string name="pref_gps_clear_cache" translatable="false">pref_gps_clear_cache</string>
@@ -1070,7 +1071,7 @@
     <string name="disclaimer_estimated_tide">Estimated tides may be inaccurate. Please use an official tide table for the exact times.</string>
     <string name="disclaimer_estimated_tide_title">Estimated tide</string>
     <string name="tool_temperature_estimation_title">Temperature Estimation</string>
-    <string name="tool_temperature_estimation_description">Predict the temperature at a different elevation</string>
+    <string name="tool_temperature_estimation_description">Predict the temperature at a different elevation, wind speed, and humidity</string>
     <string name="pressure_tendency">Tendency</string>
     <string name="explore">Explore</string>
     <!--This is in Markdown format-->
@@ -1166,6 +1167,7 @@
     <string name="weather_overcast">Overcast</string>
     <string name="weather_precipitation">Precipitation</string>
     <string name="weather_wind">Wind</string>
+    <string name="wind_speed">Wind speed</string>
     <!--As in, Precipitation Later-->
     <string name="later">Later</string>
     <string name="now">Now</string>
@@ -1302,6 +1304,7 @@
     <string name="restoring_loading_message">Restoring…</string>
     <string name="restore_complete_message">Restore successful, restarting to apply changes</string>
     <string name="invalid_backup_file">Invalid backup file</string>
+    <string name="humidity_must_be_between_0_and_100">Humidity must be between 0 and 100</string>
     <string name="backup_restore">Backup / restore</string>
     <!--    %s is the app name (Trail Sense)-->
     <string name="restore_failure_newer_version">This backup was created with a newer version of %s. Please update the app and try again.</string>

@@ -6,7 +6,7 @@
     <string name="temp_f_short">°F</string>
     <string name="direction_west">Δ</string>
     <string name="temp_c_short">°C</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="smoothing_summary">Υψηλές τιμές ίσως μειώσουν τον θόρυβο</string>
     <string name="theme_light">Φωτεινό</string>
     <string name="maps">Χάρτες</string>
@@ -40,7 +40,7 @@
     <string name="pref_show_linear_compass_summary">Όταν η συσκευή βρίσκεται κάθετα</string>
     <string name="feet_miles">Πόδια / Μίλια</string>
     <string name="pref_compass_sensor_title">Πυξίδα</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="miles_per_hour_format">%s mph</string>
     <string name="clinometer_rotate_device">Κρατήστε τη συσκευή σας κάθετα</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Περιστρέφετε τη συσκευή σας διαγράφοντας το σχήμα 8 στον αέρα, ή προς όλες τις κατευθύνσεις επανειλλημένα, επιλέξτε %s όταν ολοκληρώσετε.
 \n

@@ -58,8 +58,8 @@
     <string name="precise_nautical_miles_format">%s ميل بحري</string>
     <string name="precise_meters_format">%s متر</string>
     <string name="precise_kilometers_format">%s كم</string>
-    <string name="kilometers_per_hour_format">%.1f كم/ساعة</string>
-    <string name="miles_per_hour_format">%.1f ميل/ساعة</string>
+    <string name="kilometers_per_hour_format">%s كم/ساعة</string>
+    <string name="miles_per_hour_format">%s ميل/ساعة</string>
     <string name="duration_hour_format">%d ساعة</string>
     <string name="duration_minute_format">%d دقيقة</string>
     <string name="access_background_location">تحديث إعدادات الموقع</string>

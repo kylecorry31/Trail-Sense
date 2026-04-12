@@ -444,8 +444,8 @@
     <string name="backtrack_notification_channel_description">Atualização das localizações de voltar para trás</string>
     <string name="backtrack">Voltar para trás</string>
     <string name="duration_hour_format">%dh</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="miles_per_hour_format">%s mph</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>

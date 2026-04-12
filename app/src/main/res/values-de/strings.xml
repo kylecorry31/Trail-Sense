@@ -124,8 +124,8 @@
     <string name="direction_north">N</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dh</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="miles_per_hour_format">%s mph</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="sun_does_not_set">geht nicht unter</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%1$s%2$s</string>

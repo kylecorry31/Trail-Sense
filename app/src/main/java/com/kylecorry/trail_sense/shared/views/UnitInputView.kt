@@ -66,6 +66,14 @@ class UnitInputView<Units : Enum<*>>(
             amountEditHolder.hint = value
         }
 
+    var allowNegative: Boolean = true
+        set(value) {
+            field = value
+            amountEdit.inputType = InputType.TYPE_CLASS_NUMBER or
+                    InputType.TYPE_NUMBER_FLAG_DECIMAL or
+                    if (value) InputType.TYPE_NUMBER_FLAG_SIGNED else 0
+        }
+
     private var unitPickerTitle: CharSequence = ""
 
 
@@ -98,13 +106,10 @@ class UnitInputView<Units : Enum<*>>(
         amountEditHolder = findViewById(R.id.amount_holder)
 
         amountEdit = findViewById(R.id.amount)
-        amountEdit.inputType = InputType.TYPE_CLASS_NUMBER or
-                InputType.TYPE_NUMBER_FLAG_DECIMAL or
-                InputType.TYPE_NUMBER_FLAG_SIGNED
-
         unitBtn = findViewById(R.id.units)
 
         unitBtn.isAllCaps = false
+        allowNegative = true
 
         amountEdit.addTextChangedListener {
             _amount = it?.toString()?.toDoubleCompat()

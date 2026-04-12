@@ -50,8 +50,8 @@
     <string name="direction_north">É</string>
     <string name="duration_minute_format">%dp</string>
     <string name="duration_hour_format">%dó</string>
-    <string name="miles_per_hour_format">%.1f mérf./h</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="miles_per_hour_format">%s mérf./h</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="access_background_location">Tartózkodási hely beállítások frissítése</string>
     <string name="copied_to_clipboard_toast">Vágólapra másolva</string>
     <string name="tools">Eszközök</string>

@@ -511,10 +511,11 @@ class FormatService private constructor(private val context: Context) {
     fun formatSpeed(metersPerSecond: Float): String {
         val distanceUnits = prefs.distanceUnits
         val convertedSpeed = LocationMath.convertToBaseSpeed(metersPerSecond, distanceUnits)
+        val formattedSpeed = DecimalFormatter.format(convertedSpeed.toDouble(), 1)
         return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
-            strings.getString(R.string.kilometers_per_hour_format, convertedSpeed)
+            strings.getString(R.string.kilometers_per_hour_format, formattedSpeed)
         } else {
-            strings.getString(R.string.miles_per_hour_format, convertedSpeed)
+            strings.getString(R.string.miles_per_hour_format, formattedSpeed)
         }
     }
 
@@ -736,6 +737,31 @@ class FormatService private constructor(private val context: Context) {
             DistanceUnits.Yards -> strings.getString(R.string.unit_yards)
             DistanceUnits.Millimeters -> strings.getString(R.string.unit_millimeters)
             DistanceUnits.Caliber -> strings.getString(R.string.unit_caliber)
+        }
+    }
+
+    fun getSpeedUnitName(
+        distanceUnit: DistanceUnits,
+        timeUnit: TimeUnits,
+        short: Boolean = false
+    ): String {
+        return when (distanceUnit to timeUnit) {
+            DistanceUnits.Kilometers to TimeUnits.Hours -> strings.getString(
+                R.string.kilometers_per_hour_format,
+                ""
+            ).replace(" ", "")
+
+            DistanceUnits.Miles to TimeUnits.Hours -> strings.getString(
+                R.string.miles_per_hour_format,
+                ""
+            ).replace(" ", "")
+
+            DistanceUnits.Meters to TimeUnits.Seconds -> strings.getString(
+                R.string.speed_format_meters_per_second,
+                ""
+            ).replace(" ", "")
+
+            else -> throw IllegalArgumentException("Unsupported speed unit: $distanceUnit / $timeUnit")
         }
     }
 

@@ -1,10 +1,18 @@
-The Temperature Estimation tool can be used to estimate the temperature at a different elevation.
+The Temperature Estimation tool can be used to estimate the temperature at a different elevation, heat index, or wind chill.
 
 # Estimating temperature
-To estimate the temperature at another elevation, you need to know your current elevation and the current temperature, as well as the elevation at which you want to estimate the temperature.
+The only required field is the current temperature.
+
+If you enter a destination elevation, the tool can also factor in elevation change using the base elevation.
+
+If you enter humidity, the tool will factor in heat index.
+
+If you enter wind speed, the tool will factor in wind chill.
 
 To estimate the temperature:
 
-1. Either click 'Autofill' or enter the 'Base elevation' (your elevation) and 'Base temperature' (the temperature at your location).
-2. Then enter the 'Destination elevation' (the elevation at which you want to estimate the temperature).
-3. The estimated temperature will be shown at the top of the screen.
+1. Either click 'Autofill' or enter the 'Current temperature' manually.
+2. Optionally enter the 'Base elevation' and 'Destination elevation' to factor in elevation.
+3. Optionally enter 'Humidity' to factor in heat index.
+4. Optionally enter 'Wind speed' to factor in wind chill.
+5. The estimated temperature will be shown at the top of the screen.

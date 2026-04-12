@@ -17,9 +17,9 @@
     <string name="navigation">Tee juhatamine</string>
     <string name="astronomy">Astronoomia</string>
     <string name="precise_meters_format">%s m</string>
-    <string name="miles_per_hour_format">%.1f mph</string>
+    <string name="miles_per_hour_format">%s mph</string>
     <string name="weather">Ilm</string>
-    <string name="kilometers_per_hour_format">%.1f km/h</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
     <string name="degree">%s°</string>
     <string name="access_background_location_rationale">Trail Sense kasutab asukohaandmeid taustal. Seda kasutatakse täpsemate päikeseloojanguteadete jagamiseks reisi ajal. [Vaata privaatsuspoliitikat](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="duration_second_format">%ds</string>
