@@ -125,3 +125,4 @@ scripts/experiments/cache.json
 /.idea/codeStyles/Project.xml
 sonarqube-issues.json
 sonarqube-report.json
+.codex
