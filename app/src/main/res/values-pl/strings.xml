@@ -341,7 +341,7 @@
     <string name="unavailable">Niedostępna</string>
     <string name="gps_searching">Wyszukiwanie</string>
     <string name="gps_user">Nadpisana</string>
-    <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urządzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Wyświetl [Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają dostępu do lokalizacji \n \n- Przyznanie uprawnień dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca aktualnej lokalizacji (alerty zachodów słońca mogą wymagać lokalizacji w tle)\n\n- Jeśli zdecydujesz nie udzielać pozwolenia na używanie lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki &gt; Kalibracja GPS. \n \n- Po nacisnięciu \"Kontynuuj\" zostanie wyświetlony komunikat o przyznaniu uprawnień do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
+    <string name="onboarding_privacy">- Trail Sense szanuje prywatność, dane lokalizacji nigdy nie opuszczą urządzenia \n \n- Trail Sense nigdy nie będzie wymagać połączenia z internetem \n \n- Wyświetl [Politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html) (link otworzy się w przeglądarce internetowej) \n \n- Niektóre funkcje Trail Sense wymagają uprawnień dostępu do lokalizacji \n \n- Przyznanie uprawnień dostępu do lokalizacji włączy następujące funkcje:\n\n\t- Prowadzenie do punktów nawigacyjnych\n\n\t- Poprawi dokładność prognoz (niedostępne na niektórych urządzeniach) \n\n\t- Szlak powrotny\n\n\t- Czasy słońca i księżyca aktualnej lokalizacji (alerty zachodów słońca mogą wymagać uprawnień dostępu do lokalizacji w tle)\n\n- Jeśli zdecydujesz odmówić uprawnień dostępu do lokalizacji, możesz ręcznie wprowadzić lokalizację w menu Ustawienia &gt; Czujniki &gt; Kalibracja GPS. \n \n- Po nacisnięciu \"Kontynuuj\" zostanie wyświetlony komunikat o przyznanie uprawnień dostępu do lokalizacji oraz lokalizacji w tle. Odmowa przyznania uprawnień uniemożliwi Trail Sense dostęp do lokalizacji, dlatego ręczne wprowadzenie lokalizacji jest zalecane.</string>
     <string name="onboarding_user_guide">Dowiedz się, jak korzystać z funkcji aplikacji Trail Sense, korzystając z Podręcznika Użytkownika. Dostępny na samym dole w zakładce Narzędzia. \n \nWkrótce pojawi się więcej przewodników.</string>
     <string name="pref_require_satellites_title">Wymagaj ustalenia pozycji satelitarnej</string>
     <string name="delete_waypoint_prompt">Usunąć punkt trasy?</string>
@@ -464,7 +464,7 @@
     <string name="no_groups">Brak grup</string>
     <string name="preview">Podgląd</string>
     <string name="import_map">Importuj mapę</string>
-    <string name="camera_permission_denied">Odmowa uprawnień dostępu do aparatu, nie można włączyć funkcji używających aparatu. Możesz to zmienić w ustawieniach.</string>
+    <string name="camera_permission_denied">Odmówiono uprawnień dostępu do aparatu, nie można włączyć funkcji używających aparatu. Możesz to zmienić w ustawieniach.</string>
     <string name="days">Dni</string>
     <plurals name="number_days">
         <item quantity="one">%d dzień</item>
@@ -574,9 +574,9 @@
     <string name="power_saving_mode_resolution">Wyłącz tryb oszczędzania energii</string>
     <string name="activity_recognition">Rozpoznawanie aktywności fizycznej</string>
     <string name="background_location_permission">Lokalizacja (Zawsze zezwalaj)</string>
-    <string name="grant_permission">Przydziel uprawnienie %s</string>
+    <string name="grant_permission">Przyznaj uprawnienia %s</string>
     <string name="no_issues">Nie wykryto problemów</string>
-    <string name="no_permission">Nieprzyznane uprawnienie</string>
+    <string name="no_permission">Nie przyznano uprawnień</string>
     <string name="diagnostics">Diagnostyka</string>
     <string name="camera">Aparat</string>
     <string name="gps_signal_lost">Utracono sygnał GPS</string>
@@ -771,7 +771,7 @@
     <string name="average_speed_backtrack">Średnia prędkość (Szlak powrotny)</string>
     <string name="navigating_to_nearest_path_point">Nawigacja do najbliższego punktu ścieżki</string>
     <string name="pref_start_on_boot_title">Uruchom przy starcie</string>
-    <string name="activity_recognition_permission_denied">Odmówiono uprawnień dostępu do aktywności fizycznej, nie można włączyć funkcji krokomierza. Możesz włączyć to w ustawieniach.</string>
+    <string name="activity_recognition_permission_denied">Odmówiono uprawnień dostępu do aktywności fizycznej, nie można włączyć funkcji krokomierza. Możesz to zmienić w ustawieniach.</string>
     <string name="error">Błąd</string>
     <string name="warning">Ostrzeżenie</string>
     <string name="file">Plik</string>
@@ -833,7 +833,7 @@
     <string name="sensor_summary">Kompas, GPS, wysokościomierz, barometr itp.</string>
     <string name="weather_alert_storm_description">Przygotuj się na silny wiatr i opady.</string>
     <string name="weather_alert_hot_description">Przygotuj się na wysokie temperatury. Zachowaj dodatkowe środki ostrożności przeciwko wyczerpaniu i udarowi cieplnemu.</string>
-    <string name="backtrack_no_permission">Szlak powrotny wymaga uprawnień dostępu do lokalizacji, aby funkcjonować</string>
+    <string name="backtrack_no_permission">Szlak powrotny wymaga uprawnień dostępu do lokalizacji</string>
     <string name="notifications_channel">Powiadomienia (%s)</string>
     <string name="sunset_alert_scheduled">Alert zaplanowany na %s przed zachodem słońca</string>
     <string name="weather_thunderstorm">Burza z piorunami</string>
@@ -907,7 +907,7 @@
     <string name="peak_time">Górowanie</string>
     <string name="unable_to_find_next_astronomy">Nie można znaleźć następnego %s</string>
     <string name="until_sunset">do zachodu słońca</string>
-    <string name="exact_alarm_permission_denied">Odmowa uprawnień dostępu do alarmów i przypomnień, powiadomienia mogą być niedokładne.</string>
+    <string name="exact_alarm_permission_denied">Odmówiono uprawnień dostępu do alarmów i przypomnień, powiadomienia mogą być niedokładne. Możesz to zmienić w ustawieniach.</string>
     <string name="daylight_duration">%s światła dziennego</string>
     <string name="center">Środek</string>
     <string name="create_blank_map">Utwórz pustą mapę</string>
