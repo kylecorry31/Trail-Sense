@@ -28,11 +28,11 @@ class RestoreCommand(private val context: Context, private val uriPicker: UriPic
         val source = uriPicker.open(listOf("application/zip")) ?: return
 
         try {
-            Alerts.withLoading(
+            Alerts.withProgress(
                 context,
                 context.getString(R.string.restoring_loading_message)
-            ) {
-                backupService.restore(source)
+            ) { setProgress ->
+                backupService.restore(source, setProgress)
             }
 
             Alerts.toast(
