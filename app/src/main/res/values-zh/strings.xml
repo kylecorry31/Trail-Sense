@@ -802,7 +802,7 @@
     <string name="very_soon">很快</string>
     <string name="soon">不久</string>
     <string name="tool_temperature_estimation_title">温度预估</string>
-    <string name="tool_temperature_estimation_description">预测不同海拔的温度</string>
+    <string name="tool_temperature_estimation_description">预测不同海拔、风速和湿度的气温</string>
     <string name="pressure_tendency">趋势</string>
     <string name="since_time">从 %s 开始</string>
     <string name="humidity_history">湿度历史 — 上 %s</string>
@@ -1543,4 +1543,7 @@
     <string name="pref_default_beacon_color_title">默认信标颜色</string>
     <string name="stone">英石</string>
     <string name="stone_format">%s 英石</string>
+    <string name="current_temperature">当前气温</string>
+    <string name="wind_speed">风速</string>
+    <string name="humidity_must_be_between_0_and_100">湿度值须在 0 和 100 之间</string>
 </resources>
