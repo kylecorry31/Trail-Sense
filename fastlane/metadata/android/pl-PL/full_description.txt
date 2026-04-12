@@ -1,0 +1,105 @@
+<p>Odkrywaj świat poza zasięgiem internetu z Trail Sense.</p>
+
+
+
+<ul>
+
+    <li>Zaprojektowany z myślą o wspinaczce, podróżach, biwakowaniu oraz geocachingu</li>
+
+    <li>Twórz oraz prowadź do punktów nawigacyjnych</li>
+
+    <li>Używaj telefonu jako kompasu (dostępne na urządzeniach z czujnikiem kompasu)</li>
+
+    <li>Podążaj ścieżkami</li>
+
+    <li>Wracaj własnymi śladami ze szlakiem powrotnym</li>
+
+    <li>Używaj zdjęć jako map</li>
+
+    <li>Planuj co zapakować</li>
+
+    <li>Otrzymuj powiadomienia zanim zajdzie słońce</li>
+
+    <li>Przewiduj pogodę (dostępne na urządzeniach z czujnikiem barometru)</li>
+
+    <li>Używaj telefonu jako latarki</li>
+
+    <li>Oraz o wiele więcej!</li>
+
+</ul>
+
+
+
+<p>Trail Sense to narzędzie, jak w przypadku każdego sprzętu zabieranego w dzikie tereny,
+
+niezbędne jest posiadanie zapasowego wyposażenia oraz umiejętności.
+
+Aplikacja jest przeznaczona wyłącznie do celów informacyjnych, dokładność prognoz oraz czujnikow jest określana przez wiele czynników, włączając kalibracje, jakość podzespołów, źródła zewnętrzne, itd.
+
+Używaj na własną odpowiedzialność, zawsze noś przy sobie zapasowe narzędzia (np. kompas) oraz dbaj o bezpieczeństwo.</p>
+
+
+
+<p>This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.</p>
+
+
+
+<h3>COMMON ISSUES</h3>
+
+<ul>
+
+    <li>No compass: If your phone does not have a compass sensor, there is nothing I can do to make it work because that is hardware.
+
+    You will still be able to use other features of Trail Sense.</li>
+
+    <li>No weather: The Weather tool is only available if your phone has a barometer sensor.</li>
+
+</ul>
+
+
+
+<p>Found an issue or want a new feature? Contact me at trailsense@protonmail.com or create a new issue on GitHub: github.com/kylecorry31/Trail-Sense</p>
+
+
+
+<p>I'm the only developer of Trail Sense, so I will do my best to help out with issues - but I have a limited device selection to test on.</p>
+
+
+
+
+
+<h3>PERMISSIONS</h3>
+
+<ul>
+
+    <li>Notifications: Allows Trail Sense to display notifications (backtrack, weather, sunset alerts, astronomy events, water boil timer, etc)</li>
+
+    <li>Location: Allows Trail Sense to retrieve your location for navigation, weather (sea level calibration), and astronomy.</li>
+
+    <li>Background location: Allows Trail Sense to retrieve your location for sunset alerts while in the background.
+
+    On some devices, this will also improve the reliability of backtrack and weather monitor.</li>
+
+    <li>Physical activity: Allows Trail Sense to use your phone's pedometer for distance calculation.</li>
+
+    <li>Camera: Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.</li>
+
+    <li>Alarms & reminders: Allows Trail Sense to post a notification at an exact time.
+
+    This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.</li>
+
+</ul>
+
+
+
+<h3>Links</h3>
+
+<ul>
+
+    <li>Privacy policy: https://kylecorry.com/Trail-Sense/#privacy</li>
+
+    <li>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</li>
+
+    <li>Trail Sense is available under the MIT License: https://opensource.org/license/mit/</li>
+
+</ul>
