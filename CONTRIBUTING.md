@@ -71,3 +71,5 @@ Some features may be considered medium risk if they have little impact to the ac
 
 ### High risk areas
 Anything not listed above is considered to be high risk. Generative AI is restricted in high risk areas and can only be used if you are very proficient in the area and can fully verify the accuracy of the output.
+
+Artwork and survival guide content must be done by a human only, other than minor grammar and spelling correction.
