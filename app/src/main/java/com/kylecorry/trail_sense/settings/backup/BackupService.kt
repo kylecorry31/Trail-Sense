@@ -28,7 +28,7 @@ class BackupService(
         val filesToBackup = getFilesToBackup().toMutableList()
 
         val appVersionFile =
-            File(context.cacheDir, "app-version-${Package.getVersionCode(context)}.txt")
+            File(context.filesDir, "app-version-${Package.getVersionCode(context)}.txt")
         appVersionFile.createNewFile()
         filesToBackup.add(appVersionFile)
 
