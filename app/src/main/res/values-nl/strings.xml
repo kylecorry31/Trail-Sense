@@ -684,7 +684,7 @@
     <string name="done">Voltooid</string>
     <string name="diamond">Ruit</string>
     <string name="square">Vierkant</string>
-    <string name="humidity_history">Geschiedenis van de vochtigheid - laatst %s</string>
+    <string name="humidity_history">Geschiedenis luchtvochtigheid - laatst %s</string>
     <string name="temperature_history">Temperatuurverloop - laatste %s</string>
     <string name="old">Oud</string>
     <string name="no_paths">Geen paden</string>
@@ -703,7 +703,7 @@
     <string name="no_qr_code_found">Geen QR code herkend</string>
     <string name="share_ellipsis">Delen…</string>
     <string name="undo">Ongedaan maken</string>
-    <string name="tool_temperature_estimation_description">Voorspel de temperatuur op een andere hoogte</string>
+    <string name="tool_temperature_estimation_description">Voorspel de temperatuur bij een andere hoogte, windsnelheid en luchtvochtigheid</string>
     <string name="distance_alert">Afstand waarschuwing</string>
     <string name="remove_distance_alert">Verwijder afstand waarschuwing (%s)\?</string>
     <string name="off">Uit</string>
@@ -1553,4 +1553,7 @@
     <string name="pref_default_beacon_color_title">Kleur standaardbaken</string>
     <string name="stone">Stone</string>
     <string name="stone_format">%s st</string>
+    <string name="current_temperature">Huidige temperatuur</string>
+    <string name="wind_speed">Windsnelheid</string>
+    <string name="humidity_must_be_between_0_and_100">Luchtvochtigheid moet tussen 0 en 100 liggen</string>
 </resources>
