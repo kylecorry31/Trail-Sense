@@ -176,4 +176,9 @@
     <string name="sun_does_not_rise">går inte upp</string>
     <string name="new_moon">Nymåne</string>
     <string name="map_trace_instructions">Gå till en skuggig plats eller skärma av solen med en tygbit och lägg ett papper över skärmen så att du kan se kartan genom papperet. Använd en penna eller blyertspenna för att rita av kartan, men undvik tuschpennor eller pennor som kan blöda igenom papperet.\n\nNavigeringen längst ned på skärmen kommer att vara inaktiverad tills du stänger av avritningsläget.</string>
+    <string name="current_temperature">Temperatur just nu</string>
+    <string name="clear_cache">Rensa cache</string>
+    <string name="liter_format">%s l</string>
+    <string name="milliliter_format">%s ml</string>
+    <string name="liters">Liter</string>
 </resources>
