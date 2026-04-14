@@ -30,6 +30,9 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasBitmap
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.AstronomyGuidanceTargetPicker
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceTarget
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +41,7 @@ import java.time.Duration
 import java.time.ZonedDateTime
 
 class ARAstronomyLayer(
+    override val guidanceName: String,
     private val drawBelowHorizon: Boolean,
     private val drawStars: Boolean,
     private val drawConstellations: Boolean,
@@ -47,7 +51,7 @@ class ARAstronomyLayer(
     private val onStarFocus: (star: Star) -> Boolean,
     private val onPlanetFocus: (planet: Planet) -> Boolean,
     private val onMeteorShowerFocus: (shower: MeteorShower) -> Boolean
-) : ARLayer {
+) : ARLayer, ARGuidanceLayer {
 
     private val belowHorizonAlphaDivisor = 4
 
@@ -508,5 +512,17 @@ class ARAstronomyLayer(
             lines.add(currentLine)
         }
         return lines
+    }
+
+    override suspend fun pickGuidanceTarget(view: AugmentedRealityView): ARGuidanceTarget? {
+        val guidancePicker = AstronomyGuidanceTargetPicker(
+            astro,
+            drawBelowHorizon,
+            drawStars,
+            drawLowBrightnessObjects
+        ) {
+            timeOverride ?: ZonedDateTime.now()
+        }
+        return guidancePicker.pick(view)
     }
 }

@@ -12,8 +12,17 @@ By default, the camera's exposure compensation will increase at night. You can d
 ## Reticle
 A circular reticle is displayed in the center of your screen. You can use this to see more details about the marker you are looking at by centering it in the reticle.
 
+## Locate a target
+If one of the visible layers supports targeting, you will see a search icon in the top-right corner of the screen.
+
+Tap the search icon to open the **Locate** picker. This lets you choose a visible layer, such as **Beacons** or **Astronomy**, and then pick a target from that layer.
+
+When a target is active, a panel is shown at the bottom of the screen and the reticle turns into a guidance arrow which points toward the target. The target stays active until you cancel it using the 'X' button or select a different one.
+
 ## Beacons
-Nearby beacons are displayed as markers on the screen. You can tap on a beacon to start navigation (See the Navigation section below). The view distance can be adjusted in Settings > Augmented Reality > Beacons > "View distance".
+Nearby beacons are displayed as markers on the screen. The view distance can be adjusted in Settings > Augmented Reality > Beacons > "View distance".
+
+You can start guidance to a beacon by tapping the search icon > **Beacons** and selecting a beacon from the list. You can also look at a beacon with the reticle and tap **Navigate** to start guidance/navigation.
 
 ## Paths
 Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may not be perfectly aligned with the real world. The view distance can be adjusted in Settings > Augmented Reality > Paths > "View distance"
@@ -25,7 +34,9 @@ The paths that the sun and moon will take today are displayed as markers on the 
 
 If you bring the sun or moon into the reticle, you will see more details about the marker such as the time.
 
-If you tapped the "View in 3D" button on the Astronomy tool, you can use the guide to see where the sun or moon is for the selected date and time.
+You can target astronomy objects from the search icon by choosing **Astronomy**. This lets you guide to the sun, moon, meteor showers, planets, and stars. This picker respects your settings for which astronomy objects are visible and will only show some targets at night.
+
+If you tapped the "View in 3D" button on the Astronomy tool, you will be prompted to select an astronomy target.
 
 You can view the sun and moon when they are below the horizon by enabling Settings > Augmented Reality > "Show below horizon".
 
@@ -51,6 +62,10 @@ Tap on a beacon to navigate to it.
 
 While navigating, you will see an arrow around the reticle pointing in the direction of the beacon. Move your phone toward the arrow to bring the beacon into view. When the beacon is in the reticle, the arrow will disappear.
 
+If beacon navigation is already active when you open the Augmented Reality tool, that beacon becomes the current target automatically.
+
+If you switch from a beacon target to a non-beacon target, beacon navigation is canceled.
+
 ## Calibration
 If the Augmented Reality tool is not aligned with the real world, you can calibrate it by tapping the compass icon in the top-left corner of the screen. This will prompt you to center either the sun or moon in the reticle and click "Calibrate".
 
@@ -72,4 +87,4 @@ The Augmented Reality tool respects the compass source in Settings > Sensors > C
 You can toggle the visibility of the beacons, paths, astronomy, and grid layers by clicking the layer icon in the top-left corner of the screen or by changing the "Visible" setting in Settings > Augmented Reality.
 
 ## Date / time slider
-Tap the clock icon on the left side of the screen to open the date and time slider. You can use this panel to preview a different time of day on a given date. Tap the clock icon again to return to the live time.
+Tap the clock icon on the right side of the screen to open the date and time slider. You can use this panel to preview a different time of day on a given date. Tap the clock icon again to return to the live time.

@@ -6,22 +6,28 @@ import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasBitmap
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceTarget
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTarget
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import kotlin.math.hypot
 
 class ARBeaconLayer(
+    override val guidanceName: String,
     var maxVisibleDistance: Distance = Distance.kilometers(1f),
     private val beaconSize: Distance = Distance.meters(4f),
     private val onFocus: (beacon: Beacon) -> Boolean = { false },
     private val onClick: (beacon: Beacon) -> Boolean = { false }
-) : ARLayer {
+) : ARLayer, ARGuidanceLayer {
 
     private val hooks = Hooks()
     private var beacons = listOf<Beacon>()
@@ -137,6 +143,14 @@ class ARBeaconLayer(
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         return layer.onFocus(drawer, view)
+    }
+
+    override suspend fun pickGuidanceTarget(view: AugmentedRealityView): ARGuidanceTarget? {
+        val beacon = BeaconPickers.pickBeacon(
+            view.context,
+            view.context.getString(R.string.locate)
+        ) ?: return null
+        return BeaconGuidanceTarget(beacon)
     }
 
 }
