@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +12,23 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.TimerActionBehavior
+import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.location.Satellite
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
@@ -50,9 +54,11 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARCalibratorFactory
-import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.ARGuide
-import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.AstronomyARGuide
-import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.NavigationARGuide
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARBeaconGuidanceTarget
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceDisplayState
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceTarget
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTarget
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
@@ -65,7 +71,6 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.map_layers.AugmentedRealityPathLayerManager
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
@@ -80,13 +85,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     }
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
-
-    private var guide: ARGuide? = null
-
     private val planetMapper by lazy { PlanetMapper(requireContext()) }
+    private var activeGuidanceTarget: ARGuidanceTarget? = null
+    private val guidanceRefreshRunner = CoroutineQueueRunner()
 
     private val beaconLayer by lazy {
         ARBeaconLayer(
+            getString(R.string.beacons),
             Distance.meters(userPrefs.augmentedReality.beaconViewDistance),
             onFocus = this::onBeaconFocused
         ) {
@@ -101,6 +106,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     private val astronomyLayer by lazy {
         ARAstronomyLayer(
+            getString(R.string.astronomy),
             drawBelowHorizon = userPrefs.augmentedReality.showAstronomyBelowHorizon,
             drawStars = userPrefs.augmentedReality.showStars,
             drawConstellations = userPrefs.augmentedReality.showConstellations,
@@ -162,6 +168,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         )
     }
 
+    private val guidanceLocationUpdater =
+        CoroutineTimer(actionBehavior = TimerActionBehavior.Skip) {
+            if (!isBound) return@CoroutineTimer
+            if (activeGuidanceTarget == null) return@CoroutineTimer
+            refreshGuidance()
+        }
+
     // Calibration
     private val calibrationFactory = ARCalibratorFactory()
     private val astronomyService = AstronomyService()
@@ -178,6 +191,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         }
         observeFlow(navigator.destination) {
             beaconLayer.destination = it
+            syncBeaconGuidance(it)
+        }
+
+        binding.guidancePanel.isVisible = false
+        binding.arGuideCancel.setOnClickListener {
+            replaceActiveGuidanceTarget(null)
+            setMode(ARMode.Normal)
         }
 
         binding.accuracyView.setSensors(binding.arView.gps, binding.arView.geomagneticOrientationSensor)
@@ -211,6 +231,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             showLayersSheet()
         }
 
+        binding.searchBtn.setOnClickListener {
+            showGuidanceLayerPicker()
+        }
+
         binding.timeBtn.setOnClickListener {
             if (binding.timeSheet.isVisible) {
                 setTimeOverride(null)
@@ -225,6 +249,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         binding.timeSheet.onTimeChanged = {
             setTimeOverride(it)
             updateTimeButtonState()
+            refreshGuidance()
         }
 
         setMode(desiredMode, requireArguments().getBundle("extras"))
@@ -276,8 +301,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         }
 
         updateLayerVisibility()
-        guide?.start(binding.arView, binding.guidancePanel)
         updateTimeButtonState()
+        updateGuidanceButtonState()
+        guidanceLocationUpdater.interval(1000)
+        refreshGuidance()
     }
 
     // TODO: Move this to the AR view
@@ -314,9 +341,9 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         binding.camera.stop()
         binding.arView.stop()
         binding.timeSheet.hide()
-        guide?.stop(binding.arView, binding.guidancePanel)
         pathLayerManager?.stop()
         layerManagementUpdater.stop()
+        guidanceLocationUpdater.stop()
     }
 
     override fun onUpdate() {
@@ -414,7 +441,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         if (navigator.getDestinationId() != beacon.id) {
             binding.focusActionButton.setTextDistinct(getString(R.string.navigate))
             binding.focusActionButton.setOnClickListener {
-                navigator.navigateTo(beacon)
+                replaceActiveGuidanceTarget(BeaconGuidanceTarget(beacon))
             }
             binding.focusActionButton.isVisible = true
         } else {
@@ -431,14 +458,20 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     }
 
     private fun setMode(mode: ARMode, extras: Bundle? = null) {
+        val previousMode = this.mode
         this.mode = mode
         when (mode) {
             ARMode.Normal -> {
                 visibleLayersOverride = null
-                changeGuide(NavigationARGuide(navigator))
+                if (previousMode == ARMode.Astronomy) {
+                    setTimeOverride(null)
+                    binding.timeSheet.hide()
+                    updateTimeButtonState()
+                }
             }
 
             ARMode.Astronomy -> {
+                replaceActiveGuidanceTarget(null)
                 visibleLayersOverride = listOf(gridLayer, astronomyLayer)
                 val overrideTime = extras?.getString("time")?.let {
                     ZonedDateTime.parse(it)
@@ -449,21 +482,154 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
                     binding.timeSheet.show()
                     updateTimeButtonState()
                 }
-                changeGuide(AstronomyARGuide(astronomyLayer) {
-                    setTimeOverride(null)
-                    binding.timeSheet.hide()
-                    updateTimeButtonState()
-                    setMode(ARMode.Normal)
-                })
+                showAstronomyTargetPicker()
+            }
+        }
 
+        updateGuidanceButtonState()
+    }
+
+    private fun showGuidanceLayerPicker() {
+        val layers = currentVisibleLayers().filterIsInstance<ARGuidanceLayer>()
+        if (layers.isEmpty()) {
+            updateGuidanceButtonState()
+            return
+        }
+
+        Pickers.item(
+            requireContext(),
+            getString(R.string.locate),
+            layers.map { it.guidanceName }
+        ) { selected ->
+            if (selected == null) {
+                handleGuidancePickerCancelled()
+                return@item
+            }
+
+            val layer = layers.getOrNull(selected) ?: run {
+                handleGuidancePickerCancelled()
+                return@item
+            }
+
+            inBackground {
+                val target = layer.pickGuidanceTarget(binding.arView)
+                if (target == null) {
+                    handleGuidancePickerCancelled()
+                    return@inBackground
+                }
+
+                replaceActiveGuidanceTarget(target)
             }
         }
     }
 
-    private fun changeGuide(guide: ARGuide?) {
-        this.guide?.stop(binding.arView, binding.guidancePanel)
-        this.guide = guide
-        this.guide?.start(binding.arView, binding.guidancePanel)
+    private fun showAstronomyTargetPicker() {
+        inBackground {
+            val target = astronomyLayer.pickGuidanceTarget(binding.arView)
+            if (target == null) {
+                handleGuidancePickerCancelled()
+                return@inBackground
+            }
+            replaceActiveGuidanceTarget(target)
+        }
+    }
+
+    private fun handleGuidancePickerCancelled() {
+        if (mode == ARMode.Astronomy && activeGuidanceTarget == null) {
+            setMode(ARMode.Normal)
+        }
+    }
+
+    private fun replaceActiveGuidanceTarget(target: ARGuidanceTarget?) {
+        val previousBeaconId = (activeGuidanceTarget as? ARBeaconGuidanceTarget)?.beacon?.id
+        val newBeacon = (target as? ARBeaconGuidanceTarget)?.beacon
+
+        activeGuidanceTarget = null
+        binding.arView.clearGuide()
+        updateGuidancePanel(null)
+
+        if (previousBeaconId != null && previousBeaconId != newBeacon?.id) {
+            navigator.cancelBeaconNavigation()
+        }
+
+        activeGuidanceTarget = target
+
+        if (newBeacon != null) {
+            navigator.navigateTo(newBeacon)
+        }
+
+        updateGuidanceButtonState()
+        refreshGuidance()
+    }
+
+    private fun syncBeaconGuidance(destination: Beacon?) {
+        if (mode != ARMode.Normal) {
+            return
+        }
+
+        val activeBeaconId = (activeGuidanceTarget as? ARBeaconGuidanceTarget)?.beacon?.id
+
+        if (destination == null) {
+            return
+        }
+
+        if (activeBeaconId == destination.id) {
+            return
+        }
+
+        replaceActiveGuidanceTarget(BeaconGuidanceTarget(destination))
+    }
+
+    private fun refreshGuidance() {
+        val target = activeGuidanceTarget
+
+        if (target == null) {
+            binding.arView.clearGuide()
+            updateGuidancePanel(null)
+            return
+        }
+
+        inBackground {
+            guidanceRefreshRunner.enqueue {
+                tryOrLog {
+                    val state = target.refresh(binding.arView)
+                    onMain {
+                        if (!isBound || activeGuidanceTarget !== target) {
+                            return@onMain
+                        }
+
+                        updateGuidancePanel(state.display)
+                        binding.arView.guideTo(state.point) {
+                            // Guidance targets remain active until cancelled or replaced
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateGuidancePanel(state: ARGuidanceDisplayState?) {
+        if (state == null) {
+            binding.guidancePanel.isVisible = false
+            return
+        }
+
+        binding.guidancePanel.isVisible = true
+        binding.arGuideName.text = state.name
+        binding.arGuideIcon.setImageResource(state.icon)
+        binding.arGuideIcon.rotation = state.iconRotation
+        binding.arGuideIcon.backgroundTintList =
+            ColorStateList.valueOf(state.iconBackgroundTint ?: Color.TRANSPARENT)
+        Colors.setImageColor(binding.arGuideIcon, state.iconTint)
+    }
+
+    private fun currentVisibleLayers(): List<ARLayer> {
+        return visibleLayersOverride ?: visibleLayers
+    }
+
+    private fun updateGuidanceButtonState() {
+        val hasGuidanceLayers = currentVisibleLayers().any { it is ARGuidanceLayer }
+        binding.searchBtn.isVisible = activeGuidanceTarget != null || hasGuidanceLayers
     }
 
     private fun showLayersSheet() {
@@ -525,6 +691,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
             if (userPrefs.augmentedReality.showBeaconLayer) beaconLayer else null
         )
+        updateGuidanceButtonState()
     }
 
     private fun setTimeOverride(time: Instant?) {
