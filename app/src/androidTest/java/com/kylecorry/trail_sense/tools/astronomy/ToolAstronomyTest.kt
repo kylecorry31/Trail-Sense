@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
@@ -61,6 +62,8 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY) {
             click(R.id.button_3d)
 
             // Verify the AR tool is open
+            delay(500)
+            click("Cancel")
             clickOk()
             if (!Sensors.hasGyroscope(TestUtils.context)) {
                 clickOk()
