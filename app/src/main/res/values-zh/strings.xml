@@ -1546,4 +1546,6 @@
     <string name="current_temperature">当前气温</string>
     <string name="wind_speed">风速</string>
     <string name="humidity_must_be_between_0_and_100">湿度值须在 0 和 100 之间</string>
+    <string name="target">目标</string>
+    <string name="not_visible">不可见</string>
 </resources>
