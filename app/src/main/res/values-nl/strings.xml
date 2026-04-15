@@ -1556,4 +1556,6 @@
     <string name="current_temperature">Huidige temperatuur</string>
     <string name="wind_speed">Windsnelheid</string>
     <string name="humidity_must_be_between_0_and_100">Luchtvochtigheid moet tussen 0 en 100 liggen</string>
+    <string name="target">Doel</string>
+    <string name="not_visible">Onzichtbaar</string>
 </resources>
