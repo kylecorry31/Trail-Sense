@@ -1501,4 +1501,6 @@
     <string name="wind_speed">Prędkość wiatru</string>
     <string name="humidity_must_be_between_0_and_100">Wilgotność musi wynosić od 0 do 100</string>
     <string name="current_temperature">Aktualna temperatura</string>
+    <string name="target">Cel</string>
+    <string name="not_visible">Nie widoczny</string>
 </resources>
