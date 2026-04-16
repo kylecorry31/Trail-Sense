@@ -11,6 +11,8 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.readableName
+import com.kylecorry.trail_sense.shared.text.TextUtils
+import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
@@ -144,13 +146,15 @@ class AstronomyGuidanceTargetPicker(
         view: AugmentedRealityView,
         options: List<AstronomyGuidanceOption>
     ): AstronomyGuidanceOption? = suspendCoroutine { cont ->
-        val dialogView = View.inflate(view.context, R.layout.view_list_dialog, null)
+        val dialogView = View.inflate(view.context, R.layout.view_search_list_dialog, null)
+        val search = dialogView.findViewById<SearchView>(R.id.search)
         val list = dialogView.findViewById<AndromedaListView>(R.id.list)
         val empty = dialogView.findViewById<TextView>(R.id.empty_text)
         var selected: AstronomyGuidanceOption? = null
         var resumed = false
 
         list.emptyView = empty
+        empty.text = view.context.getString(R.string.no_results)
 
         val alert = Alerts.dialog(
             view.context,
@@ -164,26 +168,41 @@ class AstronomyGuidanceTargetPicker(
             }
         }
 
-        list.setItems(options.mapIndexed { index, option ->
-            ListItem(
-                index.toLong(),
-                option.name,
-                option.subtitle,
-                icon = ResourceListIcon(
-                    option.icon,
-                    tint = option.iconTint,
-                    rotation = option.iconRotation
-                ),
-                action = {
-                    selected = option
-                    if (!resumed) {
-                        resumed = true
-                        cont.resume(option)
+        fun renderOptions(filtered: List<AstronomyGuidanceOption>) {
+            list.setItems(filtered.mapIndexed { index, option ->
+                ListItem(
+                    index.toLong(),
+                    option.name,
+                    option.subtitle,
+                    icon = ResourceListIcon(
+                        option.icon,
+                        tint = option.iconTint,
+                        rotation = option.iconRotation
+                    ),
+                    action = {
+                        selected = option
+                        if (!resumed) {
+                            resumed = true
+                            cont.resume(option)
+                        }
+                        alert.dismiss()
                     }
-                    alert.dismiss()
+                )
+            })
+        }
+
+        search.setOnSearchListener { query ->
+            val filtered = if (query.isBlank()) {
+                options
+            } else {
+                TextUtils.search(query, options) {
+                    listOfNotNull(it.name, it.subtitle)
                 }
-            )
-        })
+            }
+            renderOptions(filtered)
+        }
+
+        renderOptions(options)
     }
 
     private data class AstronomyGuidanceOption(
