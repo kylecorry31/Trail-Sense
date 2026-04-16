@@ -748,7 +748,7 @@
     <string name="high_tide_letter">A</string>
     <string name="pressure_tendency">Tendencia</string>
     <string name="tool_temperature_estimation_title">Temperatura Estimada</string>
-    <string name="tool_temperature_estimation_description">Predecir la temperatura a distinta elevación</string>
+    <string name="tool_temperature_estimation_description">Predecir la temperatura a distinta elevación, velocidad de viento y humedad</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d marea</item>
         <item quantity="many">%d mareas</item>
@@ -1513,4 +1513,9 @@
     <string name="pref_default_beacon_color_title">Color predeterminado balizas</string>
     <string name="stone">Piedra</string>
     <string name="stone_format">%s pi</string>
+    <string name="current_temperature">Temperatura actual</string>
+    <string name="wind_speed">Velocidad viento</string>
+    <string name="humidity_must_be_between_0_and_100">La humedad debe estar entre 0 y 100</string>
+    <string name="target">Objetivo</string>
+    <string name="not_visible">No visible</string>
 </resources>
