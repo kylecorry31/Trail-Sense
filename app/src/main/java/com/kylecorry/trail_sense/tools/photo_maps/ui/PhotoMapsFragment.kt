@@ -172,7 +172,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     private fun measure() {
         val fragment = currentFragment
         if (fragment != null && fragment is ViewPhotoMapFragment) {
-            fragment.startDistanceMeasurement()
+            fragment.startDistanceMeasurement(emptyArray())
         }
     }
 

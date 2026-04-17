@@ -210,7 +210,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                     if (startWithUserLocation) navigation.location else null,
                     location
                 ).toTypedArray()
-                manager.startDistanceMeasurement(*initialPoints)
+                manager.startDistanceMeasurement(initialPoints)
                 mapDistanceSheetView.show()
                 mapDistanceSheetView.cancelListener = {
                     stopDistanceMeasurement()

@@ -38,7 +38,7 @@ data class MapEntity(
         if (percentX1 != null && percentY1 != null && longitude1 != null && latitude1 != null) {
             points.add(
                 MapCalibrationPoint(
-                    Coordinate.constrained(latitude1, longitude1),
+                    Coordinate(latitude1, longitude1),
                     PercentCoordinate(percentX1, percentY1)
                 )
             )
@@ -47,7 +47,7 @@ data class MapEntity(
         if (percentX2 != null && percentY2 != null && longitude2 != null && latitude2 != null) {
             points.add(
                 MapCalibrationPoint(
-                    Coordinate.constrained(latitude2, longitude2),
+                    Coordinate(latitude2, longitude2),
                     PercentCoordinate(percentX2, percentY2)
                 )
             )

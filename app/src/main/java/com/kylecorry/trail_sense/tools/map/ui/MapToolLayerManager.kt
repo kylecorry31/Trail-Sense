@@ -119,7 +119,7 @@ class MapToolLayerManager {
         return distanceLayer.getPoints()
     }
 
-    fun startDistanceMeasurement(vararg initialPoints: Coordinate) {
+    fun startDistanceMeasurement(initialPoints: Array<Coordinate>) {
         distanceLayer.isEnabled = true
         distanceLayer.clear()
         initialPoints.forEach { distanceLayer.add(it) }

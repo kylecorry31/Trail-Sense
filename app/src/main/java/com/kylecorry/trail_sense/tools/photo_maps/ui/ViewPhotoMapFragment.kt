@@ -213,7 +213,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                             selectLocation(null)
                         },
                         ActionItem(getString(R.string.distance), R.drawable.ruler) {
-                            startDistanceMeasurement(gps.location, location)
+                            startDistanceMeasurement(arrayOf(gps.location, location))
                             selectLocation(null)
                         },
                     ),
@@ -275,13 +275,13 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.distanceSheet.setDistance(relative)
     }
 
-    fun startDistanceMeasurement(vararg initialPoints: Coordinate) {
+    fun startDistanceMeasurement(initialPoints: Array<Coordinate>) {
         if (map?.isCalibrated != true) {
             toast(getString(R.string.map_is_not_calibrated))
             return
         }
 
-        layerManager.startDistanceMeasurement(*initialPoints)
+        layerManager.startDistanceMeasurement(initialPoints)
         binding.distanceSheet.show()
         binding.distanceSheet.cancelListener = {
             stopDistanceMeasurement()

@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreference
 import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
+import kotlin.math.absoluteValue
 
 internal class WeatherForecaster(
     private val temperatureService: ITemperatureService,
@@ -124,8 +125,8 @@ internal class WeatherForecaster(
             pressures,
             clouds,
             temperatureRange,
-            hourlyForecastChangeThreshold / 3f,
-            stormThreshold / 3f,
+            hourlyForecastChangeThreshold.absoluteValue / 3f,
+            stormThreshold.absoluteValue / 3f,
             Instant.now(),
             location ?: Coordinate.zero,
             forecastSource
