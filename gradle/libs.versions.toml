@@ -11,6 +11,7 @@ cameraxVersion = "1.6.0"
 coreKtx = "1.18.0"
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
+detekt = "1.23.8"
 desugar_jdk_libs = "2.1.5"
 flexbox = "3.0.0"
 fragment = "1.8.9"
@@ -111,4 +112,5 @@ work-testing = { module = "androidx.work:work-testing", version.ref = "workRunti
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
