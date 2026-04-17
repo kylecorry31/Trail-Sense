@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure
 
+import android.os.Bundle
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
@@ -12,7 +13,8 @@ import kotlinx.coroutines.withContext
 class BeaconNavigator(
     private val beaconService: IBeaconService,
     private val navigation: IAppNavigation,
-    private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
+    private val bundleFactory: () -> Bundle = { Bundle() }
 ) : IBeaconNavigator {
 
     override suspend fun navigateTo(beacon: Beacon) {
@@ -27,7 +29,9 @@ class BeaconNavigator(
         withContext(mainDispatcher) {
             navigation.navigate(
                 R.id.action_navigation,
-                listOf("destination" to id)
+                bundleFactory().apply {
+                    putLong("destination", id)
+                }
             )
         }
     }

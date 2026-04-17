@@ -9,7 +9,6 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Pad
 import com.kylecorry.andromeda.bitmaps.operations.Resize
@@ -68,16 +67,16 @@ class TileLoader(
     fun loadTiles(
         tiles: List<Tile>,
         time: Instant,
-        preferences: Bundle = bundleOf(),
+        preferences: Bundle = Bundle(),
         featureId: String? = null,
         isWidget: Boolean = false,
         context: Context
     ) {
-        val params = bundleOf(
-            MapLayerParams.PARAM_TIME to time.toEpochMilli(),
-            MapLayerParams.PARAM_IS_WIDGET to isWidget,
-            MapLayerParams.PARAM_PREFERENCES to Bundle(preferences)
-        )
+        val params = Bundle().apply {
+            putLong(MapLayerParams.PARAM_TIME, time.toEpochMilli())
+            putBoolean(MapLayerParams.PARAM_IS_WIDGET, isWidget)
+            putBundle(MapLayerParams.PARAM_PREFERENCES, Bundle(preferences))
+        }
         featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }
         val imageTiles = tiles.map { tile ->
             val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"

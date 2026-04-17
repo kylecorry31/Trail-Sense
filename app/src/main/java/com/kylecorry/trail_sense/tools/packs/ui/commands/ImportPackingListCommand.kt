@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.packs.ui.commands
 
-import androidx.core.os.bundleOf
+import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
@@ -52,7 +52,9 @@ class ImportPackingListCommand(private val fragment: AndromedaFragment) : Comman
             }
 
             // Open the pack
-            val bundle = bundleOf("pack_id" to packId)
+            val bundle = Bundle().apply {
+                putLong("pack_id", packId)
+            }
             fragment.findNavController().navigateWithAnimation(R.id.packItemListFragment, bundle)
         }
     }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -35,9 +34,9 @@ import com.kylecorry.trail_sense.tools.tides.ui.TideFormatter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.tools.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
+import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
 
 class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
@@ -87,14 +86,18 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                     }
 
                     binding.navigateBtn.setOnClickListener {
-                        val bundle = bundleOf("destination" to id)
+                        val bundle = Bundle().apply {
+                            putLong("destination", id)
+                        }
                         findNavController().openTool(Tools.NAVIGATION, bundle)
                     }
 
                     binding.editBtn.isVisible = !temporary
 
                     binding.editBtn.setOnClickListener {
-                        val bundle = bundleOf("edit_beacon" to id)
+                        val bundle = Bundle().apply {
+                            putLong("edit_beacon", id)
+                        }
                         findNavController().navigate(
                             R.id.action_beacon_details_to_beacon_edit,
                             bundle

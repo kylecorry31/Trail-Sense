@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
-import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
@@ -712,11 +711,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             extras: Bundle? = null
         ) {
             navController.navigate(
-                R.id.augmentedRealityFragment, bundleOf(
-                    "mode" to mode.id,
-                    "camera_enabled" to enableCamera,
-                    "extras" to extras
-                )
+                R.id.augmentedRealityFragment, Bundle().apply {
+                    putLong("mode", mode.id)
+                    putBoolean("camera_enabled", enableCamera)
+                    putBundle("extras", extras)
+                }
             )
         }
     }

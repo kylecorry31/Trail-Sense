@@ -5,7 +5,6 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
@@ -52,9 +51,9 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathServ
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
+import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.math.roundToInt
 
 class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
@@ -262,9 +261,9 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun createBeacon(location: Coordinate) {
-        val bundle = bundleOf(
-            "initial_location" to GeoUri(location)
-        )
+        val bundle = Bundle().apply {
+            putParcelable("initial_location", GeoUri(location))
+        }
         findNavController().navigate(R.id.placeBeaconFragment, bundle)
     }
 
@@ -298,7 +297,9 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                     onMain {
                         findNavController().navigate(
                             R.id.action_maps_to_path,
-                            bundleOf("path_id" to id)
+                            Bundle().apply {
+                                putLong("path_id", id)
+                            }
                         )
                     }
                 }
@@ -570,7 +571,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     companion object {
         fun create(mapId: Long, autoLockLocation: Boolean = false): ViewPhotoMapFragment {
             return ViewPhotoMapFragment().apply {
-                arguments = bundleOf("mapId" to mapId, "autoLockLocation" to autoLockLocation)
+                arguments = Bundle().apply {
+                    putLong("mapId", mapId)
+                    putBoolean("autoLockLocation", autoLockLocation)
+                }
             }
         }
     }

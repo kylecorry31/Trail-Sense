@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
 import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.kylecorry.andromeda.core.system.Resources
@@ -51,7 +51,9 @@ class SurvivalGuideBottomSheetFragment :
                 dismiss()
                 navController.navigateWithAnimation(
                     R.id.fragmentToolSurvivalGuideList,
-                    bundleOf("search_query" to query)
+                    Bundle().apply {
+                        putString("search_query", query)
+                    }
                 )
             }
         }
@@ -99,10 +101,10 @@ class SurvivalGuideBottomSheetFragment :
                     dismiss()
                     navController.navigateWithAnimation(
                         R.id.fragmentToolSurvivalGuideReader,
-                        bundleOf(
-                            "chapter_resource_id" to result.chapter.resource,
-                            "header_index" to result.headingIndex
-                        )
+                        Bundle().apply {
+                            putInt("chapter_resource_id", result.chapter.resource)
+                            putInt("header_index", result.headingIndex)
+                        }
                     )
                 }
             }

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.databinding.FragmentCommsPluginBinding
@@ -33,7 +32,9 @@ class FragmentToolLocalTalk : BoundFragment<FragmentCommsPluginBinding>() {
         if (!Package.isPackageInstalled(context, packageName)) return
         val intent = context.packageManager.getLaunchIntentForPackage(packageName) ?: return
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.putExtras(bundleOf("tool" to tool))
+        intent.putExtras(Bundle().apply {
+            putString("tool", tool)
+        })
         context.startActivity(intent)
     }
 }

@@ -14,7 +14,6 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
 import androidx.core.graphics.withSave
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -83,7 +82,7 @@ open class TileMapLayer<T : TileSource>(
     private val srcRect = Rect()
     private val destRect = Rect()
     private val clipPath = Path()
-    protected var layerPreferences: Bundle = bundleOf()
+    protected var layerPreferences: Bundle = Bundle()
     private var featureId: String? = null
 
     private val loadTimer = CoroutineTimer {

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -45,10 +44,10 @@ class GuideListPreferenceFragment : PreferenceFragmentCompat() {
                         onClick(guidePref) {
                             tryOrNothing {
                                 findNavController().navigate(
-                                    R.id.action_guideListFragment_to_guideFragment, bundleOf(
-                                        "guide_name" to guide.name,
-                                        "guide_contents" to guide.contents
-                                    )
+                                    R.id.action_guideListFragment_to_guideFragment, Bundle().apply {
+                                        putString("guide_name", guide.name)
+                                        putInt("guide_contents", guide.contents)
+                                    }
                                 )
                             }
                         }

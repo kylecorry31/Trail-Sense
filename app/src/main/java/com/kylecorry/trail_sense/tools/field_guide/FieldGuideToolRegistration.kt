@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide
 
 import android.content.Context
-import androidx.core.os.bundleOf
+import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
@@ -53,9 +53,11 @@ object FieldGuideToolRegistration : ToolRegistration {
                         val navController = fragment.findNavController()
                         navController.navigateWithAnimation(
                             R.id.fieldGuidePageFragment,
-                            bundleOf(
-                                "page_id" to fieldGuidePageId
-                            )
+                            Bundle().apply {
+                                fieldGuidePageId?.let {
+                                    putLong("page_id", it)
+                                }
+                            }
                         )
                     },
                     geoJsonSource = ::FieldGuideSightingGeoJsonSource

@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrDefault
@@ -228,7 +227,9 @@ object Tools {
         Widgets.requestUpdate(context, widget.widgetClass)
         broadcast(
             SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET,
-            bundleOf("widgetId" to widgetId)
+            Bundle().apply {
+                putString("widgetId", widgetId)
+            }
         )
     }
 

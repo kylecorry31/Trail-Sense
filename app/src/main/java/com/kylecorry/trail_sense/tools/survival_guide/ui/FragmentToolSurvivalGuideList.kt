@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
 import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
@@ -96,7 +96,9 @@ class FragmentToolSurvivalGuideList :
                     ) {
                         navController.navigateWithAnimation(
                             R.id.fragmentToolSurvivalGuideReader,
-                            bundleOf("chapter_resource_id" to it.chapter.resource)
+                            Bundle().apply {
+                                putInt("chapter_resource_id", it.chapter.resource)
+                            }
                         )
                     }
                 }
@@ -119,10 +121,10 @@ class FragmentToolSurvivalGuideList :
                         // TODO: Scroll to the heading
                         navController.navigateWithAnimation(
                             R.id.fragmentToolSurvivalGuideReader,
-                            bundleOf(
-                                "chapter_resource_id" to it.chapter.resource,
-                                "header_index" to it.headingIndex
-                            )
+                            Bundle().apply {
+                                putInt("chapter_resource_id", it.chapter.resource)
+                                putInt("header_index", it.headingIndex)
+                            }
                         )
                     }
                 }
@@ -171,10 +173,10 @@ class FragmentToolSurvivalGuideList :
                 summaryHolderView.setOnClickListener {
                     navController.navigateWithAnimation(
                         R.id.fragmentToolSurvivalGuideReader,
-                        bundleOf(
-                            "chapter_resource_id" to result.chapter.resource,
-                            "header_index" to result.headingIndex
-                        )
+                        Bundle().apply {
+                            putInt("chapter_resource_id", result.chapter.resource)
+                            putInt("header_index", result.headingIndex)
+                        }
                     )
                 }
             }

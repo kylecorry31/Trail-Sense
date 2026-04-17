@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.clouds.quickactions
 
+import android.os.Bundle
 import android.widget.ImageButton
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -20,7 +20,9 @@ class QuickActionScanCloud(button: ImageButton, fragment: Fragment) :
         super.onClick()
         fragment.findNavController().navigateWithAnimation(
             R.id.cloudFragment,
-            bundleOf("open_scanner" to true),
+            Bundle().apply {
+                putBoolean("open_scanner", true)
+            },
         )
     }
 

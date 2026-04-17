@@ -16,7 +16,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -318,7 +317,10 @@ class MainActivity : AndromedaActivity() {
             val error = intent.getStringExtra(TrailSenseExceptionHandler.EXTRA_ERROR) ?: ""
             navController?.navigate(
                 R.id.fragmentToolErrorHandler,
-                bundleOf("tool_id" to toolId, "error" to error)
+                Bundle().apply {
+                    putLong("tool_id", toolId)
+                    putString("error", error)
+                }
             )
             return
         }

@@ -1,10 +1,9 @@
 package com.kylecorry.trail_sense.tools.paths.ui.commands
 
-import androidx.core.os.bundleOf
+import android.os.Bundle
 import androidx.navigation.NavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.paths.domain.Path
-
 
 class ViewPathCommand(
     private val navController: NavController
@@ -15,6 +14,8 @@ class ViewPathCommand(
     }
 
     fun execute(id: Long) {
-        navController.navigate(R.id.action_backtrack_to_path, bundleOf("path_id" to id))
+        navController.navigate(R.id.action_backtrack_to_path, Bundle().apply {
+            putLong("path_id", id)
+        })
     }
 }

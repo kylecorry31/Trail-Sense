@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.signal_finder.ui
 
+import android.os.Bundle
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.ui.useService
@@ -81,9 +81,9 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
                         }
 
                         CellTowerListItemAction.CreateBeacon -> {
-                            val bundle = bundleOf(
-                                "initial_location" to GeoUri(towerLocation.coordinate)
-                            )
+                            val bundle = Bundle().apply {
+                                putParcelable("initial_location", GeoUri(towerLocation.coordinate))
+                            }
                             navController.navigate(R.id.placeBeaconFragment, bundle)
                         }
                     }

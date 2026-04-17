@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -101,7 +100,9 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
     private fun editTide(tide: TideTable) {
         findNavController().navigate(
             R.id.action_tideList_to_createTide,
-            bundleOf("edit_tide_id" to tide.id)
+            Bundle().apply {
+                putLong("edit_tide_id", tide.id)
+            }
         )
     }
 

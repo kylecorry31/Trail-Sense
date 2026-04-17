@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
 import android.graphics.Color
+import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -13,17 +13,17 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -39,13 +39,14 @@ import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
-import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
+import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.shared.views.DateTimeSliderSheet
+import com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
@@ -53,7 +54,6 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
 import java.time.Instant
 
@@ -226,7 +226,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                         onMain {
                             navController.navigateWithAnimation(
                                 R.id.pathDetailsFragment,
-                                bundleOf("path_id" to id)
+                                Bundle().apply {
+                                    putLong("path_id", id)
+                                }
                             )
                         }
                     }
@@ -321,9 +323,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                             formatter.formatLocation(location),
                             listOf(
                                 ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
-                                    val bundle = bundleOf(
-                                        "initial_location" to GeoUri(location)
-                                    )
+                                    val bundle = Bundle().apply {
+                                        putParcelable("initial_location", GeoUri(location))
+                                    }
                                     navController.navigateWithAnimation(
                                         R.id.placeBeaconFragment,
                                         bundle
