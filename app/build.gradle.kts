@@ -3,6 +3,7 @@ import java.time.LocalDate
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
+    id("io.gitlab.arturbosch.detekt")
     id("kotlin-parcelize")
 }
 
@@ -128,6 +129,31 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+    baseline = file("$projectDir/detekt-baseline.xml")
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    jvmTarget = JavaVersion.VERSION_11.toString()
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        sarif.required.set(true)
+        md.required.set(false)
+        txt.required.set(false)
+    }
+}
+
+tasks.named("check").configure {
+    dependsOn("detekt")
+}
+
+tasks.named("lint").configure {
+    dependsOn("detekt")
 }
 
 dependencies {
