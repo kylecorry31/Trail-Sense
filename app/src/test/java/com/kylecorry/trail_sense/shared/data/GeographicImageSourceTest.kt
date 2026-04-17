@@ -15,7 +15,8 @@ class GeographicImageSourceTest {
 
     @ParameterizedTest
     @MethodSource("provideTestData")
-    fun getLocationIsInverseOfGetPixel(location: Coordinate, offset: Float) {
+    fun getLocationIsInverseOfGetPixel(latitude: Double, longitude: Double, offset: Float) {
+        val location = Coordinate(latitude, longitude)
         val size = mock<Size> {
             on { width } doReturn 100
             on { height } doReturn 100
@@ -52,7 +53,7 @@ class GeographicImageSourceTest {
 
             return locations.flatMap { location ->
                 offsets.map { offset ->
-                    Arguments.of(location, offset)
+                    Arguments.of(location.latitude, location.longitude, offset)
                 }
             }.stream()
         }

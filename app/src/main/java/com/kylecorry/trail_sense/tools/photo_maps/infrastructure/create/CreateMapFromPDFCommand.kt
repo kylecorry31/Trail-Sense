@@ -51,7 +51,7 @@ class CreateMapFromPDFCommand(
 
             val points = listOf(first, second).map {
                 MapCalibrationPoint(
-                    Coordinate.constrained(it.second.latitude, it.second.longitude),
+                    Coordinate(it.second.latitude, it.second.longitude),
                     PercentCoordinate(scale * it.first.x / bp.width, scale * it.first.y / bp.height)
                 )
             }
