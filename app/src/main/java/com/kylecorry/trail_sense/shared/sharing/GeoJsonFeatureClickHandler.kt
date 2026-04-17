@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.sharing
 
-import androidx.core.os.bundleOf
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -25,10 +25,10 @@ object GeoJsonFeatureClickHandler {
     ) {
         val layerId = feature.getLayerId()
 
-        val bundle = bundleOf(
-            MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID to feature.id?.toString(),
-            MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID to layerId
-        )
+        val bundle = Bundle().apply {
+            putString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID, feature.id?.toString())
+            putString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID, layerId)
+        }
         Tools.broadcast(MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED, bundle)
 
         val formatter = AppServiceRegistry.get<FormatService>()
@@ -77,10 +77,10 @@ object GeoJsonFeatureClickHandler {
             }
 
             // Broadcast deselection after the action
-            val deselectBundle = bundleOf(
-                MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID to null,
-                MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID to layerId
-            )
+            val deselectBundle = Bundle().apply {
+                putString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID, null)
+                putString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID, layerId)
+            }
             Tools.broadcast(
                 MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
                 deselectBundle

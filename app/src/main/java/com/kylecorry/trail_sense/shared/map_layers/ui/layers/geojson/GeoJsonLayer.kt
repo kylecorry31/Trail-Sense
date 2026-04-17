@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 
 import android.content.Context
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -22,10 +21,10 @@ import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import kotlinx.coroutines.CancellationException
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
+import kotlinx.coroutines.CancellationException
 
 typealias OnGeoJsonFeatureClickListener = (GeoJsonFeature) -> Unit
 
@@ -42,7 +41,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
-    protected var layerPreferences: Bundle = bundleOf()
+    protected var layerPreferences: Bundle = Bundle()
     private var featureId: String? = null
     private var isWidget = false
     private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
@@ -90,10 +89,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                     }
                 }
 
-                val params = bundleOf(
-                    MapLayerParams.PARAM_TIME to _renderTime.toEpochMilli(),
-                    MapLayerParams.PARAM_IS_WIDGET to isWidget
-                )
+                val params = Bundle().apply {
+                    putLong(MapLayerParams.PARAM_TIME, _renderTime.toEpochMilli())
+                    putBoolean(MapLayerParams.PARAM_IS_WIDGET, isWidget)
+                }
                 params.putBundle(MapLayerParams.PARAM_PREFERENCES, layerPreferences)
                 featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }
                 val obj =

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.weather.services
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
@@ -110,9 +110,9 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
         if (preference in frequencyChangePrefKeys) {
             Tools.broadcast(
                 WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED,
-                bundleOf(
-                    WeatherToolRegistration.BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY to prefs.weather.weatherUpdateFrequency.toMillis()
-                )
+                Bundle().apply {
+                    putLong(WeatherToolRegistration.BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY, prefs.weather.weatherUpdateFrequency.toMillis())
+                }
             )
         }
 

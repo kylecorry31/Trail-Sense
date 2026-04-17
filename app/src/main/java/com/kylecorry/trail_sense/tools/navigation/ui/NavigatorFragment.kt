@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -70,7 +69,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagn
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.time.Duration
 import java.time.Instant
-
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
@@ -260,12 +258,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.beaconBtn.setOnLongClickListener {
             if (gps.hasValidReading) {
-                val bundle = bundleOf(
-                    "initial_location" to GeoUri(
+                val bundle = Bundle().apply {
+                    putParcelable("initial_location", GeoUri(
                         gps.location,
                         if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
-                    )
-                )
+                    ))
+                }
                 findNavController().openTool(Tools.BEACONS, bundle)
             } else {
                 findNavController().openTool(Tools.BEACONS)

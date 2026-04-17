@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.BundleCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -56,7 +55,6 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.NameBeaconSor
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import java.time.Instant
-
 
 class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
@@ -391,7 +389,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         initialLocation: GeoUri? = null,
         editingBeaconId: Long? = null
     ) {
-        val bundle = bundleOf()
+        val bundle = Bundle()
 
         group?.let { bundle.putLong("initial_group", it) }
         initialLocation?.let { bundle.putParcelable("initial_location", it) }
@@ -408,7 +406,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun viewBeacon(id: Long) {
-        val bundle = bundleOf("beacon_id" to id)
+        val bundle = Bundle().apply {
+            putLong("beacon_id", id)
+        }
         navController.navigate(
             R.id.action_beacon_list_to_beaconDetailsFragment,
             bundle

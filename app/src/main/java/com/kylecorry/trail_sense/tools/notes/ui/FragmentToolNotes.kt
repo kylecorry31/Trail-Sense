@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -79,7 +78,9 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
     }
 
     private fun editNote(note: Note) {
-        val bundle = bundleOf("edit_note_id" to note.id)
+        val bundle = Bundle().apply {
+            putLong("edit_note_id", note.id)
+        }
         findNavController().navigate(
             R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate,
             bundle

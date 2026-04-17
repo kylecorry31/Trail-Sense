@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.quickactions
 
+import android.os.Bundle
 import android.widget.ImageButton
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -55,7 +55,10 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
                         fragment.findNavController()
                             .navigate(
                                 R.id.photoMapsFragment,
-                                bundleOf("mapId" to id, "autoLockLocation" to true)
+                                Bundle().apply {
+                                    putLong("mapId", id)
+                                    putBoolean("autoLockLocation", true)
+                                }
                             )
                     } else {
                         fragment.findNavController().navigate(R.id.mapListFragment)

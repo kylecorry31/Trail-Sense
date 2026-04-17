@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -106,7 +105,9 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
 
     private fun openPack(packId: Long) {
         tryOrNothing {
-            val bundle = bundleOf("pack_id" to packId)
+            val bundle = Bundle().apply {
+                putLong("pack_id", packId)
+            }
             findNavController().navigate(R.id.action_pack_to_pack_items, bundle)
         }
     }

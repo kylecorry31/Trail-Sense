@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure
 
+import android.os.Bundle
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
@@ -9,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.argThat
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -20,12 +20,14 @@ internal class BeaconNavigatorTest {
     private lateinit var navigator: BeaconNavigator
     private lateinit var navigation: IAppNavigation
     private lateinit var service: IBeaconService
+    private lateinit var bundle: Bundle
 
     @BeforeEach
     fun setup() {
         navigation = mock()
         service = mock()
-        navigator = BeaconNavigator(service, navigation, Dispatchers.Default)
+        bundle = mock()
+        navigator = BeaconNavigator(service, navigation, Dispatchers.Default) { bundle }
     }
 
     @Test
@@ -34,10 +36,8 @@ internal class BeaconNavigatorTest {
 
         navigator.navigateTo(beacon)
 
-        verify(navigation).navigate(
-            eq(R.id.action_navigation),
-            argThat { size == 1 && first().first == "destination" && first().second == 2L }
-        )
+        verify(bundle).putLong("destination", 2L)
+        verify(navigation).navigate(eq(R.id.action_navigation), eq(bundle))
     }
 
     @Test
@@ -50,10 +50,8 @@ internal class BeaconNavigatorTest {
         navigator.navigateTo(beacon)
 
         verify(service).add(beacon)
-        verify(navigation).navigate(
-            eq(R.id.action_navigation),
-            argThat { size == 1 && first().first == "destination" && first().second == 1L }
-        )
+        verify(bundle).putLong("destination", 1L)
+        verify(navigation).navigate(eq(R.id.action_navigation), eq(bundle))
 
     }
 }

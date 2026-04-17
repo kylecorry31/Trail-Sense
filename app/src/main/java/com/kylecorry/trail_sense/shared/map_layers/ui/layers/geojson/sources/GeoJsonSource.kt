@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources
 
 import android.content.Context
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 
@@ -11,7 +10,7 @@ interface GeoJsonSource {
         context: Context,
         bounds: CoordinateBounds,
         zoom: Int,
-        params: Bundle = bundleOf()
+        params: Bundle = Bundle()
     ): GeoJsonObject?
 
 }

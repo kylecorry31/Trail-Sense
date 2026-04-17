@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
+import android.os.Bundle
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -79,10 +79,10 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
 
         val editSighting = useCallback(navController) { sighting: Sighting ->
             navController.navigateWithAnimation(
-                R.id.createFieldGuideSightingFragment, bundleOf(
-                    "page_id" to pageId,
-                    "sighting_id" to sighting.id,
-                )
+                R.id.createFieldGuideSightingFragment, Bundle().apply {
+                    putLong("page_id", pageId)
+                    putLong("sighting_id", sighting.id)
+                }
             )
         }
 
@@ -99,13 +99,13 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
             }
 
         val createBeacon = useCallback(navController, page) { sighting: Sighting ->
-            val bundle = bundleOf(
-                "initial_location" to GeoUri(
+            val bundle = Bundle().apply {
+                putParcelable("initial_location", GeoUri(
                     sighting.location ?: Coordinate.zero,
                     sighting.altitude,
                     mapOf("label" to (page?.name ?: ""))
-                )
-            )
+                ))
+            }
             navController.navigateWithAnimation(R.id.placeBeaconFragment, bundle)
         }
 
@@ -168,7 +168,9 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
             createButtonView.setOnClickListener {
                 navController.navigateWithAnimation(
                     R.id.createFieldGuideSightingFragment,
-                    bundleOf("page_id" to pageId)
+                    Bundle().apply {
+                        putLong("page_id", pageId)
+                    }
                 )
             }
         }

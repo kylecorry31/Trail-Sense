@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -52,12 +51,12 @@ import com.kylecorry.trail_sense.tools.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMode
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
@@ -133,7 +132,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 findNavController(),
                 ARMode.Astronomy,
                 enableCamera = prefs.astronomy.startCameraIn3DView,
-                bundleOf("time" to time.toString())
+                Bundle().apply {
+                    putString("time", time.toString())
+                }
             )
         }
 

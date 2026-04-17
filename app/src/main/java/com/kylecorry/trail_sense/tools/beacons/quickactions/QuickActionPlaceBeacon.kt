@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.quickactions
 
+import android.os.Bundle
 import android.widget.ImageButton
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -19,8 +19,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment
-import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
+import kotlinx.coroutines.launch
 
 class QuickActionPlaceBeacon(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
@@ -76,9 +76,9 @@ class QuickActionPlaceBeacon(btn: ImageButton, fragment: Fragment) :
                     ) {
                         fragment.findNavController().navigateWithAnimation(
                             R.id.beaconDetailsFragment,
-                            bundleOf(
-                                "beacon_id" to id
-                            )
+                            Bundle().apply {
+                                putLong("beacon_id", id)
+                            }
                         )
                     }
 

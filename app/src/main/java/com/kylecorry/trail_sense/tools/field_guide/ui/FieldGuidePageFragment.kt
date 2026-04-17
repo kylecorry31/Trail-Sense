@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Color
+import android.os.Bundle
 import android.text.util.Linkify.WEB_URLS
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.text.toSpannable
 import androidx.core.text.util.LinkifyCompat
@@ -56,7 +56,11 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             titleView.rightButton.setOnClickListener {
                 navController.navigate(
                     R.id.createFieldGuidePageFragment,
-                    bundleOf("page_id" to page?.id)
+                    Bundle().apply {
+                        page?.id?.let {
+                            putLong("page_id", it)
+                        }
+                    }
                 )
             }
             titleView.title.text = page?.name
@@ -75,9 +79,9 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             page ?: return@useEffect
             sightingsView.setOnClickListener {
                 navController.navigate(
-                    R.id.sightingListFragment, bundleOf(
-                        "page_id" to page.id
-                    )
+                    R.id.sightingListFragment, Bundle().apply {
+                        putLong("page_id", page.id)
+                    }
                 )
             }
             sightingsView.text = getString(R.string.sightings_count, page.sightings.size)

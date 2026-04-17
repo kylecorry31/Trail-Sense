@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -31,7 +30,6 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.commands.PrintM
 import com.kylecorry.trail_sense.tools.photo_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.photo_maps.ui.commands.RenameMapCommand
 import kotlin.math.absoluteValue
-
 
 class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
 
@@ -283,7 +281,9 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     private fun warp() {
         hideRotation()
         val fragment = WarpMapFragment().apply {
-            arguments = bundleOf("mapId" to mapId)
+            arguments = Bundle().apply {
+                putLong("mapId", mapId)
+            }
         }.also {
             binding.mapTitle.leftButton.isVisible = false
             it.setOnCompleteListener {

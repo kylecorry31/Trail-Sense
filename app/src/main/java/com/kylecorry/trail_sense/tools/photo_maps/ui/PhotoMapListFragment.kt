@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.BundleCompat
-import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -292,7 +291,9 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
         } else {
             findNavController().navigate(
                 R.id.action_mapList_to_maps,
-                bundleOf("mapId" to map.id)
+                Bundle().apply {
+                    putLong("mapId", map.id)
+                }
             )
         }
     }
@@ -401,7 +402,9 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
             manager.refresh(true)
             findNavController().navigate(
                 R.id.action_mapList_to_maps,
-                bundleOf("mapId" to map.id)
+                Bundle().apply {
+                    putLong("mapId", map.id)
+                }
             )
 
         }

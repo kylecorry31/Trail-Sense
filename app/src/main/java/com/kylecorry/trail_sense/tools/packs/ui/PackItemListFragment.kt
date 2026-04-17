@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -28,10 +27,10 @@ import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.commands.ExportPackingListCommand
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemAction
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemListItemMapper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.lang.Double.max
 import kotlin.math.floor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
@@ -74,7 +73,9 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         binding.addBtn.setOnClickListener {
             findNavController().navigate(
                 R.id.action_action_inventory_to_createItemFragment,
-                bundleOf("pack_id" to packId)
+                Bundle().apply {
+                    putLong("pack_id", packId)
+                }
             )
         }
 
@@ -181,7 +182,10 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun editItem(item: PackItem) {
-        val bundle = bundleOf("edit_item_id" to item.id, "pack_id" to packId)
+        val bundle = Bundle().apply {
+            putLong("edit_item_id", item.id)
+            putLong("pack_id", packId)
+        }
         findNavController().navigate(R.id.action_action_inventory_to_createItemFragment, bundle)
     }
 

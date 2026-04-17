@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -171,7 +170,9 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
                 ) {
                     findNavController().navigate(
                         R.id.fragmentToolNotesCreate,
-                        bundleOf("edit_note_id" to id)
+                        Bundle().apply {
+                            putLong("edit_note_id", id)
+                        }
                     )
                 }
             }
@@ -206,7 +207,9 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
             ) {
                 findNavController().navigate(
                     R.id.beaconDetailsFragment,
-                    bundleOf("beacon_id" to id)
+                    Bundle().apply {
+                        putLong("beacon_id", id)
+                    }
                 )
             }
         }

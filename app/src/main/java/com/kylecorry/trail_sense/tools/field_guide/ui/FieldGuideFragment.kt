@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
+import android.os.Bundle
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.ui.useCallback
@@ -181,7 +181,9 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         return useCallback { tag ->
             navController.navigate(
                 R.id.createFieldGuidePageFragment,
-                bundleOf("classification_id" to (tag?.id ?: 0L))
+                Bundle().apply {
+                    putLong("classification_id", (tag?.id ?: 0L))
+                }
             )
         }
     }
@@ -191,7 +193,9 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         return useCallback(navController) { page ->
             navController.navigate(
                 R.id.createFieldGuidePageFragment,
-                bundleOf("page_id" to page.id)
+                Bundle().apply {
+                    putLong("page_id", page.id)
+                }
             )
         }
     }
@@ -201,7 +205,9 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         return useCallback(navController) { page ->
             navController.navigate(
                 R.id.fieldGuidePageFragment,
-                bundleOf("page_id" to page.id)
+                Bundle().apply {
+                    putLong("page_id", page.id)
+                }
             )
         }
     }

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.beacons
 
 import android.content.Context
 import android.os.Build
-import androidx.core.os.bundleOf
+import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.trail_sense.R
@@ -36,7 +36,9 @@ object BeaconsToolRegistration : ToolRegistration {
             if (intent.scheme != "geo") return@ToolIntentHandler false
             val geo = GeoUri.from(intentData) ?: return@ToolIntentHandler false
 
-            val bundle = bundleOf("initial_location" to geo)
+            val bundle = Bundle().apply {
+                putParcelable("initial_location", geo)
+            }
             activity.findNavController()?.navigate(
                 R.id.beacon_list,
                 bundle
@@ -48,7 +50,9 @@ object BeaconsToolRegistration : ToolRegistration {
         ToolIntentHandler { activity, intent ->
             val beaconId = intent.getLongExtra("beacon_id", -1L)
             if (beaconId == -1L) return@ToolIntentHandler false
-            val bundle = bundleOf("beacon_id" to beaconId)
+            val bundle = Bundle().apply {
+                putLong("beacon_id", beaconId)
+            }
             activity.findNavController()?.navigate(
                 R.id.beaconDetailsFragment,
                 bundle
@@ -115,9 +119,11 @@ object BeaconsToolRegistration : ToolRegistration {
                         val navController = fragment.findNavController()
                         navController.navigateWithAnimation(
                             R.id.beaconDetailsFragment,
-                            bundleOf(
-                                "beacon_id" to beaconId
-                            )
+                            Bundle().apply {
+                                beaconId?.let {
+                                    putLong("beacon_id", it)
+                                }
+                            }
                         )
                     },
                     geoJsonSource = ::BeaconGeoJsonSource,

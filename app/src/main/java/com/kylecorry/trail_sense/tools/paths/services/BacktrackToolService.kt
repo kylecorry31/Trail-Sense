@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.paths.services
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
-import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
@@ -111,9 +111,9 @@ class BacktrackToolService(private val context: Context) : ToolService {
         if (preference in frequencyChangePrefKeys) {
             Tools.broadcast(
                 PathsToolRegistration.BROADCAST_BACKTRACK_FREQUENCY_CHANGED,
-                bundleOf(
-                    PathsToolRegistration.BROADCAST_PARAM_BACKTRACK_FREQUENCY to prefs.backtrackRecordFrequency.toMillis()
-                )
+                Bundle().apply {
+                    putLong(PathsToolRegistration.BROADCAST_PARAM_BACKTRACK_FREQUENCY, prefs.backtrackRecordFrequency.toMillis())
+                }
             )
         }
 

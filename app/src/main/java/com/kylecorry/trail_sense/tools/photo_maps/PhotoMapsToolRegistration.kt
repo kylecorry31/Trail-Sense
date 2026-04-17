@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps
 
 import android.content.Context
-import androidx.core.os.bundleOf
+import android.os.Bundle
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
@@ -28,7 +28,9 @@ object PhotoMapsToolRegistration : ToolRegistration {
         }
 
         val intentUri = intent.clipData?.getItemAt(0)?.uri ?: return@ToolIntentHandler false
-        val bundle = bundleOf("map_intent_uri" to intentUri)
+        val bundle = Bundle().apply {
+            putParcelable("map_intent_uri", intentUri)
+        }
         activity.findNavController()?.navigate(R.id.mapListFragment, bundle)
         true
     }

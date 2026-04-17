@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -31,10 +31,10 @@ import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import java.time.ZonedDateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.ZonedDateTime
 
 class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     FrameLayout(context, attrs) {
@@ -233,9 +233,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private fun openBeacon(id: Long) {
         findNavController().navigateWithAnimation(
             R.id.beaconDetailsFragment,
-            bundleOf(
-                "beacon_id" to id
-            )
+            Bundle().apply {
+                putLong("beacon_id", id)
+            }
         )
     }
 

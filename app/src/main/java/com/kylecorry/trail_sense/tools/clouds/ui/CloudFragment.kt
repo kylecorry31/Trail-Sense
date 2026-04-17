@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -98,7 +97,9 @@ class CloudFragment : BoundFragment<FragmentToolCloudsBinding>() {
                     uri?.let {
                         findNavController().navigate(
                             R.id.action_cloud_to_cloud_picker,
-                            bundleOf("image" to uri)
+                            Bundle().apply {
+                                putParcelable("image", uri)
+                            }
                         )
                     }
                 }
@@ -116,7 +117,9 @@ class CloudFragment : BoundFragment<FragmentToolCloudsBinding>() {
             temp?.let {
                 findNavController().navigate(
                     R.id.action_cloud_to_cloud_picker,
-                    bundleOf("image" to it)
+                    Bundle().apply {
+                        putParcelable("image", it)
+                    }
                 )
             }
         }
