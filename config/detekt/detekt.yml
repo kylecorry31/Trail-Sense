@@ -4,6 +4,10 @@ config:
 style:
   MagicNumber:
     active: false
+
+naming:
+  PackageNaming:
+    active: false
   
 orion:
   NoRecursion:
