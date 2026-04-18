@@ -3,7 +3,7 @@ import java.time.LocalDate
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
-    id("io.gitlab.arturbosch.detekt")
+    id("dev.detekt")
     id("kotlin-parcelize")
 }
 
@@ -137,23 +137,8 @@ detekt {
     baseline = file("$projectDir/detekt-baseline.xml")
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
     jvmTarget = JavaVersion.VERSION_11.toString()
-    reports {
-        html.required.set(true)
-        xml.required.set(true)
-        sarif.required.set(true)
-        md.required.set(false)
-        txt.required.set(false)
-    }
-}
-
-tasks.named("check").configure {
-    dependsOn("detekt")
-}
-
-tasks.named("lint").configure {
-    dependsOn("detekt")
 }
 
 dependencies {
@@ -228,6 +213,9 @@ dependencies {
     // Misc
     implementation(libs.sol)
     implementation(libs.luna)
+
+    // Linting
+    detektPlugins(libs.orion)
 
     // Testing
     testImplementation(libs.junit)

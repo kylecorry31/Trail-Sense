@@ -1,19 +1,10 @@
-build:
-  maxIssues: 0
-
 config:
   validation: true
-  warningsAsErrors: true
-
-processors:
-  active: true
-
-console-reports:
-  active: true
-
-output-reports:
-  active: true
 
 style:
   MagicNumber:
     active: false
+  
+orion:
+  NoRecursion:
+    active: true

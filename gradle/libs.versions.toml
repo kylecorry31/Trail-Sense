@@ -11,7 +11,7 @@ cameraxVersion = "1.6.0"
 coreKtx = "1.18.0"
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
-detekt = "1.23.8"
+detekt = "2.0.0-alpha.2"
 desugar_jdk_libs = "2.1.5"
 flexbox = "3.0.0"
 fragment = "1.8.9"
@@ -28,6 +28,7 @@ lifecycleVersion = "2.10.0"
 material = "1.13.0"
 luna = "1.3.0"
 mockitoKotlin = "6.3.0"
+orion = "1.1.0"
 roomVersion = "2.8.4"
 sol = "17.0.2"
 workRuntimeKtx = "2.11.2"
@@ -102,6 +103,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
+orion = { module = "com.kylecorry:orion", version.ref = "orion" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
@@ -112,5 +114,5 @@ work-testing = { module = "androidx.work:work-testing", version.ref = "workRunti
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
