@@ -222,7 +222,7 @@
     <string name="tool_cliff_height_title">Výška útesu</string>
     <string name="tool_cliff_height_disclaimer">Tento nástroj používejte pouze tehdy, je-li to bezpečné, a nezapomeňte zkontrolovat, co se nachází pod útesem, abyste předešli zranění. Pokyny naleznete v uživatelské příručce.</string>
     <string name="inventory_empty_text">Žádně věci</string>
-    <string name="distance_from">Od</string>
+    <string name="distance_from">Z</string>
     <string name="unit_meters">Metry</string>
     <string name="unit_kilometers">Kilometry</string>
     <string name="unit_miles">Míle</string>
@@ -248,7 +248,7 @@
     <string name="pref_open_source_licenses_title">Licence</string>
     <string name="pref_category_about">O aplikaci</string>
     <string name="tool_bubble_level_summary">Určete, zda jsou povrchy rovné</string>
-    <string name="distance_to">K</string>
+    <string name="distance_to">Na</string>
     <string name="guide_recommended_apps">Doporučené aplikace</string>
     <string name="tool_bubble_level_title">Bublinová vodováha</string>
     <string name="category_clothing">Oblečení</string>
@@ -1564,4 +1564,5 @@
     <string name="biting_flies_mosquitoes">Pakomárcovití/komárovití</string>
     <string name="ecology">Ekologie</string>
     <string name="pref_ruler_flip_direction_title">Opačný směr pravítka</string>
+    <string name="do_not_ask_again">Znovu se neptat</string>
 </resources>
