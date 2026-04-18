@@ -135,6 +135,7 @@ detekt {
     buildUponDefaultConfig = true
     config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
     baseline = file("$projectDir/detekt-baseline.xml")
+    source.setFrom("src/main/java", "src/main/kotlin")
 }
 
 tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
