@@ -1,0 +1,33 @@
+Navigace
+- Nový vzhled kompasu
+- Možnost zobrazit blízké majáky
+
+Počasí
+- Odhad aktivity hmyzu
+
+Mapa
+- Režim trasování
+- Možnost zvětšit velikost ukazatele polohy
+
+Majáky
+- Přidání dalších ikon
+
+Pravítko
+- Možnost obrátit směr
+- Zvýraznění měření
+
+Astronomie
+- Klepnutím na graf změníte čas
+
+Lupa
+- Nový nástroj
+
+Rozšířená realita
+- Zobrazení hvězd/planet s nízkým jasem
+
+Senzory
+- Rychlá akce pro rekalibraci výškoměru
+
+Seznamy věcí
+- Označení položek jako volitelných
+- Hmotnost v librách a uncích
