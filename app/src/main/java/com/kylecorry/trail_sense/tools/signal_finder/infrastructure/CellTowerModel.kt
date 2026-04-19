@@ -18,20 +18,20 @@ import com.kylecorry.trail_sense.shared.data.TiledImageReader
 object CellTowerModel {
 
     // Image data source
-    private val resolution = 0.01
+    private const val RESOLUTION = 0.01
     private val size = Size(9000, 6000)
-    private val rows = 3
-    private val columns = 4
+    private const val ROWS = 3
+    private const val COLUMNS = 4
 
     // Accounts for errors in the dataset
-    private val accuracyScale = 2f
+    private const val ACCURACY_SCALE = 2f
 
     fun getAccuracy(towerLocation: Coordinate): Distance {
         return Distance.meters(
-            accuracyScale * towerLocation.distanceTo(
+            ACCURACY_SCALE * towerLocation.distanceTo(
                 Coordinate(
                     towerLocation.latitude,
-                    towerLocation.longitude + resolution / 2
+                    towerLocation.longitude + RESOLUTION / 2
                 )
             )
         )
@@ -80,7 +80,7 @@ object CellTowerModel {
 
     private val source = GeographicImageSource(
         EncodedDataImageReader(
-            getTileReader(rows, columns, size, getFiles(rows * columns)),
+            getTileReader(ROWS, COLUMNS, size, getFiles(ROWS * COLUMNS)),
             decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
             maxChannels = 1
         ),
@@ -95,15 +95,15 @@ object CellTowerModel {
         val locations = mutableListOf<Coordinate>()
 
         val latitudes = Interpolation.getMultiplesBetween(
-            bounds.south - resolution,
-            bounds.north + resolution,
-            resolution
+            bounds.south - RESOLUTION,
+            bounds.north + RESOLUTION,
+            RESOLUTION
         )
 
         val longitudes = Interpolation.getMultiplesBetween(
-            bounds.west - resolution,
-            bounds.east + resolution,
-            resolution
+            bounds.west - RESOLUTION,
+            bounds.east + RESOLUTION,
+            RESOLUTION
         )
 
         latitudes.forEach { lat ->
@@ -125,8 +125,8 @@ object CellTowerModel {
     ): List<ApproximateCoordinate> = onIO {
         val pixelsToLoad = locations.associate {
             val rounded = it.copy(
-                latitude = it.latitude.roundNearest(resolution),
-                longitude = it.longitude.roundNearest(resolution)
+                latitude = it.latitude.roundNearest(RESOLUTION),
+                longitude = it.longitude.roundNearest(RESOLUTION)
             )
             val pixel = source.getPixel(rounded)
             pixel to rounded

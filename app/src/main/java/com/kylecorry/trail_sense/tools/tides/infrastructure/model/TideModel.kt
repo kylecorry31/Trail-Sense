@@ -34,10 +34,10 @@ object TideModel {
     // Image data source
     private val size = Size(720, 360)
     private val condensedSize = Size(128, 105)
-    private val minAmplitude = 0f
+    private const val MIN_AMPLITUDE = 0f
     private val minPhase = -180.0
-    private val maxPhase = 180.0
-    private val searchSize = 5
+    private const val MAX_PHASE = 180.0
+    private const val SEARCH_SIZE = 5
 
     private val source = GeographicImageSource(
         EncodedDataImageReader(
@@ -92,7 +92,7 @@ object TideModel {
                 context,
                 location,
                 "tides/tide-indices-1-2.webp",
-                searchSize,
+                SEARCH_SIZE,
                 hasValue = { it.red > 0 || it.green > 0 },
                 hasMappedValue = { it[0] > 0f || it[1] > 0f }
             )
@@ -165,14 +165,14 @@ object TideModel {
 
                 val amplitude = (largeAmplitude ?: Interpolation.lerp(
                     (getColorIndex(amplitudePixel, j).toDouble() / 255),
-                    minAmplitude.toDouble(),
+                    MIN_AMPLITUDE.toDouble(),
                     amplitudes[harmonic]!!
                 ).toFloat()) / 100f
                 val phase = wrap(
                     Interpolation.lerp(
                         (getColorIndex(phasePixel, j).toDouble() / 255),
                         minPhase,
-                        maxPhase
+                        MAX_PHASE
                     ), 0.0, 360.0
                 ).toFloat()
 

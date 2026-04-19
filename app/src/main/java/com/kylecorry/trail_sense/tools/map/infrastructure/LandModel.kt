@@ -25,8 +25,8 @@ object LandModel {
 
     // Image data source
     private val size = Size(3800, 1900)
-    private val precision = 4
-    private val offset = 0.5f
+    private const val PRECISION = 4
+    private const val OFFSET = 0.5f
 
     private val source = GeographicImageSource(
         EncodedDataImageReader(
@@ -34,7 +34,7 @@ object LandModel {
             decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
             maxChannels = 3,
         ),
-        precision = precision,
+        precision = PRECISION,
         interpolationOrder = 0
     )
 
@@ -100,12 +100,12 @@ object LandModel {
                             if (landNeighbors >= minLandNeighbors && waterNeighbors >= minWaterNeighbors) {
                                 val globalX =
                                     Arithmetic.wrap(
-                                        rect.left + x.toFloat() + offset,
+                                        rect.left + x.toFloat() + OFFSET,
                                         0f,
                                         size.width.toFloat()
                                     )
                                 val globalY =
-                                    (rect.top + y + offset)
+                                    (rect.top + y + OFFSET)
                                         .coerceIn(0f, size.height.toFloat() - 1f)
                                 coastalLocations.add(
                                     source.getLocation(
