@@ -4,7 +4,7 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappableLocation
+import com.kylecorry.trail_sense.shared.domain.IMappableLocation
 
 data class Beacon(
     override val id: Long,

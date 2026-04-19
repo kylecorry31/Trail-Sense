@@ -1,0 +1,23 @@
+package com.kylecorry.trail_sense.tools.navigation.ui.compass
+
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.domain.IMappableBearing
+import com.kylecorry.trail_sense.shared.domain.IMappableReferencePoint
+import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.ICompassLayer
+
+interface ICompassView {
+
+    var compassCenter: Coordinate
+    var useTrueNorth: Boolean
+    var declination: Float
+    var azimuth: Float
+
+    fun addCompassLayer(layer: ICompassLayer)
+    fun removeCompassLayer(layer: ICompassLayer)
+    fun setCompassLayers(layers: List<ICompassLayer>)
+
+    // TODO: Replace mappable reference point with a compass marker
+    fun draw(reference: IMappableReferencePoint, size: Int? = null)
+
+    fun draw(bearing: IMappableBearing, stopAt: Coordinate? = null)
+}

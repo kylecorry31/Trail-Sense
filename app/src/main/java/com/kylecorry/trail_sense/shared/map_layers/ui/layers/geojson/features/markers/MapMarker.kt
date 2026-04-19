@@ -1,0 +1,23 @@
+package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.markers
+
+import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.units.Coordinate
+
+interface MapMarker {
+    val location: Coordinate?
+    val size: Float
+    val rotation: Float?
+    val rotateWithUser: Boolean
+    val scaleToLocationAccuracy: Boolean
+    fun draw(
+        drawer: ICanvasDrawer,
+        anchor: PixelCoordinate,
+        scale: Float,
+        rotation: Float,
+        metersPerPixel: Float
+    )
+
+    fun onClick(): Boolean
+    fun calculateSizeInPixels(drawer: ICanvasDrawer, metersPerPixel: Float, scale: Float): Float
+}

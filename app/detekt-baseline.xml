@@ -179,7 +179,6 @@
     <ID>ForbiddenComment:LinearSightingCompassView.kt:LinearSightingCompassView$// TODO: Make this more efficient (only update when the camera changes)</ID>
     <ID>ForbiddenComment:LocalMessagingToolRegistration.kt:LocalMessagingToolRegistration$// TODO: Have an open action rather than navigation ID</ID>
     <ID>ForbiddenComment:LocalTalkToolRegistration.kt:LocalTalkToolRegistration$// TODO: Have an open action rather than navigation ID</ID>
-    <ID>ForbiddenComment:LocationMath.kt:// TODO: Remove this</ID>
     <ID>ForbiddenComment:LocationSubsystem.kt:LocationSubsystem$// TODO: Technically not true - this should probably by another broadcast</ID>
     <ID>ForbiddenComment:MapCalibrationView.kt:MapCalibrationView$// TODO: Support dragging the coordinates</ID>
     <ID>ForbiddenComment:MapLayerLoader.kt:// TODO: Consider loading required attribution with the layer data rather than the definition (definition can contain the long form attribution)</ID>

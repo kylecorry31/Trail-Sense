@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.paths.ui
 import android.content.Context
 import android.graphics.Color
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
+import com.kylecorry.trail_sense.shared.domain.IMappablePath
+import com.kylecorry.trail_sense.shared.domain.MappableLocation
+import com.kylecorry.trail_sense.shared.domain.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle

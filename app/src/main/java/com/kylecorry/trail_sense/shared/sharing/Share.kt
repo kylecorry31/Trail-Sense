@@ -7,10 +7,10 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationCopy
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationGeoSender
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationQRSender
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationSharesheet
+import com.kylecorry.trail_sense.shared.sharing.location.LocationCopy
+import com.kylecorry.trail_sense.shared.sharing.location.LocationGeoSender
+import com.kylecorry.trail_sense.shared.sharing.location.LocationQRSender
+import com.kylecorry.trail_sense.shared.sharing.location.LocationSharesheet
 
 object Share {
 

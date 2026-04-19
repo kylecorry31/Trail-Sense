@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceT
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTarget
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
-import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
+import com.kylecorry.trail_sense.shared.andromeda_temp.DrawerBitmapLoader
 import kotlin.math.hypot
 
 class ARBeaconLayer(

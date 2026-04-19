@@ -40,6 +40,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.domain.MappableBearing
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
@@ -57,13 +58,12 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickActionBinder
-import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
+import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationCompassLayerManager
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.BeaconCompassLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.NavigationCompassLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.BeaconCompassLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.compass.ICompassView
+import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.MarkerCompassLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.NavigationCompassLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
