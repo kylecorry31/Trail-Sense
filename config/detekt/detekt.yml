@@ -4,6 +4,8 @@ config:
 style:
   MagicNumber:
     active: false
+  MaxLineLength:
+    active: false
 
 naming:
   PackageNaming:
