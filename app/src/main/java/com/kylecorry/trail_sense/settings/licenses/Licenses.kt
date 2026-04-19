@@ -78,10 +78,10 @@ object Licenses {
                 "ingfabby",
                 "hphan9",
                 "KovalevArtem",
-                "AHOHNMYC",
                 "Ricky-Tigg",
                 "imBigo",
                 "SebV60",
+                "PineappleSnackz",
                 "yurtpage",
                 "naoritzio",
                 "bgo-eiu",
@@ -90,6 +90,7 @@ object Licenses {
                 "mellvie",
                 "Mohammadshir2004",
                 "volodymyr-ahafonov",
+                "AHOHNMYC",
                 "asafran",
                 "sguinetti",
                 "tetrdd",
@@ -101,8 +102,8 @@ object Licenses {
                 "Oymate",
                 "Poussinou",
                 "rezaalmanda",
+                "efraletti",
                 "WuerfelDev",
-                "PineappleSnackz",
                 "VasilisKos",
                 "Tijs-B",
                 "swltr",
@@ -114,8 +115,7 @@ object Licenses {
                 "the7thNightmare",
                 "mgorny",
                 "Kapral67",
-                "ARtHryDr",
-                "efraletti",
+                "MateusRodCosta",
                 "f4n0",
                 "hrachmnam",
                 "kaile1234",
@@ -129,6 +129,7 @@ object Licenses {
                 "jere-a",
                 "btsmartx",
                 "love80312",
+                "ARtHryDr",
                 "Abdulkarim28",
                 "Akamar",
                 "arifpedia",
@@ -154,8 +155,7 @@ object Licenses {
                 "Luiz-bro",
                 "BatuAtlas",
                 "xmbhasin",
-                "TomasCartman",
-                "MateusRodCosta"
+                "TomasCartman"
             )
             "${
                 mit(
