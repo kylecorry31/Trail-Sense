@@ -529,28 +529,6 @@
     <ID>MaxLineLength:WeatherMonitorToolService.kt:WeatherMonitorToolService$putLong(WeatherToolRegistration.BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY, prefs.weather.weatherUpdateFrequency.toMillis())</ID>
     <ID>MaxLineLength:WeatherSubsystem.kt:WeatherSubsystem$.</ID>
     <ID>MaxLineLength:WeatherSubsystem.kt:WeatherSubsystem$private</ID>
-    <ID>MayBeConstant:CellTowerModel.kt:CellTowerModel$// Accounts for errors in the dataset private val accuracyScale = 2f</ID>
-    <ID>MayBeConstant:CellTowerModel.kt:CellTowerModel$// Image data source private val resolution = 0.01</ID>
-    <ID>MayBeConstant:CellTowerModel.kt:CellTowerModel$private val columns = 4</ID>
-    <ID>MayBeConstant:CellTowerModel.kt:CellTowerModel$private val rows = 3</ID>
-    <ID>MayBeConstant:CricketsAudioStream.kt:CricketsAudioStream.Companion$private val backgroundVolume = 0.8</ID>
-    <ID>MayBeConstant:CricketsAudioStream.kt:CricketsAudioStream.Companion$private val impulseDuration = 0.04</ID>
-    <ID>MayBeConstant:CricketsAudioStream.kt:CricketsAudioStream.Companion$private val impulseGapDuration = 0.01</ID>
-    <ID>MayBeConstant:CricketsAudioStream.kt:CricketsAudioStream.Companion$private val numPulses = 3</ID>
-    <ID>MayBeConstant:CricketsAudioStream.kt:CricketsAudioStream.Companion$private val timeBetweenChirps = 0.4</ID>
-    <ID>MayBeConstant:DEM.kt:DEM$private val baseResolution = 1 / 240.0</ID>
-    <ID>MayBeConstant:DEM.kt:DEM$val IMAGE_MAX_ZOOM_LEVEL = 19</ID>
-    <ID>MayBeConstant:DEM.kt:DEM$val IMAGE_MIN_ZOOM_LEVEL = 10</ID>
-    <ID>MayBeConstant:LandModel.kt:LandModel$private val offset = 0.5f</ID>
-    <ID>MayBeConstant:LandModel.kt:LandModel$private val precision = 4</ID>
-    <ID>MayBeConstant:MapRepo.kt:MapRepo.Companion$private val MAX_PARALLEL = 10</ID>
-    <ID>MayBeConstant:MapToolRegistration.kt:MapToolRegistration$val MAP_ID = "map"</ID>
-    <ID>MayBeConstant:SafeMode.kt:SafeMode$private val RESTART_CRASH_THRESHOLD_MILLIS = 30 * 1000 // 30 seconds</ID>
-    <ID>MayBeConstant:SafeMode.kt:SafeMode$private val SAFE_MODE_DURATION_MILLIS = 20 * 1000 // 20 seconds</ID>
-    <ID>MayBeConstant:SurvivalGuideSearch.kt:SurvivalGuideSearch.Companion$private val MIN_SUBSECTION_SCORE = 0.6f</ID>
-    <ID>MayBeConstant:TideModel.kt:TideModel$private val maxPhase = 180.0</ID>
-    <ID>MayBeConstant:TideModel.kt:TideModel$private val minAmplitude = 0f</ID>
-    <ID>MayBeConstant:TideModel.kt:TideModel$private val searchSize = 5</ID>
     <ID>NestedBlockDepth:EncodedDataImageReader.kt:EncodedDataImageReader$override suspend fun getRegion: Pair&lt;FloatBitmap, Boolean&gt;?</ID>
     <ID>NestedBlockDepth:GeographicImageUtils.kt:GeographicImageUtils$suspend fun getNearestPixelOfAsset: PixelCoordinate?</ID>
     <ID>PrintStackTrace:CameraView.kt:CameraView$e</ID>

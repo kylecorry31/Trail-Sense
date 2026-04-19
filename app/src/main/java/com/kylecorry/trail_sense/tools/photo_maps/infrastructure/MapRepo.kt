@@ -127,7 +127,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         @SuppressLint("StaticFieldLeak")
         private var instance: MapRepo? = null
 
-        private val MAX_PARALLEL = 10
+        private const val MAX_PARALLEL = 10
 
         @Synchronized
         fun getInstance(context: Context): MapRepo {

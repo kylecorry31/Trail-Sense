@@ -31,8 +31,8 @@ object SafeMode {
         }
     }
 
-    private val RESTART_CRASH_THRESHOLD_MILLIS = 30 * 1000 // 30 seconds
-    private val SAFE_MODE_DURATION_MILLIS = 20 * 1000 // 20 seconds
+    private const val RESTART_CRASH_THRESHOLD_MILLIS = 30 * 1000 // 30 seconds
+    private const val SAFE_MODE_DURATION_MILLIS = 20 * 1000 // 20 seconds
     private var safeModeEndTime: Long = 0L
 
     fun isEnabled(): Boolean {

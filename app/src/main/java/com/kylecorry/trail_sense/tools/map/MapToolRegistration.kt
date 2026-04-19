@@ -326,7 +326,7 @@ object MapToolRegistration : ToolRegistration {
 
     const val WIDGET_MAP = "map_widget"
 
-    val MAP_ID = "map"
+    const val MAP_ID = "map"
 
     const val BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED =
         "map-broadcast-geojson-feature-selection-changed"
