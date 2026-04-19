@@ -1,5 +1,5 @@
 Czert (Krzemień)
-Skała osadowa, która przy pękaniu tworzy ostre krawędzie, często używana do wyrobu narzędzi lub kszesania ognia. Ma matowy połysk i występuje w kolorach białym, czerwonym, brązowym, czarnym lub szarym. Czert jest powszechnie spotykany w odsłonięciach skał osadowych, wzdłuż dróg, rzek oraz brzegów mórz.
+Skała osadowa, która przy pękaniu tworzy ostre krawędzie, często używana do wyrobu narzędzi oraz kszesania ognia. Ma matowy połysk i występuje w kolorach białym, czerwonym, brązowym, czarnym, szarym. Czert jest powszechnie spotykany w odsłonięciach skał osadowych, wzdłuż dróg, rzek, brzegów mórz.
 
 Spokrewniony z; rogowcem, jaspisem.
 

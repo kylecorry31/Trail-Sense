@@ -1,6 +1,6 @@
-Słonecznica
-Mała słodkowodna ryba o długim, płaskim kształcie ciała oraz ostrych kolcach grzbietowych. Powszechnie spotykana w pobliżu brzegu w zarośniętych miejscach. Najbardziej aktywne są w porze dziennej. Słonecznice żywią się niewielkimi insektam oraz robakami, można je złowić przy użyciu jaskrawych przynęt.
+Bass słoneczny (Słonecznica)
+Mała słodkowodna ryba o długim, płaskim kształcie ciała oraz ostrych kolcach grzbietowych. Powszechnie spotykane wzdłuż lini brzegowej w zarośniętych miejscach. Najbardziej aktywne w porze dziennej. Słonecznice żywią się niewielkimi insektami oraz robakami, można je złowić używając jaskrawych przynęt.
 
-Spokrewniona z; bassem niebieskoskrzelim, słonecznym, czerwonouchym
+Spokrewniona z; bassem niebieskoskrzelim, czerwonouchym.
 
-https://pl.m.wikipedia.org/wiki/Lepomis
+https://pl.m.wikipedia.org/wiki/Bass_słoneczny
