@@ -718,7 +718,7 @@
     <string name="map_projection_mercator">Mercator</string>
     <string name="qr_code_scanner">QR-kode-skanner</string>
     <string name="tool_temperature_estimation_title">Temperaturberegning</string>
-    <string name="tool_temperature_estimation_description">Forutsi temperaturen ved en annen høyde</string>
+    <string name="tool_temperature_estimation_description">Forutsi temperaturen ved en annen høyde, vindhastighet og luftfuktighet</string>
     <string name="pressure_tendency">Tendens</string>
     <string name="tide_table">Tidevannstabell</string>
     <string name="easy">Lett</string>
@@ -1046,7 +1046,7 @@
     <string name="tide_clock">Tidevannsklokke</string>
     <string name="harmonic">Harmonisk</string>
     <string name="unit_millimeters">Millimeter</string>
-    <string name="show_stars">Vis stjerner</string>
+    <string name="show_stars">Vis stjerner og planeter</string>
     <string name="star">Stjerne</string>
     <plurals name="number_steps">
         <item quantity="one">%d skritt</item>
@@ -1255,4 +1255,9 @@
     <string name="pref_navigation_show_azimuth_indicator_summary">Framhev den gjeldende kursen på kompasset</string>
     <string name="pref_navigation_show_azimuth_indicator_title">Vis asimutindikator</string>
     <string name="do_not_ask_again">Ikke spør igjen</string>
+    <string name="not_visible">Ikke synlig</string>
+    <string name="target">Mål</string>
+    <string name="humidity_must_be_between_0_and_100">Luftfuktighet må være mellom 0 og 100</string>
+    <string name="wind_speed">Vindhastighet</string>
+    <string name="current_temperature">Gjeldende temperatur</string>
 </resources>
