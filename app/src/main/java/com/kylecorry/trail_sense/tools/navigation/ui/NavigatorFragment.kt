@@ -5,12 +5,9 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.LinearLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -19,7 +16,6 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
@@ -29,18 +25,14 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.units.CompassDirection
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
-import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.domain.MappableBearing
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
@@ -58,17 +50,14 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickActionBinder
-import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.data.UpdateAstronomyLayerCommand
-import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
-import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.BeaconCompassLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.compass.ICompassView
-import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.MarkerCompassLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.compass.layers.NavigationCompassLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.time.Duration
 import java.time.Instant
+import kotlin.getValue
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
@@ -105,23 +94,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val errors by lazy { NavigatorUserErrors(this) }
 
     // Data commands
-    private val updateAstronomyLayerCommand by lazy {
-        UpdateAstronomyLayerCommand(
-            astronomyCompassLayer,
-            userPrefs,
-            gps
-        ) { declination }
-    }
-
     private val loadBeaconsRunner = CoroutineQueueRunner()
 
     private val layers = NavigationCompassLayerManager()
     private var layerSheet: MapLayersBottomSheet? = null
 
     // Compass layers
-    private val beaconCompassLayer = BeaconCompassLayer()
-    private val astronomyCompassLayer = MarkerCompassLayer()
-    private val navigationCompassLayer = NavigationCompassLayer()
+    private val compassLayerManager: CompassLayerManager by lazy { CompassLayerManager(gps) { declination } }
 
     // Feature availability
     private val hasCompass by lazy { sensorService.hasCompass() }
@@ -129,7 +108,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     // Cached preferences
     private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
     private val isNearbyEnabled by lazy { userPrefs.navigation.showMultipleBeacons }
-    private val isNearbyLinearOnly by lazy { userPrefs.navigation.showNearbyBeaconsOnlyOnLinearCompass }
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
@@ -160,7 +138,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Load the destination and start navigation
         if (beaconId != 0L) {
-            showCalibrationDialog()
+            CalibrateCompassAlert(requireContext()).alert()
             navigator.navigateTo(beaconId)
         }
     }
@@ -170,6 +148,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         observeFlow(navigator.destination2) {
             destination = it
+            compassLayerManager.destination = it
         }
 
         // Observe diagnostics
@@ -184,29 +163,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 diagnosticResults = diagnosticResults + (index to results.map { it.id })
             }
         }
-
-        // Register timers
-
-        // TODO: This shouldn't be needed - layers can be updated when the data changes
-        interval(100) {
-            updateCompassLayers()
-        }
-
-        binding.linearCompass.setCompassLayers(
-            listOf(
-                astronomyCompassLayer,
-                beaconCompassLayer,
-                navigationCompassLayer
-            )
-        )
-        binding.radarCompass.setCompassLayers(
-            listOfNotNull(
-                astronomyCompassLayer,
-                if (isNearbyLinearOnly) null else beaconCompassLayer,
-                navigationCompassLayer
-            )
-        )
-
 
         binding.speed.setShowDescription(false)
         binding.altitude.setShowDescription(false)
@@ -356,18 +312,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         alerter.alert(listOf(gps, compass))
     }
 
-    private fun updateAstronomyData() {
-        inBackground {
-            if (gps.location == Coordinate.zero) {
-                return@inBackground
-            }
-
-            updateAstronomyLayerCommand.execute()
-        }
-    }
-
     override fun onResume() {
         super.onResume()
+
+        compassLayerManager.resume(binding.linearCompass, binding.radarCompass)
 
         binding.radarCompassMap.useDensityPixelsForZoom =
             !userPrefs.navigation.highDetailMode
@@ -383,6 +331,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onPause() {
         super.onPause()
+        compassLayerManager.pause()
         loadBeaconsRunner.cancel()
         errors.reset()
         layerSheet?.setOnDismissListener(null)
@@ -408,13 +357,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                         8f,
                         nearbyDistance
                     ) + listOfNotNull(destinationBeacon)).distinctBy { it.id }
+                    compassLayerManager.nearbyBeacons = nearbyBeacons
                 }
             }
         }
-    }
-
-    private fun getDestinationBearing(): Float? {
-        return destination?.let { navigator.getBearing(gps.location, it).value }
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
@@ -480,20 +426,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         effect("location", gps.location, layers.key, lifecycleHookTrigger.onResume()) {
             updateLocation()
-        }
-
-        effect(
-            "astronomy",
-            triggers.distance(
-                "astronomy",
-                gps.location,
-                ASTRONOMY_UPDATE_DISTANCE,
-                highAccuracy = false
-            ),
-            triggers.frequency("astronomy", ASTRONOMY_UPDATE_FREQUENCY),
-            lifecycleHookTrigger.onResume()
-        ) {
-            updateAstronomyData()
         }
 
         effect("navigation", destination, lifecycleHookTrigger.onResume()) {
@@ -615,74 +547,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         updateNearbyBeacons()
     }
 
-    private fun updateCompassLayers() {
-        inBackground {
-            val destBearing = getDestinationBearing()
-            val destinationBeacon = (destination as? Destination.Beacon)?.beacon
-            val destColor = destinationBeacon?.color ?: AppColor.Blue.color
-
-            val direction = destBearing?.let {
-                MappableBearing(it, destColor)
-            }
-
-            // Update beacon layers
-            beaconCompassLayer.setBeacons(nearbyBeacons)
-            beaconCompassLayer.highlight(destinationBeacon)
-
-            // Destination
-            if (destinationBeacon != null) {
-                navigationCompassLayer.setDestination(destinationBeacon)
-            } else if (direction != null) {
-                navigationCompassLayer.setDestination(direction)
-            } else {
-                navigationCompassLayer.setDestination(null as MappableBearing?)
-            }
-        }
-    }
-
-    private fun showCalibrationDialog() {
-        if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
-            val calibrationView = CompassCalibrationView(requireContext())
-            val doNotAskAgain = CheckBox(requireContext()).apply {
-                text = getString(R.string.do_not_ask_again)
-            }
-            val contentView = LinearLayout(requireContext()).apply {
-                orientation = LinearLayout.VERTICAL
-                addView(
-                    calibrationView,
-                    LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        Resources.dp(requireContext(), 200f).toInt()
-                    )
-                )
-                addView(
-                    doNotAskAgain,
-                    LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        topMargin = Resources.dp(requireContext(), 8f).toInt()
-                    }
-                )
-            }
-            dialog(
-                getString(R.string.calibrate_compass_dialog_title),
-                getString(
-                    R.string.calibrate_compass_on_navigate_dialog_content,
-                    getString(android.R.string.ok)
-                ),
-                contentView = contentView,
-                cancelText = null,
-                cancelOnOutsideTouch = false,
-                scrollable = true
-            ) { cancelled ->
-                if (!cancelled && doNotAskAgain.isChecked) {
-                    userPrefs.navigation.showCalibrationOnNavigateDialog = false
-                }
-            }
-        }
-    }
-
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
@@ -692,7 +556,5 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     companion object {
         const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
-        private val ASTRONOMY_UPDATE_DISTANCE = Distance.kilometers(1f).meters()
-        private val ASTRONOMY_UPDATE_FREQUENCY = Duration.ofMinutes(1)
     }
 }
