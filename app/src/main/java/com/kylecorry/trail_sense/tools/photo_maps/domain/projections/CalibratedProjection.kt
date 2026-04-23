@@ -1,9 +1,10 @@
 package com.kylecorry.trail_sense.tools.photo_maps.domain.projections
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.sol.math.interpolation.Interpolation.norm
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
@@ -26,7 +27,10 @@ class CalibratedProjection(
 
 
     override fun toCoordinate(pixel: Vector2): Coordinate {
-        if (left == null || top == null) {
+        val hasZeroSize = Arithmetic.isZero(width) || Arithmetic.isZero(height)
+        val hasInvalidCorner = left == null || top == null
+
+        if (hasInvalidCorner || hasZeroSize) {
             return Coordinate.zero
         }
 
