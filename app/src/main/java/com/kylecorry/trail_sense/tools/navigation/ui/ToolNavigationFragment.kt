@@ -484,8 +484,4 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
     ): ActivityNavigatorBinding {
         return ActivityNavigatorBinding.inflate(layoutInflater, container, false)
     }
-
-    companion object {
-        const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
-    }
 }
