@@ -10,8 +10,6 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -23,7 +21,6 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
@@ -33,10 +30,8 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
-import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
@@ -47,13 +42,19 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickActionBinder
+import com.kylecorry.trail_sense.tools.navigation.ui.commands.CreateBeaconHereCommand
+import com.kylecorry.trail_sense.tools.navigation.ui.commands.OpenBeaconsCommand
+import com.kylecorry.trail_sense.tools.navigation.ui.commands.ShareLocationCommand
+import com.kylecorry.trail_sense.tools.navigation.ui.commands.ShowAltitudeSheetCommand
+import com.kylecorry.trail_sense.tools.navigation.ui.commands.ShowLocationSheetCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.compass.ICompassView
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.navigation.ui.managers.CompassLayerManager
+import com.kylecorry.trail_sense.tools.navigation.ui.managers.NavigationCompassLayerManager
+import com.kylecorry.trail_sense.tools.navigation.ui.managers.NorthReferenceBadgeManager
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.time.Duration
-import java.time.Instant
 
 class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
 
@@ -116,11 +117,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
     // Interactivity
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val screenLock by lazy { NavigationScreenLock(userPrefs.navigation.keepScreenUnlockedWhileOpen) }
-    private val northReferenceHideTimer = CoroutineTimer {
-        if (isBound) {
-            binding.northReferenceIndicator.showLabel = false
-        }
-    }
+    private val northReferenceBadgeManager = NorthReferenceBadgeManager()
 
     private val triggers = HookTriggers()
 
@@ -182,47 +179,24 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         observe(speedometer) { }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
-            Share.shareLocation(
-                this,
-                gps.location
-            )
+            ShareLocationCommand(this, gps).execute()
             true
         }
 
         binding.navigationTitle.subtitle.setOnClickListener {
-            val sheet = LocationBottomSheet()
-            sheet.gps = gps
-            sheet.show(this)
+            ShowLocationSheetCommand(this, gps).execute()
         }
 
         binding.altitude.setOnClickListener {
-            val sheet = AltitudeBottomSheet()
-            sheet.currentAltitude = Reading(altimeter.altitude, Instant.now())
-            sheet.show(this)
-        }
-
-        binding.linearCompass.setOnClickListener {
-            toggleDestinationBearing()
+            ShowAltitudeSheetCommand(this, altimeter).execute()
         }
 
         binding.beaconBtn.setOnClickListener {
-            findNavController().openTool(Tools.BEACONS)
+            OpenBeaconsCommand().execute(findNavController())
         }
 
         binding.beaconBtn.setOnLongClickListener {
-            if (gps.hasValidReading) {
-                val bundle = Bundle().apply {
-                    putParcelable(
-                        "initial_location", GeoUri(
-                            gps.location,
-                            if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
-                        )
-                    )
-                }
-                findNavController().openTool(Tools.BEACONS, bundle)
-            } else {
-                findNavController().openTool(Tools.BEACONS)
-            }
+            CreateBeaconHereCommand(gps, altimeter).execute(findNavController())
             true
         }
 
@@ -230,6 +204,11 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
+
+        binding.linearCompass.setOnClickListener {
+            toggleDestinationBearing()
+        }
+
         binding.radarCompassMap.setOnSingleTapListener {
             toggleDestinationBearing()
         }
@@ -313,12 +292,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
             !userPrefs.navigation.highDetailMode
         layers.resume(requireContext(), binding.radarCompassMap)
         binding.radarCompass.bindMapView(binding.radarCompassMap)
-
-        // Show the north reference indicator
-        binding.northReferenceIndicator.showDetailsOnClick = true
-        binding.northReferenceIndicator.useTrueNorth = useTrueNorth
-        binding.northReferenceIndicator.showLabel = true
-        northReferenceHideTimer.once(Duration.ofSeconds(5))
+        northReferenceBadgeManager.resume(binding.northReferenceIndicator)
     }
 
     override fun onPause() {
@@ -329,7 +303,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
         layers.pause(binding.radarCompassMap)
-        northReferenceHideTimer.stop()
+        northReferenceBadgeManager.pause()
     }
 
     private fun updateNearbyBeacons() {
