@@ -44,7 +44,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.commands.OpenBeaconsCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.commands.ShareLocationCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.commands.ShowAltitudeSheetCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.commands.ShowLocationSheetCommand
-import com.kylecorry.trail_sense.tools.navigation.ui.compass.ICompassView
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.navigation.ui.managers.CompassLayerManager
 import com.kylecorry.trail_sense.tools.navigation.ui.managers.MapLayerSheetManager
@@ -432,13 +431,10 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Compass
-        listOf<ICompassView>(
-            binding.radarCompass,
-            binding.linearCompass
-        ).forEach {
-            it.azimuth = bearing
-            it.declination = declination
-        }
+        binding.radarCompass.azimuth = bearing
+        binding.linearCompass.azimuth = bearing
+        binding.radarCompass.declination = declination
+        binding.linearCompass.declination = declination
 
         val actualBearing = if (useTrueNorth) {
             compass.bearing
@@ -463,13 +459,8 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
             gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         // Compass center point
-        listOf<ICompassView>(
-            binding.radarCompass,
-            binding.linearCompass
-        ).forEach {
-            it.compassCenter = location
-        }
-
+        binding.radarCompass.compassCenter = location
+        binding.linearCompass.compassCenter = location
         binding.radarCompassMap.mapCenter = location
         binding.radarCompassMap.userLocation = location
 
