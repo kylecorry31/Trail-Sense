@@ -23,11 +23,11 @@ import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
-import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -40,7 +40,7 @@ import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
@@ -59,12 +59,17 @@ import java.time.Instant
 
 class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
 
+    // Sensors
+    private val sensorService by lazy { SensorService(requireContext()) }
     private val orientation by lazy { sensorService.getOrientation() }
     private val compass by lazy { sensorService.getCompass(orientation) }
     private val gps by lazy { sensorService.getGPS(frequency = Duration.ofMillis(200)) }
     private val clinometer by lazy { Clinometer(orientation, isAugmentedReality = true) }
     private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
     private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }
+    private val hasCompass by lazy { sensorService.hasCompass() }
+
+    // Declination
     private val declinationProvider by lazy {
         DeclinationFactory().getDeclinationStrategy(
             userPrefs,
@@ -73,50 +78,46 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
     private var declination = 0f
 
-    private val userPrefs by lazy { UserPreferences(requireContext()) }
 
-    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-
-    private val sensorService by lazy { SensorService(requireContext()) }
-
-    private val navigationService = NavigationService()
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
-
+    // Beacons
+    private val beaconService = getAppService<BeaconService>()
     private var beacons: Collection<Beacon> = listOf()
     private var nearbyBeacons: List<Beacon> = listOf()
 
+    // Navigation
     private var destination: Destination? = null
-    private val navigator by lazy { Navigator.getInstance(requireContext()) }
+    private val navigator = getAppService<Navigator>()
+    private val navigationService = NavigationService()
+
+    // Formatting
+    private val formatter = getAppService<FormatService>()
+    private val navigationFormatter = NavigationFormatter()
 
     // Diagnostics
     private val errors by lazy { NavigatorUserErrors(this) }
+    private var diagnosticResults by state<Map<Int, List<String>>>(emptyMap())
 
     // Data commands
     private val loadBeaconsRunner = CoroutineQueueRunner()
 
+    // Map layers
     private val layers = NavigationCompassLayerManager()
     private var layerSheet: MapLayersBottomSheet? = null
 
     // Compass layers
     private val compassLayerManager: CompassLayerManager by lazy { CompassLayerManager(gps) { declination } }
 
-    // Feature availability
-    private val hasCompass by lazy { sensorService.hasCompass() }
-
-    // Cached preferences
+    // Preferences
+    private val userPrefs = getAppService<UserPreferences>()
     private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
     private val isNearbyEnabled by lazy { userPrefs.navigation.showMultipleBeacons }
     private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
-    private val nearbyDistance
-        get() = userPrefs.navigation.maxBeaconDistance
-    private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
+    private val nearbyDistance by lazy { userPrefs.navigation.maxBeaconDistance }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
+
+    // Interactivity
+    private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val screenLock by lazy { NavigationScreenLock(userPrefs.navigation.keepScreenUnlockedWhileOpen) }
-
-
-    // State
-    private var diagnosticResults by state<Map<Int, List<String>>>(emptyMap())
-
     private val northReferenceHideTimer = CoroutineTimer {
         if (isBound) {
             binding.northReferenceIndicator.showLabel = false
@@ -171,7 +172,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
             userPrefs.navigation
         ).bind()
 
-        observeFlow(beaconRepo.getBeacons()) {
+        observeFlow(beaconService.getBeacons()) {
             beacons = it
             updateNearbyBeacons()
         }
@@ -407,7 +408,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         effect("speed", speedometer.speed.speed, lifecycleHookTrigger.onResume()) {
-            binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
+            binding.speed.title = formatter.formatSpeed(speedometer.speed.speed)
         }
 
         effect("azimuth", compass.rawBearing, lifecycleHookTrigger.onResume()) {
@@ -419,7 +420,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         effect("altitude", altimeter.altitude, lifecycleHookTrigger.onResume()) {
-            binding.altitude.title = formatService.formatDistance(
+            binding.altitude.title = formatter.formatDistance(
                 Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
             )
         }
@@ -471,12 +472,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Azimuth
         if (hasCompass) {
             val titleText = memo("azimuth_title", bearing.safeRoundToInt()) {
-                val azimuthText =
-                    formatService.formatDegrees(bearing, replace360 = true)
-                        .padStart(4, ' ')
-                val directionText = formatService.formatDirection(CompassDirection.nearest(bearing))
-                    .padStart(2, ' ')
-                "$azimuthText   $directionText"
+                navigationFormatter.formatAzimuth(bearing)
             }
             binding.navigationTitle.title.setTextDistinct(titleText)
         }
@@ -506,7 +502,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         compass.declination = declination
 
         binding.navigationTitle.subtitle.setTextDistinct(
-            formatService.formatLocation(location)
+            formatter.formatLocation(location)
         )
 
         binding.radarCompassMap.userLocationAccuracy =

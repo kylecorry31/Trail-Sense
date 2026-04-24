@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
+import kotlinx.coroutines.flow.Flow
 
 interface IBeaconService {
 
@@ -22,6 +23,8 @@ interface IBeaconService {
         maxDepth: Int? = 1,
         includeRoot: Boolean = false
     ): List<IBeacon>
+
+    fun getBeacons(): Flow<List<Beacon>>
 
     suspend fun getGroup(groupId: Long?): BeaconGroup?
     suspend fun getBeacon(beaconId: Long): Beacon?

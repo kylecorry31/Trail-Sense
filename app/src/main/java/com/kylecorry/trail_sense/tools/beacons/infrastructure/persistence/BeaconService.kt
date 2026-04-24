@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import kotlinx.coroutines.flow.Flow
 
 class BeaconService(context: Context) : IBeaconService {
 
@@ -56,6 +57,10 @@ class BeaconService(context: Context) : IBeaconService {
                 beacons.filterNot { it.isGroup }
             }
         }
+    }
+
+    override fun getBeacons(): Flow<List<Beacon>> {
+        return repo.getBeacons()
     }
 
     private suspend fun getChildren(groupId: Long?): List<IBeacon> {
