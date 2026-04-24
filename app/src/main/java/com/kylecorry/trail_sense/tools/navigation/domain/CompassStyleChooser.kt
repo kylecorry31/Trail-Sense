@@ -10,6 +10,15 @@ class CompassStyleChooser(
 
     private val useLinearCompass = prefs.useLinearCompass
 
+    fun getStyle(incline: Float): CompassStyle {
+        val orientation = if (incline > -30) {
+            DeviceOrientation.Orientation.Portrait
+        } else {
+            DeviceOrientation.Orientation.Flat
+        }
+        return getStyle(orientation)
+    }
+
     fun getStyle(orientation: DeviceOrientation.Orientation): CompassStyle {
         if (!isCompassAvailable) {
             return CompassStyle.Radar

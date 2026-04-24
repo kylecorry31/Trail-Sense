@@ -20,7 +20,6 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
-import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
@@ -454,14 +453,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         effect("device_orientation", clinometer.incline.toInt(), lifecycleHookTrigger.onResume()) {
-            val deviceOrientation = if (clinometer.incline > -30) {
-                DeviceOrientation.Orientation.Portrait
-            } else {
-                DeviceOrientation.Orientation.Flat
-            }
-            val style =
-                styleChooser.getStyle(deviceOrientation)
-
+            val style = styleChooser.getStyle(clinometer.incline)
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
             binding.radarCompass.isInvisible = style != CompassStyle.Radar
             binding.radarCompassMap.isInvisible = style != CompassStyle.Radar
