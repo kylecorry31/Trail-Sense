@@ -57,7 +57,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagn
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.time.Duration
 import java.time.Instant
-import kotlin.getValue
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
@@ -215,10 +214,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.beaconBtn.setOnLongClickListener {
             if (gps.hasValidReading) {
                 val bundle = Bundle().apply {
-                    putParcelable("initial_location", GeoUri(
-                        gps.location,
-                        if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
-                    ))
+                    putParcelable(
+                        "initial_location", GeoUri(
+                            gps.location,
+                            if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
+                        )
+                    )
                 }
                 findNavController().openTool(Tools.BEACONS, bundle)
             } else {
@@ -464,18 +465,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
             binding.radarCompass.isInvisible = style != CompassStyle.Radar
             binding.radarCompassMap.isInvisible = style != CompassStyle.Radar
-        }
-
-        effect("sighting_compass_flashlight", binding.linearCompass.isCameraActive) {
-            // TODO: Extract this logic to the flashlight (if camera is in use)
-            if (userPrefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-                binding.navigationTitle.rightButton.isClickable =
-                    !binding.linearCompass.isCameraActive
-            }
-            if (userPrefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-                binding.navigationTitle.leftButton.isClickable =
-                    !binding.linearCompass.isCameraActive
-            }
         }
 
         effect("error_messages", diagnosticResults, lifecycleHookTrigger.onResume()) {
