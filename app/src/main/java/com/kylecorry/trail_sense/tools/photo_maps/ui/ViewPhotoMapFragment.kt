@@ -290,7 +290,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 map?.let {
                     val id = CreatePathCommand(
                         pathService,
-                        prefs.navigation,
+                        prefs.paths,
                         it.name
                     ).execute(layerManager.getDistanceMeasurementPoints())
 

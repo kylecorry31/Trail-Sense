@@ -82,17 +82,17 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
 
         val prefBacktrackPathColor = preference(R.string.pref_backtrack_path_color)
         prefBacktrackPathColor?.icon?.setTint(
-            prefs.navigation.defaultPathColor.color
+            prefs.paths.defaultPathColor.color
         )
 
         prefBacktrackPathColor?.setOnPreferenceClickListener {
             CustomUiUtils.pickColor(
                 requireContext(),
-                prefs.navigation.defaultPathColor,
+                prefs.paths.defaultPathColor,
                 it.title.toString()
             ) {
                 if (it != null) {
-                    prefs.navigation.defaultPathColor = it
+                    prefs.paths.defaultPathColor = it
                     prefBacktrackPathColor.icon?.setTint(it.color)
                 }
             }
@@ -101,19 +101,19 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
 
         val backtrackHistory = preference(R.string.pref_backtrack_history_days)
         backtrackHistory?.summary =
-            formatService.formatDays(prefs.navigation.backtrackHistory.toDays().toInt())
+            formatService.formatDays(prefs.paths.backtrackHistory.toDays().toInt())
         backtrackHistory?.setOnPreferenceClickListener {
             Pickers.number(
                 requireContext(),
                 it.title.toString(),
                 null,
-                prefs.navigation.backtrackHistory.toDays().toInt(),
+                prefs.paths.backtrackHistory.toDays().toInt(),
                 allowDecimals = false,
                 allowNegative = false,
                 hint = getString(R.string.days)
             ) { days ->
                 if (days != null) {
-                    prefs.navigation.backtrackHistory = Duration.ofDays(days.toLong())
+                    prefs.paths.backtrackHistory = Duration.ofDays(days.toLong())
                     it.summary = formatService.formatDays(if (days.toInt() > 0) days.toInt() else 1)
                 }
             }

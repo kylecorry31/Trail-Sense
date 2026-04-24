@@ -150,7 +150,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
-        layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
+        layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.paths.useFastPathRendering)
         layer.setOnClickListener {
             if (selectedPointId != null) {
                 deselectPoint()
@@ -356,7 +356,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun updateElevationPlot() {
         chart.plot(
             waypoints.reversed(),
-            path?.style?.color ?: prefs.navigation.defaultPathColor.color
+            path?.style?.color ?: prefs.paths.defaultPathColor.color
         )
     }
 
@@ -698,7 +698,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         val path = path ?: return
         val points = waypoints
         val command = NavigateToPathCommand(
-            if (prefs.navigation.onlyNavigateToPoints) NearestPathPointNavigator() else NearestPathLineNavigator(),
+            if (prefs.paths.onlyNavigateToPoints) NearestPathPointNavigator() else NearestPathLineNavigator(),
             gps,
             converter,
             beaconNavigator

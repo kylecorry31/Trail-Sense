@@ -219,7 +219,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                     inBackground {
                         val id = CreatePathCommand(
                             pathService,
-                            prefs.navigation,
+                            prefs.paths,
                             null
                         ).execute(manager.getDistanceMeasurementPoints())
 

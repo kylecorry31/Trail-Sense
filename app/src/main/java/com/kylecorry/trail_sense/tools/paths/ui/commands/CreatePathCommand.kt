@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -16,7 +17,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathServ
 class CreatePathCommand(
     private val context: Context,
     private val pathService: IPathService = PathService.getInstance(context),
-    private val pathPreferences: IPathPreferences = UserPreferences(context).navigation
+    private val pathPreferences: IPathPreferences = getAppService<UserPreferences>().paths
 ) {
 
     suspend fun execute(parentId: Long?): Long? {

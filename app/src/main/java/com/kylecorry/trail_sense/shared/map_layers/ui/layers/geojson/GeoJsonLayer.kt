@@ -74,7 +74,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
 
     init {
         val prefs = AppServiceRegistry.get<UserPreferences>()
-        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
+        renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.paths.useFastPathRendering)
         renderer.setOnClickListener(this::onClick)
         taskRunner.addTask { context, viewBounds, bounds, projection ->
             isInvalid = false

@@ -10,14 +10,14 @@ import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geography.Geography
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -323,7 +323,7 @@ class PathService(
                 instance = PathService(
                     PathRepo.getInstance(appContext),
                     WaypointRepo.getInstance(appContext),
-                    NavigationPreferences(appContext),
+                    getAppService<UserPreferences>().paths,
                     PreferencesSubsystem.getInstance(appContext).preferences
                 )
             }

@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.gpx.GPXWaypoint
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ImportService
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
@@ -29,7 +30,7 @@ class ImportPathsCommand(
     private val lifecycleOwner: LifecycleOwner,
     private val gpxService: ImportService<GPXData>,
     private val pathService: IPathService = PathService.getInstance(context),
-    private val prefs: IPathPreferences = UserPreferences(context).navigation
+    private val prefs: IPathPreferences = getAppService<UserPreferences>().paths
 ) {
 
     private val style = prefs.defaultPathStyle
