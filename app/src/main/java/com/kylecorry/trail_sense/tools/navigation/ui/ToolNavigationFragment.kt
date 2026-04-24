@@ -15,7 +15,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
-import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
@@ -28,13 +27,11 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
@@ -50,6 +47,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.commands.ShowLocationSheetC
 import com.kylecorry.trail_sense.tools.navigation.ui.compass.ICompassView
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.navigation.ui.managers.CompassLayerManager
+import com.kylecorry.trail_sense.tools.navigation.ui.managers.MapLayerSheetManager
 import com.kylecorry.trail_sense.tools.navigation.ui.managers.NavigationCompassLayerManager
 import com.kylecorry.trail_sense.tools.navigation.ui.managers.NorthReferenceBadgeManager
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
@@ -101,7 +99,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     // Map layers
     private val layers = NavigationCompassLayerManager()
-    private var layerSheet: MapLayersBottomSheet? = null
+    private val layerSheetManager = MapLayerSheetManager(this, layers)
 
     // Compass layers
     private val compassLayerManager: CompassLayerManager by lazy { CompassLayerManager(gps) { declination } }
@@ -214,15 +212,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         binding.radarCompassMap.setOnLongPressListener {
-            layerSheet?.dismiss()
-            layerSheet = MapLayersBottomSheet(
-                NavigationToolRegistration.MAP_ID
-            )
-            layers.pause(binding.radarCompassMap)
-            layerSheet?.setOnDismissListener {
-                layers.resume(requireContext(), binding.radarCompassMap)
-            }
-            layerSheet?.show(this)
+            layerSheetManager.open(binding.radarCompassMap)
         }
 
         binding.linearCompass.setOnClickListener {
@@ -300,8 +290,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
         compassLayerManager.pause()
         loadBeaconsRunner.cancel()
         errors.reset()
-        layerSheet?.setOnDismissListener(null)
-        layerSheet?.dismiss()
+        layerSheetManager.close()
         layers.pause(binding.radarCompassMap)
         northReferenceBadgeManager.pause()
     }
