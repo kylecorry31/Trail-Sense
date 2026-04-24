@@ -9,12 +9,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.alerts.MissingSensorAlert
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.tools.navigation.ui.ToolNavigationFragment
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.util.Locale
 
-class NavigatorUserErrors(private val fragment: NavigatorFragment) {
+class NavigatorUserErrors(private val fragment: ToolNavigationFragment) {
 
     private val banner = fragment.requireMainActivity().errorBanner
     private val formatter = FormatService.getInstance(fragment.requireContext())

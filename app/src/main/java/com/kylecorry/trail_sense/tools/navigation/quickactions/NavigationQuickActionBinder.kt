@@ -4,10 +4,10 @@ import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.tools.navigation.ui.ToolNavigationFragment
 
 class NavigationQuickActionBinder(
-    private val fragment: NavigatorFragment,
+    private val fragment: ToolNavigationFragment,
     private val binding: ActivityNavigatorBinding,
     private val prefs: NavigationPreferences
 ) : IQuickActionBinder {

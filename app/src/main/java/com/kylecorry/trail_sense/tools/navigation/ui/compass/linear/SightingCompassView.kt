@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
-import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.tools.navigation.ui.ToolNavigationFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,7 +59,7 @@ class SightingCompassView(
         camera.setOnZoomChangeListener {
             scope.launch {
                 zoomRunner.enqueue {
-                    prefs.putFloat(NavigatorFragment.Companion.CACHE_CAMERA_ZOOM, it)
+                    prefs.putFloat(ToolNavigationFragment.Companion.CACHE_CAMERA_ZOOM, it)
                 }
             }
         }
@@ -68,7 +68,7 @@ class SightingCompassView(
             onClick()
         }
 
-        camera.setZoom(prefs.getFloat(NavigatorFragment.Companion.CACHE_CAMERA_ZOOM) ?: 0.5f)
+        camera.setZoom(prefs.getFloat(ToolNavigationFragment.Companion.CACHE_CAMERA_ZOOM) ?: 0.5f)
 
         camera.isVisible = true
         reticle.isVisible = true

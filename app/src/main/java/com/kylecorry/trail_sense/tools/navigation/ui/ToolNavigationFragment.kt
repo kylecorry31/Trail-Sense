@@ -57,7 +57,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.Magnetom
 import java.time.Duration
 import java.time.Instant
 
-class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
+class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val orientation by lazy { sensorService.getOrientation() }
     private val compass by lazy { sensorService.getCompass(orientation) }

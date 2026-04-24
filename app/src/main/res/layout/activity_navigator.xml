@@ -5,7 +5,7 @@
     android:id="@+id/navigator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tools.navigation.ui.NavigatorFragment">
+    tools:context=".tools.navigation.ui.ToolNavigationFragment">
 
     <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/navigation_title"
