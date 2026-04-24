@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -25,7 +24,6 @@ import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
@@ -252,14 +250,7 @@ class ToolNavigationFragment : BoundFragment<ActivityNavigatorBinding>() {
             toggleDestinationBearing()
         }
 
-        binding.radarCompassMap.isPanEnabled = false
-        binding.radarCompassMap.isFlingEnabled = false
-        binding.radarCompassMap.backgroundColorOverride =
-            Resources.color(requireContext(), R.color.colorSecondary)
-        binding.radarCompassMap.minScale = 0.001f
         binding.radarCompassMap.mapCenter = gps.location
-        binding.radarCompassMap.metersPerProjectedUnit = 1.0
-        binding.radarCompassMap.latitudeScaleFactor = { 1f }
         binding.radarCompassMap.projection = AzimuthalEquidistantProjection(gps.location)
         binding.radarCompassMap.resolutionPixels = userPrefs.navigation.radarCompassScale
         binding.radarCompassMap.setOnScaleChangeListener(true) { resolutionPixels ->
