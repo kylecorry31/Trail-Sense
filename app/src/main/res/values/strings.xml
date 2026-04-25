@@ -1234,6 +1234,10 @@
     <string name="autofill_source">Autofill source</string>
     <string name="map_calibration">Map calibration</string>
     <string name="map_calibration_instructions">Tap a known location on the map, then enter the real-world coordinates. You can save the calibration by clicking the “Done” button.\n\nExamples of good calibration points are a parking lot, a signage point, a landmark, or a junction along a trail.</string>
+    <string name="map_calibration_error_same_pixel">Select two different points on the map.</string>
+    <string name="map_calibration_error_same_image_axis">Select two map points that are not directly beside or above each other.</string>
+    <string name="map_calibration_error_same_location">Enter two different real-world locations.</string>
+    <string name="map_calibration_error_implausible_scale">The calibration scale looks implausible. Check both map points and coordinates.</string>
     <string name="map_calibration_shown" translatable="false">map_calibration_shown</string>
     <string name="pref_compass_source" translatable="false">pref_compass_source</string>
     <string name="compass_source_mag_gyro">Magnetometer + Gyro</string>

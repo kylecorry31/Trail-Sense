@@ -52,7 +52,7 @@ data class PhotoMap(
      * Determines if the map is calibrated
      */
     val isCalibrated: Boolean
-        get() = isFullWorld || (calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0)
+        get() = MapCalibrationValidator.validate(this) == MapCalibrationValidationResult.Valid
 
     /**
      * The distance per pixel of the image
