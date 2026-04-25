@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -33,6 +35,8 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationValidationResult
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationValidator
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration.MapRotationCalculator
@@ -156,7 +160,12 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         }
 
         binding.previewButton.setOnClickListener {
-            setPreviewMode(!showPreview)
+            val validation = validateCalibration()
+            if (validation == MapCalibrationValidationResult.Valid) {
+                setPreviewMode(!showPreview)
+            } else {
+                updateCompletionState()
+            }
         }
 
         CustomUiUtils.setButtonState(binding.zoomInBtn, false)
@@ -212,15 +221,19 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             CustomUiUtils.setButtonState(binding.previewButton, showPreview)
         }
 
-        if (!isCalibrated && showPreview) {
-            setPreviewMode(false)
-        }
-
         map = map?.copy(
             calibration = map!!.calibration.copy(
                 calibrationPoints = manager.getCalibration(false)
             )
         )
+
+        val validation = validateCalibration()
+        val isValid = validation == MapCalibrationValidationResult.Valid
+        binding.previewButton.isEnabled = isValid
+
+        if ((!isCalibrated || !isValid) && showPreview) {
+            setPreviewMode(false)
+        }
 
         map = map?.copy(
             calibration = map!!.calibration.copy(
@@ -281,8 +294,21 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     private fun updateCompletionState() {
+        val validation = validateCalibration()
+        val notice = getCalibrationNotice(validation)
+        updateCalibrationTitle(notice)
+
+        val isValid = validation == MapCalibrationValidationResult.Valid
+        binding.previewButton.isEnabled = isValid
+
         // If it is calibrated, replace the info icon with a green checkmark
-        if (manager.isCalibrated(calibrationIndex)) {
+        if (notice.isNotBlank()) {
+            binding.mapCalibrationTitle.setCompoundDrawables(
+                Resources.dp(requireContext(), 24f).toInt(),
+                left = R.drawable.ic_alert
+            )
+            Colors.setImageColor(binding.mapCalibrationTitle, getErrorColor())
+        } else if (manager.isCalibrated(calibrationIndex)) {
             binding.mapCalibrationTitle.setCompoundDrawables(
                 Resources.dp(requireContext(), 24f).toInt(),
                 left = R.drawable.ic_check_outline
@@ -330,6 +356,54 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     private fun isFullyCalibrated(): Boolean {
         return manager.getCalibration(true).size == maxPoints
+    }
+
+    private fun validateCalibration(): MapCalibrationValidationResult {
+        return if (map != null && isFullyCalibrated()) {
+            MapCalibrationValidator.validate(map!!)
+        } else {
+            MapCalibrationValidationResult.Uncalibrated
+        }
+    }
+
+    private fun getCalibrationNotice(result: MapCalibrationValidationResult): String {
+        return when (result) {
+            MapCalibrationValidationResult.Valid -> ""
+            MapCalibrationValidationResult.Uncalibrated -> ""
+            MapCalibrationValidationResult.SamePixel ->
+                getString(R.string.map_calibration_error_same_pixel)
+
+            MapCalibrationValidationResult.SameImageAxis ->
+                getString(R.string.map_calibration_error_same_image_axis)
+
+            MapCalibrationValidationResult.SameLocation ->
+                getString(R.string.map_calibration_error_same_location)
+
+            MapCalibrationValidationResult.ImplausibleScale ->
+                getString(R.string.map_calibration_error_implausible_scale)
+        }
+    }
+
+    private fun updateCalibrationTitle(notice: String) {
+        val title = getString(R.string.calibrate_map_point, calibrationIndex + 1, maxPoints)
+        binding.mapCalibrationTitle.text = if (notice.isBlank()) {
+            title
+        } else {
+            buildSpannedString {
+                append(title)
+                appendLine()
+                color(getErrorColor()) {
+                    append(notice)
+                }
+            }
+        }
+    }
+
+    private fun getErrorColor(): Int {
+        return Resources.getAndroidColorAttr(
+            requireContext(),
+            androidx.appcompat.R.attr.colorError
+        )
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {

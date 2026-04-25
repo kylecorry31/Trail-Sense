@@ -20,6 +20,8 @@ To create a map, you have three options: take a photo of an existing map, import
     - At any point, you can save the calibration by clicking 'Next' + 'Done'.
 5. Save the calibration by tapping 'Done'.
 
+If Trail Sense reports that calibration is invalid, make sure the two map points are different, the two real-world coordinates are different, and the distance between the selected map points is roughly proportional to their real-world distance.
+
 ## Calibration tips
 
 ### Calibrating while hiking
