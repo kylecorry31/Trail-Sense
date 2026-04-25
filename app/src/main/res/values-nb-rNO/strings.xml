@@ -1260,4 +1260,8 @@
     <string name="humidity_must_be_between_0_and_100">Luftfuktighet må være mellom 0 og 100</string>
     <string name="wind_speed">Vindhastighet</string>
     <string name="current_temperature">Gjeldende temperatur</string>
+    <string name="recalibrating">Omkalibrering</string>
+    <string name="quick_action_recalibrate_altimeter">Omkalibrer høydemåler</string>
+    <string name="show_low_brightness_objects">Vis stjerner/planeter med lav lysstyrke</string>
+    <string name="tool_magnifier_title">Forstørrelsesglass</string>
 </resources>
