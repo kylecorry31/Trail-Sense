@@ -827,7 +827,7 @@
     <string name="estimate_stride_length">Memperkirakan panjang langkah</string>
     <string name="bearing">Bantalan</string>
     <string name="warning">Peringatan</string>
-    <string name="tool_temperature_estimation_description">Memprediksi suhu pada ketinggian yang berbeda</string>
+    <string name="tool_temperature_estimation_description">Prediksi suhu pada ketinggian, kecepatan angin, dan kelembapan yang berbeda</string>
     <string name="save">Simpan</string>
     <string name="stride_length_stand_still">Berdiri diam</string>
     <string name="line_style">Gaya garis</string>
@@ -1532,4 +1532,12 @@
     <string name="active_all_year">Aktif sepanjang tahun</string>
     <string name="biting_flies_mosquitoes">Lalat penggigit/nyamuk</string>
     <string name="ecology">Ekologi</string>
+    <string name="current_temperature">Suhu saat ini</string>
+    <string name="stone">Batu</string>
+    <string name="stone_format">%s st</string>
+    <string name="clouds_clear">Hapus</string>
+    <string name="wind_speed">Kecepatan angin</string>
+    <string name="humidity_must_be_between_0_and_100">Kelembapan harus antara 0 dan 100</string>
+    <string name="target">Target</string>
+    <string name="not_visible">Tidak terlihat</string>
 </resources>
