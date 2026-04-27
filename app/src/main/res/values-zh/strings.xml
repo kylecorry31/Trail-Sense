@@ -1548,4 +1548,8 @@
     <string name="humidity_must_be_between_0_and_100">湿度值须在 0 和 100 之间</string>
     <string name="target">目标</string>
     <string name="not_visible">不可见</string>
+    <string name="map_calibration_error_same_pixel">选择地图上不同的两点。</string>
+    <string name="map_calibration_error_same_image_axis">选择不存在直接的相邻或上下关系的两个地图点。</string>
+    <string name="map_calibration_error_same_location">输入两个不同的真实世界位置。</string>
+    <string name="map_calibration_error_implausible_scale">校准尺看起来不合理。请检查两个地图点和坐标。</string>
 </resources>
