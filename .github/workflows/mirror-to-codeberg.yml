@@ -1,0 +1,31 @@
+name: Mirror to Codeberg
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.CODEBERG_SSH_KEY }}" > ~/.ssh/codeberg
+          chmod 600 ~/.ssh/codeberg
+          ssh-keyscan codeberg.org >> ~/.ssh/known_hosts
+
+      - name: Push to Codeberg
+        run: |
+          git remote add codeberg git@codeberg.org:kylecorry31/Trail-Sense.git
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/codeberg -o IdentitiesOnly=yes" \
+            git push codeberg main
