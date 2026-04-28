@@ -1567,4 +1567,8 @@
     <string name="tool_magnifier_title">Loupe</string>
     <string name="show_low_brightness_objects">Afficher les étoiles et les planètes de faible luminosité</string>
     <string name="large_location_indicator">Grand indicateur de position</string>
+    <string name="map_calibration_error_same_pixel">Sélectionnez deux points différents sur la carte.</string>
+    <string name="map_calibration_error_same_image_axis">Sélectionnez deux points sur la carte qui ne sont ni directement côte à côte ni l\'un au-dessus de l\'autre.</string>
+    <string name="map_calibration_error_same_location">Indiquez deux lieux réels différents.</string>
+    <string name="map_calibration_error_implausible_scale">L\'échelle de calibrage semble peu plausible. Vérifiez à la fois les points de la carte et les coordonnées.</string>
 </resources>
