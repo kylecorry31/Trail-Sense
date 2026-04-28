@@ -1558,4 +1558,8 @@
     <string name="humidity_must_be_between_0_and_100">Luchtvochtigheid moet tussen 0 en 100 liggen</string>
     <string name="target">Doel</string>
     <string name="not_visible">Onzichtbaar</string>
+    <string name="map_calibration_error_same_pixel">Selecteer twee verschillende punten op de kaart.</string>
+    <string name="map_calibration_error_same_image_axis">Selecteer twee punten op de kaart die niet direct naast of boven elkaar liggen.</string>
+    <string name="map_calibration_error_same_location">Voer twee verschillende locaties uit de echte wereld in.</string>
+    <string name="map_calibration_error_implausible_scale">De kalibratieschaal lijkt onwaarschijnlijk. Controleer de kaartpunten en coördinaten.</string>
 </resources>
