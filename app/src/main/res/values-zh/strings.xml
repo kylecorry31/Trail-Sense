@@ -1552,4 +1552,11 @@
     <string name="map_calibration_error_same_image_axis">选择不存在直接的相邻或上下关系的两个地图点。</string>
     <string name="map_calibration_error_same_location">输入两个不同的真实世界位置。</string>
     <string name="map_calibration_error_implausible_scale">校准尺看起来不合理。请检查两个地图点和坐标。</string>
+    <string name="plugins">插件</string>
+    <string name="connected_plugins">已连接的插件</string>
+    <string name="available_plugins">可用插件</string>
+    <string name="plugin_connect_title">连接插件？</string>
+    <string name="plugin_connect_message">仅在信任 %s 时才连接。</string>
+    <string name="plugin_disconnect_title">断开插件连接？</string>
+    <string name="plugin_disconnect_message">断开 %s 连接？</string>
 </resources>
