@@ -1518,4 +1518,8 @@
     <string name="humidity_must_be_between_0_and_100">La humedad debe estar entre 0 y 100</string>
     <string name="target">Objetivo</string>
     <string name="not_visible">No visible</string>
+    <string name="map_calibration_error_same_pixel">Selecciona dos puntos sobre el mapa.</string>
+    <string name="map_calibration_error_same_image_axis">Selecciona dos punto no estén al lado o uno encima del otro.</string>
+    <string name="map_calibration_error_same_location">Introduce dos direcciones reales.</string>
+    <string name="map_calibration_error_implausible_scale">La escala de calibración no parece plausible. Comprueba los puntos del mapa y las coordenadas.</string>
 </resources>
