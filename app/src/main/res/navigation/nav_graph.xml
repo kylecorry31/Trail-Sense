@@ -86,6 +86,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_settings_to_plugins_settings"
+            app:destination="@id/pluginsSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_settings_to_unit_settings"
             app:destination="@id/unitSettingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -276,6 +283,10 @@
         android:id="@+id/beaconsSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.BeaconSettingsFragment"
         android:label="BeaconSettingsFragment" />
+    <fragment
+        android:id="@+id/pluginsSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.PluginsSettingsFragment"
+        android:label="PluginsSettingsFragment" />
     <fragment
         android:id="@+id/astronomySettingsFragment"
         android:name="com.kylecorry.trail_sense.tools.astronomy.ui.AstronomySettingsFragment"

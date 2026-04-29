@@ -22,6 +22,15 @@ data class PluginResourceServiceFeatures(
     val mapLayers: List<String>
 )
 
+data class AvailablePlugin(
+    val packageId: String,
+    val name: String,
+    val version: String?,
+    val signatures: List<String>,
+    val allPermissions: List<String>,
+    val grantedPermissions: List<String>
+)
+
 private data class RegistrationFeaturesResponse(
     // TODO: This would be the list of features that Trail Sense can detect and allow plugins to override
     val weather: List<String> = emptyList(),
@@ -46,6 +55,36 @@ private fun isOfficialPlugin(
 }
 
 class PluginLoader(private val context: Context) {
+
+    fun getAvailablePlugins(): List<AvailablePlugin> {
+        val filter = Intent(PLUGIN_RESOURCE_SERVICE_ACTION)
+        val services = context.packageManager.queryIntentServices(filter, 0)
+        return services.map {
+            val serviceInfo = it.serviceInfo
+            val packageId = serviceInfo.packageName
+            val appInfo = context.packageManager.getApplicationInfo(packageId, 0)
+            val appName = context.packageManager.getApplicationLabel(appInfo).toString()
+            val version = context.packageManager.getPackageInfo(packageId, 0).versionName
+            val allPermissions = context.packageManager
+                .getPackageInfo(
+                    packageId,
+                    PackageManager.GET_PERMISSIONS
+                ).requestedPermissions?.toList()?.sorted() ?: emptyList()
+            val grantedPermissions = allPermissions.filter { permission ->
+                Permissions.hasPermission(context, packageId, permission)
+            }
+            val signatures = Package.getSignatureSha256Fingerprints(context, packageId).sorted()
+
+            AvailablePlugin(
+                packageId,
+                appName,
+                version,
+                signatures,
+                allPermissions,
+                grantedPermissions
+            )
+        }.distinctBy { it.packageId }
+    }
 
     suspend fun getPluginResourceServices(): List<PluginResourceService> {
         val filter = Intent(PLUGIN_RESOURCE_SERVICE_ACTION)

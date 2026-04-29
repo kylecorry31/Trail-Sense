@@ -32,6 +32,10 @@
             app:key="@string/pref_experimental_settings"
             app:title="@string/experimental" />
         <Preference
+            app:icon="@drawable/apps"
+            app:key="@string/pref_plugins_settings"
+            app:title="@string/plugins" />
+        <Preference
             android:key="backup_restore"
             android:title="@string/backup_restore"
             app:icon="@drawable/backup_restore" />

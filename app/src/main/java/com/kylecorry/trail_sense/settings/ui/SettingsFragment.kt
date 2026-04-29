@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.settings.backup.BackupCommand
 import com.kylecorry.trail_sense.settings.backup.ChangeAutomaticBackupDirectoryCommand
 import com.kylecorry.trail_sense.settings.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -30,6 +31,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_privacy_settings to R.id.action_settings_to_privacy_settings,
         R.string.pref_theme_settings to R.id.action_settings_to_theme_settings,
         R.string.pref_experimental_settings to R.id.action_settings_to_experimental_settings,
+        R.string.pref_plugins_settings to R.id.action_settings_to_plugins_settings,
         R.string.pref_error_settings to R.id.action_settings_to_error_settings,
         R.string.pref_sensor_settings to R.id.action_settings_to_sensor_settings,
         R.string.pref_tool_settings_header_key to R.id.toolsSettingsFragment,
@@ -45,6 +47,8 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
+
+        preference(R.string.pref_plugins_settings)?.isVisible = isDebug()
 
         for (nav in navigationMap) {
             navigateOnClick(preference(nav.key), nav.value)

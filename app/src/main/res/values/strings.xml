@@ -7,8 +7,16 @@
     <string name="settings">Settings</string>
     <string name="astronomy">Astronomy</string>
     <string name="tools">Tools</string>
+    <string name="plugins">Plugins</string>
+    <string name="connected_plugins">Connected plugins</string>
+    <string name="available_plugins">Available plugins</string>
+    <string name="pref_plugins_settings" translatable="false">pref_plugins_settings</string>
     <!--Dialogs-->
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
+    <string name="plugin_connect_title">Connect plugin?</string>
+    <string name="plugin_connect_message">Only connect to %s if you trust it.</string>
+    <string name="plugin_disconnect_title">Disconnect plugin?</string>
+    <string name="plugin_disconnect_message">Disconnect %s?</string>
     <!--Permissions-->
     <string name="access_background_location">Update location settings</string>
     <string name="access_background_location_rationale">Trail Sense uses location data in the background for the sea level pressure calibration in weather monitoring and to provide more accurate sunset alerts. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
