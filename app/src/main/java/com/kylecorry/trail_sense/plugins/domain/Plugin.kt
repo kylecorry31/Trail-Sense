@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.plugins.domain
 
-data class PluginResourceServiceDetails(
+data class Plugin(
     val packageId: String,
     val name: String,
     val version: String?,
-    val features: PluginResourceServiceFeatures
+    val signatures: List<String>
 )
