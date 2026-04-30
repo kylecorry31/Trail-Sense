@@ -5,8 +5,8 @@ import android.content.Intent
 import com.kylecorry.andromeda.ipc.InterprocessCommunicationRequest
 import com.kylecorry.andromeda.ipc.client.InterprocessCommunicationClient
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
-import com.kylecorry.trail_sense.plugins.plugins.payloadAsString
-import com.kylecorry.trail_sense.plugins.plugins.pluginResourceServiceIntent
+import com.kylecorry.trail_sense.plugins.infrastructure.payloadAsString
+import com.kylecorry.trail_sense.plugins.infrastructure.pluginResourceServiceIntent
 import java.io.Closeable
 
 class SamplePluginService(private val context: Context) : Closeable {

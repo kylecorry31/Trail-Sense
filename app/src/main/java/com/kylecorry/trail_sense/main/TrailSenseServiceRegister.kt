@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.markdown.MarkdownExtension
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.plugins.PluginSubsystem
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
@@ -54,6 +55,7 @@ object TrailSenseServiceRegister {
         AppServiceRegistry.register(MapLayerLoader(appContext))
         AppServiceRegistry.register(MapLayerPreferenceRepo())
         AppServiceRegistry.register(PersistentTileCache(appContext))
+        AppServiceRegistry.register(PluginSubsystem.getInstance(appContext))
 
         Tools.getTools(context, false).forEach { tool ->
             tool.singletons.forEach { producer ->

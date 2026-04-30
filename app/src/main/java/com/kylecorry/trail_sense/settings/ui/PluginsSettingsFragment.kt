@@ -7,13 +7,14 @@ import androidx.preference.PreferenceCategory
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.plugins.plugins.AvailablePlugin
-import com.kylecorry.trail_sense.plugins.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.plugins.domain.AvailablePlugin
+import com.kylecorry.trail_sense.plugins.PluginSubsystem
 import kotlinx.coroutines.launch
 
 class PluginsSettingsFragment : AndromedaPreferenceFragment() {
 
-    private val pluginSubsystem by lazy { PluginSubsystem.getInstance(requireContext()) }
+    private val pluginSubsystem = getAppService<PluginSubsystem>()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.empty_preferences, rootKey)
