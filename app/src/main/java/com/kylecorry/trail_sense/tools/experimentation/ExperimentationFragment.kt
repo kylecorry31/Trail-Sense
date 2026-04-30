@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugin.sample.service.SamplePluginService
 import com.kylecorry.trail_sense.plugin.sample.service.WeatherForecastService
-import com.kylecorry.trail_sense.plugins.plugins.PluginLoader
+import com.kylecorry.trail_sense.plugins.PluginSubsystem
 import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -44,25 +44,21 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
         val markdown = useService<MarkdownService>()
-        val context = useAndroidContext()
+        val pluginSubsystem = useService<PluginSubsystem>()
 
         val service = usePluginService(
             Plugins.PLUGIN_SAMPLE,
             ::SamplePluginService
         )
 
-        val finder = useMemo(context) {
-            PluginLoader(context)
-        }
-
-        val plugins = useBackgroundMemo(finder) {
-            finder.getPluginResourceServices()
+        val plugins = useBackgroundMemo(pluginSubsystem) {
+            pluginSubsystem.getConnectedPluginResourceServices()
         }
 
         val weatherService = useMemo(plugins) {
             val plugin = plugins?.firstOrNull { it.features.weather.isNotEmpty() }
             if (plugin != null) {
-                WeatherForecastService(context, plugin)
+                WeatherForecastService(plugin)
             } else {
                 null
             }

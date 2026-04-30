@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.plugins.plugins
+package com.kylecorry.trail_sense.plugins.infrastructure
 
 import android.content.Context
 import android.content.Intent

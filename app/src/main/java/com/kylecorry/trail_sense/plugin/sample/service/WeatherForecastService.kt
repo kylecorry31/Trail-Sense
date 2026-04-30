@@ -1,22 +1,22 @@
 package com.kylecorry.trail_sense.plugin.sample.service
 
 import android.Manifest
-import android.content.Context
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.plugin.sample.domain.Forecast
 import com.kylecorry.trail_sense.plugin.sample.domain.WeatherRequest
-import com.kylecorry.trail_sense.plugins.plugins.PluginResourceService
-import com.kylecorry.trail_sense.plugins.plugins.ipcSend
-import com.kylecorry.trail_sense.plugins.plugins.payloadAsJson
+import com.kylecorry.trail_sense.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.plugins.domain.PluginResourceServiceDetails
+import com.kylecorry.trail_sense.plugins.infrastructure.payloadAsJson
 
 // Example of a community endpoint
 class WeatherForecastService(
-    private val context: Context,
-    private val plugin: PluginResourceService,
+    private val plugin: PluginResourceServiceDetails,
     private val endpoint: String? = null
 ) {
+
+    private val plugins = getAppService<PluginSubsystem>()
 
     suspend fun getWeather(location: Coordinate): Forecast? {
 
@@ -31,25 +31,18 @@ class WeatherForecastService(
         }
 
         // No permission
-        if (!plugin.isOfficial && !Permissions.hasPermission(
-                context,
-                plugin.packageId,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        ) {
+        if (!plugin.isOfficial) {
             return null
         }
 
-        val response = ipcSend(
-            context,
+        return plugins.callPluginEndpoint(
             plugin.packageId,
             actualEndpoint,
             WeatherRequest(
                 location.latitude.roundPlaces(2),
                 location.longitude.roundPlaces(2)
-            )
-        )
-
-        return response.payloadAsJson()
+            ),
+            listOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+        )?.payloadAsJson()
     }
 }
