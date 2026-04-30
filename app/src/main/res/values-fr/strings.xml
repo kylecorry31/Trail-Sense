@@ -1571,4 +1571,11 @@
     <string name="map_calibration_error_same_image_axis">Sélectionnez deux points sur la carte qui ne sont ni directement côte à côte ni l\'un au-dessus de l\'autre.</string>
     <string name="map_calibration_error_same_location">Indiquez deux lieux réels différents.</string>
     <string name="map_calibration_error_implausible_scale">L\'échelle de calibrage semble peu plausible. Vérifiez à la fois les points de la carte et les coordonnées.</string>
+    <string name="plugins">Plugins</string>
+    <string name="connected_plugins">Plugins connectés</string>
+    <string name="available_plugins">Plugins disponibles</string>
+    <string name="plugin_connect_title">Connecter le plugin ?</string>
+    <string name="plugin_connect_message">Ne vous connectez à %s que si vous lui faites confiance.</string>
+    <string name="plugin_disconnect_title">Déconnecter le plugin ?</string>
+    <string name="plugin_disconnect_message">Déconnecter %s ?</string>
 </resources>
