@@ -2,14 +2,11 @@ package com.kylecorry.trail_sense.plugins
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.andromeda.ipc.InterprocessCommunicationResponse
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.luna.coroutines.onIO
-import com.kylecorry.trail_sense.plugins.domain.AvailablePlugin
+import com.kylecorry.trail_sense.plugins.domain.Plugin
+import com.kylecorry.trail_sense.plugins.infrastructure.PluginResourceServiceConnection
 import com.kylecorry.trail_sense.plugins.domain.PluginResourceServiceDetails
-import com.kylecorry.trail_sense.plugins.infrastructure.PLUGIN_RESOURCE_SERVICE_ACTION
 import com.kylecorry.trail_sense.plugins.infrastructure.PluginLoader
-import com.kylecorry.trail_sense.plugins.infrastructure.ipcSend
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PersistedPlugin
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRepo
 
@@ -18,11 +15,19 @@ class PluginSubsystem private constructor(private val context: Context) {
     private val pluginLoader = PluginLoader(context)
     private val pluginRepo = PluginRepo.getInstance(context)
 
-    suspend fun getAvailablePlugins(): List<AvailablePlugin> = onIO {
-        pluginLoader.getAvailablePlugins()
+    // ======== Connection ========
+
+    /**
+     * Get all installed plugins
+     */
+    suspend fun getAvailablePlugins(): List<Plugin> = onIO {
+        pluginLoader.getResourceServicePlugins()
     }
 
-    suspend fun getConnectedPlugins(): List<AvailablePlugin> {
+    /**
+     * Get all installed plugins that are connected
+     */
+    suspend fun getConnectedPlugins(): List<Plugin> {
         val available = getAvailablePlugins()
         val connected = pluginRepo.getAll().associateBy { it.packageId }
         return available.filter { plugin ->
@@ -30,12 +35,42 @@ class PluginSubsystem private constructor(private val context: Context) {
         }
     }
 
-    suspend fun getUnconnectedPlugins(): List<AvailablePlugin> {
+    /**
+     * Get all installed plugins that are not connected
+     */
+    suspend fun getUnconnectedPlugins(): List<Plugin> {
         val connectedIds = getConnectedPlugins().map { it.packageId }.toSet()
         return getAvailablePlugins().filter { it.packageId !in connectedIds }
     }
 
-    suspend fun getPluginResourceService(packageId: String): PluginResourceServiceDetails? {
+    /**
+     * Connect a plugin
+     */
+    suspend fun connect(plugin: Plugin) {
+        pluginRepo.upsert(PersistedPlugin(plugin.packageId, plugin.signatureString()))
+    }
+
+    /**
+     * Disconnect a plugin
+     */
+    suspend fun disconnect(plugin: Plugin) {
+        pluginRepo.deleteByPackageId(plugin.packageId)
+    }
+
+    /**
+     * Determines if a plugin is installed and connected
+     */
+    suspend fun isConnected(packageId: String): Boolean {
+        val plugin = pluginLoader.getPlugin(packageId) ?: return false
+        return pluginRepo.get(packageId)?.signature == plugin.signatureString()
+    }
+
+    // ======== Resource Services ========
+
+    /**
+     * Get details about a connected plugin's resource service
+     */
+    suspend fun getPluginResourceServiceDetails(packageId: String): PluginResourceServiceDetails? {
         if (!isConnected(packageId)) {
             return null
         }
@@ -43,47 +78,26 @@ class PluginSubsystem private constructor(private val context: Context) {
         return pluginLoader.getPluginResourceService(packageId)
     }
 
-    suspend fun getConnectedPluginResourceServices(): List<PluginResourceServiceDetails> {
+    /**
+     * Get details about all connected plugins' resource services
+     */
+    suspend fun getPluginResourceServiceDetails(): List<PluginResourceServiceDetails> {
         return getConnectedPlugins().mapNotNull {
             pluginLoader.getPluginResourceService(it.packageId)
         }
     }
 
-    suspend fun connect(plugin: AvailablePlugin) {
-        pluginRepo.upsert(PersistedPlugin(plugin.packageId, plugin.signatureString()))
-    }
-
-    suspend fun disconnect(plugin: AvailablePlugin) {
-        pluginRepo.deleteByPackageId(plugin.packageId)
-    }
-
-    suspend fun callPluginEndpoint(
-        packageId: String,
-        route: String,
-        payload: Any? = null,
-        requiredPermissions: List<String> = emptyList()
-    ): InterprocessCommunicationResponse? {
+    /**
+     * Get a connection handle for a connected plugin's resource service
+     */
+    suspend fun getPluginResourceServiceConnection(packageId: String): PluginResourceServiceConnection? {
         if (!isConnected(packageId)) {
-            // Not connected
             return null
         }
-
-        if (requiredPermissions.isNotEmpty() && requiredPermissions.any {
-                !Permissions.hasPermission(context, packageId, it)
-            }) {
-            // Permission not granted
-            return null
-        }
-
-        return ipcSend(context, packageId, route, payload, PLUGIN_RESOURCE_SERVICE_ACTION)
+        return PluginResourceServiceConnection(context, packageId)
     }
 
-    private suspend fun isConnected(packageId: String): Boolean {
-        val plugin = pluginLoader.getPlugin(packageId) ?: return false
-        return pluginRepo.get(packageId)?.signature == plugin.signatureString()
-    }
-
-    private fun AvailablePlugin.signatureString(): String {
+    private fun Plugin.signatureString(): String {
         return signatures.sorted().joinToString(", ")
     }
 

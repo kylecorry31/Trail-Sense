@@ -30,19 +30,15 @@ class WeatherForecastService(
             return null
         }
 
-        // No permission
-        if (!plugin.isOfficial) {
-            return null
+        return plugins.getPluginResourceServiceConnection(plugin.packageId)?.use {
+            it.send(
+                actualEndpoint,
+                WeatherRequest(
+                    location.latitude.roundPlaces(2),
+                    location.longitude.roundPlaces(2)
+                ),
+                listOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+            )?.payloadAsJson()
         }
-
-        return plugins.callPluginEndpoint(
-            plugin.packageId,
-            actualEndpoint,
-            WeatherRequest(
-                location.latitude.roundPlaces(2),
-                location.longitude.roundPlaces(2)
-            ),
-            listOf(Manifest.permission.ACCESS_COARSE_LOCATION)
-        )?.payloadAsJson()
     }
 }
