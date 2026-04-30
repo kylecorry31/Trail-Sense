@@ -1562,4 +1562,11 @@
     <string name="map_calibration_error_same_image_axis">Selecteer twee punten op de kaart die niet direct naast of boven elkaar liggen.</string>
     <string name="map_calibration_error_same_location">Voer twee verschillende locaties uit de echte wereld in.</string>
     <string name="map_calibration_error_implausible_scale">De kalibratieschaal lijkt onwaarschijnlijk. Controleer de kaartpunten en coördinaten.</string>
+    <string name="plugins">Plug-ins</string>
+    <string name="connected_plugins">Verbonden plug-ins</string>
+    <string name="available_plugins">Beschikbare plug-ins</string>
+    <string name="plugin_connect_title">Plug-in verbinden?</string>
+    <string name="plugin_connect_message">Maak alleen verbinding met %s als je het vertrouwt.</string>
+    <string name="plugin_disconnect_title">Plug-in verbreken?</string>
+    <string name="plugin_disconnect_message">Verbinding met %s verbreken?</string>
 </resources>
