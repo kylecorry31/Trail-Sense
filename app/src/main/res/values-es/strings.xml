@@ -1522,4 +1522,11 @@
     <string name="map_calibration_error_same_image_axis">Selecciona dos punto no estén al lado o uno encima del otro.</string>
     <string name="map_calibration_error_same_location">Introduce dos direcciones reales.</string>
     <string name="map_calibration_error_implausible_scale">La escala de calibración no parece plausible. Comprueba los puntos del mapa y las coordenadas.</string>
+    <string name="plugins">Plugins</string>
+    <string name="connected_plugins">Plugins conectados</string>
+    <string name="available_plugins">Plugins disponibles</string>
+    <string name="plugin_connect_title">¿Conectar el plugin?</string>
+    <string name="plugin_connect_message">Conéctate a %s sólo si confías en él.</string>
+    <string name="plugin_disconnect_title">¿Desconectar plugin?</string>
+    <string name="plugin_disconnect_message">¿Desconectar %s?</string>
 </resources>
