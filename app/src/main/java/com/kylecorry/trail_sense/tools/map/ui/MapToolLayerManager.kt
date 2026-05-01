@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geography.Geography
@@ -34,43 +35,58 @@ class MapToolLayerManager {
 
     var key: Int = 0
 
+    private var isRunning = false
+    private val runningLock = Any()
+
     fun resume(context: Context, view: IMapView, fragment: Fragment) {
-        view.setLayersWithPreferences(
-            MapToolRegistration.MAP_ID,
-            repo.getActiveLayerIds(MapToolRegistration.MAP_ID) +
-                    listOf(
-                        ScaleBarLayer.LAYER_ID,
-                        MyElevationLayer.LAYER_ID,
-                        CompassOverlayLayer.LAYER_ID,
-                    ),
-            listOf(
+        synchronized(runningLock) {
+            isRunning = true
+        }
+        fragment.inBackground {
+            view.setLayersWithPreferences(
+                MapToolRegistration.MAP_ID,
+                repo.getActiveLayerIds(MapToolRegistration.MAP_ID) +
+                        listOf(
+                            ScaleBarLayer.LAYER_ID,
+                            MyElevationLayer.LAYER_ID,
+                            CompassOverlayLayer.LAYER_ID,
+                        ),
+                listOf(
 
-                selectedPointLayer,
-                distanceLayer
+                    selectedPointLayer,
+                    distanceLayer
+                )
             )
-        )
 
-        // Hardcoded configuration
-        distanceLayer.onPathChanged = { onDistancePathChange(it) }
-        distanceLayer.isEnabled = false
-        (view.getLayerById(CompassOverlayLayer.LAYER_ID) as? CompassOverlayLayer)?.paddingTopDp =
-            48f
+            // Hardcoded configuration
+            distanceLayer.onPathChanged = { onDistancePathChange(it) }
+            distanceLayer.isEnabled = false
+            (view.getLayerById(CompassOverlayLayer.LAYER_ID) as? CompassOverlayLayer)?.paddingTopDp =
+                48f
 
-        view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
-            GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)
+            view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
+                GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)
+            }
+
+            synchronized(runningLock) {
+                if (isRunning) {
+                    view.start()
+
+                    if (view is View) {
+                        view.invalidate()
+                    }
+                }
+            }
+
+            key++
         }
-
-        view.start()
-
-        if (view is View) {
-            view.invalidate()
-        }
-
-        key++
     }
 
     fun pause(view: IMapView) {
-        view.stop()
+        synchronized(runningLock) {
+            isRunning = false
+            view.stop()
+        }
     }
 
     fun onBoundsChanged() {
