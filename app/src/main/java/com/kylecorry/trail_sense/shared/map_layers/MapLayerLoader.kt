@@ -4,6 +4,9 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.LayerFactory
@@ -14,15 +17,19 @@ class MapLayerLoader(context: Context) {
     private val toolLayers = Tools.getTools(context).flatMap { it.mapLayers }.associateBy { it.id }
     private val factory = LayerFactory()
 
+    private val plugins = getAppService<PluginSubsystem>()
+
     suspend fun getDefinitions(): Map<String, MapLayerDefinition> {
-        // TODO: This is where it would query the plugins
-        return toolLayers.toMap()
+        val pluginDefinitions: Map<String, MapLayerDefinition> = if (plugins.arePluginsEnabled()) {
+            plugins.getPluginResourceServiceDetails().flatMap { it.features.mapLayers }.associateBy { it.id }
+        } else {
+            emptyMap()
+        }
+        return toolLayers.toMap() + pluginDefinitions
     }
 
-    fun getLayer(layerId: String): ILayer? {
-        // TODO: This is where it would check the layer ID to see if it is a plugin and create a plugin layer
-        // The plugin layer IDs should use a consistent format like plugin__package_name__layer_id__tile / plugin__package_name__layer_id__feature
-        return toolLayers[layerId]?.let { factory.createLayer(it) }
+    fun getLayer(layerId: String, definitions: Map<String, MapLayerDefinition>): ILayer? {
+        return definitions[layerId]?.let { factory.createLayer(it) }
     }
 
 }

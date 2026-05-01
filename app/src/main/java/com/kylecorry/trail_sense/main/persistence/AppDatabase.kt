@@ -12,6 +12,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginDao
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginEntity
+import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationDao
+import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationEntity
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelDao
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelEntity
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileDao
@@ -61,8 +63,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class],
-    version = 50,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class],
+    version = 51,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -88,6 +90,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun bearingDao(): NavigationBearingDao
     abstract fun cachedTileDao(): CachedTileDao
     abstract fun pluginDao(): PluginDao
+    abstract fun pluginRegistrationDao(): PluginRegistrationDao
 
     companion object {
 
@@ -461,6 +464,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_50_51 = object : Migration(50, 51) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `plugin_registrations` (`package_id` TEXT NOT NULL, `version_code` INTEGER NOT NULL, `payload` BLOB NOT NULL, PRIMARY KEY(`package_id`))")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -511,7 +520,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_46_47,
                     MIGRATION_47_48,
                     MIGRATION_48_49,
-                    MIGRATION_49_50
+                    MIGRATION_49_50,
+                    MIGRATION_50_51
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

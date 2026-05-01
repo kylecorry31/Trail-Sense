@@ -28,9 +28,25 @@ class PluginsSettingsFragment : AndromedaPreferenceFragment() {
             val unconnected = pluginSubsystem.getUnconnectedPlugins()
 
             preferenceScreen.removeAll()
+            addClearCachePreference()
             addCategory(R.string.connected_plugins, connected.sorted(), ::confirmDisconnect)
             addCategory(R.string.available_plugins, unconnected.sorted(), ::confirmConnect)
         }
+    }
+
+    private fun addClearCachePreference() {
+        val preference = Preference(requireContext())
+        preference.title = getString(R.string.clear_plugin_cache)
+        preference.isIconSpaceReserved = false
+        preference.isSingleLineTitle = false
+        preference.setOnPreferenceClickListener {
+            lifecycleScope.launch {
+                pluginSubsystem.clearRegistrationCache()
+                Alerts.toast(requireContext(), getString(R.string.done))
+            }
+            true
+        }
+        preferenceScreen.addPreference(preference)
     }
 
     private fun addCategory(

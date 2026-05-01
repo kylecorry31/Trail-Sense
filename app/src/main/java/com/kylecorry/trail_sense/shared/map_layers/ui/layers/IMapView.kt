@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
+import kotlinx.coroutines.runBlocking
 
 interface IMapView {
 
@@ -102,7 +103,7 @@ fun IMapView.stop() {
     layerManager.stop()
 }
 
-fun IMapView.setLayersWithPreferences(
+suspend fun IMapView.setLayersWithPreferences(
     mapId: String,
     layerIds: List<String>,
     additionalLayers: List<ILayer> = emptyList(),
@@ -112,11 +113,12 @@ fun IMapView.setLayersWithPreferences(
     val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
     val currentLayers = layerManager.getLayers()
     val newLayerIds = layerIds + additionalLayers.map { it.layerId }
+    val definitions = loader.getDefinitions()
     val layers = if (!forceReplaceLayers && currentLayers.map { it.layerId } == newLayerIds) {
         currentLayers
     } else {
         layerIds.mapNotNull { id ->
-            loader.getLayer(id)
+            loader.getLayer(id, definitions)
         } + additionalLayers
     }
 
