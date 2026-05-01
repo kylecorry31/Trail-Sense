@@ -21,10 +21,6 @@ class PluginRegistrationRepo private constructor(context: Context) {
         dao.deleteByPackageId(packageId)
     }
 
-    suspend fun deleteAll() = onIO {
-        dao.deleteAll()
-    }
-
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: PluginRegistrationRepo? = null

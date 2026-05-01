@@ -288,6 +288,14 @@
         android:name="com.kylecorry.trail_sense.settings.ui.PluginsSettingsFragment"
         android:label="PluginsSettingsFragment" />
     <fragment
+        android:id="@+id/pluginDetailsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.PluginDetailsFragment"
+        android:label="PluginDetailsFragment">
+        <argument
+            android:name="package_id"
+            app:argType="string" />
+    </fragment>
+    <fragment
         android:id="@+id/astronomySettingsFragment"
         android:name="com.kylecorry.trail_sense.tools.astronomy.ui.AstronomySettingsFragment"
         android:label="AstronomySettingsFragment" />

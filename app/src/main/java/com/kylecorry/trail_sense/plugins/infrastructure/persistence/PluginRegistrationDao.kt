@@ -15,7 +15,4 @@ interface PluginRegistrationDao {
 
     @Query("DELETE FROM plugin_registrations WHERE package_id = :packageId")
     suspend fun deleteByPackageId(packageId: String)
-
-    @Query("DELETE FROM plugin_registrations")
-    suspend fun deleteAll()
 }
