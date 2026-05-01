@@ -117,7 +117,6 @@ class PluginLoader(private val context: Context) {
             isTimeDependent = layer.isTimeDependent,
             refreshInterval = layer.refreshInterval?.let { millis -> Duration.ofMillis(millis) },
             refreshBroadcasts = layer.refreshBroadcasts,
-            cacheKeys = layer.cacheKeys,
             shouldMultiply = layer.shouldMultiply,
             tileSource = if (layerType == MapLayerType.Tile) {
                 { PluginTileSource(packageId, layer.endpoint) }
@@ -176,7 +175,6 @@ class PluginLoader(private val context: Context) {
         val isTimeDependent: Boolean = false,
         val refreshInterval: Long? = null,
         val refreshBroadcasts: List<String> = emptyList(),
-        val cacheKeys: List<String>? = null,
         val shouldMultiply: Boolean = false
     ) : ProguardIgnore
 
