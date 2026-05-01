@@ -1569,4 +1569,6 @@
     <string name="plugin_connect_message">Maak alleen verbinding met %s als je het vertrouwt.</string>
     <string name="plugin_disconnect_title">Plug-in verbreken?</string>
     <string name="plugin_disconnect_message">Verbinding met %s verbreken?</string>
+    <string name="clear_plugin_cache">Plug-in cache wissen</string>
+    <string name="plugin_name">Plug-in: %s</string>
 </resources>
