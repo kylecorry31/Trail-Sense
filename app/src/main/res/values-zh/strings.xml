@@ -1559,4 +1559,6 @@
     <string name="plugin_connect_message">仅在信任 %s 时才连接。</string>
     <string name="plugin_disconnect_title">断开插件连接？</string>
     <string name="plugin_disconnect_message">断开 %s 连接？</string>
+    <string name="clear_plugin_cache">清除插件缓存</string>
+    <string name="plugin_name">插件：%s</string>
 </resources>
