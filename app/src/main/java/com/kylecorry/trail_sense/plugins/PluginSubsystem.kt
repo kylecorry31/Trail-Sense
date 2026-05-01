@@ -72,8 +72,9 @@ class PluginSubsystem private constructor(private val context: Context) {
         pluginRegistrationRepo.deleteByPackageId(plugin.packageId)
     }
 
-    suspend fun clearRegistrationCache() {
-        pluginRegistrationRepo.deleteAll()
+    suspend fun reloadRegistration(packageId: String): PluginResourceServiceDetails? {
+        pluginRegistrationRepo.deleteByPackageId(packageId)
+        return getPluginResourceServiceDetails(packageId)
     }
 
     /**

@@ -7,6 +7,11 @@ style:
   MaxLineLength:
     active: false
 
+complexity:
+  LongMethod:
+    ignoreFunction:
+      - 'update'
+
 naming:
   PackageNaming:
     active: false
