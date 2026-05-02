@@ -8,6 +8,8 @@ When a user connects a plugin, Trail Sense requests the plugin's registration pa
 
 See the [sample plugin](https://github.com/kylecorry31/Trail-Sense-Sample-Plugin) for an example.
 
+The registration payload must be no larger than 64 KiB. Trail Sense ignores registrations that exceed this limit.
+
 ## Request
 
 Trail Sense sends a request to:
@@ -33,6 +35,7 @@ The response payload must be JSON string matching this schema:
       "properties": {
         "mapLayers": {
           "type": "array",
+          "maxItems": 25,
           "default": [],
           "items": {
             "$ref": "#/$defs/mapLayer"
@@ -51,10 +54,15 @@ The response payload must be JSON string matching this schema:
       "properties": {
         "endpoint": {
           "type": "string",
+          "pattern": "^/[A-Za-z0-9/_-]{1,99}$",
+          "minLength": 2,
+          "maxLength": 100,
           "description": "The plugin route Trail Sense calls to load this layer."
         },
         "name": {
           "type": "string",
+          "minLength": 1
+          "maxLength": 100,
           "description": "The user-visible layer name. Trail Sense prefixes this with the plugin name."
         },
         "layerType": {
@@ -75,11 +83,14 @@ The response payload must be JSON string matching this schema:
         },
         "description": {
           "type": ["string", "null"],
+          "maxLength": 1000,
           "default": null,
           "description": "A user-visible layer description."
         },
         "minZoomLevel": {
           "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 20,
           "default": null,
           "description": "The minimum zoom level where this layer should be shown."
         },
@@ -90,16 +101,10 @@ The response payload must be JSON string matching this schema:
         },
         "refreshInterval": {
           "type": ["integer", "null"],
+          "minimum": 30000,
+          "maximum": 3600000,
           "default": null,
           "description": "Automatic refresh interval in milliseconds."
-        },
-        "refreshBroadcasts": {
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "description": "Tool broadcasts that should refresh this layer."
         },
         "shouldMultiply": {
           "type": "boolean",
@@ -115,10 +120,12 @@ The response payload must be JSON string matching this schema:
       "properties": {
         "attribution": {
           "type": "string",
+          "maxLength": 500,
           "description": "Short attribution text."
         },
         "longAttribution": {
           "type": ["string", "null"],
+          "maxLength": 2000,
           "default": null,
           "description": "Long-form attribution text."
         },
@@ -134,6 +141,6 @@ The response payload must be JSON string matching this schema:
 }
 ```
 
-Tool broadcasts can be found in Trail Sense's source code via instances of `ToolRegistration`.
-
 If you change the endpoint, users will need to re-add the layer to see it on their maps.
+
+Trail Sense skips map layers with invalid endpoints or blank names. Values longer than the documented limits are truncated.

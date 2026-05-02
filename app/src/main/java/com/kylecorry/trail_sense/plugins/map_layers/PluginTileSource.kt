@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.plugins.infrastructure.PluginGuard
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
@@ -38,7 +39,22 @@ class PluginTileSource(private val packageId: String, private val endpoint: Stri
                     requiredPermissions = listOf(Manifest.permission.ACCESS_FINE_LOCATION)
                 )?.payload
                     ?: return@use null
-            BitmapFactory.decodeStream(ByteArrayInputStream(bitmap))
+            decodeBitmap(bitmap)
+        }
+    }
+
+    private fun decodeBitmap(bytes: ByteArray): Bitmap? {
+        val bounds = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+        val isValid = PluginGuard.isValidTilePayload(bytes) &&
+                BitmapFactory.decodeStream(ByteArrayInputStream(bytes), null, bounds) == null &&
+                PluginGuard.isValidTileSize(bounds.outWidth, bounds.outHeight)
+
+        return if (isValid) {
+            BitmapFactory.decodeStream(ByteArrayInputStream(bytes))
+        } else {
+            null
         }
     }
 
