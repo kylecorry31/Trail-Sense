@@ -20,7 +20,7 @@
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_use_dynamic_colors"
-            app:singleLineTitle="false"
+            app:singleLineTitle="true"
             app:title="@string/dynamic_colors" />
 
         <SwitchPreferenceCompat

@@ -13,6 +13,7 @@ import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaActivity
+import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
@@ -32,6 +33,7 @@ class OnboardingActivity : AndromedaActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setColorTheme(ColorTheme.System, true)
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
