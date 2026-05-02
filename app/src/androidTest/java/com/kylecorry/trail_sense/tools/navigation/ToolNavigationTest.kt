@@ -1,30 +1,23 @@
 package com.kylecorry.trail_sense.tools.navigation
 
-import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
-import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.test_utils.views.viewWithResourceId
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
@@ -86,6 +79,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         click(toolbarButton(R.id.create_beacon_title, Side.Right))
 
         // Navigate to it
+        isVisible(R.id.beacon_recycler)
         click("Test Beacon")
         delay(200)
         click(string(R.string.navigate))

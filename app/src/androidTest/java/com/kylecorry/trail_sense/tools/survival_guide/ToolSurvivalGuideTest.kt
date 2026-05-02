@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.survival_guide
 
+import android.os.Build
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -71,7 +72,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE))
 
-        input(R.id.search, "Eating fish", closeKeyboardOnCompletion = true)
+        input(R.id.search, "Eating fish", closeKeyboardOnCompletion = Build.VERSION.SDK_INT == 23)
 
         // Continue search on survival guide list
         click(toolbarButton(R.id.title, Side.Right))
