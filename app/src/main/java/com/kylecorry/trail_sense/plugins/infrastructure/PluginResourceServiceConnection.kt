@@ -23,6 +23,7 @@ class PluginResourceServiceConnection(private val context: Context, private val 
         payload: Any? = null,
         requiredPermissions: List<String> = emptyList(),
         connectTimeout: Duration = Duration.ofSeconds(10),
+        responseTimeout: Duration = Duration.ofMinutes(1),
         stayConnected: Boolean = true
     ): InterprocessCommunicationResponse? = onIO {
         if (!canInteractWithPlugin(requiredPermissions)) {
@@ -51,6 +52,7 @@ class PluginResourceServiceConnection(private val context: Context, private val 
             route,
             InterprocessCommunicationRequest(payload = bytes),
             connectTimeout,
+            responseTimeout,
             stayConnected = stayConnected
         )
     }
