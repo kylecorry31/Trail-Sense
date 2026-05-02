@@ -9,13 +9,13 @@ plugins {
 
 android {
     namespace = "com.kylecorry.trail_sense"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 143
         versionName = "7.8.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
