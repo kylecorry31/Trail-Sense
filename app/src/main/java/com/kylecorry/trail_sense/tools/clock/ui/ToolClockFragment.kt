@@ -41,6 +41,8 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     private var gpsTime = Instant.now()
     private var systemTime = Instant.now()
 
+    private var isGpsTime = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.pipButton.setOnClickListener {
@@ -59,6 +61,8 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.clockTitle.title.isVisible = showAnalogClock
         binding.analogClock.isVisible = showAnalogClock
         binding.digitalClock.isVisible = !showAnalogClock
+
+        updateClockSource()
     }
 
     override fun onResume() {
@@ -78,14 +82,17 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     private fun onGPSUpdate(): Boolean {
         gpsTime = getGPSTime()
         systemTime = Instant.now()
+        isGpsTime = true
 
         if (gps is CustomGPS && (gps as CustomGPS).isTimedOut) {
             Alerts.toast(requireContext(), getString(R.string.no_gps_signal))
             gpsTime = Instant.now()
+            isGpsTime = false
         }
 
         binding.updatingClock.visibility = View.INVISIBLE
         binding.pipButton.visibility = View.VISIBLE
+        updateClockSource()
         return false
     }
 
@@ -117,6 +124,15 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
             binding.digitalClock.text = formatService.formatTime(myTime.toLocalTime())
         }
 
+    }
+
+    private fun updateClockSource() {
+        binding.clockSource.text = if (isGpsTime) {
+            getString(R.string.clock_source_gps)
+        } else {
+            getString(R.string.clock_source_device)
+        }
+        binding.clockSource.visibility = View.VISIBLE
     }
 
     private fun sendNextMinuteNotification() {
