@@ -22,7 +22,7 @@ class PluginResourceServiceConnection(private val context: Context, private val 
         route: String,
         payload: Any? = null,
         requiredPermissions: List<String> = emptyList(),
-        timeout: Duration = Duration.ofSeconds(10),
+        connectTimeout: Duration = Duration.ofSeconds(10),
         stayConnected: Boolean = true
     ): InterprocessCommunicationResponse? = onIO {
         if (!canInteractWithPlugin(requiredPermissions)) {
@@ -50,7 +50,7 @@ class PluginResourceServiceConnection(private val context: Context, private val 
         service.connectAndSend(
             route,
             InterprocessCommunicationRequest(payload = bytes),
-            timeout,
+            connectTimeout,
             stayConnected = stayConnected
         )
     }

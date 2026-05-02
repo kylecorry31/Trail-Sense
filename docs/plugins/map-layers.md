@@ -60,6 +60,8 @@ Trail Sense calls the layer's registered `endpoint` and sends a JSON payload mat
 
 The body of the plugin response must be valid GeoJSON (https://geojson.org/). All geometry types are supported but GeometryCollection is not recommended since the feature properties vary by geometry type. Multi* geometry values are flattened into their base geometry type by Trail Sense, so use the property type of the base (ex. MultPoint -> Point).
 
+GeoJSON response payloads must be no larger than 1 MiB and must parse within 2 seconds. The parsed response must contain no more than 1000 features, 10000 coordinates, and geometry collections may nest no deeper than 8 levels. Responses that exceed these limits are ignored. Feature names longer than 200 characters will be truncated.
+
 The following JSON schemas outline what you can provide for the `properties` value for each geometry type.  Other properties in the future may include `description` and `coordinateProperties` (properties of coordinates in a LineString/Polygon).
 
 If your feature is clickable and contains a `name` property, Trail Sense may display it to the user when they select the feature. Users may also be able to show the `name` on the map depending on their settings.
@@ -78,6 +80,7 @@ Used for Point geometries with marker support:
   "properties": {
     "name": {
       "type": ["string", "null"],
+      "maxLength": 200,
       "default": null,
       "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
     },
@@ -93,11 +96,13 @@ Used for Point geometries with marker support:
     },
     "strokeWeight": {
       "type": "number",
+      "minimum": 0,
       "default": 0.5,
       "description": "The stroke weight in dp."
     },
     "size": {
       "type": "number",
+      "minimum": 0,
       "default": 12,
       "description": "The size of the marker in the units of sizeUnit."
     },
@@ -114,6 +119,7 @@ Used for Point geometries with marker support:
     },
     "iconSize": {
       "type": "number",
+      "minimum": 0,
       "description": "The size of the icon in dp. Default: same as size property."
     },
     "iconColor": {
@@ -155,6 +161,7 @@ Used for LineString geometries:
   "properties": {
     "name": {
       "type": ["string", "null"],
+      "maxLength": 200,
       "default": null,
       "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
     },
@@ -171,6 +178,7 @@ Used for LineString geometries:
     },
     "strokeWeight": {
       "type": "number",
+      "minimum": 0,
       "default": 2.25,
       "description": "The stroke weight in dp."
     },
@@ -203,6 +211,7 @@ Used for Polygon geometries:
   "properties": {
     "name": {
       "type": ["string", "null"],
+      "maxLength": 200,
       "default": null,
       "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
     },
@@ -218,6 +227,7 @@ Used for Polygon geometries:
     },
     "strokeWeight": {
       "type": "number",
+      "minimum": 0,
       "default": 0,
       "description": "The stroke weight in dp."
     },
@@ -278,4 +288,4 @@ Trail Sense calls the layer's registered `endpoint` and sends a JSON payload mat
 
 ## Response contract
 
-The response payload must be a `BitmapFactory` decodable `ByteArray` no larger than 256x256 pixels. Tiles that aren't 256x256 will be rescaled by Trail Sense. Return a null payload when no tile is available.
+The response payload must be a `BitmapFactory` decodable `ByteArray` no larger than 1 MiB. The decoded image must be no larger than 256x256 pixels. Tiles that aren't 256x256 will be rescaled by Trail Sense. Return a null payload when no tile is available.

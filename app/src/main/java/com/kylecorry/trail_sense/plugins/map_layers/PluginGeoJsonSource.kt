@@ -8,9 +8,12 @@ import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.plugins.infrastructure.PluginGuard
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.time.withTimeout
 import java.io.ByteArrayInputStream
 import java.time.Instant
 
@@ -40,7 +43,17 @@ class PluginGeoJsonSource(private val packageId: String, private val endpoint: S
                     requiredPermissions = listOf(Manifest.permission.ACCESS_FINE_LOCATION)
                 )?.payload
                     ?: return@use null
-            GeoJsonConvert.fromJson(ByteArrayInputStream(geojson))
+            if (!PluginGuard.isValidGeoJsonPayload(geojson)) {
+                return@use null
+            }
+
+            try {
+                withTimeout(PluginGuard.MAX_GEOJSON_PARSE_TIME) {
+                    GeoJsonConvert.fromJson(ByteArrayInputStream(geojson))
+                }
+            } catch (_: TimeoutCancellationException) {
+                null
+            }
         }
     }
 

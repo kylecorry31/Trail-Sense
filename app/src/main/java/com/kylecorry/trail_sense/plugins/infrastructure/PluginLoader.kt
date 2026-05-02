@@ -67,7 +67,7 @@ class PluginLoader(private val context: Context) {
             version,
             PluginResourceServiceFeatures(
                 registration?.features?.weather ?: emptyList(),
-                registration?.features?.mapLayers?.mapNotNull {
+                registration?.features?.mapLayers?.take(PluginGuard.MAX_MAP_LAYERS)?.mapNotNull {
                     toMapLayerDefinition(servicePackageId, appName, it)
                 } ?: emptyList()
             )
@@ -80,7 +80,7 @@ class PluginLoader(private val context: Context) {
     ): RegistrationResponse? {
         val cached = registrationRepo.get(packageId)
         if (cached?.versionCode == packageVersionCode) {
-            return cached.payload.fromJson()
+            return parseRegistration(cached.payload)
         }
 
         val payload = PluginResourceServiceConnection(context, packageId).use {
@@ -91,7 +91,7 @@ class PluginLoader(private val context: Context) {
             registrationRepo.upsert(PluginRegistrationEntity(packageId, packageVersionCode, payload))
         }
 
-        return payload?.fromJson()
+        return parseRegistration(payload)
     }
 
     private fun toMapLayerDefinition(
@@ -99,24 +99,34 @@ class PluginLoader(private val context: Context) {
         pluginName: String,
         layer: RegistrationMapLayerResponse
     ): MapLayerDefinition? {
-        val layerType = mapLayerType(layer.layerType) ?: return null
+        val layerType = mapLayerType(layer.layerType)
+        if (!PluginGuard.isValidEndpoint(layer.endpoint) || layer.name.isBlank() || layerType == null) {
+            return null
+        }
+        val refreshInterval = layer.refreshInterval?.let { millis ->
+            Duration.ofMillis(millis)
+                .coerceIn(PluginGuard.MIN_REFRESH_INTERVAL, PluginGuard.MAX_REFRESH_INTERVAL)
+        }
+        val attribution = layer.attribution?.let {
+            MapLayerAttribution(
+                it.attribution.take(PluginGuard.MAX_ATTRIBUTION_LENGTH),
+                it.longAttribution?.take(PluginGuard.MAX_LONG_ATTRIBUTION_LENGTH),
+                it.alwaysShow
+            )
+        }
         return MapLayerDefinition(
             "plugin::$packageId::${layer.endpoint}",
-            "${pluginName}: ${layer.name}",
+            "${pluginName}: ${layer.name.take(PluginGuard.MAX_LAYER_NAME_LENGTH)}",
             isConfigurable = true,
             layerType = layerType,
-            attribution = layer.attribution?.let {
-                MapLayerAttribution(
-                    it.attribution,
-                    it.longAttribution,
-                    it.alwaysShow
-                )
-            },
-            description = "${context.getString(R.string.plugin_name, pluginName)}\n${layer.description ?: ""}".trim(),
-            minZoomLevel = layer.minZoomLevel,
+            attribution = attribution,
+            description = "${context.getString(R.string.plugin_name, pluginName)}\n${layer.description?.take(PluginGuard.MAX_LAYER_DESCRIPTION_LENGTH) ?: ""}".trim(),
+            minZoomLevel = layer.minZoomLevel?.coerceIn(
+                PluginGuard.MIN_ZOOM_LEVEL,
+                PluginGuard.MAX_ZOOM_LEVEL
+            ),
             isTimeDependent = layer.isTimeDependent,
-            refreshInterval = layer.refreshInterval?.let { millis -> Duration.ofMillis(millis) },
-            refreshBroadcasts = layer.refreshBroadcasts,
+            refreshInterval = refreshInterval,
             shouldMultiply = layer.shouldMultiply,
             tileSource = if (layerType == MapLayerType.Tile) {
                 { PluginTileSource(packageId, layer.endpoint) }
@@ -137,6 +147,12 @@ class PluginLoader(private val context: Context) {
             getLayerTypeId(MapLayerType.Tile) -> MapLayerType.Tile
             else -> null
         }
+    }
+
+    private fun parseRegistration(payload: ByteArray?): RegistrationResponse? {
+        return payload
+            ?.takeIf { PluginGuard.isValidRegistrationPayload(it) }
+            ?.fromJson()
     }
 
     private fun getLayerTypeId(type: MapLayerType): String {
@@ -174,7 +190,6 @@ class PluginLoader(private val context: Context) {
         val minZoomLevel: Int? = null,
         val isTimeDependent: Boolean = false,
         val refreshInterval: Long? = null,
-        val refreshBroadcasts: List<String> = emptyList(),
         val shouldMultiply: Boolean = false
     ) : ProguardIgnore
 
