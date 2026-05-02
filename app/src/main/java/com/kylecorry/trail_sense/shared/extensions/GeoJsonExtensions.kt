@@ -19,6 +19,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.SizeUnit
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import java.util.UUID
 
 fun GeoJsonObject.normalize(): List<GeoJsonFeature> {
     return when (this) {
@@ -91,7 +92,12 @@ fun GeoJsonFeature.getBooleanProperty(property: String): Boolean? {
 }
 
 fun GeoJsonFeature.getFloatProperty(property: String): Float? {
-    return getNumberProperty(property)?.toFloat()
+    val property = getNumberProperty(property)?.toFloat() ?: return null
+    return if (!property.isFinite()) {
+        null
+    } else {
+        property
+    }
 }
 
 fun GeoJsonFeature.getLongProperty(property: String): Long? {
@@ -103,7 +109,7 @@ fun GeoJsonFeature.getColor(): Int? {
 }
 
 fun GeoJsonFeature.getName(): String? {
-    return getStringProperty(GEO_JSON_PROPERTY_NAME)
+    return getStringProperty(GEO_JSON_PROPERTY_NAME)?.take(GEO_JSON_NAME_MAX_LENGTH)
 }
 
 // POINT ONLY
@@ -132,7 +138,7 @@ fun GeoJsonFeature.getBitmap(): Bitmap? {
 }
 
 fun GeoJsonFeature.getIcon(): Long? {
-    return getNumberProperty(GEO_JSON_PROPERTY_ICON)?.toLong()
+    return getLongProperty(GEO_JSON_PROPERTY_ICON)
 }
 
 fun GeoJsonFeature.getIconColor(): Int? {
@@ -140,19 +146,19 @@ fun GeoJsonFeature.getIconColor(): Int? {
 }
 
 fun GeoJsonFeature.getIconSize(): Float? {
-    return getFloatProperty(GEO_JSON_PROPERTY_ICON_SIZE)
+    return getFloatProperty(GEO_JSON_PROPERTY_ICON_SIZE)?.coerceAtLeast(0f)
 }
 
 fun GeoJsonFeature.getOpacity(): Int {
-    return getIntProperty(GEO_JSON_PROPERTY_OPACITY) ?: 255
+    return getIntProperty(GEO_JSON_PROPERTY_OPACITY)?.coerceIn(0, 255) ?: 255
 }
 
 fun GeoJsonFeature.getSize(): Float? {
-    return getFloatProperty(GEO_JSON_PROPERTY_SIZE)
+    return getFloatProperty(GEO_JSON_PROPERTY_SIZE)?.coerceAtLeast(0f)
 }
 
 fun GeoJsonFeature.getStrokeWeight(): Float? {
-    return getFloatProperty(GEO_JSON_PROPERTY_STROKE_WEIGHT)
+    return getFloatProperty(GEO_JSON_PROPERTY_STROKE_WEIGHT)?.coerceAtLeast(0f)
 }
 
 fun GeoJsonFeature.getLayerId(): String? {
@@ -318,6 +324,7 @@ const val GEO_JSON_PROPERTY_ROTATE_WITH_USER_AZIMUTH = "rotateWithUserAzimuth"
 const val GEO_JSON_PROPERTY_ROTATION = "rotation"
 const val GEO_JSON_PROPERTY_MOVE_WITH_USER_LOCATION = "moveWithUserLocation"
 const val GEO_JSON_PROPERTY_SCALE_TO_LOCATION_ACCURACY = "scaleToLocationAccuracy"
-const val GEO_JSON_PROPERTY_BITMAP = "bitmap"
-const val GEO_JSON_PROPERTY_LAYER_ID = "layerId"
+val GEO_JSON_PROPERTY_BITMAP = UUID.randomUUID().toString()
+val GEO_JSON_PROPERTY_LAYER_ID = UUID.randomUUID().toString()
 const val DEFAULT_LINE_STRING_STROKE_WEIGHT_DP = 2.25f
+const val GEO_JSON_NAME_MAX_LENGTH = 200

@@ -219,7 +219,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     private val _useDynamicColors by BooleanPreference(
         cache,
         context.getString(R.string.pref_use_dynamic_colors),
-        false
+        true
     )
 
     val useDynamicColors: Boolean

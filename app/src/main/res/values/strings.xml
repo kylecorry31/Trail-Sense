@@ -8,8 +8,18 @@
     <string name="astronomy">Astronomy</string>
     <string name="tools">Tools</string>
     <string name="plugins">Plugins</string>
+    <string name="map_layers">Map layers</string>
+    <string name="tile_layer">Tile layer</string>
+    <string name="feature_layer">Feature layer</string>
+    <string name="overlay_layer">Overlay layer</string>
+    <string name="app_info">App info</string>
+    <string name="reload">Reload</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="plugin_unavailable">This plugin is unavailable or no longer connected.</string>
+    <string name="clear_plugin_cache">Clear plugin cache</string>
     <string name="connected_plugins">Connected plugins</string>
     <string name="available_plugins">Available plugins</string>
+    <string name="plugin_name">Plugin: %s</string>
     <string name="pref_plugins_settings" translatable="false">pref_plugins_settings</string>
     <!--Dialogs-->
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>

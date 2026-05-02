@@ -52,10 +52,12 @@ object TrailSenseServiceRegister {
         AppServiceRegistry.register(SensorSubsystem.getInstance(appContext))
         AppServiceRegistry.register(LocationSubsystem.getInstance(appContext))
         AppServiceRegistry.register(DeviceSubsystem(appContext))
+        AppServiceRegistry.register(PluginSubsystem.getInstance(appContext))
+
+        // Map layers
         AppServiceRegistry.register(MapLayerLoader(appContext))
         AppServiceRegistry.register(MapLayerPreferenceRepo())
         AppServiceRegistry.register(PersistentTileCache(appContext))
-        AppServiceRegistry.register(PluginSubsystem.getInstance(appContext))
 
         Tools.getTools(context, false).forEach { tool ->
             tool.singletons.forEach { producer ->

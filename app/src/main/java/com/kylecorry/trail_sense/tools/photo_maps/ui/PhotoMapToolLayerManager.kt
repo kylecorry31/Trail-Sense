@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.sol.science.geography.Geography
@@ -44,45 +46,64 @@ class PhotoMapToolLayerManager {
     var key: Int = 0
         private set
 
+    private var isRunning = false
+    private val runningLock = Any()
+
     fun resume(context: Context, view: IMapView, photoMapId: Long, fragment: Fragment) {
-        // User can't disable the photo maps layer
-        preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
-
-        view.setLayersWithPreferences(
-            PhotoMapsToolRegistration.MAP_ID,
-            repo.getActiveLayerIds(PhotoMapsToolRegistration.MAP_ID) + listOf(
-                ScaleBarLayer.LAYER_ID,
-                MyElevationLayer.LAYER_ID,
-                CompassOverlayLayer.LAYER_ID
-            ),
-            // TODO: Extract these to layer config
-            listOf(
-                selectedPointLayer,
-                distanceLayer
-            )
-        )
-
-        key++
-
-        // Hardcoded customization for this tool
-        distanceLayer.isEnabled = false
-        distanceLayer.onPathChanged = { onDistancePathChange(it) }
-        lastMapDetails?.let { improveResolution(it.first, it.second) }
-
-
-        photoMapLayer = view.getLayerById(PhotoMapTileSource.SOURCE_ID) as? TileMapLayer<*>
-        photoMapLayer?.setFeatureFilter(photoMapId.toString())
-        photoMapLayer?.setMinZoomLevel(0)
-
-        view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
-            GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)
+        synchronized(runningLock) {
+            isRunning = true
         }
+        fragment.inBackground {
+            // User can't disable the photo maps layer
+            preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
 
-        view.start()
+            view.setLayersWithPreferences(
+                PhotoMapsToolRegistration.MAP_ID,
+                repo.getActiveLayerIds(PhotoMapsToolRegistration.MAP_ID) + listOf(
+                    ScaleBarLayer.LAYER_ID,
+                    MyElevationLayer.LAYER_ID,
+                    CompassOverlayLayer.LAYER_ID
+                ),
+                // TODO: Extract these to layer config
+                listOf(
+                    selectedPointLayer,
+                    distanceLayer
+                )
+            )
+
+            key++
+
+            // Hardcoded customization for this tool
+            distanceLayer.isEnabled = false
+            distanceLayer.onPathChanged = { onDistancePathChange(it) }
+            lastMapDetails?.let { improveResolution(it.first, it.second) }
+
+
+            photoMapLayer = view.getLayerById(PhotoMapTileSource.SOURCE_ID) as? TileMapLayer<*>
+            photoMapLayer?.setFeatureFilter(photoMapId.toString())
+            photoMapLayer?.setMinZoomLevel(0)
+
+            view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
+                GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)
+            }
+
+            synchronized(runningLock) {
+                if (isRunning) {
+                    view.start()
+
+                    if (view is View) {
+                        view.invalidate()
+                    }
+                }
+            }
+        }
     }
 
     fun pause(view: IMapView) {
-        view.stop()
+        synchronized(runningLock) {
+            isRunning = false
+            view.stop()
+        }
     }
 
     fun onBoundsChanged() {

@@ -35,9 +35,7 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
             }
 
             // Update all widgets
-            Tools.getTools(applicationContext).flatMap { it.widgets }.forEach {
-                Widgets.requestUpdate(applicationContext, it.widgetClass)
-            }
+            Tools.triggerWidgetUpdate(applicationContext, null)
         } finally {
             wakelock?.release()
         }

@@ -181,4 +181,17 @@
     <string name="liter_format">%s l</string>
     <string name="milliliter_format">%s ml</string>
     <string name="liters">Liter</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="celsius">Celsius</string>
+    <string name="temperature">Temperatur</string>
+    <string name="gps">GPS</string>
+    <string name="pref_open_source_licenses_title">Licenser</string>
+    <string name="pref_category_about">Om</string>
+    <string name="pref_app_version_title">Version</string>
+    <string name="pref_github_title">GitHub</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="battery_power_usb">USB</string>
 </resources>

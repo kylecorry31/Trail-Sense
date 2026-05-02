@@ -343,13 +343,15 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             MyLocationGeoJsonSource.SOURCE_ID,
             BeaconGeoJsonSource.SOURCE_ID
         ) else emptyList()
-        binding.calibrationMap.setLayersWithPreferences(
-            PhotoMapsToolRegistration.MAP_ID,
-            layers
-        )
+        inBackground {
+            binding.calibrationMap.setLayersWithPreferences(
+                PhotoMapsToolRegistration.MAP_ID,
+                layers
+            )
 
-        if (showPreview) {
-            binding.calibrationMap.start()
+            if (showPreview) {
+                binding.calibrationMap.start()
+            }
         }
 
     }
