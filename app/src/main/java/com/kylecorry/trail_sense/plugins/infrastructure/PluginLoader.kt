@@ -80,18 +80,34 @@ class PluginLoader(private val context: Context) {
     ): RegistrationResponse? {
         val cached = registrationRepo.get(packageId)
         if (cached?.versionCode == packageVersionCode) {
-            return parseRegistration(cached.payload)
+            return if (!cached.payload.contentEquals(invalidPayload)) {
+                parseRegistration(cached.payload)
+            } else {
+                null
+            }
         }
 
         val payload = PluginResourceServiceConnection(context, packageId).use {
             it.send("/registration")?.payload
         }
 
-        if (payload != null){
-            registrationRepo.upsert(PluginRegistrationEntity(packageId, packageVersionCode, payload))
+        val parsed = parseRegistration(payload)
+
+        if (payload != null) {
+            registrationRepo.upsert(
+                PluginRegistrationEntity(
+                    packageId,
+                    packageVersionCode,
+                    if (parsed != null) {
+                        payload
+                    } else {
+                        invalidPayload
+                    }
+                )
+            )
         }
 
-        return parseRegistration(payload)
+        return parsed
     }
 
     private fun toMapLayerDefinition(
@@ -120,7 +136,12 @@ class PluginLoader(private val context: Context) {
             isConfigurable = true,
             layerType = layerType,
             attribution = attribution,
-            description = "${context.getString(R.string.plugin_name, pluginName)}\n${layer.description?.take(PluginGuard.MAX_LAYER_DESCRIPTION_LENGTH) ?: ""}".trim(),
+            description = "${
+                context.getString(
+                    R.string.plugin_name,
+                    pluginName
+                )
+            }\n${layer.description?.take(PluginGuard.MAX_LAYER_DESCRIPTION_LENGTH) ?: ""}".trim(),
             minZoomLevel = layer.minZoomLevel?.coerceIn(
                 PluginGuard.MIN_ZOOM_LEVEL,
                 PluginGuard.MAX_ZOOM_LEVEL
@@ -198,4 +219,6 @@ class PluginLoader(private val context: Context) {
         val longAttribution: String? = null,
         val alwaysShow: Boolean = false
     ) : ProguardIgnore
+
+    private val invalidPayload = "INVALID".toByteArray()
 }
