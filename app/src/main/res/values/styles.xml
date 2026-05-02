@@ -2,8 +2,6 @@
 
     <!--This is used for all Android versions-->
     <style name="BaseAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#90000000</item>
-
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/orange_10</item>
