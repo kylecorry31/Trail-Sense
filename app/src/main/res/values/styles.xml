@@ -77,14 +77,7 @@
     </style>
 
     <style name="AppBottomSheetModalStyle" parent="Widget.Material3.BottomSheet.Modal">
-        <item name="shapeAppearance">@style/AppBottomSheetAppearance</item>
         <item name="android:padding">16dp</item>
-    </style>
-
-    <style name="AppBottomSheetAppearance" parent="ShapeAppearance.Material3.LargeComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">@dimen/rounded_corner_size</item>
-        <item name="cornerSizeTopRight">@dimen/rounded_corner_size</item>
     </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
