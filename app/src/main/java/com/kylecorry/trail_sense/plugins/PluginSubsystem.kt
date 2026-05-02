@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.plugins
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.plugins.domain.Plugin
 import com.kylecorry.trail_sense.plugins.domain.PluginResourceServiceDetails
 import com.kylecorry.trail_sense.plugins.infrastructure.PluginLoader
@@ -19,7 +20,7 @@ class PluginSubsystem private constructor(private val context: Context) {
     private val pluginRegistrationRepo = PluginRegistrationRepo.getInstance(context)
 
     fun arePluginsEnabled(): Boolean {
-        return isDebug()
+        return isDebug() && !SafeMode.isEnabled()
     }
 
     // ======== Connection ========
