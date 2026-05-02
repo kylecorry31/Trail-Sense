@@ -2,8 +2,6 @@
 
     <!--This is used for all Android versions-->
     <style name="BaseAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#90000000</item>
-
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/orange_10</item>
@@ -77,14 +75,7 @@
     </style>
 
     <style name="AppBottomSheetModalStyle" parent="Widget.Material3.BottomSheet.Modal">
-        <item name="shapeAppearance">@style/AppBottomSheetAppearance</item>
         <item name="android:padding">16dp</item>
-    </style>
-
-    <style name="AppBottomSheetAppearance" parent="ShapeAppearance.Material3.LargeComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">@dimen/rounded_corner_size</item>
-        <item name="cornerSizeTopRight">@dimen/rounded_corner_size</item>
     </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
@@ -92,18 +83,12 @@
     </style>
 
     <style name="ThemeOverlay.App.ElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
-        <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
         <item name="backgroundTint">@color/button_selector</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="iconTint">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="ButtonAppearance">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/rounded_corner_size</item>
-    </style>
-
-    <style name="SnackBarButtonTheme" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
+    <style name="SnackBarButtonTheme" parent="Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
@@ -115,7 +100,7 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>
 
-    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="ThemeOverlay.Material3.FloatingActionButton.Primary">
         <item name="colorContainer">?attr/colorPrimary</item>
         <item name="colorOnContainer">?attr/colorOnPrimary</item>
     </style>
