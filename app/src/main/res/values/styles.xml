@@ -90,7 +90,7 @@
         <item name="iconTint">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="SnackBarButtonTheme" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
+    <style name="SnackBarButtonTheme" parent="Widget.Material3.Button.TextButton.Snackbar">
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
@@ -102,7 +102,7 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>
 
-    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="ThemeOverlay.Material3.FloatingActionButton.Primary">
         <item name="colorContainer">?attr/colorPrimary</item>
         <item name="colorOnContainer">?attr/colorOnPrimary</item>
     </style>
