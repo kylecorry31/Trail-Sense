@@ -572,7 +572,7 @@ object CustomUiUtils {
 
     fun Resources.getPrimaryColor(context: Context): Int {
         return try {
-            getAndroidColorAttr(context, com.google.android.material.R.attr.colorPrimaryVariant)
+            getAndroidColorAttr(context, androidx.appcompat.R.attr.colorPrimary)
         } catch (e: Exception) {
             e.printStackTrace()
             AppColor.Orange.color
