@@ -26,6 +26,8 @@ data class OfflineMapFileEntity(
     var id: Long = 0
 
     fun toOfflineMapFile(): OfflineMapFile {
+        val hasLatitudeBounds = north != null && south != null
+        val hasLongitudeBounds = east != null && west != null
         return OfflineMapFile(
             id,
             name,
@@ -34,7 +36,7 @@ data class OfflineMapFileEntity(
             path,
             sizeBytes,
             Instant.ofEpochMilli(createdOn),
-            if (north != null && east != null && south != null && west != null) {
+            if (hasLatitudeBounds && hasLongitudeBounds) {
                 CoordinateBounds(north, east, south, west)
             } else {
                 null

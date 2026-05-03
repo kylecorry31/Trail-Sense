@@ -24,10 +24,6 @@ class OfflineMapFileRepo private constructor() {
     }
 
     suspend fun add(file: OfflineMapFile): Long = onIO {
-        if (file.id == 0L){
-
-        }
-
         dao.upsert(OfflineMapFileEntity.from(file))
     }
 

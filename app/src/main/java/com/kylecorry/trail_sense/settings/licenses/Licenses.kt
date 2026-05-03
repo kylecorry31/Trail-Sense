@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.settings.licenses
 
+@Suppress("LongMethod", "FunctionOnlyReturningConstant")
 object Licenses {
 
     private const val APACHE_NO_OWNER_SPECIFIED = "[name of copyright owner]"
@@ -440,7 +441,7 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
         ) {
             """
                 The color maps were designed by various authors.
-                
+
                 - USGS: U.S. Geological Survey and R. Langford under CC Attribution-NonCommercial 3.0 unported (2021) https://creativecommons.org/licenses/by-nc/3.0/
                 - Muted: Tom Patterson under public domain
                 - Viridis, Magma, Plasma, Inferno: Nathaniel J. Smith, Stefan van der Walt, and Eric Firing under CC0 1.0 Universal (http://creativecommons.org/publicdomain/zero/1.0)
@@ -850,7 +851,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."""
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-   
+
    $modifications"""
     }
 
