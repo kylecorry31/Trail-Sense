@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
+import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -244,6 +245,7 @@ class MainActivity : AndromedaActivity() {
         super.onResume()
         isRunning = true
         updateAllWidgets()
+        updateDeviceSurfaceRotation()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
         PedometerSubsystem.getInstance(this).recalculateState()
         Tools.subscribe(
@@ -550,6 +552,15 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
+    @Suppress("DEPRECATION")
+    private fun updateDeviceSurfaceRotation() {
+        deviceSurfaceRotation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            display?.rotation ?: windowManager.defaultDisplay.rotation
+        } else {
+            windowManager.defaultDisplay.rotation
+        }
+    }
+
     fun openWidgets() {
         binding.quickActionsSheet.show(this, 1)
     }
@@ -581,6 +592,9 @@ class MainActivity : AndromedaActivity() {
     }
 
     companion object {
+
+        var deviceSurfaceRotation: Int = Surface.ROTATION_90
+            private set
 
         var lastKnownFragment: String? = null
 

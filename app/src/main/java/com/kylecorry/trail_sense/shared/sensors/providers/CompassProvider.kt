@@ -25,6 +25,7 @@ import com.kylecorry.andromeda.sense.orientation.filter.FilteredOrientationSenso
 import com.kylecorry.andromeda.sense.orientation.filter.LowPassOrientationSensorFilter
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.sol.math.interpolation.Interpolation
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
@@ -64,7 +65,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
                 Compass(
                     existingOrientationSensor ?: getOrientationSensor(sensorDelay),
                     useTrueNorth,
-                    surfaceRotation = Surface.ROTATION_90,
+                    surfaceRotation = getCompassSurfaceRotation(),
                     offset = -90f
                 )
             }
@@ -151,6 +152,16 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
         )
 
+    }
+
+    private fun getCompassSurfaceRotation(): Int {
+        return when (MainActivity.deviceSurfaceRotation) {
+            Surface.ROTATION_0 -> Surface.ROTATION_90
+            Surface.ROTATION_90 -> Surface.ROTATION_180
+            Surface.ROTATION_180 -> Surface.ROTATION_270
+            Surface.ROTATION_270 -> Surface.ROTATION_0
+            else -> Surface.ROTATION_90
+        }
     }
 
     private fun getCustomGeomagneticRotationSensor(
