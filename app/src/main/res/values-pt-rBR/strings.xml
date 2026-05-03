@@ -328,9 +328,7 @@
     <string name="import_btn">Importar</string>
     <string name="export">Exportar</string>
     <string name="onboarding_privacy">- Trail Sense respeita sua privacidade e seus dados de localização nunca deixam seu dispositivo \n \n- Trail Sense nunca exigirá permissão da Internet \n \n- Veja a [Política de Privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html) (abre no navegador do seu telefone) \n \n- Algumas funcionalidades do Trail Sense exigem acesso à sua localização \n \n- A concessão da permissão de localização permitirá as seguintes funcionalidades: \n \n\t- Navegação até os pontos de orientação \n \n\t- Maior precisão na previsão (não disponível em todos os dispositivos) \n \n\t- Recuar \n \n\t- Horários do sol e lua para sua localização atual (alertas de pôr-do-sol podem precisar da localização em segundo plano) \n \n- Se você optar por não conceder a permissão de localização, você pode digitar manualmente uma localização no menu de Configurações &gt; Calibração do GPS em Trail Sense. \n \n- Depois de clicar em continuar, você será solicitado a conceder a permissão de localização. A negação dessa permissão impedirá o Trail Sense de acessar sua localização, portanto, recomenda-se uma inserção manual de localização.</string>
-    <string name="onboarding_user_guide">Saiba como usar as funcionalidades do Trail Sense com o Guia do Usuário. Disponível na parte inferior da guia Ferramentas.
-\n
-\nMais guias estarão disponíveis em breve.</string>
+    <string name="onboarding_user_guide">Saiba como usar as funcionalidades do Trail Sense com o Guia do Usuário. Disponível na parte inferior da guia Ferramentas. \n \nMais guias estarão disponíveis em breve.</string>
     <string name="privacy_and_location">Privacidade e localização</string>
     <string name="cirrus_desc">Nuvens altas e finas que parecem tufos de cabelo branco.</string>
     <string name="cirrocumulus_desc">Nuvens de alto nível que formam um lençol ondulado. O lençol é composto de pequenos pontos que parecem quase bidimensionais.</string>
