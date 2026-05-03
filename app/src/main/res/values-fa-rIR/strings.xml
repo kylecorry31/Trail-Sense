@@ -106,9 +106,7 @@
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">‹ممکن است نشان دهنده بارش در %1$d تا %2$d ساعت آینده باشد.</string>
     <string name="altocumulus_desc">ابرهای پف کرده سطح متوسط که شبیه توپ های پنبه ای هستند. آنها معمولاً سفید با لکه‌های تیره‌تر در زیر هستند و می‌توانند از هم فاصله داشته باشند یا مانند ورق باشند.</string>
     <string name="pref_low_power_mode_title">حالت ذخیره انرژی</string>
-    <string name="onboarding_user_guide">نحوه استفاده از ویژگی های Trail Sense را با راهنمای کاربر بیاموزید. در پایین تب ابزارها موجود است.
-\n
-\nراهنماهای بیشتر به زودی ارائه خواهد شد.</string>
+    <string name="onboarding_user_guide">نحوه استفاده از ویژگی های Trail Sense را با راهنمای کاربر بیاموزید. در پایین تب ابزارها موجود است. \n \nراهنماهای بیشتر به زودی ارائه خواهد شد.</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">ممکن است آب و هوای مناسب را نشان دهد. اگر بلندتر شد، ممکن است نشان دهنده بارش یا رعد و برق در %d ساعت آینده باشد.</string>
     <string name="gps_stale">کهنه</string>
     <string name="no_tides">بدون جزر و مد</string>
