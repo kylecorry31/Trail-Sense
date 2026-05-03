@@ -62,9 +62,7 @@
     </plurals>
     <string name="export">Dışarı aktar</string>
     <string name="onboarding_privacy">Trail Sense, gizliliğinize saygı duyar ve konum bilginiz asla aygıtınızı terk etmez. \n \n- Trail Sense, asla internet iznine ihtiyaç duymaz. \n \n- [Gizlilik ilkesi](https://kylecorry.com/Trail-Sense/privacy_policy.html)\'ni telefonunuzda görüntüleyin. \n \n- Trail Sense\'in bazı özellikleri konum izninize ihtiyaç duyar. \n \n- Trail Sense\'e konum izni vermek, aşağıdaki özellikleri devreye sokar: \n \n\t- İşaretlere gitmek \n \n\t- İyileştirilmiş hava durumu tahmini hassasiyeti (her aygıtta kullanılabilir değil) \n \n\t- Geri iz sürme \n \n\t- Geçerli konumunuz için gün ve ay vakitleri (gün batımı uyarıları arka planda konum izni gerektirebilir) \n \n- Konum izni vermemeyi seçerseniz, Trail Sense üzerinden Ayarlar &gt; Sensörler &gt; GPS ayarla menüsünden kendiniz konum girebilirsiniz. \n \n- Devam ete tıkladıktan sonra konum iznini vermeniz istenecektir. Bu iznin reddedilmesi Trail Sense\'in konumunuza erişmesini engelleyecektir, bu nedenle konumu kendiniz girmeniz tavsiye edilir.</string>
-    <string name="onboarding_user_guide">Trail Sense\'in özelliklerini nasıl kullanacağını Araçlar sekmesinde yer alan kullanım kılavuzundan öğren.
-\n
-\nDaha fazla kılavuz yolda.</string>
+    <string name="onboarding_user_guide">Trail Sense\'in özelliklerini nasıl kullanacağını Araçlar sekmesinde yer alan kullanım kılavuzundan öğren. \n \nDaha fazla kılavuz yolda.</string>
     <string name="cirrus_desc">Beyaz saç tutamlarına benzeyen yüksek ince bulutlar.</string>
     <string name="cumulonimbus_desc">Çok uzun olan alçak kabarık bulutlar. Genellikle bir örs şekline sahiptirler ve karanlıktırlar.</string>
     <string name="stratocumulus_desc">Küçük boşluklara sahip pamuk topları gibi görünen alçak bulutlar. Renk beyazdan koyu griye kadar değişir.</string>
