@@ -11,6 +11,7 @@ import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.LinearCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
@@ -166,6 +167,7 @@ object AugmentedRealityUtils {
             orientationSensor,
             rotationMatrix,
             orientation,
+            MainActivity.deviceSurfaceRotation,
             declination
         )
     }
