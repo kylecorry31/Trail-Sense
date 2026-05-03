@@ -9,16 +9,12 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.CoroutinePickers
-import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentOfflineMapListBinding
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
@@ -33,7 +29,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     private val repo = getAppService<OfflineMapFileRepo>()
     private val uriPicker by lazy { IntentUriPicker(this, requireContext()) }
     private val files = getAppService<FileSubsystem>()
-    private val formatter = getAppService<FormatService>()
+    private val listItemMapper by lazy { OfflineMapFileListItemMapper(requireContext(), ::handleListItemAction) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -59,43 +55,42 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     private fun refresh() {
         inBackground {
             val maps = repo.getAllSync().sortedBy { it.name }
-            binding.list.setItems(maps.map { it.toListItem() })
+            binding.list.setItems(maps, listItemMapper)
         }
     }
 
-    private fun OfflineMapFile.toListItem(): ListItem {
-        return ListItem(
-            id,
-            name,
-            icon = ResourceListIcon(
-                R.drawable.ic_file,
-                Resources.androidTextColorSecondary(requireContext())
-            ),
-            subtitle = formatter.join(
-                formatter.formatOfflineMapFileTypeName(type),
-                formatter.formatFileSize(sizeBytes),
-                separator = FormatService.Separator.Dot
-            ),
-            trailingIcon = ResourceListIcon(
-                if (visible) {
-                    R.drawable.ic_visible
-                } else {
-                    R.drawable.ic_not_visible
-                },
-                Resources.androidTextColorSecondary(requireContext()),
-                onClick = {
-                    toggleVisible(this)
-                }
-            )
-        )
+    private fun handleListItemAction(map: OfflineMapFile, action: OfflineMapFileAction) {
+        when (action) {
+            OfflineMapFileAction.Rename -> rename(map)
+            OfflineMapFileAction.Delete -> delete(map)
+            OfflineMapFileAction.ToggleVisibility -> toggleVisible(map)
+        }
+    }
+
+    private fun rename(map: OfflineMapFile) {
+        inBackground {
+            val name = CoroutinePickers.text(
+                requireContext(),
+                getString(R.string.name),
+                hint = getString(R.string.name),
+                default = map.name
+            )?.trim()?.takeIf { it.isNotBlank() } ?: return@inBackground
+            repo.add(map.copy(name = name))
+            onMain { refresh() }
+        }
     }
 
     private fun toggleVisible(map: OfflineMapFile) {
         inBackground {
             repo.add(map.copy(visible = !map.visible))
-            onMain {
-                refresh()
-            }
+            onMain { refresh() }
+        }
+    }
+
+    private fun delete(map: OfflineMapFile) {
+        inBackground {
+            repo.delete(map)
+            onMain { refresh() }
         }
     }
 
