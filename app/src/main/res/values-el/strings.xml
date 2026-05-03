@@ -569,9 +569,7 @@
     <string name="pref_monitor_weather_summary">Στο παρασκήνιο</string>
     <string name="path">Διαδρομή</string>
     <string name="tool_solar_panel_summary">Τοποθετήστε τους ηλιακούς συλλέκτες για βέλτιστη παραγωγή ενέργειας</string>
-    <string name="onboarding_user_guide">Μάθετε πως να χρησιμοποιείτε τις λειτουργίες του Trail Sense με το εγχειρίδιο χρήσης. Διατίθεται στο κάτω μέρος της καρτέλας Εργαλεία.
-\n
-\nΣύντομα θα υπάρξουν και άλλοι οδηγοί.</string>
+    <string name="onboarding_user_guide">Μάθετε πως να χρησιμοποιείτε τις λειτουργίες του Trail Sense με το εγχειρίδιο χρήσης. Διατίθεται στο κάτω μέρος της καρτέλας Εργαλεία. \n \nΣύντομα θα υπάρξουν και άλλοι οδηγοί.</string>
     <string name="no_packing_lists">Καμία λίστα συσκευασίας</string>
     <string name="unsaved_changes_message">Οι αλλαγές που κάνατε δεν θα αποθηκευτούν.</string>
     <string name="tool_user_guide_summary">Ένας οδηγός για τη χρήση του Trail Sense</string>
