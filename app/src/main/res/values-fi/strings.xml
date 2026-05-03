@@ -650,9 +650,7 @@
     <string name="path">Polku</string>
     <string name="location_override_resolution">Ota sijainnin automaattinen säätäminen käyttöön asetuksissa.</string>
     <string name="tool_solar_panel_summary">Asettele aurinkopaneelit optimaalista sähköntuotantoa varten</string>
-    <string name="onboarding_user_guide">Opi käyttämään Trail Sensen ominaisuuksia käyttöoppaan avulla. Saatavilla Työkalut-välilehden alaosassa.
-\n
-\nLisää oppaita on tulossa pian.</string>
+    <string name="onboarding_user_guide">Opi käyttämään Trail Sensen ominaisuuksia käyttöoppaan avulla. Saatavilla Työkalut-välilehden alaosassa. \n \nLisää oppaita on tulossa pian.</string>
     <string name="battery_usage_allowed">Akun käyttö sallittu</string>
     <string name="no_packing_lists">Ei pakkauslistoja</string>
     <string name="pref_start_on_boot_title">Aloita laitteen käynnistyessä</string>
