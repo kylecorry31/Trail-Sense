@@ -271,9 +271,7 @@
 \nAko odlučite da ne odobrite dozvolu za lokaciju, možete ručno unijeti lokaciju u izborniku Postavke &gt; GPS kalibracija u Trail Sense-u.
 \n
 \n- Nakon klika na nastavak, od vas će se zatražiti da dodijelite dozvole za lokaciju i lokaciju u pozadini. Odbijanje tih dozvola će spriječit Trail Sense-u da pristupi vašoj lokaciji, pa se preporučuje ručni unos lokacije.</string>
-    <string name="onboarding_user_guide">Naučite kako koristiti funkcije Trail Sensea s korisničkim vodičem. Dostupno na dnu kartice Alati.
-\n
-\nUskoro će doći još vodiča.</string>
+    <string name="onboarding_user_guide">Naučite kako koristiti funkcije Trail Sensea s korisničkim vodičem. Dostupno na dnu kartice Alati. \n \nUskoro će doći još vodiča.</string>
     <string name="privacy_and_location">Privatnost i Lokacija</string>
     <string name="metal_detector_disclaimer">Otkriva samo magnetne metale (npr. Željezo)</string>
     <string name="cirrus_desc">Visoki oblaci koji izgledaju kao pramenovi bijele kose.</string>
