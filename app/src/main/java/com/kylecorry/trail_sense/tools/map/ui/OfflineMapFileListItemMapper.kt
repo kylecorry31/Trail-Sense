@@ -4,8 +4,10 @@ import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
@@ -23,13 +25,20 @@ class OfflineMapFileListItemMapper(
             value.id,
             value.name,
             icon = ResourceListIcon(
-                R.drawable.ic_file,
+                R.drawable.maps,
                 Resources.androidTextColorSecondary(context)
             ),
             subtitle = formatter.join(
-                formatter.formatOfflineMapFileTypeName(value.type),
+                formatter.formatDate(value.createdOn.toZonedDateTime(), includeWeekDay = false),
                 formatter.formatFileSize(value.sizeBytes),
                 separator = FormatService.Separator.Dot
+            ),
+            tags = listOf(
+                ListItemTag(
+                    formatter.formatOfflineMapFileTypeName(value.type),
+                    null,
+                    Resources.androidTextColorSecondary(context)
+                )
             ),
             trailingIcon = ResourceListIcon(
                 if (value.visible) {
