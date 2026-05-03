@@ -960,9 +960,7 @@
     <string name="path_slope_moderate">中等</string>
     <string name="cirrocumulus_desc">高空雲層由小點組成波浪狀，看起來幾乎是扁平的。</string>
     <string name="nimbostratus_desc">深灰色的中層雲覆蓋了天空。如果不下雨，可能是層雲。</string>
-    <string name="onboarding_user_guide">透過使用者指南瞭解如何使用 Trail Sense 的功能。位於「工具」分頁的底部。
-\n
-\n更多指南即將推出。</string>
+    <string name="onboarding_user_guide">透過使用者指南瞭解如何使用 Trail Sense 的功能。位於「工具」分頁的底部。 \n \n更多指南即將推出。</string>
     <string name="autofill">自動填寫</string>
     <string name="point">點</string>
     <string name="tide_instructions">使用官方潮汐表輸入你行程期間的參考潮汐。</string>
