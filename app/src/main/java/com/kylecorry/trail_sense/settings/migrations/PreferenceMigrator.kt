@@ -454,6 +454,12 @@ class PreferenceMigrator private constructor() {
                         idealOrdering
                     )
                 }
+
+                val navigationOfflineMapOpacityKey =
+                    "pref_${NavigationToolRegistration.MAP_ID}_${OfflineMapTileSource.SOURCE_ID}_layer_opacity"
+                if (!prefs.contains(navigationOfflineMapOpacityKey)) {
+                    prefs.putInt(navigationOfflineMapOpacityKey, 50)
+                }
             }
         )
 
