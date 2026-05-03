@@ -430,9 +430,7 @@
     <string name="pref_backtrack_save_cell_summary">Nehme Mobilfunksignale an den Wegpunkten auf. Das Internet wird nicht genutzt.</string>
     <string name="distance_from_flashlight">Distanz vom Handy zur Taschenlampe</string>
     <string name="beacon_export_error">Beacons konnten nicht exportiert werden</string>
-    <string name="onboarding_user_guide">Lerne mithilfe des Benutzerhandbuchs, wie du die Funktionen von Trail Sense nutzt. Es befindet sich unten auf der Werkzeuge-Seite.
-\n
-\nBald werden weitere Anleitungen erscheinenen.</string>
+    <string name="onboarding_user_guide">Lerne mithilfe des Benutzerhandbuchs, wie du die Funktionen von Trail Sense nutzt. Es befindet sich unten auf der Werkzeuge-Seite. \n \nBald werden weitere Anleitungen erscheinenen.</string>
     <string name="backtrack_disabled_low_power_toast">Rückweg ist im Energiespar-Modus deaktiviert</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="turn_off">Ausschalten</string>
