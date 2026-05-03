@@ -821,9 +821,7 @@
     <string name="bearing">Peiling</string>
     <string name="ounces_weight">Unser</string>
     <string name="instructions">Instruks</string>
-    <string name="onboarding_user_guide">Lær om funksjonene i brukerveiledningen i bunnen av verktøyfanen.
-\n
-\nFlere veiledninger kommer snart.</string>
+    <string name="onboarding_user_guide">Lær om funksjonene i brukerveiledningen i bunnen av verktøyfanen. \n \nFlere veiledninger kommer snart.</string>
     <string name="pref_cell_signal_refresh_cache_summary">Påtvinger innlasting av de siste signalstyrkene</string>
     <string name="explore">Utforsk</string>
     <string name="high_pressure_system_description">Forbundet med pent vær, klar himmel.</string>
