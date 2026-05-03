@@ -94,6 +94,7 @@ class MapsforgeTileRenderer {
 
         clear()
         AndroidGraphicFactory.createInstance(context.applicationContext as Application)
+        scaleRenderThemeToTileSize()
         val newMapDataStore = MultiMapDataStore(MultiMapDataStore.DataPolicy.DEDUPLICATE)
         files.forEachIndexed { index, file ->
             newMapDataStore.addMapDataStore(MapFile(file), index == 0, index == 0)
@@ -121,6 +122,11 @@ class MapsforgeTileRenderer {
         renderThemeFuture = newRenderThemeFuture
         renderer = newRenderer
         return newRenderer
+    }
+
+    private fun scaleRenderThemeToTileSize() {
+        val deviceScaleFactor = DisplayModel.getDeviceScaleFactor()
+        displayModel.setUserScaleFactor(if (deviceScaleFactor > 0f) 1f / deviceScaleFactor else 1f)
     }
 
     companion object {
