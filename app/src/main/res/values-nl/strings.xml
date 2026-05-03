@@ -1579,4 +1579,11 @@
     <string name="plugin_unavailable">Deze plug-in is niet beschikbaar of niet langer verbonden.</string>
     <string name="clock_source_device">Apparaattijd</string>
     <string name="clock_source_gps">GPS-tijd</string>
+    <string name="mapsforge">Mapsforge</string>
+    <string name="manage_maps">Kaarten beheren</string>
+    <string name="offline_map_import_failed">Kaart importeren mislukt</string>
+    <string name="unsupported_offline_map_file">Niet-ondersteund kaartbestand</string>
+    <string name="offline_maps">Netloze kaarten</string>
+    <string name="no_offline_maps">Geen netloze kaarten</string>
+    <string name="map_layer_offline_maps_description">Opgeslagen netloze kaarten</string>
 </resources>
