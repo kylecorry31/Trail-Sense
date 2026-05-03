@@ -804,9 +804,7 @@
     <string name="pref_gps_override_title">Hely felülírása</string>
     <string name="stratus_desc">Alacsony felhő, mely beborítja az eget. Nincsenek éles árnyékok és ködös lehet az idő.</string>
     <string name="gps_stale">Elévült</string>
-    <string name="onboarding_user_guide">Tanuld meg a Trail Sense funkcióinak használatát a felhasználói útmutatóval. Elérhető az Eszközök fül legalján.
-\n
-\nTovábbi útmutatók hamarosan.</string>
+    <string name="onboarding_user_guide">Tanuld meg a Trail Sense funkcióinak használatát a felhasználói útmutatóval. Elérhető az Eszközök fül legalján. \n \nTovábbi útmutatók hamarosan.</string>
     <string name="unavailable">Nem elérhető</string>
     <string name="quality_poor">Rossz</string>
     <string name="pref_backtrack_save_cell_summary">Menti a térerőt az útvonalpontnál. Nem használ Internetet.</string>
