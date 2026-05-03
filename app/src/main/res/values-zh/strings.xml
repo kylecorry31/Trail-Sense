@@ -1567,4 +1567,6 @@
     <string name="reload">重新加载</string>
     <string name="disconnect">断开连接</string>
     <string name="plugin_unavailable">此插件不可用或不再连接。</string>
+    <string name="clock_source_device">设备时间</string>
+    <string name="clock_source_gps">GPS 时间</string>
 </resources>
