@@ -588,7 +588,7 @@
     <string name="none">Geen</string>
     <string name="no_gps_signal">Geen GPS Signaal</string>
     <string name="low">Laag</string>
-    <string name="onboarding_user_guide">Met de gebruikershandleiding leer je hoe je de functies van Trail Sense kunt gebruiken. Je kunt het vinden onderaan het Hulpmiddelen-tabblad. \n \nBinnenkort komen er meer gidsen aan.</string>
+    <string name="onboarding_user_guide">Met de gebruikershandleiding leer je hoe je de functies van Trail Sense kunt gebruiken. Je kunt het vinden in het Hulpmiddelen-tabblad.</string>
     <string name="location_input_help">Decimaal graden (vb. 1.00, -2.00)
 \n
 \nGraden decimale minuten (vb. 1°23.12\'N, 3°12.1\'W)
@@ -1577,4 +1577,6 @@
     <string name="reload">Herladen</string>
     <string name="disconnect">Verbreken</string>
     <string name="plugin_unavailable">Deze plug-in is niet beschikbaar of niet langer verbonden.</string>
+    <string name="clock_source_device">Apparaattijd</string>
+    <string name="clock_source_gps">GPS-tijd</string>
 </resources>
