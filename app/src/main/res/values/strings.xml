@@ -447,6 +447,8 @@
     <string name="precise_centimeters_format">%s cm</string>
     <string name="precise_inches_format">%s in</string>
     <string name="tool_ruler_title">Ruler</string>
+    <string name="clock_source_device">Device time</string>
+    <string name="clock_source_gps">GPS time</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>

@@ -16,26 +16,40 @@
         app:subtitle="Monday, November 5, 2020"
         tools:title="10:00:00 AM" />
 
-    <com.kylecorry.trail_sense.tools.clock.ui.ClockView
-        android:id="@+id/analog_clock"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginBottom="32dp"
+    <FrameLayout
+        android:id="@+id/clock_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-     <TextView
-        android:id="@+id/digital_clock"
+        <com.kylecorry.trail_sense.tools.clock.ui.ClockView
+            android:id="@+id/analog_clock"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/digital_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/clock_source"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/analog_clock"
-        app:layout_constraintEnd_toEndOf="@+id/analog_clock"
-        app:layout_constraintStart_toStartOf="@+id/analog_clock"
-        app:layout_constraintTop_toTopOf="@+id/analog_clock" />
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        android:textColor="?android:textColorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clock_container" />
 
     <TextView
         android:id="@+id/updating_clock"
@@ -60,6 +74,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/updating_clock"
         app:layout_constraintEnd_toEndOf="@+id/updating_clock"
         app:layout_constraintStart_toStartOf="@+id/updating_clock"
+        app:layout_constraintTop_toTopOf="@+id/updating_clock"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
