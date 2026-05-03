@@ -286,7 +286,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             )
             layers.pause(binding.radarCompassMap)
             layerSheet?.setOnDismissListener {
-                layers.resume(requireContext(), binding.radarCompassMap)
+                layers.resume(requireContext(), binding.radarCompassMap, this)
             }
             layerSheet?.show(this)
         }
@@ -371,7 +371,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.radarCompassMap.useDensityPixelsForZoom =
             !userPrefs.navigation.highDetailMode
-        layers.resume(requireContext(), binding.radarCompassMap)
+        layers.resume(requireContext(), binding.radarCompassMap, this)
         binding.radarCompass.bindMapView(binding.radarCompassMap)
 
         // Show the north reference indicator

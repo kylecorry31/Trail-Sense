@@ -1,30 +1,72 @@
+# Map layer plugins
+
 Map plugins allow Trail Sense to display additional map layers to users.
 
 Trail Sense will invoke your plugin when it determines it is necessary to retrieve more data. Plugins are expected to handle their own caching to avoid spamming downstream services.
 
-NOTE: Plugins are not currently available and a sample map layer plugin will be provided
+Register map layers in the plugin `/registration` response. See the [plugin registration documentation](registration.md) for the full schema and [Trail Sense Sample Plugin](https://github.com/kylecorry31/Trail-Sense-Sample-Plugin) for an example.
 
-TODO: Details on how to tell Trail Sense about these.
+Map layer plugins are required to be granted the `android.permission.ACCESS_FINE_LOCATION` permission and be connected within Trail Sense. If those conditions are not met, the plugin will not be invoked.
 
-TODO: Preferences.
+Preferences are not currently supported for plugins. If you have user preferences, all users to change them within your plugin's activity.
 
 # GeoJSON features
 
-GeoJSON layers allow for the display of vector geometry (points, lines, and polygons).
+GeoJSON layers allow for the display of vector geometry (points, lines, and polygons). GeoJSON feature layers must have the `layerType` set to `feature`.
 
 ## Request contract
 
 Trail Sense will request a region to be loaded. There will be a way to specify that your source does not vary meaning Trail Sense will only call it once (ex. plugin returns GeoJSON for the whole world). Trail Sense snaps the region to tiles, but will request the entire region when it changes, not just the changed area; you may need to cache.
 
-TODO: More details
+Trail Sense calls the layer's registered `endpoint` and sends a JSON payload matching this schema:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Trail Sense Plugin GeoJSON Layer Request",
+  "required": ["north", "south", "east", "west", "zoom", "time"],
+  "properties": {
+    "north": {
+      "type": "number",
+      "description": "The northern latitude of the requested bounds in decimal degrees."
+    },
+    "south": {
+      "type": "number",
+      "description": "The southern latitude of the requested bounds in decimal degrees."
+    },
+    "east": {
+      "type": "number",
+      "description": "The eastern longitude of the requested bounds in decimal degrees."
+    },
+    "west": {
+      "type": "number",
+      "description": "The western longitude of the requested bounds in decimal degrees."
+    },
+    "zoom": {
+      "type": "integer",
+      "description": "The current map zoom level."
+    },
+    "time": {
+      "type": "integer",
+      "description": "The requested layer time as Unix epoch milliseconds."
+    }
+  },
+  "additionalProperties": false
+}
+```
 
 ## Response contract
 
 The body of the plugin response must be valid GeoJSON (https://geojson.org/). All geometry types are supported but GeometryCollection is not recommended since the feature properties vary by geometry type. Multi* geometry values are flattened into their base geometry type by Trail Sense, so use the property type of the base (ex. MultPoint -> Point).
 
+GeoJSON response payloads must be no larger than 1 MiB and must parse within 2 seconds. The parsed response must contain no more than 1000 features, 10000 coordinates, and geometry collections may nest no deeper than 8 levels. Responses that exceed these limits are ignored. Feature names longer than 200 characters will be truncated.
+
 The following JSON schemas outline what you can provide for the `properties` value for each geometry type.  Other properties in the future may include `description` and `coordinateProperties` (properties of coordinates in a LineString/Polygon).
 
 If your feature is clickable and contains a `name` property, Trail Sense may display it to the user when they select the feature. Users may also be able to show the `name` on the map depending on their settings.
+
+Return a null payload if there is no data for the region or an empty FeatureCollection.
 
 ### Point properties
 
@@ -38,6 +80,7 @@ Used for Point geometries with marker support:
   "properties": {
     "name": {
       "type": ["string", "null"],
+      "maxLength": 200,
       "default": null,
       "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
     },
@@ -53,11 +96,13 @@ Used for Point geometries with marker support:
     },
     "strokeWeight": {
       "type": "number",
+      "minimum": 0,
       "default": 0.5,
       "description": "The stroke weight in dp."
     },
     "size": {
       "type": "number",
+      "minimum": 0,
       "default": 12,
       "description": "The size of the marker in the units of sizeUnit."
     },
@@ -74,6 +119,7 @@ Used for Point geometries with marker support:
     },
     "iconSize": {
       "type": "number",
+      "minimum": 0,
       "description": "The size of the icon in dp. Default: same as size property."
     },
     "iconColor": {
@@ -115,6 +161,7 @@ Used for LineString geometries:
   "properties": {
     "name": {
       "type": ["string", "null"],
+      "maxLength": 200,
       "default": null,
       "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
     },
@@ -131,6 +178,7 @@ Used for LineString geometries:
     },
     "strokeWeight": {
       "type": "number",
+      "minimum": 0,
       "default": 2.25,
       "description": "The stroke weight in dp."
     },
@@ -163,6 +211,7 @@ Used for Polygon geometries:
   "properties": {
     "name": {
       "type": ["string", "null"],
+      "maxLength": 200,
       "default": null,
       "description": "The name of the feature. Depending on user settings this may be displayed on the map or when selected."
     },
@@ -178,6 +227,7 @@ Used for Polygon geometries:
     },
     "strokeWeight": {
       "type": "number",
+      "minimum": 0,
       "default": 0,
       "description": "The stroke weight in dp."
     },
@@ -200,16 +250,42 @@ Used for Polygon geometries:
 
 # Tiles
 
-Tile layers allow for the display of images. I may add a way to specify how to map from pixel value to a measurement.
+Tile layers allow for the display of images. 
 
 ## Request contract
 
-Trail Sense will request the tile to load (x, y, z).
+Trail Sense will request the tile to load (x, y, z). Tile layers must have the `layerType` set to `tile`.
 
-TODO: More details
+Trail Sense calls the layer's registered `endpoint` and sends a JSON payload matching this schema:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Trail Sense Plugin Tile Layer Request",
+  "required": ["x", "y", "z", "time"],
+  "properties": {
+    "x": {
+      "type": "integer",
+      "description": "The tile x coordinate."
+    },
+    "y": {
+      "type": "integer",
+      "description": "The tile y coordinate."
+    },
+    "z": {
+      "type": "integer",
+      "description": "The tile zoom level."
+    },
+    "time": {
+      "type": "integer",
+      "description": "The requested layer time as Unix epoch milliseconds."
+    }
+  },
+  "additionalProperties": false
+}
+```
 
 ## Response contract
 
-The body of the plugin response must be a bitmap no larger than 256x256 pixels and be in ARGB_8888 format. Tiles that aren't 256x256 will be rescaled by Trail Sense.
-
-TODO: Specify how to say there is no tile available
+The response payload must be a `BitmapFactory` decodable `ByteArray` no larger than 1 MiB. The decoded image must be no larger than 256x256 pixels. Tiles that aren't 256x256 will be rescaled by Trail Sense. Return a null payload when no tile is available.

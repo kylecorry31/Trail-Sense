@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.plugins.infrastructure
 
 import android.content.Context
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.ipc.InterprocessCommunicationRequest
 import com.kylecorry.andromeda.ipc.InterprocessCommunicationResponse
 import com.kylecorry.andromeda.ipc.client.InterprocessCommunicationClient
@@ -21,11 +22,12 @@ class PluginResourceServiceConnection(private val context: Context, private val 
         route: String,
         payload: Any? = null,
         requiredPermissions: List<String> = emptyList(),
-        timeout: Duration = Duration.ofSeconds(10),
+        connectTimeout: Duration = Duration.ofSeconds(10),
+        responseTimeout: Duration = Duration.ofMinutes(1),
         stayConnected: Boolean = true
-    ): InterprocessCommunicationResponse? {
+    ): InterprocessCommunicationResponse? = onIO {
         if (!canInteractWithPlugin(requiredPermissions)) {
-            return null
+            return@onIO null
         }
 
         val bytes = when (payload) {
@@ -46,10 +48,11 @@ class PluginResourceServiceConnection(private val context: Context, private val 
             }
         }
 
-        return service.connectAndSend(
+        service.connectAndSend(
             route,
             InterprocessCommunicationRequest(payload = bytes),
-            timeout,
+            connectTimeout,
+            responseTimeout,
             stayConnected = stayConnected
         )
     }

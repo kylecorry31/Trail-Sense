@@ -2,19 +2,26 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.plugins.domain.Plugin
 import com.kylecorry.trail_sense.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.plugins.domain.Plugin
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import kotlinx.coroutines.launch
 
 class PluginsSettingsFragment : AndromedaPreferenceFragment() {
 
     private val pluginSubsystem = getAppService<PluginSubsystem>()
+
+    override fun onResume() {
+        super.onResume()
+        refreshPlugins()
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.empty_preferences, rootKey)
@@ -28,7 +35,7 @@ class PluginsSettingsFragment : AndromedaPreferenceFragment() {
             val unconnected = pluginSubsystem.getUnconnectedPlugins()
 
             preferenceScreen.removeAll()
-            addCategory(R.string.connected_plugins, connected.sorted(), ::confirmDisconnect)
+            addCategory(R.string.connected_plugins, connected.sorted(), ::openDetails)
             addCategory(R.string.available_plugins, unconnected.sorted(), ::confirmConnect)
         }
     }
@@ -96,6 +103,15 @@ class PluginsSettingsFragment : AndromedaPreferenceFragment() {
                 }
             }
         }
+    }
+
+    private fun openDetails(plugin: Plugin) {
+        findNavController().navigateWithAnimation(
+            R.id.pluginDetailsFragment,
+            Bundle().apply {
+                putString("package_id", plugin.packageId)
+            }
+        )
     }
 
     private fun List<Plugin>.sorted(): List<Plugin> {

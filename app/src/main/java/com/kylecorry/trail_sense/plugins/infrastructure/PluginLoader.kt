@@ -2,16 +2,29 @@ package com.kylecorry.trail_sense.plugins.infrastructure
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.ServiceInfo
+import android.os.Build
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.json.fromJson
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugins.domain.Plugin
-import com.kylecorry.trail_sense.plugins.infrastructure.PluginResourceServiceConnection
 import com.kylecorry.trail_sense.plugins.domain.PluginResourceServiceDetails
 import com.kylecorry.trail_sense.plugins.domain.PluginResourceServiceFeatures
+import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationEntity
+import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationRepo
+import com.kylecorry.trail_sense.plugins.map_layers.PluginGeoJsonSource
+import com.kylecorry.trail_sense.plugins.map_layers.PluginTileSource
 import com.kylecorry.trail_sense.shared.ProguardIgnore
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerAttribution
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
+import java.time.Duration
 
 class PluginLoader(private val context: Context) {
+
+    private val registrationRepo = PluginRegistrationRepo.getInstance(context)
 
     fun getResourceServicePlugins(): List<Plugin> {
         val filter = Intent(PLUGIN_RESOURCE_SERVICE_ACTION)
@@ -42,31 +55,147 @@ class PluginLoader(private val context: Context) {
         val servicePackageId = serviceInfo.packageName
         val appInfo = context.packageManager.getApplicationInfo(servicePackageId, 0)
         val appName = context.packageManager.getApplicationLabel(appInfo).toString()
-        val version = context.packageManager.getPackageInfo(servicePackageId, 0).versionName
+        val packageInfo = context.packageManager.getPackageInfo(servicePackageId, 0)
+        val version = packageInfo.versionName
+        val packageVersionCode = packageInfo.getVersionCode()
 
-        val registration = PluginResourceServiceConnection(context, servicePackageId).use {
-            it.send("/registration")?.payloadAsJson<RegistrationResponse>()
-        }
+        val registration = getRegistration(servicePackageId, packageVersionCode)
 
         return PluginResourceServiceDetails(
             servicePackageId,
-            registration?.name ?: appName,
-            registration?.version ?: version,
+            appName,
+            version,
             PluginResourceServiceFeatures(
                 registration?.features?.weather ?: emptyList(),
-                registration?.features?.mapLayers ?: emptyList()
+                registration?.features?.mapLayers?.take(PluginGuard.MAX_MAP_LAYERS)?.mapNotNull {
+                    toMapLayerDefinition(servicePackageId, appName, it)
+                } ?: emptyList()
             )
         )
     }
 
+    private suspend fun getRegistration(
+        packageId: String,
+        packageVersionCode: Long
+    ): RegistrationResponse? {
+        val cached = registrationRepo.get(packageId)
+        if (cached?.versionCode == packageVersionCode) {
+            return parseRegistration(cached.payload)
+        }
+
+        val payload = PluginResourceServiceConnection(context, packageId).use {
+            it.send("/registration")?.payload
+        }
+
+        if (payload != null){
+            registrationRepo.upsert(PluginRegistrationEntity(packageId, packageVersionCode, payload))
+        }
+
+        return parseRegistration(payload)
+    }
+
+    private fun toMapLayerDefinition(
+        packageId: String,
+        pluginName: String,
+        layer: RegistrationMapLayerResponse
+    ): MapLayerDefinition? {
+        val layerType = mapLayerType(layer.layerType)
+        if (!PluginGuard.isValidEndpoint(layer.endpoint) || layer.name.isBlank() || layerType == null) {
+            return null
+        }
+        val refreshInterval = layer.refreshInterval?.let { millis ->
+            Duration.ofMillis(millis)
+                .coerceIn(PluginGuard.MIN_REFRESH_INTERVAL, PluginGuard.MAX_REFRESH_INTERVAL)
+        }
+        val attribution = layer.attribution?.let {
+            MapLayerAttribution(
+                it.attribution.take(PluginGuard.MAX_ATTRIBUTION_LENGTH),
+                it.longAttribution?.take(PluginGuard.MAX_LONG_ATTRIBUTION_LENGTH),
+                it.alwaysShow
+            )
+        }
+        return MapLayerDefinition(
+            "plugin::$packageId::${layer.endpoint}",
+            "${pluginName}: ${layer.name.take(PluginGuard.MAX_LAYER_NAME_LENGTH)}",
+            isConfigurable = true,
+            layerType = layerType,
+            attribution = attribution,
+            description = "${context.getString(R.string.plugin_name, pluginName)}\n${layer.description?.take(PluginGuard.MAX_LAYER_DESCRIPTION_LENGTH) ?: ""}".trim(),
+            minZoomLevel = layer.minZoomLevel?.coerceIn(
+                PluginGuard.MIN_ZOOM_LEVEL,
+                PluginGuard.MAX_ZOOM_LEVEL
+            ),
+            isTimeDependent = layer.isTimeDependent,
+            refreshInterval = refreshInterval,
+            shouldMultiply = layer.shouldMultiply,
+            tileSource = if (layerType == MapLayerType.Tile) {
+                { PluginTileSource(packageId, layer.endpoint) }
+            } else {
+                null
+            },
+            geoJsonSource = if (layerType == MapLayerType.Feature) {
+                { PluginGeoJsonSource(packageId, layer.endpoint) }
+            } else {
+                null
+            }
+        )
+    }
+
+    private fun mapLayerType(layerType: String): MapLayerType? {
+        return when (layerType.lowercase()) {
+            getLayerTypeId(MapLayerType.Feature) -> MapLayerType.Feature
+            getLayerTypeId(MapLayerType.Tile) -> MapLayerType.Tile
+            else -> null
+        }
+    }
+
+    private fun parseRegistration(payload: ByteArray?): RegistrationResponse? {
+        return payload
+            ?.takeIf { PluginGuard.isValidRegistrationPayload(it) }
+            ?.fromJson()
+    }
+
+    private fun getLayerTypeId(type: MapLayerType): String {
+        return when (type) {
+            MapLayerType.Overlay -> "overlay"
+            MapLayerType.Feature -> "feature"
+            MapLayerType.Tile -> "tile"
+        }
+    }
+
+    private fun PackageInfo.getVersionCode(): Long {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            longVersionCode
+        } else {
+            @Suppress("DEPRECATION")
+            versionCode.toLong()
+        }
+    }
+
     private data class RegistrationFeaturesResponse(
         val weather: List<String> = emptyList(),
-        val mapLayers: List<String> = emptyList()
+        val mapLayers: List<RegistrationMapLayerResponse> = emptyList()
     ) : ProguardIgnore
 
     private data class RegistrationResponse(
-        val name: String,
-        val version: String,
         val features: RegistrationFeaturesResponse
+    ) : ProguardIgnore
+
+    private data class RegistrationMapLayerResponse(
+        val endpoint: String,
+        val name: String,
+        val layerType: String,
+        val attribution: RegistrationMapLayerAttributionResponse? = null,
+        val description: String? = null,
+        val minZoomLevel: Int? = null,
+        val isTimeDependent: Boolean = false,
+        val refreshInterval: Long? = null,
+        val shouldMultiply: Boolean = false
+    ) : ProguardIgnore
+
+    private data class RegistrationMapLayerAttributionResponse(
+        val attribution: String,
+        val longAttribution: String? = null,
+        val alwaysShow: Boolean = false
     ) : ProguardIgnore
 }

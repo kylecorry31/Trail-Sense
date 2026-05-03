@@ -13,6 +13,8 @@ import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.plugins.PluginSubsystem
 import com.kylecorry.trail_sense.settings.backup.BackupCommand
 import com.kylecorry.trail_sense.settings.backup.ChangeAutomaticBackupDirectoryCommand
 import com.kylecorry.trail_sense.settings.backup.RestoreCommand
@@ -44,11 +46,12 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     private val backupCommand by lazy { BackupCommand(requireContext(), uriPicker) }
     private val restoreCommand by lazy { RestoreCommand(requireContext(), uriPicker) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val plugins by lazy { getAppService<PluginSubsystem>() }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
-        preference(R.string.pref_plugins_settings)?.isVisible = isDebug()
+        preference(R.string.pref_plugins_settings)?.isVisible = plugins.arePluginsEnabled()
 
         for (nav in navigationMap) {
             navigateOnClick(preference(nav.key), nav.value)

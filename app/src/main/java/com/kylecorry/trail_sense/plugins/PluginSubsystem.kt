@@ -2,32 +2,47 @@ package com.kylecorry.trail_sense.plugins
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.plugins.domain.Plugin
-import com.kylecorry.trail_sense.plugins.infrastructure.PluginResourceServiceConnection
 import com.kylecorry.trail_sense.plugins.domain.PluginResourceServiceDetails
 import com.kylecorry.trail_sense.plugins.infrastructure.PluginLoader
+import com.kylecorry.trail_sense.plugins.infrastructure.PluginResourceServiceConnection
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PersistedPlugin
+import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationRepo
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRepo
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 
+@Suppress("TooManyFunctions")
 class PluginSubsystem private constructor(private val context: Context) {
 
     private val pluginLoader = PluginLoader(context)
     private val pluginRepo = PluginRepo.getInstance(context)
+    private val pluginRegistrationRepo = PluginRegistrationRepo.getInstance(context)
+
+    fun arePluginsEnabled(): Boolean {
+        return isDebug() && !SafeMode.isEnabled()
+    }
 
     // ======== Connection ========
 
     /**
      * Get all installed plugins
      */
-    suspend fun getAvailablePlugins(): List<Plugin> = onIO {
-        pluginLoader.getResourceServicePlugins()
+    fun getAvailablePlugins(): List<Plugin> {
+        return if (!arePluginsEnabled()) {
+            emptyList()
+        } else {
+            pluginLoader.getResourceServicePlugins()
+        }
     }
 
     /**
      * Get all installed plugins that are connected
      */
     suspend fun getConnectedPlugins(): List<Plugin> {
+        if (!arePluginsEnabled()) {
+            return emptyList()
+        }
         val available = getAvailablePlugins()
         val connected = pluginRepo.getAll().associateBy { it.packageId }
         return available.filter { plugin ->
@@ -55,6 +70,12 @@ class PluginSubsystem private constructor(private val context: Context) {
      */
     suspend fun disconnect(plugin: Plugin) {
         pluginRepo.deleteByPackageId(plugin.packageId)
+        pluginRegistrationRepo.deleteByPackageId(plugin.packageId)
+    }
+
+    suspend fun reloadRegistration(packageId: String): PluginResourceServiceDetails? {
+        pluginRegistrationRepo.deleteByPackageId(packageId)
+        return getPluginResourceServiceDetails(packageId)
     }
 
     /**
