@@ -28,6 +28,7 @@ lifecycleVersion = "2.10.0"
 material = "1.13.0"
 luna = "1.3.0"
 mockitoKotlin = "6.3.0"
+mapsforge = "0.28.0"
 orion = "1.1.0"
 roomVersion = "2.8.4"
 sol = "17.0.2"
@@ -99,6 +100,9 @@ legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref 
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
 lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycleVersion" }
 luna = { module = "com.kylecorry:luna", version.ref = "luna" }
+mapsforge-map-android = { module = "com.github.mapsforge.mapsforge:mapsforge-map-android", version.ref = "mapsforge" }
+mapsforge-map-reader = { module = "com.github.mapsforge.mapsforge:mapsforge-map-reader", version.ref = "mapsforge" }
+mapsforge-themes = { module = "com.github.mapsforge.mapsforge:mapsforge-themes", version.ref = "mapsforge" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }

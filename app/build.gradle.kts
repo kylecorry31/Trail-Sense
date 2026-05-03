@@ -215,6 +215,11 @@ dependencies {
     implementation(libs.sol)
     implementation(libs.luna)
 
+    // Mapsforge
+    implementation(libs.mapsforge.map.android)
+    implementation(libs.mapsforge.map.reader)
+    implementation(libs.mapsforge.themes)
+
     // Linting
     detektPlugins(libs.orion)
 

@@ -10,8 +10,7 @@ data class MapLayerPreference(
     val min: Number? = null,
     val max: Number? = null,
     val values: List<Pair<String, String>>? = null,
-    // TODO: This isn't the right thing to do
-    val openDemSettingsOnClick: Boolean = false
+    val navActionOnClick: Int? = null
 )
 
 fun MapLayerPreference.getFullDependencyPreferenceKey(mapId: String, layerId: String): String? {

@@ -126,6 +126,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click("Aspect")
         click("Cell towers")
         click("Lunar eclipse")
+        click("Offline maps")
         click("Night")
         scrollUntil { click("Ruggedness") }
         scrollUntil { click("Sightings") }

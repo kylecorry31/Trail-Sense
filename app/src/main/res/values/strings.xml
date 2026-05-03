@@ -1776,6 +1776,11 @@
     <string name="map">Map</string>
     <!--A world map that is the background for the map-->
     <string name="basemap">Basemap</string>
+    <string name="offline_maps">Offline maps</string>
+    <string name="offline_map_import_failed">Unable to import map</string>
+    <string name="no_offline_maps">No offline maps</string>
+    <string name="unsupported_offline_map_file">Unsupported map file</string>
+    <string name="mapsforge">Mapsforge</string>
     <string name="show_labels">Show labels</string>
     <string name="planet_mercury">Mercury</string>
     <string name="planet_venus">Venus</string>
@@ -1789,6 +1794,7 @@
     <string name="map_tool_disclaimer">This tool does not include built-in street maps, satellite imagery, or trail data. It does not download maps from the internet. To display a map background, you must import your own image using the Photo Maps tool. If you need live or preloaded street, satellite, or trail maps, use a dedicated mapping application instead.</string>
     <string name="open_settings">Open settings</string>
     <string name="pref_map_layer_button" translatable="false">pref_map_layer_button</string>
+    <string name="pref_offline_map_files" translatable="false">pref_offline_map_files</string>
     <string name="show_gps_accuracy">Show GPS accuracy</string>
     <string name="large_location_indicator">Large location indicator</string>
     <string name="pref_increase_ar_exposure_at_night" translatable="false">pref_increase_ar_exposure_at_night</string>
@@ -1877,6 +1883,7 @@
     <string name="show_modeled_tides">Show modeled tides on coastline</string>
     <string name="show_tide_phase">Show tide phase</string>
     <string name="map_layer_base_map_description">Low resolution colored world map</string>
+    <string name="map_layer_offline_maps_description">Your saved offline maps</string>
     <string name="map_layer_elevation_description">Color-coded elevations from the digital elevation model</string>
     <string name="map_layer_hillshade_description">Shaded terrain to visualize elevation changes</string>
     <string name="map_layer_ruggedness_description">Color-coded terrain ruggedness based on elevation change</string>
