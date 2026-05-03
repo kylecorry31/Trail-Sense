@@ -1,7 +1,7 @@
 <resources>
 
     <!--This is used for all Android versions-->
-    <style name="BaseAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.Material3Expressive.DayNight.NoActionBar">
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/orange_10</item>
@@ -25,9 +25,9 @@
         <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
 
-    <style name="WidgetTheme" parent="Theme.Material3.DynamicColors.DayNight" />
+    <style name="WidgetTheme" parent="Theme.Material3Expressive.DynamicColors.DayNight" />
 
-    <style name="WidgetTheme.TransparentBase" parent="Theme.Material3.DynamicColors.DayNight">
+    <style name="WidgetTheme.TransparentBase" parent="Theme.Material3Expressive.DynamicColors.DayNight">
         <item name="colorSurfaceContainer">@android:color/transparent</item>
         <!--This is the color used for the sun/moon chart-->
         <item name="android:colorBackground">@color/colorSecondary</item>
@@ -78,21 +78,21 @@
         <item name="android:padding">16dp</item>
     </style>
 
-    <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
+    <style name="AlertDialogTheme" parent="ThemeOverlay.Material3Expressive.Dialog.Alert">
         <item name="dialogCornerRadius">@dimen/rounded_corner_size</item>
     </style>
 
-    <style name="ThemeOverlay.App.ElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
+    <style name="ThemeOverlay.App.ElevatedButton" parent="Widget.Material3Expressive.Button.ElevatedButton">
         <item name="backgroundTint">@color/button_selector</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="iconTint">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="SnackBarButtonTheme" parent="Widget.Material3.Button.TextButton.Snackbar">
+    <style name="SnackBarButtonTheme" parent="Widget.Material3Expressive.Button.TextButton.Snackbar">
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3Expressive.FloatingActionButton">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>
 
@@ -100,7 +100,7 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>
 
-    <style name="ThemeOverlay.App.FloatingActionButton" parent="ThemeOverlay.Material3.FloatingActionButton.Primary">
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="ThemeOverlay.Material3Expressive.FloatingActionButton.Primary">
         <item name="colorContainer">?attr/colorPrimary</item>
         <item name="colorOnContainer">?attr/colorOnPrimary</item>
     </style>
