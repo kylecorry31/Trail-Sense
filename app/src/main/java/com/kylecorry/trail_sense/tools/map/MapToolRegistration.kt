@@ -83,9 +83,8 @@ object MapToolRegistration : ToolRegistration {
                     preferences = listOf(
                         MapLayerPreference(
                             id = "offline_maps",
-                            title = context.getString(R.string.offline_maps),
+                            title = context.getString(R.string.manage_maps),
                             type = MapLayerPreferenceType.Label,
-                            summary = context.getString(R.string.open_settings),
                             navActionOnClick = R.id.offlineMapListFragment
                         )
                     ),

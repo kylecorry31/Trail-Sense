@@ -1929,4 +1929,5 @@
     <string name="ecology">Ecology</string>
     <string name="pref_navigation_draw_compass_dial_bezel" translatable="false">pref_navigation_draw_compass_dial_bezel</string>
     <string name="pref_navigation_show_azimuth_indicator" translatable="false">pref_navigation_show_azimuth_indicator</string>
+    <string name="manage_maps">Manage maps</string>
 </resources>
