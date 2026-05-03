@@ -409,6 +409,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             )
         }
 
+    var openWidgetsFromBottomNavigation: Boolean by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_tool_open_widgets_from_bottom_navigation),
+        false
+    )
+
     var bottomNavigationTools: List<Long>
         get() {
             val maxLength = CustomBottomNavigationView.MAX_ITEM_COUNT - 1

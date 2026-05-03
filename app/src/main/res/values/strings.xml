@@ -1507,6 +1507,9 @@
     <string name="tool_quick_action_summary">Long press bottom navigation or view on tools tab.</string>
     <string name="widget_bottom_sheet_instructions">Long press bottom navigation or use the Widgets quick action.</string>
     <string name="widget_pref_title">In-app widgets</string>
+    <string name="pref_tool_open_widgets_from_bottom_navigation" translatable="false">pref_tool_open_widgets_from_bottom_navigation</string>
+    <string name="pref_tool_open_widgets_from_bottom_navigation_title">Open widgets from bottom navigation</string>
+    <string name="pref_tool_open_widgets_from_bottom_navigation_summary">Open the Widgets tab when long pressing bottom navigation.</string>
     <string name="pref_tool_settings_header_key" translatable="false">pref_tool_settings_header_key</string>
     <string name="quick_actions_are_unavailable">Quick actions are unavailable</string>
     <string name="bottom_navigation_slot">Bottom navigation slot %d</string>

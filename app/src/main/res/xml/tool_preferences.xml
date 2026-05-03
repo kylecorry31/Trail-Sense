@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
@@ -19,6 +20,14 @@
             app:singleLineTitle="false"
             app:summary="@string/widget_bottom_sheet_instructions"
             app:title="@string/widget_pref_title" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_tool_open_widgets_from_bottom_navigation"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_tool_open_widgets_from_bottom_navigation_summary"
+            app:title="@string/pref_tool_open_widgets_from_bottom_navigation_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>

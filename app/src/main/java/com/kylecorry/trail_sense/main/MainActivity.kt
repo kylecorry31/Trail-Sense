@@ -510,7 +510,8 @@ class MainActivity : AndromedaActivity() {
             val item = binding.bottomNavigation.menu[i]
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
-                binding.quickActionsSheet.show(this)
+                val defaultTab = if (userPrefs.openWidgetsFromBottomNavigation) 1 else 0
+                binding.quickActionsSheet.show(this, defaultTab)
                 true
             }
         }
