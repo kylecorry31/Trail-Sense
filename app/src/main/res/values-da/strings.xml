@@ -479,9 +479,7 @@
     <string name="stratocumulus">Stratocumulus</string>
     <string name="altocumulus_desc">Puffede skyer i mellemhøjde, der ligner vatkugler. De er typisk hvide med mørkere pletter forneden og kan være adskilte eller arklignende.</string>
     <string name="cirrus_desc">Høje pjuskede skyer, der ligner totter af hvidt hår.</string>
-    <string name="onboarding_user_guide">Lær hvordan du bruger Trail Senses funktioner med brugervejledningen. Tilgængelig nederst på fanen Værktøjer.
-\n
-\nFlere guider kommer snart.</string>
+    <string name="onboarding_user_guide">Lær hvordan du bruger Trail Senses funktioner med brugervejledningen. Tilgængelig nederst på fanen Værktøjer. \n \nFlere guider kommer snart.</string>
     <string name="import_btn">Importer</string>
     <plurals name="beacons_imported">
         <item quantity="one">%d beacon importeret</item>
