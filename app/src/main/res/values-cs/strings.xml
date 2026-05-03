@@ -269,9 +269,7 @@
     <string name="stratus_desc">Nízká oblačnost, která zakrývá oblohu. Objekty nevrhají stíny a může být mlha.</string>
     <string name="cumulus_desc">Nízká nadýchaná oblačnost, které vypadají jako vata. Jsou rozmístěny v určitých rozestupech a obvykle jsou bílé s tmavšími skvrnami pod nimi.</string>
     <string name="cirrus_desc">Vysoká oblačnost, která vypadá jako shluky bílých vlasů.</string>
-    <string name="onboarding_user_guide">V uživatelské příručce se dozvíte, jak používat funkce Trail Sense. Je k dispozici v dolní části karty Nástroje.
-\n
-\nDalší návody budou brzy přibývat.</string>
+    <string name="onboarding_user_guide">V uživatelské příručce se dozvíte, jak používat funkce Trail Sense. Je k dispozici v dolní části karty Nástroje. \n \nDalší návody budou brzy přibývat.</string>
     <string name="import_btn">Importovat</string>
     <string name="pref_backtrack_save_cell_summary">Zaznamenává telefonní signál v navigačním bodě. Nepoužívá internet.</string>
     <string name="pref_backtrack_save_cell_title">Nahrát telefonní signál</string>
