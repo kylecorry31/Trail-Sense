@@ -58,6 +58,15 @@
         android:name="com.kylecorry.trail_sense.tools.map.ui.OfflineMapListFragment"
         android:label="OfflineMapListFragment" />
     <fragment
+        android:id="@+id/offlineMapViewFragment"
+        android:name="com.kylecorry.trail_sense.tools.map.ui.OfflineMapViewFragment"
+        android:label="OfflineMapViewFragment"
+        tools:layout="@layout/fragment_offline_map_view">
+        <argument
+            android:name="offline_map_file_id"
+            app:argType="long" />
+    </fragment>
+    <fragment
         android:id="@+id/action_settings"
         android:name="com.kylecorry.trail_sense.settings.ui.SettingsFragment"
         android:label="SettingsFragment">

@@ -79,7 +79,7 @@ class MapsforgeTileRenderer {
 
     private fun getRenderer(context: Context, maps: List<OfflineMapFile>): DatabaseRenderer? {
         val files = maps
-            .filter { it.type == OfflineMapFileType.Mapsforge && it.visible }
+            .filter { it.type == OfflineMapFileType.Mapsforge }
             .map { files.get(it.path) }
             .filter { it.isFile && it.length() > 0 }
         if (files.isEmpty()) {

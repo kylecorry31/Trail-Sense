@@ -23,6 +23,10 @@ class OfflineMapFileRepo private constructor() {
         dao.getAllSync().map { it.toOfflineMapFile() }
     }
 
+    suspend fun get(id: Long): OfflineMapFile? = onIO {
+        dao.get(id)?.toOfflineMapFile()
+    }
+
     suspend fun add(file: OfflineMapFile): Long = onIO {
         dao.upsert(OfflineMapFileEntity.from(file))
     }

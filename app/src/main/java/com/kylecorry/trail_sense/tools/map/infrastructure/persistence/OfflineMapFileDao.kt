@@ -14,6 +14,9 @@ interface OfflineMapFileDao {
     @Query("SELECT * FROM offline_map_files")
     suspend fun getAllSync(): List<OfflineMapFileEntity>
 
+    @Query("SELECT * FROM offline_map_files WHERE _id = :id")
+    suspend fun get(id: Long): OfflineMapFileEntity?
+
     @Upsert
     suspend fun upsert(file: OfflineMapFileEntity): Long
 
