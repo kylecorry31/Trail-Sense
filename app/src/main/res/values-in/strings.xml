@@ -534,9 +534,7 @@
     <string name="cumulus_desc">Awan rendah yang terlihat seperti bola kapas. Awan-awan ini berjarak dan biasanya berwarna putih dengan bercak-bercak yang lebih gelap di bawahnya.</string>
     <string name="cumulonimbus_desc">Awan gembung rendah yang sangat tinggi. Awan ini biasanya memiliki bentuk paron dan berwarna gelap.</string>
     <string name="cirrus_desc">Awan tipis tinggi yang terlihat seperti jumbai rambut putih.</string>
-    <string name="onboarding_user_guide">Pelajari cara menggunakan fitur-fitur Trail Sense dengan panduan pengguna. Tersedia di bagian bawah tab Alat.
-\n
-\nLebih banyak panduan akan segera hadir.</string>
+    <string name="onboarding_user_guide">Pelajari cara menggunakan fitur-fitur Trail Sense dengan panduan pengguna. Tersedia di bagian bawah tab Alat. \n \nLebih banyak panduan akan segera hadir.</string>
     <string name="onboarding_privacy">- Trail Sense menghormati privasi Anda dan data lokasi tidak pernah meninggalkan perangkat Anda
 \n
 \n- Trail Sense tidak akan pernah memerlukan izin Internet
