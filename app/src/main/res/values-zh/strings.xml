@@ -388,7 +388,7 @@
 \n- 如果选择不授予位置权限，可以在 Trail Sense 的设置 &gt; GPS 校准菜单中手动输入一个位置 。
 \n
 \n- 单击“继续”后，系统将提示您授予位置和后台位置权限。拒绝这些权限将阻止 Trail Sense 访问您的位置，所以建议使用手动输入位置。</string>
-    <string name="onboarding_user_guide">通过用户指南学习如何使用 Trail Sense 的功能。可以在“工具”选项卡的底部找到。 \n \n更多指南将会很快到来。</string>
+    <string name="onboarding_user_guide">通过用户指南学习如何使用 Trail Sense 的功能。可以在“工具”选项卡找到。</string>
     <string name="privacy_and_location">隐私和位置</string>
     <string name="import_btn">导入</string>
     <string name="export">导出</string>
