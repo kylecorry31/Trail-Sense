@@ -1540,4 +1540,25 @@
     <string name="humidity_must_be_between_0_and_100">Kelembapan harus antara 0 dan 100</string>
     <string name="target">Target</string>
     <string name="not_visible">Tidak terlihat</string>
+    <string name="plugins">Plugin</string>
+    <string name="map_layers">Lapisan peta</string>
+    <string name="tile_layer">Lapisan ubin</string>
+    <string name="feature_layer">Lapisan fitur</string>
+    <string name="overlay_layer">Lapisan hamparan</string>
+    <string name="app_info">Info aplikasi</string>
+    <string name="reload">Muat ulang</string>
+    <string name="disconnect">Putuskan sambungan</string>
+    <string name="plugin_unavailable">Plugin ini tidak tersedia atau tidak lagi terhubung.</string>
+    <string name="clear_plugin_cache">Hapus cache plugin</string>
+    <string name="connected_plugins">Plugin yang terhubung</string>
+    <string name="available_plugins">Plugin yang tersedia</string>
+    <string name="plugin_name">Plugin: %s</string>
+    <string name="plugin_connect_title">Hubungkan plugin?</string>
+    <string name="plugin_connect_message">Hubungkan ke %s hanya jika Anda mempercayainya.</string>
+    <string name="plugin_disconnect_title">Putuskan sambungan plugin?</string>
+    <string name="plugin_disconnect_message">Putuskan sambungan %s?</string>
+    <string name="map_calibration_error_same_pixel">Pilih dua titik yang berbeda pada peta.</string>
+    <string name="map_calibration_error_same_image_axis">Pilih dua titik peta yang tidak berada tepat di samping atau di atas satu sama lain.</string>
+    <string name="map_calibration_error_same_location">Masukkan dua lokasi dunia nyata yang berbeda.</string>
+    <string name="map_calibration_error_implausible_scale">Skala kalibrasi tampak tidak masuk akal. Periksa kedua titik peta dan koordinatnya.</string>
 </resources>
