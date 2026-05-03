@@ -861,9 +861,7 @@
     <string name="augmented_reality_description">用您個相機鏡頭做視野，一窺就近嘅地標同日月</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">可能表示天朗氣清。若果變厚，可能表示未來 %d 個鐘會降水或行雷。</string>
     <string name="cumulonimbus_forecast">可能表示跟住幾分鐘會行雷。</string>
-    <string name="onboarding_user_guide">查閱使用指南，了解點樣用 Trail Sense 嘅各種功能。撳開下低嘅架生版面就可以搵到。
-\n
-\n更多指南會陸續推出，敬請期待。</string>
+    <string name="onboarding_user_guide">查閱使用指南，了解點樣用 Trail Sense 嘅各種功能。撳開下低嘅架生版面就可以搵到。 \n \n更多指南會陸續推出，敬請期待。</string>
     <string name="camera_permission_denied">攞唔到相機權限，相機功能冇得用。您可以喺設定入面啟用。</string>
     <string name="backtrack_battery_warning">好密 (唔夠 15 分鐘) 一次可能會好食電</string>
     <string name="pref_tiles_enabled_summary">或可避免慳電程式將 Trail Sense 收皮</string>
