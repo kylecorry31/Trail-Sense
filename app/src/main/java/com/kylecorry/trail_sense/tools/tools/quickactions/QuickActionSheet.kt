@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.ToolWidgetViewBinder
 
 class QuickActionSheet @JvmOverloads constructor(
@@ -18,6 +19,7 @@ class QuickActionSheet @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs) {
 
     private val binding: ViewQuickActionSheetBinding
+    private val prefs by lazy { UserPreferences(context) }
     private var quickActionBinder: MainActivityQuickActionBinder? = null
     private var widgetBinder: ToolWidgetViewBinder? = null
     private var backCallback: OnBackPressedCallback? = null
@@ -62,6 +64,7 @@ class QuickActionSheet @JvmOverloads constructor(
     fun close() {
         binding.quickActions.removeAllViews()
         binding.quickActionsSheet.isVisible = false
+        updateSheetSize(false)
         widgetBinder?.unbind()
         widgetBinder = null
         backCallback?.remove()
@@ -109,6 +112,7 @@ class QuickActionSheet @JvmOverloads constructor(
         }
         binding.quickActionsContainer.isVisible = true
         binding.widgetsContainer.isVisible = false
+        updateSheetSize(false)
     }
 
     private fun showWidgets() {
@@ -117,6 +121,50 @@ class QuickActionSheet @JvmOverloads constructor(
         }
         binding.quickActionsContainer.isVisible = false
         binding.widgetsContainer.isVisible = true
+        updateSheetSize(prefs.showWidgetSheetFullscreen)
     }
 
+    private fun updateSheetSize(isFullscreen: Boolean) {
+        val sheetParams = layoutParams as? LayoutParams ?: return
+        sheetParams.height = if (isFullscreen) {
+            LayoutParams.MATCH_CONSTRAINT
+        } else {
+            LayoutParams.WRAP_CONTENT
+        }
+        sheetParams.topToTop = if (isFullscreen) {
+            LayoutParams.PARENT_ID
+        } else {
+            LayoutParams.UNSET
+        }
+        layoutParams = sheetParams
+
+        val contentParams = binding.quickActionsSheet.layoutParams
+        contentParams.height = if (isFullscreen) {
+            LayoutParams.MATCH_PARENT
+        } else {
+            LayoutParams.WRAP_CONTENT
+        }
+        binding.quickActionsSheet.layoutParams = contentParams
+
+        val widgetParams = binding.widgetsContainer.layoutParams as LayoutParams
+        widgetParams.bottomToBottom = if (isFullscreen) {
+            LayoutParams.PARENT_ID
+        } else {
+            LayoutParams.UNSET
+        }
+        widgetParams.matchConstraintMaxHeight = if (isFullscreen) {
+            0
+        } else {
+            WIDGET_SHEET_MAX_HEIGHT_DP.toPx()
+        }
+        binding.widgetsContainer.layoutParams = widgetParams
+    }
+
+    private fun Int.toPx(): Int {
+        return (this * resources.displayMetrics.density).toInt()
+    }
+
+    companion object {
+        private const val WIDGET_SHEET_MAX_HEIGHT_DP = 350
+    }
 }

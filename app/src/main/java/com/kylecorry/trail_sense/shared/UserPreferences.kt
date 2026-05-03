@@ -461,6 +461,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             cache.putString(context.getString(R.string.pref_tool_widgets), value.joinToString(","))
         }
 
+    val showWidgetSheetFullscreen by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_tool_widgets_fullscreen),
+        false
+    )
+
     val notificationGroupingBehavior by StringEnumPreference(
         cache,
         context.getString(R.string.pref_notification_group_behavior),

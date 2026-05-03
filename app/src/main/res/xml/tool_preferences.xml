@@ -20,5 +20,13 @@
             app:summary="@string/widget_bottom_sheet_instructions"
             app:title="@string/widget_pref_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_tool_widgets_fullscreen"
+            app:singleLineTitle="false"
+            app:summary="@string/widget_sheet_fullscreen_summary"
+            app:title="@string/widget_sheet_fullscreen_title" />
+
     </PreferenceCategory>
 </PreferenceScreen>
