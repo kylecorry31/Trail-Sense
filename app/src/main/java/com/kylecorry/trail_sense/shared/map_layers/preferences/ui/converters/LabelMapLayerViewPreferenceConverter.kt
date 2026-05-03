@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters
 
 import android.content.Context
 import androidx.preference.Preference
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
@@ -23,9 +22,10 @@ class LabelMapLayerViewPreferenceConverter : MapLayerViewPreferenceConverter {
         androidPreference.summary = preference.summary
         androidPreference.key = preference.getFullPreferenceKey(mapId, layerId)
         androidPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            // TODO: Find a better way to do this
-            if (preference.openDemSettingsOnClick && context is MainActivity) {
-                context.findNavController()?.navigateWithAnimation(R.id.calibrateAltimeterFragment)
+            if (context is MainActivity) {
+                preference.navActionOnClick?.let {
+                    context.findNavController()?.navigateWithAnimation(it)
+                }
             }
             true
         }

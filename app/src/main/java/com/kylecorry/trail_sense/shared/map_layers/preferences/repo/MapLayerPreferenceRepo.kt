@@ -82,12 +82,20 @@ class MapLayerPreferenceRepo {
             prefs.preferences.putAll(newPreferences)
 
             // Add the layer to the destination's active layers if not present
-            val destinationLayers = getActiveLayerIds(mapId)
-            if (!destinationLayers.contains(layerId)) {
-                val newLayers =
-                    insertLayer(layerId, sourceLayerOrder, destinationLayers)
-                setActiveLayerIds(mapId, newLayers)
-            }
+            addLayerInBestPosition(mapId, layerId, sourceLayerOrder)
+        }
+    }
+
+    fun addLayerInBestPosition(
+        mapId: String,
+        layerId: String,
+        idealOrdering: List<String>
+    ) {
+        val destinationLayers = getActiveLayerIds(mapId)
+        if (!destinationLayers.contains(layerId)) {
+            val newLayers =
+                insertLayer(layerId, idealOrdering, destinationLayers)
+            setActiveLayerIds(mapId, newLayers)
         }
     }
 

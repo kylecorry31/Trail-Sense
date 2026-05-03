@@ -132,7 +132,6 @@
     <ID>ForbiddenComment:DiagnosticsFragment.kt:DiagnosticsFragment$// TODO: Keep the mapping of tools to diagnostics and the mapping of ID to diagnostic</ID>
     <ID>ForbiddenComment:EnhancedImageView.kt:EnhancedImageView$// TODO: Center the rotated image</ID>
     <ID>ForbiddenComment:EnhancedImageView.kt:EnhancedImageView$// TODO: Use a flag instead</ID>
-    <ID>ForbiddenComment:ExperimentationFragment.kt:ExperimentationFragment$// TODO: Retry on a timer</ID>
     <ID>ForbiddenComment:FeatureRenderer.kt:FeatureRenderer$// TODO: Cache this</ID>
     <ID>ForbiddenComment:FieldGuidePageFragment.kt:FieldGuidePageFragment$// TODO: Handle tag click</ID>
     <ID>ForbiddenComment:FileSubsystem.kt:FileSubsystem$// TODO: Handle maxSize</ID>
@@ -172,7 +171,6 @@
     <ID>ForbiddenComment:IWeatherSubsystem.kt:IWeatherSubsystem$// TODO: Split into two subsystems: Weather and Weather Monitor</ID>
     <ID>ForbiddenComment:ImageMagnifier.kt:ImageMagnifier$// TODO: Support zoom</ID>
     <ID>ForbiddenComment:ImportPackingListCommand.kt:ImportPackingListCommand$// TODO: Default to the file name</ID>
-    <ID>ForbiddenComment:LabelMapLayerViewPreferenceConverter.kt:LabelMapLayerViewPreferenceConverter$// TODO: Find a better way to do this</ID>
     <ID>ForbiddenComment:LightBarView.kt:LightBarView$// TODO: Calculate distance of each intensity description</ID>
     <ID>ForbiddenComment:LineClipper.kt:LineClipper$// TODO: If the z values are provided, this should be a 3D RDP filter</ID>
     <ID>ForbiddenComment:LineClipper.kt:LineClipper$// TODO: Is this allocation needed? What if the bounds were flipped?</ID>
@@ -183,9 +181,6 @@
     <ID>ForbiddenComment:LocationSubsystem.kt:LocationSubsystem$// TODO: Technically not true - this should probably by another broadcast</ID>
     <ID>ForbiddenComment:MapCalibrationView.kt:MapCalibrationView$// TODO: Support dragging the coordinates</ID>
     <ID>ForbiddenComment:MapLayerLoader.kt:// TODO: Consider loading required attribution with the layer data rather than the definition (definition can contain the long form attribution)</ID>
-    <ID>ForbiddenComment:MapLayerLoader.kt:MapLayerLoader$// TODO: This is where it would check the layer ID to see if it is a plugin and create a plugin layer</ID>
-    <ID>ForbiddenComment:MapLayerLoader.kt:MapLayerLoader$// TODO: This is where it would query the plugins</ID>
-    <ID>ForbiddenComment:MapLayerPreference.kt:MapLayerPreference$// TODO: This isn't the right thing to do</ID>
     <ID>ForbiddenComment:MapLayersBottomSheet.kt:MapLayersBottomSheet$// TODO: Show loading indicator once plugin layers are in place</ID>
     <ID>ForbiddenComment:MapPickers.kt:MapPickers$// TODO: Add sort</ID>
     <ID>ForbiddenComment:MapRepo.kt:MapRepo$// TODO: Save the size in the DB</ID>
@@ -222,12 +217,6 @@
     <ID>ForbiddenComment:PhotoMapTileSourceSelector.kt:PhotoMapTileSourceSelector$// TODO: Factor in rotation by using projection to see if the bounds intersect/are contained</ID>
     <ID>ForbiddenComment:PhotoMapToolLayerManager.kt:PhotoMapToolLayerManager$// TODO: Extract these to layer config</ID>
     <ID>ForbiddenComment:PlaceBeaconFragment.kt:PlaceBeaconFragment$// TODO: Prevent interaction until loaded</ID>
-    <ID>ForbiddenComment:Plugin.kt:Plugin$// TODO: If the package is installed with the expected signature, then it is available. Permissions should be handled separately.</ID>
-    <ID>ForbiddenComment:Plugin.kt:PluginService$// TODO: Have a way to say there's a plugin service and call the registration endpoint to see capabilities</ID>
-    <ID>ForbiddenComment:Plugin.kt:PluginService$// TODO: There are multiple types of services - ex. a foreground/worker service and the plugin "service" (API)</ID>
-    <ID>ForbiddenComment:Plugin.kt:PluginService$// TODO: Trusted plugins - where signatures match (no permission check required) vs untrusted plugins where permissions need to be checked</ID>
-    <ID>ForbiddenComment:PluginLoader.kt:// TODO: Other trail sense signatures here</ID>
-    <ID>ForbiddenComment:PluginLoader.kt:RegistrationFeaturesResponse$// TODO: This would be the list of features that Trail Sense can detect and allow plugins to override</ID>
     <ID>ForbiddenComment:PowerSettingsFragment.kt:PowerSettingsFragment$// TODO: Move preference to it's own repo</ID>
     <ID>ForbiddenComment:PressureChart.kt:PressureChart$// TODO: Dotted line</ID>
     <ID>ForbiddenComment:PressureChart.kt:PressureChart$// TODO: Support minimum range</ID>
@@ -274,7 +263,6 @@
     <ID>LargeClass:Licenses.kt:Licenses</ID>
     <ID>LongMethod:ARAstronomyLayer.kt:ARAstronomyLayer$private fun updatePositions</ID>
     <ID>LongMethod:ARAstronomyLayer.kt:ARAstronomyLayer$private suspend fun updateStarLayer</ID>
-    <ID>LongMethod:ARBeaconLayer.kt:ARBeaconLayer$override suspend fun update</ID>
     <ID>LongMethod:AppDatabase.kt:AppDatabase.Companion$private fun buildDatabase: AppDatabase</ID>
     <ID>LongMethod:AstronomyFragment.kt:AstronomyFragment$override fun onUpdate</ID>
     <ID>LongMethod:AstronomyFragment.kt:AstronomyFragment$override fun onViewCreated</ID>
@@ -291,22 +279,13 @@
     <ID>LongMethod:BubbleLevel.kt:BubbleLevel$override fun draw</ID>
     <ID>LongMethod:CalibrateAltimeterFragment.kt:CalibrateAltimeterFragment$private fun bindPreferences</ID>
     <ID>LongMethod:CalibrateCompassFragment.kt:CalibrateCompassFragment$private fun bindPreferences</ID>
-    <ID>LongMethod:ClimateFragment.kt:ClimateFragment$override fun update</ID>
     <ID>LongMethod:ClimateFragment.kt:ClimateFragment$private fun getClimateDescription: Pair&lt;String, String&gt;</ID>
-    <ID>LongMethod:CreateFieldGuideSightingFragment.kt:CreateFieldGuideSightingFragment$override fun update</ID>
     <ID>LongMethod:CreateMapFromPDFCommand.kt:CreateMapFromPDFCommand$suspend fun execute: PhotoMap?</ID>
     <ID>LongMethod:CreateTideFragment.kt:CreateTideFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
     <ID>LongMethod:DEM.kt:DEM$private suspend fun getSources: List&lt;GeographicImageSource&gt;</ID>
-    <ID>LongMethod:ErrorHandlerFragment.kt:ErrorHandlerFragment$override fun update</ID>
     <ID>LongMethod:ExperimentationFragment.kt:ExperimentationFragment$private fun useSamplePlugin</ID>
-    <ID>LongMethod:FieldGuideFragment.kt:FieldGuideFragment$override fun update</ID>
     <ID>LongMethod:FlashlightToolRegistration.kt:FlashlightToolRegistration$override fun getTool: Tool</ID>
-    <ID>LongMethod:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$override fun update</ID>
-    <ID>LongMethod:FragmentScopeAdjustment.kt:FragmentScopeAdjustment$override fun update</ID>
-    <ID>LongMethod:FragmentToolBattery.kt:FragmentToolBattery$override fun update</ID>
     <ID>LongMethod:FragmentToolFlashlight.kt:FragmentToolFlashlight$override fun onViewCreated</ID>
-    <ID>LongMethod:FragmentToolSurvivalGuideList.kt:FragmentToolSurvivalGuideList$override fun update</ID>
-    <ID>LongMethod:FragmentToolWhiteNoise.kt:FragmentToolWhiteNoise$override fun update</ID>
     <ID>LongMethod:GPSDiagnosticScanner.kt:GPSDiagnosticScanner$override fun quickScan: List&lt;ToolDiagnosticResult&gt;</ID>
     <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$override fun draw</ID>
     <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$private suspend fun renderFeaturesInBackground</ID>
@@ -315,8 +294,6 @@
     <ID>LongMethod:HillshadeMapTileSource.kt:HillshadeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
     <ID>LongMethod:Hooks.kt:fun AndromedaFragment.useNavigationSensors: NavigationSensorValues</ID>
     <ID>LongMethod:LandModel.kt:LandModel$suspend fun getCoastalLocations: List&lt;Coordinate&gt;</ID>
-    <ID>LongMethod:Licenses.kt:Licenses$private fun apache2: String</ID>
-    <ID>LongMethod:MapFragment.kt:MapFragment$override fun update</ID>
     <ID>LongMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
     <ID>LongMethod:MapMapper.kt:MapMapper$override fun map: ListItem</ID>
     <ID>LongMethod:MapToolRegistration.kt:MapToolRegistration$override fun getTool: Tool</ID>
@@ -337,16 +314,12 @@
     <ID>LongMethod:RulerFragment.kt:RulerFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
     <ID>LongMethod:SettingsFragment.kt:SettingsFragment$override fun onCreatePreferences</ID>
     <ID>LongMethod:SettingsToolRegistration.kt:SettingsToolRegistration$override fun getTool: Tool</ID>
-    <ID>LongMethod:SightingListFragment.kt:SightingListFragment$override fun update</ID>
     <ID>LongMethod:SlopeMapTileSource.kt:SlopeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
     <ID>LongMethod:SoftmaxCloudClassifier.kt:SoftmaxCloudClassifier$override suspend fun classify: List&lt;ClassificationResult&lt;CloudGenus?&gt;&gt;</ID>
-    <ID>LongMethod:SurvivalGuideBottomSheetFragment.kt:SurvivalGuideBottomSheetFragment$override fun update</ID>
     <ID>LongMethod:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$override fun onCreatePreferences</ID>
     <ID>LongMethod:TidesFragment.kt:TidesFragment$override fun onUpdate</ID>
     <ID>LongMethod:TileLoader.kt:TileLoader$private fun fillNeighborPixels</ID>
     <ID>LongMethod:TileMapLayer.kt:TileMapLayer$private fun renderTile</ID>
-    <ID>LongMethod:ToolMagnifierFragment.kt:ToolMagnifierFragment$override fun update</ID>
-    <ID>LongMethod:ToolSignalFinderFragment.kt:ToolSignalFinderFragment$override fun update</ID>
     <ID>LongMethod:ToolWhistleFragment.kt:ToolWhistleFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
     <ID>LongMethod:ToolWidgetConfigureActivity.kt:ToolWidgetConfigureActivity$override fun onCreate</ID>
     <ID>LongMethod:ToolWidgetViewBinder.kt:ToolWidgetViewBinder$@SuppressLint("ClickableViewAccessibility") fun bind</ID>
@@ -385,6 +358,8 @@
     <ID>ReturnCount:CameraView.kt:CameraView$fun start</ID>
     <ID>ReturnCount:ClimateFragment.kt:ClimateFragment$private fun formatActivity: String</ID>
     <ID>ReturnCount:CompassProvider.kt:CompassProvider$private fun getBaseOrientationSensor: IOrientationSensor</ID>
+    <ID>ReturnCount:CreateOfflineMapCommand.kt:CreateOfflineMapCommand$override suspend fun execute</ID>
+    <ID>ReturnCount:CreateOfflineMapCommand.kt:CreateOfflineMapCommand$private suspend fun save: Boolean</ID>
     <ID>ReturnCount:CreateTideFragment.kt:CreateTideFragment$private fun getTide: TideTable?</ID>
     <ID>ReturnCount:CricketsAudioStream.kt:CricketsAudioStream$private suspend fun getChirp: Double</ID>
     <ID>ReturnCount:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$private fun getFromCache: Float?</ID>
@@ -424,6 +399,8 @@
     <ID>ReturnCount:MapExportService.kt:MapExportService$@Suppress("FoldInitializerAndIfToElvis") private fun getPDFData: List&lt;PDFValue.PDFObject&gt;</ID>
     <ID>ReturnCount:MapExportService.kt:MapExportService$override suspend fun export: Boolean</ID>
     <ID>ReturnCount:MapRotationCalculator.kt:MapRotationCalculator$fun calculate: Float</ID>
+    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$@Synchronized fun render: Bitmap?</ID>
+    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$private fun getRenderer: DatabaseRenderer?</ID>
     <ID>ReturnCount:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$fun getPressureForecast: List&lt;Reading&lt;Pressure&gt;&gt;</ID>
     <ID>ReturnCount:NoaaHcAndMetadataTideTableConverter.kt:NoaaHcAndMetadataTideTableConverter$override fun parse: TideTable?</ID>
     <ID>ReturnCount:PathService.kt:PathService$override suspend fun mergePaths: Long</ID>
@@ -471,7 +448,6 @@
     <ID>ReturnCount:TrailSenseExceptionHandler.kt:TrailSenseExceptionHandler$override fun handleException: Boolean</ID>
     <ID>ReturnCount:WeatherArrivalTimeCalculator.kt:WeatherArrivalTimeCalculator$override fun getArrivalTime: WeatherArrivalTime?</ID>
     <ID>ReturnCount:WeatherExtensions.kt:fun List&lt;Reading&lt;CloudGenus?&gt;&gt;.getLastCloud: Reading&lt;CloudGenus?&gt;?</ID>
-    <ID>ReturnCount:WeatherForecastService.kt:WeatherForecastService$suspend fun getWeather: Forecast?</ID>
     <ID>ReturnCount:WeatherMonitorToolService.kt:WeatherMonitorToolService$private fun start</ID>
     <ID>SwallowedException:AndromedaCoroutineWidget.kt:AndromedaCoroutineWidget$e: Exception</ID>
     <ID>SwallowedException:BacktrackService.kt:BacktrackService$e: Exception</ID>

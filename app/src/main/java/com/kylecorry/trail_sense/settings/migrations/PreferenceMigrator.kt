@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.preferences.putIntArray
 import com.kylecorry.luna.text.toIntCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.AppState
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.dem.map_layers.AspectMapTileSource
@@ -24,8 +25,11 @@ import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
+import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
+import com.kylecorry.trail_sense.tools.map.map_layers.OfflineMapTileSource
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
@@ -66,7 +70,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 26
+        private const val version = 27
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -417,6 +421,39 @@ class PreferenceMigrator private constructor() {
                     }
                 }
                 prefs.remove(viewDistanceKey)
+            },
+            PreferenceMigration(26, 27) { context, prefs ->
+                // Enable the offline maps layer by default for the navigation and map tools
+                val repo = getAppService<MapLayerPreferenceRepo>()
+                val idealOrdering = listOf(
+                    BaseMapTileSource.SOURCE_ID,
+                    OfflineMapTileSource.SOURCE_ID,
+                    ElevationMapTileSource.SOURCE_ID,
+                    HillshadeMapTileSource.SOURCE_ID,
+                    AspectMapTileSource.SOURCE_ID,
+                    SlopeMapTileSource.SOURCE_ID,
+                    PhotoMapTileSource.SOURCE_ID,
+                    ContourGeoJsonSource.SOURCE_ID,
+                    NavigationGeoJsonSource.SOURCE_ID,
+                    CellTowerGeoJsonSource.SOURCE_ID,
+                    TideGeoJsonSource.SOURCE_ID,
+                    PathGeoJsonSource.SOURCE_ID,
+                    BeaconGeoJsonSource.SOURCE_ID,
+                    MyLocationGeoJsonSource.SOURCE_ID,
+                )
+
+                val mapIds = listOf(
+                    NavigationToolRegistration.MAP_ID,
+                    MapToolRegistration.MAP_ID
+                )
+
+                for (mapId in mapIds) {
+                    repo.addLayerInBestPosition(
+                        mapId,
+                        OfflineMapTileSource.SOURCE_ID,
+                        idealOrdering
+                    )
+                }
             }
         )
 

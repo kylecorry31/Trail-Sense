@@ -30,6 +30,12 @@
 
         <Preference
             app:iconSpaceReserved="false"
+            app:key="@string/pref_offline_map_files"
+            app:singleLineTitle="false"
+            app:title="@string/offline_maps" />
+
+        <Preference
+            app:iconSpaceReserved="false"
             app:key="@string/pref_map_layer_button"
             app:singleLineTitle="false"
             app:title="@string/layers" />

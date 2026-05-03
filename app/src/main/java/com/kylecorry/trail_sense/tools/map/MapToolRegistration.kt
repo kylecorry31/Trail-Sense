@@ -15,13 +15,15 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefi
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
+import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
+import com.kylecorry.trail_sense.tools.map.map_layers.OfflineMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
-import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.map.widgets.AppWidgetMap
 import com.kylecorry.trail_sense.tools.map.widgets.MapToolWidgetView
+import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -52,6 +54,9 @@ object MapToolRegistration : ToolRegistration {
                     "GeoJSON feature selection changed"
                 )
             ),
+            singletons = listOf(
+                { OfflineMapFileRepo.getInstance() }
+            ),
             widgets = listOf(
                 ToolWidget(
                     WIDGET_MAP,
@@ -71,6 +76,21 @@ object MapToolRegistration : ToolRegistration {
                     tileSource = ::BaseMapTileSource
                 ),
                 MapLayerDefinition(
+                    OfflineMapTileSource.SOURCE_ID,
+                    context.getString(R.string.offline_maps),
+                    layerType = MapLayerType.Tile,
+                    description = context.getString(R.string.map_layer_offline_maps_description),
+                    preferences = listOf(
+                        MapLayerPreference(
+                            id = "offline_maps",
+                            title = context.getString(R.string.manage_maps),
+                            type = MapLayerPreferenceType.Label,
+                            navActionOnClick = R.id.offlineMapListFragment
+                        )
+                    ),
+                    tileSource = ::OfflineMapTileSource
+                ),
+                MapLayerDefinition(
                     ElevationMapTileSource.SOURCE_ID,
                     context.getString(R.string.elevation),
                     layerType = MapLayerType.Tile,
@@ -81,7 +101,7 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.plugin_digital_elevation_model),
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
-                            openDemSettingsOnClick = true
+                            navActionOnClick = R.id.calibrateAltimeterFragment
                         ),
                         MapLayerPreference(
                             id = ElevationMapTileSource.COLOR,
@@ -119,7 +139,7 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.plugin_digital_elevation_model),
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
-                            openDemSettingsOnClick = true
+                            navActionOnClick = R.id.calibrateAltimeterFragment
                         ),
                         MapLayerPreference(
                             id = HillshadeMapTileSource.DRAW_ACCURATE_SHADOWS,
@@ -156,7 +176,7 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.plugin_digital_elevation_model),
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
-                            openDemSettingsOnClick = true
+                            navActionOnClick = R.id.calibrateAltimeterFragment
                         ),
                         MapLayerPreference(
                             id = RuggednessMapTileSource.HIGH_RESOLUTION,
@@ -179,7 +199,7 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.plugin_digital_elevation_model),
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
-                            openDemSettingsOnClick = true
+                            navActionOnClick = R.id.calibrateAltimeterFragment
                         ),
                         MapLayerPreference(
                             id = SlopeMapTileSource.COLOR,
@@ -225,7 +245,7 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.plugin_digital_elevation_model),
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
-                            openDemSettingsOnClick = true
+                            navActionOnClick = R.id.calibrateAltimeterFragment
                         ),
                         MapLayerPreference(
                             id = AspectMapTileSource.HIGH_RESOLUTION,
@@ -247,7 +267,7 @@ object MapToolRegistration : ToolRegistration {
                             title = context.getString(R.string.plugin_digital_elevation_model),
                             type = MapLayerPreferenceType.Label,
                             summary = context.getString(R.string.open_settings),
-                            openDemSettingsOnClick = true
+                            navActionOnClick = R.id.calibrateAltimeterFragment
                         ),
                         MapLayerPreference(
                             id = DefaultMapLayerDefinitions.SHOW_LABELS,

@@ -18,6 +18,9 @@ Each layer has the following settings:
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
 
+## Offline maps
+This layer shows an offline map from a map files you have downloaded and selected in the Map tool settings. Only Mapsforge (.map) files are supported.
+
 ## Elevation
 This layer shows the elevation from the digital elevation model (DEM) as color.
 
