@@ -59,6 +59,8 @@ class OfflineMapFileListItemMapper(
                     actionHandler(value, OfflineMapFileAction.Delete)
                 },
             )
-        )
+        ) {
+            actionHandler(value, OfflineMapFileAction.View)
+        }
     }
 }

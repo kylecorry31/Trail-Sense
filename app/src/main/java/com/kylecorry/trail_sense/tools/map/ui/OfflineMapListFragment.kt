@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
+import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.ui.useService
@@ -9,6 +11,7 @@ import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
 import com.kylecorry.trail_sense.tools.map.ui.commands.CreateOfflineMapCommand
@@ -49,10 +52,20 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
     private fun handleListItemAction(map: OfflineMapFile, action: OfflineMapFileAction) {
         when (action) {
+            OfflineMapFileAction.View -> view(map)
             OfflineMapFileAction.Rename -> rename(map)
             OfflineMapFileAction.Delete -> delete(map)
             OfflineMapFileAction.ToggleVisibility -> toggleVisible(map)
         }
+    }
+
+    private fun view(map: OfflineMapFile) {
+        findNavController().navigateWithAnimation(
+            R.id.offlineMapViewFragment,
+            Bundle().apply {
+                putLong("offline_map_file_id", map.id)
+            }
+        )
     }
 
     private fun rename(map: OfflineMapFile) {

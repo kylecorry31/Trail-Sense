@@ -12,6 +12,7 @@ import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.topics.generic.Topic
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
@@ -140,6 +141,9 @@ object Tools {
         return tools.filter { !availableOnly || it.isAvailable(context) }
     }
 
+    fun getMapLayerDefinition(context: Context, sourceId: String): MapLayerDefinition? {
+        return getTools(context).flatMap { it.mapLayers }.firstOrNull { it.id == sourceId }
+    }
 
     fun getQuickActions(context: Context): List<ToolQuickAction> {
         val none = ToolQuickAction(
