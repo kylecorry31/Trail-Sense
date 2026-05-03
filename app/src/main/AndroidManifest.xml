@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -143,18 +143,14 @@
         </activity>
 
 
-        <activity
-            android:name="com.kylecorry.trail_sense.onboarding.OnboardingActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+        <activity android:name="com.kylecorry.trail_sense.onboarding.OnboardingActivity" />
 
         <activity
             android:name=".tools.flashlight.widgets.FlashlightWidgetActivityWorkaround"
             android:excludeFromRecents="true"
             android:noHistory="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            tools:ignore="DiscouragedApi" />
 
         <activity
             android:name="com.kylecorry.trail_sense.tools.tools.widgets.ToolWidgetConfigureActivity"
