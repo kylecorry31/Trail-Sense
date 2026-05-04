@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import com.kylecorry.trail_sense.shared.andromeda_temp.dismissOnPause
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -41,6 +40,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.andromeda_temp.BottomSheetFragmentWrapper
+import com.kylecorry.trail_sense.shared.andromeda_temp.dismissOnPause
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -312,7 +312,7 @@ object CustomUiUtils {
         val prefs = PreferencesSubsystem.getInstance(context).preferences
         if (prefs.getBoolean(shownKey) != shownValue) {
             if (considerShownIfCancelled && cancelText == null) {
-                Alerts.dialog(context, title, message, okText = okText, cancelText = null) {
+                Alerts.dialog(context, title, message, okText = okText, cancelText = null, allowLinks = true) {
                     prefs.putBoolean(shownKey, shownValue)
                     onClose(it, true)
                 }
@@ -322,7 +322,8 @@ object CustomUiUtils {
                     title,
                     message,
                     okText = okText,
-                    cancelText = cancelText
+                    cancelText = cancelText,
+                    allowLinks = true
                 ) { cancelled ->
                     val agreed = !cancelled || considerShownIfCancelled
                     if (agreed) {

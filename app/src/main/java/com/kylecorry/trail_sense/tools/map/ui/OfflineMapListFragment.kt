@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.tools.map.ui.commands.CreateOfflineMapFileGroup
 import com.kylecorry.trail_sense.tools.map.ui.commands.DeleteOfflineMapCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.MoveOfflineMapFileCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.RenameOfflineMapCommand
+import com.kylecorry.trail_sense.tools.map.ui.commands.ShowOfflineMapsDisclaimerCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.ToggleOfflineMapVisibilityCommand
 
 class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_list) {
@@ -114,6 +115,10 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
                 handleCreateMenuAction(menuItem.itemId, manager)
                 true
             }
+        }
+
+        useEffect(context) {
+            ShowOfflineMapsDisclaimerCommand(context).execute()
         }
     }
 
