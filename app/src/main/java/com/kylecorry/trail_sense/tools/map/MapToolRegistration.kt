@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefi
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
+import com.kylecorry.trail_sense.tools.map.infrastructure.OfflineMapFileService
 import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
@@ -55,7 +56,8 @@ object MapToolRegistration : ToolRegistration {
                 )
             ),
             singletons = listOf(
-                { OfflineMapFileRepo.getInstance() }
+                { OfflineMapFileRepo.getInstance() },
+                { OfflineMapFileService() }
             ),
             widgets = listOf(
                 ToolWidget(

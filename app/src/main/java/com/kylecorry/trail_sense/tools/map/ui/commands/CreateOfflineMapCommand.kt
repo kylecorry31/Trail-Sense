@@ -17,7 +17,11 @@ import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMap
 import java.time.Instant
 import java.util.UUID
 
-class CreateOfflineMapCommand(private val intentResolver: IntentResultRetriever, private val context: Context) :
+class CreateOfflineMapCommand(
+    private val intentResolver: IntentResultRetriever,
+    private val context: Context,
+    private val parentId: Long? = null
+) :
     CoroutineCommand {
 
     private val repo = getAppService<OfflineMapFileRepo>()
@@ -60,7 +64,8 @@ class CreateOfflineMapCommand(private val intentResolver: IntentResultRetriever,
             saved.length(),
             Instant.now(),
             OfflineMapBoundsCalculatorFactory().getBoundsCalculator(type).getBounds(saved),
-            visible = true
+            visible = true,
+            parentId = parentId
         )
         repo.add(mapFile)
         return true
