@@ -1803,6 +1803,8 @@
     <string name="open_settings">Open settings</string>
     <string name="pref_map_layer_button" translatable="false">pref_map_layer_button</string>
     <string name="pref_offline_map_files" translatable="false">pref_offline_map_files</string>
+    <string name="pref_offline_maps_disclaimer_shown" translatable="false">pref_offline_maps_disclaimer_shown</string>
+    <string name="offline_maps_disclaimer">Map files are not included with Trail Sense and must be downloaded separately. Only Mapsforge (.map) files are supported. You can find a list of available maps at https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="show_gps_accuracy">Show GPS accuracy</string>
     <string name="large_location_indicator">Large location indicator</string>
     <string name="pref_increase_ar_exposure_at_night" translatable="false">pref_increase_ar_exposure_at_night</string>
