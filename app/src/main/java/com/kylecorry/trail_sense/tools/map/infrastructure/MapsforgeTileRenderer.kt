@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFileType
 import org.mapsforge.core.model.Tile
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
+import org.mapsforge.map.android.rendertheme.AssetsRenderTheme
 import org.mapsforge.map.datastore.MultiMapDataStore
 import org.mapsforge.map.layer.cache.InMemoryTileCache
 import org.mapsforge.map.layer.cache.TileCache
@@ -17,7 +18,7 @@ import org.mapsforge.map.layer.renderer.DatabaseRenderer
 import org.mapsforge.map.layer.renderer.RendererJob
 import org.mapsforge.map.model.DisplayModel
 import org.mapsforge.map.reader.MapFile
-import org.mapsforge.map.rendertheme.internal.MapsforgeThemes
+import org.mapsforge.map.rendertheme.XmlRenderTheme
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 
 class MapsforgeTileRenderer {
@@ -101,7 +102,7 @@ class MapsforgeTileRenderer {
         }
         val newRenderThemeFuture = RenderThemeFuture(
             AndroidGraphicFactory.INSTANCE,
-            MapsforgeThemes.DEFAULT,
+            createRenderTheme(context),
             displayModel
         )
         newRenderThemeFuture.run()
@@ -126,10 +127,15 @@ class MapsforgeTileRenderer {
 
     private fun scaleRenderThemeToTileSize() {
         val deviceScaleFactor = DisplayModel.getDeviceScaleFactor()
-        displayModel.setUserScaleFactor(if (deviceScaleFactor > 0f) 1f / deviceScaleFactor else 1f)
+        displayModel.userScaleFactor = if (deviceScaleFactor > 0f) 1f / deviceScaleFactor else 1f
+    }
+
+    private fun createRenderTheme(context: Context): XmlRenderTheme {
+        return AssetsRenderTheme(context.applicationContext.assets, "", MAPSFORGE_THEME)
     }
 
     companion object {
         private const val TILE_SIZE = 256
+        private const val MAPSFORGE_THEME = "mapsforge/trail_sense_outdoors.xml"
     }
 }
