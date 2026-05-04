@@ -34,6 +34,8 @@ import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.Ligh
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
 import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileDao
 import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileEntity
+import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileGroupDao
+import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileGroupEntity
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingDao
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingEntity
 import com.kylecorry.trail_sense.tools.notes.domain.Note
@@ -65,8 +67,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, OfflineMapFileEntity::class],
-    version = 52,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, OfflineMapFileEntity::class, OfflineMapFileGroupEntity::class],
+    version = 53,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -94,6 +96,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun pluginDao(): PluginDao
     abstract fun pluginRegistrationDao(): PluginRegistrationDao
     abstract fun offlineMapFileDao(): OfflineMapFileDao
+    abstract fun offlineMapFileGroupDao(): OfflineMapFileGroupDao
 
     companion object {
 
@@ -495,6 +498,23 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_52_53 = object : Migration(52, 53) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `offline_map_files` ADD COLUMN `parent` INTEGER DEFAULT NULL")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS `index_offline_map_files_parent` ON `offline_map_files` (`parent`)")
+                    db.execSQL(
+                        """
+                        CREATE TABLE IF NOT EXISTS `offline_map_file_groups` (
+                            `_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            `name` TEXT NOT NULL,
+                            `parent` INTEGER DEFAULT NULL
+                        )
+                    """.trimIndent()
+                    )
+                    db.execSQL("CREATE INDEX IF NOT EXISTS `index_offline_map_file_groups_parent` ON `offline_map_file_groups` (`parent`)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -547,7 +567,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_48_49,
                     MIGRATION_49_50,
                     MIGRATION_50_51,
-                    MIGRATION_51_52
+                    MIGRATION_51_52,
+                    MIGRATION_52_53
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

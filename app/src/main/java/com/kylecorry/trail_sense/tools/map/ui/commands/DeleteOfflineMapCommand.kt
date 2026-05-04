@@ -6,24 +6,30 @@ import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
-import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
+import com.kylecorry.trail_sense.tools.map.domain.IOfflineMapFile
+import com.kylecorry.trail_sense.tools.map.infrastructure.OfflineMapFileService
 
-class DeleteOfflineMapCommand(private val context: Context) : CoroutineCommand<OfflineMapFile> {
-    private val repo = getAppService<OfflineMapFileRepo>()
+class DeleteOfflineMapCommand(
+    private val context: Context
+) : CoroutineCommand<IOfflineMapFile> {
+    private val service = getAppService<OfflineMapFileService>()
 
-    override suspend fun execute(value: OfflineMapFile) {
+    override suspend fun execute(value: IOfflineMapFile) {
         val shouldDelete = onMain {
             !CoroutineAlerts.dialog(
                 context,
                 context.getString(R.string.delete),
-                value.name
+                if (value.isGroup) {
+                    context.getString(R.string.delete_offline_map_group_message, value.name)
+                } else {
+                    value.name
+                }
             )
         }
 
         if (!shouldDelete) {
             return
         }
-        repo.delete(value)
+        service.delete(value)
     }
 }

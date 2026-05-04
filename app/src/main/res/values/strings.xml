@@ -94,6 +94,10 @@
         <item quantity="one">%d path</item>
         <item quantity="other">%d paths</item>
     </plurals>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d map</item>
+        <item quantity="other">%d maps</item>
+    </plurals>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
     <string name="maps">Maps</string>
@@ -383,6 +387,7 @@
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
     <string name="delete_path_group_message">%s and all its paths will be deleted.</string>
     <string name="delete_map_group_message">%s and all its maps will be deleted.</string>
+    <string name="delete_offline_map_group_message">%s and all its maps will be deleted.</string>
     <string name="group">Group</string>
     <string name="no_group">No group</string>
     <string name="tap_sun_moon_hint">Tap sun or moon for position details</string>
@@ -1135,6 +1140,7 @@
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
     <string name="map_file">File (JPG, PNG, PDF)</string>
+    <string name="offline_map_file">File (.map)</string>
     <string name="map_export_error">Unable to export map to the chosen file</string>
     <string name="point">Point</string>
     <string name="point_added">Point added to path</string>

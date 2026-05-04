@@ -1,9 +1,10 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
-enum class OfflineMapFileAction {
+enum class OfflineMapFileGroupAction {
     View,
     Rename,
     Delete,
     Move,
-    ToggleVisibility
+    ShowAll,
+    HideAll
 }

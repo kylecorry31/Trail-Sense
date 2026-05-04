@@ -2,13 +2,14 @@ package com.kylecorry.trail_sense.tools.map.infrastructure.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFileType
 import java.time.Instant
 
-@Entity(tableName = "offline_map_files")
+@Entity(tableName = "offline_map_files", indices = [Index(value = ["parent"])])
 data class OfflineMapFileEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "type") val type: Long,
@@ -19,7 +20,8 @@ data class OfflineMapFileEntity(
     @ColumnInfo(name = "east") val east: Double?,
     @ColumnInfo(name = "south") val south: Double?,
     @ColumnInfo(name = "west") val west: Double?,
-    @ColumnInfo(name = "visible") val visible: Boolean
+    @ColumnInfo(name = "visible") val visible: Boolean,
+    @ColumnInfo(name = "parent") val parent: Long? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -41,7 +43,8 @@ data class OfflineMapFileEntity(
             } else {
                 null
             },
-            visible
+            visible,
+            parent
         )
     }
 
@@ -57,7 +60,8 @@ data class OfflineMapFileEntity(
                 file.bounds?.east,
                 file.bounds?.south,
                 file.bounds?.west,
-                file.visible
+                file.visible,
+                file.parentId
             ).also {
                 it.id = file.id
             }
