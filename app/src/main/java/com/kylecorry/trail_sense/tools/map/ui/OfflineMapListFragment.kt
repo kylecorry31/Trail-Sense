@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.toolbar.Toolbar
@@ -33,6 +34,7 @@ import com.kylecorry.trail_sense.tools.map.ui.commands.CreateOfflineMapCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.CreateOfflineMapFileGroupCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.DeleteOfflineMapCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.MoveOfflineMapFileCommand
+import com.kylecorry.trail_sense.tools.map.ui.commands.OfflineMapCleanupCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.RenameOfflineMapCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.ShowOfflineMapsDisclaimerCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.ToggleOfflineMapVisibilityCommand
@@ -119,6 +121,10 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
         useEffect(context) {
             ShowOfflineMapsDisclaimerCommand(context).execute()
+        }
+
+        useBackgroundEffect(lifecycleHookTrigger.onResume()) {
+            OfflineMapCleanupCommand().execute()
         }
     }
 
