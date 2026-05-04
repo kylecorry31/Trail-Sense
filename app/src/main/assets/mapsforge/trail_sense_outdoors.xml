@@ -22,7 +22,7 @@
 
     <!-- Land -->
     <rule e="way" k="natural" v="nosea|land" zoom-min="0">
-        <area fill="#dddfbd" />
+        <area fill="#c4ccb0" />
     </rule>
 
     <!-- Sand -->
@@ -42,7 +42,7 @@
         v="grassland|heath|scrub|allotments|cemetery|farm|farmland|farmyard|grass|meadow|orchard|recreation_ground|village_green|vineyard|wood|forest"
         zoom-min="10"
     >
-        <area fill="#dcdfb4" />
+        <area fill="#c1cca4" />
     </rule>
 
     <!-- Human -->
@@ -53,7 +53,7 @@
         zoom-min="8"
     >
     <!-- TODO: Alpha isn't working -->
-        <area fill="#dcdec6" />
+        <area fill="#c4ccb0" />
     </rule>
 
     <rule e="way" k="building|shop" v="*" zoom-min="15">
@@ -63,7 +63,7 @@
 
     <!-- Wetlands -->
     <rule e="way" k="natural" v="marsh|wetland" zoom-min="10">
-        <area fill="#d2d5ac" />
+        <area fill="#b7c495" />
         <area
             src="jar:patterns/swamp.svg"
             symbol-height="40"
