@@ -54,7 +54,7 @@ class MapsforgeTileRenderer {
             currentRenderThemeFuture,
             displayModel,
             1f,
-            false,
+            true,
             false
         )
 

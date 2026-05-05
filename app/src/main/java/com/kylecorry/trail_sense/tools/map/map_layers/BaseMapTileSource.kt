@@ -120,7 +120,7 @@ class BaseMapTileSource : TileSource {
         const val SOURCE_ID = "base_map"
         private val SOURCE_MAP_COLOR_DESERT = Color.rgb(232, 225, 182)
         private val SOURCE_MAP_COLOR_ROCK = Color.rgb(202, 195, 184)
-        private val SOURCE_MAP_COLOR_GRASS = Color.rgb(189, 204, 150)
+        private val SOURCE_MAP_COLOR_GRASS = Color.rgb(184, 201, 166)
         private val SOURCE_MAP_COLOR_ICE = Color.rgb(245, 244, 242)
         private const val SOURCE_MAP_COLOR_OCEAN = Color.BLACK
         private val SOURCE_MAP_COLOR_LAKES = Color.rgb(127, 127, 127)

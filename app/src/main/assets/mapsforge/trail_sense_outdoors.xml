@@ -2,8 +2,8 @@
 <!-- https://github.com/mapsforge/mapsforge/blob/master/mapsforge-map-writer/src/main/config/tag-mapping.xml -->
 <rendertheme
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    map-background="#F8F8F8"
-    map-background-outside="#DDDDDD"
+    map-background="#C4CCB0"
+    map-background-outside="#C4CCB0"
     version="5"
     xmlns="http://mapsforge.org/renderTheme"
     xsi:schemaLocation="http://mapsforge.org/renderTheme https://raw.githubusercontent.com/mapsforge/mapsforge/master/resources/renderTheme.xsd"
@@ -11,27 +11,27 @@
 
     <!-- ================ NATURAL / LANDUSE ================ -->
 
-    <rule
-        e="way"
-        k="natural|landuse"
-        v="sea"
-        zoom-min="0"
-    >
+    <rule e="way" k="natural|landuse" v="sea" zoom-min="0">
         <area fill="#AAD3DF" />
     </rule>
 
     <!-- Land -->
     <rule e="way" k="natural" v="nosea|land" zoom-min="0">
-        <area fill="#c4ccb0" />
+        <area fill="#C4CCB0" />
     </rule>
 
     <!-- Sand -->
-    <rule e="way" k="natural" v="beach" zoom-min="10">
+    <rule e="way" k="natural|landuse" v="beach|sand|desert" zoom-min="6">
         <area fill="#E8E1B6" />
     </rule>
 
     <!-- Rock -->
-    <rule e="way" k="natural|landuse" v="fell|scree|quarry" zoom-min="10">
+    <rule
+        e="way"
+        k="natural|landuse"
+        v="bare_rock|fell|rock|scree|quarry"
+        zoom-min="6"
+    >
         <area fill="#CAC3B8" />
     </rule>
 
@@ -40,9 +40,9 @@
         e="way"
         k="natural|landuse"
         v="grassland|heath|scrub|allotments|cemetery|farm|farmland|farmyard|grass|meadow|orchard|recreation_ground|village_green|vineyard|wood|forest"
-        zoom-min="10"
+        zoom-min="6"
     >
-        <area fill="#c1cca4" />
+        <area fill="#B8C9A6" />
     </rule>
 
     <!-- Human -->
@@ -52,18 +52,17 @@
         v="brownfield|commercial|construction|factory|greenfield|industrial|landfill|military|railway|retail|residential"
         zoom-min="8"
     >
-    <!-- TODO: Alpha isn't working -->
         <area fill="#c4ccb0" />
     </rule>
 
     <rule e="way" k="building|shop" v="*" zoom-min="15">
-        <area fill="#DDDDDD" />
+        <area fill="#B4BCA0" />
         <line stroke="#22000000" stroke-width="0.1" />
     </rule>
 
     <!-- Wetlands -->
-    <rule e="way" k="natural" v="marsh|wetland" zoom-min="10">
-        <area fill="#b7c495" />
+    <rule e="way" k="natural" v="marsh|wetland" zoom-min="6">
+        <area fill="#C4D1BB" />
         <area
             src="jar:patterns/swamp.svg"
             symbol-height="40"
@@ -73,12 +72,7 @@
 
     <!-- Major bodies of water -->
 
-    <rule
-        e="way"
-        k="natural|landuse"
-        v="water|basin|reservoir"
-        zoom-min="0"
-    >
+    <rule e="way" k="natural|landuse" v="water|basin|reservoir" zoom-min="0">
         <area fill="#AAD3DF" />
     </rule>
 
@@ -106,89 +100,39 @@
     <!-- Public use lands -->
     <rule
         e="way"
-        k="boundary"
-        v="national_park|protected_area"
+        k="boundary|leisure|tourism|landuse"
+        v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
         zoom-min="8"
         closed="yes"
     >
-        <area fill="#202E7D32" />
-    </rule>
-
-    <rule e="way" k="boundary" v="national_park|protected_area" zoom-min="8">
-    <line
-        stroke="#AA2E7D32"
-        stroke-width="0.2"
-    />
+        <area fill="#668FB47A" />
     </rule>
 
     <rule
         e="way"
-        k="leisure|landuse"
-        v="nature_reserve|conservation"
-        zoom-min="10"
-        closed="yes"
+        k="boundary|leisure|tourism|landuse"
+        v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
+        zoom-min="8"
+        closed="no"
     >
-        <area fill="#202E7D32" />
+        <line stroke="#668FB47A" stroke-width="1.0" />
     </rule>
 
-    <rule
-        e="way"
-        k="leisure|landuse"
-        v="nature_reserve|conservation"
-        zoom-min="10"
-    >
-    <line
-        stroke="#AA2E7D32"
-        stroke-width="0.2"
-    />
-    </rule>
-
-    <rule
-        e="way"
-        k="natural|landuse|leisure"
-        v="wood|forest|grassland|heath|scrub|meadow|recreation_ground|park"
-        zoom-min="12"
-    >
-        <rule
-            e="way"
-            k="access|ownership"
-            v="yes|permissive|designated|public"
-            closed="yes"
-        >
-            <area fill="#202E7D32" />
-        </rule>
-        <rule e="way" k="access|ownership" v="yes|permissive|designated|public">
-            <line
-                stroke="#AA2E7D32"
-                stroke-width="0.2"
-            />
-        </rule>
-    </rule>
-
-    <!-- Recreation areas -->
-    <rule
-        e="way"
-        k="leisure|tourism|landuse"
-        v="park|picnic_site|camp_site|caravan_site|recreation_ground"
-        zoom-min="14"
-    >
-        <area fill="#202E7D32" stroke="#AA2E7D32" stroke-width="0.2" />
-    </rule>
-
+    <!-- Parking -->
     <rule e="way" k="amenity" v="parking" zoom-min="14">
-        <area fill="#dfd8ce" />
+        <area fill="#C8C3B8" />
     </rule>
 
     <!-- Water control features -->
     <rule e="way" k="lock" v="yes|true" zoom-min="14">
-        <line stroke="#333333" stroke-linecap="square" stroke-width="2.0" />
+        <line stroke="#8E8E87" stroke-linecap="square" stroke-width="2.0" />
         <line stroke="#AAD3DF" stroke-linecap="butt" stroke-width="1.6" />
     </rule>
 
     <rule e="way" k="waterway" v="weir" zoom-min="14">
-        <line stroke="#333333" stroke-width="0.7" />
+        <line stroke="#8E8E87" stroke-width="0.7" />
         <line
-            stroke="#EEEEEE"
+            stroke="#C8C0B0"
             stroke-dasharray="5,1"
             stroke-linecap="butt"
             stroke-width="0.7"
@@ -196,22 +140,22 @@
     </rule>
 
     <rule e="way" k="waterway" v="dam" zoom-min="14">
-        <line stroke="#333333" stroke-width="1" />
+        <line stroke="#8E8E87" stroke-width="1" />
         <line
-            stroke="#CCCCCC"
+            stroke="#C8C0B0"
             stroke-dasharray="10,1"
             stroke-linecap="butt"
             stroke-width="1"
         />
         <rule closed="yes" e="any" k="*" v="*">
-            <area fill="#CCCCCC" />
+            <area fill="#C8C0B0" />
         </rule>
     </rule>
 
     <!-- Barriers -->
     <rule e="way" k="barrier" v="fence" zoom-min="15">
         <line
-            stroke="#333333"
+            stroke="#7B7480"
             stroke-dasharray="2,2"
             stroke-linecap="butt"
             stroke-width="0.1"
@@ -219,9 +163,9 @@
     </rule>
 
     <rule e="way" k="barrier|building" v="wall|city_wall" zoom-min="15">
-        <line stroke="#333333" stroke-linecap="round" stroke-width="0.3" />
+        <line stroke="#7B7480" stroke-linecap="round" stroke-width="0.3" />
         <line
-            stroke="#EEEEEE"
+            stroke="#D6D2C8"
             stroke-dasharray="5,1"
             stroke-linecap="butt"
             stroke-width="0.15"
@@ -229,9 +173,9 @@
     </rule>
 
     <rule e="way" k="barrier" v="retaining_wall" zoom-min="15">
-        <line stroke="#333333" stroke-linecap="round" stroke-width="0.5" />
+        <line stroke="#7B7480" stroke-linecap="round" stroke-width="0.5" />
         <line
-            stroke="#EEEEEE"
+            stroke="#D6D2C8"
             stroke-dasharray="4,1"
             stroke-linecap="butt"
             stroke-width="0.3"
@@ -242,16 +186,16 @@
 
     <!-- Access roads -->
     <rule e="way" k="highway" v="service|services|raceway" zoom-min="13">
-        <line stroke="#BBBBBB" stroke-width="0.6" />
-        <line stroke="#EEEEEE" stroke-width="0.4" />
+        <line stroke="#AFAFA8" stroke-width="0.6" />
+        <line stroke="#D6D2C8" stroke-width="0.4" />
     </rule>
 
     <!-- Minor roads -->
     <rule e="way" k="highway" v="byway|track" zoom-min="12">
-        <line stroke="#BBBBBB" stroke-width="1.0" />
-        <line stroke="#EEEEEE" stroke-width="0.8" />
+        <line stroke="#9A6A3A" stroke-width="1.0" />
+        <line stroke="#D8C89A" stroke-width="0.8" />
         <line
-            stroke="#222222"
+            stroke="#9A6A3A"
             stroke-width="0.6"
             stroke-dasharray="1,2"
             scale="all"
@@ -264,19 +208,19 @@
         v="residential|road|tertiary|tertiary_link|bus_guideway|living_street|construction|unclassified"
         zoom-min="12"
     >
-        <line stroke="#BBBBBB" stroke-width="1.2" />
-        <line stroke="#EEEEEE" stroke-width="1.0" />
+        <line stroke="#AFAFA8" stroke-width="1.2" />
+        <line stroke="#D6D2C8" stroke-width="1.0" />
     </rule>
 
     <!-- Major roads -->
     <rule e="way" k="highway" v="secondary|secondary_link" zoom-min="10">
-        <line stroke="#BBBBBB" stroke-width="1.6" />
-        <line stroke="#EEEEEE" stroke-width="1.4" />
+        <line stroke="#8E8E87" stroke-width="1.6" />
+        <line stroke="#AFAFA8" stroke-width="1.4" />
     </rule>
 
     <rule e="way" k="highway" v="primary|primary_link" zoom-min="8">
-        <line stroke="#BBBBBB" stroke-width="1.8" />
-        <line stroke="#EEEEEE" stroke-width="1.6" />
+        <line stroke="#8E8E87" stroke-width="1.8" />
+        <line stroke="#AFAFA8" stroke-width="1.6" />
     </rule>
 
     <rule
@@ -285,8 +229,8 @@
         v="trunk|trunk_link|motorway|motorway_link"
         zoom-min="6"
     >
-        <line stroke="#BBBBBB" stroke-width="2.2" />
-        <line stroke="#EEEEEE" stroke-width="2.0" />
+        <line stroke="#8E8E87" stroke-width="2.2" />
+        <line stroke="#AFAFA8" stroke-width="2.0" />
     </rule>
 
     <!-- Trails -->
@@ -297,7 +241,7 @@
         zoom-min="12"
     >
         <line
-            stroke="#222222"
+            stroke="#6B3F1D"
             stroke-width="0.5"
             stroke-dasharray="1,1"
             scale="all"
