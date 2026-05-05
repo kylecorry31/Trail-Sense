@@ -1576,4 +1576,10 @@
     <string name="mapsforge">Mapsforge</string>
     <string name="map_layer_offline_maps_description">已保存的离线地图</string>
     <string name="manage_maps">管理地图</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="other">%d 张地图</item>
+    </plurals>
+    <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
+    <string name="offline_map_file">文件 (.map)</string>
+    <string name="offline_maps_disclaimer">地图文件不包含在 Trail Sense 中必须单独下载。只支持 Mapsforge (.map) 文件。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 找到可用地图的列表</string>
 </resources>
