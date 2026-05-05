@@ -202,6 +202,7 @@ open class TileMapLayer<T : TileSource>(
                 layerPreferences,
                 featureId,
                 map.isWidget,
+                map.isHighDetailMode,
                 context
             )
         } else if (desiredTiles.size > MAX_TILES) {
