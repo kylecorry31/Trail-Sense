@@ -50,7 +50,7 @@
         e="way"
         k="landuse"
         v="brownfield|commercial|construction|factory|greenfield|industrial|landfill|military|railway|retail|residential"
-        zoom-min="8"
+        zoom-min="14"
     >
         <area fill="#c4ccb0" />
     </rule>
@@ -184,7 +184,7 @@
     <!-- ================ WAY -> HIGHWAY ================ -->
 
     <!-- Access roads -->
-    <rule e="way" k="highway" v="service|services|raceway" zoom-min="13">
+    <rule e="way" k="highway" v="service|services|raceway" zoom-min="15">
         <line stroke="#AFAFA8" stroke-width="0.6" />
         <line stroke="#D6D2C8" stroke-width="0.4" />
     </rule>
@@ -212,12 +212,12 @@
     </rule>
 
     <!-- Major roads -->
-    <rule e="way" k="highway" v="secondary|secondary_link" zoom-min="10">
+    <rule e="way" k="highway" v="secondary|secondary_link" zoom-min="11">
         <line stroke="#8E8E87" stroke-width="1.6" />
         <line stroke="#AFAFA8" stroke-width="1.4" />
     </rule>
 
-    <rule e="way" k="highway" v="primary|primary_link" zoom-min="8">
+    <rule e="way" k="highway" v="primary|primary_link" zoom-min="11">
         <line stroke="#8E8E87" stroke-width="1.8" />
         <line stroke="#AFAFA8" stroke-width="1.6" />
     </rule>
@@ -226,7 +226,7 @@
         e="way"
         k="highway"
         v="trunk|trunk_link|motorway|motorway_link"
-        zoom-min="6"
+        zoom-min="10"
     >
         <line stroke="#8E8E87" stroke-width="2.2" />
         <line stroke="#AFAFA8" stroke-width="2.0" />
