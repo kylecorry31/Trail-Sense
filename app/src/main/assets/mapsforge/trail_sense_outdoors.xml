@@ -39,10 +39,15 @@
     <rule
         e="way"
         k="natural|landuse"
-        v="grassland|heath|scrub|allotments|cemetery|farm|farmland|farmyard|grass|meadow|orchard|recreation_ground|village_green|vineyard|wood|forest"
+        v="grassland|heath|scrub|allotments|cemetery|farm|farmland|farmyard|field|grass|meadow|orchard|park|garden|common|green|dog_park|recreation_ground|graveyard|village_green|vineyard"
         zoom-min="6"
     >
-        <area fill="#B8C9A6" />
+        <area fill="#BBC6A8" />
+    </rule>
+
+    <!-- Forest -->
+    <rule e="way" k="natural|landuse" v="wood|forest" zoom-min="6">
+        <area fill="#B5C6A2" />
     </rule>
 
     <!-- Human -->
@@ -50,13 +55,13 @@
         e="way"
         k="landuse"
         v="brownfield|commercial|construction|factory|greenfield|industrial|landfill|military|railway|retail|residential"
-        zoom-min="8"
+        zoom-min="14"
     >
-        <area fill="#c4ccb0" />
+        <area fill="#C4C4BC" />
     </rule>
 
     <rule e="way" k="building|shop" v="*" zoom-min="15">
-        <area fill="#B4BCA0" />
+        <area fill="#B7B7AE" />
         <line stroke="#22000000" stroke-width="0.1" />
     </rule>
 
@@ -74,19 +79,20 @@
 
     <rule e="way" k="natural|landuse" v="water|basin|reservoir" zoom-min="0">
         <area fill="#AAD3DF" />
+        <line stroke="#4E8CA8" stroke-width="0.3" />
     </rule>
 
     <rule e="way" k="waterway" v="river|riverbank" zoom-min="8">
-        <line stroke="#AAD3DF" stroke-width="1.0" />
+        <line stroke="#4E8CA8" stroke-width="1.0" />
     </rule>
 
     <!-- Minor bodies of water -->
     <rule e="way" k="lock" v="yes" zoom-min="14">
-        <line stroke="#AAD3DF" stroke-width="0.5" />
+        <line stroke="#4E8CA8" stroke-width="0.5" />
     </rule>
 
     <rule e="way" k="waterway" v="canal|drain|stream" zoom-min="10">
-        <line stroke="#AAD3DF" stroke-width="0.5" />
+        <line stroke="#4E8CA8" stroke-width="0.5" />
     </rule>
 
     <!-- TODO: waterway dam -->
@@ -102,20 +108,30 @@
         e="way"
         k="boundary|leisure|tourism|landuse"
         v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
-        zoom-min="8"
-        closed="yes"
+        zoom-min="14"
     >
-        <area fill="#668FB47A" />
+        <line stroke="#8FB47A" stroke-width="0.8" />
+    </rule>
+
+    <!-- There's a bug in mapsforge which renders this at tile borders, it is less of a problem at high zooms -->
+    <rule
+        e="way"
+        k="boundary|leisure|tourism|landuse"
+        v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
+        zoom-min="15"
+        closed="no"
+    >
+        <line dy="0.8" stroke="#668FB47A" stroke-width="1.8" />
     </rule>
 
     <rule
         e="way"
         k="boundary|leisure|tourism|landuse"
         v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
-        zoom-min="8"
-        closed="no"
+        zoom-min="15"
+        closed="yes"
     >
-        <line stroke="#668FB47A" stroke-width="1.0" />
+        <area fill="#448FB47A" />
     </rule>
 
     <!-- Parking -->
@@ -185,7 +201,7 @@
     <!-- ================ WAY -> HIGHWAY ================ -->
 
     <!-- Access roads -->
-    <rule e="way" k="highway" v="service|services|raceway" zoom-min="13">
+    <rule e="way" k="highway" v="service|services|raceway" zoom-min="15">
         <line stroke="#AFAFA8" stroke-width="0.6" />
         <line stroke="#D6D2C8" stroke-width="0.4" />
     </rule>
@@ -213,12 +229,12 @@
     </rule>
 
     <!-- Major roads -->
-    <rule e="way" k="highway" v="secondary|secondary_link" zoom-min="10">
+    <rule e="way" k="highway" v="secondary|secondary_link" zoom-min="11">
         <line stroke="#8E8E87" stroke-width="1.6" />
         <line stroke="#AFAFA8" stroke-width="1.4" />
     </rule>
 
-    <rule e="way" k="highway" v="primary|primary_link" zoom-min="8">
+    <rule e="way" k="highway" v="primary|primary_link" zoom-min="11">
         <line stroke="#8E8E87" stroke-width="1.8" />
         <line stroke="#AFAFA8" stroke-width="1.6" />
     </rule>
@@ -227,7 +243,7 @@
         e="way"
         k="highway"
         v="trunk|trunk_link|motorway|motorway_link"
-        zoom-min="6"
+        zoom-min="10"
     >
         <line stroke="#8E8E87" stroke-width="2.2" />
         <line stroke="#AFAFA8" stroke-width="2.0" />
@@ -691,24 +707,55 @@
                 />
             </rule>
         </rule>
-        <rule e="node" k="natural" v="peak" zoom-min="11">
-            <symbol id="peak" src="jar:symbols/peak.svg" />
-            <caption
-                fill="#000000"
-                font-size="14"
-                font-style="bold"
-                k="name"
-                position="above"
-                priority="10"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-                symbol-id="peak"
+        <rule e="node" k="natural" v="peak" zoom-min="9">
+            <symbol
+                id="peak"
+                src="mapsforge/symbols/peak.svg"
+                symbol-height="12"
+                symbol-width="12"
             />
-            <rule e="any" k="*" v="*" zoom-min="14">
+            <rule e="any" k="highest_point" v="*" zoom-min="9">
                 <caption
                     fill="#000000"
-                    font-size="12"
+                    font-size="11"
                     font-style="bold"
+                    k="name"
+                    position="above"
+                    priority="40"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    symbol-id="peak"
+                />
+                <rule e="any" k="*" v="*" zoom-min="14">
+                    <caption
+                        fill="#000000"
+                        font-size="10"
+                        k="ele"
+                        position="below"
+                        priority="30"
+                        stroke="#FFFFFF"
+                        stroke-width="2.0"
+                        symbol-id="peak"
+                    />
+                </rule>
+            </rule>
+            <rule e="any" k="highest_point" v="~" zoom-min="9">
+                <caption
+                    fill="#000000"
+                    font-size="11"
+                    font-style="bold"
+                    k="name"
+                    position="above"
+                    priority="20"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    symbol-id="peak"
+                />
+            </rule>
+            <rule e="any" k="highest_point" v="~" zoom-min="14">
+                <caption
+                    fill="#000000"
+                    font-size="10"
                     k="ele"
                     position="below"
                     priority="10"
@@ -814,7 +861,12 @@
             />
         </rule>
         <rule e="any" k="tourism" v="camp_site" zoom-min="13">
-            <symbol id="camping" src="jar:symbols/accommodation/camping.svg" />
+            <symbol
+                id="camping"
+                src="jar:symbols/accommodation/camping.svg"
+                symbol-height="16"
+                symbol-width="16"
+            />
             <rule e="node" k="*" v="*" zoom-min="15">
                 <caption
                     fill="#000000"
