@@ -545,6 +545,7 @@
     <ID>TooManyFunctions:NavigationSheetView.kt:NavigationSheetView : FrameLayout</ID>
     <ID>TooManyFunctions:Navigator.kt:Navigator</ID>
     <ID>TooManyFunctions:NavigatorFragment.kt:NavigatorFragment : BoundFragment</ID>
+    <ID>TooManyFunctions:OfflineMapListFragment.kt:OfflineMapListFragment : TrailSenseReactiveFragment</ID>
     <ID>TooManyFunctions:PackItemListFragment.kt:PackItemListFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PackListFragment.kt:PackListFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PackRepo.kt:PackRepo : IPackRepo</ID>

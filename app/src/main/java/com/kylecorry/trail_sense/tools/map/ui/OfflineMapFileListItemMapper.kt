@@ -55,6 +55,9 @@ class OfflineMapFileListItemMapper(
                 ListMenuItem(context.getString(R.string.rename)) {
                     actionHandler(value, OfflineMapFileAction.Rename)
                 },
+                ListMenuItem(context.getString(R.string.attribution)) {
+                    actionHandler(value, OfflineMapFileAction.EditAttribution)
+                },
                 ListMenuItem(context.getString(R.string.move_to)) {
                     actionHandler(value, OfflineMapFileAction.Move)
                 },

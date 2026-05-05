@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.repo
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
@@ -37,6 +38,7 @@ data class MapLayerDefinition(
     val isConfigurable: Boolean = true,
     val layerType: MapLayerType = MapLayerType.Feature,
     val attribution: MapLayerAttribution? = null,
+    val attributionLoader: (suspend (context: Context) -> MapLayerAttribution?)? = null,
     val description: String? = null,
     val minZoomLevel: Int? = null,
     val isTimeDependent: Boolean = false,
@@ -49,4 +51,3 @@ data class MapLayerDefinition(
     val openFeature: ((feature: GeoJsonFeature, fragment: Fragment) -> Unit)? = null,
     val layer: (() -> ILayer)? = null
 )
-

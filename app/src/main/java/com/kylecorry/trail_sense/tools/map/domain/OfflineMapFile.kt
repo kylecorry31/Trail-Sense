@@ -11,6 +11,7 @@ data class OfflineMapFile(
     val sizeBytes: Long,
     val createdOn: Instant,
     val bounds: CoordinateBounds?,
+    val attribution: String?,
     val visible: Boolean,
     override val parentId: Long? = null
 ) : IOfflineMapFile {
