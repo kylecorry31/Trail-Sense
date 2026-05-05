@@ -113,8 +113,19 @@
         k="boundary|leisure|tourism|landuse"
         v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
         zoom-min="15"
+        closed="no"
     >
         <line dy="0.8" stroke="#668FB47A" stroke-width="1.8" />
+    </rule>
+
+    <rule
+        e="way"
+        k="boundary|leisure|tourism|landuse"
+        v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
+        zoom-min="15"
+        closed="yes"
+    >
+        <area fill="#668FB47A" />
     </rule>
 
     <!-- Parking -->
