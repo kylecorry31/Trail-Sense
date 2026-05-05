@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
 import com.kylecorry.trail_sense.tools.map.map_layers.OfflineMapTileSource
 import com.kylecorry.trail_sense.tools.map.ui.commands.DeleteOfflineMapCommand
+import com.kylecorry.trail_sense.tools.map.ui.commands.EditOfflineMapAttributionCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.RenameOfflineMapCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -59,12 +60,14 @@ class OfflineMapViewFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
                     it,
                     listOf(
                         getString(R.string.rename),
+                        getString(R.string.attribution),
                         getString(R.string.delete)
                     )
                 ) { index ->
                     when (index) {
                         0 -> rename(currentMap, refresh)
-                        1 -> delete(currentMap)
+                        1 -> editAttribution(currentMap, refresh)
+                        2 -> delete(currentMap)
                     }
                     true
                 }
@@ -109,6 +112,15 @@ class OfflineMapViewFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
             RenameOfflineMapCommand(requireContext()).execute(map)
             onMain {
                 onRenamed()
+            }
+        }
+    }
+
+    private fun editAttribution(map: OfflineMapFile, onUpdated: () -> Unit) {
+        inBackground {
+            EditOfflineMapAttributionCommand(requireContext()).execute(map)
+            onMain {
+                onUpdated()
             }
         }
     }

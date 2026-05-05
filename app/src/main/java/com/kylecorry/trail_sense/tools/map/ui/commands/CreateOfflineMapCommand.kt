@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.map.infrastructure.MapFileTypeUtils
+import com.kylecorry.trail_sense.tools.map.infrastructure.attribution.OfflineMapAttributionExtractorFactory
 import com.kylecorry.trail_sense.tools.map.infrastructure.bounds.OfflineMapBoundsCalculatorFactory
 import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
 import java.time.Instant
@@ -64,6 +65,8 @@ class CreateOfflineMapCommand(
             saved.length(),
             Instant.now(),
             OfflineMapBoundsCalculatorFactory().getBoundsCalculator(type).getBounds(saved),
+            OfflineMapAttributionExtractorFactory().getAttributionExtractor(type)
+                .getAttribution(saved),
             visible = true,
             parentId = parentId
         )

@@ -68,7 +68,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, OfflineMapFileEntity::class, OfflineMapFileGroupEntity::class],
-    version = 53,
+    version = 54,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -515,6 +515,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_53_54 = object : Migration(53, 54) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `offline_map_files` ADD COLUMN `attribution` TEXT DEFAULT NULL")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -568,7 +574,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_49_50,
                     MIGRATION_50_51,
                     MIGRATION_51_52,
-                    MIGRATION_52_53
+                    MIGRATION_52_53,
+                    MIGRATION_53_54
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMap
 import com.kylecorry.trail_sense.tools.map.ui.commands.CreateOfflineMapCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.CreateOfflineMapFileGroupCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.DeleteOfflineMapCommand
+import com.kylecorry.trail_sense.tools.map.ui.commands.EditOfflineMapAttributionCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.MoveOfflineMapFileCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.OfflineMapCleanupCommand
 import com.kylecorry.trail_sense.tools.map.ui.commands.RenameOfflineMapCommand
@@ -143,6 +144,7 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
         when (action) {
             OfflineMapFileAction.View -> view(map)
             OfflineMapFileAction.Rename -> rename(map, manager)
+            OfflineMapFileAction.EditAttribution -> editAttribution(map, manager)
             OfflineMapFileAction.Delete -> delete(map, manager)
             OfflineMapFileAction.Move -> move(map, manager)
             OfflineMapFileAction.ToggleVisibility -> toggleVisible(map, manager)
@@ -180,6 +182,16 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     ) {
         inBackground {
             RenameOfflineMapCommand(requireContext()).execute(map)
+            manager.refresh()
+        }
+    }
+
+    private fun editAttribution(
+        map: OfflineMapFile,
+        manager: GroupListManager<IOfflineMapFile>
+    ) {
+        inBackground {
+            EditOfflineMapAttributionCommand(requireContext()).execute(map)
             manager.refresh()
         }
     }

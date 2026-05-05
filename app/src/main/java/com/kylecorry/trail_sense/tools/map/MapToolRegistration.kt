@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.RuggednessMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
@@ -90,7 +91,23 @@ object MapToolRegistration : ToolRegistration {
                             navActionOnClick = R.id.offlineMapListFragment
                         )
                     ),
-                    tileSource = ::OfflineMapTileSource
+                    tileSource = ::OfflineMapTileSource,
+                    attributionLoader = {
+                        val attributions = OfflineMapFileRepo.getInstance()
+                            .getAllSync()
+                            .filter { it.visible }
+                            .mapNotNull { it.attribution?.trim()?.takeIf { attribution -> attribution.isNotBlank() } }
+                            .distinct()
+
+                        if (attributions.isEmpty()) {
+                            null
+                        } else {
+                            MapLayerAttribution(
+                                attributions.joinToString("\n"),
+                                alwaysShow = true
+                            )
+                        }
+                    }
                 ),
                 MapLayerDefinition(
                     ElevationMapTileSource.SOURCE_ID,

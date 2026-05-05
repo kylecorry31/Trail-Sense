@@ -20,6 +20,7 @@ data class OfflineMapFileEntity(
     @ColumnInfo(name = "east") val east: Double?,
     @ColumnInfo(name = "south") val south: Double?,
     @ColumnInfo(name = "west") val west: Double?,
+    @ColumnInfo(name = "attribution") val attribution: String?,
     @ColumnInfo(name = "visible") val visible: Boolean,
     @ColumnInfo(name = "parent") val parent: Long? = null
 ) {
@@ -43,6 +44,7 @@ data class OfflineMapFileEntity(
             } else {
                 null
             },
+            attribution,
             visible,
             parent
         )
@@ -60,6 +62,7 @@ data class OfflineMapFileEntity(
                 file.bounds?.east,
                 file.bounds?.south,
                 file.bounds?.west,
+                file.attribution,
                 file.visible,
                 file.parentId
             ).also {
