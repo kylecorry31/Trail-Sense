@@ -717,11 +717,11 @@
             <rule e="any" k="highest_point" v="*" zoom-min="9">
                 <caption
                     fill="#000000"
-                    font-size="10"
+                    font-size="11"
                     font-style="bold"
                     k="name"
                     position="above"
-                    priority="30"
+                    priority="40"
                     stroke="#FFFFFF"
                     stroke-width="2.0"
                     symbol-id="peak"
@@ -729,7 +729,7 @@
                 <rule e="any" k="*" v="*" zoom-min="14">
                     <caption
                         fill="#000000"
-                        font-size="8"
+                        font-size="10"
                         k="ele"
                         position="below"
                         priority="30"
@@ -742,11 +742,11 @@
             <rule e="any" k="highest_point" v="~" zoom-min="9">
                 <caption
                     fill="#000000"
-                    font-size="10"
+                    font-size="11"
                     font-style="bold"
                     k="name"
                     position="above"
-                    priority="10"
+                    priority="20"
                     stroke="#FFFFFF"
                     stroke-width="2.0"
                     symbol-id="peak"
@@ -755,7 +755,7 @@
             <rule e="any" k="highest_point" v="~" zoom-min="14">
                 <caption
                     fill="#000000"
-                    font-size="8"
+                    font-size="10"
                     k="ele"
                     position="below"
                     priority="10"
