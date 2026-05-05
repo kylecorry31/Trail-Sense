@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
-import kotlinx.coroutines.runBlocking
 
 interface IMapView {
 
@@ -28,6 +27,11 @@ interface IMapView {
      * Whether this map view is being rendered as a widget (e.g. home screen widget).
      */
     var isWidget: Boolean
+
+    /**
+     * Whether layers should render at physical pixel resolution instead of density-adjusted resolution.
+     */
+    val isHighDetailMode: Boolean
 
     var userLocation: Coordinate
 

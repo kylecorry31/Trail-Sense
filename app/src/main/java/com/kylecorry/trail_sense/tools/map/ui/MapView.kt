@@ -44,6 +44,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var isZoomEnabled = true
     var isFlingEnabled = true
     var useDensityPixelsForZoom = true
+    override val isHighDetailMode: Boolean
+        get() = !useDensityPixelsForZoom
     var clipPath: Path? = null
     var backgroundColorOverride: Int? = null
     private val density = context.resources.displayMetrics.density

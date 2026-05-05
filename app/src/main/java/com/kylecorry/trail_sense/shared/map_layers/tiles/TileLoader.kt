@@ -70,11 +70,13 @@ class TileLoader(
         preferences: Bundle = Bundle(),
         featureId: String? = null,
         isWidget: Boolean = false,
+        isHighDetailMode: Boolean = false,
         context: Context
     ) {
         val params = Bundle().apply {
             putLong(MapLayerParams.PARAM_TIME, time.toEpochMilli())
             putBoolean(MapLayerParams.PARAM_IS_WIDGET, isWidget)
+            putBoolean(MapLayerParams.PARAM_HIGH_DETAIL_MODE, isHighDetailMode)
             putBundle(MapLayerParams.PARAM_PREFERENCES, Bundle(preferences))
         }
         featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }

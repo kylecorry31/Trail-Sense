@@ -48,6 +48,9 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     override var isWidget: Boolean = false
 
+    override val isHighDetailMode: Boolean
+        get() = !useDensityPixelsForZoom
+
     override var userLocation: Coordinate = Coordinate.zero
         set(value) {
             field = value

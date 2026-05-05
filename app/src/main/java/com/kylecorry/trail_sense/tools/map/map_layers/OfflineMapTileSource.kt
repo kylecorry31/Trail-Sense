@@ -27,7 +27,8 @@ class OfflineMapTileSource : TileSource {
         } else {
             listOfNotNull(repo.get(featureId))
         }
-        renderer.render(context, maps, tile)
+        val highDetailMode = params.getBoolean(MapLayerParams.PARAM_HIGH_DETAIL_MODE, false)
+        renderer.render(context, maps, tile, highDetailMode)
     }
 
     override suspend fun cleanup() {
