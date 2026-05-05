@@ -861,7 +861,12 @@
             />
         </rule>
         <rule e="any" k="tourism" v="camp_site" zoom-min="13">
-            <symbol id="camping" src="jar:symbols/accommodation/camping.svg" />
+            <symbol
+                id="camping"
+                src="jar:symbols/accommodation/camping.svg"
+                symbol-height="16"
+                symbol-width="16"
+            />
             <rule e="node" k="*" v="*" zoom-min="15">
                 <caption
                     fill="#000000"
