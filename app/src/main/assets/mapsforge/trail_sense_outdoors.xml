@@ -707,11 +707,16 @@
                 />
             </rule>
         </rule>
-        <rule e="node" k="natural" v="peak" zoom-min="11">
-            <symbol id="peak" src="jar:symbols/peak.svg" />
+        <rule e="node" k="natural" v="peak" zoom-min="9">
+            <symbol
+                id="peak"
+                src="mapsforge/symbols/peak.svg"
+                symbol-height="12"
+                symbol-width="12"
+            />
             <caption
                 fill="#000000"
-                font-size="14"
+                font-size="10"
                 font-style="bold"
                 k="name"
                 position="above"
@@ -723,8 +728,7 @@
             <rule e="any" k="*" v="*" zoom-min="14">
                 <caption
                     fill="#000000"
-                    font-size="12"
-                    font-style="bold"
+                    font-size="8"
                     k="ele"
                     position="below"
                     priority="10"
