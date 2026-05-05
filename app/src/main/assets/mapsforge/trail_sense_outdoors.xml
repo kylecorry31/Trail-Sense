@@ -714,18 +714,45 @@
                 symbol-height="12"
                 symbol-width="12"
             />
-            <caption
-                fill="#000000"
-                font-size="10"
-                font-style="bold"
-                k="name"
-                position="above"
-                priority="10"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-                symbol-id="peak"
-            />
-            <rule e="any" k="*" v="*" zoom-min="14">
+            <rule e="any" k="highest_point" v="*" zoom-min="9">
+                <caption
+                    fill="#000000"
+                    font-size="10"
+                    font-style="bold"
+                    k="name"
+                    position="above"
+                    priority="30"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    symbol-id="peak"
+                />
+                <rule e="any" k="*" v="*" zoom-min="14">
+                    <caption
+                        fill="#000000"
+                        font-size="8"
+                        k="ele"
+                        position="below"
+                        priority="30"
+                        stroke="#FFFFFF"
+                        stroke-width="2.0"
+                        symbol-id="peak"
+                    />
+                </rule>
+            </rule>
+            <rule e="any" k="highest_point" v="~" zoom-min="9">
+                <caption
+                    fill="#000000"
+                    font-size="10"
+                    font-style="bold"
+                    k="name"
+                    position="above"
+                    priority="10"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    symbol-id="peak"
+                />
+            </rule>
+            <rule e="any" k="highest_point" v="~" zoom-min="14">
                 <caption
                     fill="#000000"
                     font-size="8"
