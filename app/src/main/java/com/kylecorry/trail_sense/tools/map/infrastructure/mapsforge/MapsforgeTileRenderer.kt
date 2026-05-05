@@ -1,14 +1,17 @@
-package com.kylecorry.trail_sense.tools.map.infrastructure
+package com.kylecorry.trail_sense.tools.map.infrastructure.mapsforge
 
 import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFileType
 import org.mapsforge.core.model.Tile
+import org.mapsforge.map.datastore.MapDataStore
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
 import org.mapsforge.map.android.rendertheme.AssetsRenderTheme
 import org.mapsforge.map.datastore.MultiMapDataStore
@@ -24,7 +27,7 @@ import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 
 class MapsforgeTileRenderer {
     private var selectedMapKey: String? = null
-    private var mapDataStore: MultiMapDataStore? = null
+    private var mapDataStore: MapDataStore? = null
     private var renderer: DatabaseRenderer? = null
     private var tileCache: TileCache? = null
     private var renderThemeFuture: RenderThemeFuture? = null
@@ -33,6 +36,8 @@ class MapsforgeTileRenderer {
     }
 
     private val files = getAppService<FileSubsystem>()
+    private val prefs = getAppService<UserPreferences>()
+    private val formatter = getAppService<FormatService>()
 
     @Synchronized
     fun render(
@@ -113,8 +118,12 @@ class MapsforgeTileRenderer {
         )
         newRenderThemeFuture.run()
         val newTileCache = InMemoryTileCache(100)
-        val newRenderer = DatabaseRenderer(
+        val wrappedMapDataStore = MapsforgeMapDataStoreWrapper(
             newMapDataStore,
+            listOf(PeakElevationPoiModifier(prefs.baseDistanceUnits, formatter))
+        )
+        val newRenderer = DatabaseRenderer(
+            wrappedMapDataStore,
             AndroidGraphicFactory.INSTANCE,
             newTileCache,
             TileBasedLabelStore(100),
@@ -124,7 +133,7 @@ class MapsforgeTileRenderer {
         )
 
         selectedMapKey = key
-        mapDataStore = newMapDataStore
+        mapDataStore = wrappedMapDataStore
         tileCache = newTileCache
         renderThemeFuture = newRenderThemeFuture
         renderer = newRenderer

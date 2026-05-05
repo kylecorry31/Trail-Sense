@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
-import com.kylecorry.trail_sense.tools.map.infrastructure.MapsforgeTileRenderer
+import com.kylecorry.trail_sense.tools.map.infrastructure.mapsforge.MapsforgeTileRenderer
 import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
 
 class OfflineMapTileSource : TileSource {
