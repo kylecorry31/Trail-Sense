@@ -1586,4 +1586,11 @@
     <string name="offline_maps">Netloze kaarten</string>
     <string name="no_offline_maps">Geen netloze kaarten</string>
     <string name="map_layer_offline_maps_description">Opgeslagen netloze kaarten</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d kaart</item>
+        <item quantity="other">%d kaarten</item>
+    </plurals>
+    <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
+    <string name="offline_map_file">Bestand (.map)</string>
+    <string name="offline_maps_disclaimer">Kaartbestanden zijn niet in Trail Sense inbegrepen en moeten apart worden gedownload. Alleen Mapsforge-bestanden (.map) worden ondersteund. Een lijst met beschikbare kaarten is te vinden op https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>
