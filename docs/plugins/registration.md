@@ -10,6 +10,8 @@ See the [sample plugin](https://github.com/kylecorry31/Trail-Sense-Sample-Plugin
 
 The registration payload must be no larger than 64 KiB. Trail Sense ignores registrations that exceed this limit.
 
+See [map-layers.md](./map-layers.md) for more details about the map layers feature registration.
+
 ## Request
 
 Trail Sense sends a request to:
