@@ -76,6 +76,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         scrollUntil { hasText("Photo Maps") }
         scrollUntil { hasText("Hillshade") }
         scrollUntil { hasText("Elevation") }
+        scrollUntil { hasText("Offline maps") }
         scrollUntil { hasText("Basemap") }
 
         // Add an additional layer (Slope layer)
@@ -126,7 +127,6 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click("Aspect")
         click("Cell towers")
         click("Lunar eclipse")
-        click("Offline maps")
         click("Night")
         scrollUntil { click("Ruggedness") }
         scrollUntil { click("Sightings") }
