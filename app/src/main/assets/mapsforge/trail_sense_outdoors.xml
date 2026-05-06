@@ -804,7 +804,7 @@
     <!-- Camping and shelter -->
     <rule e="any" k="*" v="*">
         <rule e="any" k="amenity" v="shelter" zoom-min="14">
-            <symbol id="shelter" src="jar:symbols/accommodation/shelter2.svg" />
+            <symbol id="shelter" src="@drawable/ic_category_shelter#000000" />
             <caption
                 fill="#000000"
                 font-size="12"
@@ -843,7 +843,7 @@
         <rule e="any" k="tourism" v="camp_site" zoom-min="13">
             <symbol
                 id="camping"
-                src="jar:symbols/accommodation/camping.svg"
+                src="@drawable/ic_category_shelter#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
