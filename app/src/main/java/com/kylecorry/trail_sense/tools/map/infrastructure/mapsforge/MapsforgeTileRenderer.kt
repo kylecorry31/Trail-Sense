@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.map.infrastructure.mapsforge
 import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
+import androidx.core.content.ContentProviderCompat
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
@@ -10,10 +11,12 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.map.domain.OfflineMapFileType
+import kotlinx.coroutines.runBlocking
 import org.mapsforge.core.model.Tile
 import org.mapsforge.map.datastore.MapDataStore
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
 import org.mapsforge.map.android.rendertheme.AssetsRenderTheme
+import org.mapsforge.map.android.rendertheme.ContentResolverResourceProvider
 import org.mapsforge.map.datastore.MultiMapDataStore
 import org.mapsforge.map.layer.cache.InMemoryTileCache
 import org.mapsforge.map.layer.cache.TileCache
@@ -22,7 +25,9 @@ import org.mapsforge.map.layer.renderer.DatabaseRenderer
 import org.mapsforge.map.layer.renderer.RendererJob
 import org.mapsforge.map.model.DisplayModel
 import org.mapsforge.map.reader.MapFile
+import org.mapsforge.map.rendertheme.StreamRenderTheme
 import org.mapsforge.map.rendertheme.XmlRenderTheme
+import org.mapsforge.map.rendertheme.XmlThemeResourceProvider
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 
 class MapsforgeTileRenderer {
@@ -151,7 +156,10 @@ class MapsforgeTileRenderer {
     }
 
     private fun createRenderTheme(context: Context): XmlRenderTheme {
-        return AssetsRenderTheme(context.applicationContext.assets, "", MAPSFORGE_THEME)
+        val xml = runBlocking { files.streamAsset(MAPSFORGE_THEME)!! }
+        val theme = StreamRenderTheme("", xml)
+        theme.resourceProvider = DrawableResourceProvider(context)
+        return theme
     }
 
     companion object {
