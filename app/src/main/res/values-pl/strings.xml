@@ -152,9 +152,9 @@
     <string name="create_item_title">Utwórz element</string>
     <string name="dialog_item_amount">Ilość</string>
     <string name="subtract">Odejmij</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Stopnie i minuty dziesiętne</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Stopnie, minuty dziesiętne</string>
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Stopnie, minuty, sekundy</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Stopnie, minuty, sekundy dziesiętne</string>
     <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
     <string name="pref_ruler_calibration_title">Skala linijki</string>
     <string name="sensors">Czujniki</string>
@@ -1501,8 +1501,8 @@
     <string name="wind_speed">Prędkość wiatru</string>
     <string name="humidity_must_be_between_0_and_100">Wilgotność musi wynosić od 0 do 100</string>
     <string name="current_temperature">Aktualna temperatura</string>
-    <string name="target">Cel</string>
-    <string name="not_visible">Nie widoczny</string>
+    <string name="target">Obiekt</string>
+    <string name="not_visible">Niewidoczny</string>
     <string name="plugins">Wtyczki</string>
     <string name="map_layers">Warstwy mapy</string>
     <string name="tile_layer">Warstwa kafelków</string>
@@ -1511,13 +1511,13 @@
     <string name="app_info">Informacje o aplikacji</string>
     <string name="reload">Odśwież</string>
     <string name="disconnect">Rozłącz</string>
-    <string name="plugin_unavailable">Wtyczka niedostępna lub nie połączona.</string>
+    <string name="plugin_unavailable">Wtyczka niedostępna lub niepołączona.</string>
     <string name="clear_plugin_cache">Wyczyść pamięć podręczną wtyczki</string>
     <string name="connected_plugins">Połączone wtyczki</string>
     <string name="available_plugins">Dostępne wtyczki</string>
     <string name="plugin_name">Wtyczka: %s</string>
     <string name="plugin_connect_title">Połączyć wtyczkę?</string>
-    <string name="plugin_connect_message">Łącz z %s tylko zaufane wtyczki.</string>
+    <string name="plugin_connect_message">Połącz z %s tylko zaufane wtyczki.</string>
     <string name="plugin_disconnect_title">Rozłączyć wtyczkę?</string>
     <string name="plugin_disconnect_message">Rozłączyć %s?</string>
     <plurals name="offline_map_group_summary">
@@ -1532,14 +1532,14 @@
     <string name="offline_map_file">Plik (.map)</string>
     <string name="map_calibration_error_same_pixel">Wybierz dwa różne punkty na mapie.</string>
     <string name="map_calibration_error_same_image_axis">Wybierz dwa różne punkty na mapie, które nie są bezpośrednio obok lub nad sobą.</string>
-    <string name="map_calibration_error_same_location">Wprowadź dwie różne lokalizacje.</string>
+    <string name="map_calibration_error_same_location">Wprowadź dwie pary różnych współrzędnych.</string>
     <string name="manage_maps">Zarządzaj mapami</string>
-    <string name="map_calibration_error_implausible_scale">Kalibracja jest niewiarygodna. Sprawdź oba punkty oraz kordynaty.</string>
+    <string name="map_calibration_error_implausible_scale">Kalibracja jest niewiarygodna. Sprawdź punkty oraz współrzędne.</string>
     <string name="offline_maps">Mapy offline</string>
     <string name="offline_map_import_failed">Nie można zaimportować mapy</string>
     <string name="no_offline_maps">Brak map offline</string>
     <string name="unsupported_offline_map_file">Nieprawidłowy plik mapy</string>
     <string name="mapsforge">Mapsforge</string>
     <string name="map_layer_offline_maps_description">Zapisane mapy offline</string>
-    <string name="offline_maps_disclaimer">Trail Sense nie zawiera plików map, które trzeba pobrać oddzielnie. Tylko pliki Mapsforge (.map) są wspierane. Możesz pobrać dostępne mapy z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="offline_maps_disclaimer">Trail Sense nie zawiera map, muszą zostać pobrane oddzielnie. Wyłącznie pliki Mapsforge (.map) są wspierane. Możesz pobrać dostępne mapy z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>
