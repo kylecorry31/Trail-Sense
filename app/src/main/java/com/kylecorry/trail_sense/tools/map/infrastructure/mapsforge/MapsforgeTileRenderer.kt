@@ -129,7 +129,8 @@ class MapsforgeTileRenderer {
             TileBasedLabelStore(100),
             true,
             false,
-            null
+            null,
+            true
         )
 
         selectedMapKey = key
