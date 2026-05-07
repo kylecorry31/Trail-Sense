@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
-import com.kylecorry.trail_sense.tools.map.map_layers.OfflineMapTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.OfflineMapTileSource
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource

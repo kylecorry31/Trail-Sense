@@ -32,10 +32,10 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSigh
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSightingEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
-import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileDao
-import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileEntity
-import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileGroupDao
-import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileGroupEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.OfflineMapFileDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.OfflineMapFileEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.OfflineMapFileGroupDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.OfflineMapFileGroupEntity
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingDao
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingEntity
 import com.kylecorry.trail_sense.tools.notes.domain.Note
