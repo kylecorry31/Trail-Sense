@@ -102,7 +102,6 @@ lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.r
 luna = { module = "com.kylecorry:luna", version.ref = "luna" }
 mapsforge-map-android = { module = "com.github.kylecorry31.mapsforge:mapsforge-map-android", version.ref = "mapsforge" }
 mapsforge-map-reader = { module = "com.github.kylecorry31.mapsforge:mapsforge-map-reader", version.ref = "mapsforge" }
-mapsforge-themes = { module = "com.github.kylecorry31.mapsforge:mapsforge-themes", version.ref = "mapsforge" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }

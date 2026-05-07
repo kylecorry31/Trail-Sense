@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.map.infrastructure.mapsforge
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toColorInt
 import com.kylecorry.andromeda.core.system.Resources
@@ -14,22 +15,21 @@ import java.io.InputStream
 class DrawableResourceProvider(private val context: Context) : XmlThemeResourceProvider {
 
     override fun createInputStream(relativePath: String?, source: String?): InputStream? {
-        val (resourceName, color) = getResourceName(source) ?: return null
-
-        val resourceId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-        if (resourceId == 0) {
-            return null
-        }
-
-        val drawable = Resources.drawable(context, resourceId) ?: return null
-        color?.let { drawable.setTint(it) }
+        val drawable = getDrawable(source) ?: return null
         val bitmap = drawable.toBitmap()
         val outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
         return ByteArrayInputStream(outputStream.toByteArray())
     }
 
-    private fun getResourceName(source: String?): Pair<String, Int?>? {
+    private fun getDrawable(source: String?): Drawable? {
+        val (resourceId, color) = getResourceId(source) ?: return null
+        return Resources.drawable(context, resourceId)?.also { drawable ->
+            color?.let { drawable.setTint(it) }
+        }
+    }
+
+    private fun getResourceId(source: String?): Pair<Int, Int?>? {
         val resourceName = source?.substringAfter("@drawable/", "")
         if (resourceName.isNullOrEmpty()) {
             return null
@@ -44,6 +44,8 @@ class DrawableResourceProvider(private val context: Context) : XmlThemeResourceP
             null
         }
 
-        return resourceName.substringBefore('#') to color
+        val actualResourceName = resourceName.substringBefore('#')
+        val resourceId = context.resources.getIdentifier(actualResourceName, "drawable", context.packageName)
+        return if (resourceId != 0) resourceId to color else null
     }
 }
