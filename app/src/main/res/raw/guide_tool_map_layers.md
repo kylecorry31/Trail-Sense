@@ -78,6 +78,13 @@ Settings:
 
 - **Load PDF tiles**: If enabled, PDF tiles will be loaded for maps that have a PDF version available. This is slower but provides higher resolution maps.
 
+## Offline maps
+This layer shows visible offline maps. See the 'Map' guide for more information.
+
+Settings:
+
+- **Manage maps**: Links to the offline maps page, where you can add, remove, or modify maps.
+
 ## Contours
 This layer shows contour lines generated from the digital elevation model (DEM) and can be used to see the steepness and elevation of map features.
 
