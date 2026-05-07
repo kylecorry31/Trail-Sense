@@ -821,7 +821,7 @@
     <string name="bearing">Peiling</string>
     <string name="ounces_weight">Unser</string>
     <string name="instructions">Instruks</string>
-    <string name="onboarding_user_guide">Lær om funksjonene i brukerveiledningen i bunnen av verktøyfanen. \n \nFlere veiledninger kommer snart.</string>
+    <string name="onboarding_user_guide">Lær hvordan du bruker funksjonene i Trail Sense i brukerveiledningen. Tilgjengelig i verktøyfanen.</string>
     <string name="pref_cell_signal_refresh_cache_summary">Påtvinger innlasting av de siste signalstyrkene</string>
     <string name="explore">Utforsk</string>
     <string name="high_pressure_system_description">Forbundet med pent vær, klar himmel.</string>
@@ -1262,4 +1262,20 @@
     <string name="quick_action_recalibrate_altimeter">Omkalibrer høydemåler</string>
     <string name="show_low_brightness_objects">Vis stjerner/planeter med lav lysstyrke</string>
     <string name="tool_magnifier_title">Forstørrelsesglass</string>
+    <string name="map_layers">Kartlag</string>
+    <string name="app_info">App-info</string>
+    <string name="clock_source_device">Enhetens tid</string>
+    <string name="clock_source_gps">GPS-tid</string>
+    <string name="offline_maps">Offline-kart</string>
+    <string name="offline_map_import_failed">Kan ikke importere kart</string>
+    <string name="no_offline_maps">Ingen offline-kart</string>
+    <string name="unsupported_offline_map_file">Kartfil som ikke støttes</string>
+    <string name="manage_maps">Håndter kart</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d kart</item>
+        <item quantity="other">%d kart</item>
+    </plurals>
+    <string name="delete_offline_map_group_message">%s og alle kartene i den vil bli slettet.</string>
+    <string name="offline_map_file">Fil (.map)</string>
+    <string name="offline_maps_disclaimer">Kartfiler følger ikke med Trail Sense og må lastes ned separat. Kun Mapsforge-filer (.map) støttes. Du finner en liste over tilgjengelige kart på https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>
