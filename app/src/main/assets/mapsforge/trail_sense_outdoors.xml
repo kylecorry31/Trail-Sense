@@ -53,8 +53,8 @@
     <!-- Human -->
     <rule
         e="way"
-        k="landuse"
-        v="brownfield|commercial|construction|factory|greenfield|industrial|landfill|military|railway|retail|residential"
+        k="landuse|amenity"
+        v="brownfield|commercial|construction|factory|greenfield|industrial|landfill|military|railway|retail|residential|parking"
         zoom-min="14"
     >
         <area fill="#C4C4BC" />
@@ -68,11 +68,12 @@
     <!-- Wetlands -->
     <rule e="way" k="natural" v="marsh|wetland" zoom-min="6">
         <area fill="#C4D1BB" />
-        <area
-            src="jar:patterns/swamp.svg"
+        <!-- TODO: Icon needed -->
+        <!-- <area
+            src=""
             symbol-height="40"
             symbol-width="40"
-        />
+        /> -->
     </rule>
 
     <!-- Major bodies of water -->
@@ -103,20 +104,30 @@
         <area fill="#F5F4F2" />
     </rule>
 
-    <!-- Public use lands -->
+    <!-- Public lands: https://wiki.openstreetmap.org/wiki/United_States/Public_lands -->
+
     <rule
         e="way"
-        k="boundary|leisure|tourism|landuse"
-        v="national_park|protected_area|nature_reserve|conservation|park|picnic_site|camp_site|caravan_site|recreation_ground"
+        k="boundary|leisure"
+        v="protected_area|national_park|nature_reserve"
         zoom-min="10"
     >
-        <line stroke="#8FB47A" stroke-width="1.0" />
-        <line dy="1.0" stroke="#668FB47A" stroke-width="2.0" />
+        <rule e="way" k="access" v="~|private|no">
+            <line stroke="#8FB47A" stroke-width="1.0" />
+            <line dy="1.0" stroke="#668FB47A" stroke-width="2.0" />
+        </rule>
     </rule>
 
-    <!-- Parking -->
-    <rule e="way" k="amenity" v="parking" zoom-min="14">
-        <area fill="#C8C3B8" />
+    <rule
+        e="way"
+        k="leisure"
+        v="recreation_ground|park"
+        zoom-min="10"
+        closed="yes"
+    >
+        <rule e="way" k="access" v="~|private|no">
+            <area fill="#668FB47A" />
+        </rule>
     </rule>
 
     <!-- Water control features -->
@@ -673,7 +684,13 @@
     <!-- Natural landmarks -->
     <rule e="any" k="*" v="*">
         <rule e="node" k="natural" v="cave_entrance" zoom-min="14">
-            <symbol id="cave" src="jar:symbols/poi/cave.svg" />
+            <!-- TODO: Icon needed -->
+            <symbol
+                id="cave"
+                src="@drawable/ic_category_shelter#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
             <rule e="any" k="*" v="*" zoom-min="16">
                 <caption
                     fill="#000000"
@@ -688,9 +705,10 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="peak" zoom-min="9">
+            <!-- TODO: Icon needed -->
             <symbol
                 id="peak"
-                src="mapsforge/symbols/peak.svg"
+                src="@drawable/ic_arrow_target#000000"
                 symbol-height="12"
                 symbol-width="12"
             />
@@ -746,7 +764,13 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="volcano" zoom-min="11">
-            <symbol id="volcano" src="jar:symbols/volcano.svg" />
+            <!-- TODO: Icon needed -->
+            <symbol
+                id="volcano"
+                src="@drawable/ic_arrow_target#000000"
+                symbol-height="12"
+                symbol-width="12"
+            />
             <caption
                 fill="#000000"
                 font-size="14"
@@ -758,8 +782,9 @@
                 symbol-id="volcano"
             />
         </rule>
-        <rule e="any" k="mountain_pass" v="yes" zoom-min="14">
-            <symbol id="pass" src="jar:symbols/poi/mountain_pass.svg" />
+        <!-- TODO: Icon needed -->
+        <!-- <rule e="any" k="mountain_pass" v="yes" zoom-min="14">
+            <symbol id="pass" src="" />
             <rule e="any" k="*" v="*" zoom-min="15">
                 <caption
                     fill="#000000"
@@ -773,9 +798,10 @@
                     symbol-id="pass"
                 />
             </rule>
-        </rule>
-        <rule e="any" k="natural" v="saddle" zoom-min="14">
-            <symbol id="saddle" src="jar:symbols/poi/mountain_pass.svg" />
+        </rule> -->
+        <!-- TODO: Icon needed -->
+        <!-- <rule e="any" k="natural" v="saddle" zoom-min="14">
+            <symbol id="saddle" src="" />
             <caption
                 fill="#000000"
                 font-size="12"
@@ -798,13 +824,19 @@
                     symbol-id="saddle"
                 />
             </rule>
-        </rule>
+        </rule> -->
     </rule>
 
     <!-- Camping and shelter -->
     <rule e="any" k="*" v="*">
         <rule e="any" k="amenity" v="shelter" zoom-min="14">
-            <symbol id="shelter" src="@drawable/ic_category_shelter#000000" />
+            <!-- TODO: shelter_type -->
+            <symbol
+                id="shelter"
+                src="@drawable/ic_category_shelter#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
             <caption
                 fill="#000000"
                 font-size="12"
@@ -816,10 +848,13 @@
                 symbol-id="shelter"
             />
         </rule>
-        <rule e="any" k="tourism" v="alpine_hut" zoom-min="12">
+        <rule e="any" k="tourism" v="alpine_hut|wilderness_hut" zoom-min="12">
+            <!-- TODO: Better image needed -->
             <symbol
                 id="alpine-hut"
-                src="jar:symbols/accommodation/alpinehut.svg"
+                src="@drawable/ic_house#000000"
+                symbol-height="16"
+                symbol-width="16"
             />
             <caption
                 fill="#000000"
@@ -870,75 +905,65 @@
                 />
             </rule>
         </rule>
-        <rule e="any" k="tourism" v="caravan_site" zoom-min="13">
-            <symbol
-                id="caravan-site"
-                src="jar:symbols/accommodation/caravan_park.svg"
-            />
-            <rule e="node" k="*" v="*" zoom-min="15">
-                <caption
-                    fill="#000000"
-                    font-size="12"
-                    font-style="bold"
-                    k="name"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="caravan-site"
-                />
-            </rule>
-            <rule e="way" k="*" v="*" zoom-min="16">
-                <caption
-                    fill="#000000"
-                    font-size="12"
-                    font-style="bold"
-                    k="name"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="caravan-site"
-                />
-            </rule>
-        </rule>
     </rule>
 
     <!-- Trail amenities -->
     <rule e="any" k="*" v="*">
-        <rule e="any" k="amenity" v="drinking_water" zoom-min="16">
-            <symbol src="jar:symbols/food/drinkingtap.svg" />
-        </rule>
         <rule e="any" k="amenity" v="toilets" zoom-min="15">
-            <symbol src="jar:symbols/amenity/toilets.svg" />
+            <symbol
+                src="@drawable/ic_restrooms#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
         <rule e="any" k="tourism" v="picnic_site" zoom-min="15">
-            <symbol src="jar:symbols/tourist/picnic.svg" />
+            <symbol
+                src="@drawable/ic_picnic#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
         <rule e="node" k="amenity" v="bench" zoom-min="15">
-            <symbol src="jar:symbols/bench.svg" />
+            <!-- TODO: Icon needed -->
+            <symbol
+                src="@drawable/ic_picnic#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
         <rule e="any" k="amenity" v="telephone" zoom-min="15">
-            <symbol src="jar:symbols/amenity/telephone.svg" />
+            <symbol
+                src="@drawable/ic_phone#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
-        <rule e="any" k="amenity" v="fountain" zoom-min="16">
-            <rule e="any" k="drinking_water" v="yes">
-                <symbol src="jar:symbols/food/drinkingtap.svg" />
-            </rule>
-            <rule e="any" k="*" v="*">
-                <symbol src="jar:symbols/amenity/fountain2.svg" />
-            </rule>
+        <rule e="any" k="amenity" v="drinking_water" zoom-min="16">
+            <!-- TODO: Icon needed -->
+            <symbol
+                src="@drawable/ic_category_water#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
-        <rule e="any" k="amenity" v="bicycle_rental" zoom-min="15">
-            <symbol src="jar:symbols/transport/rental_bicycle.svg" />
-        </rule>
-        <rule e="any" k="amenity" v="parking" zoom-min="17">
-            <rule e="any" k="*" v="*">
-                <symbol src="jar:symbols/transport/parking.svg" />
-            </rule>
+        <rule e="any" k="amenity" v="parking" zoom-min="16">
+                <symbol
+                src="@drawable/ic_car#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
     </rule>
 
     <!-- Tourism and trail information -->
     <rule e="any" k="*" v="*">
         <rule e="node" k="tourism" v="viewpoint" zoom-min="15">
-            <symbol id="viewpoint" src="jar:symbols/tourist/view_point.svg" />
+            <symbol
+                id="viewpoint"
+                src="@drawable/ic_binoculars#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
             <rule e="any" k="natural" v="~" zoom-min="17">
                 <caption
                     fill="#000000"
@@ -962,42 +987,28 @@
             </rule>
         </rule>
         <rule e="any" k="tourism" v="information" zoom-min="16">
-            <symbol src="jar:symbols/tourist/information.svg" />
+            <symbol
+                src="@drawable/ic_info#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
-        <rule e="any" k="historic|building" v="ruins" zoom-min="14">
-            <symbol src="jar:symbols/tourist/ruin.svg" />
-        </rule>
-        <rule e="any" k="historic" v="archaeological_site" zoom-min="15">
-            <symbol src="jar:symbols/tourist/archaeological2.svg" />
+        <rule e="any" k="historic|building" v="ruins|archaeological_site" zoom-min="15">
+            <symbol
+                src="@drawable/ic_ruins#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
         </rule>
     </rule>
 
     <!-- Barrier POIs -->
-    <rule e="any" k="barrier" v="*" zoom-min="17">
-        <rule e="node" k="barrier" v="bollard">
-            <symbol src="jar:symbols/barrier/bollard.svg" />
-        </rule>
-        <rule e="node" k="barrier" v="lift_gate|chain">
-            <symbol src="jar:symbols/barrier/lift_gate.svg" />
-        </rule>
-        <rule e="node" k="barrier" v="stile">
-            <symbol src="jar:symbols/barrier/stile.svg" />
-        </rule>
-        <rule e="node" k="barrier" v="cycle_barrier">
-            <symbol src="jar:symbols/barrier/cycle_barrier.svg" />
-        </rule>
+    <!-- TODO: Icon needed -->
+    <!-- <rule e="any" k="barrier" v="*" zoom-min="17">
         <rule e="node" k="barrier" v="gate">
-            <symbol src="jar:symbols/barrier/gate.svg" />
+            <symbol src="" />
         </rule>
-        <rule e="any" k="barrier" v="block">
-            <symbol src="jar:symbols/barrier/blocks.svg" />
-        </rule>
-    </rule>
-
-    <!-- Water POIs -->
-    <rule e="node" k="waterway" v="weir" zoom-min="16">
-        <symbol src="jar:symbols/water/weir.svg" />
-    </rule>
+    </rule> -->
 
     <!-- POI labels -->
     <rule
