@@ -23,6 +23,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
             R.drawable.offline_maps,
             R.id.offlineMapListFragment,
             ToolCategory.Location,
+            guideId = R.raw.guide_tool_offline_maps,
             singletons = listOf(
                 { OfflineMapFileRepo.getInstance() },
                 { OfflineMapFileService() }
