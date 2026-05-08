@@ -2,7 +2,7 @@
 title: "Map Layers"
 ---
 
-Layers are used to display information on the map, they are configurable on the Navigation, Photo Maps, and Map tool. See the respective tool guides for how to access the layer settings.
+Layers are used to display information on the map, they are configurable on the Navigation, Offline Maps, and Map tool. See the respective tool guides for how to access the layer settings.
 
 Some layers are time dependent (marked below). When viewing these layers in the Map tool, you can change the map time to see them at different times. In other tools, they always display the current time.
 
@@ -75,8 +75,8 @@ Settings:
 - **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
-## Photo Maps
-This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
+## Photo maps
+This layer shows visible Photo maps, with the most zoomed-in map appearing on top. You can add new maps in the Offline Maps tool.
 
 Settings:
 
@@ -172,4 +172,3 @@ This layer is not currently configurable.
 This layer shows a compass in the top-right corner of the map. It shows where true north is on the map.
 
 This layer is not currently configurable.
-

@@ -1,4 +1,4 @@
-The Map tool can be used to display your beacons, paths, and photo maps in a single place. It's essential to always carry a physical map as a backup and validate Trail Sense's accuracy. This is not a replacement for a dedicated maps app and it will only show maps that you have loaded into the Photo Maps tool.
+The Map tool can be used to display your beacons, paths, and photo maps in a single place. It's essential to always carry a physical map as a backup and validate Trail Sense's accuracy. This is not a replacement for a dedicated maps app and it will only show maps that you have loaded into the Offline Maps tool.
 
 ## Using the map
 You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right.

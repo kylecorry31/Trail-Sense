@@ -720,7 +720,7 @@
     <string name="astronomy_rise">上山</string>
     <string name="horizon">地平線</string>
     <string name="illumination">亮面</string>
-    <string name="photo_map_summary">用幅相做地圖</string>
+    <string name="offline_maps_summary">用幅相做地圖</string>
     <string name="map_file">檔案 (JPG、PNG、PDF)</string>
     <string name="peak_time">高峰</string>
     <string name="tool_clinometer_summary">估計雪崩風險同埋物件嘅高度</string>

@@ -55,11 +55,11 @@
         android:label="MapSettingsFragment" />
     <fragment
         android:id="@+id/offlineMapListFragment"
-        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.OfflineMapListFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapListFragment"
         android:label="OfflineMapListFragment" />
     <fragment
         android:id="@+id/offlineMapViewFragment"
-        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.OfflineMapViewFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapViewFragment"
         android:label="OfflineMapViewFragment"
         tools:layout="@layout/fragment_offline_map_view">
         <argument
@@ -624,7 +624,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoMapsFragment"
-        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapsFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.PhotoMapsFragment"
         android:label="PhotoMapsFragment">
         <argument
             android:name="mapId"
@@ -646,7 +646,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapListFragment"
-        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapListFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.OfflineMapsFragment"
         android:label="MapListFragment">
         <action
             android:id="@+id/action_mapList_to_maps"
@@ -717,7 +717,7 @@
         android:label="SensorSettingsFragment" />
     <fragment
         android:id="@+id/photoMapSettingsFragment"
-        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.PhotoMapSettingsFragment"
         android:label="PhotoMapSettingsFragment" />
     <fragment
         android:id="@+id/temperatureEstimationFragment"

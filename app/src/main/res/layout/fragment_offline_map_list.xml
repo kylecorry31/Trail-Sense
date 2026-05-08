@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:showSubtitle="false"
-        app:title="@string/offline_maps" />
+        app:title="@string/mapsforge" />
 
     <com.kylecorry.trail_sense.shared.views.SearchView
         android:id="@+id/searchbox"

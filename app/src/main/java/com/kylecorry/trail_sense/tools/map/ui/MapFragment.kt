@@ -54,7 +54,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
+import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
 import java.time.Instant
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {

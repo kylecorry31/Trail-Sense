@@ -73,7 +73,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         scrollUntil { hasText("Tides") }
         scrollUntil { hasText("Navigation") }
         scrollUntil { hasText("Contours") }
-        scrollUntil { hasText("Photo Maps") }
+        scrollUntil { hasText("Photo maps") }
         scrollUntil { hasText("Hillshade") }
         scrollUntil { hasText("Elevation") }
         scrollUntil { hasText("Basemap") }
@@ -104,11 +104,11 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         // Copy layer to other maps
         scrollUntil { hasText("Copy settings to other maps") }
         click("Copy settings to other maps")
-        // Verify Navigation is checked, uncheck Photo Maps
+        // Verify Navigation is checked, uncheck Photo maps
         isChecked("Navigation")
-        isChecked("Photo Maps")
-        click("Photo Maps")
-        isNotChecked("Photo Maps")
+        isChecked("Photo maps")
+        click("Photo maps")
+        isNotChecked("Photo maps")
         clickOk()
 
         // Verify the "High resolution" toggle is disabled, then turn it on

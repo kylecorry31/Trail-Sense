@@ -74,7 +74,7 @@ To navigate to a beacon, open the beacon you want to navigate to and click the '
 See the 'Navigation' guide for more information on how to use the navigation tool.
 
 ## Beacon visibility
-You can choose which beacons are visible on the Navigation and Photo Maps tools by clicking the eye icon on the right side of the beacon row. This will toggle the visibility of the beacon.
+You can choose which beacons are visible on the Navigation and Offline Maps tool by clicking the eye icon on the right side of the beacon row. This will toggle the visibility of the beacon.
 
 To show or hide all beacons in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
 

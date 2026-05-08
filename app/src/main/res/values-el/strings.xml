@@ -999,7 +999,7 @@
     <string name="map_export_error">Η εξαγωγή του χάρτη στο επιλεγμένο αρχείο δεν είναι δυνατή</string>
     <string name="now">Τώρα</string>
     <string name="now_value">Τώρα: %s</string>
-    <string name="photo_map_summary">Χρήση εικόνας ως χάρτη</string>
+    <string name="offline_maps_summary">Χρήση εικόνας ως χάρτη</string>
     <string name="horizon">Ορίζοντας</string>
     <string name="season">Εποχή</string>
     <string name="no_qr_code_detected">Δεν βρέθηκε ραβδοκώδικας γρήγορης ανάγνωσης (QR code)</string>

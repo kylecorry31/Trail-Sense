@@ -67,7 +67,7 @@ To navigate பெறுநர் a beacon, திற the சுழலொளி 
 See the 'Navigation' guide க்கு more செய்தி on how பெறுநர் use the வானோடல் tool.
 
 ## சுழலொளி visibility
-You can choose which beacons அரே visible on the வானோடல் and Photo Maps கருவிகள் by clicking the eye icon on the வலது பக்கம் of the சுழலொளி row. This will toggle the விழிமை of the beacon.
+You can choose which beacons அரே visible on the வானோடல் and Photo maps கருவிகள் by clicking the eye icon on the வலது பக்கம் of the சுழலொளி row. This will toggle the விழிமை of the beacon.
 
 ## பங்கு a beacon
 You can பங்கு a சுழலொளி by clicking the பட்டியல் button on the சுழலொளி நிரை you want பெறுநர் share, then selecting 'Share...'. Alternatively, திற the சுழலொளி and click the பட்டியல் button in the top-right, then choose 'Share...'. You can choose இருந்து the following options:
