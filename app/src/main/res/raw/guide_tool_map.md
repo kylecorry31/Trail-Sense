@@ -28,61 +28,6 @@ Long press a location on the map to view the elevation (from the DEM).
 ## Layers
 Layers are used to display information on the map. For more information on layers, refer to the 'Map Layers' guide.
 
-## Offline maps
-Offline maps can be used to import Mapsforge map files and display them as a map layer. Map files are not included with Trail Sense and must be downloaded separately. You can find links to map files on https://kylecorry.com/Trail-Sense/offline_maps.html.
-
-Trail Sense supports Mapsforge files with the `.map` extension. Once imported, offline maps are stored on your device and do not require an Internet connection.
-
-To manage offline maps, open Settings > Map > Offline maps. You can also open the Map tool, click the menu button in the top-right, choose 'Layers', click 'Offline maps', and select 'Manage maps'.
-
-### Importing an offline map
-To import an offline map:
-
-1. Tap the '+' button in the bottom-right corner and select 'Offline map file'.
-2. Choose a `.map` file from your device.
-3. Enter a name for the map and click 'OK'.
-
-Large map files may take longer to import and render. Once imported, the original file can be deleted if you want to save space.
-
-### Using an offline map
-Once you've imported an offline map, it can be displayed on the Map and Navigation tools using the 'Offline maps' layer. Only visible offline maps are drawn.
-
-To configure the layer, open the layer settings, click 'Offline maps', and adjust 'Visible' or 'Opacity'.
-
-### Previewing an offline map
-To preview an offline map, click it in the offline maps list.
-
-You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. If the map file contains bounds information, Trail Sense will fit the map into view when it opens.
-
-### Rename an offline map
-To rename an offline map, click the menu button on the map row you wish to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top-right, and choose 'Rename'.
-
-### Map visibility
-You can choose which offline maps are visible on the Map and Navigation tools by clicking the eye icon on the right side of the map row.
-
-To show or hide all maps in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
-
-### Edit attribution
-Some map files include attribution. To edit attribution, click the menu button on the map row, select 'Attribution', and provide the attribution text. If attribution is populated, it will be shown on the map when the layer is displayed.
-
-### Delete an offline map
-To delete an offline map, click the menu button on the map row you want to remove, then select 'Delete'. Alternatively, open the map, click the menu button in the top-right, and choose 'Delete'.
-
-## Organizing offline maps
-You can organize offline maps into groups. To create a group, click the '+' button in the bottom-right of the offline maps list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map import instructions. The map will be added to the chosen group.
-
-To change the group of an existing map, click the menu button on the map row you want to move, select 'Move to', and choose the target group.
-
-To rename a group, click the menu button on the group row you want to rename, then select 'Rename' and provide a new name.
-
-You can delete a group (along with all maps within it) by clicking the menu button on the group row you wish to remove, then selecting 'Delete'.
-
-## Searching for offline maps
-To search through your offline maps, use the search bar at the top of the offline maps list. This search encompasses the current group and all subgroups.
-
-## Offline map accuracy
-Offline maps are only as accurate and current as the map file you imported. Always carry a physical map and compass as a backup, and verify important navigation decisions with your surroundings.
-
 ## Trace a map
 To trace a map, click the menu button in the top-right and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
 

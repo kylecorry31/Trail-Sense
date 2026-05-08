@@ -100,7 +100,7 @@ Changing the projection while calibrating will clear any unsaved changes.
 To rename a map, click the menu button on the map row you wish to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top-right, and choose 'Rename'.
 
 ## Map visibility
-You can choose which maps are visible on the Navigation tool by clicking the eye icon on the right side of the map row.
+You can choose which maps are visible on the Photo Maps map layer by clicking the eye icon on the right side of the map row.
 
 To show or hide all maps in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
 

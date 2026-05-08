@@ -1784,7 +1784,7 @@
     <string name="map">Map</string>
     <!--A world map that is the background for the map-->
     <string name="basemap">Basemap</string>
-    <string name="offline_maps">Offline maps</string>
+    <string name="offline_maps">Offline Maps</string>
     <string name="offline_map_import_failed">Unable to import map</string>
     <string name="no_offline_maps">No offline maps</string>
     <string name="unsupported_offline_map_file">Unsupported map file</string>

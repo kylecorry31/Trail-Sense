@@ -45,8 +45,3 @@ The following widgets can be placed on your device's home screen or viewed in-ap
 
 ## Settings
 You can change tile detail in "Settings > Map > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
-
-
-
-
-
