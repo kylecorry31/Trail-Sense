@@ -1401,7 +1401,7 @@
     <string name="planet_neptune">Neptunus</string>
     <string name="load_pdf_tiles">PDF-tegels laden</string>
     <string name="load_pdf_tiles_summary">PDF-kaarten zijn scherper, maar de prestaties kunnen worden beïnvloed</string>
-    <string name="map_tool_disclaimer">Dit hulpmiddel bevat geen ingebouwde wegenkaarten, satellietbeelden of routegegevens. Het haalt geen kaarten op van het internet. Om een kaartachtergrond weer te geven moet je je eigen foto importeren met het Fotokaarten-hulpmiddel. Gebruik een speciale kaartapplicatie als je actuele straten, satelliet, of wandelkaarten nodig hebt.</string>
+    <string name="map_tool_disclaimer">Dit hulpmiddel bevat geen ingebouwde wegenkaarten, satellietbeelden of routegegevens. Het haalt geen kaarten op van het internet. Om een kaartachtergrond weer te geven moet je je eigen foto importeren met het netloze-kaarten-hulpmiddel. Gebruik een speciale kaartapplicatie als je actuele straten, satelliet, of wandelkaarten nodig hebt.</string>
     <string name="open_settings">Instellingen openen</string>
     <string name="basemap">Basiskaart</string>
     <string name="show_gps_accuracy">GPS-nauwkeurigheid weergeven</string>
@@ -1591,5 +1591,6 @@
     </plurals>
     <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
     <string name="offline_map_file">Bestand (.map)</string>
-    <string name="offline_maps_disclaimer">Kaartbestanden zijn niet in Trail Sense inbegrepen en moeten apart worden gedownload. Alleen Mapsforge-bestanden (.map) worden ondersteund. Een lijst met beschikbare kaarten is te vinden op https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="offline_maps_disclaimer">Kaartbestanden zijn niet in Trail Sense inbegrepen en moeten apart worden gedownload. Dit hulpmiddel kan je kaartbestanden voorvertonen, maar gebruik de Kaart- of Navigatie-hulpmiddelen om ze te gebruiken. Een lijst met beschikbare kaarten is te vinden op https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="map_layer_mapsforge_description">Je opgeslagen Mapsforge-kaarten</string>
 </resources>
