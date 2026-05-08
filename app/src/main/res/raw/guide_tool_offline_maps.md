@@ -1,4 +1,4 @@
-The Offline Maps tool can be used to import and manage maps that are available without an Internet connection. Use Photo maps for images, PDFs, and blank calibrated maps, or use Mapsforge for `.map` files.
+The Offline Maps tool can be used to import and manage maps that are available without an Internet connection. Use Photo maps for images, PDFs, and blank calibrated maps, or use Vector maps for `.map` files.
 
 ## Photo maps
 The Photo maps tab can be used to convert a photo into a map. It's essential to always carry a physical map as a backup and validate Trail Sense's accuracy. Photo maps complements other map apps and physical maps, serving as a convenient way to convert photos into maps rather than a replacement for them.
@@ -150,8 +150,8 @@ To use the quick action, tap the quick action button and the active map will be 
 ### Video guide
 If you prefer a video guide on using Photo maps, here's a video by one of Trail Sense's users: [YouTube: Turn Photos into Navigational Maps with Trail Sense! by DeathfireD](https://www.youtube.com/watch?v=RT4PmBODdzw)
 
-## Mapsforge
-Trail Sense can import Mapsforge map files and display them as a map layer.
+## Vector maps
+Trail Sense can import Mapsforge map files and display them as a map layer. A vector map can be zoomed without losing details and contains information about map features such as trails or campsites.
 
 Map files are not included with Trail Sense and must be downloaded separately. See https://kylecorry.com/Trail-Sense/offline_maps.html for links to download servers.
 
@@ -165,10 +165,10 @@ To import a map:
 Once imported, the original file can be deleted if you want to save space.
 
 ### Using a map
-Once you've imported a map, it can be displayed on the Map and Navigation tools using the 'Mapsforge' layer.
+Once you've imported a map, it can be displayed on the Map and Navigation tools using the 'Vector maps' layer.
 
 ### Previewing a map
-To preview a Mapsforge map, click it in the Mapsforge list. You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. The preview viewer is limited, use the Map tool with the Mapsforge layer for regular use.
+To preview a vector map, click it in the Vector maps list. You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. The preview viewer is limited, use the Map tool with the Vector maps layer for regular use.
 
 ### Rename a map
 To rename a map, click the menu button on the map row you want to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top-right, and choose 'Rename'.
@@ -185,7 +185,7 @@ Some map files include attribution. To edit attribution, click the menu button o
 To delete a map, click the menu button on the map row you want to remove, then select 'Delete'. Alternatively, open the map, click the menu button in the top-right, and choose 'Delete'.
 
 ### Organizing maps
-You can organize maps into groups. To create a group, click the '+' button in the bottom-right of the Mapsforge list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map import instructions. The map will be added to the chosen group.
+You can organize maps into groups. To create a group, click the '+' button in the bottom-right of the Vector maps list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map import instructions. The map will be added to the chosen group.
 
 To change the group of an existing map, click the menu button on the map row you want to move, select 'Move to', and choose the target group.
 
@@ -194,7 +194,7 @@ To rename a group, click the menu button on the group row you want to rename, th
 You can delete a group (along with all maps within it) by clicking the menu button on the group row you wish to remove, then selecting 'Delete'.
 
 ### Searching for maps
-To search through your maps, use the search bar at the top of the Mapsforge list. This search encompasses the current group and all subgroups.
+To search through your maps, use the search bar at the top of the Vector maps list. This search encompasses the current group and all subgroups.
 
 ### Accuracy
 Maps are only as accurate and current as the map file you imported. Always carry a physical map and compass as a backup, and verify important navigation decisions with your surroundings.

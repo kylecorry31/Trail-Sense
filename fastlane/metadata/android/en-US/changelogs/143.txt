@@ -1,7 +1,7 @@
 Offline Maps
 - Rename Photo Maps tool to Offline Maps
-- Add Mapsforge file support
-- Add Mapsforge map layer
+- Add vector maps (Mapsforge) file support
+- Add Vector maps map layer
 - Detect and prevent invalid map calibrations
 
 Augmented Reality
