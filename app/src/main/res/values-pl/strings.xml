@@ -900,7 +900,7 @@
     <string name="crop_map_instructions_long">Przeciągnij rogi ramki do rogów mapy, aby obrysować. Przycięcie mapy zmniejszy rozdzielczość.</string>
     <string name="i_agree">Zgadzam się</string>
     <string name="battery_settings_limit_accuracy">Ograniczenie użycia baterii może zmniejszyć dokładność</string>
-    <string name="photo_map_summary">Użyj zdjęcia jako mapy</string>
+    <string name="offline_maps_summary">Użyj zdjęcia jako mapy</string>
     <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako zapasowe narzędzie oraz weryfikuj dokładność Trail Sense.</string>
     <string name="map_file">Plik (JPG, PNG, PDF)</string>
     <string name="map_calibration">Kalibracja mapy</string>
@@ -1540,6 +1540,5 @@
     <string name="no_offline_maps">Brak map offline</string>
     <string name="unsupported_offline_map_file">Nieprawidłowy plik mapy</string>
     <string name="mapsforge">Mapsforge</string>
-    <string name="map_layer_offline_maps_description">Zapisane mapy offline</string>
     <string name="offline_maps_disclaimer">Trail Sense nie zawiera map, muszą zostać pobrane oddzielnie. Wyłącznie pliki Mapsforge (.map) są wspierane. Możesz pobrać dostępne mapy z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>

@@ -40,7 +40,7 @@ Utilizzala a tuo rischio e pericolo, munisciti sempre di strumenti di riserva (a
     <li>Posizione in secondo piano: Consenti a Trail Sense di recuperare la posizione per gli avvisi di tramonto mentre è in secondo piano.
     Su alcuni dispositivi, questo migliora anche l'affidabilità del percorso di ritorno e del monitoraggio del meteo.</li>
     <li>Attività fisica: Consenti a Trail Sense di utilizzare il contapassi del telefono per il calcolo della distanza.</li>
-    <li>Fotocamera: Consenti a Trail Sense di utilizzare la fotocamera sulla bussola di avvistamento, sul clinometro e per scattare foto utilizzate da Cloud Scanner, QR Code Scanner e Photo Maps.</li>
+    <li>Fotocamera: Consenti a Trail Sense di utilizzare la fotocamera sulla bussola di avvistamento, sul clinometro e per scattare foto utilizzate da Cloud Scanner, QR Code Scanner e Photo maps.</li>
     <li>Sveglie e promemoria: Consente a Trail Sense di pubblicare una notifica a un'ora esatta.
     Viene utilizzato dallo strumento Orologio (quando si aggiorna l'ora del sistema) e dagli avvisi di tramonto e alba.</li>
 </ul>

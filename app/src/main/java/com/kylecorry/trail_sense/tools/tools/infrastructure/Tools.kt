@@ -43,12 +43,11 @@ import com.kylecorry.trail_sense.tools.metaldetector.MetalDetectorToolRegistrati
 import com.kylecorry.trail_sense.tools.mirror.MirrorCameraToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.notes.NotesToolRegistration
-import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.packs.PackingListsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.permits.PermitsToolRegistration
-import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.qr.QRCodeScannerToolRegistration
 import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -79,7 +78,7 @@ object Tools {
         CliffHeightToolRegistration,
         NavigationToolRegistration,
         BeaconsToolRegistration,
-        PhotoMapsToolRegistration,
+        OfflineMapsToolRegistration,
         PathsToolRegistration,
         TriangulateLocationToolRegistration,
         ClinometerToolRegistration,
@@ -119,7 +118,6 @@ object Tools {
         PermitsToolRegistration,
         DeclinationToolRegistration,
         MapToolRegistration,
-        OfflineMapsToolRegistration,
         MagnifierToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
@@ -265,7 +263,7 @@ object Tools {
     const val CLIFF_HEIGHT = 5L
     const val NAVIGATION = 6L
     const val BEACONS = 7L
-    const val PHOTO_MAPS = 8L
+    const val OFFLINE_MAPS = 8L
     const val PATHS = 9L
     const val TRIANGULATE_LOCATION = 10L
     const val CLINOMETER = 11L
@@ -306,7 +304,6 @@ object Tools {
     const val DECLINATION = 46L
     const val MAP = 47L
     const val MAGNIFIER = 48L
-    const val OFFLINE_MAPS = 49L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1

@@ -989,7 +989,7 @@
     <string name="backup_restore">Sikkerhetskopiering/gjenoppretting</string>
     <string name="restoring_loading_message">Gjenoppretter…</string>
     <string name="backup">Sikkerhetskopier</string>
-    <string name="photo_map_summary">Bruk et bilde som kart</string>
+    <string name="offline_maps_summary">Bruk et bilde som kart</string>
     <string name="zero_shutter_lag">Ingen lukkerforsinkelse</string>
     <string name="backing_up_loading_message">Sikkerhetskopierer…</string>
     <string name="restore_complete_message">Gjenopprettet, starter på nytt for at endringer skal tre i kraft</string>

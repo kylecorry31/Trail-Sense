@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.converters.Map
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
-import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 
 class MapLayerPreferenceManager(
     private val mapId: String,
@@ -142,7 +142,7 @@ class MapLayerPreferenceManager(
                 val mapIdToName = mapOf(
                     MapToolRegistration.MAP_ID to context.getString(R.string.map),
                     NavigationToolRegistration.MAP_ID to context.getString(R.string.navigation),
-                    PhotoMapsToolRegistration.MAP_ID to context.getString(R.string.photo_maps)
+                    OfflineMapsToolRegistration.PHOTO_MAPS_ID to context.getString(R.string.photo_maps)
                 )
 
                 if (layer.attribution != null) {
@@ -262,7 +262,7 @@ class MapLayerPreferenceManager(
         val mapIds = listOf(
             MapToolRegistration.MAP_ID,
             NavigationToolRegistration.MAP_ID,
-            PhotoMapsToolRegistration.MAP_ID
+            OfflineMapsToolRegistration.PHOTO_MAPS_ID
         )
         return mapIds.filter { it != mapId }
     }

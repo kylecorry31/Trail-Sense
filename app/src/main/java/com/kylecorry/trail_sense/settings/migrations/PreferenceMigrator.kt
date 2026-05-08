@@ -28,13 +28,13 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
-import com.kylecorry.trail_sense.tools.offline_maps.map_layers.OfflineMapTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerGeoJsonSource
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -213,7 +213,7 @@ class PreferenceMigrator private constructor() {
                 val toolQuickActionPrefs = context.getString(R.string.pref_tool_quick_actions)
 
                 val replacementMap = mapOf(
-                    7 to Tools.PHOTO_MAPS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
+                    7 to Tools.OFFLINE_MAPS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
                     0 to Tools.PATHS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
                     12 to Tools.CLIMATE.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
                     3 to Tools.TEMPERATURE_ESTIMATION.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
@@ -312,7 +312,7 @@ class PreferenceMigrator private constructor() {
                     "pref_map_contour_layer_opacity",
                     "pref_photo_maps_contour_layer_opacity",
                     "pref_navigation_contour_layer_opacity",
-                    // Photo Maps
+                    // Photo maps
                     "pref_navigation_map_layer_opacity",
                 )
 
@@ -427,7 +427,7 @@ class PreferenceMigrator private constructor() {
                 val repo = getAppService<MapLayerPreferenceRepo>()
                 val idealOrdering = listOf(
                     BaseMapTileSource.SOURCE_ID,
-                    OfflineMapTileSource.SOURCE_ID,
+                    MapsforgeTileSource.SOURCE_ID,
                     ElevationMapTileSource.SOURCE_ID,
                     HillshadeMapTileSource.SOURCE_ID,
                     AspectMapTileSource.SOURCE_ID,
@@ -450,13 +450,13 @@ class PreferenceMigrator private constructor() {
                 for (mapId in mapIds) {
                     repo.addLayerInBestPosition(
                         mapId,
-                        OfflineMapTileSource.SOURCE_ID,
+                        MapsforgeTileSource.SOURCE_ID,
                         idealOrdering
                     )
                 }
 
                 val navigationOfflineMapOpacityKey =
-                    "pref_${NavigationToolRegistration.MAP_ID}_${OfflineMapTileSource.SOURCE_ID}_layer_opacity"
+                    "pref_${NavigationToolRegistration.MAP_ID}_${MapsforgeTileSource.SOURCE_ID}_layer_opacity"
                 if (!prefs.contains(navigationOfflineMapOpacityKey)) {
                     prefs.putInt(navigationOfflineMapOpacityKey, 50)
                 }

@@ -77,7 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
-    <com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
+    <com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
         android:id="@+id/distance_sheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

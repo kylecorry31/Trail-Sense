@@ -40,10 +40,10 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.domain.Probability
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
 import com.kylecorry.trail_sense.tools.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
-import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
 import java.time.Duration

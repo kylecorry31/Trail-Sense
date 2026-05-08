@@ -972,7 +972,7 @@
     <string name="horizon">Horizonte</string>
     <string name="map_file">Archivo (JPG, PNG, PDF)</string>
     <string name="photo_map_disclaimer">Lleva siempre un mapa físico como respaldo y verifica la precisión de Trail Sense.</string>
-    <string name="photo_map_summary">Usar una imágen como mapa</string>
+    <string name="offline_maps_summary">Usar una imágen como mapa</string>
     <string name="crop_map_instructions_long">Arrastra las esquinas del recuadro hasta las esquinas del mapa que deseas contornear. Recortar reducirá la resolución del mapa.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Recortar el mapa reducirá aún más la resolución. Si necesitas recortar el mapa a alta resolución, usa una aplicación de edición fotográfica. Hay planes para solucionar este problema en el futuro.</string>
     <string name="rotation_amount">Rotación: %s</string>

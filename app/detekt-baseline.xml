@@ -269,13 +269,11 @@
     <ID>LongMethod:AstronomyGuidanceTarget.kt:AstronomyGuidanceTarget$override suspend fun refresh: ARGuidanceTargetState</ID>
     <ID>LongMethod:AstronomyGuidanceTargetPicker.kt:AstronomyGuidanceTargetPicker$private suspend fun getGuidanceOptions: List&lt;AstronomyGuidanceOption&gt;</ID>
     <ID>LongMethod:AstronomySettingsFragment.kt:AstronomySettingsFragment$override fun onCreatePreferences</ID>
-    <ID>LongMethod:AstronomyToolRegistration.kt:AstronomyToolRegistration$override fun getTool: Tool</ID>
     <ID>LongMethod:AugmentedRealityFragment.kt:AugmentedRealityFragment$override fun onViewCreated</ID>
     <ID>LongMethod:BallisticsCalculator.kt:BallisticsCalculator$fun calculateTrajectory: List&lt;TrajectoryPoint&gt;</ID>
     <ID>LongMethod:BatteryService.kt:BatteryService$fun getSystemBatteryTips: List&lt;SystemBatteryTip&gt;</ID>
     <ID>LongMethod:BeaconDetailsFragment.kt:BeaconDetailsFragment$private fun loadBeacon</ID>
     <ID>LongMethod:BeaconListFragment.kt:BeaconListFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:BeaconsToolRegistration.kt:BeaconsToolRegistration$override fun getTool: Tool</ID>
     <ID>LongMethod:BubbleLevel.kt:BubbleLevel$override fun draw</ID>
     <ID>LongMethod:CalibrateAltimeterFragment.kt:CalibrateAltimeterFragment$private fun bindPreferences</ID>
     <ID>LongMethod:CalibrateCompassFragment.kt:CalibrateCompassFragment$private fun bindPreferences</ID>
@@ -284,7 +282,6 @@
     <ID>LongMethod:CreateTideFragment.kt:CreateTideFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
     <ID>LongMethod:DEM.kt:DEM$private suspend fun getSources: List&lt;GeographicImageSource&gt;</ID>
     <ID>LongMethod:ExperimentationFragment.kt:ExperimentationFragment$private fun useSamplePlugin</ID>
-    <ID>LongMethod:FlashlightToolRegistration.kt:FlashlightToolRegistration$override fun getTool: Tool</ID>
     <ID>LongMethod:FragmentToolFlashlight.kt:FragmentToolFlashlight$override fun onViewCreated</ID>
     <ID>LongMethod:GPSDiagnosticScanner.kt:GPSDiagnosticScanner$override fun quickScan: List&lt;ToolDiagnosticResult&gt;</ID>
     <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$override fun draw</ID>
@@ -296,7 +293,6 @@
     <ID>LongMethod:LandModel.kt:LandModel$suspend fun getCoastalLocations: List&lt;Coordinate&gt;</ID>
     <ID>LongMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
     <ID>LongMethod:MapMapper.kt:MapMapper$override fun map: ListItem</ID>
-    <ID>LongMethod:MapToolRegistration.kt:MapToolRegistration$override fun getTool: Tool</ID>
     <ID>LongMethod:MapToolWidgetView.kt:MapToolWidgetView$override suspend fun getPopulatedView: RemoteViews</ID>
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onUpdate</ID>
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onViewCreated</ID>
@@ -306,14 +302,11 @@
     <ID>LongMethod:PathOverviewFragment.kt:PathOverviewFragment$override fun onViewCreated</ID>
     <ID>LongMethod:PathOverviewFragment.kt:PathOverviewFragment$private fun onPathChanged</ID>
     <ID>LongMethod:PathsSettingsFragment.kt:PathsSettingsFragment$override fun onCreatePreferences</ID>
-    <ID>LongMethod:PathsToolRegistration.kt:PathsToolRegistration$override fun getTool: Tool</ID>
-    <ID>LongMethod:PedometerToolRegistration.kt:PedometerToolRegistration$override fun getTool: Tool</ID>
     <ID>LongMethod:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$override fun onTouchEvent: Boolean</ID>
     <ID>LongMethod:PhotoMapRegionLoader.kt:PhotoMapRegionLoader$suspend fun load: Bitmap?</ID>
     <ID>LongMethod:PlaceBeaconFragment.kt:PlaceBeaconFragment$override fun onViewCreated</ID>
     <ID>LongMethod:RulerFragment.kt:RulerFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
     <ID>LongMethod:SettingsFragment.kt:SettingsFragment$override fun onCreatePreferences</ID>
-    <ID>LongMethod:SettingsToolRegistration.kt:SettingsToolRegistration$override fun getTool: Tool</ID>
     <ID>LongMethod:SlopeMapTileSource.kt:SlopeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
     <ID>LongMethod:SoftmaxCloudClassifier.kt:SoftmaxCloudClassifier$override suspend fun classify: List&lt;ClassificationResult&lt;CloudGenus?&gt;&gt;</ID>
     <ID>LongMethod:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$override fun onCreatePreferences</ID>
@@ -325,7 +318,6 @@
     <ID>LongMethod:ToolWidgetViewBinder.kt:ToolWidgetViewBinder$@SuppressLint("ClickableViewAccessibility") fun bind</ID>
     <ID>LongMethod:WaypointListItem.kt:WaypointListItem$fun display</ID>
     <ID>LongMethod:WeatherSettingsFragment.kt:WeatherSettingsFragment$override fun onCreatePreferences</ID>
-    <ID>LongMethod:WeatherToolRegistration.kt:WeatherToolRegistration$override fun getTool: Tool</ID>
     <ID>LoopWithTooManyJumpStatements:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$for</ID>
     <ID>LoopWithTooManyJumpStatements:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$for</ID>
     <ID>LoopWithTooManyJumpStatements:GeographicImageSource.kt:GeographicImageSource$for</ID>

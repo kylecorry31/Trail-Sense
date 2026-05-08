@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
-import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
+import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceLayer
 import java.time.Instant
 
 class MapToolLayerManager {

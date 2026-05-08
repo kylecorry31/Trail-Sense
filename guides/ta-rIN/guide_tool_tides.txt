@@ -63,7 +63,7 @@ You can நீக்கு a tide table using the following steps:
 3. Choose 'Delete.'
 
 ## Viewing tides on the map
-By default, tides with a location entered will appear on the வானோடல் tool's கதிரலைக் கும்பா compass and Photo Maps. பெறுநர் hide/show a tide, follow these steps:
+By default, tides with a location entered will appear on the வானோடல் tool's கதிரலைக் கும்பா compass and Photo maps. பெறுநர் hide/show a tide, follow these steps:
 
 1. Click the tides button in the top-right corner of the screen.
 2. Click the பட்டியல் button பெறுநர் the வலது of the tide you wish பெறுநர் மறை or show.

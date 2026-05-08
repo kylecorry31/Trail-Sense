@@ -931,7 +931,7 @@
     <string name="allow_ignore_battery_restrictions">אפשר ל-%s להתעלם מהגבלות הסוללה</string>
     <string name="allow_schedule_exact_alarms">אפשר ל-%s להגדיר התראות ותזכורות</string>
     <string name="exact_alarm_permission_denied">התראןת ותזכורות נדחו, התראות עשויות להיות לא מדויקות.</string>
-    <string name="photo_map_summary">שימוש בתמונה כמפה</string>
+    <string name="offline_maps_summary">שימוש בתמונה כמפה</string>
     <plurals name="map_group_summary">
         <item quantity="one">מפה אחת</item>
         <item quantity="two">%d מפות</item>

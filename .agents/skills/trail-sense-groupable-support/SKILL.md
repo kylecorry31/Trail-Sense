@@ -8,10 +8,10 @@ description: Add groupable support to a Trail Sense feature or model. Use when a
 Use this skill when adding group/folder support to an existing Trail Sense item type.
 
 Primary examples to inspect first:
-- Photo Maps: `tools/photo_maps/domain/IMap.kt`, `MapGroup.kt`, `MapService.kt`, `MapGroupLoader.kt`, `MapPickers.kt`, `PhotoMapListFragment.kt`, `ui/mappers/*`
+- Photo maps: `tools/photo_maps/domain/IMap.kt`, `MapGroup.kt`, `MapService.kt`, `MapGroupLoader.kt`, `MapPickers.kt`, `PhotoMapListFragment.kt`, `ui/mappers/*`
 - Paths: `tools/paths/domain/IPath.kt`, `PathGroup.kt`, `PathService.kt`, `PathGroupLoader.kt`, `PathPickers.kt`, `PathsFragment.kt`, `ui/*Group*`
 - Beacons: `tools/beacons/domain/IBeacon.kt`, `BeaconGroup.kt`, `BeaconService.kt`, `BeaconLoader.kt`, `BeaconPickers.kt`, `BeaconListFragment.kt`
-- Offline Maps: `tools/map/domain/IOfflineMapFile.kt`, `OfflineMapFileGroup.kt`, `OfflineMapFileService.kt`, `OfflineMapFileGroupLoader.kt`, `OfflineMapFilePickers.kt`, `OfflineMapListFragment.kt`
+
 
 ## Core Checklist
 
@@ -68,7 +68,7 @@ data class ThingGroup(
 }
 ```
 
-Use `parent` as the DB column name when matching Photo Maps/Paths/Offline Maps unless the feature already has a different convention.
+Use `parent` as the DB column name when matching Photo maps/Paths unless the feature already has a different convention.
 
 ## Persistence Pattern
 
@@ -217,7 +217,7 @@ private fun handleListItemAction(
 }
 ```
 
-For `BoundFragment` features, mirror Photo Maps/Paths directly with a `private lateinit var manager`; do not convert a fragment type unless the user asks or the existing feature requires it.
+For `BoundFragment` features, mirror Photo maps/Paths directly with a `private lateinit var manager`; do not convert a fragment type unless the user asks or the existing feature requires it.
 
 List mappers:
 - Item mapper handles normal actions plus `Move`.
