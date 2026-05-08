@@ -158,26 +158,34 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         end: ZonedDateTime?,
         displayDate: LocalDate? = start?.toLocalDate()
     ): List<ListItemData> {
+        val reserveHeaderSpace = listOf(start, peak, end).any { it != null && it.toLocalDate() != displayDate }
         return listOf(
             context.getString(R.string.start_time) to start,
             context.getString(R.string.peak_time) to peak,
             context.getString(R.string.end_time) to end
         ).flatMap {
-            time(it.second, displayDate, it.first)
+            time(it.second, displayDate, it.first, reserveHeaderSpace)
         }
     }
 
     protected fun time(
         time: ZonedDateTime?,
         displayDate: LocalDate? = time?.toLocalDate(),
-        todayLabel: CharSequence? = null
+        label: CharSequence? = null,
+        reserveHeaderSpace: Boolean = false
     ): List<ListItemData> {
-        val label = if (time != null && time.toLocalDate() != displayDate) {
-            formatter.formatRelativeDate(time.toLocalDate(), true)
-        } else {
-            todayLabel
+
+        val value = buildSpannedString {
+            scale(0.75f) {
+                if (time != null && time.toLocalDate() != displayDate) {
+                    appendLine(formatter.formatRelativeDate(time.toLocalDate(), true))
+                } else if (reserveHeaderSpace) {
+                    appendLine()
+                }
+            }
+            append(formatTime(time))
         }
-        return listOf(datapoint(formatTime(time), label))
+        return listOf(datapoint(value, label))
     }
 
 
