@@ -95,9 +95,9 @@ object OfflineMapsToolRegistration : ToolRegistration {
                 ),
                 MapLayerDefinition(
                     MapsforgeTileSource.SOURCE_ID,
-                    context.getString(R.string.mapsforge),
+                    context.getString(R.string.vector_maps),
                     layerType = MapLayerType.Tile,
-                    description = context.getString(R.string.map_layer_mapsforge_description),
+                    description = context.getString(R.string.map_layer_vector_maps_description),
                     preferences = listOf(
                         MapLayerPreference(
                             id = "offline_maps",

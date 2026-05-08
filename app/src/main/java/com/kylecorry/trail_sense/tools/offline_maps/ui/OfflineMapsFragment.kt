@@ -32,7 +32,7 @@ class OfflineMapsFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_of
             if (tabs.tabCount != 2) {
                 tabs.removeAllTabs()
                 tabs.addTab(tabs.newTab().setText(R.string.photo_maps))
-                tabs.addTab(tabs.newTab().setText(R.string.mapsforge))
+                tabs.addTab(tabs.newTab().setText(R.string.vector_maps))
             }
 
             tabs.getTabAt(selectedTab)?.select()

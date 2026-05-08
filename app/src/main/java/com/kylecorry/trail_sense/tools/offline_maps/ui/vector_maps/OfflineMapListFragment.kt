@@ -94,7 +94,7 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
         useEffect(manager, listView, title, listItemMapper) {
             manager.bind(listView, title.title, listItemMapper) {
-                (it as OfflineMapFileGroup?)?.name ?: getString(R.string.mapsforge)
+                (it as OfflineMapFileGroup?)?.name ?: getString(R.string.vector_maps)
             }
             manager.refresh()
         }

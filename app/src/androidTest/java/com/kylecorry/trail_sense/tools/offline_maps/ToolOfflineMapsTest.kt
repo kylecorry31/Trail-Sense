@@ -39,12 +39,12 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
             return
         }
 
-        click("Mapsforge")
+        click("Vector maps")
 
         // Offline maps disclaimer
         optional { clickOk() }
 
-        hasText(R.id.title, string(R.string.mapsforge))
+        hasText(R.id.title, string(R.string.vector_maps))
         hasText(string(R.string.no_offline_maps))
 
         canOpenOfflineMapFilePicker()
@@ -54,7 +54,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         seedOfflineMap("Test Map")
         waitFor { hasText("Test Map") }
         hasText("Second Map")
-        hasText("Mapsforge")
+        hasText("Vector maps")
 
         canToggleOfflineMapVisibility()
         canViewOfflineMap()

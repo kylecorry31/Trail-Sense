@@ -1789,6 +1789,7 @@
     <string name="no_offline_maps">No offline maps</string>
     <string name="unsupported_offline_map_file">Unsupported map file</string>
     <string name="mapsforge">Mapsforge</string>
+    <string name="vector_maps">Vector maps</string>
     <string name="show_labels">Show labels</string>
     <string name="planet_mercury">Mercury</string>
     <string name="planet_venus">Venus</string>
@@ -1893,7 +1894,7 @@
     <string name="show_modeled_tides">Show modeled tides on coastline</string>
     <string name="show_tide_phase">Show tide phase</string>
     <string name="map_layer_base_map_description">Low resolution colored world map</string>
-    <string name="map_layer_mapsforge_description">Your saved Mapsforge maps</string>
+    <string name="map_layer_vector_maps_description">Your saved vector maps</string>
     <string name="map_layer_elevation_description">Color-coded elevations from the digital elevation model</string>
     <string name="map_layer_hillshade_description">Shaded terrain to visualize elevation changes</string>
     <string name="map_layer_ruggedness_description">Color-coded terrain ruggedness based on elevation change</string>

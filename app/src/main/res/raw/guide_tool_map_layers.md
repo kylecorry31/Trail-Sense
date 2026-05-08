@@ -18,8 +18,8 @@ Each layer has the following settings:
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
 
-## Mapsforge
-This layer shows visible Mapsforge maps from the Offline Maps tool.
+## Vector maps
+This layer shows visible vector maps from the Offline Maps tool.
 
 Settings:
 - **Manage maps**: Links to the Offline Maps tool.
