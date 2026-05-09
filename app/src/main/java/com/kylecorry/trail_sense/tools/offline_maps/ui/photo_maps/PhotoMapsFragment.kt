@@ -27,8 +27,8 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.M
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.DeleteMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.RenameMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
 import kotlin.math.absoluteValue
 
 class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {

@@ -58,7 +58,6 @@ object OfflineMapsToolRegistration : ToolRegistration {
             ),
             additionalNavigationIds = listOf(
                 R.id.photoMapsFragment,
-                R.id.offlineMapListFragment,
                 R.id.offlineMapViewFragment
             ),
             diagnostics = listOf(

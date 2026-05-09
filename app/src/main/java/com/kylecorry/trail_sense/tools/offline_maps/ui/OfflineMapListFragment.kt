@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.ui
 
 import android.net.Uri
 import android.os.Bundle
@@ -22,7 +22,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentPhotoMapListBinding
+import com.kylecorry.trail_sense.databinding.FragmentOfflineMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
@@ -38,37 +38,38 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MostRecentMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.NameMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.MapCleanupCommand
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateBlankMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromCameraCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromFileCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.ICreateMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupLoader
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.MapCleanupCommand
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.CreateMapGroupCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.DeleteMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.MoveMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.RenameMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.ResizeMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.ShowMapsDisclaimerCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.ToggleVisibilityMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.IMapMapper
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.MapAction
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.MapGroupAction
-import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapFileAction
-import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.EditOfflineMapAttributionCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.CreateMapGroupCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.MoveMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.ResizeMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.ShowMapsDisclaimerCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.ToggleVisibilityMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.IMapMapper
+import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapAction
+import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapGroupAction
+import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.OfflineMapFileAction
+import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.FragmentMapExportService
 
-class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
+class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
-    private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val mapRepo by lazy { MapRepo.Companion.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val mapService by lazy { MapService.getInstance(requireContext()) }
+    private val mapService by lazy { MapService.Companion.getInstance(requireContext()) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
     private lateinit var manager: GroupListManager<IMap>
     private lateinit var mapper: IMapMapper
@@ -90,8 +91,8 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentPhotoMapListBinding {
-        return FragmentPhotoMapListBinding.inflate(layoutInflater, container, false)
+    ): FragmentOfflineMapListBinding {
+        return FragmentOfflineMapListBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -151,7 +152,7 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
 
         manager.bind(binding.searchbox)
         manager.bind(binding.mapList, binding.mapListTitle.title, mapper) {
-            (it as MapGroup?)?.name ?: getString(R.string.photo_maps)
+            (it as MapGroup?)?.name ?: getString(R.string.offline_maps)
         }
 
         backPressedCallback = onBackPressed {

@@ -1,22 +1,19 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands
+package com.kylecorry.trail_sense.tools.offline_maps.ui.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapPickers
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 
-class MoveOfflineMapFileCommand(
-    private val context: Context
-) : CoroutineCommand<IMap> {
-    private val service = getAppService<OfflineMapFileService>()
-
+class MoveMapCommand(private val context: Context, private val service: MapService) :
+    CoroutineCommand<IMap> {
     override suspend fun execute(value: IMap) {
         val results = MapPickers.pickGroup(
             context,
@@ -24,9 +21,9 @@ class MoveOfflineMapFileCommand(
             context.getString(R.string.move),
             initialGroup = value.parentId
         ) {
-            it.filter { group ->
+            it.filter {
                 if (value is MapGroup) {
-                    group.id != value.id
+                    it.id != value.id
                 } else {
                     true
                 }
@@ -37,10 +34,10 @@ class MoveOfflineMapFileCommand(
             return
         }
 
-        if (value is MapGroup) {
-            service.add(value.copy(parentId = results.second?.id))
-        } else if (value is OfflineMapFile) {
-            service.add(value.copy(parentId = results.second?.id))
+        when (value) {
+            is MapGroup -> service.add(value.copy(parentId = results.second?.id))
+            is PhotoMap -> service.add(value.copy(parentId = results.second?.id))
+            is OfflineMapFile -> service.add(value.copy(parentId = results.second?.id))
         }
 
         val groupName = results.second?.name ?: context.getString(R.string.no_group)

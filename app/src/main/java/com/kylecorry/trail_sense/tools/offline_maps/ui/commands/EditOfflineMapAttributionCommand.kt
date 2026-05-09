@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands
+package com.kylecorry.trail_sense.tools.offline_maps.ui.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.pickers.CoroutinePickers

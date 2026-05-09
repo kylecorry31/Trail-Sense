@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps
+package com.kylecorry.trail_sense.tools.offline_maps.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
@@ -22,7 +22,7 @@ class OfflineMapFileListItemMapper(
 
     override fun map(value: OfflineMapFile): ListItem {
         return ListItem(
-            value.id,
+            value.id + 10000,
             value.name,
             icon = ResourceListIcon(
                 R.drawable.maps,

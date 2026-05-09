@@ -18,7 +18,7 @@ object MapFileTypeUtils {
         }
     }
 
-    suspend fun getExtension(type: OfflineMapFileType): String {
+    fun getExtension(type: OfflineMapFileType): String {
         return when (type) {
             OfflineMapFileType.Mapsforge -> "map"
         }

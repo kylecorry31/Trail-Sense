@@ -1,19 +1,17 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands
+package com.kylecorry.trail_sense.tools.offline_maps.ui.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 
-class CreateOfflineMapFileGroupCommand(
-    private val context: Context
+class CreateMapGroupCommand(
+    private val context: Context,
+    private val mapService: MapService
 ) : CoroutineCommand<Long?> {
-    private val service = getAppService<OfflineMapFileService>()
-
     override suspend fun execute(value: Long?) {
         val name = onMain {
             CoroutinePickers.text(
@@ -21,7 +19,7 @@ class CreateOfflineMapFileGroupCommand(
                 context.getString(R.string.name),
                 hint = context.getString(R.string.name)
             )
-        }?.trim()?.takeIf { it.isNotBlank() } ?: return
-        service.add(MapGroup(0, name, value))
+        } ?: return
+        mapService.add(MapGroup(0, name, value))
     }
 }

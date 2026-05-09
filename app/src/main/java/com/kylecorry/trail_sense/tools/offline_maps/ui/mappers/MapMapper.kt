@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers
+package com.kylecorry.trail_sense.tools.offline_maps.ui.mappers
 
 import android.content.Context
 import android.graphics.Bitmap

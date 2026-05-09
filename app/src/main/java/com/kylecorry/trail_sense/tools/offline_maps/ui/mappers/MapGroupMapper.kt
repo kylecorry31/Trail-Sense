@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps
+package com.kylecorry.trail_sense.tools.offline_maps.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.views.list.ListItem
@@ -10,17 +10,18 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 
-class OfflineMapFileGroupListItemMapper(
+class MapGroupMapper(
     private val context: Context,
-    private val actionHandler: (MapGroup, OfflineMapFileGroupAction) -> Unit
-) : ListItemMapper<IMap> {
+    private val actionHandler: (MapGroup, MapGroupAction) -> Unit
+) :
+    ListItemMapper<IMap> {
     override fun map(value: IMap): ListItem {
         val group = value as MapGroup
         return ListItem(
-            -group.id,
-            group.name,
+            -value.id,
+            value.name,
             context.resources.getQuantityString(
-                R.plurals.offline_map_group_summary,
+                R.plurals.map_group_summary,
                 group.count ?: 0,
                 group.count ?: 0
             ),
@@ -32,23 +33,23 @@ class OfflineMapFileGroupListItemMapper(
             ),
             menu = listOf(
                 ListMenuItem(context.getString(R.string.show_all)) {
-                    actionHandler(group, OfflineMapFileGroupAction.ShowAll)
+                    actionHandler(group, MapGroupAction.ShowAll)
                 },
                 ListMenuItem(context.getString(R.string.hide_all)) {
-                    actionHandler(group, OfflineMapFileGroupAction.HideAll)
+                    actionHandler(group, MapGroupAction.HideAll)
                 },
                 ListMenuItem(context.getString(R.string.rename)) {
-                    actionHandler(group, OfflineMapFileGroupAction.Rename)
+                    actionHandler(group, MapGroupAction.Rename)
                 },
                 ListMenuItem(context.getString(R.string.move_to)) {
-                    actionHandler(group, OfflineMapFileGroupAction.Move)
+                    actionHandler(value, MapGroupAction.Move)
                 },
                 ListMenuItem(context.getString(R.string.delete)) {
-                    actionHandler(group, OfflineMapFileGroupAction.Delete)
+                    actionHandler(group, MapGroupAction.Delete)
                 },
             )
         ) {
-            actionHandler(group, OfflineMapFileGroupAction.View)
+            actionHandler(group, MapGroupAction.View)
         }
     }
 }

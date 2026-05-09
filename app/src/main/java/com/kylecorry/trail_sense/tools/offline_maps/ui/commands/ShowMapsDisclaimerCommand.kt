@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands
+package com.kylecorry.trail_sense.tools.offline_maps.ui.commands
 
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.R

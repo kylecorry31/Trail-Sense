@@ -22,12 +22,11 @@ import com.kylecorry.trail_sense.tools.map.ui.MapView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
-import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.DeleteOfflineMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.EditOfflineMapAttributionCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.RenameOfflineMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class OfflineMapViewFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_view) {
+class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_view) {
 
     override fun update() {
         val context = useAndroidContext()
@@ -110,7 +109,7 @@ class OfflineMapViewFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
     private fun rename(map: OfflineMapFile, onRenamed: () -> Unit) {
         inBackground {
-            RenameOfflineMapCommand(requireContext()).execute(map)
+            DeleteMapCommand(requireContext(), getAppService()).execute(map)
             onMain {
                 onRenamed()
             }
@@ -129,7 +128,7 @@ class OfflineMapViewFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     private fun delete(map: OfflineMapFile) {
         inBackground {
             val repo = getAppService<MapRepo>()
-            DeleteOfflineMapCommand(requireContext()).execute(map)
+            DeleteMapCommand(requireContext(), getAppService()).execute(map)
             if (repo.getVectorMap(map.id) == null) {
                 findNavController().popBackStack()
             }

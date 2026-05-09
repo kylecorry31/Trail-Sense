@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers
+package com.kylecorry.trail_sense.tools.offline_maps.ui.mappers
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
@@ -9,8 +9,6 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapFileAction
-import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapFileListItemMapper
 
 class IMapMapper(
     gps: IGPS,
