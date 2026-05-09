@@ -1391,7 +1391,7 @@
     <string name="planet_neptune">海王星</string>
     <string name="load_pdf_tiles">加载 PDF 文件</string>
     <string name="load_pdf_tiles_summary">PDF 地图显示会更清晰，但可能影响性能</string>
-    <string name="map_tool_disclaimer">此工具不包含内置街道地图、卫星图像或步道数据。它不从互联网下载地图。要显示地图背景，必须用“照片地图”工具导入自己的图像。如果您需要实时或预加载的街道、卫星或步道地图，请改用专业的地图应用程序。</string>
+    <string name="map_tool_disclaimer">此工具不包含内置街道地图、卫星图像或步道数据。它不从互联网下载地图。要显示地图背景，必须用“离线地图”工具导入自己的图像。如果您需要实时或预加载的街道、卫星或步道地图，请改用专业的地图应用程序。</string>
     <string name="open_settings">打开设置</string>
     <string name="basemap">基础地图</string>
     <string name="show_gps_accuracy">显示 GPS 精度</string>
@@ -1581,4 +1581,5 @@
     <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
     <string name="offline_map_file">文件 (.map)</string>
     <string name="offline_maps_disclaimer">地图文件不包含在 Trail Sense 中必须单独下载。此工具可以预览地图文件，但你应该使用地图或导航工具来使用它们。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 找到可用地图的列表</string>
+    <string name="map_layer_mapsforge_description">你保存了 Mapsforge 地图</string>
 </resources>
