@@ -15,6 +15,7 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -28,7 +29,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibra
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 
 class CreateBlankMapCommand(
     private val context: Context,
@@ -39,6 +40,7 @@ class CreateBlankMapCommand(
     private val location = LocationSubsystem.getInstance(context)
     private val prefs = UserPreferences(context)
     private val formatter = FormatService.getInstance(context)
+    private val service = getAppService<MapService>()
 
     override suspend fun execute(): PhotoMap? = onIO {
         val calibration = getCalibration() ?: return@onIO null
@@ -46,8 +48,6 @@ class CreateBlankMapCommand(
         onMain {
             loadingIndicator.show()
         }
-
-        val repo = MapRepo.getInstance(context)
 
         val file = files.createTemp(".webp")
         val bitmap = createBitmap(100, 100)
@@ -58,7 +58,6 @@ class CreateBlankMapCommand(
         try {
             val map = CreateMapFromUriCommand(
                 context,
-                repo,
                 file.toUri(),
                 loadingIndicator
             ).execute() as? PhotoMap
@@ -74,7 +73,7 @@ class CreateBlankMapCommand(
                 visible = false
             )
 
-            calibrated?.let { repo.add(it) }
+            calibrated?.let { service.add(it) }
 
             calibrated
         } finally {

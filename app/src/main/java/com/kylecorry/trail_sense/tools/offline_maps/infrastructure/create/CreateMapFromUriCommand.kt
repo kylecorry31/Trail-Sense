@@ -9,11 +9,9 @@ import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class CreateMapFromUriCommand(
     private val context: Context,
-    private val repo: MapRepo,
     private val uri: Uri,
     private val loadingIndicator: ILoadingIndicator
 ) : ICreateMapCommand {
@@ -37,11 +35,11 @@ class CreateMapFromUriCommand(
             }
             val type = files.getMimeType(uri) ?: getMimeTypeFromExtension(uri)
             if (type == MIME_TYPE_PDF) {
-                CreateMapFromPDFCommand(context, repo, name).execute(uri)
+                CreateMapFromPDFCommand(context, name).execute(uri)
             } else if (type?.startsWith(MIME_TYPE_IMAGE_PREFIX) == true) {
-                CreateMapFromImageCommand(context, repo, name).execute(uri)
+                CreateMapFromImageCommand(context, name).execute(uri)
             } else {
-                CreateVectorMapFromFileCommand(repo, name).execute(uri)
+                CreateVectorMapFromFileCommand(name).execute(uri)
             }
         } finally {
             onMain {
