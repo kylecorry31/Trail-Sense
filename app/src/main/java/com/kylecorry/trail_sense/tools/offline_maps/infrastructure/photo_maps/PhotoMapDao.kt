@@ -9,7 +9,7 @@ import androidx.room.Update
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
 
 @Dao
-interface MapDao {
+interface PhotoMapDao {
     @Query("SELECT * FROM maps")
     suspend fun getAll(): List<PhotoMapEntity>
 

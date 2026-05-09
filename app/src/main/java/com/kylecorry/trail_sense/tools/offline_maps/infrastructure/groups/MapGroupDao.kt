@@ -16,7 +16,7 @@ interface MapGroupDao {
     @Query("SELECT * FROM map_groups WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): MapGroupEntity?
 
-    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(group: MapGroupEntity): Long
 
     @Delete

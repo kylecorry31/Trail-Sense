@@ -76,6 +76,10 @@ class MapService private constructor(private val repo: MapRepo) {
         return repo.getPhotoMaps()
     }
 
+    suspend fun getAllVectorMaps(): List<VectorMap> {
+        return repo.getVectorMaps()
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: MapService? = null
@@ -83,7 +87,7 @@ class MapService private constructor(private val repo: MapRepo) {
         @Synchronized
         fun getInstance(context: Context): MapService {
             if (instance == null) {
-                instance = MapService(MapRepo.Companion.getInstance(context))
+                instance = MapService(MapRepo.getInstance(context))
             }
             return instance!!
         }

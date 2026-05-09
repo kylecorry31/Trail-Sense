@@ -6,12 +6,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 
 class EditOfflineMapAttributionCommand(
     private val context: Context
 ) : CoroutineCommand<VectorMap> {
-    private val service = getAppService<OfflineMapFileService>()
+    private val service = getAppService<MapService>()
 
     override suspend fun execute(value: VectorMap) {
         val attribution = CoroutinePickers.text(

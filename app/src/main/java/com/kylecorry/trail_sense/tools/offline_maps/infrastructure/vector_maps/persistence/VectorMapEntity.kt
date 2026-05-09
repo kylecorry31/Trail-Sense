@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import java.time.Instant
 
 @Entity(tableName = "offline_map_files", indices = [Index(value = ["parent"])])
-data class OfflineMapFileEntity(
+data class VectorMapEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "type") val type: Long,
     @ColumnInfo(name = "path") val path: String,
@@ -51,8 +51,8 @@ data class OfflineMapFileEntity(
     }
 
     companion object {
-        fun from(file: VectorMap): OfflineMapFileEntity {
-            return OfflineMapFileEntity(
+        fun from(file: VectorMap): VectorMapEntity {
+            return VectorMapEntity(
                 file.name,
                 file.type.id,
                 file.path,

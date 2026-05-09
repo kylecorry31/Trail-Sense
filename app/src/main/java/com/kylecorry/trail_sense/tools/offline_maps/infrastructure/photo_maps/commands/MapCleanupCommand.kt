@@ -13,6 +13,32 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
 
 
     override suspend fun execute(): Boolean = onIO {
+        val didDeletePhotoMaps = cleanupPhotoMaps()
+        val didDeleteVectorMaps = cleanupVectorMaps()
+        didDeletePhotoMaps || didDeleteVectorMaps
+    }
+
+    private suspend fun cleanupVectorMaps(): Boolean {
+        val maps = service.getAllVectorMaps()
+        val allFiles = files.list(OFFLINE_MAPS_DIRECTORY).map { "$OFFLINE_MAPS_DIRECTORY/${it.name}" }
+
+        // Delete files without a map
+        val mapFiles = maps.map { it.path }
+        val orphanedFiles = allFiles.filter { !mapFiles.contains(it) }
+        orphanedFiles.forEach {
+            files.delete(it)
+        }
+
+        // Delete maps without a file
+        val toDelete = maps.filter { !allFiles.contains(it.path) }
+        toDelete.forEach {
+            service.delete(it)
+        }
+
+        return toDelete.isNotEmpty()
+    }
+
+    private suspend fun cleanupPhotoMaps(): Boolean {
         val maps = service.getAllPhotoMaps()
         val allFiles = files.list("maps").map { "maps/${it.name}" }
 
@@ -30,6 +56,10 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
             service.delete(it)
         }
 
-        toDelete.isNotEmpty()
+        return toDelete.isNotEmpty()
+    }
+
+    companion object {
+        private const val OFFLINE_MAPS_DIRECTORY = "offline_maps"
     }
 }

@@ -39,10 +39,10 @@ import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupDao
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapDao
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.RebaseMapCalibrationWorker
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileDao
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackItemDao
@@ -65,7 +65,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, OfflineMapFileEntity::class],
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class],
     version = 55,
     exportSchema = false
 )
@@ -79,7 +79,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun beaconDao(): BeaconDao
     abstract fun beaconGroupDao(): BeaconGroupDao
     abstract fun noteDao(): NoteDao
-    abstract fun mapDao(): MapDao
+    abstract fun photoMapDao(): PhotoMapDao
     abstract fun mapGroupDao(): MapGroupDao
     abstract fun batteryDao(): BatteryDao
     abstract fun cloudDao(): CloudReadingDao
@@ -93,7 +93,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cachedTileDao(): CachedTileDao
     abstract fun pluginDao(): PluginDao
     abstract fun pluginRegistrationDao(): PluginRegistrationDao
-    abstract fun offlineMapFileDao(): OfflineMapFileDao
+    abstract fun vectorMapDao(): VectorMapDao
 
     companion object {
 

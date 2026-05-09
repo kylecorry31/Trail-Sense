@@ -35,10 +35,10 @@ class CreateMapFromUriCommand(
             onMain {
                 loadingIndicator.show()
             }
-            val type = files.getMimeType(uri)
-            if (type == "application/pdf") {
+            val type = files.getMimeType(uri) ?: getMimeTypeFromExtension(uri)
+            if (type == MIME_TYPE_PDF) {
                 CreateMapFromPDFCommand(context, repo, name).execute(uri)
-            } else if (type?.startsWith("image/") == true) {
+            } else if (type?.startsWith(MIME_TYPE_IMAGE_PREFIX) == true) {
                 CreateMapFromImageCommand(context, repo, name).execute(uri)
             } else {
                 CreateVectorMapFromFileCommand(repo, name).execute(uri)
@@ -48,5 +48,24 @@ class CreateMapFromUriCommand(
                 loadingIndicator.hide()
             }
         }
+    }
+
+    private fun getMimeTypeFromExtension(uri: Uri): String? {
+        val filename = files.getFileName(uri, withExtension = true, fallbackToPathName = true)
+            ?: uri.lastPathSegment
+            ?: return null
+
+        return when (filename.substringAfterLast('.', "").lowercase()) {
+            "pdf" -> MIME_TYPE_PDF
+            "jpg", "jpeg" -> "image/jpeg"
+            "png" -> "image/png"
+            "webp" -> "image/webp"
+            else -> null
+        }
+    }
+
+    private companion object {
+        private const val MIME_TYPE_PDF = "application/pdf"
+        private const val MIME_TYPE_IMAGE_PREFIX = "image/"
     }
 }
