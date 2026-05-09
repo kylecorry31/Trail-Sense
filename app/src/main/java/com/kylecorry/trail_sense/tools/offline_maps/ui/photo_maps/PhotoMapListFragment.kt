@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
@@ -59,6 +60,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.IMapMa
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.MapAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.MapGroupAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapFileAction
+import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.EditOfflineMapAttributionCommand
 
 class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
 
@@ -232,16 +234,21 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
     private fun setGroupVisibility(group: MapGroup, visible: Boolean) {
         inBackground {
             Alerts.withLoading(requireContext(), getString(R.string.loading)) {
-                val maps = onIO {
-                    mapService.loader.getChildren(group.id, null).filterIsInstance<PhotoMap>()
-                }
+                val maps = mapService.loader.getChildren(group.id, null)
 
-                onIO {
-                    maps
-                        .asSequence()
-                        .filter { it.visible != visible }
-                        .forEach { mapService.add(it.copy(visible = visible)) }
-                }
+                // Photo Maps
+                maps
+                    .asSequence()
+                    .filterIsInstance<PhotoMap>()
+                    .filter { it.visible != visible }
+                    .forEach { mapService.add(it.copy(visible = visible)) }
+
+                // Vector Maps
+                maps
+                    .asSequence()
+                    .filterIsInstance<OfflineMapFile>()
+                    .filter { it.visible != visible }
+                    .forEach { mapService.add(it.copy(visible = visible)) }
 
                 onMain {
                     manager.refresh()
@@ -264,7 +271,14 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
     }
 
     private fun onVectorMapAction(map: OfflineMapFile, action: OfflineMapFileAction) {
-        // Do nothing
+        when (action) {
+            OfflineMapFileAction.View -> view(map)
+            OfflineMapFileAction.Rename -> rename(map)
+            OfflineMapFileAction.EditAttribution -> editAttribution(map)
+            OfflineMapFileAction.Delete -> delete(map)
+            OfflineMapFileAction.Move -> move(map)
+            OfflineMapFileAction.ToggleVisibility -> toggleVisibility(map)
+        }
     }
 
     private fun resize(map: PhotoMap) {
@@ -291,6 +305,13 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
         }
     }
 
+    private fun editAttribution(map: OfflineMapFile) {
+        inBackground {
+            EditOfflineMapAttributionCommand(requireContext()).execute(map)
+            manager.refresh()
+        }
+    }
+
     private fun move(map: IMap) {
         inBackground {
             MoveMapCommand(requireContext(), mapService).execute(map)
@@ -313,13 +334,19 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
     }
 
     private fun view(map: IMap) {
-        if (map is MapGroup) {
-            manager.open(map.id)
-        } else {
-            findNavController().navigate(
+        when (map) {
+            is MapGroup -> manager.open(map.id)
+            is PhotoMap -> findNavController().navigate(
                 R.id.action_mapList_to_maps,
                 Bundle().apply {
                     putLong("mapId", map.id)
+                }
+            )
+
+            is OfflineMapFile -> findNavController().navigateWithAnimation(
+                R.id.offlineMapViewFragment,
+                Bundle().apply {
+                    putLong("offline_map_file_id", map.id)
                 }
             )
         }
