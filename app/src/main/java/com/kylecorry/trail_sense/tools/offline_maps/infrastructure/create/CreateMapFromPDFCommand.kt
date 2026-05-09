@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoo
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import java.io.IOException
+import java.time.Instant
 import java.util.UUID
 
 class CreateMapFromPDFCommand(
@@ -103,7 +104,8 @@ class CreateMapFromPDFCommand(
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
                 fileSize,
                 projection = projection
-            )
+            ),
+            createdOn = Instant.now()
         )
 
         val id = repo.add(map)

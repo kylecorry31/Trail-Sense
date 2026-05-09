@@ -293,7 +293,6 @@
     <ID>LongMethod:Hooks.kt:fun AndromedaFragment.useNavigationSensors: NavigationSensorValues</ID>
     <ID>LongMethod:LandModel.kt:LandModel$suspend fun getCoastalLocations: List&lt;Coordinate&gt;</ID>
     <ID>LongMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
-    <ID>LongMethod:MapMapper.kt:MapMapper$override fun map: ListItem</ID>
     <ID>LongMethod:MapToolWidgetView.kt:MapToolWidgetView$override suspend fun getPopulatedView: RemoteViews</ID>
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onUpdate</ID>
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onViewCreated</ID>
@@ -304,6 +303,7 @@
     <ID>LongMethod:PathOverviewFragment.kt:PathOverviewFragment$private fun onPathChanged</ID>
     <ID>LongMethod:PathsSettingsFragment.kt:PathsSettingsFragment$override fun onCreatePreferences</ID>
     <ID>LongMethod:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$override fun onTouchEvent: Boolean</ID>
+    <ID>LongMethod:PhotoMapListItemMapper.kt:PhotoMapListItemMapper$override fun map: ListItem</ID>
     <ID>LongMethod:PhotoMapRegionLoader.kt:PhotoMapRegionLoader$suspend fun load: Bitmap?</ID>
     <ID>LongMethod:PlaceBeaconFragment.kt:PlaceBeaconFragment$override fun onViewCreated</ID>
     <ID>LongMethod:RulerFragment.kt:RulerFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
@@ -449,8 +449,8 @@
     <ID>SwallowedException:FieldGuidePageListItemMapper.kt:FieldGuidePageListItemMapper$e: Exception</ID>
     <ID>SwallowedException:FileSubsystem.kt:FileSubsystem$e: Exception</ID>
     <ID>SwallowedException:GPSDiagnosticScanner.kt:GPSDiagnosticScanner$e: Exception</ID>
-    <ID>SwallowedException:MapMapper.kt:MapMapper$e: Exception</ID>
     <ID>SwallowedException:MaskedProgressView.kt:MaskedProgressView$e: Exception</ID>
+    <ID>SwallowedException:PhotoMapListItemMapper.kt:PhotoMapListItemMapper$e: Exception</ID>
     <ID>SwallowedException:PreferenceMigrator.kt:PreferenceMigrator.Companion$e: Exception</ID>
     <ID>SwallowedException:RebaseMapCalibrationWorker.kt:RebaseMapCalibrationWorker$e: Exception</ID>
     <ID>SwallowedException:RestoreCommand.kt:RestoreCommand$e: BackupService.InvalidBackupException</ID>
@@ -476,9 +476,9 @@
     <ID>TooGenericExceptionCaught:GeoJsonLayer.kt:GeoJsonLayer$e: Throwable</ID>
     <ID>TooGenericExceptionCaught:ImageTile.kt:ImageTile$e: Throwable</ID>
     <ID>TooGenericExceptionCaught:MapExportService.kt:MapExportService$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:MapMapper.kt:MapMapper$e: Exception</ID>
     <ID>TooGenericExceptionCaught:MapViewLayerManager.kt:MapViewLayerManager$e: Exception</ID>
     <ID>TooGenericExceptionCaught:MaskedProgressView.kt:MaskedProgressView$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PhotoMapListItemMapper.kt:PhotoMapListItemMapper$e: Exception</ID>
     <ID>TooGenericExceptionCaught:PreferenceMigrator.kt:PreferenceMigrator.Companion$e: Exception</ID>
     <ID>TooGenericExceptionCaught:QuickActionWhistle.kt:QuickActionWhistle$e: Exception</ID>
     <ID>TooGenericExceptionCaught:RebaseMapCalibrationWorker.kt:RebaseMapCalibrationWorker$e: Exception</ID>
