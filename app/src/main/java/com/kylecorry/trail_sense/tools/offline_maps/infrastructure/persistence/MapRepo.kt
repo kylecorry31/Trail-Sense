@@ -74,12 +74,7 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun add(map: PhotoMap): Long = onIO {
-        val newId = if (map.id == 0L) {
-            photoMapDao.insert(PhotoMapEntity.from(map))
-        } else {
-            photoMapDao.update(PhotoMapEntity.from(map))
-            map.id
-        }
+        val newId = photoMapDao.upsert(PhotoMapEntity.from(map))
         invalidatePhotoMapCache(newId)
         newId
     }
