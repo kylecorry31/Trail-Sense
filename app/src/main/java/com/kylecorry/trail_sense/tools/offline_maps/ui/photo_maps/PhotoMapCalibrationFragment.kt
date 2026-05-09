@@ -1,0 +1,444 @@
+package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import androidx.core.view.isVisible
+import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
+import com.kylecorry.sol.math.trigonometry.Trigonometry
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
+import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationManager
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidationResult
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidator
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
+
+class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
+
+    private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
+
+    private var mapId = 0L
+    private var map: PhotoMap? = null
+
+    private var calibrationIndex = 0
+    private var maxPoints = 2
+    private var onDone: () -> Unit = {}
+    private var showRotation: (Float) -> Unit = {}
+    private val rotationCalculator = MapRotationCalculator()
+    private var originalRotation = 0f
+
+    private lateinit var backCallback: OnBackPressedCallback
+
+    private val manager = MapCalibrationManager(maxPoints) {
+        updateMapCalibration()
+    }
+
+    // Sensors
+    private val sensorService by lazy { SensorService(requireContext()) }
+    private val gps by lazy { sensorService.getGPS() }
+    private val compass by lazy { sensorService.getCompass() }
+
+    private val declinationStrategy by lazy {
+        GPSDeclinationStrategy(gps)
+    }
+
+    private var showPreview = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mapId = requireArguments().getLong("mapId")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Populate the last known location
+        binding.calibrationMap.useDensityPixelsForZoom = !prefs.photoMaps.highDetailMode
+        binding.calibrationMap.userLocation = gps.location
+        binding.calibrationMap.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
+
+        observe(gps) {
+            binding.calibrationMap.userLocation = gps.location
+            binding.calibrationMap.userLocationAccuracy =
+                gps.horizontalAccuracy?.let { Distance.meters(it) }
+            compass.declination = declinationStrategy.getDeclination()
+        }
+
+        observe(compass) {
+            binding.calibrationMap.userAzimuth = compass.bearing
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.calibrationMap.stop()
+    }
+
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentPhotoMapCalibrationBinding {
+        return FragmentPhotoMapCalibrationBinding.inflate(layoutInflater, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.map_calibration),
+            getString(R.string.map_calibration_instructions),
+            getString(R.string.map_calibration_shown),
+            cancelText = null
+        )
+
+        binding.mapCalibrationTitle.setOnClickListener {
+            dialog(
+                getString(R.string.map_calibration),
+                getString(R.string.map_calibration_instructions),
+                cancelText = null
+            )
+        }
+
+        reloadMap()
+
+        binding.calibrationNext.setOnClickListener {
+            if (calibrationIndex == (maxPoints - 1)) {
+                inBackground {
+                    map = map?.let { save(it) }
+                    manager.reset(map?.calibration?.calibrationPoints ?: emptyList())
+                    backCallback.remove()
+                    onDone()
+                }
+            } else {
+                calibrationIndex++
+                selectPoint(calibrationIndex)
+            }
+        }
+
+        binding.calibrationPrev.setOnClickListener {
+            calibrationIndex--
+            selectPoint(calibrationIndex)
+        }
+
+
+        binding.mapCalibrationCoordinate.setOnCoordinateChangeListener {
+            manager.calibrate(calibrationIndex, it)
+        }
+
+        binding.calibrationMap.onMapClick = {
+            manager.calibrate(calibrationIndex, it)
+        }
+
+        binding.previewButton.setOnClickListener {
+            val validation = validateCalibration()
+            if (validation == MapCalibrationValidationResult.Valid) {
+                setPreviewMode(!showPreview)
+            } else {
+                updateCompletionState()
+            }
+        }
+
+        CustomUiUtils.setButtonState(binding.zoomInBtn, false)
+        CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
+
+        binding.zoomOutBtn.setOnClickListener {
+            binding.calibrationMap.zoomBy(0.5f)
+        }
+
+        binding.zoomInBtn.setOnClickListener {
+            binding.calibrationMap.zoomBy(2f)
+        }
+
+        backCallback = promptIfUnsavedChanges {
+            hasChanges()
+        }
+    }
+
+    fun setOnCompleteListener(listener: () -> Unit) {
+        onDone = listener
+    }
+
+    fun setOnRotationListener(listener: (Float) -> Unit) {
+        showRotation = listener
+    }
+
+    fun reloadMap() {
+        inBackground {
+            map = mapRepo.getPhotoMap(mapId)
+            onMain {
+                map?.let(::onMapLoad)
+            }
+        }
+    }
+
+    private fun onMapLoad(map: PhotoMap) {
+        this.map = map
+        originalRotation = map.calibration.rotation
+        binding.calibrationMap.mapAzimuth = 0f
+        binding.calibrationMap.keepMapUp = true
+        binding.calibrationMap.showMap(map)
+        calibrateMap()
+    }
+
+    private fun updateMapCalibration() {
+        if (!isBound) {
+            return
+        }
+
+        val isCalibrated = isFullyCalibrated()
+        if (binding.previewButton.isVisible != isCalibrated) {
+            binding.previewButton.isVisible = isCalibrated
+            CustomUiUtils.setButtonState(binding.previewButton, showPreview)
+        }
+
+        map = map?.copy(
+            calibration = map!!.calibration.copy(
+                calibrationPoints = manager.getCalibration(false)
+            )
+        )
+
+        val validation = validateCalibration()
+        val isValid = validation == MapCalibrationValidationResult.Valid
+        binding.previewButton.isEnabled = isValid
+
+        if ((!isCalibrated || !isValid) && showPreview) {
+            setPreviewMode(false)
+        }
+
+        map = map?.copy(
+            calibration = map!!.calibration.copy(
+                rotation = if (showPreview) rotationCalculator.calculate(map!!) else originalRotation
+            )
+        )
+        val map = map ?: return
+        binding.calibrationMap.mapAzimuth = 0f
+        binding.calibrationMap.keepMapUp = true
+        binding.calibrationMap.showMap(map)
+        binding.calibrationMap.highlightedIndex = calibrationIndex
+        updateCompletionState()
+        updateRotation()
+    }
+
+    private fun updateRotation() {
+        val map = map ?: return
+        val rotation = if (map.isCalibrated) {
+            rotationCalculator.calculate(map)
+        } else {
+            map.baseRotation().toFloat()
+        }
+
+        val baseRotation = rotation.roundNearestAngle(90f)
+
+        showRotation(Trigonometry.deltaAngle(baseRotation, rotation))
+    }
+
+
+    private fun calibrateMap() {
+        map ?: return
+        loadCalibrationPointsFromMap()
+
+        // Find the first uncalibrated point
+        calibrationIndex = manager.getNextUncalibratedIndex().coerceAtLeast(0)
+
+        selectPoint(calibrationIndex)
+    }
+
+    fun recenter() {
+        binding.calibrationMap.recenter()
+    }
+
+    private fun selectPoint(index: Int) {
+        binding.mapCalibrationTitle.text =
+            getString(R.string.calibrate_map_point, index + 1, maxPoints)
+        binding.mapCalibrationCoordinate.coordinate = if (manager.isCalibrated(index)) {
+            manager.getCalibrationPoint(index).location
+        } else {
+            null
+        }
+        binding.mapCalibrationBottomPanel.isVisible = true
+        binding.calibrationNext.text =
+            if (index == (maxPoints - 1)) getString(R.string.done) else getString(R.string.next)
+        binding.calibrationPrev.isVisible = index == 1
+
+        updateCompletionState()
+    }
+
+    private fun updateCompletionState() {
+        val validation = validateCalibration()
+        val notice = getCalibrationNotice(validation)
+        updateCalibrationTitle(notice)
+
+        val isValid = validation == MapCalibrationValidationResult.Valid
+        binding.previewButton.isEnabled = isValid
+
+        // If it is calibrated, replace the info icon with a green checkmark
+        if (notice.isNotBlank()) {
+            binding.mapCalibrationTitle.setCompoundDrawables(
+                Resources.dp(requireContext(), 24f).toInt(),
+                left = R.drawable.ic_alert
+            )
+            Colors.setImageColor(binding.mapCalibrationTitle, getErrorColor())
+        } else if (manager.isCalibrated(calibrationIndex)) {
+            binding.mapCalibrationTitle.setCompoundDrawables(
+                Resources.dp(requireContext(), 24f).toInt(),
+                left = R.drawable.ic_check_outline
+            )
+            Colors.setImageColor(binding.mapCalibrationTitle, AppColor.Green.color)
+        } else {
+            binding.mapCalibrationTitle.setCompoundDrawables(
+                Resources.dp(requireContext(), 24f).toInt(),
+                left = R.drawable.ic_info
+            )
+            Colors.setImageColor(
+                binding.mapCalibrationTitle,
+                Resources.androidTextColorSecondary(requireContext())
+            )
+        }
+    }
+
+    private fun setPreviewMode(enabled: Boolean) {
+        if (showPreview == enabled) {
+            return
+        }
+
+        CustomUiUtils.setButtonState(binding.previewButton, enabled)
+
+        showPreview = enabled
+        updateMapCalibration()
+
+        binding.calibrationMap.stop()
+
+        val layers = if (enabled) listOf(
+            PathGeoJsonSource.SOURCE_ID,
+            MyLocationGeoJsonSource.SOURCE_ID,
+            BeaconGeoJsonSource.SOURCE_ID
+        ) else emptyList()
+        inBackground {
+            binding.calibrationMap.setLayersWithPreferences(
+                OfflineMapsToolRegistration.PHOTO_MAPS_ID,
+                layers
+            )
+
+            if (showPreview) {
+                binding.calibrationMap.start()
+            }
+        }
+
+    }
+
+    private fun isFullyCalibrated(): Boolean {
+        return manager.getCalibration(true).size == maxPoints
+    }
+
+    private fun validateCalibration(): MapCalibrationValidationResult {
+        return if (map != null && isFullyCalibrated()) {
+            MapCalibrationValidator.validate(map!!)
+        } else {
+            MapCalibrationValidationResult.Uncalibrated
+        }
+    }
+
+    private fun getCalibrationNotice(result: MapCalibrationValidationResult): String {
+        return when (result) {
+            MapCalibrationValidationResult.Valid -> ""
+            MapCalibrationValidationResult.Uncalibrated -> ""
+            MapCalibrationValidationResult.SamePixel ->
+                getString(R.string.map_calibration_error_same_pixel)
+
+            MapCalibrationValidationResult.SameImageAxis ->
+                getString(R.string.map_calibration_error_same_image_axis)
+
+            MapCalibrationValidationResult.SameLocation ->
+                getString(R.string.map_calibration_error_same_location)
+
+            MapCalibrationValidationResult.ImplausibleScale ->
+                getString(R.string.map_calibration_error_implausible_scale)
+        }
+    }
+
+    private fun updateCalibrationTitle(notice: String) {
+        val title = getString(R.string.calibrate_map_point, calibrationIndex + 1, maxPoints)
+        binding.mapCalibrationTitle.text = if (notice.isBlank()) {
+            title
+        } else {
+            buildSpannedString {
+                append(title)
+                appendLine()
+                color(getErrorColor()) {
+                    append(notice)
+                }
+            }
+        }
+    }
+
+    private fun getErrorColor(): Int {
+        return Resources.getAndroidColorAttr(
+            requireContext(),
+            androidx.appcompat.R.attr.colorError
+        )
+    }
+
+    private suspend fun save(map: PhotoMap): PhotoMap {
+        var updated = mapRepo.getPhotoMap(map.id) ?: return map
+        updated =
+            updated.copy(calibration = updated.calibration.copy(calibrationPoints = manager.getCalibration()))
+        mapRepo.add(updated)
+        return updated
+    }
+
+    private fun loadCalibrationPointsFromMap() {
+        val map = map ?: return
+        manager.reset(map.calibration.calibrationPoints)
+    }
+
+    private fun hasChanges(): Boolean {
+        return manager.hasChanges()
+    }
+
+    companion object {
+        fun create(
+            mapId: Long,
+            showRotation: (rotation: Float) -> Unit = {},
+            onComplete: () -> Unit = {}
+        ): PhotoMapCalibrationFragment {
+            return PhotoMapCalibrationFragment().apply {
+                arguments = Bundle().apply {
+                    putLong("mapId", mapId)
+                }
+                setOnRotationListener(showRotation)
+                setOnCompleteListener(onComplete)
+            }
+        }
+    }
+
+}

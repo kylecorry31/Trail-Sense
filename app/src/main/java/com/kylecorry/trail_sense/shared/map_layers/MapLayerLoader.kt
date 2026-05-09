@@ -38,15 +38,14 @@ class MapLayerLoader(context: Context) {
 suspend fun MapLayerLoader.getAttribution(context: Context, layerIds: List<String>): CharSequence? {
     val definitions = getDefinitions()
     val markdown = AppServiceRegistry.get<MarkdownService>()
-    val attributions = layerIds.mapNotNull { layerId ->
-        val attribution = definitions[layerId]?.attribution
-            ?: return@mapNotNull null
-        if (attribution.alwaysShow) {
-            attribution.attribution
-        } else {
-            null
-        }
-    }.distinct()
+    val attributions = layerIds.flatMap { layerId ->
+        listOfNotNull(
+            definitions[layerId]?.attribution,
+            definitions[layerId]?.attributionLoader?.invoke(context)
+        )
+    }.filter { it.alwaysShow }
+        .map { it.attribution }
+        .distinct()
 
     if (attributions.isEmpty()) {
         return null

@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.tools.tools.quickactions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,6 +15,7 @@ import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.ToolWidgetViewBinder
 
+@SuppressLint("ClickableViewAccessibility")
 class QuickActionSheet @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
@@ -25,6 +28,10 @@ class QuickActionSheet @JvmOverloads constructor(
     init {
         inflate(context, R.layout.view_quick_action_sheet, this)
         binding = ViewQuickActionSheetBinding.bind(this)
+
+        binding.root.isClickable = true
+        binding.root.isFocusable = true
+        binding.root.setOnTouchListener { _, event_ -> true }
 
         binding.closeButton.setOnClickListener {
             close()

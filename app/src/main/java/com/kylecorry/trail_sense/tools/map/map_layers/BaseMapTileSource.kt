@@ -12,14 +12,14 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
-import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
-import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata
-import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapDecoderCache
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.tiles.PhotoMapDecoderCache
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.tiles.PhotoMapTileSourceSelector
 
 class BaseMapTileSource : TileSource {
 
@@ -120,7 +120,7 @@ class BaseMapTileSource : TileSource {
         const val SOURCE_ID = "base_map"
         private val SOURCE_MAP_COLOR_DESERT = Color.rgb(232, 225, 182)
         private val SOURCE_MAP_COLOR_ROCK = Color.rgb(202, 195, 184)
-        private val SOURCE_MAP_COLOR_GRASS = Color.rgb(189, 204, 150)
+        private val SOURCE_MAP_COLOR_GRASS = Color.rgb(184, 201, 166)
         private val SOURCE_MAP_COLOR_ICE = Color.rgb(245, 244, 242)
         private const val SOURCE_MAP_COLOR_OCEAN = Color.BLACK
         private val SOURCE_MAP_COLOR_LAKES = Color.rgb(127, 127, 127)

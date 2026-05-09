@@ -956,7 +956,7 @@
         <item quantity="many">%d punti Intermedi verranno eliminati</item>
         <item quantity="other">%d punti Intermedi verranno eliminati</item>
     </plurals>
-    <string name="photo_map_summary">Utilizza una fotografia come mappa</string>
+    <string name="offline_maps_summary">Utilizza una fotografia come mappa</string>
     <string name="paths">Percorsi</string>
     <string name="remove_distance_alert">Rimuovere l\'avviso di distanza (%s)\?</string>
     <string name="until_sunset">Al tramonto</string>

@@ -207,7 +207,7 @@
     <string name="map_file">ไฟล์ (JPG, PNG, PDF)</string>
     <string name="sensor_gyroscope">ไจโรสโคป</string>
     <string name="off">ปิด</string>
-    <string name="photo_map_summary">ใช้ภาพถ่ายเป็นแผนที่</string>
+    <string name="offline_maps_summary">ใช้ภาพถ่ายเป็นแผนที่</string>
     <string name="horizon">เส้นขอบฟ้า</string>
     <string name="view_in_3d">ดูแบบ 3D</string>
     <string name="calibrate_compass_dialog_content">หมุนอุปกรณ์ของคุณเป็นรูปเลขแปดในหลายทิศทางหลายๆรอบ, แตะ %s เมื่อเสร็จแล้ว</string>

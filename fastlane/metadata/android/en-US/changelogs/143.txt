@@ -1,0 +1,23 @@
+Offline Maps
+- Rename Photo Maps tool to Offline Maps
+- Add vector maps (Mapsforge) file support
+- Add Vector maps map layer
+- Detect and prevent invalid map calibrations
+
+Augmented Reality
+- Choose astronomy guidance targets
+- Change time of day
+
+Temperature Estimation
+- Wind chill and heat index calculation
+
+Tools
+- Improve tool search
+
+Clock
+- Show clock source
+
+Misc
+- UI style improvements
+- Android 17 support
+- Enable dynamic color by default

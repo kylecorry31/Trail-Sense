@@ -15,12 +15,9 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefi
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
-import com.kylecorry.trail_sense.tools.map.infrastructure.OfflineMapFileService
-import com.kylecorry.trail_sense.tools.map.infrastructure.persistence.OfflineMapFileRepo
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
-import com.kylecorry.trail_sense.tools.map.map_layers.OfflineMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.map.widgets.AppWidgetMap
 import com.kylecorry.trail_sense.tools.map.widgets.MapToolWidgetView
@@ -55,10 +52,6 @@ object MapToolRegistration : ToolRegistration {
                     "GeoJSON feature selection changed"
                 )
             ),
-            singletons = listOf(
-                { OfflineMapFileRepo.getInstance() },
-                { OfflineMapFileService() }
-            ),
             widgets = listOf(
                 ToolWidget(
                     WIDGET_MAP,
@@ -76,21 +69,6 @@ object MapToolRegistration : ToolRegistration {
                     layerType = MapLayerType.Tile,
                     description = context.getString(R.string.map_layer_base_map_description),
                     tileSource = ::BaseMapTileSource
-                ),
-                MapLayerDefinition(
-                    OfflineMapTileSource.SOURCE_ID,
-                    context.getString(R.string.offline_maps),
-                    layerType = MapLayerType.Tile,
-                    description = context.getString(R.string.map_layer_offline_maps_description),
-                    preferences = listOf(
-                        MapLayerPreference(
-                            id = "offline_maps",
-                            title = context.getString(R.string.manage_maps),
-                            type = MapLayerPreferenceType.Label,
-                            navActionOnClick = R.id.offlineMapListFragment
-                        )
-                    ),
-                    tileSource = ::OfflineMapTileSource
                 ),
                 MapLayerDefinition(
                     ElevationMapTileSource.SOURCE_ID,

@@ -1,0 +1,71 @@
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections
+
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.arithmetic.Arithmetic
+import com.kylecorry.sol.math.trigonometry.Trigonometry
+import com.kylecorry.sol.science.geography.projections.IMapProjection
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionFactory
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapRotationService
+
+class PhotoMapProjection(
+    private val map: PhotoMap,
+    private val usePdf: Boolean = true,
+    private val useBaseRotation: Boolean = true
+) :
+    IMapProjection {
+
+    private val rotationService = PhotoMapRotationService(map)
+    private val projection by lazy { calculateProjection() }
+
+    override fun toCoordinate(pixel: Vector2): Coordinate {
+        return projection.toCoordinate(pixel)
+    }
+
+    override fun toPixels(location: Coordinate): Vector2 {
+        return projection.toPixels(location)
+    }
+
+    override fun toPixels(
+        latitude: Double,
+        longitude: Double
+    ): Vector2 {
+        return projection.toPixels(latitude, longitude)
+    }
+
+    private fun calculateProjection(): IMapProjection {
+        val rotatedSize = map.calibratedSize(usePdf)
+        val calibrationPoints = rotationService.getCalibrationPoints()
+        val projection = CalibratedProjection(calibrationPoints.map {
+            it.imageLocation.toPixels(rotatedSize.width, rotatedSize.height) to it.location
+        }, MapProjectionFactory().getProjection(map.metadata.projection))
+
+        val size = if (useBaseRotation) {
+            map.baseSize(usePdf)
+        } else {
+            map.unrotatedSize(usePdf)
+        }
+        val baseRotation = if (useBaseRotation) {
+            map.baseRotation()
+        } else {
+            0f
+        }
+
+        val angle = Trigonometry.deltaAngle(
+            baseRotation.toFloat(),
+            map.calibration.rotation
+        )
+
+        if (Arithmetic.isZero(angle)) {
+            return projection
+        }
+
+        return RotatedProjection(
+            projection,
+            size,
+            angle
+        )
+    }
+
+}

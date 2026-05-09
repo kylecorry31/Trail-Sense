@@ -1018,7 +1018,7 @@
     <string name="direction">Richting</string>
     <string name="battery_usage_allowed">Batterijgebruik toelaten</string>
     <string name="map_calibration_instructions">Kik op een bekende locatie op de kaart, voer vervolgens de coördinaten uit de echte wereld in. Je kan de kalibratie bewaren door op de \"Volgende\" knop te klikken. \n \nVoorbeelden van gunstige kalibratiepunten zijn: een parkeerplaats, een bewegwijzeringsbord, een bekende plaats of een kruispunt.</string>
-    <string name="photo_map_summary">Gebruik een foto als kaart</string>
+    <string name="offline_maps_summary">Gebruik een foto als kaart</string>
     <string name="zero_shutter_lag">Geen sluitervertraging</string>
     <string name="blank">Leeg</string>
     <string name="illumination">Verlichting</string>
@@ -1401,7 +1401,7 @@
     <string name="planet_neptune">Neptunus</string>
     <string name="load_pdf_tiles">PDF-tegels laden</string>
     <string name="load_pdf_tiles_summary">PDF-kaarten zijn scherper, maar de prestaties kunnen worden beïnvloed</string>
-    <string name="map_tool_disclaimer">Dit hulpmiddel bevat geen ingebouwde wegenkaarten, satellietbeelden of routegegevens. Het haalt geen kaarten op van het internet. Om een kaartachtergrond weer te geven moet je je eigen foto importeren met het Fotokaarten-hulpmiddel. Gebruik een speciale kaartapplicatie als je actuele straten, satelliet, of wandelkaarten nodig hebt.</string>
+    <string name="map_tool_disclaimer">Dit hulpmiddel bevat geen ingebouwde wegenkaarten, satellietbeelden of routegegevens. Het haalt geen kaarten op van het internet. Om een kaartachtergrond weer te geven moet je je eigen foto importeren met het netloze-kaarten-hulpmiddel. Gebruik een speciale kaartapplicatie als je actuele straten, satelliet, of wandelkaarten nodig hebt.</string>
     <string name="open_settings">Instellingen openen</string>
     <string name="basemap">Basiskaart</string>
     <string name="show_gps_accuracy">GPS-nauwkeurigheid weergeven</string>
@@ -1585,5 +1585,11 @@
     <string name="unsupported_offline_map_file">Niet-ondersteund kaartbestand</string>
     <string name="offline_maps">Netloze kaarten</string>
     <string name="no_offline_maps">Geen netloze kaarten</string>
-    <string name="map_layer_offline_maps_description">Opgeslagen netloze kaarten</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d kaart</item>
+        <item quantity="other">%d kaarten</item>
+    </plurals>
+    <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
+    <string name="vector_maps">Vectorkaarten</string>
+    <string name="map_layer_vector_maps_description">Je opgeslagen vectorkaarten</string>
 </resources>

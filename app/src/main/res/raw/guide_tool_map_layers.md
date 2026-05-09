@@ -1,4 +1,4 @@
-Layers are used to display information on the map, they are configurable on the Navigation, Photo Maps, and Map tool. See the respective tool guides for how to access the layer settings.
+Layers are used to display information on the map, they are configurable on the Navigation, Offline Maps, and Map tool. See the respective tool guides for how to access the layer settings.
 
 Some layers are time dependent (marked below). When viewing these layers in the Map tool, you can change the map time to see them at different times. In other tools, they always display the current time.
 
@@ -17,6 +17,12 @@ Each layer has the following settings:
 
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
+
+## Vector maps
+This layer shows visible vector maps from the Offline Maps tool.
+
+Settings:
+- **Manage maps**: Links to the Offline Maps tool.
 
 ## Elevation
 This layer shows the elevation from the digital elevation model (DEM) as color.
@@ -71,8 +77,8 @@ Settings:
 - **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
-## Photo Maps
-This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
+## Photo maps
+This layer shows visible photo maps, with the most zoomed-in map appearing on top. You can add new maps in the Offline Maps tool.
 
 Settings:
 

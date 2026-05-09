@@ -1,0 +1,308 @@
+package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
+
+import android.content.Context
+import android.graphics.PointF
+import android.util.AttributeSet
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.trigonometry.Trigonometry
+import com.kylecorry.sol.science.geography.projections.IMapProjection
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
+import com.kylecorry.trail_sense.shared.views.EnhancedImageView
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import kotlin.math.max
+import kotlin.math.min
+
+
+abstract class BasePhotoMapView : EnhancedImageView, IMapView {
+
+    private val density = context.resources.displayMetrics.density
+
+    protected var map: PhotoMap? = null
+    private var projection: IMapProjection? = null
+    private var fullResolutionPixels = 1f
+    override val layerManager = MapViewLayerManager {
+        post { invalidate() }
+    }
+    private val files = FileSubsystem.getInstance(context)
+
+    private var shouldRecenter = true
+
+    var onImageLoadedListener: (() -> Unit)? = null
+
+    var useDensityPixelsForZoom = true
+
+    private val hooks = Hooks()
+
+    override var isWidget: Boolean = false
+
+    override val isHighDetailMode: Boolean
+        get() = !useDensityPixelsForZoom
+
+    override var userLocation: Coordinate = Coordinate.zero
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userLocationAccuracy: Distance? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override var userAzimuth: Bearing = Bearing.from(0f)
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override val mapProjection: IMapViewProjection
+        get() = hooks.memo(
+            "mapProjection",
+            projection,
+            resolutionPixels,
+            zoom,
+            resolution,
+        ) {
+            val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f))
+            val projection = projection
+            val resolutionPixels = resolutionPixels
+            val resolution = resolution
+            val zoom = zoom
+
+            object : IMapProjection, IMapViewProjection {
+                override fun toPixels(
+                    latitude: Double,
+                    longitude: Double
+                ): PixelCoordinate {
+                    return getPixelCoordinate(latitude, longitude) ?: PixelCoordinate(0f, 0f)
+                }
+
+                override fun toCoordinate(pixel: Vector2): Coordinate {
+                    // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
+                    val source = toSource(pixel.x, pixel.y) ?: return Coordinate.zero
+                    return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
+                }
+
+                override fun toPixels(location: Coordinate): PixelCoordinate {
+                    return getPixelCoordinate(location.latitude, location.longitude)
+                        ?: PixelCoordinate(
+                            0f,
+                            0f
+                        )
+                }
+
+                override val resolutionPixels: Float = resolutionPixels
+                override val zoom: Float = zoom
+                override val resolution: Float = resolution
+                override val center: Coordinate by lazy {
+                    viewNoRotation?.let {
+                        toCoordinate(
+                            toPixel(
+                                it
+                            )
+                        )
+                    } ?: Coordinate.zero
+                }
+            }
+        }
+
+    protected fun toPixel(point: PointF): PixelCoordinate {
+        return PixelCoordinate(point.x, point.y)
+    }
+
+    override var resolutionPixels: Float
+        get() = fullResolutionPixels / scale
+        set(value) {
+            requestScale(getScale(value))
+        }
+
+    override var resolution: Float
+        get() = this@BasePhotoMapView.resolutionPixels * density
+        set(value) {
+            this@BasePhotoMapView.resolutionPixels = value / density
+        }
+
+    override val zoom: Float
+        get() = TileMath.getZoomLevel(
+            mapCenter,
+            if (useDensityPixelsForZoom) resolution else resolutionPixels
+        )
+
+    override val mapBounds: CoordinateBounds
+        get() {
+            val topLeft = toCoordinate(
+                PixelCoordinate(0f, 0f)
+            )
+            val topRight = toCoordinate(
+                PixelCoordinate(width.toFloat(), 0f)
+            )
+            val bottomRight = toCoordinate(
+                PixelCoordinate(width.toFloat(), height.toFloat())
+            )
+            val bottomLeft = toCoordinate(
+                PixelCoordinate(0f, height.toFloat())
+            )
+            return CoordinateBounds.from(
+                listOf(
+                    topLeft,
+                    topRight,
+                    bottomRight,
+                    bottomLeft
+                )
+            )
+        }
+
+    private fun getScale(resolutionPixels: Float): Float {
+        return fullResolutionPixels / resolutionPixels
+    }
+
+    override var mapCenter: Coordinate
+        get() {
+            val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f))
+                ?: return Coordinate.zero
+            val source = toSource(viewNoRotation.x, viewNoRotation.y) ?: return Coordinate.zero
+            return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
+        }
+        set(value) {
+            val source = projection?.toPixels(value.latitude, value.longitude) ?: return
+            requestCenter(PointF(source.x, source.y))
+        }
+    override var mapAzimuth: Float = 0f
+        set(value) {
+            val newValue = if (keepMapUp) {
+                -mapRotation
+            } else {
+                value
+            }
+            val changed = field != newValue
+            field = newValue
+            if (changed) {
+                imageRotation = newValue
+                invalidate()
+            }
+        }
+
+    /**
+     * Determines if the map should be kept with its top parallel to the top of the screen
+     */
+    var keepMapUp: Boolean = false
+        set(value) {
+            field = value
+            if (value) {
+                mapAzimuth = 0f
+            }
+            invalidate()
+        }
+
+    override var mapRotation: Float = 0f
+        protected set(value) {
+            field = value
+            invalidate()
+        }
+
+    var azimuth: Float = 0f
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    override val layerScale: Float
+        get() = min(1f, max(scale, 0.9f))
+
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+
+    override fun setup() {
+        super.setup()
+        setBackgroundColor(Resources.color(context, R.color.colorSecondary))
+    }
+
+    override fun onScaleChanged(oldScale: Float, newScale: Float) {
+        super.onScaleChanged(oldScale, newScale)
+        layerManager.invalidate()
+    }
+
+    override fun onTranslateChanged(
+        oldTranslateX: Float,
+        oldTranslateY: Float,
+        newTranslateX: Float,
+        newTranslateY: Float
+    ) {
+        super.onTranslateChanged(oldTranslateX, oldTranslateY, newTranslateX, newTranslateY)
+        layerManager.invalidate()
+    }
+
+    override fun draw() {
+        super.draw()
+        val map = map ?: return
+
+        if (!map.isCalibrated) {
+            return
+        }
+        maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
+        if (shouldRecenter && isImageLoaded) {
+            recenter()
+            shouldRecenter = false
+            onImageLoadedListener?.invoke()
+        }
+
+        layerManager.draw(context, drawer, this)
+    }
+
+    override fun drawOverlay() {
+        super.drawOverlay()
+        layerManager.drawOverlay(context, drawer, this)
+    }
+
+    open fun showMap(map: PhotoMap) {
+        this.map = map
+        val rotation = map.calibration.rotation
+        mapRotation = Trigonometry.deltaAngle(rotation, map.baseRotation().toFloat())
+        fullResolutionPixels = map.distancePerPixel()?.meters()?.value ?: 1f
+        projection = map.baseProjection
+        if (keepMapUp) {
+            mapAzimuth = 0f
+        }
+
+        if (files.get(map.pdfFileName).exists()) {
+            setImage(map.pdfFileName, rotation)
+        } else {
+            setImage(map.filename, rotation)
+        }
+    }
+
+    override fun onImageLoaded() {
+        super.onImageLoaded()
+        shouldRecenter = true
+        invalidate()
+    }
+
+    private fun getPixelCoordinate(latitude: Double, longitude: Double): PixelCoordinate? {
+        val source = projection?.toPixels(latitude, longitude) ?: return null
+        val view = toView(source.x, source.y)
+        return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
+    }
+
+    /**
+     * Convert from view with rotation to view without rotation
+     */
+    protected fun toViewNoRotation(view: PointF): PointF? {
+        val source = toSource(view.x, view.y, true) ?: return null
+        return toView(source.x, source.y, false)
+    }
+
+}

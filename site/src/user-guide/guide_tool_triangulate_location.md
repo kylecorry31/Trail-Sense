@@ -5,7 +5,7 @@ title: "Triangulate Location"
 The Triangulate Location tool can be used to determine the coordinates of a location using two known locations. This can be used to either determine your location if the GPS is not working, or to determine the coordinates of a location in the distance.
 
 ## Determine your location
-If your GPS is not working and you want to determine your current location, you will first need to see two known locations. Ideally, these locations are at least 60 degrees apart for the best accuracy. The locations can be beacons or you can determine them using a map. For a guide on how to get the coordinates of a location from a map, see the 'Photo Maps' guide in the 'Calibrating from the Map Grid' section. Once you have the coordinates of the two known locations, you can use the following steps to determine your location:
+If your GPS is not working and you want to determine your current location, you will first need to see two known locations. Ideally, these locations are at least 60 degrees apart for the best accuracy. The locations can be beacons or you can determine them using a map. For a guide on how to get the coordinates of a location from a map, see the 'Offline Maps' guide in the 'Photo maps' > 'Calibrating from the Map Grid' section. Once you have the coordinates of the two known locations, you can use the following steps to determine your location:
 
 1. Select 'My location' as the location to triangulate.
 2. Enter the coordinates for the first known location and record the direction from where you are to that location as Location 1. You can click the camera icon on the right side of the direction field to sight the location using the camera.

@@ -11,6 +11,7 @@ complexity:
   LongMethod:
     ignoreFunction:
       - 'update'
+      - 'getTool'
 
 naming:
   PackageNaming:

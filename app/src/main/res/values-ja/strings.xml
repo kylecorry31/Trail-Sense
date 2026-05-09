@@ -301,7 +301,7 @@
     <string name="photo_maps">フォトマップ</string>
     <string name="illumination">輝面率</string>
     <string name="photo_map_disclaimer">バックアップとして紙の地図を常に携帯し、Trail Sense の精度に注意してください。</string>
-    <string name="photo_map_summary">画像を地図として使用できます</string>
+    <string name="offline_maps_summary">画像を地図として使用できます</string>
     <string name="soon">もうじき</string>
     <string name="edit">編集</string>
     <string name="pref_adjust_for_temperature_title">気温を考慮する</string>

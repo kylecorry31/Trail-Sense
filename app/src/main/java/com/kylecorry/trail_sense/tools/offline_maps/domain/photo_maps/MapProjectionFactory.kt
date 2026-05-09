@@ -1,0 +1,16 @@
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+
+import com.kylecorry.sol.science.geography.projections.CylindricalEquidistantProjection
+import com.kylecorry.sol.science.geography.projections.IMapProjection
+import com.kylecorry.sol.science.geography.projections.MercatorProjection
+
+class MapProjectionFactory {
+
+    fun getProjection(type: MapProjectionType): IMapProjection {
+        return when (type) {
+            MapProjectionType.Mercator -> MercatorProjection()
+            MapProjectionType.CylindricalEquidistant -> CylindricalEquidistantProjection()
+        }
+    }
+
+}

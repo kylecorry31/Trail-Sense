@@ -23,10 +23,10 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         // Disclaimer
         clickOk()
 
-       canZoom()
-       canLock()
-       canLongPressMap()
-       verifyMapMenuOptions()
+        canZoom()
+        canLock()
+        canLongPressMap()
+        verifyMapMenuOptions()
         verifySensorStatusBadges()
     }
 
@@ -73,7 +73,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         scrollUntil { hasText("Tides") }
         scrollUntil { hasText("Navigation") }
         scrollUntil { hasText("Contours") }
-        scrollUntil { hasText("Photo Maps") }
+        scrollUntil { hasText("Photo maps") }
         scrollUntil { hasText("Hillshade") }
         scrollUntil { hasText("Elevation") }
         scrollUntil { hasText("Basemap") }
@@ -104,11 +104,11 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         // Copy layer to other maps
         scrollUntil { hasText("Copy settings to other maps") }
         click("Copy settings to other maps")
-        // Verify Navigation is checked, uncheck Photo Maps
+        // Verify Navigation is checked, uncheck Photo maps
         isChecked("Navigation")
-        isChecked("Photo Maps")
-        click("Photo Maps")
-        isNotChecked("Photo Maps")
+        isChecked("Photo maps")
+        click("Photo maps")
+        isNotChecked("Photo maps")
         clickOk()
 
         // Verify the "High resolution" toggle is disabled, then turn it on
@@ -126,7 +126,6 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click("Aspect")
         click("Cell towers")
         click("Lunar eclipse")
-        click("Offline maps")
         click("Night")
         scrollUntil { click("Ruggedness") }
         scrollUntil { click("Sightings") }
@@ -137,7 +136,6 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         // Close sheet
         click(toolbarButton(R.id.title, Side.Right))
     }
-
 
     private fun verifySensorStatusBadges() {
         click(R.id.sensor_status_badges)

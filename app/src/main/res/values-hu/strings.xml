@@ -983,7 +983,7 @@
     <string name="map_calibration_instructions">Érints meg egy ismert helyet a térképen, majd add meg a valós koordinátákat. A kalibrálást a „Kész” gombra kattintva mentheted el.
 \n
 \nJó kalibrációs pontok például a parkolók, a jelzőtáblák, a tereptárgyak vagy az ösvények mentén található elágazások.</string>
-    <string name="photo_map_summary">Használ fotót térképként</string>
+    <string name="offline_maps_summary">Használ fotót térképként</string>
     <string name="blank">Üres</string>
     <string name="illumination">Megvilágítottság</string>
     <string name="pref_backfill_temperatures_description">Minden rögzített hőmérséklet helyett a kalibrált történelmi hőmérséklet lesz megadva.</string>
@@ -1336,4 +1336,47 @@
     <string name="bullet_weight">Lövedék súlya</string>
     <string name="format_joules">%s joule</string>
     <string name="format_fpe">%s FPE</string>
+    <string name="plugins">Bővítmények</string>
+    <string name="map_layers">Térkép rétegek</string>
+    <string name="tile_layer">Csempe réteg</string>
+    <string name="feature_layer">Funkció réteg</string>
+    <string name="overlay_layer">Átfedés réteg</string>
+    <string name="app_info">Alkalmazásinfó</string>
+    <string name="reload">Újratöltés</string>
+    <string name="disconnect">Leválasztás</string>
+    <string name="plugin_unavailable">Ez a bővítmény nem elérhető, vagy már nincs csatlakoztatva.</string>
+    <string name="clear_plugin_cache">Bővitmény-gyorsítótár ürítése</string>
+    <string name="connected_plugins">Csatlakoztatott bővítmények</string>
+    <string name="available_plugins">Elérhető bővítmények</string>
+    <string name="plugin_name">Bővítmény: %s</string>
+    <string name="plugin_connect_title">Csatlakoztatod a bővítményt?</string>
+    <string name="plugin_connect_message">Csak akkor csatlakoztasd a(z) %s bővítményt, ha megbízol benne.</string>
+    <string name="plugin_disconnect_title">Leválasztod a bővítményt?</string>
+    <string name="plugin_disconnect_message">Leválasztod a(z) %s bővítményt?</string>
+    <string name="pref_night_mode_fullscreen_title">Teljes képernyő éjszakai módban</string>
+    <string name="pref_night_mode_fullscreen_summary">A rendszer felületének elrejtése az éjjellátás jobb megőrzéséhez</string>
+    <string name="pref_ruler_flip_direction_title">Vonalzó irányának megfordítása</string>
+    <string name="do_not_ask_again">Ne kérdezd újra</string>
+    <string name="quick_action_recalibrate_altimeter">Magasságmérő újrakalibrálása</string>
+    <string name="recalibrating">Újrakalibrálás</string>
+    <string name="pref_nearby_linear_only_title">Közeli jelzőpontok mutatása csak a lineáris iránytűn</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_title">Iránytű-tárcsa keretének mutatása</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_summary">Fokjelölések rajzolása az iránytű tárcsája köré</string>
+    <string name="pref_navigation_show_azimuth_indicator_title">Azimut visszajelző mutatása</string>
+    <string name="pref_navigation_show_azimuth_indicator_summary">A jelenlegi irány kiemelése az iránytűn</string>
+    <string name="pref_bubble_level_threshold_title">Vízszint küszöbértéke</string>
+    <string name="guide_map_layers">Térkép Rétegek</string>
+    <string name="clock_source_device">Eszköz idő</string>
+    <string name="clock_source_gps">GPS idő</string>
+    <string name="map_calibration_clear_message">A térkép projekció megváltoztatása törli a kalibrációs módosításaidat.</string>
+    <string name="pref_default_beacon_color_title">Alapértelmezett jelzőpont szín</string>
+    <string name="pref_navigation_lock_screen_when_open_title">Mutatás a zárolt képernyőn megnyitott állapotban</string>
+    <string name="current_temperature">Jelenlegi hőmérséklet</string>
+    <string name="stone">Stone</string>
+    <string name="stone_format">%s st</string>
+    <string name="packing_list_optional">Opcionális</string>
+    <string name="wind_speed">Szélsebesség</string>
+    <string name="map_calibration_error_same_pixel">Válassz két eltérő pontot a térképen.</string>
+    <string name="map_calibration_error_same_image_axis">Válassz két pontot a térképen, amik nincsenek közvetlen egymás mellett vagy fölött.</string>
+    <string name="map_calibration_error_same_location">Adj meg két különböző valós helyet.</string>
 </resources>

@@ -1,14 +1,16 @@
 # Plugin registration
 
-NOTE: Plugins are only available in debug mode right now and are not production ready. The interfaces are prone to changing without notice. This message will be removed once plugins are stable.
+NOTE: Plugins are only available in debug mode right now and are not production ready. The interfaces are prone to changing. This message will be removed once plugins are stable.
 
 Trail Sense discovers plugin resource services through the Android service action `com.kylecorry.trail_sense.PLUGIN_SERVICE`.
 
 When a user connects a plugin, Trail Sense requests the plugin's registration payload from the `/registration` endpoint. The response is cached by plugin package version code, so changes to the registration payload require a plugin version code update before Trail Sense will request it again.
 
-See the [sample plugin](https://github.com/kylecorry31/Trail-Sense-Sample-Plugin) for an example.
+See the [sample plugin](https://github.com/kylecorry31/Trail-Sense-Sample-Plugin) for an example. Once you create a plugin, you can open Trail Sense > Settings > Plugins and connect your plugin by clicking on it and selecting OK on the dialog. Once connected, click on your plugin in the list again and you should see some dtails about your plugin. If you exposed features that Trail Sense recognizes, they will show up on this page. You can click the "Reload" if you make changes to your plugin and want them to appear in Trail Sense. Once you are ready to test, you should see the features available in the respective tool (ex. map layers on the Map tool, in the "Additional layers" picker by default).
 
 The registration payload must be no larger than 64 KiB. Trail Sense ignores registrations that exceed this limit.
+
+See [map-layers.md](./map-layers.md) for more details about the map layers feature registration.
 
 ## Request
 

@@ -1023,7 +1023,7 @@
     <string name="battery_usage_allowed">Допустимое использование батареи</string>
     <string name="obscuration">Затемнение</string>
     <string name="battery_settings_limit_accuracy">Ограничения по заряду батареи могут снизить точность</string>
-    <string name="photo_map_summary">Использование фотографии в качестве карты</string>
+    <string name="offline_maps_summary">Использование фотографии в качестве карты</string>
     <string name="solar_eclipse">Солнечное затмение</string>
     <string name="sunset_alerts_background_location_disclaimer">Предупреждения о закате могут быть неточными во время путешествия</string>
     <string name="my_location">Мое местоположение</string>

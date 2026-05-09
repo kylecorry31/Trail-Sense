@@ -47,7 +47,7 @@ import com.kylecorry.trail_sense.tools.packs.PackingListsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.permits.PermitsToolRegistration
-import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.qr.QRCodeScannerToolRegistration
 import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -78,7 +78,7 @@ object Tools {
         CliffHeightToolRegistration,
         NavigationToolRegistration,
         BeaconsToolRegistration,
-        PhotoMapsToolRegistration,
+        OfflineMapsToolRegistration,
         PathsToolRegistration,
         TriangulateLocationToolRegistration,
         ClinometerToolRegistration,
@@ -263,7 +263,7 @@ object Tools {
     const val CLIFF_HEIGHT = 5L
     const val NAVIGATION = 6L
     const val BEACONS = 7L
-    const val PHOTO_MAPS = 8L
+    const val OFFLINE_MAPS = 8L
     const val PATHS = 9L
     const val TRIANGULATE_LOCATION = 10L
     const val CLINOMETER = 11L

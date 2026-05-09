@@ -1,0 +1,59 @@
+package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
+
+import android.os.Bundle
+import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+
+class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
+
+    private var layerSheet: MapLayersBottomSheet? = null
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.offline_map_preferences, rootKey)
+
+        val reducePhotoResolutionPreference = switch(R.string.pref_low_resolution_maps)
+        val reducePdfResolutionPreference = switch(R.string.pref_low_resolution_pdf_maps)
+
+        onClick(reducePhotoResolutionPreference) {
+            onReduceResolutionChange(reducePdfResolutionPreference?.isChecked == true)
+        }
+
+        onClick(reducePdfResolutionPreference) {
+            onReduceResolutionChange(reducePhotoResolutionPreference?.isChecked == true)
+        }
+
+        // Layers
+        onClick(preference(R.string.pref_map_layer_button)) {
+            layerSheet?.dismiss()
+            layerSheet = MapLayersBottomSheet(
+                OfflineMapsToolRegistration.PHOTO_MAPS_ID,
+                PhotoMapToolLayerManager.alwaysEnabledLayers
+            )
+            layerSheet?.show(this)
+        }
+    }
+
+    private fun onReduceResolutionChange(shouldReduce: Boolean) {
+        if (shouldReduce) {
+            return
+        }
+
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.reduce_map_resolution),
+            getString(R.string.reduce_map_resolution_crop_disclaimer),
+            getString(R.string.reduce_map_resolution_crop_disclaimer_shown),
+            cancelText = null
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        layerSheet?.dismiss()
+    }
+
+}

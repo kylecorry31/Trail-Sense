@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.ImageSaver
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.ImageSaver
 import java.io.FileOutputStream
 import java.time.Instant
 import java.util.UUID

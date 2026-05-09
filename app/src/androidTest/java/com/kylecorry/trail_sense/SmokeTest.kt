@@ -56,7 +56,7 @@ class SmokeTest {
     // Tools that are the most important w/ actions or most likely to break with minification
     private val toolSmokeTests = mapOf<Long, () -> Unit>(
         Tools.PATHS to ::smokeTestPaths,
-        Tools.PHOTO_MAPS to ::smokeTestPhotoMaps,
+        Tools.OFFLINE_MAPS to ::smokeTestPhotoMaps,
         Tools.CLOUDS to ::smokeTestClouds,
         Tools.SURVIVAL_GUIDE to ::smokeTestSurvivalGuide,
         Tools.FIELD_GUIDE to ::smokeTestFieldGuide,

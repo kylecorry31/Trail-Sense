@@ -5,7 +5,7 @@
 5 (Cliff Height): cliff, height, drop, fall, measure
 6 (Navigation): navigation, compass, navigate, direction, bearing, heading, gps
 7 (Beacons): beacon, waypoint, marker, location, poi, point of interest
-8 (Photo Maps): photo map, image, pdf, map, maps
+8 (Offline Maps): offline map, photo map, image, pdf, vector maps, mapsforge, map file, map, maps
 9 (Paths): path, track, backtrack, trail, route, record, gps, breadcrumb
 10 (Triangulate Location): triangulate, location, position, bearing, compass, sighting
 11 (Clinometer): clinometer, angle, slope, incline, avalanche, height, tilt, distance

@@ -62,7 +62,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other features may be included based on what I feel like working on.
 
 - Improvements to / additional map layers
-- Improvements to the following tools: Photo Maps, Map, Navigation, and Astronomy
+- Improvements to the following tools: Offline Maps, Map, Navigation, and Astronomy
 - Performance, stability, and codebase cleanup
 - Release of the first plugins (map layers / coordinate formats)
 
@@ -134,8 +134,8 @@ Location information gathered by this application does not leave your device (as
   - Allows Trail Sense to use your phone's pedometer for distance calculation.
   - **When denied**: The pedometer will not work.
 - **CAMERA**
-  - Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.
-  - **When denied**: You will not be able to use the sighting compass, camera clinometer, or QR Code Scanner. You will need to pick an existing photo to use for the Cloud Scanner or Photo Maps.
+  - Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo maps.
+  - **When denied**: You will not be able to use the sighting compass, camera clinometer, or QR Code Scanner. You will need to pick an existing photo to use for the Cloud Scanner or Photo maps.
 - **SCHEDULE_EXACT_ALARM**
   - Allows Trail Sense to post a notification at an exact time. This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.
   - **When denied**: The clock and sunset alerts may not be accurate (can be off by several minutes).

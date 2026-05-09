@@ -996,7 +996,7 @@
     <string name="horizon">Horizont</string>
     <string name="map_file">Datei (JPG, PNG, PDF)</string>
     <string name="no">Nein</string>
-    <string name="photo_map_summary">Ein Foto als Karte benutzen</string>
+    <string name="offline_maps_summary">Ein Foto als Karte benutzen</string>
     <string name="photo_map_disclaimer">Habe immer eine physische Karte dabei und stelle die Genauigkeit von Trail Sense infrage.</string>
     <string name="map_calibration">Karte kalibrieren</string>
     <string name="compass_source_legacy_android">Veraltet (Android)</string>

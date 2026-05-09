@@ -71,16 +71,16 @@ You can navigate பெறுநர் the nearest புள்ளியம் o
 
 By default, this will only navigate பெறுநர் recorded waypoints on the path. However, you can choose பெறுநர் navigate பெறுநர் any position on the பாதை by disabling அமைப்புகள் > Paths > 'Only navigate பெறுநர் recorded points'. This will assume that the பாதை is a straight வரி between points.
 
-Paths அரே also visible on the கதிரலைக் கும்பா compass (see the 'Navigation' guide) and photo maps (see the 'Photo Maps' guide).
+Paths அரே also visible on the கதிரலைக் கும்பா compass (see the 'Navigation' guide) and photo maps (see the 'Photo maps' guide).
 
 ## பாதை visibility
-You can choose which paths அரே visible on the வானோடல் and Photo Maps கருவிகள் by clicking the பட்டியல் icon on the வலது பக்கம் of the பாதை நிரை and selecting either மறை or Show.
+You can choose which paths அரே visible on the வானோடல் and Photo maps கருவிகள் by clicking the பட்டியல் icon on the வலது பக்கம் of the பாதை நிரை and selecting either மறை or Show.
 
 ## நீக்கு a path
 To நீக்கு a path, click the பட்டியல் button on the பாதை நிரை you want பெறுநர் remove, then தேர்ந்தெடு 'Delete'.
 
 ## Exporting paths
-To ஏற்றுமதி paths, திற the குழு you want பெறுநர் ஏற்றுமதி and click the பட்டியல் button in the top-right corner of the screen. தேர்ந்தெடு 'Export', unselect any paths you don't want பெறுநர் export, then click 'OK'. The paths will be exported பெறுநர் a GPX file. 
+To ஏற்றுமதி paths, திற the குழு you want பெறுநர் ஏற்றுமதி and click the பட்டியல் button in the top-right corner of the screen. தேர்ந்தெடு 'Export', unselect any paths you don't want பெறுநர் export, then click 'OK'. The paths will be exported பெறுநர் a GPX file.
 
 Alternatively, you can ஏற்றுமதி a ஒற்றை பாதை by clicking the பட்டியல் button on the பாதை நிரை you want பெறுநர் export, then selecting 'Export'.
 

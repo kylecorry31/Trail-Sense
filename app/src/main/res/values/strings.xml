@@ -164,7 +164,7 @@
     <!--    The percent of the moon that is illuminated-->
     <string name="illumination">Illumination</string>
     <!--Tools-->
-    <string name="photo_maps">Photo Maps</string>
+    <string name="photo_maps">Photo maps</string>
     <!--Clinometer-->
     <string name="clinometer_title">Clinometer</string>
     <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>
@@ -1139,8 +1139,7 @@
     <string name="exported">Exported</string>
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
-    <string name="map_file">File (JPG, PNG, PDF)</string>
-    <string name="offline_map_file">File (.map)</string>
+    <string name="map_file">File (JPG, PNG, PDF, Mapsforge)</string>
     <string name="map_export_error">Unable to export map to the chosen file</string>
     <string name="point">Point</string>
     <string name="point_added">Point added to path</string>
@@ -1292,9 +1291,9 @@
     <!--    as in sun / moon rise-->
     <string name="astronomy_rise">Rise</string>
     <string name="horizon">Horizon</string>
-    <string name="photo_map_summary">Use a photo as a map</string>
-    <string name="photo_map_disclaimer">Always carry a physical map for backup and verify the accuracy of Trail Sense.</string>
-    <string name="photo_map_disclaimer_shown" translatable="false">photo_map_disclaimer_shown</string>
+    <string name="offline_maps_summary">Use photos, PDFs, and map files offline</string>
+    <string name="photo_map_disclaimer">Always carry a physical map for backup and verify the accuracy of Trail Sense.\n\nMap files are not included with Trail Sense and must be downloaded or calibrated from a photo. You can find maps to download at https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="photo_map_disclaimer_shown" translatable="false">photo_map_disclaimer_shown_v2</string>
     <string name="reduce_map_resolution_crop_disclaimer">Cropping the map will still reduce resolution. If you need to crop the map at a high resolution, please use a photo editor app. There are plans to fix this in the future.</string>
     <string name="reduce_map_resolution_crop_disclaimer_shown" translatable="false">reduce_map_resolution_crop_disclaimer_shown</string>
     <string name="crop_map_instructions_long">Drag the corners of the box to the corners of the map to outline. Cropping will reduce resolution of the map.</string>
@@ -1784,11 +1783,12 @@
     <string name="map">Map</string>
     <!--A world map that is the background for the map-->
     <string name="basemap">Basemap</string>
-    <string name="offline_maps">Offline maps</string>
+    <string name="offline_maps">Offline Maps</string>
     <string name="offline_map_import_failed">Unable to import map</string>
     <string name="no_offline_maps">No offline maps</string>
     <string name="unsupported_offline_map_file">Unsupported map file</string>
     <string name="mapsforge">Mapsforge</string>
+    <string name="vector_maps">Vector maps</string>
     <string name="show_labels">Show labels</string>
     <string name="planet_mercury">Mercury</string>
     <string name="planet_venus">Venus</string>
@@ -1799,12 +1799,10 @@
     <string name="planet_neptune">Neptune</string>
     <string name="load_pdf_tiles">Load PDF tiles</string>
     <string name="load_pdf_tiles_summary">PDF maps will be sharper, but performance may be impacted</string>
-    <string name="map_tool_disclaimer">This tool does not include built-in street maps, satellite imagery, or trail data. It does not download maps from the internet. To display a map background, you must import your own image using the Photo Maps tool. If you need live or preloaded street, satellite, or trail maps, use a dedicated mapping application instead.</string>
+    <string name="map_tool_disclaimer">This tool does not include built-in street maps, satellite imagery, or trail data. It does not download maps from the internet. To display a map background, you must import your own image using the Offline Maps tool. If you need live or preloaded street, satellite, or trail maps, use a dedicated mapping application instead.</string>
     <string name="open_settings">Open settings</string>
     <string name="pref_map_layer_button" translatable="false">pref_map_layer_button</string>
     <string name="pref_offline_map_files" translatable="false">pref_offline_map_files</string>
-    <string name="pref_offline_maps_disclaimer_shown" translatable="false">pref_offline_maps_disclaimer_shown</string>
-    <string name="offline_maps_disclaimer">Map files are not included with Trail Sense and must be downloaded separately. Only Mapsforge (.map) files are supported. You can find a list of available maps at https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="show_gps_accuracy">Show GPS accuracy</string>
     <string name="large_location_indicator">Large location indicator</string>
     <string name="pref_increase_ar_exposure_at_night" translatable="false">pref_increase_ar_exposure_at_night</string>
@@ -1893,7 +1891,7 @@
     <string name="show_modeled_tides">Show modeled tides on coastline</string>
     <string name="show_tide_phase">Show tide phase</string>
     <string name="map_layer_base_map_description">Low resolution colored world map</string>
-    <string name="map_layer_offline_maps_description">Your saved offline maps</string>
+    <string name="map_layer_vector_maps_description">Your saved vector maps</string>
     <string name="map_layer_elevation_description">Color-coded elevations from the digital elevation model</string>
     <string name="map_layer_hillshade_description">Shaded terrain to visualize elevation changes</string>
     <string name="map_layer_ruggedness_description">Color-coded terrain ruggedness based on elevation change</string>
@@ -1940,4 +1938,6 @@
     <string name="pref_navigation_draw_compass_dial_bezel" translatable="false">pref_navigation_draw_compass_dial_bezel</string>
     <string name="pref_navigation_show_azimuth_indicator" translatable="false">pref_navigation_show_azimuth_indicator</string>
     <string name="manage_maps">Manage maps</string>
+    <string name="file_pdf">PDF</string>
+    <string name="file_photo">Photo</string>
 </resources>

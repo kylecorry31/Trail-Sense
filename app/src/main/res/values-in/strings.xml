@@ -1033,7 +1033,7 @@
     <string name="astronomy_set">Terbenam</string>
     <string name="astronomy_rise">Terbit</string>
     <string name="horizon">Cakrawala</string>
-    <string name="photo_map_summary">Gunakan foto sebagai peta</string>
+    <string name="offline_maps_summary">Gunakan foto sebagai peta</string>
     <string name="photo_map_disclaimer">Selalu bawa peta fisik sebagai cadangan dan verifikasi keakuratan Trail Sense.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Memotong peta tetap akan mengurangi resolusi. Jika Anda perlu memotong peta dengan resolusi tinggi, gunakan aplikasi editor foto. Ada rencana untuk memperbaiki ini di masa mendatang.</string>
     <string name="crop_map_instructions_long">Seret sudut kotak ke sudut peta yang ingin digariskan. Pemotongan akan mengurangi resolusi peta.</string>

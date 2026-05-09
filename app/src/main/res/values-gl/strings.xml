@@ -953,7 +953,7 @@
     <string name="astronomy_set">Posta</string>
     <string name="astronomy_rise">Saída</string>
     <string name="horizon">Horizonte</string>
-    <string name="photo_map_summary">Usar unha foto como mapa</string>
+    <string name="offline_maps_summary">Usar unha foto como mapa</string>
     <string name="photo_map_disclaimer">Leva sempre un mapa físico como respaldo e verifica a precisión de Trail Sense.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Recortar o mapa seguirá reducindo a resolución. Se precisa recortar o mapa a alta resolución, use unha aplicación de edición de fotos. Hai plans para solucionar isto no futuro.</string>
     <string name="crop_map_instructions_long">Arrastre as esquinas da caixa ata as esquinas do mapa para delimitar. Recortar reducirá a resolución do mapa.</string>
@@ -1333,7 +1333,7 @@
     <string name="planet_neptune">Neptuno</string>
     <string name="load_pdf_tiles">Cargar teselas en PDF</string>
     <string name="load_pdf_tiles_summary">Os mapas en PDF serán máis nítidos, pero o rendemento pode verse afectado</string>
-    <string name="map_tool_disclaimer">Esta ferramenta non inclúe mapas de rúas, imaxes de satélite nin datos de rutas integrados. Non descarga mapas de Internet. Para mostrar un fondo de mapa, debes importar a túa propia imaxe coa ferramenta Photo Maps. Se necesitas mapas de rúas, satélites ou rutas en directo ou precargados, usa unha aplicación de mapas específica.</string>
+    <string name="map_tool_disclaimer">Esta ferramenta non inclúe mapas de rúas, imaxes de satélite nin datos de rutas integrados. Non descarga mapas de Internet. Para mostrar un fondo de mapa, debes importar a túa propia imaxe coa ferramenta Photo maps. Se necesitas mapas de rúas, satélites ou rutas en directo ou precargados, usa unha aplicación de mapas específica.</string>
     <string name="open_settings">Abrir configuración</string>
     <string name="show_gps_accuracy">Amosar a precisión do GPS</string>
     <string name="increase_exposure_at_night">Aumentar a exposición pola noite</string>
