@@ -1000,7 +1000,7 @@
     <string name="daylight_duration">%s daglicht</string>
     <string name="accelerometer">Versnellingsmeter</string>
     <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historisch (%d jaar)</string>
-    <string name="map_file">Bestand (JPG, PNG, PDF)</string>
+    <string name="map_file">Bestand (JPG, PNG, PDF, Mapsforge)</string>
     <string name="astronomy_altitude_peak">Maximum hoogte</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d kaart</item>
@@ -1053,7 +1053,7 @@
     <string name="compass_source_mag_gyro">Magnetometer + Gyroscoop</string>
     <string name="reduce_map_resolution_crop_disclaimer">De kaart bijsnijden zal de resolutie verlagen. Als je de kaart in een hoge resolutie wil bijsnijden, gebruik a.u.b een fotobewerk-app. Er zijn plannen om dit op te lossen.</string>
     <string name="solar_eclipse">Zonsverduistering</string>
-    <string name="photo_map_disclaimer">Houd altijd een fysieke kaart bij de hand, als back-up en om de nauwkeurigheid van Trail Sense te vergelijken.</string>
+    <string name="photo_map_disclaimer">Houd altijd een fysieke kaart bij de hand, als back-up en om de nauwkeurigheid van Trail Sense te vergelijken.\n\nKaartbestanden zijn niet inbegrepen bij Trail Sense en moeten worden gedownload of gekalibreerd aan de hand van een foto. Je kunt kaarten om te downloaden vinden op https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="pref_keep_map_facing_up_title">Kaart omhoog laten wijzen</string>
     <string name="distance_away_from_self">%s ver</string>
     <string name="season">Seizoen</string>
@@ -1592,4 +1592,6 @@
     <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
     <string name="vector_maps">Vectorkaarten</string>
     <string name="map_layer_vector_maps_description">Je opgeslagen vectorkaarten</string>
+    <string name="file_pdf">PDF</string>
+    <string name="file_photo">Foto</string>
 </resources>
