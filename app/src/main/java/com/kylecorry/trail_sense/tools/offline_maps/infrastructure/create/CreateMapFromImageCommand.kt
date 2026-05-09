@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
 
 import android.content.Context
 import android.net.Uri
@@ -11,8 +11,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.IMapRepo
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class CreateMapFromImageCommand(
     context: Context,

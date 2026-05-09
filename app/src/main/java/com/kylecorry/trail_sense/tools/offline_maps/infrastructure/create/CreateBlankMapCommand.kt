@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
 
 import android.content.Context
 import android.graphics.Canvas
@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibra
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class CreateBlankMapCommand(
     private val context: Context,
@@ -61,7 +61,7 @@ class CreateBlankMapCommand(
                 repo,
                 file.toUri(),
                 loadingIndicator
-            ).execute()
+            ).execute() as? PhotoMap
             DeleteTempFilesCommand(context).execute()
 
             val calibrated = map?.copy(

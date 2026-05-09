@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
 import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.CreateOfflineMapCommand

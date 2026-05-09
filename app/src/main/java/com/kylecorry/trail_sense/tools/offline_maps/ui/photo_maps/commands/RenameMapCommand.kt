@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 
 class RenameMapCommand(private val context: Context, private val service: MapService) :
     CoroutineCommand<IMap> {

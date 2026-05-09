@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution.OfflineMapAttributionExtractorFactory
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.bounds.OfflineMapBoundsCalculatorFactory

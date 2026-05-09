@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
 
 import android.content.Context
 import android.net.Uri
@@ -8,9 +8,8 @@ import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.IMapRepo
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class CreateMapFromUriCommand(
     private val context: Context,
@@ -21,7 +20,7 @@ class CreateMapFromUriCommand(
 
     private val files = FileSubsystem.getInstance(context)
 
-    override suspend fun execute(): PhotoMap? = onIO {
+    override suspend fun execute(): IMap? = onIO {
         val filename = files.getFileName(uri, withExtension = false, fallbackToPathName = false)
         val name = onMain {
             CoroutinePickers.text(
@@ -39,8 +38,10 @@ class CreateMapFromUriCommand(
             val type = files.getMimeType(uri)
             if (type == "application/pdf") {
                 CreateMapFromPDFCommand(context, repo, name).execute(uri)
-            } else {
+            } else if (type?.startsWith("image/") == true) {
                 CreateMapFromImageCommand(context, repo, name).execute(uri)
+            } else {
+                CreateVectorMapFromFileCommand(repo, name).execute(uri)
             }
         } finally {
             onMain {

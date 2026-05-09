@@ -1,12 +1,11 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.io.UriPicker
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.IMapRepo
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class CreateMapFromFileCommand(
     private val context: Context,
@@ -14,8 +13,8 @@ class CreateMapFromFileCommand(
     private val repo: MapRepo,
     private val loadingIndicator: ILoadingIndicator
 ) : ICreateMapCommand {
-    override suspend fun execute(): PhotoMap? = onIO {
-        val uri = uriPicker.open(listOf("image/*", "application/pdf")) ?: return@onIO null
+    override suspend fun execute(): IMap? = onIO {
+        val uri = uriPicker.open(listOf("image/*", "application/pdf", "application/octet-stream")) ?: return@onIO null
         CreateMapFromUriCommand(context, repo, uri, loadingIndicator).execute()
     }
 }

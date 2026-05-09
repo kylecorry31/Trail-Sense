@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 
 class MapService private constructor(private val repo: MapRepo) {
@@ -82,7 +83,7 @@ class MapService private constructor(private val repo: MapRepo) {
         @Synchronized
         fun getInstance(context: Context): MapService {
             if (instance == null) {
-                instance = MapService(MapRepo.getInstance(context))
+                instance = MapService(MapRepo.Companion.getInstance(context))
             }
             return instance!!
         }

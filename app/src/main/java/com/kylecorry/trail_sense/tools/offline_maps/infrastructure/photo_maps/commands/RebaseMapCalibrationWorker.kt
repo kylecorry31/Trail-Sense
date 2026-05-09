@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.c
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class RebaseMapCalibrationWorker(
     private val context: Context,

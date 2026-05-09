@@ -39,15 +39,15 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MostRecentMapSor
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.NameMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.MapCleanupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create.CreateBlankMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create.CreateMapFromCameraCommand
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create.CreateMapFromFileCommand
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create.CreateMapFromUriCommand
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.create.ICreateMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateBlankMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromCameraCommand
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromFileCommand
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromUriCommand
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.CreateMapGroupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.DeleteMapCommand
@@ -418,7 +418,13 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
         inBackground(BackgroundMinimumState.Created) {
             binding.addBtn.isEnabled = false
 
-            val map = command.execute()?.copy(parentId = manager.root?.id)
+            val map = command.execute()?.let {
+                when (it) {
+                    is PhotoMap -> it.copy(parentId = manager.root?.id)
+                    is OfflineMapFile -> it.copy(parentId = manager.root?.id)
+                    else -> null
+                }
+            }
 
             if (map == null) {
                 toast(getString(R.string.error_importing_map))
@@ -428,31 +434,34 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
 
             if (map.parentId != null) {
                 onIO {
-                    mapRepo.add(map)
+                    mapService.add(map)
                 }
             }
 
-            val isPdfMap = map.hasPdf(requireContext())
+            if (map is PhotoMap) {
+                val isPdfMap = map.hasPdf(requireContext())
+                if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
+                    mapImportingIndicator.show()
+                    val reducer = HighQualityMapReducer(requireContext())
+                    reducer.reduce(map)
+                    mapImportingIndicator.hide()
+                }
 
-            if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
-                mapImportingIndicator.show()
-                val reducer = HighQualityMapReducer(requireContext())
-                reducer.reduce(map)
-                mapImportingIndicator.hide()
-            }
-
-            if (map.calibration.calibrationPoints.isNotEmpty()) {
-                toast(getString(R.string.map_auto_calibrated))
+                if (map.calibration.calibrationPoints.isNotEmpty()) {
+                    toast(getString(R.string.map_auto_calibrated))
+                }
             }
 
             binding.addBtn.isEnabled = true
             manager.refresh(true)
-            findNavController().navigate(
-                R.id.action_mapList_to_maps,
-                Bundle().apply {
-                    putLong("mapId", map.id)
-                }
-            )
+            when (map) {
+                is PhotoMap -> findNavController().navigate(
+                    R.id.action_mapList_to_maps,
+                    Bundle().apply {
+                        putLong("mapId", map.id)
+                    }
+                )
+            }
 
         }
     }

@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

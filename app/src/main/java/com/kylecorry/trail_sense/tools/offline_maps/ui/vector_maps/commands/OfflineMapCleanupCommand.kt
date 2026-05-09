@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class OfflineMapCleanupCommand : CoroutineValueCommand<Boolean> {
 

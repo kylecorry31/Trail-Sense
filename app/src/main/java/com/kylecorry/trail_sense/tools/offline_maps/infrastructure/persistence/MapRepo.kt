@@ -1,12 +1,12 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Size
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
-import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -24,10 +24,10 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 class MapRepo private constructor(context: Context) {
-    private val offlineMapFileDao = AppDatabase.getInstance(context).offlineMapFileDao()
-    private val photoMapDao = AppDatabase.getInstance(context).mapDao()
-    private val mapGroupDao = AppDatabase.getInstance(context).mapGroupDao()
-    private val files = FileSubsystem.getInstance(context)
+    private val offlineMapFileDao = AppDatabase.Companion.getInstance(context).offlineMapFileDao()
+    private val photoMapDao = AppDatabase.Companion.getInstance(context).mapDao()
+    private val mapGroupDao = AppDatabase.Companion.getInstance(context).mapGroupDao()
+    private val files = FileSubsystem.Companion.getInstance(context)
     private val tileCache = getAppService<PersistentTileCache>()
 
     suspend fun getPhotoMaps(): List<PhotoMap> = onIO {
@@ -59,33 +59,33 @@ class MapRepo private constructor(context: Context) {
     suspend fun delete(map: PhotoMap) = onIO {
         tryOrNothing { files.delete(map.filename) }
         tryOrNothing { files.delete(map.pdfFileName) }
-        photoMapDao.delete(PhotoMapEntity.from(map))
+        photoMapDao.delete(PhotoMapEntity.Companion.from(map))
         invalidatePhotoMapCache(map.id)
     }
 
     suspend fun delete(map: OfflineMapFile) = onIO {
         tryOrNothing { files.delete(map.path) }
-        offlineMapFileDao.delete(OfflineMapFileEntity.from(map))
+        offlineMapFileDao.delete(OfflineMapFileEntity.Companion.from(map))
     }
 
     suspend fun delete(group: MapGroup) {
-        mapGroupDao.delete(MapGroupEntity.from(group))
+        mapGroupDao.delete(MapGroupEntity.Companion.from(group))
     }
 
     suspend fun add(group: MapGroup): Long = onIO {
         if (group.id != 0L) {
-            mapGroupDao.update(MapGroupEntity.from(group))
+            mapGroupDao.update(MapGroupEntity.Companion.from(group))
             group.id
         } else {
-            mapGroupDao.insert(MapGroupEntity.from(group))
+            mapGroupDao.insert(MapGroupEntity.Companion.from(group))
         }
     }
 
     suspend fun add(map: PhotoMap): Long = onIO {
         val newId = if (map.id == 0L) {
-            photoMapDao.insert(PhotoMapEntity.from(map))
+            photoMapDao.insert(PhotoMapEntity.Companion.from(map))
         } else {
-            photoMapDao.update(PhotoMapEntity.from(map))
+            photoMapDao.update(PhotoMapEntity.Companion.from(map))
             map.id
         }
         invalidatePhotoMapCache(newId)
@@ -93,7 +93,7 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun add(file: OfflineMapFile): Long = onIO {
-        offlineMapFileDao.upsert(OfflineMapFileEntity.from(file))
+        offlineMapFileDao.upsert(OfflineMapFileEntity.Companion.from(file))
     }
 
     suspend fun getPhotoMaps(parentId: Long?): List<PhotoMap> = onIO {
@@ -112,12 +112,12 @@ class MapRepo private constructor(context: Context) {
 
     private suspend fun invalidatePhotoMapCache(mapId: Long) {
         val cacheKeys = listOf(
-            "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
-            "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
-            "${PhotoMapTileSource.SOURCE_ID}-null-$mapId",
-            "${PhotoMapTileSource.SOURCE_ID}-true",
-            "${PhotoMapTileSource.SOURCE_ID}-false",
-            "${PhotoMapTileSource.SOURCE_ID}-null",
+            "${PhotoMapTileSource.Companion.SOURCE_ID}-true-$mapId",
+            "${PhotoMapTileSource.Companion.SOURCE_ID}-false-$mapId",
+            "${PhotoMapTileSource.Companion.SOURCE_ID}-null-$mapId",
+            "${PhotoMapTileSource.Companion.SOURCE_ID}-true",
+            "${PhotoMapTileSource.Companion.SOURCE_ID}-false",
+            "${PhotoMapTileSource.Companion.SOURCE_ID}-null",
         )
         cacheKeys.forEach {
             tileCache.invalidate(it)
@@ -136,20 +136,29 @@ class MapRepo private constructor(context: Context) {
             ) {
 
                 val scaledSize = MathUtils.scaleToBounds(
-                    android.util.Size(map.pdfWidth, map.pdfHeight),
-                    android.util.Size(PhotoMap.DESIRED_PDF_SIZE, PhotoMap.DESIRED_PDF_SIZE)
+                    Size(map.pdfWidth, map.pdfHeight),
+                    Size(PhotoMap.Companion.DESIRED_PDF_SIZE, PhotoMap.Companion.DESIRED_PDF_SIZE)
                 )
 
-                Size(scaledSize.width.toFloat(), scaledSize.height.toFloat())
+                com.kylecorry.sol.math.geometry.Size(
+                    scaledSize.width.toFloat(),
+                    scaledSize.height.toFloat()
+                )
             } else {
                 null
             }
 
         return newMap.copy(
             metadata = newMap.metadata.copy(
-                size = pdfSize ?: Size(size.width.toFloat(), size.height.toFloat()),
+                size = pdfSize ?: com.kylecorry.sol.math.geometry.Size(
+                    size.width.toFloat(),
+                    size.height.toFloat()
+                ),
                 fileSize = fileSize,
-                imageSize = Size(size.width.toFloat(), size.height.toFloat())
+                imageSize = com.kylecorry.sol.math.geometry.Size(
+                    size.width.toFloat(),
+                    size.height.toFloat()
+                )
             )
         )
     }
