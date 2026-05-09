@@ -39,6 +39,8 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     override val mode: ITopic<FlashlightMode>
         get() = _mode.distinct()
 
+    override var selectedMode: FlashlightMode = FlashlightMode.Torch
+
     override val brightnessLevels: Int
         get() = (torch?.brightnessLevels ?: 1) - 1
 
@@ -116,6 +118,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
             transitionTimer.stop()
         }
         _mode.publish(FlashlightMode.Off)
+        selectedMode = FlashlightMode.Torch
         FlashlightService.stop(context)
         torch?.off()
     }
@@ -130,6 +133,9 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
 
     override fun set(mode: FlashlightMode) {
+        if (mode != FlashlightMode.Off) {
+            selectedMode = mode
+        }
         when (mode) {
             FlashlightMode.Off -> off()
             else -> on(mode)
@@ -173,6 +179,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
             if (enabled && getMode() == FlashlightMode.Off) {
                 setBrightness(1f)
+                selectedMode = FlashlightMode.Torch
                 on(FlashlightMode.Torch, true)
             }
         }

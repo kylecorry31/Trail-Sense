@@ -39,8 +39,6 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         turnOn()
     }
 
-    private var selectedMode = FlashlightMode.Torch
-
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
@@ -107,20 +105,37 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                     considerShownIfCancelled = false,
                 ) { _, agreed ->
                     val frequency = if (it == 10) 200 else it
-                    selectedMode = if (agreed) {
+                    val mode = if (agreed) {
                         getStrobeMode(frequency)
                     } else {
                         FlashlightMode.Torch
                     }
-                    turnOn()
+                    flashlight.set(mode)
                 }
             } else {
-                selectedMode = when (it) {
+                val mode = when (it) {
                     11 -> FlashlightMode.Sos
                     else -> FlashlightMode.Torch
                 }
-                turnOn()
+                flashlight.set(mode)
             }
+        }
+    }
+
+    private fun getDialIndex(mode: FlashlightMode): Int {
+        return when (mode) {
+            FlashlightMode.Strobe1 -> 1
+            FlashlightMode.Strobe2 -> 2
+            FlashlightMode.Strobe3 -> 3
+            FlashlightMode.Strobe4 -> 4
+            FlashlightMode.Strobe5 -> 5
+            FlashlightMode.Strobe6 -> 6
+            FlashlightMode.Strobe7 -> 7
+            FlashlightMode.Strobe8 -> 8
+            FlashlightMode.Strobe9 -> 9
+            FlashlightMode.Strobe200 -> 10
+            FlashlightMode.Sos -> 11
+            else -> 0
         }
     }
 
@@ -143,6 +158,9 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     override fun onResume() {
         super.onResume()
         flashlightMode = flashlight.getMode()
+        val index = getDialIndex(flashlightMode)
+        binding.flashlightDial.selected = index
+        binding.flashlightDial.scrollToOption(index)
         updateFlashlightUI()
         intervalometer.interval(20)
         binding.flashlightDial.areHapticsEnabled = true
@@ -181,7 +199,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     private fun turnOn() {
-        flashlight.set(selectedMode)
+        flashlight.set(flashlight.selectedMode)
     }
 
     private fun turnOff() {
@@ -189,8 +207,14 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     private fun update() {
-        flashlightMode = flashlight.getMode()
-        updateFlashlightUI()
+        val newMode = flashlight.getMode()
+        if (newMode != flashlightMode) {
+            flashlightMode = newMode
+            updateFlashlightUI()
+            val index = getDialIndex(flashlightMode)
+            binding.flashlightDial.selected = index
+            binding.flashlightDial.scrollToOption(index)
+        }
     }
 
     private fun updateTimer() {
