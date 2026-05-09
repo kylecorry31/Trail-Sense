@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import java.time.Instant
 
 @Entity(tableName = "offline_map_files", indices = [Index(value = ["parent"])])
@@ -28,14 +28,14 @@ data class OfflineMapFileEntity(
     @ColumnInfo(name = "_id")
     var id: Long = 0
 
-    fun toOfflineMapFile(): OfflineMapFile {
+    fun toOfflineMapFile(): VectorMap {
         val hasLatitudeBounds = north != null && south != null
         val hasLongitudeBounds = east != null && west != null
-        return OfflineMapFile(
+        return VectorMap(
             id,
             name,
-            OfflineMapFileType.entries.firstOrNull { it.id == type }
-                ?: OfflineMapFileType.Mapsforge,
+            VectorMapFileType.entries.firstOrNull { it.id == type }
+                ?: VectorMapFileType.Mapsforge,
             path,
             sizeBytes,
             Instant.ofEpochMilli(createdOn),
@@ -51,7 +51,7 @@ data class OfflineMapFileEntity(
     }
 
     companion object {
-        fun from(file: OfflineMapFile): OfflineMapFileEntity {
+        fun from(file: VectorMap): OfflineMapFileEntity {
             return OfflineMapFileEntity(
                 file.name,
                 file.type.id,

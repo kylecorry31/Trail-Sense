@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 
@@ -22,7 +22,7 @@ class MapService private constructor(private val repo: MapRepo) {
         override suspend fun deleteItems(items: List<IMap>) {
             // TODO: Bulk delete
             items.filterIsInstance<PhotoMap>().forEach { repo.delete(it) }
-            items.filterIsInstance<OfflineMapFile>().forEach { repo.delete(it) }
+            items.filterIsInstance<VectorMap>().forEach { repo.delete(it) }
         }
 
         override suspend fun deleteGroup(group: IMap) {
@@ -34,7 +34,7 @@ class MapService private constructor(private val repo: MapRepo) {
         return when (map) {
             is MapGroup -> repo.add(map)
             is PhotoMap -> repo.add(map)
-            is OfflineMapFile -> repo.add(map)
+            is VectorMap -> repo.add(map)
             else -> error("Unexpected map subclass")
         }
     }

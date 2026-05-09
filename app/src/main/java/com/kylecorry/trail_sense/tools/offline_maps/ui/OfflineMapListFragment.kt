@@ -37,7 +37,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.ClosestMapSortSt
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MostRecentMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.NameMapSortStrategy
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateBlankMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromCameraCommand
@@ -247,7 +247,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                 // Vector Maps
                 maps
                     .asSequence()
-                    .filterIsInstance<OfflineMapFile>()
+                    .filterIsInstance<VectorMap>()
                     .filter { it.visible != visible }
                     .forEach { mapService.add(it.copy(visible = visible)) }
 
@@ -271,7 +271,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         }
     }
 
-    private fun onVectorMapAction(map: OfflineMapFile, action: OfflineMapFileAction) {
+    private fun onVectorMapAction(map: VectorMap, action: OfflineMapFileAction) {
         when (action) {
             OfflineMapFileAction.View -> view(map)
             OfflineMapFileAction.Rename -> rename(map)
@@ -306,7 +306,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         }
     }
 
-    private fun editAttribution(map: OfflineMapFile) {
+    private fun editAttribution(map: VectorMap) {
         inBackground {
             EditOfflineMapAttributionCommand(requireContext()).execute(map)
             manager.refresh()
@@ -344,7 +344,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                 }
             )
 
-            is OfflineMapFile -> findNavController().navigateWithAnimation(
+            is VectorMap -> findNavController().navigateWithAnimation(
                 R.id.offlineMapViewFragment,
                 Bundle().apply {
                     putLong("offline_map_file_id", map.id)
@@ -422,7 +422,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             val map = command.execute()?.let {
                 when (it) {
                     is PhotoMap -> it.copy(parentId = manager.root?.id)
-                    is OfflineMapFile -> it.copy(parentId = manager.root?.id)
+                    is VectorMap -> it.copy(parentId = manager.root?.id)
                     else -> null
                 }
             }

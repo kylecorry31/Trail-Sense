@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayers
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.map.ui.MapView
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
@@ -96,9 +96,9 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
     }
 
-    private fun useOfflineMap(mapId: Long, refreshKey: String): OfflineMapFile? {
+    private fun useOfflineMap(mapId: Long, refreshKey: String): VectorMap? {
         val repo = useService<MapRepo>()
-        val (map, setMap) = useState<OfflineMapFile?>(null)
+        val (map, setMap) = useState<VectorMap?>(null)
 
         useBackgroundEffect(mapId, refreshKey, lifecycleHookTrigger.onResume()) {
             setMap(repo.getVectorMap(mapId))
@@ -107,7 +107,7 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         return map
     }
 
-    private fun rename(map: OfflineMapFile, onRenamed: () -> Unit) {
+    private fun rename(map: VectorMap, onRenamed: () -> Unit) {
         inBackground {
             DeleteMapCommand(requireContext(), getAppService()).execute(map)
             onMain {
@@ -116,7 +116,7 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
     }
 
-    private fun editAttribution(map: OfflineMapFile, onUpdated: () -> Unit) {
+    private fun editAttribution(map: VectorMap, onUpdated: () -> Unit) {
         inBackground {
             EditOfflineMapAttributionCommand(requireContext()).execute(map)
             onMain {
@@ -125,7 +125,7 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
     }
 
-    private fun delete(map: OfflineMapFile) {
+    private fun delete(map: VectorMap) {
         inBackground {
             val repo = getAppService<MapRepo>()
             DeleteMapCommand(requireContext(), getAppService()).execute(map)

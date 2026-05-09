@@ -5,7 +5,7 @@ import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution.OfflineMapAttributionExtractorFactory
@@ -24,7 +24,7 @@ class CreateVectorMapFromFileCommand(
         val extension = MapFileTypeUtils.getExtension(type)
         val saved = files.copyToLocal(uri, OFFLINE_MAPS_DIRECTORY, "${UUID.randomUUID()}.$extension")
             ?: return@onIO null
-        val mapFile = OfflineMapFile(
+        val mapFile = VectorMap(
             0,
             name,
             type,

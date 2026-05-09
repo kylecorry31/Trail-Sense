@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persista
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileEntity
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
@@ -36,7 +36,7 @@ class MapRepo private constructor(context: Context) {
         runner.map(photoMaps, ::convertToMap)
     }
 
-    suspend fun getVectorMaps(): List<OfflineMapFile> = onIO {
+    suspend fun getVectorMaps(): List<VectorMap> = onIO {
         offlineMapFileDao.getAllSync().map { it.toOfflineMapFile() }
     }
 
@@ -48,11 +48,11 @@ class MapRepo private constructor(context: Context) {
         photoMapDao.get(id)?.let { convertToMap(it) }
     }
 
-    suspend fun getVectorMap(id: Long): OfflineMapFile? = onIO {
+    suspend fun getVectorMap(id: Long): VectorMap? = onIO {
         offlineMapFileDao.get(id)?.toOfflineMapFile()
     }
 
-    fun getVectorMapFlow(): Flow<List<OfflineMapFile>> = offlineMapFileDao.getAll()
+    fun getVectorMapFlow(): Flow<List<VectorMap>> = offlineMapFileDao.getAll()
         .map { it.map { entity -> entity.toOfflineMapFile() } }
         .flowOn(Dispatchers.IO)
 
@@ -63,7 +63,7 @@ class MapRepo private constructor(context: Context) {
         invalidatePhotoMapCache(map.id)
     }
 
-    suspend fun delete(map: OfflineMapFile) = onIO {
+    suspend fun delete(map: VectorMap) = onIO {
         tryOrNothing { files.delete(map.path) }
         offlineMapFileDao.delete(OfflineMapFileEntity.Companion.from(map))
     }
@@ -92,7 +92,7 @@ class MapRepo private constructor(context: Context) {
         newId
     }
 
-    suspend fun add(file: OfflineMapFile): Long = onIO {
+    suspend fun add(file: VectorMap): Long = onIO {
         offlineMapFileDao.upsert(OfflineMapFileEntity.Companion.from(file))
     }
 
@@ -102,7 +102,7 @@ class MapRepo private constructor(context: Context) {
         runner.map(maps, ::convertToMap)
     }
 
-    suspend fun getVectorMaps(parentId: Long?): List<OfflineMapFile> = onIO {
+    suspend fun getVectorMaps(parentId: Long?): List<VectorMap> = onIO {
         offlineMapFileDao.getAllWithParent(parentId).map { it.toOfflineMapFile() }
     }
 

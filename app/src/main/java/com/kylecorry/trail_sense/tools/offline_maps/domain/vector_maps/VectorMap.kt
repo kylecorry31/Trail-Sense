@@ -4,10 +4,10 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import java.time.Instant
 
-data class OfflineMapFile(
+data class VectorMap(
     override val id: Long,
     override val name: String,
-    val type: OfflineMapFileType,
+    val type: VectorMapFileType,
     val path: String,
     val sizeBytes: Long,
     val createdOn: Instant,

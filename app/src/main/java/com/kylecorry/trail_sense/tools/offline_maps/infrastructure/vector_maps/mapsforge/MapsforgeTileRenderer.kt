@@ -8,8 +8,8 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import kotlinx.coroutines.runBlocking
 import org.mapsforge.core.model.Tile
 import org.mapsforge.map.datastore.MapDataStore
@@ -43,7 +43,7 @@ class MapsforgeTileRenderer {
     @Synchronized
     fun render(
         context: Context,
-        maps: List<OfflineMapFile>,
+        maps: List<VectorMap>,
         tile: com.kylecorry.trail_sense.shared.map_layers.tiles.Tile,
         highDetailMode: Boolean
     ): Bitmap? {
@@ -88,11 +88,11 @@ class MapsforgeTileRenderer {
 
     private fun getRenderer(
         context: Context,
-        maps: List<OfflineMapFile>,
+        maps: List<VectorMap>,
         highDetailMode: Boolean
     ): DatabaseRenderer? {
         val files = maps
-            .filter { it.type == OfflineMapFileType.Mapsforge }
+            .filter { it.type == VectorMapFileType.Mapsforge }
             .map { files.get(it.path) }
             .filter { it.isFile && it.length() > 0 }
         if (files.isEmpty()) {

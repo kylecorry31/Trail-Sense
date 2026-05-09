@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class OfflineMapFileService {
@@ -18,7 +18,7 @@ class OfflineMapFileService {
 
     private val deleter = object : GroupDeleter<IMap>(loader) {
         override suspend fun deleteItems(items: List<IMap>) {
-            items.filterIsInstance<OfflineMapFile>().forEach { repo.delete(it) }
+            items.filterIsInstance<VectorMap>().forEach { repo.delete(it) }
         }
 
         override suspend fun deleteGroup(group: IMap) {
@@ -30,7 +30,7 @@ class OfflineMapFileService {
         return if (file.isGroup) {
             repo.add(file as MapGroup)
         } else {
-            repo.add(file as OfflineMapFile)
+            repo.add(file as VectorMap)
         }
     }
 

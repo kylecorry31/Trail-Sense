@@ -8,14 +8,14 @@ import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 
 class IMapMapper(
     gps: IGPS,
     context: Context,
     lifecycleOwner: LifecycleOwner,
     photoMapActionHandler: (PhotoMap, MapAction) -> Unit,
-    vectorMapActionHandler: (OfflineMapFile, OfflineMapFileAction) -> Unit,
+    vectorMapActionHandler: (VectorMap, OfflineMapFileAction) -> Unit,
     mapGroupActionHandler: (MapGroup, MapGroupAction) -> Unit,
 ) : ListItemMapper<IMap> {
 
@@ -26,7 +26,7 @@ class IMapMapper(
     override fun map(value: IMap): ListItem {
         return when (value) {
             is PhotoMap -> mapMapper.map(value)
-            is OfflineMapFile -> vectorMapMapper.map(value)
+            is VectorMap -> vectorMapMapper.map(value)
             is MapGroup -> mapGroupMapper.map(value)
             else -> error("Unexpected map type")
         }

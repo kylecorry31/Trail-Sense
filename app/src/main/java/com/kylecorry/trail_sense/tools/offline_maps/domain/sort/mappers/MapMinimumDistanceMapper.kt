@@ -5,7 +5,7 @@ import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 
 class MapMinimumDistanceMapper(
     override val loader: IGroupLoader<IMap>,
@@ -19,7 +19,7 @@ class MapMinimumDistanceMapper(
                 item.boundary()
             }
 
-            is OfflineMapFile -> {
+            is VectorMap -> {
                 item.bounds
             }
 

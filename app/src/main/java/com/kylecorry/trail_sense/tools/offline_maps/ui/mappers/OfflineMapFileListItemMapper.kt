@@ -11,16 +11,16 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 
 class OfflineMapFileListItemMapper(
     private val context: Context,
-    private val actionHandler: (OfflineMapFile, OfflineMapFileAction) -> Unit
-) : ListItemMapper<OfflineMapFile> {
+    private val actionHandler: (VectorMap, OfflineMapFileAction) -> Unit
+) : ListItemMapper<VectorMap> {
 
     private val formatter = getAppService<FormatService>()
 
-    override fun map(value: OfflineMapFile): ListItem {
+    override fun map(value: VectorMap): ListItem {
         return ListItem(
             value.id + 10000,
             value.name,
