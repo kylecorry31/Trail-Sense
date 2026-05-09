@@ -4,15 +4,15 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 
 class OfflineMapCleanupCommand : CoroutineValueCommand<Boolean> {
 
-    private val repo = getAppService<OfflineMapFileRepo>()
+    private val repo = getAppService<MapRepo>()
     private val files = getAppService<FileSubsystem>()
 
     override suspend fun execute(): Boolean = onIO {
-        val maps = repo.getAllSync()
+        val maps = repo.getVectorMaps()
         val allFiles = files.list(OFFLINE_MAPS_DIRECTORY).map { "$OFFLINE_MAPS_DIRECTORY/${it.name}" }
 
         // Delete files without a map

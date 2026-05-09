@@ -9,9 +9,10 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 
-class MapService private constructor(private val repo: IMapRepo) {
+class MapService private constructor(private val repo: MapRepo) {
 
     val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
@@ -19,19 +20,21 @@ class MapService private constructor(private val repo: IMapRepo) {
     private val deleter = object : GroupDeleter<IMap>(loader) {
         override suspend fun deleteItems(items: List<IMap>) {
             // TODO: Bulk delete
-            items.forEach { repo.deleteMap(it as PhotoMap) }
+            items.filterIsInstance<PhotoMap>().forEach { repo.delete(it) }
+            items.filterIsInstance<OfflineMapFile>().forEach { repo.delete(it) }
         }
 
         override suspend fun deleteGroup(group: IMap) {
-            repo.deleteMapGroup(group as MapGroup)
+            (group as? MapGroup)?.let { repo.delete(it) }
         }
     }
 
     suspend fun add(map: IMap): Long {
-        return if (map.isGroup) {
-            repo.addMapGroup(map as MapGroup)
-        } else {
-            repo.addMap(map as PhotoMap)
+        return when (map) {
+            is MapGroup -> repo.add(map)
+            is PhotoMap -> repo.add(map)
+            is OfflineMapFile -> repo.add(map)
+            else -> error("Unexpected map subclass")
         }
     }
 
@@ -49,7 +52,7 @@ class MapService private constructor(private val repo: IMapRepo) {
         val updatedMap = newMap.copy(
             calibration = newMap.calibration.copy(rotation = recalculatedRotation)
         )
-        repo.addMap(updatedMap)
+        repo.add(updatedMap)
         return updatedMap
     }
 
@@ -58,9 +61,9 @@ class MapService private constructor(private val repo: IMapRepo) {
     }
 
     private suspend fun getChildren(parentId: Long?): List<IMap> {
-        val paths = repo.getMaps(parentId)
+        val maps = repo.getPhotoMaps(parentId) + repo.getVectorMaps(parentId)
         val groups = getGroups(parentId)
-        return paths + groups
+        return maps + groups
     }
 
     suspend fun getGroup(id: Long?): MapGroup? {
@@ -68,8 +71,8 @@ class MapService private constructor(private val repo: IMapRepo) {
         return repo.getMapGroup(id)?.copy(count = counter.count(id))
     }
 
-    suspend fun getAllMaps(): List<PhotoMap> {
-        return repo.getAllMaps()
+    suspend fun getAllPhotoMaps(): List<PhotoMap> {
+        return repo.getPhotoMaps()
     }
 
     companion object {

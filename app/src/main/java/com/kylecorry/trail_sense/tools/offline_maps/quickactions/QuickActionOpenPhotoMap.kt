@@ -73,7 +73,7 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
         val location = sensors.getLocation()
 
         val destination = navigator.getDestination()?.coordinate
-        val maps = mapService.getAllMaps()
+        val maps = mapService.getAllPhotoMaps()
         return selector.getActiveMap(maps, location, destination)
     }
 

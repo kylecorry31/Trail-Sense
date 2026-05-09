@@ -194,7 +194,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     fun reloadMap() {
         inBackground {
-            map = mapRepo.getMap(mapId)
+            map = mapRepo.getPhotoMap(mapId)
             onMain {
                 map?.let(::onMapLoad)
             }
@@ -409,10 +409,10 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {
-        var updated = mapRepo.getMap(map.id) ?: return map
+        var updated = mapRepo.getPhotoMap(map.id) ?: return map
         updated =
             updated.copy(calibration = updated.calibration.copy(calibrationPoints = manager.getCalibration()))
-        mapRepo.addMap(updated)
+        mapRepo.add(updated)
         return updated
     }
 

@@ -11,45 +11,68 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileEntity
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
-class MapRepo private constructor(private val context: Context) : IMapRepo {
-
-    private val mapDao = AppDatabase.getInstance(context).mapDao()
+class MapRepo private constructor(context: Context) {
+    private val offlineMapFileDao = AppDatabase.getInstance(context).offlineMapFileDao()
+    private val photoMapDao = AppDatabase.getInstance(context).mapDao()
     private val mapGroupDao = AppDatabase.getInstance(context).mapGroupDao()
     private val files = FileSubsystem.getInstance(context)
     private val tileCache = getAppService<PersistentTileCache>()
 
-    override suspend fun getAllMaps(): List<PhotoMap> = onIO {
-        val maps = mapDao.getAll()
+    suspend fun getPhotoMaps(): List<PhotoMap> = onIO {
+        val photoMaps = photoMapDao.getAll()
         val runner = ParallelCoroutineRunner(MAX_PARALLEL)
-        runner.map(maps, ::convertToMap)
+        runner.map(photoMaps, ::convertToMap)
     }
 
-    override suspend fun getMapGroup(id: Long): MapGroup? = onIO {
+    suspend fun getVectorMaps(): List<OfflineMapFile> = onIO {
+        offlineMapFileDao.getAllSync().map { it.toOfflineMapFile() }
+    }
+
+    suspend fun getMapGroup(id: Long): MapGroup? = onIO {
         mapGroupDao.get(id)?.toMapGroup()
     }
 
-    override suspend fun getMap(id: Long): PhotoMap? = onIO {
-        mapDao.get(id)?.let { convertToMap(it) }
+    suspend fun getPhotoMap(id: Long): PhotoMap? = onIO {
+        photoMapDao.get(id)?.let { convertToMap(it) }
     }
 
-    override suspend fun deleteMap(map: PhotoMap) = onIO {
+    suspend fun getVectorMap(id: Long): OfflineMapFile? = onIO {
+        offlineMapFileDao.get(id)?.toOfflineMapFile()
+    }
+
+    fun getVectorMapFlow(): Flow<List<OfflineMapFile>> = offlineMapFileDao.getAll()
+        .map { it.map { entity -> entity.toOfflineMapFile() } }
+        .flowOn(Dispatchers.IO)
+
+    suspend fun delete(map: PhotoMap) = onIO {
         tryOrNothing { files.delete(map.filename) }
         tryOrNothing { files.delete(map.pdfFileName) }
-        mapDao.delete(PhotoMapEntity.from(map))
-        invalidateCache(map.id)
+        photoMapDao.delete(PhotoMapEntity.from(map))
+        invalidatePhotoMapCache(map.id)
     }
 
-    override suspend fun deleteMapGroup(group: MapGroup) {
+    suspend fun delete(map: OfflineMapFile) = onIO {
+        tryOrNothing { files.delete(map.path) }
+        offlineMapFileDao.delete(OfflineMapFileEntity.from(map))
+    }
+
+    suspend fun delete(group: MapGroup) {
         mapGroupDao.delete(MapGroupEntity.from(group))
     }
 
-    override suspend fun addMapGroup(group: MapGroup): Long = onIO {
+    suspend fun add(group: MapGroup): Long = onIO {
         if (group.id != 0L) {
             mapGroupDao.update(MapGroupEntity.from(group))
             group.id
@@ -58,28 +81,36 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         }
     }
 
-    override suspend fun addMap(map: PhotoMap): Long = onIO {
+    suspend fun add(map: PhotoMap): Long = onIO {
         val newId = if (map.id == 0L) {
-            mapDao.insert(PhotoMapEntity.from(map))
+            photoMapDao.insert(PhotoMapEntity.from(map))
         } else {
-            mapDao.update(PhotoMapEntity.from(map))
+            photoMapDao.update(PhotoMapEntity.from(map))
             map.id
         }
-        invalidateCache(newId)
+        invalidatePhotoMapCache(newId)
         newId
     }
 
-    override suspend fun getMaps(parentId: Long?): List<PhotoMap> = onIO {
-        val maps = mapDao.getAllWithParent(parentId)
+    suspend fun add(file: OfflineMapFile): Long = onIO {
+        offlineMapFileDao.upsert(OfflineMapFileEntity.from(file))
+    }
+
+    suspend fun getPhotoMaps(parentId: Long?): List<PhotoMap> = onIO {
+        val maps = photoMapDao.getAllWithParent(parentId)
         val runner = ParallelCoroutineRunner(MAX_PARALLEL)
         runner.map(maps, ::convertToMap)
     }
 
-    override suspend fun getMapGroups(parentId: Long?): List<MapGroup> = onIO {
+    suspend fun getVectorMaps(parentId: Long?): List<OfflineMapFile> = onIO {
+        offlineMapFileDao.getAllWithParent(parentId).map { it.toOfflineMapFile() }
+    }
+
+    suspend fun getMapGroups(parentId: Long?): List<MapGroup> = onIO {
         mapGroupDao.getAllWithParent(parentId).map { it.toMapGroup() }
     }
 
-    private suspend fun invalidateCache(mapId: Long) {
+    private suspend fun invalidatePhotoMapCache(mapId: Long) {
         val cacheKeys = listOf(
             "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
             "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",

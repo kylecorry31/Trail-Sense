@@ -13,7 +13,7 @@ class RebaseMapCalibrationWorker(
     override suspend fun doWork(): Result {
         try {
             val repo = MapRepo.getInstance(context)
-            val maps = repo.getAllMaps()
+            val maps = repo.getPhotoMaps()
             maps.forEach {
                 if (it.calibration.calibrationPoints.isEmpty()) {
                     return@forEach
@@ -22,7 +22,7 @@ class RebaseMapCalibrationWorker(
                 val points = it.calibration.calibrationPoints.map { point ->
                     point.copy(imageLocation = point.imageLocation.rotate(-it.baseRotation()))
                 }
-                repo.addMap(it.copy(calibration = it.calibration.copy(calibrationPoints = points)))
+                repo.add(it.copy(calibration = it.calibration.copy(calibrationPoints = points)))
             }
         } catch (e: Exception) {
             // Could not migrate

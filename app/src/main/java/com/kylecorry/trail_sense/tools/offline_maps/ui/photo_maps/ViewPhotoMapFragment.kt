@@ -228,7 +228,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     fun reloadMap() {
         inBackground {
             withContext(Dispatchers.IO) {
-                map = mapRepo.getMap(mapId)
+                map = mapRepo.getPhotoMap(mapId)
             }
             withContext(Dispatchers.Main) {
                 map?.let {

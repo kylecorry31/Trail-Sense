@@ -8,10 +8,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.IMapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 
 class CreateMapFromCameraCommand(
     private val fragment: AndromedaFragment,
-    private val repo: IMapRepo,
+    private val repo: MapRepo,
     private val loadingIndicator: ILoadingIndicator
 ) : ICreateMapCommand {
     override suspend fun execute(): PhotoMap? = onIO {

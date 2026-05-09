@@ -46,9 +46,9 @@ class PhotoMapTileSource : TileSource {
             if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || featureId != lastFeatureId) {
                 val repo = AppServiceRegistry.get<MapRepo>()
                 val maps = if (featureId == null) {
-                    repo.getAllMaps().filter { it.visible }
+                    repo.getPhotoMaps().filter { it.visible }
                 } else {
-                    repo.getAllMaps().filter { it.id == featureId }
+                    repo.getPhotoMaps().filter { it.id == featureId }
                 }
                 internalSelector = PhotoMapTileSourceSelector(
                     AppServiceRegistry.get(),

@@ -13,7 +13,7 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
 
 
     override suspend fun execute(): Boolean = onIO {
-        val maps = service.getAllMaps()
+        val maps = service.getAllPhotoMaps()
         val allFiles = files.list("maps").map { "maps/${it.name}" }
 
         // Delete files without a map

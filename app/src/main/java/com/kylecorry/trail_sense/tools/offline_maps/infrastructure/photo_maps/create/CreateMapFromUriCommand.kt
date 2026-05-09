@@ -10,10 +10,11 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.IMapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 
 class CreateMapFromUriCommand(
     private val context: Context,
-    private val repo: IMapRepo,
+    private val repo: MapRepo,
     private val uri: Uri,
     private val loadingIndicator: ILoadingIndicator
 ) : ICreateMapCommand {

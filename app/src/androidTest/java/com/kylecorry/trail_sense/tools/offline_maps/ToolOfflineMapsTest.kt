@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -164,7 +164,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         val path = "offline_maps/$filename.map"
         files.get(path, true).writeBytes(ByteArray(0))
 
-        getAppService<OfflineMapFileRepo>().add(
+        getAppService<MapRepo>().add(
             OfflineMapFile(
                 0,
                 name,

@@ -12,10 +12,11 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibra
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.IMapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 
 class CreateMapFromImageCommand(
     context: Context,
-    private val repo: IMapRepo,
+    private val repo: MapRepo,
     private val name: String
 ) {
 
@@ -45,7 +46,7 @@ class CreateMapFromImageCommand(
             )
         )
 
-        val id = repo.addMap(map)
+        val id = repo.add(map)
         map.copy(id = id)
     }
 

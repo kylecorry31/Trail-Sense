@@ -28,7 +28,7 @@ abstract class BaseMapReduce(
         if (!map.filename.endsWith(".webp")) {
             val newFileName = "maps/" + UUID.randomUUID().toString() + ".webp"
             if (files.rename(map.filename, newFileName)) {
-                mapRepo.addMap(map.copy(filename = newFileName))
+                mapRepo.add(map.copy(filename = newFileName))
             }
         }
     }

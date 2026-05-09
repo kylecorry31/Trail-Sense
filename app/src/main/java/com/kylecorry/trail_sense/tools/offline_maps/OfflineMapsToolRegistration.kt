@@ -10,8 +10,8 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.quickactions.QuickActionOpenPhotoMap
@@ -69,7 +69,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
             intentHandlers = listOf(importMapIntentHandler),
             singletons = listOf(
                 MapRepo::getInstance,
-                { OfflineMapFileRepo.getInstance() },
+                MapService::getInstance,
                 { OfflineMapFileService() }
             ),
             mapLayers = listOf(
@@ -108,8 +108,8 @@ object OfflineMapsToolRegistration : ToolRegistration {
                     ),
                     tileSource = ::MapsforgeTileSource,
                     attributionLoader = {
-                        val attributions = OfflineMapFileRepo.getInstance()
-                            .getAllSync()
+                        val attributions = MapRepo.getInstance(it)
+                            .getVectorMaps()
                             .filter { it.visible }
                             .mapNotNull { it.attribution?.trim()?.takeIf { attribution -> attribution.isNotBlank() } }
                             .distinct()

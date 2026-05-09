@@ -74,7 +74,7 @@ class CreateBlankMapCommand(
                 visible = false
             )
 
-            calibrated?.let { repo.addMap(it) }
+            calibrated?.let { repo.add(it) }
 
             calibrated
         } finally {

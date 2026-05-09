@@ -28,9 +28,9 @@ import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
 import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.CreateOfflineMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.CreateOfflineMapFileGroupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.commands.DeleteOfflineMapCommand
@@ -47,8 +47,8 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
     override fun update() {
         val context = useAndroidContext()
-        val repo = useService<OfflineMapFileRepo>()
-        val service = useMemo { getAppService<OfflineMapFileService>() }
+        val repo = useService<MapRepo>()
+        val service = useService<OfflineMapFileService>()
         val loader = useMemo(service) { OfflineMapFileGroupLoader(service.loader) }
         val listView = useView<AndromedaListView>(R.id.list)
         val emptyView = useView<View>(R.id.empty_text)
@@ -80,7 +80,7 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
         }
 
         val mapFlow = useMemo(repo) {
-            repo.getAll()
+            repo.getVectorMapFlow()
         }
         val maps = useFlow(mapFlow)
 

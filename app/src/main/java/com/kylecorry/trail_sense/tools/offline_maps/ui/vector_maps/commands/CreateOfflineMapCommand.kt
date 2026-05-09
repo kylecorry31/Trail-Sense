@@ -11,10 +11,10 @@ import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution.OfflineMapAttributionExtractorFactory
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.bounds.OfflineMapBoundsCalculatorFactory
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
 import java.time.Instant
 import java.util.UUID
 
@@ -25,7 +25,7 @@ class CreateOfflineMapCommand(
 ) :
     CoroutineCommand {
 
-    private val repo = getAppService<OfflineMapFileRepo>()
+    private val repo = getAppService<MapRepo>()
     private val uriPicker by lazy { IntentUriPicker(intentResolver, context) }
     private val files = getAppService<FileSubsystem>()
 

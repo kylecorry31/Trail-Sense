@@ -18,12 +18,13 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProject
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.IMapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 import java.io.IOException
 import java.util.UUID
 
 class CreateMapFromPDFCommand(
     private val context: Context,
-    private val repo: IMapRepo,
+    private val repo: MapRepo,
     private val name: String,
     private val shouldCopyAsPdf: Boolean = true
 ) {
@@ -106,7 +107,7 @@ class CreateMapFromPDFCommand(
             )
         )
 
-        val id = repo.addMap(map)
+        val id = repo.add(map)
         map.copy(id = id)
     }
 

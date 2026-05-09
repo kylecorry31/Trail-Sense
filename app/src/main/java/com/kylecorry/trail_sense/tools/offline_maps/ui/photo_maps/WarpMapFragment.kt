@@ -79,7 +79,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
         binding.nextButton.isInvisible = true
         inBackground {
             onIO {
-                map = mapRepo.getMap(mapId)
+                map = mapRepo.getPhotoMap(mapId)
             }
             onMain {
                 map?.let {
@@ -122,7 +122,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
                 // Delete the pdf file if it exists
                 files.delete(map.pdfFileName)
             }
-            mapRepo.addMap(map.copy(calibration = map.calibration.copy(warped = true)))
+            mapRepo.add(map.copy(calibration = map.calibration.copy(warped = true)))
         }
 
         onMain {

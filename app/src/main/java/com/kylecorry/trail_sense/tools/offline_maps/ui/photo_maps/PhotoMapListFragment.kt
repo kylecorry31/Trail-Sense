@@ -36,6 +36,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.ClosestMapSortSt
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MostRecentMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.NameMapSortStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapService
@@ -57,6 +58,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.Toggl
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.MapAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.MapGroupAction
+import com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapFileAction
 
 class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
 
@@ -104,7 +106,8 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
             gps,
             requireContext(),
             this,
-            this::onMapAction,
+            this::onPhotoMapAction,
+            this::onVectorMapAction,
             this::onMapGroupAction
         )
 
@@ -247,7 +250,7 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
         }
     }
 
-    private fun onMapAction(map: PhotoMap, action: MapAction) {
+    private fun onPhotoMapAction(map: PhotoMap, action: MapAction) {
         when (action) {
             MapAction.View -> view(map)
             MapAction.Delete -> delete(map)
@@ -258,6 +261,10 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
             MapAction.Move -> move(map)
             MapAction.ToggleVisibility -> toggleVisibility(map)
         }
+    }
+
+    private fun onVectorMapAction(map: OfflineMapFile, action: OfflineMapFileAction) {
+        // Do nothing
     }
 
     private fun resize(map: PhotoMap) {
@@ -394,7 +401,7 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
 
             if (map.parentId != null) {
                 onIO {
-                    mapRepo.addMap(map)
+                    mapRepo.add(map)
                 }
             }
 
