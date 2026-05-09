@@ -60,7 +60,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.ToggleVisibility
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapGroupAction
-import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.OfflineMapFileAction
+import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.VectorMapAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.FragmentMapExportService
 
 class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
@@ -271,14 +271,14 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         }
     }
 
-    private fun onVectorMapAction(map: VectorMap, action: OfflineMapFileAction) {
+    private fun onVectorMapAction(map: VectorMap, action: VectorMapAction) {
         when (action) {
-            OfflineMapFileAction.View -> view(map)
-            OfflineMapFileAction.Rename -> rename(map)
-            OfflineMapFileAction.EditAttribution -> editAttribution(map)
-            OfflineMapFileAction.Delete -> delete(map)
-            OfflineMapFileAction.Move -> move(map)
-            OfflineMapFileAction.ToggleVisibility -> toggleVisibility(map)
+            VectorMapAction.View -> view(map)
+            VectorMapAction.Rename -> rename(map)
+            VectorMapAction.EditAttribution -> editAttribution(map)
+            VectorMapAction.Delete -> delete(map)
+            VectorMapAction.Move -> move(map)
+            VectorMapAction.ToggleVisibility -> toggleVisibility(map)
         }
     }
 

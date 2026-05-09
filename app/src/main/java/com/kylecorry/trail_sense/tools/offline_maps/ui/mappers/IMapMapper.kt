@@ -15,13 +15,13 @@ class IMapMapper(
     context: Context,
     lifecycleOwner: LifecycleOwner,
     photoMapActionHandler: (PhotoMap, MapAction) -> Unit,
-    vectorMapActionHandler: (VectorMap, OfflineMapFileAction) -> Unit,
+    vectorMapActionHandler: (VectorMap, VectorMapAction) -> Unit,
     mapGroupActionHandler: (MapGroup, MapGroupAction) -> Unit,
 ) : ListItemMapper<IMap> {
 
-    private val mapMapper = MapMapper(gps, context, lifecycleOwner, photoMapActionHandler)
+    private val mapMapper = PhotoMapListItemMapper(gps, context, lifecycleOwner, photoMapActionHandler)
     private val mapGroupMapper = MapGroupMapper(context, mapGroupActionHandler)
-    private val vectorMapMapper = OfflineMapFileListItemMapper(context, vectorMapActionHandler)
+    private val vectorMapMapper = VectorMapListItemMapper(gps, context, vectorMapActionHandler)
 
     override fun map(value: IMap): ListItem {
         return when (value) {

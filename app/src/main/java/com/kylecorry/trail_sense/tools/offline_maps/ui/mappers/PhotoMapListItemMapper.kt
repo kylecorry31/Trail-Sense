@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
@@ -24,7 +25,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 
-class MapMapper(
+class PhotoMapListItemMapper(
     private val gps: IGPS,
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner,
@@ -37,6 +38,7 @@ class MapMapper(
 
     override fun map(value: PhotoMap): ListItem {
         val onMap = value.boundary()?.contains(gps.location) ?: false
+        val hasPdf = value.hasPdf(context)
         val icon = if (prefs.photoMaps.showMapPreviews) {
             AsyncListIcon(
                 lifecycleOwner,
@@ -48,11 +50,21 @@ class MapMapper(
             ResourceListIcon(R.drawable.maps, AppColor.Gray.color, size = 48f, foregroundSize = 24f)
         }
 
+        val typeName = if (hasPdf) {
+            context.getString(R.string.file_pdf)
+        } else {
+            context.getString(R.string.file_photo)
+        }
+
         return ListItem(
             value.id,
             value.name,
             icon = icon,
-            subtitle = formatter.formatFileSize(value.metadata.fileSize),
+            subtitle = formatter.join(
+                value.createdOn?.let { formatter.formatDate(it.toZonedDateTime(), includeWeekDay = false) },
+                formatter.formatFileSize(value.metadata.fileSize),
+                separator = FormatService.Separator.Dot
+            ),
             tags = listOfNotNull(
                 if (onMap) {
                     ListItemTag(
@@ -62,7 +74,12 @@ class MapMapper(
                     )
                 } else {
                     null
-                }
+                },
+                ListItemTag(
+                    typeName,
+                    null,
+                    Resources.androidTextColorSecondary(context)
+                )
             ),
             trailingIcon = ResourceListIcon(
                 if (value.visible) {

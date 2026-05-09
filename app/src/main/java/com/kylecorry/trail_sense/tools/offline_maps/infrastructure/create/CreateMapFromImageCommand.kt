@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibra
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import java.time.Instant
 
 class CreateMapFromImageCommand(
     context: Context,
@@ -42,7 +43,8 @@ class CreateMapFromImageCommand(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 null,
                 fileSize
-            )
+            ),
+            createdOn = Instant.now()
         )
 
         val id = repo.add(map)
