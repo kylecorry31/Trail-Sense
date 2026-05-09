@@ -1593,4 +1593,6 @@
     <string name="offline_map_file">Bestand (.map)</string>
     <string name="offline_maps_disclaimer">Kaartbestanden zijn niet in Trail Sense inbegrepen en moeten apart worden gedownload. Dit hulpmiddel kan je kaartbestanden voorvertonen, maar gebruik de Kaart- of Navigatie-hulpmiddelen om ze te gebruiken. Een lijst met beschikbare kaarten is te vinden op https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="map_layer_mapsforge_description">Je opgeslagen Mapsforge-kaarten</string>
+    <string name="vector_maps">Vectorkaarten</string>
+    <string name="map_layer_vector_maps_description">Je opgeslagen vectorkaarten</string>
 </resources>
