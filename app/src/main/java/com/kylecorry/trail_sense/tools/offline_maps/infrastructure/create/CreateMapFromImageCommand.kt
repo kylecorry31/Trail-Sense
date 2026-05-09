@@ -7,20 +7,20 @@ import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import java.time.Instant
 
 class CreateMapFromImageCommand(
     context: Context,
-    private val repo: MapRepo,
     private val name: String
 ) {
-
     private val files = FileSubsystem.getInstance(context)
+    private val service = getAppService<MapService>()
 
     suspend fun execute(uri: Uri): PhotoMap? = onIO {
         val file = files.copyToLocal(uri, "maps") ?: return@onIO null
@@ -47,7 +47,7 @@ class CreateMapFromImageCommand(
             createdOn = Instant.now()
         )
 
-        val id = repo.add(map)
+        val id = service.add(map)
         map.copy(id = id)
     }
 

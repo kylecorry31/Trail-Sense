@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps
 import android.content.Context
 import android.os.Bundle
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerAttribution
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
@@ -10,7 +11,6 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.quickactions.QuickActionOpenPhotoMap
@@ -66,7 +66,6 @@ object OfflineMapsToolRegistration : ToolRegistration {
             ).distinctBy { it.id },
             intentHandlers = listOf(importMapIntentHandler),
             singletons = listOf(
-                MapRepo::getInstance,
                 MapService::getInstance
             ),
             mapLayers = listOf(
@@ -105,8 +104,8 @@ object OfflineMapsToolRegistration : ToolRegistration {
                     ),
                     tileSource = ::MapsforgeTileSource,
                     attributionLoader = {
-                        val attributions = MapRepo.getInstance(it)
-                            .getVectorMaps()
+                        val attributions = getAppService<MapService>()
+                            .getAllVectorMaps()
                             .filter { it.visible }
                             .mapNotNull { it.attribution?.trim()?.takeIf { attribution -> attribution.isNotBlank() } }
                             .distinct()

@@ -26,6 +26,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsViewBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -44,14 +45,14 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
-import kotlin.math.roundToInt
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
@@ -61,7 +62,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val compass by lazy { sensorService.getCompass() }
     private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconService by lazy { BeaconService(requireContext()) }
-    private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val service = getAppService<MapService>()
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
@@ -228,7 +229,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     fun reloadMap() {
         inBackground {
             withContext(Dispatchers.IO) {
-                map = mapRepo.getPhotoMap(mapId)
+                map = service.getPhotoMap(mapId)
             }
             withContext(Dispatchers.Main) {
                 map?.let {

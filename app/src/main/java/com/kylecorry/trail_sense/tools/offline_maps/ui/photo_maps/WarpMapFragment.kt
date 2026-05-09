@@ -14,15 +14,16 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsPerspectiveBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.fixPerspective
 import java.io.IOException
 
 class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
 
-    private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val service = getAppService<MapService>()
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     private var mapId = 0L
@@ -79,7 +80,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
         binding.nextButton.isInvisible = true
         inBackground {
             onIO {
-                map = mapRepo.getPhotoMap(mapId)
+                map = service.getPhotoMap(mapId)
             }
             onMain {
                 map?.let {
@@ -122,7 +123,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
                 // Delete the pdf file if it exists
                 files.delete(map.pdfFileName)
             }
-            mapRepo.add(map.copy(calibration = map.calibration.copy(warped = true)))
+            service.add(map.copy(calibration = map.calibration.copy(warped = true)))
         }
 
         onMain {

@@ -45,7 +45,6 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.Create
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.MapCleanupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
@@ -67,7 +66,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
-    private val mapRepo by lazy { MapRepo.Companion.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val mapService by lazy { MapService.Companion.getInstance(requireContext()) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
@@ -121,7 +119,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             createMap(
                 CreateMapFromUriCommand(
                     requireContext(),
-                    mapRepo,
                     mapIntentUri,
                     mapImportingIndicator
                 )
@@ -364,7 +361,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                         CreateMapFromFileCommand(
                             requireContext(),
                             uriPicker,
-                            mapRepo,
                             mapImportingIndicator
                         )
                     )
@@ -374,7 +370,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                     createMap(
                         CreateMapFromCameraCommand(
                             this,
-                            mapRepo,
                             mapImportingIndicator
                         )
                     )
