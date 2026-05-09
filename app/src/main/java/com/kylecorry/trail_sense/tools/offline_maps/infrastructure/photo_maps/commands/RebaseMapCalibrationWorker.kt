@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.c
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 
 class RebaseMapCalibrationWorker(
     private val context: Context,
@@ -13,7 +13,7 @@ class RebaseMapCalibrationWorker(
     override suspend fun doWork(): Result {
         try {
             val repo = MapRepo.getInstance(context)
-            val maps = repo.getAllMaps()
+            val maps = repo.getPhotoMaps()
             maps.forEach {
                 if (it.calibration.calibrationPoints.isEmpty()) {
                     return@forEach
@@ -22,7 +22,7 @@ class RebaseMapCalibrationWorker(
                 val points = it.calibration.calibrationPoints.map { point ->
                     point.copy(imageLocation = point.imageLocation.rotate(-it.baseRotation()))
                 }
-                repo.addMap(it.copy(calibration = it.calibration.copy(calibrationPoints = points)))
+                repo.add(it.copy(calibration = it.calibration.copy(calibrationPoints = points)))
             }
         } catch (e: Exception) {
             // Could not migrate

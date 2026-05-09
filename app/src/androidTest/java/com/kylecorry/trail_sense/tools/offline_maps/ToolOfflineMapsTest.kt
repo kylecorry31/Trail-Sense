@@ -22,9 +22,9 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -33,28 +33,55 @@ import java.time.Instant
 class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
 
     @Test
+    fun verifyPhotoMapsBasicFunctionality() {
+        // Disclaimer
+        clickOk()
+
+        hasText(R.id.map_list_title, string(R.string.offline_maps))
+
+        // No maps by default
+        hasText(string(R.string.no_maps))
+
+        canCreateMapFromCamera()
+        canToggleVisibility()
+        canViewMap()
+        canCreateBlankMap("Blank Map")
+        canCreateMapFromFile()
+        canCreateGroup()
+        canRenameGroup()
+        canSearch()
+        canRenameMap()
+        canMoveMap()
+        canChangeMapResolution()
+        canExportMap()
+        canPrintMap()
+        canDeleteGroup()
+        canDeleteMap()
+    }
+
+    @Test
     fun verifyMapsforgeBasicFunctionality() {
         // TODO: To run on staging builds another solution to populating maps will need to be used
         if (AutomationLibrary.packageName != null) {
             return
         }
 
-        click("Vector maps")
-
         // Offline maps disclaimer
         optional { clickOk() }
 
-        hasText(R.id.title, string(R.string.vector_maps))
-        hasText(string(R.string.no_offline_maps))
+        hasText(R.id.map_list_title, string(R.string.offline_maps))
+        hasText(string(R.string.no_maps))
 
         canOpenOfflineMapFilePicker()
         canCreateOfflineMapGroup()
 
         seedOfflineMap("Second Map")
         seedOfflineMap("Test Map")
+        input(R.id.searchbox, "Test")
         waitFor { hasText("Test Map") }
+        input(R.id.searchbox, "")
         hasText("Second Map")
-        hasText("Vector maps")
+        hasText(R.id.map_list_title, string(R.string.offline_maps))
 
         canToggleOfflineMapVisibility()
         canViewOfflineMap()
@@ -69,7 +96,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
 
     private fun canOpenOfflineMapFilePicker() {
         click(R.id.add_btn)
-        click(string(R.string.offline_map_file))
+        click(string(R.string.map_file))
 
         // The file picker is opened
         isNotVisible(R.id.add_btn)
@@ -78,7 +105,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
             waitFor {
                 back()
             }
-            isVisible(R.id.title)
+            isVisible(R.id.map_list_title)
         }
     }
 
@@ -106,7 +133,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
     }
 
     private fun canRenameOfflineMapGroup() {
-        clickListItemMenu(string(R.string.rename), index = 0)
+        clickListItemMenu(string(R.string.rename), index = 2)
         input("Test Group", "Test Group 2")
         clickOk()
         hasText("Test Group 2")
@@ -123,38 +150,48 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
     }
 
     private fun canRenameOfflineMap() {
-        clickListItemMenu(string(R.string.rename), index = 2)
+        input(R.id.searchbox, "Test Map")
+        hasText("Test Map")
+        clickListItemMenu(string(R.string.rename))
         input("Test Map", "Test Map 2")
         clickOk()
         hasText("Test Map 2")
     }
 
     private fun canEditOfflineMapAttribution() {
-        clickListItemMenu(string(R.string.attribution), index = 2)
+        input(R.id.searchbox, "Test Map 2")
+        hasText("Test Map 2")
+        clickListItemMenu(string(R.string.attribution))
         input(string(R.string.attribution), "Test Attribution")
         clickOk()
     }
 
     private fun canMoveOfflineMap() {
-        clickListItemMenu(string(R.string.move_to), index = 2)
+        input(R.id.searchbox, "Test Map 2")
+        hasText("Test Map 2")
+        clickListItemMenu(string(R.string.move_to))
         click("Test Group 2")
         click(string(R.string.move))
+        input(R.id.searchbox, "")
+        hasText("Second Map")
+        hasText("Test Group 2")
         hasText("1 map")
-        not { hasText("Test Map 2") }
     }
 
     private fun canDeleteOfflineMapGroup() {
         clickListItemMenu(string(R.string.delete), index = 0)
         clickOk()
         not { hasText("Test Group 2") }
-        not { hasText("Test Map 2") }
     }
 
     private fun canDeleteOfflineMap() {
+        input(R.id.searchbox, "Second")
+        hasText("Second Map")
         clickListItemMenu(string(R.string.delete))
         clickOk()
         not { hasText("Second Map") }
-        hasText(string(R.string.no_offline_maps))
+        input(R.id.searchbox, "")
+        hasText(string(R.string.no_maps))
     }
 
     private fun seedOfflineMap(name: String) = runBlocking {
@@ -164,11 +201,11 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         val path = "offline_maps/$filename.map"
         files.get(path, true).writeBytes(ByteArray(0))
 
-        getAppService<OfflineMapFileRepo>().add(
-            OfflineMapFile(
+        getAppService<MapRepo>().add(
+            VectorMap(
                 0,
                 name,
-                OfflineMapFileType.Mapsforge,
+                VectorMapFileType.Mapsforge,
                 path,
                 0,
                 Instant.now(),
@@ -179,42 +216,18 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         )
     }
 
-    @Test
-    fun verifyPhotoMapsBasicFunctionality() {
-        // Disclaimer
-        clickOk()
-
-        hasText(R.id.map_list_title, "Photo maps")
-
-        // No maps by default
-        hasText(string(R.string.no_maps))
-
-        canCreateMapFromCamera()
-        canToggleVisibility()
-        canViewMap()
-        canCreateBlankMap()
-        canCreateMapFromFile()
-        canCreateGroup()
-        canRenameGroup()
-        canSearch()
-        canRenameMap()
-        canMoveMap()
-        canChangeMapResolution()
-        canExportMap()
-        canPrintMap()
-        canDeleteGroup()
-        canDeleteMap()
-    }
 
     private fun canCreateMapFromCamera(goBack: Boolean = true) {
         click(R.id.add_btn)
         click("Camera")
         click(R.id.capture_button)
-        input("Name", "Test Map", index = 1)
+        input(string(R.string.name), "Test Map", index = 1)
         clickOk()
 
-        click("Preview")
-        click("Edit")
+        optional {
+            click("Preview")
+            click("Edit")
+        }
 
         click("Next")
         optional {
@@ -252,16 +265,18 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         }
     }
 
-    private fun canCreateBlankMap() {
+    private fun canCreateBlankMap(name: String, goBack: Boolean = true) {
         click(R.id.add_btn)
         click(string(R.string.blank))
 
         clickOk()
-        input("Name", "Blank Map", index = 1)
+        input(string(R.string.name), name, index = 1)
         clickOk()
 
-        hasText(R.id.map_title, "Blank Map")
-        back()
+        hasText(R.id.map_title, name)
+        if (goBack) {
+            back()
+        }
     }
 
     private fun canCreateGroup() {
@@ -276,7 +291,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         hasText(string(R.string.no_maps))
 
         // Create a map in the group
-        canCreateBlankMap()
+        canCreateBlankMap("Blank Map")
 
         hasText("Blank Map")
         back()
@@ -514,4 +529,5 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         clickOk()
         not { hasText("Blank Map") }
     }
+
 }

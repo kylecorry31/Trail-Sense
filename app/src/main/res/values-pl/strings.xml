@@ -1529,7 +1529,6 @@
     <string name="delete_offline_map_group_message">%s oraz wszystkie mapy zostaną usunięte.</string>
     <string name="clock_source_device">Czas urządzenia</string>
     <string name="clock_source_gps">Czas GPS</string>
-    <string name="offline_map_file">Plik (.map)</string>
     <string name="map_calibration_error_same_pixel">Wybierz dwa różne punkty na mapie.</string>
     <string name="map_calibration_error_same_image_axis">Wybierz dwa różne punkty na mapie, które nie są bezpośrednio obok lub nad sobą.</string>
     <string name="map_calibration_error_same_location">Wprowadź dwie pary różnych współrzędnych.</string>
@@ -1540,5 +1539,4 @@
     <string name="no_offline_maps">Brak map offline</string>
     <string name="unsupported_offline_map_file">Nieprawidłowy plik mapy</string>
     <string name="mapsforge">Mapsforge</string>
-    <string name="offline_maps_disclaimer">Trail Sense nie zawiera map, muszą zostać pobrane oddzielnie. Wyłącznie pliki Mapsforge (.map) są wspierane. Możesz pobrać dostępne mapy z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>

@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.bounds
 
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 
 class OfflineMapBoundsCalculatorFactory {
-    fun getBoundsCalculator(type: OfflineMapFileType): OfflineMapBoundsCalculator {
+    fun getBoundsCalculator(type: VectorMapFileType): OfflineMapBoundsCalculator {
         return when (type) {
-            OfflineMapFileType.Mapsforge -> MapsforgeOfflineMapBoundsCalculator()
+            VectorMapFileType.Mapsforge -> MapsforgeOfflineMapBoundsCalculator()
         }
     }
 }

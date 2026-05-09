@@ -8,14 +8,14 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge.MapsforgeTileRenderer
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
 
 class MapsforgeTileSource : TileSource {
 
     private val renderer = MapsforgeTileRenderer()
-    private val repo = getAppService<OfflineMapFileRepo>()
+    private val repo = getAppService<MapRepo>()
 
     override suspend fun loadTile(
         context: Context,
@@ -25,10 +25,10 @@ class MapsforgeTileSource : TileSource {
         val featureId = params.getString(MapLayerParams.PARAM_FEATURE_ID)?.toLongOrNull()
         val highDetailMode = params.getBoolean(MapLayerParams.PARAM_HIGH_DETAIL_MODE, false)
         val maps = if (featureId == null) {
-            repo.getAllSync().filter { it.visible }
+            repo.getVectorMaps().filter { it.visible }
         } else {
-            listOfNotNull(repo.get(featureId))
-        }.filter { it.type == OfflineMapFileType.Mapsforge }
+            listOfNotNull(repo.getVectorMap(featureId))
+        }.filter { it.type == VectorMapFileType.Mapsforge }
         renderer.render(context, maps, tile, highDetailMode)
     }
 

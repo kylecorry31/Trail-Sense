@@ -32,14 +32,17 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSigh
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSightingEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileDao
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileEntity
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileGroupDao
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileGroupEntity
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingDao
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingEntity
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.RebaseMapCalibrationWorker
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackItemDao
@@ -50,11 +53,6 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathEnti
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupDao
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupEntity
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.WaypointDao
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapEntity
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroupEntity
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapDao
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapGroupDao
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.RebaseMapCalibrationWorker
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideConstituentEntry
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
@@ -67,8 +65,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, OfflineMapFileEntity::class, OfflineMapFileGroupEntity::class],
-    version = 54,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class],
+    version = 55,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -81,7 +79,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun beaconDao(): BeaconDao
     abstract fun beaconGroupDao(): BeaconGroupDao
     abstract fun noteDao(): NoteDao
-    abstract fun mapDao(): MapDao
+    abstract fun photoMapDao(): PhotoMapDao
     abstract fun mapGroupDao(): MapGroupDao
     abstract fun batteryDao(): BatteryDao
     abstract fun cloudDao(): CloudReadingDao
@@ -95,8 +93,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cachedTileDao(): CachedTileDao
     abstract fun pluginDao(): PluginDao
     abstract fun pluginRegistrationDao(): PluginRegistrationDao
-    abstract fun offlineMapFileDao(): OfflineMapFileDao
-    abstract fun offlineMapFileGroupDao(): OfflineMapFileGroupDao
+    abstract fun vectorMapDao(): VectorMapDao
 
     companion object {
 
@@ -521,6 +518,13 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_54_55 = object : Migration(54, 55) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("DROP table `offline_map_file_groups`")
+                    db.execSQL("UPDATE `offline_map_files` SET `parent` = NULL")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -575,7 +579,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_50_51,
                     MIGRATION_51_52,
                     MIGRATION_52_53,
-                    MIGRATION_53_54
+                    MIGRATION_53_54,
+                    MIGRATION_54_55
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

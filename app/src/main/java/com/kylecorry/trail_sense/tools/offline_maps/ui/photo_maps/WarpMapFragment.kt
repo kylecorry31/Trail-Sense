@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsPerspectiveBinding
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.fixPerspective
 import java.io.IOException
 
@@ -79,7 +79,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
         binding.nextButton.isInvisible = true
         inBackground {
             onIO {
-                map = mapRepo.getMap(mapId)
+                map = mapRepo.getPhotoMap(mapId)
             }
             onMain {
                 map?.let {
@@ -122,7 +122,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
                 // Delete the pdf file if it exists
                 files.delete(map.pdfFileName)
             }
-            mapRepo.addMap(map.copy(calibration = map.calibration.copy(warped = true)))
+            mapRepo.add(map.copy(calibration = map.calibration.copy(warped = true)))
         }
 
         onMain {

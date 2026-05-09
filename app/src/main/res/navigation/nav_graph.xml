@@ -54,12 +54,8 @@
         android:name="com.kylecorry.trail_sense.tools.map.ui.MapSettingsFragment"
         android:label="MapSettingsFragment" />
     <fragment
-        android:id="@+id/offlineMapListFragment"
-        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapListFragment"
-        android:label="OfflineMapListFragment" />
-    <fragment
         android:id="@+id/offlineMapViewFragment"
-        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.OfflineMapViewFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.ViewVectorMapFragment"
         android:label="OfflineMapViewFragment"
         tools:layout="@layout/fragment_offline_map_view">
         <argument
@@ -646,7 +642,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapListFragment"
-        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.OfflineMapsFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.OfflineMapListFragment"
         android:label="MapListFragment">
         <action
             android:id="@+id/action_mapList_to_maps"

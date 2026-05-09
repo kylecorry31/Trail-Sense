@@ -1139,8 +1139,7 @@
     <string name="exported">Exported</string>
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
-    <string name="map_file">File (JPG, PNG, PDF)</string>
-    <string name="offline_map_file">File (.map)</string>
+    <string name="map_file">File (JPG, PNG, PDF, Mapsforge)</string>
     <string name="map_export_error">Unable to export map to the chosen file</string>
     <string name="point">Point</string>
     <string name="point_added">Point added to path</string>
@@ -1293,8 +1292,8 @@
     <string name="astronomy_rise">Rise</string>
     <string name="horizon">Horizon</string>
     <string name="offline_maps_summary">Use photos, PDFs, and map files offline</string>
-    <string name="photo_map_disclaimer">Always carry a physical map for backup and verify the accuracy of Trail Sense.</string>
-    <string name="photo_map_disclaimer_shown" translatable="false">photo_map_disclaimer_shown</string>
+    <string name="photo_map_disclaimer">Always carry a physical map for backup and verify the accuracy of Trail Sense.\n\nMap files are not included with Trail Sense and must be downloaded or calibrated from a photo. You can find maps to download at https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="photo_map_disclaimer_shown" translatable="false">photo_map_disclaimer_shown_v2</string>
     <string name="reduce_map_resolution_crop_disclaimer">Cropping the map will still reduce resolution. If you need to crop the map at a high resolution, please use a photo editor app. There are plans to fix this in the future.</string>
     <string name="reduce_map_resolution_crop_disclaimer_shown" translatable="false">reduce_map_resolution_crop_disclaimer_shown</string>
     <string name="crop_map_instructions_long">Drag the corners of the box to the corners of the map to outline. Cropping will reduce resolution of the map.</string>
@@ -1804,8 +1803,6 @@
     <string name="open_settings">Open settings</string>
     <string name="pref_map_layer_button" translatable="false">pref_map_layer_button</string>
     <string name="pref_offline_map_files" translatable="false">pref_offline_map_files</string>
-    <string name="pref_offline_maps_disclaimer_shown" translatable="false">pref_offline_maps_disclaimer_shown</string>
-    <string name="offline_maps_disclaimer">Map files are not included with Trail Sense and must be downloaded separately. This tool can previews your map files, but you should use the Map or Navigation tools to use them. You can find a list of available maps at https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="show_gps_accuracy">Show GPS accuracy</string>
     <string name="large_location_indicator">Large location indicator</string>
     <string name="pref_increase_ar_exposure_at_night" translatable="false">pref_increase_ar_exposure_at_night</string>

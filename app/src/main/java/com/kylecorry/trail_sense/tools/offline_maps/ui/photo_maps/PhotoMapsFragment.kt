@@ -23,12 +23,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.DeleteMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.commands.RenameMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
 import kotlin.math.absoluteValue
 
 class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
@@ -160,7 +160,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     private fun export() {
         inBackground {
             map?.let {
-                mapRepo.getMap(it.id)?.let { updated ->
+                mapRepo.getPhotoMap(it.id)?.let { updated ->
                     exportService.export(updated)
                 }
             }
@@ -191,9 +191,9 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     private fun rename() {
         inBackground {
             map?.let {
-                mapRepo.getMap(it.id)?.let { updated ->
+                mapRepo.getPhotoMap(it.id)?.let { updated ->
                     RenameMapCommand(requireContext(), mapService).execute(updated)
-                    map = mapRepo.getMap(updated.id)
+                    map = mapRepo.getPhotoMap(updated.id)
                     binding.mapTitle.title.text = map?.name
                 }
             }
@@ -214,7 +214,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
             val applyProjectionChange = {
                 map?.let { m ->
                     inBackground {
-                        val updated = mapRepo.getMap(m.id) ?: return@inBackground
+                        val updated = mapRepo.getPhotoMap(m.id) ?: return@inBackground
                         map = mapService.setProjection(updated, newProjection)
                         onMain {
                             reload()
@@ -262,7 +262,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     }
 
     private suspend fun loadMap() {
-        map = mapRepo.getMap(mapId)
+        map = mapRepo.getPhotoMap(mapId)
         onMain {
             map?.let(::onMapLoad)
         }
@@ -297,7 +297,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     }
 
     private suspend fun autoRotate() {
-        val updatedMap = mapRepo.getMap(mapId) ?: return
+        val updatedMap = mapRepo.getPhotoMap(mapId) ?: return
         if (!updatedMap.isCalibrated) return
         val newRotation = MapRotationCalculator().calculate(updatedMap)
 
@@ -314,7 +314,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         )
 
         map?.let {
-            mapRepo.addMap(it)
+            mapRepo.add(it)
         }
     }
 

@@ -1,0 +1,113 @@
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
+
+import android.content.Context
+import android.net.Uri
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.pdf.GeospatialPDFParser
+import com.kylecorry.andromeda.pdf.PDFRenderer
+import com.kylecorry.andromeda.pdf.PDFRenderer2
+import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import java.io.IOException
+import java.util.UUID
+
+class CreateMapFromPDFCommand(
+    private val context: Context,
+    private val repo: MapRepo,
+    private val name: String,
+    private val shouldCopyAsPdf: Boolean = true
+) {
+
+    private val files = FileSubsystem.getInstance(context)
+
+    suspend fun execute(uri: Uri): PhotoMap? = onIO {
+        val uuid = UUID.randomUUID().toString()
+        val filename = "maps/$uuid.webp"
+        val calibrationPoints = mutableListOf<MapCalibrationPoint>()
+        var projection = MapProjectionType.CylindricalEquidistant
+
+        val parser = GeospatialPDFParser()
+        val metadata = files.stream(uri)?.use {
+            parser.parse(it)
+        }
+        val maxSize = 2048
+        val (bp, scale) = PDFRenderer().toBitmap(context, uri, maxSize = maxSize)
+            ?: return@onIO null
+
+        if (metadata != null && metadata.points.size >= 4) {
+
+            val first = metadata.points[0]
+            val second = metadata.points.maxBy { it.first.distanceTo(first.first) }
+
+            val points = listOf(first, second).map {
+                MapCalibrationPoint(
+                    Coordinate(it.second.latitude, it.second.longitude),
+                    PercentCoordinate(scale * it.first.x / bp.width, scale * it.first.y / bp.height)
+                )
+            }
+            calibrationPoints.addAll(points)
+        }
+
+        val projectionName = metadata?.projection?.projection
+        if (projectionName == null || projectionName.contains("mercator", true)) {
+            projection = MapProjectionType.Mercator
+        }
+
+        try {
+            files.save(filename, bp, recycleOnSave = true)
+        } catch (e: IOException) {
+            return@onIO null
+        }
+
+        if (shouldCopyAsPdf) {
+            tryOrNothing {
+                files.copyToLocal(uri, "maps", "$uuid.pdf")
+            }
+        }
+
+        val imageSize = files.imageSize(filename)
+        val fileSize = files.size(filename)
+
+        val pdfSize = if (shouldCopyAsPdf) {
+            tryOrDefault(null) {
+                PDFRenderer2(context, uri).use {
+                    it.getSize()
+                }
+            }
+        } else {
+            null
+        }
+
+        val map = PhotoMap(
+            0,
+            name,
+            filename,
+            MapCalibration(
+                calibrationPoints.isNotEmpty(),
+                calibrationPoints.isNotEmpty(),
+                0f,
+                calibrationPoints
+            ),
+            MapMetadata(
+                Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
+                pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
+                fileSize,
+                projection = projection
+            )
+        )
+
+        val id = repo.add(map)
+        map.copy(id = id)
+    }
+
+}

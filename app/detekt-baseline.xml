@@ -13,11 +13,11 @@
     <ID>ComplexCondition:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null &amp;&amp; iconRes == null &amp;&amp; bitmap == null)</ID>
     <ID>ComplexCondition:GpsStatusBadgeProvider.kt:GpsStatusBadgeProvider$!gps.hasValidReading || (prefs.requiresSatellites &amp;&amp; (gps.satellites ?: 0) &lt; 4) || (gps is CustomGPS &amp;&amp; gps.isTimedOut)</ID>
     <ID>ComplexCondition:LineClipper.kt:LineClipper$!(start.x &lt; bounds.left &amp;&amp; end.x &lt; bounds.left || start.x &gt; bounds.right &amp;&amp; end.x &gt; bounds.right || start.y &lt; bounds.bottom &amp;&amp; end.y &lt; bounds.bottom || start.y &gt; bounds.top &amp;&amp; end.y &gt; bounds.top)</ID>
-    <ID>ComplexCondition:MapEntity.kt:MapEntity$percentX1 != null &amp;&amp; percentY1 != null &amp;&amp; longitude1 != null &amp;&amp; latitude1 != null</ID>
-    <ID>ComplexCondition:MapEntity.kt:MapEntity$percentX2 != null &amp;&amp; percentY2 != null &amp;&amp; longitude2 != null &amp;&amp; latitude2 != null</ID>
     <ID>ComplexCondition:MapLayerBackgroundTask.kt:MapLayerBackgroundTask$!isDirty &amp;&amp; !isInvalid &amp;&amp; areBoundsEqual( newBounds, lastRunBounds ?: CoordinateBounds.empty ) &amp;&amp; zoom == lastRunZoom</ID>
+    <ID>ComplexCondition:OfflineMapListFragment.kt:OfflineMapListFragment$(isPdfMap &amp;&amp; prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap &amp;&amp; prefs.photoMaps.autoReducePhotoMaps)</ID>
     <ID>ComplexCondition:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$image == null &amp;&amp; imagePath != null &amp;&amp; width &gt; 0 &amp;&amp; height &gt; 0</ID>
-    <ID>ComplexCondition:PhotoMapListFragment.kt:PhotoMapListFragment$(isPdfMap &amp;&amp; prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap &amp;&amp; prefs.photoMaps.autoReducePhotoMaps)</ID>
+    <ID>ComplexCondition:PhotoMapEntity.kt:PhotoMapEntity$percentX1 != null &amp;&amp; percentY1 != null &amp;&amp; longitude1 != null &amp;&amp; latitude1 != null</ID>
+    <ID>ComplexCondition:PhotoMapEntity.kt:PhotoMapEntity$percentX2 != null &amp;&amp; percentY2 != null &amp;&amp; longitude2 != null &amp;&amp; latitude2 != null</ID>
     <ID>ComplexCondition:PhotoMapTileSource.kt:PhotoMapTileSource$internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || featureId != lastFeatureId</ID>
     <ID>ComplexCondition:PixelInterpolators.kt:BilinearInterpolator$x1y1 == null || x1y2 == null || x2y1 == null || x2y2 == null || x1y1.isNaN() || x1y2.isNaN() || x2y1.isNaN() || x2y2.isNaN()</ID>
     <ID>ComplexCondition:SensorDetailsFragment.kt:SensorDetailsFragment$!gps.hasValidReading || (prefs.requiresSatellites &amp;&amp; (gps.satellites ?: 0) &lt; 4) || (gps is CustomGPS &amp;&amp; (gps as CustomGPS).isTimedOut)</ID>
@@ -61,6 +61,7 @@
     <ID>CyclomaticComplexMethod:MapLayerBackgroundTask.kt:MapLayerBackgroundTask$fun scheduleUpdate</ID>
     <ID>CyclomaticComplexMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
     <ID>CyclomaticComplexMethod:NavigatorUserErrors.kt:NavigatorUserErrors$fun update</ID>
+    <ID>CyclomaticComplexMethod:OfflineMapListFragment.kt:OfflineMapListFragment$private fun createMap</ID>
     <ID>CyclomaticComplexMethod:PhotoMapsFragment.kt:PhotoMapsFragment$override fun onViewCreated</ID>
     <ID>CyclomaticComplexMethod:PorterStemmer.kt:PorterStemmer$private fun step1b: String</ID>
     <ID>CyclomaticComplexMethod:SensorService.kt:SensorService$fun getAltimeter: IAltimeter</ID>
@@ -350,8 +351,6 @@
     <ID>ReturnCount:CameraView.kt:CameraView$fun start</ID>
     <ID>ReturnCount:ClimateFragment.kt:ClimateFragment$private fun formatActivity: String</ID>
     <ID>ReturnCount:CompassProvider.kt:CompassProvider$private fun getBaseOrientationSensor: IOrientationSensor</ID>
-    <ID>ReturnCount:CreateOfflineMapCommand.kt:CreateOfflineMapCommand$override suspend fun execute</ID>
-    <ID>ReturnCount:CreateOfflineMapCommand.kt:CreateOfflineMapCommand$private suspend fun save: Boolean</ID>
     <ID>ReturnCount:CreateTideFragment.kt:CreateTideFragment$private fun getTide: TideTable?</ID>
     <ID>ReturnCount:CricketsAudioStream.kt:CricketsAudioStream$private suspend fun getChirp: Double</ID>
     <ID>ReturnCount:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$private fun getFromCache: Float?</ID>
@@ -531,13 +530,14 @@
     <ID>TooManyFunctions:IPathService.kt:IPathService : ICleanable</ID>
     <ID>TooManyFunctions:IWaypointRepo.kt:IWaypointRepo</ID>
     <ID>TooManyFunctions:MainActivity.kt:MainActivity : AndromedaActivity</ID>
+    <ID>TooManyFunctions:MapRepo.kt:MapRepo</ID>
     <ID>TooManyFunctions:MapToolLayerManager.kt:MapToolLayerManager</ID>
     <ID>TooManyFunctions:MapView.kt:MapView : CanvasViewIMapView</ID>
     <ID>TooManyFunctions:MapViewLayerManager.kt:MapViewLayerManager</ID>
     <ID>TooManyFunctions:NavigationSheetView.kt:NavigationSheetView : FrameLayout</ID>
     <ID>TooManyFunctions:Navigator.kt:Navigator</ID>
     <ID>TooManyFunctions:NavigatorFragment.kt:NavigatorFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:OfflineMapListFragment.kt:OfflineMapListFragment : TrailSenseReactiveFragment</ID>
+    <ID>TooManyFunctions:OfflineMapListFragment.kt:OfflineMapListFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PackItemListFragment.kt:PackItemListFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PackListFragment.kt:PackListFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PackRepo.kt:PackRepo : IPackRepo</ID>
@@ -547,7 +547,6 @@
     <ID>TooManyFunctions:PermissionUtils.kt:com.kylecorry.trail_sense.shared.permissions.PermissionUtils.kt</ID>
     <ID>TooManyFunctions:PerspectiveCorrectionView.kt:PerspectiveCorrectionView : CanvasView</ID>
     <ID>TooManyFunctions:PhotoMapCalibrationFragment.kt:PhotoMapCalibrationFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:PhotoMapListFragment.kt:PhotoMapListFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PhotoMapToolLayerManager.kt:PhotoMapToolLayerManager</ID>
     <ID>TooManyFunctions:PhotoMapsFragment.kt:PhotoMapsFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PlaceBeaconFragment.kt:PlaceBeaconFragment : BoundFragment</ID>

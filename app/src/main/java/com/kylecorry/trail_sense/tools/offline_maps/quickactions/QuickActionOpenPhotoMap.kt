@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.selection.ActiveMapSelector
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import kotlinx.coroutines.launch
 
 class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickActionButton(
@@ -73,7 +73,7 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
         val location = sensors.getLocation()
 
         val destination = navigator.getDestination()?.coordinate
-        val maps = mapService.getAllMaps()
+        val maps = mapService.getAllPhotoMaps()
         return selector.getActiveMap(maps, location, destination)
     }
 

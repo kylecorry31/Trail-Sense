@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution
 
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 
 class OfflineMapAttributionExtractorFactory {
-    fun getAttributionExtractor(type: OfflineMapFileType): OfflineMapAttributionExtractor {
+    fun getAttributionExtractor(type: VectorMapFileType): OfflineMapAttributionExtractor {
         return when (type) {
-            OfflineMapFileType.Mapsforge -> MapsforgeOfflineMapAttributionExtractor()
+            VectorMapFileType.Mapsforge -> MapsforgeOfflineMapAttributionExtractor()
         }
     }
 }

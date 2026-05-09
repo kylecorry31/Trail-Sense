@@ -38,7 +38,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibra
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidationResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidator
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
@@ -194,7 +194,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     fun reloadMap() {
         inBackground {
-            map = mapRepo.getMap(mapId)
+            map = mapRepo.getPhotoMap(mapId)
             onMain {
                 map?.let(::onMapLoad)
             }
@@ -409,10 +409,10 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {
-        var updated = mapRepo.getMap(map.id) ?: return map
+        var updated = mapRepo.getPhotoMap(map.id) ?: return map
         updated =
             updated.copy(calibration = updated.calibration.copy(calibrationPoints = manager.getCalibration()))
-        mapRepo.addMap(updated)
+        mapRepo.add(updated)
         return updated
     }
 
