@@ -1590,5 +1590,4 @@
         <item quantity="other">%d kaarten</item>
     </plurals>
     <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
-    <string name="offline_maps_disclaimer">Kaartbestanden zijn niet in Trail Sense inbegrepen en moeten apart worden gedownload. Alleen Mapsforge-bestanden (.map) worden ondersteund. Een lijst met beschikbare kaarten is te vinden op https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>

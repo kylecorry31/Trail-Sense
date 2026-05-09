@@ -1539,5 +1539,4 @@
     <string name="no_offline_maps">Brak map offline</string>
     <string name="unsupported_offline_map_file">Nieprawidłowy plik mapy</string>
     <string name="mapsforge">Mapsforge</string>
-    <string name="offline_maps_disclaimer">Trail Sense nie zawiera map, muszą zostać pobrane oddzielnie. Wyłącznie pliki Mapsforge (.map) są wspierane. Możesz pobrać dostępne mapy z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>
