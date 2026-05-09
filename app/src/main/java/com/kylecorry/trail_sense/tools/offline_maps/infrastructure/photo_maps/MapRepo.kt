@@ -11,9 +11,9 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapEntity
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroup
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroupEntity
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 
@@ -41,7 +41,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     override suspend fun deleteMap(map: PhotoMap) = onIO {
         tryOrNothing { files.delete(map.filename) }
         tryOrNothing { files.delete(map.pdfFileName) }
-        mapDao.delete(MapEntity.from(map))
+        mapDao.delete(PhotoMapEntity.from(map))
         invalidateCache(map.id)
     }
 
@@ -60,9 +60,9 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
 
     override suspend fun addMap(map: PhotoMap): Long = onIO {
         val newId = if (map.id == 0L) {
-            mapDao.insert(MapEntity.from(map))
+            mapDao.insert(PhotoMapEntity.from(map))
         } else {
-            mapDao.update(MapEntity.from(map))
+            mapDao.update(PhotoMapEntity.from(map))
             map.id
         }
         invalidateCache(newId)
@@ -93,7 +93,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         }
     }
 
-    private fun convertToMap(map: MapEntity): PhotoMap {
+    private fun convertToMap(map: PhotoMapEntity): PhotoMap {
         val newMap = map.toMap()
         // TODO: Save the size in the DB
         val size = files.imageSize(newMap.filename)

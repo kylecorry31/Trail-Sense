@@ -7,15 +7,15 @@ import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.IOfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 
 class OfflineMapFileGroupListItemMapper(
     private val context: Context,
-    private val actionHandler: (OfflineMapFileGroup, OfflineMapFileGroupAction) -> Unit
-) : ListItemMapper<IOfflineMapFile> {
-    override fun map(value: IOfflineMapFile): ListItem {
-        val group = value as OfflineMapFileGroup
+    private val actionHandler: (MapGroup, OfflineMapFileGroupAction) -> Unit
+) : ListItemMapper<IMap> {
+    override fun map(value: IMap): ListItem {
+        val group = value as MapGroup
         return ListItem(
             -group.id,
             group.name,

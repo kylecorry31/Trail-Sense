@@ -1,14 +1,14 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain
 
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class MapEntityTest {
+internal class PhotoMapEntityTest {
 
     @Test
     fun toMapNormalizesCalibrationCoordinates() {
-        val entity = MapEntity(
+        val entity = PhotoMapEntity(
             name = "Test",
             filename = "test.webp",
             latitude1 = 95.0,

@@ -8,7 +8,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 
 @Entity(tableName = "maps", indices = [Index(value = ["parent"])])
-data class MapEntity(
+data class PhotoMapEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "filename") val filename: String,
     @ColumnInfo(name = "latitude1") val latitude1: Double?,
@@ -70,9 +70,9 @@ data class MapEntity(
     }
 
     companion object {
-        fun from(map: PhotoMap): MapEntity {
+        fun from(map: PhotoMap): PhotoMapEntity {
             val calibration = map.calibration
-            return MapEntity(
+            return PhotoMapEntity(
                 map.name,
                 map.filename,
                 if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].location.latitude else null,

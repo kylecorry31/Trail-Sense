@@ -50,10 +50,10 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathEnti
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupDao
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupEntity
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.WaypointDao
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapEntity
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroupEntity
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapDao
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapGroupDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupDao
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.RebaseMapCalibrationWorker
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideConstituentEntry
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
@@ -67,7 +67,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, OfflineMapFileEntity::class, OfflineMapFileGroupEntity::class],
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, OfflineMapFileEntity::class, OfflineMapFileGroupEntity::class],
     version = 54,
     exportSchema = false
 )

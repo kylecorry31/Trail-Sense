@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import java.time.Instant
 
 data class OfflineMapFile(
@@ -14,7 +15,7 @@ data class OfflineMapFile(
     val attribution: String?,
     val visible: Boolean,
     override val parentId: Long? = null
-) : IOfflineMapFile {
+) : IMap {
     override val isGroup = false
     override val count: Int? = null
 }

@@ -4,8 +4,8 @@ import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -30,12 +30,12 @@ class OfflineMapFileRepo private constructor() {
         dao.get(id)?.toOfflineMapFile()
     }
 
-    suspend fun getGroup(id: Long): OfflineMapFileGroup? = onIO {
-        groupDao.get(id)?.toOfflineMapFileGroup()
+    suspend fun getGroup(id: Long): MapGroup? = onIO {
+        groupDao.get(id)?.toMapGroup()
     }
 
-    suspend fun getGroupsWithParent(parent: Long?): List<OfflineMapFileGroup> = onIO {
-        groupDao.getAllWithParent(parent).map { it.toOfflineMapFileGroup() }
+    suspend fun getGroupsWithParent(parent: Long?): List<MapGroup> = onIO {
+        groupDao.getAllWithParent(parent).map { it.toMapGroup() }
     }
 
     suspend fun getItemsWithParent(parent: Long?): List<OfflineMapFile> = onIO {
@@ -46,7 +46,7 @@ class OfflineMapFileRepo private constructor() {
         dao.upsert(OfflineMapFileEntity.from(file))
     }
 
-    suspend fun addGroup(group: OfflineMapFileGroup): Long = onIO {
+    suspend fun addGroup(group: MapGroup): Long = onIO {
         groupDao.upsert(OfflineMapFileGroupEntity.from(group))
     }
 
@@ -55,7 +55,7 @@ class OfflineMapFileRepo private constructor() {
         files.delete(file.path)
     }
 
-    suspend fun deleteGroup(group: OfflineMapFileGroup) = onIO {
+    suspend fun deleteGroup(group: MapGroup) = onIO {
         groupDao.delete(OfflineMapFileGroupEntity.from(group))
     }
 

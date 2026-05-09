@@ -25,9 +25,9 @@ import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.FloatingActionButtonMenu
 import com.kylecorry.trail_sense.shared.views.SearchView
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.IOfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileGroup
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.OfflineMapFileRepo
@@ -94,7 +94,7 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
         useEffect(manager, listView, title, listItemMapper) {
             manager.bind(listView, title.title, listItemMapper) {
-                (it as OfflineMapFileGroup?)?.name ?: getString(R.string.vector_maps)
+                (it as MapGroup?)?.name ?: getString(R.string.vector_maps)
             }
             manager.refresh()
         }
@@ -161,9 +161,9 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
         backPressedCallback?.isEnabled = !isHidden
     }
 
-    private fun sortFiles(files: List<IOfflineMapFile>): List<IOfflineMapFile> {
+    private fun sortFiles(files: List<IMap>): List<IMap> {
         return files.sortedWith(
-            compareBy<IOfflineMapFile> { !it.isGroup }
+            compareBy<IMap> { !it.isGroup }
                 .thenBy { it.name.lowercase() }
         )
     }
@@ -171,7 +171,7 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     private fun handleListItemAction(
         map: OfflineMapFile,
         action: OfflineMapFileAction,
-        manager: GroupListManager<IOfflineMapFile>
+        manager: GroupListManager<IMap>
     ) {
         when (action) {
             OfflineMapFileAction.View -> view(map)
@@ -184,10 +184,10 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     }
 
     private fun handleGroupAction(
-        group: OfflineMapFileGroup,
+        group: MapGroup,
         action: OfflineMapFileGroupAction,
         service: OfflineMapFileService,
-        manager: GroupListManager<IOfflineMapFile>
+        manager: GroupListManager<IMap>
     ) {
         when (action) {
             OfflineMapFileGroupAction.View -> manager.open(group.id)
@@ -209,8 +209,8 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     }
 
     private fun rename(
-        map: IOfflineMapFile,
-        manager: GroupListManager<IOfflineMapFile>
+        map: IMap,
+        manager: GroupListManager<IMap>
     ) {
         inBackground {
             RenameOfflineMapCommand(requireContext()).execute(map)
@@ -220,7 +220,7 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
     private fun editAttribution(
         map: OfflineMapFile,
-        manager: GroupListManager<IOfflineMapFile>
+        manager: GroupListManager<IMap>
     ) {
         inBackground {
             EditOfflineMapAttributionCommand(requireContext()).execute(map)
@@ -229,8 +229,8 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     }
 
     private fun move(
-        map: IOfflineMapFile,
-        manager: GroupListManager<IOfflineMapFile>
+        map: IMap,
+        manager: GroupListManager<IMap>
     ) {
         inBackground {
             MoveOfflineMapFileCommand(requireContext()).execute(map)
@@ -239,8 +239,8 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     }
 
     private fun toggleVisible(
-        map: IOfflineMapFile,
-        manager: GroupListManager<IOfflineMapFile>
+        map: IMap,
+        manager: GroupListManager<IMap>
     ) {
         inBackground {
             ToggleOfflineMapVisibilityCommand().execute(map)
@@ -249,10 +249,10 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     }
 
     private fun setGroupVisibility(
-        group: OfflineMapFileGroup,
+        group: MapGroup,
         visible: Boolean,
         service: OfflineMapFileService,
-        manager: GroupListManager<IOfflineMapFile>
+        manager: GroupListManager<IMap>
     ) {
         inBackground {
             Alerts.withLoading(requireContext(), getString(R.string.loading)) {
@@ -276,8 +276,8 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
     }
 
     private fun delete(
-        map: IOfflineMapFile,
-        manager: GroupListManager<IOfflineMapFile>
+        map: IMap,
+        manager: GroupListManager<IMap>
     ) {
         inBackground {
             DeleteOfflineMapCommand(requireContext()).execute(map)
@@ -287,7 +287,7 @@ class OfflineMapListFragment : TrailSenseReactiveFragment(R.layout.fragment_offl
 
     private fun handleCreateMenuAction(
         itemId: Int,
-        manager: GroupListManager<IOfflineMapFile>
+        manager: GroupListManager<IMap>
     ) {
         when (itemId) {
             R.id.action_create_map_group -> inBackground {

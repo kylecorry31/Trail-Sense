@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroupEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 
 @Dao
 interface MapGroupDao {
@@ -16,7 +16,7 @@ interface MapGroupDao {
     @Query("SELECT * FROM map_groups WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): MapGroupEntity?
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insert(group: MapGroupEntity): Long
 
     @Delete

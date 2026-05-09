@@ -5,8 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.IMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 
 class IMapMapper(

@@ -1,4 +1,6 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.domain.groups
+
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 
 data class MapGroup(
     override val id: Long,

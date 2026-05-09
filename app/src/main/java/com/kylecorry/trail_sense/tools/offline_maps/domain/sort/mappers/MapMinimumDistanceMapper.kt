@@ -1,10 +1,11 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.sort.mappers
+package com.kylecorry.trail_sense.tools.offline_maps.domain.sort.mappers
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
 
 class MapMinimumDistanceMapper(
     override val loader: IGroupLoader<IMap>,
@@ -13,10 +14,18 @@ class MapMinimumDistanceMapper(
 ) : GroupMapper<IMap, Float, Float>() {
 
     override suspend fun getValue(item: IMap): Float {
-        val bounds = if (item is PhotoMap) {
-            item.boundary()
-        } else {
-            null
+        val bounds = when (item) {
+            is PhotoMap -> {
+                item.boundary()
+            }
+
+            is OfflineMapFile -> {
+                item.bounds
+            }
+
+            else -> {
+                null
+            }
         } ?: return Float.MAX_VALUE
         val location = locationProvider.invoke()
         val onMap = bounds.contains(location)

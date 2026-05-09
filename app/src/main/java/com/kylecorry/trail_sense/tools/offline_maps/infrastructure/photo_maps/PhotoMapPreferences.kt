@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.sort.MapSortMethod
+import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MapSortMethod
 
 class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
     val autoReducePhotoMaps by BooleanPreference(

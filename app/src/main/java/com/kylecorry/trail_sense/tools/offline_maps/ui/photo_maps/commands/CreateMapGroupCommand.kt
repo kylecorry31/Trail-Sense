@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.MapService
 
 class CreateMapGroupCommand(

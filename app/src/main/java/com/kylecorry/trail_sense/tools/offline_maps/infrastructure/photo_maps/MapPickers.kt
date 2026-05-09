@@ -4,7 +4,8 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.mappers.MapGroupMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

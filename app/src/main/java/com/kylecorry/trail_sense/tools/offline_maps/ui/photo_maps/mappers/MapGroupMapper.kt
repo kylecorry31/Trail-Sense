@@ -7,8 +7,8 @@ import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.IMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 
 class MapGroupMapper(
     private val context: Context,

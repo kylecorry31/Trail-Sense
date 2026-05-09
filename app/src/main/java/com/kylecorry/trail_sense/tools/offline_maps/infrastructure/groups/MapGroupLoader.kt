@@ -1,10 +1,10 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups
 
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 
 class MapGroupLoader(private val loader: IGroupLoader<IMap>) : ISearchableGroupLoader<IMap> {
 
@@ -16,19 +16,19 @@ class MapGroupLoader(private val loader: IGroupLoader<IMap>) : ISearchableGroupL
 
     override suspend fun load(search: String?, group: Long?): List<IMap> {
         return if (search.isNullOrBlank()) {
-            getPathsByGroup(group)
+            getMapsByGroup(group)
         } else {
-            getPathsBySearch(search, group)
+            getMapsBySearch(search, group)
         }
     }
 
-    private suspend fun getPathsBySearch(search: String, groupFilter: Long?) = onIO {
+    private suspend fun getMapsBySearch(search: String, groupFilter: Long?) = onIO {
         filter.filter(groupFilter) {
             it.name.contains(search, ignoreCase = true)
         }
     }
 
-    private suspend fun getPathsByGroup(group: Long?) = onIO {
+    private suspend fun getMapsByGroup(group: Long?) = onIO {
         loader.getChildren(group, 1)
     }
 }

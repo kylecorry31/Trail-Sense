@@ -6,18 +6,18 @@ import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.IOfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.OfflineMapFileGroup
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFilePickers
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.OfflineMapFileService
 
 class MoveOfflineMapFileCommand(
     private val context: Context
-) : CoroutineCommand<IOfflineMapFile> {
+) : CoroutineCommand<IMap> {
     private val service = getAppService<OfflineMapFileService>()
 
-    override suspend fun execute(value: IOfflineMapFile) {
+    override suspend fun execute(value: IMap) {
         val results = OfflineMapFilePickers.pickGroup(
             context,
             null,
@@ -25,7 +25,7 @@ class MoveOfflineMapFileCommand(
             initialGroup = value.parentId
         ) {
             it.filter { group ->
-                if (value is OfflineMapFileGroup) {
+                if (value is MapGroup) {
                     group.id != value.id
                 } else {
                     true
@@ -37,7 +37,7 @@ class MoveOfflineMapFileCommand(
             return
         }
 
-        if (value is OfflineMapFileGroup) {
+        if (value is MapGroup) {
             service.add(value.copy(parentId = results.second?.id))
         } else if (value is OfflineMapFile) {
             service.add(value.copy(parentId = results.second?.id))

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.domain
 
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 

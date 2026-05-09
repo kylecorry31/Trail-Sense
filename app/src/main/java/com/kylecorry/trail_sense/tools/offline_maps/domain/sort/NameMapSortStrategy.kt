@@ -1,8 +1,8 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.sort
+package com.kylecorry.trail_sense.tools.offline_maps.domain.sort
 
 import com.kylecorry.trail_sense.shared.grouping.sort.GroupSort
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.IMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.sort.mappers.MapNameMapper
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.mappers.MapNameMapper
 
 class NameMapSortStrategy : IMapSortStrategy {
     private val sort = GroupSort(MapNameMapper())

@@ -1,8 +1,8 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.sort.mappers
+package com.kylecorry.trail_sense.tools.offline_maps.domain.sort.mappers
 
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 
 class MapLatestIdMapper(override val loader: IGroupLoader<IMap>) : GroupMapper<IMap, Long, Long>() {
 

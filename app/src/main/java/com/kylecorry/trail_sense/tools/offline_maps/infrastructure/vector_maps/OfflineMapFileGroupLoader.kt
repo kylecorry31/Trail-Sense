@@ -4,19 +4,19 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.IOfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 
 class OfflineMapFileGroupLoader(
-    private val loader: IGroupLoader<IOfflineMapFile>
-) : ISearchableGroupLoader<IOfflineMapFile> {
+    private val loader: IGroupLoader<IMap>
+) : ISearchableGroupLoader<IMap> {
 
     private val filter = GroupFilter(loader)
 
-    override suspend fun getGroup(id: Long): IOfflineMapFile? {
+    override suspend fun getGroup(id: Long): IMap? {
         return loader.getGroup(id)
     }
 
-    override suspend fun load(search: String?, group: Long?): List<IOfflineMapFile> {
+    override suspend fun load(search: String?, group: Long?): List<IMap> {
         return if (search.isNullOrBlank()) {
             getFilesByGroup(group)
         } else {

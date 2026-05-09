@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.sort
+package com.kylecorry.trail_sense.tools.offline_maps.domain.sort
 
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
