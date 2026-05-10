@@ -393,7 +393,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         // User guide
         click(toolbarButton(R.id.map_title, Side.Right))
         click("User Guide")
-        hasText("Photo maps")
+        hasText("Offline Maps")
         back()
         isVisible(R.id.map)
 
