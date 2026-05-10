@@ -940,7 +940,6 @@
     <string name="create_path">整返條路徑</string>
     <string name="scanning_image">掃描緊影像</string>
     <string name="pref_backtrack_save_cell_summary">喺中途點紀錄基站訊號。唔會連上網。</string>
-    <string name="photo_map_disclaimer">請時刻帶備一份紙本地圖以防萬一，並務必查驗 Trail Sense 嘅準繩。</string>
     <string name="point_style">點嘅花款</string>
     <string name="line_style">線嘅花款</string>
     <string name="center">正中央</string>
