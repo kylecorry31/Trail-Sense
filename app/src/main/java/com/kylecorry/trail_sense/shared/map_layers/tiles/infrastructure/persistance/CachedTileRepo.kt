@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.ICleanable
+import com.kylecorry.trail_sense.shared.getUpsertedId
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import java.time.Duration
 import java.time.Instant
@@ -20,7 +21,7 @@ class CachedTileRepo private constructor(context: Context) : ICleanable {
     }
 
     suspend fun add(cachedTile: CachedTile): Long = onIO {
-        dao.upsert(CachedTileEntity.from(cachedTile))
+        dao.upsert(CachedTileEntity.from(cachedTile)).getUpsertedId(cachedTile.id)
     }
 
     suspend fun delete(cachedTile: CachedTile) = onIO {
