@@ -68,12 +68,11 @@
     <!-- Wetlands -->
     <rule e="way" k="natural" v="marsh|wetland" zoom-min="6">
         <area fill="#C4D1BB" />
-        <!-- TODO: Icon needed -->
-        <!-- <area
-            src=""
-            symbol-height="40"
-            symbol-width="40"
-        /> -->
+        <area
+            src="@drawable/swamp_pattern#8FB47A"
+            symbol-height="24"
+            symbol-width="24"
+        />
     </rule>
 
     <!-- Major bodies of water -->
@@ -705,10 +704,9 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="peak" zoom-min="9">
-            <!-- TODO: Icon needed -->
             <symbol
                 id="peak"
-                src="@drawable/ic_arrow_target#000000"
+                src="@drawable/triangle#000000"
                 symbol-height="12"
                 symbol-width="12"
             />
@@ -764,10 +762,9 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="volcano" zoom-min="11">
-            <!-- TODO: Icon needed -->
             <symbol
                 id="volcano"
-                src="@drawable/ic_arrow_target#000000"
+                src="@drawable/volcano#000000"
                 symbol-height="12"
                 symbol-width="12"
             />
@@ -849,10 +846,9 @@
             />
         </rule>
         <rule e="any" k="tourism" v="alpine_hut|wilderness_hut" zoom-min="12">
-            <!-- TODO: Better image needed -->
             <symbol
                 id="alpine-hut"
-                src="@drawable/ic_house#000000"
+                src="@drawable/ic_cabin#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
@@ -924,9 +920,8 @@
             />
         </rule>
         <rule e="node" k="amenity" v="bench" zoom-min="15">
-            <!-- TODO: Icon needed -->
             <symbol
-                src="@drawable/ic_picnic#000000"
+                src="@drawable/bench#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
@@ -939,7 +934,6 @@
             />
         </rule>
         <rule e="any" k="amenity" v="drinking_water" zoom-min="16">
-            <!-- TODO: Icon needed -->
             <symbol
                 src="@drawable/ic_category_water#000000"
                 symbol-height="16"
