@@ -1023,7 +1023,6 @@
 \n
 \nPour autoriser cela, cliquez sur \'%2$s\' et activez le paramètre permettant d\'autoriser les alarmes et les rappels.</string>
     <string name="offline_maps_summary">Utiliser une photo comme carte</string>
-    <string name="photo_map_disclaimer">Toujours avoir une carte physique en sauvegarde et vérifier l\'exactitude de Trail Sense.</string>
     <string name="blank">Vide</string>
     <string name="create_blank_map">Créer une carte vierge</string>
     <string name="center">Point central</string>

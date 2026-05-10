@@ -967,7 +967,6 @@
 \n
 \nFor å tillate, trykk \"%2$s\" og aktiver innstillingen for å tillate alarmer og påminnelser.</string>
     <string name="sunset_alerts_background_location_disclaimer">Solnedgangsvarsler kan være unøyaktige mens du reiser</string>
-    <string name="photo_map_disclaimer">Ha alltid med et fysisk kart som en sikkerhet og verifiser nøyaktigheten til Trail Sense.</string>
     <string name="i_agree">Jeg er enig</string>
     <string name="battery_settings_limit_accuracy">Batterirestriksjoner kan redusere nøyaktigheten</string>
     <string name="battery_usage_allowed">Batteribruk tillatt</string>

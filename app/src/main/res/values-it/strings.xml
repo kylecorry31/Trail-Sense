@@ -960,7 +960,6 @@
     <string name="paths">Percorsi</string>
     <string name="remove_distance_alert">Rimuovere l\'avviso di distanza (%s)\?</string>
     <string name="until_sunset">Al tramonto</string>
-    <string name="photo_map_disclaimer">Portare sempre con sé una mappa fisica come riserva e verificare l\'accuratezza di Trail Sense.</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d punto intermedio eliminato</item>
         <item quantity="many">%d punti intermedi eliminato</item>

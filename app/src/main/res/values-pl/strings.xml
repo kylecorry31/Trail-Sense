@@ -901,7 +901,6 @@
     <string name="i_agree">Zgadzam się</string>
     <string name="battery_settings_limit_accuracy">Ograniczenie użycia baterii może zmniejszyć dokładność</string>
     <string name="offline_maps_summary">Użyj zdjęcia jako mapy</string>
-    <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako zapasowe narzędzie oraz weryfikuj dokładność Trail Sense.</string>
     <string name="map_file">Plik (JPG, PNG, PDF)</string>
     <string name="map_calibration">Kalibracja mapy</string>
     <string name="peak_time">Górowanie</string>

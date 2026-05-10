@@ -1035,7 +1035,6 @@
 \nYalnızca %s ile oluşturduğunuz ve güvendiğiniz bir yedekleme dosyasını seçin.</string>
     <string name="compass_source_mag_gyro">Manyetometre + Gyro</string>
     <string name="reduce_map_resolution_crop_disclaimer">Haritanın kırpılması çözünürlüğü düşürmeye devam edecektir. Haritayı yüksek çözünürlükte kırpmanız gerekiyorsa, lütfen bir fotoğraf düzenleyici uygulaması kullanın. Bunu gelecekte düzeltme planları vardır.</string>
-    <string name="photo_map_disclaimer">Yedek olarak her zaman fiziksel bir harita taşıyın ve Trail Sense\'in doğruluğunu onaylayın.</string>
     <string name="pref_keep_map_facing_up_title">Haritayı yukarı bakacak şekilde tutun</string>
     <string name="distance_away_from_self">%s uzaklıkta</string>
     <string name="season">Mevsim</string>

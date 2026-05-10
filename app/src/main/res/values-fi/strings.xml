@@ -823,7 +823,6 @@
     <string name="pack_sort_weight_high_to_low">Paino (suuresta pieneen)</string>
     <string name="average_speed_pedometer">Keskinopeus (Askelmittari)</string>
     <string name="solar_eclipse">Auringonpimennys</string>
-    <string name="photo_map_disclaimer">Pidä aina fyysinen kartta mukana varmuuden varalta ja varmista Trail Sensen tarkkuus.</string>
     <string name="pref_keep_map_facing_up_title">Pidä kartta ylöspäin</string>
     <string name="weather_monitor_disabled_resolution">Ota Säänseuranta käyttöön sääasetuksista</string>
     <string name="lowest_point_elevation">Alin kohta</string>

@@ -1007,7 +1007,6 @@
     <string name="compass_source_mag_gyro">Magnetométer + giroszkóp</string>
     <string name="reduce_map_resolution_crop_disclaimer">A térkép körbevágása továbbra is csökkenti a felbontást. Ha nagy felbontásban kell körbevágnod a térképet, kérjük, használj egy fotószerkesztő alkalmazást. Ennek tervben van a jövőbeli javítása.</string>
     <string name="solar_eclipse">Napfogyatkozás</string>
-    <string name="photo_map_disclaimer">Mindig vigyél magaddal egy fizikai térképet vésztartaléknak, és ellenőrizd a Trail Sense pontosságát.</string>
     <string name="pref_keep_map_facing_up_title">Tartsa a térképet felfelé</string>
     <string name="season">Évszak</string>
     <string name="no_sensor_message">Az eszközödnek nincs %s szenzora</string>

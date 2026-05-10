@@ -1053,7 +1053,6 @@
     <string name="compass_source_mag_gyro">Magnetometer + Gyroscoop</string>
     <string name="reduce_map_resolution_crop_disclaimer">De kaart bijsnijden zal de resolutie verlagen. Als je de kaart in een hoge resolutie wil bijsnijden, gebruik a.u.b een fotobewerk-app. Er zijn plannen om dit op te lossen.</string>
     <string name="solar_eclipse">Zonsverduistering</string>
-    <string name="photo_map_disclaimer">Houd altijd een fysieke kaart bij de hand, als back-up en om de nauwkeurigheid van Trail Sense te vergelijken.</string>
     <string name="pref_keep_map_facing_up_title">Kaart omhoog laten wijzen</string>
     <string name="distance_away_from_self">%s ver</string>
     <string name="season">Seizoen</string>

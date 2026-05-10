@@ -1073,7 +1073,6 @@
     <string name="triangulate_self_location_1_instructions">選擇你可以看到的已知位置並記錄從你所在位置到該位置的方向。</string>
     <string name="triangulate_destination_location_2_instructions">從第一個位置移動至少 %s，並再次記錄你的位置和到達目的地的方向。</string>
     <string name="magnetic_north">地磁北極</string>
-    <string name="photo_map_disclaimer">總是攜帶實體地圖作為備用並驗證 Trail Sense 的準確度。</string>
     <string name="daylight_duration">%s 日光</string>
     <string name="zero_shutter_lag">零快門延遲</string>
     <string name="magnetometer_gyro_custom">磁強計 + 陀螺儀（自訂）</string>
