@@ -921,13 +921,13 @@
                 symbol-width="16"
             />
         </rule>
-        <rule e="node" k="amenity" v="bench" zoom-min="15">
-            <symbol
-                src="@drawable/bench#000000"
-                symbol-height="16"
-                symbol-width="16"
-            />
-        </rule>
+<!--        <rule e="node" k="amenity" v="bench" zoom-min="15">-->
+<!--            <symbol-->
+<!--                src="@drawable/bench#000000"-->
+<!--                symbol-height="16"-->
+<!--                symbol-width="16"-->
+<!--            />-->
+<!--        </rule>-->
         <rule e="any" k="amenity" v="telephone" zoom-min="15">
             <symbol
                 src="@drawable/ic_phone#000000"
@@ -945,6 +945,13 @@
         <rule e="any" k="amenity" v="parking" zoom-min="16">
                 <symbol
                 src="@drawable/ic_car#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
+        </rule>
+        <rule e="any" k="amenity" v="ranger_station" zoom-min="15">
+            <symbol
+                src="@drawable/ranger_station#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
@@ -1007,23 +1014,6 @@
     </rule> -->
 
     <!-- POI labels -->
-    <rule
-        e="any"
-        k="tourism|amenity|leisure"
-        v="drinking_water|picnic_site|toilets|bench|fountain|bicycle_rental"
-        zoom-min="18"
-    >
-        <caption
-            fill="#000000"
-            font-size="12"
-            font-style="bold"
-            k="name"
-            position="above"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
-    </rule>
-
     <rule
         e="any"
         k="tourism|amenity|man_made|historic"
