@@ -78,7 +78,7 @@ Settings:
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
 ## Photo maps
-This layer shows visible photo maps, with the most zoomed-in map appearing on top. You can add new maps in the Offline Maps tool.
+This layer shows visible Photo maps, with the most zoomed-in map appearing on top. You can add new maps in the Offline Maps tool.
 
 Settings:
 
