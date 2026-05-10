@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.getUpsertedId
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
@@ -52,11 +53,11 @@ class FieldGuideRepo private constructor(private val context: Context) {
         }
 
         val entity = FieldGuidePageEntity.fromFieldGuidePage(page)
-        pageDao.upsert(entity)
+        pageDao.upsert(entity).getUpsertedId(page.id)
     }
 
     suspend fun addSighting(sighting: Sighting): Long = onIO {
-        sightingDao.upsert(FieldGuideSightingEntity.fromSighting(sighting))
+        sightingDao.upsert(FieldGuideSightingEntity.fromSighting(sighting)).getUpsertedId(sighting.id)
     }
 
     suspend fun getSighting(id: Long): Sighting? = onIO {

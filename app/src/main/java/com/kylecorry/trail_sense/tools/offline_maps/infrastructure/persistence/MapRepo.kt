@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.getUpsertedId
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
@@ -74,13 +75,13 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun add(map: PhotoMap): Long = onIO {
-        val newId = photoMapDao.upsert(PhotoMapEntity.from(map))
+        val newId = photoMapDao.upsert(PhotoMapEntity.from(map)).getUpsertedId(map.id)
         invalidatePhotoMapCache(newId)
         newId
     }
 
     suspend fun add(file: VectorMap): Long = onIO {
-        offlineMapFileDao.upsert(VectorMapEntity.from(file))
+        offlineMapFileDao.upsert(VectorMapEntity.from(file)).getUpsertedId(file.id)
     }
 
     suspend fun getPhotoMaps(parentId: Long?): List<PhotoMap> = onIO {
