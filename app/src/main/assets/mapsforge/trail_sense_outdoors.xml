@@ -69,7 +69,7 @@
     <rule e="way" k="natural" v="marsh|wetland" zoom-min="6">
         <area fill="#C4D1BB" />
         <area
-            src="@drawable/swamp_pattern#8FB47A"
+            src="@drawable/swamp_pattern#8FB47A!"
             symbol-height="24"
             symbol-width="24"
         />
@@ -112,8 +112,8 @@
         zoom-min="10"
     >
         <rule e="way" k="access" v="~|private|no">
-            <line stroke="#8FB47A" stroke-width="1.0" />
-            <line dy="1.0" stroke="#668FB47A" stroke-width="2.0" />
+            <line stroke="#5b8344" stroke-width="0.5" />
+            <line dy="1.0" stroke="#6675a35b" stroke-width="2.0" />
         </rule>
     </rule>
 
@@ -125,7 +125,7 @@
         closed="yes"
     >
         <rule e="way" k="access" v="~|private|no">
-            <area fill="#668FB47A" />
+            <area fill="#6675a35b" />
         </rule>
     </rule>
 
@@ -379,6 +379,7 @@
             priority="-100"
             stroke="#FFFFFF"
             stroke-width="2.0"
+            dy="3"
         />
     </rule>
 
@@ -387,11 +388,11 @@
             display="order"
             fill="#000000"
             font-size="12"
-            font-style="bold"
             k="name"
             priority="-100"
             stroke="#FFFFFF"
             stroke-width="2.0"
+            dy="2"
         />
     </rule>
 
@@ -423,6 +424,7 @@
                 priority="-8"
                 stroke="#FFFFFF"
                 stroke-width="2"
+                dy="2"
             />
         </rule>
         <rule
@@ -706,7 +708,7 @@
         <rule e="node" k="natural" v="peak" zoom-min="9">
             <symbol
                 id="peak"
-                src="@drawable/triangle#000000"
+                src="@drawable/triangle#000000!"
                 symbol-height="12"
                 symbol-width="12"
             />
