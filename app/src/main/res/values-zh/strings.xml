@@ -994,8 +994,8 @@
     <string name="astronomy_rise">升起</string>
     <string name="horizon">水平</string>
     <string name="no">否</string>
-    <string name="map_file">文件（JPG, PNG, PDF）</string>
-    <string name="photo_map_disclaimer">始终携带一份纸质地图作为备份并验证 Trail Sense 的精确度。</string>
+    <string name="map_file">文件（JPG, PNG, PDF, Mapsforge）</string>
+    <string name="photo_map_disclaimer">始终携带一份纸质地图作为备份并验证 Trail Sense 的精确度。\n\n本应用不含地图，必须单独下载或从照片校准。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 找到要下载的地图</string>
     <string name="offline_maps_summary">使用照片作为地图</string>
     <string name="reduce_map_resolution_crop_disclaimer">裁剪地图会降低分辨率。如果你需要以高分辨率裁剪地图，请使用照片编辑器应用。我们计划将来修复此问题。</string>
     <string name="crop_map_instructions_long">将方框的角拖动到地图四角处来绘制轮廓。裁剪会降低地图分辨率。</string>
@@ -1581,4 +1581,6 @@
     <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
     <string name="vector_maps">矢量地图</string>
     <string name="map_layer_vector_maps_description">你保存了矢量地图</string>
+    <string name="file_pdf">PDF</string>
+    <string name="file_photo">照片</string>
 </resources>
