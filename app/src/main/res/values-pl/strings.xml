@@ -901,7 +901,7 @@
     <string name="i_agree">Zgadzam się</string>
     <string name="battery_settings_limit_accuracy">Ograniczenie użycia baterii może zmniejszyć dokładność</string>
     <string name="offline_maps_summary">Użyj zdjęcia jako mapy</string>
-    <string name="map_file">Plik (JPG, PNG, PDF)</string>
+    <string name="map_file">Plik (JPG, PNG, PDF, Mapsforge)</string>
     <string name="map_calibration">Kalibracja mapy</string>
     <string name="peak_time">Górowanie</string>
     <string name="unable_to_find_next_astronomy">Nie można znaleźć następnego %s</string>
@@ -1342,7 +1342,7 @@
     <string name="climate_warm_summer_description">Planuj na wyższe temperatury podczas lata.</string>
     <string name="climate_cold_summer_description">Planuj na niższe temperatury podczas lata.</string>
     <string name="climate_very_cold_winter_description">Planuj na ekstremalnie niskie temperatury podczas zimy.</string>
-    <string name="map_tool_disclaimer">Narzędzie nie zawiera wbudowanych map, obrazów satelitarnych czy danych szlaków. Nie pobiera map z internetu. Aby wyświetlić podkład mapy, importuj własny obraz używając narzędzia Mapy ze zdjęć. Jeżeli potrzebujesz podglądu na żywo lub wstępnie załadowanych map, obrazów satelitarnych, czy danych szlaków użyj dedykowanej aplikacji.</string>
+    <string name="map_tool_disclaimer">Narzędzie nie zawiera wbudowanych map, obrazów satelitarnych czy danych szlaków. Nie pobiera map z internetu. Aby wyświetlić podkład mapy, importuj własny obraz używając narzędzia Mapy offline. Jeżeli potrzebujesz podglądu na żywo lub wstępnie załadowanych map, obrazów satelitarnych, czy danych szlaków użyj dedykowanej aplikacji.</string>
     <string name="open_settings">Otwórz ustawienia</string>
     <string name="show_gps_accuracy">Pokaż dokładność GPS</string>
     <string name="large_location_indicator">Zwiększ rozmiar wskaźnika lokalizacji</string>
@@ -1538,4 +1538,8 @@
     <string name="no_offline_maps">Brak map offline</string>
     <string name="unsupported_offline_map_file">Nieprawidłowy plik mapy</string>
     <string name="mapsforge">Mapsforge</string>
+    <string name="vector_maps">Mapy wektorowe</string>
+    <string name="map_layer_vector_maps_description">Zapisane mapy wektorowe</string>
+    <string name="file_pdf">PDF</string>
+    <string name="file_photo">Zdjęcie</string>
 </resources>
