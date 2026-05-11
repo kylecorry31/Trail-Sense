@@ -15,39 +15,87 @@
         <area fill="#AAD3DF" />
     </rule>
 
+    <!-- TODO: Reef -->
+
     <!-- Land -->
     <rule e="way" k="natural" v="nosea|land" zoom-min="0">
         <area fill="#C4CCB0" />
     </rule>
 
+    <!-- Barren Land (Rock/Sand/Clay) -->
+
     <!-- Sand -->
-    <rule e="way" k="natural|landuse" v="beach|sand|desert" zoom-min="6">
+    <rule
+        e="way"
+        k="natural|landuse|surface"
+        v="beach|sand|desert|dune"
+        zoom-min="6"
+    >
         <area fill="#E8E1B6" />
     </rule>
 
     <!-- Rock -->
+    <!-- TODO: Natural beach w/ surface=pebbles -->
+    <!-- TODO: Shoal treated like reef? -->
     <rule
         e="way"
-        k="natural|landuse"
-        v="bare_rock|fell|rock|scree|quarry"
+        k="natural|landuse|surface"
+        v="scree|shingle|gravel|quarry|bare_rock|pebbles|stones|shoal|blockfield|rock"
         zoom-min="6"
     >
         <area fill="#CAC3B8" />
     </rule>
 
-    <!-- Vegetation -->
+    <!-- Clay -->
+    <rule e="way" k="natural|wetland" v="mud" zoom-min="6">
+        <!-- TODO: Use another color -->
+        <area fill="#CAC3B8" />
+    </rule>
+
+    <!-- Tundra -->
+    <rule e="way" k="natural" v="tundra|fell" zoom-min="6">
+        <!-- TODO: Use another color -->
+        <area fill="#BBC6A8" />
+    </rule>
+
+    <!-- Grassland/Herbaceous -->
     <rule
         e="way"
-        k="natural|landuse"
-        v="grassland|heath|scrub|allotments|cemetery|farm|farmland|farmyard|field|grass|meadow|orchard|park|garden|common|green|dog_park|recreation_ground|graveyard|village_green|vineyard"
+        k="natural|landuse|surface|leisure"
+        v="grassland|meadow|grass|greenfield|recreation_ground|garden|park|village_green|greenery|farmland|allotments"
         zoom-min="6"
     >
         <area fill="#BBC6A8" />
     </rule>
 
-    <!-- Forest -->
-    <rule e="way" k="natural|landuse" v="wood|forest" zoom-min="6">
+    <rule e="way" k="natural" v="wetland" zoom-min="6">
+        <rule e="way" k="wetland" v="marsh|saltmarsh|wet_meadow|reedbed">
+            <area fill="#BBC6A8" />
+        </rule>
+    </rule>
+
+    <!-- Scrub -->
+    <rule
+        e="way"
+        k="natural|landuse"
+        v="heath|scrub|shrub|vineyard"
+        zoom-min="6"
+    >
+        <!-- TODO: Use another color -->
+        <area fill="#BBC6A8" />
+    </rule>
+
+    <!-- Trees -->
+    <rule e="way" k="natural|landuse" v="wood|forest|orchard" zoom-min="6">
         <area fill="#B5C6A2" />
+    </rule>
+
+    <!-- Swamps and mangroves also gets forest styling -->
+    <!-- TODO: Separate styling for mangroves since it is both shrub and trees -->
+    <rule e="way" k="natural" v="wetland" zoom-min="6">
+        <rule e="way" k="wetland" v="swamp|mangrove">
+            <area fill="#B5C6A2" />
+        </rule>
     </rule>
 
     <!-- Human -->
@@ -66,14 +114,14 @@
     </rule>
 
     <!-- Wetlands -->
+    <!-- TODO: wetland type might matter -->
     <rule e="way" k="natural" v="marsh|wetland" zoom-min="6">
-        <area fill="#C4D1BB" />
-        <!-- TODO: Icon needed -->
-        <!-- <area
-            src=""
-            symbol-height="40"
-            symbol-width="40"
-        /> -->
+        <area fill="#7FC4D1BB" />
+        <area
+            src="@drawable/swamp_pattern#8FB47A!"
+            symbol-height="24"
+            symbol-width="24"
+        />
     </rule>
 
     <!-- Major bodies of water -->
@@ -99,7 +147,7 @@
     <!-- TODO: waterway dam -->
     <!-- TODO: natural coastline -->
 
-    <!-- Ice -->
+    <!-- Perennial Ice/Snow -->
     <rule e="way" k="natural" v="glacier" zoom-min="8">
         <area fill="#F5F4F2" />
     </rule>
@@ -113,8 +161,8 @@
         zoom-min="10"
     >
         <rule e="way" k="access" v="~|private|no">
-            <line stroke="#8FB47A" stroke-width="1.0" />
-            <line dy="1.0" stroke="#668FB47A" stroke-width="2.0" />
+            <line stroke="#5b8344" stroke-width="0.5" />
+            <line dy="1.0" stroke="#6675a35b" stroke-width="2.0" />
         </rule>
     </rule>
 
@@ -126,7 +174,7 @@
         closed="yes"
     >
         <rule e="way" k="access" v="~|private|no">
-            <area fill="#668FB47A" />
+            <area fill="#6675a35b" />
         </rule>
     </rule>
 
@@ -380,6 +428,7 @@
             priority="-100"
             stroke="#FFFFFF"
             stroke-width="2.0"
+            dy="3"
         />
     </rule>
 
@@ -388,11 +437,11 @@
             display="order"
             fill="#000000"
             font-size="12"
-            font-style="bold"
             k="name"
             priority="-100"
             stroke="#FFFFFF"
             stroke-width="2.0"
+            dy="2"
         />
     </rule>
 
@@ -424,6 +473,7 @@
                 priority="-8"
                 stroke="#FFFFFF"
                 stroke-width="2"
+                dy="2"
             />
         </rule>
         <rule
@@ -705,10 +755,9 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="peak" zoom-min="9">
-            <!-- TODO: Icon needed -->
             <symbol
                 id="peak"
-                src="@drawable/ic_arrow_target#000000"
+                src="@drawable/triangle#000000!"
                 symbol-height="12"
                 symbol-width="12"
             />
@@ -764,10 +813,9 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="volcano" zoom-min="11">
-            <!-- TODO: Icon needed -->
             <symbol
                 id="volcano"
-                src="@drawable/ic_arrow_target#000000"
+                src="@drawable/volcano#000000"
                 symbol-height="12"
                 symbol-width="12"
             />
@@ -849,10 +897,9 @@
             />
         </rule>
         <rule e="any" k="tourism" v="alpine_hut|wilderness_hut" zoom-min="12">
-            <!-- TODO: Better image needed -->
             <symbol
                 id="alpine-hut"
-                src="@drawable/ic_house#000000"
+                src="@drawable/ic_cabin#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
@@ -923,14 +970,13 @@
                 symbol-width="16"
             />
         </rule>
-        <rule e="node" k="amenity" v="bench" zoom-min="15">
-            <!-- TODO: Icon needed -->
-            <symbol
-                src="@drawable/ic_picnic#000000"
-                symbol-height="16"
-                symbol-width="16"
-            />
-        </rule>
+<!--        <rule e="node" k="amenity" v="bench" zoom-min="15">-->
+<!--            <symbol-->
+<!--                src="@drawable/bench#000000"-->
+<!--                symbol-height="16"-->
+<!--                symbol-width="16"-->
+<!--            />-->
+<!--        </rule>-->
         <rule e="any" k="amenity" v="telephone" zoom-min="15">
             <symbol
                 src="@drawable/ic_phone#000000"
@@ -939,7 +985,6 @@
             />
         </rule>
         <rule e="any" k="amenity" v="drinking_water" zoom-min="16">
-            <!-- TODO: Icon needed -->
             <symbol
                 src="@drawable/ic_category_water#000000"
                 symbol-height="16"
@@ -949,6 +994,13 @@
         <rule e="any" k="amenity" v="parking" zoom-min="16">
                 <symbol
                 src="@drawable/ic_car#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
+        </rule>
+        <rule e="any" k="amenity" v="ranger_station" zoom-min="15">
+            <symbol
+                src="@drawable/ranger_station#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
@@ -993,7 +1045,12 @@
                 symbol-width="16"
             />
         </rule>
-        <rule e="any" k="historic|building" v="ruins|archaeological_site" zoom-min="15">
+        <rule
+            e="any"
+            k="historic|building"
+            v="ruins|archaeological_site"
+            zoom-min="15"
+        >
             <symbol
                 src="@drawable/ic_ruins#000000"
                 symbol-height="16"
@@ -1011,23 +1068,6 @@
     </rule> -->
 
     <!-- POI labels -->
-    <rule
-        e="any"
-        k="tourism|amenity|leisure"
-        v="drinking_water|picnic_site|toilets|bench|fountain|bicycle_rental"
-        zoom-min="18"
-    >
-        <caption
-            fill="#000000"
-            font-size="12"
-            font-style="bold"
-            k="name"
-            position="above"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
-    </rule>
-
     <rule
         e="any"
         k="tourism|amenity|man_made|historic"

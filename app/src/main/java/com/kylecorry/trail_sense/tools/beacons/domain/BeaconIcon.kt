@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
-// Last ID: 64
+// Last ID: 68
 enum class BeaconIcon(
     override val id: Long,
     @DrawableRes val icon: Int,
@@ -22,6 +22,7 @@ enum class BeaconIcon(
 
     // Natural features
     Mountain(1, R.drawable.ic_altitude),
+    Volcano(65, R.drawable.volcano),
     BodyOfWater(17, R.drawable.ic_tide_table),
     River(18, R.drawable.ic_river),
     Waterfall(20, R.drawable.ic_waterfall),
@@ -31,12 +32,14 @@ enum class BeaconIcon(
     TideHalf(50, R.drawable.ic_tide_half, isUserSelectable = false),
     Tree(21, R.drawable.tree),
     Field(37, R.drawable.ic_grass),
+    Swamp(66, R.drawable.swamp),
     Plant(38, R.drawable.ic_category_natural),
     Track(62, R.drawable.paw),
 
     // Amenities
     Food(12, R.drawable.ic_category_food),
     Picnic(36, R.drawable.ic_picnic),
+    Bench(67, R.drawable.bench),
     WaterRefill(6, R.drawable.ic_category_water),
     Restroom(7, R.drawable.ic_restrooms),
     Phone(8, R.drawable.ic_phone),
@@ -60,6 +63,7 @@ enum class BeaconIcon(
     Bridge(43, R.drawable.ic_bridge),
     Lighthouse(44, R.drawable.ic_lighthouse),
     VisitorCenter(45, R.drawable.ic_visitor_center),
+    RangerStation(68, R.drawable.ranger_station),
 
     // Animals and Field Guide Tags
     Animal(51, R.drawable.paw, isUserSelectable = false),
