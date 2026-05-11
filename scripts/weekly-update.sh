@@ -1,3 +1,3 @@
-python update_contributors.py
-python string-fixer.py
-python update-guide.py
+python3 update_contributors.py
+python3 string-fixer.py
+python3 update-guide.py
