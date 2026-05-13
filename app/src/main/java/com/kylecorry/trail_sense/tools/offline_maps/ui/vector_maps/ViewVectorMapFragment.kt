@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_view) {
@@ -109,7 +110,7 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
 
     private fun rename(map: VectorMap, onRenamed: () -> Unit) {
         inBackground {
-            DeleteMapCommand(requireContext(), getAppService()).execute(map)
+            RenameMapCommand(requireContext(), getAppService()).execute(map)
             onMain {
                 onRenamed()
             }
