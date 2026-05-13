@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
 
 import android.content.Context
 import android.net.Uri
-import androidx.core.net.toFile
 import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrLog
@@ -26,7 +25,7 @@ class CreateMapFromImageCommand(
         val file = files.copyToLocal(uri, "maps") ?: return@onIO null
         var rotation = 0
         tryOrLog {
-            val exif = ExifInterface(uri.toFile())
+            val exif = ExifInterface(file)
             rotation = exif.rotationDegrees
         }
 
