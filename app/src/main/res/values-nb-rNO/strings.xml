@@ -949,7 +949,7 @@
     <string name="until_sunrise">til soloppgang</string>
     <string name="until_sunset">til solnedgang</string>
     <string name="no">Nei</string>
-    <string name="map_file">Fil (JPG, PNG, PDF)</string>
+    <string name="map_file">Fil (JPG, PNG, PDF, Mapsforge)</string>
     <string name="data_source">Kilde: %s</string>
     <string name="horizon">Horisont</string>
     <string name="astronomy_set">Nedgang</string>
@@ -988,7 +988,7 @@
     <string name="backup_restore">Sikkerhetskopiering/gjenoppretting</string>
     <string name="restoring_loading_message">Gjenoppretter…</string>
     <string name="backup">Sikkerhetskopier</string>
-    <string name="offline_maps_summary">Bruk et bilde som kart</string>
+    <string name="offline_maps_summary">Bruk bilder, PDF-er og kartfiler offline</string>
     <string name="zero_shutter_lag">Ingen lukkerforsinkelse</string>
     <string name="backing_up_loading_message">Sikkerhetskopierer…</string>
     <string name="restore_complete_message">Gjenopprettet, starter på nytt for at endringer skal tre i kraft</string>
@@ -1173,7 +1173,7 @@
     <string name="magnetic_north_description">Peker mot den magnetiske nordpolen. Dette vil samsvare med de fleste kompasser.</string>
     <string name="high_sensitivity">Høy følsomhet</string>
     <string name="continuous_calibration">Kontinuerlig kalibrering</string>
-    <string name="continuous_calibration_description">Kalibrerer hver gang det er GPS-fiks.</string>
+    <string name="continuous_calibration_description">Kalibrerer hver gang det oppnås en GPS-posisjon</string>
     <string name="service_restart">Omstart av tjenesten</string>
     <string name="service_restart_channel_description">Et varsel om omstart av tjenester</string>
     <string name="restart_services_title">Start tjenestene på nytt</string>
@@ -1275,4 +1275,12 @@
         <item quantity="other">%d kart</item>
     </plurals>
     <string name="delete_offline_map_group_message">%s og alle kartene i den vil bli slettet.</string>
+    <string name="photo_map_disclaimer">Ha alltid med et fysisk kart som reserve og kontroller nøyaktigheten til Trail Sense.\n\nKartfiler er ikke inkludert i Trail Sense og må bli lastet ned eller kalibrert fra et bilde. Du kan finne kart å laste ned på https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="file_photo">Foto</string>
+    <string name="file_pdf">PDF</string>
+    <string name="map_layer_vector_maps_description">Dine lagrede vektorkart</string>
+    <string name="vector_maps">Vektorkart</string>
+    <string name="load_pdf_tiles">Last PDF-fliser</string>
+    <string name="load_pdf_tiles_summary">PDF-kart vil bli skarpere, men ytelsen kan bli påvirket</string>
+    <string name="map_tool_disclaimer">Dette verktøyet inkluderer ikke innebygde gatekart, satellittbilder eller stidata. Det laster ikke ned kart fra internett. For å vise en kartbakgrunn, må du importere ditt eget bilde ved hjelp av verktøyet Offline-kart. Hvis du trenger direkte eller forhåndsinnlastede gate-, satellitt- eller stikart, bør du i stedet bruke et eget kartprogram.</string>
 </resources>
