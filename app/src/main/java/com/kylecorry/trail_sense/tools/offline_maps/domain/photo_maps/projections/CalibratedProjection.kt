@@ -48,7 +48,10 @@ class CalibratedProjection(
         latitude: Double,
         longitude: Double
     ): Vector2 {
-        if (left == null || top == null || bottom == null) {
+        val hasZeroSize = Arithmetic.isZero(width) || Arithmetic.isZero(height)
+        val hasInvalidCorner = left == null || top == null || bottom == null
+
+        if (hasInvalidCorner || hasZeroSize) {
             return Vector2(0f, 0f)
         }
 
