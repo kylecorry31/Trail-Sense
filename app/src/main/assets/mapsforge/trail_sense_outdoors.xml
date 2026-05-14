@@ -719,57 +719,9 @@
                 src="@drawable/triangle#000000!"
                 symbol-height="12"
                 symbol-width="12"
+                display="always"
             />
-            <rule e="any" k="highest_point" v="*" zoom-min="9">
-                <caption
-                    fill="#000000"
-                    font-size="11"
-                    font-style="bold"
-                    k="name"
-                    position="above"
-                    priority="40"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="peak"
-                />
-                <rule e="any" k="*" v="*" zoom-min="14">
-                    <caption
-                        fill="#000000"
-                        font-size="10"
-                        k="ele"
-                        position="below"
-                        priority="30"
-                        stroke="#FFFFFF"
-                        stroke-width="2.0"
-                        symbol-id="peak"
-                    />
-                </rule>
-            </rule>
-            <rule e="any" k="highest_point" v="~" zoom-min="9">
-                <caption
-                    fill="#000000"
-                    font-size="11"
-                    font-style="bold"
-                    k="name"
-                    position="above"
-                    priority="20"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="peak"
-                />
-            </rule>
-            <rule e="any" k="highest_point" v="~" zoom-min="14">
-                <caption
-                    fill="#000000"
-                    font-size="10"
-                    k="ele"
-                    position="below"
-                    priority="10"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="peak"
-                />
-            </rule>
+            <trail_sense_peak_elevation_captions />
         </rule>
         <rule e="node" k="natural" v="volcano" zoom-min="11">
             <symbol

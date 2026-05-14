@@ -25,15 +25,11 @@ class PeakElevationMapReadResultModifier(
 
     private fun modify(poi: PointOfInterest): PointOfInterest {
         val elevation = getPeakElevation(poi) ?: return poi
-        val formattedElevation = formatElevation(elevation)
-        val formattedTags = poi.tags.map {
-            if (it.key == ELEVATION) {
-                Tag(ELEVATION, formattedElevation)
-            } else {
-                it
-            }
-        } + PROCESSED_TAG
-        return PointOfInterest(poi.layer, formattedTags, poi.position)
+        val tier = PeakTierCaptionGenerator.getElevationTier(elevation)
+
+        val baseTags = poi.tags.map { if (it.key == ELEVATION) Tag(ELEVATION, formatElevation(elevation)) else it }
+
+        return PointOfInterest(poi.layer, baseTags + PROCESSED_TAG + Tag(ELEVATION_TIER, tier.toString()), poi.position)
     }
 
     private fun isPeak(poi: PointOfInterest): Boolean {
@@ -49,7 +45,7 @@ class PeakElevationMapReadResultModifier(
         if (!isPeak(poi) || PROCESSED_TAG in poi.tags) {
             return null
         }
-
+        
         return poi.tags.firstOrNull { it.key == ELEVATION }?.value?.let { tag ->
             elevationRegex.find(tag.replace(",", ""))?.value?.toFloatCompat()
         }
@@ -57,6 +53,7 @@ class PeakElevationMapReadResultModifier(
 
     companion object {
         private const val ELEVATION = "ele"
+        private const val ELEVATION_TIER = "trail_sense_elevation_tier"
         private const val NATURAL = "natural"
         private const val PEAK = "peak"
         private val PROCESSED_TAG = Tag("trail_sense_peak_elevation", "yes")

@@ -159,8 +159,12 @@ class MapsforgeTileRenderer {
     }
 
     private fun createRenderTheme(context: Context): XmlRenderTheme {
-        val xml = runBlocking { files.streamAsset(MAPSFORGE_THEME)!! }
-        val theme = StreamRenderTheme("", xml)
+        val rawXml = runBlocking { files.readAsset(MAPSFORGE_THEME)!! }
+        val processedXml = rawXml.replace(
+            PeakTierCaptionGenerator.PLACEHOLDER,
+            PeakTierCaptionGenerator.generate()
+        )
+        val theme = StreamRenderTheme("", processedXml.byteInputStream())
         theme.resourceProvider = DrawableResourceProvider(context)
         return theme
     }
