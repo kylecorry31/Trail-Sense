@@ -12,13 +12,12 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import kotlinx.coroutines.runBlocking
 import org.mapsforge.core.model.Tile
-import org.mapsforge.map.datastore.MapDataStore
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
+import org.mapsforge.map.datastore.MapDataStore
 import org.mapsforge.map.datastore.MultiMapDataStore
 import org.mapsforge.map.layer.cache.InMemoryTileCache
 import org.mapsforge.map.layer.cache.TileCache
 import org.mapsforge.map.layer.labels.TileBasedLabelStore
-import org.mapsforge.map.layer.renderer.DatabaseRenderer
 import org.mapsforge.map.layer.renderer.RendererJob
 import org.mapsforge.map.model.DisplayModel
 import org.mapsforge.map.reader.MapFile
@@ -29,7 +28,7 @@ import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 class MapsforgeTileRenderer {
     private var selectedMapKey: String? = null
     private var mapDataStore: MapDataStore? = null
-    private var renderer: DatabaseRenderer? = null
+    private var renderer: MapsforgeRenderer? = null
     private var tileCache: TileCache? = null
     private var renderThemeFuture: RenderThemeFuture? = null
     private val displayModel = DisplayModel().apply {
@@ -40,7 +39,6 @@ class MapsforgeTileRenderer {
     private val prefs = getAppService<UserPreferences>()
     private val formatter = getAppService<FormatService>()
 
-    @Synchronized
     fun render(
         context: Context,
         maps: List<VectorMap>,
@@ -86,11 +84,12 @@ class MapsforgeTileRenderer {
         selectedMapKey = null
     }
 
+    @Synchronized
     private fun getRenderer(
         context: Context,
         maps: List<VectorMap>,
         highDetailMode: Boolean
-    ): DatabaseRenderer? {
+    ): MapsforgeRenderer? {
         val files = maps
             .filter { it.type == VectorMapFileType.Mapsforge }
             .map { files.get(it.path) }
@@ -119,19 +118,27 @@ class MapsforgeTileRenderer {
         )
         newRenderThemeFuture.run()
         val newTileCache = InMemoryTileCache(100)
-        val wrappedMapDataStore = MapsforgeMapDataStoreWrapper(
+        val wrappedMapDataStore = CachedMapsforgeMapDataStoreWrapper(
             newMapDataStore,
-            listOf(PeakElevationPoiModifier(prefs.baseDistanceUnits, formatter))
+            0
         )
-        val newRenderer = DatabaseRenderer(
+        val newRenderer = MapsforgeRenderer(
             wrappedMapDataStore,
             AndroidGraphicFactory.INSTANCE,
             newTileCache,
             TileBasedLabelStore(100),
-            true,
-            false,
-            null,
-            true
+            listOf(
+                PeakElevationMapReadResultModifier(prefs.baseDistanceUnits, formatter),
+                AreaLabelMapReadResultModifier(
+                    mapOf(
+                        "boundary" to setOf("protected_area", "national_park"),
+                        "leisure" to setOf("nature_reserve"),
+                        "natural" to setOf("water", "wetland", "beach"),
+                        "landuse" to setOf("reservoir", "basin"),
+                    ),
+                    11
+                )
+            )
         )
 
         selectedMapKey = key
