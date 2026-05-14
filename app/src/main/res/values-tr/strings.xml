@@ -1444,4 +1444,15 @@
     <string name="show_pressure_forecast">Basınç tahminini grafikte göster</string>
     <string name="lock_bearing_to_location">Yönü konuma kilitle</string>
     <string name="lock_bearing_to_location_description">Yön çizgisini başlangıç konumuna kilitle</string>
+    <string name="plugins">Eklentiler</string>
+    <string name="map_layers">Harita katmanları</string>
+    <string name="tile_layer">Döşeme katmanı</string>
+    <string name="feature_layer">Özellik katmanı</string>
+    <string name="overlay_layer">Kaplama katmanı</string>
+    <string name="app_info">Uygulama bilgisi</string>
+    <string name="reload">Yenile</string>
+    <string name="connected_plugins">Bağlı eklentiler</string>
+    <string name="available_plugins">Mevcut eklentiler</string>
+    <string name="plugin_name">Eklenti: %s</string>
+    <string name="plugin_connect_title">Eklenti bağlansın mı?</string>
 </resources>
