@@ -390,8 +390,8 @@
     <ID>ReturnCount:MapExportService.kt:MapExportService$@Suppress("FoldInitializerAndIfToElvis") private fun getPDFData: List&lt;PDFValue.PDFObject&gt;</ID>
     <ID>ReturnCount:MapExportService.kt:MapExportService$override suspend fun export: Boolean</ID>
     <ID>ReturnCount:MapRotationCalculator.kt:MapRotationCalculator$fun calculate: Float</ID>
-    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$@Synchronized fun render: Bitmap?</ID>
-    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$private fun getRenderer: DatabaseRenderer?</ID>
+    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$@Synchronized private fun getRenderer: MapsforgeRenderer?</ID>
+    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$fun render: Bitmap?</ID>
     <ID>ReturnCount:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$fun getPressureForecast: List&lt;Reading&lt;Pressure&gt;&gt;</ID>
     <ID>ReturnCount:NoaaHcAndMetadataTideTableConverter.kt:NoaaHcAndMetadataTideTableConverter$override fun parse: TideTable?</ID>
     <ID>ReturnCount:PathService.kt:PathService$override suspend fun mergePaths: Long</ID>
