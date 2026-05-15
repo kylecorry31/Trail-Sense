@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.map.widgets
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Path
 import android.view.View
 import android.widget.RemoteViews
@@ -39,6 +40,7 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
             val size = Resources.dp(context, 400f).toInt()
             val cornerRadius = Resources.dp(context, 8f)
             val mapView = MapView(context)
+            mapView.backgroundColorOverride = Color.rgb(127, 127, 127)
             mapView.clipPath = Path().apply {
                 if (drawAsCircle) {
                     addCircle(size / 2f, size / 2f, size / 2f, Path.Direction.CW)
