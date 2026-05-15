@@ -13,4 +13,7 @@ interface GeoJsonSource {
         params: Bundle = Bundle()
     ): GeoJsonObject?
 
+    suspend fun cleanup() {
+        // Do nothing
+    }
 }
