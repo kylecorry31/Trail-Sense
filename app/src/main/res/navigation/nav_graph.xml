@@ -129,6 +129,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settings_to_backup_settings"
+            app:destination="@id/backupSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_action_settings_to_licenseFragment"
@@ -691,6 +698,10 @@
         android:id="@+id/themeSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.ThemeSettingsFragment"
         android:label="ThemeSettingsFragment" />
+    <fragment
+        android:id="@+id/backupSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.BackupSettingsFragment"
+        android:label="BackupSettingsFragment" />
     <fragment
         android:id="@+id/powerSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.PowerSettingsFragment"

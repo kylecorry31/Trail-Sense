@@ -13,6 +13,10 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
 
 
     override suspend fun execute(): Boolean = onIO {
+        if (isMapImportInProgress) {
+            return@onIO false
+        }
+
         val didDeletePhotoMaps = cleanupPhotoMaps()
         val didDeleteVectorMaps = cleanupVectorMaps()
         didDeletePhotoMaps || didDeleteVectorMaps
@@ -60,6 +64,9 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
     }
 
     companion object {
+        @Volatile
+        var isMapImportInProgress = false
+
         private const val OFFLINE_MAPS_DIRECTORY = "offline_maps"
     }
 }

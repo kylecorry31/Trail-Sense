@@ -36,15 +36,9 @@
             app:key="@string/pref_plugins_settings"
             app:title="@string/plugins" />
         <Preference
-            android:key="backup_restore"
-            android:title="@string/backup_restore"
+            app:key="@string/pref_backup_settings"
+            app:title="@string/backup_restore"
             app:icon="@drawable/backup_restore" />
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:icon="@drawable/backup_restore"
-            app:key="@string/pref_auto_backup_enabled"
-            app:singleLineTitle="false"
-            app:title="@string/automatic_backup" />
     </PreferenceCategory>
 
     <PreferenceCategory
