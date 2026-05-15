@@ -1543,4 +1543,6 @@
     <string name="file_pdf">PDF</string>
     <string name="file_photo">Zdjęcie</string>
     <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako zapasowe narzędzie oraz weryfikuj dokładność Trail Sense.\n\nTrail sense nie zawiera plików map, które należy pobrać oddzielnie lub zaimportować ze zdjęcia. Możesz pobrać pliki map z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="include_mapsforge_backups">Załącz mapy wektorowe w kopii zapasowej</string>
+    <string name="include_mapsforge_backups_summary">Pliki Mapsforge (.map), mogą mieć duży rozmiar</string>
 </resources>
