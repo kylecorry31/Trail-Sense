@@ -16,6 +16,12 @@ class BackupPreferences(context: Context) : PreferenceRepo(context) {
         false
     )
 
+    val includeMapsforgeMaps by BooleanPreference(
+        cache,
+        getString(R.string.pref_include_mapsforge_backups),
+        true
+    )
+
     private var autoBackupUriString: String by StringPreference(
         cache,
         getString(R.string.pref_auto_backup_uri),

@@ -9,8 +9,10 @@ import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.andromeda.files.ZipFile
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.andromeda.files.ZipUtils.unzip
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileRepo
 import java.io.File
@@ -25,6 +27,7 @@ class BackupService(
      * @param destination the destination file - must be a zip file
      */
     suspend fun backup(destination: Uri): Unit = onIO {
+        val preferences = getAppService<UserPreferences>()
         // Get the files to backup
         val filesToBackup = getFilesToBackup().toMutableList()
 
@@ -39,8 +42,13 @@ class BackupService(
 
             val excludedFiles = listOf(
                 fileSubsystem.getDirectory("dem"),
-                AppData.getSharedPrefsFile(context, "${context.packageName}_widget_preferences")
-            )
+                AppData.getSharedPrefsFile(context, "${context.packageName}_widget_preferences"),
+                if (!preferences.backup.includeMapsforgeMaps) {
+                    fileSubsystem.getDirectory(OFFLINE_MAPS_DIRECTORY)
+                } else {
+                    null
+                }
+            ).filterNotNull()
 
             // Create the zip file
             fileSubsystem.output(destination)?.use {
@@ -175,6 +183,7 @@ class BackupService(
 
     companion object {
         private const val MAX_ZIP_FILE_COUNT = 1000
+        private const val OFFLINE_MAPS_DIRECTORY = "offline_maps"
         private val SHARED_PREFS_REGEX =
             Regex("shared_prefs/com\\.kylecorry\\.trail_sense.*_preferences.xml")
     }

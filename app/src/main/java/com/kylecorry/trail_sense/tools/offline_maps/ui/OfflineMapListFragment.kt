@@ -412,51 +412,55 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
     private fun createMap(command: ICreateMapCommand) {
         inBackground(BackgroundMinimumState.Created) {
-            binding.addBtn.isEnabled = false
+            MapCleanupCommand.isMapImportInProgress = true
+            try {
+                binding.addBtn.isEnabled = false
 
-            val map = command.execute()?.let {
-                when (it) {
-                    is PhotoMap -> it.copy(parentId = manager.root?.id)
-                    is VectorMap -> it.copy(parentId = manager.root?.id)
-                    else -> null
-                }
-            }
-
-            if (map == null) {
-                toast(getString(R.string.error_importing_map))
-                binding.addBtn.isEnabled = true
-                return@inBackground
-            }
-
-            if (map.parentId != null) {
-                onIO {
-                    mapService.add(map)
-                }
-            }
-
-            if (map is PhotoMap) {
-                val isPdfMap = map.hasPdf(requireContext())
-                if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
-                    mapImportingIndicator.show()
-                    val reducer = HighQualityMapReducer(requireContext())
-                    reducer.reduce(map)
-                    mapImportingIndicator.hide()
-                }
-
-                if (map.calibration.calibrationPoints.isNotEmpty()) {
-                    toast(getString(R.string.map_auto_calibrated))
-                }
-            }
-
-            binding.addBtn.isEnabled = true
-            manager.refresh(true)
-            when (map) {
-                is PhotoMap -> findNavController().navigate(
-                    R.id.action_mapList_to_maps,
-                    Bundle().apply {
-                        putLong("mapId", map.id)
+                val map = command.execute()?.let {
+                    when (it) {
+                        is PhotoMap -> it.copy(parentId = manager.root?.id)
+                        is VectorMap -> it.copy(parentId = manager.root?.id)
+                        else -> null
                     }
-                )
+                }
+
+                if (map == null) {
+                    toast(getString(R.string.error_importing_map))
+                    return@inBackground
+                }
+
+                if (map.parentId != null) {
+                    onIO {
+                        mapService.add(map)
+                    }
+                }
+
+                if (map is PhotoMap) {
+                    val isPdfMap = map.hasPdf(requireContext())
+                    if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
+                        mapImportingIndicator.show()
+                        val reducer = HighQualityMapReducer(requireContext())
+                        reducer.reduce(map)
+                        mapImportingIndicator.hide()
+                    }
+
+                    if (map.calibration.calibrationPoints.isNotEmpty()) {
+                        toast(getString(R.string.map_auto_calibrated))
+                    }
+                }
+
+                manager.refresh(true)
+                when (map) {
+                    is PhotoMap -> findNavController().navigate(
+                        R.id.action_mapList_to_maps,
+                        Bundle().apply {
+                            putLong("mapId", map.id)
+                        }
+                    )
+                }
+            } finally {
+                MapCleanupCommand.isMapImportInProgress = false
+                binding.addBtn.isEnabled = true
             }
 
         }

@@ -1326,6 +1326,9 @@
     <string name="pref_debug_weather_timing" translatable="false">pref_debug_weather_timing</string>
     <string name="backup">Backup</string>
     <string name="restore">Restore</string>
+    <string name="pref_backup_settings" translatable="false">pref_backup_settings</string>
+    <string name="pref_backup_action" translatable="false">pref_backup_action</string>
+    <string name="pref_restore_action" translatable="false">pref_restore_action</string>
     <!--    %s is the app name (Trail Sense)-->
     <string name="restore_disclaimer">This action will overwrite all of your current data. Please make sure you have a backup before continuing.\n\nOnly select a backup file that you have created with %s and trust.</string>
     <string name="backup_disclaimer">A backup file will be created containing all your current data. It will include settings, paths, beacons, maps, etc.\n\nThis file is not encrypted. Do not share it with anyone you do not trust.</string>
@@ -1557,6 +1560,9 @@
     <string name="imperial_tablespoons">Imperial tablespoons</string>
     <string name="automatic_backup">Automatic backup</string>
     <string name="pref_auto_backup_enabled" translatable="false">pref_auto_backup_enabled</string>
+    <string name="pref_include_mapsforge_backups" translatable="false">pref_include_mapsforge_backups</string>
+    <string name="include_mapsforge_backups">Include vector maps in backups</string>
+    <string name="include_mapsforge_backups_summary">Mapsforge (.map) files can be large</string>
     <string name="select_backup_directory">Select backup directory</string>
     <string name="no_directory_selected">No directory selected</string>
     <string name="pref_auto_backup_uri" translatable="false">pref_auto_backup_uri</string>
