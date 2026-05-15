@@ -1,3 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation">نیویگیشن</string>
+    <string name="weather">موسم</string>
+    <string name="settings">سیٹنگ</string>
+    <string name="astronomy">فلکیات</string>
+    <string name="tools">اوزار</string>
+    <string name="plugins">پلگ ان</string>
+    <string name="map_layers">نقش کی تہیں</string>
+    <string name="tile_layer">ٹائل کی پرت</string>
+    <string name="feature_layer">مستقبل کی تہ</string>
+    <string name="overlay_layer">اوپر کی تہ</string>
+    <string name="app_info">ایپ کے بارے میں جانیں</string>
+    <string name="reload">دوبارہ لوڈ کریں</string>
+    <string name="disconnect">منقطع</string>
+    <string name="plugin_unavailable">یہ پلگ ان دستیاب نہیں ہے یا اب منسلک نہیں ہے۔</string>
+    <string name="clear_plugin_cache">پلگ ان کیشے کو صاف کریں۔</string>
+    <string name="connected_plugins">پلگ اِن منسلک ہے</string>
+    <string name="available_plugins">پلگ اِن دستیاب ہے</string>
+    <string name="plugin_name">پلگ اِن: %s</string>
+    <string name="copied_to_clipboard_toast">کلپ بورڈ پر کاپی</string>
+    <string name="plugin_connect_title">منسلک پلگ اِن ؟</string>
+    <string name="plugin_connect_message">صرف %s سے جڑیں اگر آپ کو اس پر بھروسہ ہے۔</string>
 </resources>
