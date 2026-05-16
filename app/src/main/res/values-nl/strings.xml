@@ -1592,4 +1592,8 @@
     </plurals>
     <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
     <string name="include_mapsforge_backups_summary">Mapsforge-bestanden (.map) kunnen groot zijn</string>
+    <string name="include_mapsforge_backups">Wandelkaarten opnemen in back-ups</string>
+    <string name="trail_maps">Wandelkaarten</string>
+    <string name="map_layer_trail_maps_description">Je opgeslagen wandelkaarten</string>
+    <string name="map_type_trail">Wandelpad</string>
 </resources>
