@@ -499,7 +499,7 @@
     <string name="clear_cache">Cache wissen</string>
     <string name="destination_elevation">Bestemmingshoogte</string>
     <string name="base_temperature">Basistemperatuur</string>
-    <string name="base_elevation">Basis hoogte</string>
+    <string name="base_elevation">Basishoogte</string>
     <string name="yards_format">%s wv</string>
     <string name="find_next_occurrence">Volgende gebeurtenis zoeken</string>
     <string name="daylight">Daglicht</string>
@@ -898,7 +898,7 @@
     <string name="weather_wind">Wind</string>
     <string name="nimbostratus_forecast">Mogelijk valt er de komende %d uren neerslag.</string>
     <string name="path_slope">Helling</string>
-    <string name="updating_weather">Het weer bijwerken</string>
+    <string name="updating_weather">Weer bijwerken</string>
     <string name="path_slope_moderate">Gematigd</string>
     <string name="weather_clear">Helder</string>
     <string name="clouds_clear">Helder</string>
@@ -1594,4 +1594,6 @@
     <string name="map_layer_vector_maps_description">Je opgeslagen vectorkaarten</string>
     <string name="file_pdf">PDF</string>
     <string name="file_photo">Foto</string>
+    <string name="include_mapsforge_backups">Vectorkaarten opnemen in back-ups</string>
+    <string name="include_mapsforge_backups_summary">Mapsforge-bestanden (.map) kunnen groot zijn</string>
 </resources>
