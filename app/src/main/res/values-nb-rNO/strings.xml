@@ -1270,16 +1270,13 @@
     <string name="no_offline_maps">Ingen offline-kart</string>
     <string name="unsupported_offline_map_file">Kartfil som ikke støttes</string>
     <string name="manage_maps">Håndter kart</string>
+    <string name="map_type_photo">Foto</string>
     <plurals name="offline_map_group_summary">
         <item quantity="one">%d kart</item>
         <item quantity="other">%d kart</item>
     </plurals>
     <string name="delete_offline_map_group_message">%s og alle kartene i den vil bli slettet.</string>
     <string name="photo_map_disclaimer">Ha alltid med et fysisk kart som reserve og kontroller nøyaktigheten til Trail Sense.\n\nKartfiler er ikke inkludert i Trail Sense og må bli lastet ned eller kalibrert fra et bilde. Du kan finne kart å laste ned på https://kylecorry.com/Trail-Sense/offline_maps.html</string>
-    <string name="file_photo">Foto</string>
-    <string name="file_pdf">PDF</string>
-    <string name="map_layer_vector_maps_description">Dine lagrede vektorkart</string>
-    <string name="vector_maps">Vektorkart</string>
     <string name="load_pdf_tiles">Last PDF-fliser</string>
     <string name="load_pdf_tiles_summary">PDF-kart vil bli skarpere, men ytelsen kan bli påvirket</string>
     <string name="map_tool_disclaimer">Dette verktøyet inkluderer ikke innebygde gatekart, satellittbilder eller stidata. Det laster ikke ned kart fra internett. For å vise en kartbakgrunn, må du importere ditt eget bilde ved hjelp av verktøyet Offline-kart. Hvis du trenger direkte eller forhåndsinnlastede gate-, satellitt- eller stikart, bør du i stedet bruke et eget kartprogram.</string>

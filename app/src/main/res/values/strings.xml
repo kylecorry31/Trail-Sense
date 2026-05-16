@@ -1561,7 +1561,7 @@
     <string name="automatic_backup">Automatic backup</string>
     <string name="pref_auto_backup_enabled" translatable="false">pref_auto_backup_enabled</string>
     <string name="pref_include_mapsforge_backups" translatable="false">pref_include_mapsforge_backups</string>
-    <string name="include_mapsforge_backups">Include vector maps in backups</string>
+    <string name="include_mapsforge_backups">Include trail maps in backups</string>
     <string name="include_mapsforge_backups_summary">Mapsforge (.map) files can be large</string>
     <string name="select_backup_directory">Select backup directory</string>
     <string name="no_directory_selected">No directory selected</string>
@@ -1794,7 +1794,7 @@
     <string name="no_offline_maps">No offline maps</string>
     <string name="unsupported_offline_map_file">Unsupported map file</string>
     <string name="mapsforge">Mapsforge</string>
-    <string name="vector_maps">Vector maps</string>
+    <string name="trail_maps">Trail maps</string>
     <string name="show_labels">Show labels</string>
     <string name="planet_mercury">Mercury</string>
     <string name="planet_venus">Venus</string>
@@ -1897,7 +1897,7 @@
     <string name="show_modeled_tides">Show modeled tides on coastline</string>
     <string name="show_tide_phase">Show tide phase</string>
     <string name="map_layer_base_map_description">Low resolution colored world map</string>
-    <string name="map_layer_vector_maps_description">Your saved vector maps</string>
+    <string name="map_layer_trail_maps_description">Your saved trail maps</string>
     <string name="map_layer_elevation_description">Color-coded elevations from the digital elevation model</string>
     <string name="map_layer_hillshade_description">Shaded terrain to visualize elevation changes</string>
     <string name="map_layer_ruggedness_description">Color-coded terrain ruggedness based on elevation change</string>
@@ -1944,6 +1944,6 @@
     <string name="pref_navigation_draw_compass_dial_bezel" translatable="false">pref_navigation_draw_compass_dial_bezel</string>
     <string name="pref_navigation_show_azimuth_indicator" translatable="false">pref_navigation_show_azimuth_indicator</string>
     <string name="manage_maps">Manage maps</string>
-    <string name="file_pdf">PDF</string>
-    <string name="file_photo">Photo</string>
+    <string name="map_type_photo">Photo</string>
+    <string name="map_type_trail">Trail</string>
 </resources>
