@@ -1580,4 +1580,5 @@
         <item quantity="other">%d 张地图</item>
     </plurals>
     <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
-    </resources>
+    <string name="include_mapsforge_backups_summary">Mapsforge (.map) 文件可能占用不少空间</string>
+</resources>
