@@ -1581,4 +1581,8 @@
     </plurals>
     <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
     <string name="include_mapsforge_backups_summary">Mapsforge (.map) 文件可能占用不少空间</string>
+    <string name="include_mapsforge_backups">在备份中包含路线地图</string>
+    <string name="trail_maps">路线地图</string>
+    <string name="map_layer_trail_maps_description">你保存了路线地图</string>
+    <string name="map_type_trail">路线</string>
 </resources>
