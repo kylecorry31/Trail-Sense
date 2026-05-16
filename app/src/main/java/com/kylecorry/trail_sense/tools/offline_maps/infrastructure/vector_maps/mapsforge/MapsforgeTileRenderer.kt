@@ -131,9 +131,9 @@ class MapsforgeTileRenderer {
                 PeakElevationMapReadResultModifier(prefs.baseDistanceUnits, formatter),
                 AreaLabelMapReadResultModifier(
                     mapOf(
-                        "boundary" to setOf("protected_area", "national_park"),
+                        "boundary" to setOf("protected_area", "national_park", "nature_reserve"),
                         "leisure" to setOf("nature_reserve"),
-                        "natural" to setOf("water", "wetland", "beach"),
+                        "natural" to setOf("water"),
                         "landuse" to setOf("reservoir", "basin"),
                     ),
                     11
