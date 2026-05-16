@@ -48,7 +48,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
             scrollUntil { hasText("Paths") }
             scrollUntil { hasText("Tides") }
             scrollUntil { hasText("Photo maps") }
-            scrollUntil { hasText("Offline maps") }
+            scrollUntil { hasText("Trail maps") }
             click(toolbarButton(R.id.title, Side.Right))
         }
     }

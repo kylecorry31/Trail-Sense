@@ -1574,13 +1574,10 @@
     <string name="no_offline_maps">无离线地图</string>
     <string name="unsupported_offline_map_file">不支持的地图文件</string>
     <string name="mapsforge">Mapsforge</string>
+    <string name="map_type_photo">照片</string>
     <string name="manage_maps">管理地图</string>
     <plurals name="offline_map_group_summary">
         <item quantity="other">%d 张地图</item>
     </plurals>
     <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
-    <string name="vector_maps">矢量地图</string>
-    <string name="map_layer_vector_maps_description">你保存了矢量地图</string>
-    <string name="file_pdf">PDF</string>
-    <string name="file_photo">照片</string>
-</resources>
+    </resources>

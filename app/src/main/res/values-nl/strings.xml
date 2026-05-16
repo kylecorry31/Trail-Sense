@@ -1580,6 +1580,7 @@
     <string name="clock_source_device">Apparaattijd</string>
     <string name="clock_source_gps">GPS-tijd</string>
     <string name="mapsforge">Mapsforge</string>
+    <string name="map_type_photo">Foto</string>
     <string name="manage_maps">Kaarten beheren</string>
     <string name="offline_map_import_failed">Kaart importeren mislukt</string>
     <string name="unsupported_offline_map_file">Niet-ondersteund kaartbestand</string>
@@ -1590,8 +1591,4 @@
         <item quantity="other">%d kaarten</item>
     </plurals>
     <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
-    <string name="vector_maps">Vectorkaarten</string>
-    <string name="map_layer_vector_maps_description">Je opgeslagen vectorkaarten</string>
-    <string name="file_pdf">PDF</string>
-    <string name="file_photo">Foto</string>
-</resources>
+    </resources>

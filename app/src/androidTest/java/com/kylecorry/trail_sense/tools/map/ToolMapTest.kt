@@ -76,6 +76,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         scrollUntil { hasText("Photo maps") }
         scrollUntil { hasText("Hillshade") }
         scrollUntil { hasText("Elevation") }
+        scrollUntil { hasText("Trail maps") }
         scrollUntil { hasText("Basemap") }
 
         // Add an additional layer (Slope layer)

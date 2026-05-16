@@ -1538,9 +1538,6 @@
     <string name="no_offline_maps">Brak map offline</string>
     <string name="unsupported_offline_map_file">Nieprawidłowy plik mapy</string>
     <string name="mapsforge">Mapsforge</string>
-    <string name="vector_maps">Mapy wektorowe</string>
-    <string name="map_layer_vector_maps_description">Zapisane mapy wektorowe</string>
-    <string name="file_pdf">PDF</string>
-    <string name="file_photo">Zdjęcie</string>
+    <string name="map_type_photo">Zdjęcie</string>
     <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako zapasowe narzędzie oraz weryfikuj dokładność Trail Sense.\n\nTrail sense nie zawiera plików map, które należy pobrać oddzielnie lub zaimportować ze zdjęcia. Możesz pobrać pliki map z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
 </resources>
