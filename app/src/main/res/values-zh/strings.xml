@@ -1583,4 +1583,6 @@
     <string name="map_layer_vector_maps_description">你保存了矢量地图</string>
     <string name="file_pdf">PDF</string>
     <string name="file_photo">照片</string>
+    <string name="include_mapsforge_backups">在备份中包含矢量地图</string>
+    <string name="include_mapsforge_backups_summary">Mapsforge (.map) 文件可能占用不少空间</string>
 </resources>
