@@ -65,7 +65,7 @@ Photo maps open in the map viewer. You can drag to pan, pinch to zoom, or tap th
 
 Click the GPS button in the bottom-right to center a photo map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it. The compass icon in the top-right always points North.
 
-Vector maps open in a preview viewer. You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. The preview viewer is limited, so use the Map or Navigation tool with the Vector maps layer for regular use.
+Trail maps open in a preview viewer. You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. The preview viewer is limited, so use the Map or Navigation tool with the Trail maps layer for regular use.
 
 By default, photo maps align with North roughly facing up so that the map is square with the screen. You can change this so the map is aligned with North facing up by disabling Settings > Offline Maps > 'Keep map facing up'.
 
@@ -76,7 +76,7 @@ Layers are used to display information on the map. For more information on layer
 
 Photo maps are shown by the "Photo maps" layer. You can't disable this layer when viewing a photo map.
 
-Vector maps (Mapsforge) are shown by the "Vector maps" layer.
+Trail maps (Mapsforge) are shown by the "Trail maps" layer.
 
 ## Organizing maps
 You can organize maps into groups. To create a group, click the '+' button in the bottom-right of the map list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map import instructions. The map will be added to the chosen group.
@@ -161,8 +161,8 @@ To alter the resolution of a photo map, click the menu button on the map row you
 
 By default, Trail Sense will automatically reduce the map resolution on import. To change this, disable Settings > Offline Maps > 'Reduce photo resolution' or 'Reduce PDF resolution'.
 
-## Editing vector map attribution
-Some vector map files include attribution. To edit attribution, click the menu button on the map row, select 'Attribution', and provide the attribution text. If attribution is populated, it will be shown on the map when the layer is displayed.
+## Editing trail map attribution
+Some trail map files include attribution. To edit attribution, click the menu button on the map row, select 'Attribution', and provide the attribution text. If attribution is populated, it will be shown on the map when the layer is displayed.
 
 ## Quick action
 You can enable the Open Photo Map quick action in the settings for the tab where you want it to appear.

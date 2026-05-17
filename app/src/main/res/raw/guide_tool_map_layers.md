@@ -18,8 +18,8 @@ Each layer has the following settings:
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
 
-## Vector maps
-This layer shows visible vector maps from the Offline Maps tool.
+## Trail maps
+This layer shows visible trail maps from the Offline Maps tool.
 
 Settings:
 - **Manage maps**: Links to the Offline Maps tool.
@@ -78,7 +78,7 @@ Settings:
 - **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
 
 ## Photo maps
-This layer shows visible photo maps, with the most zoomed-in map appearing on top. You can add new maps in the Offline Maps tool.
+This layer shows visible Photo maps, with the most zoomed-in map appearing on top. You can add new maps in the Offline Maps tool.
 
 Settings:
 

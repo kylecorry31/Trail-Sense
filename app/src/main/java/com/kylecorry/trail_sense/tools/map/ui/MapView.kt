@@ -189,6 +189,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var minScale = 0.0001f
         set(value) {
             field = value
+            maxScale = calculateMaxScale(value)
             if (scale < minScale) {
                 zoomTo(minScale)
             }
@@ -226,7 +227,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
 
-    private var maxScale = 1f
+    private var maxScale = calculateMaxScale(minScale)
     private var isScaling = false
 
     private var fitToViewBounds: CoordinateBounds? = null
@@ -334,8 +335,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         clipPath?.let { clip(it) }
         backgroundColorOverride?.let { drawer.background(it) }
 
-        // TODO: Is this scale logic needed?
-        maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
+        maxScale = calculateMaxScale(minScale)
         zoomTo(clampScale(scale))
 
         if (pendingScaleChangeCallback) {
@@ -595,8 +595,13 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         layerManager.setOnGeoJsonFeatureClickListener(listener)
     }
 
+    private fun calculateMaxScale(minScale: Float): Float {
+        return max(2 * minScale, getScale(MIN_RESOLUTION_PIXELS))
+    }
+
     companion object {
         private const val FLING_MULTIPLIER = 1000000
         private const val FLING_VELOCITY_SCALE = 0.6f
+        private const val MIN_RESOLUTION_PIXELS = 0.1f
     }
 }

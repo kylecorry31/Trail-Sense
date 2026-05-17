@@ -21,6 +21,7 @@ import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -32,18 +33,18 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidationResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidator
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 
-    private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
+    private val service = getAppService<MapService>()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
@@ -194,7 +195,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     fun reloadMap() {
         inBackground {
-            map = mapRepo.getPhotoMap(mapId)
+            map = service.getPhotoMap(mapId)
             onMain {
                 map?.let(::onMapLoad)
             }
@@ -409,10 +410,10 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {
-        var updated = mapRepo.getPhotoMap(map.id) ?: return map
+        var updated = service.getPhotoMap(map.id) ?: return map
         updated =
             updated.copy(calibration = updated.calibration.copy(calibrationPoints = manager.getCalibration()))
-        mapRepo.add(updated)
+        service.add(updated)
         return updated
     }
 

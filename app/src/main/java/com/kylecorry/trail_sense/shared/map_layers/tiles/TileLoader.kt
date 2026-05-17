@@ -86,6 +86,7 @@ class TileLoader(
                 ImageTile(
                     key = key,
                     tile = tile,
+                    shouldFadeIn = !isWidget,
                     loadFunction = {
                         loadTile(source, context, tile, params)
                     }

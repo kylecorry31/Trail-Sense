@@ -138,7 +138,7 @@
     <string name="start">Começar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até se tornar potável</item>
-        <item quantity="many"/>
+        <item quantity="many" />
         <item quantity="other">%d segundos até se tornar potável</item>
     </plurals>
     <string name="water_boil_timer_done_content">A água agora é potável</string>
@@ -297,7 +297,7 @@
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d alfinete</item>
-        <item quantity="many"/>
+        <item quantity="many" />
         <item quantity="other">%d alfinetes</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -776,7 +776,7 @@
     <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>
-        <item quantity="many"/>
+        <item quantity="many" />
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="path">Percurso</string>
@@ -1052,7 +1052,6 @@
     <string name="pref_tiles_enabled_battery_log_summary">Faz um log da percentagem da pilha a cada hora para estimar o tempo até estar descarregada</string>
     <string name="no_sensor_message">O seu dispositivo não tem um sensor de %s</string>
     <string name="no_qr_code_detected">Nenhum código QR detetado</string>
-    <string name="photo_map_disclaimer">Sempre leve um mapa físico como alternativa e verifique a precisão do Trail Sense.</string>
     <string name="i_agree">Eu concordo</string>
     <string name="backtrack_no_permission">Recuo necessita da permissão de localização para funcionar</string>
     <string name="restoring_loading_message">A restaurar…</string>

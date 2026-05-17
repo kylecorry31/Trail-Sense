@@ -6,10 +6,13 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.AppData
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.CacheFileSystem
+import com.kylecorry.andromeda.files.ZipFile
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.andromeda.files.ZipUtils.unzip
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileRepo
 import java.io.File
@@ -24,6 +27,7 @@ class BackupService(
      * @param destination the destination file - must be a zip file
      */
     suspend fun backup(destination: Uri): Unit = onIO {
+        val preferences = getAppService<UserPreferences>()
         // Get the files to backup
         val filesToBackup = getFilesToBackup().toMutableList()
 
@@ -38,8 +42,13 @@ class BackupService(
 
             val excludedFiles = listOf(
                 fileSubsystem.getDirectory("dem"),
-                AppData.getSharedPrefsFile(context, "${context.packageName}_widget_preferences")
-            )
+                AppData.getSharedPrefsFile(context, "${context.packageName}_widget_preferences"),
+                if (!preferences.backup.includeMapsforgeMaps) {
+                    fileSubsystem.getDirectory(OFFLINE_MAPS_DIRECTORY)
+                } else {
+                    null
+                }
+            ).filterNotNull()
 
             // Create the zip file
             fileSubsystem.output(destination)?.use {
@@ -57,7 +66,7 @@ class BackupService(
      */
     suspend fun restore(source: Uri, onProgress: ((Float) -> Unit)? = null): Unit = onIO {
         // Check the validity of the zip file
-        val fileCount = verifyBackupFile(source)
+        val backup = verifyBackupFile(source)
 
         // Get the root directory where the files will be restored to
         val root = AppData.getDataDirectory(context)
@@ -76,29 +85,45 @@ class BackupService(
         fileSubsystem.stream(source)?.use {
             ZipUtils.unzip(it, root, MAX_ZIP_FILE_COUNT) {
                 count++
-                onProgress?.invoke(count / fileCount.coerceAtLeast(1).toFloat())
+                onProgress?.invoke(count / backup.fileCount.coerceAtLeast(1).toFloat())
             }
         } ?: return@onIO
 
         // Rename the shared prefs file
-        renameSharedPrefsFile()
+        renameSharedPrefsFile(backup.sharedPrefsFileName)
 
         // Clear cache
         CacheFileSystem(context).delete(CachedTileRepo.TILES_FOLDER, true)
         onProgress?.invoke(1f)
     }
 
-    private suspend fun renameSharedPrefsFile(): Unit = onIO {
+    private suspend fun renameSharedPrefsFile(name: String?): Unit = onIO {
+        if (name == null) {
+            return@onIO
+        }
+
         val sharedPrefsDir = AppData.getSharedPrefsDirectory(context)
-        // Get the xml file from that directory
-        val prefsFile = AppData.getSharedPrefsFiles(context)
-            .filterNot { it.name.contains("widget_preferences") } // This should never happen, but just in case ignore the widget preferences
-            .firstOrNull() ?: return@onIO
+
+        // Get the restored shared preferences file from the backup.
+        val prefsFile = File(sharedPrefsDir, name)
+        if (!prefsFile.exists()) {
+            return@onIO
+        }
+
         // Rename it to match the current package name (allows switching between nightly, dev, and regular builds)
-        prefsFile.renameTo(File(sharedPrefsDir, "${context.packageName}_preferences.xml"))
+        val target = File(sharedPrefsDir, "${context.packageName}_preferences.xml")
+        if (prefsFile.absolutePath == target.absolutePath) {
+            return@onIO
+        }
+
+        if (target.exists()) {
+            target.delete()
+        }
+
+        prefsFile.renameTo(target)
     }
 
-    private suspend fun verifyBackupFile(backupUri: Uri): Int = onIO {
+    private suspend fun verifyBackupFile(backupUri: Uri): BackupMetadata = onIO {
         // Retrieve the files in the zip file
         val files = fileSubsystem.stream(backupUri)?.use {
             ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
@@ -121,7 +146,15 @@ class BackupService(
             throw InvalidBackupException()
         }
 
-        files.size
+        BackupMetadata(files.size, getSharedPrefsFileName(files))
+    }
+
+    private fun getSharedPrefsFileName(files: List<ZipFile>): String? {
+        return files.firstOrNull { (file, isDirectory) ->
+            !isDirectory &&
+                    !file.name.contains("widget_preferences") &&
+                    SHARED_PREFS_REGEX.matches(file.path)
+        }?.file?.name
     }
 
     private fun getFilesToBackup(): List<File> {
@@ -143,8 +176,16 @@ class BackupService(
     class InvalidBackupException : Exception()
     class NewerBackupException : Exception()
 
+    private data class BackupMetadata(
+        val fileCount: Int,
+        val sharedPrefsFileName: String?
+    )
+
     companion object {
         private const val MAX_ZIP_FILE_COUNT = 1000
+        private const val OFFLINE_MAPS_DIRECTORY = "offline_maps"
+        private val SHARED_PREFS_REGEX =
+            Regex("shared_prefs/com\\.kylecorry\\.trail_sense.*_preferences.xml")
     }
 
 }

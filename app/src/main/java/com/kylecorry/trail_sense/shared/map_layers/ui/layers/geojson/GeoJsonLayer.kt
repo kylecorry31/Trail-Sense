@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.coroutines.BackgroundTask
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.luna.timer.CoroutineTimer
@@ -40,6 +41,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     val renderer = GeoJsonRenderer()
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
+    private val sourceCleanupTask = BackgroundTask {
+        source.cleanup()
+    }
     private var onFeatureClick: OnGeoJsonFeatureClickListener? = null
     protected var layerPreferences: Bundle = Bundle()
     private var featureId: String? = null
@@ -210,6 +214,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         }
         refreshTimer?.stop()
         taskRunner.stop()
+        sourceCleanupTask.start()
     }
 
     private fun onSelectionBroadcast(bundle: Bundle): Boolean {

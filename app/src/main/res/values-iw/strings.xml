@@ -942,7 +942,6 @@
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על מזג אוויר בהיר ל-%d שעות הבאות אם יהיה ערפילי, אחרת זה עשוי להצביע על משקעים בקרוב.</string>
     <string name="then_weather">ואז %s</string>
     <string name="horizon">אופק</string>
-    <string name="photo_map_disclaimer">יש לשאת תמיד מפה פיזית לגיבוי ולווידוא הדיוק של Trail Sense.</string>
     <string name="map_calibration_instructions">יש להקיש על מיקום ידוע במפה, ואז להזין את הקואורדינטות בעולם האמיתי. ניתן לשמור את הכיול על ידי לחיצה על כפתור \"סיום\".\n\nדוגמאות לנקודות כיול טובות הן מגרש חניה, נקודת שילוט, נקודת ציון או צומת לאורך שביל.</string>
     <string name="reduce_map_resolution_crop_disclaimer">חיתוך המפה עדיין יפחית את הרזולוציה. אם ברצונך לחתוך את המפה ברזולוציה גבוהה, יש להשתמש ביישום עורך תמונות. יש צפי לתקן את זה בעתיד.</string>
     <string name="allow_schedule_exact_alarms_instructions">הדבר מאפשר ל-%1$s להגדיר התראות ותזכורות מדויקות, כגון התראות שקיעה. בלי זה, ייתכן שההתראות לא יופעלו בזמן הנכון.\n\nכדי להתיר, יש ללחוץ על \'%2$s\' ולהפעיל את ההגדרה המאפשרת התראות ותזכורות.</string>

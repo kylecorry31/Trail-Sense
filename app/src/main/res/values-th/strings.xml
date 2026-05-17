@@ -212,7 +212,6 @@
     <string name="view_in_3d">ดูแบบ 3D</string>
     <string name="calibrate_compass_dialog_content">หมุนอุปกรณ์ของคุณเป็นรูปเลขแปดในหลายทิศทางหลายๆรอบ, แตะ %s เมื่อเสร็จแล้ว</string>
     <string name="yesterday">เมื่อวาน</string>
-    <string name="photo_map_disclaimer">เก็บแผนที่จริงๆเผื่อไว้ยืนยันความแม่นยำของ Trail Sense เสมอ</string>
     <string name="sun_up_no_set">พระอาทิตย์ขึ้น</string>
     <string name="compass_source_mag_gyro">เซ็นเซอร์วัดสนามแม่เหล็ก + ไจโร</string>
     <string name="sun_down_no_set">พระอาทิตย์ยก</string>

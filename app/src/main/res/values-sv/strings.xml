@@ -194,4 +194,25 @@
     <string name="two">2</string>
     <string name="three">3</string>
     <string name="battery_power_usb">USB</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d karta</item>
+        <item quantity="other">%d kartor</item>
+    </plurals>
+    <string name="move_to">Flytta till</string>
+    <string name="moved_to">Flyttad till %s</string>
+    <string name="rename">Byt namn</string>
+    <string name="plugins">Tillägg</string>
+    <string name="app_info">Appinfo</string>
+    <string name="reload">Ladda om</string>
+    <string name="available_plugins">Tillgängliga tillägg</string>
+    <string name="plugin_name">Tillägg: %s</string>
+    <string name="copied_to_clipboard_toast">Kopierat till urklipp</string>
+    <string name="plugin_connect_title">Anslut tillägg?</string>
+    <string name="precise_kilometers_format">%s km</string>
+    <string name="kilometers_per_hour_format">%s km/h</string>
+    <string name="miles_per_hour_format">%s mph</string>
+    <string name="battery_capacity_format">%s mAh</string>
+    <string name="current_format">%s mA</string>
+    <string name="beacon_comment">Anteckningar (valfritt)</string>
+    <string name="units_inhg_short">in</string>
 </resources>

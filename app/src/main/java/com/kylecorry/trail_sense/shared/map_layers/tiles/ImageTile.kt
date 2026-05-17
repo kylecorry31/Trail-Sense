@@ -7,6 +7,7 @@ class ImageTile(
     val tile: Tile,
     private var image: Bitmap? = null,
     var state: TileState = TileState.Idle,
+    private val shouldFadeIn: Boolean = true,
     loadFunction: (suspend () -> Bitmap?)?
 ) {
 
@@ -16,6 +17,9 @@ class ImageTile(
 
     var loadingStartTime: Long? = null
     fun getAlpha(): Int {
+        if (!shouldFadeIn) {
+            return 255
+        }
         return loadingStartTime?.let { startTime ->
             val elapsed = System.currentTimeMillis() - startTime
             if (elapsed >= 250) {

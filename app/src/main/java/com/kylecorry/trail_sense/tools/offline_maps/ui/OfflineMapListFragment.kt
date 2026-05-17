@@ -45,7 +45,6 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.Create
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.MapCleanupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
@@ -67,7 +66,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
-    private val mapRepo by lazy { MapRepo.Companion.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val mapService by lazy { MapService.Companion.getInstance(requireContext()) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
@@ -121,7 +119,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             createMap(
                 CreateMapFromUriCommand(
                     requireContext(),
-                    mapRepo,
                     mapIntentUri,
                     mapImportingIndicator
                 )
@@ -364,7 +361,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                         CreateMapFromFileCommand(
                             requireContext(),
                             uriPicker,
-                            mapRepo,
                             mapImportingIndicator
                         )
                     )
@@ -374,7 +370,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                     createMap(
                         CreateMapFromCameraCommand(
                             this,
-                            mapRepo,
                             mapImportingIndicator
                         )
                     )
@@ -417,51 +412,55 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
     private fun createMap(command: ICreateMapCommand) {
         inBackground(BackgroundMinimumState.Created) {
-            binding.addBtn.isEnabled = false
+            MapCleanupCommand.isMapImportInProgress = true
+            try {
+                binding.addBtn.isEnabled = false
 
-            val map = command.execute()?.let {
-                when (it) {
-                    is PhotoMap -> it.copy(parentId = manager.root?.id)
-                    is VectorMap -> it.copy(parentId = manager.root?.id)
-                    else -> null
-                }
-            }
-
-            if (map == null) {
-                toast(getString(R.string.error_importing_map))
-                binding.addBtn.isEnabled = true
-                return@inBackground
-            }
-
-            if (map.parentId != null) {
-                onIO {
-                    mapService.add(map)
-                }
-            }
-
-            if (map is PhotoMap) {
-                val isPdfMap = map.hasPdf(requireContext())
-                if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
-                    mapImportingIndicator.show()
-                    val reducer = HighQualityMapReducer(requireContext())
-                    reducer.reduce(map)
-                    mapImportingIndicator.hide()
-                }
-
-                if (map.calibration.calibrationPoints.isNotEmpty()) {
-                    toast(getString(R.string.map_auto_calibrated))
-                }
-            }
-
-            binding.addBtn.isEnabled = true
-            manager.refresh(true)
-            when (map) {
-                is PhotoMap -> findNavController().navigate(
-                    R.id.action_mapList_to_maps,
-                    Bundle().apply {
-                        putLong("mapId", map.id)
+                val map = command.execute()?.let {
+                    when (it) {
+                        is PhotoMap -> it.copy(parentId = manager.root?.id)
+                        is VectorMap -> it.copy(parentId = manager.root?.id)
+                        else -> null
                     }
-                )
+                }
+
+                if (map == null) {
+                    toast(getString(R.string.error_importing_map))
+                    return@inBackground
+                }
+
+                if (map.parentId != null) {
+                    onIO {
+                        mapService.add(map)
+                    }
+                }
+
+                if (map is PhotoMap) {
+                    val isPdfMap = map.hasPdf(requireContext())
+                    if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
+                        mapImportingIndicator.show()
+                        val reducer = HighQualityMapReducer(requireContext())
+                        reducer.reduce(map)
+                        mapImportingIndicator.hide()
+                    }
+
+                    if (map.calibration.calibrationPoints.isNotEmpty()) {
+                        toast(getString(R.string.map_auto_calibrated))
+                    }
+                }
+
+                manager.refresh(true)
+                when (map) {
+                    is PhotoMap -> findNavController().navigate(
+                        R.id.action_mapList_to_maps,
+                        Bundle().apply {
+                            putLong("mapId", map.id)
+                        }
+                    )
+                }
+            } finally {
+                MapCleanupCommand.isMapImportInProgress = false
+                binding.addBtn.isEnabled = true
             }
 
         }

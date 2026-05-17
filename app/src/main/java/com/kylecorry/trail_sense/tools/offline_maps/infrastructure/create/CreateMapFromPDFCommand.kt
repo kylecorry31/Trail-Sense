@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.pdf.PDFRenderer
 import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
@@ -17,19 +18,19 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadat
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import java.io.IOException
 import java.time.Instant
 import java.util.UUID
 
 class CreateMapFromPDFCommand(
     private val context: Context,
-    private val repo: MapRepo,
     private val name: String,
     private val shouldCopyAsPdf: Boolean = true
 ) {
 
     private val files = FileSubsystem.getInstance(context)
+    private val service = getAppService<MapService>()
 
     suspend fun execute(uri: Uri): PhotoMap? = onIO {
         val uuid = UUID.randomUUID().toString()
@@ -108,7 +109,7 @@ class CreateMapFromPDFCommand(
             createdOn = Instant.now()
         )
 
-        val id = repo.add(map)
+        val id = service.add(map)
         map.copy(id = id)
     }
 

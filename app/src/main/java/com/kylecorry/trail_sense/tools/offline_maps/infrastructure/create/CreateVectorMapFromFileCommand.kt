@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution.OfflineMapAttributionExtractorFactory
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.bounds.OfflineMapBoundsCalculatorFactory
@@ -14,10 +14,10 @@ import java.time.Instant
 import java.util.UUID
 
 class CreateVectorMapFromFileCommand(
-    private val repo: MapRepo,
     private val name: String
 ) {
     private val files = getAppService<FileSubsystem>()
+    private val service = getAppService<MapService>()
 
     suspend fun execute(uri: Uri): IMap? = onIO {
         val type = MapFileTypeUtils.getType(uri) ?: return@onIO null
@@ -36,7 +36,7 @@ class CreateVectorMapFromFileCommand(
                 .getAttribution(saved),
             visible = true
         )
-        val id = repo.add(mapFile)
+        val id = service.add(mapFile)
         mapFile.copy(id = id)
     }
 

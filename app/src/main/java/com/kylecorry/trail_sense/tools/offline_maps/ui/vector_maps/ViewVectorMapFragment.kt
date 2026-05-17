@@ -20,10 +20,11 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.map.ui.MapView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_view) {
@@ -97,11 +98,11 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
     }
 
     private fun useOfflineMap(mapId: Long, refreshKey: String): VectorMap? {
-        val repo = useService<MapRepo>()
+        val service = useService<MapService>()
         val (map, setMap) = useState<VectorMap?>(null)
 
         useBackgroundEffect(mapId, refreshKey, lifecycleHookTrigger.onResume()) {
-            setMap(repo.getVectorMap(mapId))
+            setMap(service.getVectorMap(mapId))
         }
 
         return map
@@ -109,7 +110,7 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
 
     private fun rename(map: VectorMap, onRenamed: () -> Unit) {
         inBackground {
-            DeleteMapCommand(requireContext(), getAppService()).execute(map)
+            RenameMapCommand(requireContext(), getAppService()).execute(map)
             onMain {
                 onRenamed()
             }
@@ -127,9 +128,9 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
 
     private fun delete(map: VectorMap) {
         inBackground {
-            val repo = getAppService<MapRepo>()
+            val service = getAppService<MapService>()
             DeleteMapCommand(requireContext(), getAppService()).execute(map)
-            if (repo.getVectorMap(map.id) == null) {
+            if (service.getVectorMap(map.id) == null) {
                 findNavController().popBackStack()
             }
         }

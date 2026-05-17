@@ -46,7 +46,7 @@ class VectorMapListItemMapper(
                     null
                 },
                 ListItemTag(
-                    formatter.formatOfflineMapFileTypeName(value.type),
+                    context.getString(R.string.map_type_trail),
                     null,
                     Resources.androidTextColorSecondary(context)
                 )

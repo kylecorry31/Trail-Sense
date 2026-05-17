@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- https://github.com/mapsforge/mapsforge/blob/master/mapsforge-map-writer/src/main/config/tag-mapping.xml -->
 <rendertheme
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -21,59 +21,73 @@
     </rule>
 
     <!-- Sand -->
-    <rule e="way" k="natural|landuse" v="beach|sand|desert" zoom-min="6">
+    <rule
+        e="way"
+        k="natural|landuse|surface"
+        v="beach|sand|desert|dune"
+        zoom-min="6"
+    >
         <area fill="#E8E1B6" />
     </rule>
 
     <!-- Rock -->
     <rule
         e="way"
-        k="natural|landuse"
-        v="bare_rock|fell|rock|scree|quarry"
+        k="natural|landuse|surface"
+        v="scree|shingle|gravel|quarry|bare_rock|pebbles|stones|blockfield|rock"
         zoom-min="6"
     >
         <area fill="#CAC3B8" />
     </rule>
 
-    <!-- Vegetation -->
+    <rule e="way" k="natural|wetland" v="mud" zoom-min="6">
+        <area fill="#BFC7B7" />
+    </rule>
+
+    <!-- Tundra -->
+    <rule e="way" k="natural" v="tundra|fell" zoom-min="6">
+        <area fill="#BEC7AA" />
+    </rule>
+
+    <!-- Grassland / herbaceous -->
     <rule
         e="way"
-        k="natural|landuse"
-        v="grassland|heath|scrub|allotments|cemetery|farm|farmland|farmyard|field|grass|meadow|orchard|park|garden|common|green|dog_park|recreation_ground|graveyard|village_green|vineyard"
+        k="natural|surface"
+        v="grassland|meadow|grass"
         zoom-min="6"
     >
         <area fill="#BBC6A8" />
     </rule>
 
-    <!-- Forest -->
+    <!-- Scrub -->
+    <rule
+        e="way"
+        k="natural"
+        v="heath|scrub|shrub"
+        zoom-min="6"
+    >
+        <area fill="#B8C3A1" />
+    </rule>
+
+    <!-- Trees -->
     <rule e="way" k="natural|landuse" v="wood|forest" zoom-min="6">
         <area fill="#B5C6A2" />
     </rule>
 
-    <!-- Human -->
-    <rule
-        e="way"
-        k="landuse|amenity"
-        v="brownfield|commercial|construction|factory|greenfield|industrial|landfill|military|railway|retail|residential|parking"
-        zoom-min="14"
-    >
-        <area fill="#C4C4BC" />
-    </rule>
-
-    <rule e="way" k="building|shop" v="*" zoom-min="15">
-        <area fill="#B7B7AE" />
+    <!-- Buildings -->
+    <rule e="way" k="building" v="*" zoom-min="16">
+        <area fill="#B8B8B0" />
         <line stroke="#22000000" stroke-width="0.1" />
     </rule>
 
     <!-- Wetlands -->
     <rule e="way" k="natural" v="marsh|wetland" zoom-min="6">
-        <area fill="#C4D1BB" />
-        <!-- TODO: Icon needed -->
-        <!-- <area
-            src=""
-            symbol-height="40"
-            symbol-width="40"
-        /> -->
+        <area fill="#B1CCB8" />
+        <area
+            src="@drawable/swamp_pattern#6F9781!"
+            symbol-height="24"
+            symbol-width="24"
+        />
     </rule>
 
     <!-- Major bodies of water -->
@@ -88,18 +102,11 @@
     </rule>
 
     <!-- Minor bodies of water -->
-    <rule e="way" k="lock" v="yes" zoom-min="14">
-        <line stroke="#4E8CA8" stroke-width="0.5" />
-    </rule>
-
     <rule e="way" k="waterway" v="canal|drain|stream" zoom-min="10">
         <line stroke="#4E8CA8" stroke-width="0.5" />
     </rule>
 
-    <!-- TODO: waterway dam -->
-    <!-- TODO: natural coastline -->
-
-    <!-- Ice -->
+    <!-- Perennial Ice/Snow -->
     <rule e="way" k="natural" v="glacier" zoom-min="8">
         <area fill="#F5F4F2" />
     </rule>
@@ -112,40 +119,13 @@
         v="protected_area|national_park|nature_reserve"
         zoom-min="10"
     >
-        <rule e="way" k="access" v="~|private|no">
-            <line stroke="#8FB47A" stroke-width="1.0" />
-            <line dy="1.0" stroke="#668FB47A" stroke-width="2.0" />
-        </rule>
-    </rule>
-
-    <rule
-        e="way"
-        k="leisure"
-        v="recreation_ground|park"
-        zoom-min="10"
-        closed="yes"
-    >
-        <rule e="way" k="access" v="~|private|no">
-            <area fill="#668FB47A" />
+        <rule e="way" k="access" v="~|yes|public|permissive|designated">
+            <line dy="1.0" stroke="#4475A35B" stroke-width="2.0" />
+            <line stroke="#47742C" stroke-width="0.5" />
         </rule>
     </rule>
 
     <!-- Water control features -->
-    <rule e="way" k="lock" v="yes|true" zoom-min="14">
-        <line stroke="#8E8E87" stroke-linecap="square" stroke-width="2.0" />
-        <line stroke="#AAD3DF" stroke-linecap="butt" stroke-width="1.6" />
-    </rule>
-
-    <rule e="way" k="waterway" v="weir" zoom-min="14">
-        <line stroke="#8E8E87" stroke-width="0.7" />
-        <line
-            stroke="#C8C0B0"
-            stroke-dasharray="5,1"
-            stroke-linecap="butt"
-            stroke-width="0.7"
-        />
-    </rule>
-
     <rule e="way" k="waterway" v="dam" zoom-min="14">
         <line stroke="#8E8E87" stroke-width="1" />
         <line
@@ -159,75 +139,51 @@
         </rule>
     </rule>
 
-    <!-- Barriers -->
-    <rule e="way" k="barrier" v="fence" zoom-min="15">
-        <line
-            stroke="#7B7480"
-            stroke-dasharray="2,2"
-            stroke-linecap="butt"
-            stroke-width="0.1"
-        />
-    </rule>
-
-    <rule e="way" k="barrier|building" v="wall|city_wall" zoom-min="15">
-        <line stroke="#7B7480" stroke-linecap="round" stroke-width="0.3" />
-        <line
-            stroke="#D6D2C8"
-            stroke-dasharray="5,1"
-            stroke-linecap="butt"
-            stroke-width="0.15"
-        />
-    </rule>
-
-    <rule e="way" k="barrier" v="retaining_wall" zoom-min="15">
-        <line stroke="#7B7480" stroke-linecap="round" stroke-width="0.5" />
-        <line
-            stroke="#D6D2C8"
-            stroke-dasharray="4,1"
-            stroke-linecap="butt"
-            stroke-width="0.3"
-        />
-    </rule>
-
     <!-- ================ WAY -> HIGHWAY ================ -->
 
     <!-- Access roads -->
-    <rule e="way" k="highway" v="service|services|raceway" zoom-min="15">
-        <line stroke="#AFAFA8" stroke-width="0.6" />
-        <line stroke="#D6D2C8" stroke-width="0.4" />
+    <rule e="way" k="highway" v="service|services" zoom-min="15">
+        <line stroke="#AAA8A0" stroke-width="0.5" />
+        <line stroke="#D4D0C4" stroke-width="0.3" />
     </rule>
 
-    <!-- Minor roads -->
+    <!-- Backcountry tracks -->
     <rule e="way" k="highway" v="byway|track" zoom-min="12">
-        <line stroke="#9A6A3A" stroke-width="1.0" />
-        <line stroke="#D8C89A" stroke-width="0.8" />
+        <line stroke="#8E6A3F" stroke-width="1.1" />
+        <line stroke="#D6C595" stroke-width="0.8" />
         <line
-            stroke="#9A6A3A"
-            stroke-width="0.6"
-            stroke-dasharray="1,2"
+            stroke="#8E6A3F"
+            stroke-width="0.45"
+            stroke-dasharray="3,2"
             scale="all"
         />
     </rule>
 
+    <!-- Minor roads -->
     <rule
         e="way"
         k="highway"
-        v="residential|road|tertiary|tertiary_link|bus_guideway|living_street|construction|unclassified"
+        v="residential|road|unclassified|living_street|pedestrian"
         zoom-min="12"
     >
-        <line stroke="#AFAFA8" stroke-width="1.2" />
-        <line stroke="#D6D2C8" stroke-width="1.0" />
+        <line stroke="#AAA8A0" stroke-width="0.9" />
+        <line stroke="#D4D0C4" stroke-width="0.7" />
+    </rule>
+
+    <rule e="way" k="highway" v="tertiary|tertiary_link" zoom-min="11">
+        <line stroke="#8E8E87" stroke-width="1.2" />
+        <line stroke="#C9C4B8" stroke-width="1.0" />
     </rule>
 
     <!-- Major roads -->
     <rule e="way" k="highway" v="secondary|secondary_link" zoom-min="11">
-        <line stroke="#8E8E87" stroke-width="1.6" />
-        <line stroke="#AFAFA8" stroke-width="1.4" />
+        <line stroke="#7C7C75" stroke-width="1.4" />
+        <line stroke="#B9B4A8" stroke-width="1.2" />
     </rule>
 
     <rule e="way" k="highway" v="primary|primary_link" zoom-min="11">
-        <line stroke="#8E8E87" stroke-width="1.8" />
-        <line stroke="#AFAFA8" stroke-width="1.6" />
+        <line stroke="#7C7C75" stroke-width="1.6" />
+        <line stroke="#B9B4A8" stroke-width="1.4" />
     </rule>
 
     <rule
@@ -236,136 +192,87 @@
         v="trunk|trunk_link|motorway|motorway_link"
         zoom-min="10"
     >
-        <line stroke="#8E8E87" stroke-width="2.2" />
-        <line stroke="#AFAFA8" stroke-width="2.0" />
+        <line stroke="#74746E" stroke-width="2.0" />
+        <line stroke="#AAA69C" stroke-width="1.8" />
+    </rule>
+
+    <!-- Bike paths -->
+    <rule e="way" k="highway" v="cycleway" zoom-min="12">
+        <line
+            stroke="#7A7250"
+            stroke-width="0.4"
+            stroke-dasharray="2,2"
+            scale="all"
+        />
     </rule>
 
     <!-- Trails -->
     <rule
         e="way"
         k="highway"
-        v="path|pedestrian|footway|cycleway|bridleway|steps"
+        v="path|footway|bridleway"
         zoom-min="12"
     >
         <line
             stroke="#6B3F1D"
-            stroke-width="0.5"
+            stroke-width="0.7"
             stroke-dasharray="1,1"
             scale="all"
         />
     </rule>
 
-    <!-- ================ LABELS ================ -->
-
-    <!-- Natural / landuse labels -->
-    <rule
-        e="way"
-        k="natural|landuse"
-        v="land|beach|sand|rock|fell|meadow|grassland|heath|marsh|wetland|scree|scrub|forest|wood"
-        zoom-min="15"
-    >
-        <caption
-            fill="#000000"
-            font-family="serif"
-            font-size="10"
-            font-style="italic"
-            k="name"
-            stroke="#FFFFFF"
-            stroke-width="0.1"
+    <rule e="way" k="highway" v="steps" zoom-min="15">
+        <line
+            stroke="#6B3F1D"
+            stroke-width="0.7"
+            stroke-dasharray="1,1"
+            scale="all"
         />
     </rule>
 
-    <rule
-        e="way"
-        k="landuse"
-        v="landfill|quarry|vineyard|field|farm|farmland|orchard"
-        zoom-min="16"
-    >
-        <caption
-            fill="#000000"
-            font-family="serif"
-            font-size="16"
-            font-style="italic"
-            k="name"
-            stroke="#FFFFFF"
-            stroke-width="0.1"
-        />
-    </rule>
-
-    <rule
-        e="way"
-        k="landuse|leisure|amenity"
-        v="grass|village_green|recreation_ground|military|park|garden|common|green|dog_park|allotments|cemetery|graveyard"
-        zoom-min="16"
-    >
-        <caption
-            fill="#000000"
-            font-family="serif"
-            font-size="14"
-            font-style="italic"
-            k="name"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
-    </rule>
-
-    <!-- Public use land labels -->
-    <rule
-        e="way"
-        k="leisure|boundary"
-        v="nature_reserve|national_park|protected_area"
-    >
+    <rule e="way" k="access" v="private|no">
         <rule
-            e="any"
-            k="protect_class"
-            v="1|2|3|4|5|6|7|97|98|99|~"
-            zoom-min="15"
+            e="way"
+            k="highway"
+            v="path|footway|bridleway|track|byway|cycleway|steps"
+            zoom-min="12"
         >
-            <caption
-                fill="#000000"
-                font-family="serif"
-                font-size="14"
-                font-style="bold_italic"
-                k="name"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
+            <line
+                stroke="#7F7468"
+                stroke-width="0.7"
+                stroke-dasharray="1,3"
+                scale="all"
             />
         </rule>
     </rule>
 
-    <rule
-        e="way"
-        k="leisure|landuse"
-        v="nature_reserve|conservation"
-        zoom-min="15"
-    >
-        <caption
-            fill="#000000"
-            font-family="serif"
-            font-size="14"
-            font-style="bold_italic"
-            k="name"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
-    </rule>
+    <!-- ================ LABELS ================ -->
 
+    <!-- Public land labels -->
     <rule
-        e="way"
-        k="natural|landuse|leisure"
-        v="wood|forest|grassland|heath|scrub|meadow|recreation_ground|park"
-        zoom-min="15"
+        e="node"
+        k="trail_sense_area_label"
+        v="yes"
+        zoom-min="13"
     >
-        <rule e="way" k="access|ownership" v="yes|permissive|designated|public">
-            <caption
-                fill="#000000"
-                font-family="serif"
-                font-size="14"
-                font-style="bold_italic"
-                k="name"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-            />
+        <rule
+            e="node"
+            k="boundary|leisure"
+            v="protected_area|national_park|nature_reserve"
+            zoom-min="13">
+            <rule e="node" k="access" v="~|yes|public|permissive|designated">
+                <caption
+                    fill="#47742c"
+                    font-family="serif"
+                    font-size="15"
+                    font-style="italic"
+                    k="name"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    position="center"
+                    priority="15"
+                />
+            </rule>
         </rule>
     </rule>
 
@@ -373,39 +280,49 @@
     <rule e="way" k="waterway" v="river" zoom-min="12">
         <pathText
             display="order"
-            fill="#000000"
+            fill="#4E8CA8"
             font-size="14"
-            font-style="bold"
+            font-style="italic"
             k="name"
-            priority="-100"
+            priority="20"
             stroke="#FFFFFF"
             stroke-width="2.0"
+            dy="3"
         />
     </rule>
 
     <rule e="way" k="waterway" v="stream|canal|drain" zoom-min="15">
         <pathText
             display="order"
-            fill="#000000"
+            fill="#4E8CA8"
             font-size="12"
-            font-style="bold"
+            font-style="italic"
             k="name"
-            priority="-100"
+            priority="12"
             stroke="#FFFFFF"
             stroke-width="2.0"
+            dy="2"
         />
     </rule>
 
-    <rule e="way" k="natural|landuse" v="water|reservoir|basin" zoom-min="14">
-        <caption
-            display="order"
-            fill="#000000"
-            font-size="12"
-            k="name"
-            priority="-100"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
+    <rule
+        e="node"
+        k="trail_sense_area_label"
+        v="yes"
+        zoom-min="14"
+    >
+        <rule e="node" k="natural|landuse" v="water|reservoir|basin" zoom-min="14">
+            <caption
+                display="order"
+                fill="#4E8CA8"
+                font-size="14"
+                font-style="italic"
+                k="name"
+                priority="20"
+                stroke="#FFFFFF"
+                stroke-width="2.0"
+            />
+        </rule>
     </rule>
 
     <!-- Highway labels -->
@@ -413,31 +330,49 @@
         <rule
             e="way"
             k="highway"
-            v="footway|path|track|bridleway|steps|byway"
+            v="footway|path|bridleway|steps"
             zoom-min="14"
         >
             <pathText
-                fill="#000000"
+                fill="#5A341B"
                 font-size="12"
                 font-style="bold"
                 k="name"
-                priority="-8"
+                priority="35"
                 stroke="#FFFFFF"
                 stroke-width="2"
+                dy="2"
             />
         </rule>
         <rule
             e="way"
             k="highway"
-            v="cycleway|service|services|raceway|construction|road|pedestrian|unclassified|residential|living_street|tertiary|tertiary_link|bus_guideway"
+            v="track|byway"
+            zoom-min="14"
+        >
+            <pathText
+                fill="#704F29"
+                font-size="11"
+                font-style="bold"
+                k="name"
+                priority="24"
+                stroke="#FFFFFF"
+                stroke-width="2"
+                dy="2"
+            />
+        </rule>
+        <rule
+            e="way"
+            k="highway"
+            v="cycleway"
             zoom-min="16"
         >
             <pathText
-                fill="#000000"
+                fill="#625B42"
                 font-size="10"
                 font-style="bold"
                 k="name"
-                priority="-7"
+                priority="6"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
@@ -445,15 +380,29 @@
         <rule
             e="way"
             k="highway"
-            v="secondary_link|primary_link|trunk_link|motorway_link|secondary|primary"
+            v="residential|road|unclassified|living_street|tertiary|tertiary_link"
+            zoom-min="16"
+        >
+            <pathText
+                fill="#4E4E49"
+                font-size="10"
+                k="name"
+                priority="-10"
+                stroke="#FFFFFF"
+                stroke-width="2.0"
+            />
+        </rule>
+        <rule
+            e="way"
+            k="highway"
+            v="secondary_link|primary_link|trunk_link|motorway_link|secondary|primary|trunk|motorway"
             zoom-min="15"
         >
             <pathText
-                fill="#000000"
-                font-size="12"
-                font-style="bold"
+                fill="#4E4E49"
+                font-size="11"
                 k="name"
-                priority="-6"
+                priority="-8"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
@@ -466,25 +415,25 @@
         >
             <rule e="way" k="name" v="~">
                 <pathText
-                    fill="#000000"
-                    font-size="14"
+                    fill="#4E4E49"
+                    font-size="11"
                     font-style="bold"
                     k="ref"
-                    priority="-5"
+                    priority="-6"
                     stroke="#FFFFFF"
-                    stroke-width="3.0"
+                    stroke-width="2.0"
                 />
             </rule>
         </rule>
         <rule e="any" k="highway" v="motorway" zoom-min="12">
             <pathText
-                fill="#000000"
-                font-size="14"
+                fill="#4E4E49"
+                font-size="11"
                 font-style="bold"
                 k="ref"
-                priority="-4"
+                priority="-5"
                 stroke="#FFFFFF"
-                stroke-width="3.0"
+                stroke-width="2.0"
             />
         </rule>
     </rule>
@@ -517,118 +466,88 @@
                 stroke-width="0.1"
             />
         </rule>
-        <rule e="node" k="place" v="suburb" zoom-min="13">
-            <caption
-                fill="#000000"
-                font-family="serif"
-                font-size="14"
-                font-style="bold_italic"
-                k="name"
-                priority="20"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-            />
-        </rule>
-        <rule
-            e="node"
-            k="place"
-            v="isolated_dwelling|neighbourhood"
-            zoom-min="15"
-        >
-            <caption
-                fill="#000000"
-                font-size="12"
-                font-style="bold"
-                k="name"
-                priority="5"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-            />
-        </rule>
         <rule e="node" k="place" v="hamlet" zoom-min="14">
             <caption
-                fill="#000000"
+                fill="#333330"
                 font-size="12"
-                font-style="bold"
                 k="name"
-                priority="5"
+                priority="-2"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
         </rule>
         <rule e="node" k="place" v="village" zoom-min="12">
             <caption
-                fill="#000000"
-                font-size="14"
-                font-style="bold"
+                fill="#333330"
+                font-size="13"
                 k="name"
-                priority="20"
+                priority="5"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
         </rule>
         <rule e="node" k="place" v="town" zoom-min="8">
             <caption
-                fill="#000000"
-                font-size="16"
+                fill="#333330"
+                font-size="15"
                 font-style="bold"
                 k="name"
-                priority="30"
+                priority="15"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
         </rule>
         <rule e="node" k="place" v="city" zoom-max="6" zoom-min="6">
             <caption
-                fill="#000000"
+                fill="#333330"
                 font-size="14"
                 font-style="bold"
                 k="name"
-                priority="40"
+                priority="25"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
         </rule>
         <rule e="node" k="place" v="city" zoom-max="7" zoom-min="7">
             <caption
-                fill="#000000"
+                fill="#333330"
                 font-size="15"
                 font-style="bold"
                 k="name"
-                priority="40"
+                priority="25"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
         </rule>
         <rule e="node" k="place" v="city" zoom-max="9" zoom-min="8">
             <caption
-                fill="#000000"
+                fill="#333330"
                 font-size="17"
                 font-style="bold"
                 k="name"
-                priority="40"
+                priority="25"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
         </rule>
         <rule e="node" k="place" v="city" zoom-max="11" zoom-min="10">
             <caption
-                fill="#000000"
+                fill="#333330"
                 font-size="19"
                 font-style="bold"
                 k="name"
-                priority="40"
+                priority="25"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
         </rule>
         <rule e="node" k="place" v="city" zoom-max="13" zoom-min="12">
             <caption
-                fill="#000000"
+                fill="#333330"
                 font-size="20"
                 font-style="bold"
                 k="name"
-                priority="40"
+                priority="25"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
             />
@@ -684,10 +603,9 @@
     <!-- Natural landmarks -->
     <rule e="any" k="*" v="*">
         <rule e="node" k="natural" v="cave_entrance" zoom-min="14">
-            <!-- TODO: Icon needed -->
             <symbol
                 id="cave"
-                src="@drawable/ic_category_shelter#000000"
+                src="@drawable/cave#000000!"
                 symbol-height="16"
                 symbol-width="16"
             />
@@ -705,58 +623,30 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="peak" zoom-min="9">
-            <!-- TODO: Icon needed -->
             <symbol
                 id="peak"
-                src="@drawable/ic_arrow_target#000000"
+                src="@drawable/triangle#000000!"
                 symbol-height="12"
                 symbol-width="12"
             />
-            <rule e="any" k="highest_point" v="*" zoom-min="9">
-                <caption
-                    fill="#000000"
-                    font-size="11"
-                    font-style="bold"
-                    k="name"
-                    position="above"
-                    priority="40"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="peak"
-                />
-                <rule e="any" k="*" v="*" zoom-min="14">
-                    <caption
-                        fill="#000000"
-                        font-size="10"
-                        k="ele"
-                        position="below"
-                        priority="30"
-                        stroke="#FFFFFF"
-                        stroke-width="2.0"
-                        symbol-id="peak"
-                    />
-                </rule>
-            </rule>
-            <rule e="any" k="highest_point" v="~" zoom-min="9">
-                <caption
-                    fill="#000000"
-                    font-size="11"
-                    font-style="bold"
-                    k="name"
-                    position="above"
-                    priority="20"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="peak"
-                />
-            </rule>
-            <rule e="any" k="highest_point" v="~" zoom-min="14">
+            <caption
+                fill="#000000"
+                font-size="11"
+                font-style="bold"
+                k="name"
+                position="above"
+                priority="40"
+                stroke="#FFFFFF"
+                stroke-width="2.0"
+                symbol-id="peak"
+            />
+            <rule e="any" k="trail_sense_peak_elevation" v="yes" zoom-min="14">
                 <caption
                     fill="#000000"
                     font-size="10"
                     k="ele"
                     position="below"
-                    priority="10"
+                    priority="30"
                     stroke="#FFFFFF"
                     stroke-width="2.0"
                     symbol-id="peak"
@@ -764,10 +654,9 @@
             </rule>
         </rule>
         <rule e="node" k="natural" v="volcano" zoom-min="11">
-            <!-- TODO: Icon needed -->
             <symbol
                 id="volcano"
-                src="@drawable/ic_arrow_target#000000"
+                src="@drawable/volcano#000000"
                 symbol-height="12"
                 symbol-width="12"
             />
@@ -777,103 +666,67 @@
                 font-style="bold"
                 k="name"
                 position="above"
+                priority="40"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
                 symbol-id="volcano"
             />
         </rule>
-        <!-- TODO: Icon needed -->
-        <!-- <rule e="any" k="mountain_pass" v="yes" zoom-min="14">
-            <symbol id="pass" src="" />
-            <rule e="any" k="*" v="*" zoom-min="15">
-                <caption
-                    fill="#000000"
-                    font-size="12"
-                    font-style="bold"
-                    k="ele"
-                    position="above"
-                    priority="10"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="pass"
-                />
-            </rule>
-        </rule> -->
-        <!-- TODO: Icon needed -->
-        <!-- <rule e="any" k="natural" v="saddle" zoom-min="14">
-            <symbol id="saddle" src="" />
-            <caption
-                fill="#000000"
-                font-size="12"
-                font-style="bold"
-                k="name"
-                priority="10"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-                symbol-id="saddle"
-            />
-            <rule e="any" k="*" v="*" zoom-min="15">
-                <caption
-                    fill="#000000"
-                    font-size="12"
-                    font-style="bold"
-                    k="ele"
-                    position="above"
-                    stroke="#FFFFFF"
-                    stroke-width="2.0"
-                    symbol-id="saddle"
-                />
-            </rule>
-        </rule> -->
     </rule>
 
     <!-- Camping and shelter -->
     <rule e="any" k="*" v="*">
         <rule e="any" k="amenity" v="shelter" zoom-min="14">
-            <!-- TODO: shelter_type -->
             <symbol
                 id="shelter"
-                src="@drawable/ic_category_shelter#000000"
+                src="@drawable/shelter#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
-            <caption
-                fill="#000000"
-                font-size="12"
-                font-style="bold"
-                k="name"
-                priority="10"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-                symbol-id="shelter"
-            />
+            <rule e="any" k="*" v="*" zoom-min="16">
+                <caption
+                    fill="#000000"
+                    font-size="12"
+                    font-style="bold"
+                    k="name"
+                    priority="20"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    symbol-id="shelter"
+                />
+            </rule>
         </rule>
         <rule e="any" k="tourism" v="alpine_hut|wilderness_hut" zoom-min="12">
-            <!-- TODO: Better image needed -->
             <symbol
                 id="alpine-hut"
-                src="@drawable/ic_house#000000"
+                src="@drawable/ic_cabin#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
-            <caption
-                fill="#000000"
-                font-size="12"
-                font-style="bold"
-                k="name"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-                symbol-id="alpine-hut"
-            />
-            <caption
-                fill="#000000"
-                font-size="12"
-                font-style="bold"
-                k="ele"
-                stroke="#FFFFFF"
-                stroke-width="2.0"
-                symbol-id="alpine-hut"
-            />
+            <rule e="any" k="*" v="*" zoom-min="15">
+                <caption
+                    fill="#000000"
+                    font-size="12"
+                    font-style="bold"
+                    k="name"
+                    priority="25"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    symbol-id="alpine-hut"
+                />
+            </rule>
+            <rule e="any" k="*" v="*" zoom-min="16">
+                <caption
+                    fill="#000000"
+                    font-size="11"
+                    k="ele"
+                    position="below"
+                    priority="10"
+                    stroke="#FFFFFF"
+                    stroke-width="2.0"
+                    symbol-id="alpine-hut"
+                />
+            </rule>
         </rule>
         <rule e="any" k="tourism" v="camp_site" zoom-min="13">
             <symbol
@@ -888,6 +741,7 @@
                     font-size="12"
                     font-style="bold"
                     k="name"
+                    priority="18"
                     stroke="#FFFFFF"
                     stroke-width="2.0"
                     symbol-id="camping"
@@ -899,6 +753,7 @@
                     font-size="12"
                     font-style="bold"
                     k="name"
+                    priority="18"
                     stroke="#FFFFFF"
                     stroke-width="2.0"
                     symbol-id="camping"
@@ -923,14 +778,6 @@
                 symbol-width="16"
             />
         </rule>
-        <rule e="node" k="amenity" v="bench" zoom-min="15">
-            <!-- TODO: Icon needed -->
-            <symbol
-                src="@drawable/ic_picnic#000000"
-                symbol-height="16"
-                symbol-width="16"
-            />
-        </rule>
         <rule e="any" k="amenity" v="telephone" zoom-min="15">
             <symbol
                 src="@drawable/ic_phone#000000"
@@ -939,7 +786,6 @@
             />
         </rule>
         <rule e="any" k="amenity" v="drinking_water" zoom-min="16">
-            <!-- TODO: Icon needed -->
             <symbol
                 src="@drawable/ic_category_water#000000"
                 symbol-height="16"
@@ -947,8 +793,15 @@
             />
         </rule>
         <rule e="any" k="amenity" v="parking" zoom-min="16">
-                <symbol
+            <symbol
                 src="@drawable/ic_car#000000"
+                symbol-height="16"
+                symbol-width="16"
+            />
+        </rule>
+        <rule e="any" k="amenity" v="ranger_station" zoom-min="15">
+            <symbol
+                src="@drawable/ranger_station#000000"
                 symbol-height="16"
                 symbol-width="16"
             />
@@ -993,68 +846,6 @@
                 symbol-width="16"
             />
         </rule>
-        <rule e="any" k="historic|building" v="ruins|archaeological_site" zoom-min="15">
-            <symbol
-                src="@drawable/ic_ruins#000000"
-                symbol-height="16"
-                symbol-width="16"
-            />
-        </rule>
-    </rule>
-
-    <!-- Barrier POIs -->
-    <!-- TODO: Icon needed -->
-    <!-- <rule e="any" k="barrier" v="*" zoom-min="17">
-        <rule e="node" k="barrier" v="gate">
-            <symbol src="" />
-        </rule>
-    </rule> -->
-
-    <!-- POI labels -->
-    <rule
-        e="any"
-        k="tourism|amenity|leisure"
-        v="drinking_water|picnic_site|toilets|bench|fountain|bicycle_rental"
-        zoom-min="18"
-    >
-        <caption
-            fill="#000000"
-            font-size="12"
-            font-style="bold"
-            k="name"
-            position="above"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
-    </rule>
-
-    <rule
-        e="any"
-        k="tourism|amenity|man_made|historic"
-        v="information|memorial|windmill|ruins|archaeological_site"
-        zoom-min="18"
-    >
-        <caption
-            fill="#000000"
-            font-size="12"
-            font-style="bold"
-            k="name"
-            position="above"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
-    </rule>
-
-    <rule e="any" k="barrier" v="*" zoom-min="18">
-        <caption
-            fill="#000000"
-            font-size="12"
-            font-style="bold"
-            k="name"
-            position="above"
-            stroke="#FFFFFF"
-            stroke-width="2.0"
-        />
     </rule>
 
 </rendertheme>

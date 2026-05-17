@@ -5,6 +5,9 @@ Puedes arrastrar para desplazar, pellizcar para hacer zoom o pulsar los botones 
 
 Pulsa el botón GPS en la esquina inferior derecha para centrar el mapa en tu ubicación. Al pulsarlo de nuevo bloquearás tanto tu ubicación como tu orientación; un último pulso los desbloquea.
 
+## Cambiar la hora
+Si tienes una capa dependiente del tiempo activada (como mareas o eclipse solar), aparecerá un botón de reloj en la esquina superior derecha. Pulsa dicho botón para cambiar la hora usada por estas capas. Usa el control deslizante para recorrer el tiempo, o pulsa el texto de la hora para introducir una hora específica. El mapa se actualizará para reflejar la hora seleccionada. Pulsa el botón de nuevo para restablecer a la hora actual.
+
 ## Navegar y crear balizas
 Al navegar a una baliza, la distancia, la dirección y el tiempo estimado de llegada (ETA o Elapsed Time of Arrival) se muestran en la parte inferior. Para cancelar la navegación, pulsa el botón 'X'. Puedes abrir la baliza pulsando el nombre de la baliza en la hoja de navegación.
 
@@ -23,73 +26,22 @@ Para una medición rápida desde tu ubicación hasta un punto, mantén pulsado e
 Mantén pulsada una ubicación en el mapa para ver la elevación (del DEM).
 
 ## Capas
-Las capas se usan para mostrar información en el mapa. Puedes encontrar los ajustes de capas en Ajustes > Map o a través del menú en la esquina superior derecha de la pantalla. Puedes elegir ocultar o mostrar capas usando el interruptor junto al nombre de cada capa. El ajuste de opacidad para cada capa determina cuán transparente es la capa. 0 es totalmente transparente y 100 es totalmente opaco.
+Las capas se usan para mostrar información en el mapa. Más información sobre capas en la guía "Capas del Mapa".
 
-### Mapa base
-Esta capa muestra un mapa del mundo con colores basados en imágenes satelitales. Tiene muy baja resolución y no es adecuado para navegación.
+## Calcar un mapa
+Para calcar un mapa, pulsa el botón de menú en la esquina superior derecha y elige 'Calcar. Muévete a una zona sombreada o tapa el sol con un paño y coloca papel sobre la pantalla de modo que puedas ver el mapa a través del papel. Usa un bolígrafo o lápiz para calcar el mapa, pero evita rotuladores o bolígrafos que puedan traspasar el papel. Mantén el papel firme mientras calcas.
 
-### Elevación
-Esta capa muestra la elevación del modelo digital de elevación (DEM) como color. Puedes cambiar el DEM en Ajustes > Altímetro.
+La navegación inferior estará deshabilitada hasta que desactives el modo calcar.
 
-Ajustes:
+Cuando termines de calcar, pulsa el icono de candado en la esquina inferior derecha para desactivar el modo calcar.
 
-- **Color**: La escala de color de los píxeles. El color cambiará según la elevación.
+## Estado del sensor
+La precisión del GPS y de la brújula se muestran como insignias de estado en la esquina inferior izquierda del mapa. Púlsalas para ver consejos sobre cómo mejorar la precisión de la ubicación y de la brújula.
 
-### Sombreado de relieve
-Esta capa dibuja sombras para ayudar a ver la elevación del terreno a partir del modelo digital de elevación (DEM). Puedes cambiar el DEM en Ajustes > Altímetro.
+## Widgets
+Los siguientes widgets se pueden colocar en la pantalla de inicio del dispositivo o en la app:
 
-### Mapas Calibrados
-Esta capa muestra los mapas calibrados visibles, con el mapa más acercado apareciendo arriba. Puedes añadir nuevos mapas en la herramienta Mapas Calibrados.
+- **Mapa:** Muestra tus capas del mapa centradas en tu ubicación actual, siempre orientado con el norte hacia arriba. El widget se actualiza automáticamente y al pulsarlo abre la herramienta Mapas.
 
-Ajustes:
-
-- **Cargar mosáicos PDF**: Si está activado, se cargarán mosaicos PDF para mapas que tengan una versión PDF disponible. Esto es más lento pero proporciona mapas de mayor resolución.
-
-### Curvas de nivel
-Esta capa muestra líneas de contorno generadas a partir del modelo digital de elevación (DEM) y puede usarse para ver la pendiente y la elevación de las características del mapa. Puedes cambiar el DEM en Ajustes > Altímetro.
-
-Ajustes:
-
-- **Mostrar etiquetas**: Determina si se muestran etiquetas de curvas de nivel en el mapa.
-- **Color**: El color de las líneas de contorno; algunas opciones son escalas de color que cambian según la elevación.
-
-### Torres de telefonía
-Esta capa muestra torres de telefonía cercanas con la precisión de la ubicación de la torre indicada como un círculo bajo la torre. Estas son ubicaciones aproximadas de torres de OpenCelliD, Mozilla Location Service y FCC Antenna Registrations. Puedes pulsar en una torre para navegar hacia ella.
-
-### Senderos
-Esta capa muestra los senderos visibles. Puedes añadir nuevos senderos en la herramienta Rutas.
-
-Ajustes:
-
-- **Color de fondo**: El color de fondo para renderizar detrás de los senderos para mayor visibilidad.
-
-### Balizas
-Esta capa muestra las balizas visibles. Puedes añadir nuevas balizas en la herramienta Balizas. Puedes pulsar en una baliza para navegar hacia ella.
-
-### Navegación
-Esta capa dibuja una línea entre tu ubicación y el punto de destino al que navegas.
-
-### Mareas
-Esta capa muestra mareas visibles. Puedes añadir nuevas mareas en la herramienta Mareas.
-
-### Mi ubicación
-Esta capa muestra tu ubicación, la dirección a la que miras (si tienes brújula) y la precisión de tu GPS.
-
-Ajustes:
-
-- **Show GPS accuracy**: Determina si el círculo de precisión del GPS es visible.
-
-### Escala
-Esta capa muestra una barra de escala en la esquina inferior izquierda del mapa, que puede usarse para estimar distancias en el mapa.
-
-Esta capa no es actualmente configurable.
-
-### Elevación
-Esta capa muestra tu elevación en la esquina inferior derecha del mapa.
-
-Esta capa no es actualmente configurable.
-
-### Brújula
-Esta capa muestra una brújula en la esquina superior derecha del mapa. Muestra dónde está el norte verdadero en el mapa.
-
-Esta capa no es actualmente configurable.
+## Ajustes
+Puedes cambiar el detalle de los mosaicos en **Ajustes > Mapa > Modo de alto detalle** si los mosaicos aparecen borrosos pero usará más memoria y tardará más en cargar.
