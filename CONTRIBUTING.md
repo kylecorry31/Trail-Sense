@@ -48,6 +48,7 @@ All code/translation contributors will be credited in the Licenses section of Tr
 - If your feature involves a change to how the app is used, document it in the user guide. See `.agents/skills/trail-sense-user-guides` for more info. If you are unsure, comment on the issue. If you would like a maintainer to write this, please note that in your PR description.
 - Most features that have a user guide change will also need an automated test change. See `.agents/skills/trail-sense-android-tests` for more info. If you are unsure, comment on the issue.
 - Unit tests are not required for UI or infrastructure changes, but should be added if you are writing domain logic (most logic lives in the `kylecorry31/sol` repo). If you are unsure, comment on the issue.
+- Pull requests that have requested changes which haven't received activity (response / commit / etc) after 1 week will be closed due to inactivity. If you are planning on addressing the changes but they are taking a while, please reply to the review comments. If you make changes after the pull request is closed, tag me in a comment or re-open a pull request.
 
 ## Survival Guide
 The survival guide is heavily curated and all information must be easy to follow and relevant to wilderness survival for the average person. I do not want to include advanced topics or bushcraft in the guide.
