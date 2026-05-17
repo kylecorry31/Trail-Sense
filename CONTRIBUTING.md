@@ -81,6 +81,7 @@ LLMs perform well on tasks in the low risk category and can typically be done wi
 - Upgrading a dependency
 - Converting one programming language to another
 - Implementing issues that are tagged with "Size: Small"
+- Helping put your ideas together (not making the decisions though) - ex. grill-me skill
 
 ### Medium risk areas
 LLMs may perform decently on tasks in the medium risk category but you may need to spend time doing planning or exploration before having it implement. These changes shouldn't be too difficult to verify if you have little knowledge of the codebase, but plan to spend additional time reviewing and editing before submitting a pull request.
