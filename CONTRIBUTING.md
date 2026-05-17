@@ -56,39 +56,44 @@ The survival guide is heavily curated and all information must be easy to follow
 I sell a physical copy of the survival guide, so I ask that all content is written by me. I'm open to suggestions for areas to improve or add.
 
 ## Generative AI
-Generative AI use is allowed in this repo with extreme caution. It must follow the below rules and always be fully verified by a person (maintainer + contributor). The contributor must verify the accuracy and how well it fits into the existing code base (ex. code style, architecture, etc) before requesting a review. Generative AI content has the tendency to be verbose, include unnecessary details, or be incorrect - please thoroughly review and edit any AI generated content **before** submitting it for review.
+Code produced by generative AI will be held to the same quality standards as all other code in this repo. The contributor must verify the accuracy and how well it fits into the existing code base (ex. code style, architecture, etc) before requesting a review. Generative AI content has the tendency to be verbose, include unnecessary details, or be incorrect - please thoroughly review and edit any AI generated content **before** submitting it for review. All contributors are expected to be able to answer questions about all of the code/content in their PRs or discussions, regardless of AI use. **Please do not raise a pull request until you fully understand all the code you changed.** Avoid using generative AI for areas that you are not familiar with as it may produce convincing but incorrect results which causes me more work while reviewing.
 
-All contributors are expected to be able to answer questions about all of the code/content in their PRs or discussions (regardless of AI use). Avoid using generative AI for areas that you are not familiar with as it may produce convincing but incorrect results (which causes me more work while reviewing). Do not "vibe code" Trail Sense changes.
+If you used generative AI for the majority of a pull request, mention which AI tool generated the code in the pull request body so I can tag the squash commit with Assisted-By.
 
-This policy is in place to ensure the accuracy and reliability of Trail Sense as well as save me time when reviewing contributed discussions or pull requests. I review everything the same regardless, but I don't want to waste time if the author isn't putting in the time to review and clean up AI generated code.
+Please do not use AI to generate discussion posts. It is fine to use it to fix your grammar / translate.
 
-I recommend you use the available skills in `.agents/skills` or design/plan the change first and then walk the agent through it step by step to ensure it is high quality.
+The following risk areas provide guidance on which areas AI tooling works well and where it should be avoided by new contributors. You are more likely to have a PR closed for AI implementations of features in the high risk areas as they are harder to meet my quality standards.
 
 ### Low risk areas
-Generative AI is allowed for areas that are low risk. Most of this can be done by conventional tools.
+LLMs perform well on tasks in the low risk category and can typically be done with little to no planning before implementation. These changes can also be easily verified by someone with little to no knowledge of the codebase. Many of these tasks can be done by conventional tools.
 
-- Grammar and spelling checking/correction (with minimal changes to the actual content)
-- Low effort linting fixes
-- Translation of text in discussions
-- Translation of text in the app description and changelogs (as long as the translator is **proficient in both languages** and can verify accuracy)
-- Scripts that don't run in production code and don't generate artifacts that are used in production code (ex. experimentation, automation, etc)
-- Unit tests (algorithm unit tests should be based on an expected output from a trusted source or calculations done by hand)
-- UI automation tests
-- Writing discussions (any claims/algorithms in the discussion must be confirmed through human research, ideally with sources cited - be careful about AI suggestions in areas you are not familiar with)
-- Writing changelogs
+- Checking and correcting grammar and spelling
+  - Exception: Avoid letting the tool change the actual content
+- Translating discussion posts
+- Translating in-app and store text
+  - Exception: You must be **proficient in both languages** and can verify accuracy
+- Fixing linting issues
+- Generating scripts 
+- Implementing unit tests
+  - Exception: Algorithm unit tests must be based on an expected output from a trusted source or calculations done by hand
+- Implementing UI automation tests
+- Generating boilerplate code
+- Upgrading a dependency
+- Converting one programming language to another
+- Implementing issues that are tagged with "Size: Small"
 
 ### Medium risk areas
-Generative AI is allowed for medium risk areas but extra caution should be used.
+LLMs may perform decently on tasks in the medium risk category but you may need to spend time doing planning or exploration before having it implement. These changes shouldn't be too difficult to verify if you have little knowledge of the codebase, but plan to spend additional time reviewing and editing before submitting a pull request.
 
-- Translation of text content (as long as the translator is **proficient in both languages** and can verify accuracy)
-- Scripts for generating models/data for use in the app (accuracy must be verified through tests)
-- Boilerplate generation (something that can be easily compared to a reference implementation - typically something you could copy and paste with a few minor changes)
-- Conversion of one programming language to another (as long as there are unit tests to verify accuracy). You'll likely have better luck using the "Java to Kotlin" conversion in a JetBrains IDE and then cleaning it up.
-- Applying a migration after updating a dependency (if the migration steps are clearly listed by the dependency's author)
-
-Some features may be considered medium risk if they have little impact to the accuracy or reliability of Trail Sense (ask before assuming though).
+- Implementing issues that are tagged with "Size: Medium"
 
 ### High risk areas
-Anything not listed above is considered to be high risk. Generative AI is restricted in high risk areas and can only be used if you are very proficient in the area and can fully verify the accuracy of the output.
+LLMs are unlikely to perform well on tasks in the high risk category. You will need to spend significant time planning and exploring before having it implement. You may need to spend significant amounts of time having it fix issues in the implementation or restarting from a fresh slate. The changes will be difficult to verify if you do not have a good knowledge of the codebase. You are likely to have a pull request closed due to quality issues if you use generative AI for tasks in this area. You are likely to use up a lot of tokens unless you have a strong plan created.
 
-Artwork and survival guide content **must be created by a human only**, other than minor grammar and spelling correction.
+- Implementing issues that are tagged with "Size: Large"
+
+### Banned areas
+LLM use is not evaluated in the following areas because I do not want generative AI to touch these tasks. Any pull request in this category will likely be closed out unless you can prove AI was not used.
+
+- Generating artwork
+- Generating survival guide content
