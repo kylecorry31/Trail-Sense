@@ -93,6 +93,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     private fun on(newMode: FlashlightMode, bySystem: Boolean = false) = synchronized(modeLock) {
         clearTimeout()
+        selectedMode = newMode
         if (!bySystem) {
             isTransitioning = true
             transitionTimer.once(transitionDuration)
@@ -118,7 +119,6 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
             transitionTimer.stop()
         }
         _mode.publish(FlashlightMode.Off)
-        selectedMode = FlashlightMode.Torch
         FlashlightService.stop(context)
         torch?.off()
     }
@@ -133,9 +133,6 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
 
     override fun set(mode: FlashlightMode) {
-        if (mode != FlashlightMode.Off) {
-            selectedMode = mode
-        }
         when (mode) {
             FlashlightMode.Off -> off()
             else -> on(mode)
@@ -179,7 +176,6 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
             if (enabled && getMode() == FlashlightMode.Off) {
                 setBrightness(1f)
-                selectedMode = FlashlightMode.Torch
                 on(FlashlightMode.Torch, true)
             }
         }
