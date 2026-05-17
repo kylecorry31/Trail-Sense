@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
-// Last ID: 69
+// Last ID: 71
 enum class BeaconIcon(
     override val id: Long,
     @DrawableRes val icon: Int,
@@ -24,6 +24,7 @@ enum class BeaconIcon(
     Mountain(1, R.drawable.ic_altitude),
     Triangle(69, R.drawable.triangle),
     Volcano(65, R.drawable.volcano),
+    Cave(71, R.drawable.cave),
     BodyOfWater(17, R.drawable.ic_tide_table),
     River(18, R.drawable.ic_river),
     Waterfall(20, R.drawable.ic_waterfall),
@@ -54,6 +55,7 @@ enum class BeaconIcon(
 
     // Buildings
     Tent(5, R.drawable.ic_category_shelter),
+    Shelter(70, R.drawable.shelter),
     House(10, R.drawable.ic_house),
     Building(39, R.drawable.ic_building),
     Cabin(31, R.drawable.ic_cabin),
