@@ -22,6 +22,7 @@ class DrawableResourceProvider(private val context: Context) : XmlThemeResourceP
         val bitmap = getDrawable(source) ?: return null
         val outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        bitmap.recycle()
         return ByteArrayInputStream(outputStream.toByteArray())
     }
 
