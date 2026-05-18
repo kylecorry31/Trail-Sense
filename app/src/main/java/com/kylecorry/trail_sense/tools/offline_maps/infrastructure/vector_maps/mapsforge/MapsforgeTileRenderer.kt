@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import kotlinx.coroutines.runBlocking
@@ -15,7 +16,6 @@ import org.mapsforge.core.model.Tile
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
 import org.mapsforge.map.datastore.MapDataStore
 import org.mapsforge.map.datastore.MultiMapDataStore
-import org.mapsforge.map.layer.cache.InMemoryTileCache
 import org.mapsforge.map.layer.cache.TileCache
 import org.mapsforge.map.layer.labels.TileBasedLabelStore
 import org.mapsforge.map.layer.renderer.RendererJob
@@ -26,13 +26,10 @@ import org.mapsforge.map.rendertheme.XmlRenderTheme
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 
 class MapsforgeTileRenderer {
-    private var selectedMapKey: String? = null
-    private var mapDataStore: MapDataStore? = null
-    private var renderer: MapsforgeRenderer? = null
-    private var tileCache: TileCache? = null
-    private var renderThemeFuture: RenderThemeFuture? = null
+    private var rendererHolder: MapsforgeRendererHolder? = null
+    private val rendererLock = Any()
     private val displayModel = DisplayModel().apply {
-        setFixedTileSize(TILE_SIZE)
+        setFixedTileSize(TileMath.WORLD_TILE_SIZE)
     }
 
     private val files = getAppService<FileSubsystem>()
@@ -45,26 +42,23 @@ class MapsforgeTileRenderer {
         tile: com.kylecorry.trail_sense.shared.map_layers.tiles.Tile,
         highDetailMode: Boolean
     ): Bitmap? {
-        val renderer = getRenderer(context, maps, highDetailMode) ?: return null
-        val currentMapDataStore = mapDataStore ?: return null
-        val currentRenderThemeFuture = renderThemeFuture ?: return null
-
+        val holder = getRenderer(context, maps, highDetailMode) ?: return null
         val tile = Tile(tile.x, tile.y, tile.z.toByte(), tile.size.width)
-        if (!currentMapDataStore.supportsTile(tile)) {
+        if (!holder.dataStore.supportsTile(tile)) {
             return null
         }
 
         val job = RendererJob(
             tile,
-            currentMapDataStore,
-            currentRenderThemeFuture,
+            holder.dataStore,
+            holder.renderThemeFuture,
             displayModel,
             if (highDetailMode) (1.5f / Resources.sp(context, 1f)).coerceIn(0.25f, 1f) else 1f,
             true,
             false
         )
 
-        val tileBitmap = renderer.executeJob(job) ?: return null
+        val tileBitmap = holder.renderer.executeJob(job) ?: return null
         return try {
             Bitmap.createBitmap(AndroidGraphicFactory.getBitmap(tileBitmap))
         } finally {
@@ -72,39 +66,28 @@ class MapsforgeTileRenderer {
         }
     }
 
-    @Synchronized
-    fun clear() {
-        renderer = null
-        tileCache?.destroy()
-        tileCache = null
-        renderThemeFuture?.decrementRefCount()
-        renderThemeFuture = null
-        mapDataStore?.close()
-        mapDataStore = null
-        selectedMapKey = null
+    fun clear() = synchronized(rendererLock) {
+        rendererHolder?.destroy()
+        rendererHolder = null
     }
 
-    @Synchronized
     private fun getRenderer(
         context: Context,
         maps: List<VectorMap>,
         highDetailMode: Boolean
-    ): MapsforgeRenderer? {
+    ): MapsforgeRendererHolder? = synchronized(rendererLock) {
+        if (rendererHolder != null) {
+            return rendererHolder
+        }
+
         val files = maps
             .filter { it.type == VectorMapFileType.Mapsforge }
             .map { files.get(it.path) }
             .filter { it.isFile && it.length() > 0 }
         if (files.isEmpty()) {
-            clear()
             return null
         }
 
-        val key = files.joinToString("|") { it.absolutePath }
-        if (renderer != null && selectedMapKey == key) {
-            return renderer
-        }
-
-        clear()
         AndroidGraphicFactory.createInstance(context.applicationContext as Application)
         scaleRenderThemeToTileSize(highDetailMode)
         val newMapDataStore = MultiMapDataStore(MultiMapDataStore.DataPolicy.DEDUPLICATE)
@@ -117,7 +100,7 @@ class MapsforgeTileRenderer {
             displayModel
         )
         newRenderThemeFuture.run()
-        val newTileCache = InMemoryTileCache(100)
+        val newTileCache = MapsforgeMockTileCache(100)
         val wrappedMapDataStore = CachedMapsforgeMapDataStoreWrapper(
             newMapDataStore,
             0
@@ -141,12 +124,12 @@ class MapsforgeTileRenderer {
             )
         )
 
-        selectedMapKey = key
-        mapDataStore = wrappedMapDataStore
-        tileCache = newTileCache
-        renderThemeFuture = newRenderThemeFuture
-        renderer = newRenderer
-        return newRenderer
+        return MapsforgeRendererHolder(
+            newRenderer,
+            newMapDataStore,
+            newTileCache,
+            newRenderThemeFuture
+        )
     }
 
     private fun scaleRenderThemeToTileSize(highResolutionMode: Boolean) {
@@ -165,8 +148,21 @@ class MapsforgeTileRenderer {
         return theme
     }
 
+    private class MapsforgeRendererHolder(
+        val renderer: MapsforgeRenderer,
+        val dataStore: MapDataStore,
+        private val tileCache: TileCache,
+        val renderThemeFuture: RenderThemeFuture,
+    ) {
+        fun destroy() {
+            renderer.interruptAndDestroy()
+            tileCache.destroy()
+            renderThemeFuture.decrementRefCount()
+            dataStore.close()
+        }
+    }
+
     companion object {
-        private const val TILE_SIZE = 256
         private const val MAPSFORGE_THEME = "mapsforge/trail_sense_outdoors.xml"
     }
 }
