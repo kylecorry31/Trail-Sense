@@ -15,7 +15,6 @@ import org.mapsforge.core.model.Tile
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
 import org.mapsforge.map.datastore.MapDataStore
 import org.mapsforge.map.datastore.MultiMapDataStore
-import org.mapsforge.map.layer.cache.InMemoryTileCache
 import org.mapsforge.map.layer.cache.TileCache
 import org.mapsforge.map.layer.labels.TileBasedLabelStore
 import org.mapsforge.map.layer.renderer.RendererJob
@@ -117,7 +116,7 @@ class MapsforgeTileRenderer {
             displayModel
         )
         newRenderThemeFuture.run()
-        val newTileCache = InMemoryTileCache(100)
+        val newTileCache = MapsforgeMockTileCache(100)
         val wrappedMapDataStore = CachedMapsforgeMapDataStoreWrapper(
             newMapDataStore,
             0
