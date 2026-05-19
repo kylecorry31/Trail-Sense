@@ -43,6 +43,9 @@ class DialSelectView : CanvasView {
     var selected: Int = 0
         set(value) {
             field = value
+            if (!isScrolling) {
+                lastSelection = value
+            }
             invalidate()
         }
 
@@ -95,7 +98,8 @@ class DialSelectView : CanvasView {
             invalidate()
         }
 
-    private var lastSelection = 0
+    private var isScrolling = false
+    private var lastSelection = -1
     private var scrollPosition = 0f
     private var targetScrollPosition = 0f
     private var tickLength = 0f
@@ -192,6 +196,7 @@ class DialSelectView : CanvasView {
             distanceX: Float,
             distanceY: Float
         ): Boolean {
+            isScrolling = true
             val degChange = distanceX * range / width.toFloat()
             scrollPosition = wrap(scrollPosition + degChange, 0f, 360f)
             targetScrollPosition = scrollPosition
@@ -216,7 +221,8 @@ class DialSelectView : CanvasView {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         gestureDetector.onTouchEvent(event)
-        if (event.action == MotionEvent.ACTION_UP) {
+        if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+            isScrolling = false
             scrollToOption(selected)
             if (selected != lastSelection) {
                 selectionChangeListener(selected)
