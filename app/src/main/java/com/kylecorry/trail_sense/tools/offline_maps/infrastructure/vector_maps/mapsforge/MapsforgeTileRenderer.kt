@@ -129,7 +129,9 @@ class MapsforgeTileRenderer {
             newMapDataStore,
             newTileCache,
             newRenderThemeFuture
-        )
+        ).also {
+            rendererHolder = it
+        }
     }
 
     private fun scaleRenderThemeToTileSize(highResolutionMode: Boolean) {
