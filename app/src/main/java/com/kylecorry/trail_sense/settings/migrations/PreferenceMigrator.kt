@@ -427,8 +427,8 @@ class PreferenceMigrator private constructor() {
                 val repo = getAppService<MapLayerPreferenceRepo>()
                 val idealOrdering = listOf(
                     BaseMapTileSource.SOURCE_ID,
-                    MapsforgeTileSource.SOURCE_ID,
                     ElevationMapTileSource.SOURCE_ID,
+                    MapsforgeTileSource.SOURCE_ID,
                     HillshadeMapTileSource.SOURCE_ID,
                     AspectMapTileSource.SOURCE_ID,
                     SlopeMapTileSource.SOURCE_ID,
