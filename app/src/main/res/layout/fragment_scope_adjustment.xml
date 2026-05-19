@@ -58,21 +58,17 @@
 
                 <Button
                     android:id="@+id/miss_left"
-                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/left"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:text="@string/left" />
 
                 <Button
                     android:id="@+id/miss_right"
-                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/right"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:text="@string/right" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <TextView
@@ -97,21 +93,17 @@
 
                 <Button
                     android:id="@+id/miss_up"
-                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/above"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:text="@string/above" />
 
                 <Button
                     android:id="@+id/miss_down"
-                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/below"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:text="@string/below" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <TextView
