@@ -72,20 +72,16 @@
 
                 <Button
                     android:id="@+id/tide_frequency_diurnal"
-                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="?attr/colorOnSurface"
                     tools:text="1 Diurnal" />
 
                 <Button
                     android:id="@+id/tide_frequency_semidiurnal"
-                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="?attr/colorOnSurface"
                     tools:text="2 Semidiurnal" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 

@@ -17,7 +17,6 @@
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="materialButtonStyle">@style/ThemeOverlay.App.ElevatedButton</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
         <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall
@@ -80,12 +79,6 @@
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.Material3Expressive.Dialog.Alert">
         <item name="dialogCornerRadius">@dimen/rounded_corner_size</item>
-    </style>
-
-    <style name="ThemeOverlay.App.ElevatedButton" parent="Widget.Material3Expressive.Button.ElevatedButton">
-        <item name="backgroundTint">@color/button_selector</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="iconTint">?attr/colorOnPrimary</item>
     </style>
 
     <style name="SnackBarButtonTheme" parent="Widget.Material3Expressive.Button.TextButton.Snackbar">
