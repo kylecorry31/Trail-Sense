@@ -12,7 +12,7 @@ Before posting a new discussion, please search existing [issues](https://github.
 
 If you choose to write a new feature yourself, create a new feature discussion post to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense).
 
-Issues marked with the help-wanted label are open for community contribution at any time. They are usually low on my list of things to implement, so if you would like to see these in Trail Sense it will be faster to implement them. Please leave a comment on the issue stating that you are working on it or ask for more details. If possible, try to give me a timeline so I know which release it should be tagged as. Once you decide to work on one of the help-wanted issues, just submit a PR to main and I will conduct a code review.
+Issues marked with the help-wanted label are open for community contribution at any time. They are usually low on my list of things to implement, so if you would like to see these in Trail Sense it will be faster to implement them. Please leave a comment on the issue stating that you are working on it or ask for more details (I can also produce AI tool hand-off documents as needed - uses Matt Pocock's grill-me skill, to make sure I get all my ideas written down). If possible, try to give me a timeline so I know which release it should be tagged as. Once you decide to work on one of the help-wanted issues, just submit a PR to main and I will conduct a code review.
 
 If you would like to work on an issue that isn't marked with help-wanted, please let me know because it may not have all the details, I may not want it implemented yet, or I may want to implement it myself. All issues are correctly tagged with help-wanted.
 
@@ -81,6 +81,7 @@ LLMs perform well on tasks in the low risk category and can typically be done wi
 - Upgrading a dependency
 - Converting one programming language to another
 - Implementing issues that are tagged with "Size: Small"
+- Helping put your ideas together (not making the decisions though) - ex. grill-me skill
 
 ### Medium risk areas
 LLMs may perform decently on tasks in the medium risk category but you may need to spend time doing planning or exploration before having it implement. These changes shouldn't be too difficult to verify if you have little knowledge of the codebase, but plan to spend additional time reviewing and editing before submitting a pull request.
