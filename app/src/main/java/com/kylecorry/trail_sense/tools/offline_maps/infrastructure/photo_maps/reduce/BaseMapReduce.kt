@@ -3,10 +3,11 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.r
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import java.util.UUID
 
 abstract class BaseMapReduce(
@@ -15,7 +16,7 @@ abstract class BaseMapReduce(
     private val maxSize: Size?
 ) : IMapReduce {
 
-    private val mapRepo = MapRepo.Companion.getInstance(context)
+    private val service = getAppService<MapService>()
     private val files = FileSubsystem.getInstance(context)
 
     override suspend fun reduce(map: PhotoMap) = onIO {
@@ -28,7 +29,7 @@ abstract class BaseMapReduce(
         if (!map.filename.endsWith(".webp")) {
             val newFileName = "maps/" + UUID.randomUUID().toString() + ".webp"
             if (files.rename(map.filename, newFileName)) {
-                mapRepo.add(map.copy(filename = newFileName))
+                service.add(map.copy(filename = newFileName))
             }
         }
     }

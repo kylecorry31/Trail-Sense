@@ -195,4 +195,10 @@ fun <T> List<T>.padRight(minLength: Int, value: T): List<T> {
     }
 }
 
-
+fun Long.getUpsertedId(originalId: Long): Long {
+    return if (this == -1L) {
+        originalId
+    } else {
+        this
+    }
+}

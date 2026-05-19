@@ -1,12 +1,11 @@
 import os
-from tqdm import tqdm
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 assets_path = os.path.join(script_dir, "../app/src/main/assets")
 application_dir = os.path.join(script_dir, "../app/src/main")
 
-excluded_dirs = ['temperatures', 'tides', 'precipitation', 'dewpoint', 'dem', 'land.webp']
+excluded_dirs = ['temperatures', 'tides', 'precipitation', 'dewpoint', 'dem', 'land.webp', 'cell_towers']
 
 # Get all file names from the assets path
 files = []
@@ -28,9 +27,7 @@ def is_referenced(file):
     return False
 
 # Check if the file is referenced in the project
-with tqdm(total=len(files), desc="Checking files") as pbar:
-    for file in files:
-        if not is_referenced(file):
-            os.remove(os.path.join(assets_path, file))
-            print(f"Removed unused asset: {file}")
-        pbar.update(1)
+for file in files:
+    if not is_referenced(file):
+        os.remove(os.path.join(assets_path, file))
+        print(f"Removed unused asset: {file}")

@@ -992,7 +992,6 @@
     <string name="my_location">Minha localização</string>
     <string name="no">Não</string>
     <string name="offline_maps_summary">Usar uma foto como mapa</string>
-    <string name="photo_map_disclaimer">Sempre leve um mapa físico como alternativa e verifique a precisão do Trail Sense.</string>
     <string name="backup_disclaimer">Será feito um arquivo de backup contendo todos os seus dados atuais. Ele incluirá configurações, percursos, pontos de orientação, mapas, etc.\n\nEsse arquivo não é criptografado. Não o compartilhe com ninguém que não seja de sua confiança.</string>
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
     <string name="map_calibration_instructions">Toque em um local conhecido no mapa e insira as coordenadas do mundo real. Você pode salvar a calibração ao tocar no botão “Concluído”. \n \nExemplos de bons pontos de calibração são um estacionamento, um ponto de sinalização, um ponto de referência ou uma junção ao longo de uma trilha.</string>

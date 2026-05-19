@@ -80,6 +80,14 @@ class MapService private constructor(private val repo: MapRepo) {
         return repo.getVectorMaps()
     }
 
+    suspend fun getVectorMap(id: Long): VectorMap? {
+        return repo.getVectorMap(id)
+    }
+
+    suspend fun getPhotoMap(id: Long): PhotoMap? {
+        return repo.getPhotoMap(id)
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: MapService? = null

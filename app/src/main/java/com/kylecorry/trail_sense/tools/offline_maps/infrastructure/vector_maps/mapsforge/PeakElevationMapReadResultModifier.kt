@@ -5,14 +5,25 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.shared.FormatService
 import org.mapsforge.core.model.Tag
+import org.mapsforge.map.datastore.MapDataStore
+import org.mapsforge.map.datastore.MapReadResult
 import org.mapsforge.map.datastore.PointOfInterest
+import org.mapsforge.map.rendertheme.RenderContext
 
-class PeakElevationPoiModifier(
+class PeakElevationMapReadResultModifier(
     private val units: DistanceUnits,
     private val formatter: FormatService
-) : MapsforgePoiModifier {
+) : MapReadResultModifier {
 
-    override fun modify(poi: PointOfInterest): PointOfInterest {
+    override fun process(
+        renderContext: RenderContext,
+        mapReadResult: MapReadResult,
+        mapDataStore: MapDataStore
+    ) {
+        mapReadResult.pois.replaceAll { modify(it) }
+    }
+
+    private fun modify(poi: PointOfInterest): PointOfInterest {
         val elevation = getPeakElevation(poi) ?: return poi
         val formattedElevation = formatElevation(elevation)
         val formattedTags = poi.tags.map {
@@ -21,7 +32,7 @@ class PeakElevationPoiModifier(
             } else {
                 it
             }
-        }
+        } + PROCESSED_TAG
         return PointOfInterest(poi.layer, formattedTags, poi.position)
     }
 
@@ -35,7 +46,7 @@ class PeakElevationPoiModifier(
     }
 
     private fun getPeakElevation(poi: PointOfInterest): Float? {
-        if (!isPeak(poi)) {
+        if (!isPeak(poi) || PROCESSED_TAG in poi.tags) {
             return null
         }
 
@@ -48,6 +59,7 @@ class PeakElevationPoiModifier(
         private const val ELEVATION = "ele"
         private const val NATURAL = "natural"
         private const val PEAK = "peak"
+        private val PROCESSED_TAG = Tag("trail_sense_peak_elevation", "yes")
         private val elevationRegex = Regex("[-+]?\\d+(?:\\.\\d+)?")
     }
 }

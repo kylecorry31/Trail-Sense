@@ -38,7 +38,6 @@ class PhotoMapListItemMapper(
 
     override fun map(value: PhotoMap): ListItem {
         val onMap = value.boundary()?.contains(gps.location) ?: false
-        val hasPdf = value.hasPdf(context)
         val icon = if (prefs.photoMaps.showMapPreviews) {
             AsyncListIcon(
                 lifecycleOwner,
@@ -48,12 +47,6 @@ class PhotoMapListItemMapper(
             )
         } else {
             ResourceListIcon(R.drawable.maps, AppColor.Gray.color, size = 48f, foregroundSize = 24f)
-        }
-
-        val typeName = if (hasPdf) {
-            context.getString(R.string.file_pdf)
-        } else {
-            context.getString(R.string.file_photo)
         }
 
         return ListItem(
@@ -76,7 +69,7 @@ class PhotoMapListItemMapper(
                     null
                 },
                 ListItemTag(
-                    typeName,
+                    context.getString(R.string.map_type_photo),
                     null,
                     Resources.androidTextColorSecondary(context)
                 )

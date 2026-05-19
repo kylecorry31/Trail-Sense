@@ -1046,7 +1046,6 @@
     <string name="yes">Да</string>
     <string name="season">Сезон</string>
     <string name="horizon">Горизонт</string>
-    <string name="photo_map_disclaimer">Всегда носите с собой физическую карту про запас и проверяйте точность Trail Sense.</string>
     <string name="crop_map_instructions_long">Перетащите углы прямоугольника в углы карты чтобы наметить контур.</string>
     <string name="rotation_amount">Вращение: %s</string>
     <string name="i_agree">Принимаю</string>
