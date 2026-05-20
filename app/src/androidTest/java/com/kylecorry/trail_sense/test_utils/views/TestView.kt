@@ -33,6 +33,10 @@ fun viewWithResourceId(
     return view(By.res(id), index)
 }
 
+fun id(id: String, index: Int = 0): () -> TestView {
+    return { viewWithResourceId(id, index) }
+}
+
 fun viewWithText(
     text: String,
     contains: Boolean = false,

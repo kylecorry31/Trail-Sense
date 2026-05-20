@@ -188,7 +188,6 @@
     <ID>ForbiddenComment:MapService.kt:MapService.&lt;no name provided&gt;$// TODO: Bulk delete</ID>
     <ID>ForbiddenComment:MapToolWidgetView.kt:MapToolWidgetView$// TODO: Do something with the scale bar (center it or render it like the radar compass)</ID>
     <ID>ForbiddenComment:MapView.kt:MapView$// TODO: If map bounds changed, invalidate layers</ID>
-    <ID>ForbiddenComment:MapView.kt:MapView$// TODO: Is this scale logic needed?</ID>
     <ID>ForbiddenComment:MapView.kt:MapView$// TODO: This doesn't work for world maps</ID>
     <ID>ForbiddenComment:MapViewLayerManager.kt:MapViewLayerManager$// TODO: ERROR HANDLING</ID>
     <ID>ForbiddenComment:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$// TODO: If the pressure turns around, don't forecast further out than that (can't tell what the next pressure system will bring)</ID>
@@ -307,7 +306,6 @@
     <ID>LongMethod:PhotoMapRegionLoader.kt:PhotoMapRegionLoader$suspend fun load: Bitmap?</ID>
     <ID>LongMethod:PlaceBeaconFragment.kt:PlaceBeaconFragment$override fun onViewCreated</ID>
     <ID>LongMethod:RulerFragment.kt:RulerFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
-    <ID>LongMethod:SettingsFragment.kt:SettingsFragment$override fun onCreatePreferences</ID>
     <ID>LongMethod:SlopeMapTileSource.kt:SlopeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
     <ID>LongMethod:SoftmaxCloudClassifier.kt:SoftmaxCloudClassifier$override suspend fun classify: List&lt;ClassificationResult&lt;CloudGenus?&gt;&gt;</ID>
     <ID>LongMethod:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$override fun onCreatePreferences</ID>
@@ -390,7 +388,6 @@
     <ID>ReturnCount:MapExportService.kt:MapExportService$@Suppress("FoldInitializerAndIfToElvis") private fun getPDFData: List&lt;PDFValue.PDFObject&gt;</ID>
     <ID>ReturnCount:MapExportService.kt:MapExportService$override suspend fun export: Boolean</ID>
     <ID>ReturnCount:MapRotationCalculator.kt:MapRotationCalculator$fun calculate: Float</ID>
-    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$@Synchronized private fun getRenderer: MapsforgeRenderer?</ID>
     <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$fun render: Bitmap?</ID>
     <ID>ReturnCount:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$fun getPressureForecast: List&lt;Reading&lt;Pressure&gt;&gt;</ID>
     <ID>ReturnCount:NoaaHcAndMetadataTideTableConverter.kt:NoaaHcAndMetadataTideTableConverter$override fun parse: TideTable?</ID>
@@ -497,6 +494,7 @@
     <ID>TooManyFunctions:AugmentedRealityFragment.kt:AugmentedRealityFragment : BoundFragment</ID>
     <ID>TooManyFunctions:AugmentedRealityView.kt:AugmentedRealityView : CanvasView</ID>
     <ID>TooManyFunctions:BaseAstroListItemProducer.kt:BaseAstroListItemProducer : AstronomyListItemProducer</ID>
+    <ID>TooManyFunctions:BaseHooks.kt:com.kylecorry.trail_sense.shared.extensions.compose.BaseHooks.kt</ID>
     <ID>TooManyFunctions:BeaconDao.kt:BeaconDao</ID>
     <ID>TooManyFunctions:BeaconListFragment.kt:BeaconListFragment : BoundFragment</ID>
     <ID>TooManyFunctions:BeaconRepo.kt:BeaconRepo : IBeaconRepo</ID>
