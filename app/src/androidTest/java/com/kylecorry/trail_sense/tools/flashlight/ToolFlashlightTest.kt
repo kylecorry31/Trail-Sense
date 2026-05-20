@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.openQuickActions
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
+import com.kylecorry.trail_sense.test_utils.views.id
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -49,12 +50,12 @@ class ToolFlashlightTest : ToolTestBase(Tools.FLASHLIGHT) {
         click(R.id.screen_flashlight_btn)
         isNotVisible(R.id.screen_flashlight_btn)
 
-        click(R.id.red_white_switcher)
-        click(R.id.red_white_switcher)
+        click(id("red_white_switcher"))
+        click(id("red_white_switcher"))
 
-        isVisible(R.id.brightness_seek)
+        isVisible(id("brightness_seek"))
 
-        click(R.id.off_btn)
+        click(string(R.string.turn_off))
 
         isVisible(R.id.screen_flashlight_btn)
     }
@@ -76,7 +77,7 @@ class ToolFlashlightTest : ToolTestBase(Tools.FLASHLIGHT) {
         }
 
         click(quickAction(Tools.QUICK_ACTION_SCREEN_FLASHLIGHT))
-        isVisible(R.id.screen_flashlight)
+        isVisible(id("screen_flashlight"))
     }
 
 }
