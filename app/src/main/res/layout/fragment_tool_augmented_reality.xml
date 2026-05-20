@@ -132,7 +132,7 @@
         android:id="@+id/guidance_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorBackgroundFloating"
+        android:background="?attr/colorSurfaceContainer"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/time_sheet">
 
