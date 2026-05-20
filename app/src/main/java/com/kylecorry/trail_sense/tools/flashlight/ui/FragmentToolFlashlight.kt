@@ -124,6 +124,23 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         }
     }
 
+    private fun getDialIndex(mode: FlashlightMode): Int {
+        return when (mode) {
+            FlashlightMode.Strobe1 -> 1
+            FlashlightMode.Strobe2 -> 2
+            FlashlightMode.Strobe3 -> 3
+            FlashlightMode.Strobe4 -> 4
+            FlashlightMode.Strobe5 -> 5
+            FlashlightMode.Strobe6 -> 6
+            FlashlightMode.Strobe7 -> 7
+            FlashlightMode.Strobe8 -> 8
+            FlashlightMode.Strobe9 -> 9
+            FlashlightMode.Strobe200 -> 10
+            FlashlightMode.Sos -> 11
+            else -> 0
+        }
+    }
+
     private fun getStrobeMode(frequency: Int): FlashlightMode {
         return when (frequency) {
             1 -> FlashlightMode.Strobe1
@@ -143,6 +160,14 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     override fun onResume() {
         super.onResume()
         flashlightMode = flashlight.getMode()
+        selectedMode = if (flashlightMode != FlashlightMode.Off) {
+            flashlight.selectedMode
+        } else {
+            FlashlightMode.Torch
+        }
+        val index = getDialIndex(selectedMode)
+        binding.flashlightDial.selected = index
+        binding.flashlightDial.scrollToOption(index)
         updateFlashlightUI()
         intervalometer.interval(20)
         binding.flashlightDial.areHapticsEnabled = true
@@ -189,8 +214,17 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     private fun update() {
-        flashlightMode = flashlight.getMode()
-        updateFlashlightUI()
+        val newMode = flashlight.getMode()
+        if (newMode != flashlightMode) {
+            flashlightMode = newMode
+            updateFlashlightUI()
+            if (newMode != FlashlightMode.Off) {
+                selectedMode = newMode
+                val index = getDialIndex(selectedMode)
+                binding.flashlightDial.selected = index
+                binding.flashlightDial.scrollToOption(index)
+            }
+        }
     }
 
     private fun updateTimer() {

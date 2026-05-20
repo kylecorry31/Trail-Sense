@@ -39,6 +39,8 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     override val mode: ITopic<FlashlightMode>
         get() = _mode.distinct()
 
+    override var selectedMode: FlashlightMode = FlashlightMode.Torch
+
     override val brightnessLevels: Int
         get() = (torch?.brightnessLevels ?: 1) - 1
 
@@ -91,6 +93,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
 
     private fun on(newMode: FlashlightMode, bySystem: Boolean = false) = synchronized(modeLock) {
         clearTimeout()
+        selectedMode = newMode
         if (!bySystem) {
             isTransitioning = true
             transitionTimer.once(transitionDuration)
