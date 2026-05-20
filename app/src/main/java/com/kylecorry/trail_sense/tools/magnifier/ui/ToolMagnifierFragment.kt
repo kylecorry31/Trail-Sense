@@ -1,26 +1,45 @@
 package com.kylecorry.trail_sense.tools.magnifier.ui
 
-import android.widget.ImageButton
-import android.widget.ImageView
-import androidx.core.view.isVisible
+import android.graphics.Bitmap
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.keepScreenOn
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
-import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
-import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseComposeFragment
+import com.kylecorry.trail_sense.shared.extensions.compose.useEffect
+import com.kylecorry.trail_sense.shared.extensions.compose.useEffectWithCleanup
+import com.kylecorry.trail_sense.shared.extensions.compose.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.compose.useResumeEffect
+import com.kylecorry.trail_sense.shared.extensions.compose.useState
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.views.CameraView
 
-class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_magnifier) {
+class ToolMagnifierFragment : TrailSenseComposeFragment() {
 
-    override fun update() {
-        val cameraView = useView<CameraView>(R.id.camera)
-        val frozenFrameView = useView<ImageView>(R.id.frozen_frame)
-        val freezeBtn = useView<ImageButton>(R.id.freeze_btn)
-        val focusToggleBtn = useView<ImageButton>(R.id.focus_toggle_btn)
-
+    @Composable
+    override fun FragmentContent() {
+        val (cameraView, setCameraView) = useState<CameraView?>(null)
         val (isCameraEnabled, setIsCameraEnabled) = useState(false)
-        val (isFrozen, setIsFrozen) = useState(false)
+        val (frozenFrame, setFrozenFrame) = useState<Bitmap?>(null)
         val (isCloseUpFocus, setIsCloseUpFocus) = useState(false)
 
         useResumeEffect {
@@ -32,68 +51,144 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
             }
         }
 
-        // Start / stop camera
-        useEffect(isCameraEnabled, resetOnResume) {
+        useEffect(cameraView, isCameraEnabled, resumedCount) {
             if (isCameraEnabled) {
-                cameraView.defaultZoomRatio = 2f
-                cameraView.minZoomRatio = 1f
-                cameraView.setShowTorch(true)
-                cameraView.start(
+                cameraView?.start(
                     readFrames = false,
                     preferBackCamera = true,
                     shouldStabilizePreview = false
                 )
             } else {
-                cameraView.stop()
+                cameraView?.stop()
             }
         }
 
         usePauseEffect(cameraView) {
-            cameraView.stop()
+            cameraView?.stop()
         }
 
-        // Focus mode
-        useEffect(isCloseUpFocus, isCameraEnabled) {
-            if (isCloseUpFocus) {
-                cameraView.setFocus(0f)
-            } else {
-                cameraView.setFocus(null)
+        useEffectWithCleanup(cameraView) {
+            return@useEffectWithCleanup {
+                cameraView?.stop()
             }
-            focusToggleBtn.setImageResource(
-                if (isCloseUpFocus) R.drawable.ic_magnifier else R.drawable.ic_focus_auto
-            )
         }
 
-        // Freeze frame
-        useEffect(isFrozen) {
-            if (isFrozen) {
-                val bitmap = cameraView.previewImage
-                if (bitmap != null) {
-                    frozenFrameView.setImageBitmap(bitmap)
-                    frozenFrameView.isVisible = true
+        useEffect(cameraView, isCloseUpFocus, isCameraEnabled) {
+            cameraView?.setFocus(if (isCloseUpFocus) 0f else null)
+        }
+
+        MagnifierContent(
+            frozenFrame = frozenFrame,
+            isCloseUpFocus = isCloseUpFocus,
+            onCameraChanged = setCameraView,
+            onFreezeToggle = {
+                if (frozenFrame == null) {
+                    setFrozenFrame(cameraView?.previewImage)
                 } else {
-                    setIsFrozen(false)
+                    setFrozenFrame(null)
                 }
-            } else {
-                frozenFrameView.isVisible = false
-                frozenFrameView.setImageBitmap(null)
-            }
-            freezeBtn.setImageResource(
-                if (isFrozen) R.drawable.ic_baseline_play_arrow_24 else R.drawable.ic_pause
+            },
+            onFocusToggle = {
+                setIsCloseUpFocus(!isCloseUpFocus)
+            },
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Composable
+private fun MagnifierContent(
+    frozenFrame: Bitmap?,
+    isCloseUpFocus: Boolean,
+    onCameraChanged: (CameraView?) -> Unit,
+    onFreezeToggle: () -> Unit,
+    onFocusToggle: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier) {
+        AndroidView(
+            factory = { context ->
+                CameraView(context, null).also {
+                    it.id = R.id.camera
+                    it.defaultZoomRatio = 2f
+                    it.minZoomRatio = 1f
+                    it.setShowTorch(true)
+                    onCameraChanged(it)
+                }
+            },
+            modifier = Modifier
+                .fillMaxSize()
+                .keepScreenOn()
+                .testTag("camera")
+        )
+
+        if (frozenFrame != null) {
+            Image(
+                bitmap = frozenFrame.asImageBitmap(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .testTag("frozen_frame")
             )
         }
 
-        // Button click listeners
-        useEffect(freezeBtn, isFrozen) {
-            freezeBtn.setOnClickListener {
-                setIsFrozen(!isFrozen)
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 56.dp)
+                .testTag("magnifier_controls")
+        ) {
+            IconButton(
+                onClick = onFocusToggle,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(48.dp)
+                    .testTag("focus_toggle_btn")
+            ) {
+                Icon(
+                    painter = painterResource(
+                        if (isCloseUpFocus) R.drawable.ic_magnifier else R.drawable.ic_focus_auto
+                    ),
+                    contentDescription = null,
+                    tint = Color.White
+                )
             }
-        }
 
-        useEffect(focusToggleBtn, isCloseUpFocus) {
-            focusToggleBtn.setOnClickListener {
-                setIsCloseUpFocus(!isCloseUpFocus)
+            IconButton(
+                onClick = onFreezeToggle,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(48.dp)
+                    .testTag("freeze_btn")
+            ) {
+                Icon(
+                    painter = painterResource(
+                        if (frozenFrame != null) {
+                            R.drawable.ic_baseline_play_arrow_24
+                        } else {
+                            R.drawable.ic_pause
+                        }
+                    ),
+                    contentDescription = null,
+                    tint = Color.White
+                )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun MagnifierPreview() {
+    MaterialTheme {
+        MagnifierContent(
+            frozenFrame = null,
+            isCloseUpFocus = false,
+            onCameraChanged = {},
+            onFreezeToggle = {},
+            onFocusToggle = {},
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
