@@ -9,11 +9,16 @@ style:
 
 complexity:
   LongMethod:
+    ignoreAnnotated:
+      - 'Composable'
     ignoreFunction:
       - 'update'
       - 'getTool'
 
 naming:
+  FunctionNaming:
+    ignoreAnnotated:
+      - 'Composable'
   PackageNaming:
     active: false
   
