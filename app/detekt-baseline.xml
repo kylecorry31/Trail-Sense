@@ -289,7 +289,7 @@
     <ID>LongMethod:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$private fun convertFeaturesToMarkers</ID>
     <ID>LongMethod:GeographicImageSource.kt:GeographicImageSource$suspend fun read</ID>
     <ID>LongMethod:HillshadeMapTileSource.kt:HillshadeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
-    <ID>LongMethod:Hooks.kt:fun AndromedaFragment.useNavigationSensors: NavigationSensorValues</ID>
+    <ID>LongMethod:Hooks.kt:fun ReactiveAndromedaFragment.useNavigationSensors: NavigationSensorValues</ID>
     <ID>LongMethod:LandModel.kt:LandModel$suspend fun getCoastalLocations: List&lt;Coordinate&gt;</ID>
     <ID>LongMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
     <ID>LongMethod:MapToolWidgetView.kt:MapToolWidgetView$override suspend fun getPopulatedView: RemoteViews</ID>
