@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.Lifecycle
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.luna.timer.TimerActionBehavior
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,16 @@ fun <T> useBackgroundMemo(
     }
 
     return currentState
+}
+
+@Composable
+fun useCoroutineQueue(
+    queueSize: Int = 1,
+    ignoreExceptions: Boolean = false
+): CoroutineQueueRunner {
+    return useMemo {
+        CoroutineQueueRunner(queueSize, ignoreExceptions = ignoreExceptions)
+    }
 }
 
 // Callback

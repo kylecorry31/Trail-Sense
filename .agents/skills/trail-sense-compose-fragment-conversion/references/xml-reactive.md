@@ -39,5 +39,7 @@ Keep state/effects in `FragmentContent`, not in the stateless content composable
 - `setImageResource`, `setText`, color changes, and similar mutations become parameters that choose Compose properties.
 - `setOnClickListener` becomes `onClick`/callback parameters.
 
+Besides defining and interacting with the views in compose, this should be close to a one to one mapping.
+
 ## Examples
 You can use the ToolMagnifierFragment as an example. View its git history to see how it was converted to compose.
