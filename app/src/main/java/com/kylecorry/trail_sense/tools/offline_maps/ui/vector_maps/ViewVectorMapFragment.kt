@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.LayerFactory
@@ -46,6 +47,9 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
 
         useEffect(zoomInButton, zoomOutButton, mapView) {
+            CustomUiUtils.setButtonState(zoomInButton, false)
+            CustomUiUtils.setButtonState(zoomOutButton, false)
+
             zoomInButton.setOnClickListener { mapView.zoom(2f) }
             zoomOutButton.setOnClickListener { mapView.zoom(0.5f) }
         }
