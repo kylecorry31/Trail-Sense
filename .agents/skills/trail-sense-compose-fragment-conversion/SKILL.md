@@ -19,6 +19,7 @@ Convert XML-backed Trail Sense fragments to `TrailSenseComposeFragment`.
 - Add previews for the stateless content composable when practical.
 - Compose unit tests are not needed.
 - A preview of the main content composable should be created.
+- Use shared compose views from `app/src/main/java/com/kylecorry/trail_sense/shared/views/compose/` when possible.
 
 ## Pick The Reference
 
@@ -30,7 +31,7 @@ Convert XML-backed Trail Sense fragments to `TrailSenseComposeFragment`.
 1. Read the fragment, its XML layout, related tests, and any callbacks other code calls on the fragment.
 2. Identify state, side effects, lifecycle cleanup, services/preferences/navigation, and every XML view id used by tests.
 3. Convert the fragment to `TrailSenseComposeFragment` and model state with shared Compose hooks.
-4. Build a private content composable using Material/Compose primitives or `AndroidView` for repo custom views that still need a View implementation.
+4. Build a private content composable using Material/Compose primitives or `AndroidView` for repo **custom** views that still need a View implementation. This should be used sparingly for non-Android SDK views that have consumers other than the one being migrated.
 5. Move event listeners into callback parameters on the content composable.
 6. Update tests from `R.id.*` view ids to `id("<testTag>")` where the node is Compose-only; use text matchers when they are more stable.
 7. Run the smallest relevant compile/test target available.
@@ -46,10 +47,13 @@ Convert XML-backed Trail Sense fragments to `TrailSenseComposeFragment`.
 
 ## Custom Android Views
 
-When keeping a repo View such as a camera/preview/custom drawing view:
+When a custom defined view has other consumers, use the following approach:
 
 - Create it in `AndroidView(factory = { context -> ... })`.
 - Configure stable one-time view properties in `factory`.
 - Store the instance with a custom Compose state hook if effects need to call methods on it.
 - Start/stop or otherwise mutate it from effects in `FragmentContent`.
 - Add cleanup so resources are released when the composition leaves.
+
+## Other Notes
+- `useBackgroundEffect` can be replaced with `useEffect` as the new composable hook supports suspend functions
