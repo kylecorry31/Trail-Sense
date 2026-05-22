@@ -103,7 +103,7 @@ class MapsforgeTileRenderer {
         val newTileCache = MapsforgeMockTileCache(100)
         val wrappedMapDataStore = CachedMapsforgeMapDataStoreWrapper(
             newMapDataStore,
-            0
+            10
         )
         val newRenderer = MapsforgeRenderer(
             wrappedMapDataStore,
