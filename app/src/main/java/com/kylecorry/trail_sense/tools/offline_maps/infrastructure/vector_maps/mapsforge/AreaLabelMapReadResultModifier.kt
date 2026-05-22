@@ -17,7 +17,8 @@ import org.mapsforge.map.rendertheme.RenderContext
  */
 class AreaLabelMapReadResultModifier(
     val impactedAreas: Map<String, Set<String>>,
-    val fullAreaZoomLevel: Byte
+    val referenceZoomLevel: Byte,
+    val minZoom: Byte = referenceZoomLevel
 ) : MapReadResultModifier {
 
     private val boundaryLabelNodes = LruCache<Tile, List<PointOfInterest>>(100)
@@ -29,7 +30,7 @@ class AreaLabelMapReadResultModifier(
         mapDataStore: MapDataStore
     ) {
         val tile = renderContext.rendererJob.tile
-        if (tile.zoomLevel < fullAreaZoomLevel) {
+        if (tile.zoomLevel < referenceZoomLevel || tile.zoomLevel < minZoom) {
             return
         }
         mapReadResult.pois.addAll(getPointsOfInterest(tile, mapDataStore))
@@ -74,7 +75,7 @@ class AreaLabelMapReadResultModifier(
 
     private fun getFullZoomTile(tile: Tile): Tile {
         var parent = tile
-        while (parent.zoomLevel > fullAreaZoomLevel) {
+        while (parent.zoomLevel > referenceZoomLevel) {
             parent = parent.parent
         }
         return parent
