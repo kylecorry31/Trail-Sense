@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
-import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
@@ -428,7 +428,7 @@ class PreferenceMigrator private constructor() {
                 val idealOrdering = listOf(
                     BaseMapTileSource.SOURCE_ID,
                     ElevationMapTileSource.SOURCE_ID,
-                    MapsforgeTileSource.SOURCE_ID,
+                    TrailMapsTileSource.SOURCE_ID,
                     HillshadeMapTileSource.SOURCE_ID,
                     AspectMapTileSource.SOURCE_ID,
                     SlopeMapTileSource.SOURCE_ID,
@@ -450,13 +450,13 @@ class PreferenceMigrator private constructor() {
                 for (mapId in mapIds) {
                     repo.addLayerInBestPosition(
                         mapId,
-                        MapsforgeTileSource.SOURCE_ID,
+                        TrailMapsTileSource.SOURCE_ID,
                         idealOrdering
                     )
                 }
 
                 val navigationOfflineMapOpacityKey =
-                    "pref_${NavigationToolRegistration.MAP_ID}_${MapsforgeTileSource.SOURCE_ID}_layer_opacity"
+                    "pref_${NavigationToolRegistration.MAP_ID}_${TrailMapsTileSource.SOURCE_ID}_layer_opacity"
                 if (!prefs.contains(navigationOfflineMapOpacityKey)) {
                     prefs.putInt(navigationOfflineMapOpacityKey, 50)
                 }
