@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefi
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
+import com.kylecorry.trail_sense.tools.tides.subsystem.TidesSubsystem
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTideChart
 import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTides
 import com.kylecorry.trail_sense.tools.tides.widgets.TideChartToolWidgetView
@@ -60,6 +61,7 @@ object TidesToolRegistration : ToolRegistration {
                     refreshInterval = Duration.ofMinutes(10)
                 )
             ),
+            singletons = listOf(TidesSubsystem::getInstance),
             widgets = listOf(
                 ToolWidget(
                     WIDGET_TIDES,
