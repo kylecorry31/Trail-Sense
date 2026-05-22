@@ -154,13 +154,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var mapCenter: Coordinate = Coordinate.zero
         set(value) {
-            field = Coordinate(
-                value.latitude.coerceIn(constraintBounds.south, constraintBounds.north),
-                Coordinate.toLongitude(value.longitude).coerceIn(
-                    min(constraintBounds.west, constraintBounds.east),
-                    max(constraintBounds.west, constraintBounds.east)
-                )
-            )
+            field = constrainToBounds(value)
             onCenterChange?.invoke(field)
             invalidate()
         }
@@ -382,12 +376,20 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
         fitToViewBounds = bounds
         fitToViewPadding = paddingFactor
+
+        if (bounds == CoordinateBounds.world) {
+            mapCenter = bounds.center
+            zoomTo(minScale)
+            invalidate()
+            return
+        }
+
         Optimization.newtonRaphsonIteration(scale, 0.001f, 10) {
             mapCenter = bounds.center
-            val nePixel = toPixel(bounds.northEast)
-            val sePixel = toPixel(bounds.southEast)
-            val nwPixel = toPixel(bounds.northWest)
-            val swPixel = toPixel(bounds.southWest)
+            val nePixel = toPixel(constrainToBounds(bounds.northEast))
+            val sePixel = toPixel(constrainToBounds(bounds.southEast))
+            val nwPixel = toPixel(constrainToBounds(bounds.northWest))
+            val swPixel = toPixel(constrainToBounds(bounds.southWest))
             val minX = minOf(nePixel.x, sePixel.x, nwPixel.x, swPixel.x)
             val maxX = maxOf(nePixel.x, sePixel.x, nwPixel.x, swPixel.x)
             val minY = minOf(nePixel.y, sePixel.y, nwPixel.y, swPixel.y)
@@ -597,6 +599,16 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private fun calculateMaxScale(minScale: Float): Float {
         return max(2 * minScale, getScale(MIN_RESOLUTION_PIXELS))
+    }
+
+    private fun constrainToBounds(location: Coordinate): Coordinate {
+        return Coordinate(
+            location.latitude.coerceIn(constraintBounds.south, constraintBounds.north),
+            Coordinate.toLongitude(location.longitude).coerceIn(
+                min(constraintBounds.west, constraintBounds.east),
+                max(constraintBounds.west, constraintBounds.east)
+            )
+        )
     }
 
     companion object {
