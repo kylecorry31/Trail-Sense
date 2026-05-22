@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge
 
+import androidx.collection.LruCache
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrPut
+import com.kylecorry.trail_sense.shared.concurrency.StripedLock
 import org.mapsforge.core.model.Tag
 import org.mapsforge.core.model.Tile
-import org.mapsforge.core.util.LRUCache
 import org.mapsforge.map.datastore.MapDataStore
 import org.mapsforge.map.datastore.MapReadResult
 import org.mapsforge.map.datastore.PointOfInterest
@@ -18,7 +20,8 @@ class AreaLabelMapReadResultModifier(
     val fullAreaZoomLevel: Byte
 ) : MapReadResultModifier {
 
-    private val boundaryLabelNodes = LRUCache<Tile, List<PointOfInterest>>(100)
+    private val boundaryLabelNodes = LruCache<Tile, List<PointOfInterest>>(100)
+    private val lock = StripedLock()
 
     override fun process(
         renderContext: RenderContext,
@@ -62,19 +65,17 @@ class AreaLabelMapReadResultModifier(
 
     private fun getPointsOfInterest(tile: Tile, mapDataStore: MapDataStore): List<PointOfInterest> {
         val parent = getFullZoomTile(tile)
-        synchronized(boundaryLabelNodes) {
-            return boundaryLabelNodes.getOrPut(parent) {
-                val namedItems = mapDataStore.readNamedItems(parent.aboveLeft, parent.belowRight)
-                createPointsOfInterestFromWays(namedItems?.ways ?: emptyList())
-                    .distinctBy { it.position.latitude.roundPlaces(4) to it.position.longitude.roundPlaces(4) }
-            }
+        return boundaryLabelNodes.getOrPut(parent, lock = lock) {
+            val namedItems = mapDataStore.readNamedItems(parent.aboveLeft, parent.belowRight)
+            createPointsOfInterestFromWays(namedItems?.ways ?: emptyList())
+                .distinctBy { it.position.latitude.roundPlaces(4) to it.position.longitude.roundPlaces(4) }
         }
     }
 
     private fun getFullZoomTile(tile: Tile): Tile {
         var parent = tile
         while (parent.zoomLevel > fullAreaZoomLevel) {
-            parent = parent.getParent()
+            parent = parent.parent
         }
         return parent
     }
