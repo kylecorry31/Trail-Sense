@@ -119,7 +119,8 @@ class MapsforgeTileRenderer {
                         "natural" to setOf("water"),
                         "landuse" to setOf("reservoir", "basin"),
                     ),
-                    11
+                    referenceZoomLevel = 11,
+                    minZoom = 13
                 )
             )
         )
