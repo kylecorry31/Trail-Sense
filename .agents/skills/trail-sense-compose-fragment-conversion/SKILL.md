@@ -14,6 +14,8 @@ Convert XML-backed Trail Sense fragments to `TrailSenseComposeFragment`.
 - Prefer hooks from `com.kylecorry.trail_sense.shared.extensions.compose` over built-in Compose `remember`, `LaunchedEffect`, `DisposableEffect`, or direct lifecycle observers.
 - Look up available custom hooks in `app/src/main/java/com/kylecorry/trail_sense/shared/extensions/compose/` instead of relying on memory or listing them in this skill.
 - Keep side effects in `FragmentContent`; keep UI rendering in a private stateless composable with state and callbacks passed in.
+- Prefer `useService<T>()` for app services, preferences, and formatters that are registered with the app service registry; only use `useMemo(context) { ...getInstance(context) }` for objects that are not available as services.
+- Prefer `useBackgroundMemo(...)` for async loading and async derived values that feed UI state; reserve `useState` + `useEffect` for mutable UI state or side effects that are not simply producing a value.
 - Delete the obsolete XML layout after its behavior is represented in Compose.
 - Add `Modifier.testTag("<old_view_id_name>")` for interactive or asserted views so tests can use resource-id compatible Compose tags.
 - Add previews for the stateless content composable when practical.
@@ -30,7 +32,12 @@ Convert XML-backed Trail Sense fragments to `TrailSenseComposeFragment`.
 
 1. Read the fragment, its XML layout, related tests, and any callbacks other code calls on the fragment.
 2. Identify state, side effects, lifecycle cleanup, services/preferences/navigation, and every XML view id used by tests.
-3. Convert the fragment to `TrailSenseComposeFragment` and model state with shared Compose hooks.
+3. Convert the fragment to `TrailSenseComposeFragment` and model state with shared Compose hooks:
+   - Read arguments with `useArgument`.
+   - Read navigation with `useNavController`.
+   - Read registered dependencies with `useService`.
+   - Load repository/service values with `useBackgroundMemo`.
+   - Compute cheap derived display values with `useMemo`.
 4. Build a private content composable using Material/Compose primitives or `AndroidView` for repo **custom** views that still need a View implementation. This should be used sparingly for non-Android SDK views that have consumers other than the one being migrated.
 5. Move event listeners into callback parameters on the content composable.
 6. Update tests from `R.id.*` view ids to `id("<testTag>")` where the node is Compose-only; use text matchers when they are more stable.
@@ -40,6 +47,8 @@ Convert XML-backed Trail Sense fragments to `TrailSenseComposeFragment`.
 
 - Fragment extends `TrailSenseComposeFragment`.
 - Imports custom hooks from `shared.extensions.compose`.
+- Registered dependencies use `useService` instead of manually constructing singletons.
+- Async UI values that are just loaded data use `useBackgroundMemo` instead of manual state/effect plumbing.
 - No stale binding, XML layout id, or `useView` usage remains.
 - Effects have the same dependencies and cleanup semantics as the old fragment.
 - Tests reference Compose tags for Compose-only nodes.
@@ -57,3 +66,5 @@ When a custom defined view has other consumers, use the following approach:
 
 ## Other Notes
 - `useBackgroundEffect` can be replaced with `useEffect` as the new composable hook supports suspend functions
+- For XML `GridLayout` sections of repeated data points, prefer a Compose grid such as `LazyVerticalGrid(GridCells.Fixed(...))` with `Arrangement.spacedBy(...)` over hand-built row chunking.
+- For icon-only Material actions that replace small XML `MaterialButton`s, prefer `IconButton` with Material icon-button defaults (for example filled colors/shape) when that better matches the old filled button affordance.
