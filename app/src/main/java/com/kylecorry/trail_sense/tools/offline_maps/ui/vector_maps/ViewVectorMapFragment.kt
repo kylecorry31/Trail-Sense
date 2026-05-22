@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.map.ui.MapView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
@@ -85,7 +85,7 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
                 return@useEffectWithCleanup {}
             }
             val factory = LayerFactory()
-            val layer = Tools.getMapLayerDefinition(context, MapsforgeTileSource.SOURCE_ID)!!
+            val layer = Tools.getMapLayerDefinition(context, TrailMapsTileSource.SOURCE_ID)!!
             val tileLayer = factory.createLayer(layer)
             tileLayer.setFeatureFilter(map.id.toString())
             mapView.setLayers(listOf(tileLayer))

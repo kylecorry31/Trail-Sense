@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.map_layers.MapsforgeTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -90,7 +90,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
                     )
                 ),
                 MapLayerDefinition(
-                    MapsforgeTileSource.SOURCE_ID,
+                    TrailMapsTileSource.SOURCE_ID,
                     context.getString(R.string.trail_maps),
                     layerType = MapLayerType.Tile,
                     description = context.getString(R.string.map_layer_trail_maps_description),
@@ -102,7 +102,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
                             navActionOnClick = R.id.mapListFragment
                         )
                     ),
-                    tileSource = ::MapsforgeTileSource,
+                    tileSource = ::TrailMapsTileSource,
                     attributionLoader = {
                         val attributions = getAppService<MapService>()
                             .getAllVectorMaps()

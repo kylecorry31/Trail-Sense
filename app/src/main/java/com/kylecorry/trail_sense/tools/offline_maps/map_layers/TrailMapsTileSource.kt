@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge.MapsforgeTileRenderer
 
-class MapsforgeTileSource : TileSource {
+class TrailMapsTileSource : TileSource {
 
     private val renderer = MapsforgeTileRenderer()
     private val service = getAppService<MapService>()
