@@ -86,7 +86,7 @@ open class TileMapLayer<T : TileSource>(
     private var featureId: String? = null
 
     private val loadTimer = CoroutineTimer {
-        queue.load(16)
+        queue.load(maxOf(4, Runtime.getRuntime().availableProcessors()))
         isLoaded = queue.isEmpty()
     }
     private val refreshTimer = refreshInterval?.let { CoroutineTimer { refresh() } }
