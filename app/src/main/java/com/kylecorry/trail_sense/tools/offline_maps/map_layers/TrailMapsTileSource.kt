@@ -5,17 +5,21 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.concurrency.CustomDispatchers
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge.MapsforgeTileRenderer
+import kotlinx.coroutines.withContext
 
 class TrailMapsTileSource : TileSource {
 
     private val renderer = MapsforgeTileRenderer()
     private val service = getAppService<MapService>()
+
+    private val dispatcher = CustomDispatchers.newFixedThreadDispatcher(name = "TrailMapsTileSource")
 
     override suspend fun loadTile(
         context: Context,
@@ -29,11 +33,14 @@ class TrailMapsTileSource : TileSource {
         } else {
             listOfNotNull(service.getVectorMap(featureId))
         }.filter { it.type == VectorMapFileType.Mapsforge }
-        renderer.render(context, maps, tile, highDetailMode)
+        withContext(dispatcher) {
+            renderer.render(context, maps, tile, highDetailMode)
+        }
     }
 
     override suspend fun cleanup() {
         renderer.clear()
+        dispatcher.close()
     }
 
     companion object {
