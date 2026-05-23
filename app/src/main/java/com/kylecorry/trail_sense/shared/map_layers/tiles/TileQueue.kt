@@ -15,6 +15,7 @@ class TileQueue {
     private val comparator = compareBy<ImageTile> { getPriority(it) }
 
     private val queue = PriorityQueue(11, comparator)
+    private val queuedKeys = mutableSetOf<String>()
 
     private var mapProjection: IMapViewProjection? = null
     private var desiredTiles: Set<Tile>? = null
@@ -35,12 +36,14 @@ class TileQueue {
     }
 
     fun enqueue(tile: ImageTile) {
+        val state = tile.state
+        if (state != TileState.Idle && state != TileState.Stale) {
+            return
+        }
         synchronized(loadingKeys) {
             if (!loadingKeys.contains(tile.key)) {
                 synchronized(queue) {
-                    // Check if tile with same key is already in queue
-                    val alreadyQueued = queue.any { it.key == tile.key }
-                    if (!alreadyQueued) {
+                    if (queuedKeys.add(tile.key)) {
                         queue.add(tile)
                     }
                 }
@@ -51,6 +54,7 @@ class TileQueue {
     fun clear() {
         synchronized(queue) {
             queue.clear()
+            queuedKeys.clear()
         }
         synchronized(loadingKeys) {
             loadingKeys.clear()
@@ -65,7 +69,7 @@ class TileQueue {
 
     private fun dequeue(): ImageTile? {
         return synchronized(queue) {
-            queue.poll()
+            queue.poll()?.also { queuedKeys.remove(it.key) }
         }
     }
 
