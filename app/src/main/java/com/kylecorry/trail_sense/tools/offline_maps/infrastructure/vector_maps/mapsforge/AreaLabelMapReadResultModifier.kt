@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.
 
 import androidx.collection.LruCache
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
-import com.kylecorry.trail_sense.shared.andromeda_temp.getOrPut
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrPutUnlockedProducer
 import com.kylecorry.trail_sense.shared.concurrency.StripedLock
 import org.mapsforge.core.model.Tag
 import org.mapsforge.core.model.Tile
@@ -66,7 +66,7 @@ class AreaLabelMapReadResultModifier(
 
     private fun getPointsOfInterest(tile: Tile, mapDataStore: MapDataStore): List<PointOfInterest> {
         val parent = getFullZoomTile(tile)
-        return boundaryLabelNodes.getOrPut(parent, lock = lock) {
+        return boundaryLabelNodes.getOrPutUnlockedProducer(parent, lock) {
             val namedItems = mapDataStore.readNamedItems(parent.aboveLeft, parent.belowRight)
             createPointsOfInterestFromWays(namedItems?.ways ?: emptyList())
                 .distinctBy { it.position.latitude.roundPlaces(4) to it.position.longitude.roundPlaces(4) }
