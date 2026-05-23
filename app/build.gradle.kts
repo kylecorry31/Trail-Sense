@@ -234,6 +234,9 @@ dependencies {
     implementation(libs.mapsforge.map.android)
     implementation(libs.mapsforge.map.reader)
 
+    // AI
+    implementation(libs.litertlm)
+
     // Linting
     detektPlugins(libs.orion)
 

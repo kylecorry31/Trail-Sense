@@ -36,6 +36,7 @@ roomVersion = "2.8.4"
 sol = "17.0.2"
 workRuntimeKtx = "2.11.2"
 preferenceKtx = "1.2.1"
+litertlm = "0.1.0"
 
 [libraries]
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidXTest" }
@@ -125,6 +126,7 @@ sol = { module = "com.kylecorry:sol", version.ref = "sol" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 work-testing = { module = "androidx.work:work-testing", version.ref = "workRuntimeKtx" }
+litertlm = { module = "com.google.ai.edge:litertlm", version.ref = "litertlm" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
