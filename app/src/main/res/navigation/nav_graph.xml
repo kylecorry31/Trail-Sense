@@ -856,7 +856,13 @@
     <fragment
         android:id="@+id/aiAssistantFragment"
         android:name="com.kylecorry.trail_sense.tools.ai_assistant.ui.AiAssistantFragment"
-        android:label="AiAssistantFragment" />
+        android:label="AiAssistantFragment">
+        <argument
+            android:name="tool_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
     <fragment
         android:id="@+id/aiSettingsFragment"

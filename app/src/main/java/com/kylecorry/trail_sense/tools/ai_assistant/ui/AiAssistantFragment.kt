@@ -67,6 +67,18 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         val listState = rememberLazyListState()
 
         LaunchedEffect(Unit) {
+            val toolId = arguments?.getString("tool_id")
+            if (toolId == "weather" && aiContext == null) {
+                try {
+                    val weatherSubsystem = com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem.getInstance(requireContext())
+                    val provider = com.kylecorry.trail_sense.tools.ai_assistant.domain.WeatherAiContextProvider {
+                        weatherSubsystem.getWeather()
+                    }
+                    aiContext = provider.getAiContext()
+                    setSuggestedQuestions(provider.getSuggestedQuestions())
+                } catch (_: Exception) {}
+            }
+
             if (!aiSubsystem.isModelAvailable()) {
                 setError(getString(R.string.ai_model_not_downloaded))
                 return@LaunchedEffect
