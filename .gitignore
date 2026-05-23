@@ -126,3 +126,5 @@ scripts/experiments/cache.json
 sonarqube-issues.json
 sonarqube-report.json
 .codex
+trace_processor
+tracebox
