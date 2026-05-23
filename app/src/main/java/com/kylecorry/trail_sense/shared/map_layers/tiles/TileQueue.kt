@@ -38,7 +38,6 @@ class TileQueue {
         if (state != TileState.Idle && state != TileState.Stale) {
             return
         }
-        // TODO: Is loading keys check needed?
         synchronized(loadingKeys) {
             if (loadingKeys.contains(tile.key)) {
                 return
