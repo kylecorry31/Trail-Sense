@@ -14,7 +14,8 @@ object AiAssistantToolRegistration : ToolRegistration {
             context.getString(R.string.tool_ai_assistant_title),
             R.drawable.ic_ai_assistant,
             R.id.aiAssistantFragment,
-            ToolCategory.Other
+            ToolCategory.Other,
+            settingsNavAction = R.id.aiSettingsFragment
         )
     }
 }
