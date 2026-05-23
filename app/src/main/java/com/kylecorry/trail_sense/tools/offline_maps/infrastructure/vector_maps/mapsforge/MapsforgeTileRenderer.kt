@@ -45,9 +45,9 @@ class MapsforgeTileRenderer {
         tile: com.kylecorry.trail_sense.shared.map_layers.tiles.Tile,
         highDetailMode: Boolean
     ): Bitmap? {
-        val holder = getRenderer(context, maps, highDetailMode) ?: return null
+        val holder = getRenderer(context, maps, highDetailMode)
         val tile = Tile(tile.x, tile.y, tile.z.toByte(), tile.size.width)
-        if (!holder.dataStore.supportsTile(tile)) {
+        if (holder == null || !holder.dataStore.supportsTile(tile)) {
             return null
         }
 
@@ -61,11 +61,11 @@ class MapsforgeTileRenderer {
             false
         )
 
-        val tileBitmap = holder.renderer.executeJob(job) ?: return null
+        val tileBitmap = holder.renderer.executeJob(job)
         return try {
-            Bitmap.createBitmap(AndroidGraphicFactory.getBitmap(tileBitmap))
+            tileBitmap?.let { Bitmap.createBitmap(AndroidGraphicFactory.getBitmap(it)) }
         } finally {
-            tileBitmap.decrementRefCount()
+            tileBitmap?.decrementRefCount()
         }
     }
 
