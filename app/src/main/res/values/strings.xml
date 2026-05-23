@@ -1946,4 +1946,20 @@
     <string name="manage_maps">Manage maps</string>
     <string name="map_type_photo">Photo</string>
     <string name="map_type_trail">Trail</string>
+    <!-- AI Assistant -->
+    <string name="tool_ai_assistant_title">AI Assistant</string>
+    <string name="ai_model_not_downloaded">AI model not downloaded. Go to Settings to download.</string>
+    <string name="ai_initialization_failed">Failed to initialize AI model.</string>
+    <string name="ai_loading_model">Loading AI model…</string>
+    <string name="ai_input_hint">Ask a question…</string>
+    <string name="ai_disclaimer">AI suggestions are for reference only, not a replacement for proper training and judgment.</string>
+    <string name="ai_inference_error">An error occurred while generating a response.</string>
+    <string name="ai_settings_title">AI Assistant</string>
+    <string name="ai_model_name">Gemma 4 E2B</string>
+    <string name="ai_model_size">2.59 GB</string>
+    <string name="ai_download_model">Download model</string>
+    <string name="ai_delete_model">Delete model</string>
+    <string name="ai_model_downloaded">Model downloaded</string>
+    <string name="ai_downloading">Downloading…</string>
+    <string name="ai_about">AI runs entirely on your device. An internet connection is only needed to download the model.</string>
 </resources>

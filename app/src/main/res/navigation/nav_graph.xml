@@ -853,4 +853,9 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/aiAssistantFragment"
+        android:name="com.kylecorry.trail_sense.tools.ai_assistant.ui.AiAssistantFragment"
+        android:label="AiAssistantFragment" />
+
 </navigation>
