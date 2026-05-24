@@ -240,6 +240,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    var useShowAllBottomNavigationLabels by BooleanPreference(
+        preferences = cache,
+        context.getString(R.string.pref_use_bottom_navigation_labels),
+        defaultValue = true
+    )
+
     val nightModeFullscreen by BooleanPreference(
         cache,
         context.getString(R.string.pref_night_mode_fullscreen),

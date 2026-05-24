@@ -172,6 +172,11 @@ class MainActivity : AndromedaActivity() {
         setBottomNavLabelsVisibility()
     }
 
+    fun showAllBottomNavLabels(useBottomNavLabels: Boolean){
+        userPrefs.useShowAllBottomNavigationLabels = useBottomNavLabels
+        setBottomNavLabelsVisibility()
+    }
+
     private fun setBottomNavLabelsVisibility() {
         binding.bottomNavigation.apply {
             if (userPrefs.useCompactMode) {
@@ -179,7 +184,13 @@ class MainActivity : AndromedaActivity() {
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
             } else {
                 layoutParams.height = LayoutParams.WRAP_CONTENT
-                labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+                if(userPrefs.useShowAllBottomNavigationLabels){
+                    labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
+                }
+                else{
+                    labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+                }
+
             }
         }
     }
