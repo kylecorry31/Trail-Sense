@@ -34,14 +34,13 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.AndromedaFragment
-import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.main.errors.TrailSenseExceptionHandler
+import com.kylecorry.trail_sense.main.theme.ThemeProvider
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
@@ -50,10 +49,8 @@ import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.shared.volume.VolumeAction
-import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -76,8 +73,10 @@ class MainActivity : AndromedaActivity() {
     val errorBanner: ErrorBannerView
         get() = binding.errorBanner
 
-    private lateinit var userPrefs: UserPreferences
+    private val userPrefs = getAppService<UserPreferences>()
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
+
+    private val themeProvider = ThemeProvider()
 
     private val permissions = mutableListOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -94,10 +93,16 @@ class MainActivity : AndromedaActivity() {
     }
 
 
+    override fun attachBaseContext(newBase: Context) {
+        // This is needed to prevent old colors from remaining when the theme changes
+        // Dynamic colors are only disabled until onCreate is called since it needs the activity to be created
+        setColorTheme(themeProvider.getColorTheme(), false)
+        super.attachBaseContext(newBase)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         ExceptionHandler.initialize(this)
 
-        userPrefs = UserPreferences(applicationContext)
         updateTheme()
 
         val isBlackTheme =
@@ -172,7 +177,7 @@ class MainActivity : AndromedaActivity() {
         setBottomNavLabelsVisibility()
     }
 
-    fun showAllBottomNavLabels(useBottomNavLabels: Boolean){
+    fun showAllBottomNavLabels(useBottomNavLabels: Boolean) {
         userPrefs.useShowAllBottomNavigationLabels = useBottomNavLabels
         setBottomNavLabelsVisibility()
     }
@@ -184,10 +189,9 @@ class MainActivity : AndromedaActivity() {
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
             } else {
                 layoutParams.height = LayoutParams.WRAP_CONTENT
-                if(userPrefs.useShowAllBottomNavigationLabels){
+                if (userPrefs.useShowAllBottomNavigationLabels) {
                     labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
-                }
-                else{
+                } else {
                     labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
                 }
 
@@ -211,19 +215,13 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun updateTheme() {
-        val mode = when (userPrefs.theme) {
-            UserPreferences.Theme.Light -> ColorTheme.Light
-            UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
-            UserPreferences.Theme.System, UserPreferences.Theme.SystemBlack -> ColorTheme.System
-            UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
-        }
+        val mode = themeProvider.getColorTheme()
         setColorTheme(mode, userPrefs.useDynamicColors)
     }
 
     fun reloadTheme() {
         updateTheme()
         updateFullscreenMode()
-        cache.putBoolean("pref_theme_just_changed", true)
         recreate()
     }
 
@@ -284,11 +282,6 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun startApp(shouldReloadNavigation: Boolean) {
-        if (cache.getBoolean("pref_theme_just_changed") == true) {
-            cache.putBoolean("pref_theme_just_changed", false)
-            recreate()
-        }
-
         errorBanner.dismissAll()
 
         if (shouldReloadNavigation) {
@@ -391,20 +384,6 @@ class MainActivity : AndromedaActivity() {
             navController?.currentDestination?.id?.let {
                 outState.putInt("navigation", it)
             }
-        }
-    }
-
-    private fun sunriseSunsetTheme(): ColorTheme {
-        val astronomyService = AstronomyService()
-        val location = SensorSubsystem.getInstance(this).lastKnownLocation
-        if (location == Coordinate.zero) {
-            return ColorTheme.System
-        }
-        val isSunUp = astronomyService.isSunUp(location)
-        return if (isSunUp) {
-            ColorTheme.Light
-        } else {
-            ColorTheme.Dark
         }
     }
 
