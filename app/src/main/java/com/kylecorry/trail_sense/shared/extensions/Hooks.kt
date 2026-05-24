@@ -17,8 +17,8 @@ import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.LifecycleHookTrigger
+import com.kylecorry.andromeda.fragments.ReactiveAndromedaFragment
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useTopic
@@ -28,7 +28,6 @@ import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.luna.timer.TimerActionBehavior
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -42,6 +41,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
@@ -69,12 +69,12 @@ fun ReactiveComponent.useCellSignalSensor(removeUnregisteredSignals: Boolean = t
     }
 }
 
-fun AndromedaFragment.useCompassSensor(): ICompass {
+fun ReactiveAndromedaFragment.useCompassSensor(): ICompass {
     val sensors = useService<SensorService>()
     return useMemo(sensors) { sensors.getCompass() }
 }
 
-fun AndromedaFragment.useAltimeterSensor(gps: IGPS? = null): IAltimeter {
+fun ReactiveAndromedaFragment.useAltimeterSensor(gps: IGPS? = null): IAltimeter {
     val sensors = useService<SensorService>()
     return useMemo(sensors, gps) {
         sensors.getAltimeter(gps = gps)
@@ -89,27 +89,14 @@ fun ReactiveComponent.useSpeedometerSensor(gps: IGPS? = null): ISpeedometer {
 }
 
 // Common sensor readings
-fun AndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)): Pair<Coordinate, Float?> {
+fun ReactiveAndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)): Pair<Coordinate, Float?> {
     val gps = useGPSSensor(frequency)
     return useTopic(gps, gps.location to gps.horizontalAccuracy) {
         it.location to it.horizontalAccuracy
     }
 }
 
-data class NavigationSensorValues(
-    val location: Coordinate,
-    val locationAccuracy: Distance?,
-    val elevation: Distance,
-    val elevationAccuracy: Distance?,
-    val bearing: Bearing,
-    val declination: Float,
-    val speed: Speed,
-    val gpsSpeed: Speed,
-    val gps: IGPS? = null,
-    val compass: ICompass? = null
-)
-
-fun AndromedaFragment.useNavigationSensors(
+fun ReactiveAndromedaFragment.useNavigationSensors(
     gpsFrequency: Duration = Duration.ofMillis(20),
     trueNorth: Boolean = false
 ): NavigationSensorValues {
@@ -198,7 +185,7 @@ fun AndromedaFragment.useNavigationSensors(
     }
 }
 
-fun AndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorRefreshPolicy = SensorSubsystem.SensorRefreshPolicy.RefreshIfInvalid): Pair<Coordinate, Boolean> {
+fun ReactiveAndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorRefreshPolicy = SensorSubsystem.SensorRefreshPolicy.RefreshIfInvalid): Pair<Coordinate, Boolean> {
     val sensors = useService<SensorSubsystem>()
     val lastLocation = useMemo(sensors) {
         sensors.lastKnownLocation
@@ -266,7 +253,7 @@ fun ReactiveComponent.useSearch(view: SearchView, onSearch: (String) -> Unit) {
     }
 }
 
-fun AndromedaFragment.useShowDisclaimer(
+fun ReactiveAndromedaFragment.useShowDisclaimer(
     title: String,
     message: CharSequence,
     shownKey: String,

@@ -21,8 +21,8 @@
 #-renamesourcefileattribute SourceFile
 -keepnames class * extends android.os.Parcelable
 -keepnames class * extends java.io.Serializable
+-keepnames class * extends com.kylecorry.andromeda.fragments.AndromedaFragment
 -keep class * extends com.kylecorry.trail_sense.shared.ProguardIgnore { *; }
--keep class * extends androidx.fragment.app.Fragment{}
 -keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageDecoder { *; }
 -keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder { *; }
 -keep class com.kylecorry.andromeda.bitmaps.Range2d { *; }
