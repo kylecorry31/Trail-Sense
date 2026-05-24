@@ -233,7 +233,7 @@ class CustomGPS(
         }
 
         // If this is being restarted, reload the value from cache if there's a newer reading there
-        if (isDebug() && hadValidReading && cacheHasNewerReading()) {
+        if (hadValidReading && cacheHasNewerReading()) {
             updateFromCache()
             notifyListeners()
         }
