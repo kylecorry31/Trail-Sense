@@ -70,7 +70,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 27
+        private const val version = 28
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -460,6 +460,12 @@ class PreferenceMigrator private constructor() {
                 if (!prefs.contains(navigationOfflineMapOpacityKey)) {
                     prefs.putInt(navigationOfflineMapOpacityKey, 50)
                 }
+            },
+            PreferenceMigration(27,28){context,prefs ->
+                if(AppState.isReturningUser){
+                    prefs.putBoolean(context.getString(R.string.pref_use_bottom_navigation_labels),false)
+                }
+
             }
         )
 
