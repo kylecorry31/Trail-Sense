@@ -39,7 +39,7 @@
 39 (Local Messaging): message, messaging, text, communicate, send, receive, local
 40 (Local Talk): talk, voice, walkie talkie, communicate, speak, radio, local
 41 (Survival Guide): survival, guide, wilderness, emergency, bushcraft, outdoor
-42 (Field Guide): field, guide, identify, plant, animal, fungi, mushroom, wildlife, nature, species, log, record
+42 (Field Guide): field, guide, identify, plant, animal, fungi, mushroom, wildlife, nature, species, log, record, sightings
 43 (Signal Finder): signal, cell, tower, reception, coverage, network, cellular, strength
 44 (Ballistics): ballistics, bullet, trajectory, shooting, firearm, drop, velocity
 45 (Permits): permit, license, pass, authorization, reservation
