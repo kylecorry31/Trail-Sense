@@ -23,7 +23,7 @@ abstract class TrailSenseComposeFragment : AndromedaFragment() {
 
     protected var composeView: ComposeView? = null
 
-    protected var resumedCount by mutableIntStateOf(0)
+    protected var resetOnResume by mutableIntStateOf(0)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +56,6 @@ abstract class TrailSenseComposeFragment : AndromedaFragment() {
 
     override fun onResume() {
         super.onResume()
-        resumedCount++
+        resetOnResume++
     }
 }
