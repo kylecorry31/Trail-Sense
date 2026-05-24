@@ -51,22 +51,20 @@ class MapsforgeTileRenderer {
             return null
         }
 
+        val hasTransparentAreas = !holder.dataStore.supportsFullTile(tile)
+
         val job = RendererJob(
             tile,
             holder.dataStore,
             holder.renderThemeFuture,
             displayModel,
             if (highDetailMode) (1.5f / Resources.sp(context, 1f)).coerceIn(0.25f, 1f) else 1f,
-            true,
+            hasTransparentAreas,
             false
         )
 
         val tileBitmap = holder.renderer.executeJob(job)
-        return try {
-            tileBitmap?.let { Bitmap.createBitmap(AndroidGraphicFactory.getBitmap(it)) }
-        } finally {
-            tileBitmap?.decrementRefCount()
-        }
+        return tileBitmap?.let { AndroidGraphicFactory.getBitmap(it) }
     }
 
     suspend fun clear() = rendererMutex.withLock {
@@ -112,12 +110,8 @@ class MapsforgeTileRenderer {
         )
         newRenderThemeFuture.run()
         val newTileCache = MapsforgeMockTileCache(100)
-        val wrappedMapDataStore = CachedMapsforgeMapDataStoreWrapper(
-            newMapDataStore,
-            10
-        )
         val newRenderer = MapsforgeRenderer(
-            wrappedMapDataStore,
+            newMapDataStore,
             AndroidGraphicFactory.INSTANCE,
             newTileCache,
             TileBasedLabelStore(100),
