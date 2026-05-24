@@ -17,8 +17,8 @@ class WeatherAiContextProvider(
 
         val sensorData = mutableMapOf<String, Any>()
         if (obs != null) {
-            sensorData["pressure_hpa"] = obs.pressure.hpa().pressure
-            sensorData["temperature_c"] = obs.temperature.celsius().temperature
+            sensorData["pressure_hpa"] = obs.pressure.hpa().value
+            sensorData["temperature_c"] = obs.temperature.celsius().value
             obs.humidity?.let { sensorData["humidity_percent"] = it }
         }
         sensorData["pressure_characteristic"] = tendency.characteristic.name
@@ -32,8 +32,8 @@ class WeatherAiContextProvider(
         val summary = buildString {
             append("Weather Tool Data:\n")
             if (obs != null) {
-                append("- Pressure: ${obs.pressure.hpa().pressure} hPa\n")
-                append("- Temperature: ${obs.temperature.celsius().temperature}°C\n")
+                append("- Pressure: ${obs.pressure.hpa().value} hPa\n")
+                append("- Temperature: ${obs.temperature.celsius().value}°C\n")
                 obs.humidity?.let { append("- Humidity: ${it}%\n") }
             }
             append("- Pressure trend: ${tendency.characteristic.name} (${tendency.amount} hPa)\n")

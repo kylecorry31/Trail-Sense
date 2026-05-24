@@ -18,6 +18,9 @@ import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelDao
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelEntity
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileDao
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileEntity
+import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence.AiChatDao
+import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence.ChatMessageEntity
+import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence.ChatSessionEntity
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconDao
@@ -65,8 +68,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class],
-    version = 56,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class, ChatSessionEntity::class, ChatMessageEntity::class],
+    version = 57,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -94,6 +97,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun pluginDao(): PluginDao
     abstract fun pluginRegistrationDao(): PluginRegistrationDao
     abstract fun vectorMapDao(): VectorMapDao
+    abstract fun aiChatDao(): AiChatDao
 
     companion object {
 
@@ -531,6 +535,14 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_56_57 = object : Migration(56, 57) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `ai_chat_sessions` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `created_on` INTEGER NOT NULL, `updated_on` INTEGER NOT NULL)")
+                    db.execSQL("CREATE TABLE IF NOT EXISTS `ai_chat_messages` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `session_id` INTEGER NOT NULL, `text` TEXT NOT NULL, `is_user` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL)")
+                    db.execSQL("CREATE INDEX IF NOT EXISTS `index_ai_chat_messages_session_id` ON `ai_chat_messages` (`session_id`)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -587,7 +599,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_52_53,
                     MIGRATION_53_54,
                     MIGRATION_54_55,
-                    MIGRATION_55_56
+                    MIGRATION_55_56,
+                    MIGRATION_56_57
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_cloud_ai"
+        android:icon="@drawable/ic_ai_assistant"
+        android:title="@string/ai_ask_ai" />
+    <item
         android:id="@+id/action_cloud_file"
         android:icon="@drawable/ic_file"
         android:title="@string/file" />

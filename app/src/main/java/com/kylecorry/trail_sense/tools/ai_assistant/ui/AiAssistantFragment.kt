@@ -1,7 +1,12 @@
 package com.kylecorry.trail_sense.tools.ai_assistant.ui
 
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,12 +16,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Stop
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,21 +32,38 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseComposeFragment
 import com.kylecorry.trail_sense.shared.extensions.compose.useState
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiContext
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiPromptBuilder
+import com.kylecorry.trail_sense.tools.ai_assistant.domain.CloudAiContextProvider
+import com.kylecorry.trail_sense.tools.ai_assistant.domain.NavigationAiContextProvider
+import com.kylecorry.trail_sense.tools.ai_assistant.domain.WeatherAiContextProvider
 import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.AiInferenceSubsystem
+import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
+import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence.AiChatRepo
+import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence.ChatSessionEntity
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.google.ai.edge.litertlm.Contents
 import com.google.ai.edge.litertlm.Content
 import com.google.ai.edge.litertlm.Message
 import com.google.ai.edge.litertlm.MessageCallback
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 data class ChatMessage(
@@ -55,28 +76,73 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
     private var aiContext: AiContext? = null
 
+    private fun loadBitmapFromUri(uri: Uri): Bitmap? {
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, uri))
+            } else {
+                @Suppress("DEPRECATION")
+                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
     @Composable
     override fun FragmentContent() {
         val aiSubsystem = AiInferenceSubsystem.getInstance(requireContext())
+        val chatRepo = AiChatRepo.getInstance(requireContext())
         val (messages, setMessages) = useState(listOf<ChatMessage>())
         val (inputText, setInputText) = useState("")
         val (isGenerating, setIsGenerating) = useState(false)
         val (isInitializing, setIsInitializing) = useState(false)
         val (error, setError) = useState<String?>(null)
         val (suggestedQuestions, setSuggestedQuestions) = useState(emptyList<String>())
+        val (attachedImage, setAttachedImage) = useState<Bitmap?>(null)
+        val (currentSessionId, setCurrentSessionId) = useState<Long?>(null)
+        val (showHistory, setShowHistory) = useState(false)
+        val (sessions, setSessions) = useState(emptyList<ChatSessionEntity>())
         val listState = rememberLazyListState()
+        val scope = rememberCoroutineScope()
 
         LaunchedEffect(Unit) {
             val toolId = arguments?.getString("tool_id")
-            if (toolId == "weather" && aiContext == null) {
-                try {
-                    val weatherSubsystem = com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem.getInstance(requireContext())
-                    val provider = com.kylecorry.trail_sense.tools.ai_assistant.domain.WeatherAiContextProvider {
-                        weatherSubsystem.getWeather()
-                    }
-                    aiContext = provider.getAiContext()
-                    setSuggestedQuestions(provider.getSuggestedQuestions())
-                } catch (_: Exception) {}
+            val imageUri = arguments?.getString("image_uri")?.let { Uri.parse(it) }
+
+            when (toolId) {
+                "weather" -> {
+                    try {
+                        val weatherSubsystem = WeatherSubsystem.getInstance(requireContext())
+                        val provider = WeatherAiContextProvider { weatherSubsystem.getWeather() }
+                        aiContext = provider.getAiContext()
+                        setSuggestedQuestions(provider.getSuggestedQuestions())
+                    } catch (_: Exception) {}
+                }
+                "clouds" -> {
+                    try {
+                        val image = imageUri?.let { loadBitmapFromUri(it) }
+                        val provider = CloudAiContextProvider(
+                            CloudRepo.getInstance(requireContext()),
+                            CloudDetailsService(requireContext()),
+                            image
+                        )
+                        aiContext = provider.getAiContext()
+                        setSuggestedQuestions(provider.getSuggestedQuestions())
+                        if (image != null) setAttachedImage(image)
+                    } catch (_: Exception) {}
+                }
+                "navigation" -> {
+                    try {
+                        val nav = Navigator.getInstance(requireContext())
+                        val loc = LocationSubsystem.getInstance(requireContext())
+                        val provider = NavigationAiContextProvider(
+                            nav, NavigationService(), loc.location
+                        )
+                        aiContext = provider.getAiContext()
+                        setSuggestedQuestions(provider.getSuggestedQuestions())
+                    } catch (_: Exception) {}
+                }
             }
 
             if (!aiSubsystem.isModelAvailable()) {
@@ -110,11 +176,14 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             setSuggestedQuestions(emptyList())
 
             val prompt = AiPromptBuilder.buildUserPrompt(aiContext, text)
+            val images = listOfNotNull(attachedImage ?: aiContext?.image)
             aiContext = null
+            setAttachedImage(null)
 
             val responseBuilder = StringBuilder()
             aiSubsystem.sendMessage(
                 input = prompt,
+                images = images,
                 callback = object : MessageCallback {
                     override fun onMessage(message: Message) {
                         responseBuilder.append(message.toString())
@@ -132,6 +201,13 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         )
                         setMessages(final_)
                         setIsGenerating(false)
+                        scope.launch {
+                            val sessionId = currentSessionId ?: chatRepo.createSession(
+                                text.take(50)
+                            ).also { setCurrentSessionId(it) }
+                            chatRepo.addMessage(sessionId, text, isUser = true)
+                            chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
+                        }
                     }
 
                     override fun onError(throwable: Throwable) {
@@ -143,6 +219,15 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         val final_ = messages + userMessage + ChatMessage(errorMsg, isUser = false)
                         setMessages(final_)
                         setIsGenerating(false)
+                        if (responseBuilder.isNotEmpty()) {
+                            scope.launch {
+                                val sessionId = currentSessionId ?: chatRepo.createSession(
+                                    text.take(50)
+                                ).also { setCurrentSessionId(it) }
+                                chatRepo.addMessage(sessionId, text, isUser = true)
+                                chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
+                            }
+                        }
                     }
                 }
             )
@@ -154,19 +239,72 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             }
         }
 
-        AiAssistantContent(
-            messages = messages,
-            inputText = inputText,
-            isGenerating = isGenerating,
-            isInitializing = isInitializing,
-            error = error,
-            suggestedQuestions = suggestedQuestions,
-            onInputChanged = setInputText,
-            onSend = ::sendMessage,
-            onStop = { aiSubsystem.stopResponse() },
-            listState = listState,
-            contextCard = aiContext?.summary
-        )
+        if (showHistory) {
+            ChatHistoryScreen(
+                sessions = sessions,
+                onSessionClick = { session ->
+                    scope.launch {
+                        val msgs = chatRepo.getMessages(session.id).map {
+                            ChatMessage(it.text, it.isUser)
+                        }
+                        setMessages(msgs)
+                        setCurrentSessionId(session.id)
+                        setShowHistory(false)
+                        setSuggestedQuestions(emptyList())
+                    }
+                },
+                onDeleteSession = { session ->
+                    scope.launch {
+                        chatRepo.deleteSession(session.id)
+                        setSessions(chatRepo.getAllSessions())
+                    }
+                },
+                onBack = { setShowHistory(false) }
+            )
+        } else {
+            AiAssistantContent(
+                messages = messages,
+                inputText = inputText,
+                isGenerating = isGenerating,
+                isInitializing = isInitializing,
+                error = error,
+                suggestedQuestions = suggestedQuestions,
+                attachedImage = attachedImage,
+                onInputChanged = setInputText,
+                onSend = ::sendMessage,
+                onStop = { aiSubsystem.stopResponse() },
+                onCameraClick = {
+                    scope.launch {
+                        val uri = CustomUiUtils.takePhoto(this@AiAssistantFragment)
+                        uri?.let { setAttachedImage(loadBitmapFromUri(it)) }
+                    }
+                },
+                onRemoveImage = { setAttachedImage(null) },
+                onHistoryClick = {
+                    scope.launch {
+                        setSessions(chatRepo.getAllSessions())
+                        setShowHistory(true)
+                    }
+                },
+                onNewChat = {
+                    setMessages(emptyList())
+                    setCurrentSessionId(null)
+                    aiContext = null
+                    setSuggestedQuestions(emptyList())
+                    scope.launch {
+                        aiSubsystem.createConversation(
+                            systemInstruction = Contents.of(listOf(Content.Text(
+                                AiPromptBuilder.buildSystemPrompt(
+                                    resources.configuration.locales[0] ?: Locale.ENGLISH
+                                )
+                            )))
+                        )
+                    }
+                },
+                listState = listState,
+                contextCard = aiContext?.summary
+            )
+        }
     }
 }
 
@@ -179,14 +317,31 @@ private fun AiAssistantContent(
     isInitializing: Boolean,
     error: String?,
     suggestedQuestions: List<String>,
+    attachedImage: Bitmap?,
     onInputChanged: (String) -> Unit,
     onSend: (String) -> Unit,
     onStop: () -> Unit,
+    onCameraClick: () -> Unit,
+    onRemoveImage: () -> Unit,
+    onHistoryClick: () -> Unit,
+    onNewChat: () -> Unit,
     listState: androidx.compose.foundation.lazy.LazyListState,
     contextCard: String?,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconButton(onClick = onHistoryClick, modifier = Modifier.testTag("history_button")) {
+                Icon(painterResource(R.drawable.ic_tool_notes), contentDescription = stringResource(R.string.ai_chat_history))
+            }
+            IconButton(onClick = onNewChat, modifier = Modifier.testTag("new_chat_button")) {
+                Icon(painterResource(R.drawable.ic_add), contentDescription = stringResource(R.string.ai_new_chat))
+            }
+        }
+
         if (error != null) {
             Text(
                 text = error,
@@ -251,6 +406,22 @@ private fun AiAssistantContent(
             }
         }
 
+        if (attachedImage != null) {
+            Row(
+                modifier = Modifier.padding(vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    bitmap = attachedImage.asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier.size(56.dp).clip(RoundedCornerShape(8.dp))
+                )
+                IconButton(onClick = onRemoveImage) {
+                    Icon(painterResource(R.drawable.ic_cancel), contentDescription = null)
+                }
+            }
+        }
+
         Text(
             text = stringResource(R.string.ai_disclaimer),
             style = MaterialTheme.typography.labelSmall,
@@ -262,6 +433,13 @@ private fun AiAssistantContent(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            IconButton(
+                onClick = onCameraClick,
+                enabled = !isGenerating && error == null,
+                modifier = Modifier.testTag("camera_button")
+            ) {
+                Icon(painterResource(R.drawable.ic_camera), contentDescription = stringResource(R.string.ai_attach_photo))
+            }
             OutlinedTextField(
                 value = inputText,
                 onValueChange = onInputChanged,
@@ -279,9 +457,9 @@ private fun AiAssistantContent(
                 modifier = Modifier.testTag("send_button")
             ) {
                 if (isGenerating) {
-                    Icon(Icons.Default.Stop, contentDescription = null)
+                    Icon(painterResource(R.drawable.ic_cancel), contentDescription = null)
                 } else {
-                    Icon(Icons.AutoMirrored.Default.Send, contentDescription = null)
+                    Icon(painterResource(R.drawable.ic_send), contentDescription = null)
                 }
             }
         }
@@ -318,4 +496,81 @@ private fun ChatBubble(message: ChatMessage, modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@Composable
+private fun ChatHistoryScreen(
+    sessions: List<ChatSessionEntity>,
+    onSessionClick: (ChatSessionEntity) -> Unit,
+    onDeleteSession: (ChatSessionEntity) -> Unit,
+    onBack: () -> Unit
+) {
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onBack) {
+                Icon(painterResource(R.drawable.ic_cancel), contentDescription = null)
+            }
+            Text(
+                text = stringResource(R.string.ai_chat_history),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.weight(1f).padding(start = 8.dp)
+            )
+        }
+
+        if (sessions.isEmpty()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(R.string.ai_no_chat_history),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(sessions) { session ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { onSessionClick(session) }
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = session.title ?: stringResource(R.string.ai_new_chat),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    maxLines = 1
+                                )
+                                Text(
+                                    text = formatTimestamp(session.updatedOn),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            IconButton(onClick = { onDeleteSession(session) }) {
+                                Icon(
+                                    painterResource(R.drawable.ic_delete),
+                                    contentDescription = stringResource(R.string.ai_delete_chat)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun formatTimestamp(millis: Long): String {
+    val formatter = java.text.SimpleDateFormat("MM/dd HH:mm", Locale.getDefault())
+    return formatter.format(java.util.Date(millis))
 }

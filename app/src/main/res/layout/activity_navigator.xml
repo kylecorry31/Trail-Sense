@@ -137,6 +137,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/ask_ai_btn"
+            style="@style/Widget.Material3.FloatingActionButton.Small.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/ai_ask_ai"
+            android:src="@drawable/ic_ai_assistant"
+            app:layout_constraintBottom_toTopOf="@id/beaconBtn"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
             android:id="@+id/accuracy_view"
             android:layout_width="wrap_content"

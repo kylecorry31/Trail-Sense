@@ -1961,5 +1961,7 @@
     <string name="ai_delete_model">Delete model</string>
     <string name="ai_model_downloaded">Model downloaded</string>
     <string name="ai_downloading">Downloading…</string>
+    <string name="ai_attach_photo">Attach photo</string>
+    <string name="ai_ask_ai">Ask AI</string>
     <string name="ai_about">AI runs entirely on your device. An internet connection is only needed to download the model.</string>
 </resources>

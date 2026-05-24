@@ -33,16 +33,27 @@ class AiInferenceSubsystem private constructor(private val context: Context) {
         val modelPath = modelManager.getModelPath()
             ?: throw IllegalStateException("Model not downloaded")
 
-        val engineConfig = EngineConfig(
-            modelPath = modelPath,
-            backend = Backend.GPU(),
-            visionBackend = Backend.GPU(),
-            maxNumTokens = MAX_TOKENS
-        )
-
-        val newEngine = Engine(engineConfig)
-        newEngine.initialize()
-        engine = newEngine
+        try {
+            val gpuConfig = EngineConfig(
+                modelPath = modelPath,
+                backend = Backend.GPU(),
+                visionBackend = Backend.GPU(),
+                maxNumTokens = MAX_TOKENS
+            )
+            val gpuEngine = Engine(gpuConfig)
+            gpuEngine.initialize()
+            engine = gpuEngine
+        } catch (_: Exception) {
+            val cpuConfig = EngineConfig(
+                modelPath = modelPath,
+                backend = Backend.CPU(),
+                visionBackend = Backend.CPU(),
+                maxNumTokens = MAX_TOKENS
+            )
+            val cpuEngine = Engine(cpuConfig)
+            cpuEngine.initialize()
+            engine = cpuEngine
+        }
     }
 
     suspend fun createConversation(

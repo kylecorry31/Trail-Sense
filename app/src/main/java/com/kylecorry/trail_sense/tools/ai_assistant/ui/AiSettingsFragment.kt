@@ -35,8 +35,10 @@ class AiSettingsFragment : TrailSenseComposeFragment() {
         val modelManager = ModelManager(requireContext())
         val (isDownloaded, setIsDownloaded) = useState(modelManager.isModelDownloaded())
         val (isDownloading, setIsDownloading) = useState(false)
-        val (progress, setProgress) = useState(0f)
+        val initialProgress = modelManager.getDownloadProgress()
+        val (progress, setProgress) = useState(initialProgress)
         val (error, setError) = useState<String?>(null)
+        val hasPartialDownload = !isDownloaded && !isDownloading && initialProgress > 0f
         val scope = rememberCoroutineScope()
 
         AiSettingsContent(
@@ -44,6 +46,7 @@ class AiSettingsFragment : TrailSenseComposeFragment() {
             isDownloading = isDownloading,
             progress = progress,
             error = error,
+            hasPartialDownload = hasPartialDownload,
             onDownload = {
                 scope.launch {
                     setIsDownloading(true)
@@ -75,6 +78,7 @@ private fun AiSettingsContent(
     isDownloading: Boolean,
     progress: Float,
     error: String?,
+    hasPartialDownload: Boolean,
     onDownload: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
@@ -133,6 +137,23 @@ private fun AiSettingsContent(
                         modifier = Modifier.testTag("delete_button")
                     ) {
                         Text(stringResource(R.string.ai_delete_model))
+                    }
+                } else if (hasPartialDownload) {
+                    LinearProgressIndicator(
+                        progress = { progress },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text(
+                        text = "${(progress * 100).toInt()}%",
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Button(
+                        onClick = onDownload,
+                        modifier = Modifier.fillMaxWidth().testTag("download_button")
+                    ) {
+                        Text(stringResource(R.string.ai_resume_download))
                     }
                 } else {
                     Button(

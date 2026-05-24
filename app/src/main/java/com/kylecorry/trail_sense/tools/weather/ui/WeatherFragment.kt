@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -100,6 +101,13 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             binding,
             prefs.weather
         ).bind()
+
+        binding.askAiBtn.setOnClickListener {
+            findNavController().navigate(
+                R.id.aiAssistantFragment,
+                Bundle().apply { putString("tool_id", "weather") }
+            )
+        }
 
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
             if (timeAgo == null || pressure == null) {

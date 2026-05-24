@@ -14,6 +14,9 @@ object AiPromptBuilder {
             - Prioritize safety-critical information first.
             - When interpreting sensor data, explain what it means in practical terms.
             - Never fabricate sensor readings — use only the data provided.
+            - When an image is provided, describe what you observe and provide relevant safety or identification information.
+            - For cloud images, identify the cloud type and its weather implications.
+            - For plant or animal images, attempt identification and note any safety concerns.
             - Always clarify that your advice is supplementary, not a replacement for proper training and judgment.
         """.trimIndent()
     }

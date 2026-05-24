@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.ai_assistant.infrastructure
 
 import android.content.Context
 import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
@@ -31,16 +32,32 @@ class ModelManager(private val modelDir: File) {
         val tempFile = File(modelDir, "$MODEL_FILE_NAME.tmp")
         val targetFile = getModelFile()
 
+        val existingBytes = if (tempFile.exists()) tempFile.length() else 0L
+
+        val url = URL(MODEL_DOWNLOAD_URL)
+        val connection = url.openConnection() as HttpURLConnection
+        connection.connectTimeout = 30_000
+        connection.readTimeout = 30_000
+        if (existingBytes > 0) {
+            connection.setRequestProperty("Range", "bytes=$existingBytes-")
+        }
+
         try {
-            val url = URL(MODEL_DOWNLOAD_URL)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.connectTimeout = 30_000
-            connection.readTimeout = 30_000
-            val totalBytes = connection.contentLengthLong
-            var downloadedBytes = 0L
+            val responseCode = connection.responseCode
+            val totalBytes = if (responseCode == 206) {
+                existingBytes + connection.contentLengthLong
+            } else {
+                connection.contentLengthLong
+            }
+            val append = responseCode == 206
+            var downloadedBytes = if (append) existingBytes else 0L
+
+            if (!append && existingBytes > 0) {
+                tempFile.delete()
+            }
 
             connection.inputStream.use { input: InputStream ->
-                tempFile.outputStream().use { output ->
+                FileOutputStream(tempFile, append).use { output ->
                     val buffer = ByteArray(8192)
                     var bytesRead: Int
                     while (input.read(buffer).also { bytesRead = it } != -1) {
@@ -54,9 +71,15 @@ class ModelManager(private val modelDir: File) {
             }
             tempFile.renameTo(targetFile)
         } catch (e: Exception) {
-            tempFile.delete()
+            // 保留 tempFile 以支持断点续传
             throw e
         }
+    }
+
+    fun getDownloadProgress(): Float {
+        val tempFile = File(modelDir, "$MODEL_FILE_NAME.tmp")
+        if (!tempFile.exists()) return 0f
+        return tempFile.length().toFloat() / MODEL_SIZE_BYTES
     }
 
     fun deleteModel() {

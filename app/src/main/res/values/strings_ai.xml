@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ai_resume_download">Resume download</string>
+    <string name="ai_chat_history">Chat history</string>
+    <string name="ai_new_chat">New chat</string>
+    <string name="ai_no_chat_history">No chat history</string>
+    <string name="ai_delete_chat">Delete</string>
+    <string name="ai_clear_history">Clear history</string>
+</resources>

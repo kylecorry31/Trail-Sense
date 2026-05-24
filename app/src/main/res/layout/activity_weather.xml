@@ -62,4 +62,15 @@
         app:playBarIcon="@drawable/ic_weather"
         app:playBarTitle="@string/weather_monitor" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ask_ai_btn"
+        style="@style/Widget.Material3.FloatingActionButton.Small.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/ai_ask_ai"
+        android:src="@drawable/ic_ai_assistant" />
+
 </LinearLayout>

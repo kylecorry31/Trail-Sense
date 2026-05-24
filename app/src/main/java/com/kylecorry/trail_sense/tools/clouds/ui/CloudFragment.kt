@@ -81,9 +81,19 @@ class CloudFragment : BoundFragment<FragmentToolCloudsBinding>() {
                 R.id.action_cloud_camera -> addFromCamera()
                 R.id.action_cloud_file -> addFromFile()
                 R.id.action_cloud_manual -> addManual()
+                R.id.action_cloud_ai -> askAi()
             }
             true
         }
+    }
+
+    private fun askAi() {
+        findNavController().navigate(
+            R.id.aiAssistantFragment,
+            Bundle().apply {
+                putString("tool_id", "clouds")
+            }
+        )
     }
 
     private fun addFromCamera() {
