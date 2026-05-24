@@ -33,8 +33,15 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
 
         // Set Compact Mode
         val compactMode = switch(R.string.pref_use_compact_mode)
+        val navLabels = switch(R.string.pref_use_bottom_navigation_labels)
+        navLabels?.isEnabled = !prefs.useCompactMode
         compactMode?.setOnPreferenceChangeListener { _, checked ->
             requireMainActivity().changeBottomNavLabelsVisibility(checked as Boolean)
+            navLabels?.isEnabled = !(checked as Boolean)
+            true
+        }
+        navLabels?.setOnPreferenceChangeListener{_,checked->
+            requireMainActivity().showAllBottomNavLabels(checked as Boolean)
             true
         }
 
