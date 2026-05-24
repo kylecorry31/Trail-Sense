@@ -51,7 +51,7 @@ class ToolMagnifierFragment : TrailSenseComposeFragment() {
             }
         }
 
-        useEffect(cameraView, isCameraEnabled, resetOnResume) {
+        useEffect(cameraView, isCameraEnabled, resumedCount) {
             if (isCameraEnabled) {
                 cameraView?.start(
                     readFrames = false,
