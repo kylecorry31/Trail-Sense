@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.google.android.material.slider.LabelFormatter
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.Throttle
@@ -82,6 +83,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.accuracyView.setSensors(null, magnetometer)
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
         binding.magnetometerView.isVisible = prefs.metalDetector.showMetalDirection
+        binding.threshold.valueFrom = 0f
+        binding.threshold.valueTo = 100f
+        binding.threshold.value = 50f
+        binding.threshold.labelBehavior = LabelFormatter.LABEL_GONE
 
         binding.highSensitivityToggle.setOnCheckedChangeListener { _, isChecked ->
             isHighSensitivity = isChecked
@@ -288,7 +293,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     }
 
     private fun updateThreshold() {
-        threshold = (binding.threshold.progress.toFloat() / 10f).coerceAtLeast(0.1f)
+        threshold = (binding.threshold.value / 10f).coerceAtLeast(0.1f)
         binding.thresholdAmount.text =
             formatService.formatMagneticField(threshold, decimalPlaces = 1)
     }

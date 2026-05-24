@@ -85,7 +85,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <SeekBar
+            <com.google.android.material.slider.Slider
                 android:id="@+id/time_seeker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

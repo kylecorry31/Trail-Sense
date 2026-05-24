@@ -19,15 +19,13 @@
         tools:title="65 uT" />
 
 
-    <SeekBar
+    <com.google.android.material.slider.Slider
         android:id="@+id/threshold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="50"
         app:layout_constraintEnd_toStartOf="@+id/calibrate_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/metal_detector_title" />

@@ -5,12 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
+import com.google.android.material.slider.BasicLabelFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils.applyThinStyling
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
@@ -56,9 +57,14 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
             }
         }
 
-        binding.brightnessSeek.setOnProgressChangeListener { progress, isFromUser ->
+        binding.brightnessSeek.valueFrom = 0f
+        binding.brightnessSeek.valueTo = 100f
+        binding.brightnessSeek.setLabelFormatter(BasicLabelFormatter())
+        binding.brightnessSeek.applyThinStyling()
+
+        binding.brightnessSeek.addOnChangeListener { _, value, isFromUser ->
             if (isFromUser) {
-                setBrightness(progress)
+                setBrightness(value.toInt())
             }
         }
     }
@@ -72,7 +78,7 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
     }
 
     private fun setBrightness(percent: Int) {
-        binding.brightnessSeek.progress = percent
+        binding.brightnessSeek.value = percent.toFloat()
         cache.putInt(getString(R.string.pref_screen_torch_brightness), percent)
         flashlight.on(map(percent / 100f, 0f, 1f, 0.1f, 1f))
     }
