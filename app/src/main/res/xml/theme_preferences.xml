@@ -46,6 +46,13 @@
             app:title="@string/compact_mode" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_bottom_navigation_labels"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_all_bottom_navigation_labels" />
+
+        <SwitchPreferenceCompat
             android:summary="@string/pref_night_mode_fullscreen_summary"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
