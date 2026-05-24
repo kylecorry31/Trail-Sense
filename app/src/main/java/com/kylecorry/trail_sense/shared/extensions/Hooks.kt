@@ -19,7 +19,6 @@ import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.LifecycleHookTrigger
-import com.kylecorry.andromeda.fragments.ReactiveAndromedaFragment
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useTopic
@@ -70,12 +69,12 @@ fun ReactiveComponent.useCellSignalSensor(removeUnregisteredSignals: Boolean = t
     }
 }
 
-fun ReactiveAndromedaFragment.useCompassSensor(): ICompass {
+fun AndromedaFragment.useCompassSensor(): ICompass {
     val sensors = useService<SensorService>()
     return useMemo(sensors) { sensors.getCompass() }
 }
 
-fun ReactiveAndromedaFragment.useAltimeterSensor(gps: IGPS? = null): IAltimeter {
+fun AndromedaFragment.useAltimeterSensor(gps: IGPS? = null): IAltimeter {
     val sensors = useService<SensorService>()
     return useMemo(sensors, gps) {
         sensors.getAltimeter(gps = gps)
@@ -90,7 +89,7 @@ fun ReactiveComponent.useSpeedometerSensor(gps: IGPS? = null): ISpeedometer {
 }
 
 // Common sensor readings
-fun ReactiveAndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)): Pair<Coordinate, Float?> {
+fun AndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)): Pair<Coordinate, Float?> {
     val gps = useGPSSensor(frequency)
     return useTopic(gps, gps.location to gps.horizontalAccuracy) {
         it.location to it.horizontalAccuracy
@@ -110,7 +109,7 @@ data class NavigationSensorValues(
     val compass: ICompass? = null
 )
 
-fun ReactiveAndromedaFragment.useNavigationSensors(
+fun AndromedaFragment.useNavigationSensors(
     gpsFrequency: Duration = Duration.ofMillis(20),
     trueNorth: Boolean = false
 ): NavigationSensorValues {
@@ -199,7 +198,7 @@ fun ReactiveAndromedaFragment.useNavigationSensors(
     }
 }
 
-fun ReactiveAndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorRefreshPolicy = SensorSubsystem.SensorRefreshPolicy.RefreshIfInvalid): Pair<Coordinate, Boolean> {
+fun AndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorRefreshPolicy = SensorSubsystem.SensorRefreshPolicy.RefreshIfInvalid): Pair<Coordinate, Boolean> {
     val sensors = useService<SensorSubsystem>()
     val lastLocation = useMemo(sensors) {
         sensors.lastKnownLocation
@@ -267,7 +266,7 @@ fun ReactiveComponent.useSearch(view: SearchView, onSearch: (String) -> Unit) {
     }
 }
 
-fun ReactiveAndromedaFragment.useShowDisclaimer(
+fun AndromedaFragment.useShowDisclaimer(
     title: String,
     message: CharSequence,
     shownKey: String,

@@ -11,8 +11,6 @@ style:
 
 complexity:
   LongMethod:
-    ignoreAnnotated:
-      - 'Composable'
     ignoreFunction:
       - 'update'
       - 'getTool'
@@ -21,9 +19,6 @@ complexity:
     ignoreOverridden: true
 
 naming:
-  FunctionNaming:
-    ignoreAnnotated:
-      - 'Composable'
   PackageNaming:
     active: false
   
