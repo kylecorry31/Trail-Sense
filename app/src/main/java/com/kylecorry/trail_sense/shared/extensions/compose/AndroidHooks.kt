@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.extensions.compose
 
 import android.content.Context
-import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.compose.runtime.Composable
@@ -41,20 +40,6 @@ fun Fragment.useNavController(): NavController {
 @Composable
 fun Fragment.useActivity(): FragmentActivity {
     return requireActivity()
-}
-
-@Composable
-fun Fragment.useArguments(): Bundle {
-    return requireArguments()
-}
-
-@Composable
-fun <T> Fragment.useArgument(key: String): T? {
-    val arguments = useArguments()
-    return useMemo(arguments, key) {
-        @Suppress("DEPRECATION", "UNCHECKED_CAST")
-        arguments.get(key) as? T?
-    }
 }
 
 @Composable
