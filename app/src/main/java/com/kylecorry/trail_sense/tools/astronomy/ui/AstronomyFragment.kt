@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.slider.LabelFormatter
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -20,6 +20,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
+import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
@@ -51,12 +52,12 @@ import com.kylecorry.trail_sense.tools.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMode
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
@@ -203,9 +204,12 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 
-        binding.timeSeeker.max = maxProgress
+        binding.timeSeeker.valueFrom = 0f
+        binding.timeSeeker.valueTo = maxProgress.toFloat()
+        binding.timeSeeker.labelBehavior = LabelFormatter.LABEL_GONE
 
-        binding.timeSeeker.setOnProgressChangeListener { progress, _ ->
+        binding.timeSeeker.addOnChangeListener { _, value, _ ->
+            val progress = value.toInt()
             val seconds = (Duration.between(
                 minChartTime, maxChartTime
             ).seconds * progress / maxProgress.toFloat()).toLong()
@@ -227,7 +231,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         binding.seekTime.text =
             formatService.formatTime(currentSeekChartTime.toLocalTime(), includeSeconds = false)
 
-        binding.timeSeeker.progress = getSeekProgress()
+        binding.timeSeeker.value = getSeekProgress().toFloat()
 
         binding.closeSeek.setOnClickListener {
             hideTimeSeeker()
@@ -367,7 +371,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         minChartTime = data.sun.first().time.toZonedDateTime()
-        maxChartTime = data.sun.last().time.toZonedDateTime()
+        maxChartTime = minChartTime.atEndOfDay()
 
         onMain {
             chart.plot(data.sun, data.moon)

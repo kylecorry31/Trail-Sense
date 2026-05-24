@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
+import com.google.android.material.slider.LabelFormatter
+import com.google.android.material.slider.Slider
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime
 import java.time.ZonedDateTime
@@ -35,7 +36,7 @@ class DateTimeSliderSheet(context: Context, attrs: AttributeSet?) : FrameLayout(
 
     private val datePicker: DatePickerView
     private val timeText: TextView
-    private val timeSlider: SeekBar
+    private val timeSlider: Slider
 
     private var currentTime: ZonedDateTime = ZonedDateTime.now()
 
@@ -44,6 +45,9 @@ class DateTimeSliderSheet(context: Context, attrs: AttributeSet?) : FrameLayout(
         datePicker = findViewById(R.id.date_picker)
         timeText = findViewById(R.id.time_text)
         timeSlider = findViewById(R.id.time_slider)
+        timeSlider.valueFrom = 0f
+        timeSlider.valueTo = Duration.ofDays(1).toMinutes().toFloat()
+        timeSlider.labelBehavior = LabelFormatter.LABEL_GONE
 
         datePicker.setOnDateChangeListener {
             currentTime = currentTime.with(it)
@@ -51,9 +55,10 @@ class DateTimeSliderSheet(context: Context, attrs: AttributeSet?) : FrameLayout(
             notifyChanged()
         }
 
-        timeSlider.setOnProgressChangeListener { progress, fromUser ->
+        timeSlider.addOnChangeListener { _, value, fromUser ->
             if (fromUser) {
-                val seconds = (progress * 60L).coerceAtMost(LocalTime.MAX.toSecondOfDay().toLong())
+                val minutes = value.toInt()
+                val seconds = (minutes * 60L).coerceAtMost(LocalTime.MAX.toSecondOfDay().toLong())
                 val time = LocalTime.ofSecondOfDay(seconds)
                 currentTime = currentTime.with(time)
                 updateTimeText()
@@ -81,7 +86,7 @@ class DateTimeSliderSheet(context: Context, attrs: AttributeSet?) : FrameLayout(
     private fun updateUI() {
         datePicker.date = currentTime.toLocalDate()
         updateTimeText()
-        timeSlider.progress = currentTime.hour * 60 + currentTime.minute
+        timeSlider.value = (currentTime.hour * 60 + currentTime.minute).toFloat()
     }
 
     private fun updateTimeText() {

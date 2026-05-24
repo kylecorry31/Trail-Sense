@@ -37,12 +37,10 @@
         app:srcCompat="@drawable/ic_torch_off"
         app:tint="@color/white" />
 
-    <SeekBar
+    <com.google.android.material.slider.Slider
         android:id="@+id/camera_zoom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:max="100"
-        android:progress="0"
         app:layout_constraintBottom_toBottomOf="@id/camera_preview"
         app:layout_constraintEnd_toEndOf="@id/camera_preview"
         app:layout_constraintStart_toStartOf="@id/camera_preview" />

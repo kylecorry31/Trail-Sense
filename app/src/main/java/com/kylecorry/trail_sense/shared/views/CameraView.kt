@@ -11,7 +11,6 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.camera.view.PreviewView
 import androidx.core.content.withStyledAttributes
@@ -19,15 +18,17 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.google.android.material.slider.BasicLabelFormatter
+import com.google.android.material.slider.Slider
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
-import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.applyThinStyling
 import java.io.File
 import java.time.Duration
 import kotlin.math.roundToInt
@@ -50,7 +51,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private val preview: PreviewView
     private val torchBtn: ImageButton
     private val changeCameraBtn: ImageButton
-    private val zoomSeek: SeekBar
+    private val zoomSeek: Slider
     private var zoomListener: ((Float) -> Unit)? = null
     private var imageListener: ((Bitmap) -> Unit)? = null
     private var captureListener: ((Bitmap) -> Unit)? = null
@@ -168,7 +169,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     }
 
     fun setZoom(zoom: Float) {
-        zoomSeek.progress = (zoom * 100).toInt()
+        zoomSeek.value = zoom * 100f
         this.zoom = zoom
         val state = camera?.zoom
         val min = minZoomRatio ?: state?.ratioRange?.start ?: 1f
@@ -269,6 +270,10 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         preview = findViewById(R.id.camera_preview)
         torchBtn = findViewById(R.id.camera_torch)
         zoomSeek = findViewById(R.id.camera_zoom)
+        zoomSeek.valueFrom = 0f
+        zoomSeek.valueTo = 100f
+        zoomSeek.setLabelFormatter(BasicLabelFormatter())
+        zoomSeek.applyThinStyling()
         changeCameraBtn = findViewById(R.id.camera_change)
 
         context.withStyledAttributes(attrs, R.styleable.CameraView) {
@@ -284,9 +289,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             setTorch(!isTorchOn)
         }
 
-        zoomSeek.setOnProgressChangeListener { progress, _ ->
-            zoomListener?.invoke(progress / 100f)
-            setZoom(progress / 100f)
+        zoomSeek.addOnChangeListener { _, value, _ ->
+            zoomListener?.invoke(value / 100f)
+            setZoom(value / 100f)
         }
     }
 

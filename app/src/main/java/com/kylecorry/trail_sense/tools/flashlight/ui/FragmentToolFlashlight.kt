@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.slider.BasicLabelFormatter
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
@@ -56,13 +56,19 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
         maxBrightness = flashlight.brightnessLevels
         hasBrightnessControl = maxBrightness > 0
-        binding.brightnessSeek.max = maxBrightness
+        binding.brightnessSeek.valueFrom = 0f
+        binding.brightnessSeek.valueTo = maxBrightness.toFloat()
+        binding.brightnessSeek.stepSize = 1f
+        val basicFormatter = BasicLabelFormatter()
+        binding.brightnessSeek.setLabelFormatter {
+            basicFormatter.getFormattedValue(100 * it / maxBrightness.coerceAtLeast(1))
+        }
         binding.flashlightDial.selectedColor = Resources.getPrimaryColor(requireContext())
         updateBrightness()
         binding.brightnessSeek.isVisible = hasBrightnessControl
-        binding.brightnessSeek.setOnProgressChangeListener { progress, fromUser ->
+        binding.brightnessSeek.addOnChangeListener { _, value, fromUser ->
             if (fromUser) {
-                flashlight.setBrightness(progress / maxBrightness.toFloat())
+                flashlight.setBrightness(value / maxBrightness.toFloat())
                 turnOn()
             }
         }
@@ -189,7 +195,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     private fun updateBrightness(value: Float? = null) {
         if (hasBrightnessControl) {
             brightness = value ?: prefs.flashlight.brightness
-            binding.brightnessSeek.progress = (brightness * maxBrightness).safeRoundToInt()
+            binding.brightnessSeek.value = (brightness * maxBrightness).safeRoundToInt().toFloat()
         } else {
             brightness = 1f
         }
