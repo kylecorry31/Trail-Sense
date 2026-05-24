@@ -64,7 +64,7 @@ class FragmentToolScreenFlashlight : TrailSenseComposeFragment() {
         val actualBrightness = brightness ?: 100
         val actualIsRed = isRed == true
 
-        useEffect(actualBrightness, resetOnResume) {
+        useEffect(actualBrightness, resumedCount) {
             flashlight.on(map(actualBrightness / 100f, 0f, 1f, 0.1f, 1f))
         }
 
