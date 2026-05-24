@@ -61,8 +61,9 @@ class MapToolLayerManager {
             // Hardcoded configuration
             distanceLayer.onPathChanged = { onDistancePathChange(it) }
             distanceLayer.isEnabled = false
-            (view.getLayerById(CompassOverlayLayer.LAYER_ID) as? CompassOverlayLayer)?.paddingTopDp =
-                48f
+            val compassLayer = view.getLayerById(CompassOverlayLayer.LAYER_ID) as? CompassOverlayLayer
+            compassLayer?.paddingTopDp = 48f
+            compassLayer?.paddingRightDp = 4f
 
             view.layerManager.setOnGeoJsonFeatureClickListener { feature ->
                 GeoJsonFeatureClickHandler.handleFeatureClick(fragment, feature)
