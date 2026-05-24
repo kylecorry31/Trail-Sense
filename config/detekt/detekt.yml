@@ -6,6 +6,8 @@ style:
     active: false
   MaxLineLength:
     active: false
+  ReturnCount:
+    excludeGuardClauses: true
 
 complexity:
   LongMethod:
@@ -14,6 +16,9 @@ complexity:
     ignoreFunction:
       - 'update'
       - 'getTool'
+  TooManyFunctions:
+    ignorePrivate: true
+    ignoreOverridden: true
 
 naming:
   FunctionNaming:

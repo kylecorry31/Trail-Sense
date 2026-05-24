@@ -339,60 +339,27 @@
     <ID>RethrowCaughtException:MapExportService.kt:MapExportService$throw e</ID>
     <ID>ReturnCount:ARPathLayer.kt:ARPathLayer$private fun getNearestPoint: NearestPoint?</ID>
     <ID>ReturnCount:ActiveMapSelector.kt:ActiveMapSelector$fun getActiveMap: PhotoMap?</ID>
-    <ID>ReturnCount:AstronomyService.kt:AstronomyService$private fun getEclipse: Eclipse?</ID>
-    <ID>ReturnCount:AugmentedRealityFragment.kt:AugmentedRealityFragment$private fun syncBeaconGuidance</ID>
     <ID>ReturnCount:AutomaticBackupDiagnosticScanner.kt:AutomaticBackupDiagnosticScanner$override fun quickScan: List&lt;ToolDiagnosticResult&gt;</ID>
-    <ID>ReturnCount:BacktrackCommand.kt:BacktrackCommand$private suspend fun showNotification</ID>
     <ID>ReturnCount:BackupDailyWorker.kt:BackupDailyWorker$override suspend fun execute</ID>
-    <ID>ReturnCount:BatteryLevelReceiver.kt:BatteryLevelReceiver$override fun onReceive</ID>
-    <ID>ReturnCount:CalibratedCameraAnglePixelMapper.kt:CalibratedCameraAnglePixelMapper$override fun getPixel: PixelCoordinate</ID>
-    <ID>ReturnCount:CameraView.kt:CameraView$fun start</ID>
     <ID>ReturnCount:ClimateFragment.kt:ClimateFragment$private fun formatActivity: String</ID>
     <ID>ReturnCount:CompassProvider.kt:CompassProvider$private fun getBaseOrientationSensor: IOrientationSensor</ID>
     <ID>ReturnCount:CreateTideFragment.kt:CreateTideFragment$private fun getTide: TideTable?</ID>
     <ID>ReturnCount:CricketsAudioStream.kt:CricketsAudioStream$private suspend fun getChirp: Double</ID>
-    <ID>ReturnCount:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$private fun getFromCache: Float?</ID>
     <ID>ReturnCount:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$private suspend fun loadNeighborRegion: Pair&lt;FloatBitmap, Rect&gt;?</ID>
     <ID>ReturnCount:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$suspend fun getPixel: Float?</ID>
-    <ID>ReturnCount:CustomGPS.kt:CustomGPS$private fun getGeoidOffset: Float</ID>
-    <ID>ReturnCount:CustomGPS.kt:CustomGPS$private fun onLocationUpdate: Boolean</ID>
     <ID>ReturnCount:CustomGPS.kt:CustomGPS$private fun shouldUpdateReading: Boolean</ID>
-    <ID>ReturnCount:DailyWeatherAlertCommand.kt:DailyWeatherAlertCommand$override fun execute</ID>
-    <ID>ReturnCount:DiscreteColorScale.kt:DiscreteColorScale$override fun getColor: Int</ID>
     <ID>ReturnCount:DistanceHookTrigger.kt:DistanceHookTrigger$fun getValue: Boolean</ID>
     <ID>ReturnCount:EnglishContractionSplitter.kt:EnglishContractionSplitter$fun split: List&lt;String&gt;</ID>
-    <ID>ReturnCount:EnhancedImageView.kt:EnhancedImageView$override fun tileVisible: Boolean</ID>
-    <ID>ReturnCount:FieldGuideSightingGeoJsonSource.kt:FieldGuideSightingGeoJsonSource$private fun getBitmapForPage: Bitmap?</ID>
     <ID>ReturnCount:FileSubsystem.kt:FileSubsystem$fun bitmap: Bitmap?</ID>
-    <ID>ReturnCount:FilteredBarometer.kt:FilteredBarometer$private fun onUpdate: Boolean</ID>
-    <ID>ReturnCount:FlashlightToolWidgetView.kt:FlashlightToolWidgetView$private fun isForegroundServiceWorkaroundNeeded: Boolean</ID>
     <ID>ReturnCount:FormatService.kt:FormatService$fun formatWeatherArrival: String</ID>
-    <ID>ReturnCount:FragmentToolTriangulate.kt:FragmentToolTriangulate$private fun getDistanceToDestination: Distance?</ID>
     <ID>ReturnCount:FrequencyHookTrigger.kt:FrequencyHookTrigger$fun getValue: Boolean</ID>
-    <ID>ReturnCount:GeographicImageSource.kt:GeographicImageSource$private fun getRect: Rect?</ID>
     <ID>ReturnCount:GeographicImageUtils.kt:GeographicImageUtils$suspend fun getNearestPixelOfAsset: PixelCoordinate?</ID>
-    <ID>ReturnCount:GpsStatusBadgeProvider.kt:GpsStatusBadgeProvider$@ColorInt private fun getColor: Int</ID>
-    <ID>ReturnCount:GpsStatusBadgeProvider.kt:GpsStatusBadgeProvider$private fun getName: String</ID>
-    <ID>ReturnCount:HillshadeMapTileSource.kt:HillshadeMapTileSource$private fun getShadowConfig: Pair&lt;Float, Float&gt;</ID>
-    <ID>ReturnCount:HistoricTemperatureRangeWeatherField.kt:HistoricTemperatureRangeWeatherField$override fun getListItem: ListItem?</ID>
-    <ID>ReturnCount:HumidityWeatherField.kt:HumidityWeatherField$override fun getListItem: ListItem?</ID>
-    <ID>ReturnCount:IsBeaconFormDataComplete.kt:IsBeaconFormDataComplete$private fun hasValidDistanceTo: Boolean</ID>
-    <ID>ReturnCount:LevenshteinDistance.kt:LevenshteinDistance$fun editDistance: Int</ID>
-    <ID>ReturnCount:LineClipper.kt:LineClipper$private fun addLine</ID>
-    <ID>ReturnCount:LunarEclipseTileSource.kt:LunarEclipseTileSource$private fun getEclipseObscuration: Float?</ID>
     <ID>ReturnCount:MainActivity.kt:MainActivity$override fun onKeyDown: Boolean</ID>
     <ID>ReturnCount:MainActivity.kt:MainActivity$override fun onKeyUp: Boolean</ID>
     <ID>ReturnCount:MainActivity.kt:MainActivity$private fun getVolumeAction: VolumeAction?</ID>
-    <ID>ReturnCount:MainActivity.kt:MainActivity$private fun handleIntentAction</ID>
-    <ID>ReturnCount:MapDistanceLayer.kt:MapDistanceLayer$override fun onClick: Boolean</ID>
     <ID>ReturnCount:MapExportService.kt:MapExportService$@Suppress("FoldInitializerAndIfToElvis") private fun getPDFData: List&lt;PDFValue.PDFObject&gt;</ID>
-    <ID>ReturnCount:MapExportService.kt:MapExportService$override suspend fun export: Boolean</ID>
     <ID>ReturnCount:MapRotationCalculator.kt:MapRotationCalculator$fun calculate: Float</ID>
-    <ID>ReturnCount:MapsforgeTileRenderer.kt:MapsforgeTileRenderer$fun render: Bitmap?</ID>
-    <ID>ReturnCount:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$fun getPressureForecast: List&lt;Reading&lt;Pressure&gt;&gt;</ID>
     <ID>ReturnCount:NoaaHcAndMetadataTideTableConverter.kt:NoaaHcAndMetadataTideTableConverter$override fun parse: TideTable?</ID>
-    <ID>ReturnCount:PathService.kt:PathService$override suspend fun mergePaths: Long</ID>
-    <ID>ReturnCount:PhotoMap.kt:PhotoMap$fun boundary: CoordinateBounds?</ID>
     <ID>ReturnCount:PhotoMapDecoderCache.kt:PhotoMapDecoderCache$private suspend fun getImageLoader: RegionDecoder</ID>
     <ID>ReturnCount:PhotoMapDecoderCache.kt:PhotoMapDecoderCache$private suspend fun getPdfLoader: RegionDecoder</ID>
     <ID>ReturnCount:PixelInterpolators.kt:BicubicInterpolator$override suspend fun interpolate: Float?</ID>
@@ -400,43 +367,17 @@
     <ID>ReturnCount:PorterStemmer.kt:PorterStemmer$private fun step1b: String</ID>
     <ID>ReturnCount:PorterStemmer.kt:PorterStemmer$private fun step4: String</ID>
     <ID>ReturnCount:PorterStemmer.kt:PorterStemmer.Companion$private fun isConsonant: Boolean</ID>
-    <ID>ReturnCount:PowerService.kt:PowerService$fun getTimeUntilFull: Duration?</ID>
-    <ID>ReturnCount:PressureSystemWeatherField.kt:PressureSystemWeatherField$override fun getListItem: ListItem?</ID>
-    <ID>ReturnCount:SensorDetailsFragment.kt:SensorDetailsFragment$@ColorInt private fun getAltimeterColor: Int</ID>
-    <ID>ReturnCount:SensorDetailsFragment.kt:SensorDetailsFragment$@ColorInt private fun getGPSColor: Int</ID>
-    <ID>ReturnCount:SensorDetailsFragment.kt:SensorDetailsFragment$private fun getAltimeterStatus: String</ID>
-    <ID>ReturnCount:SensorDetailsFragment.kt:SensorDetailsFragment$private fun getGPSStatus: String</ID>
-    <ID>ReturnCount:SensorService.kt:SensorService$@Suppress("DEPRECATION") private fun getThermometerSensor: IThermometer</ID>
     <ID>ReturnCount:SensorService.kt:SensorService$fun getAltimeter: IAltimeter</ID>
     <ID>ReturnCount:SensorService.kt:SensorService$fun getGPS: ISatelliteGPS</ID>
-    <ID>ReturnCount:SensorService.kt:SensorService$fun getGyroscope: IOrientationSensor</ID>
     <ID>ReturnCount:SensorService.kt:SensorService$private fun getGPSAltimeter: IAltimeter</ID>
     <ID>ReturnCount:SimpleHikingDifficultyCalculator.kt:SimpleHikingDifficultyCalculator$override fun calculate: HikingDifficulty</ID>
-    <ID>ReturnCount:SolExtensions.kt:fun &lt;T : Comparable&lt;T&gt;&gt; List&lt;T&gt;.range: Range&lt;T&gt;?</ID>
-    <ID>ReturnCount:SpeedEstimator.kt:SpeedEstimator$fun calculate: Speed</ID>
-    <ID>ReturnCount:StepCounterService.kt:StepCounterService.Companion$fun start</ID>
-    <ID>ReturnCount:SystemSettings.kt:SystemSettings$fun isBluetoothEnabled: Boolean</ID>
     <ID>ReturnCount:SystemSettings.kt:SystemSettings$fun isNfcEnabled: Boolean</ID>
-    <ID>ReturnCount:SystemSettings.kt:SystemSettings$fun isWifiEnabled: Boolean</ID>
-    <ID>ReturnCount:TemperatureEstimationFragment.kt:TemperatureEstimationFragment$private fun getEstimation: Temperature?</ID>
-    <ID>ReturnCount:TemperatureEstimationFragment.kt:TemperatureEstimationFragment$private fun getWindSpeed: Speed?</ID>
-    <ID>ReturnCount:TideGeoJsonSource.kt:TideGeoJsonSource$private suspend fun getNearbyTideTables: List&lt;TideTable&gt;</ID>
-    <ID>ReturnCount:TideService.kt:TideService$suspend fun getPhase: Float?</ID>
-    <ID>ReturnCount:TideTableIsDirtySpecification.kt:TideTableIsDirtySpecification$override fun isSatisfiedBy: Boolean</ID>
-    <ID>ReturnCount:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$private fun getLunitidalCalculator: IWaterLevelCalculator?</ID>
     <ID>ReturnCount:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$private suspend fun getGapCalculator2: IWaterLevelCalculator</ID>
-    <ID>ReturnCount:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$suspend fun calculateSuspend: Float</ID>
-    <ID>ReturnCount:TidesSubsystem.kt:TidesSubsystem$private fun isDailyStillValid: Boolean</ID>
     <ID>ReturnCount:TidesSubsystem.kt:TidesSubsystem$private suspend fun getTideTable: TideTable?</ID>
-    <ID>ReturnCount:TidesSubsystem.kt:TidesSubsystem$suspend fun getNearestTide: TideDetails?</ID>
     <ID>ReturnCount:TileMapLayer.kt:TileMapLayer$private fun getTilesToRender: List&lt;ImageTile&gt;</ID>
-    <ID>ReturnCount:TileMath.kt:TileMath$fun getTiles: List&lt;Tile&gt;</ID>
     <ID>ReturnCount:ToolClockFragment.kt:ToolClockFragment$private fun getGPSTime: Instant</ID>
-    <ID>ReturnCount:ToolWidgetViewBinder.kt:ToolWidgetViewBinder$private fun onUpdate: Boolean</ID>
     <ID>ReturnCount:TrailSenseExceptionHandler.kt:TrailSenseExceptionHandler$override fun handleException: Boolean</ID>
     <ID>ReturnCount:WeatherArrivalTimeCalculator.kt:WeatherArrivalTimeCalculator$override fun getArrivalTime: WeatherArrivalTime?</ID>
-    <ID>ReturnCount:WeatherExtensions.kt:fun List&lt;Reading&lt;CloudGenus?&gt;&gt;.getLastCloud: Reading&lt;CloudGenus?&gt;?</ID>
-    <ID>ReturnCount:WeatherMonitorToolService.kt:WeatherMonitorToolService$private fun start</ID>
     <ID>SwallowedException:AndromedaCoroutineWidget.kt:AndromedaCoroutineWidget$e: Exception</ID>
     <ID>SwallowedException:BacktrackService.kt:BacktrackService$e: Exception</ID>
     <ID>SwallowedException:CachedTileCleanupWorker.kt:CachedTileCleanupWorker$e: Exception</ID>
@@ -487,86 +428,35 @@
     <ID>TooGenericExceptionCaught:TrailSenseTextView.kt:TrailSenseTextView$e: Exception</ID>
     <ID>TooGenericExceptionCaught:WeatherMonitorService.kt:WeatherMonitorService$e: Exception</ID>
     <ID>TooGenericExceptionCaught:WhiteNoiseService.kt:WhiteNoiseService.Companion$e: Exception</ID>
-    <ID>TooManyFunctions:ARPathLayer.kt:ARPathLayer : ARLayer</ID>
     <ID>TooManyFunctions:AppDatabase.kt:AppDatabase : RoomDatabase</ID>
-    <ID>TooManyFunctions:AstronomyFragment.kt:AstronomyFragment : BoundFragment</ID>
     <ID>TooManyFunctions:AstronomyService.kt:AstronomyService</ID>
-    <ID>TooManyFunctions:AugmentedRealityFragment.kt:AugmentedRealityFragment : BoundFragment</ID>
     <ID>TooManyFunctions:AugmentedRealityView.kt:AugmentedRealityView : CanvasView</ID>
     <ID>TooManyFunctions:BaseAstroListItemProducer.kt:BaseAstroListItemProducer : AstronomyListItemProducer</ID>
     <ID>TooManyFunctions:BaseHooks.kt:com.kylecorry.trail_sense.shared.extensions.compose.BaseHooks.kt</ID>
     <ID>TooManyFunctions:BeaconDao.kt:BeaconDao</ID>
-    <ID>TooManyFunctions:BeaconListFragment.kt:BeaconListFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:BeaconRepo.kt:BeaconRepo : IBeaconRepo</ID>
-    <ID>TooManyFunctions:BeaconService.kt:BeaconService : IBeaconService</ID>
     <ID>TooManyFunctions:CachedTileDao.kt:CachedTileDao</ID>
-    <ID>TooManyFunctions:CalibrateAltimeterFragment.kt:CalibrateAltimeterFragment : AndromedaPreferenceFragment</ID>
-    <ID>TooManyFunctions:CalibrateCompassFragment.kt:CalibrateCompassFragment : AndromedaPreferenceFragment</ID>
-    <ID>TooManyFunctions:CalibrateGPSFragment.kt:CalibrateGPSFragment : AndromedaPreferenceFragment</ID>
     <ID>TooManyFunctions:CameraView.kt:CameraView : FrameLayout</ID>
-    <ID>TooManyFunctions:ClinometerFragment.kt:ClinometerFragment : BoundFragment</ID>
     <ID>TooManyFunctions:Converters.kt:Converters</ID>
-    <ID>TooManyFunctions:CreateTideFragment.kt:CreateTideFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:CustomGPS.kt:CustomGPS : AbstractSensorISatelliteGPS</ID>
     <ID>TooManyFunctions:CustomUiUtils.kt:CustomUiUtils</ID>
     <ID>TooManyFunctions:EnhancedImageView.kt:EnhancedImageView : SubsamplingScaleImageView</ID>
     <ID>TooManyFunctions:Extensions.kt:com.kylecorry.trail_sense.shared.Extensions.kt</ID>
     <ID>TooManyFunctions:FileSubsystem.kt:FileSubsystem</ID>
-    <ID>TooManyFunctions:FlashlightSubsystem.kt:FlashlightSubsystem : IFlashlightSubsystem</ID>
     <ID>TooManyFunctions:FormatService.kt:FormatService</ID>
-    <ID>TooManyFunctions:FragmentToolFlashlight.kt:FragmentToolFlashlight : BoundFragment</ID>
-    <ID>TooManyFunctions:FragmentToolMetalDetector.kt:FragmentToolMetalDetector : BoundFragment</ID>
-    <ID>TooManyFunctions:FragmentToolTriangulate.kt:FragmentToolTriangulate : BoundFragment</ID>
-    <ID>TooManyFunctions:FusedGPS.kt:FusedGPS : ISatelliteGPSAbstractSensor</ID>
     <ID>TooManyFunctions:GeoJsonExtensions.kt:com.kylecorry.trail_sense.shared.extensions.GeoJsonExtensions.kt</ID>
-    <ID>TooManyFunctions:GeoJsonLayer.kt:GeoJsonLayer&lt;T : GeoJsonSource&gt; : IAsyncLayer</ID>
-    <ID>TooManyFunctions:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer : FeatureRenderer</ID>
-    <ID>TooManyFunctions:GeographicImageSource.kt:GeographicImageSource</ID>
     <ID>TooManyFunctions:Hooks.kt:com.kylecorry.trail_sense.shared.extensions.Hooks.kt</ID>
     <ID>TooManyFunctions:IBeaconRepo.kt:IBeaconRepo</ID>
     <ID>TooManyFunctions:IPackRepo.kt:IPackRepo</ID>
     <ID>TooManyFunctions:IPathService.kt:IPathService : ICleanable</ID>
     <ID>TooManyFunctions:IWaypointRepo.kt:IWaypointRepo</ID>
-    <ID>TooManyFunctions:MainActivity.kt:MainActivity : AndromedaActivity</ID>
     <ID>TooManyFunctions:MapRepo.kt:MapRepo</ID>
-    <ID>TooManyFunctions:MapToolLayerManager.kt:MapToolLayerManager</ID>
-    <ID>TooManyFunctions:MapView.kt:MapView : CanvasViewIMapView</ID>
     <ID>TooManyFunctions:MapViewLayerManager.kt:MapViewLayerManager</ID>
-    <ID>TooManyFunctions:NavigationSheetView.kt:NavigationSheetView : FrameLayout</ID>
     <ID>TooManyFunctions:Navigator.kt:Navigator</ID>
-    <ID>TooManyFunctions:NavigatorFragment.kt:NavigatorFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:OfflineMapListFragment.kt:OfflineMapListFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:PackItemListFragment.kt:PackItemListFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:PackListFragment.kt:PackListFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:PackRepo.kt:PackRepo : IPackRepo</ID>
-    <ID>TooManyFunctions:PathOverviewFragment.kt:PathOverviewFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:PathService.kt:PathService : IPathService</ID>
-    <ID>TooManyFunctions:PathsFragment.kt:PathsFragment : BoundFragment</ID>
     <ID>TooManyFunctions:PermissionUtils.kt:com.kylecorry.trail_sense.shared.permissions.PermissionUtils.kt</ID>
-    <ID>TooManyFunctions:PerspectiveCorrectionView.kt:PerspectiveCorrectionView : CanvasView</ID>
-    <ID>TooManyFunctions:PhotoMapCalibrationFragment.kt:PhotoMapCalibrationFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:PhotoMapToolLayerManager.kt:PhotoMapToolLayerManager</ID>
-    <ID>TooManyFunctions:PhotoMapsFragment.kt:PhotoMapsFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:PlaceBeaconFragment.kt:PlaceBeaconFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:ScanQRFragment.kt:ScanQRFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:SensorDetailsFragment.kt:SensorDetailsFragment : BoundFragment</ID>
     <ID>TooManyFunctions:SensorService.kt:SensorService</ID>
-    <ID>TooManyFunctions:TemperatureEstimationFragment.kt:TemperatureEstimationFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:TextUtils.kt:TextUtils</ID>
-    <ID>TooManyFunctions:ThermometerSettingsFragment.kt:ThermometerSettingsFragment : AndromedaPreferenceFragment</ID>
-    <ID>TooManyFunctions:TideService.kt:TideService</ID>
     <ID>TooManyFunctions:TideTableDao.kt:TideTableDao</ID>
-    <ID>TooManyFunctions:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator : IWaterLevelCalculator</ID>
-    <ID>TooManyFunctions:TileMapLayer.kt:TileMapLayer&lt;T : TileSource&gt; : IAsyncLayer</ID>
     <ID>TooManyFunctions:ToolDiagnosticFactory.kt:ToolDiagnosticFactory</ID>
     <ID>TooManyFunctions:Tools.kt:Tools</ID>
-    <ID>TooManyFunctions:ToolsFragment.kt:ToolsFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:ViewPhotoMapFragment.kt:ViewPhotoMapFragment : BoundFragment</ID>
     <ID>TooManyFunctions:WaypointDao.kt:WaypointDao</ID>
-    <ID>TooManyFunctions:WaypointRepo.kt:WaypointRepo : IWaypointRepo</ID>
-    <ID>TooManyFunctions:WeatherFragment.kt:WeatherFragment : BoundFragment</ID>
-    <ID>TooManyFunctions:WeatherMonitorToolService.kt:WeatherMonitorToolService : ToolService</ID>
-    <ID>TooManyFunctions:WeatherSubsystem.kt:WeatherSubsystem : IWeatherSubsystem</ID>
     <ID>UnusedParameter:AstronomySettingsFragment.kt:AstronomySettingsFragment$data: Bundle</ID>
     <ID>UnusedParameter:FieldGuidePageFragment.kt:FieldGuidePageFragment$tag: FieldGuidePageTag</ID>
     <ID>UnusedParameter:FileSubsystem.kt:FileSubsystem$maxSize: Size? = null</ID>

@@ -8,6 +8,8 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
@@ -47,6 +49,7 @@ internal class TileQueueTest {
         tileQueue.enqueue(imageTile2)
 
         assertEquals(2, tileQueue.count())
+        assertFalse(tileQueue.isEmpty())
     }
 
     @Test
@@ -70,6 +73,7 @@ internal class TileQueueTest {
         tileQueue.clear()
 
         assertEquals(0, tileQueue.count())
+        assertTrue(tileQueue.isEmpty())
     }
 
     @Test
@@ -90,6 +94,7 @@ internal class TileQueueTest {
         tileQueue.load(10, 5)
 
         assertEquals(1, tileQueue.count())
+        assertFalse(tileQueue.isEmpty())
         assertEquals(false, called)
     }
 
@@ -133,6 +138,7 @@ internal class TileQueueTest {
         imageTile.withImage { image = it }
 
         assertEquals(0, tileQueue.count())
+        assertTrue(tileQueue.isEmpty())
         assertEquals(true, called)
         assertEquals(imageTile, expectedResponse)
         assertEquals(mockBitmap, image)

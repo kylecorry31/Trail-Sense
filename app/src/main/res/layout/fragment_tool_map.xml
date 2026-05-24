@@ -50,9 +50,11 @@
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/zoom_in_btn"
         app:layout_constraintStart_toStartOf="@+id/zoom_in_btn"
-        app:srcCompat="@drawable/ic_tool_clock" />
+        app:srcCompat="@drawable/ic_tool_clock"
+        tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/zoom_in_btn"

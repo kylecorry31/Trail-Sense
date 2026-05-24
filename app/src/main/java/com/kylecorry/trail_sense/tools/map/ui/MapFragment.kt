@@ -52,9 +52,9 @@ import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
+import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
 import java.time.Instant
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
@@ -150,10 +150,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
         useEffectWithCleanup(manager, mapView, resetOnResume) {
             manager.resume(context, mapView, this@MapFragment)
-            setHasTimeDependentLayers(mapView.layerManager.getLayers().any { it.isTimeDependent })
             return@useEffectWithCleanup {
                 manager.pause(mapView)
             }
+        }
+
+        useEffect(manager.key, mapView) {
+            setHasTimeDependentLayers(mapView.layerManager.getLayers().any { it.isTimeDependent })
         }
 
         useEffect(mapView) {
@@ -253,9 +256,16 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             manager.onBoundsChanged()
         }
 
-        val traceViews = useMemo(zoomInButton, zoomOutButton, timeButton, menuButton, sensorStatusBadges) {
-            listOf(zoomInButton, zoomOutButton, timeButton, menuButton, sensorStatusBadges)
-        }
+        val traceViews =
+            useMemo(zoomInButton, zoomOutButton, timeButton, menuButton, sensorStatusBadges, hasTimeDependentLayers) {
+                listOfNotNull(
+                    zoomInButton,
+                    zoomOutButton,
+                    if (hasTimeDependentLayers) timeButton else null,
+                    menuButton,
+                    sensorStatusBadges
+                )
+            }
 
         useEffect(lockMode, mapView, lockButton, traceViews, screenLight, context, resetOnResume) {
             switchMapLockMode(lockMode, mapView, lockButton, traceViews, screenLight, context)

@@ -1558,4 +1558,9 @@
     <string name="map_calibration_error_same_image_axis">Pilih dua titik peta yang tidak berada tepat di samping atau di atas satu sama lain.</string>
     <string name="map_calibration_error_same_location">Masukkan dua lokasi dunia nyata yang berbeda.</string>
     <string name="map_calibration_error_implausible_scale">Skala kalibrasi tampak tidak masuk akal. Periksa kedua titik peta dan koordinatnya.</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="other">%d peta</item>
+    </plurals>
+    <string name="delete_offline_map_group_message">%s dan seluruh peta terkait akan dihapus.</string>
+    <string name="clock_source_device">Waktu perangkat</string>
 </resources>

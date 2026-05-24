@@ -12,6 +12,8 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.mapsforge.core.model.Tile
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
 import org.mapsforge.map.datastore.MapDataStore
@@ -26,8 +28,9 @@ import org.mapsforge.map.rendertheme.XmlRenderTheme
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 
 class MapsforgeTileRenderer {
+    @Volatile
     private var rendererHolder: MapsforgeRendererHolder? = null
-    private val rendererLock = Any()
+    private val rendererMutex = Mutex()
     private val displayModel = DisplayModel().apply {
         setFixedTileSize(TileMath.WORLD_TILE_SIZE)
     }
@@ -36,15 +39,15 @@ class MapsforgeTileRenderer {
     private val prefs = getAppService<UserPreferences>()
     private val formatter = getAppService<FormatService>()
 
-    fun render(
+    suspend fun render(
         context: Context,
         maps: List<VectorMap>,
         tile: com.kylecorry.trail_sense.shared.map_layers.tiles.Tile,
         highDetailMode: Boolean
     ): Bitmap? {
-        val holder = getRenderer(context, maps, highDetailMode) ?: return null
+        val holder = getRenderer(context, maps, highDetailMode)
         val tile = Tile(tile.x, tile.y, tile.z.toByte(), tile.size.width)
-        if (!holder.dataStore.supportsTile(tile)) {
+        if (holder == null || !holder.dataStore.supportsTile(tile)) {
             return null
         }
 
@@ -58,28 +61,36 @@ class MapsforgeTileRenderer {
             false
         )
 
-        val tileBitmap = holder.renderer.executeJob(job) ?: return null
+        val tileBitmap = holder.renderer.executeJob(job)
         return try {
-            Bitmap.createBitmap(AndroidGraphicFactory.getBitmap(tileBitmap))
+            tileBitmap?.let { Bitmap.createBitmap(AndroidGraphicFactory.getBitmap(it)) }
         } finally {
-            tileBitmap.decrementRefCount()
+            tileBitmap?.decrementRefCount()
         }
     }
 
-    fun clear() = synchronized(rendererLock) {
+    suspend fun clear() = rendererMutex.withLock {
         rendererHolder?.destroy()
         rendererHolder = null
     }
 
-    private fun getRenderer(
+    private suspend fun getRenderer(
         context: Context,
         maps: List<VectorMap>,
         highDetailMode: Boolean
-    ): MapsforgeRendererHolder? = synchronized(rendererLock) {
-        if (rendererHolder != null) {
-            return rendererHolder
+    ): MapsforgeRendererHolder? {
+        return rendererMutex.withLock {
+            rendererHolder ?: createRenderer(context, maps, highDetailMode)?.also {
+                rendererHolder = it
+            }
         }
+    }
 
+    private fun createRenderer(
+        context: Context,
+        maps: List<VectorMap>,
+        highDetailMode: Boolean
+    ): MapsforgeRendererHolder? {
         val files = maps
             .filter { it.type == VectorMapFileType.Mapsforge }
             .map { files.get(it.path) }
@@ -130,9 +141,7 @@ class MapsforgeTileRenderer {
             newMapDataStore,
             newTileCache,
             newRenderThemeFuture
-        ).also {
-            rendererHolder = it
-        }
+        )
     }
 
     private fun scaleRenderThemeToTileSize(highResolutionMode: Boolean) {

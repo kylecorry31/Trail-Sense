@@ -1280,4 +1280,5 @@
     <string name="load_pdf_tiles">Last PDF-fliser</string>
     <string name="load_pdf_tiles_summary">PDF-kart vil bli skarpere, men ytelsen kan bli påvirket</string>
     <string name="map_tool_disclaimer">Dette verktøyet inkluderer ikke innebygde gatekart, satellittbilder eller stidata. Det laster ikke ned kart fra internett. For å vise en kartbakgrunn, må du importere ditt eget bilde ved hjelp av verktøyet Offline-kart. Hvis du trenger direkte eller forhåndsinnlastede gate-, satellitt- eller stikart, bør du i stedet bruke et eget kartprogram.</string>
+    <string name="include_mapsforge_backups_summary">Mapsforge-filer (.map) kan være store</string>
 </resources>

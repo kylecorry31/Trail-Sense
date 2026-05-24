@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.
 
 import androidx.collection.LruCache
 import com.kylecorry.trail_sense.shared.andromeda_temp.getOrPut
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrPutUnlockedProducer
 import com.kylecorry.trail_sense.shared.concurrency.StripedLock
 import org.mapsforge.core.model.BoundingBox
 import org.mapsforge.core.model.LatLong
@@ -47,15 +48,15 @@ class CachedMapsforgeMapDataStoreWrapper(
     }
 
     override fun readMapData(tile: Tile): MapReadResult {
-        return mapDataCache.getOrPut(tile, lock = mapDataLock) { delegate.readMapData(tile) }
+        return mapDataCache.getOrPutUnlockedProducer(tile, mapDataLock) { delegate.readMapData(tile) }
     }
 
     override fun readNamedItems(tile: Tile): MapReadResult {
-        return namedItemsCache.getOrPut(tile, lock = namedItemsLock) { delegate.readNamedItems(tile) }
+        return namedItemsCache.getOrPutUnlockedProducer(tile, namedItemsLock) { delegate.readNamedItems(tile) }
     }
 
     override fun readPoiData(tile: Tile): MapReadResult {
-        return poiDataCache.getOrPut(tile, lock = poiDataLock) { delegate.readPoiData(tile) }
+        return poiDataCache.getOrPutUnlockedProducer(tile, poiDataLock) { delegate.readPoiData(tile) }
     }
 
     override fun startPosition(): LatLong? = startPositionCache
@@ -63,21 +64,23 @@ class CachedMapsforgeMapDataStoreWrapper(
     override fun startZoomLevel(): Byte? = startZoomLevelCache
 
     override fun supportsTile(tile: Tile): Boolean {
-        return supportsTileCache.getOrPut(tile, lock = supportsTileLock) { delegate.supportsTile(tile) }
+        return supportsTileCache.getOrPutUnlockedProducer(tile, supportsTileLock) { delegate.supportsTile(tile) }
     }
 
     override fun supportsFullTile(tile: Tile): Boolean {
-        return supportsFullTileCache.getOrPut(tile, lock = supportsFullTileLock) { delegate.supportsFullTile(tile) }
+        return supportsFullTileCache.getOrPutUnlockedProducer(tile, supportsFullTileLock) {
+            delegate.supportsFullTile(tile)
+        }
     }
 
     override fun supportsArea(boundingBox: BoundingBox, zoomLevel: Byte): Boolean {
-        return supportsAreaCache.getOrPut(Triple(boundingBox, zoomLevel, false), lock = supportsAreaLock) {
+        return supportsAreaCache.getOrPutUnlockedProducer(Triple(boundingBox, zoomLevel, false), supportsAreaLock) {
             delegate.supportsArea(boundingBox, zoomLevel)
         }
     }
 
     override fun supportsFullArea(boundingBox: BoundingBox, zoomLevel: Byte): Boolean {
-        return supportsAreaCache.getOrPut(Triple(boundingBox, zoomLevel, true), lock = supportsAreaLock) {
+        return supportsAreaCache.getOrPutUnlockedProducer(Triple(boundingBox, zoomLevel, true), supportsAreaLock) {
             delegate.supportsFullArea(boundingBox, zoomLevel)
         }
     }
