@@ -14,13 +14,17 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge.MapsforgeTileRenderer
 import kotlinx.coroutines.ExecutorCoroutineDispatcher
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.withContext
 
 class TrailMapsTileSource : TileSource {
 
     private val renderer = MapsforgeTileRenderer()
     private val service = getAppService<MapService>()
-    private val dispatcher = MemoryCachedValue<ExecutorCoroutineDispatcher>(cleanup = { it.close() })
+    private val dispatcher = MemoryCachedValue<ExecutorCoroutineDispatcher>(cleanup = {
+        it.cancel()
+        it.close()
+    })
 
     override suspend fun loadTile(
         context: Context,
