@@ -14,8 +14,8 @@
 ## Augmented Reality
 - I want to navigate using the position of the sun, moon, or stars so I can save battery on my phone.
 - I want to identify nearby landmarks using my phone's camera.
-- I want to see which path is correct using my pnone's camera.
-- I want to know where the sun will be throughout the day  so that it provides the most warmth to my campsite.
+- I want to see which path is correct using my phone's camera.
+- I want to know where the sun will be throughout the day so that it provides the most warmth to my campsite.
 
 ## Ballistics
 - I want to zero in my scope
@@ -87,7 +87,7 @@ Species is interchangeable with other natural objects (ex. rocks) in the below u
 - I want to know if my flashlight can be used for hiking at night
 - I want to know if my flashlight can be used for camping
 
-## Lighting Strike Distance
+## Lightning Strike Distance
 - I want to determine if I should take immediate shelter from a thunderstorm I hear
 - I want to know how far a thunderstorm is and if it is getting closer to me
 
@@ -138,7 +138,7 @@ Species is interchangeable with other natural objects (ex. rocks) in the below u
 - I want to follow a path I created
 - I want to follow a path someone else created
 - I want to see how difficult the path will be to follow
-- I want to see long a path will take to follow
+- I want to see how long a path will take to follow
 
 ## Pedometer
 - I want to know how far I traveled on my hike
