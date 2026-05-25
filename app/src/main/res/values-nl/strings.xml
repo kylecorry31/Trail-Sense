@@ -1364,7 +1364,7 @@
     <string name="harvested">Verzameld</string>
     <string name="sightings_count">Waarnemingen (%d)</string>
     <string name="record_sighting">Waarneming opslaan</string>
-    <string name="opacity">Helderheid</string>
+    <string name="opacity">Ondoorzichtigheid</string>
     <string name="safe_mode_toast">Crashes gedetecteerd, sommige functies zijn enkele seconden uitgeschakeld.</string>
     <string name="pref_navigation_lock_screen_when_open_title">Op vergrendelscherm weergeven tijdens gebruik</string>
     <string name="declination">Declinatie</string>
@@ -1597,4 +1597,5 @@
     <string name="map_layer_trail_maps_description">Je opgeslagen wandelkaarten</string>
     <string name="map_type_trail">Wandelpad</string>
     <string name="pref_show_all_bottom_navigation_labels">Onderste navigatielabels weergeven</string>
+    <string name="brightness">Helderheid</string>
 </resources>
