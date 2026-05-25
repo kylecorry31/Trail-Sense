@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.slider.Slider
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -82,12 +81,6 @@ object CustomUiUtils {
             Resources.getPrimaryColor(button.context),
             Resources.getColorOnPrimary(button.context)
         )
-    }
-
-    fun Slider.applyThinStyling(){
-        trackHeight = Resources.dp(context, 8f).toInt()
-        thumbHeight = Resources.dp(context, 32f).toInt()
-        trackStopIndicatorSize = Resources.dp(context, 4f).toInt()
     }
 
     @ColorInt

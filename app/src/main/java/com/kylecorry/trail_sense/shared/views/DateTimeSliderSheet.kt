@@ -6,7 +6,6 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.android.material.slider.LabelFormatter
-import com.google.android.material.slider.Slider
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R

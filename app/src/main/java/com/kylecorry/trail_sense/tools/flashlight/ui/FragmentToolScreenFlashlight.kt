@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils.applyThinStyling
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {

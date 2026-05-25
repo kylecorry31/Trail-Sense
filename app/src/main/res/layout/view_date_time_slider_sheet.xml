@@ -22,7 +22,7 @@
         android:textAppearance="?attr/textAppearanceBody1"
         tools:text="12:00 PM" />
 
-    <com.google.android.material.slider.Slider
+    <com.kylecorry.trail_sense.shared.views.Slider
         android:id="@+id/time_slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -19,7 +19,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.google.android.material.slider.BasicLabelFormatter
-import com.google.android.material.slider.Slider
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.camera.Camera
@@ -28,7 +27,6 @@ import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils.applyThinStyling
 import java.io.File
 import java.time.Duration
 import kotlin.math.roundToInt

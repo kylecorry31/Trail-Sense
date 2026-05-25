@@ -76,6 +76,7 @@
     <string name="gps_satellites">GPS satellites</string>
     <!--Flashlight-->
     <string name="flashlight_title">Flashlight</string>
+    <string name="brightness">Brightness</string>
     <string name="tap_to_turn_off">Tap to turn off</string>
     <string name="turn_off">Turn off</string>
     <string name="sos">SOS</string>

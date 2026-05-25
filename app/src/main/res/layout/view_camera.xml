@@ -37,7 +37,7 @@
         app:srcCompat="@drawable/ic_torch_off"
         app:tint="@color/white" />
 
-    <com.google.android.material.slider.Slider
+    <com.kylecorry.trail_sense.shared.views.Slider
         android:id="@+id/camera_zoom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
