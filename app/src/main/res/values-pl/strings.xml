@@ -1545,4 +1545,5 @@
     <string name="trail_maps">Mapy szlaków</string>
     <string name="map_layer_trail_maps_description">Zapisane mapy szlaków</string>
     <string name="map_type_trail">Szlak</string>
+    <string name="pref_show_all_bottom_navigation_labels">Pokaż wszystkie etykiety na pasku nawigacji</string>
 </resources>
