@@ -1535,4 +1535,27 @@
     <string name="climate_ice_cap_description">冰層全年不融化，寸草不生。</string>
     <string name="climate_desert_description">極度缺雨導致地形鬆軟，水源匱乏。</string>
     <string name="battery_tip_data_saver">開啟網路流量節省器以限制應用程式在背景使用行動數據。</string>
+    <string name="tool_ai_assistant_title">AI 助手</string>
+    <string name="ai_model_not_downloaded">AI 模型未下載，請前往設定下載。</string>
+    <string name="ai_initialization_failed">AI 模型初始化失敗。</string>
+    <string name="ai_loading_model">正在載入 AI 模型…</string>
+    <string name="ai_input_hint">輸入你的問題…</string>
+    <string name="ai_disclaimer">AI 建議僅供參考，不能替代專業訓練和判斷。</string>
+    <string name="ai_inference_error">產生回覆時發生錯誤。</string>
+    <string name="ai_settings_title">AI 助手</string>
+    <string name="ai_model_name">Gemma 4 E2B</string>
+    <string name="ai_model_size">2.59 GB</string>
+    <string name="ai_download_model">下載模型</string>
+    <string name="ai_delete_model">刪除模型</string>
+    <string name="ai_model_downloaded">模型已下載</string>
+    <string name="ai_downloading">正在下載…</string>
+    <string name="ai_attach_photo">附加照片</string>
+    <string name="ai_ask_ai">詢問 AI</string>
+    <string name="ai_about">AI 完全在你的裝置上執行，僅下載模型時需要網路連線。</string>
+    <string name="ai_resume_download">繼續下載</string>
+    <string name="ai_chat_history">聊天記錄</string>
+    <string name="ai_new_chat">新對話</string>
+    <string name="ai_no_chat_history">暫無聊天記錄</string>
+    <string name="ai_delete_chat">刪除</string>
+    <string name="ai_clear_history">清除記錄</string>
 </resources>

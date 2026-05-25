@@ -53,4 +53,16 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </com.kylecorry.trail_sense.main.ColorFilterConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/global_ai_fab"
+        style="@style/Widget.Material3.FloatingActionButton.Small.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/ai_ask_ai"
+        android:src="@drawable/ic_ai_assistant" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

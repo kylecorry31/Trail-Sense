@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.main
 
+import android.annotation.SuppressLint
 import android.Manifest
 import android.app.PendingIntent
 import android.content.Context
@@ -222,10 +223,16 @@ class MainActivity : AndromedaActivity() {
             appInitialized = true
             updateBottomNavigation()
 
-            navController?.addOnDestinationChangedListener { _, _, _ ->
+            navController?.addOnDestinationChangedListener { _, destination, _ ->
                 binding.quickActionsSheet.close()
                 updateBottomNavSelection()
+                binding.globalAiFab.visibility = if (
+                    destination.id == R.id.aiAssistantFragment ||
+                    destination.id == R.id.aiSettingsFragment
+                ) View.GONE else View.VISIBLE
             }
+
+            setupDraggableAiFab()
 
             val previousPermissionStatus = permissions.map {
                 Permissions.hasPermission(this, it)
@@ -573,6 +580,80 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupDraggableAiFab() {
+        val fab = binding.globalAiFab
+        val parent = fab.parent as View
+        val prefs = cache
+
+        fab.post {
+            val savedX = prefs.getFloat(PREF_AI_FAB_X)
+            val savedY = prefs.getFloat(PREF_AI_FAB_Y)
+            if (savedX != null && savedY != null) {
+                fab.x = savedX.coerceIn(0f, (parent.width - fab.width).toFloat())
+                fab.y = savedY.coerceIn(0f, (parent.height - fab.height).toFloat())
+            }
+        }
+
+        var downRawX = 0f
+        var downRawY = 0f
+        var startX = 0f
+        var startY = 0f
+        var isDragging = false
+        val touchSlop = android.view.ViewConfiguration.get(this).scaledTouchSlop
+
+        fab.setOnTouchListener { v, event ->
+            when (event.actionMasked) {
+                android.view.MotionEvent.ACTION_DOWN -> {
+                    downRawX = event.rawX
+                    downRawY = event.rawY
+                    startX = v.x
+                    startY = v.y
+                    isDragging = false
+                    true
+                }
+                android.view.MotionEvent.ACTION_MOVE -> {
+                    val dx = event.rawX - downRawX
+                    val dy = event.rawY - downRawY
+                    if (!isDragging && (dx * dx + dy * dy > touchSlop * touchSlop)) {
+                        isDragging = true
+                    }
+                    if (isDragging) {
+                        val newX = (startX + dx).coerceIn(0f, (parent.width - v.width).toFloat())
+                        val newY = (startY + dy).coerceIn(0f, (parent.height - v.height).toFloat())
+                        v.x = newX
+                        v.y = newY
+                    }
+                    true
+                }
+                android.view.MotionEvent.ACTION_UP -> {
+                    if (isDragging) {
+                        prefs.putFloat(PREF_AI_FAB_X, v.x)
+                        prefs.putFloat(PREF_AI_FAB_Y, v.y)
+                    } else {
+                        v.performClick()
+                        navigateToAiAssistant()
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun navigateToAiAssistant() {
+        val toolId = when (navController?.currentDestination?.id) {
+            R.id.action_weather -> "weather"
+            R.id.action_navigation -> "navigation"
+            R.id.cloudFragment, R.id.cloudResultsFragment -> "clouds"
+            else -> null
+        }
+        val bundle = Bundle().apply {
+            toolId?.let { putString("tool_id", it) }
+        }
+        navController?.navigate(R.id.aiAssistantFragment, bundle)
+    }
+
     private fun updateFullscreenMode() {
         val isNightMode = userPrefs.theme == UserPreferences.Theme.Night
         val shouldBeFullscreen = isNightMode && userPrefs.nightModeFullscreen
@@ -592,6 +673,9 @@ class MainActivity : AndromedaActivity() {
     }
 
     companion object {
+
+        private const val PREF_AI_FAB_X = "pref_ai_fab_x"
+        private const val PREF_AI_FAB_Y = "pref_ai_fab_y"
 
         var deviceSurfaceRotation: Int = Surface.ROTATION_90
             private set

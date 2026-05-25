@@ -3,13 +3,13 @@
 3 (Ruler): ruler, measure, distance, length, inches, centimeters, scale
 4 (Pedometer): pedometer, steps, walk, distance, odometer, hike, step counter
 5 (Cliff Height): cliff, height, drop, fall, measure
-6 (Navigation): navigation, compass, navigate, direction, bearing, heading, gps
+6 (Navigation): navigation, compass, navigate, direction, bearing, heading, gps, 导航, 指南针, 方位角, 航向, 当前位置, 海拔, 速度
 7 (Beacons): beacon, waypoint, marker, location, poi, point of interest
 8 (Offline Maps): offline map, photo map, trail maps, image, pdf, mapsforge, map file, map, maps
 9 (Paths): path, track, backtrack, trail, route, record, gps, breadcrumb
 10 (Triangulate Location): triangulate, location, position, bearing, compass, sighting
-11 (Clinometer): clinometer, angle, slope, incline, avalanche, height, tilt, distance
-12 (Bubble Level): level, bubble, flat, surface, tilt
+11 (Clinometer): clinometer, angle, slope, incline, avalanche, height, tilt, distance, 坡度, 倾角, 斜坡, 坡面, 测角, 角度, 雪崩, 树高
+12 (Bubble Level): level, bubble, flat, surface, tilt, 水平, 水平仪, 平面, 倾斜
 13 (Clock): clock, time, gps, timer
 14 (Astronomy): astronomy, sun, moon, sunrise, sunset, moonrise, moonset, eclipse, solar, lunar, stars, night
 15 (Water Boil Timer): water, boil, purify, purification, timer, potable, safe, drink
@@ -17,7 +17,7 @@
 17 (Battery): battery, power, charge, low power, energy
 18 (Solar Panel Aligner): solar, panel, align, sun, power, energy, angle
 19 (Light Meter): light, meter, lux, brightness, beam, flashlight, candela, flash
-20 (Weather): weather, barometer, pressure, forecast, storm, rain, front, prediction, temperature, wind, humidity
+20 (Weather): weather, barometer, pressure, forecast, storm, rain, front, prediction, temperature, wind, humidity, 天气, 天气预报, 气压计, 气压, 暴风雨, 下雨, 湿度
 21 (Climate): climate, temperature, historic, history, average, seasonal, insect, activity
 22 (Temperature Estimation): temperature, elevation, estimate, altitude, predict
 23 (Clouds): cloud, clouds, identify, scan, weather, type, classification, sky
@@ -44,5 +44,5 @@
 44 (Ballistics): ballistics, bullet, trajectory, shooting, firearm, drop, velocity
 45 (Permits): permit, license, pass, authorization, reservation
 46 (Declination): declination, magnetic, north, true north, variation, compass, correction
-47 (Map): map, maps, terrain, elevation, topographic, slope, contour, hillshade
+47 (Map): map, maps, terrain, elevation, topographic, slope, contour, hillshade, 地图, 地形, 海拔, 等高线, 阴影, 坡度图层
 48 (Magnifier): magnifier, magnify, zoom, magnifying glass, enlarge, camera

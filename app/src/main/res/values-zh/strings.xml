@@ -1585,4 +1585,27 @@
     <string name="trail_maps">路线地图</string>
     <string name="map_layer_trail_maps_description">你保存了路线地图</string>
     <string name="map_type_trail">路线</string>
+    <string name="tool_ai_assistant_title">AI 助手</string>
+    <string name="ai_model_not_downloaded">AI 模型未下载，请前往设置下载。</string>
+    <string name="ai_initialization_failed">AI 模型初始化失败。</string>
+    <string name="ai_loading_model">正在加载 AI 模型…</string>
+    <string name="ai_input_hint">输入你的问题…</string>
+    <string name="ai_disclaimer">AI 建议仅供参考，不能替代专业训练和判断。</string>
+    <string name="ai_inference_error">生成回复时发生错误。</string>
+    <string name="ai_settings_title">AI 助手</string>
+    <string name="ai_model_name">Gemma 4 E2B</string>
+    <string name="ai_model_size">2.59 GB</string>
+    <string name="ai_download_model">下载模型</string>
+    <string name="ai_delete_model">删除模型</string>
+    <string name="ai_model_downloaded">模型已下载</string>
+    <string name="ai_downloading">正在下载…</string>
+    <string name="ai_attach_photo">附加照片</string>
+    <string name="ai_ask_ai">问问 AI</string>
+    <string name="ai_about">AI 完全在你的设备上运行，仅下载模型时需要网络连接。</string>
+    <string name="ai_resume_download">继续下载</string>
+    <string name="ai_chat_history">聊天记录</string>
+    <string name="ai_new_chat">新对话</string>
+    <string name="ai_no_chat_history">暂无聊天记录</string>
+    <string name="ai_delete_chat">删除</string>
+    <string name="ai_clear_history">清除记录</string>
 </resources>

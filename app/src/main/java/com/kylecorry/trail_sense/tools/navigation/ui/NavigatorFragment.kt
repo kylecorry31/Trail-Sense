@@ -217,13 +217,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             userPrefs.navigation
         ).bind()
 
-        binding.askAiBtn.setOnClickListener {
-            findNavController().navigate(
-                R.id.aiAssistantFragment,
-                Bundle().apply { putString("tool_id", "navigation") }
-            )
-        }
-
         observeFlow(beaconRepo.getBeacons()) {
             beacons = it
             updateNearbyBeacons()

@@ -102,13 +102,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             prefs.weather
         ).bind()
 
-        binding.askAiBtn.setOnClickListener {
-            findNavController().navigate(
-                R.id.aiAssistantFragment,
-                Bundle().apply { putString("tool_id", "weather") }
-            )
-        }
-
         chart = PressureChart(binding.chart) { timeAgo, pressure ->
             if (timeAgo == null || pressure == null) {
                 binding.pressureMarker.isVisible = false

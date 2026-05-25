@@ -32,6 +32,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +49,7 @@ import com.kylecorry.trail_sense.shared.extensions.compose.useState
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiContext
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiPromptBuilder
+import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolKnowledgeService
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.CloudAiContextProvider
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.NavigationAiContextProvider
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.WeatherAiContextProvider
@@ -92,6 +94,9 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
     @Composable
     override fun FragmentContent() {
         val aiSubsystem = AiInferenceSubsystem.getInstance(requireContext())
+        val toolKnowledgeService = remember {
+            AiToolKnowledgeService(requireContext().applicationContext)
+        }
         val chatRepo = AiChatRepo.getInstance(requireContext())
         val (messages, setMessages) = useState(listOf<ChatMessage>())
         val (inputText, setInputText) = useState("")
@@ -109,6 +114,9 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         LaunchedEffect(Unit) {
             val toolId = arguments?.getString("tool_id")
             val imageUri = arguments?.getString("image_uri")?.let { Uri.parse(it) }
+            val hasIncomingContext = toolId != null || imageUri != null
+            val existingSessions = chatRepo.getAllSessions()
+            setSessions(existingSessions)
 
             when (toolId) {
                 "weather" -> {
@@ -145,6 +153,18 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 }
             }
 
+            if (!hasIncomingContext) {
+                val latestSession = existingSessions.firstOrNull()
+                if (latestSession != null) {
+                    val msgs = chatRepo.getMessages(latestSession.id).map {
+                        ChatMessage(it.text, it.isUser)
+                    }
+                    setMessages(msgs)
+                    setCurrentSessionId(latestSession.id)
+                    setSuggestedQuestions(emptyList())
+                }
+            }
+
             if (!aiSubsystem.isModelAvailable()) {
                 setError(getString(R.string.ai_model_not_downloaded))
                 return@LaunchedEffect
@@ -175,7 +195,9 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             setIsGenerating(true)
             setSuggestedQuestions(emptyList())
 
-            val prompt = AiPromptBuilder.buildUserPrompt(aiContext, text)
+            val toolKnowledge = toolKnowledgeService.getPromptContext(text, aiContext?.toolId)
+            val chatHistory = buildChatHistory(messages)
+            val prompt = AiPromptBuilder.buildUserPrompt(aiContext, text, toolKnowledge, chatHistory)
             val images = listOfNotNull(attachedImage ?: aiContext?.image)
             aiContext = null
             setAttachedImage(null)
@@ -207,6 +229,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                             ).also { setCurrentSessionId(it) }
                             chatRepo.addMessage(sessionId, text, isUser = true)
                             chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
+                            setSessions(chatRepo.getAllSessions())
                         }
                     }
 
@@ -226,6 +249,16 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                 ).also { setCurrentSessionId(it) }
                                 chatRepo.addMessage(sessionId, text, isUser = true)
                                 chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
+                                setSessions(chatRepo.getAllSessions())
+                            }
+                        } else {
+                            scope.launch {
+                                val sessionId = currentSessionId ?: chatRepo.createSession(
+                                    text.take(50)
+                                ).also { setCurrentSessionId(it) }
+                                chatRepo.addMessage(sessionId, text, isUser = true)
+                                chatRepo.addMessage(sessionId, errorMsg, isUser = false)
+                                setSessions(chatRepo.getAllSessions())
                             }
                         }
                     }
@@ -256,7 +289,21 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 onDeleteSession = { session ->
                     scope.launch {
                         chatRepo.deleteSession(session.id)
-                        setSessions(chatRepo.getAllSessions())
+                        val remainingSessions = chatRepo.getAllSessions()
+                        setSessions(remainingSessions)
+                        if (currentSessionId == session.id) {
+                            val latestSession = remainingSessions.firstOrNull()
+                            if (latestSession == null) {
+                                setMessages(emptyList())
+                                setCurrentSessionId(null)
+                            } else {
+                                val msgs = chatRepo.getMessages(latestSession.id).map {
+                                    ChatMessage(it.text, it.isUser)
+                                }
+                                setMessages(msgs)
+                                setCurrentSessionId(latestSession.id)
+                            }
+                        }
                     }
                 },
                 onBack = { setShowHistory(false) }
@@ -305,6 +352,18 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 contextCard = aiContext?.summary
             )
         }
+    }
+
+    private fun buildChatHistory(messages: List<ChatMessage>): String? {
+        val history = messages
+            .filter { !it.isLoading && it.text.isNotBlank() }
+            .takeLast(6)
+            .joinToString("\n") {
+                val sender = if (it.isUser) "User" else "Assistant"
+                "$sender: ${it.text}"
+            }
+
+        return history.takeIf { it.isNotBlank() }
     }
 }
 
