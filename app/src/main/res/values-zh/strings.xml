@@ -1586,4 +1586,5 @@
     <string name="map_layer_trail_maps_description">你保存了路线地图</string>
     <string name="map_type_trail">路线</string>
     <string name="pref_show_all_bottom_navigation_labels">显示所有底部导航标签</string>
+    <string name="brightness">亮度</string>
 </resources>
