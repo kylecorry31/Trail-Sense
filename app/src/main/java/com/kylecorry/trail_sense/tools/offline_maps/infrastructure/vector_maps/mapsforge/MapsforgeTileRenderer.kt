@@ -27,7 +27,10 @@ import org.mapsforge.map.rendertheme.StreamRenderTheme
 import org.mapsforge.map.rendertheme.XmlRenderTheme
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 
-class MapsforgeTileRenderer {
+class MapsforgeTileRenderer(
+    private val maps: List<VectorMap>,
+    private val highDetailMode: Boolean
+) {
     @Volatile
     private var rendererHolder: MapsforgeRendererHolder? = null
     private val rendererMutex = Mutex()
@@ -41,11 +44,9 @@ class MapsforgeTileRenderer {
 
     suspend fun render(
         context: Context,
-        maps: List<VectorMap>,
-        tile: com.kylecorry.trail_sense.shared.map_layers.tiles.Tile,
-        highDetailMode: Boolean
+        tile: com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
     ): Bitmap? {
-        val holder = getRenderer(context, maps, highDetailMode)
+        val holder = getRenderer(context)
         val tile = Tile(tile.x, tile.y, tile.z.toByte(), tile.size.width)
         if (holder == null || !holder.dataStore.supportsTile(tile)) {
             return null
@@ -73,9 +74,7 @@ class MapsforgeTileRenderer {
     }
 
     private suspend fun getRenderer(
-        context: Context,
-        maps: List<VectorMap>,
-        highDetailMode: Boolean
+        context: Context
     ): MapsforgeRendererHolder? {
         return rendererMutex.withLock {
             rendererHolder ?: createRenderer(context, maps, highDetailMode)?.also {
