@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.morse
 
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 
 class SignalPlayer(private val device: ISignalingDevice) {
 

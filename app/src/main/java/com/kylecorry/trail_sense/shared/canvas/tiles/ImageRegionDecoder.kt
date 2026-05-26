@@ -7,9 +7,9 @@ import android.graphics.BitmapRegionDecoder
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
-import com.kylecorry.luna.coroutines.CoroutineObjectPool
-import com.kylecorry.luna.coroutines.onIO
-import com.kylecorry.luna.coroutines.use
+import com.kylecorry.luna.cache.CoroutineObjectPool
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.cache.use
 
 class ImageRegionDecoder(
     private val context: Context,

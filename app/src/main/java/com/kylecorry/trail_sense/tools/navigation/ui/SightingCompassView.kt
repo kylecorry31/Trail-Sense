@@ -5,7 +5,7 @@ import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.CameraView

@@ -11,7 +11,7 @@ import androidx.fragment.app.findFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.findViewTreeLifecycleOwner
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.units.Coordinate

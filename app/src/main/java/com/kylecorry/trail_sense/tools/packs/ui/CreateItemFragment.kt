@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.andromeda.core.toDoubleCompat
+import com.kylecorry.luna.text.toDoubleCompat
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.units.WeightUnits

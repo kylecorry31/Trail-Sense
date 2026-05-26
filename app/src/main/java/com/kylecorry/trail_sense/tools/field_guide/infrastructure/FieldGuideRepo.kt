@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.field_guide.infrastructure
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.getUpsertedId
 import com.kylecorry.trail_sense.shared.io.FileSubsystem

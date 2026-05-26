@@ -8,7 +8,7 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.ui.ExpansionLayout
 import com.kylecorry.andromeda.core.ui.Views
 import com.kylecorry.andromeda.core.ui.useCallback
@@ -23,7 +23,7 @@ import com.kylecorry.andromeda.print.Orientation
 import com.kylecorry.andromeda.print.Printer
 import com.kylecorry.andromeda.print.ScaleMode
 import com.kylecorry.andromeda.views.toolbar.Toolbar
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment

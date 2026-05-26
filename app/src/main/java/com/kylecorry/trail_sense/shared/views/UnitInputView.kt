@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.kylecorry.andromeda.core.toDoubleCompat
+import com.kylecorry.luna.text.toDoubleCompat
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 

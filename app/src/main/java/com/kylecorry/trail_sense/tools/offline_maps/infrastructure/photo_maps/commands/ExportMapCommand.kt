@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands
 
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.text.slugify
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.luna.text.slugify
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.io.ExportService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap

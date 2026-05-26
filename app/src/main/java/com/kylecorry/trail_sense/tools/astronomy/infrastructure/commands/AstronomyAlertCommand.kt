@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.commands.generic.ComposedCommand

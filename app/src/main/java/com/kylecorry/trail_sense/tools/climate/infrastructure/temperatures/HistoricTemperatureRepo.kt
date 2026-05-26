@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate

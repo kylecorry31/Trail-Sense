@@ -10,7 +10,7 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.CoroutinePickers

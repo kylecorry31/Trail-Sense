@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.paths.map_layers
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.Path

@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R

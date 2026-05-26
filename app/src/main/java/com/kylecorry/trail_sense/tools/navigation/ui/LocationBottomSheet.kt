@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.pickers.Pickers

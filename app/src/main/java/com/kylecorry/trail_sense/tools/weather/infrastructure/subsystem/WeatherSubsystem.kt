@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.MemoryCachedValue
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.subscriptions.ISubscription
-import com.kylecorry.andromeda.core.subscriptions.Subscription
+import com.kylecorry.luna.cache.MemoryCachedValue
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.subscriptions.ISubscription
+import com.kylecorry.luna.subscriptions.Subscription
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification

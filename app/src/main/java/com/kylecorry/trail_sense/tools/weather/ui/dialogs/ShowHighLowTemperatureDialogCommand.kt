@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.ui.dialogs
 
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading

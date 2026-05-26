@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem
 
-import com.kylecorry.andromeda.core.subscriptions.ISubscription
+import com.kylecorry.luna.subscriptions.ISubscription
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus

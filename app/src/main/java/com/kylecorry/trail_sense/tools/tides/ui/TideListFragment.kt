@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
+import com.kylecorry.luna.concurrency.ParallelCoroutineRunner
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding

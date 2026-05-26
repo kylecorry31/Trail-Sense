@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Views
 import com.kylecorry.andromeda.views.chart.Chart
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils

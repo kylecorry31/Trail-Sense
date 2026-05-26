@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.whitenoise.quickactions
 
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService

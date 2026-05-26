@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.grouping.persistence
 
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 
 class GroupLoader<T : Groupable>(

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
+import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground

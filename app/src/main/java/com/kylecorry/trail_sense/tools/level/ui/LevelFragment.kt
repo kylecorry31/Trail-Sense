@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.level.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.sense.level.Level
 import com.kylecorry.trail_sense.R

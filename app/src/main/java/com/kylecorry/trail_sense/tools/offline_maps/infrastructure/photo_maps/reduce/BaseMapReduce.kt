@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize

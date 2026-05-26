@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration
 
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService

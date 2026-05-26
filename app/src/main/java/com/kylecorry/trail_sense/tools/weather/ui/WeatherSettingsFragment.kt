@@ -7,8 +7,8 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers

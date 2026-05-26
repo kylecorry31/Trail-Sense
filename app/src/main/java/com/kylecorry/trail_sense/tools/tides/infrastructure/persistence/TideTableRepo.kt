@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.persistence.AppDatabase

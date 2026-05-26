@@ -12,7 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputLayout
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R

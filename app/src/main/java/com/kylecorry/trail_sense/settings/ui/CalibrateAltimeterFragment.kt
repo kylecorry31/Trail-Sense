@@ -15,13 +15,13 @@ import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
@@ -29,7 +29,7 @@ import com.kylecorry.andromeda.sense.altitude.FusedAltimeter
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.readAll
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService

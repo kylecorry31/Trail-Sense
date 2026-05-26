@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.toFloatCompat
-import com.kylecorry.andromeda.core.toIntCompat
+import com.kylecorry.luna.text.toFloatCompat
+import com.kylecorry.luna.text.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference

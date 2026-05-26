@@ -10,9 +10,9 @@ import com.google.android.material.slider.LabelFormatter
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.text.capitalizeWords
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService

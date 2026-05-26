@@ -15,7 +15,7 @@ import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.fragments.BoundFragment

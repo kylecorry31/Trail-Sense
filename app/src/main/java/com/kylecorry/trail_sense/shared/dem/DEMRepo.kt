@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.dem
 
 import android.util.Log
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.ICleanable
 import com.kylecorry.trail_sense.shared.UserPreferences

@@ -5,8 +5,8 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.sol.science.astronomy.Astronomy

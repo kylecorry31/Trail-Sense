@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
-import com.kylecorry.andromeda.core.topics.generic.ITopic
+import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 
 

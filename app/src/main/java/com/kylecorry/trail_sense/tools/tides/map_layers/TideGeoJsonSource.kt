@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
-import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.shared.extensions.point

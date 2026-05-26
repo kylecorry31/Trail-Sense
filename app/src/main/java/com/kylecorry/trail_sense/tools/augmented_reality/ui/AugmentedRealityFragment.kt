@@ -11,10 +11,10 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.time.TimerActionBehavior
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.TimerActionBehavior
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
@@ -27,7 +27,7 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.location.Satellite
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase

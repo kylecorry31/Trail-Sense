@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import java.time.Duration
 
 class StrobeFlashlightStrategy(

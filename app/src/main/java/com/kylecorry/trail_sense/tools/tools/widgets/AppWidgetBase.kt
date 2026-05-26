@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.tools.widgets
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.widget.RemoteViews
-import com.kylecorry.luna.coroutines.onDefault
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 abstract class AppWidgetBase(private val widgetId: String) : AndromedaCoroutineWidget() {

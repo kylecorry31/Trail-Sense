@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
 
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand

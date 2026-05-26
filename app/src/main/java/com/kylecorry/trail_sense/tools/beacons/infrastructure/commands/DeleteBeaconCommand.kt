@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.beacons.infrastructure.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService

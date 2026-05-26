@@ -7,7 +7,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
 import kotlinx.coroutines.Dispatchers

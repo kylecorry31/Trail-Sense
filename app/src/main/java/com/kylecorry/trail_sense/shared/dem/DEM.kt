@@ -9,11 +9,11 @@ import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.bitmaps.operations.set
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.luna.cache.LRUCache
-import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds

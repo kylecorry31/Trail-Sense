@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.tiles
 import android.os.Build
 import android.service.quicksettings.Tile
 import androidx.annotation.RequiresApi
-import com.kylecorry.andromeda.core.topics.generic.ITopic
+import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.widgets.tiles.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FeatureState

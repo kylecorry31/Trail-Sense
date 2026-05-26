@@ -5,10 +5,10 @@ import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.BackgroundTask
+import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
-import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.isClickable
 import com.kylecorry.trail_sense.shared.getBounds

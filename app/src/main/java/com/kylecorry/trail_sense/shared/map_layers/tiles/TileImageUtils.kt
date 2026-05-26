@@ -10,8 +10,8 @@ import com.kylecorry.andromeda.bitmaps.operations.PixelPreservationUpscale
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.bitmaps.operations.set
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate

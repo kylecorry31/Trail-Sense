@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.ImageRegionLoader
 import com.kylecorry.andromeda.bitmaps.operations.get
 import com.kylecorry.andromeda.bitmaps.operations.getPixels
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.arithmetic.Arithmetic

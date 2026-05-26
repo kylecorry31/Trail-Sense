@@ -17,8 +17,8 @@ import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.luna.coroutines.onIO
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateFieldGuidePageBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.climate.infrastructure
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.time.Time

@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.background.AlarmTaskScheduler
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.time.Time.toZonedDateTime

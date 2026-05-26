@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.BasicLabelFormatter
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding

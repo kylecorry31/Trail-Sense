@@ -11,12 +11,12 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.BoundFragment

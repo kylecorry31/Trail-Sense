@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import java.time.Instant
 import java.time.LocalDate

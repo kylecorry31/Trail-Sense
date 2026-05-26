@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.specifications
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 

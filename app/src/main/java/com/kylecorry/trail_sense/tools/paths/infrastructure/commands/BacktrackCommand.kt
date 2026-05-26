@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.paths.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences

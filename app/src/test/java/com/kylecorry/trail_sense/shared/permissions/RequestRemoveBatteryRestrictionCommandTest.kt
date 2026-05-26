@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.permissions
 
 import android.content.Context
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.preferences.Flag

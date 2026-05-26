@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.infrastructure.io
 
 import com.kylecorry.andromeda.fragments.AndromedaFragment
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.ImportService
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker

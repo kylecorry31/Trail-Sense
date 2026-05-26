@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
-import com.kylecorry.andromeda.core.topics.generic.getOrNull
-import com.kylecorry.andromeda.core.topics.generic.replay
+import com.kylecorry.andromeda.fragments.asLiveData
+import com.kylecorry.luna.topics.generic.getOrNull
+import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.pedometer.Pedometer

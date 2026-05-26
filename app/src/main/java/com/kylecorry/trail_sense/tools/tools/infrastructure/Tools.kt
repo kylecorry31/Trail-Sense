@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
-import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.widgets.Widgets

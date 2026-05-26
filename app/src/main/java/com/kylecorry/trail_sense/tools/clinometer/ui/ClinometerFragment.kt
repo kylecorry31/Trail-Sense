@@ -12,7 +12,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -21,6 +21,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.luna.cache.TrackedState
 import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
 import com.kylecorry.sol.math.trigonometry.Trigonometry.normalizeAngle
 import com.kylecorry.sol.science.geology.AvalancheRisk
@@ -34,7 +35,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.data.TrackedState
 import com.kylecorry.trail_sense.shared.extensions.getMarkdown
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera

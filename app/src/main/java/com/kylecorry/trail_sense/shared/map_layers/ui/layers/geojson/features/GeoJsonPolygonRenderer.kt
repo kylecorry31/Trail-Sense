@@ -8,12 +8,12 @@ import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
-import com.kylecorry.andromeda.core.cache.ObjectPool
+import com.kylecorry.luna.cache.ObjectPool
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPolygon
 import com.kylecorry.andromeda.geojson.GeoJsonPosition
-import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.Geography

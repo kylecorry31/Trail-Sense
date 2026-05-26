@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration

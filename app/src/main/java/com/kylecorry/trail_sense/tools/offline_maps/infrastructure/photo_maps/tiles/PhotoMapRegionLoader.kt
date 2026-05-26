@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.andromeda.core.units.PercentCoordinate
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.ceilToInt
 import com.kylecorry.sol.math.floorToInt

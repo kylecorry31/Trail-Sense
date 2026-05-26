@@ -19,8 +19,8 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground

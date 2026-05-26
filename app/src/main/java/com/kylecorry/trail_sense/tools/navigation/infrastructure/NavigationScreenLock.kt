@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController

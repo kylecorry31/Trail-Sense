@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.beacons.ui.form
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geophysics.Geophysics

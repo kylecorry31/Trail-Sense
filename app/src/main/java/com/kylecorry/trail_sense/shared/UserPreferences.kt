@@ -4,7 +4,7 @@ import android.content.Context
 import android.hardware.SensorManager
 import com.google.android.material.color.DynamicColors
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.toFloatCompat
+import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.IntPreference

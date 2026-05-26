@@ -12,8 +12,8 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sound.ISoundPlayer
-import com.kylecorry.luna.coroutines.onDefault
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trail_sense.shared.morse.Signal
