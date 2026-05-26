@@ -6,8 +6,8 @@ import android.content.Intent
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.topics.generic.replay
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem

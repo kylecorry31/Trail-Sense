@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.paths.domain
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.sol.science.geology.CoordinateBounds
 
 /**

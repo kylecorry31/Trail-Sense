@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.domain
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import java.time.LocalTime
 
 class CanSendDailyForecast(private val startTime: LocalTime) : Specification<LocalTime>() {

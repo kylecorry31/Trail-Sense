@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.dem
 
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.cache.MemoryCachedValue
-import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 object BuiltInDem {

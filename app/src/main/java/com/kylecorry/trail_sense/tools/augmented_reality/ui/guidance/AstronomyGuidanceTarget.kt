@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance
 
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShower

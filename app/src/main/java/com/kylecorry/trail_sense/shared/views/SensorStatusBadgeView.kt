@@ -10,7 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.core.sensors.ISensor
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.trail_sense.R

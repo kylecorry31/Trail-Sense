@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.beacons.ui.form
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 
 class DoesBeaconFormDataHaveChanges(private val original: CreateBeaconData) :
     Specification<CreateBeaconData>() {

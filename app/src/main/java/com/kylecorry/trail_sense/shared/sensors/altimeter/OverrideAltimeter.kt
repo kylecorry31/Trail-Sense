@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 class OverrideAltimeter(context: Context, private val updateFrequency: Long = 20L) :

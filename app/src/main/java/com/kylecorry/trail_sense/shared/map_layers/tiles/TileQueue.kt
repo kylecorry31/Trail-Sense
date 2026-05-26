@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.util.Log
-import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.log

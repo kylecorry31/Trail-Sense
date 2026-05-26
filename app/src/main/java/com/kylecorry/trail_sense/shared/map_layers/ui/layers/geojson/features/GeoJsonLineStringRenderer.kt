@@ -9,11 +9,11 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.cache.ObjectPool
+import com.kylecorry.luna.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonLineString
-import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation

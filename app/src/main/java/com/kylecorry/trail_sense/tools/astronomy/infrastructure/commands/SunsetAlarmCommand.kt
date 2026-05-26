@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate

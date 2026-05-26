@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.fragments.useArgument
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.toolbar.Toolbar
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance

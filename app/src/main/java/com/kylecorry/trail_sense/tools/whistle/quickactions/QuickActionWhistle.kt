@@ -5,8 +5,8 @@ import android.view.MotionEvent
 import android.widget.ImageButton
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R

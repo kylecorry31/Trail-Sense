@@ -6,7 +6,7 @@ import android.util.Size
 import android.widget.ImageView
 import androidx.core.graphics.createBitmap
 import androidx.lifecycle.LifecycleOwner
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem

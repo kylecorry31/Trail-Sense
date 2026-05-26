@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui.items
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate

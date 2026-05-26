@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem
 import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.Sensor
-import com.kylecorry.andromeda.core.topics.generic.ITopic
-import com.kylecorry.andromeda.core.topics.generic.Topic
-import com.kylecorry.andromeda.core.topics.generic.distinct
+import com.kylecorry.luna.topics.generic.ITopic
+import com.kylecorry.luna.topics.generic.Topic
+import com.kylecorry.luna.topics.generic.distinct
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Distance

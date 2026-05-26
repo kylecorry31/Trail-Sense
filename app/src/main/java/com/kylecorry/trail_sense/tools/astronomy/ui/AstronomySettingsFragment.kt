@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
+import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R

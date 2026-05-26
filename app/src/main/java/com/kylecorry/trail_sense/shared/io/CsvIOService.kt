@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.io
 
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.csv.CSVConvert
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.streams.readText
 
 class CsvIOService(private val uriPicker: UriPicker, private val uriService: UriService) :

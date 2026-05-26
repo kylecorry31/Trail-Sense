@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IStepCounter

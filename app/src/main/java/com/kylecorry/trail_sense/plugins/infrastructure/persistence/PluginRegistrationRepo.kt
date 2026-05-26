@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.plugins.infrastructure.persistence
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 
 class PluginRegistrationRepo private constructor(context: Context) {

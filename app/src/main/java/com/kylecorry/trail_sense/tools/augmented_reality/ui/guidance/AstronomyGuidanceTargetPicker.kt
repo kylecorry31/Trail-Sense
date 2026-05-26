@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance
 import android.view.View
 import android.widget.TextView
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.climate.domain
 
-import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.ecology.Ecology
 import com.kylecorry.sol.time.Time.daysUntil

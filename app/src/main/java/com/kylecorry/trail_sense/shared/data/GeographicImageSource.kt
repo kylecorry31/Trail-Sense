@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.data
 
 import android.graphics.Rect
 import com.kylecorry.andromeda.bitmaps.FloatBitmap
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.science.geology.CoordinateBounds

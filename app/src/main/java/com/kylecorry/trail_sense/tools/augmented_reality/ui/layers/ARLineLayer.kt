@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
-import com.kylecorry.andromeda.core.cache.ObjectPool
+import com.kylecorry.luna.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.LineClipper

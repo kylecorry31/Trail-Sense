@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
 import com.kylecorry.andromeda.views.chart.Chart
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils

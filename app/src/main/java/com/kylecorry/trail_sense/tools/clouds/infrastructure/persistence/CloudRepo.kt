@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.topics.ITopic
-import com.kylecorry.andromeda.core.topics.Topic
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.topics.ITopic
+import com.kylecorry.luna.topics.Topic
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.IReadingRepo

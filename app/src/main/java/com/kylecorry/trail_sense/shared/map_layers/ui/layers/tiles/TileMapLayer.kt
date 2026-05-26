@@ -17,8 +17,8 @@ import androidx.core.graphics.withSave
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.BackgroundTask
-import com.kylecorry.luna.timer.CoroutineTimer
+import com.kylecorry.luna.concurrency.BackgroundTask
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds

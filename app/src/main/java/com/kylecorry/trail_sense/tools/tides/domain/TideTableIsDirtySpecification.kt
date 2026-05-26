@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
-import com.kylecorry.andromeda.core.specifications.Specification
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.sol.science.oceanography.Tide
 
 class TideTableIsDirtySpecification(private val original: TideTable?) :

@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint

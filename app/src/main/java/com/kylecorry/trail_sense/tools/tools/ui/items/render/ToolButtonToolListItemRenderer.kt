@@ -4,7 +4,7 @@ import android.content.res.ColorStateList
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
-import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.io
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 
 class DeleteTempFilesCommand(private val context: Context) : CoroutineCommand {

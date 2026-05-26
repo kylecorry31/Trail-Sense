@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import com.kylecorry.luna.cache.MemoryCachedValue
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
+import com.kylecorry.luna.concurrency.ParallelCoroutineRunner
 
 abstract class BaseSurvivalGuideSearch(private val loader: GuideLoader) :
     SurvivalGuideSearchStrategy {

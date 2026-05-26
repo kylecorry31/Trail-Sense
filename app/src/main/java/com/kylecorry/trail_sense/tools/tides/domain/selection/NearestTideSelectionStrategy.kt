@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.domain.selection
 
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable

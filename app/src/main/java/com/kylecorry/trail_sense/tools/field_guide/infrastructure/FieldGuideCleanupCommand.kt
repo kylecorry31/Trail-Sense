@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 

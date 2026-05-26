@@ -6,7 +6,7 @@ import android.graphics.Rect
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 
 class SingleImageReader(
     private val imageSize: Size,

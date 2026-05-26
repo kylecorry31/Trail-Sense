@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.domain.commands
 
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.tools.tides.domain.TideService

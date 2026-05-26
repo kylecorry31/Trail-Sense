@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.paths.ui.commands
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.main.automations
 
 import android.content.Context
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.automations.Automation
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.runBlocking

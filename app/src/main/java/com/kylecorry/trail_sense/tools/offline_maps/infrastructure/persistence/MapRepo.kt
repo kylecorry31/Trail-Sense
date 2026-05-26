@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Size
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
+import com.kylecorry.luna.concurrency.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.getUpsertedId

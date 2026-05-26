@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand

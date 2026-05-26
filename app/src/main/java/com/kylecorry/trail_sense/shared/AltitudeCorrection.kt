@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
 import android.util.Size
-import com.kylecorry.andromeda.core.cache.LRUCache
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.cache.LRUCache
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups
 
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader

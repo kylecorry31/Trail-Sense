@@ -9,7 +9,7 @@ import android.widget.RemoteViews
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences

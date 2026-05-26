@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.luna.coroutines.BackgroundTask
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate

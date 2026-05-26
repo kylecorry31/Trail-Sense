@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence
 
 import android.content.Context
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.beacons.BeaconsToolRegistration

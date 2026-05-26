@@ -8,8 +8,8 @@ import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.bitmaps.ImagePixelReader
-import com.kylecorry.andromeda.core.cache.LRUCache
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.cache.LRUCache
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.MathExtensions.roundPlaces

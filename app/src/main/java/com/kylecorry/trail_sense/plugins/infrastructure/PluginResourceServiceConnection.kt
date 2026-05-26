@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.plugins.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.ipc.InterprocessCommunicationRequest
 import com.kylecorry.andromeda.ipc.InterprocessCommunicationResponse
 import com.kylecorry.andromeda.ipc.client.InterprocessCommunicationClient

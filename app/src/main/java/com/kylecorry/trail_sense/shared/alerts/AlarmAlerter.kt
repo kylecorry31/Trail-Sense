@@ -4,7 +4,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.SystemSoundPlayer
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem

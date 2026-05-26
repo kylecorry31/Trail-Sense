@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures
 
 import android.util.Size
-import com.kylecorry.andromeda.core.cache.LRUCache
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.cache.LRUCache
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate

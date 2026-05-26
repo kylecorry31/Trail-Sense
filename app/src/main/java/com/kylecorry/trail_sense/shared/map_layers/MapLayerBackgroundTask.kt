@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.map_layers
 
 import android.content.Context
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.luna.coroutines.Parallel
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
+import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath

@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sense.readAll

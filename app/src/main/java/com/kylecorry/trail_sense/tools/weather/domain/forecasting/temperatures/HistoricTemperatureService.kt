@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures
 
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Coordinate

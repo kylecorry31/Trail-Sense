@@ -8,8 +8,8 @@ import androidx.core.graphics.createBitmap
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection

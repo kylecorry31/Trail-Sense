@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.preferences.IPreferences
