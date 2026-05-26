@@ -10,7 +10,7 @@ object AiPromptBuilder {
 
             Rules:
             - Respond in the user's language (${locale.language}).
-            - Be concise: max 80 words per response.
+            - Be concise for simple questions, but give enough detail for screenshots, tool data, and sensor value explanations.
             - Use plain text only; do not use Markdown formatting.
             - Prioritize safety-critical information first.
             - When interpreting sensor data, explain what it means in practical terms.
@@ -18,7 +18,9 @@ object AiPromptBuilder {
             - For questions about Trail Sense features, use the provided Trail Sense tool knowledge first.
             - Do not assume the current tool is the answer; recommend the tool that best matches the user's request.
             - If no matching tool knowledge is provided, suggest searching the Tools list or User Guide instead of inventing features.
-            - When an image is provided, describe what you observe and provide relevant safety or identification information.
+            - When an image is provided, treat it as important context and explicitly refer to what is visible in it.
+            - For Trail Sense screenshots, read visible labels, numbers, units, arrows, and panels; explain what each visible value likely means in the current tool.
+            - If a value or label is unclear in the image, say it is unclear instead of guessing.
             - For cloud images, identify the cloud type and its weather implications.
             - For plant or animal images, attempt identification and note any safety concerns.
             - Always clarify that your advice is supplementary, not a replacement for proper training and judgment.
@@ -29,9 +31,10 @@ object AiPromptBuilder {
         context: AiContext?,
         question: String,
         toolKnowledge: String? = null,
-        chatHistory: String? = null
+        chatHistory: String? = null,
+        hasImage: Boolean = false
     ): String {
-        if (context == null && toolKnowledge.isNullOrBlank() && chatHistory.isNullOrBlank()) {
+        if (context == null && toolKnowledge.isNullOrBlank() && chatHistory.isNullOrBlank() && !hasImage) {
             return question
         }
         return buildString {
@@ -49,6 +52,10 @@ object AiPromptBuilder {
                 append("[Context from ${context.toolName} tool]\n")
                 append(context.summary)
                 append("\n\n")
+            }
+            if (hasImage) {
+                append("[Attached image]\n")
+                append("Use the attached image as visual context. If it is a Trail Sense screenshot, identify the visible tool or screen, read visible labels/numbers/units, and explain the values in practical terms. Do not invent values that are not visible.\n\n")
             }
             append("User question: $question")
         }

@@ -6,4 +6,9 @@
     <string name="ai_no_chat_history">No chat history</string>
     <string name="ai_delete_chat">Delete</string>
     <string name="ai_clear_history">Clear history</string>
+    <string name="ai_attach_image">Attach image</string>
+    <string name="ai_take_photo">Take photo</string>
+    <string name="ai_choose_image">Choose image</string>
+    <string name="ai_choose_screenshot">Choose screenshot</string>
+    <string name="ai_attached_image">Attached image</string>
 </resources>

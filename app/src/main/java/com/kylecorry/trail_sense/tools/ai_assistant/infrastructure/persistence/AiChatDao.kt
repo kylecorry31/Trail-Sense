@@ -30,6 +30,9 @@ interface AiChatDao {
     @Query("SELECT * FROM ai_chat_messages WHERE session_id = :sessionId ORDER BY timestamp ASC")
     suspend fun getMessages(sessionId: Long): List<ChatMessageEntity>
 
+    @Query("SELECT * FROM ai_chat_messages")
+    suspend fun getAllMessages(): List<ChatMessageEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMessage(message: ChatMessageEntity): Long
 

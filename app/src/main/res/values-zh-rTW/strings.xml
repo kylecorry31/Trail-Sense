@@ -1545,6 +1545,9 @@
     <string name="ai_settings_title">AI 助手</string>
     <string name="ai_model_name">Gemma 4 E2B</string>
     <string name="ai_model_size">2.59 GB</string>
+    <string name="ai_recommended_models">推薦模型</string>
+    <string name="ai_selected_model">已選擇</string>
+    <string name="ai_select_model">選擇模型</string>
     <string name="ai_download_model">下載模型</string>
     <string name="ai_delete_model">刪除模型</string>
     <string name="ai_model_downloaded">模型已下載</string>
@@ -1558,4 +1561,9 @@
     <string name="ai_no_chat_history">暫無聊天記錄</string>
     <string name="ai_delete_chat">刪除</string>
     <string name="ai_clear_history">清除記錄</string>
+    <string name="ai_attach_image">新增圖片</string>
+    <string name="ai_take_photo">拍照</string>
+    <string name="ai_choose_image">從相簿選擇</string>
+    <string name="ai_choose_screenshot">選擇截圖</string>
+    <string name="ai_attached_image">已新增的圖片</string>
 </resources>

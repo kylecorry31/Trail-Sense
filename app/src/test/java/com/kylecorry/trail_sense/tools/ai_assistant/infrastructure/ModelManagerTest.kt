@@ -10,6 +10,8 @@ class ModelManagerTest {
     @TempDir
     lateinit var tempDir: File
 
+    private var selectedModelId = ModelManager.DEFAULT_MODEL_ID
+
     @Test
     fun `isModelDownloaded returns false when model file does not exist`() {
         val manager = ModelManager(tempDir)
@@ -52,5 +54,51 @@ class ModelManagerTest {
         val manager = ModelManager(tempDir)
         manager.deleteModel()
         assertFalse(manager.isModelDownloaded())
+    }
+
+    @Test
+    fun `selectedModel changes the active model`() {
+        val manager = createManager()
+        val e4b = manager.models.first { it.id == "gemma-4-e4b-it" }
+
+        manager.selectedModel = e4b
+
+        assertEquals(e4b, manager.selectedModel)
+    }
+
+    @Test
+    fun `getModelPath uses selected model`() {
+        val manager = createManager()
+        val e4b = manager.models.first { it.id == "gemma-4-e4b-it" }
+        manager.selectedModel = e4b
+        val modelFile = File(tempDir, e4b.fileName)
+        modelFile.createNewFile()
+
+        assertEquals(modelFile.absolutePath, manager.getModelPath())
+    }
+
+    @Test
+    fun `deleteModel removes only the selected model`() {
+        val manager = createManager()
+        val e2b = manager.models.first { it.id == ModelManager.DEFAULT_MODEL_ID }
+        val e4b = manager.models.first { it.id == "gemma-4-e4b-it" }
+        val e2bFile = File(tempDir, e2b.fileName)
+        val e4bFile = File(tempDir, e4b.fileName)
+        e2bFile.createNewFile()
+        e4bFile.createNewFile()
+        manager.selectedModel = e4b
+
+        manager.deleteModel()
+
+        assertTrue(e2bFile.exists())
+        assertFalse(e4bFile.exists())
+    }
+
+    private fun createManager(): ModelManager {
+        return ModelManager(
+            tempDir,
+            getSelectedModelId = { selectedModelId },
+            setSelectedModelId = { selectedModelId = it }
+        )
     }
 }

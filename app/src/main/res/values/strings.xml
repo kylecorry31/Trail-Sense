@@ -1957,6 +1957,9 @@
     <string name="ai_settings_title">AI Assistant</string>
     <string name="ai_model_name">Gemma 4 E2B</string>
     <string name="ai_model_size">2.59 GB</string>
+    <string name="ai_recommended_models">Recommended models</string>
+    <string name="ai_selected_model">Selected</string>
+    <string name="ai_select_model">Select model</string>
     <string name="ai_download_model">Download model</string>
     <string name="ai_delete_model">Delete model</string>
     <string name="ai_model_downloaded">Model downloaded</string>

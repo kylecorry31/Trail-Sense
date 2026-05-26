@@ -1,11 +1,16 @@
 package com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.util.Size
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import java.util.UUID
 
 class AiChatRepo private constructor(context: Context) {
 
     private val dao = AppDatabase.getInstance(context.applicationContext).aiChatDao()
+    private val files = FileSubsystem.getInstance(context.applicationContext)
 
     suspend fun getAllSessions(): List<ChatSessionEntity> = dao.getAllSessions()
 
@@ -25,6 +30,7 @@ class AiChatRepo private constructor(context: Context) {
     }
 
     suspend fun deleteSession(sessionId: Long) {
+        deleteMessageImages(dao.getMessages(sessionId))
         dao.deleteMessagesBySession(sessionId)
         val session = dao.getSession(sessionId) ?: return
         dao.deleteSession(session)
@@ -33,24 +39,50 @@ class AiChatRepo private constructor(context: Context) {
     suspend fun getMessages(sessionId: Long): List<ChatMessageEntity> =
         dao.getMessages(sessionId)
 
-    suspend fun addMessage(sessionId: Long, text: String, isUser: Boolean): Long {
+    suspend fun addMessage(
+        sessionId: Long,
+        text: String,
+        isUser: Boolean,
+        imagePath: String? = null
+    ): Long {
         val msg = ChatMessageEntity(
             sessionId = sessionId,
             text = text,
             isUser = isUser,
-            timestamp = System.currentTimeMillis()
+            timestamp = System.currentTimeMillis(),
+            imagePath = imagePath
         )
         val id = dao.insertMessage(msg)
         updateSessionTime(sessionId)
         return id
     }
 
+    suspend fun saveMessageImage(image: Bitmap): String {
+        val path = "$IMAGE_DIR/${UUID.randomUUID()}.webp"
+        files.save(path, image, quality = IMAGE_QUALITY)
+        return path
+    }
+
+    fun loadMessageImage(path: String): Bitmap? {
+        return files.bitmap(path, Size(IMAGE_PREVIEW_SIZE, IMAGE_PREVIEW_SIZE))
+    }
+
     suspend fun deleteAll() {
+        deleteMessageImages(dao.getAllMessages())
         dao.deleteAllMessages()
         dao.deleteAllSessions()
     }
 
+    private fun deleteMessageImages(messages: List<ChatMessageEntity>) {
+        messages.mapNotNull { it.imagePath }.distinct().forEach {
+            files.delete(it)
+        }
+    }
+
     companion object {
+        private const val IMAGE_DIR = "ai_chat"
+        private const val IMAGE_QUALITY = 85
+        private const val IMAGE_PREVIEW_SIZE = 480
         private var instance: AiChatRepo? = null
 
         @Synchronized

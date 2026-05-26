@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.tools.ai_assistant.ui
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,8 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -66,29 +69,92 @@ import com.google.ai.edge.litertlm.Content
 import com.google.ai.edge.litertlm.Message
 import com.google.ai.edge.litertlm.MessageCallback
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.Locale
+import kotlin.math.roundToInt
 
 data class ChatMessage(
     val text: String,
     val isUser: Boolean,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val image: Bitmap? = null
 )
 
 class AiAssistantFragment : TrailSenseComposeFragment() {
 
     private var aiContext: AiContext? = null
+    private var imagePickerCallback: ((Uri?) -> Unit)? = null
+    private val imagePicker = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        imagePickerCallback?.invoke(uri)
+        imagePickerCallback = null
+    }
 
-    private fun loadBitmapFromUri(uri: Uri): Bitmap? {
-        return try {
+    private fun pickImage(onPick: (Uri?) -> Unit) {
+        imagePickerCallback = onPick
+        imagePicker.launch("image/*")
+    }
+
+    private suspend fun loadBitmapFromUri(uri: Uri): Bitmap? = withContext(Dispatchers.IO) {
+        try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, uri))
+                ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, uri)) { decoder, info, _ ->
+                    val size = getScaledImageSize(info.size.width, info.size.height)
+                    decoder.setTargetSize(size.first, size.second)
+                }
             } else {
-                @Suppress("DEPRECATION")
-                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+                loadScaledBitmapLegacy(uri)
             }
         } catch (_: Exception) {
             null
         }
+    }
+
+    private fun loadScaledBitmapLegacy(uri: Uri): Bitmap? {
+        val resolver = requireContext().contentResolver
+        val options = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+        resolver.openInputStream(uri)?.use {
+            BitmapFactory.decodeStream(it, null, options)
+        }
+
+        val (width, height) = getScaledImageSize(options.outWidth, options.outHeight)
+        val decodeOptions = BitmapFactory.Options().apply {
+            inSampleSize = calculateSampleSize(options.outWidth, options.outHeight)
+        }
+        val sampled = resolver.openInputStream(uri)?.use {
+            BitmapFactory.decodeStream(it, null, decodeOptions)
+        } ?: return null
+
+        if (sampled.width == width && sampled.height == height) {
+            return sampled
+        }
+
+        val scaled = Bitmap.createScaledBitmap(sampled, width, height, true)
+        sampled.recycle()
+        return scaled
+    }
+
+    private fun calculateSampleSize(width: Int, height: Int): Int {
+        var sampleSize = 1
+        while (width / (sampleSize * 2) >= MAX_ATTACHED_IMAGE_SIZE ||
+            height / (sampleSize * 2) >= MAX_ATTACHED_IMAGE_SIZE
+        ) {
+            sampleSize *= 2
+        }
+        return sampleSize
+    }
+
+    private fun getScaledImageSize(width: Int, height: Int): Pair<Int, Int> {
+        val largestSide = width.coerceAtLeast(height)
+        if (largestSide <= MAX_ATTACHED_IMAGE_SIZE || largestSide <= 0) {
+            return width.coerceAtLeast(1) to height.coerceAtLeast(1)
+        }
+
+        val scale = MAX_ATTACHED_IMAGE_SIZE.toFloat() / largestSide.toFloat()
+        return (width * scale).roundToInt().coerceAtLeast(1) to
+            (height * scale).roundToInt().coerceAtLeast(1)
     }
 
     @Composable
@@ -114,7 +180,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         LaunchedEffect(Unit) {
             val toolId = arguments?.getString("tool_id")
             val imageUri = arguments?.getString("image_uri")?.let { Uri.parse(it) }
-            val hasIncomingContext = toolId != null || imageUri != null
+            val shouldRestoreLatestSession = imageUri == null
             val existingSessions = chatRepo.getAllSessions()
             setSessions(existingSessions)
 
@@ -153,12 +219,10 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 }
             }
 
-            if (!hasIncomingContext) {
+            if (shouldRestoreLatestSession) {
                 val latestSession = existingSessions.firstOrNull()
                 if (latestSession != null) {
-                    val msgs = chatRepo.getMessages(latestSession.id).map {
-                        ChatMessage(it.text, it.isUser)
-                    }
+                    val msgs = loadChatMessages(chatRepo, latestSession.id)
                     setMessages(msgs)
                     setCurrentSessionId(latestSession.id)
                     setSuggestedQuestions(emptyList())
@@ -188,7 +252,8 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
         fun sendMessage(text: String) {
             if (text.isBlank() || isGenerating) return
-            val userMessage = ChatMessage(text, isUser = true)
+            val messageImage = attachedImage ?: aiContext?.image
+            val userMessage = ChatMessage(text, isUser = true, image = messageImage)
             val loadingMessage = ChatMessage("", isUser = false, isLoading = true)
             setMessages(messages + userMessage + loadingMessage)
             setInputText("")
@@ -197,73 +262,107 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
             val toolKnowledge = toolKnowledgeService.getPromptContext(text, aiContext?.toolId)
             val chatHistory = buildChatHistory(messages)
-            val prompt = AiPromptBuilder.buildUserPrompt(aiContext, text, toolKnowledge, chatHistory)
-            val images = listOfNotNull(attachedImage ?: aiContext?.image)
+            val prompt = AiPromptBuilder.buildUserPrompt(
+                aiContext,
+                text,
+                toolKnowledge,
+                chatHistory,
+                hasImage = messageImage != null
+            )
+            val images = listOfNotNull(messageImage)
             aiContext = null
             setAttachedImage(null)
 
             val responseBuilder = StringBuilder()
-            aiSubsystem.sendMessage(
-                input = prompt,
-                images = images,
-                callback = object : MessageCallback {
-                    override fun onMessage(message: Message) {
-                        responseBuilder.append(message.toString())
-                        val updated = messages + userMessage + ChatMessage(
-                            responseBuilder.toString(),
-                            isUser = false
-                        )
-                        setMessages(updated)
-                    }
-
-                    override fun onDone() {
-                        val final_ = messages + userMessage + ChatMessage(
-                            responseBuilder.toString(),
-                            isUser = false
-                        )
-                        setMessages(final_)
-                        setIsGenerating(false)
-                        scope.launch {
-                            val sessionId = currentSessionId ?: chatRepo.createSession(
-                                text.take(50)
-                            ).also { setCurrentSessionId(it) }
-                            chatRepo.addMessage(sessionId, text, isUser = true)
-                            chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
-                            setSessions(chatRepo.getAllSessions())
-                        }
-                    }
-
-                    override fun onError(throwable: Throwable) {
-                        val errorMsg = if (throwable is java.util.concurrent.CancellationException) {
-                            responseBuilder.toString()
-                        } else {
-                            getString(R.string.ai_inference_error)
-                        }
-                        val final_ = messages + userMessage + ChatMessage(errorMsg, isUser = false)
-                        setMessages(final_)
-                        setIsGenerating(false)
-                        if (responseBuilder.isNotEmpty()) {
-                            scope.launch {
-                                val sessionId = currentSessionId ?: chatRepo.createSession(
-                                    text.take(50)
-                                ).also { setCurrentSessionId(it) }
-                                chatRepo.addMessage(sessionId, text, isUser = true)
-                                chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
-                                setSessions(chatRepo.getAllSessions())
+            scope.launch {
+                try {
+                    aiSubsystem.sendMessage(
+                        input = prompt,
+                        images = images,
+                        callback = object : MessageCallback {
+                            override fun onMessage(message: Message) {
+                                responseBuilder.append(message.toString())
+                                scope.launch {
+                                    val updated = messages + userMessage + ChatMessage(
+                                        responseBuilder.toString(),
+                                        isUser = false
+                                    )
+                                    setMessages(updated)
+                                }
                             }
-                        } else {
-                            scope.launch {
-                                val sessionId = currentSessionId ?: chatRepo.createSession(
-                                    text.take(50)
-                                ).also { setCurrentSessionId(it) }
-                                chatRepo.addMessage(sessionId, text, isUser = true)
-                                chatRepo.addMessage(sessionId, errorMsg, isUser = false)
-                                setSessions(chatRepo.getAllSessions())
+
+                            override fun onDone() {
+                                scope.launch {
+                                    val final_ = messages + userMessage + ChatMessage(
+                                        responseBuilder.toString(),
+                                        isUser = false
+                                    )
+                                    setMessages(final_)
+                                    setIsGenerating(false)
+                                    val sessionId = currentSessionId ?: chatRepo.createSession(
+                                        text.take(50)
+                                    ).also { setCurrentSessionId(it) }
+                                    val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
+                                    chatRepo.addMessage(
+                                        sessionId,
+                                        text,
+                                        isUser = true,
+                                        imagePath = imagePath
+                                    )
+                                    chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
+                                    setSessions(chatRepo.getAllSessions())
+                                }
+                            }
+
+                            override fun onError(throwable: Throwable) {
+                                scope.launch {
+                                    val errorMsg = if (throwable is java.util.concurrent.CancellationException) {
+                                        responseBuilder.toString()
+                                    } else {
+                                        getString(R.string.ai_inference_error)
+                                    }
+                                    val final_ = messages + userMessage + ChatMessage(errorMsg, isUser = false)
+                                    setMessages(final_)
+                                    setIsGenerating(false)
+                                    val sessionId = currentSessionId ?: chatRepo.createSession(
+                                        text.take(50)
+                                    ).also { setCurrentSessionId(it) }
+                                    val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
+                                    chatRepo.addMessage(
+                                        sessionId,
+                                        text,
+                                        isUser = true,
+                                        imagePath = imagePath
+                                    )
+                                    chatRepo.addMessage(
+                                        sessionId,
+                                        responseBuilder.toString().ifBlank { errorMsg },
+                                        isUser = false
+                                    )
+                                    setSessions(chatRepo.getAllSessions())
+                                }
                             }
                         }
-                    }
+                    )
+                } catch (_: Exception) {
+                    val errorMsg = getString(R.string.ai_inference_error)
+                    val final_ = messages + userMessage + ChatMessage(errorMsg, isUser = false)
+                    setMessages(final_)
+                    setIsGenerating(false)
+                    val sessionId = currentSessionId ?: chatRepo.createSession(
+                        text.take(50)
+                    ).also { setCurrentSessionId(it) }
+                    val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
+                    chatRepo.addMessage(
+                        sessionId,
+                        text,
+                        isUser = true,
+                        imagePath = imagePath
+                    )
+                    chatRepo.addMessage(sessionId, errorMsg, isUser = false)
+                    setSessions(chatRepo.getAllSessions())
                 }
-            )
+            }
         }
 
         LaunchedEffect(messages.size) {
@@ -277,9 +376,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 sessions = sessions,
                 onSessionClick = { session ->
                     scope.launch {
-                        val msgs = chatRepo.getMessages(session.id).map {
-                            ChatMessage(it.text, it.isUser)
-                        }
+                        val msgs = loadChatMessages(chatRepo, session.id)
                         setMessages(msgs)
                         setCurrentSessionId(session.id)
                         setShowHistory(false)
@@ -297,9 +394,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                 setMessages(emptyList())
                                 setCurrentSessionId(null)
                             } else {
-                                val msgs = chatRepo.getMessages(latestSession.id).map {
-                                    ChatMessage(it.text, it.isUser)
-                                }
+                                val msgs = loadChatMessages(chatRepo, latestSession.id)
                                 setMessages(msgs)
                                 setCurrentSessionId(latestSession.id)
                             }
@@ -326,6 +421,22 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         uri?.let { setAttachedImage(loadBitmapFromUri(it)) }
                     }
                 },
+                onPickImageClick = {
+                    pickImage { uri ->
+                        uri ?: return@pickImage
+                        scope.launch {
+                            setAttachedImage(loadBitmapFromUri(uri))
+                        }
+                    }
+                },
+                onPickScreenshotClick = {
+                    pickImage { uri ->
+                        uri ?: return@pickImage
+                        scope.launch {
+                            setAttachedImage(loadBitmapFromUri(uri))
+                        }
+                    }
+                },
                 onRemoveImage = { setAttachedImage(null) },
                 onHistoryClick = {
                     scope.launch {
@@ -350,6 +461,24 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 },
                 listState = listState,
                 contextCard = aiContext?.summary
+            )
+        }
+    }
+
+    private companion object {
+        private const val MAX_ATTACHED_IMAGE_SIZE = 1024
+        private const val IMAGE_ATTACHMENT_PREFIX = "[Image attached]"
+    }
+
+    private suspend fun loadChatMessages(
+        chatRepo: AiChatRepo,
+        sessionId: Long
+    ): List<ChatMessage> {
+        return chatRepo.getMessages(sessionId).map {
+            ChatMessage(
+                text = it.text.removePrefix("$IMAGE_ATTACHMENT_PREFIX\n"),
+                isUser = it.isUser,
+                image = it.imagePath?.let { path -> chatRepo.loadMessageImage(path) }
             )
         }
     }
@@ -381,6 +510,8 @@ private fun AiAssistantContent(
     onSend: (String) -> Unit,
     onStop: () -> Unit,
     onCameraClick: () -> Unit,
+    onPickImageClick: () -> Unit,
+    onPickScreenshotClick: () -> Unit,
     onRemoveImage: () -> Unit,
     onHistoryClick: () -> Unit,
     onNewChat: () -> Unit,
@@ -388,6 +519,8 @@ private fun AiAssistantContent(
     contextCard: String?,
     modifier: Modifier = Modifier
 ) {
+    val (showImageMenu, setShowImageMenu) = useState(false)
+
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
@@ -492,12 +625,52 @@ private fun AiAssistantContent(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(
-                onClick = onCameraClick,
-                enabled = !isGenerating && error == null,
-                modifier = Modifier.testTag("camera_button")
-            ) {
-                Icon(painterResource(R.drawable.ic_camera), contentDescription = stringResource(R.string.ai_attach_photo))
+            Box {
+                IconButton(
+                    onClick = { setShowImageMenu(true) },
+                    enabled = !isGenerating && error == null,
+                    modifier = Modifier.testTag("image_button")
+                ) {
+                    Icon(
+                        painterResource(R.drawable.ic_camera),
+                        contentDescription = stringResource(R.string.ai_attach_image)
+                    )
+                }
+                DropdownMenu(
+                    expanded = showImageMenu,
+                    onDismissRequest = { setShowImageMenu(false) }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.ai_take_photo)) },
+                        onClick = {
+                            setShowImageMenu(false)
+                            onCameraClick()
+                        },
+                        leadingIcon = {
+                            Icon(painterResource(R.drawable.ic_camera), contentDescription = null)
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.ai_choose_image)) },
+                        onClick = {
+                            setShowImageMenu(false)
+                            onPickImageClick()
+                        },
+                        leadingIcon = {
+                            Icon(painterResource(R.drawable.ic_file), contentDescription = null)
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.ai_choose_screenshot)) },
+                        onClick = {
+                            setShowImageMenu(false)
+                            onPickScreenshotClick()
+                        },
+                        leadingIcon = {
+                            Icon(painterResource(R.drawable.ic_phone), contentDescription = null)
+                        }
+                    )
+                }
             }
             OutlinedTextField(
                 value = inputText,
@@ -547,11 +720,29 @@ private fun ChatBubble(message: ChatMessage, modifier: Modifier = Modifier) {
                     strokeWidth = 2.dp
                 )
             } else {
-                Text(
-                    text = message.text,
-                    modifier = Modifier.padding(12.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Column(modifier = Modifier.padding(12.dp)) {
+                    if (message.image != null) {
+                        Image(
+                            bitmap = message.image.asImageBitmap(),
+                            contentDescription = stringResource(R.string.ai_attached_image),
+                            modifier = Modifier
+                                .size(160.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .testTag("message_image")
+                        )
+                    }
+                    if (message.text.isNotBlank()) {
+                        Text(
+                            text = message.text,
+                            modifier = if (message.image == null) {
+                                Modifier
+                            } else {
+                                Modifier.padding(top = 8.dp)
+                            },
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
             }
         }
     }

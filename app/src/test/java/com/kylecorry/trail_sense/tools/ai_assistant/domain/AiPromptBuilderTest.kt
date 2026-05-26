@@ -67,6 +67,18 @@ class AiPromptBuilderTest {
     }
 
     @Test
+    fun `buildUserPrompt includes image instructions`() {
+        val prompt = AiPromptBuilder.buildUserPrompt(
+            null,
+            "Explain these values",
+            hasImage = true
+        )
+        assertTrue(prompt.contains("[Attached image]"))
+        assertTrue(prompt.contains("visible labels"))
+        assertTrue(prompt.contains("Explain these values"))
+    }
+
+    @Test
     fun `buildUserPrompt without context only includes question`() {
         val prompt = AiPromptBuilder.buildUserPrompt(null, "Hello")
         assertTrue(prompt.contains("Hello"))
