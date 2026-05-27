@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 class AiToolKnowledgeService(private val context: Context) {
 
     private val toolSearch by lazy { ToolSearch(context) }
+    private val skillService by lazy { AiToolSkillService(context) }
     private val entries by lazy {
         TextUtils.loadTextFromResources(context, R.raw.ai_tool_knowledge)
             .let { AiToolKnowledgeParser.parse(it) }
@@ -20,11 +21,20 @@ class AiToolKnowledgeService(private val context: Context) {
     fun getPromptContext(
         question: String,
         preferredToolId: String? = null,
-        limit: Int = 2
+        limit: Int = 6,
+        enabledSkillIds: Set<String>? = null
     ): String? {
-        val tools = getMatchingTools(question, preferredToolId, limit)
+        val skillContext = skillService.getPromptContext(
+            question,
+            enabledSkillIds = enabledSkillIds
+        )
+        val skillToolIds = skillService.getMatchingToolIds(
+            question,
+            enabledSkillIds = enabledSkillIds
+        )
+        val tools = getMatchingTools(question, preferredToolId, limit, skillToolIds)
         if (tools.isEmpty()) {
-            return null
+            return skillContext
         }
 
         val sections = tools.mapNotNull { tool ->
@@ -32,17 +42,27 @@ class AiToolKnowledgeService(private val context: Context) {
             buildToolSection(tool, entry, question)
         }
 
-        if (sections.isEmpty()) {
+        val promptSections = listOfNotNull(skillContext) + sections
+        if (promptSections.isEmpty()) {
             return null
         }
 
-        return sections.joinToString("\n\n").trimForPrompt(MAX_CONTEXT_CHARS)
+        return promptSections.joinToString("\n\n").trimForPrompt(MAX_CONTEXT_CHARS)
+    }
+
+    fun getSamplePrompts(limit: Int = 4): List<String> {
+        return skillService.getSamplePrompts(limit)
+    }
+
+    fun getSkills(): List<AiToolSkillEntry> {
+        return skillService.getSkills()
     }
 
     private fun getMatchingTools(
         question: String,
         preferredToolId: String?,
-        limit: Int
+        limit: Int,
+        skillToolIds: List<Long>
     ): List<Tool> {
         val preferred = preferredToolId?.let { findPreferredTool(it) }
         val rankedIds = AiToolKnowledgeMatcher.rank(
@@ -54,9 +74,10 @@ class AiToolKnowledgeService(private val context: Context) {
             Tools.getTool(context, entry.toolId)?.name.orEmpty()
         }
         val knowledgeMatches = rankedIds.mapNotNull { Tools.getTool(context, it) }
+        val skillMatches = skillToolIds.mapNotNull { Tools.getTool(context, it) }
         val searched = toolSearch.search(question)
 
-        return (knowledgeMatches + searched)
+        return (skillMatches + knowledgeMatches + searched)
             .distinctBy { it.id }
             .take(limit)
     }
@@ -121,7 +142,7 @@ class AiToolKnowledgeService(private val context: Context) {
     }
 
     companion object {
-        private const val MAX_CONTEXT_CHARS = 1800
+        private const val MAX_CONTEXT_CHARS = 5000
         private const val MAX_TOOL_CONTEXT_CHARS = 1000
         private const val MAX_GUIDE_EXCERPT_CHARS = 800
 

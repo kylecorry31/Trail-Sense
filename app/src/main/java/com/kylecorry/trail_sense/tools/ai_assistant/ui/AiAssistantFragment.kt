@@ -7,32 +7,46 @@ import android.net.Uri
 import android.os.Build
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -41,10 +55,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseComposeFragment
@@ -53,6 +73,7 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiContext
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiPromptBuilder
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolKnowledgeService
+import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolSkillEntry
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.CloudAiContextProvider
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.NavigationAiContextProvider
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.WeatherAiContextProvider
@@ -78,7 +99,8 @@ data class ChatMessage(
     val text: String,
     val isUser: Boolean,
     val isLoading: Boolean = false,
-    val image: Bitmap? = null
+    val image: Bitmap? = null,
+    val id: Long? = null
 )
 
 class AiAssistantFragment : TrailSenseComposeFragment() {
@@ -163,6 +185,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         val toolKnowledgeService = remember {
             AiToolKnowledgeService(requireContext().applicationContext)
         }
+        val availableSkills = remember { toolKnowledgeService.getSkills() }
         val chatRepo = AiChatRepo.getInstance(requireContext())
         val (messages, setMessages) = useState(listOf<ChatMessage>())
         val (inputText, setInputText) = useState("")
@@ -174,6 +197,8 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         val (currentSessionId, setCurrentSessionId) = useState<Long?>(null)
         val (showHistory, setShowHistory) = useState(false)
         val (sessions, setSessions) = useState(emptyList<ChatSessionEntity>())
+        val (showSkillPicker, setShowSkillPicker) = useState(false)
+        val (selectedSkillIds, setSelectedSkillIds) = useState(availableSkills.map { it.id }.toSet())
         val listState = rememberLazyListState()
         val scope = rememberCoroutineScope()
 
@@ -181,6 +206,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             val toolId = arguments?.getString("tool_id")
             val imageUri = arguments?.getString("image_uri")?.let { Uri.parse(it) }
             val shouldRestoreLatestSession = imageUri == null
+            var hasContextSuggestions = false
             val existingSessions = chatRepo.getAllSessions()
             setSessions(existingSessions)
 
@@ -191,6 +217,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         val provider = WeatherAiContextProvider { weatherSubsystem.getWeather() }
                         aiContext = provider.getAiContext()
                         setSuggestedQuestions(provider.getSuggestedQuestions())
+                        hasContextSuggestions = true
                     } catch (_: Exception) {}
                 }
                 "clouds" -> {
@@ -203,6 +230,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         )
                         aiContext = provider.getAiContext()
                         setSuggestedQuestions(provider.getSuggestedQuestions())
+                        hasContextSuggestions = true
                         if (image != null) setAttachedImage(image)
                     } catch (_: Exception) {}
                 }
@@ -215,10 +243,12 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         )
                         aiContext = provider.getAiContext()
                         setSuggestedQuestions(provider.getSuggestedQuestions())
+                        hasContextSuggestions = true
                     } catch (_: Exception) {}
                 }
             }
 
+            var restoredLatestSession = false
             if (shouldRestoreLatestSession) {
                 val latestSession = existingSessions.firstOrNull()
                 if (latestSession != null) {
@@ -226,7 +256,12 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                     setMessages(msgs)
                     setCurrentSessionId(latestSession.id)
                     setSuggestedQuestions(emptyList())
+                    restoredLatestSession = true
                 }
+            }
+
+            if (!restoredLatestSession && !hasContextSuggestions) {
+                setSuggestedQuestions(getDefaultSkillQuestions())
             }
 
             if (!aiSubsystem.isModelAvailable()) {
@@ -260,14 +295,19 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             setIsGenerating(true)
             setSuggestedQuestions(emptyList())
 
-            val toolKnowledge = toolKnowledgeService.getPromptContext(text, aiContext?.toolId)
-            val chatHistory = buildChatHistory(messages)
+            val hasImage = messageImage != null
+            val toolKnowledge = toolKnowledgeService.getPromptContext(
+                text,
+                aiContext?.toolId,
+                enabledSkillIds = selectedSkillIds
+            )
+            val chatHistory = if (hasImage) null else buildChatHistory(messages)
             val prompt = AiPromptBuilder.buildUserPrompt(
                 aiContext,
                 text,
                 toolKnowledge,
                 chatHistory,
-                hasImage = messageImage != null
+                hasImage = hasImage
             )
             val images = listOfNotNull(messageImage)
             aiContext = null
@@ -276,15 +316,26 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             val responseBuilder = StringBuilder()
             scope.launch {
                 try {
+                    if (hasImage) {
+                        recreateConversation(aiSubsystem)
+                    }
                     aiSubsystem.sendMessage(
                         input = prompt,
                         images = images,
                         callback = object : MessageCallback {
                             override fun onMessage(message: Message) {
-                                responseBuilder.append(message.toString())
+                                val partialResponse = message.toString()
+                                if (partialResponse.isEmpty()) {
+                                    return
+                                }
+                                responseBuilder.append(partialResponse)
+                                val response = formatAiResponse(responseBuilder.toString())
+                                if (response.isBlank()) {
+                                    return
+                                }
                                 scope.launch {
                                     val updated = messages + userMessage + ChatMessage(
-                                        responseBuilder.toString(),
+                                        response,
                                         isUser = false
                                     )
                                     setMessages(updated)
@@ -293,23 +344,28 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
                             override fun onDone() {
                                 scope.launch {
-                                    val final_ = messages + userMessage + ChatMessage(
-                                        responseBuilder.toString(),
-                                        isUser = false
-                                    )
-                                    setMessages(final_)
+                                    val response = formatAiResponse(responseBuilder.toString())
+                                        .ifBlank { getString(R.string.ai_inference_error) }
                                     setIsGenerating(false)
                                     val sessionId = currentSessionId ?: chatRepo.createSession(
                                         text.take(50)
                                     ).also { setCurrentSessionId(it) }
                                     val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
-                                    chatRepo.addMessage(
+                                    val userMessageId = chatRepo.addMessage(
                                         sessionId,
                                         text,
                                         isUser = true,
                                         imagePath = imagePath
                                     )
-                                    chatRepo.addMessage(sessionId, responseBuilder.toString(), isUser = false)
+                                    val responseMessageId = chatRepo.addMessage(
+                                        sessionId,
+                                        response,
+                                        isUser = false
+                                    )
+                                    val final_ = messages +
+                                        userMessage.copy(id = userMessageId) +
+                                        ChatMessage(response, isUser = false, id = responseMessageId)
+                                    setMessages(final_)
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
@@ -317,28 +373,32 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                             override fun onError(throwable: Throwable) {
                                 scope.launch {
                                     val errorMsg = if (throwable is java.util.concurrent.CancellationException) {
-                                        responseBuilder.toString()
+                                        formatAiResponse(responseBuilder.toString())
+                                            .ifBlank { getString(R.string.ai_inference_error) }
                                     } else {
                                         getString(R.string.ai_inference_error)
                                     }
-                                    val final_ = messages + userMessage + ChatMessage(errorMsg, isUser = false)
-                                    setMessages(final_)
                                     setIsGenerating(false)
                                     val sessionId = currentSessionId ?: chatRepo.createSession(
                                         text.take(50)
                                     ).also { setCurrentSessionId(it) }
                                     val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
-                                    chatRepo.addMessage(
+                                    val userMessageId = chatRepo.addMessage(
                                         sessionId,
                                         text,
                                         isUser = true,
                                         imagePath = imagePath
                                     )
-                                    chatRepo.addMessage(
+                                    val responseMessageId = chatRepo.addMessage(
                                         sessionId,
-                                        responseBuilder.toString().ifBlank { errorMsg },
+                                        formatAiResponse(responseBuilder.toString())
+                                            .ifBlank { errorMsg },
                                         isUser = false
                                     )
+                                    val final_ = messages +
+                                        userMessage.copy(id = userMessageId) +
+                                        ChatMessage(errorMsg, isUser = false, id = responseMessageId)
+                                    setMessages(final_)
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
@@ -346,20 +406,22 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                     )
                 } catch (_: Exception) {
                     val errorMsg = getString(R.string.ai_inference_error)
-                    val final_ = messages + userMessage + ChatMessage(errorMsg, isUser = false)
-                    setMessages(final_)
                     setIsGenerating(false)
                     val sessionId = currentSessionId ?: chatRepo.createSession(
                         text.take(50)
                     ).also { setCurrentSessionId(it) }
                     val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
-                    chatRepo.addMessage(
+                    val userMessageId = chatRepo.addMessage(
                         sessionId,
                         text,
                         isUser = true,
                         imagePath = imagePath
                     )
-                    chatRepo.addMessage(sessionId, errorMsg, isUser = false)
+                    val responseMessageId = chatRepo.addMessage(sessionId, errorMsg, isUser = false)
+                    val final_ = messages +
+                        userMessage.copy(id = userMessageId) +
+                        ChatMessage(errorMsg, isUser = false, id = responseMessageId)
+                    setMessages(final_)
                     setSessions(chatRepo.getAllSessions())
                 }
             }
@@ -393,10 +455,12 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                             if (latestSession == null) {
                                 setMessages(emptyList())
                                 setCurrentSessionId(null)
+                                setSuggestedQuestions(getDefaultSkillQuestions())
                             } else {
                                 val msgs = loadChatMessages(chatRepo, latestSession.id)
                                 setMessages(msgs)
                                 setCurrentSessionId(latestSession.id)
+                                setSuggestedQuestions(emptyList())
                             }
                         }
                     }
@@ -438,6 +502,22 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                     }
                 },
                 onRemoveImage = { setAttachedImage(null) },
+                skills = availableSkills,
+                selectedSkillIds = selectedSkillIds,
+                showSkillPicker = showSkillPicker,
+                onSkillsClick = { setShowSkillPicker(true) },
+                onDismissSkills = { setShowSkillPicker(false) },
+                onSkillSelectedChange = { skill, selected ->
+                    setSelectedSkillIds(
+                        if (selected) {
+                            selectedSkillIds + skill.id
+                        } else {
+                            selectedSkillIds - skill.id
+                        }
+                    )
+                },
+                onSelectAllSkills = { setSelectedSkillIds(availableSkills.map { it.id }.toSet()) },
+                onClearSkills = { setSelectedSkillIds(emptySet()) },
                 onHistoryClick = {
                     scope.launch {
                         setSessions(chatRepo.getAllSessions())
@@ -448,7 +528,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                     setMessages(emptyList())
                     setCurrentSessionId(null)
                     aiContext = null
-                    setSuggestedQuestions(emptyList())
+                    setSuggestedQuestions(getDefaultSkillQuestions())
                     scope.launch {
                         aiSubsystem.createConversation(
                             systemInstruction = Contents.of(listOf(Content.Text(
@@ -459,8 +539,18 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         )
                     }
                 },
+                onDeleteMessage = { message ->
+                    setMessages(messages.filterNot { it === message })
+                    message.id?.let { id ->
+                        scope.launch {
+                            chatRepo.deleteMessage(id)
+                            setSessions(chatRepo.getAllSessions())
+                        }
+                    }
+                },
                 listState = listState,
-                contextCard = aiContext?.summary
+                contextCard = aiContext?.summary,
+                showAgentSkillsIntro = messages.isEmpty() && aiContext == null
             )
         }
     }
@@ -478,7 +568,8 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             ChatMessage(
                 text = it.text.removePrefix("$IMAGE_ATTACHMENT_PREFIX\n"),
                 isUser = it.isUser,
-                image = it.imagePath?.let { path -> chatRepo.loadMessageImage(path) }
+                image = it.imagePath?.let { path -> chatRepo.loadMessageImage(path) },
+                id = it.id
             )
         }
     }
@@ -494,9 +585,31 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
         return history.takeIf { it.isNotBlank() }
     }
+
+    private fun formatAiResponse(response: String): String {
+        return response.replace("\\n", "\n")
+    }
+
+    private fun getDefaultSkillQuestions(): List<String> {
+        return listOf(
+            getString(R.string.ai_skill_prompt_avalanche),
+            getString(R.string.ai_skill_prompt_storm),
+            getString(R.string.ai_skill_prompt_navigate_back),
+            getString(R.string.ai_skill_prompt_cold_elevation)
+        )
+    }
+
+    private suspend fun recreateConversation(aiSubsystem: AiInferenceSubsystem) {
+        val systemPrompt = AiPromptBuilder.buildSystemPrompt(
+            resources.configuration.locales[0] ?: Locale.ENGLISH
+        )
+        aiSubsystem.createConversation(
+            systemInstruction = Contents.of(listOf(Content.Text(systemPrompt)))
+        )
+    }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun AiAssistantContent(
     messages: List<ChatMessage>,
@@ -513,10 +626,20 @@ private fun AiAssistantContent(
     onPickImageClick: () -> Unit,
     onPickScreenshotClick: () -> Unit,
     onRemoveImage: () -> Unit,
+    skills: List<AiToolSkillEntry>,
+    selectedSkillIds: Set<String>,
+    showSkillPicker: Boolean,
+    onSkillsClick: () -> Unit,
+    onDismissSkills: () -> Unit,
+    onSkillSelectedChange: (AiToolSkillEntry, Boolean) -> Unit,
+    onSelectAllSkills: () -> Unit,
+    onClearSkills: () -> Unit,
     onHistoryClick: () -> Unit,
     onNewChat: () -> Unit,
+    onDeleteMessage: (ChatMessage) -> Unit,
     listState: androidx.compose.foundation.lazy.LazyListState,
     contextCard: String?,
+    showAgentSkillsIntro: Boolean,
     modifier: Modifier = Modifier
 ) {
     val (showImageMenu, setShowImageMenu) = useState(false)
@@ -524,10 +647,29 @@ private fun AiAssistantContent(
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onHistoryClick, modifier = Modifier.testTag("history_button")) {
                 Icon(painterResource(R.drawable.ic_tool_notes), contentDescription = stringResource(R.string.ai_chat_history))
+            }
+            Row(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painterResource(R.drawable.ic_ai_assistant),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = stringResource(R.string.ai_agent_skills_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
             }
             IconButton(onClick = onNewChat, modifier = Modifier.testTag("new_chat_button")) {
                 Icon(painterResource(R.drawable.ic_add), contentDescription = stringResource(R.string.ai_new_chat))
@@ -573,13 +715,25 @@ private fun AiAssistantContent(
             }
         }
 
-        LazyColumn(
-            modifier = Modifier.weight(1f).fillMaxWidth().testTag("chat_list"),
-            state = listState,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(messages) { message ->
-                ChatBubble(message)
+        if (showAgentSkillsIntro) {
+            Box(
+                modifier = Modifier.weight(1f).fillMaxWidth().testTag("agent_skills_intro"),
+                contentAlignment = Alignment.Center
+            ) {
+                AgentSkillsIntro()
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.weight(1f).fillMaxWidth().testTag("chat_list"),
+                state = listState,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(messages) { message ->
+                    ChatBubble(
+                        message = message,
+                        onDelete = { onDeleteMessage(message) }
+                    )
+                }
             }
         }
 
@@ -621,77 +775,154 @@ private fun AiAssistantContent(
             modifier = Modifier.padding(vertical = 4.dp)
         )
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+        PromptInputCard(
+            inputText = inputText,
+            isGenerating = isGenerating,
+            enabled = error == null,
+            selectedSkillCount = selectedSkillIds.size,
+            onInputChanged = onInputChanged,
+            onSend = onSend,
+            onStop = onStop,
+            onSkillsClick = onSkillsClick,
+            onShowImageMenu = { setShowImageMenu(true) }
+        )
+
+        DropdownMenu(
+            expanded = showImageMenu,
+            onDismissRequest = { setShowImageMenu(false) }
         ) {
-            Box {
-                IconButton(
-                    onClick = { setShowImageMenu(true) },
-                    enabled = !isGenerating && error == null,
-                    modifier = Modifier.testTag("image_button")
-                ) {
-                    Icon(
-                        painterResource(R.drawable.ic_camera),
-                        contentDescription = stringResource(R.string.ai_attach_image)
-                    )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.ai_take_photo)) },
+                onClick = {
+                    setShowImageMenu(false)
+                    onCameraClick()
+                },
+                leadingIcon = {
+                    Icon(painterResource(R.drawable.ic_camera), contentDescription = null)
                 }
-                DropdownMenu(
-                    expanded = showImageMenu,
-                    onDismissRequest = { setShowImageMenu(false) }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.ai_take_photo)) },
-                        onClick = {
-                            setShowImageMenu(false)
-                            onCameraClick()
-                        },
-                        leadingIcon = {
-                            Icon(painterResource(R.drawable.ic_camera), contentDescription = null)
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.ai_choose_image)) },
-                        onClick = {
-                            setShowImageMenu(false)
-                            onPickImageClick()
-                        },
-                        leadingIcon = {
-                            Icon(painterResource(R.drawable.ic_file), contentDescription = null)
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.ai_choose_screenshot)) },
-                        onClick = {
-                            setShowImageMenu(false)
-                            onPickScreenshotClick()
-                        },
-                        leadingIcon = {
-                            Icon(painterResource(R.drawable.ic_phone), contentDescription = null)
-                        }
-                    )
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.ai_choose_image)) },
+                onClick = {
+                    setShowImageMenu(false)
+                    onPickImageClick()
+                },
+                leadingIcon = {
+                    Icon(painterResource(R.drawable.ic_file), contentDescription = null)
                 }
-            }
-            OutlinedTextField(
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.ai_choose_screenshot)) },
+                onClick = {
+                    setShowImageMenu(false)
+                    onPickScreenshotClick()
+                },
+                leadingIcon = {
+                    Icon(painterResource(R.drawable.ic_phone), contentDescription = null)
+                }
+            )
+        }
+
+        if (showSkillPicker) {
+            SkillPickerBottomSheet(
+                skills = skills,
+                selectedSkillIds = selectedSkillIds,
+                onDismiss = onDismissSkills,
+                onSkillSelectedChange = onSkillSelectedChange,
+                onSelectAll = onSelectAllSkills,
+                onClear = onClearSkills
+            )
+        }
+    }
+}
+
+@Composable
+private fun PromptInputCard(
+    inputText: String,
+    isGenerating: Boolean,
+    enabled: Boolean,
+    selectedSkillCount: Int,
+    onInputChanged: (String) -> Unit,
+    onSend: (String) -> Unit,
+    onStop: () -> Unit,
+    onSkillsClick: () -> Unit,
+    onShowImageMenu: () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth().testTag("prompt_input_card"),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            BasicTextField(
                 value = inputText,
                 onValueChange = onInputChanged,
-                modifier = Modifier.weight(1f).testTag("input_field"),
-                placeholder = { Text(stringResource(R.string.ai_input_hint)) },
-                enabled = !isGenerating && error == null,
-                singleLine = false,
-                maxLines = 3
+                enabled = !isGenerating && enabled,
+                maxLines = 3,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp)
+                    .padding(horizontal = 12.dp, vertical = 10.dp)
+                    .testTag("input_field"),
+                decorationBox = { innerTextField ->
+                    if (inputText.isBlank()) {
+                        Text(
+                            text = stringResource(R.string.ai_input_hint),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                    innerTextField()
+                }
             )
-            IconButton(
-                onClick = {
-                    if (isGenerating) onStop() else onSend(inputText)
-                },
-                enabled = error == null,
-                modifier = Modifier.testTag("send_button")
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                if (isGenerating) {
-                    Icon(painterResource(R.drawable.ic_cancel), contentDescription = null)
-                } else {
-                    Icon(painterResource(R.drawable.ic_send), contentDescription = null)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    IconButton(
+                        onClick = onShowImageMenu,
+                        enabled = !isGenerating && enabled,
+                        modifier = Modifier.testTag("image_button")
+                    ) {
+                        Icon(
+                            painterResource(R.drawable.ic_add),
+                            contentDescription = stringResource(R.string.ai_attach_image)
+                        )
+                    }
+                    OutlinedButton(
+                        onClick = onSkillsClick,
+                        enabled = !isGenerating && enabled,
+                        modifier = Modifier.testTag("skills_button")
+                    ) {
+                        Text(stringResource(R.string.ai_skills))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        SkillCountBadge(selectedSkillCount)
+                    }
+                }
+
+                IconButton(
+                    onClick = {
+                        if (isGenerating) onStop() else onSend(inputText)
+                    },
+                    enabled = enabled,
+                    modifier = Modifier.testTag("send_button")
+                ) {
+                    if (isGenerating) {
+                        Icon(painterResource(R.drawable.ic_cancel), contentDescription = null)
+                    } else {
+                        Icon(painterResource(R.drawable.ic_send), contentDescription = null)
+                    }
                 }
             }
         }
@@ -699,11 +930,171 @@ private fun AiAssistantContent(
 }
 
 @Composable
-private fun ChatBubble(message: ChatMessage, modifier: Modifier = Modifier) {
+private fun SkillCountBadge(count: Int) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .height(18.dp)
+            .widthIn(min = 18.dp)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+    ) {
+        Text(
+            text = count.toString(),
+            style = MaterialTheme.typography.labelSmall
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SkillPickerBottomSheet(
+    skills: List<AiToolSkillEntry>,
+    selectedSkillIds: Set<String>,
+    onDismiss: () -> Unit,
+    onSkillSelectedChange: (AiToolSkillEntry, Boolean) -> Unit,
+    onSelectAll: () -> Unit,
+    onClear: () -> Unit
+) {
+    ModalBottomSheet(onDismissRequest = onDismiss) {
+        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(bottom = 24.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.ai_skills),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f)
+                )
+                TextButton(onClick = onSelectAll) {
+                    Text(stringResource(R.string.ai_skills_turn_on_all))
+                }
+                TextButton(onClick = onClear) {
+                    Text(stringResource(R.string.ai_skills_turn_off_all))
+                }
+            }
+
+            Text(
+                text = stringResource(R.string.ai_skills_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
+
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().heightIn(max = 420.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(skills, key = { it.id }) { skill ->
+                    SkillPickerRow(
+                        skill = skill,
+                        selected = skill.id in selectedSkillIds,
+                        onSelectedChange = { selected -> onSkillSelectedChange(skill, selected) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SkillPickerRow(
+    skill: AiToolSkillEntry,
+    selected: Boolean,
+    onSelectedChange: (Boolean) -> Unit
+) {
+    val language = LocalContext.current.resources.configuration.locales[0]?.language ?: "en"
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = skill.name(language),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = skill.summary(language),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+            Checkbox(
+                checked = selected,
+                onCheckedChange = onSelectedChange
+            )
+        }
+    }
+}
+
+@Composable
+private fun AgentSkillsIntro() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(horizontal = 24.dp)
+    ) {
+        Text(
+            text = stringResource(R.string.ai_agent_skills_intro_label),
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = stringResource(R.string.ai_agent_skills_title),
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+        Text(
+            text = stringResource(R.string.ai_agent_skills_description),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 24.dp)
+        )
+        Text(
+            text = stringResource(R.string.ai_agent_skills_try_prompt),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 32.dp)
+        )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun ChatBubble(
+    message: ChatMessage,
+    onDelete: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (!message.isLoading && message.text.isBlank() && message.image == null) {
+        return
+    }
+
+    val context = LocalContext.current
+    val (showMenu, setShowMenu) = useState(false)
     val containerColor = if (message.isUser) {
         MaterialTheme.colorScheme.primaryContainer
     } else {
         MaterialTheme.colorScheme.secondaryContainer
+    }
+    val canShowActions = !message.isLoading
+    val actionModifier = if (canShowActions) {
+        Modifier.combinedClickable(
+            onClick = {},
+            onLongClick = { setShowMenu(true) }
+        )
+    } else {
+        Modifier
     }
 
     Box(modifier = modifier.fillMaxWidth()) {
@@ -711,6 +1102,7 @@ private fun ChatBubble(message: ChatMessage, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(if (message.isUser) Alignment.CenterEnd else Alignment.CenterStart)
                 .fillMaxWidth(0.85f)
+                .then(actionModifier)
                 .testTag(if (message.isUser) "user_message" else "ai_message"),
             colors = CardDefaults.cardColors(containerColor = containerColor)
         ) {
@@ -721,6 +1113,22 @@ private fun ChatBubble(message: ChatMessage, modifier: Modifier = Modifier) {
                 )
             } else {
                 Column(modifier = Modifier.padding(12.dp)) {
+                    if (canShowActions) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End
+                        ) {
+                            IconButton(
+                                onClick = { setShowMenu(true) },
+                                modifier = Modifier.size(32.dp).testTag("message_menu_button")
+                            ) {
+                                Icon(
+                                    painterResource(R.drawable.ic_menu_dots),
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                    }
                     if (message.image != null) {
                         Image(
                             bitmap = message.image.asImageBitmap(),
@@ -733,7 +1141,7 @@ private fun ChatBubble(message: ChatMessage, modifier: Modifier = Modifier) {
                     }
                     if (message.text.isNotBlank()) {
                         Text(
-                            text = message.text,
+                            text = markdownToAnnotatedString(message.text),
                             modifier = if (message.image == null) {
                                 Modifier
                             } else {
@@ -745,7 +1153,67 @@ private fun ChatBubble(message: ChatMessage, modifier: Modifier = Modifier) {
                 }
             }
         }
+        DropdownMenu(
+            expanded = showMenu,
+            onDismissRequest = { setShowMenu(false) }
+        ) {
+            if (message.text.isNotBlank()) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(androidx.preference.R.string.copy)) },
+                    onClick = {
+                        setShowMenu(false)
+                        Clipboard.copy(
+                            context,
+                            markdownToPlainText(message.text),
+                            context.getString(R.string.copied_to_clipboard_toast)
+                        )
+                    },
+                    leadingIcon = {
+                        Icon(painterResource(R.drawable.ic_copy), contentDescription = null)
+                    }
+                )
+            }
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.delete)) },
+                onClick = {
+                    setShowMenu(false)
+                    onDelete()
+                },
+                leadingIcon = {
+                    Icon(painterResource(R.drawable.ic_delete), contentDescription = null)
+                }
+            )
+        }
     }
+}
+
+private fun markdownToAnnotatedString(text: String): AnnotatedString {
+    return buildAnnotatedString {
+        var currentIndex = 0
+        var boldStart = text.indexOf("**")
+        while (boldStart >= 0) {
+            val boldEnd = text.indexOf("**", startIndex = boldStart + 2)
+            if (boldEnd < 0) {
+                break
+            }
+
+            append(text.substring(currentIndex, boldStart))
+            val contentStart = length
+            append(text.substring(boldStart + 2, boldEnd))
+            addStyle(
+                SpanStyle(fontWeight = FontWeight.Bold),
+                contentStart,
+                length
+            )
+            currentIndex = boldEnd + 2
+            boldStart = text.indexOf("**", startIndex = currentIndex)
+        }
+        append(text.substring(currentIndex))
+    }
+}
+
+private fun markdownToPlainText(text: String): String {
+    return markdownToAnnotatedString(text).text
 }
 
 @Composable

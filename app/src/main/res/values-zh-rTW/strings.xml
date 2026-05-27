@@ -1566,4 +1566,16 @@
     <string name="ai_choose_image">從相簿選擇</string>
     <string name="ai_choose_screenshot">選擇截圖</string>
     <string name="ai_attached_image">已新增的圖片</string>
+    <string name="ai_agent_skills_title">Agent Skills</string>
+    <string name="ai_agent_skills_intro_label">介紹</string>
+    <string name="ai_agent_skills_description">使用 Trail Sense 技能，組合多個工具來處理複雜的戶外判斷。</string>
+    <string name="ai_agent_skills_try_prompt">試試下面的範例問題。</string>
+    <string name="ai_skill_prompt_avalanche">我現在是否有雪崩風險？</string>
+    <string name="ai_skill_prompt_storm">現在是不是要下暴雨？</string>
+    <string name="ai_skill_prompt_navigate_back">我迷路了應該用哪些工具？</string>
+    <string name="ai_skill_prompt_cold_elevation">上山會不會很冷？</string>
+    <string name="ai_skills">Skills</string>
+    <string name="ai_skills_description">選擇 AI 助手可以使用的 Trail Sense 內建工作流。</string>
+    <string name="ai_skills_turn_on_all">全部開啟</string>
+    <string name="ai_skills_turn_off_all">全部關閉</string>
 </resources>

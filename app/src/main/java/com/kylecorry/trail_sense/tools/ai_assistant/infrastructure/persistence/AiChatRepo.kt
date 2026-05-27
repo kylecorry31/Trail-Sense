@@ -57,6 +57,13 @@ class AiChatRepo private constructor(context: Context) {
         return id
     }
 
+    suspend fun deleteMessage(messageId: Long) {
+        val message = dao.getMessage(messageId) ?: return
+        message.imagePath?.let { files.delete(it) }
+        dao.deleteMessage(messageId)
+        updateSessionTime(message.sessionId)
+    }
+
     suspend fun saveMessageImage(image: Bitmap): String {
         val path = "$IMAGE_DIR/${UUID.randomUUID()}.webp"
         files.save(path, image, quality = IMAGE_QUALITY)

@@ -11,4 +11,16 @@
     <string name="ai_choose_image">Choose image</string>
     <string name="ai_choose_screenshot">Choose screenshot</string>
     <string name="ai_attached_image">Attached image</string>
+    <string name="ai_agent_skills_title">Agent Skills</string>
+    <string name="ai_agent_skills_intro_label">Introducing</string>
+    <string name="ai_agent_skills_description">Use Trail Sense skills to combine tools for complex outdoor decisions.</string>
+    <string name="ai_agent_skills_try_prompt">Try a sample prompt below.</string>
+    <string name="ai_skill_prompt_avalanche">Am I in avalanche terrain?</string>
+    <string name="ai_skill_prompt_storm">Is a storm coming?</string>
+    <string name="ai_skill_prompt_navigate_back">How do I get back to camp?</string>
+    <string name="ai_skill_prompt_cold_elevation">How cold will it be at the summit?</string>
+    <string name="ai_skills">Skills</string>
+    <string name="ai_skills_description">Choose which built-in Trail Sense workflows the assistant can use.</string>
+    <string name="ai_skills_turn_on_all">Turn on all</string>
+    <string name="ai_skills_turn_off_all">Turn off all</string>
 </resources>

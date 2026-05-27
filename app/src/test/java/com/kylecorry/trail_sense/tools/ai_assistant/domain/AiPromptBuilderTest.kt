@@ -24,6 +24,9 @@ class AiPromptBuilderTest {
     fun `buildSystemPrompt instructs use of tool knowledge`() {
         val prompt = AiPromptBuilder.buildSystemPrompt(Locale.ENGLISH)
         assertTrue(prompt.contains("Trail Sense tool knowledge"))
+        assertTrue(prompt.contains("skill workflow"))
+        assertTrue(prompt.contains("multiple Trail Sense tools"))
+        assertTrue(prompt.contains("interpret the readings"))
         assertTrue(prompt.contains("User Guide"))
     }
 

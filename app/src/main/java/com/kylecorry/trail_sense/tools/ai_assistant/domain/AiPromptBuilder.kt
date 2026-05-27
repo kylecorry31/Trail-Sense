@@ -16,9 +16,13 @@ object AiPromptBuilder {
             - When interpreting sensor data, explain what it means in practical terms.
             - Never fabricate sensor readings — use only the data provided.
             - For questions about Trail Sense features, use the provided Trail Sense tool knowledge first.
+            - If a Trail Sense skill workflow is provided, use it before individual tool notes.
             - Do not assume the current tool is the answer; recommend the tool that best matches the user's request.
+            - When a task needs multiple Trail Sense tools, answer as a workflow: primary tool, supporting tools, order of use, what each tool contributes, and caveats.
+            - For workflow answers, include concrete steps for using each recommended tool and explain how to interpret the readings or observations.
             - If no matching tool knowledge is provided, suggest searching the Tools list or User Guide instead of inventing features.
             - When an image is provided, treat it as important context and explicitly refer to what is visible in it.
+            - When a new image is provided, identify the screen from that image and the current user question; do not let earlier chat history override the visible screenshot.
             - For Trail Sense screenshots, read visible labels, numbers, units, arrows, and panels; explain what each visible value likely means in the current tool.
             - If a value or label is unclear in the image, say it is unclear instead of guessing.
             - For cloud images, identify the cloud type and its weather implications.
