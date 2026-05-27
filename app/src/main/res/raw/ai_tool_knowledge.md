@@ -92,7 +92,7 @@ Related: Navigation, Map
 
 ## 11. Clinometer
 Tool ID: 11
-Needs: angle, slope, incline, avalanche risk, tree height, distance by angle, 坡度, 倾角, 斜坡, 坡面, 测角, 角度, 雪崩, 树高
+Needs: clinometer, angle, slope, incline, tilt, avalanche risk, tree height, distance by angle, 测斜仪, 倾斜仪, 傾斜儀, 斜度仪, 坡度仪, 坡度, 倾角, 斜坡, 坡面, 测角, 角度, 雪崩, 树高
 Where: Open Clinometer from Tools.
 How: Hold the phone aligned with the slope or sightline and choose the relevant calculator mode.
 Values: Angle is inclination in degrees; slope may be grade or percent; height and distance estimates are derived from angle and known distance or height.
@@ -317,7 +317,7 @@ Related: AI Assistant
 
 ## 36. Experimentation
 Tool ID: 36
-Needs: experiment, debug, sandbox, internal testing
+Needs: experiment, debug, sandbox, internal testing, 实验, 调试, 沙盒, 内部测试, 测试功能, 实验性功能
 Where: Only visible in debug builds.
 How: Use only for internal experimental features.
 Values: No stable user-facing result contract.
@@ -344,7 +344,7 @@ Related: Astronomy, Paths
 
 ## 39. Local Messaging
 Tool ID: 39
-Needs: local message, communication, send text, receive text
+Needs: local message, communication, send text, receive text, 本地消息收发, 本地消息, 离线消息, 局域网消息, 文字通信, 发消息, 收消息
 Where: Visible only when the Trail Sense communications companion app is installed.
 How: Open Local Messaging to launch the companion app messaging tool.
 Values: Results are handled by the companion communications app.
@@ -353,7 +353,7 @@ Related: Local Talk
 
 ## 40. Local Talk
 Tool ID: 40
-Needs: local talk, voice communication, walkie talkie, radio, speak
+Needs: local talk, voice communication, walkie talkie, radio, speak, 本地交谈, 对讲机, 语音通信, 语音通话, 无线电通话, 说话
 Where: Visible only when the Trail Sense communications companion app is installed.
 How: Open Local Talk to launch the companion app talk tool.
 Values: Results are handled by the companion communications app.
@@ -398,7 +398,7 @@ Related: Convert
 
 ## 45. Permits
 Tool ID: 45
-Needs: permits, license, pass, authorization, reservation
+Needs: permits, license, pass, authorization, reservation, 许可, 许可证, 许可证件, 通行证, 预约许可, 授权
 Where: Only visible in debug builds.
 How: Currently a placeholder permit list.
 Values: No stable user-facing values.
@@ -407,7 +407,7 @@ Related: Settings
 
 ## 46. Declination
 Tool ID: 46
-Needs: magnetic declination, true north, magnetic north, compass correction, 磁偏角, 真北, 磁北, 指南针校正
+Needs: magnetic declination, true north, magnetic north, compass correction, declination override, 磁偏角, 磁偏差, 真北, 磁北, 指南针校正, 指南针校准, 磁偏角修正
 Where: Open Declination from Tools.
 How: Use current or chosen location to get the declination for a physical compass.
 Values: Declination is the angle between true north and magnetic north.

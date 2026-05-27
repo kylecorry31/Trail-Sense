@@ -6,11 +6,12 @@ object AiToolKnowledgeMatcher {
         question: String,
         entries: Collection<AiToolKnowledgeEntry>,
         preferredToolId: Long? = null,
-        limit: Int = 2
+        limit: Int = 2,
+        extraSearchText: (AiToolKnowledgeEntry) -> String = { "" }
     ): List<Long> {
         val scored = entries
             .mapNotNull { entry ->
-                val score = score(question, entry)
+                val score = score(question, entry, extraSearchText(entry))
                 if (score <= 0f) {
                     null
                 } else {
@@ -25,11 +26,12 @@ object AiToolKnowledgeMatcher {
     }
 
     fun isRelevant(question: String, entry: AiToolKnowledgeEntry): Boolean {
-        return score(question, entry) > 0f
+        return score(question, entry, "") > 0f
     }
 
-    private fun score(question: String, entry: AiToolKnowledgeEntry): Float {
+    private fun score(question: String, entry: AiToolKnowledgeEntry, extraSearchText: String): Float {
         val searchable = listOf(
+            extraSearchText,
             entry.needs,
             entry.where,
             entry.how,

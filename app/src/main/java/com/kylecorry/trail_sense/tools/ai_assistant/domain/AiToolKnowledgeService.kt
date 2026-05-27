@@ -50,7 +50,9 @@ class AiToolKnowledgeService(private val context: Context) {
             entries.values,
             preferred?.id,
             limit
-        )
+        ) { entry ->
+            Tools.getTool(context, entry.toolId)?.name.orEmpty()
+        }
         val knowledgeMatches = rankedIds.mapNotNull { Tools.getTool(context, it) }
         val searched = toolSearch.search(question)
 
