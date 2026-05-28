@@ -1,0 +1,14 @@
+Astronomie
+- Alertes de lever du soleil
+
+Marées
+- Ajout d'une méthode d'estimation de l'intervalle entre les marées
+
+Itinéraires
+- Modification de l'intervalle par défaut de l'historique de parcours à 15 minutes
+
+Lampe de poche
+- Réglage de la luminosité de la lampe de poche à l'écran à l'aide des boutons de volume (à activer dans les Paramètres)
+
+Divers
+- Corrections de bugs et améliorations des performances
