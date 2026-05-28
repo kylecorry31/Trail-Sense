@@ -1,0 +1,15 @@
+Listes de colisage
+- Importer et exporter des listes de colisage
+
+Sifflet
+- Amélioration du son du sifflet
+
+Outils
+- Affichage des actions rapides pour l'outil actuel en appuyant longuement sur la barre inférieure
+
+Guide d'utilisation
+- Ajout d'une action rapide pour afficher le guide de l'outil actuel
+
+Paramètres
+- Ajout d'une action rapide pour afficher les paramètres de l'outil actuel
+- Calibrage du baromètre

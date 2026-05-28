@@ -1,0 +1,17 @@
+Widgets
+- Widgets pour l'écran d'accueil et dans l'application (appuyer longuement sur la barre de navigation du bas) :
+  - Météo
+  - Pression
+  - Graphique de pression
+  - Soleil
+  - Lune
+  - Graphique soleil et lune
+
+Marées
+- Modèle de marées mondial (hors ligne)
+
+Sauvegarde
+- Paramètres de sauvegarde automatique (une fois par jour, conserve les 2 dernières sauvegardes)
+
+Réalité augmentée
+- Afficher les étoiles la nuit (les 50 plus brillantes)
