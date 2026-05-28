@@ -69,7 +69,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class, ChatSessionEntity::class, ChatMessageEntity::class],
-    version = 58,
+    version = 59,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -549,6 +549,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_58_59 = object : Migration(58, 59) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `ai_chat_messages` ADD COLUMN `tool_calls_json` TEXT DEFAULT NULL")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -607,7 +613,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_54_55,
                     MIGRATION_55_56,
                     MIGRATION_56_57,
-                    MIGRATION_57_58
+                    MIGRATION_57_58,
+                    MIGRATION_58_59
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

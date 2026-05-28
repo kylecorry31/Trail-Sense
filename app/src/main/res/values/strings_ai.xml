@@ -23,4 +23,10 @@
     <string name="ai_skills_description">Choose which built-in Trail Sense workflows the assistant can use.</string>
     <string name="ai_skills_turn_on_all">Turn on all</string>
     <string name="ai_skills_turn_off_all">Turn off all</string>
+    <string name="ai_tool_calls">Tool results</string>
+    <string name="ai_tool_status_running">Running</string>
+    <string name="ai_tool_status_succeeded">Done</string>
+    <string name="ai_tool_status_unavailable">Unavailable</string>
+    <string name="ai_tool_status_failed">Failed</string>
+    <string name="ai_open_tool">Open tool</string>
 </resources>

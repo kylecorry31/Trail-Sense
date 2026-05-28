@@ -47,10 +47,10 @@ class AiToolSkillService(private val context: Context) {
             .take(limit)
     }
 
-    private fun getMatchingSkills(
+    fun getMatchingSkills(
         question: String,
-        limit: Int,
-        enabledSkillIds: Set<String>?
+        limit: Int = 1,
+        enabledSkillIds: Set<String>? = null
     ): List<AiToolSkillEntry> {
         val enabledEntries = if (enabledSkillIds == null) {
             entries

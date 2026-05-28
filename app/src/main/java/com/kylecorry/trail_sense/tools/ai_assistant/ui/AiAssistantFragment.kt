@@ -64,20 +64,26 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseComposeFragment
 import com.kylecorry.trail_sense.shared.extensions.compose.useState
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiContext
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiPromptBuilder
+import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolCallCard
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolKnowledgeService
+import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolRunStatus
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolSkillEntry
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.CloudAiContextProvider
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.NavigationAiContextProvider
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.WeatherAiContextProvider
+import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.AiAssistantTools
 import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.AiInferenceSubsystem
+import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.AiToolExecutionService
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
@@ -89,6 +95,8 @@ import com.google.ai.edge.litertlm.Contents
 import com.google.ai.edge.litertlm.Content
 import com.google.ai.edge.litertlm.Message
 import com.google.ai.edge.litertlm.MessageCallback
+import com.google.ai.edge.litertlm.ToolProvider
+import com.google.ai.edge.litertlm.tool
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -100,6 +108,7 @@ data class ChatMessage(
     val isUser: Boolean,
     val isLoading: Boolean = false,
     val image: Bitmap? = null,
+    val toolCalls: List<AiToolCallCard> = emptyList(),
     val id: Long? = null
 )
 
@@ -184,6 +193,15 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         val aiSubsystem = AiInferenceSubsystem.getInstance(requireContext())
         val toolKnowledgeService = remember {
             AiToolKnowledgeService(requireContext().applicationContext)
+        }
+        val toolExecutionService = remember {
+            AiToolExecutionService(requireContext().applicationContext)
+        }
+        val aiAssistantTools = remember {
+            AiAssistantTools(toolExecutionService)
+        }
+        val aiToolProviders = remember {
+            listOf(tool(aiAssistantTools))
         }
         val availableSkills = remember { toolKnowledgeService.getSkills() }
         val chatRepo = AiChatRepo.getInstance(requireContext())
@@ -276,7 +294,8 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         resources.configuration.locales[0] ?: Locale.ENGLISH
                     )
                     aiSubsystem.createConversation(
-                        systemInstruction = Contents.of(listOf(Content.Text(systemPrompt)))
+                        systemInstruction = Contents.of(listOf(Content.Text(systemPrompt))),
+                        tools = aiToolProviders
                     )
                 } catch (e: Exception) {
                     setError(getString(R.string.ai_initialization_failed))
@@ -290,34 +309,102 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             val messageImage = attachedImage ?: aiContext?.image
             val userMessage = ChatMessage(text, isUser = true, image = messageImage)
             val loadingMessage = ChatMessage("", isUser = false, isLoading = true)
-            setMessages(messages + userMessage + loadingMessage)
+            val priorMessages = messages
+            aiAssistantTools.configure(selectedSkillIds)
+            toolExecutionService.configure(selectedSkillIds)
+            val selectedSkill = toolExecutionService.selectSkill(text, selectedSkillIds)
+            selectedSkill?.let { toolExecutionService.activateSkill(it) }
+            val runningToolMessage = selectedSkill?.let {
+                ChatMessage(
+                    text = "",
+                    isUser = false,
+                    toolCalls = toolExecutionService.getRunningCards(it)
+                )
+            }
+            setMessages(priorMessages + userMessage + listOfNotNull(runningToolMessage) + loadingMessage)
             setInputText("")
             setIsGenerating(true)
             setSuggestedQuestions(emptyList())
 
             val hasImage = messageImage != null
-            val toolKnowledge = toolKnowledgeService.getPromptContext(
-                text,
-                aiContext?.toolId,
-                enabledSkillIds = selectedSkillIds
-            )
-            val chatHistory = if (hasImage) null else buildChatHistory(messages)
-            val prompt = AiPromptBuilder.buildUserPrompt(
-                aiContext,
-                text,
-                toolKnowledge,
-                chatHistory,
-                hasImage = hasImage
-            )
             val images = listOfNotNull(messageImage)
+            val currentAiContext = aiContext
             aiContext = null
             setAttachedImage(null)
 
             val responseBuilder = StringBuilder()
+
+            suspend fun saveConversation(
+                response: String,
+                toolCardMessage: ChatMessage?
+            ): List<ChatMessage> {
+                val sessionId = currentSessionId ?: chatRepo.createSession(
+                    text.take(50)
+                ).also { setCurrentSessionId(it) }
+                val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
+                val userMessageId = chatRepo.addMessage(
+                    sessionId,
+                    text,
+                    isUser = true,
+                    imagePath = imagePath
+                )
+                val savedToolMessage = toolCardMessage
+                    ?.takeIf { it.toolCalls.isNotEmpty() }
+                    ?.let {
+                        val toolMessageId = chatRepo.addMessage(
+                            sessionId,
+                            "",
+                            isUser = false,
+                            toolCallsJson = AiToolCallCard.toJson(it.toolCalls)
+                        )
+                        it.copy(id = toolMessageId)
+                    }
+                val responseMessageId = chatRepo.addMessage(
+                    sessionId,
+                    response,
+                    isUser = false
+                )
+
+                return priorMessages +
+                    userMessage.copy(id = userMessageId) +
+                    listOfNotNull(savedToolMessage) +
+                    ChatMessage(response, isUser = false, id = responseMessageId)
+            }
+
             scope.launch {
+                var completedToolMessage: ChatMessage? = null
                 try {
+                    val skillRun = selectedSkill?.let { toolExecutionService.execute(it) }
+                    val toolResults = skillRun?.toPromptContext()
+                    completedToolMessage = skillRun?.toCards()?.let {
+                        ChatMessage(text = "", isUser = false, toolCalls = it)
+                    }
+                    if (completedToolMessage != null) {
+                        setMessages(
+                            priorMessages +
+                                userMessage +
+                                completedToolMessage +
+                                loadingMessage
+                        )
+                    }
+
+                    val toolKnowledge = toolKnowledgeService.getPromptContext(
+                        text,
+                        currentAiContext?.toolId,
+                        enabledSkillIds = selectedSkillIds
+                    )
+                    val chatHistory = if (hasImage) null else buildChatHistory(priorMessages)
+                    val prompt = AiPromptBuilder.buildUserPrompt(
+                        currentAiContext,
+                        text,
+                        toolKnowledge,
+                        chatHistory,
+                        hasImage = hasImage,
+                        toolResults = toolResults
+                    )
+
                     if (hasImage) {
-                        recreateConversation(aiSubsystem)
+                        recreateConversation(aiSubsystem, aiToolProviders)
                     }
                     aiSubsystem.sendMessage(
                         input = prompt,
@@ -334,10 +421,10 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                     return
                                 }
                                 scope.launch {
-                                    val updated = messages + userMessage + ChatMessage(
-                                        response,
-                                        isUser = false
-                                    )
+                                    val updated = priorMessages +
+                                        userMessage +
+                                        listOfNotNull(completedToolMessage) +
+                                        ChatMessage(response, isUser = false)
                                     setMessages(updated)
                                 }
                             }
@@ -347,25 +434,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                     val response = formatAiResponse(responseBuilder.toString())
                                         .ifBlank { getString(R.string.ai_inference_error) }
                                     setIsGenerating(false)
-                                    val sessionId = currentSessionId ?: chatRepo.createSession(
-                                        text.take(50)
-                                    ).also { setCurrentSessionId(it) }
-                                    val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
-                                    val userMessageId = chatRepo.addMessage(
-                                        sessionId,
-                                        text,
-                                        isUser = true,
-                                        imagePath = imagePath
-                                    )
-                                    val responseMessageId = chatRepo.addMessage(
-                                        sessionId,
-                                        response,
-                                        isUser = false
-                                    )
-                                    val final_ = messages +
-                                        userMessage.copy(id = userMessageId) +
-                                        ChatMessage(response, isUser = false, id = responseMessageId)
-                                    setMessages(final_)
+                                    setMessages(saveConversation(response, completedToolMessage))
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
@@ -378,27 +447,10 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                     } else {
                                         getString(R.string.ai_inference_error)
                                     }
+                                    val response = formatAiResponse(responseBuilder.toString())
+                                        .ifBlank { errorMsg }
                                     setIsGenerating(false)
-                                    val sessionId = currentSessionId ?: chatRepo.createSession(
-                                        text.take(50)
-                                    ).also { setCurrentSessionId(it) }
-                                    val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
-                                    val userMessageId = chatRepo.addMessage(
-                                        sessionId,
-                                        text,
-                                        isUser = true,
-                                        imagePath = imagePath
-                                    )
-                                    val responseMessageId = chatRepo.addMessage(
-                                        sessionId,
-                                        formatAiResponse(responseBuilder.toString())
-                                            .ifBlank { errorMsg },
-                                        isUser = false
-                                    )
-                                    val final_ = messages +
-                                        userMessage.copy(id = userMessageId) +
-                                        ChatMessage(errorMsg, isUser = false, id = responseMessageId)
-                                    setMessages(final_)
+                                    setMessages(saveConversation(response, completedToolMessage))
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
@@ -407,21 +459,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 } catch (_: Exception) {
                     val errorMsg = getString(R.string.ai_inference_error)
                     setIsGenerating(false)
-                    val sessionId = currentSessionId ?: chatRepo.createSession(
-                        text.take(50)
-                    ).also { setCurrentSessionId(it) }
-                    val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
-                    val userMessageId = chatRepo.addMessage(
-                        sessionId,
-                        text,
-                        isUser = true,
-                        imagePath = imagePath
-                    )
-                    val responseMessageId = chatRepo.addMessage(sessionId, errorMsg, isUser = false)
-                    val final_ = messages +
-                        userMessage.copy(id = userMessageId) +
-                        ChatMessage(errorMsg, isUser = false, id = responseMessageId)
-                    setMessages(final_)
+                    setMessages(saveConversation(errorMsg, completedToolMessage))
                     setSessions(chatRepo.getAllSessions())
                 }
             }
@@ -528,6 +566,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                     setMessages(emptyList())
                     setCurrentSessionId(null)
                     aiContext = null
+                    aiAssistantTools.configure(selectedSkillIds)
                     setSuggestedQuestions(getDefaultSkillQuestions())
                     scope.launch {
                         aiSubsystem.createConversation(
@@ -535,7 +574,8 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                 AiPromptBuilder.buildSystemPrompt(
                                     resources.configuration.locales[0] ?: Locale.ENGLISH
                                 )
-                            )))
+                            ))),
+                            tools = aiToolProviders
                         )
                     }
                 },
@@ -550,7 +590,10 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 },
                 listState = listState,
                 contextCard = aiContext?.summary,
-                showAgentSkillsIntro = messages.isEmpty() && aiContext == null
+                showAgentSkillsIntro = messages.isEmpty() && aiContext == null,
+                onOpenTool = { navAction ->
+                    findNavController().navigateWithAnimation(navAction)
+                }
             )
         }
     }
@@ -569,6 +612,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 text = it.text.removePrefix("$IMAGE_ATTACHMENT_PREFIX\n"),
                 isUser = it.isUser,
                 image = it.imagePath?.let { path -> chatRepo.loadMessageImage(path) },
+                toolCalls = AiToolCallCard.listFromJson(it.toolCallsJson),
                 id = it.id
             )
         }
@@ -599,12 +643,16 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         )
     }
 
-    private suspend fun recreateConversation(aiSubsystem: AiInferenceSubsystem) {
+    private suspend fun recreateConversation(
+        aiSubsystem: AiInferenceSubsystem,
+        tools: List<ToolProvider>
+    ) {
         val systemPrompt = AiPromptBuilder.buildSystemPrompt(
             resources.configuration.locales[0] ?: Locale.ENGLISH
         )
         aiSubsystem.createConversation(
-            systemInstruction = Contents.of(listOf(Content.Text(systemPrompt)))
+            systemInstruction = Contents.of(listOf(Content.Text(systemPrompt))),
+            tools = tools
         )
     }
 }
@@ -640,6 +688,7 @@ private fun AiAssistantContent(
     listState: androidx.compose.foundation.lazy.LazyListState,
     contextCard: String?,
     showAgentSkillsIntro: Boolean,
+    onOpenTool: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val (showImageMenu, setShowImageMenu) = useState(false)
@@ -731,7 +780,8 @@ private fun AiAssistantContent(
                 items(messages) { message ->
                     ChatBubble(
                         message = message,
-                        onDelete = { onDeleteMessage(message) }
+                        onDelete = { onDeleteMessage(message) },
+                        onOpenTool = onOpenTool
                     )
                 }
             }
@@ -1074,9 +1124,10 @@ private fun AgentSkillsIntro() {
 private fun ChatBubble(
     message: ChatMessage,
     onDelete: () -> Unit,
+    onOpenTool: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (!message.isLoading && message.text.isBlank() && message.image == null) {
+    if (!message.isLoading && message.text.isBlank() && message.image == null && message.toolCalls.isEmpty()) {
         return
     }
 
@@ -1139,10 +1190,21 @@ private fun ChatBubble(
                                 .testTag("message_image")
                         )
                     }
+                    if (message.toolCalls.isNotEmpty()) {
+                        ToolCallPanel(
+                            toolCalls = message.toolCalls,
+                            onOpenTool = onOpenTool,
+                            modifier = if (message.image == null) {
+                                Modifier
+                            } else {
+                                Modifier.padding(top = 8.dp)
+                            }
+                        )
+                    }
                     if (message.text.isNotBlank()) {
                         Text(
                             text = markdownToAnnotatedString(message.text),
-                            modifier = if (message.image == null) {
+                            modifier = if (message.image == null && message.toolCalls.isEmpty()) {
                                 Modifier
                             } else {
                                 Modifier.padding(top = 8.dp)
@@ -1185,6 +1247,124 @@ private fun ChatBubble(
             )
         }
     }
+}
+
+@Composable
+private fun ToolCallPanel(
+    toolCalls: List<AiToolCallCard>,
+    onOpenTool: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val (expanded, setExpanded) = useState(true)
+    val skillName = toolCalls.firstOrNull()?.skillId?.let(::formatSkillId)
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(10.dp)
+            .testTag("tool_call_card")
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(R.string.ai_tool_calls),
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
+                if (skillName != null) {
+                    Text(
+                        text = skillName,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+            TextButton(onClick = { setExpanded(!expanded) }) {
+                Text(stringResource(if (expanded) R.string.hide else R.string.show))
+            }
+        }
+
+        AnimatedVisibility(visible = expanded) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                toolCalls.forEach { call ->
+                    ToolCallRow(call, onOpenTool)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ToolCallRow(
+    call: AiToolCallCard,
+    onOpenTool: (Int) -> Unit
+) {
+    val statusText = when (call.status) {
+        AiToolRunStatus.Running -> R.string.ai_tool_status_running
+        AiToolRunStatus.Succeeded -> R.string.ai_tool_status_succeeded
+        AiToolRunStatus.Unavailable -> R.string.ai_tool_status_unavailable
+        AiToolRunStatus.Failed -> R.string.ai_tool_status_failed
+    }
+    val statusColor = when (call.status) {
+        AiToolRunStatus.Succeeded -> MaterialTheme.colorScheme.primary
+        AiToolRunStatus.Running -> MaterialTheme.colorScheme.onSurfaceVariant
+        AiToolRunStatus.Unavailable -> MaterialTheme.colorScheme.tertiary
+        AiToolRunStatus.Failed -> MaterialTheme.colorScheme.error
+    }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = call.toolName,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = stringResource(statusText),
+                style = MaterialTheme.typography.labelSmall,
+                color = statusColor
+            )
+        }
+        Text(
+            text = call.summary,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 2.dp)
+        )
+        if (!call.details.isNullOrBlank()) {
+            Text(
+                text = call.details,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
+        if (call.openedNavAction != null) {
+            OutlinedButton(
+                onClick = { onOpenTool(call.openedNavAction) },
+                modifier = Modifier.padding(top = 6.dp)
+            ) {
+                Text(stringResource(R.string.ai_open_tool))
+            }
+        }
+    }
+}
+
+private fun formatSkillId(skillId: String): String {
+    return skillId.split('_')
+        .filter { it.isNotBlank() }
+        .joinToString(" ") {
+            it.replaceFirstChar { char -> char.uppercase(Locale.getDefault()) }
+        }
 }
 
 private fun markdownToAnnotatedString(text: String): AnnotatedString {

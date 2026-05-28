@@ -1628,4 +1628,10 @@
     <string name="ai_skills_description">选择 AI 助手可以使用的 Trail Sense 内置工作流。</string>
     <string name="ai_skills_turn_on_all">全部开启</string>
     <string name="ai_skills_turn_off_all">全部关闭</string>
+    <string name="ai_tool_calls">工具结果</string>
+    <string name="ai_tool_status_running">运行中</string>
+    <string name="ai_tool_status_succeeded">已完成</string>
+    <string name="ai_tool_status_unavailable">不可用</string>
+    <string name="ai_tool_status_failed">失败</string>
+    <string name="ai_open_tool">打开工具</string>
 </resources>

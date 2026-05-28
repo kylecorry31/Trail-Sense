@@ -25,6 +25,9 @@ class AiPromptBuilderTest {
         val prompt = AiPromptBuilder.buildSystemPrompt(Locale.ENGLISH)
         assertTrue(prompt.contains("Trail Sense tool knowledge"))
         assertTrue(prompt.contains("skill workflow"))
+        assertTrue(prompt.contains("Trail Sense tool results"))
+        assertTrue(prompt.contains("unavailable tools"))
+        assertTrue(prompt.contains("higher concern"))
         assertTrue(prompt.contains("multiple Trail Sense tools"))
         assertTrue(prompt.contains("interpret the readings"))
         assertTrue(prompt.contains("User Guide"))
@@ -67,6 +70,20 @@ class AiPromptBuilderTest {
         assertTrue(prompt.contains("[Recent chat history]"))
         assertTrue(prompt.contains("Falling pressure"))
         assertTrue(prompt.contains("What about rain?"))
+    }
+
+    @Test
+    fun `buildUserPrompt includes tool results`() {
+        val prompt = AiPromptBuilder.buildUserPrompt(
+            null,
+            "Can I cross this slope?",
+            toolResults = "Clinometer [unavailable]: A live slope-angle measurement is required."
+        )
+
+        assertTrue(prompt.contains("[Trail Sense tool results]"))
+        assertTrue(prompt.contains("Clinometer [unavailable]"))
+        assertTrue(prompt.contains("Can I cross this slope?"))
+        assertFalse(prompt.contains("[Trail Sense tool knowledge]"))
     }
 
     @Test

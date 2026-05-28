@@ -14,7 +14,8 @@ data class ChatMessageEntity(
     @ColumnInfo(name = "text") val text: String,
     @ColumnInfo(name = "is_user") val isUser: Boolean,
     @ColumnInfo(name = "timestamp") val timestamp: Long,
-    @ColumnInfo(name = "image_path") val imagePath: String? = null
+    @ColumnInfo(name = "image_path") val imagePath: String? = null,
+    @ColumnInfo(name = "tool_calls_json") val toolCallsJson: String? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

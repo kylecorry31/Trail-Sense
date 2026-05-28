@@ -43,14 +43,16 @@ class AiChatRepo private constructor(context: Context) {
         sessionId: Long,
         text: String,
         isUser: Boolean,
-        imagePath: String? = null
+        imagePath: String? = null,
+        toolCallsJson: String? = null
     ): Long {
         val msg = ChatMessageEntity(
             sessionId = sessionId,
             text = text,
             isUser = isUser,
             timestamp = System.currentTimeMillis(),
-            imagePath = imagePath
+            imagePath = imagePath,
+            toolCallsJson = toolCallsJson
         )
         val id = dao.insertMessage(msg)
         updateSessionTime(sessionId)

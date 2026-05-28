@@ -31,6 +31,32 @@ class AiToolSkillMatcherTest {
         assertEquals("navigate_back_safely", ranked.first().id)
     }
 
+    @Test
+    fun `rank selects storm workflow for storm question`() {
+        val ranked = AiToolSkillMatcher.rank(
+            question = "Is a storm coming?",
+            entries = listOf(
+                entry("storm_check", "storm, severe weather, thunder, lightning, falling pressure"),
+                entry("cold_elevation_planning", "cold, elevation temperature")
+            )
+        )
+
+        assertEquals("storm_check", ranked.first().id)
+    }
+
+    @Test
+    fun `rank selects cold workflow for elevation temperature question`() {
+        val ranked = AiToolSkillMatcher.rank(
+            question = "How cold will it be at the summit?",
+            entries = listOf(
+                entry("storm_check", "storm, severe weather"),
+                entry("cold_elevation_planning", "cold, elevation temperature, freezing, mountain weather")
+            )
+        )
+
+        assertEquals("cold_elevation_planning", ranked.first().id)
+    }
+
     private fun entry(id: String, needs: String): AiToolSkillEntry {
         return AiToolSkillEntry(
             id = id,

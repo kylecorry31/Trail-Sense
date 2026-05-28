@@ -17,6 +17,9 @@ object AiPromptBuilder {
             - Never fabricate sensor readings — use only the data provided.
             - For questions about Trail Sense features, use the provided Trail Sense tool knowledge first.
             - If a Trail Sense skill workflow is provided, use it before individual tool notes.
+            - When Trail Sense tool results are provided, base workflow judgments on those results.
+            - Do not claim unavailable tools produced readings, measurements, or observations.
+            - For safety-critical workflows, use higher concern, lower concern, or insufficient evidence language; never guarantee that something is safe or unsafe.
             - Do not assume the current tool is the answer; recommend the tool that best matches the user's request.
             - When a task needs multiple Trail Sense tools, answer as a workflow: primary tool, supporting tools, order of use, what each tool contributes, and caveats.
             - For workflow answers, include concrete steps for using each recommended tool and explain how to interpret the readings or observations.
@@ -36,15 +39,21 @@ object AiPromptBuilder {
         question: String,
         toolKnowledge: String? = null,
         chatHistory: String? = null,
-        hasImage: Boolean = false
+        hasImage: Boolean = false,
+        toolResults: String? = null
     ): String {
-        if (context == null && toolKnowledge.isNullOrBlank() && chatHistory.isNullOrBlank() && !hasImage) {
+        if (context == null && toolKnowledge.isNullOrBlank() && chatHistory.isNullOrBlank() && !hasImage && toolResults.isNullOrBlank()) {
             return question
         }
         return buildString {
             if (!chatHistory.isNullOrBlank()) {
                 append("[Recent chat history]\n")
                 append(chatHistory)
+                append("\n\n")
+            }
+            if (!toolResults.isNullOrBlank()) {
+                append("[Trail Sense tool results]\n")
+                append(toolResults)
                 append("\n\n")
             }
             if (!toolKnowledge.isNullOrBlank()) {
