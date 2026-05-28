@@ -32,7 +32,7 @@ class BulletSpeedInputView(context: Context, attributeSet: AttributeSet? = null)
     }
 
     override fun getAmount(value: Speed): Number {
-        return value.speed
+        return value.value
     }
 
     override fun getUnit(value: Speed): DistanceUnits {

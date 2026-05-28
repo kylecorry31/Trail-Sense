@@ -189,7 +189,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         updateDestinationEta(
             values.location, values.elevation.meters().value, values.speed.convertTo(
                 DistanceUnits.Meters, TimeUnits.Seconds
-            ).speed, beacon
+            ).value, beacon
         )
 
         // TODO: These don't change

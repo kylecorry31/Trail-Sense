@@ -390,7 +390,7 @@ fun ReactiveComponent.useSpeedPreference(
     val (timeUnit, setTimeUnit) = useIntPreference("$key-time-unit")
 
     val setter = useCallback { speed: Speed? ->
-        setValue(speed?.speed)
+        setValue(speed?.value)
         setDistanceUnit(speed?.distanceUnits?.id)
         setTimeUnit(speed?.timeUnits?.id)
     }

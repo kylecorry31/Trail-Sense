@@ -52,7 +52,7 @@ object TideModel {
     private val imageReader = ImagePixelReader(condensedSize, interpolate = false)
 
     private val amplitudes = mapOf(
-        TideConstituent._2N2 to 13.116927146911621,
+        TideConstituent.TWO_N2 to 13.116927146911621,
         TideConstituent.J1 to 13.746432304382324,
         TideConstituent.K1 to 263.0484313964844,
         TideConstituent.K2 to 55.006473541259766,
@@ -122,7 +122,7 @@ object TideModel {
 
         // For each constituent, load the amplitude and phase (grouped 4 per file)
         val constituents = listOf(
-            TideConstituent._2N2,
+            TideConstituent.TWO_N2,
             TideConstituent.J1,
             TideConstituent.K1,
             TideConstituent.K2,

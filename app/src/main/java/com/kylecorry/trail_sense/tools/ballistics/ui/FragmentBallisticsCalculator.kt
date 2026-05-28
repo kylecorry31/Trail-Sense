@@ -134,7 +134,7 @@ class FragmentBallisticsCalculator :
             queue.replace {
                 setLoading(true)
                 setTrajectory(
-                    if (bulletSpeed != null && bulletSpeed.speed > 0 && zeroDistance != null && scopeHeight != null) {
+                    if (bulletSpeed != null && bulletSpeed.value > 0 && zeroDistance != null && scopeHeight != null) {
                         calculateTrajectory(
                             zeroDistance,
                             scopeHeight,
@@ -190,7 +190,7 @@ class FragmentBallisticsCalculator :
                     point.velocity.convertTo(
                         bulletSpeed?.distanceUnits ?: DistanceUnits.Feet,
                         bulletSpeed?.timeUnits ?: TimeUnits.Seconds
-                    ).speed,
+                    ).value,
                     0
                 )
 

@@ -241,19 +241,19 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMeteorShowerPeakAltitude(peak: MeteorShowerPeak, location: Coordinate): Float {
-        return Astronomy.getMeteorShowerAltitude(
+        return Astronomy.getMeteorShowerPosition(
             peak.shower,
             location,
             peak.peak.toInstant()
-        )
+        ).altitude
     }
 
     fun getMeteorShowerPeakAzimuth(peak: MeteorShowerPeak, location: Coordinate): Bearing {
-        return Astronomy.getMeteorShowerAzimuth(
+        return Astronomy.getMeteorShowerPosition(
             peak.shower,
             location,
             peak.peak.toInstant()
-        )
+        ).azimuth
     }
 
     fun getSeason(location: Coordinate, date: LocalDate = LocalDate.now()): Season {
@@ -315,8 +315,9 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         }
 
         return STAR_CATALOG.filter { maxMagnitude == null || it.magnitude <= maxMagnitude }.map {
-            val azimuth = Astronomy.getStarAzimuth(it, time, location)
-            val altitude = Astronomy.getStarAltitude(it, time, location, true)
+            val position = getStarPosition(it, location, time)
+            val azimuth = position.azimuth
+            val altitude = position.altitude
             it to (azimuth to altitude)
         }.filter { thresholdElevation == null || it.second.second > thresholdElevation }
     }
@@ -330,9 +331,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now()
     ): CelestialObservation {
-        val azimuth = Astronomy.getStarAzimuth(star, time, location)
-        val altitude = Astronomy.getStarAltitude(star, time, location, true)
-        return CelestialObservation(azimuth, altitude)
+        return Astronomy.getStarPosition(star, time, location, true)
     }
 
     fun getVisiblePlanets(

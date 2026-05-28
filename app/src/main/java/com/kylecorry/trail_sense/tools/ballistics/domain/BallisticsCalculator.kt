@@ -39,7 +39,7 @@ class BallisticsCalculator {
 
         val initialVelocity = Physics.getVelocityVectorForImpact(
             Vector2(zeroDistance.meters().value, 0f),
-            bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed,
+            bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value,
             Vector2(0f, -scopeHeight.meters().value),
             timeStep = TIME_STEP,
             maxTime = getApproximateTime(bulletSpeed, zeroDistance).coerceAtMost(MAX_TIME),
@@ -104,7 +104,7 @@ class BallisticsCalculator {
         val speedMetersPerSecond = bulletSpeed.convertTo(
             DistanceUnits.Meters,
             TimeUnits.Seconds
-        ).speed
+        ).value
         val distanceMeters = distance.meters().value
         val dragFactor = 1.5f
         return dragFactor * distanceMeters / speedMetersPerSecond

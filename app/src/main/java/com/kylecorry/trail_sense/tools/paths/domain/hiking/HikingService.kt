@@ -87,7 +87,7 @@ class HikingService : IHikingService {
         path: List<PathPoint>,
         pace: Speed
     ): Duration {
-        val speed = pace.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed
+        val speed = pace.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value
         val gain = getElevationGain(path).meters().value
 
         val distance = Geography.getPathDistance(path.map { it.coordinate }).meters().value

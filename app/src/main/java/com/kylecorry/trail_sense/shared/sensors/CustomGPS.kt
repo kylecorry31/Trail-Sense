@@ -171,7 +171,7 @@ class CustomGPS(
         val oldestLocation = locations.firstOrNull()
 
         // If the speed is zero, estimate the speed
-        if (_speed.speed == 0f && oldestLocation != null) {
+        if (_speed.value == 0f && oldestLocation != null) {
             val currentLocation = ApproximateCoordinate.from(
                 _location,
                 Distance.meters(_horizontalAccuracy?.real(10f) ?: 10f)
@@ -290,7 +290,7 @@ class CustomGPS(
     private fun updateCache() {
         cache.putFloat(LAST_ALTITUDE, altitude)
         cache.putLong(LAST_UPDATE, time.toEpochMilli())
-        cache.putFloat(LAST_SPEED, speed.speed)
+        cache.putFloat(LAST_SPEED, speed.value)
         cache.putDouble(LAST_LONGITUDE, location.longitude)
         cache.putDouble(LAST_LATITUDE, location.latitude)
     }

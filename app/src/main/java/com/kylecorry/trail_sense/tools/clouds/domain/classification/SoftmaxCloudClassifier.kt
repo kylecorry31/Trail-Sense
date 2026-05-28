@@ -122,7 +122,7 @@ class SoftmaxCloudClassifier(
         private const val GLCM_STEP_SIZE = 1
         private val weights = Matrix.create(
             arrayOf(
-                arrayOf(
+                floatArrayOf(
                     -30.499298f,
                     -32.44622f,
                     8.59708f,
@@ -134,7 +134,7 @@ class SoftmaxCloudClassifier(
                     16.956928f,
                     -8.88946f
                 ),
-                arrayOf(
+                floatArrayOf(
                     -18.911097f,
                     -30.558966f,
                     21.984447f,
@@ -146,7 +146,7 @@ class SoftmaxCloudClassifier(
                     -0.7885379f,
                     16.439323f
                 ),
-                arrayOf(
+                floatArrayOf(
                     2.7423918f,
                     7.5182056f,
                     -0.55555236f,
@@ -158,7 +158,7 @@ class SoftmaxCloudClassifier(
                     -0.4180131f,
                     -1.3353842f
                 ),
-                arrayOf(
+                floatArrayOf(
                     -0.07265506f,
                     8.69243f,
                     -15.892311f,
@@ -170,7 +170,7 @@ class SoftmaxCloudClassifier(
                     8.29234f,
                     17.448767f
                 ),
-                arrayOf(
+                floatArrayOf(
                     -12.927965f,
                     -14.036783f,
                     7.5850844f,
@@ -182,7 +182,7 @@ class SoftmaxCloudClassifier(
                     -12.29734f,
                     17.991028f
                 ),
-                arrayOf(
+                floatArrayOf(
                     42.331375f,
                     44.738117f,
                     -14.025002f,

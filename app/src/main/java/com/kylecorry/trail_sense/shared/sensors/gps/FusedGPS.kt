@@ -129,7 +129,7 @@ class FusedGPS(
             projectedVelocity.y,
             (gps.horizontalAccuracy ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE,
             // If the device isn't moving, increase the speed accuracy
-            (if (gps.speed.speed == 0f) NOT_MOVING_SPEED_ACCURACY_FACTOR else 1f) * (gps.speedAccuracy
+            (if (gps.speed.value == 0f) NOT_MOVING_SPEED_ACCURACY_FACTOR else 1f) * (gps.speedAccuracy
                 ?: DEFAULT_SPEED_ACCURACY) * PROJECTION_SCALE
         )
 
@@ -145,8 +145,8 @@ class FusedGPS(
     private fun getProjectedVelocity(): Vector2 {
         val unitBearing = Trigonometry.toUnitAngle(gps.rawBearing ?: 0f, 90f, false)
         return Vector2(
-            gps.speed.speed * cosDegrees(unitBearing) * PROJECTION_SCALE,
-            gps.speed.speed * sinDegrees(unitBearing) * PROJECTION_SCALE
+            gps.speed.value * cosDegrees(unitBearing) * PROJECTION_SCALE,
+            gps.speed.value * sinDegrees(unitBearing) * PROJECTION_SCALE
         )
     }
 

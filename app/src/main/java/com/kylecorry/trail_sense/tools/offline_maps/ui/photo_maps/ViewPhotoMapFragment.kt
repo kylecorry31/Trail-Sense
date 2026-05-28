@@ -248,7 +248,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.navigationSheet.updateNavigationSensorValues(
             gps.location,
             altimeter.altitude,
-            gps.speed.speed,
+            gps.speed.value,
             compass.declination
         )
         binding.navigationSheet.setTrueNorthOverride(true)

@@ -451,7 +451,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 binding.navigationSheet.updateNavigationSensorValues(
                     gps.location,
                     altimeter.altitude,
-                    speedometer.speed.speed,
+                    speedometer.speed.value,
                     declination
                 )
                 binding.navigationSheet.show(currentDestination, destination != null)
@@ -460,8 +460,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
         }
 
-        effect("speed", speedometer.speed.speed, lifecycleHookTrigger.onResume()) {
-            binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
+        effect("speed", speedometer.speed.value, lifecycleHookTrigger.onResume()) {
+            binding.speed.title = formatService.formatSpeed(speedometer.speed.value)
         }
 
         effect("azimuth", compass.rawBearing, lifecycleHookTrigger.onResume()) {

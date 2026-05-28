@@ -86,7 +86,7 @@ class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_exp
                         ).convertTo(
                             DistanceUnits.Meters,
                             TimeUnits.Seconds
-                        ).speed
+                        ).value
                     ),
                     formatter.formatWeather(weather.current.weather),
                     separator = FormatService.Separator.NewLine
