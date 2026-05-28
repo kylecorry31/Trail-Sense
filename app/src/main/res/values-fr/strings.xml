@@ -753,7 +753,7 @@
     <string name="errors">Erreurs</string>
     <string name="cumulus_desc">Des nuages bas et cotonneux qui ressemblent à des boules de coton. Ils sont espacés et généralement blancs avec des zones plus sombres en dessous.</string>
     <string name="cirrus_desc">Nuages élevés et vaporeux qui ressemblent à des touffes de cheveux blancs.</string>
-    <string name="onboarding_user_guide">Apprenez à utiliser les fonctionnalités de Trail Sense grâce au guide d\'utilisation. Disponible en bas de l\'onglet Outils.\n\nD\'autres guides seront bientôt disponibles.</string>
+    <string name="onboarding_user_guide">Découvrez comment utiliser les fonctionnalités de Trail Sense grâce au guide d\'utilisation. Disponible dans l\'onglet « Outils ».</string>
     <string name="hygrometer">Hygromètre</string>
     <string name="magnetometer">Magnétomètre</string>
     <string name="lux_format">%s lx</string>
@@ -1010,7 +1010,7 @@
 \nDes exemples de bons points d’étalonnage sont un stationnement, un point de signalisation, un point de repère ou une jonction le long d’un sentier.</string>
     <string name="compass_source_legacy_ts">Héritage (Trail Sense)</string>
     <string name="compass_source_legacy_android">Héritage (Android)</string>
-    <string name="photo_maps">Cartes Photographiques</string>
+    <string name="photo_maps">Cartes illustrées</string>
     <string name="last_lightning_strike_at">Dernière frappe à %s</string>
     <string name="pref_include_leading_zero_title">Ajouter un zéro devant l\'heure</string>
     <string name="solar_eclipse">Éclipse solaire</string>
@@ -1042,7 +1042,7 @@
     <string name="until_sunset">jusqu\'au coucher du soleil</string>
     <string name="reduce_map_resolution_crop_disclaimer">Recadrer la carte réduira toujours la résolution. Si vous avez besoin de recadrer la carte avec une haute résolution, veuillez utiliser une application d\'édition de photos. Il est prévu de résoudre ce problème à l’avenir.</string>
     <string name="sunset_alerts_background_location_disclaimer">Les alertes de coucher de soleil peuvent être imprécises en voyage</string>
-    <string name="map_file">Fichier (JPG, PNG, PDF)</string>
+    <string name="map_file">Fichier (JPG, PNG, PDF, Mapsforge)</string>
     <string name="gps_location_accuracy">Précision de la localisation GPS</string>
     <string name="gps_elevation_accuracy">Précision de l\'altitude GPS</string>
     <string name="gps_satellites">Satellites GPS</string>
@@ -1577,4 +1577,37 @@
     <string name="plugin_connect_message">Ne vous connectez à %s que si vous lui faites confiance.</string>
     <string name="plugin_disconnect_title">Déconnecter le plugin ?</string>
     <string name="plugin_disconnect_message">Déconnecter %s ?</string>
+    <string name="map_layers">Couches cartographiques</string>
+    <string name="tile_layer">Couche de tuiles</string>
+    <string name="feature_layer">Couche d\'entités</string>
+    <string name="overlay_layer">Calque de superposition</string>
+    <string name="app_info">Informations sur l\'application</string>
+    <string name="reload">Actualiser</string>
+    <string name="disconnect">Déconnecter</string>
+    <string name="plugin_unavailable">Ce plugin n\'est pas disponible ou n\'est plus connecté.</string>
+    <string name="clear_plugin_cache">Vider le cache du plugin</string>
+    <string name="plugin_name">Plugin : %s</string>
+    <string name="brightness">Luminosité</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d carte</item>
+        <item quantity="many">%d cartes</item>
+        <item quantity="other">%d cartes</item>
+    </plurals>
+    <string name="delete_offline_map_group_message">%s et toutes ses cartes seront supprimées.</string>
+    <string name="clock_source_device">Heure de l\'appareil</string>
+    <string name="clock_source_gps">Heure GPS</string>
+    <string name="photo_map_disclaimer">Ayez toujours une carte papier à portée de main à titre de secours et vérifiez la précision de Trail Sense.\n\nLes fichiers cartographiques ne sont pas fournis avec Trail Sense et doivent être téléchargés ou calibrés à partir d\'une photo. Vous trouverez des cartes à télécharger sur https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="pref_show_all_bottom_navigation_labels">Afficher tous les libellés de la barre de navigation inférieure</string>
+    <string name="include_mapsforge_backups">Inclure les cartes des sentiers dans les sauvegardes</string>
+    <string name="include_mapsforge_backups_summary">Les fichiers Mapsforge (.map) peuvent être volumineux</string>
+    <string name="offline_maps">Cartes hors ligne</string>
+    <string name="offline_map_import_failed">Impossible d\'importer la carte</string>
+    <string name="no_offline_maps">Aucune carte hors ligne</string>
+    <string name="unsupported_offline_map_file">Fichier de carte non pris en charge</string>
+    <string name="mapsforge">Mapsforge</string>
+    <string name="trail_maps">Cartes des sentiers</string>
+    <string name="map_layer_trail_maps_description">Vos cartes de sentiers enregistrées</string>
+    <string name="manage_maps">Gérer les cartes</string>
+    <string name="map_type_photo">Photo</string>
+    <string name="map_type_trail">Sentier</string>
 </resources>
