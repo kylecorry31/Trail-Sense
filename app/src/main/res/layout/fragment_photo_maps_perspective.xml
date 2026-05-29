@@ -4,15 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/perspective_toggle_btn"
+    <LinearLayout
+        android:id="@+id/perspective_actions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/preview"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/perspective_toggle_btn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/preview" />
+
+        <Button
+            android:id="@+id/reset_perspective_btn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset" />
+
+    </LinearLayout>
 
     <com.kylecorry.trail_sense.shared.views.PerspectiveCorrectionView
         android:id="@+id/perspective"
@@ -24,7 +41,7 @@
         app:layout_constraintBottom_toTopOf="@id/instructions_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/perspective_toggle_btn" />
+        app:layout_constraintTop_toBottomOf="@id/perspective_actions" />
 
     <LinearLayout
         android:id="@+id/instructions_holder"

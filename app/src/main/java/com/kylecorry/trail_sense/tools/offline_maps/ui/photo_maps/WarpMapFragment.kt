@@ -8,23 +8,29 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsPerspectiveBinding
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapCornerDetector
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.fixPerspective
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
 
     private val service = getAppService<MapService>()
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
+
+    private val cornerDetector = MapCornerDetector()
 
     private var mapId = 0L
     private var map: PhotoMap? = null
@@ -61,6 +67,10 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
             )
         }
 
+        binding.resetPerspectiveBtn.setOnClickListener {
+            binding.perspective.resetCorners()
+        }
+
         binding.perspectiveToggleBtn.setOnClickListener {
             binding.perspective.isPreview = !binding.perspective.isPreview
 
@@ -78,6 +88,25 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
         }
 
         binding.nextButton.isInvisible = true
+        binding.perspective.onLoad = { image ->
+            inBackground {
+                val job = launch {
+                    val detected = onDefault { cornerDetector.detect(image) }
+                    onMain {
+                        if (isBound && detected != null) {
+                            binding.perspective.setBounds(detected)
+                        }
+                    }
+                }
+
+                Alerts.withCancelableLoading(
+                    requireContext(),
+                    getString(R.string.loading),
+                    onCancel = { job.cancel() }) {
+                    job.join()
+                }
+            }
+        }
         inBackground {
             onIO {
                 map = service.getPhotoMap(mapId)

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
@@ -11,6 +12,7 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
@@ -44,6 +46,7 @@ class PerspectiveCorrectionView : CanvasView {
             field = value
             invalidate()
         }
+    var onLoad: (Bitmap) -> Unit = {}
 
     var hasChanges = false
 
@@ -58,6 +61,7 @@ class PerspectiveCorrectionView : CanvasView {
 
     private var imageX = 0f
     private var imageY = 0f
+    private var calledOnLoad = false
 
     private val files = FileSubsystem.getInstance(context)
 
@@ -86,6 +90,11 @@ class PerspectiveCorrectionView : CanvasView {
 
         if (!linesLoaded) {
             resetLines()
+        }
+
+        if (!calledOnLoad) {
+            calledOnLoad = true
+            onLoad(bitmap)
         }
 
         // Center the image
@@ -122,10 +131,18 @@ class PerspectiveCorrectionView : CanvasView {
         } - border
 
         val bitmap = files.bitmap(path, w, h) ?: return
-        image = bitmap.resizeToFit(w, h)
+        val newImage = bitmap.resizeToFit(w, h)
+        image = newImage
+        imageClipPath.reset()
+        imageClipPath.moveTo(0f, 0f)
+        imageClipPath.lineTo(0f, newImage.height.toFloat())
+        imageClipPath.lineTo(newImage.width.toFloat(), newImage.height.toFloat())
+        imageClipPath.lineTo(newImage.width.toFloat(), 0f)
+        imageClipPath.close()
         if (image != bitmap) {
             bitmap.recycle()
         }
+        calledOnLoad = false
     }
 
     private fun drawMagnify() {
@@ -175,10 +192,30 @@ class PerspectiveCorrectionView : CanvasView {
         }
     }
 
+    private val outlinePath = Path()
+    private val imageClipPath = Path()
+
     private fun drawEditCanvas() {
         val bitmap = image ?: return
 
         image(bitmap, 0f, 0f)
+
+        outlinePath.reset()
+        outlinePath.moveTo(topLeft.x, topLeft.y)
+        outlinePath.lineTo(topRight.x, topRight.y)
+        outlinePath.lineTo(bottomRight.x, bottomRight.y)
+        outlinePath.lineTo(bottomLeft.x, bottomLeft.y)
+        outlinePath.close()
+        push()
+        clip(imageClipPath)
+        clipInverse(outlinePath)
+        background(Color.BLACK.withAlpha(128))
+        pop()
+
+        stroke(primaryColor)
+        noFill()
+        strokeWeight(dp(2f))
+        path(outlinePath)
 
         noStroke()
         fill(primaryColor)
@@ -186,14 +223,6 @@ class PerspectiveCorrectionView : CanvasView {
         circle(topRight.x, topRight.y, dp(10f))
         circle(bottomLeft.x, bottomLeft.y, dp(10f))
         circle(bottomRight.x, bottomRight.y, dp(10f))
-
-        stroke(primaryColor)
-        noFill()
-        strokeWeight(dp(2f))
-        line(topLeft.x, topLeft.y, topRight.x, topRight.y)
-        line(topRight.x, topRight.y, bottomRight.x, bottomRight.y)
-        line(bottomRight.x, bottomRight.y, bottomLeft.x, bottomLeft.y)
-        line(bottomLeft.x, bottomLeft.y, topLeft.x, topLeft.y)
     }
 
     private fun resetLines() {
@@ -203,6 +232,23 @@ class PerspectiveCorrectionView : CanvasView {
         bottomLeft = PixelCoordinate(0f, image.height.toFloat())
         bottomRight = PixelCoordinate(image.width.toFloat(), image.height.toFloat())
         linesLoaded = true
+    }
+
+    fun resetCorners() {
+        val original = getBounds()
+        resetLines()
+        hasChanges = original != getBounds()
+        invalidate()
+    }
+
+    fun setBounds(bounds: PixelBounds) {
+        val original = getBounds()
+        topLeft = bounds.topLeft
+        topRight = bounds.topRight
+        bottomLeft = bounds.bottomLeft
+        bottomRight = bounds.bottomRight
+        hasChanges = original != bounds
+        invalidate()
     }
 
     private fun getBounds(): PixelBounds {
@@ -223,6 +269,8 @@ class PerspectiveCorrectionView : CanvasView {
         imagePath = path
         image = null
         linesLoaded = false
+        calledOnLoad = false
+        hasChanges = false
         invalidate()
     }
 
@@ -232,6 +280,8 @@ class PerspectiveCorrectionView : CanvasView {
         image = null
         oldImage?.recycle()
         linesLoaded = false
+        calledOnLoad = false
+        hasChanges = false
         invalidate()
     }
 
