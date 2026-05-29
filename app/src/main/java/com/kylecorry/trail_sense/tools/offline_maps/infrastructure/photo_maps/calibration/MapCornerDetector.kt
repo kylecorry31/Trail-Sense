@@ -4,7 +4,9 @@ import android.graphics.Bitmap
 import androidx.core.graphics.scale
 import com.kylecorry.andromeda.bitmaps.operations.getPixels
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.sol.math.MathExtensions.toDegrees
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.algebra.forEach
@@ -13,9 +15,18 @@ import com.kylecorry.sol.math.geometry.Gradients
 import com.kylecorry.sol.math.geometry.HoughTransform
 import com.kylecorry.sol.math.geometry.LineCandidate
 import com.kylecorry.sol.math.geometry.Polygon
-import com.kylecorry.sol.math.sumOfFloat
+import com.kylecorry.trail_sense.shared.andromeda_temp.combinations
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PixelBounds
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.GradientCalculator
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.AggregateQuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.EdgeMagnitudeQuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.PerimeterQuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.QuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.HasValidAreaSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.HasValidCornerAnglesSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.HasValidEdgeLengthsSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.IsConvexSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.QuadrilateralSelectionCriteria
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -25,11 +36,21 @@ class MapCornerDetector(
     private val maxDimension: Int = 320,
     private val minGradientThreshold: Float = 2.5f,
     private val thetaBins: Int = 128,
-    private val minAreaRatio: Float = 0.1f,
     private val maxLineCandidates: Int = 16,
     private val maxCornerCandidates: Int = 32,
     private val minCornerAngleDegrees: Float = 22.5f,
-    private val gradientStdDevThreshold: Float = 0.5f
+    private val gradientStdDevThreshold: Float = 0.5f,
+    private val scoringStrategy: QuadrilateralScoringStrategy = AggregateQuadrilateralScoringStrategy(
+        listOf(
+            EdgeMagnitudeQuadrilateralScoringStrategy() to 1f,
+            PerimeterQuadrilateralScoringStrategy() to 0.001f
+        )
+    ),
+    private val selectionSpecification: Specification<QuadrilateralSelectionCriteria> =
+        HasValidEdgeLengthsSpecification(0.3f)
+            .and(IsConvexSpecification())
+            .and(HasValidCornerAnglesSpecification(minCornerAngleDegrees))
+            .and(HasValidAreaSpecification(Range(0.1f, 0.999f)))
 ) {
 
     private val gradientCalculator = GradientCalculator()
@@ -78,16 +99,20 @@ class MapCornerDetector(
         val threshold = getThreshold(gradients.magnitude)
         val lines = detectLines(gradients, threshold)
         val corners = getCornerCandidates(lines, width, height)
-        val bestCandidate = detectBestQuadrilateral(corners, gradients.magnitude, width, height, threshold)
+        val bestCandidate = detectBestQuadrilateral(corners, gradients, width, height, threshold)
         return bestCandidate?.polygon?.toPixelBounds()
     }
 
     private fun Polygon.toPixelBounds(): PixelBounds {
+        val topLeftIndex = vertices.indices.minByOrNull {
+            vertices[it].x + vertices[it].y
+        } ?: 0
+        val reoriented = vertices.drop(topLeftIndex) + vertices.take(topLeftIndex)
         return PixelBounds(
-            vertices[0],
-            vertices[1],
-            vertices[3],
-            vertices[2]
+            reoriented[0],
+            reoriented[1],
+            reoriented[3],
+            reoriented[2]
         )
     }
 
@@ -104,7 +129,7 @@ class MapCornerDetector(
 
     private fun detectBestQuadrilateral(
         corners: List<CornerCandidate>,
-        gradientMagnitude: Matrix,
+        gradients: Gradients,
         width: Int,
         height: Int,
         threshold: Float
@@ -118,11 +143,11 @@ class MapCornerDetector(
         val quadrilaterals = getAllQuadrilaterals(corners)
 
         for (quadrilateral in quadrilaterals) {
-            if (!isGoodCandidate(quadrilateral, width, height)) {
+            if (!selectionSpecification.isSatisfiedBy(QuadrilateralSelectionCriteria(quadrilateral, width, height))) {
                 continue
             }
 
-            val score = scoreQuadrilateral(quadrilateral, gradientMagnitude, width, height, threshold)
+            val score = scoringStrategy.score(quadrilateral, gradients, threshold)
             if (bestCandidate == null || score > bestCandidate.score) {
                 bestCandidate = QuadrilateralCandidate(quadrilateral, score)
             }
@@ -132,26 +157,11 @@ class MapCornerDetector(
     }
 
     private fun getAllQuadrilaterals(corners: List<CornerCandidate>): List<Polygon> {
-        val quadrilaterals = mutableListOf<Polygon>()
-        for (i in 0 until corners.size - 3) {
-            for (j in i + 1 until corners.size - 2) {
-                for (k in j + 1 until corners.size - 1) {
-                    for (l in k + 1 until corners.size) {
-                        quadrilaterals.add(
-                            Polygon.connectCounterClockwise(
-                                listOf(
-                                    corners[i].point,
-                                    corners[j].point,
-                                    corners[k].point,
-                                    corners[l].point
-                                )
-                            )
-                        )
-                    }
-                }
+        return corners
+            .combinations(4)
+            .map { combination ->
+                Polygon.connectCounterClockwise(combination.map { it.point })
             }
-        }
-        return quadrilaterals
     }
 
     private fun getCornerCandidates(
@@ -159,20 +169,16 @@ class MapCornerDetector(
         width: Int,
         height: Int
     ): List<CornerCandidate> {
-        val candidates = mutableListOf<CornerCandidate>()
-
-        for (i in 0 until lines.size - 1) {
-            for (j in i + 1 until lines.size) {
-                val line1 = lines[i]
-                val line2 = lines[j]
+        val candidates = lines
+            .combinations(2)
+            .mapNotNull { (line1, line2) ->
                 val intersection = tryGetIntersection(line1, line2, width, height)
-                if (intersection != null) {
-                    candidates.add(CornerCandidate(intersection, line1.score + line2.score))
+                intersection?.let {
+                    CornerCandidate(it, line1.score + line2.score)
                 }
             }
-        }
 
-        return dedupeCorners(candidates, min(width, height) * CORNER_MERGE_DISTANCE_RATIO)
+        return deduplicateCorners(candidates, min(width, height) * CORNER_MERGE_DISTANCE_RATIO)
             .sortedByDescending { it.score }
             .take(maxCornerCandidates)
     }
@@ -184,10 +190,10 @@ class MapCornerDetector(
         }
 
         val intersection = line1.line.intersect(line2.line)
-        return intersection?.takeIf { isNearImage(it, width, height) }
+        return intersection?.takeIf { isWithinImageMargin(it, width, height) }
     }
 
-    private fun dedupeCorners(
+    private fun deduplicateCorners(
         corners: List<CornerCandidate>,
         mergeDistance: Float
     ): List<CornerCandidate> {
@@ -203,7 +209,7 @@ class MapCornerDetector(
         return deduped
     }
 
-    private fun isNearImage(
+    private fun isWithinImageMargin(
         point: PixelCoordinate,
         width: Int,
         height: Int
@@ -222,85 +228,6 @@ class MapCornerDetector(
         variance /= max(1, magnitude.size())
         val stdDev = sqrt(variance).toFloat()
         return max(minGradientThreshold, mean + stdDev * gradientStdDevThreshold)
-    }
-
-    private fun isGoodCandidate(polygon: Polygon, width: Int, height: Int): Boolean {
-        val minDimension = min(width, height).toFloat()
-        val points = polygon.vertices
-        val topWidth = points[0].distanceTo(points[1])
-        val bottomWidth = points[3].distanceTo(points[2])
-        val leftHeight = points[0].distanceTo(points[3])
-        val rightHeight = points[1].distanceTo(points[2])
-
-        val hasShortHorizontalEdge =
-            topWidth < minDimension * MIN_EDGE_LENGTH_RATIO || bottomWidth < minDimension * MIN_EDGE_LENGTH_RATIO
-        val hasShortVerticalEdge =
-            leftHeight < minDimension * MIN_EDGE_LENGTH_RATIO || rightHeight < minDimension * MIN_EDGE_LENGTH_RATIO
-        val hasShortEdge = hasShortVerticalEdge || hasShortHorizontalEdge
-
-        if (hasShortEdge || !polygon.isConvex() || !hasValidCornerAngles(polygon)) {
-            return false
-        }
-
-        val area = polygon.area()
-        val imageArea = width * height.toFloat()
-        return area in (imageArea * minAreaRatio)..(imageArea * 0.999f)
-    }
-
-    private fun scoreQuadrilateral(
-        polygon: Polygon,
-        gradientMagnitude: Matrix,
-        width: Int,
-        height: Int,
-        threshold: Float
-    ): Float {
-        return polygon.edges.sumOfFloat { scoreEdge(it.start, it.end, gradientMagnitude, width, height, threshold) }
-    }
-
-    private fun scoreEdge(
-        start: PixelCoordinate,
-        end: PixelCoordinate,
-        gradientMagnitude: Matrix,
-        width: Int,
-        height: Int,
-        threshold: Float
-    ): Float {
-        val length = start.distanceTo(end)
-        val steps = max(1, length.roundToInt())
-        var score = 0f
-
-        for (step in 0..steps) {
-            val t = step / steps.toFloat()
-            val x = start.x + (end.x - start.x) * t
-            val y = start.y + (end.y - start.y) * t
-            score += sampleEdgeStrength(gradientMagnitude, width, height, x, y, threshold)
-        }
-
-        return score / (steps + 1) + SCORE_LENGTH_WEIGHT * length
-    }
-
-    private fun sampleEdgeStrength(
-        gradientMagnitude: Matrix,
-        width: Int,
-        height: Int,
-        x: Float,
-        y: Float,
-        threshold: Float
-    ): Float {
-        val actualX = x.roundToInt().coerceIn(0, width - 1)
-        val actualY = y.roundToInt().coerceIn(0, height - 1)
-        return (gradientMagnitude[actualY, actualX] - threshold) / threshold.coerceIn(0f, 1f)
-    }
-
-    private fun hasValidCornerAngles(polygon: Polygon): Boolean {
-        val points = polygon.vertices
-        return points.indices.all { i ->
-            val previous = points[(i - 1 + points.size) % points.size]
-            val current = points[i]
-            val next = points[(i + 1) % points.size]
-            val angle = Geometry.getInteriorAngle(previous, current, next)
-            angle in minCornerAngleDegrees..(180f - minCornerAngleDegrees)
-        }
     }
 
     private data class CornerCandidate(
@@ -338,7 +265,5 @@ class MapCornerDetector(
         private const val CORNER_MERGE_DISTANCE_RATIO = 0.05f
         private const val IMAGE_MARGIN_RATIO = 0.1f
         private const val IMAGE_MIN_SIZE = 10
-        private const val MIN_EDGE_LENGTH_RATIO = 0.3f
-        private const val SCORE_LENGTH_WEIGHT = 0.001f
     }
 }
