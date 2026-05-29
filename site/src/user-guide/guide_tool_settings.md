@@ -218,6 +218,7 @@ Theme related settings can be adjusted in Settings > Theme.
 - **Compass dynamic colors**: Whether to use your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
 - **Default widget theme**: The default theme for widgets. This can be overridden through the widget customization options on your homescreen.
 - **Compact mode**: Whether to use a more compact layout for the bottom bar (thinner and does not display labels).
+- **Show all bottom navigation labels**: Whether to show labels for all items in the bottom navigation bar instead of only the selected item.
 - **Fullscreen in night mode**: Whether to use fullscreen mode when the night theme is enabled. Swipe from the top to show the system UI.
 
 ## About

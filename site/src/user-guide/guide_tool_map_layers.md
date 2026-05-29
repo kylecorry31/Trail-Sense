@@ -22,6 +22,13 @@ Each layer has the following settings:
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
 
+## Trail maps
+This layer shows visible trail maps from the Offline Maps tool.
+
+Settings:
+
+- **Manage maps**: Links to the Offline Maps tool.
+
 ## Elevation
 This layer shows the elevation from the digital elevation model (DEM) as color.
 
@@ -172,3 +179,4 @@ This layer is not currently configurable.
 This layer shows a compass in the top-right corner of the map. It shows where true north is on the map.
 
 This layer is not currently configurable.
+
