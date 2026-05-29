@@ -38,11 +38,6 @@
         <attr name="tileTextSize" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="FloatingActionButtonMenuItem">
-        <attr name="android:src" />
-        <attr name="android:text" />
-    </declare-styleable>
-
     <declare-styleable name="FloatingActionButtonMenu">
         <attr name="menu" format="reference" />
     </declare-styleable>
