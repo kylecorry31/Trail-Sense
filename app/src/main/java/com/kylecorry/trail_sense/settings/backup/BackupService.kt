@@ -2,13 +2,12 @@ package com.kylecorry.trail_sense.settings.backup
 
 import android.content.Context
 import android.net.Uri
-import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.system.AppData
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.andromeda.files.ZipFile
 import com.kylecorry.andromeda.files.ZipUtils
-import com.kylecorry.andromeda.files.ZipUtils.unzip
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
@@ -28,6 +27,9 @@ class BackupService(
      */
     suspend fun backup(destination: Uri): Unit = onIO {
         val preferences = getAppService<UserPreferences>()
+        // Delete previous version files
+        deleteVersionFiles()
+
         // Get the files to backup
         val filesToBackup = getFilesToBackup().toMutableList()
 
@@ -93,8 +95,15 @@ class BackupService(
         renameSharedPrefsFile(backup.sharedPrefsFileName)
 
         // Clear cache
+        deleteVersionFiles()
         CacheFileSystem(context).delete(CachedTileRepo.TILES_FOLDER, true)
         onProgress?.invoke(1f)
+    }
+
+    private fun deleteVersionFiles(){
+        fileSubsystem.list("")
+            .filter { it.name.startsWith("app-version-") }
+            .forEach { it.delete() }
     }
 
     private suspend fun renameSharedPrefsFile(name: String?): Unit = onIO {
