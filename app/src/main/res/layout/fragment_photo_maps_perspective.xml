@@ -16,6 +16,7 @@
 
         <Button
             android:id="@+id/perspective_toggle_btn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -23,6 +24,7 @@
 
         <Button
             android:id="@+id/reset_perspective_btn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reset" />
