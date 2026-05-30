@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.offline_maps.quickactions
 
 import android.os.Bundle
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.selection.
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import kotlinx.coroutines.launch
 
-class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickActionButton(
+class QuickActionOpenPhotoMap(button: QuickActionButtonView, fragment: Fragment) : QuickActionButton(
     button, fragment
 ) {
     private val mapService = MapService.getInstance(fragment.requireContext())

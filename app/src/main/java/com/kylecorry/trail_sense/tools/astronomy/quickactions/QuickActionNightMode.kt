@@ -1,13 +1,13 @@
 package com.kylecorry.trail_sense.tools.astronomy.quickactions
 
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.requireMainActivity
 
-class QuickActionNightMode(btn: ImageButton, fragment: Fragment) :
+class QuickActionNightMode(btn: QuickActionButtonView, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     private var isSwitching = false

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.quickactions
 
 import android.os.Bundle
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment
 import java.time.ZonedDateTime
 import kotlinx.coroutines.launch
 
-class QuickActionPlaceBeacon(btn: ImageButton, fragment: Fragment) :
+class QuickActionPlaceBeacon(btn: QuickActionButtonView, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     override fun onCreate() {

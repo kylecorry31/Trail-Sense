@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="quickActionButtonStyle" format="reference" />
+
     <declare-styleable name="LinearCompassView">
         <attr name="backgroundColor" format="color" />
         <attr name="showMarker" format="boolean" />

@@ -21,6 +21,7 @@
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
         <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall
         </item>
+        <item name="quickActionButtonStyle">@style/Widget.App.QuickActionButton</item>
         <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
 
@@ -83,6 +84,12 @@
 
     <style name="SnackBarButtonTheme" parent="Widget.Material3Expressive.Button.TextButton.Snackbar">
         <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.App.QuickActionButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
     </style>
 
     <style name="Widget.App.FloatingActionButton" parent="Widget.Material3Expressive.FloatingActionButton">

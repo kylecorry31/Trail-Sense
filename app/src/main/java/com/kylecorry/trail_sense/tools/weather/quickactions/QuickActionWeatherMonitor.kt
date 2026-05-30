@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.quickactions
 
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.quickactions.ToolServiceQuickAction
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
 class QuickActionWeatherMonitor(
-    btn: ImageButton,
+    btn: QuickActionButtonView,
     fragment: Fragment
 ) : ToolServiceQuickAction(
     btn,

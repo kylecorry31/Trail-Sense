@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.astronomy.quickactions
 
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.Sunris
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
-class QuickActionSunriseAlert(btn: ImageButton, fragment: Fragment) :
+class QuickActionSunriseAlert(btn: QuickActionButtonView, fragment: Fragment) :
     ToolServiceQuickAction(
         btn,
         fragment,
