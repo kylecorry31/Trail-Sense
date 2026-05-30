@@ -8,8 +8,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.BasicLabelFormatter
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -99,8 +99,9 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         binding.flashlightDial.range = 180f
         binding.flashlightDial.alignToTop = true
         binding.flashlightDial.background =
-            Resources.androidBackgroundColorSecondary(requireContext())
-        binding.flashlightDial.foreground = Resources.androidTextColorPrimary(requireContext())
+            Resources.getAndroidColorAttr(requireContext(), com.google.android.material.R.attr.colorSurfaceContainer)
+        binding.flashlightDial.foreground =
+            Resources.getAndroidColorAttr(requireContext(), com.google.android.material.R.attr.colorOnSurface)
         binding.flashlightDial.selectionChangeListener = {
             val isStrobe = it in 1..10
 

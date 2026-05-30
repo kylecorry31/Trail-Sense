@@ -271,7 +271,7 @@ object TextUtils {
         titleView.backgroundTintList = ColorStateList.valueOf(
             Resources.getAndroidColorAttr(
                 context,
-                android.R.attr.colorBackgroundFloating
+                com.google.android.material.R.attr.colorSurfaceContainer
             )
         )
 

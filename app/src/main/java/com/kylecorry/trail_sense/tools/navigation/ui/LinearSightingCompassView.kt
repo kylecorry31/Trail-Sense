@@ -11,13 +11,12 @@ import androidx.fragment.app.findFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.findViewTreeLifecycleOwner
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewLinearSightingCompassBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassLayer
@@ -82,7 +81,6 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
     init {
         inflate(context, R.layout.view_linear_sighting_compass, this)
 
-        CustomUiUtils.setButtonState(binding.sightingCompassBtn, false)
         binding.sightingCompassBtn.setOnClickListener {
             setSightingCompass(!showSightingCompass)
         }
@@ -156,7 +154,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             }
             isStarted = false
             sightingCompass.stop()
-            CustomUiUtils.setButtonState(binding.sightingCompassBtn, false)
+            binding.sightingCompassBtn.isChecked = false
             updateTimer.stop()
         }
     }
@@ -165,9 +163,9 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
         showSightingCompass = shouldShow
         if (!shouldShow) {
             sightingCompass.stop()
-            CustomUiUtils.setButtonState(binding.sightingCompassBtn, false)
+            binding.sightingCompassBtn.isChecked = false
         } else if (!sightingCompass.isRunning()) {
-            CustomUiUtils.setButtonState(binding.sightingCompassBtn, true)
+            binding.sightingCompassBtn.isChecked = true
             val fragment = findFragment<AndromedaFragment>()
             fragment.requestCamera { hasPermission ->
                 if (hasPermission) {
