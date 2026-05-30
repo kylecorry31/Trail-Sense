@@ -18,9 +18,6 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
-        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
-        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall
-        </item>
         <item name="quickActionButtonStyle">@style/Widget.App.QuickActionButton</item>
         <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
@@ -97,19 +94,6 @@
         <item name="android:insetRight">0dp</item>
         <item name="iconPadding">0dp</item>
         <item name="iconGravity">textStart</item>
-    </style>
-
-    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3Expressive.FloatingActionButton">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
-    </style>
-
-    <style name="Widget.App.FloatingActionButtonSmall" parent="Widget.Material3.FloatingActionButton.Small.Primary">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
-    </style>
-
-    <style name="ThemeOverlay.App.FloatingActionButton" parent="ThemeOverlay.Material3Expressive.FloatingActionButton.Primary">
-        <item name="colorContainer">?attr/colorPrimary</item>
-        <item name="colorOnContainer">?attr/colorOnPrimary</item>
     </style>
 
     <style name="AppTheme.ListViewWithFab">
