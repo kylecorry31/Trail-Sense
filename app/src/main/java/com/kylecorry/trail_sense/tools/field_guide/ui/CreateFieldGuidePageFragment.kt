@@ -79,7 +79,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        CustomUiUtils.setButtonState(binding.createFieldGuidePageTitle.rightButton, true)
         binding.createFieldGuidePageTitle.rightButton.setOnClickListener {
             save()
         }

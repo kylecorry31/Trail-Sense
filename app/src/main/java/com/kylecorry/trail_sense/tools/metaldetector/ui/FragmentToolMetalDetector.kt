@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.slider.LabelFormatter
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.time.CoroutineTimer
-import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -16,6 +14,8 @@ import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.andromeda.sound.SoundPlayer
 import com.kylecorry.andromeda.sound.ToneGenerator
 import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.filters.LowPassFilter
@@ -23,13 +23,13 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
+import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import java.time.Duration
 import kotlin.math.absoluteValue
 
@@ -98,10 +98,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
 
 
-        CustomUiUtils.setButtonState(
-            binding.metalDetectorTitle.rightButton,
-            prefs.metalDetector.isMetalAudioEnabled
-        )
+        binding.metalDetectorTitle.rightButton.isChecked = prefs.metalDetector.isMetalAudioEnabled
 
         // Configure button: Metal Audio Toggle
         binding.metalDetectorTitle.rightButton.setOnClickListener {
@@ -112,17 +109,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 prefs.metalDetector.isMetalAudioEnabled = true
                 initializeAudio()
             }
-            CustomUiUtils.setButtonState(
-                binding.metalDetectorTitle.rightButton,
-                prefs.metalDetector.isMetalAudioEnabled
-            )
+            binding.metalDetectorTitle.rightButton.isChecked = prefs.metalDetector.isMetalAudioEnabled
         }
 
         // Configure button: Metal Vibration Toggle
-        CustomUiUtils.setButtonState(
-            binding.metalDetectorTitle.leftButton,
-            !prefs.metalDetector.isMetalVibrationDisabled
-        )
+        binding.metalDetectorTitle.leftButton.isChecked = !prefs.metalDetector.isMetalVibrationDisabled
 
         binding.metalDetectorTitle.leftButton.setOnClickListener {
             if (prefs.metalDetector.isMetalVibrationDisabled) {
@@ -131,10 +122,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 prefs.metalDetector.isMetalVibrationDisabled = true
                 haptics.off()
             }
-            CustomUiUtils.setButtonState(
-                binding.metalDetectorTitle.leftButton,
-                !prefs.metalDetector.isMetalVibrationDisabled
-            )
+            binding.metalDetectorTitle.leftButton.isChecked = !prefs.metalDetector.isMetalVibrationDisabled
         }
     }
 

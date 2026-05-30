@@ -15,7 +15,7 @@ import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.sol.math.filters.MedianFilter
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -231,9 +231,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         }
 
         useEffect(titleView) {
-            CustomUiUtils.setButtonState(titleView.leftButton, false)
-            CustomUiUtils.setButtonState(titleView.rightButton, false)
-
             val settingsIntent = Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
             titleView.rightButton.isVisible = Intents.hasReceiver(context, settingsIntent)
             titleView.rightButton.setOnClickListener {

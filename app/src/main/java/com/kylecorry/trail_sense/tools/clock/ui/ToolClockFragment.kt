@@ -50,7 +50,6 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
                 sendNextMinuteNotification()
             }
         }
-        CustomUiUtils.setButtonState(binding.clockTitle.rightButton, false)
         binding.clockTitle.rightButton.setOnClickListener {
             gps.start(this::onGPSUpdate)
             binding.updatingClock.visibility = View.VISIBLE

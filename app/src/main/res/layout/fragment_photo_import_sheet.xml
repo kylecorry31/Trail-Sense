@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.andromeda.views.toolbar.Toolbar
+    <com.kylecorry.trail_sense.shared.views.Toolbar
         android:id="@+id/tool_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

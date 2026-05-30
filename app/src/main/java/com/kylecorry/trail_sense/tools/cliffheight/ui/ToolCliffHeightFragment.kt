@@ -51,8 +51,6 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
             true
         }
 
-        CustomUiUtils.setButtonState(binding.cliffHeightTitle.rightButton, false)
-
         binding.cliffHeightTitle.rightButton.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.guide_tool_cliff_height)
         }

@@ -12,7 +12,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -22,6 +21,7 @@ import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.cache.TrackedState
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
 import com.kylecorry.sol.math.trigonometry.Trigonometry.normalizeAngle
 import com.kylecorry.sol.science.geology.AvalancheRisk
@@ -104,9 +104,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
 
         toast(getString(R.string.set_inclination_instructions))
 
-        CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
-        CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, false)
-
         binding.cameraViewHolder.clipToOutline = true
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
@@ -148,8 +145,7 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
     private fun startSideClinometer() {
         binding.camera.stop()
         binding.arView.stop()
-        binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_camera)
-        CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
+        binding.clinometerTitle.leftButton.setIconResource(R.drawable.ic_camera)
         useCamera = false
     }
 
@@ -161,8 +157,7 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
                     readFrames = false, shouldStabilizePreview = false
                 )
                 binding.arView.start(false)
-                binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_phone_portrait)
-                CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
+                binding.clinometerTitle.leftButton.setIconResource(R.drawable.ic_phone_portrait)
             } else {
                 startSideClinometer()
                 if (showAlert) {
@@ -207,7 +202,7 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
             if (distance != null) {
                 distanceAway = distance
                 knownHeight = null
-                CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
+                binding.clinometerTitle.rightButton.isChecked = true
                 CustomUiUtils.disclaimer(
                     requireContext(),
                     getString(R.string.instructions),
@@ -236,7 +231,7 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
             if (distance != null) {
                 knownHeight = distance
                 distanceAway = null
-                CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
+                binding.clinometerTitle.rightButton.isChecked = true
 
                 CustomUiUtils.disclaimer(
                     requireContext(),
@@ -256,9 +251,7 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
         super.onResume()
         if (distanceAway == null && knownHeight == null) {
             distanceAway = prefs.clinometer.baselineDistance
-            CustomUiUtils.setButtonState(
-                binding.clinometerTitle.rightButton, distanceAway != null
-            )
+            binding.clinometerTitle.rightButton.isChecked = distanceAway != null
         }
 
         if (useCamera) {

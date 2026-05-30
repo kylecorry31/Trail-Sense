@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.astronomy.quickactions
 
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
-import com.kylecorry.trail_sense.shared.quickactions.ImageButtonQuickActionView
+import com.kylecorry.trail_sense.shared.quickactions.MaterialButtonQuickActionView
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.tools.astronomy.ui.AstronomyFragment
@@ -17,12 +17,12 @@ class AstronomyQuickActionBinder(
         val factory = QuickActionFactory()
         val left = factory.create(
             prefs.leftButton,
-            ImageButtonQuickActionView(binding.astronomyTitle.leftButton),
+            MaterialButtonQuickActionView(binding.astronomyTitle.leftButton),
             fragment
         )
         val right = factory.create(
             prefs.rightButton,
-            ImageButtonQuickActionView(binding.astronomyTitle.rightButton),
+            MaterialButtonQuickActionView(binding.astronomyTitle.rightButton),
             fragment
         )
         left.bind(fragment)

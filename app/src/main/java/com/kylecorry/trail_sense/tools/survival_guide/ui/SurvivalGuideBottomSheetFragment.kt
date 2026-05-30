@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.andromeda.views.list.ResourceListIcon
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
 import com.kylecorry.trail_sense.shared.extensions.useNavController

@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useArgument
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
@@ -184,7 +184,6 @@ class CreateFieldGuideSightingFragment :
             notes,
             showOnMap
         ) {
-            CustomUiUtils.setButtonState(titleView.rightButton, true)
             titleView.rightButton.setOnClickListener {
                 inBackground {
                     Alerts.withLoading(context, getString(R.string.saving)) {

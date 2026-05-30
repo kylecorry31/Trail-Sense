@@ -3,6 +3,15 @@
 
     <attr name="quickActionButtonStyle" format="reference" />
 
+    <declare-styleable name="Toolbar">
+        <attr name="leftButtonIcon" format="reference" />
+        <attr name="rightButtonIcon" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
+        <attr name="showSubtitle" format="boolean" />
+        <attr name="flattenButtons" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="LinearCompassView">
         <attr name="backgroundColor" format="color" />
         <attr name="showMarker" format="boolean" />

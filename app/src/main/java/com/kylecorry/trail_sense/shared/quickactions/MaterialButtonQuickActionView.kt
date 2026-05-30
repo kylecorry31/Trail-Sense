@@ -8,6 +8,10 @@ import com.google.android.material.button.MaterialButton
 
 class MaterialButtonQuickActionView(val button: MaterialButton) : QuickActionButtonView {
 
+    init {
+        button.isCheckable = true
+    }
+
     override var isVisible: Boolean
         get() = button.isVisible
         set(value) {

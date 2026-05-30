@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.andromeda.core.ui.flatten
+import com.kylecorry.trail_sense.shared.extensions.flatten
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe

@@ -7,7 +7,7 @@
     android:background="?attr/colorSurfaceContainer"
     android:orientation="vertical">
 
-    <com.kylecorry.andromeda.views.toolbar.Toolbar
+    <com.kylecorry.trail_sense.shared.views.Toolbar
         android:id="@+id/navigation_sheet_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
