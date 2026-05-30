@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -91,6 +92,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence.AiChatRepo
 import com.kylecorry.trail_sense.tools.ai_assistant.infrastructure.persistence.ChatSessionEntity
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.google.ai.edge.litertlm.Contents
 import com.google.ai.edge.litertlm.Content
 import com.google.ai.edge.litertlm.Message
@@ -298,6 +300,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                         tools = aiToolProviders
                     )
                 } catch (e: Exception) {
+                    Log.e(TAG, "AI initialization failed", e)
                     setError(getString(R.string.ai_initialization_failed))
                 }
                 setIsInitializing(false)
@@ -314,14 +317,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             toolExecutionService.configure(selectedSkillIds)
             val selectedSkill = toolExecutionService.selectSkill(text, selectedSkillIds)
             selectedSkill?.let { toolExecutionService.activateSkill(it) }
-            val runningToolMessage = selectedSkill?.let {
-                ChatMessage(
-                    text = "",
-                    isUser = false,
-                    toolCalls = toolExecutionService.getRunningCards(it)
-                )
-            }
-            setMessages(priorMessages + userMessage + listOfNotNull(runningToolMessage) + loadingMessage)
+            setMessages(priorMessages + userMessage + loadingMessage)
             setInputText("")
             setIsGenerating(true)
             setSuggestedQuestions(emptyList())
@@ -336,7 +332,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
             suspend fun saveConversation(
                 response: String,
-                toolCardMessage: ChatMessage?
+                toolCardMessages: List<ChatMessage>
             ): List<ChatMessage> {
                 val sessionId = currentSessionId ?: chatRepo.createSession(
                     text.take(50)
@@ -348,9 +344,9 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                     isUser = true,
                     imagePath = imagePath
                 )
-                val savedToolMessage = toolCardMessage
-                    ?.takeIf { it.toolCalls.isNotEmpty() }
-                    ?.let {
+                val savedToolMessages = toolCardMessages
+                    .filter { it.toolCalls.isNotEmpty() }
+                    .map {
                         val toolMessageId = chatRepo.addMessage(
                             sessionId,
                             "",
@@ -367,26 +363,47 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
                 return priorMessages +
                     userMessage.copy(id = userMessageId) +
-                    listOfNotNull(savedToolMessage) +
+                    savedToolMessages +
                     ChatMessage(response, isUser = false, id = responseMessageId)
             }
 
             scope.launch {
-                var completedToolMessage: ChatMessage? = null
+                val completedToolMessages = mutableListOf<ChatMessage>()
                 try {
-                    val skillRun = selectedSkill?.let { toolExecutionService.execute(it) }
-                    val toolResults = skillRun?.toPromptContext()
-                    completedToolMessage = skillRun?.toCards()?.let {
-                        ChatMessage(text = "", isUser = false, toolCalls = it)
-                    }
-                    if (completedToolMessage != null) {
-                        setMessages(
-                            priorMessages +
-                                userMessage +
-                                completedToolMessage +
-                                loadingMessage
+                    val skillRun = selectedSkill?.let {
+                        toolExecutionService.executeStepByStep(
+                            skill = it,
+                            onToolStarted = { runningCard ->
+                                setMessages(
+                                    priorMessages +
+                                        userMessage +
+                                        completedToolMessages +
+                                        ChatMessage(
+                                            text = "",
+                                            isUser = false,
+                                            toolCalls = listOf(runningCard)
+                                        ) +
+                                        loadingMessage
+                                )
+                            },
+                            onToolFinished = { completedCard ->
+                                completedToolMessages.add(
+                                    ChatMessage(
+                                        text = "",
+                                        isUser = false,
+                                        toolCalls = listOf(completedCard)
+                                    )
+                                )
+                                setMessages(
+                                    priorMessages +
+                                        userMessage +
+                                        completedToolMessages +
+                                        loadingMessage
+                                )
+                            }
                         )
                     }
+                    val toolResults = skillRun?.toPromptContext()
 
                     val toolKnowledge = toolKnowledgeService.getPromptContext(
                         text,
@@ -423,7 +440,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                 scope.launch {
                                     val updated = priorMessages +
                                         userMessage +
-                                        listOfNotNull(completedToolMessage) +
+                                        completedToolMessages +
                                         ChatMessage(response, isUser = false)
                                     setMessages(updated)
                                 }
@@ -434,12 +451,13 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                     val response = formatAiResponse(responseBuilder.toString())
                                         .ifBlank { getString(R.string.ai_inference_error) }
                                     setIsGenerating(false)
-                                    setMessages(saveConversation(response, completedToolMessage))
+                                    setMessages(saveConversation(response, completedToolMessages.toList()))
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
 
                             override fun onError(throwable: Throwable) {
+                                Log.e(TAG, "AI response failed", throwable)
                                 scope.launch {
                                     val errorMsg = if (throwable is java.util.concurrent.CancellationException) {
                                         formatAiResponse(responseBuilder.toString())
@@ -450,16 +468,17 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                     val response = formatAiResponse(responseBuilder.toString())
                                         .ifBlank { errorMsg }
                                     setIsGenerating(false)
-                                    setMessages(saveConversation(response, completedToolMessage))
+                                    setMessages(saveConversation(response, completedToolMessages.toList()))
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
                         }
                     )
-                } catch (_: Exception) {
+                } catch (e: Exception) {
+                    Log.e(TAG, "AI message send failed", e)
                     val errorMsg = getString(R.string.ai_inference_error)
                     setIsGenerating(false)
-                    setMessages(saveConversation(errorMsg, completedToolMessage))
+                    setMessages(saveConversation(errorMsg, completedToolMessages.toList()))
                     setSessions(chatRepo.getAllSessions())
                 }
             }
@@ -599,6 +618,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
     }
 
     private companion object {
+        private const val TAG = "AiAssistantFragment"
         private const val MAX_ATTACHED_IMAGE_SIZE = 1024
         private const val IMAGE_ATTACHMENT_PREFIX = "[Image attached]"
     }
@@ -1148,6 +1168,22 @@ private fun ChatBubble(
         Modifier
     }
 
+    val isToolOnlyMessage = !message.isUser &&
+        !message.isLoading &&
+        message.text.isBlank() &&
+        message.image == null &&
+        message.toolCalls.isNotEmpty()
+
+    if (isToolOnlyMessage) {
+        ToolCallBubble(
+            message = message,
+            onDelete = onDelete,
+            onOpenTool = onOpenTool,
+            modifier = modifier
+        )
+        return
+    }
+
     Box(modifier = modifier.fillMaxWidth()) {
         Card(
             modifier = Modifier
@@ -1157,60 +1193,68 @@ private fun ChatBubble(
                 .testTag(if (message.isUser) "user_message" else "ai_message"),
             colors = CardDefaults.cardColors(containerColor = containerColor)
         ) {
-            if (message.isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.padding(12.dp).testTag("message_loading"),
-                    strokeWidth = 2.dp
-                )
-            } else {
-                Column(modifier = Modifier.padding(12.dp)) {
-                    if (canShowActions) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.End
-                        ) {
-                            IconButton(
-                                onClick = { setShowMenu(true) },
-                                modifier = Modifier.size(32.dp).testTag("message_menu_button")
-                            ) {
-                                Icon(
-                                    painterResource(R.drawable.ic_menu_dots),
-                                    contentDescription = null
-                                )
-                            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                if (message.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.padding(12.dp).testTag("message_loading"),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Column(
+                        modifier = Modifier.padding(
+                            start = 12.dp,
+                            top = 12.dp,
+                            end = if (canShowActions) 44.dp else 12.dp,
+                            bottom = 12.dp
+                        )
+                    ) {
+                        if (message.image != null) {
+                            Image(
+                                bitmap = message.image.asImageBitmap(),
+                                contentDescription = stringResource(R.string.ai_attached_image),
+                                modifier = Modifier
+                                    .size(160.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .testTag("message_image")
+                            )
+                        }
+                        if (message.toolCalls.isNotEmpty()) {
+                            ToolCallPanel(
+                                toolCalls = message.toolCalls,
+                                onOpenTool = onOpenTool,
+                                modifier = if (message.image == null) {
+                                    Modifier
+                                } else {
+                                    Modifier.padding(top = 8.dp)
+                                }
+                            )
+                        }
+                        if (message.text.isNotBlank()) {
+                            Text(
+                                text = markdownToAnnotatedString(message.text),
+                                modifier = if (message.image == null && message.toolCalls.isEmpty()) {
+                                    Modifier
+                                } else {
+                                    Modifier.padding(top = 8.dp)
+                                },
+                                style = MaterialTheme.typography.bodyMedium
+                            )
                         }
                     }
-                    if (message.image != null) {
-                        Image(
-                            bitmap = message.image.asImageBitmap(),
-                            contentDescription = stringResource(R.string.ai_attached_image),
+                    if (canShowActions) {
+                        IconButton(
+                            onClick = { setShowMenu(true) },
                             modifier = Modifier
-                                .size(160.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                                .testTag("message_image")
-                        )
-                    }
-                    if (message.toolCalls.isNotEmpty()) {
-                        ToolCallPanel(
-                            toolCalls = message.toolCalls,
-                            onOpenTool = onOpenTool,
-                            modifier = if (message.image == null) {
-                                Modifier
-                            } else {
-                                Modifier.padding(top = 8.dp)
-                            }
-                        )
-                    }
-                    if (message.text.isNotBlank()) {
-                        Text(
-                            text = markdownToAnnotatedString(message.text),
-                            modifier = if (message.image == null && message.toolCalls.isEmpty()) {
-                                Modifier
-                            } else {
-                                Modifier.padding(top = 8.dp)
-                            },
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                                .align(Alignment.TopEnd)
+                                .padding(top = 4.dp, end = 4.dp)
+                                .size(32.dp)
+                                .testTag("message_menu_button")
+                        ) {
+                            Icon(
+                                painterResource(R.drawable.ic_menu_dots),
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             }
@@ -1249,21 +1293,71 @@ private fun ChatBubble(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun ToolCallBubble(
+    message: ChatMessage,
+    onDelete: () -> Unit,
+    onOpenTool: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val (showMenu, setShowMenu) = useState(false)
+    val actionModifier = Modifier.combinedClickable(
+        onClick = {},
+        onLongClick = { setShowMenu(true) }
+    )
+
+    Box(modifier = modifier.fillMaxWidth()) {
+        Card(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .fillMaxWidth(0.82f)
+                .then(actionModifier)
+                .testTag("tool_message"),
+            shape = RoundedCornerShape(14.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        ) {
+            ToolCallPanel(
+                toolCalls = message.toolCalls,
+                onOpenTool = onOpenTool,
+                onMenuClick = { setShowMenu(true) },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        DropdownMenu(
+            expanded = showMenu,
+            onDismissRequest = { setShowMenu(false) }
+        ) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.delete)) },
+                onClick = {
+                    setShowMenu(false)
+                    onDelete()
+                },
+                leadingIcon = {
+                    Icon(painterResource(R.drawable.ic_delete), contentDescription = null)
+                }
+            )
+        }
+    }
+}
+
 @Composable
 private fun ToolCallPanel(
     toolCalls: List<AiToolCallCard>,
     onOpenTool: (Int) -> Unit,
+    onMenuClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val (expanded, setExpanded) = useState(true)
-    val skillName = toolCalls.firstOrNull()?.skillId?.let(::formatSkillId)
+    val skillName = toolCalls.firstOrNull()?.let { it.skillName ?: formatSkillId(it.skillId) }
 
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.surface)
-            .padding(10.dp)
+            .padding(12.dp)
             .testTag("tool_call_card")
     ) {
         Row(
@@ -1284,8 +1378,23 @@ private fun ToolCallPanel(
                     )
                 }
             }
-            TextButton(onClick = { setExpanded(!expanded) }) {
-                Text(stringResource(if (expanded) R.string.hide else R.string.show))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                TextButton(onClick = { setExpanded(!expanded) }) {
+                    Text(stringResource(if (expanded) R.string.hide else R.string.show))
+                }
+                if (onMenuClick != null) {
+                    IconButton(
+                        onClick = onMenuClick,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .testTag("message_menu_button")
+                    ) {
+                        Icon(
+                            painterResource(R.drawable.ic_menu_dots),
+                            contentDescription = null
+                        )
+                    }
+                }
             }
         }
 
@@ -1304,6 +1413,7 @@ private fun ToolCallRow(
     call: AiToolCallCard,
     onOpenTool: (Int) -> Unit
 ) {
+    val context = LocalContext.current
     val statusText = when (call.status) {
         AiToolRunStatus.Running -> R.string.ai_tool_status_running
         AiToolRunStatus.Succeeded -> R.string.ai_tool_status_succeeded
@@ -1348,7 +1458,7 @@ private fun ToolCallRow(
                 modifier = Modifier.padding(top = 4.dp)
             )
         }
-        if (call.openedNavAction != null) {
+        if (call.openedNavAction != null && Tools.isToolAvailable(context, call.toolId)) {
             OutlinedButton(
                 onClick = { onOpenTool(call.openedNavAction) },
                 modifier = Modifier.padding(top = 6.dp)

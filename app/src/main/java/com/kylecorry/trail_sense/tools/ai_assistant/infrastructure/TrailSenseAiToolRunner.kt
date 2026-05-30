@@ -29,8 +29,8 @@ import com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackFragment
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import org.json.JSONObject
 import java.time.Duration
-import java.time.LocalDate
 import java.time.Instant
+import java.time.LocalDate
 
 class TrailSenseAiToolRunner(
     context: Context
@@ -39,17 +39,26 @@ class TrailSenseAiToolRunner(
     private val context = context.applicationContext
 
     override fun getToolName(toolId: Long): String {
-        return Tools.getTool(context, toolId)?.name ?: "Tool $toolId"
+        return getTool(toolId)?.name ?: text("Tool $toolId", "工具 $toolId")
     }
 
     override fun getOpenToolAction(toolId: Long): Int? {
-        return Tools.getTool(context, toolId)?.navAction
+        if (!Tools.isToolAvailable(context, toolId)) {
+            return null
+        }
+        return getTool(toolId)?.navAction
     }
 
     override suspend fun run(toolId: Long, argumentsJson: String): AiToolRunResult {
         return try {
             if (!Tools.isToolAvailable(context, toolId)) {
-                return unavailable(toolId, "${getToolName(toolId)} is unavailable on this device.")
+                return unavailable(
+                    toolId,
+                    text(
+                        "${getToolName(toolId)} is unavailable on this device.",
+                        "${getToolName(toolId)}在此设备上不可用。"
+                    )
+                )
             }
 
             when (toolId) {
@@ -66,14 +75,23 @@ class TrailSenseAiToolRunner(
                 Tools.ASTRONOMY -> astronomy()
                 Tools.CLINOMETER -> unavailable(
                     toolId,
-                    "A live slope-angle measurement is required. Open Clinometer and align the phone with the slope."
+                    text(
+                        "A live slope-angle measurement is required. Open Clinometer and align the phone with the slope.",
+                        "需要现场坡角测量。请打开测斜仪，并将手机沿坡面方向对齐。"
+                    )
                 )
                 Tools.TEMPERATURE_ESTIMATION -> temperatureEstimation(argumentsJson)
                 Tools.MAP -> map()
-                else -> unavailable(toolId, "${getToolName(toolId)} has no read-only AI collector yet.")
+                else -> unavailable(
+                    toolId,
+                    text(
+                        "${getToolName(toolId)} has no read-only AI collector yet.",
+                        "${getToolName(toolId)}还没有只读 AI 采集器。"
+                    )
+                )
             }
         } catch (e: Exception) {
-            failed(toolId, e.message ?: "Failed to read ${getToolName(toolId)}.")
+            failed(toolId, e.message ?: text("Failed to read ${getToolName(toolId)}.", "读取${getToolName(toolId)}失败。"))
         }
     }
 
@@ -105,13 +123,19 @@ class TrailSenseAiToolRunner(
         val latest = LightningRepo.getInstance(context).getLast()
             ?: return unavailable(
                 Tools.LIGHTNING_STRIKE_DISTANCE,
-                "No lightning strike distance readings have been recorded recently."
+                text(
+                    "No lightning strike distance readings have been recorded recently.",
+                    "最近没有记录闪电距离读数。"
+                )
             )
 
         val distanceMeters = latest.value.distance.meters().value
         return succeeded(
             Tools.LIGHTNING_STRIKE_DISTANCE,
-            "Latest lightning estimate is ${distanceMeters.toInt()} m away.",
+            text(
+                "Latest lightning estimate is ${distanceMeters.toInt()} m away.",
+                "最近一次闪电估算距离为 ${distanceMeters.toInt()} 米。"
+            ),
             mapOf(
                 "distance_m" to distanceMeters,
                 "time" to latest.time.toString()
@@ -129,9 +153,12 @@ class TrailSenseAiToolRunner(
         return succeeded(
             Tools.TURN_BACK,
             if (service.isEnabled()) {
-                "Turn Back is set${remaining?.let { ", with ${formatDuration(it)} until turn-back time" } ?: ""}."
+                text(
+                    "Turn Back is set${remaining?.let { ", with ${formatDuration(it)} until turn-back time" } ?: ""}.",
+                    "折返已设置${remaining?.let { "，距离折返时间还有 ${formatDuration(it)}" } ?: ""}。"
+                )
             } else {
-                "Turn Back is not set."
+                text("Turn Back is not set.", "折返尚未设置。")
             },
             mapOf(
                 "is_enabled" to service.isEnabled(),
@@ -153,7 +180,11 @@ class TrailSenseAiToolRunner(
 
         return succeeded(
             Tools.BEACONS,
-            if (beacons.isEmpty()) "No saved beacons were found." else "Found ${beacons.size} saved beacons.",
+            if (beacons.isEmpty()) {
+                text("No saved beacons were found.", "没有找到已保存的信标。")
+            } else {
+                text("Found ${beacons.size} saved beacons.", "找到 ${beacons.size} 个已保存的信标。")
+            },
             mapOf(
                 "beacon_count" to beacons.size,
                 "sample_beacons" to names.takeIf { it.isNotBlank() }
@@ -168,7 +199,11 @@ class TrailSenseAiToolRunner(
 
         return succeeded(
             Tools.PATHS,
-            if (paths.isEmpty()) "No saved paths were found." else "Found ${paths.size} saved paths.",
+            if (paths.isEmpty()) {
+                text("No saved paths were found.", "没有找到已保存的路径。")
+            } else {
+                text("Found ${paths.size} saved paths.", "找到 ${paths.size} 条已保存的路径。")
+            },
             mapOf(
                 "path_count" to paths.size,
                 "total_distance_m" to totalDistance,
@@ -184,7 +219,10 @@ class TrailSenseAiToolRunner(
 
         return succeeded(
             Tools.OFFLINE_MAPS,
-            "Found ${photoMaps.size} photo maps and ${vectorMaps.size} trail maps.",
+            text(
+                "Found ${photoMaps.size} photo maps and ${vectorMaps.size} trail maps.",
+                "找到 ${photoMaps.size} 张照片地图和 ${vectorMaps.size} 张路线地图。"
+            ),
             mapOf(
                 "photo_map_count" to photoMaps.size,
                 "trail_map_count" to vectorMaps.size,
@@ -205,7 +243,10 @@ class TrailSenseAiToolRunner(
 
         return succeeded(
             Tools.CLIMATE,
-            "Typical daily range is ${range.start.celsius().value}°C to ${range.end.celsius().value}°C.",
+            text(
+                "Typical daily range is ${range.start.celsius().value}°C to ${range.end.celsius().value}°C.",
+                "典型日温范围为 ${range.start.celsius().value}°C 到 ${range.end.celsius().value}°C。"
+            ),
             mapOf(
                 "low_c" to range.start.celsius().value,
                 "high_c" to range.end.celsius().value,
@@ -225,7 +266,11 @@ class TrailSenseAiToolRunner(
 
         return succeeded(
             Tools.PACKING_LISTS,
-            if (packs.isEmpty()) "No packing lists were found." else "Found ${packs.size} packing lists.",
+            if (packs.isEmpty()) {
+                text("No packing lists were found.", "没有找到装备清单。")
+            } else {
+                text("Found ${packs.size} packing lists.", "找到 ${packs.size} 个装备清单。")
+            },
             mapOf(
                 "pack_count" to packs.size,
                 "item_counts" to itemCounts.entries.joinToString("; ") { "${it.key}: ${it.value}" },
@@ -244,7 +289,10 @@ class TrailSenseAiToolRunner(
 
         return succeeded(
             Tools.ASTRONOMY,
-            "Daylight lasts about ${formatDuration(daylight)} today.",
+            text(
+                "Daylight lasts about ${formatDuration(daylight)} today.",
+                "今天日照时长约 ${formatDuration(daylight)}。"
+            ),
             mapOf(
                 "sunrise" to sunTimes.rise?.toString(),
                 "sunset" to sunTimes.set?.toString(),
@@ -260,14 +308,20 @@ class TrailSenseAiToolRunner(
         val targetElevation = args?.optNumber("target_elevation_m")?.toFloat()
             ?: return unavailable(
                 Tools.TEMPERATURE_ESTIMATION,
-                "Target elevation is required before Temperature Estimation can calculate a result."
+                text(
+                    "Target elevation is required before Temperature Estimation can calculate a result.",
+                    "需要目标海拔后，温度预估才能计算结果。"
+                )
             )
         val location = LocationSubsystem.getInstance(context)
         val weather = WeatherSubsystem.getInstance(context).getWeather()
         val observation = weather.observation
             ?: return unavailable(
                 Tools.TEMPERATURE_ESTIMATION,
-                "Current weather observation is required before Temperature Estimation can calculate a result."
+                text(
+                    "Current weather observation is required before Temperature Estimation can calculate a result.",
+                    "需要当前天气观测后，温度预估才能计算结果。"
+                )
             )
 
         val estimated = Meteorology.getTemperatureAtElevation(
@@ -278,7 +332,10 @@ class TrailSenseAiToolRunner(
 
         return succeeded(
             Tools.TEMPERATURE_ESTIMATION,
-            "Estimated temperature at ${targetElevation.toInt()} m is ${estimated.celsius().value}°C.",
+            text(
+                "Estimated temperature at ${targetElevation.toInt()} m is ${estimated.celsius().value}°C.",
+                "${targetElevation.toInt()} 米处的估算温度为 ${estimated.celsius().value}°C。"
+            ),
             mapOf(
                 "base_temperature_c" to observation.temperature.celsius().value,
                 "base_elevation_m" to location.elevation.meters().value,
@@ -292,7 +349,10 @@ class TrailSenseAiToolRunner(
         val location = LocationSubsystem.getInstance(context)
         return succeeded(
             Tools.MAP,
-            "Current map context is ${location.location.latitude}, ${location.location.longitude}.",
+            text(
+                "Current map context is ${location.location.latitude}, ${location.location.longitude}.",
+                "当前位置为 ${location.location.latitude}, ${location.location.longitude}，海拔约 ${location.elevation.meters().value} 米。"
+            ),
             mapOf(
                 "latitude" to location.location.latitude,
                 "longitude" to location.location.longitude,
@@ -306,7 +366,7 @@ class TrailSenseAiToolRunner(
     private fun fromContext(toolId: Long, aiContext: AiContext): AiToolRunResult {
         return succeeded(
             toolId,
-            summarize(aiContext.summary),
+            summarizeContext(toolId, aiContext),
             aiContext.sensorData
         )
     }
@@ -342,7 +402,7 @@ class TrailSenseAiToolRunner(
             toolId = toolId,
             toolName = getToolName(toolId),
             status = AiToolRunStatus.Failed,
-            summary = "Failed to read ${getToolName(toolId)}.",
+            summary = text("Failed to read ${getToolName(toolId)}.", "读取${getToolName(toolId)}失败。"),
             error = error,
             openedNavAction = getOpenToolAction(toolId)
         )
@@ -368,6 +428,51 @@ class TrailSenseAiToolRunner(
             .filter { it.isNotBlank() }
         val withoutTitle = lines.drop(1).ifEmpty { lines }
         return withoutTitle.joinToString(" ").take(260)
+    }
+
+    private fun summarizeContext(toolId: Long, aiContext: AiContext): String {
+        if (!isChinese()) {
+            return summarize(aiContext.summary)
+        }
+
+        return when (toolId) {
+            Tools.WEATHER -> {
+                val pressure = aiContext.sensorData["pressure_hpa"]
+                val temperature = aiContext.sensorData["temperature_c"]
+                val trend = aiContext.sensorData["pressure_characteristic"]
+                listOfNotNull(
+                    pressure?.let { "气压 $it hPa" },
+                    temperature?.let { "气温 $it°C" },
+                    trend?.let { "气压趋势 $it" }
+                ).joinToString("，").ifBlank { summarize(aiContext.summary) }
+            }
+            Tools.CLOUDS -> {
+                val cloud = aiContext.sensorData["latest_cloud_type"]
+                val count = aiContext.sensorData["observation_count"]
+                if (cloud != null) "最近云况：$cloud，记录数：$count" else "没有云况观测记录，记录数：$count"
+            }
+            Tools.NAVIGATION -> {
+                val destination = aiContext.sensorData["destination_name"]
+                val distance = aiContext.sensorData["distance_m"]
+                if (destination != null && distance != null) {
+                    "正在导航到 $destination，距离约 $distance 米。"
+                } else {
+                    "当前没有正在导航的目的地。"
+                }
+            }
+            else -> summarize(aiContext.summary)
+        }
+    }
+
+    private fun getTool(toolId: Long) = Tools.getTools(context, availableOnly = false)
+        .firstOrNull { it.id == toolId }
+
+    private fun text(en: String, zh: String): String {
+        return if (isChinese()) zh else en
+    }
+
+    private fun isChinese(): Boolean {
+        return context.resources.configuration.locales[0]?.language == "zh"
     }
 
     private fun formatDuration(duration: Duration): String {

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.ai_assistant.infrastructure
 
 import android.content.Context
+import android.util.Log
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiSkillRun
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolCallCard
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolRunResult
@@ -44,7 +45,27 @@ class AiToolExecutionService private constructor(
         enabledSkillIds: Set<String>? = this.enabledSkillIds
     ): AiToolSkillEntry? {
         val skills = filteredSkills(enabledSkillIds)
-        return AiToolSkillMatcher.rank(question, skills, limit = 1).firstOrNull()
+        val ranked = AiToolSkillMatcher.rankWithScores(question, skills, limit = 3)
+        log(
+            TAG,
+            "AI agent skill match question=\"$question\" enabled=${enabledSkillIds?.joinToString() ?: "all"} candidates=${
+                ranked.joinToString { "${it.skill.id}:${it.score}" }
+            }"
+        )
+        val best = ranked.firstOrNull()
+        if (best == null) {
+            log(TAG, "AI agent selected no skill: no positive match")
+            return null
+        }
+        if (best.score < MIN_AUTO_SKILL_SCORE) {
+            log(
+                TAG,
+                "AI agent skipped skill ${best.skill.id}: score ${best.score} below $MIN_AUTO_SKILL_SCORE"
+            )
+            return null
+        }
+        log(TAG, "AI agent selected skill ${best.skill.id}: score ${best.score}")
+        return best.skill
     }
 
     fun activateSkill(skillNameOrId: String): AiToolSkillEntry? {
@@ -68,14 +89,7 @@ class AiToolExecutionService private constructor(
 
     fun getRunningCards(skill: AiToolSkillEntry): List<AiToolCallCard> {
         return skill.toolIds.distinct().map { toolId ->
-            AiToolCallCard(
-                toolId = toolId,
-                toolName = runner.getToolName(toolId),
-                skillId = skill.id,
-                status = AiToolRunStatus.Running,
-                summary = "Reading current ${runner.getToolName(toolId)} data...",
-                openedNavAction = runner.getOpenToolAction(toolId)
-            )
+            getRunningCard(skill, toolId)
         }
     }
 
@@ -90,12 +104,43 @@ class AiToolExecutionService private constructor(
     suspend fun execute(skill: AiToolSkillEntry): AiSkillRun {
         activeSkill = skill
         val results = skill.toolIds.distinct().map { toolId ->
+            log(
+                TAG,
+                "AI agent running tool id=$toolId name=${runner.getToolName(toolId)} skill=${skill.id}"
+            )
             runTool(toolId)
         }
 
         return AiSkillRun(
             skillId = skill.id,
             skillName = skill.name(languageProvider()),
+            results = results,
+            interpretationPrompt = buildInterpretationPrompt(skill)
+        )
+    }
+
+    suspend fun executeStepByStep(
+        skill: AiToolSkillEntry,
+        onToolStarted: suspend (AiToolCallCard) -> Unit,
+        onToolFinished: suspend (AiToolCallCard) -> Unit
+    ): AiSkillRun {
+        activeSkill = skill
+        val skillName = skill.name(languageProvider())
+        val results = mutableListOf<AiToolRunResult>()
+        skill.toolIds.distinct().forEach { toolId ->
+            onToolStarted(getRunningCard(skill, toolId))
+            log(
+                TAG,
+                "AI agent running tool id=$toolId name=${runner.getToolName(toolId)} skill=${skill.id}"
+            )
+            val result = runTool(toolId)
+            results.add(result)
+            onToolFinished(result.toCard(skill.id, skillName))
+        }
+
+        return AiSkillRun(
+            skillId = skill.id,
+            skillName = skillName,
             results = results,
             interpretationPrompt = buildInterpretationPrompt(skill)
         )
@@ -137,6 +182,23 @@ class AiToolExecutionService private constructor(
         return skills.filter { it.id in enabledSkillIds }
     }
 
+    private fun getRunningCard(skill: AiToolSkillEntry, toolId: Long): AiToolCallCard {
+        val toolName = runner.getToolName(toolId)
+        return AiToolCallCard(
+            toolId = toolId,
+            toolName = toolName,
+            skillId = skill.id,
+            skillName = skill.name(languageProvider()),
+            status = AiToolRunStatus.Running,
+            summary = if (languageProvider() == "zh") {
+                "正在读取${toolName}数据..."
+            } else {
+                "Reading current ${toolName} data..."
+            },
+            openedNavAction = runner.getOpenToolAction(toolId)
+        )
+    }
+
     private fun buildInterpretationPrompt(skill: AiToolSkillEntry): String {
         val language = languageProvider()
         return buildString {
@@ -148,4 +210,15 @@ class AiToolExecutionService private constructor(
             append("For safety-critical workflows, use higher concern, lower concern, or insufficient evidence language; never give a safe or unsafe guarantee.")
         }
     }
+
+    private fun log(tag: String, message: String) {
+        try {
+            Log.d(tag, message)
+        } catch (_: RuntimeException) {
+            // Android Log is a throwing stub in JVM unit tests.
+        }
+    }
 }
+
+private const val TAG = "AiToolExecutionService"
+private const val MIN_AUTO_SKILL_SCORE = 0.35f

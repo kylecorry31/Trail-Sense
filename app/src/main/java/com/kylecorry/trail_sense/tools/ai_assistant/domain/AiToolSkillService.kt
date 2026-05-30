@@ -57,7 +57,9 @@ class AiToolSkillService(private val context: Context) {
         } else {
             entries.filter { it.id in enabledSkillIds }
         }
-        return AiToolSkillMatcher.rank(question, enabledEntries, limit)
+        return AiToolSkillMatcher.rankWithScores(question, enabledEntries, limit)
+            .filter { it.score >= MIN_MATCH_SCORE }
+            .map { it.skill }
     }
 
     private fun buildSkillSection(entry: AiToolSkillEntry): String {
@@ -94,5 +96,6 @@ class AiToolSkillService(private val context: Context) {
 
     companion object {
         private const val MAX_CONTEXT_CHARS = 3200
+        private const val MIN_MATCH_SCORE = 0.35f
     }
 }

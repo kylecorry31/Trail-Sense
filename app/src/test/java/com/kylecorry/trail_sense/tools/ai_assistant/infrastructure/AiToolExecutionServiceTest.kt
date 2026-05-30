@@ -45,6 +45,58 @@ class AiToolExecutionServiceTest {
         assertEquals(emptyList<Long>(), runner.runToolIds)
     }
 
+    @Test
+    fun `executeStepByStep emits running and completed cards around each tool`() = runBlocking {
+        val runner = FakeRunner()
+        val skill = entry("navigate_back_safely", "return to camp, route back", listOf(6, 7))
+        val service = AiToolExecutionService(
+            skills = listOf(skill),
+            runner = runner
+        )
+        val events = mutableListOf<String>()
+
+        val run = service.executeStepByStep(
+            skill = skill,
+            onToolStarted = {
+                events.add("start:${it.toolId}:${it.status.id}")
+            },
+            onToolFinished = {
+                events.add("finish:${it.toolId}:${it.status.id}")
+            }
+        )
+
+        assertEquals(listOf(6L, 7L), runner.runToolIds)
+        assertEquals(listOf(6L, 7L), run.results.map { it.toolId })
+        assertEquals(
+            listOf(
+                "start:6:running",
+                "finish:6:succeeded",
+                "start:7:running",
+                "finish:7:succeeded"
+            ),
+            events
+        )
+    }
+
+    @Test
+    fun `selectSkill ignores weak incidental Chinese matches`() {
+        val service = AiToolExecutionService(
+            skills = listOf(
+                entry(
+                    "avalanche_risk_check",
+                    "avalanche, snow slope, snowpack, 雪崩, 坡度",
+                    listOf(11, 20)
+                ),
+                entry("storm_check", "storm, lightning", listOf(20, 24))
+            ),
+            runner = FakeRunner()
+        )
+
+        val skill = service.selectSkill("现在海拔是多少")
+
+        assertEquals(null, skill)
+    }
+
     private fun entry(id: String, needs: String, toolIds: List<Long>): AiToolSkillEntry {
         return AiToolSkillEntry(
             id = id,
@@ -55,7 +107,7 @@ class AiToolExecutionServiceTest {
             steps = "Steps",
             interpretation = "Interpretation",
             caveats = "Caveats",
-            samplePrompts = emptyList()
+            samplePrompts = listOf("我现在是否有雪崩风险？")
         )
     }
 

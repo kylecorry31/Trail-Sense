@@ -7,7 +7,7 @@ data class AiSkillRun(
     val interpretationPrompt: String
 ) {
     fun toCards(): List<AiToolCallCard> {
-        return results.map { it.toCard(skillId) }
+        return results.map { it.toCard(skillId, skillName) }
     }
 
     fun toPromptContext(): String {

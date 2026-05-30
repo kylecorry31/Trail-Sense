@@ -225,6 +225,11 @@ class MainActivity : AndromedaActivity() {
 
             navController?.addOnDestinationChangedListener { _, destination, _ ->
                 binding.quickActionsSheet.close()
+                binding.bottomNavigation.visibility = if (destination.id == R.id.aiAssistantFragment) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
                 updateBottomNavSelection()
                 binding.globalAiFab.visibility = if (
                     destination.id == R.id.aiAssistantFragment ||

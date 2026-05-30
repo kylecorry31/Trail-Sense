@@ -2,22 +2,34 @@ package com.kylecorry.trail_sense.tools.ai_assistant.domain
 
 object AiToolSkillMatcher {
 
+    data class ScoredSkill(
+        val skill: AiToolSkillEntry,
+        val score: Float
+    )
+
     fun rank(
         question: String,
         entries: Collection<AiToolSkillEntry>,
         limit: Int = 2
     ): List<AiToolSkillEntry> {
+        return rankWithScores(question, entries, limit).map { it.skill }
+    }
+
+    fun rankWithScores(
+        question: String,
+        entries: Collection<AiToolSkillEntry>,
+        limit: Int = 2
+    ): List<ScoredSkill> {
         return entries
             .mapNotNull { entry ->
                 val score = score(question, entry)
                 if (score <= 0f) {
                     null
                 } else {
-                    entry to score
+                    ScoredSkill(entry, score)
                 }
             }
-            .sortedByDescending { it.second }
-            .map { it.first }
+            .sortedByDescending { it.score }
             .take(limit)
     }
 

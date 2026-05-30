@@ -7,6 +7,7 @@ data class AiToolCallCard(
     val toolId: Long,
     val toolName: String,
     val skillId: String,
+    val skillName: String? = null,
     val status: AiToolRunStatus,
     val summary: String,
     val details: String? = null,
@@ -18,6 +19,7 @@ data class AiToolCallCard(
             .put("tool_id", toolId)
             .put("tool_name", toolName)
             .put("skill_id", skillId)
+            .put("skill_name", skillName)
             .put("status", status.id)
             .put("summary", summary)
             .put("details", details)
@@ -37,6 +39,8 @@ data class AiToolCallCard(
                 toolId = json.optLong("tool_id"),
                 toolName = json.optString("tool_name"),
                 skillId = json.optString("skill_id"),
+                skillName = if (json.isNull("skill_name")) null else json.optString("skill_name")
+                    .takeIf { it.isNotBlank() },
                 status = AiToolRunStatus.from(json.optString("status")),
                 summary = json.optString("summary"),
                 details = if (json.isNull("details")) null else json.optString("details")

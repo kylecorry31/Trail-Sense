@@ -9,14 +9,16 @@ data class AiToolRunResult(
     val error: String? = null,
     val openedNavAction: Int? = null
 ) {
-    fun toCard(skillId: String): AiToolCallCard {
+    fun toCard(skillId: String, skillName: String? = null): AiToolCallCard {
+        val errorDetails = error?.takeIf { it != summary }
         return AiToolCallCard(
             toolId = toolId,
             toolName = toolName,
             skillId = skillId,
+            skillName = skillName,
             status = status,
             summary = summary,
-            details = error ?: sensorData.entries.joinToString("\n") { "${it.key}: ${it.value}" }
+            details = errorDetails ?: sensorData.entries.joinToString("\n") { "${it.key}: ${it.value}" }
                 .takeIf { it.isNotBlank() },
             openedNavAction = openedNavAction,
             timestamp = System.currentTimeMillis()
