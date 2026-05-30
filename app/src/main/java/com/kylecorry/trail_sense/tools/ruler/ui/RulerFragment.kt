@@ -12,7 +12,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolRulerBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -41,9 +40,6 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
         }
         binding.fractionalMapFrom.setText("1")
 
-        CustomUiUtils.setButtonState(binding.mapRatioBtn, true)
-        CustomUiUtils.setButtonState(binding.mapVerbalBtn, false)
-        CustomUiUtils.setButtonState(binding.rulerUnitBtn, false)
         binding.rulerUnitBtn.text = getUnitText(rulerUnits)
 
         binding.rulerUnitBtn.setOnClickListener {
@@ -60,21 +56,21 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             calculateMapDistance()
         }
 
-        binding.mapRatioBtn.setOnClickListener {
-            scaleMode = MapScaleMode.Fractional
-            CustomUiUtils.setButtonState(binding.mapRatioBtn, true)
-            CustomUiUtils.setButtonState(binding.mapVerbalBtn, false)
-            binding.fractionalMapScale.visibility = View.VISIBLE
-            binding.verbalMapScale.visibility = View.INVISIBLE
-            calculateMapDistance()
-        }
+        binding.mapScaleMode.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (!isChecked) {
+                return@addOnButtonCheckedListener
+            }
 
-        binding.mapVerbalBtn.setOnClickListener {
-            scaleMode = MapScaleMode.Relational
-            CustomUiUtils.setButtonState(binding.mapRatioBtn, false)
-            CustomUiUtils.setButtonState(binding.mapVerbalBtn, true)
-            binding.fractionalMapScale.visibility = View.INVISIBLE
-            binding.verbalMapScale.visibility = View.VISIBLE
+            scaleMode = when (checkedId) {
+                R.id.map_ratio_btn -> MapScaleMode.Fractional
+                R.id.map_verbal_btn -> MapScaleMode.Relational
+                else -> return@addOnButtonCheckedListener
+            }
+
+            binding.fractionalMapScale.visibility =
+                if (scaleMode == MapScaleMode.Fractional) View.VISIBLE else View.INVISIBLE
+            binding.verbalMapScale.visibility =
+                if (scaleMode == MapScaleMode.Relational) View.VISIBLE else View.INVISIBLE
             calculateMapDistance()
         }
 

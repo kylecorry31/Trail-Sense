@@ -36,7 +36,7 @@ class QuickActionRuler(
         ruler.setBackgroundColor(
             Resources.getAndroidColorAttr(
                 context,
-                android.R.attr.colorBackgroundFloating
+                com.google.android.material.R.attr.colorSurfaceContainer
             )
         )
 
