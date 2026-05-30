@@ -11,10 +11,11 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolIntentHandler
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
@@ -67,6 +68,11 @@ object OfflineMapsToolRegistration : ToolRegistration {
             intentHandlers = listOf(importMapIntentHandler),
             singletons = listOf(
                 MapService::getInstance
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(BROADCAST_OFFLINE_MAP_CHANGED, "Offline map changed"),
+                ToolBroadcast(BROADCAST_OFFLINE_MAP_ADDED, "Offline map added"),
+                ToolBroadcast(BROADCAST_OFFLINE_MAP_DELETED, "Offline map deleted"),
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
@@ -125,4 +131,9 @@ object OfflineMapsToolRegistration : ToolRegistration {
     }
 
     const val PHOTO_MAPS_ID = "photo_maps"
+    const val BROADCAST_OFFLINE_MAP_CHANGED = "offline-maps-broadcast-offline-map-changed"
+    const val BROADCAST_OFFLINE_MAP_ADDED = "offline-maps-broadcast-offline-map-added"
+    const val BROADCAST_OFFLINE_MAP_DELETED = "offline-maps-broadcast-offline-map-deleted"
+    const val BROADCAST_PARAM_OFFLINE_MAP_ID = "offline-map-id"
+    const val BROADCAST_PARAM_OFFLINE_MAP_TYPE = "offline-map-type"
 }

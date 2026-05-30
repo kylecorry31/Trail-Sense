@@ -3,10 +3,16 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persist
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Bundle
 import com.kylecorry.andromeda.files.CacheFileSystem
+import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.ImageSaver
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.io.FileOutputStream
 import java.time.Instant
 import java.util.UUID
@@ -17,6 +23,38 @@ class PersistentTileCache(context: Context) {
     private val repo = CachedTileRepo.getInstance(appContext)
     private val files = CacheFileSystem(appContext)
     private val imageSaver = ImageSaver()
+
+    init {
+        Tools.subscribe(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_CHANGED, ::onOfflineMapsChanged)
+        Tools.subscribe(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_ADDED, ::onOfflineMapsChanged)
+        Tools.subscribe(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, ::onOfflineMapsChanged)
+    }
+
+    private fun onOfflineMapsChanged(data: Bundle): Boolean {
+        val mapId = data.getLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_ID)
+        val mapTypeId = data.getLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_TYPE)
+
+        if (mapTypeId != OfflineMapType.Photo.id) {
+            return true
+        }
+
+        val cacheKeys = listOf(
+            "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
+            "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
+            "${PhotoMapTileSource.SOURCE_ID}-null-$mapId",
+            "${PhotoMapTileSource.SOURCE_ID}-true",
+            "${PhotoMapTileSource.SOURCE_ID}-false",
+            "${PhotoMapTileSource.SOURCE_ID}-null",
+        )
+
+        BackgroundTask {
+            cacheKeys.forEach {
+                invalidate(it)
+            }
+        }.start()
+        return true
+    }
+
 
     suspend fun getOrPut(key: String, tile: Tile, producer: suspend () -> Bitmap): Bitmap = onIO {
         val cached = repo.get(key, tile)
