@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimateSubsystem
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightNavigationArgs
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -27,6 +28,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.turn_back.services.TurnBackToolService
 import com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackFragment
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.whistle.domain.WhistleNavigationArgs
 import org.json.JSONObject
 import java.time.Duration
 import java.time.Instant
@@ -62,6 +64,8 @@ class TrailSenseAiToolRunner(
             }
 
             when (toolId) {
+                Tools.FLASHLIGHT -> flashlight(argumentsJson)
+                Tools.WHISTLE -> whistle(argumentsJson)
                 Tools.WEATHER -> weather()
                 Tools.CLOUDS -> clouds()
                 Tools.NAVIGATION -> navigation()
@@ -93,6 +97,109 @@ class TrailSenseAiToolRunner(
         } catch (e: Exception) {
             failed(toolId, e.message ?: text("Failed to read ${getToolName(toolId)}.", "读取${getToolName(toolId)}失败。"))
         }
+    }
+
+    private fun flashlight(argumentsJson: String): AiToolRunResult {
+        val args = parseArguments(argumentsJson)
+        val requestedMode = args?.optString(FlashlightNavigationArgs.MODE)
+            ?.takeIf { it.isNotBlank() }
+            ?: FlashlightNavigationArgs.MODE_SOS
+        val frequency = args?.optNumber(FlashlightNavigationArgs.FREQUENCY_HZ)
+            ?.toInt()
+            ?.let(::normalizeStrobeFrequency)
+        val mode = if (requestedMode.equals(FlashlightNavigationArgs.MODE_STROBE, ignoreCase = true)) {
+            FlashlightNavigationArgs.MODE_STROBE
+        } else {
+            FlashlightNavigationArgs.MODE_SOS
+        }
+        val actionArguments = buildMap {
+            put(FlashlightNavigationArgs.MODE, mode)
+            if (mode == FlashlightNavigationArgs.MODE_STROBE) {
+                put(
+                    FlashlightNavigationArgs.FREQUENCY_HZ,
+                    (frequency ?: DEFAULT_EMERGENCY_STROBE_HZ).toString()
+                )
+            }
+        }
+        val frequencyText = actionArguments[FlashlightNavigationArgs.FREQUENCY_HZ]
+
+        return succeeded(
+            Tools.FLASHLIGHT,
+            summary = if (mode == FlashlightNavigationArgs.MODE_STROBE) {
+                text(
+                    "Flashlight strobe is ready at ${frequencyText} Hz.",
+                    "手电筒频闪已准备为 ${frequencyText} Hz。"
+                )
+            } else {
+                text(
+                    "Flashlight SOS signal is ready.",
+                    "手电筒 SOS 求救信号已准备好。"
+                )
+            },
+            data = mapOf(
+                "prepared_mode" to mode,
+                "frequency_hz" to frequencyText
+            ),
+            details = if (mode == FlashlightNavigationArgs.MODE_STROBE) {
+                text(
+                    "Tap the button to open Flashlight with the strobe frequency selected. Confirm the strobe warning before it starts.",
+                    "点击按钮会打开手电筒并选中该频闪频率；启动前需要确认频闪警告。"
+                )
+            } else {
+                text(
+                    "Tap the button to open Flashlight and start the SOS pattern.",
+                    "点击按钮会打开手电筒并启动 SOS 闪光模式。"
+                )
+            },
+            actionLabel = if (mode == FlashlightNavigationArgs.MODE_STROBE) {
+                text("Start ${frequencyText} Hz strobe", "启动 ${frequencyText} Hz 频闪")
+            } else {
+                text("Start SOS flashlight", "启动 SOS 手电筒")
+            },
+            actionArguments = actionArguments
+        )
+    }
+
+    private fun whistle(argumentsJson: String): AiToolRunResult {
+        val signal = parseArguments(argumentsJson)
+            ?.optString(WhistleNavigationArgs.SIGNAL)
+            ?.takeIf { it.isNotBlank() }
+            ?.lowercase()
+            ?.let {
+                if (it == WhistleNavigationArgs.SIGNAL_SOS) {
+                    WhistleNavigationArgs.SIGNAL_SOS
+                } else {
+                    WhistleNavigationArgs.SIGNAL_HELP
+                }
+            }
+            ?: WhistleNavigationArgs.SIGNAL_HELP
+
+        return succeeded(
+            Tools.WHISTLE,
+            summary = if (signal == WhistleNavigationArgs.SIGNAL_SOS) {
+                text("Whistle SOS signal is ready.", "哨子 SOS 信号已准备好。")
+            } else {
+                text("Whistle help signal is ready.", "哨子求救信号已准备好。")
+            },
+            data = mapOf("prepared_signal" to signal),
+            details = if (signal == WhistleNavigationArgs.SIGNAL_SOS) {
+                text(
+                    "Tap the button to open Whistle and play the SOS tone. Turn the volume up first if possible.",
+                    "点击按钮会打开哨子并播放 SOS 声音；如果可以，请先把音量调高。"
+                )
+            } else {
+                text(
+                    "Tap the button to open Whistle and play the repeating help signal. Turn the volume up first if possible.",
+                    "点击按钮会打开哨子并循环播放求救信号；如果可以，请先把音量调高。"
+                )
+            },
+            actionLabel = if (signal == WhistleNavigationArgs.SIGNAL_SOS) {
+                text("Play SOS whistle", "播放 SOS 哨子")
+            } else {
+                text("Play help whistle", "播放求救哨")
+            },
+            actionArguments = mapOf(WhistleNavigationArgs.SIGNAL to signal)
+        )
     }
 
     private suspend fun weather(): AiToolRunResult {
@@ -374,7 +481,10 @@ class TrailSenseAiToolRunner(
     private fun succeeded(
         toolId: Long,
         summary: String,
-        data: Map<String, Any?>
+        data: Map<String, Any?>,
+        details: String? = null,
+        actionLabel: String? = null,
+        actionArguments: Map<String, String> = emptyMap()
     ): AiToolRunResult {
         return AiToolRunResult(
             toolId = toolId,
@@ -382,7 +492,10 @@ class TrailSenseAiToolRunner(
             status = AiToolRunStatus.Succeeded,
             sensorData = data,
             summary = summary,
-            openedNavAction = getOpenToolAction(toolId)
+            details = details,
+            openedNavAction = getOpenToolAction(toolId),
+            actionLabel = actionLabel,
+            actionArguments = actionArguments
         )
     }
 
@@ -421,6 +534,14 @@ class TrailSenseAiToolRunner(
             return null
         }
         return opt(name) as? Number
+    }
+
+    private fun normalizeStrobeFrequency(frequency: Int): Int {
+        return if (frequency == 200) {
+            200
+        } else {
+            frequency.coerceIn(1, 9)
+        }
     }
 
     private fun summarize(summary: String): String {
@@ -486,3 +607,5 @@ class TrailSenseAiToolRunner(
         }
     }
 }
+
+private const val DEFAULT_EMERGENCY_STROBE_HZ = 3

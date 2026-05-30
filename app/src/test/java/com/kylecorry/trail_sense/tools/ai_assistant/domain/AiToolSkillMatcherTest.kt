@@ -57,6 +57,19 @@ class AiToolSkillMatcherTest {
         assertEquals("cold_elevation_planning", ranked.first().id)
     }
 
+    @Test
+    fun `rank selects emergency signal workflow for Chinese rescue question`() {
+        val ranked = AiToolSkillMatcher.rank(
+            question = "我要求救",
+            entries = listOf(
+                entry("storm_check", "storm, lightning, 雷暴"),
+                entry("emergency_signal", "求救, 救命, SOS, 哨子, 手电筒, 频闪")
+            )
+        )
+
+        assertEquals("emergency_signal", ranked.first().id)
+    }
+
     private fun entry(id: String, needs: String): AiToolSkillEntry {
         return AiToolSkillEntry(
             id = id,

@@ -9,6 +9,9 @@ import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolRunStatus
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolSkillEntry
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolSkillMatcher
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolSkillService
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightNavigationArgs
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.whistle.domain.WhistleNavigationArgs
 import java.util.Locale
 
 class AiToolExecutionService private constructor(
@@ -98,17 +101,17 @@ class AiToolExecutionService private constructor(
         enabledSkillIds: Set<String>? = this.enabledSkillIds
     ): AiSkillRun? {
         val skill = selectSkill(question, enabledSkillIds) ?: return null
-        return execute(skill)
+        return execute(skill, question)
     }
 
-    suspend fun execute(skill: AiToolSkillEntry): AiSkillRun {
+    suspend fun execute(skill: AiToolSkillEntry, question: String? = null): AiSkillRun {
         activeSkill = skill
         val results = skill.toolIds.distinct().map { toolId ->
             log(
                 TAG,
                 "AI agent running tool id=$toolId name=${runner.getToolName(toolId)} skill=${skill.id}"
             )
-            runTool(toolId)
+            runTool(toolId, getToolArguments(skill, toolId, question))
         }
 
         return AiSkillRun(
@@ -121,6 +124,7 @@ class AiToolExecutionService private constructor(
 
     suspend fun executeStepByStep(
         skill: AiToolSkillEntry,
+        question: String? = null,
         onToolStarted: suspend (AiToolCallCard) -> Unit,
         onToolFinished: suspend (AiToolCallCard) -> Unit
     ): AiSkillRun {
@@ -133,7 +137,7 @@ class AiToolExecutionService private constructor(
                 TAG,
                 "AI agent running tool id=$toolId name=${runner.getToolName(toolId)} skill=${skill.id}"
             )
-            val result = runTool(toolId)
+            val result = runTool(toolId, getToolArguments(skill, toolId, question))
             results.add(result)
             onToolFinished(result.toCard(skill.id, skillName))
         }
@@ -191,12 +195,121 @@ class AiToolExecutionService private constructor(
             skillName = skill.name(languageProvider()),
             status = AiToolRunStatus.Running,
             summary = if (languageProvider() == "zh") {
-                "正在读取${toolName}数据..."
+                if (toolId in actionToolIds) {
+                    "正在准备${toolName}操作..."
+                } else {
+                    "正在读取${toolName}数据..."
+                }
             } else {
-                "Reading current ${toolName} data..."
+                if (toolId in actionToolIds) {
+                    "Preparing ${toolName} action..."
+                } else {
+                    "Reading current ${toolName} data..."
+                }
             },
             openedNavAction = runner.getOpenToolAction(toolId)
         )
+    }
+
+    private fun getToolArguments(
+        skill: AiToolSkillEntry,
+        toolId: Long,
+        question: String?
+    ): String {
+        if (question.isNullOrBlank() || skill.id != EMERGENCY_SIGNAL_SKILL_ID) {
+            return "{}"
+        }
+
+        val arguments = mutableMapOf<String, Any>()
+        when (toolId) {
+            Tools.WHISTLE -> {
+                val signal = if (question.contains("sos", ignoreCase = true)) {
+                    WhistleNavigationArgs.SIGNAL_SOS
+                } else {
+                    WhistleNavigationArgs.SIGNAL_HELP
+                }
+                arguments[WhistleNavigationArgs.SIGNAL] = signal
+            }
+            Tools.FLASHLIGHT -> {
+                val frequency = extractFrequencyHz(question)
+                val wantsStrobe = frequency != null || question.containsAny(
+                    "strobe",
+                    "flash rate",
+                    "frequency",
+                    "频闪",
+                    "闪烁",
+                    "频率",
+                    "赫兹"
+                )
+                arguments[FlashlightNavigationArgs.MODE] = if (wantsStrobe) {
+                    FlashlightNavigationArgs.MODE_STROBE
+                } else {
+                    FlashlightNavigationArgs.MODE_SOS
+                }
+                if (frequency != null) {
+                    arguments[FlashlightNavigationArgs.FREQUENCY_HZ] = frequency
+                }
+            }
+        }
+
+        return arguments.toJsonObjectString()
+    }
+
+    private fun extractFrequencyHz(question: String): Int? {
+        val hzMatch = Regex("""(\d{1,3})\s*(hz|赫兹|次/秒|次每秒)""", RegexOption.IGNORE_CASE)
+            .find(question)
+            ?.groupValues
+            ?.getOrNull(1)
+            ?.toIntOrNull()
+
+        val value = hzMatch ?: if (question.containsAny("frequency", "频率")) {
+            Regex("""\d{1,3}""")
+                .find(question)
+                ?.value
+                ?.toIntOrNull()
+        } else {
+            null
+        }
+
+        return when (value) {
+            null -> null
+            200 -> 200
+            else -> value.coerceIn(1, 9)
+        }
+    }
+
+    private fun String.containsAny(vararg terms: String): Boolean {
+        return terms.any { contains(it, ignoreCase = true) }
+    }
+
+    private fun Map<String, Any>.toJsonObjectString(): String {
+        if (isEmpty()) {
+            return "{}"
+        }
+
+        return entries.joinToString(prefix = "{", postfix = "}") { (key, value) ->
+            "\"${key.escapeJson()}\":${value.toJsonValue()}"
+        }
+    }
+
+    private fun Any.toJsonValue(): String {
+        return when (this) {
+            is Number, is Boolean -> toString()
+            else -> "\"${toString().escapeJson()}\""
+        }
+    }
+
+    private fun String.escapeJson(): String {
+        return flatMap {
+            when (it) {
+                '\\' -> listOf('\\', '\\')
+                '"' -> listOf('\\', '"')
+                '\n' -> listOf('\\', 'n')
+                '\r' -> listOf('\\', 'r')
+                '\t' -> listOf('\\', 't')
+                else -> listOf(it)
+            }
+        }.joinToString("")
     }
 
     private fun buildInterpretationPrompt(skill: AiToolSkillEntry): String {
@@ -222,3 +335,5 @@ class AiToolExecutionService private constructor(
 
 private const val TAG = "AiToolExecutionService"
 private const val MIN_AUTO_SKILL_SCORE = 0.35f
+private const val EMERGENCY_SIGNAL_SKILL_ID = "emergency_signal"
+private val actionToolIds = setOf(Tools.WHISTLE, Tools.FLASHLIGHT)

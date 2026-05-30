@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -24,6 +25,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -99,8 +101,10 @@ import com.google.ai.edge.litertlm.Message
 import com.google.ai.edge.litertlm.MessageCallback
 import com.google.ai.edge.litertlm.ToolProvider
 import com.google.ai.edge.litertlm.tool
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
 import java.util.Locale
 import kotlin.math.roundToInt
@@ -117,6 +121,13 @@ data class ChatMessage(
 class AiAssistantFragment : TrailSenseComposeFragment() {
 
     private var aiContext: AiContext? = null
+    private val generationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private var retainedMessages: List<ChatMessage>? = null
+    private var retainedInputText = ""
+    private var retainedIsGenerating = false
+    private var retainedSuggestedQuestions: List<String>? = null
+    private var retainedAttachedImage: Bitmap? = null
+    private var retainedCurrentSessionId: Long? = null
     private var imagePickerCallback: ((Uri?) -> Unit)? = null
     private val imagePicker = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         imagePickerCallback?.invoke(uri)
@@ -207,14 +218,39 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         }
         val availableSkills = remember { toolKnowledgeService.getSkills() }
         val chatRepo = AiChatRepo.getInstance(requireContext())
-        val (messages, setMessages) = useState(listOf<ChatMessage>())
-        val (inputText, setInputText) = useState("")
-        val (isGenerating, setIsGenerating) = useState(false)
+        val hasRetainedState = retainedMessages != null
+        val (messages, setMessagesState) = useState(retainedMessages.orEmpty())
+        val setMessages: (List<ChatMessage>) -> Unit = {
+            retainedMessages = it
+            setMessagesState(it)
+        }
+        val (inputText, setInputTextState) = useState(retainedInputText)
+        val setInputText: (String) -> Unit = {
+            retainedInputText = it
+            setInputTextState(it)
+        }
+        val (isGenerating, setIsGeneratingState) = useState(retainedIsGenerating)
+        val setIsGenerating: (Boolean) -> Unit = {
+            retainedIsGenerating = it
+            setIsGeneratingState(it)
+        }
         val (isInitializing, setIsInitializing) = useState(false)
         val (error, setError) = useState<String?>(null)
-        val (suggestedQuestions, setSuggestedQuestions) = useState(emptyList<String>())
-        val (attachedImage, setAttachedImage) = useState<Bitmap?>(null)
-        val (currentSessionId, setCurrentSessionId) = useState<Long?>(null)
+        val (suggestedQuestions, setSuggestedQuestionsState) = useState(retainedSuggestedQuestions.orEmpty())
+        val setSuggestedQuestions: (List<String>) -> Unit = {
+            retainedSuggestedQuestions = it
+            setSuggestedQuestionsState(it)
+        }
+        val (attachedImage, setAttachedImageState) = useState<Bitmap?>(retainedAttachedImage)
+        val setAttachedImage: (Bitmap?) -> Unit = {
+            retainedAttachedImage = it
+            setAttachedImageState(it)
+        }
+        val (currentSessionId, setCurrentSessionIdState) = useState<Long?>(retainedCurrentSessionId)
+        val setCurrentSessionId: (Long?) -> Unit = {
+            retainedCurrentSessionId = it
+            setCurrentSessionIdState(it)
+        }
         val (showHistory, setShowHistory) = useState(false)
         val (sessions, setSessions) = useState(emptyList<ChatSessionEntity>())
         val (showSkillPicker, setShowSkillPicker) = useState(false)
@@ -225,7 +261,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
         LaunchedEffect(Unit) {
             val toolId = arguments?.getString("tool_id")
             val imageUri = arguments?.getString("image_uri")?.let { Uri.parse(it) }
-            val shouldRestoreLatestSession = imageUri == null
+            val shouldRestoreLatestSession = imageUri == null && !hasRetainedState
             var hasContextSuggestions = false
             val existingSessions = chatRepo.getAllSessions()
             setSessions(existingSessions)
@@ -328,55 +364,79 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
             aiContext = null
             setAttachedImage(null)
 
+            val inferenceErrorText = getString(R.string.ai_inference_error)
             val responseBuilder = StringBuilder()
+            var persistedSessionId = currentSessionId
+            var persistedUserMessage: ChatMessage? = null
+            var savedImagePath: String? = null
+            var isFinalized = false
 
-            suspend fun saveConversation(
-                response: String,
-                toolCardMessages: List<ChatMessage>
-            ): List<ChatMessage> {
-                val sessionId = currentSessionId ?: chatRepo.createSession(
-                    text.take(50)
-                ).also { setCurrentSessionId(it) }
-                val imagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
+            suspend fun getSessionId(): Long {
+                return persistedSessionId ?: chatRepo.createSession(text.take(50)).also {
+                    persistedSessionId = it
+                    setCurrentSessionId(it)
+                }
+            }
+
+            suspend fun saveUserMessage(): ChatMessage {
+                persistedUserMessage?.let { return it }
+                val sessionId = getSessionId()
+                if (savedImagePath == null) {
+                    savedImagePath = messageImage?.let { chatRepo.saveMessageImage(it) }
+                }
                 val userMessageId = chatRepo.addMessage(
                     sessionId,
                     text,
                     isUser = true,
-                    imagePath = imagePath
+                    imagePath = savedImagePath
                 )
-                val savedToolMessages = toolCardMessages
-                    .filter { it.toolCalls.isNotEmpty() }
-                    .map {
-                        val toolMessageId = chatRepo.addMessage(
-                            sessionId,
-                            "",
-                            isUser = false,
-                            toolCallsJson = AiToolCallCard.toJson(it.toolCalls)
-                        )
-                        it.copy(id = toolMessageId)
-                    }
+                return userMessage.copy(id = userMessageId).also {
+                    persistedUserMessage = it
+                }
+            }
+
+            suspend fun saveToolMessage(card: AiToolCallCard): ChatMessage {
+                val sessionId = getSessionId()
+                val toolMessage = ChatMessage(
+                    text = "",
+                    isUser = false,
+                    toolCalls = listOf(card)
+                )
+                val toolMessageId = chatRepo.addMessage(
+                    sessionId,
+                    "",
+                    isUser = false,
+                    toolCallsJson = AiToolCallCard.toJson(toolMessage.toolCalls)
+                )
+                return toolMessage.copy(id = toolMessageId)
+            }
+
+            suspend fun saveResponseMessage(response: String): ChatMessage {
+                val sessionId = getSessionId()
                 val responseMessageId = chatRepo.addMessage(
                     sessionId,
                     response,
                     isUser = false
                 )
-
-                return priorMessages +
-                    userMessage.copy(id = userMessageId) +
-                    savedToolMessages +
-                    ChatMessage(response, isUser = false, id = responseMessageId)
+                return ChatMessage(response, isUser = false, id = responseMessageId)
             }
 
-            scope.launch {
+            generationScope.launch {
                 val completedToolMessages = mutableListOf<ChatMessage>()
+                var displayUserMessage = userMessage
                 try {
+                    displayUserMessage = saveUserMessage()
+                    setMessages(priorMessages + displayUserMessage + loadingMessage)
+                    setSessions(chatRepo.getAllSessions())
+
                     val skillRun = selectedSkill?.let {
                         toolExecutionService.executeStepByStep(
                             skill = it,
+                            question = text,
                             onToolStarted = { runningCard ->
                                 setMessages(
                                     priorMessages +
-                                        userMessage +
+                                        displayUserMessage +
                                         completedToolMessages +
                                         ChatMessage(
                                             text = "",
@@ -387,16 +447,11 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                 )
                             },
                             onToolFinished = { completedCard ->
-                                completedToolMessages.add(
-                                    ChatMessage(
-                                        text = "",
-                                        isUser = false,
-                                        toolCalls = listOf(completedCard)
-                                    )
-                                )
+                                completedToolMessages.add(saveToolMessage(completedCard))
+                                setSessions(chatRepo.getAllSessions())
                                 setMessages(
                                     priorMessages +
-                                        userMessage +
+                                        displayUserMessage +
                                         completedToolMessages +
                                         loadingMessage
                                 )
@@ -437,9 +492,9 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                                 if (response.isBlank()) {
                                     return
                                 }
-                                scope.launch {
+                                generationScope.launch {
                                     val updated = priorMessages +
-                                        userMessage +
+                                        displayUserMessage +
                                         completedToolMessages +
                                         ChatMessage(response, isUser = false)
                                     setMessages(updated)
@@ -447,28 +502,48 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                             }
 
                             override fun onDone() {
-                                scope.launch {
+                                generationScope.launch {
+                                    if (isFinalized) {
+                                        return@launch
+                                    }
+                                    isFinalized = true
                                     val response = formatAiResponse(responseBuilder.toString())
-                                        .ifBlank { getString(R.string.ai_inference_error) }
+                                        .ifBlank { inferenceErrorText }
+                                    val responseMessage = saveResponseMessage(response)
                                     setIsGenerating(false)
-                                    setMessages(saveConversation(response, completedToolMessages.toList()))
+                                    setMessages(
+                                        priorMessages +
+                                            displayUserMessage +
+                                            completedToolMessages +
+                                            responseMessage
+                                    )
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
 
                             override fun onError(throwable: Throwable) {
                                 Log.e(TAG, "AI response failed", throwable)
-                                scope.launch {
+                                generationScope.launch {
+                                    if (isFinalized) {
+                                        return@launch
+                                    }
+                                    isFinalized = true
                                     val errorMsg = if (throwable is java.util.concurrent.CancellationException) {
                                         formatAiResponse(responseBuilder.toString())
-                                            .ifBlank { getString(R.string.ai_inference_error) }
+                                            .ifBlank { inferenceErrorText }
                                     } else {
-                                        getString(R.string.ai_inference_error)
+                                        inferenceErrorText
                                     }
                                     val response = formatAiResponse(responseBuilder.toString())
                                         .ifBlank { errorMsg }
+                                    val responseMessage = saveResponseMessage(response)
                                     setIsGenerating(false)
-                                    setMessages(saveConversation(response, completedToolMessages.toList()))
+                                    setMessages(
+                                        priorMessages +
+                                            displayUserMessage +
+                                            completedToolMessages +
+                                            responseMessage
+                                    )
                                     setSessions(chatRepo.getAllSessions())
                                 }
                             }
@@ -476,9 +551,15 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                     )
                 } catch (e: Exception) {
                     Log.e(TAG, "AI message send failed", e)
-                    val errorMsg = getString(R.string.ai_inference_error)
+                    val errorMsg = inferenceErrorText
+                    val responseMessage = saveResponseMessage(errorMsg)
                     setIsGenerating(false)
-                    setMessages(saveConversation(errorMsg, completedToolMessages.toList()))
+                    setMessages(
+                        priorMessages +
+                            displayUserMessage +
+                            completedToolMessages +
+                            responseMessage
+                    )
                     setSessions(chatRepo.getAllSessions())
                 }
             }
@@ -610,8 +691,12 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
                 listState = listState,
                 contextCard = aiContext?.summary,
                 showAgentSkillsIntro = messages.isEmpty() && aiContext == null,
-                onOpenTool = { navAction ->
-                    findNavController().navigateWithAnimation(navAction)
+                onOpenTool = { call ->
+                    val navAction = call.openedNavAction ?: return@AiAssistantContent
+                    findNavController().navigateWithAnimation(
+                        navAction,
+                        call.actionArguments.toBundle()
+                    )
                 }
             )
         }
@@ -656,6 +741,7 @@ class AiAssistantFragment : TrailSenseComposeFragment() {
 
     private fun getDefaultSkillQuestions(): List<String> {
         return listOf(
+            getString(R.string.ai_skill_prompt_emergency_signal),
             getString(R.string.ai_skill_prompt_avalanche),
             getString(R.string.ai_skill_prompt_storm),
             getString(R.string.ai_skill_prompt_navigate_back),
@@ -708,18 +794,22 @@ private fun AiAssistantContent(
     listState: androidx.compose.foundation.lazy.LazyListState,
     contextCard: String?,
     showAgentSkillsIntro: Boolean,
-    onOpenTool: (Int) -> Unit,
+    onOpenTool: (AiToolCallCard) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val (showImageMenu, setShowImageMenu) = useState(false)
 
-    Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
+    Column(modifier = modifier.fillMaxSize().imePadding().padding(16.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = onHistoryClick, modifier = Modifier.testTag("history_button")) {
+            IconButton(
+                onClick = onHistoryClick,
+                enabled = !isGenerating,
+                modifier = Modifier.testTag("history_button")
+            ) {
                 Icon(painterResource(R.drawable.ic_tool_notes), contentDescription = stringResource(R.string.ai_chat_history))
             }
             Row(
@@ -740,7 +830,11 @@ private fun AiAssistantContent(
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }
-            IconButton(onClick = onNewChat, modifier = Modifier.testTag("new_chat_button")) {
+            IconButton(
+                onClick = onNewChat,
+                enabled = !isGenerating,
+                modifier = Modifier.testTag("new_chat_button")
+            ) {
                 Icon(painterResource(R.drawable.ic_add), contentDescription = stringResource(R.string.ai_new_chat))
             }
         }
@@ -1144,7 +1238,7 @@ private fun AgentSkillsIntro() {
 private fun ChatBubble(
     message: ChatMessage,
     onDelete: () -> Unit,
-    onOpenTool: (Int) -> Unit,
+    onOpenTool: (AiToolCallCard) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (!message.isLoading && message.text.isBlank() && message.image == null && message.toolCalls.isEmpty()) {
@@ -1298,7 +1392,7 @@ private fun ChatBubble(
 private fun ToolCallBubble(
     message: ChatMessage,
     onDelete: () -> Unit,
-    onOpenTool: (Int) -> Unit,
+    onOpenTool: (AiToolCallCard) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val (showMenu, setShowMenu) = useState(false)
@@ -1347,7 +1441,7 @@ private fun ToolCallBubble(
 @Composable
 private fun ToolCallPanel(
     toolCalls: List<AiToolCallCard>,
-    onOpenTool: (Int) -> Unit,
+    onOpenTool: (AiToolCallCard) -> Unit,
     onMenuClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
@@ -1411,7 +1505,7 @@ private fun ToolCallPanel(
 @Composable
 private fun ToolCallRow(
     call: AiToolCallCard,
-    onOpenTool: (Int) -> Unit
+    onOpenTool: (AiToolCallCard) -> Unit
 ) {
     val context = LocalContext.current
     val statusText = when (call.status) {
@@ -1458,12 +1552,15 @@ private fun ToolCallRow(
                 modifier = Modifier.padding(top = 4.dp)
             )
         }
-        if (call.openedNavAction != null && Tools.isToolAvailable(context, call.toolId)) {
+        if (call.status != AiToolRunStatus.Running &&
+            call.openedNavAction != null &&
+            Tools.isToolAvailable(context, call.toolId)
+        ) {
             OutlinedButton(
-                onClick = { onOpenTool(call.openedNavAction) },
+                onClick = { onOpenTool(call) },
                 modifier = Modifier.padding(top = 6.dp)
             ) {
-                Text(stringResource(R.string.ai_open_tool))
+                Text(call.actionLabel ?: stringResource(R.string.ai_open_tool))
             }
         }
     }
@@ -1504,6 +1601,12 @@ private fun markdownToAnnotatedString(text: String): AnnotatedString {
 
 private fun markdownToPlainText(text: String): String {
     return markdownToAnnotatedString(text).text
+}
+
+private fun Map<String, String>.toBundle(): Bundle {
+    return Bundle().also { bundle ->
+        forEach { (key, value) -> bundle.putString(key, value) }
+    }
 }
 
 @Composable

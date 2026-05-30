@@ -12,6 +12,8 @@ data class AiToolCallCard(
     val summary: String,
     val details: String? = null,
     val openedNavAction: Int? = null,
+    val actionLabel: String? = null,
+    val actionArguments: Map<String, String> = emptyMap(),
     val timestamp: Long = System.currentTimeMillis()
 ) {
     fun toJson(): JSONObject {
@@ -24,6 +26,8 @@ data class AiToolCallCard(
             .put("summary", summary)
             .put("details", details)
             .put("opened_nav_action", openedNavAction)
+            .put("action_label", actionLabel)
+            .put("action_arguments", JSONObject(actionArguments))
             .put("timestamp", timestamp)
     }
 
@@ -46,6 +50,9 @@ data class AiToolCallCard(
                 details = if (json.isNull("details")) null else json.optString("details")
                     .takeIf { it.isNotBlank() },
                 openedNavAction = navAction,
+                actionLabel = if (json.isNull("action_label")) null else json.optString("action_label")
+                    .takeIf { it.isNotBlank() },
+                actionArguments = json.optJSONObject("action_arguments")?.toStringMap().orEmpty(),
                 timestamp = json.optLong("timestamp")
             )
         }
@@ -69,6 +76,16 @@ data class AiToolCallCard(
             } catch (_: Exception) {
                 emptyList()
             }
+        }
+
+        private fun JSONObject.toStringMap(): Map<String, String> {
+            val map = mutableMapOf<String, String>()
+            val keys = keys()
+            while (keys.hasNext()) {
+                val key = keys.next()
+                map[key] = optString(key)
+            }
+            return map
         }
     }
 }

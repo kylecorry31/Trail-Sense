@@ -15,6 +15,7 @@
     <string name="ai_agent_skills_intro_label">Introducing</string>
     <string name="ai_agent_skills_description">Use Trail Sense skills to combine tools for complex outdoor decisions.</string>
     <string name="ai_agent_skills_try_prompt">Try a sample prompt below.</string>
+    <string name="ai_skill_prompt_emergency_signal">I need to signal for help.</string>
     <string name="ai_skill_prompt_avalanche">Am I in avalanche terrain?</string>
     <string name="ai_skill_prompt_storm">Is a storm coming?</string>
     <string name="ai_skill_prompt_navigate_back">How do I get back to camp?</string>

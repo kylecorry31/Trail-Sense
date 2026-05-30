@@ -3,8 +3,11 @@ package com.kylecorry.trail_sense.tools.ai_assistant.infrastructure
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolRunResult
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolRunStatus
 import com.kylecorry.trail_sense.tools.ai_assistant.domain.AiToolSkillEntry
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightNavigationArgs
+import com.kylecorry.trail_sense.tools.whistle.domain.WhistleNavigationArgs
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class AiToolExecutionServiceTest {
@@ -97,6 +100,39 @@ class AiToolExecutionServiceTest {
         assertEquals(null, skill)
     }
 
+    @Test
+    fun `execute passes emergency signal action arguments to tools`() = runBlocking {
+        val runner = FakeRunner()
+        val service = AiToolExecutionService(
+            skills = listOf(entry("emergency_signal", "求救, 手电筒, 频率, 哨子", listOf(2, 1))),
+            runner = runner
+        )
+
+        service.execute(
+            question = "我要用手电筒 5Hz 求救",
+            enabledSkillIds = setOf("emergency_signal")
+        )
+
+        assertJsonField(
+            runner.runArgumentsJson[0],
+            WhistleNavigationArgs.SIGNAL,
+            WhistleNavigationArgs.SIGNAL_HELP
+        )
+        assertJsonField(
+            runner.runArgumentsJson[1],
+            FlashlightNavigationArgs.MODE,
+            FlashlightNavigationArgs.MODE_STROBE
+        )
+        assertJsonField(runner.runArgumentsJson[1], FlashlightNavigationArgs.FREQUENCY_HZ, "5")
+    }
+
+    private fun assertJsonField(json: String, field: String, value: String) {
+        val quotedValue = Regex.escape("\"$value\"")
+        val rawValue = Regex.escape(value)
+        val pattern = Regex("\"${Regex.escape(field)}\"\\s*:\\s*($quotedValue|$rawValue)")
+        assertTrue(pattern.containsMatchIn(json))
+    }
+
     private fun entry(id: String, needs: String, toolIds: List<Long>): AiToolSkillEntry {
         return AiToolSkillEntry(
             id = id,
@@ -113,6 +149,7 @@ class AiToolExecutionServiceTest {
 
     private class FakeRunner : AiTrailSenseToolRunner {
         val runToolIds = mutableListOf<Long>()
+        val runArgumentsJson = mutableListOf<String>()
 
         override fun getToolName(toolId: Long): String {
             return "Tool $toolId"
@@ -124,6 +161,7 @@ class AiToolExecutionServiceTest {
 
         override suspend fun run(toolId: Long, argumentsJson: String): AiToolRunResult {
             runToolIds.add(toolId)
+            runArgumentsJson.add(argumentsJson)
             return AiToolRunResult(
                 toolId = toolId,
                 toolName = getToolName(toolId),

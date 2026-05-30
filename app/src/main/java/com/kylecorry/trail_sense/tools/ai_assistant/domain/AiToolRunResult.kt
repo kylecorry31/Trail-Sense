@@ -6,8 +6,11 @@ data class AiToolRunResult(
     val status: AiToolRunStatus,
     val sensorData: Map<String, Any?> = emptyMap(),
     val summary: String,
+    val details: String? = null,
     val error: String? = null,
-    val openedNavAction: Int? = null
+    val openedNavAction: Int? = null,
+    val actionLabel: String? = null,
+    val actionArguments: Map<String, String> = emptyMap()
 ) {
     fun toCard(skillId: String, skillName: String? = null): AiToolCallCard {
         val errorDetails = error?.takeIf { it != summary }
@@ -18,9 +21,11 @@ data class AiToolRunResult(
             skillName = skillName,
             status = status,
             summary = summary,
-            details = errorDetails ?: sensorData.entries.joinToString("\n") { "${it.key}: ${it.value}" }
+            details = errorDetails ?: details ?: sensorData.entries.joinToString("\n") { "${it.key}: ${it.value}" }
                 .takeIf { it.isNotBlank() },
             openedNavAction = openedNavAction,
+            actionLabel = actionLabel,
+            actionArguments = actionArguments,
             timestamp = System.currentTimeMillis()
         )
     }

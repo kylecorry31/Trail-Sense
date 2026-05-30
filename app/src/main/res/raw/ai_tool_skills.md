@@ -1,5 +1,20 @@
 # Trail Sense AI Tool Skills
 
+## Emergency Signal
+Skill ID: emergency_signal
+Name zh: 求救信号
+Needs: distress signal, rescue signal, emergency signal, SOS, call for help, whistle SOS, flashlight SOS, flashlight strobe, signal for rescue, 求救, 救命, SOS, 哨子, 口哨, 手电筒, 手电, 频闪, 闪烁, 求救信号
+Summary: Prepare audible and visual emergency signaling tools in the chat so the user can quickly start a help whistle or flashlight SOS/strobe signal.
+Summary zh: 在聊天里准备可直接启动的声音和视觉求救工具，让用户快速使用哨子求救信号或手电筒 SOS/频闪信号。
+Tools: 2, 1
+Steps: 1. Use Whistle as the primary audible signal; choose the help signal or SOS and turn volume up. 2. Use Flashlight as the visual backup; use SOS by default, or use a strobe frequency if the user requested one. 3. Tell the user to aim the light or sound toward likely rescuers and conserve battery when possible.
+Steps zh: 1. 优先使用「哨子」作为声音求救信号，选择求救或 SOS，并尽量把音量调高。2. 使用「手电筒」作为视觉备用信号；默认使用 SOS，如果用户要求频率，则使用对应频闪。3. 提醒用户把声音或光线朝向可能的救援方向，并在可能时节省电量。
+Interpretation: A prepared card means Trail Sense can open the matching signaling tool with the recommended signal selected. It does not confirm rescuers can hear or see the signal.
+Interpretation zh: 卡片准备好表示 Trail Sense 可以打开对应信号工具并选中建议的信号；这不代表救援者一定能听到或看到。
+Caveats: Emergency signaling is safety-critical. Phone speakers and flashlights have limited range, battery, and reliability. Carry a real whistle, real flashlight or headlamp, spare batteries, and use official emergency services when available.
+Caveats zh: 求救信号是安全关键场景。手机扬声器和闪光灯的距离、电量和可靠性有限。应携带真正的哨子、手电筒或头灯、备用电池；有条件时优先联系官方紧急救援。
+Sample prompts: I need to signal for help | I need SOS with my flashlight | 我要求救 | 帮我设置手电筒求救信号频率
+
 ## Avalanche Risk Check
 Skill ID: avalanche_risk_check
 Name zh: 雪崩风险检查

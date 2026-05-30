@@ -20,9 +20,11 @@ import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightNavigationArgs
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import java.time.Duration
 import java.time.Instant
+import java.util.Locale
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
@@ -96,31 +98,12 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
             Resources.androidBackgroundColorSecondary(requireContext())
         binding.flashlightDial.foreground = Resources.androidTextColorPrimary(requireContext())
         binding.flashlightDial.selectionChangeListener = {
-            val isStrobe = it in 1..10
-
-            if (isStrobe) {
-                CustomUiUtils.disclaimer(
-                    requireContext(),
-                    getString(R.string.strobe_warning_title),
-                    getString(R.string.strobe_warning_content),
-                    getString(R.string.pref_fine_with_strobe),
-                    considerShownIfCancelled = false,
-                ) { _, agreed ->
-                    val frequency = if (it == 10) 200 else it
-                    selectedMode = if (agreed) {
-                        getStrobeMode(frequency)
-                    } else {
-                        FlashlightMode.Torch
-                    }
-                    turnOn()
-                }
-            } else {
-                selectedMode = when (it) {
-                    11 -> FlashlightMode.Sos
-                    else -> FlashlightMode.Torch
-                }
-                turnOn()
+            val mode = when {
+                it in 1..10 -> getStrobeMode(if (it == 10) 200 else it)
+                it == 11 -> FlashlightMode.Sos
+                else -> FlashlightMode.Torch
             }
+            applySelectedMode(mode)
         }
     }
 
@@ -157,6 +140,68 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         }
     }
 
+    private fun applySelectedMode(mode: FlashlightMode) {
+        if (mode.isStrobe()) {
+            CustomUiUtils.disclaimer(
+                requireContext(),
+                getString(R.string.strobe_warning_title),
+                getString(R.string.strobe_warning_content),
+                getString(R.string.pref_fine_with_strobe),
+                considerShownIfCancelled = false,
+            ) { _, agreed ->
+                selectedMode = if (agreed) mode else FlashlightMode.Torch
+                updateDialSelection(selectedMode)
+                turnOn()
+                flashlightMode = flashlight.getMode()
+                updateFlashlightUI()
+            }
+        } else {
+            selectedMode = mode
+            updateDialSelection(selectedMode)
+            turnOn()
+            flashlightMode = flashlight.getMode()
+            updateFlashlightUI()
+        }
+    }
+
+    private fun FlashlightMode.isStrobe(): Boolean {
+        return this in setOf(
+            FlashlightMode.Strobe1,
+            FlashlightMode.Strobe2,
+            FlashlightMode.Strobe3,
+            FlashlightMode.Strobe4,
+            FlashlightMode.Strobe5,
+            FlashlightMode.Strobe6,
+            FlashlightMode.Strobe7,
+            FlashlightMode.Strobe8,
+            FlashlightMode.Strobe9,
+            FlashlightMode.Strobe200
+        )
+    }
+
+    private fun updateDialSelection(mode: FlashlightMode) {
+        val index = getDialIndex(mode)
+        binding.flashlightDial.selected = index
+        binding.flashlightDial.scrollToOption(index)
+    }
+
+    private fun consumeInitialMode(): FlashlightMode? {
+        val args = arguments ?: return null
+        val mode = args.getString(FlashlightNavigationArgs.MODE)
+            ?.lowercase(Locale.getDefault())
+            ?: return null
+        val frequency = args.getString(FlashlightNavigationArgs.FREQUENCY_HZ)?.toIntOrNull()
+        args.remove(FlashlightNavigationArgs.MODE)
+        args.remove(FlashlightNavigationArgs.FREQUENCY_HZ)
+
+        return when (mode) {
+            FlashlightNavigationArgs.MODE_SOS -> FlashlightMode.Sos
+            FlashlightNavigationArgs.MODE_STROBE -> getStrobeMode(frequency ?: DEFAULT_AI_STROBE_FREQUENCY)
+            FlashlightNavigationArgs.MODE_TORCH -> FlashlightMode.Torch
+            else -> null
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         flashlightMode = flashlight.getMode()
@@ -165,12 +210,11 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         } else {
             FlashlightMode.Torch
         }
-        val index = getDialIndex(selectedMode)
-        binding.flashlightDial.selected = index
-        binding.flashlightDial.scrollToOption(index)
+        updateDialSelection(selectedMode)
         updateFlashlightUI()
         intervalometer.interval(20)
         binding.flashlightDial.areHapticsEnabled = true
+        consumeInitialMode()?.let { applySelectedMode(it) }
     }
 
     override fun onPause() {
@@ -257,3 +301,5 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
 }
+
+private const val DEFAULT_AI_STROBE_FREQUENCY = 3

@@ -20,8 +20,10 @@ import com.kylecorry.trail_sense.shared.morse.Signal
 import com.kylecorry.trail_sense.shared.morse.SignalPlayer
 import com.kylecorry.trail_sense.shared.morse.Signals
 import com.kylecorry.trail_sense.shared.morse.asSignal
+import com.kylecorry.trail_sense.tools.whistle.domain.WhistleNavigationArgs
 import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 import java.time.Duration
+import java.util.Locale
 
 class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
@@ -45,9 +47,12 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
     private var signalWhistle: SignalPlayer? = null
 
+    private var pendingInitialSignal: String? = null
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pendingInitialSignal = pendingInitialSignal ?: consumeInitialSignal()
         binding.whistleEmergencyBtn.setOnClickListener {
             state = if (state == WhistleState.Emergency) {
                 signalWhistle?.cancel()
@@ -119,6 +124,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
             updateUI()
             true
         }
+        playInitialSignalIfReady()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,6 +135,9 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
                     whistle = Whistle()
                     whistle?.let {
                         signalWhistle = SignalPlayer(it.asSignal())
+                    }
+                    onMain {
+                        playInitialSignalIfReady()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -166,6 +175,37 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         binding.whistleEmergencyBtn.setState(state == WhistleState.Emergency)
         binding.whistleSosBtn.setState(state == WhistleState.Sos)
         binding.whistleBtn.setState(state == WhistleState.On)
+    }
+
+    private fun consumeInitialSignal(): String? {
+        val args = arguments ?: return null
+        val signal = args.getString(WhistleNavigationArgs.SIGNAL)
+            ?.lowercase(Locale.getDefault())
+            ?: return null
+        args.remove(WhistleNavigationArgs.SIGNAL)
+        return signal
+    }
+
+    private fun playInitialSignalIfReady() {
+        val signal = pendingInitialSignal ?: return
+        if (view == null || signalWhistle == null) {
+            return
+        }
+
+        whistle?.off()
+        when (signal) {
+            WhistleNavigationArgs.SIGNAL_SOS -> {
+                signalWhistle?.play(sosSignal, true)
+                state = WhistleState.Sos
+            }
+            else -> {
+                signalWhistle?.play(emergencySignal, true)
+                binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
+                state = WhistleState.Emergency
+            }
+        }
+        pendingInitialSignal = null
+        updateUI()
     }
 
     private fun toggleOffInternationWhistleSignals() {
