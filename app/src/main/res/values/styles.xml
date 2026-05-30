@@ -118,4 +118,16 @@
         <item name="widgetLayout">@layout/preference_material_switch</item>
     </style>
 
+    <style name="Widget.App.SearchTextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Material3.SearchBar</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="Widget.App.SearchTextInputEditText" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="android:minHeight">56dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
 </resources>
