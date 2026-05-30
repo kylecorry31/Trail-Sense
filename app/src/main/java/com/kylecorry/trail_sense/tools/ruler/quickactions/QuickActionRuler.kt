@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.ruler.quickactions
 
 import android.view.ViewGroup
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.core.view.doOnLayout
@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.tools.ruler.ui.RulerView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class QuickActionRuler(
-    btn: ImageButton,
+    btn: QuickActionButtonView,
     fragment: Fragment,
 ) : QuickActionButton(btn, fragment) {
     private val prefs by lazy { UserPreferences(context) }
@@ -36,7 +36,7 @@ class QuickActionRuler(
         ruler.setBackgroundColor(
             Resources.getAndroidColorAttr(
                 context,
-                android.R.attr.colorBackgroundFloating
+                com.google.android.material.R.attr.colorSurfaceContainer
             )
         )
 

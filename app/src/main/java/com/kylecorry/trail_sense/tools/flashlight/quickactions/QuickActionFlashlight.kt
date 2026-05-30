@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.flashlight.quickactions
 
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.luna.topics.generic.ITopic
@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class QuickActionFlashlight(btn: ImageButton, fragment: Fragment) :
+class QuickActionFlashlight(btn: QuickActionButtonView, fragment: Fragment) :
     TopicQuickAction(btn, fragment, hideWhenUnavailable = true) {
 
     private val flashlight by lazy { FlashlightSubsystem.getInstance(context) }

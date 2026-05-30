@@ -56,15 +56,17 @@
                 android:layout_marginTop="8dp"
                 app:singleSelection="true">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/miss_left"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/left" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/miss_right"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -91,15 +93,17 @@
                 android:layout_marginTop="8dp"
                 app:singleSelection="true">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/miss_up"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/above" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/miss_down"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

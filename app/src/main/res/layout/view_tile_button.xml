@@ -5,23 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/tile_btn"
+        style="@style/Widget.App.TileButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="2dp"
-        android:background="@drawable/rounded_rectangle"
-        android:cropToPadding="true"
-        android:padding="32dp"
-        android:elevation="2dp"
-        android:scaleType="fitCenter"
-        app:backgroundTint="?attr/colorBackgroundFloating"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_strobe"
-        app:tint="?android:textColorSecondary" />
+        app:toggleCheckedStateOnClick="false" />
 
     <TextView
         android:id="@+id/tile_text"

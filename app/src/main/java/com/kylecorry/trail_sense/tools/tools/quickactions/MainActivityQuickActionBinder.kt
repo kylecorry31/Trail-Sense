@@ -1,16 +1,17 @@
 package com.kylecorry.trail_sense.tools.tools.quickactions
 
-import android.widget.ImageButton
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayout
+import com.google.android.material.button.MaterialButton
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
+import com.kylecorry.trail_sense.shared.quickactions.MaterialButtonQuickActionView
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -21,16 +22,19 @@ class MainActivityQuickActionBinder(
 
     private val prefs by lazy { UserPreferences(fragment.requireContext()) }
 
-    private fun createButton(recommended: Boolean): ImageButton {
-        val size = Resources.dp(fragment.requireContext(), 40f).toInt()
-        val margins = Resources.dp(fragment.requireContext(), 8f).toInt()
-        val button = ImageButton(fragment.requireContext())
-        button.layoutParams = FlexboxLayout.LayoutParams(size, size).apply {
-            setMargins(margins)
-        }
-        button.background =
-            Resources.drawable(fragment.requireContext(), R.drawable.rounded_rectangle)
-        button.elevation = 2f
+    private fun createButton(recommended: Boolean): QuickActionButtonView {
+        val margins = Resources.dp(fragment.requireContext(), 4f).toInt()
+        val button = MaterialButton(
+            fragment.requireContext(),
+            null,
+            R.attr.quickActionButtonStyle
+        )
+        button.isCheckable = true
+        button.layoutParams =
+            FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+                .apply {
+                    setMargins(margins)
+                }
 
         if (recommended) {
             binding.recommendedQuickActions.addView(button)
@@ -38,9 +42,7 @@ class MainActivityQuickActionBinder(
             binding.quickActions.addView(button)
         }
 
-        CustomUiUtils.setButtonState(button, false)
-
-        return button
+        return MaterialButtonQuickActionView(button)
     }
 
     override fun bind() {

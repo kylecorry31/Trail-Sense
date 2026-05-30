@@ -15,16 +15,13 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/compass_btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/Widget.App.QuickActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?attr/colorPrimary"
-            android:padding="8dp"
-            app:srcCompat="@drawable/ic_compass_icon"
-            app:tint="@color/black" />
+            app:icon="@drawable/ic_compass_icon" />
 
         <TextView
             android:id="@+id/compass_bearing"

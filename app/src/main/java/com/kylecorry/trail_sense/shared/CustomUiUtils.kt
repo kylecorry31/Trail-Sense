@@ -7,8 +7,6 @@ import android.net.Uri
 import android.util.Size
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
@@ -25,7 +23,6 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
-import com.kylecorry.andromeda.core.ui.setState
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
@@ -62,26 +59,6 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object CustomUiUtils {
-
-    fun setButtonState(button: ImageButton, state: Boolean) {
-        button.setState(
-            state,
-            Resources.getPrimaryColor(button.context),
-            Resources.getColorOnPrimary(button.context)
-        )
-    }
-
-
-    fun setButtonState(
-        button: Button,
-        isOn: Boolean
-    ) {
-        button.setState(
-            isOn,
-            Resources.getPrimaryColor(button.context),
-            Resources.getColorOnPrimary(button.context)
-        )
-    }
 
     @ColorInt
     fun getQualityColor(quality: Quality): Int {

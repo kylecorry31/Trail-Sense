@@ -14,18 +14,17 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
-import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.CoroutinePickers
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.databinding.FragmentCloudResultsBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.DebugCloudCommand
@@ -55,9 +54,6 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
                     it
                 }
             }
-            CustomUiUtils.setButtonState(
-                binding.cloudTitle.rightButton,
-                selection.any { it.isSelected })
             updateItems()
         }
     }
@@ -219,9 +215,6 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
                 abs(it.confidence - maxConfidence) <= threshold
             )
         }
-        CustomUiUtils.setButtonState(
-            binding.cloudTitle.rightButton,
-            selection.any { it.isSelected })
         updateItems()
         binding.cloudList.scrollToPosition(0, false)
     }

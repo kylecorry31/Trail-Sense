@@ -5,13 +5,12 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import androidx.core.view.isVisible
+import com.google.android.material.color.MaterialColors
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 
@@ -26,6 +25,7 @@ class RulerView : CanvasView {
     private var highlightLineThickness: Float = 4f
     private var lineColor: Int = Color.BLACK
     private var highlightColor: Int = Color.BLACK
+    private var highlightBackgroundColor: Int = Color.BLACK
     private var offset: Float = 0f
 
     private var wholeSize = 0f
@@ -63,8 +63,11 @@ class RulerView : CanvasView {
         dpi = Screen.ydpi(context)
         scale = prefs.ruler.rulerScale
         flipped = prefs.ruler.rulerFlipped
-        lineColor = Resources.androidTextColorPrimary(context)
-        highlightColor = Resources.getPrimaryColor(context)
+        lineColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnSurface)
+        highlightColor =
+            MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnPrimaryContainer)
+        highlightBackgroundColor =
+            MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimaryContainer)
         offset = dp(8f)
         wholeSize = dp(40f)
         halfSize = dp(24f)
@@ -192,8 +195,8 @@ class RulerView : CanvasView {
         val top = minOf(zeroPosition, highlightPosition)
         val bottom = maxOf(zeroPosition, highlightPosition)
         noStroke()
-        fill(highlightColor)
-        opacity(50)
+        fill(highlightBackgroundColor)
+        opacity(127)
         rect(0f, top, width.toFloat(), bottom - top)
         opacity(255)
     }

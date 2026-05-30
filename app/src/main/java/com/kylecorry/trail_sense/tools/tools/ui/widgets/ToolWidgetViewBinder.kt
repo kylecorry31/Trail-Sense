@@ -99,8 +99,9 @@ class ToolWidgetViewBinder(
                             layout.updateAppWidget(views)
                             layout.getChildAt(0)?.backgroundTintList =
                                 ColorStateList.valueOf(
-                                    Resources.androidBackgroundColorSecondary(
-                                        context
+                                    Resources.getAndroidColorAttr(
+                                        context,
+                                        com.google.android.material.R.attr.colorSurfaceContainerHighest
                                     )
                                 )
                         }
@@ -114,7 +115,12 @@ class ToolWidgetViewBinder(
                 widget.widgetView.getView(context, null)
             layout.updateAppWidget(widgetView)
             layout.getChildAt(0)?.backgroundTintList =
-                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(context))
+                ColorStateList.valueOf(
+                    Resources.getAndroidColorAttr(
+                        context,
+                        com.google.android.material.R.attr.colorSurfaceContainerHighest
+                    )
+                )
         }
 
         this.widgets.forEach {

@@ -1,14 +1,12 @@
 package com.kylecorry.trail_sense.shared.quickactions
 
-import android.widget.ImageButton
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.QuickActionButton
 
 abstract class TopicQuickAction(
-    btn: ImageButton,
+    btn: QuickActionButtonView,
     fragment: Fragment,
     private val hideWhenUnavailable: Boolean = false
 ) :

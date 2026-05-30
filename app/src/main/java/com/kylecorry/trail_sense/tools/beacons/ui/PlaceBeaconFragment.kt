@@ -102,8 +102,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         form.bind(binding)
-        CustomUiUtils.setButtonState(binding.createBeaconTitle.rightButton, true)
-
         // TODO: Prevent interaction until loaded
         updateIcon()
         updateColor()

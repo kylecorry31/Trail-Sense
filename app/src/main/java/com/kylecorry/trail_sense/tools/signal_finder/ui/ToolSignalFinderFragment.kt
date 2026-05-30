@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.AndromedaListView
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Distance

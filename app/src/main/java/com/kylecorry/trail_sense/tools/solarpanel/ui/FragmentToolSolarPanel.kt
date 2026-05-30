@@ -1,15 +1,11 @@
 package com.kylecorry.trail_sense.tools.solarpanel.ui
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
@@ -19,7 +15,6 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -55,8 +50,7 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             updateButtonState()
         }
         binding.solarNowBtn.setOnClickListener {
-            position = null
-            alignToRestOfDay = false
+            val wasAligningToRestOfDay = alignToRestOfDay
             CustomUiUtils.pickDuration(
                 requireContext(),
                 nowDuration,
@@ -64,9 +58,13 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             ) {
                 if (it != null) {
                     nowDuration = it
+                    position = null
+                    alignToRestOfDay = false
                     updatePosition()
-                    updateButtonState()
+                } else {
+                    alignToRestOfDay = wasAligningToRestOfDay
                 }
+                updateButtonState()
             }
         }
         Alerts.dialog(
@@ -117,17 +115,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
     }
 
     private fun updateButtonState() {
-        setButtonState(
-            binding.solarTodayBtn,
-            alignToRestOfDay,
-            Resources.getPrimaryColor(requireContext()),
-            Resources.color(requireContext(), R.color.colorSecondary)
-        )
-        setButtonState(
-            binding.solarNowBtn,
-            !alignToRestOfDay,
-            Resources.getPrimaryColor(requireContext()),
-            Resources.color(requireContext(), R.color.colorSecondary)
+        binding.solarModeControls.check(
+            if (alignToRestOfDay) R.id.solar_today_btn else R.id.solar_now_btn
         )
     }
 
@@ -187,23 +176,6 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         binding.energy.text =
             getString(R.string.up_to_amount, formatService.formatSolarEnergy(energy))
     }
-
-    private fun setButtonState(
-        button: Button,
-        isOn: Boolean,
-        @ColorInt primaryColor: Int,
-        @ColorInt secondaryColor: Int
-    ) {
-        if (isOn) {
-            button.setTextColor(secondaryColor)
-            button.backgroundTintList = ColorStateList.valueOf(primaryColor)
-        } else {
-            button.setTextColor(Resources.androidTextColorSecondary(button.context))
-            button.backgroundTintList =
-                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(button.context))
-        }
-    }
-
 
     companion object {
         private const val AZIMUTH_THRESHOLD = 5

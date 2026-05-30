@@ -15,7 +15,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -48,18 +47,17 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
             }
         }
 
-        binding.chipAuto.setOnClickListener {
-            selectedTime = TimeSelection.Auto
-            updateSelectedDuration()
-        }
+        binding.timeChips.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (!isChecked) {
+                return@addOnButtonCheckedListener
+            }
 
-        binding.chip1Min.setOnClickListener {
-            selectedTime = TimeSelection.LowAltitude
-            updateSelectedDuration()
-        }
-
-        binding.chip3Min.setOnClickListener {
-            selectedTime = TimeSelection.HighAltitude
+            selectedTime = when (checkedId) {
+                R.id.chip_auto -> TimeSelection.Auto
+                R.id.chip_1_min -> TimeSelection.LowAltitude
+                R.id.chip_3_min -> TimeSelection.HighAltitude
+                else -> return@addOnButtonCheckedListener
+            }
             updateSelectedDuration()
         }
 
@@ -95,10 +93,6 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
             binding.boilButton.text = getString(R.string.start)
             binding.timeChips.isVisible = true
         }
-
-        CustomUiUtils.setButtonState(binding.chipAuto, selectedTime == TimeSelection.Auto)
-        CustomUiUtils.setButtonState(binding.chip1Min, selectedTime == TimeSelection.LowAltitude)
-        CustomUiUtils.setButtonState(binding.chip3Min, selectedTime == TimeSelection.HighAltitude)
     }
 
     private fun start() {

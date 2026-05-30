@@ -29,43 +29,45 @@
         tools:text="Map Attribution" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/zoom_in_btn"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/Widget.App.MapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
+        app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@+id/zoom_out_btn"
-        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn"
-        app:srcCompat="@drawable/ic_add" />
+        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/zoom_out_btn"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/Widget.App.MapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
+        app:icon="@drawable/ic_zoom_out"
         app:layout_constraintBottom_toTopOf="@id/lock_btn"
         app:layout_constraintEnd_toEndOf="@id/lock_btn"
-        app:layout_constraintStart_toStartOf="@id/lock_btn"
-        app:srcCompat="@drawable/ic_zoom_out" />
+        app:layout_constraintStart_toStartOf="@id/lock_btn" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/lock_btn"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/Widget.App.MapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="48dp"
         android:alpha="0.86"
+        android:checkable="true"
+        app:icon="@drawable/satellite"
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/satellite" />
+        app:toggleCheckedStateOnClick="false" />
 
     <com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
         android:id="@+id/navigation_sheet"

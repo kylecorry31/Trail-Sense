@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.andromeda.views.toolbar.Toolbar
+    <com.kylecorry.trail_sense.shared.views.Toolbar
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -27,21 +27,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/zoom_in_btn"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/Widget.App.MapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
+        app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@+id/zoom_out_btn"
-        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn"
-        app:srcCompat="@drawable/ic_add" />
+        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/zoom_out_btn"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/Widget.App.MapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -49,8 +49,8 @@
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
+        app:icon="@drawable/ic_zoom_out"
         app:layout_constraintBottom_toBottomOf="@id/map"
-        app:layout_constraintEnd_toEndOf="@id/map"
-        app:srcCompat="@drawable/ic_zoom_out" />
+        app:layout_constraintEnd_toEndOf="@id/map" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

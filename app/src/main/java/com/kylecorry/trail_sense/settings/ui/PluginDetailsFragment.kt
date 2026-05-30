@@ -16,7 +16,7 @@ import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemTag
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.plugins.PluginSubsystem
 import com.kylecorry.trail_sense.plugins.domain.Plugin

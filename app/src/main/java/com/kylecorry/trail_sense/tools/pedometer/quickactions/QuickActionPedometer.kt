@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.quickactions
 
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.luna.topics.generic.ITopic
@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.quickactions.TopicQuickAction
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 
-class QuickActionPedometer(btn: ImageButton, fragment: Fragment) :
+class QuickActionPedometer(btn: QuickActionButtonView, fragment: Fragment) :
     TopicQuickAction(btn, fragment, hideWhenUnavailable = false) {
 
     private val pedometer = PedometerSubsystem.getInstance(context)

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.flashlight.quickactions
 
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class QuickActionScreenFlashlight(btn: ImageButton, fragment: Fragment) :
+class QuickActionScreenFlashlight(btn: QuickActionButtonView, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     override fun onCreate() {

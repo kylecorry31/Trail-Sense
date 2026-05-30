@@ -12,7 +12,7 @@
         android:paddingBottom="@dimen/default_bottom_margin"
         android:orientation="vertical">
 
-        <com.kylecorry.andromeda.views.toolbar.Toolbar
+        <com.kylecorry.trail_sense.shared.views.Toolbar
             android:id="@+id/triangulate_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,15 +101,17 @@
             android:layout_marginEnd="8dp"
             app:singleSelection="true">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/location_button_other"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/destination" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/location_button_self"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -124,7 +126,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?attr/colorBackgroundFloating">
+            android:backgroundTint="?attr/colorSurfaceContainer">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,7 +191,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="?attr/colorBackgroundFloating">
+            android:backgroundTint="?attr/colorSurfaceContainer">
 
             <LinearLayout
                 android:layout_width="match_parent"

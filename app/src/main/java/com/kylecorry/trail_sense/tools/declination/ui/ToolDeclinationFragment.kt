@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.declination.ui
 import android.view.View
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geophysics.Geophysics

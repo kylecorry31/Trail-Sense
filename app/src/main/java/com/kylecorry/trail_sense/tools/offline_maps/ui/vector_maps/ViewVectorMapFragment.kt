@@ -3,16 +3,15 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps
 import android.graphics.Color
 import androidx.core.view.doOnLayout
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.button.MaterialButton
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.LayerFactory
@@ -33,8 +32,8 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
     override fun update() {
         val context = useAndroidContext()
         val title = useView<Toolbar>(R.id.title)
-        val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
-        val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
+        val zoomInButton = useView<MaterialButton>(R.id.zoom_in_btn)
+        val zoomOutButton = useView<MaterialButton>(R.id.zoom_out_btn)
         val mapView = useView<MapView>(R.id.map)
         val mapId = useMemo {
             requireArguments().getLong("offline_map_file_id")
@@ -47,9 +46,6 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
 
         useEffect(zoomInButton, zoomOutButton, mapView) {
-            CustomUiUtils.setButtonState(zoomInButton, false)
-            CustomUiUtils.setButtonState(zoomOutButton, false)
-
             zoomInButton.setOnClickListener { mapView.zoom(2f) }
             zoomOutButton.setOnClickListener { mapView.zoom(0.5f) }
         }

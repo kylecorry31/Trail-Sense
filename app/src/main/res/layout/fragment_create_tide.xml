@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.andromeda.views.toolbar.Toolbar
+    <com.kylecorry.trail_sense.shared.views.Toolbar
         android:id="@+id/create_tide_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,15 +70,17 @@
                 android:layout_marginTop="12dp"
                 app:singleSelection="true">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/tide_frequency_diurnal"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     tools:text="1 Diurnal" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/tide_frequency_semidiurnal"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

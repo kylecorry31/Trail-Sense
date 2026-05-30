@@ -18,9 +18,7 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
-        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
-        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall
-        </item>
+        <item name="quickActionButtonStyle">@style/Widget.App.QuickActionButton</item>
         <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
 
@@ -85,17 +83,28 @@
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3Expressive.FloatingActionButton">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    <style name="Widget.App.QuickActionButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
     </style>
 
-    <style name="Widget.App.FloatingActionButtonSmall" parent="Widget.Material3.FloatingActionButton.Small.Primary">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    <style name="Widget.App.MapButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
     </style>
 
-    <style name="ThemeOverlay.App.FloatingActionButton" parent="ThemeOverlay.Material3Expressive.FloatingActionButton.Primary">
-        <item name="colorContainer">?attr/colorPrimary</item>
-        <item name="colorOnContainer">?attr/colorOnPrimary</item>
+    <style name="Widget.App.TileButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
     </style>
 
     <style name="AppTheme.ListViewWithFab">
@@ -109,6 +118,18 @@
 
     <style name="SwitchPreferenceStyle" parent="@style/Preference.SwitchPreferenceCompat.Material">
         <item name="widgetLayout">@layout/preference_material_switch</item>
+    </style>
+
+    <style name="Widget.App.SearchTextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Material3.SearchBar</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="Widget.App.SearchTextInputEditText" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="android:minHeight">56dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
     </style>
 
 </resources>

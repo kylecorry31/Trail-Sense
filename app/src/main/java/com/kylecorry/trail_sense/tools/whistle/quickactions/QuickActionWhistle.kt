@@ -2,9 +2,8 @@ package com.kylecorry.trail_sense.tools.whistle.quickactions
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
-import android.widget.ImageButton
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.inBackground
@@ -13,7 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 
-class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
+class QuickActionWhistle(btn: QuickActionButtonView, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
     private var whistle: ISoundPlayer? = null
@@ -37,7 +36,7 @@ class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
         }
 
         setIcon(R.drawable.ic_tool_whistle)
-        button.setOnTouchListener { _, event ->
+        button.setOnTouchListener { event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 whistle?.on()
                 isRunning = true

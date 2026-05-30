@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/ruler_unit_btn"
+        style="?attr/materialButtonTonalStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
@@ -45,7 +46,7 @@
         android:id="@+id/ruler"
         android:layout_width="80dp"
         android:layout_height="0dp"
-        android:background="?attr/colorBackgroundFloating"
+        android:background="?attr/colorSurfaceContainer"
         android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,34 +54,36 @@
 
     </com.kylecorry.trail_sense.tools.ruler.ui.RulerView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/map_scale_mode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ruler"
-        app:layout_constraintTop_toBottomOf="@+id/map_scale_title">
+        app:layout_constraintTop_toBottomOf="@+id/map_scale_title"
+        app:selectionRequired="true"
+        app:singleSelection="true"
+        app:checkedButton="@+id/map_ratio_btn">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/map_ratio_btn"
-            android:layout_width="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:text="@string/map_scale_ratio" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/map_verbal_btn"
-            android:layout_width="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:text="@string/map_scale_verbal" />
-    </LinearLayout>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fractional_map_scale"
@@ -89,7 +92,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ruler"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/map_scale_mode">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fractional_map_from_holder"

@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService

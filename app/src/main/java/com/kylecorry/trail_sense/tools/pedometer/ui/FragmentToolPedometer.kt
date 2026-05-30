@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.andromeda.fragments.asLiveData
-import com.kylecorry.luna.topics.generic.getOrNull
-import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
+import com.kylecorry.luna.topics.generic.getOrNull
+import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -126,10 +126,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         val distance = getDistance(counter.steps)
         val lastReset = counter.startTime?.toZonedDateTime()
 
-        CustomUiUtils.setButtonState(
-            binding.pedometerTitle.rightButton,
-            prefs.pedometer.alertDistance != null
-        )
+        binding.pedometerTitle.rightButton.isChecked = prefs.pedometer.alertDistance != null
 
         if (lastReset != null) {
             val dateString = if (lastReset.toLocalDate() == LocalDate.now()) {

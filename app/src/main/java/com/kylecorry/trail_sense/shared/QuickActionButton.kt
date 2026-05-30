@@ -1,16 +1,15 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
-import android.widget.ImageButton
 import androidx.annotation.DrawableRes
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 
 abstract class QuickActionButton(
-    protected val button: ImageButton,
+    protected val button: QuickActionButtonView,
     protected val fragment: Fragment
 ) {
     protected val context: Context by lazy { fragment.requireContext() }
@@ -67,14 +66,14 @@ abstract class QuickActionButton(
     }
 
     protected fun setIcon(@DrawableRes icon: Int) {
-        button.setImageResource(icon)
+        button.setIcon(icon)
         if (!wasStateSet) {
             setState(false)
         }
     }
 
     protected fun setState(enabled: Boolean) {
-        CustomUiUtils.setButtonState(button, enabled)
+        button.setState(enabled)
         wasStateSet = true
     }
 }

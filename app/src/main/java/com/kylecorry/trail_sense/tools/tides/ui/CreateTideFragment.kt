@@ -11,7 +11,7 @@ import androidx.core.text.buildSpannedString
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.luna.time.CoroutineTimer
-import com.kylecorry.andromeda.core.ui.flatten
+import com.kylecorry.trail_sense.shared.extensions.flatten
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.ListView
@@ -121,8 +121,6 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.createTideTitle.leftButton.setOnClickListener {
             UserGuideUtils.showGuide(this, R.raw.guide_tool_tides)
         }
-
-        CustomUiUtils.setButtonState(binding.createTideTitle.rightButton, true)
 
         binding.estimateAlgorithmSpinner.setHint(getString(R.string.estimate_method))
         binding.estimateAlgorithmSpinner.setItems(

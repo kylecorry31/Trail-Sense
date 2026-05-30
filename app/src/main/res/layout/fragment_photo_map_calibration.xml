@@ -5,18 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/preview_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:alpha="0.86"
-        android:text="@string/preview"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapCalibrationView
         android:id="@+id/calibration_map"
         android:layout_width="0dp"
@@ -27,9 +15,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/zoom_out_btn"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/Widget.App.MapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -37,21 +25,21 @@
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
+        app:icon="@drawable/ic_zoom_out"
         app:layout_constraintBottom_toTopOf="@+id/map_calibration_bottom_panel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_zoom_out" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/zoom_in_btn"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/Widget.App.MapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.86"
         android:clickable="true"
         android:focusable="true"
+        app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@+id/zoom_out_btn"
-        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn"
-        app:srcCompat="@drawable/ic_add" />
+        app:layout_constraintStart_toStartOf="@+id/zoom_out_btn" />
 
     <LinearLayout
         android:id="@+id/map_calibration_bottom_panel"
@@ -102,5 +90,18 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/preview_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:checkable="true"
+        android:text="@string/preview"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:toggleCheckedStateOnClick="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@ import com.kylecorry.andromeda.print.ColorMode
 import com.kylecorry.andromeda.print.Orientation
 import com.kylecorry.andromeda.print.Printer
 import com.kylecorry.andromeda.print.ScaleMode
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.debugging.isDebug

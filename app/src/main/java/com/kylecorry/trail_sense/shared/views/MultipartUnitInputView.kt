@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import android.widget.Button
 import android.widget.FrameLayout
+import com.google.android.material.button.MaterialButton
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
@@ -112,7 +112,7 @@ class MultipartUnitInputView<Units : Enum<*>>(
     private var amountEditHolder: TextInputLayout
     private var secondaryAmountEdit: TextInputEditText
     private var secondaryAmountEditHolder: TextInputLayout
-    private var unitBtn: Button
+    private var unitBtn: MaterialButton
 
     private fun setSelectedUnitText(unit: Units?) {
         if (unit != null) {

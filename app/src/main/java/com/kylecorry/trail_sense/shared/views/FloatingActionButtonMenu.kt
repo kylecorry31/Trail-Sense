@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
+import androidx.core.view.updateMargins
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
@@ -45,20 +47,25 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
 
         if (menuId != -1) {
             val items = Resources.menuItems(context, menuId)
+            val itemSpacing = Resources.dp(context, 12f).toInt()
             for (menuItem in items) {
-                val text = menuItem.title
-                val icon = menuItem.icon
-
-                val fab = FloatingActionButtonMenuItem(context, null)
-                fab.setText(text.toString())
-                fab.setImageDrawable(icon)
-                fab.setItemOnClickListener {
-                    if (hideOnMenuOptionSelected) {
-                        hide()
+                val item = ExtendedFloatingActionButton(context).apply {
+                    text = menuItem.title
+                    icon = menuItem.icon
+                    setOnClickListener {
+                        if (hideOnMenuOptionSelected) {
+                            this@FloatingActionButtonMenu.hide()
+                        }
+                        onMenuItemClick?.onMenuItemClick(menuItem)
                     }
-                    onMenuItemClick?.onMenuItemClick(menuItem)
                 }
-                fabMenu.addView(fab)
+                val params = LinearLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT
+                ).apply {
+                    updateMargins(bottom = itemSpacing)
+                }
+                fabMenu.addView(item, params)
             }
             fabMenu.gravity = Gravity.END
         }

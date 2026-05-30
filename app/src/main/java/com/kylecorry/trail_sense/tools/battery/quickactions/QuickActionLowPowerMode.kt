@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.battery.quickactions
 
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.tools.battery.infrastructure.LowPowerMode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class QuickActionLowPowerMode(button: ImageButton, fragment: Fragment) :
+class QuickActionLowPowerMode(button: QuickActionButtonView, fragment: Fragment) :
     QuickActionButton(button, fragment) {
 
     private val lowerPowerMode by lazy { LowPowerMode(context) }

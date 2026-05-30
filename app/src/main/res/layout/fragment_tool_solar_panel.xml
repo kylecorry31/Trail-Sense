@@ -25,7 +25,7 @@
         android:layout_marginStart="16dp"
         android:rotation="270"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/solar_mode_controls"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow"
@@ -39,7 +39,7 @@
         android:layout_marginEnd="16dp"
         android:rotation="90"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/solar_mode_controls"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow"
@@ -53,7 +53,7 @@
         android:layout_marginBottom="16dp"
         android:rotation="180"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/energy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_arrow"
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/energy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -169,33 +169,46 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/solar_today_btn"
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/solar_mode_controls"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/today"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        app:checkedButton="@+id/solar_today_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/arrow_up"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/solar_now_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="2 H"
-        app:layout_constraintEnd_toStartOf="@+id/arrow_up"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/arrow_up" />
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/solar_now_btn"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="2 H" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/solar_today_btn"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/today" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <TextView
         android:id="@+id/energy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:textAlignment="center"
         tools:text="@string/up_to_amount"
+        app:layout_constraintBottom_toTopOf="@+id/solar_mode_controls"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/solar_now_btn" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

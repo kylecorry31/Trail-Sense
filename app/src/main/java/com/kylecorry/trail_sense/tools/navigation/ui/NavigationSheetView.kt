@@ -9,8 +9,9 @@ import androidx.navigation.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.ui.flatten
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.extensions.flatten
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
@@ -19,7 +20,6 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -68,8 +68,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         elevationDataView = findViewById<DataPointView>(R.id.navigation_elevation)
         etaDataView = findViewById<DataPointView>(R.id.navigation_eta)
         bearingDataView.setShowDescription(false)
-        CustomUiUtils.setButtonState(toolbar.rightButton, true)
-        CustomUiUtils.setButtonState(toolbar.leftButton, false)
         toolbar.leftButton.flatten()
     }
 

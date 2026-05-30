@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="quickActionButtonStyle" format="reference" />
+
+    <declare-styleable name="Toolbar">
+        <attr name="leftButtonIcon" format="reference" />
+        <attr name="rightButtonIcon" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
+        <attr name="showSubtitle" format="boolean" />
+        <attr name="flattenButtons" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="LinearCompassView">
         <attr name="backgroundColor" format="color" />
         <attr name="showMarker" format="boolean" />
@@ -36,11 +47,6 @@
         <attr name="tileText" format="string" />
         <attr name="tilePadding" format="dimension" />
         <attr name="tileTextSize" format="dimension" />
-    </declare-styleable>
-
-    <declare-styleable name="FloatingActionButtonMenuItem">
-        <attr name="android:src" />
-        <attr name="android:text" />
     </declare-styleable>
 
     <declare-styleable name="FloatingActionButtonMenu">

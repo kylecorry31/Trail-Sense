@@ -6,7 +6,6 @@ import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewPlayBarBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.Duration
@@ -60,7 +59,8 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     }
 
     fun setState(isOn: Boolean, frequency: Duration? = null) {
-        binding.playBtn.setImageResource(if (isOn) R.drawable.ic_baseline_stop_24 else R.drawable.ic_baseline_play_arrow_24)
+        binding.playBtn.setIconResource(if (isOn) R.drawable.ic_baseline_stop_24 else R.drawable.ic_baseline_play_arrow_24)
+        binding.playBtn.isChecked = isOn
         if (useDefaultSubtitle) {
             binding.playBarTitle.description = if (isOn) {
                 context.getString(R.string.on)
@@ -76,7 +76,6 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 }"
             } ?: "")
         }
-        CustomUiUtils.setButtonState(binding.playBtn, true)
     }
 
     fun setOnSubtitleClickListener(action: (() -> Unit)?) {

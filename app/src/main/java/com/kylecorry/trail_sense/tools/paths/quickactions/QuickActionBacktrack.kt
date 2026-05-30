@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.paths.quickactions
 
-import android.widget.ImageButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.quickactions.ToolServiceQuickAction
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ToggleBacktrackCommand
 
-class QuickActionBacktrack(btn: ImageButton, fragment: Fragment) :
+class QuickActionBacktrack(btn: QuickActionButtonView, fragment: Fragment) :
     ToolServiceQuickAction(
         btn,
         fragment,

@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.chart.Chart
-import com.kylecorry.andromeda.views.toolbar.Toolbar
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateGroup
