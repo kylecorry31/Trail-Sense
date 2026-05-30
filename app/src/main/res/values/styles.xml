@@ -83,9 +83,17 @@
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="Widget.App.QuickActionButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal" />
+    <style name="Widget.App.QuickActionButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
+    </style>
 
-    <style name="Widget.App.MapButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal" />
+    <style name="Widget.App.MapButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
+    </style>
 
     <style name="Widget.App.TileButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
         <item name="android:insetTop">0dp</item>
@@ -94,6 +102,9 @@
         <item name="android:insetRight">0dp</item>
         <item name="iconPadding">0dp</item>
         <item name="iconGravity">textStart</item>
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
     </style>
 
     <style name="AppTheme.ListViewWithFab">
