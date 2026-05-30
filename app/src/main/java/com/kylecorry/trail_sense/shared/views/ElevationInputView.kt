@@ -3,16 +3,15 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import com.google.android.material.button.MaterialButton
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -60,7 +59,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
     private var autofillListener: (() -> Unit)? = null
 
     private lateinit var elevationInput: DistanceInputView
-    private lateinit var gpsBtn: ImageButton
+    private lateinit var gpsBtn: MaterialButton
 
     private lateinit var gpsLoadingIndicator: ProgressBar
 
@@ -71,8 +70,6 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
             elevationInput = findViewById(R.id.elevation_input)
             gpsLoadingIndicator = findViewById(R.id.gps_loading)
             gpsBtn = findViewById(R.id.gps_btn)
-
-            CustomUiUtils.setButtonState(gpsBtn, true)
 
             // Set up elevation input
             elevationInput.defaultHint = it.getString(R.string.elevation)

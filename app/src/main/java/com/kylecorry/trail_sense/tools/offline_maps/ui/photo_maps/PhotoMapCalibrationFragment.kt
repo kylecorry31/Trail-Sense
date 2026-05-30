@@ -9,13 +9,13 @@ import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.units.Distance
@@ -216,7 +216,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         val isCalibrated = isFullyCalibrated()
         if (binding.previewButton.isVisible != isCalibrated) {
             binding.previewButton.isVisible = isCalibrated
-            CustomUiUtils.setButtonState(binding.previewButton, showPreview)
+            binding.previewButton.isChecked = showPreview
         }
 
         map = map?.copy(
@@ -329,7 +329,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             return
         }
 
-        CustomUiUtils.setButtonState(binding.previewButton, enabled)
+        binding.previewButton.isChecked = enabled
 
         showPreview = enabled
         updateMapCalibration()

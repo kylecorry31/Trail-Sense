@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import com.google.android.material.button.MaterialButton
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputLayout
@@ -16,7 +17,6 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
@@ -69,7 +69,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
 
     private lateinit var locationEdit: EditText
     private lateinit var locationEditHolder: TextInputLayout
-    private lateinit var gpsBtn: ImageButton
+    private lateinit var gpsBtn: MaterialButton
     private lateinit var helpBtn: ImageButton
     private lateinit var gpsLoadingIndicator: ProgressBar
 
@@ -82,8 +82,6 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
             helpBtn = findViewById(R.id.coordinate_input_help_btn)
             gpsBtn = findViewById(R.id.gps_btn)
             locationEditHolder = findViewById(R.id.location_edit_holder)
-
-            CustomUiUtils.setButtonState(gpsBtn, true)
 
             gpsBtn.visibility = View.VISIBLE
             gpsLoadingIndicator.visibility = View.GONE

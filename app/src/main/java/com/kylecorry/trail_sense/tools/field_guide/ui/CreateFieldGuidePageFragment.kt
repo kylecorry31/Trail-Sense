@@ -92,7 +92,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             page = page.copy(notes = it.toString())
         }
 
-        CustomUiUtils.setButtonState(binding.deleteImageButton, false)
         binding.deleteImageButton.setOnClickListener {
             inBackground {
                 deleteImage()

@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.android.material.button.MaterialButton
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -17,7 +18,6 @@ import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.camera.SightingCompassBottomSheetFragment
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
@@ -57,7 +57,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     private var changeListener: ((bearing: Float?, isTrueNorth: Boolean) -> Unit)? = null
 
     private val bearingTxt: TextView
-    private val compassBtn: ImageButton
+    private val compassBtn: MaterialButton
     private val cameraBtn: ImageButton
     private val compassText: TextView
     private val manualEntryBtn: TextView
@@ -77,8 +77,6 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
         manualEntryBtn = findViewById(R.id.manual_bearing)
         clearBtn = findViewById(R.id.clear_btn)
         northReferenceBadge = findViewById(R.id.north_reference_badge)
-
-        CustomUiUtils.setButtonState(compassBtn, true)
 
         manualEntryBtn.setOnClickListener {
             pickManualBearing()
