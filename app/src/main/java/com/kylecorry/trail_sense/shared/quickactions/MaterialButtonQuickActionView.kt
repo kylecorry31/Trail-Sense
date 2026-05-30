@@ -10,6 +10,7 @@ class MaterialButtonQuickActionView(val button: MaterialButton) : QuickActionBut
 
     init {
         button.isCheckable = true
+        button.isToggleCheckedStateOnClick = false
     }
 
     override var isVisible: Boolean
