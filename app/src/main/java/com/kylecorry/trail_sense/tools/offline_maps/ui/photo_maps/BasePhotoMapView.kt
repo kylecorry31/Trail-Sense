@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
 
 import android.content.Context
+import android.graphics.Matrix
 import android.graphics.PointF
 import android.util.AttributeSet
 import com.kylecorry.andromeda.core.system.Resources
@@ -21,7 +22,9 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import kotlin.math.max
 import kotlin.math.min
 
@@ -39,6 +42,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     private val files = FileSubsystem.getInstance(context)
 
     private var shouldRecenter = true
+    private var isViewingPdf = false
+    private var isViewingWarpedImageSource = false
 
     var onImageLoadedListener: (() -> Unit)? = null
 
@@ -94,7 +99,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
                 override fun toCoordinate(pixel: Vector2): Coordinate {
                     // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
                     val source = toSource(pixel.x, pixel.y) ?: return Coordinate.zero
-                    return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
+                    val mapPixel = sourceToMapPixel(PixelCoordinate(source.x, source.y))
+                    return projection?.toCoordinate(Vector2(mapPixel.x, mapPixel.y)) ?: Coordinate.zero
                 }
 
                 override fun toPixels(location: Coordinate): PixelCoordinate {
@@ -175,10 +181,12 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f))
                 ?: return Coordinate.zero
             val source = toSource(viewNoRotation.x, viewNoRotation.y) ?: return Coordinate.zero
-            return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
+            val mapPixel = sourceToMapPixel(PixelCoordinate(source.x, source.y))
+            return projection?.toCoordinate(Vector2(mapPixel.x, mapPixel.y)) ?: Coordinate.zero
         }
         set(value) {
-            val source = projection?.toPixels(value.latitude, value.longitude) ?: return
+            val mapPixel = projection?.toPixels(value.latitude, value.longitude) ?: return
+            val source = mapToSourcePixel(mapPixel)
             requestCenter(PointF(source.x, source.y))
         }
     override var mapAzimuth: Float = 0f
@@ -273,12 +281,33 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         val rotation = map.calibration.rotation
         mapRotation = Trigonometry.deltaAngle(rotation, map.baseRotation().toFloat())
         fullResolutionPixels = map.distancePerPixel()?.meters()?.value ?: 1f
-        projection = map.baseProjection
+        val warpBounds = map.calibration.warpBounds
+        isViewingWarpedImageSource = map.calibration.warped && warpBounds != null
+        projection = if (isViewingWarpedImageSource) {
+            PhotoMapProjection(map, usePdf = false)
+        } else {
+            map.baseProjection
+        }
         if (keepMapUp) {
             mapAzimuth = 0f
         }
 
-        if (files.get(map.pdfFileName).exists()) {
+        isViewingPdf = files.get(map.pdfFileName).exists() && !isViewingWarpedImageSource
+        if (isViewingWarpedImageSource && warpBounds != null) {
+            val uri = WarpedPhotoMapImageSource.register(
+                map.filename,
+                map.metadata.imageSize,
+                map.unrotatedSize(false),
+                warpBounds
+            )
+            setImageSource(
+                "warped:${map.id}:${map.filename}:${map.calibration.rotation}:${warpBounds.hashCode()}",
+                uri,
+                rotation,
+                WarpedPhotoMapImageDecoder::class.java,
+                WarpedPhotoMapImageRegionDecoder::class.java
+            )
+        } else if (isViewingPdf) {
             setImage(map.pdfFileName, rotation)
         } else {
             setImage(map.filename, rotation)
@@ -292,9 +321,110 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     }
 
     private fun getPixelCoordinate(latitude: Double, longitude: Double): PixelCoordinate? {
-        val source = projection?.toPixels(latitude, longitude) ?: return null
+        val mapPixel = projection?.toPixels(latitude, longitude) ?: return null
+        val source = mapToSourcePixel(mapPixel)
         val view = toView(source.x, source.y)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
+    }
+
+    protected fun sourceToMapPixel(source: PixelCoordinate): PixelCoordinate {
+        val unrotatedMapPixel = sourceToUnrotatedMapPixel(source)
+        return rotateUnrotatedMapPixel(unrotatedMapPixel, orientation)
+    }
+
+    protected fun mapToSourcePixel(mapPixel: PixelCoordinate): PixelCoordinate {
+        val unrotatedMapPixel = rotateMapPixelToUnrotated(mapPixel, -orientation)
+        return unrotatedMapPixelToSource(unrotatedMapPixel)
+    }
+
+    protected fun sourceToUnrotatedMapPixel(source: PixelCoordinate): PixelCoordinate {
+        val transform = getWarpTransform() ?: return rotateSourcePixelToUnrotated(source)
+        val unrotatedSource = rotateSourcePixelToUnrotated(source)
+        val points = floatArrayOf(unrotatedSource.x, unrotatedSource.y)
+        transform.mapPoints(points)
+        return PixelCoordinate(points[0], points[1])
+    }
+
+    protected fun unrotatedMapPixelToSource(unrotatedMapPixel: PixelCoordinate): PixelCoordinate {
+        val transform = getWarpTransform() ?: return rotateUnrotatedSourcePixelToSource(unrotatedMapPixel)
+        val inverse = Matrix()
+        if (!transform.invert(inverse)) {
+            return rotateUnrotatedSourcePixelToSource(unrotatedMapPixel)
+        }
+        val points = floatArrayOf(unrotatedMapPixel.x, unrotatedMapPixel.y)
+        inverse.mapPoints(points)
+        return rotateUnrotatedSourcePixelToSource(PixelCoordinate(points[0], points[1]))
+    }
+
+    private fun getWarpTransform(): Matrix? {
+        val map = map ?: return null
+        val warpBounds = map.calibration.warpBounds ?: return null
+        if (!map.calibration.warped || isViewingWarpedImageSource || imageWidth == 0 || imageHeight == 0) {
+            return null
+        }
+        val displayedSize = map.unrotatedSize(isViewingPdf)
+        val sourceSize = unrotatedSourceSize()
+        val bounds = warpBounds.toPixelBounds(sourceSize.width, sourceSize.height)
+        return Matrix().apply {
+            setPolyToPoly(
+                floatArrayOf(
+                    bounds.topLeft.x, bounds.topLeft.y,
+                    bounds.topRight.x, bounds.topRight.y,
+                    bounds.bottomRight.x, bounds.bottomRight.y,
+                    bounds.bottomLeft.x, bounds.bottomLeft.y,
+                ),
+                0,
+                floatArrayOf(
+                    0f, 0f,
+                    displayedSize.width, 0f,
+                    displayedSize.width, displayedSize.height,
+                    0f, displayedSize.height
+                ),
+                0,
+                4
+            )
+        }
+    }
+
+    private fun rotateSourcePixelToUnrotated(source: PixelCoordinate): PixelCoordinate {
+        val sourceSize = unrotatedSourceSize()
+        return PercentCoordinate(source.x / imageWidth, source.y / imageHeight)
+            .rotate(-orientation)
+            .toPixels(sourceSize.width, sourceSize.height)
+    }
+
+    private fun rotateUnrotatedSourcePixelToSource(unrotatedSource: PixelCoordinate): PixelCoordinate {
+        val sourceSize = unrotatedSourceSize()
+        return PercentCoordinate(
+            unrotatedSource.x / sourceSize.width,
+            unrotatedSource.y / sourceSize.height
+        ).rotate(orientation).toPixels(imageWidth, imageHeight)
+    }
+
+    private fun rotateUnrotatedMapPixel(unrotatedMapPixel: PixelCoordinate, rotation: Int): PixelCoordinate {
+        val size = map?.unrotatedSize(isViewingPdf) ?: return unrotatedMapPixel
+        val rotatedSize = size.rotate(rotation.toFloat())
+        return PercentCoordinate(
+            unrotatedMapPixel.x / size.width,
+            unrotatedMapPixel.y / size.height
+        ).rotate(rotation).toPixels(rotatedSize.width, rotatedSize.height)
+    }
+
+    private fun rotateMapPixelToUnrotated(mapPixel: PixelCoordinate, rotation: Int): PixelCoordinate {
+        val size = map?.unrotatedSize(isViewingPdf) ?: return mapPixel
+        val rotatedSize = size.rotate((-rotation).toFloat())
+        return PercentCoordinate(
+            mapPixel.x / rotatedSize.width,
+            mapPixel.y / rotatedSize.height
+        ).rotate(rotation).toPixels(size.width, size.height)
+    }
+
+    private fun unrotatedSourceSize(): com.kylecorry.sol.math.geometry.Size {
+        return if (orientation == 90 || orientation == 270) {
+            com.kylecorry.sol.math.geometry.Size(imageHeight.toFloat(), imageWidth.toFloat())
+        } else {
+            com.kylecorry.sol.math.geometry.Size(imageWidth.toFloat(), imageHeight.toFloat())
+        }
     }
 
     /**

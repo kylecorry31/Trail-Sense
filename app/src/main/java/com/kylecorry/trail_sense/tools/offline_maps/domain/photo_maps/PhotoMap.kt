@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.distancePerPixel
 import java.time.Instant
+import kotlin.math.max
 
 data class PhotoMap(
     override val id: Long,
@@ -99,11 +100,28 @@ data class PhotoMap(
     }
 
     fun unrotatedSize(usePdf: Boolean = true): Size {
-        return if (usePdf) {
+        val size = if (usePdf) {
             metadata.size
         } else {
             metadata.imageSize
         }
+        val warpBounds = calibration.warpBounds
+        if (!calibration.warped || warpBounds == null) {
+            return size
+        }
+        return getWarpedSize(size, warpBounds)
+    }
+
+    private fun getWarpedSize(size: Size, warpBounds: PercentBounds): Size {
+        val bounds = warpBounds.toPixelBounds(size.width, size.height)
+        val top = bounds.topLeft.distanceTo(bounds.topRight)
+        val bottom = bounds.bottomLeft.distanceTo(bounds.bottomRight)
+        val left = bounds.topLeft.distanceTo(bounds.bottomLeft)
+        val right = bounds.topRight.distanceTo(bounds.bottomRight)
+        return Size(
+            max(1f, (top + bottom) / 2f),
+            max(1f, (left + right) / 2f)
+        )
     }
 
     /**

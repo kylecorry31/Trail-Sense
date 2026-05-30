@@ -29,6 +29,14 @@ data class PhotoMapEntity(
     @ColumnInfo(name = "pdfHeight") val pdfHeight: Int? = null,
     @ColumnInfo(name = "visible") val visible: Boolean = true,
     @ColumnInfo(name = "created_on") val createdOn: Long? = null,
+    @ColumnInfo(name = "warp_top_left_x") val warpTopLeftX: Float? = null,
+    @ColumnInfo(name = "warp_top_left_y") val warpTopLeftY: Float? = null,
+    @ColumnInfo(name = "warp_top_right_x") val warpTopRightX: Float? = null,
+    @ColumnInfo(name = "warp_top_right_y") val warpTopRightY: Float? = null,
+    @ColumnInfo(name = "warp_bottom_left_x") val warpBottomLeftX: Float? = null,
+    @ColumnInfo(name = "warp_bottom_left_y") val warpBottomLeftY: Float? = null,
+    @ColumnInfo(name = "warp_bottom_right_x") val warpBottomRightX: Float? = null,
+    @ColumnInfo(name = "warp_bottom_right_y") val warpBottomRightY: Float? = null,
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -55,7 +63,23 @@ data class PhotoMapEntity(
             )
         }
 
-        val calibration = MapCalibration(warped, rotated, rotation / 10f, points)
+        val warpBounds = if (
+            warpTopLeftX != null && warpTopLeftY != null &&
+            warpTopRightX != null && warpTopRightY != null &&
+            warpBottomLeftX != null && warpBottomLeftY != null &&
+            warpBottomRightX != null && warpBottomRightY != null
+        ) {
+            PercentBounds(
+                PercentCoordinate(warpTopLeftX, warpTopLeftY),
+                PercentCoordinate(warpTopRightX, warpTopRightY),
+                PercentCoordinate(warpBottomLeftX, warpBottomLeftY),
+                PercentCoordinate(warpBottomRightX, warpBottomRightY)
+            )
+        } else {
+            null
+        }
+
+        val calibration = MapCalibration(warped, rotated, rotation / 10f, points, warpBounds)
 
         // This gets populated by the repo
         val metadata = MapMetadata(
@@ -101,7 +125,15 @@ data class PhotoMapEntity(
                 map.metadata.unscaledPdfSize?.width?.toInt(),
                 map.metadata.unscaledPdfSize?.height?.toInt(),
                 map.visible,
-                map.createdOn?.toEpochMilli()
+                map.createdOn?.toEpochMilli(),
+                calibration.warpBounds?.topLeft?.x,
+                calibration.warpBounds?.topLeft?.y,
+                calibration.warpBounds?.topRight?.x,
+                calibration.warpBounds?.topRight?.y,
+                calibration.warpBounds?.bottomLeft?.x,
+                calibration.warpBounds?.bottomLeft?.y,
+                calibration.warpBounds?.bottomRight?.x,
+                calibration.warpBounds?.bottomRight?.y
             ).also {
                 it.id = map.id
             }

@@ -7,10 +7,12 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibra
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentBounds
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -82,5 +84,42 @@ internal class MapRotationCalculatorTest {
         val rotation = MapRotationCalculator().calculate(map).roundPlaces(0) % 360f
 
         assertEquals(expected, rotation, 0.01f)
+    }
+
+    @Test
+    fun calculateUsesWarpedSize() {
+        val calibrationPoints = listOf(
+            MapCalibrationPoint(
+                Coordinate(0.0, 0.0),
+                PercentCoordinate(200f / 400f, 200f / 200f)
+            ),
+            MapCalibrationPoint(
+                Coordinate(1.0, 0.0),
+                PercentCoordinate(201f / 400f, 0f / 200f)
+            )
+        )
+
+        val map = PhotoMap(
+            1,
+            "",
+            "",
+            MapCalibration(
+                true,
+                false,
+                0f,
+                calibrationPoints,
+                PercentBounds(
+                    PercentCoordinate(0f, 0f),
+                    PercentCoordinate(0.4f, 0f),
+                    PercentCoordinate(0f, 0.2f),
+                    PercentCoordinate(0.4f, 0.2f)
+                )
+            ),
+            MapMetadata(Size(1000f, 1000f), null, 100, MapProjectionType.Mercator)
+        )
+
+        val rotation = MapRotationCalculator().calculate(map).roundPlaces(0) % 360f
+
+        assertEquals(0f, rotation, 0.01f)
     }
 }

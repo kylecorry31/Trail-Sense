@@ -4,7 +4,8 @@ data class MapCalibration(
     val warped: Boolean,
     val rotated: Boolean,
     val rotation: Float,
-    val calibrationPoints: List<MapCalibrationPoint>
+    val calibrationPoints: List<MapCalibrationPoint>,
+    val warpBounds: PercentBounds? = null
 ) {
     companion object {
         fun uncalibrated(): MapCalibration {
@@ -12,7 +13,8 @@ data class MapCalibration(
                 warped = false,
                 rotated = false,
                 rotation = 0f,
-                calibrationPoints = emptyList()
+                calibrationPoints = emptyList(),
+                warpBounds = null
             )
         }
     }

@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,18 +16,14 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsPerspectiveBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapCornerDetector
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.fixPerspective
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
 
     private val service = getAppService<MapService>()
-    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     private val cornerDetector = MapCornerDetector()
 
@@ -138,21 +133,14 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
             Alerts.loading(requireContext(), getString(R.string.saving))
         }
         onIO {
-            if (binding.perspective.hasChanges) {
-                val bitmap = files.bitmap(map.filename) ?: return@onIO
-                val bounds =
-                    percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())
-                val warped = bitmap.fixPerspective(bounds, true, Color.WHITE)
-                try {
-                    files.save(map.filename, warped, recycleOnSave = true)
-                } catch (e: IOException) {
-                    return@onIO
-                }
-
-                // Delete the pdf file if it exists
-                files.delete(map.pdfFileName)
-            }
-            service.add(map.copy(calibration = map.calibration.copy(warped = true)))
+            service.add(
+                map.copy(
+                    calibration = map.calibration.copy(
+                        warped = true,
+                        warpBounds = percentBounds
+                    )
+                )
+            )
         }
 
         onMain {

@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
@@ -54,8 +55,13 @@ class MapCalibrationView : BasePhotoMapView {
         pixel?.let {
             val percentX = it.x / imageWidth
             val percentY = it.y / imageHeight
+            val mapPixel = sourceToUnrotatedMapPixel(PixelCoordinate(it.x, it.y))
+            val mapSize = map?.unrotatedSize(false)
+            val mapPercentX = mapPixel.x / (mapSize?.width ?: imageWidth.toFloat())
+            val mapPercentY = mapPixel.y / (mapSize?.height ?: imageHeight.toFloat())
             val percent = PercentCoordinate(percentX, percentY)
-            onMapClick?.invoke(percent.rotate(-orientation))
+            val mapPercent = PercentCoordinate(mapPercentX, mapPercentY)
+            onMapClick?.invoke(if (map?.calibration?.warpBounds != null) mapPercent else percent.rotate(-orientation))
         }
     }
 
@@ -77,11 +83,18 @@ class MapCalibrationView : BasePhotoMapView {
         for ((i, point) in calibrationPoints) {
             val sourceCoord =
                 point.imageLocation.rotate(orientation).toPixels(imageWidth, imageHeight)
+            val mapSize = map?.unrotatedSize(false)
+            val displayCoord = if (map?.calibration?.warpBounds != null && mapSize != null) {
+                val mapPixel = point.imageLocation.toPixels(mapSize.width, mapSize.height)
+                unrotatedMapPixelToSource(mapPixel)
+            } else {
+                sourceCoord
+            }
             if (movePending && i == highlightedIndex) {
-                moveTo(sourceCoord.x, sourceCoord.y)
+                moveTo(displayCoord.x, displayCoord.y)
                 movePending = false
             }
-            val coord = toView(sourceCoord.x, sourceCoord.y) ?: continue
+            val coord = toView(displayCoord.x, displayCoord.y) ?: continue
             drawer.stroke(Color.WHITE)
             if (i == highlightedIndex) {
                 drawer.fill(highlightedColor)

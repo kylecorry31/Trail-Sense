@@ -2,22 +2,20 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.t
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Rect
+import android.graphics.Matrix
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.CorrectPerspective
 import com.kylecorry.andromeda.bitmaps.operations.Resize
 import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
-import com.kylecorry.andromeda.core.units.PercentBounds
-import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.math.arithmetic.Arithmetic
-import com.kylecorry.sol.math.ceilToInt
-import com.kylecorry.sol.math.floorToInt
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapWarp
 import kotlin.math.roundToInt
 
 class PhotoMapRegionLoader(
@@ -40,46 +38,39 @@ class PhotoMapRegionLoader(
         val southWest = projection.toPixels(bounds.southWest)
         val northEast = projection.toPixels(bounds.northEast)
 
-        val left = listOf(northWest.x, southWest.x, northEast.x, southEast.x).min().floorToInt()
-        val right = listOf(northWest.x, southWest.x, northEast.x, southEast.x).max().ceilToInt()
-        val top = listOf(northWest.y, southWest.y, northEast.y, southEast.y).min().floorToInt()
-        val bottom = listOf(northWest.y, southWest.y, northEast.y, southEast.y).max().ceilToInt()
+        val rawSize = if (loadPdfs) {
+            map.metadata.size
+        } else {
+            map.metadata.imageSize
+        }
+        val warpedSize = map.unrotatedSize(loadPdfs)
+        val sourceTransform = getSourceTransform(rawSize, warpedSize)
 
-        val size = map.unrotatedSize(loadPdfs)
+        val virtualCorners = PhotoMapWarp.Corners(northWest, northEast, southWest, southEast)
+        val sourceCorners = sourceTransform?.let {
+            PhotoMapWarp.map(it.matrix, virtualCorners)
+        } ?: virtualCorners
 
-        val region =
-            BitmapUtils.getExactRegion(Rect(left, top, right, bottom), size.toAndroidSize())
+        val region = BitmapUtils.getExactRegion(
+            PhotoMapWarp.boundingRect(sourceCorners),
+            rawSize.toAndroidSize()
+        )
         if (region.width() <= 0 || region.height() <= 0) {
             return@onIO null // No area to load
         }
 
-        val percentTopRight = PercentCoordinate(
-            (northEast.x - region.left) / region.width(),
-            (northEast.y - region.top) / region.height()
-        )
-        val percentTopLeft = PercentCoordinate(
-            (northWest.x - region.left) / region.width(),
-            (northWest.y - region.top) / region.height()
-        )
-        val percentBottomRight = PercentCoordinate(
-            (southEast.x - region.left) / region.width(),
-            (southEast.y - region.top) / region.height()
-        )
-        val percentBottomLeft = PercentCoordinate(
-            (southWest.x - region.left) / region.width(),
-            (southWest.y - region.top) / region.height()
-        )
+        val perspectiveBounds = PhotoMapWarp.perspectiveBounds(sourceCorners, region)
 
         val shouldApplyPerspectiveCorrection = listOf(
-            percentTopLeft.x,
-            percentTopLeft.y,
-            percentBottomRight.x,
-            percentBottomRight.y,
-            percentTopRight.x,
-            percentTopRight.y,
-            percentBottomLeft.x,
-            percentBottomLeft.y
-        ).any { !Arithmetic.isZero(it % 1f) }
+            perspectiveBounds.topLeft.x,
+            perspectiveBounds.topLeft.y,
+            perspectiveBounds.bottomRight.x,
+            perspectiveBounds.bottomRight.y,
+            perspectiveBounds.topRight.x,
+            perspectiveBounds.topRight.y,
+            perspectiveBounds.bottomLeft.x,
+            perspectiveBounds.bottomLeft.y
+        ).any { !Arithmetic.isZero(it % 1f) } || sourceTransform != null
 
         val inSampleSize = calculateInSampleSize(
             region.width(),
@@ -95,12 +86,7 @@ class PhotoMapRegionLoader(
             Conditional(
                 shouldApplyPerspectiveCorrection,
                 CorrectPerspective(
-                    PercentBounds(
-                        percentTopLeft,
-                        percentTopRight,
-                        percentBottomLeft,
-                        percentBottomRight,
-                    ),
+                    perspectiveBounds,
                     maxSize = maxSize,
                     outputSize = maxSize,
                     interpolate = !isPixelPerfect
@@ -108,8 +94,39 @@ class PhotoMapRegionLoader(
             ),
             Resize(maxSize, true, useBilinearScaling = !isPixelPerfect),
             *operations.toTypedArray()
-        )
+        )?.let {
+            cropToWarpedBounds(
+                it,
+                sourceTransform,
+                warpedSize,
+                virtualCorners
+            )
+        }
     }
+
+    private fun cropToWarpedBounds(
+        bitmap: Bitmap,
+        sourceTransform: SourceTransform?,
+        warpedSize: Size,
+        virtualCorners: PhotoMapWarp.Corners
+    ): Bitmap {
+        if (sourceTransform == null) {
+            return bitmap
+        }
+
+        return PhotoMapWarp.featherCrop(bitmap, warpedSize, virtualCorners)
+    }
+
+    private fun getSourceTransform(rawSize: Size, warpedSize: Size): SourceTransform? {
+        val warpBounds = map.calibration.warpBounds ?: return null
+        if (!map.calibration.warped) {
+            return null
+        }
+
+        return SourceTransform(PhotoMapWarp.sourceTransform(rawSize, warpedSize, warpBounds) ?: return null)
+    }
+
+    private class SourceTransform(val matrix: Matrix)
 
     private fun calculateInSampleSize(
         sourceWidth: Int,

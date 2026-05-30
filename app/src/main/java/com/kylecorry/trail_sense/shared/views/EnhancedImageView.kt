@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Path
 import android.graphics.PointF
+import android.net.Uri
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -13,6 +14,8 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.views.subscaleview.ImageSource
 import com.kylecorry.andromeda.views.subscaleview.SubsamplingScaleImageView
+import com.kylecorry.andromeda.views.subscaleview.decoder.ImageDecoder
+import com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
 import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageDecoder
 import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageRegionDecoder
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
@@ -142,6 +145,22 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     fun setImage(filename: String, rotation: Float = 0f) {
+        setImageSource(
+            filename,
+            files.uri(filename),
+            rotation,
+            if (filename.lowercase().endsWith(".pdf")) PdfImageDecoder::class.java else SkiaImageDecoder::class.java,
+            if (filename.lowercase().endsWith(".pdf")) PdfImageRegionDecoder::class.java else SkiaImageRegionDecoder::class.java
+        )
+    }
+
+    fun setImageSource(
+        key: String,
+        uri: Uri,
+        rotation: Float = 0f,
+        imageDecoder: Class<out ImageDecoder>,
+        regionDecoder: Class<out ImageRegionDecoder>
+    ) {
         val baseRotation = getBaseRotation(rotation)
         if (orientation != baseRotation) {
             orientation = when (baseRotation) {
@@ -156,20 +175,11 @@ open class EnhancedImageView : SubsamplingScaleImageView {
             rotation
         )
 
-        if (lastImage != filename) {
-            val uri = files.uri(filename)
-
-            // If the image is a PDF, use the PDF renderer
-            if (filename.lowercase().endsWith(".pdf")) {
-                setBitmapDecoderClass(PdfImageDecoder::class.java)
-                setRegionDecoderClass(PdfImageRegionDecoder::class.java)
-            } else {
-                setBitmapDecoderClass(SkiaImageDecoder::class.java)
-                setRegionDecoderClass(SkiaImageRegionDecoder::class.java)
-            }
-
+        if (lastImage != key) {
+            setBitmapDecoderClass(imageDecoder)
+            setRegionDecoderClass(regionDecoder)
             setImage(ImageSource.uri(uri))
-            lastImage = filename
+            lastImage = key
         }
         invalidate()
     }

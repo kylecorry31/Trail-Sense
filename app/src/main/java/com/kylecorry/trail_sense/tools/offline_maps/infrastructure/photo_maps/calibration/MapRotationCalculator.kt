@@ -40,7 +40,7 @@ class MapRotationCalculator {
         }
 
 
-        val size = map.metadata.size
+        val size = map.unrotatedSize()
         val pixels = map.calibration.calibrationPoints.map {
             it.imageLocation.toPixels(
                 size.width,
