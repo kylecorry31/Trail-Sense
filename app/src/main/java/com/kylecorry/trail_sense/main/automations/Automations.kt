@@ -18,26 +18,23 @@ object Automations {
             // TODO: Should there be a way to unregister? Maybe only register when something is listening? When to cancel queue?
             Tools.subscribe(broadcastId) { data ->
 //                Log.d("Tool Broadcast", broadcastId)
-                runBlocking {
-                    queue.enqueue {
-                        val automationsToRun = getAutomations(context, broadcastId)
-                        val actionsToRun = automationsToRun.flatMap { it.actions }
+                queue.enqueue {
+                    val automationsToRun = getAutomations(context, broadcastId)
+                    val actionsToRun = automationsToRun.flatMap { it.actions }
 
-                        val availableActions = tools
-                            .flatMap { it.actions }
-                            .filter { actionsToRun.contains(it.id) && it.isEnabled(context) }
+                    val availableActions = tools
+                        .flatMap { it.actions }
+                        .filter { actionsToRun.contains(it.id) && it.isEnabled(context) }
 
-                        automationsToRun.forEach {
-                            for (action in it.actions) {
-                                val toolAction =
-                                    availableActions.firstOrNull { r -> r.id == action } ?: continue
+                    automationsToRun.forEach {
+                        for (action in it.actions) {
+                            val toolAction =
+                                availableActions.firstOrNull { r -> r.id == action } ?: continue
 
-                                toolAction.action.onReceive(context, data)
-                            }
+                            toolAction.action.onReceive(context, data)
                         }
                     }
                 }
-                true
             }
         }
     }

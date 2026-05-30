@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
@@ -41,14 +42,12 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
         Tools.unsubscribe(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED, ::onBacktrackDisabled)
     }
 
-    private fun onBacktrackEnabled(data: Bundle): Boolean {
+    private suspend fun onBacktrackEnabled(data: Bundle) = onMain {
         prefBacktrack?.isChecked = true
-        return true
     }
 
-    private fun onBacktrackDisabled(data: Bundle): Boolean {
+    private suspend fun onBacktrackDisabled(data: Bundle) = onMain {
         prefBacktrack?.isChecked = false
-        return true
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

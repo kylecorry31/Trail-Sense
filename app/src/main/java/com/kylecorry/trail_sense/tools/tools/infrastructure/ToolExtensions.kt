@@ -19,7 +19,7 @@ fun ToolService.getFeatureState(): FeatureState {
 fun Tools.observe(
     fragment: Fragment,
     toolBroadCastId: String,
-    onReceiveBroadcast: (data: Bundle) -> Boolean
+    onReceiveBroadcast: suspend (data: Bundle) -> Unit
 ) {
     fragment.viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
         when (event) {

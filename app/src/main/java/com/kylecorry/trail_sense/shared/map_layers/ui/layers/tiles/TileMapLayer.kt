@@ -95,9 +95,8 @@ open class TileMapLayer<T : TileSource>(
         source.cleanup()
     }
 
-    private fun onRefreshBroadcastReceived(data: Bundle): Boolean {
+    private fun onRefreshBroadcastReceived(data: Bundle) {
         refresh()
-        return true
     }
 
     fun setZoomOffset(offset: Int) {

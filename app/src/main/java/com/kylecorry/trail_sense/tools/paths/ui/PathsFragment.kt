@@ -8,14 +8,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPathsBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -400,9 +400,8 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
         }
     }
 
-    private fun onBacktrackChanged(data: Bundle): Boolean {
+    private suspend fun onBacktrackChanged(data: Bundle) = onMain {
         updateStatusBar()
-        return true
     }
 
 }

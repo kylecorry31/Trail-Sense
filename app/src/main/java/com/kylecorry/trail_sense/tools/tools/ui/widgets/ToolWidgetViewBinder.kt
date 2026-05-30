@@ -172,11 +172,10 @@ class ToolWidgetViewBinder(
         this.widgets.clear()
     }
 
-    private fun onUpdate(data: Bundle): Boolean {
-        val widgetId = data.getString("widgetId") ?: return true
-        val widget = widgets.find { it.widget.id == widgetId } ?: return true
+    private suspend fun onUpdate(data: Bundle) = onMain {
+        val widgetId = data.getString("widgetId") ?: return@onMain
+        val widget = widgets.find { it.widget.id == widgetId } ?: return@onMain
         widget.updateFunction()
-        return true
     }
 
     private data class WidgetInstance(

@@ -72,14 +72,12 @@ abstract class ToolServiceTile(
         }
     }
 
-    private fun onFrequencyChanged(data: Bundle): Boolean {
+    private fun onFrequencyChanged(data: Bundle) {
         updateFrequency()
-        return true
     }
 
-    private fun onStateChanged(data: Bundle): Boolean {
+    private fun onStateChanged(data: Bundle) {
         updateState()
-        return true
     }
 
     private fun updateState() {

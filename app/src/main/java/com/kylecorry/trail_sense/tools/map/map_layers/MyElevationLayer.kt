@@ -32,7 +32,6 @@ class MyElevationLayer : OverlayLayer() {
 
     private val onElevationChange = { _: Bundle ->
         elevation = locationSubsystem.elevation.convertTo(prefs.baseDistanceUnits)
-        true
     }
 
     override val layerId: String = LAYER_ID

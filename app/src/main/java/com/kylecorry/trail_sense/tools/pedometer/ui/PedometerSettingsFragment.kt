@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -133,14 +134,12 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
             ))
     }
 
-    private fun onPedometerEnabled(data: Bundle): Boolean {
+    private suspend fun onPedometerEnabled(data: Bundle) = onMain {
         enabledPref?.isChecked = true
-        return true
     }
 
-    private fun onPedometerDisabled(data: Bundle): Boolean {
+    private suspend fun onPedometerDisabled(data: Bundle) = onMain {
         enabledPref?.isChecked = false
-        return true
     }
 
 }

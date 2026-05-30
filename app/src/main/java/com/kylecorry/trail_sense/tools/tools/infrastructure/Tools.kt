@@ -4,12 +4,12 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
-import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.widgets.Widgets
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.luna.topics.generic.Topic
+import com.kylecorry.luna.subscriptions.generic.Subscription
+import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
@@ -43,11 +43,11 @@ import com.kylecorry.trail_sense.tools.metaldetector.MetalDetectorToolRegistrati
 import com.kylecorry.trail_sense.tools.mirror.MirrorCameraToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.notes.NotesToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.packs.PackingListsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.permits.PermitsToolRegistration
-import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.qr.QRCodeScannerToolRegistration
 import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -120,7 +120,7 @@ object Tools {
         MapToolRegistration,
         MagnifierToolRegistration
     )
-    private val topics = mutableMapOf<String, Topic<Bundle>>()
+    private val topics = mutableMapOf<String, Subscription<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
 
 
@@ -179,14 +179,14 @@ object Tools {
         }
     }
 
-    fun subscribe(toolBroadcastId: String, callback: (Bundle) -> Boolean) {
+    fun subscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
         val topic = topics.getOrPut(toolBroadcastId) {
-            Topic()
+            Subscription()
         }
         topic.subscribe(callback)
     }
 
-    fun unsubscribe(toolBroadcastId: String, callback: (Bundle) -> Boolean) {
+    fun unsubscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
         val topic = topics[toolBroadcastId]
         topic?.unsubscribe(callback)
     }
