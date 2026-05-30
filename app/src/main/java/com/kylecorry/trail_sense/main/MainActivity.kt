@@ -14,10 +14,10 @@ import android.view.Menu
 import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.get
@@ -490,8 +490,8 @@ class MainActivity : AndromedaActivity() {
                 if (navController?.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isOpen()) {
                     val searchinput = findViewById<TextInputEditText>(R.id.search_view_edit_text)
                     if (searchinput?.requestFocus() == true) {
-                        val imm = getSystemService(InputMethodManager::class.java)
-                        imm.showSoftInput(searchinput, InputMethodManager.SHOW_IMPLICIT)
+                        WindowCompat.getInsetsController(window, searchinput)
+                            .show(WindowInsetsCompat.Type.ime())
                         return@setOnMenuItemClickListener true
                     }
                 }
