@@ -217,14 +217,13 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         sourceCleanupTask.start()
     }
 
-    private fun onSelectionBroadcast(bundle: Bundle): Boolean {
+    private fun onSelectionBroadcast(bundle: Bundle) {
         val broadcastLayerId =
             bundle.getString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID)
         if (broadcastLayerId == layerId) {
             val featureId = bundle.getString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID)
             renderer.setSelectedFeature(featureId)
         }
-        return true
     }
 
     protected fun notifyListeners() {

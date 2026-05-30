@@ -26,7 +26,6 @@ object WidgetBroadcastManager {
                 widgetsToUpdate.forEach {
                     Tools.triggerWidgetUpdate(context, it.id)
                 }
-                true
             }
         }
     }

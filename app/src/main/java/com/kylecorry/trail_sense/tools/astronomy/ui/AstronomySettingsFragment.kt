@@ -7,6 +7,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -178,13 +179,11 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
             }
     }
 
-    private fun onSunsetAlertsChanged(data: Bundle): Boolean {
+    private suspend fun onSunsetAlertsChanged(data: Bundle) = onMain {
         prefSunsetAlertsSwitch?.isChecked = prefs.astronomy.sendSunsetAlerts
-        return true
     }
 
-    private fun onSunriseAlertsChanged(data: Bundle): Boolean {
+    private suspend fun onSunriseAlertsChanged(data: Bundle) = onMain {
         prefSunriseAlertsSwitch?.isChecked = prefs.astronomy.sendSunriseAlerts
-        return true
     }
 }

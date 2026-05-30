@@ -35,6 +35,7 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.main.errors.ExceptionHandler
@@ -531,9 +532,8 @@ class MainActivity : AndromedaActivity() {
         nav.graph = navGraph
     }
 
-    private fun onPowerSavingModeChanged(data: Bundle): Boolean {
+    private suspend fun onPowerSavingModeChanged(data: Bundle) = onMain {
         recreate()
-        return true
     }
 
     private fun updateAllWidgets() {

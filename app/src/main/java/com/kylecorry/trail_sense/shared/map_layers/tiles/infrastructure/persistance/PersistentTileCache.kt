@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import com.kylecorry.andromeda.files.CacheFileSystem
-import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
@@ -30,12 +29,12 @@ class PersistentTileCache(context: Context) {
         Tools.subscribe(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, ::onOfflineMapsChanged)
     }
 
-    private fun onOfflineMapsChanged(data: Bundle): Boolean {
+    private suspend fun onOfflineMapsChanged(data: Bundle) {
         val mapId = data.getLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_ID)
         val mapTypeId = data.getLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_TYPE)
 
         if (mapTypeId != OfflineMapType.Photo.id) {
-            return true
+            return
         }
 
         val cacheKeys = listOf(
@@ -47,12 +46,9 @@ class PersistentTileCache(context: Context) {
             "${PhotoMapTileSource.SOURCE_ID}-null",
         )
 
-        BackgroundTask {
-            cacheKeys.forEach {
-                invalidate(it)
-            }
-        }.start()
-        return true
+        cacheKeys.forEach {
+            invalidate(it)
+        }
     }
 
 

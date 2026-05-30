@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -37,9 +38,8 @@ abstract class ToolServiceQuickAction(
         onPause()
     }
 
-    private fun onStateChange(data: Bundle): Boolean {
+    private suspend fun onStateChange(data: Bundle) = onMain {
         updateState()
-        return true
     }
 
     private fun updateState() {

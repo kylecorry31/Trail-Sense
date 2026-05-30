@@ -7,11 +7,11 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
@@ -212,9 +212,10 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_STATE_CHANGED) {
-            prefMonitorWeather?.isEnabled = !weatherMonitorService.isBlocked()
-            prefMonitorWeather?.isChecked = weatherMonitorService.isEnabled()
-            true
+            onMain {
+                prefMonitorWeather?.isEnabled = !weatherMonitorService.isBlocked()
+                prefMonitorWeather?.isChecked = weatherMonitorService.isEnabled()
+            }
         }
     }
 
