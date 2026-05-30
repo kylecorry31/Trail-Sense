@@ -6,7 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.button.MaterialButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -60,11 +60,11 @@ import java.time.Instant
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     override fun update() {
         val mapView = useView<MapView>(R.id.map)
-        val lockButton = useView<FloatingActionButton>(R.id.lock_btn)
-        val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
-        val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
-        val timeButton = useView<FloatingActionButton>(R.id.time_btn)
-        val menuButton = useView<FloatingActionButton>(R.id.menu_btn)
+        val lockButton = useView<MaterialButton>(R.id.lock_btn)
+        val zoomInButton = useView<MaterialButton>(R.id.zoom_in_btn)
+        val zoomOutButton = useView<MaterialButton>(R.id.zoom_out_btn)
+        val timeButton = useView<MaterialButton>(R.id.time_btn)
+        val menuButton = useView<MaterialButton>(R.id.menu_btn)
         val navigationSheetView = useView<NavigationSheetView>(R.id.navigation_sheet)
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
         val attributionView = useView<TextView>(R.id.map_attribution)
@@ -76,7 +76,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         useEffect(timeButton, timeSheet, mapTime, hasTimeDependentLayers) {
             timeButton.isVisible = hasTimeDependentLayers
             if (hasTimeDependentLayers) {
-                CustomUiUtils.setButtonState(timeButton, mapTime != null || timeSheet.isVisible)
+                timeButton.isChecked = mapTime != null || timeSheet.isVisible
             } else {
                 if (timeSheet.isVisible) {
                     setMapTime(null)
@@ -92,7 +92,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                     timeSheet.setTime(mapTime)
                     timeSheet.show()
                 }
-                CustomUiUtils.setButtonState(timeButton, mapTime != null || timeSheet.isVisible)
+                timeButton.isChecked = mapTime != null || timeSheet.isVisible
             }
 
             timeSheet.onTimeChanged = {
@@ -296,9 +296,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         useEffect(zoomInButton, zoomOutButton) {
-            CustomUiUtils.setButtonState(zoomInButton, false)
-            CustomUiUtils.setButtonState(zoomOutButton, false)
-
             zoomInButton.setOnClickListener {
                 mapView.zoom(2f)
             }
@@ -377,10 +374,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         // Menu
-        useEffect(menuButton) {
-            CustomUiUtils.setButtonState(menuButton, false)
-        }
-
         useClickCallback(menuButton, startDistanceMeasurement) {
             val actions = listOf(
                 MapAction.Measure to getString(R.string.measure),
@@ -430,7 +423,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     private fun switchMapLockMode(
         mode: MapLockMode,
         map: MapView,
-        button: FloatingActionButton,
+        button: MaterialButton,
         traceViews: List<View>,
         screenLight: ScreenTorch,
         context: android.content.Context
@@ -454,8 +447,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 map.mapAzimuth = 0f
 
                 // Show as locked
-                button.setImageResource(R.drawable.satellite)
-                CustomUiUtils.setButtonState(button, true)
+                button.setIconResource(R.drawable.satellite)
+                button.isChecked = true
             }
 
             MapLockMode.Compass -> {
@@ -463,8 +456,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 map.isPanEnabled = false
 
                 // Show as locked
-                button.setImageResource(R.drawable.ic_compass_icon)
-                CustomUiUtils.setButtonState(button, true)
+                button.setIconResource(R.drawable.ic_compass_icon)
+                button.isChecked = true
             }
 
             MapLockMode.Free -> {
@@ -475,8 +468,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 map.mapAzimuth = 0f
 
                 // Show as unlocked
-                button.setImageResource(R.drawable.satellite)
-                CustomUiUtils.setButtonState(button, false)
+                button.setIconResource(R.drawable.satellite)
+                button.isChecked = false
             }
 
             MapLockMode.Trace -> {
@@ -493,8 +486,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 map.isZoomEnabled = false
 
                 // Show as locked
-                button.setImageResource(R.drawable.lock)
-                CustomUiUtils.setButtonState(button, true)
+                button.setIconResource(R.drawable.lock)
+                button.isChecked = true
 
                 // Full brightness
                 screenLight.on()

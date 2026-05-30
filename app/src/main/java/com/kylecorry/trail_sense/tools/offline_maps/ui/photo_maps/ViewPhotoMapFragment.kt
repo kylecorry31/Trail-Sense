@@ -155,10 +155,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         // Update initial map rotation
         binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
-        // Set the button states
-        CustomUiUtils.setButtonState(binding.lockBtn, false)
-        CustomUiUtils.setButtonState(binding.zoomInBtn, false)
-        CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
+        binding.lockBtn.isChecked = false
 
         // Handle when the lock button is pressed
         binding.lockBtn.setOnClickListener {
@@ -424,8 +421,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as locked
-                binding.lockBtn.setImageResource(R.drawable.satellite)
-                CustomUiUtils.setButtonState(binding.lockBtn, true)
+                binding.lockBtn.setIconResource(R.drawable.satellite)
+                binding.lockBtn.isChecked = true
 
                 // Reset brightness
                 screenLight.off()
@@ -442,8 +439,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapAzimuth = -compass.rawBearing
 
                 // Show as locked
-                binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
-                CustomUiUtils.setButtonState(binding.lockBtn, true)
+                binding.lockBtn.setIconResource(R.drawable.ic_compass_icon)
+                binding.lockBtn.isChecked = true
 
                 // Reset brightness
                 screenLight.off()
@@ -457,8 +454,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
                 // Show as unlocked
-                binding.lockBtn.setImageResource(R.drawable.satellite)
-                CustomUiUtils.setButtonState(binding.lockBtn, false)
+                binding.lockBtn.setIconResource(R.drawable.satellite)
+                binding.lockBtn.isChecked = false
 
                 // Reset brightness
                 screenLight.off()
@@ -478,8 +475,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.isZoomEnabled = false
 
                 // Show as locked
-                binding.lockBtn.setImageResource(R.drawable.lock)
-                CustomUiUtils.setButtonState(binding.lockBtn, true)
+                binding.lockBtn.setIconResource(R.drawable.lock)
+                binding.lockBtn.isChecked = true
 
                 // Full brightness
                 screenLight.on()

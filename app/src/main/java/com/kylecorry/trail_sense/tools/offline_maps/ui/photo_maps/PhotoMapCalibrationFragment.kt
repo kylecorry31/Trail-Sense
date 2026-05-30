@@ -169,9 +169,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             }
         }
 
-        CustomUiUtils.setButtonState(binding.zoomInBtn, false)
-        CustomUiUtils.setButtonState(binding.zoomOutBtn, false)
-
         binding.zoomOutBtn.setOnClickListener {
             binding.calibrationMap.zoomBy(0.5f)
         }

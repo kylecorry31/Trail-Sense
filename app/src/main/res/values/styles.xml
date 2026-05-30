@@ -92,6 +92,12 @@
         </item>
     </style>
 
+    <style name="Widget.App.MapButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
+        <item name="materialSizeOverlay">
+            @style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square
+        </item>
+    </style>
+
     <style name="Widget.App.FloatingActionButton" parent="Widget.Material3Expressive.FloatingActionButton">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>
