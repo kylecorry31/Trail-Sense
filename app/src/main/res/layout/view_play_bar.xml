@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:checkable="true"
         app:icon="@drawable/bubble"
-        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square"
         tools:visibility="visible" />
 
 </LinearLayout>
