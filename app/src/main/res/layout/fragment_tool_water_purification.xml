@@ -105,34 +105,37 @@
         app:layout_constraintStart_toEndOf="@+id/step_three_label"
         app:layout_constraintTop_toTopOf="@+id/step_three_label" />
 
-    <LinearLayout
+    <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/time_chips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_bottom_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:checkedButton="@+id/chip_auto"
+        app:selectionRequired="true"
+        app:singleSelection="true">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/chip_auto"
-            android:layout_margin="8dp"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/auto" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/chip_1_min"
-            android:layout_margin="8dp"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/chip_3_min"
-            android:layout_margin="8dp"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
