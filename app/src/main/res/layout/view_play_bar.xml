@@ -16,14 +16,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/play_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="2dp"
-        android:background="@drawable/rounded_rectangle"
-        android:elevation="2dp"
-        app:srcCompat="@drawable/bubble"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        app:icon="@drawable/bubble"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square"
         tools:visibility="visible" />
 
 </LinearLayout>
