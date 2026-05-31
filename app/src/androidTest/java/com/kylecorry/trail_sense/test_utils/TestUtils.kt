@@ -88,6 +88,18 @@ object TestUtils {
         return audioManager.isMusicActive
     }
 
+    fun isAudioOutputActive(): Boolean {
+        val dump = device.executeShellCommand("dumpsys media.audio_flinger")
+        return dump.contains("Standby: no")
+    }
+
+    fun hasNotification(id: Int, packageName: String = context.packageName): Boolean {
+        val dump = device.executeShellCommand("dumpsys notification")
+        val activeNotifications = dump.substringBefore("\n  mUseAttentionLight=", dump)
+        return activeNotifications.contains("pkg=$packageName") &&
+                activeNotifications.contains("id=$id")
+    }
+
     fun back(requireSuccess: Boolean = true) {
         if (requireSuccess) {
             assertTrue(device.pressBack())
