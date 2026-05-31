@@ -16,16 +16,19 @@
         tools:title="10 m" />
 
 
-    <com.kylecorry.trail_sense.shared.views.TileButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/start_btn"
+        style="@style/Widget.App.TileMaterialButton"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        android:checkable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tileIcon="@drawable/ic_tool_cliff_height"
-        app:tilePadding="64dp" />
+        app:icon="@drawable/ic_tool_cliff_height"
+        app:iconSize="122dp"
+        app:toggleCheckedStateOnClick="false" />
 
     <TextView
         android:id="@+id/tide_disclaimer"

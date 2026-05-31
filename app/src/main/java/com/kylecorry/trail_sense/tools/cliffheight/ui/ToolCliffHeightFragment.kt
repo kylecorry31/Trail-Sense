@@ -81,14 +81,14 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
 
     private fun stop() {
         timer.stop()
-        binding.startBtn.setState(false)
+        binding.startBtn.isChecked = false
 
     }
 
     private fun start() {
         startTime = Instant.now()
         timer.interval(16)
-        binding.startBtn.setState(true)
+        binding.startBtn.isChecked = true
     }
 
 

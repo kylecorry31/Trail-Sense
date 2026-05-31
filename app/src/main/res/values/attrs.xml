@@ -42,13 +42,6 @@
         <attr name="playBarSubtitle" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="TileButton">
-        <attr name="tileIcon" format="reference" />
-        <attr name="tileText" format="string" />
-        <attr name="tilePadding" format="dimension" />
-        <attr name="tileTextSize" format="dimension" />
-    </declare-styleable>
-
     <declare-styleable name="FloatingActionButtonMenu">
         <attr name="menu" format="reference" />
     </declare-styleable>

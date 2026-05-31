@@ -6,12 +6,15 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.kylecorry.trail_sense.shared.views.TileButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/white_noise_btn"
+        style="@style/Widget.App.TileMaterialButton"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:tileIcon="@drawable/ic_tool_white_noise"
-        app:tilePadding="64dp" />
+        android:checkable="true"
+        app:icon="@drawable/ic_tool_white_noise"
+        app:iconSize="72dp"
+        app:toggleCheckedStateOnClick="false" />
 
     <com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
         android:id="@+id/sound_spinner"

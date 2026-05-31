@@ -189,7 +189,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     }
 
     private fun updateFlashlightUI() {
-        binding.flashlightOnBtn.setState(flashlightMode != FlashlightMode.Off)
+        binding.flashlightOnBtn.isChecked = flashlightMode != FlashlightMode.Off
         updateTimer()
     }
 
@@ -224,7 +224,6 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         val newMode = flashlight.getMode()
         if (newMode != flashlightMode) {
             flashlightMode = newMode
-            updateFlashlightUI()
             if (newMode != FlashlightMode.Off) {
                 selectedMode = newMode
                 val index = getDialIndex(selectedMode)
@@ -232,11 +231,12 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                 binding.flashlightDial.scrollToOption(index)
             }
         }
+        updateFlashlightUI()
     }
 
     private fun updateTimer() {
         if (!prefs.flashlight.shouldTimeout) {
-            binding.flashlightOnBtn.setText(null)
+            binding.flashlightTitle.isVisible = false
             return
         }
 
@@ -247,13 +247,13 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
             prefs.flashlight.timeout
         }
 
-        binding.flashlightOnBtn.setText(
+        binding.flashlightTitle.isVisible = true
+        binding.flashlightTitle.title.text =
             formatter.formatDuration(
                 duration,
                 short = false,
                 includeSeconds = true
             )
-        )
     }
 
     override fun generateBinding(
