@@ -16,29 +16,29 @@ class ToolWhistleTest : ToolTestBase(Tools.WHISTLE) {
     @Test
     fun verifyBasicFunctionality() {
         // Whistle button (needs to press and hold)
-        click(R.id.whistle_btn, holdDuration = 200)
+        clickTile(R.id.whistle_btn, holdDuration = 200)
 
         // SOS button
-        click(R.id.whistle_sos_btn)
+        clickTile(R.id.whistle_sos_btn)
 
         isTrue {
             TestUtils.isPlayingMusic()
         }
 
-        click(R.id.whistle_sos_btn)
+        clickTile(R.id.whistle_sos_btn)
 
         isFalse {
             TestUtils.isPlayingMusic()
         }
 
         // Emergency button
-        click(R.id.whistle_emergency_btn)
+        clickTile(R.id.whistle_emergency_btn)
 
         isTrue {
             TestUtils.isPlayingMusic()
         }
 
-        click(R.id.whistle_emergency_btn)
+        clickTile(R.id.whistle_emergency_btn)
 
         isFalse {
             TestUtils.isPlayingMusic()
@@ -51,5 +51,9 @@ class ToolWhistleTest : ToolTestBase(Tools.WHISTLE) {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_WHISTLE), holdDuration = 200)
         TestUtils.closeQuickActions()
+    }
+
+    private fun clickTile(id: Int, holdDuration: Long? = null) {
+        click(id, holdDuration = holdDuration, childId = R.id.tile_btn)
     }
 }

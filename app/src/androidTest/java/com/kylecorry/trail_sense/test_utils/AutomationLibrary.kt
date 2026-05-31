@@ -236,10 +236,11 @@ object AutomationLibrary {
         holdDuration: Long? = null,
         xPercent: Float? = null,
         yPercent: Float? = null,
+        childId: Int? = null,
         waitForTime: Long? = null
     ) {
         waitFor(resolveWaitForTime(waitForTime)) {
-            view(id, index = index, packageName = packageName).click(
+            view(id, childId = childId, index = index, packageName = packageName).click(
                 holdDuration,
                 xPercent,
                 yPercent
