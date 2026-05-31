@@ -6,13 +6,16 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.kylecorry.trail_sense.shared.views.TileButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/whistle_btn"
+        style="@style/Widget.App.TileMaterialButton"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        android:checkable="true"
         android:keepScreenOn="true"
-        app:tileIcon="@drawable/ic_category_safety"
-        app:tilePadding="64dp" />
+        app:icon="@drawable/ic_category_safety"
+        app:iconSize="122dp"
+        app:toggleCheckedStateOnClick="false" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,22 +23,73 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
-        <com.kylecorry.trail_sense.shared.views.TileButton
-            android:id="@+id/whistle_sos_btn"
+        <FrameLayout
             android:layout_width="117dp"
             android:layout_height="117dp"
-            android:layout_marginEnd="8dp"
-            app:tileIcon="@drawable/ic_whistle_sos"
-            app:tilePadding="36dp"
-            app:tileText="@string/sos" />
+            android:layout_marginEnd="8dp">
 
-        <com.kylecorry.trail_sense.shared.views.TileButton
-            android:id="@+id/whistle_emergency_btn"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/whistle_sos_btn"
+                style="@style/Widget.App.TileMaterialButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                app:icon="@drawable/ic_whistle_sos"
+                app:iconSize="45dp"
+                app:toggleCheckedStateOnClick="false" />
+
+            <TextView
+                android:id="@+id/whistle_sos_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="false"
+                android:elevation="4dp"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="@string/sos"
+                android:textAlignment="center"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="12sp" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="117dp"
             android:layout_height="117dp"
-            android:layout_marginStart="8dp"
-            app:tileIcon="@drawable/ic_tool_whistle"
-            app:tileText="@string/help" />
+            android:layout_marginStart="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/whistle_emergency_btn"
+                style="@style/Widget.App.TileMaterialButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                app:icon="@drawable/ic_tool_whistle"
+                app:iconSize="53dp"
+                app:toggleCheckedStateOnClick="false" />
+
+            <TextView
+                android:id="@+id/whistle_emergency_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="false"
+                android:elevation="4dp"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:text="@string/help"
+                android:textAlignment="center"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="12sp" />
+        </FrameLayout>
     </LinearLayout>
 
 

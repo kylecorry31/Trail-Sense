@@ -57,7 +57,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
                 signalWhistle?.play(emergencySignal, true)
                 WhistleState.Emergency
             }
-            binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
+            binding.whistleEmergencyLabel.text = getText(R.string.help).toString()
             updateUI()
         }
 
@@ -86,7 +86,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
                         3 -> signalWhistle?.play(emergencySignal, true)
                     }
-                    binding.whistleEmergencyBtn.setText(options[it])
+                    binding.whistleEmergencyLabel.text = options[it]
                     state = WhistleState.Emergency
                     updateUI()
                 }
@@ -163,15 +163,15 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
 
     private fun updateUI() {
-        binding.whistleEmergencyBtn.setState(state == WhistleState.Emergency)
-        binding.whistleSosBtn.setState(state == WhistleState.Sos)
-        binding.whistleBtn.setState(state == WhistleState.On)
+        binding.whistleEmergencyBtn.isChecked = state == WhistleState.Emergency
+        binding.whistleSosBtn.isChecked = state == WhistleState.Sos
+        binding.whistleBtn.isChecked = state == WhistleState.On
     }
 
     private fun toggleOffInternationWhistleSignals() {
         state = WhistleState.Off
         signalWhistle?.cancel()
-        binding.whistleEmergencyBtn.setText(getText(R.string.help).toString())
+        binding.whistleEmergencyLabel.text = getText(R.string.help).toString()
         updateUI()
     }
 

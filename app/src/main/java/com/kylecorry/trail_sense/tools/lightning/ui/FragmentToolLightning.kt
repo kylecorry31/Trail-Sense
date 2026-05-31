@@ -65,9 +65,9 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
 
     private fun onLightning() {
         lightningTime = Instant.now()
-        binding.startBtn.setImageResource(R.drawable.ic_thunder)
-        binding.startBtn.setText(getString(R.string.thunder))
-        binding.startBtn.setState(true)
+        binding.startBtn.setIconResource(R.drawable.ic_thunder)
+        binding.startBtnLabel.text = getString(R.string.thunder)
+        binding.startBtn.isChecked = true
     }
 
     private fun onThunder() {
@@ -81,9 +81,9 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
             binding.lightningTitle.title.text = ""
             binding.lightningTitle.subtitle.isVisible = false
         }
-        binding.startBtn.setImageResource(R.drawable.ic_torch_on)
-        binding.startBtn.setText(getString(R.string.lightning))
-        binding.startBtn.setState(false)
+        binding.startBtn.setIconResource(R.drawable.ic_torch_on)
+        binding.startBtnLabel.text = getString(R.string.lightning)
+        binding.startBtn.isChecked = false
     }
 
     override fun generateBinding(

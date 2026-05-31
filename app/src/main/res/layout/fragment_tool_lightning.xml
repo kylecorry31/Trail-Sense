@@ -15,19 +15,45 @@
         app:subtitle="@string/lightning_dangerously_close"
         tools:title="10.5 mi" />
 
-    <com.kylecorry.trail_sense.shared.views.TileButton
-        android:id="@+id/start_btn"
+    <FrameLayout
+        android:id="@+id/start_btn_holder"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:keepScreenOn="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tileIcon="@drawable/ic_torch_on"
-        app:tilePadding="64dp"
-        app:tileText="@string/lightning"
-        app:tileTextSize="24dp" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_btn"
+            style="@style/Widget.App.TileMaterialButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checkable="true"
+            android:keepScreenOn="true"
+            app:icon="@drawable/ic_torch_on"
+            app:iconSize="122dp"
+            app:toggleCheckedStateOnClick="false" />
+
+        <TextView
+            android:id="@+id/start_btn_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="false"
+            android:elevation="4dp"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:maxLines="1"
+            android:text="@string/lightning"
+            android:textAlignment="center"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="24dp" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/previous_strike"

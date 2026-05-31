@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.whitenoise.ui
 
 import androidx.core.view.isVisible
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.trail_sense.R
@@ -8,7 +9,6 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
-import com.kylecorry.trail_sense.shared.views.TileButton
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.SleepSound
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
@@ -20,7 +20,7 @@ class FragmentToolWhiteNoise :
 
     override fun update() {
         // Views
-        val whiteNoiseButtonView = useView<TileButton>(R.id.white_noise_btn)
+        val whiteNoiseButtonView = useView<MaterialButton>(R.id.white_noise_btn)
         val sleepTimerSwitchView = useView<MaterialSwitch>(R.id.sleep_timer_switch)
         val sleepTimerPickerView = useView<DurationInputView>(R.id.sleep_timer_picker)
         val soundSelectorView = useView<MaterialSpinnerView>(R.id.sound_spinner)
@@ -44,7 +44,7 @@ class FragmentToolWhiteNoise :
 
         // Effects
         useEffect(whiteNoiseButtonView, WhiteNoiseService.isRunning) {
-            whiteNoiseButtonView.setState(WhiteNoiseService.isRunning)
+            whiteNoiseButtonView.isChecked = WhiteNoiseService.isRunning
         }
 
         useEffect(soundSelectorView, soundTypes, cache) {
