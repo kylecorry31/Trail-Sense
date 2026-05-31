@@ -15,7 +15,12 @@ class TimeChangeReceiver : BroadcastReceiver() {
         )
         if (validIntentActions.contains(intent?.action) && context != null) {
             Log.d("TimeChangeReceiver", "Time changed")
-            TrailSenseServiceUtils.restartServices(context, true)
+            val pendingResult = goAsync()
+            TrailSenseServiceUtils.restartServices(
+                context,
+                isInBackground = true,
+                onComplete = pendingResult::finish
+            )
         }
     }
 }

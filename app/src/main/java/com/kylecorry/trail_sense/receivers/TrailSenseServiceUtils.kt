@@ -14,24 +14,33 @@ object TrailSenseServiceUtils {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    fun restartServices(context: Context, isInBackground: Boolean = false) {
+    fun restartServices(
+        context: Context,
+        isInBackground: Boolean = false,
+        onComplete: () -> Unit = {}
+    ) {
         val appContext = context.applicationContext
         coroutineScope.launch {
-            if (!isInBackground) {
-                ServiceRestartAlerter(appContext).dismiss()
+            try {
+                if (!isInBackground) {
+                    ServiceRestartAlerter(appContext).dismiss()
+                }
+
+                val tools = Tools.getTools(appContext, false)
+                tools.flatMap { it.services }.forEach {
+                    it.restart()
+                }
+
+                TileManager().setTilesEnabled(
+                    appContext,
+                    UserPreferences(appContext).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                )
+
+                WidgetManager().registerWidgets(appContext)
+                Tools.triggerWidgetUpdate(appContext, null)
+            } finally {
+                onComplete()
             }
-
-            val tools = Tools.getTools(appContext, false)
-            tools.flatMap { it.services }.forEach {
-                it.restart()
-            }
-
-            TileManager().setTilesEnabled(
-                appContext,
-                UserPreferences(appContext).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-            )
-
-            WidgetManager().registerWidgets(appContext)
         }
     }
 
