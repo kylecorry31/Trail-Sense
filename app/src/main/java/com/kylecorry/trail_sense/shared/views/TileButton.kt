@@ -67,14 +67,17 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
     }
 
     override fun setOnClickListener(listener: OnClickListener?) {
+        super.setOnClickListener(listener)
         button.setOnClickListener(listener)
     }
 
     override fun setOnLongClickListener(listener: OnLongClickListener?) {
+        super.setOnLongClickListener(listener)
         button.setOnLongClickListener(listener)
     }
 
     override fun setOnTouchListener(listener: OnTouchListener?) {
+        super.setOnTouchListener(listener)
         button.setOnTouchListener(listener)
     }
 
