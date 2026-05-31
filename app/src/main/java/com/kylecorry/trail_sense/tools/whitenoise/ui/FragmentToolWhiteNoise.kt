@@ -82,6 +82,10 @@ class FragmentToolWhiteNoise :
         }
 
         useEffect(context, whiteNoiseButtonView, sleepTimerSwitchView, sleepTimerPickerView) {
+            android.util.Log.d(
+                "DEBUG-tsaudio",
+                "white_noise_btn attaching onClick listener, hashCode=${System.identityHashCode(whiteNoiseButtonView)}"
+            )
             whiteNoiseButtonView.setOnClickListener {
                 android.util.Log.d(
                     "DEBUG-tsaudio",

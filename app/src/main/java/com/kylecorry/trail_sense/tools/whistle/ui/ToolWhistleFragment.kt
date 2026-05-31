@@ -49,6 +49,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.whistleEmergencyBtn.setOnClickListener {
+            ensureWhistle()
             state = if (state == WhistleState.Emergency) {
                 signalWhistle?.cancel()
                 WhistleState.Off
@@ -62,6 +63,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         }
 
         binding.whistleEmergencyBtn.setOnLongClickListener {
+            ensureWhistle()
             val options = resources.getStringArray(R.array.whistle_signals_entries).toList()
             Pickers.item(
                 requireContext(),
@@ -95,10 +97,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         }
 
         binding.whistleSosBtn.setOnClickListener {
-            android.util.Log.d(
-                "DEBUG-tsaudio",
-                "whistle_sos_btn onClick, state=$state, whistle=${whistle != null}, signalWhistle=${signalWhistle != null}"
-            )
+            ensureWhistle()
             state = if (state == WhistleState.Sos) {
                 signalWhistle?.cancel()
                 WhistleState.Off
@@ -113,6 +112,7 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
         binding.whistleBtn.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
+                ensureWhistle()
                 signalWhistle?.cancel()
                 whistle?.on()
                 state = WhistleState.On
@@ -127,31 +127,41 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Warm up the player in the background so the first interaction is responsive.
+        // Interactions also call ensureWhistle() so they still work if this hasn't finished.
         inBackground {
             onDefault {
-                try {
-                    android.util.Log.d("DEBUG-tsaudio", "Whistle init starting")
-                    whistle = Whistle()
-                    whistle?.let {
-                        signalWhistle = SignalPlayer(it.asSignal())
-                    }
-                    android.util.Log.d("DEBUG-tsaudio", "Whistle init done")
-                } catch (e: Exception) {
-                    android.util.Log.e("DEBUG-tsaudio", "Whistle init failed", e)
-                    e.printStackTrace()
+                ensureWhistle()
+            }
+        }
+    }
 
-                    onMain {
-                        dialog(
-                            getString(
-                                R.string.feature_unavailable,
-                                getString(R.string.tool_whistle_title)
-                            ),
-                            getString(R.string.audio_error_messsage),
-                            cancelText = null
-                        ) {
-                            findNavController().navigateUp()
-                        }
-                    }
+    /**
+     * Lazily and idempotently initializes the whistle player. Safe to call from any thread and
+     * from any interaction, so a button press is never dropped just because the background warm-up
+     * hasn't completed yet (which was causing flaky behavior on slow devices / CI).
+     */
+    @Synchronized
+    private fun ensureWhistle() {
+        if (whistle != null) {
+            return
+        }
+        try {
+            val player = Whistle()
+            whistle = player
+            signalWhistle = SignalPlayer(player.asSignal())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            onMain {
+                dialog(
+                    getString(
+                        R.string.feature_unavailable,
+                        getString(R.string.tool_whistle_title)
+                    ),
+                    getString(R.string.audio_error_messsage),
+                    cancelText = null
+                ) {
+                    findNavController().navigateUp()
                 }
             }
         }
