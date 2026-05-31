@@ -544,10 +544,10 @@ class MainActivity : AndromedaActivity() {
 
     @Suppress("DEPRECATION")
     private fun updateDeviceSurfaceRotation() {
-        deviceSurfaceRotation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        deviceSurfaceRotation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
             display?.rotation ?: windowManager.defaultDisplay.rotation
         } else {
-            windowManager.defaultDisplay.rotation
+            Surface.ROTATION_90
         }
     }
 
