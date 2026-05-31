@@ -95,6 +95,10 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         }
 
         binding.whistleSosBtn.setOnClickListener {
+            android.util.Log.d(
+                "DEBUG-tsaudio",
+                "whistle_sos_btn onClick, state=$state, whistle=${whistle != null}, signalWhistle=${signalWhistle != null}"
+            )
             state = if (state == WhistleState.Sos) {
                 signalWhistle?.cancel()
                 WhistleState.Off
@@ -126,11 +130,14 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
         inBackground {
             onDefault {
                 try {
+                    android.util.Log.d("DEBUG-tsaudio", "Whistle init starting")
                     whistle = Whistle()
                     whistle?.let {
                         signalWhistle = SignalPlayer(it.asSignal())
                     }
+                    android.util.Log.d("DEBUG-tsaudio", "Whistle init done")
                 } catch (e: Exception) {
+                    android.util.Log.e("DEBUG-tsaudio", "Whistle init failed", e)
                     e.printStackTrace()
 
                     onMain {

@@ -83,6 +83,10 @@ class FragmentToolWhiteNoise :
 
         useEffect(context, whiteNoiseButtonView, sleepTimerSwitchView, sleepTimerPickerView) {
             whiteNoiseButtonView.setOnClickListener {
+                android.util.Log.d(
+                    "DEBUG-tsaudio",
+                    "white_noise_btn onClick, isRunning=${WhiteNoiseService.isRunning}"
+                )
                 if (WhiteNoiseService.isRunning) {
                     WhiteNoiseService.stop(requireContext())
                 } else {

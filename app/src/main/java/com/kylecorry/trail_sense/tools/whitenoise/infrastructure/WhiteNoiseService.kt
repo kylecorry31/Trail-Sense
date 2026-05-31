@@ -25,6 +25,7 @@ class WhiteNoiseService : AndromedaService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        android.util.Log.d("DEBUG-tsaudio", "WhiteNoiseService.onStartCommand")
         super.onStartCommand(intent, flags, startId)
         isRunning = true
         val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
@@ -35,8 +36,13 @@ class WhiteNoiseService : AndromedaService() {
         val soundId = cache.getLong(CACHE_KEY_SLEEP_SOUND_ID) ?: SleepSound.PinkNoise.id
         val sound = SleepSound.entries.withId(soundId) ?: SleepSound.PinkNoise
 
-        soundPlayer = SleepSoundFactory().getSleepSound(sound)
-        soundPlayer?.fadeOn()
+        try {
+            soundPlayer = SleepSoundFactory().getSleepSound(sound)
+            soundPlayer?.fadeOn()
+            android.util.Log.d("DEBUG-tsaudio", "WhiteNoiseService.onStartCommand sound started: $sound")
+        } catch (e: Exception) {
+            android.util.Log.e("DEBUG-tsaudio", "WhiteNoiseService.onStartCommand sound failed", e)
+        }
         return START_STICKY
     }
 
@@ -92,14 +98,16 @@ class WhiteNoiseService : AndromedaService() {
             if (sleepSound != null) {
                 cache.putLong(CACHE_KEY_SLEEP_SOUND_ID, sleepSound.id)
             }
+            android.util.Log.d("DEBUG-tsaudio", "WhiteNoiseService.play")
             start(context)
         }
 
         fun start(context: Context) {
             try {
+                android.util.Log.d("DEBUG-tsaudio", "WhiteNoiseService.start -> startForegroundService")
                 ContextCompat.startForegroundService(context, intent(context))
             } catch (e: Exception) {
-                // Don't do anything
+                android.util.Log.e("DEBUG-tsaudio", "WhiteNoiseService.start threw", e)
             }
         }
 
