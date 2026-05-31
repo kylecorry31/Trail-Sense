@@ -5,8 +5,15 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$repo_root"
 
-if [ "$#" -gt 1 ]; then
-  echo "Usage: $0 [test-class-or-method-filter]" >&2
+if [ "$#" -gt 2 ]; then
+  echo "Usage: $0 [test-class-or-method-filter] [timeout-seconds]" >&2
+  exit 2
+fi
+
+timeout_seconds="${2:-1800}"
+
+if ! [[ "$timeout_seconds" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Timeout must be a positive whole number of seconds." >&2
   exit 2
 fi
 
@@ -33,8 +40,8 @@ fi
 
 args=(connectedAndroidTest)
 
-if [ "$#" -eq 1 ]; then
+if [ "$#" -ge 1 ]; then
   args+=("-Pandroid.testInstrumentationRunnerArguments.class=$1")
 fi
 
-ANDROID_SERIAL="$selected_device" ./gradlew "${args[@]}"
+ANDROID_SERIAL="$selected_device" timeout "${timeout_seconds}s" ./gradlew "${args[@]}"
