@@ -1,6 +1,8 @@
 # Trail Sense
 
-> Use your Android phone's sensors to assist with wilderness treks or survival situations. Designed for entirely offline use.
+> Use your Android phone's sensors to assist with wilderness treks or survival situations. Designed for offline-first use.
+
+> This repository is a fork of [kylecorry31/Trail-Sense](https://github.com/kylecorry31/Trail-Sense) that keeps the wilderness toolkit and adds an optional on-device AI Assistant.
 
 [![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20CI/badge.svg)](https://github.com/kylecorry31/Trail-Sense/actions/workflows/android.yml)
 [![](https://github.com/kylecorry31/Trail-Sense/workflows/Android%20Test/badge.svg)](https://github.com/kylecorry31/Trail-Sense/actions/workflows/android-test.yml)
@@ -8,6 +10,8 @@
 [![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)](https://hosted.weblate.org/projects/trail-sense/trail-sense-android)
 
 Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
+
+This fork keeps the original offline-first experience for the core outdoor tools while extending the app with local AI features for tool discovery, guidance, and sensor interpretation.
 
 The "Trail Sense: Wilderness Survival Guide" book is available as a [paperback or free ebook](https://kylecorry.com/Trail-Sense/book.html).
 
@@ -48,15 +52,28 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 
 ## Table of Contents
 
+- [About This Fork](#about-this-fork)
 - [Feature Roadmap](#feature-roadmap)
 - [Goals](#goals)
 - [Features](#features)
+- [AI Assistant](#ai-assistant)
 - [Privacy](#privacy)
 - [Contributing](#contributing)
 - [FAQ](#faq)
 - [Support](#support)
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
+
+## About This Fork
+
+This repository is based on the upstream Trail Sense project and adds an integrated AI Assistant experience on top of the existing wilderness toolkit.
+
+Key differences from upstream:
+
+- Adds an in-app AI Assistant tool
+- Uses on-device inference for explanations and tool guidance
+- Supports AI model download during setup
+- Keeps the existing offline navigation, weather, astronomy, and survival tools available without a cloud backend
 
 ## Feature Roadmap
 This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other features may be included based on what I feel like working on.
@@ -67,7 +84,8 @@ This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other 
 - Release of the first plugins (map layers / coordinate formats)
 
 ## Goals
-- Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
+- Core Trail Sense tools should remain usable without an Internet connection whenever possible
+- This fork may use the Internet for optional AI model download, but AI inference and tool assistance run on-device after setup
 - Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
 - Features should make use of the sensors on a phone rather than relying on stored information such as guides
 - Features must be based on peer-reviewed science or be verified against real world data
@@ -83,6 +101,7 @@ This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other 
 - Plan what to pack
 - Be alerted before the sun sets
 - Predict the weather
+- Ask the AI Assistant how to use tools and interpret readings
 - Use your phone as a flashlight
 - [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
@@ -115,9 +134,23 @@ For a list of community contributed device feature support, [go here](https://ky
   </tr>
 </table>
 
+## AI Assistant
+
+This fork adds an optional AI Assistant designed to help users understand Trail Sense and get more value from the existing tools.
+
+- Runs on-device after model setup
+- Helps users find the right Trail Sense tool for a task
+- Explains how to use tools and what their values mean
+- Uses app context from supported tools like weather, navigation, and cloud scanning
+- Can attach images for supported AI workflows
+
+The AI Assistant changes the network model of the app slightly: downloading a model requires Internet access, but inference is intended to happen locally on the device after setup.
+
 # Privacy
 
-Location information gathered by this application does not leave your device (as a matter of fact, this app doesn't use the Internet at all). The altitude and pressure history for the last 48 hours is stored in local app storage - this is used to determine weather forecasts. The last known location is also stored in app preferences to allow faster load times and support app functionality when the GPS can not be reached. The beacons and paths store their location information in a local SQLite database. All of this information is cleared when you clear the app storage or delete it.
+Location information gathered by this application does not leave your device during normal use. The altitude and pressure history for the last 48 hours is stored in local app storage - this is used to determine weather forecasts. The last known location is also stored in app preferences to allow faster load times and support app functionality when the GPS can not be reached. The beacons and paths store their location information in a local SQLite database. All of this information is cleared when you clear the app storage or delete it.
+
+This fork also includes an optional AI Assistant. Downloading an AI model requires Internet access, but the intent is for inference and user data handling to remain on-device after setup.
 
 ## Permissions
 ### Sensitive
@@ -145,6 +178,8 @@ Location information gathered by this application does not leave your device (as
   - Allows Trail Sense to restart when you reboot your device. This will re-enable backtrack, weather monitor, and several other background services.
 - **FOREGROUND_SERVICE**
   - Allows Trail Sense to start foreground services, such as backtrack and weather monitor.
+- **INTERNET**
+  - Allows this fork to download optional AI models during setup. Core wilderness tools do not require Internet access after installation.
 - **FLASHLIGHT**
   - Allows Trail Sense to control the phone's flashlight.
 - **VIBRATE**
