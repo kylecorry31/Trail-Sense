@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.whistle.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -13,7 +15,6 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trail_sense.shared.morse.Signal
@@ -152,7 +153,12 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
             signalWhistle = SignalPlayer(player.asSignal())
         } catch (e: Exception) {
             e.printStackTrace()
-            onMain {
+            // ensureWhistle() is not a suspend function (it can be called directly from button
+            // interactions), so post the dialog to the main thread instead of using onMain.
+            Handler(Looper.getMainLooper()).post {
+                if (!isAdded) {
+                    return@post
+                }
                 dialog(
                     getString(
                         R.string.feature_unavailable,
