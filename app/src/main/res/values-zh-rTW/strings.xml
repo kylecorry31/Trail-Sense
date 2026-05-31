@@ -699,7 +699,7 @@
     <string name="estimated">預計</string>
     <string name="distance_alert_distance_reached">你已達到 %s</string>
     <string name="current_speed_gps">目前速度（GPS）</string>
-    <string name="map_file">檔案（JPG、PNG、PDF）</string>
+    <string name="map_file">檔案（JPG、PNG、PDF、Mapsforge）</string>
     <string name="compass_source_legacy_android">舊版（Android）</string>
     <string name="augmented_reality_description">使用你的相機檢視附近的信標和太陽／月亮</string>
     <string name="milliliter_format">%s 毫升</string>
@@ -960,7 +960,7 @@
     <string name="path_slope_moderate">中等</string>
     <string name="cirrocumulus_desc">高空雲層由小點組成波浪狀，看起來幾乎是扁平的。</string>
     <string name="nimbostratus_desc">深灰色的中層雲覆蓋了天空。如果不下雨，可能是層雲。</string>
-    <string name="onboarding_user_guide">透過使用者指南瞭解如何使用 Trail Sense 的功能。位於「工具」分頁的底部。 \n \n更多指南即將推出。</string>
+    <string name="onboarding_user_guide">透過使用者指南瞭解如何使用 Trail Sense 的各項功能。使用者指南位於「工具」分頁。</string>
     <string name="autofill">自動填寫</string>
     <string name="point">點</string>
     <string name="tide_instructions">使用官方潮汐表輸入你行程期間的參考潮汐。</string>
@@ -1054,7 +1054,7 @@
     <string name="true_north_description">使用你所在位置的赤緯指向地理北極。這將與大多數地圖保持一致。</string>
     <string name="ar_calibration_disclaimer">每次使用「擴增實境」工具之前，請先驗證太陽或月亮圖示是否與現實世界正確對齊。如果沒有，請按一下螢幕左上角的指南針圖示，然後按照說明進行校正。</string>
     <string name="ar_calibration_instructions_hint">若要校正「擴增實境」工具，請點擊螢幕左上角的圖示，然後按照顯示的說明進行操作。</string>
-    <string name="show_dial_ticks_on_nearby_radar">顯示撥號刻度</string>
+    <string name="show_dial_ticks_on_nearby_radar">顯示錶盤刻度</string>
     <string name="missing_sensor_explanation">一些手機製造商選擇不添加此感測器，即使在新的或昂貴的裝置上也是如此。你可以透過瀏覽裝置製造商網站或與他們聯繫來獲取更多資訊。</string>
     <string name="direction">方位</string>
     <string name="restore_failure_newer_version">此備份是使用較新版本的 %s 建立的。請更新應用程式並重試。</string>
@@ -1112,7 +1112,7 @@
 \n
 \n**方位角：** %3$s</string>
     <string name="astronomy_direction_peak">峰值方向</string>
-    <string name="tool_temperature_estimation_description">預測不同海拔的溫度</string>
+    <string name="tool_temperature_estimation_description">預測於不同的海拔、風速和濕度下的溫度</string>
     <string name="find_next_occurrence">尋找下一次發生</string>
     <string name="astronomy_altitude_peak">峰值仰角</string>
     <string name="obscuration">遮蔽</string>
@@ -1449,7 +1449,7 @@
     <string name="battery_tip_wifi">當你不在 Wi-Fi 網路範圍內或不需要網路時將其關閉。</string>
     <string name="battery_tip_display_timeout">減少螢幕逾時時間，以防止忘記按電源按鈕。關閉螢幕常亮顯示。</string>
     <string name="digital_elevation_model_link">你可以從 %s 下載各種大小的數位海拔模型</string>
-    <string name="map_tool_disclaimer">此工具顯示你的信標、路線和照片地圖。它不能取代地圖應用程式。</string>
+    <string name="map_tool_disclaimer">此工具不包含內建街道地圖、衛星圖片或路線資訊，也不會從網路下載地圖。若要顯示地圖背景，你必須使用離線地圖工具匯入自己的圖片。如果你需要即時或已預先載入的街道、衛星或路線地圖，請改為使用專用地圖應用程式。</string>
     <string name="battery_tip_battery_saver">開啟省電模式來限制某些手機功能。</string>
     <string name="battery_tip_background_apps">限制不需要在背景執行的應用程式的背景活動。</string>
     <string name="battery_tip_other">關閉你的裝置、強制停止應用程式、停用或解除安裝應用程式，或停用自動更新／備份。</string>
@@ -1481,7 +1481,7 @@
     <string name="map_layer_base_map_description">低解析度的彩色世界地圖</string>
     <string name="map_layer_navigation_description">前往你的導航目的地的路線</string>
     <string name="map_layer_slope_description">根據坡度而為地形著色</string>
-    <string name="map_layer_contours_description">表示海拔和地形陡度的線條</string>
+    <string name="map_layer_contours_description">線條顯示海拔和地形陡峭度</string>
     <string name="map_layer_my_location_description">你目前的位置、方向和 GPS 準確度</string>
     <string name="map_layer_tides_description">你已儲存的潮汐表和模擬的沿海潮汐數據</string>
     <string name="map_layer_aspect_description">根據朝向而為地形著色</string>
@@ -1535,4 +1535,53 @@
     <string name="climate_ice_cap_description">冰層全年不融化，寸草不生。</string>
     <string name="climate_desert_description">極度缺雨導致地形鬆軟，水源匱乏。</string>
     <string name="battery_tip_data_saver">開啟網路流量節省器以限制應用程式在背景使用行動數據。</string>
+    <string name="plugins">插件</string>
+    <string name="map_layers">地圖圖層</string>
+    <string name="app_info">應用程式資訊</string>
+    <string name="reload">重新載入</string>
+    <string name="disconnect">斷開連接</string>
+    <string name="plugin_unavailable">此插件不可用或已斷開連接。</string>
+    <string name="clear_plugin_cache">清除插件快取</string>
+    <string name="connected_plugins">已連接的插件</string>
+    <string name="available_plugins">可用的插件</string>
+    <string name="plugin_name">插件：%s</string>
+    <string name="plugin_connect_title">連接插件？</string>
+    <string name="brightness">亮度</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="other">%d 張地圖</item>
+    </plurals>
+    <string name="clock_source_device">裝置時間</string>
+    <string name="clock_source_gps">GPS 時間</string>
+    <string name="current_temperature">目前溫度</string>
+    <string name="wind_speed">風速</string>
+    <string name="map_calibration_error_same_pixel">在地圖上選擇兩個不同的點。</string>
+    <string name="map_calibration_error_same_image_axis">選擇地圖上兩個不相鄰也不上下相鄰的點。</string>
+    <string name="map_calibration_error_same_location">輸入兩個不同的現實世界位置。</string>
+    <string name="humidity_must_be_between_0_and_100">濕度必須介於 0 至 100 之間</string>
+    <string name="target">目標</string>
+    <string name="pref_show_all_bottom_navigation_labels">顯示所有底部導航標籤</string>
+    <string name="include_mapsforge_backups">備份中應包含路線地圖</string>
+    <string name="include_mapsforge_backups_summary">Mapsforge（.map）檔案可能很大</string>
+    <string name="offline_maps">離線地圖</string>
+    <string name="offline_map_import_failed">無法匯入地圖</string>
+    <string name="no_offline_maps">沒有離線地圖</string>
+    <string name="unsupported_offline_map_file">不支援的地圖檔案</string>
+    <string name="mapsforge">Mapsforge</string>
+    <string name="trail_maps">路線地圖</string>
+    <string name="map_layer_trail_maps_description">你已儲存路線地圖</string>
+    <string name="manage_maps">管理地圖</string>
+    <string name="map_type_photo">照片</string>
+    <string name="map_type_trail">路線</string>
+    <string name="aspect">朝向</string>
+    <string name="tile_layer">地塊圖層</string>
+    <string name="feature_layer">特徵圖層</string>
+    <string name="plugin_connect_message">僅當你信任 %s 時才連接。</string>
+    <string name="plugin_disconnect_title">斷開連接插件？</string>
+    <string name="plugin_disconnect_message">斷開連接 %s？</string>
+    <string name="delete_offline_map_group_message">%s 及其所有地圖將被刪除。</string>
+    <string name="map_calibration_error_implausible_scale">校準比例看起來不太合理。請檢查地圖點和座標。</string>
+    <string name="photo_map_disclaimer">總是攜帶一份紙質地圖作為備用，並驗證 Trail Sense 的準確性。\n\nTrail Sense 不包含地圖檔案，必須下載或透過照片校準。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 下載地圖。</string>
+    <string name="map_layer_elevation_description">根據數位海拔模型而為海拔著色</string>
+    <string name="map_layer_ruggedness_description">根據海拔變化而為地形崎嶇度著色</string>
+    <string name="map_layer_hillshade_description">地形陰影以視覺化海拔變化</string>
 </resources>
