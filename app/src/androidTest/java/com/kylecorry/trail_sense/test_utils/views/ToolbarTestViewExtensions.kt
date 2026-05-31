@@ -10,9 +10,8 @@ enum class Side {
     Right
 }
 
-val TOOLBAR_LEFT_BUTTON_ID: Int = com.kylecorry.andromeda.views.R.id.andromeda_toolbar_left_button
-val TOOLBAR_RIGHT_BUTTON_ID: Int =
-    com.kylecorry.andromeda.views.R.id.andromeda_toolbar_right_button
+val TOOLBAR_LEFT_BUTTON_ID: Int = com.kylecorry.trail_sense.R.id.toolbar_left_button
+val TOOLBAR_RIGHT_BUTTON_ID: Int = com.kylecorry.trail_sense.R.id.toolbar_right_button
 
 fun toolbarButton(@IdRes toolbarId: Int, side: Side): TestView {
     return waitFor(DEFAULT_WAIT_FOR_TIMEOUT) {
