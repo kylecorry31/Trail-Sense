@@ -1,30 +1,28 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.button.MaterialButton
-import com.kylecorry.andromeda.core.system.Resources
+import androidx.core.view.setPadding
+import com.google.android.material.color.MaterialColors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getColorOnPrimary
-import kotlin.math.max
-import kotlin.math.min
 
 class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 
     private var textView: TextView
-    private var button: MaterialButton
+    private var icon: ImageView
 
     private var isOn = false
-    private var tilePadding = resources.getDimensionPixelSize(R.dimen.gesture_zone)
 
     init {
         inflate(context, R.layout.view_tile_button, this)
         textView = findViewById(R.id.tile_text)
-        button = findViewById(R.id.tile_btn)
+        icon = findViewById(R.id.tile_btn)
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.TileButton, 0, 0)
         setImageResource(a.getResourceId(R.styleable.TileButton_tileIcon, R.drawable.flashlight))
         val padding = a.getDimensionPixelSize(R.styleable.TileButton_tilePadding, -1)
@@ -41,20 +39,25 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
     }
 
     fun setImageResource(@DrawableRes resId: Int) {
-        button.setIconResource(resId)
+        icon.setImageResource(resId)
         setState(isOn)
     }
 
     fun setState(on: Boolean) {
         isOn = on
-        button.isChecked = on
-        textView.setTextColor(
-            if (on) {
-                Resources.getColorOnPrimary(context)
-            } else {
-                Resources.androidTextColorSecondary(context)
-            }
-        )
+        val backgroundColor: Int
+        val contentColor: Int
+        if (on) {
+            backgroundColor = getMaterialColor(com.google.android.material.R.attr.colorSecondary)
+            contentColor = getMaterialColor(com.google.android.material.R.attr.colorOnSecondary)
+        } else {
+            backgroundColor = getMaterialColor(com.google.android.material.R.attr.colorSecondaryContainer)
+            contentColor = getMaterialColor(com.google.android.material.R.attr.colorOnSecondaryContainer)
+        }
+
+        icon.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+        icon.imageTintList = ColorStateList.valueOf(contentColor)
+        textView.setTextColor(contentColor)
     }
 
     fun setText(text: String?) {
@@ -62,32 +65,11 @@ class TileButton(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
     }
 
     fun setTilePadding(padding: Int) {
-        tilePadding = padding
-        updateIconSize()
+        icon.setPadding(padding)
     }
 
-    override fun setOnClickListener(listener: OnClickListener?) {
-        button.setOnClickListener(listener)
-    }
-
-    override fun setOnLongClickListener(listener: OnLongClickListener?) {
-        button.setOnLongClickListener(listener)
-    }
-
-    override fun setOnTouchListener(listener: OnTouchListener?) {
-        button.setOnTouchListener(listener)
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        updateIconSize()
-    }
-
-    private fun updateIconSize() {
-        if (width == 0 || height == 0) {
-            return
-        }
-        button.iconSize = max(0, min(width, height) - tilePadding * 2)
+    private fun getMaterialColor(attribute: Int): Int {
+        return MaterialColors.getColor(icon, attribute)
     }
 
 }
