@@ -224,7 +224,6 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
         val newMode = flashlight.getMode()
         if (newMode != flashlightMode) {
             flashlightMode = newMode
-            updateFlashlightUI()
             if (newMode != FlashlightMode.Off) {
                 selectedMode = newMode
                 val index = getDialIndex(selectedMode)
@@ -232,6 +231,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
                 binding.flashlightDial.scrollToOption(index)
             }
         }
+        updateFlashlightUI()
     }
 
     private fun updateTimer() {
