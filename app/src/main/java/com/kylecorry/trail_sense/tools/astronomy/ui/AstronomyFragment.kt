@@ -261,9 +261,13 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private fun getSeekProgress(): Int {
         val totalDuration = Duration.between(minChartTime, maxChartTime).seconds
+        if (totalDuration <= 0) {
+            return 0
+        }
+
         val currentDuration = Duration.between(minChartTime, currentSeekChartTime).seconds
         val progress = maxProgress * currentDuration / totalDuration.toFloat()
-        return progress.toInt()
+        return progress.toInt().coerceIn(0, maxProgress)
     }
 
     private fun hideTimeSeeker() {
