@@ -22,6 +22,8 @@ Once a map is imported, the original file can be deleted if you want to save spa
 
 If a map is imported from an image or non-geospatial PDF, Trail Sense will open the calibration screen.
 
+Trail Sense supports Mapsforge maps v3, v4, and v5.
+
 ## Calibrating photo maps
 To calibrate a photo map:
 
