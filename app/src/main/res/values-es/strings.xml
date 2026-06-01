@@ -392,7 +392,7 @@
     <string name="altostratus_desc">Una nube de nivel medio que cubre el cielo. El sol apenas puede verse como una mancha brillante.</string>
     <string name="nimbostratus_desc">Nube de nivel medio de color gris oscuro que cubre el cielo. Si no llueve puede tratarse de una nube estrato.</string>
     <string name="stratocumulus_desc">Nubes bajas que parecen una sábana de bolas de algodón con pequeños huecos. El color va del blanco al gris oscuro.</string>
-    <string name="onboarding_user_guide">Aprende a usar las funciones de Trail Sense con la guía de usuario. Disponible en la parte inferior de la pestaña Herramientas \n \nPronto estarán disponibles más guías.</string>
+    <string name="onboarding_user_guide">Aprende a usar las funciones de Trail Sense con la guía de usuario. Disponible en la pestaña de Herramientas.</string>
     <string name="export">Exportar</string>
     <plurals name="beacons_imported">
         <item quantity="one">%d baliza importada</item>
@@ -914,7 +914,7 @@
     <string name="last_lightning_strike_at">Último relámpago a las %s</string>
     <string name="pref_show_temperature_in_notification_title">Mostrar la temperatura en las notificaciones</string>
     <string name="at_time">en %s</string>
-    <string name="photo_maps">Mapas Calibrados</string>
+    <string name="photo_maps">Mapas sin conexión</string>
     <string name="historic_temperature_years">Histórico (%d años)</string>
     <string name="historic_temperatures_full_disclaimer">Las temperaturas se basan en una media de %d años de datos históricos y pueden no reflejar las condiciones meteorológicas actuales.</string>
     <plurals name="map_group_summary">
@@ -970,7 +970,7 @@
     <string name="astronomy_set">Puesta</string>
     <string name="astronomy_rise">Salida</string>
     <string name="horizon">Horizonte</string>
-    <string name="map_file">Archivo (JPG, PNG, PDF)</string>
+    <string name="map_file">Archivo (JPG, PNG, PDF, Mapsforge)</string>
     <string name="offline_maps_summary">Usar una imágen como mapa</string>
     <string name="crop_map_instructions_long">Arrastra las esquinas del recuadro hasta las esquinas del mapa que deseas contornear. Recortar reducirá la resolución del mapa.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Recortar el mapa reducirá aún más la resolución. Si necesitas recortar el mapa a alta resolución, usa una aplicación de edición fotográfica. Hay planes para solucionar este problema en el futuro.</string>
@@ -1105,7 +1105,7 @@
     <string name="cloud_scanner">Escáner de Nubes</string>
     <string name="local_messaging">Mensajes locales</string>
     <string name="communication">Comunicación</string>
-    <string name="tool_quick_action_summary">Pulsación larga en navegación inferior o ver en la pestaña de herramientas.</string>
+    <string name="tool_quick_action_summary">Pulsación larga en la barra inferior o ver en la pestaña de herramientas.</string>
     <string name="bottom_navigation_slot">Barra de navegación inferior %d</string>
     <string name="no_items_found">No se encontraron artículos</string>
     <string name="import_packing_list">Importar lista de equipaje</string>
@@ -1163,7 +1163,7 @@
         <item quantity="other">%d pasos</item>
     </plurals>
     <string name="widget_updater">Actualizador de widgets</string>
-    <string name="widget_bottom_sheet_instructions">Pulsación larga en navegación inferior o usa la acción rápida del Widget.</string>
+    <string name="widget_bottom_sheet_instructions">Pulsación larga en la barra inferior o usa la acción rápida del Widget.</string>
     <string name="widget_pref_title">Widgets en la aplicación</string>
     <string name="sun_moon_chart">Gráfico sol/luna</string>
     <string name="pressure_chart">Gráfico de presión</string>
@@ -1256,7 +1256,7 @@
     <string name="grains">Granos</string>
     <string name="no_results">Ningún resultado</string>
     <string name="trace">Calcar</string>
-    <string name="map_trace_instructions">Sitúate en una zona de sombra o tapa el sol con un paño y coloca papel sobre la pantalla de modo que puedas ver el mapa a través del papel. Usa un bolígrafo o un lápiz para calcar el mapa pero evita rotuladores o bolígrafos que puedan traspasar el papel.\n\nLa navegación inferior se desactivará hasta que desactives el modo de calco.</string>
+    <string name="map_trace_instructions">Sitúate en una zona de sombra o tapa el sol con un paño y coloca papel sobre la pantalla de modo que puedas ver el mapa a través del papel. Usa un bolígrafo o un lápiz para calcar el mapa pero evita rotuladores o bolígrafos que puedan traspasar el papel.\n\nLa barra de navegación inferior se desactivará hasta que desactives el modo de calco.</string>
     <string name="no_cell_towers_found">No se encontró ninguna torre de telefonía móvil</string>
     <string name="speed">Velocidad</string>
     <string name="feet_per_second">Pies por segundo</string>
@@ -1363,7 +1363,7 @@
     <string name="planet_neptune">Neptuno</string>
     <string name="load_pdf_tiles">Cargar mosaicos PDF</string>
     <string name="load_pdf_tiles_summary">Los mapas PDF serán más nítidos, pero el rendimiento puede verse afectado</string>
-    <string name="map_tool_disclaimer">Esta herramienta no incluye mapas integrados con calles, imágenes de satélite o datos de rutas. Tampoco descarga mapas desde internet. Para mostrar mapas de fondo debes importar tus propias imágenes usando la herramienta Mapas Calibrados. Si necesitas mapas precargados o en vivo de calles, imágenes de satélite o mapas con rutas, utiliza alguna aplicación dedicada de cartografía.</string>
+    <string name="map_tool_disclaimer">Esta herramienta no incluye mapas integrados con calles, imágenes de satélite o datos de rutas. Tampoco descarga mapas desde internet. Para mostrar mapas de fondo debes importar tus propias imágenes usando la herramienta Mapas Offline. Si necesitas mapas precargados o en vivo de calles, imágenes de satélite o mapas con rutas, utiliza alguna aplicación dedicada de cartografía.</string>
     <string name="open_settings">Abrir ajustes</string>
     <string name="show_gps_accuracy">Mostrar precisión GPS</string>
     <string name="increase_exposure_at_night">Aumentar exposición por la noche</string>
@@ -1452,7 +1452,7 @@
     <string name="map_layer_beacons_description">Balizas guardadas</string>
     <string name="map_layer_paths_description">Rutas guardadas</string>
     <string name="map_layer_tides_description">Tablas de marras guardadas y mareas en costa modeladas</string>
-    <string name="map_layer_photo_maps_description">Mapas calibrados guardados</string>
+    <string name="map_layer_photo_maps_description">Mapas sin conexión guardados</string>
     <string name="map_layer_cell_towers_description">Ubicación aproximada torres de telefonía móvil</string>
     <string name="map_layer_navigation_description">Linea al destino de navegación</string>
     <string name="high_resolution">Alta resolución</string>
@@ -1528,4 +1528,37 @@
     <string name="plugin_connect_message">Conéctate a %s sólo si confías en él.</string>
     <string name="plugin_disconnect_title">¿Desconectar plugin?</string>
     <string name="plugin_disconnect_message">¿Desconectar %s?</string>
+    <string name="map_layers">Capas de mapa</string>
+    <string name="tile_layer">Capa de mosaico</string>
+    <string name="feature_layer">Capa de objetos</string>
+    <string name="overlay_layer">Capa superpuesta</string>
+    <string name="app_info">Info sobre la app</string>
+    <string name="reload">Recargar</string>
+    <string name="disconnect">Desconectar</string>
+    <string name="plugin_unavailable">El plugin no está disponible o no está conectado.</string>
+    <string name="clear_plugin_cache">Limpiar caché del plugin</string>
+    <string name="plugin_name">Plugin: %s</string>
+    <string name="brightness">Brillo</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="many">%d mapas</item>
+        <item quantity="other">%d mapas</item>
+    </plurals>
+    <string name="delete_offline_map_group_message">%s y todos sus mapas serán eliminados.</string>
+    <string name="clock_source_device">Hora del dispositivo</string>
+    <string name="clock_source_gps">Hora GPS</string>
+    <string name="photo_map_disclaimer">Lleva siempre un mapa físico de respaldo y verifica la precisión de Trail Sense.\n\nLos archivos de mapas no están incluidos con Trail Sense y debes descargarlos o calibrarlos a partir de una foto. Puedes encontrar mapas para descargar en https://kylecorry.com/Trail-Sense/offline_maps.html</string>
+    <string name="pref_show_all_bottom_navigation_labels">Mostrar todas las etiquetas de la barra inferior</string>
+    <string name="include_mapsforge_backups">Incluir mapas de recorridos en copias de seguridad</string>
+    <string name="include_mapsforge_backups_summary">Los archivos (.map) de Mapsforge pueden ser grandes</string>
+    <string name="offline_maps">Mapas offline</string>
+    <string name="offline_map_import_failed">No se pudo importar el mapa</string>
+    <string name="no_offline_maps">Sin mapas offline</string>
+    <string name="unsupported_offline_map_file">Archivo de mapa no reconocido</string>
+    <string name="mapsforge">Mapsforge</string>
+    <string name="trail_maps">Mapas de recorridos</string>
+    <string name="map_layer_trail_maps_description">Mapas de recorridos guardados</string>
+    <string name="map_type_trail">Recorrido</string>
+    <string name="manage_maps">Gestionar mapas</string>
+    <string name="map_type_photo">Foto</string>
 </resources>
