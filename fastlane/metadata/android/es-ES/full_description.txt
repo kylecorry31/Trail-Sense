@@ -40,7 +40,7 @@ Esta aplicación tiene únicamente fines informativos y la precisión de las pre
     <li>Ubicación en segundo plano: permite que Trail Sense recupere tu ubicación para alertas de puesta de sol mientras se ejecuta en segundo plano.
     En algunos dispositivos esto también mejorará la fiabilidad de Retroceder y del Seguimiento meteorológico.</li>
     <li>Actividad física: permite que Trail Sense use el podómetro de tu teléfono para calcular distancias.</li>
-    <li>Cámara: permite que Trail Sense use la cámara con la brújula con punto de mira, clinómetro y para tomar fotos usadas por el Escáner de Nubes, Escáner de Código QR y Mapas de Fotos.</li>
+    <li>Cámara: permite que Trail Sense use la cámara con la brújula con punto de mira, clinómetro y para tomar fotos usadas por el Escáner de Nubes, Escáner de Código QR y Mapas calibrados.</li>
     <li>Alarmas y recordatorios: permite que Trail Sense muestre notificaciónes en un momentos exactos.
     Se usa con la herramienta Reloj (al actualizar la hora del sistema) y en las alertas de puesta y salida del Sol.</li>
 </ul>

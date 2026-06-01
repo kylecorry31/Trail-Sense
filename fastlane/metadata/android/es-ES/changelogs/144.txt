@@ -1,0 +1,23 @@
+Mapas sin conexión
+- Mapas Calibrados ahora son Mapas sin conexión
+- Soporte para mapas vectoriales (Mapsforge)
+- Capa de mapas de mapas vectoriales
+- Prevenir calibraciones inválidas
+
+Realidad aumentada
+- Elegir objetivos astronómicos
+- Cambiar hora
+
+Estimación de temperatura
+- Sensación térmica por viento e índice de calor
+
+Herramientas
+- Mejorar búsqueda herramientas
+
+Reloj
+- Mostrar fuente del reloj
+
+Varios
+- Mejoras de la IU
+- Soporte Android 17
+- Color dinámico por defecto
