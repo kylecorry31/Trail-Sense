@@ -16,8 +16,8 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
         targetSdk = 37
-        versionCode = 144
-        versionName = "8.0.1"
+        versionCode = 145
+        versionName = "8.0.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
