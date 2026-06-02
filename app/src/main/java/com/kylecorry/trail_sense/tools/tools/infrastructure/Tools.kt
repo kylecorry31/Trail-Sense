@@ -8,10 +8,10 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.widgets.Widgets
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.luna.subscriptions.generic.Subscription
 import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
+import com.kylecorry.trail_sense.shared.andromeda_temp.EventBus
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
@@ -63,9 +63,6 @@ import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegis
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.whistle.WhistleToolRegistration
 import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 object Tools {
 
@@ -120,9 +117,7 @@ object Tools {
         MapToolRegistration,
         MagnifierToolRegistration
     )
-    private val topics = mutableMapOf<String, Subscription<Bundle>>()
-    private val broadcastScope = CoroutineScope(Dispatchers.Main)
-
+    private val bus = EventBus<Bundle>()
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
         return getTool(context, toolId) != null
@@ -136,7 +131,6 @@ object Tools {
         val tools = hooks.memo("tools", Resources.getLocale(context).language) {
             registry.map { it.getTool(context.applicationContext) }
         }
-
 
         return tools.filter { !availableOnly || it.isAvailable(context) }
     }
@@ -174,21 +168,15 @@ object Tools {
     }
 
     fun broadcast(toolBroadcastId: String, data: Bundle? = null) {
-        broadcastScope.launch {
-            topics[toolBroadcastId]?.publish(data ?: Bundle())
-        }
+        bus.publish(toolBroadcastId, data ?: Bundle())
     }
 
     fun subscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
-        val topic = topics.getOrPut(toolBroadcastId) {
-            Subscription()
-        }
-        topic.subscribe(callback)
+        bus.subscribe(toolBroadcastId, callback)
     }
 
     fun unsubscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
-        val topic = topics[toolBroadcastId]
-        topic?.unsubscribe(callback)
+        bus.unsubscribe(toolBroadcastId, callback)
     }
 
     fun getService(context: Context, serviceId: String): ToolService? {
