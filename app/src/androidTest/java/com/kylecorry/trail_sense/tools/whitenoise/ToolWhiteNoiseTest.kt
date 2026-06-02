@@ -25,7 +25,7 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
     @Test
     fun verifyBasicFunctionality() {
         // Turn on white noise
-        clickTile(R.id.white_noise_btn)
+        click(R.id.white_noise_btn)
 
         // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
@@ -41,7 +41,7 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
 
         // Turn it off
-        clickTile(R.id.white_noise_btn)
+        click(R.id.white_noise_btn)
 
         // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
@@ -59,7 +59,7 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         verifyQuickAction()
     }
 
-    private fun canChangeSleepSound(){
+    private fun canChangeSleepSound() {
         click("Pink noise")
         click("Crickets")
         clickOk()
@@ -71,7 +71,7 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         input(R.id.duration, "2")
 
         // Turn on white noise
-        clickTile(R.id.white_noise_btn)
+        click(R.id.white_noise_btn)
 
         // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
@@ -121,9 +121,5 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         isFalse { TestUtils.isPlayingMusic() }
 
         TestUtils.closeQuickActions()
-    }
-
-    private fun clickTile(id: Int) {
-        click(id, childId = R.id.tile_btn)
     }
 }
