@@ -8,7 +8,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.widgets.Widgets
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.luna.subscriptions.generic.Subscription
 import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
@@ -120,9 +119,8 @@ object Tools {
         MapToolRegistration,
         MagnifierToolRegistration
     )
-    private val topics = mutableMapOf<String, Subscription<Bundle>>()
-    private val broadcastScope = CoroutineScope(Dispatchers.Main)
-
+    private val eventBus = EventBus<Bundle>()
+    private val broadcastScope = CoroutineScope(Dispatchers.Default)
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
         return getTool(context, toolId) != null
@@ -175,20 +173,16 @@ object Tools {
 
     fun broadcast(toolBroadcastId: String, data: Bundle? = null) {
         broadcastScope.launch {
-            topics[toolBroadcastId]?.publish(data ?: Bundle())
+            eventBus.publish(toolBroadcastId, data ?: Bundle())
         }
     }
 
     fun subscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
-        val topic = topics.getOrPut(toolBroadcastId) {
-            Subscription()
-        }
-        topic.subscribe(callback)
+        eventBus.subscribe(toolBroadcastId, callback)
     }
 
     fun unsubscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
-        val topic = topics[toolBroadcastId]
-        topic?.unsubscribe(callback)
+        eventBus.unsubscribe(toolBroadcastId, callback)
     }
 
     fun getService(context: Context, serviceId: String): ToolService? {
