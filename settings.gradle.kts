@@ -1,6 +1,6 @@
 pluginManagement {
     repositories {
-//        mavenLocal()
+        mavenLocal()
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -16,10 +16,12 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+includeBuild("../andromeda")
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-//        mavenLocal()
+        mavenLocal()
         google {
             content {
                 includeGroupByRegex("com\\.android.*")

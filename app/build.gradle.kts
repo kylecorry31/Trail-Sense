@@ -96,9 +96,10 @@ android {
         // Release
         create("nightlyRelease") {
             initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("nightly")
-            applicationIdSuffix = ".nightly_release"
+            signingConfig = signingConfigs.getByName("debug")
+            applicationIdSuffix = ".nightly_release_testing"
             versionNameSuffix = "-nightly-release-${LocalDate.now()}"
+            matchingFallbacks += listOf("release")
         }
     }
     testOptions {
@@ -122,6 +123,14 @@ android {
 
     lint {
         abortOnError = false
+    }
+}
+
+configurations.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "androidx.camera") {
+            useVersion(libs.versions.cameraxVersion.get())
+        }
     }
 }
 
