@@ -169,9 +169,9 @@ class FileSubsystem private constructor(private val context: Context) {
                 "$directory/${UUID.randomUUID()}.$extension"
             }
             val file = get(filename, true)
-            val stream = stream(uri) ?: return@onIO null
 
             try {
+                val stream = stream(uri) ?: return@onIO null
                 val saver = FileSaver()
                 saver.save(stream, file)
             } catch (e: Exception) {
