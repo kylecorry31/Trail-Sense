@@ -4,7 +4,6 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -111,22 +110,8 @@ data class PhotoMap(
      * @return the boundary or null if the map is not calibrated
      */
     fun boundary(): CoordinateBounds? {
-        if (!isCalibrated) {
-            return null
-        }
-
-        if (isFullWorld) {
-            return CoordinateBounds.world
-        }
-
         return hooks.memo("boundary") {
-            val size = baseSize()
-            val topLeft = baseProjection.toCoordinate(Vector2(0f, 0f))
-            val bottomLeft = baseProjection.toCoordinate(Vector2(0f, size.height))
-            val topRight = baseProjection.toCoordinate(Vector2(size.width, 0f))
-            val bottomRight = baseProjection.toCoordinate(Vector2(size.width, size.height))
-
-            CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
+            PhotoMapBoundsCalculator().calculate(this)
         }
     }
 
