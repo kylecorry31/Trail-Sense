@@ -68,7 +68,7 @@ data class PhotoMap(
         }
 
         return hooks.memo("distance_per_pixel") {
-            baseProjection.distancePerPixel(
+            projection.distancePerPixel(
                 calibration.calibrationPoints[0].location,
                 calibration.calibrationPoints[1].location
             )
