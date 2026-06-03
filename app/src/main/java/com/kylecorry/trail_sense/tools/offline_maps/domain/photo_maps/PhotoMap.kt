@@ -36,18 +36,13 @@ data class PhotoMap(
     /**
      * The projection onto the image/pdf.
      */
-    val projection: IMapProjection by lazy { PhotoMapProjection(this, useBaseRotation = false) }
-
-    /**
-     * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270)
-     */
-    val baseProjection: IMapProjection by lazy { PhotoMapProjection(this) }
+    val projection: IMapProjection by lazy { PhotoMapProjection(this) }
 
     /**
      * The projection onto the image. Does not use the PDF.
      */
     val imageProjection: IMapProjection by lazy {
-        PhotoMapProjection(this, usePdf = false, useBaseRotation = false)
+        PhotoMapProjection(this, usePdf = false)
     }
 
     /**

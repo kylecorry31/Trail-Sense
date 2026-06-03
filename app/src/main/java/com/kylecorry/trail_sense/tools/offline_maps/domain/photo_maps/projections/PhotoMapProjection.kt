@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapRo
 class PhotoMapProjection(
     private val map: PhotoMap,
     private val usePdf: Boolean = true,
-    private val useBaseRotation: Boolean = true
+    private val useBaseRotation: Boolean = false
 ) :
     IMapProjection {
 
