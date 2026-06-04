@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import kotlin.math.max
 import kotlin.math.min
 
@@ -273,7 +274,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         val rotation = map.calibration.rotation
         mapRotation = Trigonometry.deltaAngle(rotation, map.baseRotation().toFloat())
         fullResolutionPixels = map.distancePerPixel()?.meters()?.value ?: 1f
-        projection = map.baseProjection
+        projection = PhotoMapProjection(map, useBaseRotation = true)
         if (keepMapUp) {
             mapAzimuth = 0f
         }
