@@ -2,12 +2,9 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.selection
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapBoundsCalculator
 import kotlin.math.abs
 
-class ActiveMapSelector(
-    private val boundsCalculator: PhotoMapBoundsCalculator = PhotoMapBoundsCalculator()
-) {
+class ActiveMapSelector {
 
     fun getActiveMap(
         maps: List<PhotoMap>,
@@ -46,7 +43,7 @@ class ActiveMapSelector(
     }
 
     private fun contains(map: PhotoMap, location: Coordinate): Boolean {
-        return boundsCalculator.calculate(map)?.contains(location) == true
+        return map.boundary()?.contains(location) == true
     }
 
     private fun isSimilarZoom(map: PhotoMap, base: PhotoMap, pct: Float): Boolean {
