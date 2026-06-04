@@ -363,6 +363,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
+        val binding = _binding ?: return
         binding.bottomNavigation.selectedItemId = savedInstanceState.getInt(
             "page",
             binding.bottomNavigation.menu[0].itemId
@@ -377,6 +378,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        val binding = _binding ?: return
         tryOrLog {
             outState.putInt("page", binding.bottomNavigation.selectedItemId)
             navController?.currentBackStackEntry?.arguments?.let {
