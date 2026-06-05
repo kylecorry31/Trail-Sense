@@ -95,9 +95,9 @@ internal class PhotoMapBoundsCalculatorTest {
                 isWarped = false,
                 isRotated = rotation != 0f,
                 rotation = rotation,
-                calibrationPoints = calibrationPoints
-            ),
-            isFullWorld = isFullWorld
+                calibrationPoints = calibrationPoints,
+                isFullWorld = isFullWorld
+            )
         )
     }
 

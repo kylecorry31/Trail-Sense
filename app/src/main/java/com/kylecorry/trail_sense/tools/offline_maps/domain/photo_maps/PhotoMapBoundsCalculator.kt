@@ -10,7 +10,7 @@ class PhotoMapBoundsCalculator {
             return null
         }
 
-        if (map.isFullWorld) {
+        if (map.metadata.isFullWorld) {
             return CoordinateBounds.world
         }
 

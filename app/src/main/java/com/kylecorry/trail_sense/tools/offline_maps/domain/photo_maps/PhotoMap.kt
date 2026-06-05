@@ -22,7 +22,6 @@ data class PhotoMap(
     override val parentId: Long? = null,
     val visible: Boolean = true,
     val isAsset: Boolean = false,
-    val isFullWorld: Boolean = false,
     val createdOn: Instant? = null,
 ) : IMap {
     override val isGroup = false

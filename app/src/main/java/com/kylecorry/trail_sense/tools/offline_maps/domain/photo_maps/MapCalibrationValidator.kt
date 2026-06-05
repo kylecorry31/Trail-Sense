@@ -10,7 +10,7 @@ object MapCalibrationValidator {
 
     fun validate(map: PhotoMap): MapCalibrationValidationResult {
         return when {
-            map.isFullWorld -> MapCalibrationValidationResult.Valid
+            map.metadata.isFullWorld -> MapCalibrationValidationResult.Valid
             !hasCalibrationData(map) -> MapCalibrationValidationResult.Uncalibrated
             else -> validate(map.metadata, map.calibratedSize())
         }

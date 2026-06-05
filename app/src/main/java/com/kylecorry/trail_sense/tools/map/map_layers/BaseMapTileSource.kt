@@ -48,10 +48,10 @@ class BaseMapTileSource : TileSource {
                             Coordinate(90.0, 180.0),
                             PercentCoordinate(1f, 0f)
                         )
-                    )
+                    ),
+                    isFullWorld = true // TODO: Derive this using calibration points
                 ),
                 isAsset = true,
-                isFullWorld = true // TODO: Derive this using calibration points
             )
         ),
         decoderCache,
