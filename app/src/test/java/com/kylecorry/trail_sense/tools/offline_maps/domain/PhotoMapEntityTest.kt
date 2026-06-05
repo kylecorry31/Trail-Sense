@@ -25,9 +25,9 @@ internal class PhotoMapEntityTest {
 
         val map = entity.toMap()
 
-        assertEquals(90.0, map.calibration.calibrationPoints[0].location.latitude)
-        assertEquals(-170.0, map.calibration.calibrationPoints[0].location.longitude)
-        assertEquals(-90.0, map.calibration.calibrationPoints[1].location.latitude)
-        assertEquals(170.0, map.calibration.calibrationPoints[1].location.longitude)
+        assertEquals(90.0, map.georeference.calibrationPoints[0].location.latitude)
+        assertEquals(-170.0, map.georeference.calibrationPoints[0].location.longitude)
+        assertEquals(-90.0, map.georeference.calibrationPoints[1].location.latitude)
+        assertEquals(170.0, map.georeference.calibrationPoints[1].location.longitude)
     }
 }

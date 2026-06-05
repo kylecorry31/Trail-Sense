@@ -206,7 +206,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
             requireContext(),
             getString(R.string.change_map_projection),
             projectionNames,
-            projections.indexOf(map?.metadata?.projection)
+            projections.indexOf(map?.georeference?.projectionType)
         ) {
             it ?: return@item
             val newProjection = projections[it]
@@ -271,7 +271,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         this.map = map
         binding.mapTitle.title.text = map.name
         when {
-            !map.calibration.warped -> warp()
+            !map.georeference.isWarpingCompleted -> warp()
             !map.isCalibrated -> calibrate()
             else -> view()
         }
@@ -300,15 +300,14 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         if (!updatedMap.isCalibrated) return
         val newRotation = MapRotationCalculator().calculate(updatedMap)
 
-        val delta = Trigonometry.deltaAngle(newRotation, updatedMap.calibration.rotation).absoluteValue
+        val delta = Trigonometry.deltaAngle(newRotation, updatedMap.georeference.rotation).absoluteValue
         if (delta > 1f) {
             toast(getString(R.string.map_auto_rotated))
         }
 
         map = updatedMap.copy(
-            calibration = updatedMap.calibration.copy(
-                rotation = newRotation,
-                rotated = true
+            georeference = updatedMap.georeference.copy(
+                rotation = newRotation
             )
         )
 

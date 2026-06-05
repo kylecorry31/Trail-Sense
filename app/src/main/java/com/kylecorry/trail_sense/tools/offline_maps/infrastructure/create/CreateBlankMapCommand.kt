@@ -25,7 +25,6 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -64,9 +63,8 @@ class CreateBlankMapCommand(
             DeleteTempFilesCommand(context).execute()
 
             val calibrated = map?.copy(
-                calibration = MapCalibration(
-                    warped = true,
-                    rotated = true,
+                georeference = map.georeference.copy(
+                    isWarpingCompleted = true,
                     rotation = 0f,
                     calibrationPoints = calibration
                 ),

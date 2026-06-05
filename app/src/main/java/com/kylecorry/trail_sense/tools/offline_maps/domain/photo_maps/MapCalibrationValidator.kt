@@ -10,23 +10,23 @@ object MapCalibrationValidator {
 
     fun validate(map: PhotoMap): MapCalibrationValidationResult {
         return when {
-            map.isFullWorld -> MapCalibrationValidationResult.Valid
+            map.georeference.isFullWorld -> MapCalibrationValidationResult.Valid
             !hasCalibrationData(map) -> MapCalibrationValidationResult.Uncalibrated
-            else -> validate(map.calibration, map.calibratedSize())
+            else -> validate(map.georeference, map.calibratedSize())
         }
     }
 
     private fun hasCalibrationData(map: PhotoMap): Boolean {
-        return map.calibration.calibrationPoints.size >= 2 &&
-                map.metadata.size.width > 0 &&
-                map.metadata.size.height > 0
+        return map.georeference.calibrationPoints.size >= 2 &&
+                map.georeference.size.width > 0 &&
+                map.georeference.size.height > 0
     }
 
     private fun validate(
-        calibration: MapCalibration,
+        metadata: PhotoMapGeoreference,
         calibratedSize: Size
     ): MapCalibrationValidationResult {
-        val points = calibration.calibrationPoints
+        val points = metadata.calibrationPoints
         return when {
             isSamePixel(points[0], points[1], calibratedSize) -> MapCalibrationValidationResult.SamePixel
             Arithmetic.isZero(points[0].location.distanceTo(points[1].location)) -> MapCalibrationValidationResult.SameLocation

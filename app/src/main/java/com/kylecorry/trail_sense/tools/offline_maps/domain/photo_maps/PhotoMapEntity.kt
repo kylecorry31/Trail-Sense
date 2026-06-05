@@ -55,24 +55,24 @@ data class PhotoMapEntity(
             )
         }
 
-        val calibration = MapCalibration(warped, rotated, rotation / 10f, points)
-
         // This gets populated by the repo
-        val metadata = MapMetadata(
+        val metadata = PhotoMapGeoreference(
             Size(0f, 0f),
             if (pdfWidth != null && pdfHeight != null) Size(
                 pdfWidth.toFloat(),
                 pdfHeight.toFloat()
             ) else null,
-            0,
-            projection = projection
+            projectionType = projection,
+            isWarpingCompleted = warped,
+            rotation = rotation / 10f,
+            calibrationPoints = points
         )
 
         return PhotoMap(
             id,
             name,
             filename,
-            calibration,
+            0,
             metadata,
             parent,
             visible,
@@ -81,25 +81,25 @@ data class PhotoMapEntity(
 
     companion object {
         fun from(map: PhotoMap): PhotoMapEntity {
-            val calibration = map.calibration
+            val metadata = map.georeference
             return PhotoMapEntity(
                 map.name,
                 map.filename,
-                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].location.latitude else null,
-                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].location.longitude else null,
-                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].imageLocation.x else null,
-                if (calibration.calibrationPoints.isNotEmpty()) calibration.calibrationPoints[0].imageLocation.y else null,
-                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].location.latitude else null,
-                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].location.longitude else null,
-                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].imageLocation.x else null,
-                if (calibration.calibrationPoints.size > 1) calibration.calibrationPoints[1].imageLocation.y else null,
-                calibration.warped,
-                calibration.rotated,
-                map.metadata.projection,
-                (calibration.rotation * 10).toInt(),
+                if (metadata.calibrationPoints.isNotEmpty()) metadata.calibrationPoints[0].location.latitude else null,
+                if (metadata.calibrationPoints.isNotEmpty()) metadata.calibrationPoints[0].location.longitude else null,
+                if (metadata.calibrationPoints.isNotEmpty()) metadata.calibrationPoints[0].imageLocation.x else null,
+                if (metadata.calibrationPoints.isNotEmpty()) metadata.calibrationPoints[0].imageLocation.y else null,
+                if (metadata.calibrationPoints.size > 1) metadata.calibrationPoints[1].location.latitude else null,
+                if (metadata.calibrationPoints.size > 1) metadata.calibrationPoints[1].location.longitude else null,
+                if (metadata.calibrationPoints.size > 1) metadata.calibrationPoints[1].imageLocation.x else null,
+                if (metadata.calibrationPoints.size > 1) metadata.calibrationPoints[1].imageLocation.y else null,
+                metadata.isWarpingCompleted,
+                metadata.rotation != 0f,
+                metadata.projectionType,
+                (metadata.rotation * 10).toInt(),
                 map.parentId,
-                map.metadata.unscaledPdfSize?.width?.toInt(),
-                map.metadata.unscaledPdfSize?.height?.toInt(),
+                metadata.unscaledPdfSize?.width?.toInt(),
+                metadata.unscaledPdfSize?.height?.toInt(),
                 map.visible,
                 map.createdOn?.toEpochMilli()
             ).also {

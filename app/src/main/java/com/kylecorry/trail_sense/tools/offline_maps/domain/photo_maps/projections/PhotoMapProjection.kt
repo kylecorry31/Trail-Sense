@@ -39,7 +39,7 @@ class PhotoMapProjection(
         val calibrationPoints = rotationService.getCalibrationPoints()
         val projection = CalibratedProjection(calibrationPoints.map {
             it.imageLocation.toPixels(rotatedSize.width, rotatedSize.height) to it.location
-        }, MapProjectionFactory().getProjection(map.metadata.projection))
+        }, MapProjectionFactory().getProjection(map.georeference.projectionType))
 
         val size = if (useBaseRotation) {
             map.baseSize(usePdf)
@@ -54,7 +54,7 @@ class PhotoMapProjection(
 
         val angle = Trigonometry.deltaAngle(
             baseRotation.toFloat(),
-            map.calibration.rotation
+            map.georeference.rotation
         )
 
         if (Arithmetic.isZero(angle)) {

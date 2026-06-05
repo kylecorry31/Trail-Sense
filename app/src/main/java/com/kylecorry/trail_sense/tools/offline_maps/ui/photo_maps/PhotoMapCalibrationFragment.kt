@@ -136,7 +136,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             if (calibrationIndex == (maxPoints - 1)) {
                 inBackground {
                     map = map?.let { save(it) }
-                    manager.reset(map?.calibration?.calibrationPoints ?: emptyList())
+                    manager.reset(map?.georeference?.calibrationPoints ?: emptyList())
                     backCallback.remove()
                     onDone()
                 }
@@ -201,7 +201,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
-        originalRotation = map.calibration.rotation
+        originalRotation = map.georeference.rotation
         binding.calibrationMap.mapAzimuth = 0f
         binding.calibrationMap.keepMapUp = true
         binding.calibrationMap.showMap(map)
@@ -220,7 +220,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         }
 
         map = map?.copy(
-            calibration = map!!.calibration.copy(
+            georeference = map!!.georeference.copy(
                 calibrationPoints = manager.getCalibration(false)
             )
         )
@@ -234,7 +234,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         }
 
         map = map?.copy(
-            calibration = map!!.calibration.copy(
+            georeference = map!!.georeference.copy(
                 rotation = if (showPreview) rotationCalculator.calculate(map!!) else originalRotation
             )
         )
@@ -409,14 +409,14 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private suspend fun save(map: PhotoMap): PhotoMap {
         var updated = service.getPhotoMap(map.id) ?: return map
         updated =
-            updated.copy(calibration = updated.calibration.copy(calibrationPoints = manager.getCalibration()))
+            updated.copy(georeference = updated.georeference.copy(calibrationPoints = manager.getCalibration()))
         service.add(updated)
         return updated
     }
 
     private fun loadCalibrationPointsFromMap() {
         val map = map ?: return
-        manager.reset(map.calibration.calibrationPoints)
+        manager.reset(map.georeference.calibrationPoints)
     }
 
     private fun hasChanges(): Boolean {

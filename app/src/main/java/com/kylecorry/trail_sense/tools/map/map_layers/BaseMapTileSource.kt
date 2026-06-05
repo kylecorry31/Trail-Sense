@@ -12,12 +12,11 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.tiles.PhotoMapDecoderCache
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.tiles.PhotoMapTileSourceSelector
 
@@ -32,8 +31,12 @@ class BaseMapTileSource : TileSource {
                 -1,
                 "Land",
                 "land.webp",
-                MapCalibration(
-                    true, true, 0f, listOf(
+                0,
+                PhotoMapGeoreference(
+                    Size(3800f, 1900f),
+                    projectionType = MapProjectionType.CylindricalEquidistant,
+                    isWarpingCompleted = true,
+                    calibrationPoints = listOf(
                         MapCalibrationPoint(
                             Coordinate(-90.0, -180.0),
                             PercentCoordinate(0f, 1f)
@@ -42,16 +45,10 @@ class BaseMapTileSource : TileSource {
                             Coordinate(90.0, 180.0),
                             PercentCoordinate(1f, 0f)
                         )
-                    )
-                ),
-                MapMetadata(
-                    Size(3800f, 1900f),
-                    null,
-                    0,
-                    MapProjectionType.CylindricalEquidistant
+                    ),
+                    isFullWorld = true // TODO: Derive this using calibration points
                 ),
                 isAsset = true,
-                isFullWorld = true // TODO: Derive this using calibration points
             )
         ),
         decoderCache,

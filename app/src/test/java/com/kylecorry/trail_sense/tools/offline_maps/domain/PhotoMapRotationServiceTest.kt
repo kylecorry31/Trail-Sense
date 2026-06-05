@@ -2,9 +2,8 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapRotationService
@@ -56,18 +55,18 @@ internal class PhotoMapRotationServiceTest {
             0,
             "",
             "",
-            MapCalibration(
-                true,
-                true,
-                rotation,
-                listOf(
+            0,
+            PhotoMapGeoreference(
+                Size(100f, 200f),
+                isWarpingCompleted = true,
+                rotation = rotation,
+                calibrationPoints = listOf(
                     MapCalibrationPoint(
                         Coordinate(0.0, 0.0),
                         PercentCoordinate(x, y)
                     )
                 )
-            ),
-            MapMetadata(Size(100f, 200f), null, 0)
+            )
         )
 
         val service = PhotoMapRotationService(map)

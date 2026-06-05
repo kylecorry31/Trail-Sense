@@ -271,7 +271,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     open fun showMap(map: PhotoMap) {
         this.map = map
-        val rotation = map.calibration.rotation
+        val rotation = map.georeference.rotation
         mapRotation = Trigonometry.deltaAngle(rotation, map.baseRotation().toFloat())
         fullResolutionPixels = map.distancePerPixel()?.meters()?.value ?: 1f
         projection = PhotoMapProjection(map, useBaseRotation = true)

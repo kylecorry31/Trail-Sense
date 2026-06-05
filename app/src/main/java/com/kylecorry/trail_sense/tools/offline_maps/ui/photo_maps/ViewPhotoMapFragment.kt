@@ -176,7 +176,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private fun getDefaultMapAzimuth(keepMapUp: Boolean): Float {
         return if (keepMapUp) {
             -Trigonometry.deltaAngle(
-                map?.calibration?.rotation ?: 0f,
+                map?.georeference?.rotation ?: 0f,
                 map?.baseRotation()?.toFloat() ?: 0f
             )
         } else {

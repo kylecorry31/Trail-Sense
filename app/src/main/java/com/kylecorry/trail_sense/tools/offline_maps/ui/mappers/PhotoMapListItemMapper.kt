@@ -55,7 +55,7 @@ class PhotoMapListItemMapper(
             icon = icon,
             subtitle = formatter.join(
                 value.createdOn?.let { formatter.formatDate(it.toZonedDateTime(), includeWeekDay = false) },
-                formatter.formatFileSize(value.metadata.fileSize),
+                formatter.formatFileSize(value.fileSizeBytes),
                 separator = FormatService.Separator.Dot
             ),
             tags = listOfNotNull(
@@ -123,7 +123,7 @@ class PhotoMapListItemMapper(
         }
 
         val rotation = if (prefs.photoMaps.keepMapFacingUp) map.baseRotation()
-            .toFloat() else map.calibration.rotation
+            .toFloat() else map.georeference.rotation
 
         if (rotation != 0f) {
             val rotated = bitmap.rotate(rotation)

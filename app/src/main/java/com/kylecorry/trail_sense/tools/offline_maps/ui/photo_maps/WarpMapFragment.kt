@@ -122,7 +122,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
-        binding.perspective.mapRotation = map.calibration.rotation
+        binding.perspective.mapRotation = map.georeference.rotation
         binding.perspective.setImage(map.filename)
         binding.nextButton.isInvisible = false
     }
@@ -152,7 +152,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
                 // Delete the pdf file if it exists
                 files.delete(map.pdfFileName)
             }
-            service.add(map.copy(calibration = map.calibration.copy(warped = true)))
+            service.add(map.copy(georeference = map.georeference.copy(isWarpingCompleted = true)))
         }
 
         onMain {

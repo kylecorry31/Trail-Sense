@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projectio
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -88,12 +87,10 @@ internal class PhotoMapProjectionTest {
         expectedY: Float
     ) {
         val map = testMap(
-            metadata = MapMetadata(
+            metadata = PhotoMapGeoreference(
                 size = Size(100f, 200f),
-                unscaledPdfSize = null,
-                fileSize = 0,
-                projection = MapProjectionType.CylindricalEquidistant,
-                imageSize = Size(50f, 80f)
+                imageSize = Size(50f, 80f),
+                projectionType = MapProjectionType.CylindricalEquidistant
             )
         )
         val projection = PhotoMapProjection(map, usePdf = usePdf)
@@ -115,24 +112,21 @@ internal class PhotoMapProjectionTest {
     private fun testMap(
         rotation: Float = 0f,
         calibrationPoints: List<MapCalibrationPoint> = defaultCalibrationPoints,
-        metadata: MapMetadata = MapMetadata(
+        metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             Size(100f, 200f),
-            unscaledPdfSize = null,
-            fileSize = 0,
-            projection = MapProjectionType.CylindricalEquidistant
+            projectionType = MapProjectionType.CylindricalEquidistant
         )
     ): PhotoMap {
         return PhotoMap(
             id = 0,
             name = "",
             filename = "",
-            calibration = MapCalibration(
-                warped = false,
-                rotated = rotation != 0f,
+            fileSizeBytes = 0,
+            georeference = metadata.copy(
+                isWarpingCompleted = false,
                 rotation = rotation,
                 calibrationPoints = calibrationPoints
-            ),
-            metadata = metadata
+            )
         )
     }
 
