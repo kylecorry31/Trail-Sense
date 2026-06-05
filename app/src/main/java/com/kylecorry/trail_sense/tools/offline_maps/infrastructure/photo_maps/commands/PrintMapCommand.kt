@@ -25,7 +25,7 @@ class PrintMapCommand(private val context: Context) {
         printer.setScaleMode(ScaleMode.Fit)
 
         // If width is greater than height, print in landscape
-        if (map.metadata.size.width > map.metadata.size.height) {
+        if (map.georeference.size.width > map.georeference.size.height) {
             printer.setOrientation(Orientation.Landscape)
         } else {
             printer.setOrientation(Orientation.Portrait)

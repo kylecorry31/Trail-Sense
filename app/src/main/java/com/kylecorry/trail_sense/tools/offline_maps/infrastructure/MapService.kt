@@ -44,14 +44,14 @@ class MapService private constructor(private val repo: MapRepo) {
     }
 
     suspend fun setProjection(map: PhotoMap, projection: MapProjectionType): PhotoMap {
-        val newMap = map.copy(metadata = map.metadata.copy(projection = projection))
+        val newMap = map.copy(georeference = map.georeference.copy(projection = projection))
         val recalculatedRotation = if (newMap.isCalibrated) {
             MapRotationCalculator().calculate(newMap)
         } else {
-            newMap.metadata.rotation
+            newMap.georeference.rotation
         }
         val updatedMap = newMap.copy(
-            metadata = newMap.metadata.copy(rotation = recalculatedRotation)
+            georeference = newMap.georeference.copy(rotation = recalculatedRotation)
         )
         repo.add(updatedMap)
         return updatedMap

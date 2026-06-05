@@ -63,7 +63,7 @@ class CreateBlankMapCommand(
             DeleteTempFilesCommand(context).execute()
 
             val calibrated = map?.copy(
-                metadata = map.metadata.copy(
+                georeference = map.georeference.copy(
                     isWarped = true,
                     isRotated = true,
                     rotation = 0f,

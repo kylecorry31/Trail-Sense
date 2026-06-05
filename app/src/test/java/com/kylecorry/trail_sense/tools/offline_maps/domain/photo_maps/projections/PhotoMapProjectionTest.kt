@@ -4,7 +4,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -87,7 +87,7 @@ internal class PhotoMapProjectionTest {
         expectedY: Float
     ) {
         val map = testMap(
-            metadata = PhotoMapMetadata(
+            metadata = PhotoMapGeoreference(
                 size = Size(100f, 200f),
                 unscaledPdfSize = null,
                 projection = MapProjectionType.CylindricalEquidistant,
@@ -113,7 +113,7 @@ internal class PhotoMapProjectionTest {
     private fun testMap(
         rotation: Float = 0f,
         calibrationPoints: List<MapCalibrationPoint> = defaultCalibrationPoints,
-        metadata: PhotoMapMetadata = PhotoMapMetadata(
+        metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             Size(100f, 200f),
             unscaledPdfSize = null,
             projection = MapProjectionType.CylindricalEquidistant
@@ -123,8 +123,8 @@ internal class PhotoMapProjectionTest {
             id = 0,
             name = "",
             filename = "",
-            fileSize = 0,
-            metadata = metadata.copy(
+            fileSizeBytes = 0,
+            georeference = metadata.copy(
                 isWarped = false,
                 isRotated = rotation != 0f,
                 rotation = rotation,

@@ -134,8 +134,8 @@ class MapRepo private constructor(context: Context) {
             }
 
         return newMap.copy(
-            fileSize = fileSize,
-            metadata = newMap.metadata.copy(
+            fileSizeBytes = fileSize,
+            georeference = newMap.georeference.copy(
                 size = pdfSize ?: com.kylecorry.sol.math.geometry.Size(
                     size.width.toFloat(),
                     size.height.toFloat()

@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import java.time.Instant
@@ -37,7 +37,7 @@ class CreateMapFromImageCommand(
             name,
             path,
             fileSize,
-            PhotoMapMetadata(
+            PhotoMapGeoreference(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 null,
                 rotation = rotation.toFloat()

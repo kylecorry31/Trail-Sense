@@ -13,7 +13,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -94,7 +94,7 @@ class CreateMapFromPDFCommand(
             name,
             filename,
             fileSize,
-            PhotoMapMetadata(
+            PhotoMapGeoreference(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
                 projection = projection,

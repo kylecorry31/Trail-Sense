@@ -56,7 +56,7 @@ data class PhotoMapEntity(
         }
 
         // This gets populated by the repo
-        val metadata = PhotoMapMetadata(
+        val metadata = PhotoMapGeoreference(
             Size(0f, 0f),
             if (pdfWidth != null && pdfHeight != null) Size(
                 pdfWidth.toFloat(),
@@ -82,7 +82,7 @@ data class PhotoMapEntity(
 
     companion object {
         fun from(map: PhotoMap): PhotoMapEntity {
-            val metadata = map.metadata
+            val metadata = map.georeference
             return PhotoMapEntity(
                 map.name,
                 map.filename,

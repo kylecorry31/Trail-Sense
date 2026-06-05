@@ -35,7 +35,7 @@ internal class PhotoMapTest {
     @Test
     fun distancePerPixelUsesPdfSize() {
         val map = map(
-            metadata = PhotoMapMetadata(
+            metadata = PhotoMapGeoreference(
                 size = Size(200f, 400f),
                 unscaledPdfSize = null,
                 projection = MapProjectionType.CylindricalEquidistant,
@@ -60,7 +60,7 @@ internal class PhotoMapTest {
     private fun map(
         rotation: Float = 0f,
         calibrationPoints: List<MapCalibrationPoint> = defaultCalibrationPoints,
-        metadata: PhotoMapMetadata = PhotoMapMetadata(
+        metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             size = Size(100f, 200f),
             unscaledPdfSize = null,
             projection = MapProjectionType.CylindricalEquidistant
@@ -70,8 +70,8 @@ internal class PhotoMapTest {
             id = 0,
             name = "",
             filename = "",
-            fileSize = 0,
-            metadata = metadata.copy(
+            fileSizeBytes = 0,
+            georeference = metadata.copy(
                 isWarped = false,
                 isRotated = rotation != 0f,
                 rotation = rotation,

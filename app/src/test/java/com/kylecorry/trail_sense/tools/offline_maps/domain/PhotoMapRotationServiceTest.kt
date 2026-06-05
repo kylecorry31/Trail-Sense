@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapRotationService
@@ -56,7 +56,7 @@ internal class PhotoMapRotationServiceTest {
             "",
             "",
             0,
-            PhotoMapMetadata(
+            PhotoMapGeoreference(
                 Size(100f, 200f),
                 null,
                 isWarped = true,

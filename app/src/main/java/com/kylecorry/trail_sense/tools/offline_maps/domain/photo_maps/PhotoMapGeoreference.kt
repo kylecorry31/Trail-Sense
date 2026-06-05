@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
 import com.kylecorry.sol.math.geometry.Size
 
-data class PhotoMapMetadata(
+data class PhotoMapGeoreference(
     val size: Size,
     val unscaledPdfSize: Size?,
     val projection: MapProjectionType = MapProjectionType.Mercator,

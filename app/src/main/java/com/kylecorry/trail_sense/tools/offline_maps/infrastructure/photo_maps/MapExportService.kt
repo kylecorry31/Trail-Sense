@@ -72,8 +72,8 @@ class MapExportService(
             bitmap =
                 files.bitmap(map.filename, Size(maxImageSize, maxImageSize)) ?: return emptyList()
 
-            if (map.metadata.rotation != 0f) {
-                val rotated = bitmap.rotate(map.metadata.rotation)
+            if (map.georeference.rotation != 0f) {
+                val rotated = bitmap.rotate(map.georeference.rotation)
                 bitmap.recycle()
                 bitmap = rotated
             }
@@ -110,7 +110,7 @@ class MapExportService(
                     ),
                     0.0
                 ),
-                projections[map.metadata.projection] ?: ""
+                projections[map.georeference.projection] ?: ""
             )
 
             return listOf(
