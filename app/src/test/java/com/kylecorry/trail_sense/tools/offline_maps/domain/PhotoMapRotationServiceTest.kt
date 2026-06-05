@@ -60,7 +60,6 @@ internal class PhotoMapRotationServiceTest {
                 Size(100f, 200f),
                 null,
                 isWarped = true,
-                isRotated = true,
                 rotation = rotation,
                 calibrationPoints = listOf(
                     MapCalibrationPoint(

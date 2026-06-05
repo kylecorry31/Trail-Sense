@@ -99,7 +99,6 @@ class CreateMapFromPDFCommand(
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
                 projectionType = projection,
                 isWarped = calibrationPoints.isNotEmpty(),
-                isRotated = calibrationPoints.isNotEmpty(),
                 calibrationPoints = calibrationPoints
             ),
             createdOn = Instant.now()

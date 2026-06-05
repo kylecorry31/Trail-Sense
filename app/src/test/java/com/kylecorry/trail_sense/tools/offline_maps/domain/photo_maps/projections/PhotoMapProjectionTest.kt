@@ -126,7 +126,6 @@ internal class PhotoMapProjectionTest {
             fileSizeBytes = 0,
             georeference = metadata.copy(
                 isWarped = false,
-                isRotated = rotation != 0f,
                 rotation = rotation,
                 calibrationPoints = calibrationPoints
             )

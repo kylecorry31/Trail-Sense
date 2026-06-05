@@ -65,7 +65,6 @@ class CreateBlankMapCommand(
             val calibrated = map?.copy(
                 georeference = map.georeference.copy(
                     isWarped = true,
-                    isRotated = true,
                     rotation = 0f,
                     calibrationPoints = calibration
                 ),

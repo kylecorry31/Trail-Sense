@@ -307,8 +307,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
 
         map = updatedMap.copy(
             georeference = updatedMap.georeference.copy(
-                rotation = newRotation,
-                isRotated = true
+                rotation = newRotation
             )
         )
 

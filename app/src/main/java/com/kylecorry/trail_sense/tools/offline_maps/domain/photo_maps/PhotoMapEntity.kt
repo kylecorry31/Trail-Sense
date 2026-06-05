@@ -64,7 +64,6 @@ data class PhotoMapEntity(
             ) else null,
             projectionType = projection,
             isWarped = warped,
-            isRotated = rotated,
             rotation = rotation / 10f,
             calibrationPoints = points
         )
@@ -95,7 +94,7 @@ data class PhotoMapEntity(
                 if (metadata.calibrationPoints.size > 1) metadata.calibrationPoints[1].imageLocation.x else null,
                 if (metadata.calibrationPoints.size > 1) metadata.calibrationPoints[1].imageLocation.y else null,
                 metadata.isWarped,
-                metadata.isRotated,
+                metadata.rotation != 0f,
                 metadata.projectionType,
                 (metadata.rotation * 10).toInt(),
                 map.parentId,

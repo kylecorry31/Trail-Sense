@@ -37,7 +37,6 @@ class BaseMapTileSource : TileSource {
                     null,
                     projectionType = MapProjectionType.CylindricalEquidistant,
                     isWarped = true,
-                    isRotated = true,
                     calibrationPoints = listOf(
                         MapCalibrationPoint(
                             Coordinate(-90.0, -180.0),

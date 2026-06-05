@@ -8,7 +8,6 @@ data class PhotoMapGeoreference(
     val imageSize: Size = size,
     val projectionType: MapProjectionType = MapProjectionType.Mercator,
     val isWarped: Boolean = false,
-    val isRotated: Boolean = false,
     val rotation: Float = 0f,
     val calibrationPoints: List<MapCalibrationPoint> = emptyList(),
     val isFullWorld: Boolean = false

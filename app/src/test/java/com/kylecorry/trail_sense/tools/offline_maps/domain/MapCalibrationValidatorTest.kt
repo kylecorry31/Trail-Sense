@@ -153,7 +153,6 @@ internal class MapCalibrationValidatorTest {
                 Size(1000f, 1000f),
                 null,
                 isWarped = true,
-                isRotated = true,
                 calibrationPoints = listOf(
                     MapCalibrationPoint(firstLocation, firstImageLocation),
                     MapCalibrationPoint(secondLocation, secondImageLocation)
