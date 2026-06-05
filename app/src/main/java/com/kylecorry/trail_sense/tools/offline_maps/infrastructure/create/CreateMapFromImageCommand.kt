@@ -39,7 +39,6 @@ class CreateMapFromImageCommand(
             fileSize,
             PhotoMapGeoreference(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
-                null,
                 rotation = rotation.toFloat()
             ),
             createdOn = Instant.now()

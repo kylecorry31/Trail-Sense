@@ -20,7 +20,7 @@ internal class MapCalibrationValidatorTest {
             "",
             "",
             0,
-            PhotoMapGeoreference(Size(1000f, 1000f), null)
+            PhotoMapGeoreference(Size(1000f, 1000f))
         )
 
         val result = MapCalibrationValidator.validate(map)
@@ -151,7 +151,6 @@ internal class MapCalibrationValidatorTest {
             0,
             PhotoMapGeoreference(
                 Size(1000f, 1000f),
-                null,
                 isWarped = true,
                 calibrationPoints = listOf(
                     MapCalibrationPoint(firstLocation, firstImageLocation),

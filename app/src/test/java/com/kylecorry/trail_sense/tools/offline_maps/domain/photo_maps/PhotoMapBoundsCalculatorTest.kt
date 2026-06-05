@@ -42,7 +42,6 @@ internal class PhotoMapBoundsCalculatorTest {
         val map = map(
             metadata = PhotoMapGeoreference(
                 size = Size(200f, 400f),
-                unscaledPdfSize = null,
                 imageSize = Size(100f, 200f),
                 projectionType = MapProjectionType.CylindricalEquidistant
             )
@@ -80,7 +79,6 @@ internal class PhotoMapBoundsCalculatorTest {
         calibrationPoints: List<MapCalibrationPoint> = defaultCalibrationPoints,
         metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             size = Size(100f, 200f),
-            unscaledPdfSize = null,
             projectionType = MapProjectionType.CylindricalEquidistant
         ),
         isFullWorld: Boolean = false

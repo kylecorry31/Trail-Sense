@@ -89,7 +89,6 @@ internal class PhotoMapProjectionTest {
         val map = testMap(
             metadata = PhotoMapGeoreference(
                 size = Size(100f, 200f),
-                unscaledPdfSize = null,
                 imageSize = Size(50f, 80f),
                 projectionType = MapProjectionType.CylindricalEquidistant
             )
@@ -115,7 +114,6 @@ internal class PhotoMapProjectionTest {
         calibrationPoints: List<MapCalibrationPoint> = defaultCalibrationPoints,
         metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             Size(100f, 200f),
-            unscaledPdfSize = null,
             projectionType = MapProjectionType.CylindricalEquidistant
         )
     ): PhotoMap {

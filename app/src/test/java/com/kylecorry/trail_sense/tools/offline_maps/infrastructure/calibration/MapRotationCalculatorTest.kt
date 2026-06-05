@@ -76,7 +76,6 @@ internal class MapRotationCalculatorTest {
             100,
             PhotoMapGeoreference(
                 Size(400f, 200f),
-                null,
                 isWarped = true,
                 calibrationPoints = calibrationPoints
             )

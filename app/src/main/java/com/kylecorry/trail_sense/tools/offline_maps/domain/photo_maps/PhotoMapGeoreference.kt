@@ -4,7 +4,7 @@ import com.kylecorry.sol.math.geometry.Size
 
 data class PhotoMapGeoreference(
     val size: Size,
-    val unscaledPdfSize: Size?,
+    val unscaledPdfSize: Size? = null,
     val imageSize: Size = size,
     val projectionType: MapProjectionType = MapProjectionType.Mercator,
     val isWarped: Boolean = false,
