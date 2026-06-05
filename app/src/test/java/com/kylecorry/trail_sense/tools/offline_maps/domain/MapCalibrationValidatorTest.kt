@@ -19,7 +19,8 @@ internal class MapCalibrationValidatorTest {
             0,
             "",
             "",
-            PhotoMapMetadata(Size(1000f, 1000f), null, 0)
+            0,
+            PhotoMapMetadata(Size(1000f, 1000f), null)
         )
 
         val result = MapCalibrationValidator.validate(map)
@@ -147,10 +148,10 @@ internal class MapCalibrationValidatorTest {
             0,
             "",
             "",
+            0,
             PhotoMapMetadata(
                 Size(1000f, 1000f),
                 null,
-                0,
                 isWarped = true,
                 isRotated = true,
                 calibrationPoints = listOf(

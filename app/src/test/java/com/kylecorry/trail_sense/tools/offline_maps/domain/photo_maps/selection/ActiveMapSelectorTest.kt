@@ -68,10 +68,9 @@ class ActiveMapSelectorTest {
 
     private fun map(id: Long, size: Size, boundary: CoordinateBounds): PhotoMap {
         return PhotoMap(
-            id, "", "", PhotoMapMetadata(
+            id, "", "", 0, PhotoMapMetadata(
                 size,
                 null,
-                0,
                 isWarped = true,
                 isRotated = true,
                 calibrationPoints = listOf(

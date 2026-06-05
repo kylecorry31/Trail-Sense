@@ -31,10 +31,10 @@ class BaseMapTileSource : TileSource {
                 -1,
                 "Land",
                 "land.webp",
+                0,
                 PhotoMapMetadata(
                     Size(3800f, 1900f),
                     null,
-                    0,
                     MapProjectionType.CylindricalEquidistant,
                     isWarped = true,
                     isRotated = true,

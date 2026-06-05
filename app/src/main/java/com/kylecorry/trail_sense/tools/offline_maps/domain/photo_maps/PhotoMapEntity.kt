@@ -62,7 +62,6 @@ data class PhotoMapEntity(
                 pdfWidth.toFloat(),
                 pdfHeight.toFloat()
             ) else null,
-            0,
             projection = projection,
             isWarped = warped,
             isRotated = rotated,
@@ -74,6 +73,7 @@ data class PhotoMapEntity(
             id,
             name,
             filename,
+            0,
             metadata,
             parent,
             visible,

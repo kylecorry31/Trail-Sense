@@ -18,6 +18,7 @@ data class PhotoMap(
     override val id: Long,
     override val name: String,
     val filename: String,
+    val fileSize: Long,
     val metadata: PhotoMapMetadata,
     override val parentId: Long? = null,
     val visible: Boolean = true,

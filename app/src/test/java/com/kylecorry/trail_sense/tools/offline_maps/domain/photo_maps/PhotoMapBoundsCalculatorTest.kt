@@ -43,7 +43,6 @@ internal class PhotoMapBoundsCalculatorTest {
             metadata = PhotoMapMetadata(
                 size = Size(200f, 400f),
                 unscaledPdfSize = null,
-                fileSize = 0,
                 projection = MapProjectionType.CylindricalEquidistant,
                 imageSize = Size(100f, 200f)
             )
@@ -82,7 +81,6 @@ internal class PhotoMapBoundsCalculatorTest {
         metadata: PhotoMapMetadata = PhotoMapMetadata(
             size = Size(100f, 200f),
             unscaledPdfSize = null,
-            fileSize = 0,
             projection = MapProjectionType.CylindricalEquidistant
         ),
         isFullWorld: Boolean = false
@@ -91,6 +89,7 @@ internal class PhotoMapBoundsCalculatorTest {
             id = 0,
             name = "",
             filename = "",
+            fileSize = 0,
             metadata = metadata.copy(
                 isWarped = false,
                 isRotated = rotation != 0f,

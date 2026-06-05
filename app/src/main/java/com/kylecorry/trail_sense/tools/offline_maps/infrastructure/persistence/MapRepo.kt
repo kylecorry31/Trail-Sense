@@ -134,12 +134,12 @@ class MapRepo private constructor(context: Context) {
             }
 
         return newMap.copy(
+            fileSize = fileSize,
             metadata = newMap.metadata.copy(
                 size = pdfSize ?: com.kylecorry.sol.math.geometry.Size(
                     size.width.toFloat(),
                     size.height.toFloat()
                 ),
-                fileSize = fileSize,
                 imageSize = com.kylecorry.sol.math.geometry.Size(
                     size.width.toFloat(),
                     size.height.toFloat()

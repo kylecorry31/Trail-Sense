@@ -55,7 +55,7 @@ class PhotoMapListItemMapper(
             icon = icon,
             subtitle = formatter.join(
                 value.createdOn?.let { formatter.formatDate(it.toZonedDateTime(), includeWeekDay = false) },
-                formatter.formatFileSize(value.metadata.fileSize),
+                formatter.formatFileSize(value.fileSize),
                 separator = FormatService.Separator.Dot
             ),
             tags = listOfNotNull(

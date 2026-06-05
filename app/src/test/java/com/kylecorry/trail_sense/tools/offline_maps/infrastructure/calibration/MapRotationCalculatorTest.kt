@@ -74,10 +74,10 @@ internal class MapRotationCalculatorTest {
             1,
             "",
             "",
+            100,
             PhotoMapMetadata(
                 Size(400f, 200f),
                 null,
-                100,
                 MapProjectionType.Mercator,
                 isWarped = true,
                 calibrationPoints = calibrationPoints

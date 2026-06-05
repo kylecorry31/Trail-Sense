@@ -93,10 +93,10 @@ class CreateMapFromPDFCommand(
             0,
             name,
             filename,
+            fileSize,
             PhotoMapMetadata(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
-                fileSize,
                 projection = projection,
                 isWarped = calibrationPoints.isNotEmpty(),
                 isRotated = calibrationPoints.isNotEmpty(),

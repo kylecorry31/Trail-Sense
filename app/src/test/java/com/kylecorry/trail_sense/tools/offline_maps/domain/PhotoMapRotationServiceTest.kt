@@ -55,10 +55,10 @@ internal class PhotoMapRotationServiceTest {
             0,
             "",
             "",
+            0,
             PhotoMapMetadata(
                 Size(100f, 200f),
                 null,
-                0,
                 isWarped = true,
                 isRotated = true,
                 rotation = rotation,

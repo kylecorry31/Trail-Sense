@@ -38,7 +38,6 @@ internal class PhotoMapTest {
             metadata = PhotoMapMetadata(
                 size = Size(200f, 400f),
                 unscaledPdfSize = null,
-                fileSize = 0,
                 projection = MapProjectionType.CylindricalEquidistant,
                 imageSize = Size(100f, 200f)
             )
@@ -64,7 +63,6 @@ internal class PhotoMapTest {
         metadata: PhotoMapMetadata = PhotoMapMetadata(
             size = Size(100f, 200f),
             unscaledPdfSize = null,
-            fileSize = 0,
             projection = MapProjectionType.CylindricalEquidistant
         )
     ): PhotoMap {
@@ -72,6 +70,7 @@ internal class PhotoMapTest {
             id = 0,
             name = "",
             filename = "",
+            fileSize = 0,
             metadata = metadata.copy(
                 isWarped = false,
                 isRotated = rotation != 0f,

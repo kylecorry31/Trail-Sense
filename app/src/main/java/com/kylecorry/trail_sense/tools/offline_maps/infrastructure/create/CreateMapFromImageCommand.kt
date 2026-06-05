@@ -36,10 +36,10 @@ class CreateMapFromImageCommand(
             0,
             name,
             path,
+            fileSize,
             PhotoMapMetadata(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 null,
-                fileSize,
                 rotation = rotation.toFloat()
             ),
             createdOn = Instant.now()
