@@ -110,7 +110,7 @@ class MapExportService(
                     ),
                     0.0
                 ),
-                projections[map.georeference.projection] ?: ""
+                projections[map.georeference.projectionType] ?: ""
             )
 
             return listOf(

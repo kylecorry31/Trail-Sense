@@ -90,8 +90,8 @@ internal class PhotoMapProjectionTest {
             metadata = PhotoMapGeoreference(
                 size = Size(100f, 200f),
                 unscaledPdfSize = null,
-                projection = MapProjectionType.CylindricalEquidistant,
-                imageSize = Size(50f, 80f)
+                imageSize = Size(50f, 80f),
+                projectionType = MapProjectionType.CylindricalEquidistant
             )
         )
         val projection = PhotoMapProjection(map, usePdf = usePdf)
@@ -116,7 +116,7 @@ internal class PhotoMapProjectionTest {
         metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             Size(100f, 200f),
             unscaledPdfSize = null,
-            projection = MapProjectionType.CylindricalEquidistant
+            projectionType = MapProjectionType.CylindricalEquidistant
         )
     ): PhotoMap {
         return PhotoMap(

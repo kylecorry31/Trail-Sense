@@ -48,7 +48,7 @@ class MapRotationCalculator {
             ).toVector2(size.height)
         }
 
-        val baseProjection = MapProjectionFactory().getProjection(map.georeference.projection)
+        val baseProjection = MapProjectionFactory().getProjection(map.georeference.projectionType)
 
         val projectedPixels = map.georeference.calibrationPoints.map {
             baseProjection.toPixels(it.location)

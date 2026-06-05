@@ -62,7 +62,7 @@ data class PhotoMapEntity(
                 pdfWidth.toFloat(),
                 pdfHeight.toFloat()
             ) else null,
-            projection = projection,
+            projectionType = projection,
             isWarped = warped,
             isRotated = rotated,
             rotation = rotation / 10f,
@@ -96,7 +96,7 @@ data class PhotoMapEntity(
                 if (metadata.calibrationPoints.size > 1) metadata.calibrationPoints[1].imageLocation.y else null,
                 metadata.isWarped,
                 metadata.isRotated,
-                metadata.projection,
+                metadata.projectionType,
                 (metadata.rotation * 10).toInt(),
                 map.parentId,
                 metadata.unscaledPdfSize?.width?.toInt(),

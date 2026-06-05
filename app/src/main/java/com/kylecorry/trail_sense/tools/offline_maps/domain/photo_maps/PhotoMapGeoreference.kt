@@ -5,8 +5,8 @@ import com.kylecorry.sol.math.geometry.Size
 data class PhotoMapGeoreference(
     val size: Size,
     val unscaledPdfSize: Size?,
-    val projection: MapProjectionType = MapProjectionType.Mercator,
     val imageSize: Size = size,
+    val projectionType: MapProjectionType = MapProjectionType.Mercator,
     val isWarped: Boolean = false,
     val isRotated: Boolean = false,
     val rotation: Float = 0f,

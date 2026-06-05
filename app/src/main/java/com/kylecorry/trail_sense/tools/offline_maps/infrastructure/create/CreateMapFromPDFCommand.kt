@@ -97,7 +97,7 @@ class CreateMapFromPDFCommand(
             PhotoMapGeoreference(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
-                projection = projection,
+                projectionType = projection,
                 isWarped = calibrationPoints.isNotEmpty(),
                 isRotated = calibrationPoints.isNotEmpty(),
                 calibrationPoints = calibrationPoints

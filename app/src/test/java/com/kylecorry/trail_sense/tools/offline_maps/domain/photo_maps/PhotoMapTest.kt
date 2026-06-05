@@ -38,8 +38,8 @@ internal class PhotoMapTest {
             metadata = PhotoMapGeoreference(
                 size = Size(200f, 400f),
                 unscaledPdfSize = null,
-                projection = MapProjectionType.CylindricalEquidistant,
-                imageSize = Size(100f, 200f)
+                imageSize = Size(100f, 200f),
+                projectionType = MapProjectionType.CylindricalEquidistant
             )
         )
 
@@ -63,7 +63,7 @@ internal class PhotoMapTest {
         metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             size = Size(100f, 200f),
             unscaledPdfSize = null,
-            projection = MapProjectionType.CylindricalEquidistant
+            projectionType = MapProjectionType.CylindricalEquidistant
         )
     ): PhotoMap {
         return PhotoMap(

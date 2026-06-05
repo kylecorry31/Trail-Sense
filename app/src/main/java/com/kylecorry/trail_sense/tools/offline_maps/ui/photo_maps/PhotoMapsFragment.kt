@@ -206,7 +206,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
             requireContext(),
             getString(R.string.change_map_projection),
             projectionNames,
-            projections.indexOf(map?.georeference?.projection)
+            projections.indexOf(map?.georeference?.projectionType)
         ) {
             it ?: return@item
             val newProjection = projections[it]
