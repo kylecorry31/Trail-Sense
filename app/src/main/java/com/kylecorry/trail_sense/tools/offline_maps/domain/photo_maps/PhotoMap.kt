@@ -11,7 +11,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.distancePerPixel
+import com.kylecorry.trail_sense.shared.andromeda_temp.distancePerPixel
 import java.time.Instant
 
 data class PhotoMap(

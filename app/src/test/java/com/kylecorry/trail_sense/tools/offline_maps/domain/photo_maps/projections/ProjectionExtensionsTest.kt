@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projectio
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.distancePerPixel
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

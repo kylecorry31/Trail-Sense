@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections
+package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate

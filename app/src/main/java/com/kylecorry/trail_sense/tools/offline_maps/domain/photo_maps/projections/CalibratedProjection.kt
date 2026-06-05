@@ -9,7 +9,7 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 
-class CalibratedProjection(
+internal class CalibratedProjection(
     calibration: List<Pair<PixelCoordinate, Coordinate>>,
     private val projection: IMapProjection
 ) : IMapProjection {

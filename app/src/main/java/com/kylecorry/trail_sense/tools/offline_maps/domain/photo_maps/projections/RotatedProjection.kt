@@ -6,7 +6,7 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.rotateInRect
 
-class RotatedProjection(
+internal class RotatedProjection(
     private val projection: IMapProjection,
     private val size: Size,
     private val rotation: Float
