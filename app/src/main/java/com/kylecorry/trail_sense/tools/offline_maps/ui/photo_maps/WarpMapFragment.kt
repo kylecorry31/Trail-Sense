@@ -19,8 +19,8 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.PhotoMapCalibrator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapCornerDetector
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.fixPerspective
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -30,7 +30,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
     private val service = getAppService<MapService>()
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
-    private val cornerDetector = MapCornerDetector()
+    private val calibrator = PhotoMapCalibrator()
 
     private var mapId = 0L
     private var map: PhotoMap? = null
@@ -91,7 +91,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
         binding.perspective.onLoad = { image ->
             inBackground {
                 val job = launch {
-                    val detected = onDefault { cornerDetector.detect(image) }
+                    val detected = onDefault { calibrator.detectCorners(image) }
                     onMain {
                         if (isBound && detected != null) {
                             binding.perspective.setBounds(detected)

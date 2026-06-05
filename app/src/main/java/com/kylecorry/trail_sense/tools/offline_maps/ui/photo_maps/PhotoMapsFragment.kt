@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.print.Printer
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPhotoMapsBinding
@@ -24,8 +24,8 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.PhotoMapCalibrator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
@@ -35,6 +35,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
 
     private val service = getAppService<MapService>()
     private val formatter = getAppService<FormatService>()
+    private val calibrator = PhotoMapCalibrator()
 
     private var mapId = 0L
     private var autoLockLocation = false
@@ -298,7 +299,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     private suspend fun autoRotate() {
         val updatedMap = service.getPhotoMap(mapId) ?: return
         if (!updatedMap.isCalibrated) return
-        val newRotation = MapRotationCalculator().calculate(updatedMap)
+        val newRotation = calibrator.calculateRotation(updatedMap)
 
         val delta = Trigonometry.deltaAngle(newRotation, updatedMap.calibration.rotation).absoluteValue
         if (delta > 1f) {

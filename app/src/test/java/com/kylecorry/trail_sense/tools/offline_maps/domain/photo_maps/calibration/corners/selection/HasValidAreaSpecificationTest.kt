@@ -1,8 +1,10 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection
 
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Polygon
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection.HasValidAreaSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection.QuadrilateralSelectionCriteria
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

@@ -9,14 +9,15 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.PhotoMapCalibrator
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 
 class MapService private constructor(private val repo: MapRepo) {
 
     val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
+    private val calibrator = PhotoMapCalibrator()
 
     private val deleter = object : GroupDeleter<IMap>(loader) {
         override suspend fun deleteItems(items: List<IMap>) {
@@ -46,7 +47,7 @@ class MapService private constructor(private val repo: MapRepo) {
     suspend fun setProjection(map: PhotoMap, projection: MapProjectionType): PhotoMap {
         val newMap = map.copy(metadata = map.metadata.copy(projection = projection))
         val recalculatedRotation = if (newMap.isCalibrated) {
-            MapRotationCalculator().calculate(newMap)
+            calibrator.calculateRotation(newMap)
         } else {
             newMap.calibration.rotation
         }

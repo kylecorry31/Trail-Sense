@@ -38,8 +38,8 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibra
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidationResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidator
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.PhotoMapCalibrator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
@@ -54,7 +54,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private var maxPoints = 2
     private var onDone: () -> Unit = {}
     private var showRotation: (Float) -> Unit = {}
-    private val rotationCalculator = MapRotationCalculator()
+    private val calibrator = PhotoMapCalibrator()
     private var originalRotation = 0f
 
     private lateinit var backCallback: OnBackPressedCallback
@@ -235,7 +235,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
         map = map?.copy(
             calibration = map!!.calibration.copy(
-                rotation = if (showPreview) rotationCalculator.calculate(map!!) else originalRotation
+                rotation = if (showPreview) calibrator.calculateRotation(map!!) else originalRotation
             )
         )
         val map = map ?: return
@@ -250,7 +250,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private fun updateRotation() {
         val map = map ?: return
         val rotation = if (map.isCalibrated) {
-            rotationCalculator.calculate(map)
+            calibrator.calculateRotation(map)
         } else {
             map.baseRotation().toFloat()
         }

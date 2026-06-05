@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.scoring
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.algebra.Matrix
@@ -8,7 +8,7 @@ import com.kylecorry.sol.math.sumOfFloat
 import kotlin.math.max
 import kotlin.math.roundToInt
 
-class EdgeMagnitudeQuadrilateralScoringStrategy : QuadrilateralScoringStrategy {
+internal class EdgeMagnitudeQuadrilateralScoringStrategy : QuadrilateralScoringStrategy {
     override fun score(
         quadrilateral: Polygon,
         gradients: Gradients,

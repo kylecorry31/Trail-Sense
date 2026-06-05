@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.rotation
 
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -10,7 +10,7 @@ import kotlin.math.absoluteValue
 /**
  * A class that calculates the rotation of a map based on the calibration points
  */
-class MapRotationCalculator {
+internal class MapRotationCalculator {
 
     /**
      * Calculates the ideal rotation of the map
@@ -24,7 +24,7 @@ class MapRotationCalculator {
 
 
         // If the map is large, only allow it to be flipped vertically
-        val bounds = CoordinateBounds.from(map.calibration.calibrationPoints.map { it.location })
+        val bounds = CoordinateBounds.Companion.from(map.calibration.calibrationPoints.map { it.location })
         val east = bounds.east
         val west = bounds.west
         if ((east - west).absoluteValue > 180) {

@@ -1,9 +1,9 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection
 
 import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.sol.math.geometry.Geometry
 
-class HasValidCornerAnglesSpecification(private val minCornerAngleDegrees: Float) : Specification<QuadrilateralSelectionCriteria>() {
+internal class HasValidCornerAnglesSpecification(private val minCornerAngleDegrees: Float) : Specification<QuadrilateralSelectionCriteria>() {
     override fun isSatisfiedBy(value: QuadrilateralSelectionCriteria): Boolean {
         val points = value.quadrilateral.vertices
         return points.indices.all { i ->

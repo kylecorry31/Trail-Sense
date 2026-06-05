@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.calibration
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration
 
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.geometry.Size
@@ -9,12 +9,11 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadat
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-internal class MapRotationCalculatorTest {
+internal class PhotoMapCalibratorTest {
 
     @ParameterizedTest
     @CsvSource(
@@ -79,7 +78,7 @@ internal class MapRotationCalculatorTest {
             MapMetadata(Size(400f, 200f), null, 100, MapProjectionType.Mercator)
         )
 
-        val rotation = MapRotationCalculator().calculate(map).roundPlaces(0) % 360f
+        val rotation = PhotoMapCalibrator().calculateRotation(map).roundPlaces(0) % 360f
 
         assertEquals(expected, rotation, 0.01f)
     }

@@ -1,9 +1,9 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection
 
 import com.kylecorry.luna.specifications.Specification
 import kotlin.math.min
 
-class HasValidEdgeLengthsSpecification(private val minEdgeLengthRatio: Float) :
+internal class HasValidEdgeLengthsSpecification(private val minEdgeLengthRatio: Float) :
     Specification<QuadrilateralSelectionCriteria>() {
     override fun isSatisfiedBy(value: QuadrilateralSelectionCriteria): Boolean {
         val minDimension = min(value.imageWidth, value.imageHeight).toFloat()

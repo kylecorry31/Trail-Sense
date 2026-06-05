@@ -1,9 +1,10 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.scoring
 
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.geometry.Gradients
 import com.kylecorry.sol.math.geometry.Polygon
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.scoring.EdgeMagnitudeQuadrilateralScoringStrategy
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

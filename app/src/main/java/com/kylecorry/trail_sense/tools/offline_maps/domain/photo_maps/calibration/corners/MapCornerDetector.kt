@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners
 
 import android.graphics.Bitmap
 import androidx.core.graphics.scale
@@ -17,22 +17,22 @@ import com.kylecorry.sol.math.geometry.LineCandidate
 import com.kylecorry.sol.math.geometry.Polygon
 import com.kylecorry.trail_sense.shared.andromeda_temp.combinations
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PixelBounds
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.scoring.AggregateQuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.scoring.EdgeMagnitudeQuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.scoring.PerimeterQuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.scoring.QuadrilateralScoringStrategy
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection.HasValidAreaSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection.HasValidCornerAnglesSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection.HasValidEdgeLengthsSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection.IsConvexSpecification
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.corners.selection.QuadrilateralSelectionCriteria
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.GradientCalculator
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.AggregateQuadrilateralScoringStrategy
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.EdgeMagnitudeQuadrilateralScoringStrategy
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.PerimeterQuadrilateralScoringStrategy
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.QuadrilateralScoringStrategy
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.HasValidAreaSpecification
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.HasValidCornerAnglesSpecification
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.HasValidEdgeLengthsSpecification
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.IsConvexSpecification
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.selection.QuadrilateralSelectionCriteria
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
-class MapCornerDetector(
+internal class MapCornerDetector(
     private val maxDimension: Int = 320,
     private val minGradientThreshold: Float = 2.5f,
     private val thetaBins: Int = 128,
@@ -143,7 +143,14 @@ class MapCornerDetector(
         val quadrilaterals = getAllQuadrilaterals(corners)
 
         for (quadrilateral in quadrilaterals) {
-            if (!selectionSpecification.isSatisfiedBy(QuadrilateralSelectionCriteria(quadrilateral, width, height))) {
+            if (!selectionSpecification.isSatisfiedBy(
+                    QuadrilateralSelectionCriteria(
+                        quadrilateral,
+                        width,
+                        height
+                    )
+                )
+            ) {
                 continue
             }
 
@@ -242,19 +249,19 @@ class MapCornerDetector(
 
     private fun PixelBounds.scaleBounds(xScale: Float, yScale: Float): PixelBounds {
         return PixelBounds(
-            com.kylecorry.andromeda.core.units.PixelCoordinate(
+            PixelCoordinate(
                 topLeft.x * xScale,
                 topLeft.y * yScale
             ),
-            com.kylecorry.andromeda.core.units.PixelCoordinate(
+            PixelCoordinate(
                 topRight.x * xScale,
                 topRight.y * yScale
             ),
-            com.kylecorry.andromeda.core.units.PixelCoordinate(
+            PixelCoordinate(
                 bottomLeft.x * xScale,
                 bottomLeft.y * yScale
             ),
-            com.kylecorry.andromeda.core.units.PixelCoordinate(
+            PixelCoordinate(
                 bottomRight.x * xScale,
                 bottomRight.y * yScale
             )
