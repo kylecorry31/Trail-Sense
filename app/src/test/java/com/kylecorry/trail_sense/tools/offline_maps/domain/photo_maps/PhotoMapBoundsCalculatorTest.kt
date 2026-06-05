@@ -40,7 +40,7 @@ internal class PhotoMapBoundsCalculatorTest {
     @Test
     fun usesPdfSize() {
         val map = map(
-            metadata = MapMetadata(
+            metadata = PhotoMapMetadata(
                 size = Size(200f, 400f),
                 unscaledPdfSize = null,
                 fileSize = 0,
@@ -79,7 +79,7 @@ internal class PhotoMapBoundsCalculatorTest {
     private fun map(
         rotation: Float = 0f,
         calibrationPoints: List<MapCalibrationPoint> = defaultCalibrationPoints,
-        metadata: MapMetadata = MapMetadata(
+        metadata: PhotoMapMetadata = PhotoMapMetadata(
             size = Size(100f, 200f),
             unscaledPdfSize = null,
             fileSize = 0,
@@ -91,13 +91,12 @@ internal class PhotoMapBoundsCalculatorTest {
             id = 0,
             name = "",
             filename = "",
-            calibration = MapCalibration(
-                warped = false,
-                rotated = rotation != 0f,
+            metadata = metadata.copy(
+                isWarped = false,
+                isRotated = rotation != 0f,
                 rotation = rotation,
                 calibrationPoints = calibrationPoints
             ),
-            metadata = metadata,
             isFullWorld = isFullWorld
         )
     }

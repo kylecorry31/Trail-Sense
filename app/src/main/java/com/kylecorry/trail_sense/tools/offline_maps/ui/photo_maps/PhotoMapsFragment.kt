@@ -271,7 +271,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         this.map = map
         binding.mapTitle.title.text = map.name
         when {
-            !map.calibration.warped -> warp()
+            !map.metadata.isWarped -> warp()
             !map.isCalibrated -> calibrate()
             else -> view()
         }
@@ -300,15 +300,15 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         if (!updatedMap.isCalibrated) return
         val newRotation = MapRotationCalculator().calculate(updatedMap)
 
-        val delta = Trigonometry.deltaAngle(newRotation, updatedMap.calibration.rotation).absoluteValue
+        val delta = Trigonometry.deltaAngle(newRotation, updatedMap.metadata.rotation).absoluteValue
         if (delta > 1f) {
             toast(getString(R.string.map_auto_rotated))
         }
 
         map = updatedMap.copy(
-            calibration = updatedMap.calibration.copy(
+            metadata = updatedMap.metadata.copy(
                 rotation = newRotation,
-                rotated = true
+                isRotated = true
             )
         )
 

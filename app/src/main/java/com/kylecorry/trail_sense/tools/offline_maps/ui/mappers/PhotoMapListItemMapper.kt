@@ -123,7 +123,7 @@ class PhotoMapListItemMapper(
         }
 
         val rotation = if (prefs.photoMaps.keepMapFacingUp) map.baseRotation()
-            .toFloat() else map.calibration.rotation
+            .toFloat() else map.metadata.rotation
 
         if (rotation != 0f) {
             val rotated = bitmap.rotate(rotation)

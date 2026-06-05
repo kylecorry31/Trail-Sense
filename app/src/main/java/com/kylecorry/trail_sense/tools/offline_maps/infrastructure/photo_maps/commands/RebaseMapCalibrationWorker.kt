@@ -17,14 +17,14 @@ class RebaseMapCalibrationWorker(
         try {
             val maps = service.getAllPhotoMaps()
             maps.forEach {
-                if (it.calibration.calibrationPoints.isEmpty()) {
+                if (it.metadata.calibrationPoints.isEmpty()) {
                     return@forEach
                 }
                 // Convert all calibration points to rotation 0
-                val points = it.calibration.calibrationPoints.map { point ->
+                val points = it.metadata.calibrationPoints.map { point ->
                     point.copy(imageLocation = point.imageLocation.rotate(-it.baseRotation()))
                 }
-                service.add(it.copy(calibration = it.calibration.copy(calibrationPoints = points)))
+                service.add(it.copy(metadata = it.metadata.copy(calibrationPoints = points)))
             }
         } catch (e: Exception) {
             // Could not migrate

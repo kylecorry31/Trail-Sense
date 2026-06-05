@@ -48,10 +48,10 @@ class MapService private constructor(private val repo: MapRepo) {
         val recalculatedRotation = if (newMap.isCalibrated) {
             MapRotationCalculator().calculate(newMap)
         } else {
-            newMap.calibration.rotation
+            newMap.metadata.rotation
         }
         val updatedMap = newMap.copy(
-            calibration = newMap.calibration.copy(rotation = recalculatedRotation)
+            metadata = newMap.metadata.copy(rotation = recalculatedRotation)
         )
         repo.add(updatedMap)
         return updatedMap

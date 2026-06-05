@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.calibration
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -75,8 +74,14 @@ internal class MapRotationCalculatorTest {
             1,
             "",
             "",
-            MapCalibration(true, false, 0f, calibrationPoints),
-            MapMetadata(Size(400f, 200f), null, 100, MapProjectionType.Mercator)
+            PhotoMapMetadata(
+                Size(400f, 200f),
+                null,
+                100,
+                MapProjectionType.Mercator,
+                isWarped = true,
+                calibrationPoints = calibrationPoints
+            )
         )
 
         val rotation = MapRotationCalculator().calculate(map).roundPlaces(0) % 360f

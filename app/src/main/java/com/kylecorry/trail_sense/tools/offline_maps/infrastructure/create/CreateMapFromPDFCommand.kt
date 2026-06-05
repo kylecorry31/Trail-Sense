@@ -12,9 +12,8 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -94,17 +93,14 @@ class CreateMapFromPDFCommand(
             0,
             name,
             filename,
-            MapCalibration(
-                calibrationPoints.isNotEmpty(),
-                calibrationPoints.isNotEmpty(),
-                0f,
-                calibrationPoints
-            ),
-            MapMetadata(
+            PhotoMapMetadata(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
                 fileSize,
-                projection = projection
+                projection = projection,
+                isWarped = calibrationPoints.isNotEmpty(),
+                isRotated = calibrationPoints.isNotEmpty(),
+                calibrationPoints = calibrationPoints
             ),
             createdOn = Instant.now()
         )

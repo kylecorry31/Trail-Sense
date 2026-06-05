@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.selection
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -69,18 +68,16 @@ class ActiveMapSelectorTest {
 
     private fun map(id: Long, size: Size, boundary: CoordinateBounds): PhotoMap {
         return PhotoMap(
-            id, "", "", MapCalibration(
-                true,
-                true,
-                0f,
-                listOf(
-                    MapCalibrationPoint(boundary.northWest, PercentCoordinate(0f, 0f)),
-                    MapCalibrationPoint(boundary.southEast, PercentCoordinate(1f, 1f))
-                ),
-            ), MapMetadata(
+            id, "", "", PhotoMapMetadata(
                 size,
                 null,
-                0
+                0,
+                isWarped = true,
+                isRotated = true,
+                calibrationPoints = listOf(
+                    MapCalibrationPoint(boundary.northWest, PercentCoordinate(0f, 0f)),
+                    MapCalibrationPoint(boundary.southEast, PercentCoordinate(1f, 1f))
+                )
             ), null
         )
     }

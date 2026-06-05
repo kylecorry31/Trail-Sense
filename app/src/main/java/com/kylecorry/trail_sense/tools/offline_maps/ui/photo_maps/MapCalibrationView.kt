@@ -67,7 +67,7 @@ class MapCalibrationView : BasePhotoMapView {
 
     private fun drawCalibrationPoints() {
         var calibrationPoints =
-            (map?.calibration?.calibrationPoints ?: emptyList()).mapIndexed { index, point ->
+            (map?.metadata?.calibrationPoints ?: emptyList()).mapIndexed { index, point ->
                 index to point
             }
 

@@ -140,7 +140,7 @@ class PhotoMapTileSourceSelector(
             containedMaps.add(firstContained)
             containedMaps
         } else if (firstContained != null && Arithmetic.isZero(
-                firstContained.baseRotation() - firstContained.calibration.rotation,
+                firstContained.baseRotation() - firstContained.metadata.rotation,
                 0.5f
             )
         ) {

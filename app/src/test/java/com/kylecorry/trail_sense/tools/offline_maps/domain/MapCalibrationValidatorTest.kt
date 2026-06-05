@@ -2,11 +2,10 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidationResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidator
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapMetadata
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapMetadata
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -20,8 +19,7 @@ internal class MapCalibrationValidatorTest {
             0,
             "",
             "",
-            MapCalibration(true, true, 0f, emptyList()),
-            MapMetadata(Size(1000f, 1000f), null, 0)
+            PhotoMapMetadata(Size(1000f, 1000f), null, 0)
         )
 
         val result = MapCalibrationValidator.validate(map)
@@ -149,16 +147,17 @@ internal class MapCalibrationValidatorTest {
             0,
             "",
             "",
-            MapCalibration(
-                true,
-                true,
-                0f,
-                listOf(
+            PhotoMapMetadata(
+                Size(1000f, 1000f),
+                null,
+                0,
+                isWarped = true,
+                isRotated = true,
+                calibrationPoints = listOf(
                     MapCalibrationPoint(firstLocation, firstImageLocation),
                     MapCalibrationPoint(secondLocation, secondImageLocation)
                 )
-            ),
-            MapMetadata(Size(1000f, 1000f), null, 0)
+            )
         )
     }
 }

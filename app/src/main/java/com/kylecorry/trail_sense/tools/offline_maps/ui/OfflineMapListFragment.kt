@@ -444,7 +444,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                         mapImportingIndicator.hide()
                     }
 
-                    if (map.calibration.calibrationPoints.isNotEmpty()) {
+                    if (map.metadata.calibrationPoints.isNotEmpty()) {
                         toast(getString(R.string.map_auto_calibrated))
                     }
                 }

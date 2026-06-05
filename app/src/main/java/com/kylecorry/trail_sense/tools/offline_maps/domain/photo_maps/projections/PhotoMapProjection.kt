@@ -54,7 +54,7 @@ class PhotoMapProjection(
 
         val angle = Trigonometry.deltaAngle(
             baseRotation.toFloat(),
-            map.calibration.rotation
+            map.metadata.rotation
         )
 
         if (Arithmetic.isZero(angle)) {

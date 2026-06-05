@@ -18,8 +18,7 @@ data class PhotoMap(
     override val id: Long,
     override val name: String,
     val filename: String,
-    val calibration: MapCalibration,
-    val metadata: MapMetadata,
+    val metadata: PhotoMapMetadata,
     override val parentId: Long? = null,
     val visible: Boolean = true,
     val isAsset: Boolean = false,
@@ -63,8 +62,8 @@ data class PhotoMap(
 
         return hooks.memo("distance_per_pixel") {
             projection.distancePerPixel(
-                calibration.calibrationPoints[0].location,
-                calibration.calibrationPoints[1].location
+                metadata.calibrationPoints[0].location,
+                metadata.calibrationPoints[1].location
             )
         }
     }
@@ -73,7 +72,7 @@ data class PhotoMap(
      * The rotation of the image to the nearest 90 degrees
      */
     fun baseRotation(): Int {
-        return calibration.rotation.roundNearestAngle(90f).toInt()
+        return metadata.rotation.roundNearestAngle(90f).toInt()
     }
 
     /**
@@ -81,7 +80,7 @@ data class PhotoMap(
      */
     fun calibratedSize(usePdf: Boolean = true): Size {
         val size = unrotatedSize(usePdf)
-        return size.rotate(calibration.rotation)
+        return size.rotate(metadata.rotation)
     }
 
     /**

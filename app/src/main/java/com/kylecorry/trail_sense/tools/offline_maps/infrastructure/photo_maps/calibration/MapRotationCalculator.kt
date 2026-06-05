@@ -24,13 +24,13 @@ class MapRotationCalculator {
 
 
         // If the map is large, only allow it to be flipped vertically
-        val bounds = CoordinateBounds.from(map.calibration.calibrationPoints.map { it.location })
+        val bounds = CoordinateBounds.from(map.metadata.calibrationPoints.map { it.location })
         val east = bounds.east
         val west = bounds.west
         if ((east - west).absoluteValue > 180) {
             // Min and max are flipped because it is dealing with image coordinates from the top left
-            val top = map.calibration.calibrationPoints.minBy { it.imageLocation.y }.location
-            val bottom = map.calibration.calibrationPoints.maxBy { it.imageLocation.y }.location
+            val top = map.metadata.calibrationPoints.minBy { it.imageLocation.y }.location
+            val bottom = map.metadata.calibrationPoints.maxBy { it.imageLocation.y }.location
 
             if (top.latitude < bottom.latitude) {
                 return 180f
@@ -41,7 +41,7 @@ class MapRotationCalculator {
 
 
         val size = map.metadata.size
-        val pixels = map.calibration.calibrationPoints.map {
+        val pixels = map.metadata.calibrationPoints.map {
             it.imageLocation.toPixels(
                 size.width,
                 size.height
@@ -50,7 +50,7 @@ class MapRotationCalculator {
 
         val baseProjection = MapProjectionFactory().getProjection(map.metadata.projection)
 
-        val projectedPixels = map.calibration.calibrationPoints.map {
+        val projectedPixels = map.metadata.calibrationPoints.map {
             baseProjection.toPixels(it.location)
         }
 
