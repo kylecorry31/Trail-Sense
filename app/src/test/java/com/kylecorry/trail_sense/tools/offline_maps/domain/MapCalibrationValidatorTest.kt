@@ -151,7 +151,7 @@ internal class MapCalibrationValidatorTest {
             0,
             PhotoMapGeoreference(
                 Size(1000f, 1000f),
-                isWarped = true,
+                isWarpingCompleted = true,
                 calibrationPoints = listOf(
                     MapCalibrationPoint(firstLocation, firstImageLocation),
                     MapCalibrationPoint(secondLocation, secondImageLocation)

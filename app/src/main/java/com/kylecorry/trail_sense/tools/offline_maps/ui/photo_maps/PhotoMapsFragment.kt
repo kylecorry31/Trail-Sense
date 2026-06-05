@@ -271,7 +271,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         this.map = map
         binding.mapTitle.title.text = map.name
         when {
-            !map.georeference.isWarped -> warp()
+            !map.georeference.isWarpingCompleted -> warp()
             !map.isCalibrated -> calibrate()
             else -> view()
         }

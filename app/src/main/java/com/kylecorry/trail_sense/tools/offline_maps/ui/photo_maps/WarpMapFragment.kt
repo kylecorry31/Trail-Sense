@@ -152,7 +152,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
                 // Delete the pdf file if it exists
                 files.delete(map.pdfFileName)
             }
-            service.add(map.copy(georeference = map.georeference.copy(isWarped = true)))
+            service.add(map.copy(georeference = map.georeference.copy(isWarpingCompleted = true)))
         }
 
         onMain {

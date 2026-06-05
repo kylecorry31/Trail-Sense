@@ -70,7 +70,7 @@ class ActiveMapSelectorTest {
         return PhotoMap(
             id, "", "", 0, PhotoMapGeoreference(
                 size,
-                isWarped = true,
+                isWarpingCompleted = true,
                 calibrationPoints = listOf(
                     MapCalibrationPoint(boundary.northWest, PercentCoordinate(0f, 0f)),
                     MapCalibrationPoint(boundary.southEast, PercentCoordinate(1f, 1f))

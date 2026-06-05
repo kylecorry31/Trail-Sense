@@ -35,7 +35,7 @@ class BaseMapTileSource : TileSource {
                 PhotoMapGeoreference(
                     Size(3800f, 1900f),
                     projectionType = MapProjectionType.CylindricalEquidistant,
-                    isWarped = true,
+                    isWarpingCompleted = true,
                     calibrationPoints = listOf(
                         MapCalibrationPoint(
                             Coordinate(-90.0, -180.0),

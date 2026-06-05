@@ -89,7 +89,7 @@ internal class PhotoMapBoundsCalculatorTest {
             filename = "",
             fileSizeBytes = 0,
             georeference = metadata.copy(
-                isWarped = false,
+                isWarpingCompleted = false,
                 rotation = rotation,
                 calibrationPoints = calibrationPoints,
                 isFullWorld = isFullWorld

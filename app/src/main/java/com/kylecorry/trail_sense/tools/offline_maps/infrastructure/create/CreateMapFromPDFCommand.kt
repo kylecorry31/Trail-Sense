@@ -98,7 +98,7 @@ class CreateMapFromPDFCommand(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
                 projectionType = projection,
-                isWarped = calibrationPoints.isNotEmpty(),
+                isWarpingCompleted = calibrationPoints.isNotEmpty(),
                 calibrationPoints = calibrationPoints
             ),
             createdOn = Instant.now()

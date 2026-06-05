@@ -58,7 +58,7 @@ internal class PhotoMapRotationServiceTest {
             0,
             PhotoMapGeoreference(
                 Size(100f, 200f),
-                isWarped = true,
+                isWarpingCompleted = true,
                 rotation = rotation,
                 calibrationPoints = listOf(
                     MapCalibrationPoint(
