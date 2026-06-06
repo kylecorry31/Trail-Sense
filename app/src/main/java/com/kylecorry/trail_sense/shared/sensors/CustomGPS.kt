@@ -224,6 +224,17 @@ class CustomGPS(
         _speed =
             Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
+        _horizontalAccuracy = null
+        _verticalAccuracy = null
+        _quality = Quality.Unknown
+        _satellites = null
+        satelliteDetails = null
+        _mslAltitude = null
+        _rawBearing = null
+        _bearing = null
+        _bearingAccuracy = null
+        _speedAccuracy = null
+        fixTimeElapsedNanos = null
     }
 
     @SuppressLint("MissingPermission")
