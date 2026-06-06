@@ -17,6 +17,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -224,6 +225,17 @@ class CustomGPS(
         _speed =
             Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
+        _horizontalAccuracy = cache.getFloat(LAST_HORIZONTAL_ACCURACY)
+        _verticalAccuracy = cache.getFloat(LAST_VERTICAL_ACCURACY)
+        _quality = Quality.Unknown
+        _satellites = null
+        satelliteDetails = null
+        _mslAltitude = null
+        _rawBearing = null
+        _bearing = null
+        _bearingAccuracy = null
+        _speedAccuracy = null
+        fixTimeElapsedNanos = null
     }
 
     @SuppressLint("MissingPermission")
@@ -293,6 +305,18 @@ class CustomGPS(
         cache.putFloat(LAST_SPEED, speed.value)
         cache.putDouble(LAST_LONGITUDE, location.longitude)
         cache.putDouble(LAST_LATITUDE, location.latitude)
+        val currentHorizontalAccuracy = horizontalAccuracy
+        if (currentHorizontalAccuracy != null) {
+            cache.putFloat(LAST_HORIZONTAL_ACCURACY, currentHorizontalAccuracy)
+        } else {
+            cache.remove(LAST_HORIZONTAL_ACCURACY)
+        }
+        val currentVerticalAccuracy = verticalAccuracy
+        if (currentVerticalAccuracy != null) {
+            cache.putFloat(LAST_VERTICAL_ACCURACY, currentVerticalAccuracy)
+        } else {
+            cache.remove(LAST_VERTICAL_ACCURACY)
+        }
     }
 
     private fun onTimeout() {
@@ -330,9 +354,13 @@ class CustomGPS(
             return false
         }
 
-        val accuracyDelta = (baseGPS.horizontalAccuracy ?: 0f) - (horizontalAccuracy ?: 0f)
-        val isMoreAccurate = accuracyDelta < 0
-        val isSignificantlyLessAccurate = accuracyDelta > 30
+        val currentAccuracy = horizontalAccuracy?.takeIf { it > 0f }
+        val newAccuracy = baseGPS.horizontalAccuracy?.takeIf { it > 0f }
+        val accuracyDelta =
+            if (newAccuracy != null && currentAccuracy != null) newAccuracy - currentAccuracy else null
+        val isMoreAccurate =
+            newAccuracy != null && (currentAccuracy == null || newAccuracy < currentAccuracy)
+        val isSignificantlyLessAccurate = accuracyDelta != null && accuracyDelta > 30
 
         if (isMoreAccurate) {
             return true
@@ -347,6 +375,20 @@ class CustomGPS(
         const val LAST_ALTITUDE = "last_altitude"
         const val LAST_SPEED = "last_speed"
         const val LAST_UPDATE = "last_update"
+        const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
+        const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
         private val TIMEOUT_DURATION = Duration.ofSeconds(10)
+
+        fun clearCache() {
+            val cache = getAppService<PreferencesSubsystem>().preferences
+            cache.remove(LAST_ALTITUDE)
+            cache.remove(LAST_UPDATE)
+            cache.remove(LAST_SPEED)
+            cache.remove(LAST_LONGITUDE)
+            cache.remove(LAST_LATITUDE)
+            cache.remove(LAST_HORIZONTAL_ACCURACY)
+            cache.remove(LAST_VERTICAL_ACCURACY)
+        }
+
     }
 }
