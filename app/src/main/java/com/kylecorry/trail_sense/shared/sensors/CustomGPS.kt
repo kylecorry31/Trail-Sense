@@ -17,6 +17,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -224,8 +225,8 @@ class CustomGPS(
         _speed =
             Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
-        _horizontalAccuracy = null
-        _verticalAccuracy = null
+        _horizontalAccuracy = cache.getFloat(LAST_HORIZONTAL_ACCURACY)
+        _verticalAccuracy = cache.getFloat(LAST_VERTICAL_ACCURACY)
         _quality = Quality.Unknown
         _satellites = null
         satelliteDetails = null
@@ -304,6 +305,18 @@ class CustomGPS(
         cache.putFloat(LAST_SPEED, speed.value)
         cache.putDouble(LAST_LONGITUDE, location.longitude)
         cache.putDouble(LAST_LATITUDE, location.latitude)
+        val currentHorizontalAccuracy = horizontalAccuracy
+        if (currentHorizontalAccuracy != null) {
+            cache.putFloat(LAST_HORIZONTAL_ACCURACY, currentHorizontalAccuracy)
+        } else {
+            cache.remove(LAST_HORIZONTAL_ACCURACY)
+        }
+        val currentVerticalAccuracy = verticalAccuracy
+        if (currentVerticalAccuracy != null) {
+            cache.putFloat(LAST_VERTICAL_ACCURACY, currentVerticalAccuracy)
+        } else {
+            cache.remove(LAST_VERTICAL_ACCURACY)
+        }
     }
 
     private fun onTimeout() {
@@ -362,6 +375,20 @@ class CustomGPS(
         const val LAST_ALTITUDE = "last_altitude"
         const val LAST_SPEED = "last_speed"
         const val LAST_UPDATE = "last_update"
+        const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
+        const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
         private val TIMEOUT_DURATION = Duration.ofSeconds(10)
+
+        fun clearCache() {
+            val cache = getAppService<PreferencesSubsystem>().preferences
+            cache.remove(LAST_ALTITUDE)
+            cache.remove(LAST_UPDATE)
+            cache.remove(LAST_SPEED)
+            cache.remove(LAST_LONGITUDE)
+            cache.remove(LAST_LATITUDE)
+            cache.remove(LAST_HORIZONTAL_ACCURACY)
+            cache.remove(LAST_VERTICAL_ACCURACY)
+        }
+
     }
 }

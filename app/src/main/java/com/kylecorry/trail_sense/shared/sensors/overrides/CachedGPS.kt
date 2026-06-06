@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
@@ -38,9 +38,9 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
     override val time: Instant
         get() = Instant.now()
     override val verticalAccuracy: Float?
-        get() = null
+        get() = cache.getFloat(CustomGPS.LAST_VERTICAL_ACCURACY)
     override val horizontalAccuracy: Float?
-        get() = null
+        get() = cache.getFloat(CustomGPS.LAST_HORIZONTAL_ACCURACY)
     override val satellites: Int
         get() = 0
     override val hasValidReading: Boolean
