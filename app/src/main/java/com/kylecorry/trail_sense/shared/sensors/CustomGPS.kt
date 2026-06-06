@@ -341,9 +341,13 @@ class CustomGPS(
             return false
         }
 
-        val accuracyDelta = (baseGPS.horizontalAccuracy ?: 0f) - (horizontalAccuracy ?: 0f)
-        val isMoreAccurate = accuracyDelta < 0
-        val isSignificantlyLessAccurate = accuracyDelta > 30
+        val currentAccuracy = horizontalAccuracy?.takeIf { it > 0f }
+        val newAccuracy = baseGPS.horizontalAccuracy?.takeIf { it > 0f }
+        val accuracyDelta =
+            if (newAccuracy != null && currentAccuracy != null) newAccuracy - currentAccuracy else null
+        val isMoreAccurate =
+            newAccuracy != null && (currentAccuracy == null || newAccuracy < currentAccuracy)
+        val isSignificantlyLessAccurate = accuracyDelta != null && accuracyDelta > 30
 
         if (isMoreAccurate) {
             return true
