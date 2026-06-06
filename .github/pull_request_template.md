@@ -1,7 +1,7 @@
 <!-- You are required to use this template for pull requests. Please fill out the checklist. You can optionally delete the comments. -->
 
 ## Description
-<!-- DESCRIPTION: Describe here what this change does and why. Use this section to cover actions that were taken that may not have an obvious reason why. This will likely become the commit message body. -->
+<!-- DESCRIPTION: Describe here what this change does and why (not how). This will likely become the commit message body. -->
 
 
 <!-- ISSUE: All pull requests must have an associated issue. If you don't have one, please create a post in the Discussions. Fill this out as Issue: #1234 -->
