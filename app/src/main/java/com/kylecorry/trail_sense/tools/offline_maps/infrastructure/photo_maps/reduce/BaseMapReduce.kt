@@ -26,12 +26,14 @@ abstract class BaseMapReduce(
         // Remove the PDF
         files.delete(map.pdfFileName)
 
+        var updatedMap = map
         if (!map.filename.endsWith(".webp")) {
             val newFileName = "maps/" + UUID.randomUUID().toString() + ".webp"
             if (files.rename(map.filename, newFileName)) {
-                service.add(map.copy(filename = newFileName))
+                updatedMap = map.copy(filename = newFileName)
             }
         }
+        service.add(updatedMap)
     }
 
 }
