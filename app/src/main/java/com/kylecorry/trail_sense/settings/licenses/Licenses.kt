@@ -66,7 +66,7 @@ object Licenses {
                 "Coool",
                 "TamilNeram",
                 "s3n-w6i",
-                "PineappleSnackz",
+                "Skivad-ananas",
                 "tacostea",
                 "Portagoras",
                 "AsmodeumX",
