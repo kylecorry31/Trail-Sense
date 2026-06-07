@@ -22,10 +22,12 @@ Once a map is imported, the original file can be deleted if you want to save spa
 
 If a map is imported from an image or non-geospatial PDF, Trail Sense will open the calibration screen.
 
+Trail Sense supports Mapsforge maps v3, v4, and v5.
+
 ## Calibrating photo maps
 To calibrate a photo map:
 
-1. Crop the photo to match the map's boundaries by dragging the crop box's corners to the map edges. You can click 'Preview' to visualize the cropped map. Changes to the crop cannot be made after clicking 'Next'.
+1. Crop the photo to match the map's boundaries. Trail Sense will try to automatically detect the map in the image, but you can drag the crop box's corners to the map edges if needed. You can click 'Reset' to start the crop over and 'Preview' to visualize the cropped map. Changes to the crop cannot be made after clicking 'Next'.
 2. Calibrate the map using two known locations:
     - Input the real-world location in the provided field, such as a trail sign, trailhead, or point of interest.
     - Tap on the map to select where the location is.
