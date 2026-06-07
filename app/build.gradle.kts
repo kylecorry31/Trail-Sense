@@ -29,12 +29,12 @@ android {
                 keyPassword = System.getProperty("nightly_key_password")
             }
         }
-        create("dev") {
-            if (System.getProperty("dev_store_file") != null) {
-                storeFile = file(System.getProperty("dev_store_file"))
-                storePassword = System.getProperty("dev_store_password")
-                keyAlias = System.getProperty("dev_key_alias")
-                keyPassword = System.getProperty("dev_key_password")
+        create("github") {
+            if (System.getProperty("github_store_file") != null) {
+                storeFile = file(System.getProperty("github_store_file"))
+                storePassword = System.getProperty("github_store_password")
+                keyAlias = System.getProperty("github_key_alias")
+                keyPassword = System.getProperty("github_key_password")
             }
         }
     }
@@ -65,7 +65,7 @@ android {
         // GitHub
         create("github") {
             initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("dev")
+            signingConfig = signingConfigs.getByName("github")
         }
 
         // ------- DEVELOPMENT -------

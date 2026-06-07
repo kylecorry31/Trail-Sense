@@ -10,7 +10,7 @@ body:
     id: download_source
     attributes:
       label: Where did you download the app from?
-      description: Play Store, F-Droid, GitHub - Release, GitHub - Dev, GitHub - Nightly, etc.
+      description: Play Store, F-Droid, GitHub - Release, GitHub - Nightly, etc.
       placeholder: e.g., Play Store
     validations:
       required: true

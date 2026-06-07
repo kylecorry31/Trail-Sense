@@ -29,7 +29,7 @@ jobs:
         run: |
           echo ${DEV_STORE_FILE} | base64 -d > KEY_DEV.jks
           DEV_KEY_ALIAS=$(echo -n $DEV_KEY_ALIAS | base64 -d)
-          ./gradlew assembleGithub -Ddev_store_file=../KEY_DEV.jks -Ddev_store_password="${DEV_STORE_PASSWORD}" -Ddev_key_alias="${DEV_KEY_ALIAS}" -Ddev_key_password="${DEV_STORE_PASSWORD}"
+          ./gradlew assembleGithub -Dgithub_store_file=../KEY_DEV.jks -Dgithub_store_password="${DEV_STORE_PASSWORD}" -Dgithub_key_alias="${DEV_KEY_ALIAS}" -Dgithub_key_password="${DEV_STORE_PASSWORD}"
         env:
           DEV_STORE_PASSWORD: ${{ secrets.DEV_STORE_PASSWORD }}
           DEV_KEY_ALIAS: ${{ secrets.DEV_KEY_ALIAS }}

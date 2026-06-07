@@ -79,7 +79,7 @@ class BackupService(
         // Close the DB before restoring
         AppDatabase.close()
 
-        // Remove the shared prefs directory (this is to support switching between nightly, dev, and regular builds)
+        // Remove the shared prefs directory (this is to support switching between build variants)
         AppData.getSharedPrefsDirectory(context).deleteRecursively()
 
         // Unzip the files to the root directory (this will overwrite existing files)
@@ -119,7 +119,7 @@ class BackupService(
             return@onIO
         }
 
-        // Rename it to match the current package name (allows switching between nightly, dev, and regular builds)
+        // Rename it to match the current package name (allows switching between build variants)
         val target = File(sharedPrefsDir, "${context.packageName}_preferences.xml")
         if (prefsFile.absolutePath == target.absolutePath) {
             return@onIO
