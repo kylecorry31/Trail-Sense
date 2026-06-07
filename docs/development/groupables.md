@@ -1,6 +1,4 @@
 # Groupable items
-There's an agent skill for this at `.agents/skills/trail-sense-groupable-support` with more details.
-
 Steps to make an item groupable
 1. Create interface for the item, implementing IGroupable
 2. Create a group class for the item, implementing the same interface as the item 
