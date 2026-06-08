@@ -1,22 +1,17 @@
 package com.kylecorry.trail_sense.tools.pedometer.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.asLiveData
-import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.luna.topics.generic.getOrNull
 import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.sol.time.Time.toZonedDateTime
-import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolPedometerBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -24,9 +19,14 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.ZERO_SPEED
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.views.DataPointView
+import com.kylecorry.trail_sense.shared.views.PlayBarView
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
@@ -34,153 +34,175 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import java.time.LocalDate
 
-class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
+class FragmentToolPedometer : TrailSenseReactiveFragment(R.layout.fragment_tool_pedometer, 500L) {
 
-    private val pedometer by lazy { PedometerSubsystem.getInstance(requireContext()) }
-    private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(requireContext()).preferences) }
-    private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
-    private val averageSpeedometer by lazy {
-        AveragePaceSpeedometer(counter, paceCalculator)
-    }
-    private val instantSpeedometer by lazy {
-        CurrentPaceSpeedometer(Pedometer(requireContext()), paceCalculator)
-    }
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
+    override fun update() {
+        // Views
+        val resetButtonView = useView<Button>(R.id.reset_btn)
+        val playBarView = useView<PlayBarView>(R.id.pedometer_play_bar)
+        val titleView = useView<Toolbar>(R.id.pedometer_title)
+        val stepsView = useView<DataPointView>(R.id.pedometer_steps)
+        val speedView = useView<DataPointView>(R.id.pedometer_speed)
+        val averageSpeedView = useView<DataPointView>(R.id.pedometer_average_speed)
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolPedometerBinding {
-        return FragmentToolPedometerBinding.inflate(layoutInflater, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.resetBtn.setOnClickListener {
-            Alerts.dialog(requireContext(), getString(R.string.reset_distance_title)) {
-                if (!it) {
-                    counter.reset()
-                }
-            }
+        // Services
+        val context = useAndroidContext()
+        val pedometer = useService<PedometerSubsystem>()
+        val prefs = useService<UserPreferences>()
+        val formatter = useService<FormatService>()
+        val counter = useMemo(context) {
+            StepCounter(PreferencesSubsystem.getInstance(context).preferences)
+        }
+        val paceCalculator = useMemo(prefs.pedometer.strideLength) {
+            StrideLengthPaceCalculator(prefs.pedometer.strideLength)
+        }
+        val averageSpeedometer = useMemo(counter, paceCalculator) {
+            AveragePaceSpeedometer(counter, paceCalculator)
+        }
+        val instantSpeedometer = useMemo(context, paceCalculator) {
+            CurrentPaceSpeedometer(Pedometer(context), paceCalculator)
         }
 
-        binding.pedometerPlayBar.setOnPlayButtonClickListener {
-            when (pedometer.state.getOrNull()) {
-                FeatureState.On -> pedometer.disable()
-                FeatureState.Off -> startStepCounter()
-                else -> {
-                    if (pedometer.isDisabledDueToPermissions()) {
-                        startStepCounter()
-                    }
-                }
-            }
-        }
-
-        binding.pedometerTitle.rightButton.setOnClickListener {
-            val alertDistance = prefs.pedometer.alertDistance
-            if (alertDistance == null) {
-                val units = formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
-                CustomUiUtils.pickDistance(
-                    requireContext(),
-                    units,
-                    title = getString(R.string.distance_alert),
-                ) { distance, _ ->
-                    if (distance != null) {
-                        prefs.pedometer.alertDistance = distance
-                    }
-                }
-            } else {
-                val distance =
-                    alertDistance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-                Alerts.dialog(
-                    requireContext(),
-                    getString(R.string.distance_alert),
-                    getString(
-                        R.string.remove_distance_alert, formatService.formatDistance(
-                            distance,
-                            Units.getDecimalPlaces(distance.units),
-                            false
-                        )
-                    )
-                ) {
-                    if (!it) {
-                        prefs.pedometer.alertDistance = null
-                    }
-                }
-            }
-        }
-
-        observe(averageSpeedometer) { onUpdate() }
-
-        observe(instantSpeedometer) { onUpdate() }
-
-        pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
-
-        // TODO: Use pedometer subsystem topics
-        scheduleUpdates(500L)
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-        val distance = getDistance(counter.steps)
-        val lastReset = counter.startTime?.toZonedDateTime()
-
-        binding.pedometerTitle.rightButton.isChecked = prefs.pedometer.alertDistance != null
-
-        if (lastReset != null) {
-            val dateString = if (lastReset.toLocalDate() == LocalDate.now()) {
-                formatService.formatTime(lastReset.toLocalTime(), false)
-            } else {
-                formatService.formatRelativeDate(lastReset.toLocalDate())
-            }
-            binding.pedometerTitle.subtitle.text = getString(R.string.since_time, dateString)
-        }
-
-        binding.pedometerSteps.title = DecimalFormatter.format(counter.steps, 0)
-
-        binding.pedometerTitle.subtitle.isVisible = lastReset != null
-
-        binding.pedometerTitle.title.text = formatService.formatDistance(
-            distance,
-            Units.getDecimalPlaces(distance.units),
-            false
-        )
-
-        updateAverageSpeed()
-        updateCurrentSpeed()
-    }
-
-    private fun updateStatusBar() {
-        binding.pedometerPlayBar.setState(
+        // State
+        val stepsTopic = useMemo(pedometer) { pedometer.steps.replay() }
+        val stateTopic = useMemo(pedometer) { pedometer.state.replay() }
+        val steps = useTopic(stepsTopic, counter.steps) { it }
+        val state = useTopic(
+            stateTopic,
             pedometer.state.getOrNull() ?: FeatureState.Off
-        )
-    }
+        ) { it }
+        val averageSpeed = useTopic(averageSpeedometer, SpeedReading()) {
+            SpeedReading(averageSpeedometer.speed, averageSpeedometer.hasValidReading)
+        }
+        val currentSpeed = useTopic(instantSpeedometer, SpeedReading()) {
+            SpeedReading(instantSpeedometer.speed, instantSpeedometer.hasValidReading)
+        }
+        val distance = useMemo(steps, paceCalculator, prefs) {
+            val distance = paceCalculator.distance(steps)
+            distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        }
+        val lastReset = counter.startTime?.toZonedDateTime()
+        val hasAlertDistance = prefs.pedometer.alertDistance != null
 
-    private fun updateAverageSpeed() {
-        val speed = averageSpeedometer.speed
-        binding.pedometerAverageSpeed.title = if (averageSpeedometer.hasValidReading) {
-            formatService.formatSpeed(speed.value)
-        } else {
-            getString(R.string.dash)
+        // Effects
+        useEffect(resetButtonView, counter, context) {
+            resetButtonView.setOnClickListener {
+                Alerts.dialog(context, getString(R.string.reset_distance_title)) {
+                    if (!it) {
+                        counter.reset()
+                    }
+                }
+            }
+        }
+
+        useEffect(playBarView, state, pedometer) {
+            playBarView.setOnPlayButtonClickListener {
+                when (pedometer.state.getOrNull()) {
+                    FeatureState.On -> pedometer.disable()
+                    FeatureState.Off -> startStepCounter(pedometer)
+                    else -> {
+                        if (pedometer.isDisabledDueToPermissions()) {
+                            startStepCounter(pedometer)
+                        }
+                    }
+                }
+            }
+        }
+
+        useEffect(titleView, prefs, formatter, hasAlertDistance) {
+            titleView.rightButton.setOnClickListener {
+                showAlertDistanceDialog(prefs, formatter)
+            }
+        }
+
+        useEffect(titleView, hasAlertDistance) {
+            titleView.rightButton.isChecked = hasAlertDistance
+        }
+
+        useEffect(playBarView, state) {
+            playBarView.setState(state)
+        }
+
+        useEffect(titleView, lastReset) {
+            if (lastReset != null) {
+                val dateString = if (lastReset.toLocalDate() == LocalDate.now()) {
+                    formatter.formatTime(lastReset.toLocalTime(), false)
+                } else {
+                    formatter.formatRelativeDate(lastReset.toLocalDate())
+                }
+                titleView.subtitle.text = getString(R.string.since_time, dateString)
+            }
+
+            titleView.subtitle.isVisible = lastReset != null
+        }
+
+        useEffect(stepsView, steps) {
+            stepsView.title = DecimalFormatter.format(steps, 0)
+        }
+
+        useEffect(titleView, distance) {
+            titleView.title.text = formatter.formatDistance(
+                distance,
+                Units.getDecimalPlaces(distance.units),
+                false
+            )
+        }
+
+        useEffect(averageSpeedView, averageSpeed) {
+            averageSpeedView.title = if (averageSpeed.hasValidReading) {
+                formatter.formatSpeed(averageSpeed.speed.value)
+            } else {
+                getString(R.string.dash)
+            }
+        }
+
+        useEffect(speedView, currentSpeed) {
+            speedView.title = if (currentSpeed.hasValidReading) {
+                formatter.formatSpeed(currentSpeed.speed.value)
+            } else {
+                getString(R.string.dash)
+            }
         }
     }
 
-    private fun updateCurrentSpeed() {
-        val speed = instantSpeedometer.speed
-        binding.pedometerSpeed.title = if (averageSpeedometer.hasValidReading) {
-            formatService.formatSpeed(speed.value)
+    private fun showAlertDistanceDialog(
+        prefs: UserPreferences,
+        formatService: FormatService
+    ) {
+        val alertDistance = prefs.pedometer.alertDistance
+        if (alertDistance == null) {
+            val units = formatService.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
+            CustomUiUtils.pickDistance(
+                requireContext(),
+                units,
+                title = getString(R.string.distance_alert),
+            ) { distance, _ ->
+                if (distance != null) {
+                    prefs.pedometer.alertDistance = distance
+                }
+            }
         } else {
-            getString(R.string.dash)
+            val distance =
+                alertDistance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            Alerts.dialog(
+                requireContext(),
+                getString(R.string.distance_alert),
+                getString(
+                    R.string.remove_distance_alert, formatService.formatDistance(
+                        distance,
+                        Units.getDecimalPlaces(distance.units),
+                        false
+                    )
+                )
+            ) {
+                if (!it) {
+                    prefs.pedometer.alertDistance = null
+                }
+            }
         }
     }
 
-    private fun getDistance(steps: Long): Distance {
-        val distance = paceCalculator.distance(steps)
-        return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-    }
-
-    private fun startStepCounter() {
+    private fun startStepCounter(pedometer: PedometerSubsystem) {
         requestActivityRecognition { hasPermission ->
             if (hasPermission) {
                 pedometer.enable()
@@ -190,5 +212,10 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             }
         }
     }
+
+    private data class SpeedReading(
+        val speed: Speed = ZERO_SPEED,
+        val hasValidReading: Boolean = false
+    )
 
 }
