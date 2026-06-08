@@ -19,6 +19,7 @@ class ConfigurableGeoJsonLayer(
     fun setData(data: GeoJsonObject) {
         source.data = data
         invalidate()
+        notifyListeners()
     }
 
     fun setOnClickListener(listener: (GeoJsonFeature) -> Boolean) {

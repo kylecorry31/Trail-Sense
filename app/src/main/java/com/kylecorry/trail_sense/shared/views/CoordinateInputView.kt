@@ -7,17 +7,19 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import com.google.android.material.button.MaterialButton
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.maps.picker.MapLocationPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
@@ -67,6 +69,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     private var beaconListener: ((beacon: Beacon) -> Unit)? = null
     private var autofillListener: (() -> Unit)? = null
 
+    private val mapPicker = MapLocationPicker()
     private lateinit var locationEdit: EditText
     private lateinit var locationEditHolder: TextInputLayout
     private lateinit var gpsBtn: MaterialButton
@@ -100,12 +103,15 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
             }
 
             gpsBtn.setOnClickListener {
+                val owner = findViewTreeLifecycleOwner()
+
                 Pickers.item(
                     context,
                     getContext().getString(R.string.autofill_source),
-                    listOf(
+                    listOfNotNull(
                         getContext().getString(R.string.gps),
-                        getContext().getString(R.string.beacon)
+                        getContext().getString(R.string.beacon),
+                        if (owner != null) context.getString(R.string.map) else null
                     ),
                     0
                 ) {
@@ -124,6 +130,22 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                                 coordinate = beacon.coordinate
                                 beaconListener?.invoke(beacon)
                             }
+                        }
+
+                        2 -> {
+                            if (owner == null) return@item
+                            mapPicker.pickLocation(
+                                context,
+                                owner,
+                                coordinate ?: gps.location,
+                                userLocation = gps.location,
+                                onLocationPicked = { newLocation ->
+                                    if (newLocation != null) {
+                                        coordinate = newLocation
+                                        onChange()
+                                    }
+                                }
+                            )
                         }
                     }
                 }
