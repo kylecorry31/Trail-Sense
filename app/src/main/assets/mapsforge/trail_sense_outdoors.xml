@@ -210,7 +210,7 @@
     <rule
         e="way"
         k="highway"
-        v="path|footway|bridleway"
+        v="path|bridleway"
         zoom-min="12"
     >
         <line
@@ -221,10 +221,25 @@
         />
     </rule>
 
+    <!-- Sidewalks / Steps -->
+    <rule
+        e="way"
+        k="highway"
+        v="footway"
+        zoom-min="12"
+    >
+        <line
+            stroke="#73592E"
+            stroke-width="0.4"
+            stroke-dasharray="1,1"
+            scale="all"
+        />
+    </rule>
+
     <rule e="way" k="highway" v="steps" zoom-min="15">
         <line
-            stroke="#6B3F1D"
-            stroke-width="0.7"
+            stroke="#73592E"
+            stroke-width="0.4"
             stroke-dasharray="1,1"
             scale="all"
         />
