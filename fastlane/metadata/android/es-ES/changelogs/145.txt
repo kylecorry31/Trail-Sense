@@ -1,0 +1,24 @@
+Mapas Offline
+- Mapas Calibrados es ahora Mapas Offline
+- Soporte para archivos vectoriales (Mapsforge)
+- Capa de mapas vectoriales
+- Prevenir calibraciones de mapa no válidas
+
+Realidad aumentada
+- Objetivos de orientación astronómica
+- Cambiar la hora
+
+Estimación de temperatura
+- Sensación térmica e índice de calor
+
+Herramientas
+- Mejor búsqueda de herramientas
+
+Reloj
+- Mostrar la fuente del reloj
+
+Varios
+- Mejoras en la IU
+- Soporte Android 17
+- Color dinámico por defecto
+- Corrección errores
