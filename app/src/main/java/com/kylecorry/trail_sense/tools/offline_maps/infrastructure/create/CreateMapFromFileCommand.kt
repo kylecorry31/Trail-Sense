@@ -12,7 +12,10 @@ class CreateMapFromFileCommand(
     private val loadingIndicator: ILoadingIndicator
 ) : ICreateMapCommand {
     override suspend fun execute(): IMap? = onIO {
-        val uri = uriPicker.open(listOf("image/*", "application/pdf", "application/octet-stream")) ?: return@onIO null
+        val uri = uriPicker.open(
+            listOf("image/*", "application/pdf", "application/octet-stream"),
+            requirePersistentAccess = true
+        ) ?: return@onIO null
         CreateMapFromUriCommand(context, uri, loadingIndicator).execute()
     }
 }

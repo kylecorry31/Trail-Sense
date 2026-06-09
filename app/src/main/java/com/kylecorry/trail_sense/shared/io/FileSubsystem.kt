@@ -2,16 +2,20 @@ package com.kylecorry.trail_sense.shared.io
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.ParcelFileDescriptor
 import android.util.Size
 import android.webkit.MimeTypeMap
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.andromeda.files.ExternalFileSystem
 import com.kylecorry.andromeda.files.FileSaver
@@ -19,6 +23,7 @@ import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.trail_sense.shared.debugging.ifDebug
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.ImageSaver
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
@@ -145,7 +150,54 @@ class FileSubsystem private constructor(private val context: Context) {
     }
 
     fun size(path: String): Long {
-        return tryOrDefault(0L) { get(path).length() }
+        return tryOrDefault(0L) {
+            if (isExternal(path)) {
+                context.contentResolver.openFileDescriptor(path.toUri(), "r")
+                    ?.use { it.statSize } ?: 0L
+            } else {
+                get(path).length()
+            }
+        }
+    }
+
+    fun isExternal(path: String): Boolean {
+        return path.startsWith(SCHEME_CONTENT)
+    }
+
+    fun canRead(path: String): Boolean {
+        return if (isExternal(path)) {
+            canRead(path.toUri())
+        } else {
+            get(path).isFile
+        }
+    }
+
+    /**
+     * Opens a file input stream for either a local path or an external content URI
+     */
+    suspend fun fileInputStream(path: String): FileInputStream? = onIO {
+        tryOrDefault(null) {
+            if (isExternal(path)) {
+                context.contentResolver.openFileDescriptor(path.toUri(), "r")?.let {
+                    ParcelFileDescriptor.AutoCloseInputStream(it)
+                }
+            } else {
+                FileInputStream(get(path))
+            }
+        }
+    }
+
+    fun acceptPersistentAccess(uri: Uri) {
+        Intents.acceptPersistentUri(context, uri, takeRead = true, takeWrite = false)
+    }
+
+    fun releasePersistentAccess(uri: Uri) {
+        tryOrNothing {
+            context.contentResolver.releasePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
+        }
     }
 
     fun uri(path: String, create: Boolean = false): Uri {
@@ -222,6 +274,8 @@ class FileSubsystem private constructor(private val context: Context) {
     }
 
     companion object {
+        const val SCHEME_CONTENT = "content://"
+
         private const val TEMP_DIR = "tmp"
 
         @SuppressLint("StaticFieldLeak")

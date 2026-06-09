@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution
 
-import java.io.File
-
 interface OfflineMapAttributionExtractor {
-    suspend fun getAttribution(file: File): String?
+    suspend fun getAttribution(path: String): String?
 }

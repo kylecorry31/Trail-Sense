@@ -25,7 +25,6 @@ class VectorMapListItemMapper(
     private val formatter = getAppService<FormatService>()
 
     override fun map(value: VectorMap): ListItem {
-        val onMap = value.bounds?.contains(gps.location) ?: false
         return ListItem(
             value.id + 10000,
             value.name,
@@ -35,22 +34,7 @@ class VectorMapListItemMapper(
                 formatter.formatFileSize(value.sizeBytes),
                 separator = FormatService.Separator.Dot
             ),
-            tags = listOfNotNull(
-                if (onMap) {
-                    ListItemTag(
-                        context.getString(R.string.on_map),
-                        null,
-                        Resources.getPrimaryColor(context)
-                    )
-                } else {
-                    null
-                },
-                ListItemTag(
-                    context.getString(R.string.map_type_trail),
-                    null,
-                    Resources.androidTextColorSecondary(context)
-                )
-            ),
+            tags = getTags(value),
             trailingIcon = ResourceListIcon(
                 if (value.visible) {
                     R.drawable.ic_visible
@@ -62,22 +46,71 @@ class VectorMapListItemMapper(
                     actionHandler(value, VectorMapAction.ToggleVisibility)
                 }
             ),
-            menu = listOfNotNull(
-                ListMenuItem(context.getString(R.string.rename)) {
-                    actionHandler(value, VectorMapAction.Rename)
-                },
-                ListMenuItem(context.getString(R.string.attribution)) {
-                    actionHandler(value, VectorMapAction.EditAttribution)
-                },
-                ListMenuItem(context.getString(R.string.move_to)) {
-                    actionHandler(value, VectorMapAction.Move)
-                },
-                ListMenuItem(context.getString(R.string.delete)) {
-                    actionHandler(value, VectorMapAction.Delete)
-                },
-            )
+            menu = getMenu(value)
         ) {
             actionHandler(value, VectorMapAction.View)
         }
+    }
+
+    private fun getTags(value: VectorMap): List<ListItemTag> {
+        val onMap = value.bounds?.contains(gps.location) ?: false
+        return listOfNotNull(
+            if (onMap) {
+                ListItemTag(
+                    context.getString(R.string.on_map),
+                    null,
+                    Resources.getPrimaryColor(context)
+                )
+            } else {
+                null
+            },
+            ListItemTag(
+                context.getString(R.string.map_type_trail),
+                null,
+                Resources.androidTextColorSecondary(context)
+            ),
+            if (value.isExternal) {
+                ListItemTag(
+                    context.getString(R.string.map_external),
+                    null,
+                    Resources.androidTextColorSecondary(context)
+                )
+            } else {
+                null
+            },
+            if (!value.isAvailable) {
+                ListItemTag(
+                    context.getString(R.string.map_file_missing),
+                    null,
+                    AppColor.Red.color
+                )
+            } else {
+                null
+            }
+        )
+    }
+
+    private fun getMenu(value: VectorMap): List<ListMenuItem> {
+        return listOfNotNull(
+            ListMenuItem(context.getString(R.string.rename)) {
+                actionHandler(value, VectorMapAction.Rename)
+            },
+            ListMenuItem(context.getString(R.string.attribution)) {
+                actionHandler(value, VectorMapAction.EditAttribution)
+            },
+            ListMenuItem(context.getString(R.string.move_to)) {
+                actionHandler(value, VectorMapAction.Move)
+            },
+            if (value.isExternal && value.isAvailable) {
+                ListMenuItem(context.getString(R.string.copy_to_trail_sense)) {
+                    actionHandler(value, VectorMapAction.CopyToAppStorage)
+                }
+            } else {
+                null
+            },
+            ListMenuItem(context.getString(R.string.delete)) {
+                actionHandler(value, VectorMapAction.Delete)
+            },
+        )
     }
 }

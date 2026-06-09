@@ -84,6 +84,10 @@ class MapService private constructor(private val repo: MapRepo) {
         return repo.getVectorMap(id)
     }
 
+    suspend fun copyToAppStorage(map: VectorMap): VectorMap? {
+        return repo.copyToAppStorage(map)
+    }
+
     suspend fun getPhotoMap(id: Long): PhotoMap? {
         return repo.getPhotoMap(id)
     }

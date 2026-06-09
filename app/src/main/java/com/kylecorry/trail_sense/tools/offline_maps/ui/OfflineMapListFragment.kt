@@ -276,6 +276,19 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             VectorMapAction.Delete -> delete(map)
             VectorMapAction.Move -> move(map)
             VectorMapAction.ToggleVisibility -> toggleVisibility(map)
+            VectorMapAction.CopyToAppStorage -> copyToAppStorage(map)
+        }
+    }
+
+    private fun copyToAppStorage(map: VectorMap) {
+        inBackground {
+            mapImportingIndicator.show()
+            try {
+                mapService.copyToAppStorage(map)
+            } finally {
+                mapImportingIndicator.hide()
+            }
+            manager.refresh()
         }
     }
 

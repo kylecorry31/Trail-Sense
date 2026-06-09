@@ -6,5 +6,6 @@ enum class VectorMapAction {
     EditAttribution,
     Delete,
     Move,
-    ToggleVisibility
+    ToggleVisibility,
+    CopyToAppStorage
 }

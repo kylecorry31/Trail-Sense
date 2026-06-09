@@ -1,13 +1,12 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution
 
 import com.kylecorry.andromeda.core.tryOrDefault
-import org.mapsforge.map.reader.MapFile
-import java.io.File
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.VectorMapFiles
 
 class MapsforgeOfflineMapAttributionExtractor : OfflineMapAttributionExtractor {
-    override suspend fun getAttribution(file: File): String? {
+    override suspend fun getAttribution(path: String): String? {
+        val mapFile = VectorMapFiles.openMapsforge(path) ?: return null
         return tryOrDefault(null) {
-            val mapFile = MapFile(file)
             try {
                 mapFile.mapFileInfo.comment
                     ?.trim()
