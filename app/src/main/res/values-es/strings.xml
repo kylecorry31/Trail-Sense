@@ -1551,7 +1551,7 @@
     <string name="pref_show_all_bottom_navigation_labels">Mostrar todas las etiquetas de la barra inferior</string>
     <string name="include_mapsforge_backups">Incluir mapas de recorridos en copias de seguridad</string>
     <string name="include_mapsforge_backups_summary">Los archivos (.map) de Mapsforge pueden ser grandes</string>
-    <string name="offline_maps">Mapas offline</string>
+    <string name="offline_maps">Mapas Offline</string>
     <string name="offline_map_import_failed">No se pudo importar el mapa</string>
     <string name="no_offline_maps">Sin mapas offline</string>
     <string name="unsupported_offline_map_file">Archivo de mapa no reconocido</string>
