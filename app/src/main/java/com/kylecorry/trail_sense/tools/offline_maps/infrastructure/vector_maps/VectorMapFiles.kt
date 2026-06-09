@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps
 
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -13,19 +14,17 @@ object VectorMapFiles {
      */
     suspend fun openMapsforge(path: String): MapFile? = onIO {
         val files = getAppService<FileSubsystem>()
-        try {
+        tryOrDefault(null) {
             if (files.isExternal(path)) {
-                val stream = files.fileInputStream(path) ?: return@onIO null
-                MapFile(stream)
+                files.fileInputStream(path)?.let { MapFile(it) }
             } else {
                 val file = files.get(path)
-                if (!file.isFile || file.length() == 0L) {
-                    return@onIO null
+                if (file.isFile && file.length() > 0) {
+                    MapFile(file)
+                } else {
+                    null
                 }
-                MapFile(file)
             }
-        } catch (e: Exception) {
-            null
         }
     }
 }
