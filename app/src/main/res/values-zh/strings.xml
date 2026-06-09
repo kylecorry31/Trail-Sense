@@ -1587,4 +1587,9 @@
     <string name="map_type_trail">路线</string>
     <string name="pref_show_all_bottom_navigation_labels">显示所有底部导航标签</string>
     <string name="brightness">亮度</string>
+    <string name="pref_copy_trail_maps_title">复制地图到 Trail Sense</string>
+    <string name="pref_copy_trail_maps_summary">导入时。如关闭，将使用原始文件且必须在设备上保留原始文件。</string>
+    <string name="map_external">外部</string>
+    <string name="map_file_missing">文件缺失</string>
+    <string name="copy_to_trail_sense">复制到 Trail Sense</string>
 </resources>
