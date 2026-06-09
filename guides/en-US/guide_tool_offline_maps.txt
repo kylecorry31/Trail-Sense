@@ -18,7 +18,7 @@ To import or create a map:
     - **Group**: Create a group for organizing maps.
 3. Enter a name for the map and click 'OK'.
 
-Once a map is imported, the original file can be deleted if you want to save space.
+Once a map is imported, the original file can be deleted if you want to save space. If you turn off Settings > Offline Maps > 'Copy maps to Trail Sense', trail maps will use the original file instead of a copy, so the file must be kept on your device. These maps show an 'External' tag in the map list, and you can copy one into Trail Sense later using the map's menu and selecting 'Copy to Trail Sense'.
 
 If a map is imported from an image or non-geospatial PDF, Trail Sense will open the calibration screen.
 

@@ -799,6 +799,9 @@
     <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
     <string name="pref_low_resolution_maps" translatable="false">pref_low_resolution_maps</string>
     <string name="pref_low_resolution_pdf_maps" translatable="false">pref_low_resolution_pdf_maps</string>
+    <string name="pref_copy_trail_maps_to_app_storage" translatable="false">pref_copy_trail_maps_to_app_storage</string>
+    <string name="pref_copy_trail_maps_title">Copy maps to Trail Sense</string>
+    <string name="pref_copy_trail_maps_summary">On import. When off, the original file is used and must be kept on your device.</string>
     <string name="pref_auto_low_power" translatable="false">pref_auto_low_power</string>
     <string name="pref_auto_low_power_summary">When your battery is low</string>
     <string name="pref_auto_low_power_title">Automatic power saving</string>
@@ -1949,4 +1952,7 @@
     <string name="manage_maps">Manage maps</string>
     <string name="map_type_photo">Photo</string>
     <string name="map_type_trail">Trail</string>
+    <string name="map_external">External</string>
+    <string name="map_file_missing">File missing</string>
+    <string name="copy_to_trail_sense">Copy to Trail Sense</string>
 </resources>

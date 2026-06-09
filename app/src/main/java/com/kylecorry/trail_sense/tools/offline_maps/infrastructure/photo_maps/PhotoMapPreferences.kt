@@ -50,4 +50,10 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_photo_maps_high_detail_mode),
         true
     )
+
+    val copyTrailMapsToAppStorage by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_copy_trail_maps_to_app_storage),
+        true
+    )
 }

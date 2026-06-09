@@ -58,4 +58,17 @@
             app:singleLineTitle="false"
             app:title="@string/layers" />
     </PreferenceCategory>
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/trail_maps">
+
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_copy_trail_maps_summary"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_copy_trail_maps_to_app_storage"
+            app:singleLineTitle="false"
+            app:title="@string/pref_copy_trail_maps_title" />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.VectorMapFiles
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -22,7 +23,6 @@ import org.mapsforge.map.layer.cache.TileCache
 import org.mapsforge.map.layer.labels.TileBasedLabelStore
 import org.mapsforge.map.layer.renderer.RendererJob
 import org.mapsforge.map.model.DisplayModel
-import org.mapsforge.map.reader.MapFile
 import org.mapsforge.map.rendertheme.StreamRenderTheme
 import org.mapsforge.map.rendertheme.XmlRenderTheme
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
@@ -83,24 +83,23 @@ class MapsforgeTileRenderer(
         }
     }
 
-    private fun createRenderer(
+    private suspend fun createRenderer(
         context: Context,
         maps: List<VectorMap>,
         highDetailMode: Boolean
     ): MapsforgeRendererHolder? {
-        val files = maps
+        val mapFiles = maps
             .filter { it.type == VectorMapFileType.Mapsforge }
-            .map { files.get(it.path) }
-            .filter { it.isFile && it.length() > 0 }
-        if (files.isEmpty()) {
+            .mapNotNull { VectorMapFiles.openMapsforge(it.path) }
+        if (mapFiles.isEmpty()) {
             return null
         }
 
         AndroidGraphicFactory.createInstance(context.applicationContext as Application)
         scaleRenderThemeToTileSize(highDetailMode)
         val newMapDataStore = MultiMapDataStore(MultiMapDataStore.DataPolicy.DEDUPLICATE)
-        files.forEachIndexed { index, file ->
-            newMapDataStore.addMapDataStore(MapFile(file), index == 0, index == 0)
+        mapFiles.forEachIndexed { index, mapFile ->
+            newMapDataStore.addMapDataStore(mapFile, index == 0, index == 0)
         }
         val newRenderThemeFuture = RenderThemeFuture(
             AndroidGraphicFactory.INSTANCE,

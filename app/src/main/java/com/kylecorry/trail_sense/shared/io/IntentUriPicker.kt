@@ -11,9 +11,13 @@ import kotlin.coroutines.suspendCoroutine
 
 class IntentUriPicker(private val resolver: IntentResultRetriever, private val context: Context) :
     UriPicker {
-    override suspend fun open(types: List<String>): Uri? {
+    override suspend fun open(types: List<String>, requirePersistentAccess: Boolean): Uri? {
         return suspendCoroutine { cont ->
-            resolver.pickFile(types, context.getString(R.string.pick_file)) {
+            resolver.pickFile(
+                types,
+                context.getString(R.string.pick_file),
+                requirePersistentAccess = requirePersistentAccess
+            ) {
                 cont.resume(it)
             }
         }

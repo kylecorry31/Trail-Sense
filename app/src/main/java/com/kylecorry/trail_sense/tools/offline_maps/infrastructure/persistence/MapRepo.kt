@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Size
+import androidx.core.net.toUri
 import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.luna.concurrency.ParallelCoroutineRunner
@@ -18,8 +19,10 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapEntity
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.util.UUID
 
 class MapRepo private constructor(context: Context) {
     private val offlineMapFileDao = AppDatabase.getInstance(context).vectorMapDao()
@@ -34,7 +37,7 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun getVectorMaps(): List<VectorMap> = onIO {
-        offlineMapFileDao.getAllSync().map { it.toOfflineMapFile() }
+        offlineMapFileDao.getAllSync().map { convertToMap(it) }
     }
 
     suspend fun getMapGroup(id: Long): MapGroup? = onIO {
@@ -46,7 +49,7 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun getVectorMap(id: Long): VectorMap? = onIO {
-        offlineMapFileDao.get(id)?.toOfflineMapFile()
+        offlineMapFileDao.get(id)?.let { convertToMap(it) }
     }
 
     suspend fun delete(map: PhotoMap) = onIO {
@@ -57,9 +60,39 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun delete(map: VectorMap) = onIO {
-        tryOrNothing { files.delete(map.path) }
+        if (map.isExternal) {
+            releaseExternalAccessIfUnused(map)
+        } else {
+            tryOrNothing { files.delete(map.path) }
+        }
         offlineMapFileDao.delete(VectorMapEntity.from(map))
         emit(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, map.id, OfflineMapType.Trail)
+    }
+
+    suspend fun copyToAppStorage(map: VectorMap): VectorMap? = onIO {
+        if (!map.isExternal) {
+            return@onIO map
+        }
+
+        val extension = MapFileTypeUtils.getExtension(map.type)
+        val saved = files.copyToLocal(
+            map.path.toUri(),
+            OFFLINE_MAPS_DIRECTORY,
+            "${UUID.randomUUID()}.$extension"
+        ) ?: return@onIO null
+
+        val updated = map.copy(path = files.getLocalPath(saved), sizeBytes = saved.length())
+        add(updated)
+        releaseExternalAccessIfUnused(map)
+        updated
+    }
+
+    private suspend fun releaseExternalAccessIfUnused(map: VectorMap) = onIO {
+        val isUsedByOtherMaps = offlineMapFileDao.getAllSync()
+            .any { it.id != map.id && it.path == map.path }
+        if (!isUsedByOtherMaps) {
+            tryOrNothing { files.releasePersistentAccess(map.path.toUri()) }
+        }
     }
 
     suspend fun delete(group: MapGroup) {
@@ -102,11 +135,20 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun getVectorMaps(parentId: Long?): List<VectorMap> = onIO {
-        offlineMapFileDao.getAllWithParent(parentId).map { it.toOfflineMapFile() }
+        offlineMapFileDao.getAllWithParent(parentId).map { convertToMap(it) }
     }
 
     suspend fun getMapGroups(parentId: Long?): List<MapGroup> = onIO {
         mapGroupDao.getAllWithParent(parentId).map { it.toMapGroup() }
+    }
+
+    private fun convertToMap(map: VectorMapEntity): VectorMap {
+        val newMap = map.toOfflineMapFile()
+        return if (newMap.isExternal) {
+            newMap.copy(isAvailable = files.canRead(newMap.path))
+        } else {
+            newMap
+        }
     }
 
     private fun convertToMap(map: PhotoMapEntity): PhotoMap {
@@ -161,6 +203,7 @@ class MapRepo private constructor(context: Context) {
         private var instance: MapRepo? = null
 
         private const val MAX_PARALLEL = 10
+        private const val OFFLINE_MAPS_DIRECTORY = "offline_maps"
 
         @Synchronized
         fun getInstance(context: Context): MapRepo {

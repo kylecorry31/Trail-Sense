@@ -49,7 +49,25 @@ class VectorMapListItemMapper(
                     context.getString(R.string.map_type_trail),
                     null,
                     Resources.androidTextColorSecondary(context)
-                )
+                ),
+                if (value.isExternal) {
+                    ListItemTag(
+                        context.getString(R.string.map_external),
+                        null,
+                        Resources.androidTextColorSecondary(context)
+                    )
+                } else {
+                    null
+                },
+                if (!value.isAvailable) {
+                    ListItemTag(
+                        context.getString(R.string.map_file_missing),
+                        null,
+                        AppColor.Red.color
+                    )
+                } else {
+                    null
+                }
             ),
             trailingIcon = ResourceListIcon(
                 if (value.visible) {
@@ -71,6 +89,13 @@ class VectorMapListItemMapper(
                 },
                 ListMenuItem(context.getString(R.string.move_to)) {
                     actionHandler(value, VectorMapAction.Move)
+                },
+                if (value.isExternal && value.isAvailable) {
+                    ListMenuItem(context.getString(R.string.copy_to_trail_sense)) {
+                        actionHandler(value, VectorMapAction.CopyToAppStorage)
+                    }
+                } else {
+                    null
                 },
                 ListMenuItem(context.getString(R.string.delete)) {
                     actionHandler(value, VectorMapAction.Delete)

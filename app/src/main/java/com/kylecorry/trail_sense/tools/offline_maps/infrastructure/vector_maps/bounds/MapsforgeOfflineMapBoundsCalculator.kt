@@ -2,13 +2,12 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.
 
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import org.mapsforge.map.reader.MapFile
-import java.io.File
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.VectorMapFiles
 
 class MapsforgeOfflineMapBoundsCalculator : OfflineMapBoundsCalculator {
-    override suspend fun getBounds(file: File): CoordinateBounds? {
+    override suspend fun getBounds(path: String): CoordinateBounds? {
+        val mapFile = VectorMapFiles.openMapsforge(path) ?: return null
         return tryOrDefault(null) {
-            val mapFile = MapFile(file)
             try {
                 val bounds = mapFile.mapFileInfo.boundingBox
                 CoordinateBounds(
