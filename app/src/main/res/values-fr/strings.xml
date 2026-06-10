@@ -1610,4 +1610,9 @@
     <string name="manage_maps">Gérer les cartes</string>
     <string name="map_type_photo">Photo</string>
     <string name="map_type_trail">Sentier</string>
+    <string name="pref_copy_trail_maps_title">Copier des cartes dans Trail Sense</string>
+    <string name="pref_copy_trail_maps_summary">Lors de l\'importation. Lorsque cette option est désactivée, le fichier d\'origine est utilisé et doit rester sur votre appareil.</string>
+    <string name="map_external">Externe</string>
+    <string name="map_file_missing">Fichier manquant</string>
+    <string name="copy_to_trail_sense">Copier dans Trail Sense</string>
 </resources>
