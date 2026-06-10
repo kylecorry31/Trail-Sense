@@ -1598,4 +1598,9 @@
     <string name="map_type_trail">Wandelpad</string>
     <string name="pref_show_all_bottom_navigation_labels">Onderste navigatielabels weergeven</string>
     <string name="brightness">Helderheid</string>
+    <string name="pref_copy_trail_maps_title">Kaarten kopiëren naar Trail Sense</string>
+    <string name="map_external">Extern</string>
+    <string name="map_file_missing">Bestand ontbreekt</string>
+    <string name="copy_to_trail_sense">Kopiëren naar Trail Sense</string>
+    <string name="pref_copy_trail_maps_summary">Bij importeren. Wanneer uitgeschakeld, wordt het originele bestand gebruikt en moet op je apparaat bewaard blijven.</string>
 </resources>
