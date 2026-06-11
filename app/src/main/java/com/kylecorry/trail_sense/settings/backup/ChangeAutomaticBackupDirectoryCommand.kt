@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.IntentResultRetriever
 import com.kylecorry.andromeda.core.system.Intents
+import com.kylecorry.andromeda.core.system.UriAccess
 import com.kylecorry.andromeda.core.system.pickDirectory
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -18,9 +19,11 @@ class ChangeAutomaticBackupDirectoryCommand(
         val prefs = UserPreferences(context)
         resolver.pickDirectory(
             context.getString(R.string.select_backup_directory),
-            true,
-            true,
-            true
+            access = UriAccess(
+                requirePersistentAccess = true,
+                requireReadAccess = true,
+                requireWriteAccess = true
+            )
         ) {
             if (it == null) {
                 Alerts.toast(context, context.getString(R.string.no_directory_selected))
