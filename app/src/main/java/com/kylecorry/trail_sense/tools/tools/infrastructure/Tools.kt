@@ -12,7 +12,6 @@ import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.andromeda_temp.EventBus
-import com.kylecorry.trail_sense.shared.events.IBundleEventBus
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
@@ -65,7 +64,7 @@ import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.whistle.WhistleToolRegistration
 import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
 
-object Tools: IBundleEventBus {
+object Tools {
 
     private val hooks = Hooks()
     private val registry = listOf(
@@ -168,15 +167,15 @@ object Tools: IBundleEventBus {
         return listOf(none) + quickActions + toolActions
     }
 
-    override fun broadcast(toolBroadcastId: String, data: Bundle?) {
+    fun broadcast(toolBroadcastId: String, data: Bundle? = null) {
         bus.publish(toolBroadcastId, data ?: Bundle())
     }
 
-    override fun subscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
+    fun subscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
         bus.subscribe(toolBroadcastId, callback)
     }
 
-    override fun unsubscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
+    fun unsubscribe(toolBroadcastId: String, callback: suspend (Bundle) -> Unit) {
         bus.unsubscribe(toolBroadcastId, callback)
     }
 

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
-import com.kylecorry.trail_sense.shared.events.IBundleEventBus
+import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
 import kotlinx.coroutines.runBlocking
@@ -15,7 +15,7 @@ import java.time.Instant
 internal class StepTrackerServiceTest {
 
     private lateinit var repository: FakeStepTrackerRepository
-    private lateinit var eventBus: IBundleEventBus
+    private lateinit var eventBus: IEventEmitter
     private lateinit var service: StepTrackerService
 
     @BeforeEach

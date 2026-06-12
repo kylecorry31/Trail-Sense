@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
-import com.kylecorry.trail_sense.shared.events.IBundleEventBus
+import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
 import kotlinx.coroutines.sync.Mutex
@@ -9,7 +9,7 @@ import java.time.Duration
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
-class StepTrackerService(private val repository: IStepTrackerRepository, private val eventBus: IBundleEventBus) :
+class StepTrackerService(private val repository: IStepTrackerRepository, private val eventBus: IEventEmitter) :
     IStepTrackerService {
 
     private val stepMutex = Mutex()
