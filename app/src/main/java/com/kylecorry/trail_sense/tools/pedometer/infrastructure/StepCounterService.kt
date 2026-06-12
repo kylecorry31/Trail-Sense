@@ -43,15 +43,16 @@ class StepCounterService : AndromedaService() {
 
     private val addStepsTask = BackgroundTask {
         addStepsQueue.enqueue {
+            val currentSteps = pedometer.steps
             if (lastSteps == -1) {
-                lastSteps = pedometer.steps
+                lastSteps = currentSteps
             }
 
             dailyResetCommand.execute()
 
-            val newSteps = pedometer.steps - lastSteps
+            val newSteps = currentSteps - lastSteps
             stepTrackerService.addSteps(newSteps.toLong())
-            lastSteps = pedometer.steps
+            lastSteps = currentSteps
             getAppService<NotificationSubsystem>().send(NOTIFICATION_ID, getNotification())
 
             distanceAlertCommand.execute()
