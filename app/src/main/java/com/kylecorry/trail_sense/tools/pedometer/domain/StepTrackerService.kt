@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
+import com.kylecorry.trail_sense.shared.events.EventData
 import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
@@ -24,8 +25,8 @@ class StepTrackerService(private val repository: IStepTrackerRepository, private
 
     override suspend fun startNewStepTrackingPeriod(endTime: Instant) = stepMutex.withLock {
         closeStepTrackingPeriodWithoutLock(endTime)
-        getOrCreateOpenStepTrackingPeriodWithoutLock(endTime)
-        eventBus.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
+        val openPeriod = getOrCreateOpenStepTrackingPeriodWithoutLock(endTime)
+        emitStepsChanged(openPeriod.steps)
     }
 
     private suspend fun closeStepTrackingPeriodWithoutLock(endTime: Instant) {
@@ -58,7 +59,7 @@ class StepTrackerService(private val repository: IStepTrackerRepository, private
             )
         }
         repository.upsertStepCountBucket(bucketToAdd)
-        eventBus.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
+        emitStepsChanged(openPeriod.steps + steps)
     }
 
     private suspend fun getOrCreateOpenStepTrackingPeriodWithoutLock(startTime: Instant): StepTrackingPeriod {
@@ -80,7 +81,16 @@ class StepTrackerService(private val repository: IStepTrackerRepository, private
     override suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod) = stepMutex.withLock {
         repository.deleteBucketsInPeriod(period.id)
         repository.deleteStepTrackingPeriod(period)
-        eventBus.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
+        emitStepsChanged(repository.getOpenStepTrackingPeriod()?.steps ?: 0)
+    }
+
+    private fun emitStepsChanged(steps: Long) {
+        eventBus.broadcast(
+            PedometerToolRegistration.BROADCAST_STEPS_CHANGED,
+            EventData().apply {
+                putLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS, steps)
+            }
+        )
     }
 
     companion object {

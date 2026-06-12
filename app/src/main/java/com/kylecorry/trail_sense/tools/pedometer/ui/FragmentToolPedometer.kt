@@ -143,7 +143,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private suspend fun updateSteps(data: Bundle?) {
         val trackingPeriod = stepTrackerService.getOpenStepTrackingPeriod() ?: return
-        steps = trackingPeriod.steps
+        steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: trackingPeriod.steps
         lastResetTime = trackingPeriod.startTime
     }
 

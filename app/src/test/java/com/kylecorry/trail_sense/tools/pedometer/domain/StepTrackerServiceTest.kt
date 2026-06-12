@@ -7,6 +7,8 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.argThat
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.only
 import org.mockito.kotlin.verify
@@ -57,7 +59,7 @@ internal class StepTrackerServiceTest {
         val newOpenPeriod = service.getOpenStepTrackingPeriod()
         assertEquals(endTime, newOpenPeriod?.startTime)
         assertEquals(emptyList<StepCountBucket>(), newOpenPeriod?.stepCountBuckets)
-        verify(eventBus, only()).broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, null)
+        verifyStepsChanged(0)
     }
 
     @Test
@@ -72,7 +74,7 @@ internal class StepTrackerServiceTest {
         assertEquals(listOf(emptyOpenPeriod), repository.deletedPeriods)
         assertEquals(true, repository.periods.none { it.id == emptyOpenPeriod.id })
         assertEquals(endTime, service.getOpenStepTrackingPeriod()?.startTime)
-        verify(eventBus, only()).broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, null)
+        verifyStepsChanged(0)
     }
 
     @Test
@@ -95,7 +97,7 @@ internal class StepTrackerServiceTest {
             ),
             openPeriod?.stepCountBuckets
         )
-        verify(eventBus, only()).broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, null)
+        verifyStepsChanged(12)
     }
 
     @Test
@@ -109,7 +111,7 @@ internal class StepTrackerServiceTest {
         assertEquals(17, service.getOpenStepTrackingPeriod()?.steps)
         assertEquals(1, repository.buckets.size)
         assertEquals(17, repository.buckets.first().steps)
-        verify(eventBus, only()).broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, null)
+        verifyStepsChanged(17)
     }
 
     @Test
@@ -133,7 +135,7 @@ internal class StepTrackerServiceTest {
             ),
             buckets.last()
         )
-        verify(eventBus, only()).broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, null)
+        verifyStepsChanged(17)
     }
 
     @Test
@@ -147,7 +149,16 @@ internal class StepTrackerServiceTest {
         assertEquals(listOf(period), repository.deletedPeriods)
         assertEquals(emptyList<StepTrackingPeriod>(), repository.periods)
         assertEquals(emptyList<StepCountBucket>(), repository.buckets)
-        verify(eventBus, only()).broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, null)
+        verifyStepsChanged(0)
+    }
+
+    private fun verifyStepsChanged(steps: Long) {
+        verify(eventBus, only()).broadcast(
+            eq(PedometerToolRegistration.BROADCAST_STEPS_CHANGED),
+            argThat {
+                getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) == steps
+            }
+        )
     }
 
     private fun period(

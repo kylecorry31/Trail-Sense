@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem
 import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.Sensor
+import android.os.Bundle
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.luna.concurrency.BackgroundTask
@@ -71,7 +72,7 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
     init {
         initialPopulationTask.start()
         Tools.subscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED) {
-            updateSteps()
+            updateSteps(it)
         }
 
         // Keep them up to date
@@ -95,9 +96,11 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
         }
     }
 
-    private suspend fun updateSteps() = stepsMutex.withLock {
-        val openPeriod = stepTrackerService.getOpenStepTrackingPeriod()
-        _steps.publish(openPeriod?.steps ?: 0L)
+    private suspend fun updateSteps(data: Bundle? = null) = stepsMutex.withLock {
+        val stepCount = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS)
+            ?: stepTrackerService.getOpenStepTrackingPeriod()?.steps
+            ?: 0L
+        _steps.publish(stepCount)
         _distance.publish(calculateDistance())
     }
 

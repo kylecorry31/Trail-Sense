@@ -139,6 +139,7 @@ object PedometerToolRegistration : ToolRegistration {
     const val BROADCAST_PEDOMETER_DISABLED = "pedometer-broadcast-pedometer-disabled"
     const val BROADCAST_STEPS_CHANGED = "pedometer-broadcast-steps-changed"
     const val BROADCAST_DISTANCE_CHANGED = "pedometer-broadcast-distance-changed"
+    const val BROADCAST_PARAM_STEPS = "pedometer-broadcast-param-steps"
 
     const val ACTION_RESUME_PEDOMETER = "pedometer-action-resume-pedometer"
     const val ACTION_PAUSE_PEDOMETER = "pedometer-action-pause-pedometer"

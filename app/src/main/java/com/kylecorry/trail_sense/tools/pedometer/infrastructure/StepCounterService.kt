@@ -78,7 +78,7 @@ class StepCounterService : AndromedaService() {
     }
 
     private suspend fun onStepsChanged(data: Bundle?) {
-        val steps = stepTrackerService.getOpenStepTrackingPeriod()?.steps ?: 0L
+        val steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: 0L
         val paceCalculator = StrideLengthPaceCalculator(prefs.pedometer.strideLength)
         val distance = paceCalculator.distance(steps)
         notificationSubsystem.send(NOTIFICATION_ID, getNotification(distance))

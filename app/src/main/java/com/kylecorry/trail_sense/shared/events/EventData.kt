@@ -20,6 +20,22 @@ class EventData {
         values[key] = value
     }
 
+    fun getString(key: String): String? {
+        return values[key] as? String
+    }
+
+    fun getInt(key: String): Int? {
+        return values[key] as? Int
+    }
+
+    fun getLong(key: String): Long? {
+        return values[key] as? Long
+    }
+
+    fun getFloat(key: String): Float? {
+        return values[key] as? Float
+    }
+
     fun forEach(action: (key: String, value: Any?) -> Unit) {
         values.forEach(action)
     }
