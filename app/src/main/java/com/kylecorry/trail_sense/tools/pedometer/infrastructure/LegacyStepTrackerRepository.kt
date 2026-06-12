@@ -44,7 +44,7 @@ class LegacyStepTrackerRepository : IStepTrackerRepository {
         counter.reset()
     }
 
-    override suspend fun addStepCountBucket(bucket: StepCountBucket): Long {
+    override suspend fun upsertStepCountBucket(bucket: StepCountBucket): Long {
         counter.addSteps(bucket.steps - counter.steps)
         return 1L
     }

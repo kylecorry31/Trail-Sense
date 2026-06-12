@@ -11,6 +11,6 @@ interface IStepTrackerRepository {
     suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod)
 
     // Step count buckets
-    suspend fun addStepCountBucket(bucket: StepCountBucket): Long
+    suspend fun upsertStepCountBucket(bucket: StepCountBucket): Long
     suspend fun deleteBucketsInPeriod(periodId: Long)
 }

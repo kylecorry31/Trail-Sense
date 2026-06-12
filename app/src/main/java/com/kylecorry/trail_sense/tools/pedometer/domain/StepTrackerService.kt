@@ -57,7 +57,7 @@ class StepTrackerService(private val repository: IStepTrackerRepository, private
                 steps = steps
             )
         }
-        repository.addStepCountBucket(bucketToAdd)
+        repository.upsertStepCountBucket(bucketToAdd)
         eventBus.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
     }
 
