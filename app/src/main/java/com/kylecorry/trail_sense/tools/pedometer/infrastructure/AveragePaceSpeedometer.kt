@@ -6,24 +6,21 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import com.kylecorry.trail_sense.tools.pedometer.domain.IPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.domain.IStepTrackerService
 import java.time.Duration
 import java.time.Instant
 
 class AveragePaceSpeedometer(
-    private val stepCounter: IStepCounter,
+    private val stepTrackerService: IStepTrackerService,
     private val paceCalculator: IPaceCalculator
 ) : AbstractSensor(), ISpeedometer {
 
     private val timer = CoroutineTimer {
-        val lastReset = stepCounter.startTime
-        val steps = stepCounter.steps
-
-        if (lastReset == null) {
+        val stepPeriod = stepTrackerService.getOpenStepTrackingPeriod() ?: run {
             reset()
             return@CoroutineTimer
         }
-
-        speed = paceCalculator.speed(steps, Duration.between(lastReset, Instant.now()))
+        speed = paceCalculator.speed(stepPeriod.steps, Duration.between(stepPeriod.startTime, Instant.now()))
         hasValidReading = true
 
         notifyListeners()

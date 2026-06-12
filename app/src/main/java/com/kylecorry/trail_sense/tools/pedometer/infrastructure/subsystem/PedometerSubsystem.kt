@@ -3,25 +3,21 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem
 import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.Sensor
+import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.luna.topics.generic.Topic
 import com.kylecorry.luna.topics.generic.distinct
-import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import java.time.Duration
-import java.time.Instant
 import java.util.Optional
 
 class PedometerSubsystem private constructor(private val context: Context) : IPedometerSubsystem {
@@ -33,15 +29,12 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
 
     private val _steps = Topic(defaultValue = Optional.of(stepCounter.steps))
     private val _distance = Topic(defaultValue = Optional.of(calculateDistance()))
-    private val _pace = Topic(defaultValue = Optional.of(calculatePace()))
     private val _state = Topic(defaultValue = Optional.of(calculateState()))
 
     override val steps: ITopic<Long>
         get() = _steps.distinct()
     override val distance: ITopic<Distance>
         get() = _distance.distinct()
-    override val pace: ITopic<Speed>
-        get() = _pace.distinct()
     override val state: ITopic<FeatureState>
         get() = _state.distinct()
 
@@ -71,25 +64,14 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
         StepCounter.STEPS_KEY
     )
 
-    private val paceChangePrefKeys = listOf(
-        context.getString(R.string.pref_stride_length),
-        StepCounter.STEPS_KEY,
-        StepCounter.LAST_RESET_KEY
-    )
-
-
     init {
         // Keep them up to date
         state.subscribe { true }
-        steps.subscribe {
-            Tools.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
-            true
-        }
+        steps.subscribe { true }
         distance.subscribe {
             Tools.broadcast(PedometerToolRegistration.BROADCAST_DISTANCE_CHANGED)
             true
         }
-        pace.subscribe { true }
 
         prefsChanged.subscribe {
             if (it in stateChangePrefKeys) {
@@ -102,10 +84,6 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
 
             if (it in distanceChangePrefKeys) {
                 _distance.publish(calculateDistance())
-            }
-
-            if (it in paceChangePrefKeys) {
-                _pace.publish(calculatePace())
             }
 
             true
@@ -142,18 +120,6 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
     private fun calculateDistance(): Distance {
         val paceCalculator = StrideLengthPaceCalculator(prefs.pedometer.strideLength)
         return paceCalculator.distance(stepCounter.steps).meters()
-    }
-
-    private fun calculatePace(): Speed {
-        val paceCalculator = StrideLengthPaceCalculator(prefs.pedometer.strideLength)
-        val lastReset = stepCounter.startTime
-        val steps = stepCounter.steps
-
-        if (lastReset == null) {
-            return ZERO_SPEED
-        }
-
-        return paceCalculator.speed(steps, Duration.between(lastReset, Instant.now()))
     }
 
 

@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
+import com.kylecorry.trail_sense.shared.events.IBundleEventBus
+import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -7,26 +9,36 @@ import java.time.Duration
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
-class StepTrackerService(private val repository: IStepTrackerRepository) {
+class StepTrackerService(private val repository: IStepTrackerRepository, private val eventBus: IBundleEventBus) :
+    IStepTrackerService {
 
     private val stepMutex = Mutex()
 
-    suspend fun getAllStepTrackingPeriods(): List<StepTrackingPeriod> {
+    override suspend fun getAllStepTrackingPeriods(): List<StepTrackingPeriod> {
         return repository.getStepTrackingPeriods()
     }
 
-    suspend fun getOpenStepTrackingPeriod(): StepTrackingPeriod? {
+    override suspend fun getOpenStepTrackingPeriod(): StepTrackingPeriod? {
         return repository.getOpenStepTrackingPeriod()
     }
 
-    suspend fun closeStepTrackingPeriod(endTime: Instant = Instant.now()) = stepMutex.withLock {
-        val openPeriod = repository.getOpenStepTrackingPeriod() ?: return@withLock
-        val closedPeriod = openPeriod.copy(endTime = endTime)
-        repository.upsertStepTrackingPeriod(closedPeriod)
-        // TODO: Emit event
+    override suspend fun startNewStepTrackingPeriod(endTime: Instant) = stepMutex.withLock {
+        closeStepTrackingPeriodWithoutLock(endTime)
+        getOrCreateOpenStepTrackingPeriodWithoutLock(endTime)
+        eventBus.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
     }
 
-    suspend fun addSteps(steps: Long, time: Instant = Instant.now()) = stepMutex.withLock {
+    private suspend fun closeStepTrackingPeriodWithoutLock(endTime: Instant) {
+        val openPeriod = repository.getOpenStepTrackingPeriod() ?: return
+        if (openPeriod.steps == 0L) {
+            repository.deleteBucketsInPeriod(openPeriod.id)
+            repository.deleteStepTrackingPeriod(openPeriod)
+        } else {
+            repository.upsertStepTrackingPeriod(openPeriod.copy(endTime = endTime))
+        }
+    }
+
+    override suspend fun addSteps(steps: Long, time: Instant) = stepMutex.withLock {
         val openPeriod = getOrCreateOpenStepTrackingPeriodWithoutLock(time)
         val containedBucket = openPeriod.stepCountBuckets.firstOrNull {
             (time == it.startTime || time.isAfter(it.startTime)) && time.isBefore(it.endTime)
@@ -46,7 +58,7 @@ class StepTrackerService(private val repository: IStepTrackerRepository) {
             )
         }
         repository.addStepCountBucket(bucketToAdd)
-        // TODO: Emit event
+        eventBus.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
     }
 
     private suspend fun getOrCreateOpenStepTrackingPeriodWithoutLock(startTime: Instant): StepTrackingPeriod {
@@ -65,10 +77,10 @@ class StepTrackerService(private val repository: IStepTrackerRepository) {
         return newPeriod.copy(id = newId)
     }
 
-    suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod) = stepMutex.withLock {
+    override suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod) = stepMutex.withLock {
         repository.deleteBucketsInPeriod(period.id)
         repository.deleteStepTrackingPeriod(period)
-        // TODO: Emit event
+        eventBus.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
     }
 
     companion object {
