@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 import com.kylecorry.andromeda.preferences.IPreferences
 import java.time.Instant
 
-class StepCounter(private val preferences: IPreferences) {
+internal class StepCounter(private val preferences: IPreferences) {
 
     val startTime: Instant?
         get() = preferences.getInstant(LAST_RESET_KEY)

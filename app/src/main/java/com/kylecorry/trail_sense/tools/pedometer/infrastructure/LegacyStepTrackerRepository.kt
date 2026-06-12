@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
 import java.time.Instant
 
-class LegacyStepTrackerRepository : IStepTrackerRepository {
+internal class LegacyStepTrackerRepository : IStepTrackerRepository {
 
     private val counter = StepCounter(getAppService<PreferencesSubsystem>().preferences)
 

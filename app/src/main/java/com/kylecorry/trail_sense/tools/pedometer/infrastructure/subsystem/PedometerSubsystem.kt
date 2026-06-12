@@ -5,29 +5,33 @@ import android.content.Context
 import android.hardware.Sensor
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.luna.topics.generic.Topic
 import com.kylecorry.luna.topics.generic.distinct
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.Optional
+import kotlin.jvm.optionals.getOrDefault
 
 class PedometerSubsystem private constructor(private val context: Context) : IPedometerSubsystem {
 
     private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val prefsChanged by lazy { sharedPrefs.onChange }
     private val prefs by lazy { UserPreferences(context) }
-    private val stepCounter by lazy { StepCounter(sharedPrefs) }
-
-    private val _steps = Topic(defaultValue = Optional.of(stepCounter.steps))
+    private val stepTrackerService by lazy { getAppService<StepTrackerService>() }
+    private val _steps = Topic(defaultValue = Optional.of(0L))
     private val _distance = Topic(defaultValue = Optional.of(calculateDistance()))
     private val _state = Topic(defaultValue = Optional.of(calculateState()))
 
@@ -55,16 +59,21 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
         R.string.pref_low_power_mode
     ).map { context.getString(it) }
 
-    private val stepChangePrefKeys = listOf(
-        StepCounter.STEPS_KEY
+    private val distanceChangePrefKeys = listOf(
+        context.getString(R.string.pref_stride_length)
     )
 
-    private val distanceChangePrefKeys = listOf(
-        context.getString(R.string.pref_stride_length),
-        StepCounter.STEPS_KEY
-    )
+    private val stepsMutex = Mutex()
+    private val initialPopulationTask = BackgroundTask {
+        updateSteps()
+    }
 
     init {
+        initialPopulationTask.start()
+        Tools.subscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED) {
+            updateSteps()
+        }
+
         // Keep them up to date
         state.subscribe { true }
         steps.subscribe { true }
@@ -78,10 +87,6 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
                 _state.publish(calculateState())
             }
 
-            if (it in stepChangePrefKeys) {
-                _steps.publish(stepCounter.steps)
-            }
-
             if (it in distanceChangePrefKeys) {
                 _distance.publish(calculateDistance())
             }
@@ -90,6 +95,11 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
         }
     }
 
+    private suspend fun updateSteps() = stepsMutex.withLock {
+        val openPeriod = stepTrackerService.getOpenStepTrackingPeriod()
+        _steps.publish(openPeriod?.steps ?: 0L)
+        _distance.publish(calculateDistance())
+    }
 
     private fun calculateState(): FeatureState {
         return if (isDisabled()) {
@@ -119,7 +129,7 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
 
     private fun calculateDistance(): Distance {
         val paceCalculator = StrideLengthPaceCalculator(prefs.pedometer.strideLength)
-        return paceCalculator.distance(stepCounter.steps).meters()
+        return paceCalculator.distance(steps.value.getOrDefault(0L)).meters()
     }
 
 

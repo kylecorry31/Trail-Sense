@@ -28,13 +28,12 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
-import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerGeoJsonSource
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -113,7 +112,7 @@ class PreferenceMigrator private constructor() {
                     val stride = UserPreferences(context).pedometer.strideLength.meters().value
                     if (stride > 0f) {
                         val steps = (distance / stride).toLong()
-                        prefs.putLong(StepCounter.STEPS_KEY, steps)
+                        prefs.putLong("cache_steps", steps)
                     }
                 }
                 prefs.remove("odometer_distance")
@@ -461,9 +460,9 @@ class PreferenceMigrator private constructor() {
                     prefs.putInt(navigationOfflineMapOpacityKey, 50)
                 }
             },
-            PreferenceMigration(27,28){context,prefs ->
-                if(AppState.isReturningUser){
-                    prefs.putBoolean(context.getString(R.string.pref_use_bottom_navigation_labels),false)
+            PreferenceMigration(27, 28) { context, prefs ->
+                if (AppState.isReturningUser) {
+                    prefs.putBoolean(context.getString(R.string.pref_use_bottom_navigation_labels), false)
                 }
 
             }
