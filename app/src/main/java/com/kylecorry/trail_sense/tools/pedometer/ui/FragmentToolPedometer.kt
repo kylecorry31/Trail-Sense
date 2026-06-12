@@ -194,7 +194,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private fun updateCurrentSpeed() {
         val speed = instantSpeedometer.speed
-        binding.pedometerSpeed.title = if (averageSpeedometer.hasValidReading) {
+        binding.pedometerSpeed.title = if (instantSpeedometer.hasValidReading) {
             formatService.formatSpeed(speed.value)
         } else {
             getString(R.string.dash)
