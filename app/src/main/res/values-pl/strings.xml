@@ -1547,4 +1547,9 @@
     <string name="map_type_trail">Szlak</string>
     <string name="pref_show_all_bottom_navigation_labels">Pokaż wszystkie etykiety na pasku nawigacji</string>
     <string name="brightness">Jasność</string>
+    <string name="pref_copy_trail_maps_title">Kopiuj mapy do Trail Sense</string>
+    <string name="pref_copy_trail_maps_summary">Podczas importowania. Gdy wyłączone, używany jest oryginalny plik, który musi znajdować się na urządzeniu.</string>
+    <string name="map_external">Zewnętrzna</string>
+    <string name="map_file_missing">Brak pliku</string>
+    <string name="copy_to_trail_sense">Kopiuj do Trail Sense</string>
 </resources>
