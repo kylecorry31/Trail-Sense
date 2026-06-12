@@ -1521,4 +1521,16 @@
     <string name="mapsforge">Mapsforge</string>
     <string name="map_type_photo">Kuva</string>
     <string name="manage_maps">Hallinnoi karttoja</string>
-    </resources>
+    <string name="brightness">Kirkkaus</string>
+    <string name="pref_copy_trail_maps_title">Kopio karttoja Trail Senseen</string>
+    <string name="pref_copy_trail_maps_summary">Tuodessa. Kun tämä on pois päältä, käytettävänä on alkuperäinen tiedosto ja se täytyy pitää laitteellasi.</string>
+    <string name="pref_show_all_bottom_navigation_labels">Näytä kaikki alarivin navigaatiomerkinnät</string>
+    <string name="include_mapsforge_backups">Sisällytä reittikartat varmuuskopioissa</string>
+    <string name="include_mapsforge_backups_summary">Mapsforge (.map) -tiedostot voivat olla suuria</string>
+    <string name="trail_maps">Reittikartat</string>
+    <string name="map_layer_trail_maps_description">Tallentamasi reittikartat</string>
+    <string name="map_type_trail">Reitti</string>
+    <string name="map_external">Ulkoinen</string>
+    <string name="map_file_missing">Tiedosto puuttuu</string>
+    <string name="copy_to_trail_sense">Kopioi Trail Senseen</string>
+</resources>
