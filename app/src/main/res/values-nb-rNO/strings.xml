@@ -1123,7 +1123,7 @@
     <string name="screen_flashlight_full_name">Skjermlommelykt</string>
     <string name="bottom_navigation_slot">Nedre navigeringsplass %d</string>
     <string name="pinned">Festet</string>
-    <string name="onboarding_privacy">- Trail Sense respekterer personvernet ditt og posisjonsdata forlater aldri enheten din\n\n- Trail Sense vil aldri kreve Internett-tillatelse\n\n- Se [Personvernreglene](https://kylecorry.com/Trail-Sense/privacy_policy.html) (åpnes i telefonens nettleser)\n\n- Noen funksjoner i Trail Sense krever tilgang til posisjonen din\n\n- Å gi plasseringstillatelsen vil aktivere følgende funksjoner:\n\n- Navigerer til beacons\n\n- Forbedret prognosenøyaktighet (ikke tilgjengelig på alle enheter)\n\n- Tilbakespor\n\n- Sol- og månetider for din nåværende posisjon (solnedgangsvarsler kan kreve bakgrunnsposisjon)\n\n- Hvis du velger å ikke gi plasseringstillatelsen, kan du manuelt legge inn en plassering i menyen Innstillinger &gt; Sensorer &gt; GPS-kalibrering i Trail Sense.\n\n- Etter å ha klikket fortsett, vil du bli bedt om å gi plasseringstillatelse. Å nekte denne tillatelsen vil forhindre Trail Sense fra å få tilgang til posisjonen din, så en manuell posisjonsangivelse anbefales.</string>
+    <string name="onboarding_privacy">- Trail Sense respekterer personvernet ditt og posisjonsdata forlater aldri enheten din\n\n- Trail Sense vil aldri kreve Internett-tillatelse\n\n- Se [Personvernreglene](https://kylecorry.com/Trail-Sense/privacy_policy.html) (åpnes i telefonens nettleser)\n\n- Noen funksjoner i Trail Sense krever tilgang til posisjonen din\n\n- Å gi posisjonstillatelsen vil aktivere følgende funksjoner:\n\n\t- Navigere til navigeringsmarkører\n\n\t- Forbedret prognosenøyaktighet (ikke tilgjengelig på alle enheter)\n\n\t- Tilbakespor\n\n\t- Sol- og månetider for din nåværende posisjon (solnedgangsvarsler kan kreve bakgrunnsposisjon)\n\n- Hvis du velger å ikke gi posisjonstillatelsen, kan du manuelt legge inn en posisjon i menyen Innstillinger &gt; Sensorer &gt; GPS-kalibrering i Trail Sense.\n\n- Etter å ha trykket fortsett, vil du bli bedt om å gi posisjonstillatelse. Å nekte denne tillatelsen vil forhindre Trail Sense i å få tilgang til posisjonen din, så en manuell posisjonsangivelse anbefales.</string>
     <string name="scanning_image">Analyserer bilde</string>
     <string name="actual_frequency_disclaimer">Den faktiske frekvensen kan variere ettersom noen enheter har bakgrunnsbegrensninger på plass.</string>
     <string name="pref_dialog_battery_log_summary">Batteriloggen er deaktivert. Historikk og tid til tomt batteri kan være utilgjengelig. Du kan aktivere dette igjen i innstillingene</string>
@@ -1281,4 +1281,9 @@
     <string name="load_pdf_tiles_summary">PDF-kart vil bli skarpere, men ytelsen kan bli påvirket</string>
     <string name="map_tool_disclaimer">Dette verktøyet inkluderer ikke innebygde gatekart, satellittbilder eller stidata. Det laster ikke ned kart fra internett. For å vise en kartbakgrunn, må du importere ditt eget bilde ved hjelp av verktøyet Offline-kart. Hvis du trenger direkte eller forhåndsinnlastede gate-, satellitt- eller stikart, bør du i stedet bruke et eget kartprogram.</string>
     <string name="include_mapsforge_backups_summary">Mapsforge-filer (.map) kan være store</string>
+    <string name="fused_altimeter_force_calibration">Påtving kalibreringsintervall</string>
+    <string name="fused_altimeter_force_calibration_summary">Påtvinger en GPS-kalibrering hver %s</string>
+    <string name="view_distance">Visningsdistanse</string>
+    <string name="path_distance_performance_disclaimer">Anbefalt maksimum %s</string>
+    <string name="on_import">Ved import</string>
 </resources>
