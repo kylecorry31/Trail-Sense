@@ -3,16 +3,16 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 import com.kylecorry.andromeda.preferences.IPreferences
 import java.time.Instant
 
-class StepCounter(private val preferences: IPreferences) : IStepCounter {
+internal class StepCounter(private val preferences: IPreferences) {
 
-    override val startTime: Instant?
+    val startTime: Instant?
         get() = preferences.getInstant(LAST_RESET_KEY)
 
 
-    override val steps: Long
+    val steps: Long
         get() = preferences.getLong(STEPS_KEY) ?: 0L
 
-    override fun addSteps(steps: Long) {
+    fun addSteps(steps: Long) {
         synchronized(this) {
             val lastSteps = this.steps
             preferences.putLong(STEPS_KEY, steps + lastSteps)
@@ -22,7 +22,7 @@ class StepCounter(private val preferences: IPreferences) : IStepCounter {
         }
     }
 
-    override fun reset() {
+    fun reset() {
         synchronized(this) {
             preferences.remove(STEPS_KEY)
             preferences.putInstant(LAST_RESET_KEY, Instant.now())

@@ -44,6 +44,7 @@ import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.units.Pressure
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
@@ -64,10 +65,10 @@ import com.kylecorry.trail_sense.shared.sensors.thermometer.CalibratedThermomete
 import com.kylecorry.trail_sense.shared.sensors.thermometer.HistoricThermometer
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import java.time.Duration
 
 // Maybe use the concept of a use case
@@ -140,9 +141,8 @@ class SensorService(ctx: Context) {
             )
 
             NavigationPreferences.SpeedometerMode.AveragePace -> AveragePaceSpeedometer(
-                StepCounter(
-                    PreferencesSubsystem.getInstance(context).preferences
-                ), StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
+                getAppService<StepTrackerService>(),
+                StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
             )
         }
     }

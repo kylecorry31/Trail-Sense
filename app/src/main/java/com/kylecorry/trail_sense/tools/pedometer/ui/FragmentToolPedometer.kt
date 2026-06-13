@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.asLiveData
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.luna.topics.generic.getOrNull
@@ -17,6 +18,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPedometerBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -26,27 +28,32 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Instant
 import java.time.LocalDate
 
 class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private val pedometer by lazy { PedometerSubsystem.getInstance(requireContext()) }
-    private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(requireContext()).preferences) }
+    private val stepTrackerService by lazy { getAppService<StepTrackerService>() }
     private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
     private val averageSpeedometer by lazy {
-        AveragePaceSpeedometer(counter, paceCalculator)
+        AveragePaceSpeedometer(stepTrackerService, paceCalculator)
     }
     private val instantSpeedometer by lazy {
         CurrentPaceSpeedometer(Pedometer(requireContext()), paceCalculator)
     }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+
+    private var steps by state(0L)
+    private var lastResetTime by state<Instant?>(null)
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -60,7 +67,9 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         binding.resetBtn.setOnClickListener {
             Alerts.dialog(requireContext(), getString(R.string.reset_distance_title)) {
                 if (!it) {
-                    counter.reset()
+                    inBackground {
+                        stepTrackerService.startNewStepTrackingPeriod()
+                    }
                 }
             }
         }
@@ -121,10 +130,27 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         scheduleUpdates(500L)
     }
 
+    override fun onResume() {
+        super.onResume()
+        Tools.subscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, ::updateSteps)
+        inBackground { updateSteps(null) }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Tools.unsubscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, ::updateSteps)
+    }
+
+    private suspend fun updateSteps(data: Bundle?) {
+        val trackingPeriod = stepTrackerService.getOpenStepTrackingPeriod() ?: return
+        steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: trackingPeriod.steps
+        lastResetTime = trackingPeriod.startTime
+    }
+
     override fun onUpdate() {
         super.onUpdate()
-        val distance = getDistance(counter.steps)
-        val lastReset = counter.startTime?.toZonedDateTime()
+        val distance = getDistance(steps)
+        val lastReset = lastResetTime?.toZonedDateTime()
 
         binding.pedometerTitle.rightButton.isChecked = prefs.pedometer.alertDistance != null
 
@@ -137,7 +163,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             binding.pedometerTitle.subtitle.text = getString(R.string.since_time, dateString)
         }
 
-        binding.pedometerSteps.title = DecimalFormatter.format(counter.steps, 0)
+        binding.pedometerSteps.title = DecimalFormatter.format(steps, 0)
 
         binding.pedometerTitle.subtitle.isVisible = lastReset != null
 
@@ -168,7 +194,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private fun updateCurrentSpeed() {
         val speed = instantSpeedometer.speed
-        binding.pedometerSpeed.title = if (averageSpeedometer.hasValidReading) {
+        binding.pedometerSpeed.title = if (instantSpeedometer.hasValidReading) {
             formatService.formatSpeed(speed.value)
         } else {
             getString(R.string.dash)

@@ -7,7 +7,9 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.pedometer.actions.PausePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.actions.ResumePedometerAction
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.LegacyStepTrackerRepository
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
@@ -18,6 +20,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -38,6 +41,9 @@ object PedometerToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_pedometer,
             settingsNavAction = R.id.calibrateOdometerFragment,
             initialize = { PedometerSubsystem.getInstance(it) },
+            singletons = listOf(
+                { StepTrackerService(LegacyStepTrackerRepository(), ToolEventEmitter) }
+            ),
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_PEDOMETER,
@@ -133,6 +139,7 @@ object PedometerToolRegistration : ToolRegistration {
     const val BROADCAST_PEDOMETER_DISABLED = "pedometer-broadcast-pedometer-disabled"
     const val BROADCAST_STEPS_CHANGED = "pedometer-broadcast-steps-changed"
     const val BROADCAST_DISTANCE_CHANGED = "pedometer-broadcast-distance-changed"
+    const val BROADCAST_PARAM_STEPS = "pedometer-broadcast-param-steps"
 
     const val ACTION_RESUME_PEDOMETER = "pedometer-action-resume-pedometer"
     const val ACTION_PAUSE_PEDOMETER = "pedometer-action-pause-pedometer"
