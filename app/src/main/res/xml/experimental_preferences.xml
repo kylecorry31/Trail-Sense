@@ -42,6 +42,14 @@
             app:singleLineTitle="false"
             app:title="@string/smooth_gps_readings" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_widget_icon_compatibility"
+            app:singleLineTitle="false"
+            app:summary="@string/widget_icon_compatibility_mode_summary"
+            app:title="@string/widget_icon_compatibility_mode" />
+
         <ListPreference
             app:defaultValue="1"
             app:iconSpaceReserved="false"
