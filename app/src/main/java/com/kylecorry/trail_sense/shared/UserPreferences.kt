@@ -100,6 +100,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    val useWidgetIconCompatibilityMode by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_widget_icon_compatibility),
+        false
+    )
+
     var isCliffHeightEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_cliff_height_enabled),
