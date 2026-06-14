@@ -9,10 +9,6 @@
 
 Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
 
-The "Trail Sense: Wilderness Survival Guide" book is available as a [paperback or free ebook](https://kylecorry.com/Trail-Sense/book.html).
-
-See the [Technical Blog / Research](https://kylecorry.com/research/categories/trail-sense/)
-
 <table>
     <tr>
         <th>F-Droid</th>
@@ -46,6 +42,8 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 
 <img src="fastlane/metadata/android/en-US/images/featureGraphic.png">
 
+See the [Technical Blog / Research](https://kylecorry.com/research/categories/trail-sense/)
+
 ## Table of Contents
 
 - [Feature Roadmap](#feature-roadmap)
@@ -54,7 +52,6 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [Privacy](#privacy)
 - [Contributing](#contributing)
 - [FAQ](#faq)
-- [Support](#support)
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
@@ -87,8 +84,6 @@ This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other 
 - [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/discussions/new/choose)
-
-For a list of community contributed device feature support, [go here](https://kylecorry.com/Trail-Sense/devices.html)
 
 <table>
   <tr>
@@ -152,14 +147,6 @@ Location information gathered by this application does not leave your device (as
 - **WAKE_LOCK**
   - Allows Trail Sense to reliably run services such as backtrack and weather monitor, especially when the frequency is under 15 minutes.
 
-
-# Debug features
-Only available on debug APKs / builds via Android Studio
-- Weather tool's barometer chart shows unsmoothed readings in background
-- Weather history, elevation history, path elevations, and latest cloud scan are logged to the files/debug folder in Trail Sense data as CSV files
-- Weather settings shows statistics timing (for weather monitor service)
-- Paths show statistics about timing (for backtrack service)
-
 # Contributing
 See the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) file for details on contributing to Trail Sense.
 
@@ -175,12 +162,6 @@ Please change the following if you are using this as the base for you app:
 # FAQ
 The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/Frequently-Asked-Questions-(FAQ))
 
-# Support
-
-The best way to support Trail Sense is to send me your feedback, share how you are using it, test nightly builds, or post your ideas for new features.
-
-If you want to monetarily support my development of Trail Sense, you can [buy a paperback copy of the wilderness survival guide](https://www.amazon.com/dp/B0FN4XBJM7) and leave a review.
-
 # Open Source Credits
 
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
@@ -192,3 +173,4 @@ If you want to monetarily support my development of Trail Sense, you can [buy a 
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://badges.mit-license.org)
 
 - **[MIT license](LICENSE)**
+- **[Survival Guide License](SURVIVAL_GUIDE_LICENSE.md)**
