@@ -1615,4 +1615,6 @@
     <string name="map_external">Externe</string>
     <string name="map_file_missing">Fichier manquant</string>
     <string name="copy_to_trail_sense">Copier dans Trail Sense</string>
+    <string name="widget_icon_compatibility_mode">Mode de compatibilité des icônes de widgets</string>
+    <string name="widget_icon_compatibility_mode_summary">Corrige l\'absence d\'icônes de widgets sur certains appareils</string>
 </resources>

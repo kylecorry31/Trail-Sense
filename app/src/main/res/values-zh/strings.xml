@@ -1522,7 +1522,7 @@
     <string name="late_month">%s 月末</string>
     <string name="active_in_month">在 %s 月活跃</string>
     <string name="active_all_year">全年活跃</string>
-    <string name="biting_flies_mosquitoes">咬蝇/蚊子</string>
+    <string name="biting_flies_mosquitoes">苍蝇/蚊子</string>
     <string name="ecology">生态</string>
     <string name="pref_ruler_flip_direction_title">颠倒尺子方向</string>
     <string name="pref_navigation_draw_compass_dial_bezel_title">显示指南针盘圈</string>
@@ -1592,4 +1592,6 @@
     <string name="map_external">外部</string>
     <string name="map_file_missing">文件缺失</string>
     <string name="copy_to_trail_sense">复制到 Trail Sense</string>
+    <string name="widget_icon_compatibility_mode">小组件图标兼容模式</string>
+    <string name="widget_icon_compatibility_mode_summary">修复部分设备上缺少小部件图标的问题</string>
 </resources>
