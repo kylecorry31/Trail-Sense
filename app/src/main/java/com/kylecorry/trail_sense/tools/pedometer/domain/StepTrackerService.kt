@@ -12,7 +12,12 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import java.time.temporal.ChronoUnit
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToLong
 
 class StepTrackerService(
     private val repository: IStepTrackerRepository,
@@ -30,6 +35,43 @@ class StepTrackerService(
 
     override suspend fun getOpenStepTrackingPeriod(): StepTrackingPeriod? {
         return repository.getOpenStepTrackingPeriod()
+    }
+
+    override suspend fun getHourlyStepCounts(
+        date: LocalDate,
+        zoneId: ZoneId
+    ): List<HourlyStepCount> {
+        val startTime = date.atStartOfDay(zoneId).toInstant()
+        val endTime = date.plusDays(1).atStartOfDay(zoneId).toInstant()
+        val buckets = repository.getStepCountBuckets(startTime, endTime)
+
+        val hourlyStepCounts = mutableListOf<HourlyStepCount>()
+        var hourStart = startTime
+        while (hourStart.isBefore(endTime)) {
+            val hourEnd = hourStart.plus(Duration.ofHours(1))
+            val steps = buckets.sumOf { bucket ->
+                getProportionalSteps(bucket, hourStart, hourEnd).toDouble()
+            }.roundToLong()
+            hourlyStepCounts.add(HourlyStepCount(hourStart, hourEnd, steps))
+            hourStart = hourEnd
+        }
+        return hourlyStepCounts
+    }
+
+    private fun getProportionalSteps(
+        bucket: StepCountBucket,
+        startTime: Instant,
+        endTime: Instant
+    ): Float {
+        val bucketDuration = Duration.between(bucket.startTime, bucket.endTime).toMillis()
+        val overlapStart = max(bucket.startTime.toEpochMilli(), startTime.toEpochMilli())
+        val overlapEnd = min(bucket.endTime.toEpochMilli(), endTime.toEpochMilli())
+        val overlapDuration = overlapEnd - overlapStart
+        return if (bucketDuration > 0 && overlapDuration > 0) {
+            bucket.steps * overlapDuration / bucketDuration.toFloat()
+        } else {
+            0f
+        }
     }
 
     override suspend fun startNewStepTrackingPeriod(endTime: Instant) = stepMutex.withLock {

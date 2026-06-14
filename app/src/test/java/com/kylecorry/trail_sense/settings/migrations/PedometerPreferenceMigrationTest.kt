@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.migrations
 
 import com.kylecorry.andromeda.preferences.IPreferences
+import com.kylecorry.trail_sense.tools.pedometer.domain.HourlyStepCount
 import com.kylecorry.trail_sense.tools.pedometer.domain.IStepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
 import kotlinx.coroutines.runBlocking
@@ -10,6 +11,8 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 
 internal class PedometerPreferenceMigrationTest {
 
@@ -121,6 +124,13 @@ internal class PedometerPreferenceMigrationTest {
 
         override suspend fun getOpenStepTrackingPeriod(): StepTrackingPeriod? {
             return openPeriod
+        }
+
+        override suspend fun getHourlyStepCounts(
+            date: LocalDate,
+            zoneId: ZoneId
+        ): List<HourlyStepCount> {
+            return emptyList()
         }
 
         override suspend fun startNewStepTrackingPeriod(endTime: Instant) {

@@ -11,61 +11,195 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:rightButtonIcon="@drawable/ic_notification"
-        tools:subtitle="since 10:00 AM"
-        tools:title="5.0 mi" />
+        app:showSubtitle="false"
+        app:title="@string/pedometer" />
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/beacon_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:columnCount="2"
-        app:useDefaultMargins="false">
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/pedometer_steps"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/steps"
-            app:dataPointIcon="@drawable/steps"
-            app:layout_columnWeight="1" />
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/pedometer_speed"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/current_speed"
-            app:dataPointIcon="@drawable/ic_speed"
-            app:layout_columnWeight="1" />
-
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/pedometer_average_speed"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:dataPointDescription="@string/average_speed"
-            app:dataPointIcon="@drawable/ic_speed"
-            app:layout_columnWeight="1" />
-
-    </androidx.gridlayout.widget.GridLayout>
-
-    <Button
-        android:id="@+id/reset_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="@string/reset" />
-
-    <View
+    <ScrollView
+        android:id="@+id/pedometer_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="@dimen/default_bottom_margin">
+
+            <TextView
+                android:id="@+id/current_session_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/current_session"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <TextView
+                android:id="@+id/current_session_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                tools:text="10:00 AM - Now"
+                tools:visibility="visible" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/beacon_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:columnCount="2"
+                app:useDefaultMargins="false">
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/pedometer_steps"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/steps"
+                    app:dataPointIcon="@drawable/steps"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/pedometer_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/distance"
+                    app:dataPointIcon="@drawable/ruler"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/pedometer_speed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/current_speed"
+                    app:dataPointIcon="@drawable/ic_speed"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/pedometer_average_speed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/average_speed"
+                    app:dataPointIcon="@drawable/ic_speed"
+                    app:layout_columnWeight="1" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <Button
+                android:id="@+id/reset_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/reset" />
+
+            <TextView
+                android:id="@+id/history_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/history"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <com.kylecorry.trail_sense.shared.views.DatePickerView
+                android:id="@+id/hourly_steps_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/hourly_steps_total_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                app:columnCount="2"
+                app:useDefaultMargins="false">
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/hourly_steps_total_steps"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/steps"
+                    app:dataPointIcon="@drawable/steps"
+                    app:layout_columnWeight="1"
+                    tools:dataPointText="5,000" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/hourly_steps_total_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/distance"
+                    app:dataPointIcon="@drawable/ruler"
+                    app:layout_columnWeight="1"
+                    tools:dataPointText="2.5 mi" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <com.kylecorry.andromeda.views.chart.Chart
+                android:id="@+id/hourly_steps_chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/chart_height"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/hourly_steps_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                tools:text="10:00 AM - 11:00 AM"
+                tools:visibility="visible" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/hourly_steps_details_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:columnCount="2"
+                app:useDefaultMargins="false"
+                tools:visibility="visible">
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/hourly_steps_details_steps"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/steps"
+                    app:dataPointIcon="@drawable/steps"
+                    app:layout_columnWeight="1"
+                    tools:dataPointText="500" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/hourly_steps_details_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/distance"
+                    app:dataPointIcon="@drawable/ruler"
+                    app:layout_columnWeight="1"
+                    tools:dataPointText="0.25 mi" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <com.kylecorry.trail_sense.shared.views.PlayBarView
         android:id="@+id/pedometer_play_bar"

@@ -29,6 +29,13 @@ class StepTrackerRepo private constructor(private val dao: StepTrackerDao) : ISt
         dao.delete(StepTrackingPeriodEntity.from(period))
     }
 
+    override suspend fun getStepCountBuckets(
+        startTime: Instant,
+        endTime: Instant
+    ): List<StepCountBucket> = onIO {
+        dao.getStepCountBuckets(startTime, endTime).map { it.toStepCountBucket() }
+    }
+
     override suspend fun upsertStepCountBucket(bucket: StepCountBucket): Long = onIO {
         val entity = StepCountBucketEntity.from(bucket)
         dao.upsert(entity)

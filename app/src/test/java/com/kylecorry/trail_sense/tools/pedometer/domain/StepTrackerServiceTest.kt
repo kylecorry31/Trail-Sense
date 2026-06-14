@@ -18,6 +18,7 @@ import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -56,6 +57,95 @@ internal class StepTrackerServiceTest {
     fun getAllStepTrackingPeriodsReturnsEmptyListWhenRepositoryIsEmpty() = runBlocking {
         val periods = service.getAllStepTrackingPeriods()
         assertEquals(emptyList<StepTrackingPeriod>(), periods)
+    }
+
+    @Test
+    fun getHourlyStepCountsSplitsBucketsProportionallyAcrossHours() = runBlocking {
+        val period = repository.addPeriod(
+            period(
+                id = 1,
+                startTime = Instant.parse("2026-01-01T23:30:00Z"),
+                endTime = Instant.parse("2026-01-02T02:30:00Z")
+            )
+        )
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = period.id,
+                startTime = Instant.parse("2026-01-01T23:30:00Z"),
+                endTime = Instant.parse("2026-01-02T01:30:00Z"),
+                steps = 120
+            )
+        )
+        repository.addBucket(
+            bucket(
+                id = 3,
+                periodId = period.id,
+                startTime = Instant.parse("2026-01-02T01:00:00Z"),
+                endTime = Instant.parse("2026-01-02T02:00:00Z"),
+                steps = 60
+            )
+        )
+
+        val hourlySteps = service.getHourlyStepCounts(
+            LocalDate.of(2026, 1, 2),
+            ZoneId.of("UTC")
+        )
+
+        assertEquals(60L, hourlySteps[0].steps)
+        assertEquals(90L, hourlySteps[1].steps)
+        assertEquals(0L, hourlySteps[2].steps)
+        assertEquals(150L, hourlySteps.sumOf { it.steps })
+    }
+
+    @Test
+    fun getHourlyStepCountsUsesActualHoursOnSpringDstDay() = runBlocking {
+        val zone = ZoneId.of("America/New_York")
+        val date = LocalDate.of(2026, 3, 8)
+        val startTime = date.atStartOfDay(zone).toInstant()
+        val endTime = date.plusDays(1).atStartOfDay(zone).toInstant()
+        val period = repository.addPeriod(period(id = 1, startTime = startTime, endTime = endTime))
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = period.id,
+                startTime = startTime,
+                endTime = endTime,
+                steps = 230
+            )
+        )
+
+        val hourlySteps = service.getHourlyStepCounts(date, zone)
+
+        assertEquals(23, hourlySteps.size)
+        assertEquals(startTime, hourlySteps.first().startTime)
+        assertEquals(endTime, hourlySteps.last().endTime)
+        assertEquals(230L, hourlySteps.sumOf { it.steps })
+    }
+
+    @Test
+    fun getHourlyStepCountsUsesActualHoursOnFallDstDay() = runBlocking {
+        val zone = ZoneId.of("America/New_York")
+        val date = LocalDate.of(2026, 11, 1)
+        val startTime = date.atStartOfDay(zone).toInstant()
+        val endTime = date.plusDays(1).atStartOfDay(zone).toInstant()
+        val period = repository.addPeriod(period(id = 1, startTime = startTime, endTime = endTime))
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = period.id,
+                startTime = startTime,
+                endTime = endTime,
+                steps = 250
+            )
+        )
+
+        val hourlySteps = service.getHourlyStepCounts(date, zone)
+
+        assertEquals(25, hourlySteps.size)
+        assertEquals(startTime, hourlySteps.first().startTime)
+        assertEquals(endTime, hourlySteps.last().endTime)
+        assertEquals(250L, hourlySteps.sumOf { it.steps })
     }
 
     @Test
@@ -271,6 +361,13 @@ internal class StepTrackerServiceTest {
 
         override suspend fun getOpenStepTrackingPeriod(): StepTrackingPeriod? {
             return periods.firstOrNull { it.isOpen }?.withBuckets()
+        }
+
+        override suspend fun getStepCountBuckets(
+            startTime: Instant,
+            endTime: Instant
+        ): List<StepCountBucket> {
+            return buckets.filter { it.startTime < endTime && it.endTime > startTime }
         }
 
         override suspend fun upsertStepTrackingPeriod(period: StepTrackingPeriod): Long {
