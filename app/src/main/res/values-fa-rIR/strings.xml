@@ -394,7 +394,7 @@
     <string name="half_tide">نیم</string>
     <string name="simplification_quality">کیفیت ساده سازی</string>
     <string name="calibrate_new_tide">کالیبره به جزر و مد جدید؟</string>
-    <string name="photo_maps">نقشه های عکس</string>
+    <string name="photo_maps">نقشه‌های عکس</string>
     <string name="accuracy_info_title">نکاتی برای بهبود دقت داده های حسگر</string>
     <string name="speedometer">سرعت سنج</string>
     <string name="start_time">شروع</string>
@@ -811,4 +811,35 @@
 \n 2. روی صفحه ضربه بزنید و نگه دارید
 \n 3. کلینومتر را مجدداً در بالای هدف قرار دهید
 \n 4. رها کنید تا قفل شود و فاصله تا هدف را ببینید</string>
+    <string name="map_layers">لایه‌های نقشه</string>
+    <string name="app_info">اطلاعات برنامه</string>
+    <string name="disconnect">قطع اتصال</string>
+    <string name="brightness">روشنائی</string>
+    <string name="sunrise_alert_notification_title">خورشید به زودی طلوع می‌کند</string>
+    <string name="sunrise_alert_notification_text">خورشید در %s طلوع می‌کند</string>
+    <string name="sunrise_alerts">هشدارهای طلوع خورشید</string>
+    <string name="sunrise_alert_channel_title">هشدار طلوع خورشید</string>
+    <string name="theme_system_black">سیستم (مشکی)</string>
+    <string name="pref_night_mode_fullscreen_title">تمام صفحه در حالت شب</string>
+    <string name="do_not_ask_again">دوباره نپرس</string>
+    <string name="pref_sunrise_alert_time_title">زمان هشدار طلوع خورشید</string>
+    <string name="guide_map_layers">لایه‌های نقشه</string>
+    <string name="clock_source_device">زمان دستگاه</string>
+    <string name="clock_source_gps">زمان GPS</string>
+    <string name="current_temperature">دمای فعلی</string>
+    <string name="milligrams">میلی گرم</string>
+    <string name="packing_list_optional">اختیاری</string>
+    <string name="clinometer_measure_height_title">مسافت تا هدف</string>
+    <string name="errors">خطاها</string>
+    <string name="compass_accuracy">دقت قطب نما</string>
+    <string name="compass_unavailable">قطب نما ناموجود</string>
+    <string name="gps_unavailable">جی پی اس ناموجود</string>
+    <string name="qr_code_scanner">اسکنر QR Code</string>
+    <string name="no_qr_code_found">هیچ QR Code تشخیص داده نشد</string>
+    <string name="open">باز کردن</string>
+    <string name="note">یادداشت</string>
+    <string name="night">شب</string>
+    <string name="average_speed">سرعت میانگین</string>
+    <string name="distance_alert">هشدار مسافت</string>
+    <string name="save">ذخیره</string>
 </resources>
