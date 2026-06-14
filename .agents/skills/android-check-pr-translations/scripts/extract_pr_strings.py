@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Extract added and removed <string> entries from strings.xml files in a PR diff,
-also resolving each key against the English source strings.xml.
+Extract translated text changes from a PR diff and resolve each change against
+the English source.
 
 Usage:
     python3 extract_pr_strings.py <pr-number>
@@ -14,7 +14,17 @@ Run from the repository root. Output: JSON with the structure:
       "added": [{"key": "...", "value": "...", "english": "..."}],
       "removed": [{"key": "...", "value": "...", "english": "..."}]
     }
-  }
+  },
+  "files": [
+    {
+      "path": "guides/xx/file.txt",
+      "locale": "xx",
+      "english_path": "guides/en-US/file.txt",
+      "english": "...",
+      "added": [{"hunk": "...", "lines": ["..."]}],
+      "removed": [{"hunk": "...", "lines": ["..."]}]
+    }
+  ]
 }
 """
 
@@ -30,6 +40,9 @@ ENGLISH_STRINGS_PATH = Path("app/src/main/res/values/strings.xml")
 STRING_RE = re.compile(r'<string name="([^"]+)">(.*?)</string>', re.DOTALL)
 # Matches the locale directory from a diff header line
 LOCALE_RE = re.compile(r'diff --git .+ b/app/src/main/res/(values-[^/]+)/strings\.xml')
+FILE_RE = re.compile(r'diff --git a/(.*?) b/(.*)')
+GUIDE_LOCALE_RE = re.compile(r'^guides/([^/]+)/(.+\.txt)$')
+SOURCE_GUIDE_LOCALE = "en-US"
 
 
 def load_english_strings() -> dict[str, str]:
@@ -41,7 +54,7 @@ def load_english_strings() -> dict[str, str]:
     return {m.group(1): m.group(2) for m in STRING_RE.finditer(text)}
 
 
-def parse_diff(diff_text: str, english: dict[str, str]) -> dict:
+def parse_string_diff(diff_text: str, english: dict[str, str]) -> dict:
     """Parse a unified diff and return added/removed strings per locale."""
     locales: dict = {}
     current_locale: str | None = None
@@ -110,6 +123,107 @@ def parse_diff(diff_text: str, english: dict[str, str]) -> dict:
     return {k: v for k, v in locales.items() if v["added"] or v["removed"]}
 
 
+def is_translated_guide(path: str) -> bool:
+    """Return True for localized guide text files that have an English source."""
+    match = GUIDE_LOCALE_RE.match(path)
+    return bool(match and match.group(1) != SOURCE_GUIDE_LOCALE)
+
+
+def english_guide_path(path: str) -> Path:
+    """Map guides/<locale>/<file>.txt to guides/en-US/<file>.txt."""
+    match = GUIDE_LOCALE_RE.match(path)
+    if not match:
+        return Path()
+    return Path("guides") / SOURCE_GUIDE_LOCALE / match.group(2)
+
+
+def load_text(path: Path) -> str:
+    """Read text if present, otherwise return an empty source marker."""
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8")
+
+
+def parse_guide_diff(diff_text: str) -> list[dict]:
+    """Parse localized guide/tool keyword text-file changes from a unified diff."""
+    files: list[dict] = []
+    current: dict | None = None
+    current_kind: str | None = None
+    current_block: list[str] = []
+    current_hunk: str = ""
+
+    def flush_block():
+        nonlocal current_kind, current_block
+        if current is None or current_kind is None or not current_block:
+            current_kind = None
+            current_block = []
+            return
+        current[current_kind].append({"hunk": current_hunk, "lines": current_block})
+        current_kind = None
+        current_block = []
+
+    def start_file(path: str):
+        nonlocal current, current_kind, current_block, current_hunk
+        flush_block()
+        if current and (current["added"] or current["removed"]):
+            files.append(current)
+
+        current_kind = None
+        current_block = []
+        current_hunk = ""
+
+        if not is_translated_guide(path):
+            current = None
+            return
+
+        locale = GUIDE_LOCALE_RE.match(path).group(1)  # type: ignore[union-attr]
+        english_path = english_guide_path(path)
+        current = {
+            "path": path,
+            "locale": locale,
+            "english_path": str(english_path),
+            "english": load_text(english_path),
+            "added": [],
+            "removed": [],
+        }
+
+    for raw_line in diff_text.splitlines():
+        file_match = FILE_RE.match(raw_line)
+        if file_match:
+            start_file(file_match.group(2))
+            continue
+
+        if current is None:
+            continue
+
+        if raw_line.startswith("@@"):
+            flush_block()
+            current_hunk = raw_line
+            continue
+
+        if raw_line.startswith("+++ ") or raw_line.startswith("--- "):
+            continue
+
+        if raw_line.startswith("+"):
+            if current_kind != "added":
+                flush_block()
+                current_kind = "added"
+            current_block.append(raw_line[1:])
+        elif raw_line.startswith("-"):
+            if current_kind != "removed":
+                flush_block()
+                current_kind = "removed"
+            current_block.append(raw_line[1:])
+        else:
+            flush_block()
+
+    flush_block()
+    if current and (current["added"] or current["removed"]):
+        files.append(current)
+
+    return files
+
+
 def main():
     if len(sys.argv) != 2:
         print(f"Usage: {sys.argv[0]} <pr-number>", file=sys.stderr)
@@ -126,8 +240,9 @@ def main():
         sys.exit(1)
 
     english = load_english_strings()
-    locales = parse_diff(result.stdout, english)
-    output = {"pr_number": pr_number, "locales": locales}
+    locales = parse_string_diff(result.stdout, english)
+    files = parse_guide_diff(result.stdout)
+    output = {"pr_number": pr_number, "locales": locales, "files": files}
     print(json.dumps(output, indent=2, ensure_ascii=False))
 
 

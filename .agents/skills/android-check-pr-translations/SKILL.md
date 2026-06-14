@@ -1,23 +1,27 @@
 ---
 name: android-check-pr-translations
-description: Audit translation accuracy for strings changed in a GitHub PR. Use when asked to check, review, audit, or verify translations in a pull request. Identifies inaccurate translated strings by comparing PR changes against the English source.
+description: Audit translation accuracy for localized Android resources and guide text files changed in a GitHub PR. Use when asked to check, review, audit, or verify translations in a pull request, including strings.xml, guides, tool keywords, field guides, and other localized guide .txt files. Identifies inaccurate translated content by comparing PR changes against the English source.
 ---
 
 # Check PR Translations
 
-Audit the translation accuracy of Android string resources changed in a GitHub pull request.
+Audit the translation accuracy of Android string resources and localized guide files changed in a GitHub pull request.
 
 ## Workflow
 
-1. Run the extraction script from the skill's folder to get the changed strings from the PR:
+1. Run the extraction script from the skill's folder to get the changed translated content from the PR:
    ```
    python scripts/extract_pr_strings.py <pr-number>
    ```
-   The output includes both the translated value and the English source for each changed key — no repo search needed.
+   The output includes:
+   - `locales`: changed translated `<string>` resources with the English source for each key.
+   - `files`: changed localized guide `.txt` files, including guide pages, field guides, and `tool_keywords.txt`, with the matching `guides/en-US/...` source text.
 
-2. For each entry in `added`, compare `value` (translation) against `english` (source) using the accuracy criteria below.
+2. For each `locales.*.added` entry, compare `value` (translation) against `english` (source) using the accuracy criteria below.
 
-3. Report findings as JSON (see Output Format).
+3. For each `files[]` entry, compare the added translated lines against the `english` source text. Use removed lines and hunk context to understand what changed, but report only inaccuracies present in the added translated content.
+
+4. Report findings as JSON (see Output Format).
 
 ## Accuracy Criteria
 
@@ -38,7 +42,9 @@ Audit the translation accuracy of Android string resources changed in a GitHub p
 
 ## Extraction Script: `scripts/extract_pr_strings.py` (skill-local)
 
-The script parses the output of `gh pr diff` and extracts `<string>` elements from `res/values-*/strings.xml` patch hunks.
+The script parses the output of `gh pr diff` and extracts:
+- Added and removed `<string>` elements from `res/values-*/strings.xml` patch hunks.
+- Added and removed lines from localized guide text files under `guides/<locale>/*.txt`, excluding `guides/en-US`.
 
 **Usage:**
 ```
@@ -54,14 +60,27 @@ python scripts/extract_pr_strings.py <pr-number>
       "added":   [{"key": "some_key", "value": "translated text", "english": "English source text"}],
       "removed": [{"key": "old_key",  "value": "old translated text", "english": "English source text"}]
     }
-  }
+  },
+  "files": [
+    {
+      "path": "guides/pl-rPL/tool_keywords.txt",
+      "locale": "pl-rPL",
+      "english_path": "guides/en-US/tool_keywords.txt",
+      "english": "English source text...",
+      "added": [{"hunk": "@@ ...", "lines": ["translated text"]}],
+      "removed": [{"hunk": "@@ ...", "lines": ["old translated text"]}]
+    }
+  ]
 }
 ```
 
-- `added` — strings newly introduced or whose value was changed (new value)
-- `removed` — strings that were deleted or whose value was changed (old value)
-- `english` — the corresponding value from `app/src/main/res/values/strings.xml`; empty string if the key is not found
+- `locales.*.added` — strings newly introduced or whose value was changed (new value)
+- `locales.*.removed` — strings that were deleted or whose value was changed (old value)
+- `locales.*.english` — the corresponding value from `app/src/main/res/values/strings.xml`; empty string if the key is not found
 - Only `res/values-*/strings.xml` files are included; the English `res/values/strings.xml` is excluded
+- `files[].added` — added or changed translated guide lines grouped into contiguous diff blocks
+- `files[].removed` — removed translated guide lines grouped into contiguous diff blocks
+- `files[].english` — the complete matching English source guide file; empty string if the source file is not found
 
 ## Output Format
 
@@ -72,7 +91,8 @@ Output ONLY a JSON blob:
   "pr_number": 1234,
   "inaccurate_translations": [
     {
-      "key": "key_name",
+      "key": "key_name or null",
+      "file": "path/to/file or null",
       "locale": "values-xx",
       "reason": "Why it is inaccurate"
     }
@@ -89,3 +109,7 @@ If all translations are accurate:
 ```
 
 Do not output any explanation, commentary, or text outside the JSON blob.
+
+- `key`: use the string resource key for `strings.xml` findings; use `null` for guide file findings.
+- `file`: use `null` for `strings.xml` findings; use the localized file path for guide file findings.
+- `locale`: use the Android resource directory (`values-xx`) or guide locale (`xx`, `xx-rYY`).
