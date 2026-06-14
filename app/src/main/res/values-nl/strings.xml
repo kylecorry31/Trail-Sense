@@ -1603,4 +1603,6 @@
     <string name="map_file_missing">Bestand ontbreekt</string>
     <string name="copy_to_trail_sense">Kopiëren naar Trail Sense</string>
     <string name="pref_copy_trail_maps_summary">Bij importeren. Wanneer uitgeschakeld, wordt het originele bestand gebruikt en moet op je apparaat bewaard blijven.</string>
+    <string name="widget_icon_compatibility_mode_summary">Lost op sommige apparaten ontbrekende widgetpictogrammen op</string>
+    <string name="widget_icon_compatibility_mode">Compatibiliteitsmodus voor widgetpictogrammen</string>
 </resources>
