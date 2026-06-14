@@ -53,6 +53,9 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathEnti
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupDao
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupEntity
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.WaypointDao
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.StepCountBucketEntity
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.StepTrackerDao
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.persistence.StepTrackingPeriodEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideConstituentEntry
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
@@ -65,8 +68,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class],
-    version = 56,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class, StepTrackingPeriodEntity::class, StepCountBucketEntity::class],
+    version = 57,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -94,6 +97,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun pluginDao(): PluginDao
     abstract fun pluginRegistrationDao(): PluginRegistrationDao
     abstract fun vectorMapDao(): VectorMapDao
+    abstract fun stepTrackerDao(): StepTrackerDao
 
     companion object {
 
@@ -531,6 +535,33 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_56_57 = object : Migration(56, 57) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL(
+                        """
+                        CREATE TABLE IF NOT EXISTS `step_tracking_periods` (
+                            `_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            `start_time` INTEGER NOT NULL,
+                            `end_time` INTEGER DEFAULT NULL
+                        )
+                    """.trimIndent()
+                    )
+                    db.execSQL("CREATE INDEX IF NOT EXISTS `index_step_tracking_periods_end_time` ON `step_tracking_periods` (`end_time`)")
+                    db.execSQL(
+                        """
+                        CREATE TABLE IF NOT EXISTS `step_count_buckets` (
+                            `_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            `period_id` INTEGER NOT NULL,
+                            `start_time` INTEGER NOT NULL,
+                            `end_time` INTEGER NOT NULL,
+                            `steps` INTEGER NOT NULL
+                        )
+                    """.trimIndent()
+                    )
+                    db.execSQL("CREATE INDEX IF NOT EXISTS `index_step_count_buckets_period_id` ON `step_count_buckets` (`period_id`)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -587,7 +618,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_52_53,
                     MIGRATION_53_54,
                     MIGRATION_54_55,
-                    MIGRATION_55_56
+                    MIGRATION_55_56,
+                    MIGRATION_56_57
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

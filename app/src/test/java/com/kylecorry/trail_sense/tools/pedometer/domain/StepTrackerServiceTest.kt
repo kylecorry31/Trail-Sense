@@ -115,6 +115,32 @@ internal class StepTrackerServiceTest {
     }
 
     @Test
+    fun addStepsMovesOpenPeriodStartTimeEarlierWhenTimeIsBeforeStartTime() = runBlocking {
+        val startTime = Instant.parse("2026-01-01T10:00:00Z")
+        val earlierTime = Instant.parse("2026-01-01T09:15:00Z")
+        val openPeriod = repository.addPeriod(period(id = 1, startTime = startTime))
+        repository.addBucket(bucket(id = 2, periodId = openPeriod.id, startTime = startTime, steps = 10))
+
+        service.addSteps(7, earlierTime)
+
+        val updatedPeriod = service.getOpenStepTrackingPeriod()
+        val buckets = updatedPeriod?.stepCountBuckets.orEmpty().sortedBy { it.startTime }
+        assertEquals(earlierTime, updatedPeriod?.startTime)
+        assertEquals(17, updatedPeriod?.steps)
+        assertEquals(
+            bucket(
+                id = 3,
+                periodId = openPeriod.id,
+                startTime = Instant.parse("2026-01-01T09:00:00Z"),
+                endTime = Instant.parse("2026-01-01T10:00:00Z"),
+                steps = 7
+            ),
+            buckets.first()
+        )
+        verifyStepsChanged(17)
+    }
+
+    @Test
     fun addStepsCreatesNewBucketWhenTimeIsAtExistingBucketEnd() = runBlocking {
         val startTime = Instant.parse("2026-01-01T10:00:00Z")
         val openPeriod = repository.addPeriod(period(id = 1, startTime = startTime))
