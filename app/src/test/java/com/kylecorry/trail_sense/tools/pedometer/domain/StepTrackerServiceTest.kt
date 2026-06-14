@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
+import com.kylecorry.andromeda.core.time.ITimeProvider
+import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
@@ -12,19 +14,30 @@ import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.only
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoInteractions
+import org.mockito.kotlin.whenever
+import java.time.Duration
 import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 internal class StepTrackerServiceTest {
 
     private lateinit var repository: FakeStepTrackerRepository
     private lateinit var eventBus: IEventEmitter
+    private lateinit var preferences: IPedometerPreferences
+    private lateinit var timeProvider: ITimeProvider
     private lateinit var service: StepTrackerService
 
     @BeforeEach
     fun setup() {
         repository = FakeStepTrackerRepository()
         eventBus = mock()
-        service = StepTrackerService(repository, eventBus)
+        preferences = mock()
+        timeProvider = mock()
+        whenever(preferences.stepHistory).thenReturn(Duration.ofDays(30))
+        whenever(timeProvider.getTime()).thenReturn(ZonedDateTime.ofInstant(NOW, ZoneId.of("UTC")))
+        service = StepTrackerService(repository, eventBus, preferences, timeProvider)
     }
 
     @Test
@@ -178,6 +191,44 @@ internal class StepTrackerServiceTest {
         verifyStepsChanged(0)
     }
 
+    @Test
+    fun cleanDeletesBucketsOlderThanStepHistory() = runBlocking {
+        val period = repository.addPeriod(period(id = 1, endTime = NOW))
+        val oldBucket = bucket(
+            id = 2,
+            periodId = period.id,
+            startTime = NOW.minus(Duration.ofDays(31)),
+            endTime = NOW.minus(Duration.ofDays(30)).minusSeconds(1)
+        )
+        val recentBucket = bucket(
+            id = 3,
+            periodId = period.id,
+            startTime = NOW.minus(Duration.ofDays(30)),
+            endTime = NOW.minus(Duration.ofDays(30))
+        )
+        repository.addBucket(oldBucket)
+        repository.addBucket(recentBucket)
+
+        service.clean()
+
+        assertEquals(listOf(recentBucket), repository.buckets)
+        verifyNoInteractions(eventBus)
+    }
+
+    @Test
+    fun cleanDeletesEmptyClosedPeriods() = runBlocking {
+        val emptyClosedPeriod = repository.addPeriod(period(id = 1, endTime = NOW))
+        val emptyOpenPeriod = repository.addPeriod(period(id = 2, endTime = null))
+        val nonEmptyClosedPeriod = repository.addPeriod(period(id = 3, endTime = NOW))
+        repository.addBucket(bucket(id = 4, periodId = nonEmptyClosedPeriod.id, endTime = NOW))
+
+        service.clean()
+
+        assertEquals(listOf(emptyClosedPeriod), repository.deletedPeriods)
+        assertEquals(listOf(emptyOpenPeriod, nonEmptyClosedPeriod), repository.periods)
+        verifyNoInteractions(eventBus)
+    }
+
     private fun verifyStepsChanged(steps: Long) {
         verify(eventBus, only()).broadcast(
             eq(PedometerToolRegistration.BROADCAST_STEPS_CHANGED),
@@ -258,6 +309,18 @@ internal class StepTrackerServiceTest {
             deletedBucketPeriodIds.add(periodId)
         }
 
+        override suspend fun deleteBucketsOlderThan(endTime: Instant) {
+            buckets.removeAll { it.endTime.isBefore(endTime) }
+        }
+
+        override suspend fun deleteEmptyClosedPeriods() {
+            val emptyClosedPeriods = periods.filter { period ->
+                period.endTime != null && buckets.none { it.periodId == period.id }
+            }
+            periods.removeAll(emptyClosedPeriods)
+            deletedPeriods.addAll(emptyClosedPeriods)
+        }
+
         fun addPeriod(period: StepTrackingPeriod): StepTrackingPeriod {
             periods.add(period.copy(stepCountBuckets = emptyList()))
             nextId = maxOf(nextId, period.id + 1)
@@ -273,6 +336,10 @@ internal class StepTrackerServiceTest {
         private fun StepTrackingPeriod.withBuckets(): StepTrackingPeriod {
             return copy(stepCountBuckets = buckets.filter { it.periodId == id })
         }
+    }
+
+    companion object {
+        private val NOW = Instant.parse("2026-06-14T12:00:00Z")
     }
 
 }

@@ -10,9 +10,11 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
@@ -23,6 +25,7 @@ import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
 
 class PedometerSettingsFragment : AndromedaPreferenceFragment() {
@@ -30,6 +33,7 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
     private lateinit var permissionPref: Preference
     private var enabledPref: SwitchPreferenceCompat? = null
     private val userPrefs by lazy { UserPreferences(requireContext()) }
+    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
 
@@ -96,11 +100,36 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
             findNavController().navigate(R.id.action_calibrate_pedometer_to_estimate_stride_length)
         }
 
+        setupStepHistorySetting()
+
         setupNotificationSetting(
             getString(R.string.pref_pedometer_notification_link),
             StepCounterService.CHANNEL_ID,
             getString(R.string.pedometer)
         )
+    }
+
+    private fun setupStepHistorySetting() {
+        val stepHistory = preference(R.string.pref_pedometer_history_days)
+        stepHistory?.summary =
+            formatService.formatDays(userPrefs.pedometer.stepHistory.toDays().toInt())
+        stepHistory?.setOnPreferenceClickListener {
+            Pickers.number(
+                requireContext(),
+                it.title.toString(),
+                null,
+                userPrefs.pedometer.stepHistory.toDays().toInt(),
+                allowDecimals = false,
+                allowNegative = false,
+                hint = getString(R.string.days)
+            ) { days ->
+                if (days != null) {
+                    userPrefs.pedometer.stepHistory = Duration.ofDays(days.toLong())
+                    it.summary = formatService.formatDays(if (days.toInt() > 0) days.toInt() else 1)
+                }
+            }
+            true
+        }
     }
 
     override fun onResume() {
