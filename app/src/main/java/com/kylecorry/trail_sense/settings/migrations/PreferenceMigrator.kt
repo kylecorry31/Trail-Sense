@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSo
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerGeoJsonSource
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -69,7 +70,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 28
+        private const val version = 29
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -465,6 +466,14 @@ class PreferenceMigrator private constructor() {
                     prefs.putBoolean(context.getString(R.string.pref_use_bottom_navigation_labels), false)
                 }
 
+            },
+            PreferenceMigration(28, 29) { context, prefs ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    PedometerPreferenceMigration(
+                        getAppService<StepTrackerService>(),
+                        prefs
+                    ).migrate()
+                }
             }
         )
 
@@ -485,7 +494,6 @@ class PreferenceMigrator private constructor() {
             val key = "pref_${mapId}_${layerId}_layer_enabled"
             return prefs.getBoolean(key) ?: true
         }
-
 
     }
 

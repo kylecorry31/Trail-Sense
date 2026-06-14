@@ -4,6 +4,7 @@ import com.kylecorry.trail_sense.shared.events.EventData
 import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Duration
@@ -40,7 +41,14 @@ class StepTrackerService(private val repository: IStepTrackerRepository, private
     }
 
     override suspend fun addSteps(steps: Long, time: Instant) = stepMutex.withLock {
-        val openPeriod = getOrCreateOpenStepTrackingPeriodWithoutLock(time)
+        val existingOpenPeriod = getOrCreateOpenStepTrackingPeriodWithoutLock(time)
+        val openPeriod = if (time.isBefore(existingOpenPeriod.startTime)) {
+            existingOpenPeriod.copy(startTime = time).also {
+                repository.upsertStepTrackingPeriod(it)
+            }
+        } else {
+            existingOpenPeriod
+        }
         val containedBucket = openPeriod.stepCountBuckets.firstOrNull {
             (time == it.startTime || time.isAfter(it.startTime)) && time.isBefore(it.endTime)
         }
@@ -48,8 +56,12 @@ class StepTrackerService(private val repository: IStepTrackerRepository, private
             containedBucket.copy(steps = containedBucket.steps + steps)
         } else {
             // Buckets always start on the hour and are 1 hour long
-            val startTime = time.truncatedTo(ChronoUnit.HOURS)
-            val endTime = startTime.plus(DEFAULT_BUCKET_DURATION)
+            val startTime = time.toZonedDateTime()
+                .truncatedTo(ChronoUnit.HOURS)
+                .toInstant()
+            val endTime = startTime.toZonedDateTime()
+                .plus(DEFAULT_BUCKET_DURATION)
+                .toInstant()
             StepCountBucket(
                 id = 0,
                 periodId = openPeriod.id,
