@@ -18,7 +18,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
         <th>F-Droid</th>
         <th>Google Play</th>
         <th>Obtainium</th>
-        <th>Survival Guide (Paperback)</th>
+        <th>Survival Guide</th>
     </tr>
     <tr>
         <td>
@@ -37,8 +37,8 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
           </a>
         </td>
         <td align="center">
-            <a href="https://www.amazon.com/dp/B0FN4XBJM7">
-                <img alt="Buy it on Amazon" src="site/images/cover.webp" height="80" align="middle">
+            <a href="https://kylecorry.com/Trail-Sense/book.html">
+                <img alt="Get the book" src="site/images/cover.webp" height="80" align="middle">
             </a>
         </td>
     </tr>
