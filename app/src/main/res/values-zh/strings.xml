@@ -1594,4 +1594,7 @@
     <string name="copy_to_trail_sense">复制到 Trail Sense</string>
     <string name="widget_icon_compatibility_mode">小组件图标兼容模式</string>
     <string name="widget_icon_compatibility_mode_summary">修复部分设备上缺少小部件图标的问题</string>
+    <string name="pref_pedometer_history_days_title">步数历史</string>
+    <string name="current_session">当前会话</string>
+    <string name="history">历史记录</string>
 </resources>
