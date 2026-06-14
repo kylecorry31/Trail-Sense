@@ -1,4 +1,4 @@
-以下应用已被 Trail Sense推荐为手机上实用的工具。这些应用与 Trail Sense 无关联。
+以下应用已被 Trail Sense 用户推荐为手机上实用的工具。这些应用与 Trail Sense 无关联。
 
 ## Offline survival manual
 
@@ -14,7 +14,13 @@
 
 ## OsmAnd~
 
-一款离线地图应用选择界面选择"地图"选项，即可通过此应用打开信标。此应用可通过 F-Droid 免费获取。呈现可能的物种列表，并附有图片、描述和置信度。与所有图像识别应用一样，它并非总是准确无误。
+一款离线地图应用。出发徒步前，请先下载所需地图。在 Trail Sense 的信标选择界面选择"地图"选项，即可通过此应用打开信标。此应用可通过 F-Droid 免费获取。
+
+[下载](market://details?id=net.osmand.plus)
+
+## PlantNet
+
+此应用可通过图像识别帮助识别植物。拍照后会呈现可能的物种列表，并附有图片、描述和置信度。与所有图像识别应用一样，它并非总是准确无误。
 
 [下载](market://details?id=org.plantnet)
 
@@ -64,7 +70,7 @@
 
 ## Briar
 
-此应用支持通过 Wi 直连进行离线加密通信。
+此应用支持通过蓝牙或 WiFi 直连进行离线加密通信。
 
 [下载](market://details?id=org.briarproject.briar.android)
 
