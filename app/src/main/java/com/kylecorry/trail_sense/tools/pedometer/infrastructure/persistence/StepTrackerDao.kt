@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
+import java.time.Instant
 
 @Dao
 interface StepTrackerDao {
@@ -28,4 +29,14 @@ interface StepTrackerDao {
 
     @Query("DELETE FROM step_count_buckets WHERE period_id = :periodId")
     suspend fun deleteBucketsInPeriod(periodId: Long)
+
+    @Query("DELETE FROM step_count_buckets WHERE end_time < :endTime")
+    suspend fun deleteBucketsOlderThan(endTime: Instant)
+
+    @Query(
+        "DELETE FROM step_tracking_periods " +
+            "WHERE end_time IS NOT NULL " +
+            "AND _id NOT IN (SELECT DISTINCT period_id FROM step_count_buckets)"
+    )
+    suspend fun deleteEmptyClosedPeriods()
 }

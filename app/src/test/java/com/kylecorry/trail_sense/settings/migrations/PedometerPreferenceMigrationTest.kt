@@ -132,5 +132,8 @@ internal class PedometerPreferenceMigrationTest {
 
         override suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod) {
         }
+
+        override suspend fun clean() {
+        }
     }
 }

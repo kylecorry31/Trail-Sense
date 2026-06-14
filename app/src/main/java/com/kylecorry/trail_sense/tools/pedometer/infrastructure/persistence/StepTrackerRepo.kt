@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepCountBucket
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
+import java.time.Instant
 
 class StepTrackerRepo private constructor(private val dao: StepTrackerDao) : IStepTrackerRepository {
 
@@ -35,6 +36,14 @@ class StepTrackerRepo private constructor(private val dao: StepTrackerDao) : ISt
 
     override suspend fun deleteBucketsInPeriod(periodId: Long) = onIO {
         dao.deleteBucketsInPeriod(periodId)
+    }
+
+    override suspend fun deleteBucketsOlderThan(endTime: Instant) = onIO {
+        dao.deleteBucketsOlderThan(endTime)
+    }
+
+    override suspend fun deleteEmptyClosedPeriods() = onIO {
+        dao.deleteEmptyClosedPeriods()
     }
 
     private suspend fun getBuckets(periodId: Long): List<StepCountBucket> {

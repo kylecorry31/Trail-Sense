@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
+import com.kylecorry.trail_sense.main.persistence.ICleanable
 import java.time.Instant
 
-interface IStepTrackerService {
+interface IStepTrackerService : ICleanable {
     suspend fun getAllStepTrackingPeriods(): List<StepTrackingPeriod>
 
     suspend fun getOpenStepTrackingPeriod(): StepTrackingPeriod?

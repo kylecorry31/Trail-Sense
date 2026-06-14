@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.infrastructure
 
 import com.kylecorry.sol.units.Distance
+import java.time.Duration
 
 interface IPedometerPreferences {
     var isEnabled: Boolean
@@ -8,4 +9,5 @@ interface IPedometerPreferences {
     var strideLength: Distance
     var alertDistance: Distance?
     val useAlarmForDistanceAlert: Boolean
+    var stepHistory: Duration
 }
