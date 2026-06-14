@@ -29,9 +29,13 @@ class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
             return
         }
 
-        hasText(R.id.pedometer_title, "0 ft")
+        hasText(R.id.pedometer_title, string(R.string.pedometer))
+        hasText(R.id.current_session_title, string(R.string.current_session))
         hasText(R.id.pedometer_steps, "0")
         hasText(R.id.pedometer_steps, string(R.string.steps))
+
+        hasText(R.id.pedometer_distance, "0 ft")
+        hasText(R.id.pedometer_distance, string(R.string.distance))
 
         hasText(R.id.pedometer_speed, "-")
         hasText(R.id.pedometer_speed, string(R.string.current_speed))
@@ -52,7 +56,7 @@ class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
         click(R.id.reset_btn)
         clickOk()
 
-        hasText(R.id.pedometer_title, Regex("since \\d+:\\d+ [AP]M"))
+        hasText(R.id.current_session_time, Regex("\\d+:\\d+ [AP]M - ${string(R.string.now)}"))
 
         click(toolbarButton(R.id.pedometer_title, Side.Right))
         input(R.id.amount, "0")
