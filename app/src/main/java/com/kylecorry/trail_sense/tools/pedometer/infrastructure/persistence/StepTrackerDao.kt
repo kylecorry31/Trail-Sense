@@ -24,6 +24,13 @@ interface StepTrackerDao {
     @Query("SELECT * FROM step_count_buckets WHERE period_id = :periodId ORDER BY start_time")
     suspend fun getStepCountBuckets(periodId: Long): List<StepCountBucketEntity>
 
+    @Query(
+        "SELECT * FROM step_count_buckets " +
+            "WHERE start_time < :endTime AND end_time > :startTime " +
+            "ORDER BY start_time"
+    )
+    suspend fun getStepCountBuckets(startTime: Instant, endTime: Instant): List<StepCountBucketEntity>
+
     @Upsert
     suspend fun upsert(bucket: StepCountBucketEntity): Long
 

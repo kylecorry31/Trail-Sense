@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.luna.topics.generic.getOrNull
 import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -29,12 +30,14 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.domain.HourlyStepCount
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 
@@ -51,9 +54,13 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private var hourlyStepsChart: HourlyStepsChart? = null
 
     private var steps by state(0L)
     private var lastResetTime by state<Instant?>(null)
+    private var selectedDate by state(LocalDate.now())
+    private var hourlySteps by state(emptyList<HourlyStepCount>())
+    private var selectedHourlySteps by state<HourlyStepCount?>(null)
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -64,6 +71,25 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hourlyStepsChart = HourlyStepsChart(binding.hourlyStepsChart) {
+            selectedHourlySteps = it
+        }
+        setupResetButton()
+        setupPedometerPlayBar()
+        setupDistanceAlertButton()
+        setupHourlyStepsDatePicker()
+
+        observe(averageSpeedometer) { onUpdate() }
+
+        observe(instantSpeedometer) { onUpdate() }
+
+        pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
+
+        // TODO: Use pedometer subsystem topics
+        scheduleUpdates(500L)
+    }
+
+    private fun setupResetButton() {
         binding.resetBtn.setOnClickListener {
             Alerts.dialog(requireContext(), getString(R.string.reset_distance_title)) {
                 if (!it) {
@@ -73,7 +99,9 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 }
             }
         }
+    }
 
+    private fun setupPedometerPlayBar() {
         binding.pedometerPlayBar.setOnPlayButtonClickListener {
             when (pedometer.state.getOrNull()) {
                 FeatureState.On -> pedometer.disable()
@@ -85,7 +113,9 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 }
             }
         }
+    }
 
+    private fun setupDistanceAlertButton() {
         binding.pedometerTitle.rightButton.setOnClickListener {
             val alertDistance = prefs.pedometer.alertDistance
             if (alertDistance == null) {
@@ -119,15 +149,16 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 }
             }
         }
+    }
 
-        observe(averageSpeedometer) { onUpdate() }
-
-        observe(instantSpeedometer) { onUpdate() }
-
-        pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
-
-        // TODO: Use pedometer subsystem topics
-        scheduleUpdates(500L)
+    private fun setupHourlyStepsDatePicker() {
+        binding.hourlyStepsDate.date = selectedDate
+        binding.hourlyStepsDate.setOnDateChangeListener {
+            selectedDate = it
+            inBackground {
+                updateHourlySteps()
+            }
+        }
     }
 
     override fun onResume() {
@@ -145,6 +176,19 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         val trackingPeriod = stepTrackerService.getOpenStepTrackingPeriod() ?: return
         steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: trackingPeriod.steps
         lastResetTime = trackingPeriod.startTime
+        updateHourlySteps()
+    }
+
+    private suspend fun updateHourlySteps() {
+        val date = selectedDate
+        val updatedHourlySteps = stepTrackerService.getHourlyStepCounts(date)
+        hourlySteps = updatedHourlySteps
+        selectedHourlySteps = selectedHourlySteps?.let { selected ->
+            updatedHourlySteps.firstOrNull { it.startTime == selected.startTime }
+        }
+        onMain {
+            binding.hourlyStepsDate.date = date
+        }
     }
 
     override fun onUpdate() {
@@ -160,21 +204,28 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             } else {
                 formatService.formatRelativeDate(lastReset.toLocalDate())
             }
-            binding.pedometerTitle.subtitle.text = getString(R.string.since_time, dateString)
+            binding.currentSessionTime.text = getString(
+                R.string.dash_separated_pair,
+                dateString,
+                getString(R.string.now)
+            )
         }
 
         binding.pedometerSteps.title = DecimalFormatter.format(steps, 0)
-
-        binding.pedometerTitle.subtitle.isVisible = lastReset != null
-
-        binding.pedometerTitle.title.text = formatService.formatDistance(
+        val formattedDistance = formatService.formatDistance(
             distance,
             Units.getDecimalPlaces(distance.units),
             false
         )
+        binding.pedometerDistance.title = formattedDistance
+
+        binding.currentSessionTime.isVisible = lastReset != null
+
+        binding.pedometerTitle.title.text = getString(R.string.pedometer)
 
         updateAverageSpeed()
         updateCurrentSpeed()
+        updateHourlyStepsChart()
     }
 
     private fun updateStatusBar() {
@@ -204,6 +255,41 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private fun getDistance(steps: Long): Distance {
         val distance = paceCalculator.distance(steps)
         return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+    }
+
+    private fun updateHourlyStepsChart() {
+        val roundedDailySteps = hourlySteps.sumOf { it.steps }
+        val dailyDistance = getDistance(roundedDailySteps)
+        binding.hourlyStepsTotalSteps.title = DecimalFormatter.format(roundedDailySteps, 0)
+        binding.hourlyStepsTotalDistance.title = formatService.formatDistance(
+            dailyDistance,
+            Units.getDecimalPlaces(dailyDistance.units),
+            false
+        )
+        hourlyStepsChart?.plot(hourlySteps)
+        hourlyStepsChart?.highlight(selectedHourlySteps)
+        updateHourlyStepsDetails()
+    }
+
+    private fun updateHourlyStepsDetails() {
+        val hourlySteps = selectedHourlySteps
+        binding.hourlyStepsDetails.isVisible = hourlySteps != null
+        binding.hourlyStepsDetailsGrid.isVisible = hourlySteps != null
+        hourlySteps ?: return
+
+        val steps = hourlySteps.steps
+        val distance = getDistance(steps)
+        binding.hourlyStepsDetails.text = getString(
+            R.string.dash_separated_pair,
+            formatService.formatTime(hourlySteps.startTime, false),
+            formatService.formatTime(hourlySteps.endTime, false)
+        )
+        binding.hourlyStepsDetailsSteps.title = DecimalFormatter.format(steps, 0)
+        binding.hourlyStepsDetailsDistance.title = formatService.formatDistance(
+            distance,
+            Units.getDecimalPlaces(distance.units),
+            false
+        )
     }
 
     private fun startStepCounter() {
