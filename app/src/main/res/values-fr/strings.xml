@@ -1617,4 +1617,7 @@
     <string name="copy_to_trail_sense">Copier dans Trail Sense</string>
     <string name="widget_icon_compatibility_mode">Mode de compatibilité des icônes de widgets</string>
     <string name="widget_icon_compatibility_mode_summary">Corrige l\'absence d\'icônes de widgets sur certains appareils</string>
+    <string name="pref_pedometer_history_days_title">Historique des étapes</string>
+    <string name="current_session">Session en cours</string>
+    <string name="history">Historique</string>
 </resources>
