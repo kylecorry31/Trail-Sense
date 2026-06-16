@@ -1216,4 +1216,6 @@
     <string name="unit_millimeters">Міліметри</string>
     <string name="imperial_teaspoons">Імперські чайні ложки</string>
     <string name="imperial_tablespoons">Імперські столові ложки</string>
+    <string name="plugins">Додатки</string>
+    <string name="map_layers">Шари мап</string>
 </resources>
