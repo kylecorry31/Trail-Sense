@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
@@ -32,12 +33,12 @@ import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.HourlyStepCount
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 
@@ -78,6 +79,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         setupPedometerPlayBar()
         setupDistanceAlertButton()
         setupHourlyStepsDatePicker()
+        setupPedometerSessionsButton()
 
         observe(averageSpeedometer) { onUpdate() }
 
@@ -161,6 +163,12 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         }
     }
 
+    private fun setupPedometerSessionsButton() {
+        binding.pedometerSessionsBtn.setOnClickListener {
+            showPedometerSessions()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         Tools.subscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, ::updateSteps)
@@ -173,10 +181,61 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     }
 
     private suspend fun updateSteps(data: Bundle?) {
-        val trackingPeriod = stepTrackerService.getOpenStepTrackingPeriod() ?: return
-        steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: trackingPeriod.steps
-        lastResetTime = trackingPeriod.startTime
+        val trackingPeriod = stepTrackerService.getOpenStepTrackingPeriod()
+        steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS)
+            ?: trackingPeriod?.steps
+                    ?: 0L
+        lastResetTime = trackingPeriod?.startTime
         updateHourlySteps()
+    }
+
+    private fun showPedometerSessions() {
+        inBackground {
+            val periods = stepTrackerService.getAllStepTrackingPeriods()
+                .sortedByDescending { it.startTime }
+            onMain {
+                var dialog: AlertDialog? = null
+                val mapper = PedometerSessionListItemMapper(
+                    requireContext(),
+                    paceCalculator
+                ) { period, title ->
+                    confirmDeletePedometerSession(
+                        period,
+                        title,
+                        dialog
+                    )
+                }
+                dialog = CustomUiUtils.showList(
+                    requireContext(),
+                    getString(R.string.history),
+                    periods.map(mapper::map),
+                    emptyText = getString(R.string.no_pedometer_sessions)
+                )
+            }
+        }
+    }
+
+    private fun confirmDeletePedometerSession(
+        period: StepTrackingPeriod,
+        title: String,
+        dialog: AlertDialog?
+    ) {
+        Alerts.dialog(
+            requireContext(),
+            getString(R.string.delete),
+            title
+        ) { cancelled ->
+            if (!cancelled) {
+                inBackground {
+                    stepTrackerService.deleteStepTrackingPeriod(period)
+                    onMain {
+                        // Refresh the dialog
+                        dialog?.dismiss()
+                        showPedometerSessions()
+                    }
+                }
+            }
+        }
     }
 
     private suspend fun updateHourlySteps() {
