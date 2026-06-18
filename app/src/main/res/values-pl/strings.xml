@@ -1552,4 +1552,9 @@
     <string name="map_external">Zewnętrzna</string>
     <string name="map_file_missing">Brak pliku</string>
     <string name="copy_to_trail_sense">Kopiuj do Trail Sense</string>
+    <string name="pref_pedometer_history_days_title">Historia kroków</string>
+    <string name="current_session">Aktualna sesja</string>
+    <string name="history">Historia</string>
+    <string name="widget_icon_compatibility_mode">Tryb kompatybilności ikon widżetów</string>
+    <string name="widget_icon_compatibility_mode_summary">Naprawia brakujące ikony na niektórych urządzeniach</string>
 </resources>
