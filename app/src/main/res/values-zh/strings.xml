@@ -1597,4 +1597,5 @@
     <string name="pref_pedometer_history_days_title">步数历史</string>
     <string name="current_session">当前会话</string>
     <string name="history">历史记录</string>
+    <string name="no_pedometer_sessions">无会话</string>
 </resources>
