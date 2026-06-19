@@ -1452,6 +1452,10 @@
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
     </plurals>
+    <plurals name="step_count">
+        <item quantity="one">%d step</item>
+        <item quantity="other">%d steps</item>
+    </plurals>
     <plurals name="number_steps">
         <item quantity="one">%d step</item>
         <item quantity="other">%d steps</item>

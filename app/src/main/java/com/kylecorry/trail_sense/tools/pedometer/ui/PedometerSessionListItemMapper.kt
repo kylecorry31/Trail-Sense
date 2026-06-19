@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.ui
 
 import android.content.Context
-import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.andromeda.views.list.ListMenuItem
@@ -59,7 +58,7 @@ class PedometerSessionListItemMapper(
         val speed = paceCalculator.speed(period.steps, duration)
             .convertTo(DistanceUnits.Meters, TimeUnits.Seconds)
         return formatter.join(
-            DecimalFormatter.format(period.steps, 0) + " " + context.getString(R.string.steps),
+            context.resources.getQuantityString(R.plurals.step_count, period.steps.toInt(), period.steps),
             formatter.formatDistance(
                 distance,
                 Units.getDecimalPlaces(distance.units),
