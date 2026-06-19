@@ -1620,4 +1620,5 @@
     <string name="pref_pedometer_history_days_title">Historique des étapes</string>
     <string name="current_session">Session en cours</string>
     <string name="history">Historique</string>
+    <string name="no_pedometer_sessions">Aucune session</string>
 </resources>
