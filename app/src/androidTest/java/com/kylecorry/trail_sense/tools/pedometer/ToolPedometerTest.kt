@@ -7,7 +7,11 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveNotific
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasNotification
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.closeQuickActions
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.openQuickActions
@@ -19,7 +23,6 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
-import kotlin.text.Regex
 
 class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
 
@@ -67,7 +70,38 @@ class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
 
         click(R.id.play_btn)
 
+        verifyHistory()
+
         verifyQuickAction()
+    }
+
+    private fun verifyHistory() {
+        scrollUntil(R.id.pedometer_scroll) {
+            hasText(R.id.history_title, string(R.string.history))
+        }
+
+        hasText(R.id.hourly_steps_date, string(R.string.today))
+        hasText(R.id.hourly_steps_total_steps, "0")
+        hasText(R.id.hourly_steps_total_steps, string(R.string.steps))
+        hasText(R.id.hourly_steps_total_distance, "0 ft")
+        hasText(R.id.hourly_steps_total_distance, string(R.string.distance))
+
+        click(R.id.prev_date)
+        hasText(R.id.hourly_steps_date, string(R.string.yesterday))
+        click(R.id.next_date)
+        hasText(R.id.hourly_steps_date, string(R.string.today))
+
+        scrollUntil(R.id.pedometer_scroll) {
+            isVisible(R.id.hourly_steps_chart)
+        }
+
+        click(R.id.pedometer_sessions_btn)
+        hasText(string(R.string.history))
+        hasText("0 steps")
+        clickListItemMenu("Delete")
+        clickOk()
+        not { hasText("0 steps") }
+        clickOk()
     }
 
     private fun verifyQuickAction() {
