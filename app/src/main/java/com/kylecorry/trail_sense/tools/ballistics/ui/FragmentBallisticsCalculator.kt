@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.ballistics.ui
 
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.loadingindicator.LoadingIndicator
 import com.google.android.material.textfield.TextInputEditText
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.tryOrDefault
@@ -48,7 +48,7 @@ class FragmentBallisticsCalculator :
         val zeroDistanceView = useView<DistanceInputView>(R.id.zero_distance)
         val scopeHeightView = useView<DistanceInputView>(R.id.scope_height)
         val bulletSpeedView = useView<BulletSpeedInputView>(R.id.bullet_speed)
-        val loadingView = useView<ProgressBar>(R.id.loading)
+        val loadingView = useView<LoadingIndicator>(R.id.loading)
         // TODO: Picker for different bullet types with option for Custom BC
         val ballisticCoefficientView = useView<TextInputEditText>(R.id.ballistic_coefficient)
 
@@ -232,4 +232,3 @@ class FragmentBallisticsCalculator :
     }
 
 }
-

@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.loadingindicator.LoadingIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -44,8 +44,7 @@ fun Alerts.cancelableLoading(
         Gravity.CENTER
     )
     view.layoutParams = params
-    val loading = CircularProgressIndicator(context)
-    loading.isIndeterminate = true
+    val loading = LoadingIndicator(context)
 
     val loadingParams = FrameLayout.LayoutParams(
         FrameLayout.LayoutParams.WRAP_CONTENT,
