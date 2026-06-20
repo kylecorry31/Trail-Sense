@@ -4,10 +4,10 @@
     <color name="md_theme_onPrimary">#562000</color>
     <color name="md_theme_primaryContainer">#FF6D00</color>
     <color name="md_theme_onPrimaryContainer">#582100</color>
-    <color name="md_theme_secondary">#FFB692</color>
-    <color name="md_theme_onSecondary">#562000</color>
-    <color name="md_theme_secondaryContainer">#321D11</color>
-    <color name="md_theme_onSecondaryContainer">#FE9D6B</color>
+    <color name="md_theme_secondary">#D9824A</color>
+    <color name="md_theme_onSecondary">#3D1600</color>
+    <color name="md_theme_secondaryContainer">#383533</color>
+    <color name="md_theme_onSecondaryContainer">#BCA28F</color>
     <color name="md_theme_tertiary">#FFB77B</color>
     <color name="md_theme_onTertiary">#4C2700</color>
     <color name="md_theme_tertiaryContainer">#C68245</color>
