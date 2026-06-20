@@ -1,0 +1,12 @@
+Guide de terrain
+- Pages de guide préremplies avec les espèces importantes et courantes pour la survie
+- Ajout de nouvelles pages de guide pour diverses catégories
+
+Détecteur de signal
+- Affichage de la distance et de la direction par rapport aux antennes-relais proches
+
+Balises
+- Option de menu permettant de supprimer toutes les balises du groupe actuel
+
+Réalité augmentée
+- Suppression de la distance maximale d'affichage du chemin (les grandes distances peuvent entraîner des ralentissements)

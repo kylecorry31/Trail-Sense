@@ -1,0 +1,20 @@
+Widgets
+- Widgets pour l'écran d'accueil et dans l'application (appui long sur la barre de navigation du bas) :
+  - Météo
+  - Pression
+  - Graphique de pression
+  - Soleil
+  - Lune
+  - Altitude
+  - Localisation
+  - Marées
+  - Podomètre
+  - Retour sur le parcours
+  - Lampe de poche
+  - Balises à proximité
+
+Marées
+- Marées à proximité (affiche les marées correspondant à votre position)
+
+Sauvegarde
+- Paramètres de sauvegarde automatique (une fois par jour, conserve les 2 dernières sauvegardes)
