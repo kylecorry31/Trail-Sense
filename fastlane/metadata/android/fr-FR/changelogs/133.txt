@@ -1,0 +1,17 @@
+Navigation
+- Afficher les cartes photographiques sur le compas radar (activer/désactiver dans les paramètres)
+- Option permettant de laisser l'écran déverrouillé
+
+Cartes illustrées
+- Masquer/afficher les cartes illustrées (pour la navigation)
+
+Guide de survie
+- Extraits de recherche
+- Action rapide de recherche
+
+Déclinaison (nouvel outil)
+- Afficher la déclinaison d'un lieu
+
+Divers
+- Possibilité de choisir certains sons de notification comme alarmes
+- Mise à jour du modèle de déclinaison
