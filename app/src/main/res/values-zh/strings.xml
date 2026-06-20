@@ -1598,4 +1598,7 @@
     <string name="current_session">当前会话</string>
     <string name="history">历史记录</string>
     <string name="no_pedometer_sessions">无会话</string>
+    <plurals name="step_count">
+        <item quantity="other">%d 步</item>
+    </plurals>
 </resources>
