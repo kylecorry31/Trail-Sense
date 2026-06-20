@@ -52,7 +52,6 @@
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
         <item name="quickActionButtonStyle">@style/Widget.App.QuickActionButton</item>
         <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
@@ -112,10 +111,6 @@
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.Material3Expressive.Dialog.Alert">
         <item name="dialogCornerRadius">@dimen/rounded_corner_size</item>
-    </style>
-
-    <style name="SnackBarButtonTheme" parent="Widget.Material3Expressive.Button.TextButton.Snackbar">
-        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
     <style name="Widget.App.QuickActionButton" parent="Widget.Material3Expressive.Button.IconButton.Tonal">
