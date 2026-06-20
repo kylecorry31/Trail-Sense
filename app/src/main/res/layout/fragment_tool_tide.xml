@@ -16,12 +16,10 @@
         tools:subtitle="Test location"
         tools:title="@string/high_tide" />
 
-    <ProgressBar
+    <com.google.android.material.loadingindicator.LoadingIndicator
         android:id="@+id/loading"
-        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="@id/tide_title"
         app:layout_constraintEnd_toEndOf="@id/tide_title"
         app:layout_constraintStart_toStartOf="@id/tide_title"

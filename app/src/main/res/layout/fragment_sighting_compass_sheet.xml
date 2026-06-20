@@ -52,12 +52,11 @@
             android:layout_gravity="center"
             android:text="@string/camera_capture" />
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
+        <com.google.android.material.loadingindicator.LoadingIndicator
             android:id="@+id/loading_indicator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:indeterminate="true"
             android:visibility="invisible" />
 
     </FrameLayout>

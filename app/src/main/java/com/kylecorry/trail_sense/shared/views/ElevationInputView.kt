@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import com.google.android.material.button.MaterialButton
 import androidx.core.view.isVisible
+import com.google.android.material.loadingindicator.LoadingIndicator
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.units.Distance
@@ -61,7 +61,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
     private lateinit var elevationInput: DistanceInputView
     private lateinit var gpsBtn: MaterialButton
 
-    private lateinit var gpsLoadingIndicator: ProgressBar
+    private lateinit var gpsLoadingIndicator: LoadingIndicator
 
     init {
         context?.let {

@@ -6,11 +6,11 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.loadingindicator.LoadingIndicator
 import com.google.android.material.textfield.TextInputLayout
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.pickers.Pickers
@@ -74,7 +74,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     private lateinit var locationEditHolder: TextInputLayout
     private lateinit var gpsBtn: MaterialButton
     private lateinit var helpBtn: ImageButton
-    private lateinit var gpsLoadingIndicator: ProgressBar
+    private lateinit var gpsLoadingIndicator: LoadingIndicator
 
     init {
         context?.let {
