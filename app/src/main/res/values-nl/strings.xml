@@ -1609,4 +1609,8 @@
     <string name="current_session">Huidige sessie</string>
     <string name="pref_pedometer_history_days_title">Stapgeschiedenis</string>
     <string name="no_pedometer_sessions">Geen sessies</string>
+    <plurals name="step_count">
+        <item quantity="one">%d stap</item>
+        <item quantity="other">%d stappen</item>
+    </plurals>
 </resources>
