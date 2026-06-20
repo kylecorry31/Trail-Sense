@@ -1621,4 +1621,9 @@
     <string name="current_session">Session en cours</string>
     <string name="history">Historique</string>
     <string name="no_pedometer_sessions">Aucune session</string>
+    <plurals name="step_count">
+        <item quantity="one">%d pas</item>
+        <item quantity="many">%d pas</item>
+        <item quantity="other">%d pas</item>
+    </plurals>
 </resources>
