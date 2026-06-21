@@ -11,8 +11,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.attribution.OfflineMapAttributionExtractorFactory
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.bounds.OfflineMapBoundsCalculatorFactory
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge.MapsforgeAdapter
 import java.time.Instant
 import java.util.UUID
 
@@ -36,9 +35,11 @@ class CreateVectorMapFromFileCommand(
             if (canPersist) {
                 uri.toString()
             } else {
-                copyToAppStorage(uri, type) ?: return@onIO null
+                throw IllegalStateException("Can't persist access to $uri")
             }
         }
+
+        val info = MapsforgeAdapter.getMapInfo(path) ?: return@onIO null
 
         val mapFile = VectorMap(
             0,
@@ -47,9 +48,8 @@ class CreateVectorMapFromFileCommand(
             path,
             files.size(path),
             Instant.now(),
-            OfflineMapBoundsCalculatorFactory().getBoundsCalculator(type).getBounds(path),
-            OfflineMapAttributionExtractorFactory().getAttributionExtractor(type)
-                .getAttribution(path),
+            info.bounds,
+            info.attribution,
             visible = true
         )
         val id = service.add(mapFile)
