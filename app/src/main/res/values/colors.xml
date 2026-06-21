@@ -21,14 +21,19 @@
     <color name="black">#000000</color>
     <color name="gray">#9E9E9E</color>
 
-    <color name="md_theme_primary">#9F4200</color>
+    <!--Buttons / charts-->
+    <color name="md_theme_primary">#c05000</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
+    <!--FABs-->
     <color name="md_theme_primaryContainer">#FF6D00</color>
     <color name="md_theme_onPrimaryContainer">#582100</color>
-    <color name="md_theme_secondary">#95491E</color>
+    <!--Quick actions (checked)-->
+    <color name="md_theme_secondary">#ca5400</color>
     <color name="md_theme_onSecondary">#FFFFFF</color>
-    <color name="md_theme_secondaryContainer">#FCE0D4</color>
-    <color name="md_theme_onSecondaryContainer">#753106</color>
+    <!--Quick actions (unchecked)-->
+    <color name="md_theme_secondaryContainer">#f0e2dc</color>
+    <color name="md_theme_onSecondaryContainer">#5a4131</color>
+    <!--Unused?-->
     <color name="md_theme_tertiary">#8A5017</color>
     <color name="md_theme_onTertiary">#FFFFFF</color>
     <color name="md_theme_tertiaryContainer">#C68245</color>
@@ -37,10 +42,13 @@
     <color name="md_theme_onError">#FFFFFF</color>
     <color name="md_theme_errorContainer">#FFDAD6</color>
     <color name="md_theme_onErrorContainer">#93000A</color>
+    <!--Background-->
     <color name="md_theme_background">#FFF8F6</color>
     <color name="md_theme_onBackground">#261812</color>
+    <!--Unused?-->
     <color name="md_theme_surface">#FFF8F6</color>
     <color name="md_theme_onSurface">#261812</color>
+    <!--Icon buttons use on surface variant-->
     <color name="md_theme_surfaceVariant">#FFDBCB</color>
     <color name="md_theme_onSurfaceVariant">#594136</color>
     <color name="md_theme_outline">#8D7164</color>
@@ -65,6 +73,7 @@
     <color name="md_theme_surfaceBright">#FFF8F6</color>
     <color name="md_theme_surfaceContainerLowest">#FFFFFF</color>
     <color name="md_theme_surfaceContainerLow">#FBF3EF</color>
+    <!--Bottom navigation-->
     <color name="md_theme_surfaceContainer">#F9ECE7</color>
     <color name="md_theme_surfaceContainerHigh">#F6E6DF</color>
     <color name="md_theme_surfaceContainerHighest">#F0E0D9</color>
