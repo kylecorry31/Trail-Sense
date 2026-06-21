@@ -1557,4 +1557,11 @@
     <string name="history">Historia</string>
     <string name="widget_icon_compatibility_mode">Tryb kompatybilności ikon widżetów</string>
     <string name="widget_icon_compatibility_mode_summary">Naprawia brakujące ikony na niektórych urządzeniach</string>
+    <string name="no_pedometer_sessions">Brak sesji</string>
+    <plurals name="step_count">
+        <item quantity="one">%d krok</item>
+        <item quantity="few">%d kroki</item>
+        <item quantity="many">%d kroków</item>
+        <item quantity="other">%d kroków</item>
+    </plurals>
 </resources>
