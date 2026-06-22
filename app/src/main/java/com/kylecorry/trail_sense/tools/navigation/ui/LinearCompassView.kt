@@ -135,7 +135,7 @@ class LinearCompassView : BaseCompassView {
         }
         val x = toPixel(reference.bearing).coerceIn(0f, width.toFloat())
         opacity((255 * reference.opacity).toInt())
-        val bitmap = getBitmap(reference.drawableId, sizeDp)
+        val bitmap = reference.bitmap ?: getBitmap(reference.drawableId, sizeDp)
         imageMode(ImageMode.Corner)
         push()
         translate(x - sizeDp / 2f, (iconSize - sizeDp) * 0.6f)

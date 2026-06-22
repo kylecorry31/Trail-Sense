@@ -2,12 +2,15 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance
 
 import android.view.View
 import android.widget.TextView
+import android.graphics.drawable.BitmapDrawable
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.DrawableListIcon
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.readableName
@@ -39,7 +42,6 @@ class AstronomyGuidanceTargetPicker(
             val location = view.location
             val time = getDisplayedTime()
             val planetMapper = PlanetMapper(view.context)
-            val moonPhaseMapper = MoonPhaseImageMapper()
             val notVisible = view.context.getString(R.string.not_visible)
 
             val options = mutableListOf<AstronomyGuidanceOption>()
@@ -59,14 +61,19 @@ class AstronomyGuidanceTargetPicker(
 
             val moonAltitude = astronomyService.getMoonAltitude(location, time)
             if (drawBelowHorizon || moonAltitude > 0f) {
-                val phase = Astronomy.getMoonPhase(time)
+                val phase = astronomyService.getMoonPhase(time)
                 options.add(
                     AstronomyGuidanceOption(
                         AstronomyGuidanceTarget(astronomyService, AstronomySelection.Moon, getDisplayedTime),
                         view.context.getString(R.string.moon),
                         if (moonAltitude > 0f) null else notVisible,
-                        moonPhaseMapper.getPhaseImage(phase.phase),
-                        iconRotation = astronomyService.getMoonTilt(location, time),
+                        R.drawable.ic_moon,
+                        iconBitmap = MoonPhaseImageMapper(view.context).getPhaseImage(
+                            phase.angle,
+                            Resources.dp(view.context, 24f).toInt(),
+                            Resources.dp(view.context, 24f).toInt(),
+                            astronomyService.getMoonTilt(location, time)
+                        ),
                         sortOrder = if (moonAltitude > 0f) 1 else 3
                     )
                 )
@@ -174,7 +181,13 @@ class AstronomyGuidanceTargetPicker(
                     index.toLong(),
                     option.name,
                     option.subtitle,
-                    icon = ResourceListIcon(
+                    icon = option.iconBitmap?.let {
+                        DrawableListIcon(
+                            BitmapDrawable(view.context.resources, it),
+                            tint = option.iconTint,
+                            rotation = option.iconRotation
+                        )
+                    } ?: ResourceListIcon(
                         option.icon,
                         tint = option.iconTint,
                         rotation = option.iconRotation
@@ -210,6 +223,7 @@ class AstronomyGuidanceTargetPicker(
         val name: String,
         val subtitle: String? = null,
         val icon: Int,
+        val iconBitmap: android.graphics.Bitmap? = null,
         val iconTint: Int? = null,
         val iconRotation: Float = 0f,
         val sortOrder: Int

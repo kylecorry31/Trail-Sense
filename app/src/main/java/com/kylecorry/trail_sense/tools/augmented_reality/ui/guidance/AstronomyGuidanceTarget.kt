@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance
 
 import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
@@ -48,12 +49,17 @@ class AstronomyGuidanceTarget(
             }
 
             AstronomySelection.Moon -> {
-                val phase = Astronomy.getMoonPhase(time)
+                val phase = astronomyService.getMoonPhase(time)
                 ARGuidanceTargetState(
                     ARGuidanceDisplayState(
                         view.context.getString(R.string.moon),
-                        MoonPhaseImageMapper().getPhaseImage(phase.phase),
-                        iconRotation = astronomyService.getMoonTilt(location, time)
+                        R.drawable.ic_moon,
+                        iconBitmap = MoonPhaseImageMapper(view.context).getPhaseImage(
+                            phase.angle,
+                            Resources.dp(view.context, 24f).toInt(),
+                            Resources.dp(view.context, 24f).toInt(),
+                            astronomyService.getMoonTilt(location, time)
+                        )
                     ),
                     SphericalARPoint(
                         astronomyService.getMoonAzimuth(location, time).value,

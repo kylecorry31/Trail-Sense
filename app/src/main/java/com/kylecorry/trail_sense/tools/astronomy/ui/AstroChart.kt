@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui
 
 import android.graphics.Color
-import androidx.annotation.DrawableRes
+import android.graphics.Bitmap
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.views.chart.Chart
@@ -33,8 +33,6 @@ class AstroChart(
     private var startTime = Instant.now()
 
     private val bitmapLoader = BitmapLoader(chart.context)
-
-    private var previousMoonImage = R.drawable.ic_moon
 
     private val sunLine = LineChartLayer(
         emptyList(),
@@ -233,12 +231,8 @@ class AstroChart(
         chart.invalidate()
     }
 
-    fun setMoonImage(@DrawableRes icon: Int) {
-        moonImage.bitmap = bitmapLoader.load(icon, imageSize.toInt())
-        if (icon != previousMoonImage) {
-            bitmapLoader.unload(previousMoonImage)
-        }
-        previousMoonImage = icon
+    fun setMoonImage(bitmap: Bitmap) {
+        moonImage.bitmap = bitmap
         chart.invalidate()
     }
 

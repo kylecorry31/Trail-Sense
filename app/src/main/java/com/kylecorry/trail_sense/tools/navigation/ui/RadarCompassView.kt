@@ -267,7 +267,7 @@ class RadarCompassView : BaseCompassView {
         opacity((255 * reference.opacity).toInt())
         push()
         rotate(reference.bearing)
-        val bitmap = getBitmap(reference.drawableId, sizeDp)
+        val bitmap = reference.bitmap ?: getBitmap(reference.drawableId, sizeDp)
         push()
         imageMode(ImageMode.Center)
         translate(width / 2f, iconSize / 2f + dp(1f))
