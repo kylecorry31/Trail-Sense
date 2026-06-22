@@ -616,7 +616,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
         binding.guidancePanel.isVisible = true
         binding.arGuideName.text = state.name
-        binding.arGuideIcon.setImageResource(state.icon)
+        if (state.iconBitmap != null) {
+            binding.arGuideIcon.setImageBitmap(state.iconBitmap)
+        } else {
+            binding.arGuideIcon.setImageResource(state.icon)
+        }
         binding.arGuideIcon.rotation = state.iconRotation
         binding.arGuideIcon.backgroundTintList =
             ColorStateList.valueOf(state.iconBackgroundTint ?: Color.TRANSPARENT)

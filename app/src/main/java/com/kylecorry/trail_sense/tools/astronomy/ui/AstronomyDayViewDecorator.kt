@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui
 
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
@@ -12,7 +13,7 @@ import java.time.ZoneId
 
 class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDayViewDecorator() {
 
-    private val phaseImageMapper = MoonPhaseImageMapper()
+    private var phaseImageMapper: MoonPhaseImageMapper? = null
 
     override fun getBottomDrawable(
         context: Context,
@@ -22,7 +23,7 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
         val astronomy = AstronomyService()
 
         val size = Resources.dp(context, 12f).toInt()
-        val phase = astronomy.getMoonPhase(date).phase
+        val phase = astronomy.getMoonPhase(date)
         val moonTilt =
             astronomy.getMoonTilt(
                 location,
@@ -37,12 +38,15 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
         val hasPartialSolar = solarEclipse != null && !solarEclipse.isTotal
         val hasTotalSolar = solarEclipse?.isTotal == true
         val drawables = listOfNotNull(
-            createIndicatorDrawable(
-                context,
-                phaseImageMapper.getPhaseImage(phase),
-                size,
-                rotation = moonTilt
-            ),
+            BitmapDrawable(
+                context.resources,
+                getPhaseImageMapper(context).getPhaseImage(
+                    phase.angle,
+                    size,
+                    size,
+                    moonTilt
+                )
+            ).apply { setBounds(0, 0, size, size) },
             if (hasMeteorShower) createIndicatorDrawable(
                 context,
                 R.drawable.ic_meteor,
@@ -77,4 +81,11 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
             createIndicatorDrawableGrid(drawables, drawables.size.coerceAtMost(2), size, size / 4)
         }
     }
+
+    private fun getPhaseImageMapper(context: Context): MoonPhaseImageMapper {
+        return phaseImageMapper ?: MoonPhaseImageMapper(context.applicationContext).also {
+            phaseImageMapper = it
+        }
+    }
+
 }

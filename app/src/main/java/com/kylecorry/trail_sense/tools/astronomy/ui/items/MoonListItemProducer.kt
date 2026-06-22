@@ -1,9 +1,10 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui.items
 
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.andromeda.views.list.DrawableListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
@@ -50,7 +51,17 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             2,
             context.getString(R.string.moon),
             percent(formatter.formatMoonPhase(phase.phase), phase.illumination),
-            ResourceListIcon(MoonPhaseImageMapper().getPhaseImage(phase.phase), rotation = tilt),
+            DrawableListIcon(
+                BitmapDrawable(
+                    context.resources,
+                    MoonPhaseImageMapper(context).getPhaseImage(
+                        phase.angle,
+                        imageSize,
+                        imageSize,
+                        tilt
+                    )
+                )
+            ),
             data = riseSetTransit(times)
         ) {
             val advancedData = listOf(

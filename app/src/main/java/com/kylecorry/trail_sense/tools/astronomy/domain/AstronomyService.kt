@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.astronomy.domain
 
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
@@ -38,7 +39,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     // PUBLIC MOON METHODS
 
     fun getCurrentMoonPhase(): MoonPhase {
-        return Astronomy.getMoonPhase(ZonedDateTime.now(clock))
+        return toStandardPhase(Astronomy.getMoonPhase(ZonedDateTime.now(clock)))
     }
 
     /**
@@ -46,7 +47,15 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
      */
     fun getMoonPhase(date: LocalDate): MoonPhase {
         val time = date.atTime(12, 0).toZonedDateTime()
-        return Astronomy.getMoonPhase(time)
+        return getMoonPhase(time)
+    }
+
+    fun getMoonPhase(time: ZonedDateTime): MoonPhase {
+        return toStandardPhase(Astronomy.getMoonPhase(time))
+    }
+
+    private fun toStandardPhase(phase: MoonPhase): MoonPhase {
+        return phase.copy(angle = Trigonometry.normalizeAngle(360f - phase.angle))
     }
 
     fun isSuperMoon(date: LocalDate): Boolean {

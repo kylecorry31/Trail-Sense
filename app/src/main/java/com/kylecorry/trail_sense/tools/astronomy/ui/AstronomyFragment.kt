@@ -10,6 +10,7 @@ import com.google.android.material.slider.LabelFormatter
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onMain
@@ -19,7 +20,6 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.astronomy.SunTimesMode
-import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
@@ -360,7 +360,14 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         currentMoonTilt = onDefault { astronomyService.getMoonTilt(location) }
 
         withContext(Dispatchers.Main) {
-            chart.setMoonImage(getMoonImage(moonPhase.phase))
+            val size = Resources.dp(requireContext(), 24f).toInt()
+            chart.setMoonImage(
+                MoonPhaseImageMapper(requireContext()).getPhaseImage(
+                    moonPhase.angle,
+                    size,
+                    size
+                )
+            )
         }
     }
 
@@ -431,10 +438,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
     }
 
-
-    private fun getMoonImage(phase: MoonTruePhase): Int {
-        return MoonPhaseImageMapper().getPhaseImage(phase)
-    }
 
     private suspend fun displayTimeUntilNextSunEvent() {
         val currentTime = LocalDateTime.now()

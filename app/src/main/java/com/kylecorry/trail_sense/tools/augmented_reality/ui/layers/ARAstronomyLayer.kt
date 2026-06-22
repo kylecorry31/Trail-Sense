@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
+import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
@@ -98,7 +99,12 @@ class ARAstronomyLayer(
             triggers.frequency("positions", updateFrequency),
             triggers.distance("positions", location, updateDistance, highAccuracy = false)
         ) {
-            updatePositions(drawer, location, timeOverride ?: ZonedDateTime.now())
+            updatePositions(
+                view.context,
+                drawer,
+                location,
+                timeOverride ?: ZonedDateTime.now()
+            )
         }
 
         lineLayer.update(drawer, view)
@@ -165,6 +171,7 @@ class ARAstronomyLayer(
     }
 
     private fun updatePositions(
+        context: Context,
         drawer: ICanvasDrawer,
         location: Coordinate,
         time: ZonedDateTime
@@ -208,7 +215,7 @@ class ARAstronomyLayer(
                             moonAfterPathObject
                         }
 
-                        val phase = Astronomy.getMoonPhase(it)
+                        val phase = astro.getMoonPhase(it)
 
                         ARMarker(
                             SphericalARPoint(
@@ -262,11 +269,15 @@ class ARAstronomyLayer(
                 val sunAltitude = astro.getSunAltitude(location, time)
                 val sunAzimuth = astro.getSunAzimuth(location, time).value
 
-                val phase = Astronomy.getMoonPhase(time)
-                val moonIconId = MoonPhaseImageMapper().getPhaseImage(phase.phase)
+                val phase = astro.getMoonPhase(time)
                 val moonImageSize = drawer.dp(24f).toInt()
-                val moonBitmap = bitmapLoader?.load(moonIconId, moonImageSize)
                 val moonTilt = astro.getMoonTilt(location, time)
+                val moonBitmap = MoonPhaseImageMapper(context).getPhaseImage(
+                    phase.angle,
+                    moonImageSize,
+                    moonImageSize,
+                    moonTilt
+                )
 
                 val moonOpacity = if (moonAltitude < 0) 255 / belowHorizonAlphaDivisor else 255
                 val moon = ARMarker(
@@ -279,7 +290,6 @@ class ARAstronomyLayer(
                     canvasObject = moonBitmap?.let {
                         CanvasBitmap(
                             moonBitmap,
-                            rotation = moonTilt,
                             opacity = moonOpacity
                         )
                     }

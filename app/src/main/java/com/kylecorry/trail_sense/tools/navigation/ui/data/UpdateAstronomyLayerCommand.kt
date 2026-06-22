@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.data
 
+import android.content.Context
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
@@ -13,6 +15,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompas
 
 class UpdateAstronomyLayerCommand(
     private val layer: MarkerCompassLayer,
+    private val context: Context,
     private val prefs: UserPreferences,
     private val gps: IGPS,
     private val declination: () -> Float
@@ -20,6 +23,13 @@ class UpdateAstronomyLayerCommand(
     override suspend fun execute() = onDefault {
         val markers = mutableListOf<IMappableReferencePoint>()
         val astro = NavAstronomyDataCommand(gps).execute()
+        val moonSize = Resources.dp(context, 24f).toInt()
+        val moonImage = MoonPhaseImageMapper(context).getPhaseImage(
+            astro.moonPhaseAngle,
+            moonSize,
+            moonSize,
+            astro.moonTilt
+        )
 
         if (prefs.astronomy.showOnCompass) {
             val showWhenDown = prefs.astronomy.showOnCompassWhenDown
@@ -48,19 +58,19 @@ class UpdateAstronomyLayerCommand(
                 markers.add(
                     MappableReferencePoint(
                         2,
-                        MoonPhaseImageMapper().getPhaseImage(astro.moonPhase),
+                        R.drawable.ic_moon,
                         fromTrueNorth(astro.moonBearing),
-                        rotation = astro.moonTilt
+                        bitmap = moonImage
                     )
                 )
             } else if (showWhenDown) {
                 markers.add(
                     MappableReferencePoint(
                         2,
-                        MoonPhaseImageMapper().getPhaseImage(astro.moonPhase),
+                        R.drawable.ic_moon,
                         fromTrueNorth(astro.moonBearing),
                         opacity = 0.5f,
-                        rotation = astro.moonTilt
+                        bitmap = moonImage
                     )
                 )
             }

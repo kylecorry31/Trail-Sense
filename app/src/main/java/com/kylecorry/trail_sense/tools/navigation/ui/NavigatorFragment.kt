@@ -108,6 +108,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val updateAstronomyLayerCommand by lazy {
         UpdateAstronomyLayerCommand(
             astronomyCompassLayer,
+            requireContext(),
             userPrefs,
             gps
         ) { declination }
