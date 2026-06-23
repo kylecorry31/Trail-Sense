@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.astronomy.domain
 
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
-import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
@@ -137,6 +136,13 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return Astronomy.getMoonParallacticAngle(timeToUse, location)
     }
 
+    fun getMoonAngularDiameter(
+        location: Coordinate,
+        time: ZonedDateTime = ZonedDateTime.now(clock)
+    ): Float {
+        return Astronomy.getMoonAngularDiameter(time, location).toFloat()
+    }
+
     // PUBLIC SUN METHODS
 
     fun getSunTimes(
@@ -233,6 +239,12 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             location, time,
             withRefraction = true
         )
+    }
+
+    fun getSunAngularDiameter(
+        time: ZonedDateTime = ZonedDateTime.now(clock)
+    ): Float {
+        return Astronomy.getSunAngularDiameter(time).toFloat()
     }
 
     fun getMeteorShower(

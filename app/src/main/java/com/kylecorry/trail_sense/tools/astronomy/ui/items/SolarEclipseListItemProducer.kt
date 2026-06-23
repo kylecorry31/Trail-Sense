@@ -1,12 +1,15 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui.items
 
 import android.content.Context
-import com.kylecorry.luna.concurrency.onDefault
+import androidx.core.graphics.drawable.toDrawable
+import com.kylecorry.andromeda.views.list.DrawableListIcon
 import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.tools.astronomy.ui.SolarEclipseImageMapper
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.EclipseFormatter
 import java.time.LocalDate
 
@@ -20,22 +23,31 @@ class SolarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
         val eclipse = astronomyService.getSolarEclipse(location, date) ?: return@onDefault null
 
         // Advanced
-        val peakAltitude = astronomyService.getSunAltitude(location, eclipse.peak)
+        val sunAltitude = astronomyService.getSunAltitude(location, eclipse.peak)
+        val sunAzimuth = astronomyService.getSunAzimuth(location, eclipse.peak)
         val peakAzimuth = DeclinationUtils.fromTrueNorthBearing(
-            astronomyService.getSunAzimuth(location, eclipse.peak),
+            sunAzimuth,
             declination
         )
+        val moonAltitude = astronomyService.getMoonAltitude(location, eclipse.peak)
+        val moonAzimuth = astronomyService.getMoonAzimuth(location, eclipse.peak)
 
         list(
             5,
             context.getString(R.string.solar_eclipse),
             EclipseFormatter.type(context, eclipse),
-            ResourceListIcon(
-                if (eclipse.isTotal) {
-                    R.drawable.ic_total_solar_eclipse
-                } else {
-                    R.drawable.ic_partial_solar_eclipse
-                }
+            DrawableListIcon(
+                SolarEclipseImageMapper(context).getEclipseImage(
+                    CelestialObservation(sunAzimuth, sunAltitude, astronomyService.getSunAngularDiameter(eclipse.peak)),
+                    CelestialObservation(
+                        moonAzimuth,
+                        moonAltitude,
+                        astronomyService.getMoonAngularDiameter(location, eclipse.peak)
+                    ),
+                    eclipse.isTotal,
+                    imageSize,
+                    imageSize
+                ).toDrawable(context.resources)
             ),
             data = times(eclipse.start, eclipse.peak, eclipse.end, date)
         ) {
@@ -54,7 +66,7 @@ class SolarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
                     )
                 ),
                 context.getString(R.string.magnitude) to decimal(eclipse.magnitude, 2),
-                context.getString(R.string.astronomy_altitude_peak) to degrees(peakAltitude),
+                context.getString(R.string.astronomy_altitude_peak) to degrees(sunAltitude),
                 context.getString(R.string.astronomy_direction_peak) to direction(peakAzimuth)
             )
 
