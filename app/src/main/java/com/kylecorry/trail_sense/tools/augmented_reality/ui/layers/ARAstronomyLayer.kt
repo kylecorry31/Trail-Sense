@@ -287,13 +287,11 @@ class ARAstronomyLayer(
                         isTrueNorth = true,
                         angularDiameter = 2f
                     ),
-                    canvasObject = moonBitmap?.let {
-                        CanvasBitmap(
-                            moonBitmap,
-                            opacity = moonOpacity
-                        )
-                    }
-                        ?: CanvasCircle(Color.WHITE.withAlpha(moonOpacity)),
+                    canvasObject = CanvasBitmap(
+                        moonBitmap,
+                        opacity = moonOpacity
+                    ),
+                    keepFacingUp = true,
                     onFocusedFn = {
                         onMoonFocus(time, phase)
                     }
