@@ -1,11 +1,16 @@
 package com.kylecorry.trail_sense.shared
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.util.Size
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -59,6 +64,49 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object CustomUiUtils {
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun setRepeatingLongPressAction(view: View, action: () -> Unit) {
+        val repeatHandler = Handler(Looper.getMainLooper())
+        var repeatAction: Runnable? = null
+
+        fun stopRepeating() {
+            repeatAction?.let {
+                repeatHandler.removeCallbacks(it)
+            }
+            repeatAction = null
+        }
+
+        fun startRepeating() {
+            stopRepeating()
+            val repeatDelay = ViewConfiguration.getTapTimeout().toLong()
+            repeatAction = object : Runnable {
+                override fun run() {
+                    action()
+                    repeatHandler.postDelayed(this, repeatDelay)
+                }
+            }
+            repeatAction?.run()
+        }
+
+        view.setOnLongClickListener {
+            startRepeating()
+            true
+        }
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                stopRepeating()
+            }
+            false
+        }
+        view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View) = Unit
+
+            override fun onViewDetachedFromWindow(v: View) {
+                stopRepeating()
+            }
+        })
+    }
 
     @ColorInt
     fun getQualityColor(quality: Quality): Int {

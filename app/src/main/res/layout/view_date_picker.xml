@@ -7,44 +7,37 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/prev_date"
+        style="?attr/materialIconButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:rotation="180"
-        app:srcCompat="@drawable/ic_keyboard_arrow_right"
-        app:tint="?android:textColorSecondary" />
+        app:icon="@drawable/ic_keyboard_arrow_right"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/date"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/date_btn"
+        style="?attr/materialButtonTonalStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:icon="@drawable/ic_date"
+        app:iconGravity="textStart"
         tools:text="Today" />
 
-    <ImageButton
-        android:id="@+id/date_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
-        app:srcCompat="@drawable/ic_date"
-        app:tint="?android:textColorSecondary" />
-
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/search_btn"
+        style="?attr/materialIconButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_search"
-        app:tint="?android:textColorSecondary"
+        app:icon="@drawable/ic_search"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small.Square"
         tools:visibility="visible" />
 
     <View
@@ -52,13 +45,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/next_date"
+        style="?attr/materialIconButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:srcCompat="@drawable/ic_keyboard_arrow_right"
-        app:tint="?android:textColorSecondary" />
+        app:icon="@drawable/ic_keyboard_arrow_right"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small" />
 
 
 </LinearLayout>

@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.core.view.isVisible
+import com.google.android.material.button.MaterialButton
 import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -19,7 +18,7 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
             val changed = field != value
             field = value
             if (changed) {
-                dateText.text = formatter.formatRelativeDate(value)
+                calendar.text = formatter.formatRelativeDate(value)
                 onDateChange(value)
             }
         }
@@ -31,11 +30,10 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         }
 
     private val formatter = FormatService.getInstance(context)
-    private val calendar: ImageButton
-    private val search: ImageButton
-    private val dateText: TextView
-    private val next: ImageButton
-    private val previous: ImageButton
+    private val calendar: MaterialButton
+    private val search: MaterialButton
+    private val next: MaterialButton
+    private val previous: MaterialButton
     private var onDateChange: (LocalDate) -> Unit = {}
     private var onCalendarLongPress: () -> Unit = {
         date = LocalDate.now()
@@ -47,11 +45,10 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         inflate(context, R.layout.view_date_picker, this)
         calendar = findViewById(R.id.date_btn)
         search = findViewById(R.id.search_btn)
-        dateText = findViewById(R.id.date)
         next = findViewById(R.id.next_date)
         previous = findViewById(R.id.prev_date)
 
-        dateText.text = formatter.formatRelativeDate(date)
+        calendar.text = formatter.formatRelativeDate(date)
 
         calendar.setOnClickListener {
             CustomUiUtils.pickDate(context, date, dayViewDecorator) {
@@ -69,8 +66,14 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         next.setOnClickListener {
             date = date.plusDays(1)
         }
+        CustomUiUtils.setRepeatingLongPressAction(next) {
+            date = date.plusDays(1)
+        }
 
         previous.setOnClickListener {
+            date = date.minusDays(1)
+        }
+        CustomUiUtils.setRepeatingLongPressAction(previous) {
             date = date.minusDays(1)
         }
 
