@@ -305,7 +305,6 @@
     <ID>LongMethod:PhotoMapListItemMapper.kt:PhotoMapListItemMapper$override fun map: ListItem</ID>
     <ID>LongMethod:PhotoMapRegionLoader.kt:PhotoMapRegionLoader$suspend fun load: Bitmap?</ID>
     <ID>LongMethod:PlaceBeaconFragment.kt:PlaceBeaconFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:RulerFragment.kt:RulerFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
     <ID>LongMethod:SlopeMapTileSource.kt:SlopeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
     <ID>LongMethod:SoftmaxCloudClassifier.kt:SoftmaxCloudClassifier$override suspend fun classify: List&lt;ClassificationResult&lt;CloudGenus?&gt;&gt;</ID>
     <ID>LongMethod:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$override fun onCreatePreferences</ID>
