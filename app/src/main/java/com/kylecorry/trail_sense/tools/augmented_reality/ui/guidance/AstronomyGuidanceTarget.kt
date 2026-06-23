@@ -55,7 +55,7 @@ class AstronomyGuidanceTarget(
                         view.context.getString(R.string.moon),
                         R.drawable.ic_moon,
                         iconBitmap = MoonPhaseImageMapper(view.context).getPhaseImage(
-                            phase.angle,
+                            phase.phaseAngle,
                             Resources.dp(view.context, 24f).toInt(),
                             Resources.dp(view.context, 24f).toInt(),
                             astronomyService.getMoonTilt(location, time)

@@ -39,7 +39,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     // PUBLIC MOON METHODS
 
     fun getCurrentMoonPhase(): MoonPhase {
-        return toStandardPhase(Astronomy.getMoonPhase(ZonedDateTime.now(clock)))
+        return getMoonPhase(ZonedDateTime.now(clock))
     }
 
     /**
@@ -51,11 +51,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonPhase(time: ZonedDateTime): MoonPhase {
-        return toStandardPhase(Astronomy.getMoonPhase(time))
-    }
-
-    private fun toStandardPhase(phase: MoonPhase): MoonPhase {
-        return phase.copy(angle = Trigonometry.normalizeAngle(360f - phase.angle))
+        return Astronomy.getMoonPhase(time)
     }
 
     fun isSuperMoon(date: LocalDate): Boolean {

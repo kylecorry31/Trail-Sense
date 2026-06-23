@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import java.time.LocalDate
 import java.time.ZoneId
+import androidx.core.graphics.drawable.toDrawable
 
 class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context) {
 
@@ -52,15 +53,12 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             context.getString(R.string.moon),
             percent(formatter.formatMoonPhase(phase.phase), phase.illumination),
             DrawableListIcon(
-                BitmapDrawable(
-                    context.resources,
-                    MoonPhaseImageMapper(context).getPhaseImage(
-                        phase.angle,
-                        imageSize,
-                        imageSize,
-                        tilt
-                    )
-                )
+                MoonPhaseImageMapper(context).getPhaseImage(
+                    phase.phaseAngle,
+                    imageSize,
+                    imageSize,
+                    tilt
+                ).toDrawable(context.resources)
             ),
             data = riseSetTransit(times)
         ) {

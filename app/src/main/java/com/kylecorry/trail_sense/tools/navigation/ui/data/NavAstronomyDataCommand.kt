@@ -15,7 +15,7 @@ class NavAstronomyDataCommand(private val gps: IGPS) : CoroutineValueCommand<Nav
             astronomy.getMoonAzimuth(gps.location).value,
             astronomy.isSunUp(gps.location),
             astronomy.isMoonUp(gps.location),
-            astronomy.getMoonPhase(LocalDate.now()).angle,
+            astronomy.getMoonPhase(LocalDate.now()).phaseAngle,
             astronomy.getMoonTilt(gps.location)
         )
     }

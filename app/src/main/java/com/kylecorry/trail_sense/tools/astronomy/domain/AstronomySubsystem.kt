@@ -67,7 +67,7 @@ class AstronomySubsystem(context: Context) {
                 moonTimes.transit?.toLocalDateTime(),
                 altitude > 0,
                 phase.phase,
-                phase.angle,
+                phase.phaseAngle,
                 phase.illumination,
                 altitude,
                 azimuth,

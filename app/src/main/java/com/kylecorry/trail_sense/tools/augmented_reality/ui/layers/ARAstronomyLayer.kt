@@ -273,7 +273,7 @@ class ARAstronomyLayer(
                 val moonImageSize = drawer.dp(24f).toInt()
                 val moonTilt = astro.getMoonTilt(location, time)
                 val moonBitmap = MoonPhaseImageMapper(context).getPhaseImage(
-                    phase.angle,
+                    phase.phaseAngle,
                     moonImageSize,
                     moonImageSize,
                     moonTilt

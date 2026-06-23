@@ -69,7 +69,7 @@ class AstronomyGuidanceTargetPicker(
                         if (moonAltitude > 0f) null else notVisible,
                         R.drawable.ic_moon,
                         iconBitmap = MoonPhaseImageMapper(view.context).getPhaseImage(
-                            phase.angle,
+                            phase.phaseAngle,
                             Resources.dp(view.context, 24f).toInt(),
                             Resources.dp(view.context, 24f).toInt(),
                             astronomyService.getMoonTilt(location, time)

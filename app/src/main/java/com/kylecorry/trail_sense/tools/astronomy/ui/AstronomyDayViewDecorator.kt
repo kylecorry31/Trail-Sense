@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.LocalDate
 import java.time.ZoneId
+import androidx.core.graphics.drawable.toDrawable
 
 class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDayViewDecorator() {
 
@@ -38,15 +39,12 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
         val hasPartialSolar = solarEclipse != null && !solarEclipse.isTotal
         val hasTotalSolar = solarEclipse?.isTotal == true
         val drawables = listOfNotNull(
-            BitmapDrawable(
-                context.resources,
-                getPhaseImageMapper(context).getPhaseImage(
-                    phase.angle,
-                    size,
-                    size,
-                    moonTilt
-                )
-            ).apply { setBounds(0, 0, size, size) },
+            getPhaseImageMapper(context).getPhaseImage(
+                phase.phaseAngle,
+                size,
+                size,
+                moonTilt
+            ).toDrawable(context.resources).apply { setBounds(0, 0, size, size) },
             if (hasMeteorShower) createIndicatorDrawable(
                 context,
                 R.drawable.ic_meteor,

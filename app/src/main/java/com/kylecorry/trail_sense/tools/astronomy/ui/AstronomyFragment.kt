@@ -363,7 +363,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             val size = Resources.dp(requireContext(), 24f).toInt()
             chart.setMoonImage(
                 MoonPhaseImageMapper(requireContext()).getPhaseImage(
-                    moonPhase.angle,
+                    moonPhase.phaseAngle,
                     size,
                     size
                 )
