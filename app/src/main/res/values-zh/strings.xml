@@ -1206,8 +1206,8 @@
     <string name="tide_estimation_description_tide_clock">使用时钟预测潮汐。需要至少一个已知的潮汐。</string>
     <string name="tide_estimation_description_lunitidal_interval_auto">使用月亮位置预测潮汐。需要至少一个已知的潮汐。</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">使用月亮位置预测潮汐。需要 UTC 月潮间隔。</string>
-    <string name="star">星星</string>
-    <string name="show_stars">显示星星和行星</string>
+    <string name="star">恒星</string>
+    <string name="show_stars">显示恒星和行星</string>
     <string name="tide">潮汐</string>
     <string name="field_guide">野外图鉴</string>
     <string name="books">书籍</string>
