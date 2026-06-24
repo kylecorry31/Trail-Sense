@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toDrawable
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
-import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -17,6 +16,7 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
 
     private var phaseImageMapper: MoonPhaseImageMapper? = null
     private var solarEclipseImageMapper: SolarEclipseImageMapper? = null
+    private var lunarEclipseImageMapper: LunarEclipseImageMapper? = null
 
     override fun getBottomDrawable(
         context: Context,
@@ -35,8 +35,8 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
             )
         val hasMeteorShower = astronomy.getMeteorShower(location, date) != null
         val lunarEclipse = astronomy.getLunarEclipse(location, date)
-        val hasPartialLunar = lunarEclipse != null && !lunarEclipse.isTotal
-        val hasTotalLunar = lunarEclipse?.isTotal == true
+        val lunarEclipseDrawable =
+            lunarEclipse?.let { getLunarEclipseDrawable(context, astronomy, it, size) }
         val solarEclipse = astronomy.getSolarEclipse(location, date)
         val solarEclipseDrawable =
             solarEclipse?.let { getSolarEclipseDrawable(context, astronomy, it, size) }
@@ -53,16 +53,7 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
                 size,
                 Resources.androidTextColorSecondary(context)
             ) else null,
-            if (hasTotalLunar) createIndicatorDrawable(
-                context,
-                R.drawable.ic_moon_total_eclipse,
-                size
-            ) else null,
-            if (hasPartialLunar) createIndicatorDrawable(
-                context,
-                R.drawable.ic_moon_partial_eclipse,
-                size
-            ) else null,
+            lunarEclipseDrawable,
             solarEclipseDrawable
         )
 
@@ -79,20 +70,30 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
         eclipse: Eclipse,
         size: Int
     ): Drawable {
-        val sunAzimuth = astronomy.getSunAzimuth(location, eclipse.peak)
-        val sunAltitude = astronomy.getSunAltitude(location, eclipse.peak)
-        val moonAzimuth = astronomy.getMoonAzimuth(location, eclipse.peak)
-        val moonAltitude = astronomy.getMoonAltitude(location, eclipse.peak)
+        val sun = astronomy.getSunPosition(location, eclipse.peak)
+        val moon = astronomy.getMoonPosition(location, eclipse.peak)
         return getSolarEclipseImageMapper(context).getEclipseImage(
-            CelestialObservation(sunAzimuth, sunAltitude, astronomy.getSunAngularDiameter(eclipse.peak)),
-            CelestialObservation(
-                moonAzimuth,
-                moonAltitude,
-                astronomy.getMoonAngularDiameter(location, eclipse.peak)
-            ),
+            sun,
+            moon,
             eclipse.isTotal,
             size,
             size
+        ).toDrawable(context.resources).apply { setBounds(0, 0, size, size) }
+    }
+
+    private fun getLunarEclipseDrawable(
+        context: Context,
+        astronomy: AstronomyService,
+        eclipse: Eclipse,
+        size: Int
+    ): Drawable {
+        val moon = astronomy.getMoonPosition(location, eclipse.peak)
+        return getLunarEclipseImageMapper(context).getEclipseImage(
+            moon,
+            astronomy.getLunarEclipseShadow(location, eclipse.peak),
+            size,
+            size,
+            astronomy.getMoonTilt(location, eclipse.peak)
         ).toDrawable(context.resources).apply { setBounds(0, 0, size, size) }
     }
 
@@ -106,6 +107,13 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
         return solarEclipseImageMapper
             ?: SolarEclipseImageMapper(context.applicationContext).also {
                 solarEclipseImageMapper = it
+            }
+    }
+
+    private fun getLunarEclipseImageMapper(context: Context): LunarEclipseImageMapper {
+        return lunarEclipseImageMapper
+            ?: LunarEclipseImageMapper(context.applicationContext).also {
+                lunarEclipseImageMapper = it
             }
     }
 

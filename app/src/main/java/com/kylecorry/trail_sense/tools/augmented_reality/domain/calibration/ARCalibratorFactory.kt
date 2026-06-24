@@ -11,11 +11,12 @@ class ARCalibratorFactory {
     private val astro = AstronomyService()
 
     suspend fun getSunCalibrator(location: Coordinate): IARCalibrator = onDefault {
+        val position = astro.getSunPosition(location)
         ARCenteredCalibrator(
             AugmentedRealityCoordinate(
                 AugmentedRealityUtils.toEastNorthUp(
-                    astro.getSunAzimuth(location).value,
-                    astro.getSunAltitude(location),
+                    position.azimuth.value,
+                    position.altitude,
                     Float.MAX_VALUE
                 ), true
             )
@@ -23,11 +24,12 @@ class ARCalibratorFactory {
     }
 
     suspend fun getMoonCalibrator(location: Coordinate): IARCalibrator = onDefault {
+        val position = astro.getMoonPosition(location)
         ARCenteredCalibrator(
             AugmentedRealityCoordinate(
                 AugmentedRealityUtils.toEastNorthUp(
-                    astro.getMoonAzimuth(location).value,
-                    astro.getMoonAltitude(location),
+                    position.azimuth.value,
+                    position.altitude,
                     Float.MAX_VALUE
                 ), true
             )

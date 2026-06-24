@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.content.Context
-
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -19,8 +18,8 @@ import com.kylecorry.trail_sense.shared.dem.getSlopeAngle
 import com.kylecorry.trail_sense.shared.dem.getSlopeAspect
 import com.kylecorry.trail_sense.shared.dem.getSlopeVector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Instant
@@ -124,11 +123,9 @@ class HillshadeMapTileSource : TileSource {
             return 315f to 45f
         }
 
-        if (astronomy.getSunAltitude(location, time) > AstronomyService.SUN_MIN_ALTITUDE_CIVIL) {
-            return astronomy.getSunAzimuth(location, time).value to astronomy.getSunAltitude(
-                location,
-                time
-            )
+        val sunPosition = astronomy.getSunPosition(location, time)
+        if (sunPosition.altitude > AstronomyService.SUN_MIN_ALTITUDE_CIVIL) {
+            return sunPosition.azimuth.value to sunPosition.altitude
         }
 
         if (astronomy.isMoonUp(
@@ -136,10 +133,9 @@ class HillshadeMapTileSource : TileSource {
                 time
             ) && Astronomy.getMoonPhase(time).illumination > 0.25f
         ) {
-            return astronomy.getMoonAzimuth(location, time).value to astronomy.getMoonAltitude(
-                location,
-                time
-            )
+            val position = astronomy.getMoonPosition(location, time)
+
+            return position.azimuth.value to position.altitude
         }
 
         return 315f to 45f

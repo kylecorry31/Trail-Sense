@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
 import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.MathExtensions.toRadians
-import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.math.trigonometry.Trigonometry
@@ -71,38 +70,6 @@ object AugmentedRealityUtils {
 
     fun getAngularSize(diameterMeters: Float, distanceMeters: Float): Float {
         return (2 * atan2(diameterMeters / 2f, distanceMeters)).toDegrees()
-    }
-
-    /**
-     * Gets the angular offset of a point from a view centered at the given bearing/elevation.
-     * Positive x is right of center and positive y is above center.
-     */
-    fun getAngularOffset(
-        centerBearing: Float,
-        centerElevation: Float,
-        pointBearing: Float,
-        pointElevation: Float
-    ): Vector2 {
-        val point = toEastNorthUp(pointBearing, pointElevation, 1f)
-
-        val centerBearingRad = centerBearing.toRadians()
-        val centerElevationRad = centerElevation.toRadians()
-        val cosCenterElevation = cos(centerElevationRad)
-        val sinCenterElevation = sin(centerElevationRad)
-        val cosCenterBearing = cos(centerBearingRad)
-        val sinCenterBearing = sin(centerBearingRad)
-
-        val forward = point.x * cosCenterElevation * sinCenterBearing +
-            point.y * cosCenterElevation * cosCenterBearing +
-            point.z * sinCenterElevation
-        val right = point.x * cosCenterBearing -
-            point.y * sinCenterBearing
-        val up = -point.x * sinCenterElevation * sinCenterBearing -
-            point.y * sinCenterElevation * cosCenterBearing +
-            point.z * cosCenterElevation
-
-        val spherical = CameraAnglePixelMapper.toSpherical(Vector3(right, up, forward))
-        return Vector2(spherical.z, spherical.y)
     }
 
     /**

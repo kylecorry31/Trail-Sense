@@ -32,8 +32,8 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasBitmap
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceLayer
-import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.AstronomyGuidanceTargetPicker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceTarget
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.AstronomyGuidanceTargetPicker
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -216,11 +216,12 @@ class ARAstronomyLayer(
                         }
 
                         val phase = astro.getMoonPhase(it)
+                        val position = astro.getMoonPosition(location, it)
 
                         ARMarker(
                             SphericalARPoint(
-                                astro.getMoonAzimuth(location, it).value,
-                                astro.getMoonAltitude(location, it),
+                                position.azimuth.value,
+                                position.altitude,
                                 isTrueNorth = true,
                                 angularDiameter = 0.5f
                             ),
@@ -246,11 +247,11 @@ class ARAstronomyLayer(
                         } else {
                             sunAfterPathObject
                         }
-
+                        val position = astro.getSunPosition(location, it)
                         ARMarker(
                             SphericalARPoint(
-                                astro.getSunAzimuth(location, it).value,
-                                astro.getSunAltitude(location, it),
+                                position.azimuth.value,
+                                position.altitude,
                                 isTrueNorth = true,
                                 angularDiameter = 0.5f
                             ),
@@ -263,11 +264,14 @@ class ARAstronomyLayer(
                 } else {
                     emptyList()
                 }
-                val moonAltitude = astro.getMoonAltitude(location, time)
-                val moonAzimuth = astro.getMoonAzimuth(location, time).value
+                val moonPosition = astro.getMoonPosition(location, time)
+                val sunPosition = astro.getSunPosition(location, time)
 
-                val sunAltitude = astro.getSunAltitude(location, time)
-                val sunAzimuth = astro.getSunAzimuth(location, time).value
+                val moonAltitude = moonPosition.altitude
+                val moonAzimuth = moonPosition.azimuth.value
+
+                val sunAltitude = sunPosition.altitude
+                val sunAzimuth = sunPosition.azimuth.value
 
                 val phase = astro.getMoonPhase(time)
                 val moonImageSize = drawer.dp(24f).toInt()

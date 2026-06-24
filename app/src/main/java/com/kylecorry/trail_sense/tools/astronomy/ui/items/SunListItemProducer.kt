@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui.items
 
 import android.content.Context
-import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -28,17 +28,15 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
         val nautical = astronomyService.getSunTimes(location, SunTimesMode.Nautical, date)
         val astronomical = astronomyService.getSunTimes(location, SunTimesMode.Astronomical, date)
         val peak = times.transit?.let {
-            astronomyService.getSunAltitude(location, it)
+            astronomyService.getSunPosition(location, it).altitude
         }
         val night = Duration.ofDays(1) - daylight
         val season = astronomyService.getSeason(location, date)
-        val azimuth = if (date == LocalDate.now()) DeclinationUtils.fromTrueNorthBearing(
-            astronomyService.getSunAzimuth(location),
-            declination
-        ) else null
-        val altitude =
-            if (date == LocalDate.now()) astronomyService.getSunAltitude(location) else null
-
+        val currentPosition = if (date == LocalDate.now()) astronomyService.getSunPosition(location) else null
+        val azimuth = currentPosition?.let {
+            DeclinationUtils.fromTrueNorthBearing(it.azimuth, declination)
+        }
+        val altitude = currentPosition?.altitude
         list(
             1,
             context.getString(R.string.sun),

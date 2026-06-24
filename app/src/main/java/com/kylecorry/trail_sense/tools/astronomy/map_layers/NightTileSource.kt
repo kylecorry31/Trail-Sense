@@ -44,7 +44,7 @@ class NightTileSource : TileSource {
             bounds.northEast,
             bounds.southEast
         ).any {
-            astronomy.getSunAltitude(it, time) < 1
+            astronomy.getSunPosition(it, time).altitude < 1
         }
 
         if (!isNight) {
@@ -61,7 +61,7 @@ class NightTileSource : TileSource {
             valueProvider = InterpolatedGridValueProvider(
                 10,
                 ParallelCoordinateGridValueProvider { lat, lon ->
-                    astronomy.getSunAltitude(Coordinate(lat, lon), time)
+                    astronomy.getSunPosition(Coordinate(lat, lon), time).altitude
                 })
         ) { x, y, getValue ->
             val value = getValue(x, y)
