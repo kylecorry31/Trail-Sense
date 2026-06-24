@@ -329,11 +329,18 @@
     <ID>MatchingDeclarationName:WeatherSpecifications.kt:CanSendDailyForecast : Specification</ID>
     <ID>NestedBlockDepth:EncodedDataImageReader.kt:EncodedDataImageReader$override suspend fun getRegion: Pair&lt;FloatBitmap, Boolean&gt;?</ID>
     <ID>NestedBlockDepth:GeographicImageUtils.kt:GeographicImageUtils$suspend fun getNearestPixelOfAsset: PixelCoordinate?</ID>
+    <ID>PrintStackTrace:CalibrateAltimeterFragment.kt:CalibrateAltimeterFragment$e</ID>
     <ID>PrintStackTrace:CameraView.kt:CameraView$e</ID>
     <ID>PrintStackTrace:CustomUiUtils.kt:CustomUiUtils$e</ID>
+    <ID>PrintStackTrace:FeatureRenderer.kt:FeatureRenderer$e</ID>
+    <ID>PrintStackTrace:FragmentToolMetalDetector.kt:FragmentToolMetalDetector$e</ID>
+    <ID>PrintStackTrace:GeoJsonLayer.kt:GeoJsonLayer$e</ID>
     <ID>PrintStackTrace:ImageTile.kt:ImageTile$e</ID>
     <ID>PrintStackTrace:MapViewLayerManager.kt:MapViewLayerManager$e</ID>
+    <ID>PrintStackTrace:QuickActionWhistle.kt:QuickActionWhistle$e</ID>
+    <ID>PrintStackTrace:ScanQRFragment.kt:ScanQRFragment$e</ID>
     <ID>PrintStackTrace:SightingCompassView.kt:SightingCompassView$e</ID>
+    <ID>PrintStackTrace:ToolWhistleFragment.kt:ToolWhistleFragment$e</ID>
     <ID>PrintStackTrace:TrailSenseTextView.kt:TrailSenseTextView$e</ID>
     <ID>RethrowCaughtException:MapExportService.kt:MapExportService$throw e</ID>
     <ID>ReturnCount:ARPathLayer.kt:ARPathLayer$private fun getNearestPoint: NearestPoint?</ID>
