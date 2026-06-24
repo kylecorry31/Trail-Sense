@@ -1561,4 +1561,20 @@
     <string name="map_type_trail">Recorrido</string>
     <string name="manage_maps">Gestionar mapas</string>
     <string name="map_type_photo">Foto</string>
+    <string name="pref_copy_trail_maps_title">Copiar mapas a Trail Sense</string>
+    <string name="pref_copy_trail_maps_summary">Al importar. Cuando está apagado usa el archivo original que debe estar en tu dispositivo.</string>
+    <string name="pref_pedometer_history_days_title">Historial de pasos</string>
+    <string name="current_session">Sesión actual</string>
+    <string name="history">Historial</string>
+    <string name="no_pedometer_sessions">Sin sesiones</string>
+    <string name="widget_icon_compatibility_mode">Icono widget en modo compatible</string>
+    <string name="widget_icon_compatibility_mode_summary">Soluciona la ausencia del icono de widget en ciertos dispositivos</string>
+    <plurals name="step_count">
+        <item quantity="one">%d paso</item>
+        <item quantity="many">%d pasos</item>
+        <item quantity="other">%d pasos</item>
+    </plurals>
+    <string name="map_external">Externo</string>
+    <string name="map_file_missing">Falta el archivo</string>
+    <string name="copy_to_trail_sense">Copiar a Trail Sense</string>
 </resources>
