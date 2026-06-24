@@ -1,0 +1,14 @@
+Offline Maps
+- Automatically detect corners of new photo maps
+- Add setting to use external trail map files
+
+Pedometer
+- Show hourly step count history
+
+Astronomy
+- Render accurate icons for moon and eclipses
+
+Misc
+- Improve Material 3 Expressive support
+- Location input fields allow selecting a location on the map
+- Bug fixes
