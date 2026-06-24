@@ -30,8 +30,7 @@ class AstronomySubsystem(context: Context) {
             val sunTimesMode = prefs.astronomy.sunTimesMode
             val location = location.location
             val times = astronomyService.getSunTimes(location, sunTimesMode, LocalDate.now())
-            val azimuth = astronomyService.getSunAzimuth(location)
-            val altitude = astronomyService.getSunAltitude(location)
+            val position = astronomyService.getSunPosition(location)
 
             val nextSunrise = astronomyService.getNextSunrise(location, sunTimesMode)
             val nextSunset = astronomyService.getNextSunset(location, sunTimesMode)
@@ -40,11 +39,11 @@ class AstronomySubsystem(context: Context) {
                 times.rise?.toLocalDateTime(),
                 times.set?.toLocalDateTime(),
                 times.transit?.toLocalDateTime(),
-                altitude > 0,
+                position.altitude > 0,
                 nextSunrise,
                 nextSunset,
-                altitude,
-                azimuth
+                position.altitude,
+                position.azimuth
             )
         }
 
@@ -57,20 +56,19 @@ class AstronomySubsystem(context: Context) {
             val location = location.location
             val moonTimes = astronomyService.getMoonTimes(location, LocalDate.now())
             val phase = astronomyService.getCurrentMoonPhase()
-            val altitude = astronomyService.getMoonAltitude(location)
-            val azimuth = astronomyService.getMoonAzimuth(location)
+            val position = astronomyService.getMoonPosition(location)
             val tilt = astronomyService.getMoonTilt(location)
 
             MoonDetails(
                 moonTimes.rise?.toLocalDateTime(),
                 moonTimes.set?.toLocalDateTime(),
                 moonTimes.transit?.toLocalDateTime(),
-                altitude > 0,
+                position.altitude > 0,
                 phase.phase,
                 phase.phaseAngle,
                 phase.illumination,
-                altitude,
-                azimuth,
+                position.altitude,
+                position.azimuth,
                 tilt
             )
         }

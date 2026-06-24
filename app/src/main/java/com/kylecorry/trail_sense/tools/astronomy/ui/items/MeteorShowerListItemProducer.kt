@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui.items
 
 import android.content.Context
-import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
@@ -20,9 +20,10 @@ class MeteorShowerListItemProducer(context: Context) : BaseAstroListItemProducer
         val shower = astronomyService.getMeteorShower(location, date) ?: return@onDefault null
 
         // Advanced
-        val peakAltitude = astronomyService.getMeteorShowerPeakAltitude(shower, location)
+        val peakPosition = astronomyService.getMeteorShowerPeakPosition(shower, location)
+        val peakAltitude = peakPosition.altitude
         val peakAzimuth = DeclinationUtils.fromTrueNorthBearing(
-            astronomyService.getMeteorShowerPeakAzimuth(shower, location),
+            peakPosition.azimuth,
             declination
         )
 

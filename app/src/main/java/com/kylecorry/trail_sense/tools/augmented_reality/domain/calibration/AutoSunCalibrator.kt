@@ -36,7 +36,7 @@ class AutoSunCalibrator : IARCalibrator {
                 val actualBearing = (xPct - 0.5f) * camera.fov.first + view.azimuth
 
                 // Get the predicted location of the sun
-                val predictedBearing = astro.getSunAzimuth(view.location).value
+                val predictedBearing = astro.getSunPosition(view.location).azimuth.value
 
                 // Calculate the bearing difference
                 deltaAngle(actualBearing, predictedBearing)

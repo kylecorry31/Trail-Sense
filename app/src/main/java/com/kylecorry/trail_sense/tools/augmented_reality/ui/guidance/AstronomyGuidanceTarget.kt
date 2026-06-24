@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance
 
-import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
@@ -35,14 +35,15 @@ class AstronomyGuidanceTarget(
 
         when (selection) {
             AstronomySelection.Sun -> {
+                val position = astronomyService.getSunPosition(location, time)
                 ARGuidanceTargetState(
                     ARGuidanceDisplayState(
                         view.context.getString(R.string.sun),
                         R.drawable.ic_sun
                     ),
                     SphericalARPoint(
-                        astronomyService.getSunAzimuth(location, time).value,
-                        astronomyService.getSunAltitude(location, time),
+                        position.azimuth.value,
+                        position.altitude,
                         isTrueNorth = true
                     )
                 )
@@ -50,6 +51,7 @@ class AstronomyGuidanceTarget(
 
             AstronomySelection.Moon -> {
                 val phase = astronomyService.getMoonPhase(time)
+                val position = astronomyService.getMoonPosition(location, time)
                 ARGuidanceTargetState(
                     ARGuidanceDisplayState(
                         view.context.getString(R.string.moon),
@@ -62,8 +64,8 @@ class AstronomyGuidanceTarget(
                         )
                     ),
                     SphericalARPoint(
-                        astronomyService.getMoonAzimuth(location, time).value,
-                        astronomyService.getMoonAltitude(location, time),
+                        position.azimuth.value,
+                        position.altitude,
                         isTrueNorth = true
                     )
                 )

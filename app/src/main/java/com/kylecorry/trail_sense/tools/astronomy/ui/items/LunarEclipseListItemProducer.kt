@@ -1,13 +1,17 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui.items
 
 import android.content.Context
-import com.kylecorry.luna.concurrency.onDefault
+import androidx.core.graphics.drawable.toDrawable
 import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.andromeda.views.list.DrawableListIcon
 import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.sol.science.astronomy.eclipse.LunarEclipseShadow
+import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.tools.astronomy.ui.LunarEclipseImageMapper
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.EclipseFormatter
 import java.time.LocalDate
 
@@ -21,23 +25,19 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
         val eclipse = astronomyService.getLunarEclipse(location, date) ?: return@onDefault null
 
         // Advanced
-        val peakAltitude = astronomyService.getMoonAltitude(location, eclipse.peak)
+        val moon = astronomyService.getMoonPosition(location, eclipse.peak)
         val peakAzimuth = DeclinationUtils.fromTrueNorthBearing(
-            astronomyService.getMoonAzimuth(location, eclipse.peak),
+            moon.azimuth,
             declination
         )
+        val shadow = astronomyService.getLunarEclipseShadow(location, eclipse.peak)
+        val moonTilt = astronomyService.getMoonTilt(location, eclipse.peak)
 
         list(
             4,
             context.getString(R.string.lunar_eclipse),
             EclipseFormatter.type(context, eclipse),
-            ResourceListIcon(
-                if (eclipse.isTotal) {
-                    R.drawable.ic_moon_total_eclipse
-                } else {
-                    R.drawable.ic_moon_partial_eclipse
-                }
-            ),
+            getIcon(moon, shadow, moonTilt),
             data = times(eclipse.start, eclipse.peak, eclipse.end, date)
         ) {
             val advancedData = listOf(
@@ -67,7 +67,7 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
                 ),
                 context.getString(R.string.astronomy_altitude_peak) to data(
                     formatter.formatDegrees(
-                        peakAltitude
+                        moon.altitude
                     )
                 ),
                 context.getString(R.string.astronomy_direction_peak) to data(
@@ -81,5 +81,20 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
         }
     }
 
+    private fun getIcon(
+        moon: CelestialObservation,
+        shadow: LunarEclipseShadow,
+        moonTilt: Float
+    ): DrawableListIcon {
+        return DrawableListIcon(
+            LunarEclipseImageMapper(context).getEclipseImage(
+                moon,
+                shadow,
+                imageSize,
+                imageSize,
+                moonTilt
+            ).toDrawable(context.resources)
+        )
+    }
 
 }

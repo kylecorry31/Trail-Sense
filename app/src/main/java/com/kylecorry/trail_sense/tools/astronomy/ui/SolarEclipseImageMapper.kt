@@ -8,9 +8,9 @@ import android.graphics.Path
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 
 class SolarEclipseImageMapper(private val context: Context) {
 
@@ -24,7 +24,7 @@ class SolarEclipseImageMapper(private val context: Context) {
         val output = createBitmap(width, height)
         val canvas = Canvas(output)
         val drawer = CanvasDrawer(context, canvas)
-        val moonOffset = AugmentedRealityUtils.getAngularOffset(
+        val moonOffset = Trigonometry.getAngularOffset(
             sun.azimuth.value,
             sun.altitude,
             moon.azimuth.value,

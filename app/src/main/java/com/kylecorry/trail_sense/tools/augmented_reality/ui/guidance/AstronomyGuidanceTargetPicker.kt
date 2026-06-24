@@ -1,16 +1,16 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance
 
+import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.TextView
-import android.graphics.drawable.BitmapDrawable
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.views.list.AndromedaListView
-import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.DrawableListIcon
+import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
-import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.readableName
@@ -46,7 +46,7 @@ class AstronomyGuidanceTargetPicker(
 
             val options = mutableListOf<AstronomyGuidanceOption>()
 
-            val sunAltitude = astronomyService.getSunAltitude(location, time)
+            val sunAltitude = astronomyService.getSunPosition(location, time).altitude
             if (drawBelowHorizon || sunAltitude > 0f) {
                 options.add(
                     AstronomyGuidanceOption(
@@ -59,7 +59,7 @@ class AstronomyGuidanceTargetPicker(
                 )
             }
 
-            val moonAltitude = astronomyService.getMoonAltitude(location, time)
+            val moonAltitude = astronomyService.getMoonPosition(location, time).altitude
             if (drawBelowHorizon || moonAltitude > 0f) {
                 val phase = astronomyService.getMoonPhase(time)
                 options.add(

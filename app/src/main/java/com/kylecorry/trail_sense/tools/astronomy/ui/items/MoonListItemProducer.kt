@@ -1,17 +1,16 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui.items
 
 import android.content.Context
-import android.graphics.drawable.BitmapDrawable
-import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.andromeda.views.list.ListItem
+import androidx.core.graphics.drawable.toDrawable
 import com.kylecorry.andromeda.views.list.DrawableListIcon
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import java.time.LocalDate
 import java.time.ZoneId
-import androidx.core.graphics.drawable.toDrawable
 
 class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context) {
 
@@ -39,15 +38,12 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
 
         // Advanced
         val isSuperMoon = astronomyService.isSuperMoon(date)
-        val peak = times.transit?.let { astronomyService.getMoonAltitude(location, it) }
-        val azimuth =
-            if (date == LocalDate.now()) DeclinationUtils.fromTrueNorthBearing(
-                astronomyService.getMoonAzimuth(location),
-                declination
-            ) else null
-        val altitude =
-            if (date == LocalDate.now()) astronomyService.getMoonAltitude(location) else null
-
+        val peak = times.transit?.let { astronomyService.getMoonPosition(location, it).altitude }
+        val currentPosition = if (date == LocalDate.now()) astronomyService.getMoonPosition(location) else null
+        val azimuth = currentPosition?.let {
+            DeclinationUtils.fromTrueNorthBearing(it.azimuth, declination)
+        }
+        val altitude = currentPosition?.altitude
         list(
             2,
             context.getString(R.string.moon),

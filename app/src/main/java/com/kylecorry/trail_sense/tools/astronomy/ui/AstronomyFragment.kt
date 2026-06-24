@@ -11,14 +11,14 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.text.capitalizeWords
-import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -287,19 +287,18 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun getSunMoonPositions(time: ZonedDateTime): AstroPositions {
-        val moonAltitude = astronomyService.getMoonAltitude(location, time)
-        val sunAltitude = astronomyService.getSunAltitude(location, time)
-
+        val moonPosition = astronomyService.getMoonPosition(location, time)
+        val sunPosition = astronomyService.getSunPosition(location, time)
         val declination = if (!prefs.compass.useTrueNorth) getDeclination() else 0f
 
         val sunAzimuth =
-            astronomyService.getSunAzimuth(location, time).withDeclination(-declination).value
+            sunPosition.azimuth.withDeclination(-declination).value
         val moonAzimuth =
-            astronomyService.getMoonAzimuth(location, time).withDeclination(-declination).value
+            moonPosition.azimuth.withDeclination(-declination).value
 
         return AstroPositions(
-            moonAltitude,
-            sunAltitude,
+            moonPosition.altitude,
+            sunPosition.altitude,
             moonAzimuth,
             sunAzimuth
         )

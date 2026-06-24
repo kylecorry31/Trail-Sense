@@ -353,6 +353,7 @@
     <ID>ReturnCount:FormatService.kt:FormatService$fun formatWeatherArrival: String</ID>
     <ID>ReturnCount:FrequencyHookTrigger.kt:FrequencyHookTrigger$fun getValue: Boolean</ID>
     <ID>ReturnCount:GeographicImageUtils.kt:GeographicImageUtils$suspend fun getNearestPixelOfAsset: PixelCoordinate?</ID>
+    <ID>ReturnCount:HillshadeMapTileSource.kt:HillshadeMapTileSource$private fun getShadowConfig: Pair&lt;Float, Float&gt;</ID>
     <ID>ReturnCount:MainActivity.kt:MainActivity$override fun onKeyDown: Boolean</ID>
     <ID>ReturnCount:MainActivity.kt:MainActivity$override fun onKeyUp: Boolean</ID>
     <ID>ReturnCount:MainActivity.kt:MainActivity$private fun getVolumeAction: VolumeAction?</ID>
