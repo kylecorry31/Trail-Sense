@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.0
         with:
           persist-credentials: false
           fetch-depth: 0
     
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: '3.x'
 
@@ -27,7 +27,7 @@ jobs:
           sh ./scripts/list-nightly-commits.sh | python ./scripts/generate-changelog.py >> $GITHUB_STEP_SUMMARY
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5.3.0
         with:
           distribution: "temurin"
           java-version: 17
@@ -56,14 +56,14 @@ jobs:
           NIGHTLY_STORE_FILE: ${{ secrets.NIGHTLY_STORE_FILE }}
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: Trail-Sense-Nightly.apk
           path: ./app/build/outputs/apk/nightly/*.apk
           retention-days: 7
 
       - name: Upload Release APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: Trail-Sense-Nightly-Release.apk
           path: ./app/build/outputs/apk/nightlyRelease/*.apk
