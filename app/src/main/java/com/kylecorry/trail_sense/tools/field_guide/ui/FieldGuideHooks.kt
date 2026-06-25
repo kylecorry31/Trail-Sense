@@ -28,6 +28,10 @@ fun ReactiveComponent.useLoadPages(
         service.filterPages(pages, filter, tagFilter)
     }
 
+    useEffect(reload) {
+        reload()
+    }
+
     return filteredPages to reload
 }
 
@@ -56,6 +60,7 @@ fun ReactiveComponent.useFieldGuidePageList(
     listView: AndromedaListView,
     searchView: SearchView,
     handleAction: (FieldGuidePageListItemActionType, FieldGuidePage) -> Unit,
+    showMenu: Boolean = true
 ): FieldGuidePageListResult {
     val context = useAndroidContext()
     val viewLifecycleOwner = useLifecycleOwner()
@@ -73,14 +78,16 @@ fun ReactiveComponent.useFieldGuidePageList(
         listView,
         context,
         viewLifecycleOwner,
-        handleAction
+        handleAction,
+        showMenu
     ) {
         val tagMapper = FieldGuidePageTagListItemMapper(context, setTagFilter)
 
         val pageMapper = FieldGuidePageListItemMapper(
             context,
             viewLifecycleOwner,
-            action = handleAction
+            action = handleAction,
+            showMenu = showMenu
         )
 
         if (tagFilter == null && filter.isBlank()) {

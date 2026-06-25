@@ -6,12 +6,12 @@ import android.util.Size
 import android.widget.ImageView
 import androidx.core.graphics.createBitmap
 import androidx.lifecycle.LifecycleOwner
-import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.andromeda.views.list.ListMenuItem
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
@@ -25,6 +25,7 @@ enum class FieldGuidePageListItemActionType {
 class FieldGuidePageListItemMapper(
     private val context: Context,
     private val viewLifecycleOwner: LifecycleOwner,
+    private val showMenu: Boolean = true,
     private val action: (FieldGuidePageListItemActionType, FieldGuidePage) -> Unit
 ) : ListItemMapper<FieldGuidePage> {
 
@@ -45,7 +46,7 @@ class FieldGuidePageListItemMapper(
                 scaleType = ImageView.ScaleType.CENTER_CROP,
                 clearOnPause = true
             ),
-            menu = listOfNotNull(
+            menu = if (showMenu) listOfNotNull(
                 if (!value.isReadOnly) ListMenuItem(context.getString(R.string.edit)) {
                     action(
                         FieldGuidePageListItemActionType.Edit,
@@ -58,7 +59,7 @@ class FieldGuidePageListItemMapper(
                         value
                     )
                 } else null
-            )
+            ) else emptyList()
         ) {
             action(FieldGuidePageListItemActionType.View, value)
         }
