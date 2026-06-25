@@ -1517,4 +1517,16 @@
     <string name="map_layer_solar_eclipse_description">Caminho de visibilidade do eclipse solar</string>
     <string name="map_calibration_clear_message">Mudar a projeção do mapa limpará suas mudanças de calibração.</string>
     <string name="pref_navigation_show_azimuth_indicator_summary">Destacar o rumo atual na bússola</string>
+    <string name="plugins">Plugins</string>
+    <string name="map_layers">Camadas de mapa</string>
+    <string name="app_info">Informações do app</string>
+    <string name="reload">Recarregar</string>
+    <string name="disconnect">Desconectar</string>
+    <string name="plugin_name">Plugin: %s</string>
+    <string name="plugin_connect_title">Conectar plugin?</string>
+    <string name="brightness">Brilho</string>
+    <string name="clock_source_device">Hora do dispositivo</string>
+    <string name="current_temperature">Temperatura atual</string>
+    <string name="current_session">Sessão atual</string>
+    <string name="wind_speed">Velocidade do vento</string>
 </resources>
