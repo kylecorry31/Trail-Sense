@@ -11,8 +11,10 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
+import com.kylecorry.trail_sense.tools.field_guide.quickactions.QuickActionRecordSighting
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -29,6 +31,13 @@ object FieldGuideToolRegistration : ToolRegistration {
                 R.id.sightingListFragment,
                 R.id.createFieldGuideSightingFragment,
                 R.id.createFieldGuidePageFragment
+            ),
+            quickActions = listOf(
+                ToolQuickAction(
+                    Tools.QUICK_ACTION_RECORD_SIGHTING,
+                    context.getString(R.string.record_sighting),
+                    ::QuickActionRecordSighting
+                )
             ),
             guideId = R.raw.guide_tool_field_guide,
             singletons = listOf(
