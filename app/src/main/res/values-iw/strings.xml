@@ -138,7 +138,7 @@
     <string name="precipitation_ice_pellets">כדורי קרח</string>
     <string name="precipitation_snow_grains">גרגירי שלג</string>
     <string name="map_projection_equidistant">שווה ערך</string>
-    <string name="tool_temperature_estimation_description">חזה את הטמפרטורה בגובה שונה</string>
+    <string name="tool_temperature_estimation_description">חזה את הטמפרטורה בגובה שונה, מהירות הרוח והלחות</string>
     <string name="no_camera_access">אין אפשרות לגשת למצלמה</string>
     <string name="most_recent">העדכני ביותר</string>
     <string name="hide">הסתרה</string>
@@ -240,7 +240,7 @@
     <string name="no_beacons">אין משואות</string>
     <string name="pref_display_multi_beacons_title">הצג משואות סמוכות</string>
     <string name="pref_show_last_signal_beacon_title">אות משואה אחרונה</string>
-    <string name="pref_max_beacon_distance_title">רדיוס משואות סמוכים</string>
+    <string name="pref_max_beacon_distance_title">מרחק משואות בקרבת מקום</string>
     <string name="true_north">צפון אמיתי</string>
     <string name="tap_to_turn_off">הקשה כדי לכבות</string>
     <string name="units_mmhg">ממ\"כ</string>
@@ -513,7 +513,7 @@
     <string name="nimbostratus_desc">ענן ברמה בינונית שצבעו אפור כהה ומכסה את השמים. אם לא יורד גשם, ייתכן שמדובר בענן שכבה.</string>
     <string name="cirrus_desc">עננים דקיקים גבוהים שנראים כמו צמרמורת של שיער לבן.</string>
     <string name="privacy_and_location">פרטיות ומיקום</string>
-    <string name="onboarding_user_guide">למדו כיצד להשתמש בתכונות של Trail Sense בעזרת מדריך למשתמש. זמין בתחתית הכרטיסיה כלים.\n\nמדריכים נוספים יגיעו בקרוב.</string>
+    <string name="onboarding_user_guide">למדו כיצד להשתמש בתכונות של Trail Sense בעזרת מדריך למשתמש. זמין בתחתית הכרטיסיה כלים.</string>
     <plurals name="beacons_imported">
         <item quantity="one">משואה מיובאת</item>
         <item quantity="two">%d משואות מיובאות</item>
@@ -826,7 +826,7 @@
     <string name="delete_map_group_message">%s וכל המפות שלו יימחקו.</string>
     <string name="map_auto_rotated">סיבוב המפה מותאם לכיול</string>
     <string name="solar_eclipse">ליקוי חמה</string>
-    <string name="map_file">קובץ (JPG, PNG, PDF)</string>
+    <string name="map_file">קובץ (JPG, PNG, PDF, Mapsforge)</string>
     <string name="pref_include_leading_zero_title">הוספת אפס מוביל לזמן</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">עשוי להצביע על משקעים ב-%1$d עד %2$d שעות הבאות.</string>
     <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על משקעים או סופת רעמים ב-%d שעות הבאות.</string>
@@ -963,7 +963,7 @@
     <string name="season">עונה</string>
     <string name="until_sunset">עד השקיעה</string>
     <string name="until_sunrise">עד הזריחה</string>
-    <string name="astronomy_set">הגדרה</string>
+    <string name="astronomy_set">שוקע</string>
     <string name="astronomy_rise">זורח</string>
     <string name="no_sensor_message">להתקן שלך אין חיישן %s</string>
     <string name="missing_sensor_message_1">ל-%1$s שלך אין חיישן %2$s מובנה. למרבה הצער, זה אומר שחלק מהתכונות ב-%3$s לא יהיו זמינות.</string>
@@ -1082,11 +1082,11 @@
     <string name="augmented_reality_no_gyro_message">עדיין ניתן להשתמש בכלי המציאות הרבודה, אך הוא לא יהיה מדויק באותה מידה.</string>
     <string name="screen_flashlight_full_name">פנס מסך</string>
     <string name="magnetometer_gyro_custom">מגנטומטר + ג\'ירו (מותאם אישית)</string>
-    <string name="tool_quick_action_summary">לחיצה ארוכה על הניווט התחתון או צפייה בלשונית הכלים</string>
+    <string name="tool_quick_action_summary">לחיצה ארוכה על הניווט התחתון או צפייה בלשונית הכלים.</string>
     <string name="tide_chart">תרשים גאות ושפל</string>
     <string name="tide_estimation_description_lunitidal_interval_auto">משתמש במיקום הירח להערכת גאות ושפל. דורש לפחות גאות אחת ידועה.</string>
     <string name="tide_estimation_description_lunitidal_interval_local">משתמש במיקום הירח להערכת גאות ושפל. דורש את מרווח הזמן הלוניטידלי המקומי ואת המיקום.</string>
-    <string name="show_stars">הצגת כוכבים</string>
+    <string name="show_stars">הצגת כוכבים וכוכבי לכת</string>
     <string name="plant">צמחים</string>
     <string name="right">ימין</string>
     <string name="distance_to_target">מרחק למטרה</string>
@@ -1142,7 +1142,7 @@
     <string name="ar_calibration_disclaimer">לפני כל שימוש בכלי המציאות הרבודה, יש לוודא שהסמלים של השמש או הירח מיושרים כראוי עם העולם האמיתי. אם לא, יש ללחוץ על סמל המצפן בפינה השמאלית העליונה של המסך ולפעול לפי ההוראות לכיול.</string>
     <string name="cloud_scanner">סורק ענן</string>
     <string name="tide_model_auto">מודל גאות ושפל (אוטומטי)</string>
-    <string name="widget_bottom_sheet_instructions">יש להשתמש בפעולה המהירה של הווידג\'טים כדי לצפות</string>
+    <string name="widget_bottom_sheet_instructions">לחיצה ארוכה על מקש הניווט התחתון או להשתמש בפעולה המהירה של הווידג\'טים.</string>
     <string name="map_trace_instructions">מעבר לאזור מוצל או חסימת השמש באמצעות בד והנחת נייר מעל המסך כך שיהיה ניתן לראות את המפה דרך הנייר. יש להשתמש בעט או בעיפרון כדי לעקוב אחר המפה, אך להימנע מסמנים או עטים שעלולים לחדור דרך הנייר.\n\nניווט תחתון יושבת עד לכיבוי מצב המעקב.</string>
     <string name="tool_quick_action_name">כלי: %s</string>
     <string name="lunitidal_interval">מרווח לוניטידלי</string>
@@ -1226,7 +1226,7 @@
     <string name="view_in_3d">הצגה בתלת מימד</string>
     <string name="fused_altimeter_force_calibration_summary">כפיית כיול GPS כל %s</string>
     <string name="dynamic_colors">צבעים דינאמיים</string>
-    <string name="show_dial_ticks_on_nearby_radar">הצגת סימני חוגה על מכ\"ם סמוך</string>
+    <string name="show_dial_ticks_on_nearby_radar">הצגת סימני חוגה</string>
     <string name="ar_calibration_instructions_hint">לכיול כלי המציאות הרבודה, יש להקיש על הסמל בפינה השמאלית העליונה של המסך ולפעול לפי ההוראות שמופיעות.</string>
     <string name="climate_temperature_amount">טמפרטורה: %s</string>
     <string name="climate_precipitation_amount">משקעים: %s סך חודשי</string>
@@ -1275,7 +1275,7 @@
     <string name="cell_towers">אנטנות סלולריות</string>
     <string name="signal_finder_description">צפייה באנטנות סלולריות קרובות ובאותות.</string>
     <string name="no_cell_towers_found">לא נמצאו אנטנות סלולריות</string>
-    <string name="cell_tower_disclaimer">מיקומי האנטנות משוערים מתוך OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) תחת רישיון [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower_disclaimer">מיקומי המגדלים משוערים על סמך רישומי אנטנות OpenCelliD, שירות מיקום Mozilla ו-FCC.\n\n[OpenCelliD Project](https://opencellid.org/) תחת רישיון [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="cell_tower">אנטנה סלולרית</string>
     <string name="create_page">יצירת עמוד</string>
     <string name="habitat">בית גידול</string>
