@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.MockedGPS
@@ -53,6 +54,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMode
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
@@ -176,12 +178,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     lastAstronomyEventSearch = search
                     val currentDate = binding.displayDate.date
                     inBackground {
-                        Alerts.withLoading(requireContext(), getString(R.string.loading)) {
-                            val nextEvent = onDefault {
-                                astronomyService.findNextEvent(
-                                    search, location, currentDate
-                                )
-                            }
+                        val job = launch {
+                            val nextEvent = astronomyService.findNextEvent(
+                                search, location, currentDate
+                            )
                             onMain {
                                 binding.displayDate.date = nextEvent ?: currentDate
 
@@ -194,6 +194,13 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                                     )
                                 }
                             }
+                        }
+
+                        Alerts.withCancelableLoading(
+                            requireContext(),
+                            getString(R.string.loading),
+                            onCancel = { job.cancel() }) {
+                            job.join()
                         }
                     }
                 }

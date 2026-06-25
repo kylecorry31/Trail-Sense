@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.astronomy.domain
 
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.astronomy.Astronomy
@@ -423,12 +424,12 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         )
     }
 
-    fun findNextEvent(
+    suspend fun findNextEvent(
         event: AstronomyEvent,
         location: Coordinate,
         start: LocalDate = LocalDate.now(),
         maxSearch: Duration = Duration.ofDays(365 * 2L)
-    ): LocalDate? {
+    ): LocalDate? = onDefault {
         // An update to this algorithm is planned to make it more efficient
         var isInEvent = when (event) {
             AstronomyEvent.FullMoon -> getMoonPhase(start).phase == MoonTruePhase.Full
@@ -482,12 +483,12 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                 ) != null
             }
             if (hasEvent && !isInEvent) {
-                return date
+                return@onDefault date
             }
             isInEvent = hasEvent
             date = date.plusDays(1)
         }
-        return null
+        return@onDefault null
     }
 
     companion object {
