@@ -32,7 +32,7 @@
     <ID>ConstructorParameterNaming:DigitalElevationModelLoader.kt:DigitalElevationModelIndex$val has_water_mask: Boolean? = null</ID>
     <ID>ConstructorParameterNaming:DigitalElevationModelLoader.kt:DigitalElevationModelIndex$val resolution_arc_seconds: Int</ID>
     <ID>CyclomaticComplexMethod:AstronomyGuidanceTargetPicker.kt:AstronomyGuidanceTargetPicker$private suspend fun getGuidanceOptions: List&lt;AstronomyGuidanceOption&gt;</ID>
-    <ID>CyclomaticComplexMethod:AstronomyService.kt:AstronomyService$fun findNextEvent: LocalDate?</ID>
+    <ID>CyclomaticComplexMethod:AstronomyService.kt:AstronomyService$suspend fun findNextEvent: LocalDate?</ID>
     <ID>CyclomaticComplexMethod:BatteryService.kt:BatteryService$fun getSystemBatteryTips: List&lt;SystemBatteryTip&gt;</ID>
     <ID>CyclomaticComplexMethod:BeaconListFragment.kt:BeaconListFragment$override fun onViewCreated</ID>
     <ID>CyclomaticComplexMethod:ClimateFragment.kt:ClimateFragment$override fun update</ID>
