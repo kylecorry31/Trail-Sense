@@ -16,12 +16,11 @@ import com.kylecorry.trail_sense.shared.extensions.useBackPressedCallback
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useSearch
 import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
-import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideCleanupCommand
-import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
 class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_field_guide) {
 
@@ -58,7 +57,7 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         val (pages, reloadPages) = useLoadPages(filter, tagFilter)
 
         // Services
-        val repo = useService<FieldGuideRepo>()
+        val service = useService<FieldGuideService>()
 
         // Callbacks
         val createPage = useCreatePage()
@@ -116,7 +115,7 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
                         dialog(getString(R.string.delete), page.name) { cancelled ->
                             if (!cancelled) {
                                 inBackground {
-                                    repo.delete(page)
+                                    service.deletePage(page)
                                     reloadPages()
                                 }
                             }
@@ -148,12 +147,11 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         filter: String,
         tagFilter: FieldGuidePageTag?
     ): Pair<List<FieldGuidePage>, () -> Unit> {
-        val repo = useService<FieldGuideRepo>()
-        val context = useAndroidContext()
+        val service = useService<FieldGuideService>()
         val (pages, setPages) = useState(listOf<FieldGuidePage>())
         val reload = useCallback<Unit> {
             inBackground {
-                setPages(repo.getAllPages().sortedBy { it.name })
+                setPages(service.getAllPages())
             }
         }
 
@@ -162,15 +160,7 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         }
 
         val filteredPages = useMemo(pages, filter, tagFilter) {
-            val mapper = FieldGuideTagNameMapper(context)
-            TextUtils.search(filter, pages) { page ->
-                listOf(
-                    page.name,
-                    page.notes ?: "",
-                    page.tags.joinToString { mapper.getName(it) })
-            }.filter { pages ->
-                tagFilter == null || pages.tags.contains(tagFilter)
-            }
+            service.filterPages(pages, filter, tagFilter)
         }
 
         return filteredPages to reload

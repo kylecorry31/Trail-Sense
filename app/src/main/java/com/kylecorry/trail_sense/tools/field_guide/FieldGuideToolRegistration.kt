@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
 import com.kylecorry.trail_sense.tools.field_guide.quickactions.QuickActionRecordSighting
@@ -41,7 +43,10 @@ object FieldGuideToolRegistration : ToolRegistration {
             ),
             guideId = R.raw.guide_tool_field_guide,
             singletons = listOf(
-                FieldGuideRepo::getInstance
+                FieldGuideRepo::getInstance,
+                {
+                    FieldGuideService(it, getAppService<FieldGuideRepo>())
+                }
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
