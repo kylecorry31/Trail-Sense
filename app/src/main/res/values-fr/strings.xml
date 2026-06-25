@@ -448,7 +448,7 @@
     <string name="elevation_history_length">Longueur de l’historique d’altitude</string>
     <string name="camera">Caméra</string>
     <string name="dashed">Tirets</string>
-    <string name="pref_nmea_elevation_summary">Utilisez NMEA (satellite) pour corriger les altitudes, plutôt que le modèle intégré.</string>
+    <string name="pref_nmea_elevation_summary">Utiliser les données NMEA (satellite) pour corriger les altitudes, plutôt que le modèle intégré</string>
     <string name="pref_nmea_elevation_title">Correction d\'élévation NMEA</string>
     <string name="sensor_gyroscope">Gyroscope</string>
     <string name="gallon_format">%s gal</string>
@@ -1139,7 +1139,7 @@
         <item quantity="many">%d pas</item>
         <item quantity="other">%d pas</item>
     </plurals>
-    <string name="pref_dialog_battery_log_summary">Vous ne pourrez ni accéder à l\'historique de la batterie, ni voir le temps restant avant que votre téléphone soit déchargé. Vous pouvez réactiver ces fonctionnalités dans les paramètres.</string>
+    <string name="pref_dialog_battery_log_summary">Le journal de la batterie est désactivé ; l\'historique et l\'autonomie restante peuvent ne pas être disponibles. Vous pouvez réactiver cette fonctionnalité dans les paramètres.</string>
     <string name="select_from_gallery">Choisir dans la galerie</string>
     <string name="feature_unavailable">%s indisponible</string>
     <string name="ar_calibration_disclaimer">Avant chaque utilisation de l\'outil de Réalité Augmentée, vérifiez que le soleil ou la lune dans l\'outil est au même emplacement dans le monde réel. Si ce n\'est pas le cas, cliquez sur la boussole en haut à gauche de l\'écran et suivez les instructions de calibration.</string>
@@ -1240,7 +1240,7 @@
     <string name="climate_tropical_monsoon">mousson tropicale</string>
     <string name="adaptive_brightness">Luminosité adaptative</string>
     <string name="pref_night_mode_fullscreen_title">Plein écran en mode nuit</string>
-    <string name="quick_actions_are_unavailable">Les actions rapides ne sont pas disponibles.</string>
+    <string name="quick_actions_are_unavailable">Les actions rapides ne sont pas disponibles</string>
     <string name="sunrise">Lever du soleil</string>
     <string name="pref_night_mode_fullscreen_summary">Masquer l\'interface utilisateur du système pour une meilleure préservation de la vision nocturne</string>
     <string name="pref_bubble_level_threshold_title">Seuil de niveau</string>
@@ -1322,7 +1322,7 @@
     <string name="cell_towers">Antennes-relais</string>
     <string name="signal_finder_description">Afficher les antennes-relais et les signaux à proximité.</string>
     <string name="no_cell_towers_found">Aucune antenne-relais trouvée</string>
-    <string name="cell_tower_disclaimer">Les emplacements des tours sont approximatifs et proviennent d\'OpenCelliD, du service de localisation Mozilla et des enregistrements d\'antennes FCC.\n\n[OpenCelliD Project](https://opencellid.org/) est sous licence [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).</string>
+    <string name="cell_tower_disclaimer">Les emplacements des antennes-relais sont estimés à partir des données d\'OpenCelliD, du service de localisation de Mozilla et des registres d\'antennes de la FCC.\n\nLe [projet OpenCelliD](https://opencellid.org/) est soumis à une [licence Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="full_service">Service complet</string>
     <string name="australia">Océanie</string>
     <string name="emergency_calls_only">Appels d\'urgence uniquement</string>
