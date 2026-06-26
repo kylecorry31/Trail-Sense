@@ -836,7 +836,7 @@
     <string name="temperature_history">Temperaturverlauf - letzte %s</string>
     <string name="disclaimer_estimated_tide_title">Geschätzte Gezeit</string>
     <string name="tool_temperature_estimation_title">Temperaturschätzung</string>
-    <string name="tool_temperature_estimation_description">Temperatur in einer anderen Höhenlage schätzen</string>
+    <string name="tool_temperature_estimation_description">Temperatur, Windgeschwindigkeit und Luftfeuchte in einer anderen Höhenlage schätzen</string>
     <string name="pressure_tendency">Tendenz</string>
     <string name="explore">Erkunden</string>
     <string name="average_speed">Durchschnittsgeschwindigkeit</string>
@@ -994,7 +994,7 @@
     <string name="daylight_duration">%s Tagesdauer</string>
     <string name="times">Zeiten</string>
     <string name="horizon">Horizont</string>
-    <string name="map_file">Datei (JPG, PNG, PDF)</string>
+    <string name="map_file">Datei (JPG, PNG, PDF, Mapsforge)</string>
     <string name="no">Nein</string>
     <string name="offline_maps_summary">Ein Foto als Karte benutzen</string>
     <string name="map_calibration">Karte kalibrieren</string>
@@ -1506,4 +1506,40 @@
     <string name="active_in_month">Aktiv in/im %s</string>
     <string name="active_all_year">Das ganze Jahr über aktiv</string>
     <string name="ecology">Ökölogie</string>
+    <string name="plugins">Erweiterungen</string>
+    <string name="map_layers">Kartenebenen</string>
+    <string name="tile_layer">Kachelebene</string>
+    <string name="disconnect">Verbindung trennen</string>
+    <string name="plugin_unavailable">Dieses Plugin ist nicht verfügbar oder nicht mehr verbunden.</string>
+    <string name="clear_plugin_cache">Plugin-Cache leeren</string>
+    <string name="connected_plugins">Verbundene Plugins</string>
+    <string name="available_plugins">Verfügbare Plugins</string>
+    <string name="plugin_name">Plugin: %s</string>
+    <string name="plugin_connect_title">Plugin verbinden?</string>
+    <string name="plugin_connect_message">Verbinden Sie %s nur wenn Sie ihm/ihr vertrauen.</string>
+    <string name="plugin_disconnect_title">Plugin-Verbindung trennen?</string>
+    <string name="plugin_disconnect_message">Verbindung mit %s trennen?</string>
+    <string name="brightness">Helligkeit</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d Karte</item>
+        <item quantity="other">%d Karten</item>
+    </plurals>
+    <string name="do_not_ask_again">Nicht wieder fragen</string>
+    <string name="packing_list_optional">Optional</string>
+    <string name="pref_pedometer_history_days_title">Schrittverlauf</string>
+    <string name="current_session">Aktuelle Sitzung</string>
+    <string name="history">Verlauf</string>
+    <string name="no_pedometer_sessions">Keine Sitzungen</string>
+    <string name="target">Ziel</string>
+    <string name="not_visible">Unsichtbar</string>
+    <plurals name="step_count">
+        <item quantity="one">%d Schritt</item>
+        <item quantity="other">%d Schritte</item>
+    </plurals>
+    <string name="show_all">Alle anzeigen</string>
+    <string name="hide_all">Alle verbergen</string>
+    <string name="tool_magnifier_title">Lupe</string>
+    <string name="offline_maps">Offlinekarten</string>
+    <string name="mapsforge">Mapsforge</string>
+    <string name="large_location_indicator">Großer Standortindikator</string>
 </resources>
