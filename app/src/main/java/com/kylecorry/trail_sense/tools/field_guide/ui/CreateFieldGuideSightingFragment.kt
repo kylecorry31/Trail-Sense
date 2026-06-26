@@ -80,11 +80,12 @@ class CreateFieldGuideSightingFragment :
             showOnMap
         ) {
             if (initialSighting != null) {
+                val initialHarvested = initialSighting.harvested ?: false
                 datetime?.toZonedDateTime()?.toInstant() != initialSighting.time ||
                         location != initialSighting.location ||
                         elevation?.meters()?.value != initialSighting.altitude ||
                         notes != initialSighting.notes ||
-                        harvested != initialSighting.harvested ||
+                        harvested != initialHarvested ||
                         showOnMap != initialSighting.showOnMap
             } else {
                 datetime != initialDatetime ||
