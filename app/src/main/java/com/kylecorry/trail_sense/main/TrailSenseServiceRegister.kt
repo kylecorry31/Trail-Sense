@@ -62,7 +62,7 @@ object TrailSenseServiceRegister {
         Tools.getTools(context, false).forEach { tool ->
             tool.singletons.forEach { producer ->
                 val service = producer(appContext)
-                // Updating directly since it will loose the type name when using register
+                // Updating directly since it will lose the type name when using register
                 AppServiceRegistry.services[service::class.java.name] = service
             }
         }

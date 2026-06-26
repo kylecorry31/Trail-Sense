@@ -4,15 +4,21 @@ import android.content.Context
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
+import com.kylecorry.trail_sense.tools.field_guide.quickactions.QuickActionRecordSighting
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -30,9 +36,22 @@ object FieldGuideToolRegistration : ToolRegistration {
                 R.id.createFieldGuideSightingFragment,
                 R.id.createFieldGuidePageFragment
             ),
+            quickActions = listOf(
+                ToolQuickAction(
+                    Tools.QUICK_ACTION_RECORD_SIGHTING,
+                    context.getString(R.string.record_sighting),
+                    ::QuickActionRecordSighting
+                )
+            ),
             guideId = R.raw.guide_tool_field_guide,
             singletons = listOf(
-                FieldGuideRepo::getInstance
+                FieldGuideRepo::getInstance,
+                {
+                    FieldGuideService(it, getAppService<FieldGuideRepo>(), ToolEventEmitter)
+                }
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(BROADCAST_SIGHTING_RECORDED, "Sighting recorded")
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
@@ -60,9 +79,12 @@ object FieldGuideToolRegistration : ToolRegistration {
                             }
                         )
                     },
-                    geoJsonSource = ::FieldGuideSightingGeoJsonSource
+                    geoJsonSource = ::FieldGuideSightingGeoJsonSource,
+                    refreshBroadcasts = listOf(BROADCAST_SIGHTING_RECORDED)
                 )
             )
         )
     }
+
+    const val BROADCAST_SIGHTING_RECORDED = "field-guide-broadcast-sighting-recorded"
 }

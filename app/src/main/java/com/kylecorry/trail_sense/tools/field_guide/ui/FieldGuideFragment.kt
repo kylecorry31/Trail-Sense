@@ -14,65 +14,37 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useBackPressedCallback
 import com.kylecorry.trail_sense.shared.extensions.useNavController
-import com.kylecorry.trail_sense.shared.extensions.useSearch
+import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
-import com.kylecorry.trail_sense.shared.text.TextUtils
+import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideCleanupCommand
-import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
 class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_field_guide) {
 
-    private val headingTags = listOf(
-        FieldGuidePageTag.Plant,
-        FieldGuidePageTag.Fungus,
-        FieldGuidePageTag.Animal,
-        FieldGuidePageTag.Mammal,
-        FieldGuidePageTag.Bird,
-        FieldGuidePageTag.Reptile,
-        FieldGuidePageTag.Amphibian,
-        FieldGuidePageTag.Fish,
-        FieldGuidePageTag.Invertebrate,
-        FieldGuidePageTag.Rock,
-        FieldGuidePageTag.Weather,
-        FieldGuidePageTag.Other
-    )
-
     override fun update() {
-        val context = useAndroidContext()
-
         // Views
         val listView = useView<AndromedaListView>(R.id.list)
         val addButtonView = useView<FloatingActionButton>(R.id.add_btn)
         val searchView = useView<SearchView>(R.id.search)
         val emptyView = useView<TextView>(R.id.empty_text)
-        val navController = useNavController()
 
         listView.emptyView = emptyView
 
         // State
-        val (tagFilter, setTagFilter) = useState<FieldGuidePageTag?>(null)
-        val (filter, setFilter) = useState("")
-        val (pages, reloadPages) = useLoadPages(filter, tagFilter)
+        val (reloadKey, triggerReload) = useTrigger()
 
         // Services
-        val repo = useService<FieldGuideRepo>()
+        val service = useService<FieldGuideService>()
 
         // Callbacks
         val createPage = useCreatePage()
         val editPage = useEditPage()
         val viewPage = useViewPage()
-
-        // Handle back press
-        useBackPressedCallback(filter, tagFilter, searchView) {
-            setTagFilter(null)
-            setFilter("")
-            searchView.query = ""
-            // If the filter was not set, don't consume the event
-            tagFilter != null || filter.isNotBlank()
-        }
+        val deletePage = useDeletePage(triggerReload)
 
         // One time setup
         useShowDisclaimer(
@@ -83,57 +55,41 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         )
         useCleanupPages()
 
-        // Search
-        useSearch(searchView, setFilter)
+        // List
+        val handlePageAction = useCallback<FieldGuidePageListItemActionType, FieldGuidePage, Unit>(
+            service,
+            viewPage,
+            editPage,
+            deletePage,
+            resetOnResume
+        ) { action, page ->
+            when (action) {
+                FieldGuidePageListItemActionType.View -> viewPage(page)
+                FieldGuidePageListItemActionType.Edit -> editPage(page)
+                FieldGuidePageListItemActionType.Delete -> deletePage(page)
+            }
+        }
+
+        val (tagFilter, reload, clearFilters) = useFieldGuidePageList(
+            listView,
+            searchView,
+            handlePageAction
+        )
+        useResumeEffect(reload, reloadKey) {
+            reload()
+        }
+
+        // Handle back press
+        useBackPressedCallback(clearFilters, searchView) {
+            val hadFilters = clearFilters()
+            searchView.query = ""
+            // If the filter was not set, don't consume the event
+            hadFilters
+        }
 
         // Create button
         useClickCallback(addButtonView, createPage, tagFilter) {
             createPage(tagFilter)
-        }
-
-        // List
-        useEffect(
-            pages,
-            filter,
-            tagFilter,
-            listView,
-            context,
-            viewLifecycleOwner,
-            navController,
-            resetOnResume
-        ) {
-            val tagMapper = FieldGuidePageTagListItemMapper(context, setTagFilter)
-
-            val pageMapper = FieldGuidePageListItemMapper(
-                context,
-                viewLifecycleOwner
-            ) { action, page ->
-                when (action) {
-                    FieldGuidePageListItemActionType.View -> viewPage(page)
-                    FieldGuidePageListItemActionType.Edit -> editPage(page)
-
-                    FieldGuidePageListItemActionType.Delete -> {
-                        dialog(getString(R.string.delete), page.name) { cancelled ->
-                            if (!cancelled) {
-                                inBackground {
-                                    repo.delete(page)
-                                    reloadPages()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (tagFilter == null && filter.isBlank()) {
-                val items = headingTags.map { tag ->
-                    val numPages = pages.count { it.tags.contains(tag) }
-                    tag to numPages
-                }
-                listView.setItems(items, tagMapper)
-            } else {
-                listView.setItems(pages, pageMapper)
-            }
         }
     }
 
@@ -144,36 +100,18 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         }
     }
 
-    private fun useLoadPages(
-        filter: String,
-        tagFilter: FieldGuidePageTag?
-    ): Pair<List<FieldGuidePage>, () -> Unit> {
-        val repo = useService<FieldGuideRepo>()
-        val context = useAndroidContext()
-        val (pages, setPages) = useState(listOf<FieldGuidePage>())
-        val reload = useCallback<Unit> {
-            inBackground {
-                setPages(repo.getAllPages().sortedBy { it.name })
+    private fun useDeletePage(triggerReload: () -> Unit): (page: FieldGuidePage) -> Unit {
+        val service = useService<FieldGuideService>()
+        return useCallback(service, triggerReload) { page ->
+            dialog(getString(R.string.delete), page.name) { cancelled ->
+                if (!cancelled) {
+                    inBackground {
+                        service.deletePage(page)
+                        triggerReload()
+                    }
+                }
             }
         }
-
-        useEffect(resetOnResume) {
-            reload()
-        }
-
-        val filteredPages = useMemo(pages, filter, tagFilter) {
-            val mapper = FieldGuideTagNameMapper(context)
-            TextUtils.search(filter, pages) { page ->
-                listOf(
-                    page.name,
-                    page.notes ?: "",
-                    page.tags.joinToString { mapper.getName(it) })
-            }.filter { pages ->
-                tagFilter == null || pages.tags.contains(tagFilter)
-            }
-        }
-
-        return filteredPages to reload
     }
 
     private fun useCreatePage(): (tag: FieldGuidePageTag?) -> Unit {

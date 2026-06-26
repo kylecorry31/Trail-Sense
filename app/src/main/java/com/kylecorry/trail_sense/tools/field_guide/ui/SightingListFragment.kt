@@ -21,9 +21,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useToolEventListener
+import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.tools.field_guide.FieldGuideToolRegistration
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -47,9 +50,12 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         val pageId = useArgument<Long>("page_id") ?: 0
 
         // State
-        val (deleteKey, setDeleteKey) = useState(0)
+        val (refreshKey, triggerRefresh) = useTrigger()
+        useToolEventListener(FieldGuideToolRegistration.BROADCAST_SIGHTING_RECORDED) {
+            triggerRefresh()
+        }
 
-        val page = useBackgroundMemo(repo, pageId, deleteKey, resetOnResume) {
+        val page = useBackgroundMemo(repo, pageId, refreshKey, resetOnResume) {
             repo.getPage(pageId)
         }
 
@@ -57,7 +63,7 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
             page?.sightings?.sortedByDescending { it.time } ?: emptyList()
         }
 
-        val deleteSighting = useCallback(context, repo, deleteKey) { sighting: Sighting ->
+        val deleteSighting = useCallback(context, repo) { sighting: Sighting ->
             Alerts.dialog(
                 context,
                 getString(R.string.delete),
@@ -71,7 +77,7 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
                 if (!cancelled) {
                     inBackground {
                         repo.deleteSighting(sighting)
-                        setDeleteKey(deleteKey + 1)
+                        triggerRefresh()
                     }
                 }
             }

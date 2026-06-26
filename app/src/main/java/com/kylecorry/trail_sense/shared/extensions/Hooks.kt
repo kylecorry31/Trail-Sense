@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared.extensions
 
+import android.os.Bundle
 import android.view.View
+import androidx.activity.ComponentDialog
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -11,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
@@ -47,6 +50,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.shared.views.SearchView
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
@@ -218,6 +222,30 @@ fun <T> T.useBackPressedCallback(
                 navController.popBackStack()
             }
         }
+
+        return@useEffectWithCleanup {
+            listener.remove()
+        }
+    }
+}
+
+fun <T> T.useBottomSheetBackPressedCallback(
+    vararg values: Any?,
+    callback: OnBackPressedCallback.() -> Boolean
+) where T : BottomSheetDialogFragment, T : ReactiveComponent {
+    useEffectWithCleanup(*values) {
+        val dispatcher = (dialog as? ComponentDialog)?.onBackPressedDispatcher
+            ?: return@useEffectWithCleanup {}
+        val listener = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val consumed = callback()
+                if (!consumed) {
+                    isEnabled = false
+                    dispatcher.onBackPressed()
+                }
+            }
+        }
+        dispatcher.addCallback(viewLifecycleOwner, listener)
 
         return@useEffectWithCleanup {
             listener.remove()
@@ -574,4 +602,26 @@ fun ReactiveComponent.useTrigger(): Pair<String, () -> Unit> {
         setKey(UUID.randomUUID().toString())
     }
     return useMemo(key, trigger) { key to trigger }
+}
+
+fun ReactiveComponent.useToolEventListener(eventId: String, callback: suspend (data: Bundle?) -> Unit) {
+    val callbackRef = useRef(callback)
+
+    useEffect(callback) {
+        callbackRef.current = callback
+    }
+
+    val subscriber: suspend (Bundle?) -> Unit = useMemo {
+        { data ->
+            callbackRef.current(data)
+        }
+    }
+
+    useResumeEffect(eventId) {
+        Tools.subscribe(eventId, subscriber)
+    }
+
+    usePauseEffect(eventId) {
+        Tools.unsubscribe(eventId, subscriber)
+    }
 }

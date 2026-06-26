@@ -17,13 +17,16 @@ import com.kylecorry.andromeda.fragments.useArgument
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
 import com.kylecorry.andromeda.views.badge.Badge
-import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useToolEventListener
+import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.views.Toolbar
+import com.kylecorry.trail_sense.tools.field_guide.FieldGuideToolRegistration
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
@@ -137,7 +140,12 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         val queue = useCoroutineQueue()
         val repo = useService<FieldGuideRepo>()
         val (page, setPage) = useState<FieldGuidePage?>(null)
-        useBackgroundEffect(pageId, lifecycleHookTrigger.onResume()) {
+        val (refreshKey, triggerRefresh) = useTrigger()
+        useToolEventListener(FieldGuideToolRegistration.BROADCAST_SIGHTING_RECORDED) {
+            triggerRefresh()
+        }
+
+        useBackgroundEffect(pageId, refreshKey, lifecycleHookTrigger.onResume()) {
             if (pageId == null) {
                 queue.replace { setPage(null) }
             } else {
