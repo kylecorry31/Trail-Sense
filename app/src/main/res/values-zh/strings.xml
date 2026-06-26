@@ -1601,4 +1601,6 @@
     <plurals name="step_count">
         <item quantity="other">%d 步</item>
     </plurals>
+    <string name="created">已创建</string>
+    <string name="recording_sighting_for_page">正在记录“%s”目击</string>
 </resources>
