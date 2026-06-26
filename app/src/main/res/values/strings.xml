@@ -1081,6 +1081,7 @@
     <string name="note">Note</string>
     <string name="beacon">Beacon</string>
     <string name="beacon_created">Beacon created</string>
+    <string name="created">Created</string>
     <string name="result_deleted">Result deleted</string>
     <string name="undo">Undo</string>
     <string name="share_ellipsis">Share…</string>
@@ -1967,4 +1968,6 @@
     <string name="map_external">External</string>
     <string name="map_file_missing">File missing</string>
     <string name="copy_to_trail_sense">Copy to Trail Sense</string>
+    <!--%s is the name of the field guide page the sighting is being recorded for-->
+    <string name="recording_sighting_for_page">Recording \'%s\' sighting</string>
 </resources>

@@ -15,7 +15,9 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
 import com.kylecorry.trail_sense.tools.field_guide.quickactions.QuickActionRecordSighting
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -45,8 +47,11 @@ object FieldGuideToolRegistration : ToolRegistration {
             singletons = listOf(
                 FieldGuideRepo::getInstance,
                 {
-                    FieldGuideService(it, getAppService<FieldGuideRepo>())
+                    FieldGuideService(it, getAppService<FieldGuideRepo>(), ToolEventEmitter)
                 }
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(BROADCAST_SIGHTING_RECORDED, "Sighting recorded")
             ),
             mapLayers = listOf(
                 MapLayerDefinition(
@@ -74,9 +79,12 @@ object FieldGuideToolRegistration : ToolRegistration {
                             }
                         )
                     },
-                    geoJsonSource = ::FieldGuideSightingGeoJsonSource
+                    geoJsonSource = ::FieldGuideSightingGeoJsonSource,
+                    refreshBroadcasts = listOf(BROADCAST_SIGHTING_RECORDED)
                 )
             )
         )
     }
+
+    const val BROADCAST_SIGHTING_RECORDED = "field-guide-broadcast-sighting-recorded"
 }

@@ -49,6 +49,7 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         // State
         val (deleteKey, setDeleteKey) = useState(0)
 
+        // TODO: Rerun when the sightings broadcast is received
         val page = useBackgroundMemo(repo, pageId, deleteKey, resetOnResume) {
             repo.getPage(pageId)
         }
