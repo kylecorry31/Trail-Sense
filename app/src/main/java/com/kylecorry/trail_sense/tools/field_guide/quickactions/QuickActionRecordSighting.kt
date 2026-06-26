@@ -86,7 +86,6 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
                     duration = Snackbar.LENGTH_LONG,
                     action = fragment.getString(R.string.view)
                 ) {
-                    // TODO: This should go to the field guide page, and that will trigger creating a sighting to retain the backstack
                     fragment.findNavController().navigateWithAnimation(
                         R.id.createFieldGuideSightingFragment,
                         Bundle().apply {
