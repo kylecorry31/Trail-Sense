@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.extensions
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.ComponentDialog
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
@@ -220,6 +222,30 @@ fun <T> T.useBackPressedCallback(
                 navController.popBackStack()
             }
         }
+
+        return@useEffectWithCleanup {
+            listener.remove()
+        }
+    }
+}
+
+fun <T> T.useBottomSheetBackPressedCallback(
+    vararg values: Any?,
+    callback: OnBackPressedCallback.() -> Boolean
+) where T : BottomSheetDialogFragment, T : ReactiveComponent {
+    useEffectWithCleanup(*values) {
+        val dispatcher = (dialog as? ComponentDialog)?.onBackPressedDispatcher
+            ?: return@useEffectWithCleanup {}
+        val listener = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val consumed = callback()
+                if (!consumed) {
+                    isEnabled = false
+                    dispatcher.onBackPressed()
+                }
+            }
+        }
+        dispatcher.addCallback(viewLifecycleOwner, listener)
 
         return@useEffectWithCleanup {
             listener.remove()

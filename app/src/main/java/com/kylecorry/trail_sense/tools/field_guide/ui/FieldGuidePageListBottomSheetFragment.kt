@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
+import com.kylecorry.trail_sense.shared.extensions.useBottomSheetBackPressedCallback
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.views.SearchView
@@ -40,12 +41,11 @@ class FieldGuidePageListBottomSheetFragment :
 
         val (_, _, clearFilters) = useFieldGuidePageList(listView, searchView, handleAction, showMenu = false)
 
-        // TODO: Need to support clearing filters - back button does not work with bottom sheet dialog, maybe add a clear button
-//        useBackPressedCallback(clearFilters, searchView) {
-//            val hadFilters = clearFilters()
-//            searchView.query = ""
-//            // If the filter was not set, don't consume the event
-//            hadFilters
-//        }
+        useBottomSheetBackPressedCallback(clearFilters, searchView) {
+            val hadFilters = clearFilters()
+            searchView.query = ""
+            // If the filter was not set, don't consume the event
+            hadFilters
+        }
     }
 }
