@@ -1613,4 +1613,6 @@
         <item quantity="one">%d stap</item>
         <item quantity="other">%d stappen</item>
     </plurals>
+    <string name="created">Gemaakt</string>
+    <string name="recording_sighting_for_page">Waarneming \'%s\' opnemen</string>
 </resources>
