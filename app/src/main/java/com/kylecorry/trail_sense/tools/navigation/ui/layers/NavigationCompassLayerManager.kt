@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.navigation.ui.layers
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 
 class NavigationCompassLayerManager {
-    private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+    private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
 
     var key = 0
         private set

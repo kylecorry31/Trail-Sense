@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.field_guide
 import android.content.Context
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
@@ -44,12 +45,10 @@ object FieldGuideToolRegistration : ToolRegistration {
                 )
             ),
             guideId = R.raw.guide_tool_field_guide,
-            singletons = listOf(
-                FieldGuideRepo::getInstance,
-                {
-                    FieldGuideService(it, getAppService<FieldGuideRepo>(), ToolEventEmitter)
-                }
-            ),
+            initialize = {
+                DependencyRegistry.addSingleton(FieldGuideRepo.getInstance(it))
+                DependencyRegistry.addSingleton(FieldGuideService(it, getAppService<FieldGuideRepo>(), ToolEventEmitter))
+            },
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_SIGHTING_RECORDED, "Sighting recorded")
             ),

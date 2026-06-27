@@ -5,7 +5,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
@@ -27,9 +27,9 @@ class MapLayerPreferenceManager(
     private val alwaysEnabledLayerIds: List<String>
 ) {
 
-    private val prefs = AppServiceRegistry.get<PreferencesSubsystem>().preferences
-    private val markdown = AppServiceRegistry.get<MarkdownService>()
-    private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+    private val prefs = DependencyRegistry.get<PreferencesSubsystem>().preferences
+    private val markdown = DependencyRegistry.get<MarkdownService>()
+    private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
 
     private var lastExpanded: String? = null
 

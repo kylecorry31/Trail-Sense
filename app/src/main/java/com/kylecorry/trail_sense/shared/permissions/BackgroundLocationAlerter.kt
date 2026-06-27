@@ -5,7 +5,7 @@ import android.os.Build
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
@@ -28,7 +28,7 @@ class BackgroundLocationAlerter<T>(private val fragment: T) :
             context.getString(R.string.learn_more)
         ) {
 
-            val markdown = AppServiceRegistry.get<MarkdownService>()
+            val markdown = DependencyRegistry.get<MarkdownService>()
             val contents =
                 markdown.toMarkdown(context.getString(R.string.access_background_location_rationale))
 

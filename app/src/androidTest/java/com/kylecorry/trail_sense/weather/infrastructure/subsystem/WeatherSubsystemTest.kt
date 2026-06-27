@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -25,7 +25,7 @@ internal class WeatherSubsystemTest {
     @Before
     fun setup() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        AppServiceRegistry.register(FileSubsystem.getInstance(context))
+        DependencyRegistry.addSingleton(FileSubsystem.getInstance(context))
     }
 
     @Test

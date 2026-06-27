@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.paths.map_layers
 
 import android.content.Context
 import android.os.Bundle
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.asMappable
 import kotlinx.coroutines.flow.first
 
 class PathGeoJsonSource : GeoJsonSource {
-    private val pathService = AppServiceRegistry.get<PathService>()
+    private val pathService = DependencyRegistry.get<PathService>()
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()
     private var lastChangeKey = 0

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.BackgroundTask
@@ -37,10 +37,10 @@ import java.time.Instant
 class Navigator private constructor(context: Context) {
 
     private val prefs = PreferencesSubsystem.getInstance(context).preferences
-    private val userPrefs = AppServiceRegistry.get<UserPreferences>()
+    private val userPrefs = DependencyRegistry.get<UserPreferences>()
     private val beacons = BeaconService(context)
     private val bearings = NavigationBearingService.getInstance(context)
-    private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
+    private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
 
     private val declinationCache = GeospatialCache<Float>(Distance.kilometers(10f), 10)
 

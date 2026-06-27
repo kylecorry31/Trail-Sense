@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem
 
 import android.net.Uri
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.andromeda.files.ZipUtils.unzip
 import com.kylecorry.andromeda.json.JsonConvert
@@ -71,9 +71,9 @@ class CompressedDigitalElevationModelIndex(
 class DigitalElevationModelLoader {
 
     fun load(source: Uri): Flow<Float> = flow {
-        val files = AppServiceRegistry.get<FileSubsystem>()
-        val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
-        val prefs = AppServiceRegistry.get<UserPreferences>()
+        val files = DependencyRegistry.get<FileSubsystem>()
+        val database = DependencyRegistry.get<AppDatabase>().digitalElevationModelDao()
+        val prefs = DependencyRegistry.get<UserPreferences>()
         // Validate the source URI
         val fileCount = files.stream(source)?.use {
             val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
@@ -117,9 +117,9 @@ class DigitalElevationModelLoader {
     }.flowOn(Dispatchers.IO)
 
     suspend fun clear() = onIO {
-        val prefs = AppServiceRegistry.get<UserPreferences>()
-        val files = AppServiceRegistry.get<FileSubsystem>()
-        val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
+        val prefs = DependencyRegistry.get<UserPreferences>()
+        val files = DependencyRegistry.get<FileSubsystem>()
+        val database = DependencyRegistry.get<AppDatabase>().digitalElevationModelDao()
 
         files.getDirectory("dem", create = true).deleteRecursively()
         database.deleteAll()

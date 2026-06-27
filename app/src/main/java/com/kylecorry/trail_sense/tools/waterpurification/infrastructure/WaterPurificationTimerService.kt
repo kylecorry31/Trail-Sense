@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.CountDownTimer
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
@@ -51,7 +51,7 @@ class WaterPurificationTimerService : AndromedaService() {
         if (!done) {
             Notify.cancel(this, NOTIFICATION_ID)
         } else {
-            val prefs = AppServiceRegistry.get<UserPreferences>()
+            val prefs = DependencyRegistry.get<UserPreferences>()
             val useAlarm = prefs.waterBoilTimer.useAlarm
             val notification = Notify.alert(
                 this@WaterPurificationTimerService,
@@ -63,7 +63,7 @@ class WaterPurificationTimerService : AndromedaService() {
                 intent = openIntent,
                 mute = useAlarm
             )
-            AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
+            DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
 
             val alarm = AlarmAlerter(
                 this,

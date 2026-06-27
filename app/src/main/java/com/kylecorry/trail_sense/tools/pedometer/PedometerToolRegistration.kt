@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.pedometer
 
 import android.content.Context
 import android.hardware.Sensor
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
@@ -41,16 +42,14 @@ object PedometerToolRegistration : ToolRegistration {
             ToolCategory.Distance,
             guideId = R.raw.guide_tool_pedometer,
             settingsNavAction = R.id.calibrateOdometerFragment,
-            initialize = { PedometerSubsystem.getInstance(it) },
-            singletons = listOf(
-                {
-                    StepTrackerService(
-                        StepTrackerRepo.getInstance(it),
-                        ToolEventEmitter,
-                        UserPreferences(it).pedometer
-                    )
-                }
-            ),
+            initialize = {
+                DependencyRegistry.addSingleton(StepTrackerService(
+                    StepTrackerRepo.getInstance(it),
+                    ToolEventEmitter,
+                    UserPreferences(it).pedometer
+                ))
+                DependencyRegistry.addSingleton(PedometerSubsystem.getInstance(it))
+            },
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_PEDOMETER,

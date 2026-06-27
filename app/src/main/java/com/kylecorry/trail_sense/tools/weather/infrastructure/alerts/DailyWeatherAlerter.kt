@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.alerts
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -58,7 +58,7 @@ class DailyWeatherAlerter(
             autoCancel = true
         )
 
-        AppServiceRegistry.get<NotificationSubsystem>().send(DAILY_NOTIFICATION_ID, notification)
+        DependencyRegistry.get<NotificationSubsystem>().send(DAILY_NOTIFICATION_ID, notification)
     }
 
     companion object {

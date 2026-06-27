@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -113,8 +113,8 @@ suspend fun IMapView.setLayersWithPreferences(
     additionalLayers: List<ILayer> = emptyList(),
     forceReplaceLayers: Boolean = false
 ) {
-    val loader = AppServiceRegistry.get<MapLayerLoader>()
-    val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+    val loader = DependencyRegistry.get<MapLayerLoader>()
+    val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
     val currentLayers = layerManager.getLayers()
     val newLayerIds = layerIds + additionalLayers.map { it.layerId }
     val definitions = loader.getDefinitions()
@@ -151,6 +151,6 @@ fun IMapView.getLayerById(layerId: String): ILayer? {
 }
 
 suspend fun IMapView.getAttribution(context: Context): CharSequence? {
-    val loader = AppServiceRegistry.get<MapLayerLoader>()
+    val loader = DependencyRegistry.get<MapLayerLoader>()
     return loader.getAttribution(context, layerManager.getLayers().map { it.layerId })
 }

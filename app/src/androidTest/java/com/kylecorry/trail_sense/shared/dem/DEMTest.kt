@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.sol.units.Coordinate
@@ -31,7 +31,7 @@ class DEMTest {
     @Test
     fun getElevation() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        AppServiceRegistry.register(FileSubsystem.getInstance(context))
+        DependencyRegistry.addSingleton(FileSubsystem.getInstance(context))
         for (model in models) {
             println("Testing ${model.path}")
             verify(model)

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
@@ -37,7 +37,7 @@ class MapLayerLoader(context: Context) {
 // TODO: Consider loading required attribution with the layer data rather than the definition (definition can contain the long form attribution)
 suspend fun MapLayerLoader.getAttribution(context: Context, layerIds: List<String>): CharSequence? {
     val definitions = getDefinitions()
-    val markdown = AppServiceRegistry.get<MarkdownService>()
+    val markdown = DependencyRegistry.get<MarkdownService>()
     val attributions = layerIds.flatMap { layerId ->
         listOfNotNull(
             definitions[layerId]?.attribution,

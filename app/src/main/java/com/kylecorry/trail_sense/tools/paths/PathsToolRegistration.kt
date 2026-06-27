@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
@@ -122,9 +123,9 @@ object PathsToolRegistration : ToolRegistration {
                     PauseBacktrackAction()
                 )
             ),
-            singletons = listOf(
-                PathService::getInstance
-            ),
+            initialize = {
+                DependencyRegistry.addSingleton(PathService.getInstance(it))
+            },
             mapLayers = listOf(
                 MapLayerDefinition(
                     PathGeoJsonSource.SOURCE_ID,

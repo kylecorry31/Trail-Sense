@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 class BulletSpeedInputView(context: Context, attributeSet: AttributeSet? = null) :
     BaseUnitInputView<Speed, DistanceUnits>(context, attributeSet) {
 
-    private val formatter = AppServiceRegistry.get<FormatService>()
+    private val formatter = DependencyRegistry.get<FormatService>()
 
     init {
         hint = context.getString(R.string.speed)

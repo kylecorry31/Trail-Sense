@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.annotation.RawRes
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.setPadding
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.ExpansionLayout
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
@@ -106,7 +106,7 @@ object TextUtils {
         text: String,
         shouldUppercaseSubheadings: Boolean = false
     ): View {
-        val markdown = AppServiceRegistry.get<MarkdownService>()
+        val markdown = DependencyRegistry.get<MarkdownService>()
         val sections = groupSections(getSections(text), null)
         val children = sections.mapNotNull { section ->
             val first = section.firstOrNull() ?: return@mapNotNull null

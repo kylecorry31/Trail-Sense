@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -31,7 +31,7 @@ class MapToolLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
-    private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+    private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
 
     var key: Int = 0
 

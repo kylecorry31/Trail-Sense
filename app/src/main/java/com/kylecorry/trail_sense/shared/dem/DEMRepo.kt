@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem
 
 import android.util.Log
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.ICleanable
@@ -12,9 +12,9 @@ import kotlinx.coroutines.sync.withLock
 
 class DEMRepo private constructor() : ICleanable {
 
-    private val files = AppServiceRegistry.get<FileSubsystem>()
-    private val database = AppServiceRegistry.get<AppDatabase>()
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val files = DependencyRegistry.get<FileSubsystem>()
+    private val database = DependencyRegistry.get<AppDatabase>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
 
     override suspend fun clean() {
         var removed = false

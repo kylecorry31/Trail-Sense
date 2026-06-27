@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.LabelFormatter
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -74,7 +74,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private val astronomyService = AstronomyService()
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
-    private val markdownService by lazy { AppServiceRegistry.get<MarkdownService>() }
+    private val markdownService by lazy { DependencyRegistry.get<MarkdownService>() }
 
     private var lastAstronomyEventSearch: AstronomyEvent? = null
 

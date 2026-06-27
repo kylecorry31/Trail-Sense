@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
@@ -101,7 +101,7 @@ class BeaconService(context: Context) : IBeaconService {
     }
 
     override suspend fun delete(beacon: Beacon) {
-        val navigator = AppServiceRegistry.get<Navigator>()
+        val navigator = DependencyRegistry.get<Navigator>()
         if (navigator.getDestinationId() == beacon.id) {
             navigator.cancelBeaconNavigation()
         }

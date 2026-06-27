@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
 import android.util.Log
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.math.Range
@@ -119,7 +119,7 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
             mute = useAlarm
         )
 
-        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
+        DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,

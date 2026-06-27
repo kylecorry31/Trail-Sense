@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.oceanography.Oceanography
@@ -29,7 +29,7 @@ class TideModelTest {
     @Test
     fun testTideModel() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        AppServiceRegistry.register(FileSubsystem.getInstance(context))
+        DependencyRegistry.addSingleton(FileSubsystem.getInstance(context))
 
         val tests = listOf(
             // Semi-diurnal tides

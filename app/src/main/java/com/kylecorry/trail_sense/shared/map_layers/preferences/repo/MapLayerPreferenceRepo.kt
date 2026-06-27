@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.repo
 
 import android.os.Bundle
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.preferences.Preference
 import com.kylecorry.andromeda.preferences.PreferenceType
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.text.LevenshteinDistance
 
 class MapLayerPreferenceRepo {
 
-    private val prefs = AppServiceRegistry.get<PreferencesSubsystem>()
+    private val prefs = DependencyRegistry.get<PreferencesSubsystem>()
     private val distanceMetric = LevenshteinDistance()
 
     fun getActiveLayerIds(mapId: String): List<String> {

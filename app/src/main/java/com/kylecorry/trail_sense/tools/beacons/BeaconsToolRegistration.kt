@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
@@ -90,9 +91,9 @@ object BeaconsToolRegistration : ToolRegistration {
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_BEACONS_CHANGED, "Beacons changed")
             ),
-            singletons = listOf(
-                { BeaconService(it) }
-            ),
+            initialize = {
+                DependencyRegistry.addSingleton(BeaconService(it))
+            },
             widgets = listOf(
                 ToolWidget(
                     WIDGET_NEARBY_BEACONS,

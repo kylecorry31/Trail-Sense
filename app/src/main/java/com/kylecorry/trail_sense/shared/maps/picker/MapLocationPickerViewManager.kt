@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.maps.picker
 import android.graphics.Color
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 
 class MapLocationPickerViewManager {
-    private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+    private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private var isRunning = false
     private val runningLock = Any()

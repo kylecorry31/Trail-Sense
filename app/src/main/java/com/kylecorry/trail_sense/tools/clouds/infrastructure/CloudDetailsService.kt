@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.clouds.infrastructure
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.graphics.toColorInt
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
@@ -75,7 +75,7 @@ class CloudDetailsService(private val context: Context) {
     }
 
     fun getCloudImage(context: Context, type: CloudGenus?): Drawable? {
-        val files = AppServiceRegistry.get<FileSubsystem>()
+        val files = DependencyRegistry.get<FileSubsystem>()
         return when (type) {
             CloudGenus.Cirrus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/cirrus.webp")
             CloudGenus.Cirrocumulus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/cirrocumulus.webp")

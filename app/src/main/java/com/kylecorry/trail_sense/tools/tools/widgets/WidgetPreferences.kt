@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.tools.widgets
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.preferences.SharedPreferences
 import com.kylecorry.luna.text.toLongCompat
 import com.kylecorry.trail_sense.R
@@ -37,7 +37,7 @@ class WidgetPreferences(
         commitChanges = true
     )
 
-    private val appPrefs = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+    private val appPrefs = DependencyRegistry.get<PreferencesSubsystem>().preferences
 
     fun setTheme(theme: WidgetTheme) {
         prefs.putLong(getThemeKey(appWidgetId), theme.id)

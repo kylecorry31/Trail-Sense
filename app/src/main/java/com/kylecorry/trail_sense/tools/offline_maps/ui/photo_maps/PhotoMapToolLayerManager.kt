@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -37,9 +37,9 @@ class PhotoMapToolLayerManager {
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
     private var photoMapLayer: TileMapLayer<*>? = null
 
-    private val preferences = AppServiceRegistry.get<PreferencesSubsystem>()
-    private val photoMapPreferences = PhotoMapPreferences(AppServiceRegistry.get())
-    private val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+    private val preferences = DependencyRegistry.get<PreferencesSubsystem>()
+    private val photoMapPreferences = PhotoMapPreferences(DependencyRegistry.get())
+    private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
 
     private var lastMapDetails: Pair<CoordinateBounds, Int>? = null
 

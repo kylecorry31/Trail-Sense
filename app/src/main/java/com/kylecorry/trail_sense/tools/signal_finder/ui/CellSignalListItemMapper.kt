@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.signal_finder.ui
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
@@ -17,8 +17,8 @@ import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 
 class CellSignalListItemMapper(private val context: Context) : ListItemMapper<CellSignal> {
 
-    private val formatter = AppServiceRegistry.get<FormatService>()
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val formatter = DependencyRegistry.get<FormatService>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
     private val baseDistanceUnits = prefs.baseDistanceUnits
 
     override fun map(value: CellSignal): ListItem {

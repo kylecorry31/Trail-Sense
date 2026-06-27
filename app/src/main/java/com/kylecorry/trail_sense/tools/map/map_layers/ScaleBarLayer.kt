@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -21,11 +21,11 @@ class ScaleBarLayer : OverlayLayer() {
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
 
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
 
     private val units = prefs.baseDistanceUnits
 
-    private val formatter = AppServiceRegistry.get<FormatService>()
+    private val formatter = DependencyRegistry.get<FormatService>()
 
     private val bottomMargin: Float = 32f
 

@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.map_layers
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
@@ -42,7 +42,7 @@ class TideGeoJsonSource : GeoJsonSource {
             preferences.getBoolean(SHOW_PHASE, DEFAULT_SHOW_PHASE)
 
         val time = Instant.ofEpochMilli(params.getLong(MapLayerParams.PARAM_TIME))
-        val context = AppServiceRegistry.get<Context>()
+        val context = DependencyRegistry.get<Context>()
         val tideService = TideService(context)
         val tables = LoadAllTideTablesCommand(context).execute() + getNearbyTideTables(
             bounds,
@@ -103,7 +103,7 @@ class TideGeoJsonSource : GeoJsonSource {
         }
 
         // TODO: Limit max locations?
-        val coastal = LandModel.getCoastalLocations(AppServiceRegistry.get(), bounds)
+        val coastal = LandModel.getCoastalLocations(DependencyRegistry.get(), bounds)
         return coastal.map {
             TideTable(
                 -2,

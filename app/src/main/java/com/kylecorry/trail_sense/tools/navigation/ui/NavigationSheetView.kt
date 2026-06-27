@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.extensions.flatten
@@ -40,9 +40,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     FrameLayout(context, attrs) {
 
 
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val formatter = AppServiceRegistry.get<FormatService>()
-    private val navigator = AppServiceRegistry.get<Navigator>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
+    private val formatter = DependencyRegistry.get<FormatService>()
+    private val navigator = DependencyRegistry.get<Navigator>()
 
     private val useTrueNorth = prefs.compass.useTrueNorth
 

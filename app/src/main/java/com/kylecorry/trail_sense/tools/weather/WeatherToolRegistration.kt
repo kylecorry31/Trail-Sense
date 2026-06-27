@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
@@ -43,7 +44,9 @@ object WeatherToolRegistration : ToolRegistration {
             ToolCategory.Weather,
             guideId = R.raw.guide_tool_weather,
             settingsNavAction = R.id.weatherSettingsFragment,
-            initialize = { WeatherSubsystem.getInstance(it) },
+            initialize = {
+                DependencyRegistry.addSingleton(WeatherSubsystem.getInstance(it))
+            },
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_WEATHER_MONITOR,
@@ -166,9 +169,6 @@ object WeatherToolRegistration : ToolRegistration {
                     "Refresh weather widget",
                     RefreshWidgetAction(WIDGET_WEATHER)
                 )
-            ),
-            singletons = listOf(
-                WeatherSubsystem::getInstance
             )
         )
     }

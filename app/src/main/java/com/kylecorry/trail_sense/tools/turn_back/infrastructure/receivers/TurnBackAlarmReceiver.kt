@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
@@ -25,7 +25,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
         val prefs = PreferencesSubsystem.getInstance(context)
-        val userPrefs = AppServiceRegistry.get<UserPreferences>()
+        val userPrefs = DependencyRegistry.get<UserPreferences>()
 
         val returnTime =
             prefs.preferences.getInstant(TurnBackFragment.PREF_TURN_BACK_RETURN_TIME) ?: return
@@ -44,7 +44,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             autoCancel = true,
             mute = useAlarm
         )
-        AppServiceRegistry.get<NotificationSubsystem>().send(
+        DependencyRegistry.get<NotificationSubsystem>().send(
             TURN_BACK_NOTIFICATION_ID,
             notification
         )

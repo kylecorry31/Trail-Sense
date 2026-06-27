@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -16,8 +16,8 @@ import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 
 class DistanceAlerter(private val context: Context) : IAlerter {
 
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val formatter = AppServiceRegistry.get<FormatService>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
+    private val formatter = DependencyRegistry.get<FormatService>()
 
     override fun alert() {
         val openIntent = NavigationUtils.pendingIntent(context, R.id.fragmentToolPedometer)
@@ -46,7 +46,7 @@ class DistanceAlerter(private val context: Context) : IAlerter {
             mute = useAlarm
         )
 
-        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
+        DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,

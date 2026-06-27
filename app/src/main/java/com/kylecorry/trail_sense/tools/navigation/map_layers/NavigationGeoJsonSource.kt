@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.navigation.map_layers
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.ColorInt
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
@@ -19,9 +19,9 @@ import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class NavigationGeoJsonSource : GeoJsonSource {
 
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
-    private val navigator = AppServiceRegistry.get<Navigator>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
+    private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
+    private val navigator = DependencyRegistry.get<Navigator>()
 
     override suspend fun load(
         context: Context,

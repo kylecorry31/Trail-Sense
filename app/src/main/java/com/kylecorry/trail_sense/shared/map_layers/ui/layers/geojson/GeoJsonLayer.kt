@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson
 import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -77,7 +77,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     init {
-        val prefs = AppServiceRegistry.get<UserPreferences>()
+        val prefs = DependencyRegistry.get<UserPreferences>()
         renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
         renderer.setOnClickListener(this::onClick)
         taskRunner.addTask { context, viewBounds, bounds, projection ->

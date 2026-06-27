@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
@@ -209,9 +210,9 @@ object AstronomyToolRegistration : ToolRegistration {
                     refreshInterval = Duration.ofMinutes(1)
                 )
             ),
-            singletons = listOf(
-                AstronomySubsystem::getInstance
-            )
+            initialize = {
+                DependencyRegistry.addSingleton(AstronomySubsystem.getInstance(it))
+            }
         )
     }
 

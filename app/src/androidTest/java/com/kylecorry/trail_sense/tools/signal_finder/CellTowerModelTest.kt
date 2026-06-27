@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.signal_finder
 
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
@@ -25,7 +25,7 @@ class CellTowerModelTest {
             // TODO: Add tests for other places
         )
 
-        AppServiceRegistry.register(FileSubsystem.getInstance(TestUtils.context))
+        DependencyRegistry.addSingleton(FileSubsystem.getInstance(TestUtils.context))
 
         val errors = knownCellTowers.map { tower ->
             val towers =

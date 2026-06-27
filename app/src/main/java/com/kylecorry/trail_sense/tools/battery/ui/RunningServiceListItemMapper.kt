@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
@@ -18,7 +18,7 @@ class RunningServiceListItemMapper(
     private val onStopService: (RunningService) -> Unit
 ) : ListItemMapper<RunningService> {
 
-    private val formatter = AppServiceRegistry.get<FormatService>()
+    private val formatter = DependencyRegistry.get<FormatService>()
 
     override fun map(value: RunningService): ListItem {
         val batteryUsage = getBatteryUsage(value)

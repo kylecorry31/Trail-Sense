@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
@@ -93,9 +94,9 @@ object SettingsToolRegistration : ToolRegistration {
                     "Update in-app widget"
                 )
             ),
-            singletons = listOf(
-                { SensorService(it) }
-            )
+            initialize = {
+                DependencyRegistry.addSingleton(SensorService(it))
+            }
         )
     }
 

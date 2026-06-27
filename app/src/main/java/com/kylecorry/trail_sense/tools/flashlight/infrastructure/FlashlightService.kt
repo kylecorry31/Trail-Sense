@@ -4,7 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.background.services.AndromedaService
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.topics.generic.replay
@@ -58,7 +58,7 @@ class FlashlightService : AndromedaService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         flashlight.startSystemMonitor()
-        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, getNotification())
+        DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, getNotification())
         topic.subscribe(this::onStateChanged)
         stopAt = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
         offTimer.interval(1000)

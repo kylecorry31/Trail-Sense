@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.bitmaps.operations.Convert
 import com.kylecorry.andromeda.bitmaps.operations.CropTile
 import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.bitmaps.operations.set
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
@@ -274,7 +274,7 @@ object DEM {
             }
 
             val tiles = if (isExternal) {
-                val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
+                val database = DependencyRegistry.get<AppDatabase>().digitalElevationModelDao()
                 database.getAll()
             } else {
                 BuiltInDem.getTiles()
@@ -341,7 +341,7 @@ object DEM {
     }
 
     fun isExternalModel(): Boolean {
-        val prefs = AppServiceRegistry.get<UserPreferences>()
+        val prefs = DependencyRegistry.get<UserPreferences>()
         return prefs.altimeter.isDigitalElevationModelLoaded
     }
 

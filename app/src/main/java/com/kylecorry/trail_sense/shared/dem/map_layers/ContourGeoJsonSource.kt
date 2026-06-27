@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 import android.content.Context
 
 import android.os.Bundle
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 class ContourGeoJsonSource : GeoJsonSource {
 
-    private val units = AppServiceRegistry.get<UserPreferences>().baseDistanceUnits
+    private val units = DependencyRegistry.get<UserPreferences>().baseDistanceUnits
 
     private val validIntervals by lazy {
         if (units.isMetric) {

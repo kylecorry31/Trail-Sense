@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.t
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Rect
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.trail_sense.shared.canvas.tiles.ImageRegionDecoder
 import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap
 class PhotoMapDecoderCache {
     private val loaders = ConcurrentHashMap<PhotoMap, RegionDecoder>()
     private val mutexes = ConcurrentHashMap<PhotoMap, Mutex>()
-    private val files = AppServiceRegistry.get<FileSubsystem>()
+    private val files = DependencyRegistry.get<FileSubsystem>()
 
     private fun getLock(map: PhotoMap): Mutex {
         return mutexes.getOrPut(map) { Mutex() }

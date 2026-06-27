@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.luna.text.toDoubleCompat
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -28,7 +28,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
-    private val prefs by lazy { AppServiceRegistry.get<PreferencesSubsystem>() }
+    private val prefs by lazy { DependencyRegistry.get<PreferencesSubsystem>() }
 
     private val defaultCategory by lazy {
         val lastCategoryId = prefs.preferences.getInt(KEY_LAST_CATEGORY)

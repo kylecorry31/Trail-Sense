@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.ISoundPlayer
@@ -81,7 +81,7 @@ class WhiteNoiseService : AndromedaService() {
             sleepSound: SleepSound? = null,
             duration: Duration? = null
         ) {
-            val cache = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+            val cache = DependencyRegistry.get<PreferencesSubsystem>().preferences
             if (duration != null && !duration.isZero) {
                 cache.putInstant(CACHE_KEY_OFF_TIME, Instant.now().plus(duration))
             } else {

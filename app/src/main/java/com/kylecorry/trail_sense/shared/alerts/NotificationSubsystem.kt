@@ -5,7 +5,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.shared.UserPreferences
 
@@ -18,7 +18,7 @@ class NotificationSubsystem(private val context: Context) {
     }
 
     fun send(notificationId: Int, notification: Notification) {
-        val behavior = AppServiceRegistry.get<UserPreferences>().notificationGroupingBehavior
+        val behavior = DependencyRegistry.get<UserPreferences>().notificationGroupingBehavior
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
             val shouldUngroup = when (behavior) {

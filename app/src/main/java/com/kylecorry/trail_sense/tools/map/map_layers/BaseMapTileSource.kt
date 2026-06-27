@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.core.graphics.toColorInt
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.ti
 
 class BaseMapTileSource : TileSource {
 
-    private val context = AppServiceRegistry.get<Context>()
+    private val context = DependencyRegistry.get<Context>()
     private val decoderCache = PhotoMapDecoderCache()
     private val internalSelector = PhotoMapTileSourceSelector(
         context,

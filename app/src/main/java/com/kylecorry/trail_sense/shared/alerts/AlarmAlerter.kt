@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.alerts
 import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.SystemSoundPlayer
@@ -19,7 +19,7 @@ class AlarmAlerter(
     IAlerter {
 
     private val systemPlayer = SystemSoundPlayer(context)
-    private val files = AppServiceRegistry.get<FileSubsystem>()
+    private val files = DependencyRegistry.get<FileSubsystem>()
 
     override fun alert() {
         if (!isEnabled) {

@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
@@ -51,7 +51,7 @@ class PhotoMapTileSource : TileSource {
                     listOfNotNull(service.getPhotoMap(featureId))
                 }
                 internalSelector = PhotoMapTileSourceSelector(
-                    AppServiceRegistry.get(),
+                    DependencyRegistry.get(),
                     maps,
                     decoderCache,
                     8,

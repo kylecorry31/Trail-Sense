@@ -4,7 +4,7 @@ import android.content.Context
 
 import android.graphics.Color
 import android.os.Bundle
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
@@ -20,8 +20,8 @@ class BeaconGeoJsonSource : GeoJsonSource {
 
     private var featureToBeaconMap = mapOf<GeoJsonFeature, Beacon>()
     private val outlineColor = Color.WHITE
-    private val beaconService = AppServiceRegistry.get<BeaconService>()
-    private val navigator = AppServiceRegistry.get<Navigator>()
+    private val beaconService = DependencyRegistry.get<BeaconService>()
+    private val navigator = DependencyRegistry.get<Navigator>()
 
     override suspend fun load(
         context: Context,

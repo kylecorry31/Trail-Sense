@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
@@ -14,7 +14,7 @@ class AltitudeCorrectionTest {
     @Test
     fun getGeoid() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        AppServiceRegistry.register(FileSubsystem.getInstance(context))
+        DependencyRegistry.addSingleton(FileSubsystem.getInstance(context))
 
         val errors = mutableListOf<Float>()
         val maximumError = 4f

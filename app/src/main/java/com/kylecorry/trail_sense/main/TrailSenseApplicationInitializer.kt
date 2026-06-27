@@ -14,18 +14,19 @@ object TrailSenseApplicationInitializer {
     fun initialize(context: Context) {
         SafeMode.initialize(context)
         TrailSenseServiceRegister.setup(context)
+
+        // Initialize all tools
+        val tools = Tools.getTools(context, false)
+        tools.forEach {
+            it.initialize(context)
+        }
+
         Automations.setup(context)
         WidgetBroadcastManager.setup(context)
         NotificationChannels.createChannels(context)
         PreferenceMigrator.getInstance().migrate(context)
         RepoCleanupWorker.scheduler(context).cancel()
         RepoCleanupWorker.scheduler(context).interval(Duration.ofHours(6))
-
-        // Initialize all tools
-        val tools = Tools.getTools(context)
-        tools.forEach {
-            it.initialize(context)
-        }
     }
 
 }

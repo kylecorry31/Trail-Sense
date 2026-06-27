@@ -7,7 +7,7 @@ import android.graphics.Path
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.graphics.createBitmap
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
@@ -33,7 +33,7 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
         prefs: WidgetPreferences?
     ): RemoteViews {
         val location = SensorSubsystem.getInstance(context).lastKnownLocation
-        val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+        val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
         val views = getView(context, prefs)
 
         onMain {

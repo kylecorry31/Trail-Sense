@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.signal_finder.ui
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
@@ -28,8 +28,8 @@ class CellTowerListItemMapper(
 ) :
     ListItemMapper<ApproximateCoordinate> {
 
-    private val formatter = AppServiceRegistry.get<FormatService>()
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val formatter = DependencyRegistry.get<FormatService>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
 
     override fun map(value: ApproximateCoordinate): ListItem {
         val distance =

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.alerts
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 class StormAlerter(private val context: Context) : IDismissibleAlerter {
 
     override fun alert() {
-        val prefs = AppServiceRegistry.get<UserPreferences>()
+        val prefs = DependencyRegistry.get<UserPreferences>()
         val useAlarm = prefs.weather.useAlarmForStormAlert
         val notification = Notify.alert(
             context,
@@ -27,7 +27,7 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
             autoCancel = true,
             mute = useAlarm
         )
-        AppServiceRegistry.get<NotificationSubsystem>()
+        DependencyRegistry.get<NotificationSubsystem>()
             .send(STORM_ALERT_NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(

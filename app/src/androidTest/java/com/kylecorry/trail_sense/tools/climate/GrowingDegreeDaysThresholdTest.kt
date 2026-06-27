@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.climate
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.science.ecology.Ecology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -22,7 +22,7 @@ class GrowingDegreeDaysThresholdTest {
     @Before
     fun setup() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        AppServiceRegistry.register(FileSubsystem.getInstance(context))
+        DependencyRegistry.addSingleton(FileSubsystem.getInstance(context))
         weather = WeatherSubsystem.getInstance(context)
     }
 

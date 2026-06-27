@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps
 
 import android.content.Context
 import android.os.Bundle
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.findNavController
@@ -66,9 +67,9 @@ object OfflineMapsToolRegistration : ToolRegistration {
                 *ToolDiagnosticFactory.compass(context)
             ).distinctBy { it.id },
             intentHandlers = listOf(importMapIntentHandler),
-            singletons = listOf(
-                MapService::getInstance
-            ),
+            initialize = {
+                DependencyRegistry.addSingleton(MapService.getInstance(it))
+            },
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_OFFLINE_MAP_CHANGED, "Offline map changed"),
                 ToolBroadcast(BROADCAST_OFFLINE_MAP_ADDED, "Offline map added"),

@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -26,9 +26,9 @@ class MyElevationLayer : OverlayLayer() {
         -16f
     )
 
-    private val formatter = AppServiceRegistry.get<FormatService>()
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val locationSubsystem = AppServiceRegistry.get<LocationSubsystem>()
+    private val formatter = DependencyRegistry.get<FormatService>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
+    private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
 
     private val onElevationChange = { _: Bundle ->
         elevation = locationSubsystem.elevation.convertTo(prefs.baseDistanceUnits)

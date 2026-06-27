@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -29,7 +30,9 @@ object NavigationToolRegistration : ToolRegistration {
                 *ToolDiagnosticFactory.altimeter(context),
                 ToolDiagnosticFactory.pedometer(context),
             ).distinctBy { it.id },
-            singletons = listOf(Navigator::getInstance),
+            initialize = {
+                DependencyRegistry.addSingleton(Navigator.getInstance(it))
+            },
             mapLayers = listOf(
                 MapLayerDefinition(
                     NavigationGeoJsonSource.SOURCE_ID,

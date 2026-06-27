@@ -10,7 +10,7 @@ import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.ColorTheme
@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 class OnboardingActivity : AndromedaActivity() {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
-    private val markdown by lazy { AppServiceRegistry.get<MarkdownService>() }
+    private val markdown by lazy { DependencyRegistry.get<MarkdownService>() }
     private val pages by lazy { OnboardingPages.getPages(this) }
 
     private lateinit var binding: ActivityOnboardingBinding

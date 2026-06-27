@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.util.Size
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -30,8 +30,8 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
 class FieldGuideSightingGeoJsonSource : GeoJsonSource {
 
-    private val repo = AppServiceRegistry.get<FieldGuideRepo>()
-    private val files = AppServiceRegistry.get<FileSubsystem>()
+    private val repo = DependencyRegistry.get<FieldGuideRepo>()
+    private val files = DependencyRegistry.get<FileSubsystem>()
     var nameFormat = ""
     private val size = 12f
     private val imageSize = size * 1.5f

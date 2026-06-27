@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
 import android.util.Log
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.units.Coordinate
@@ -52,7 +52,7 @@ class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinat
             autoCancel = true
         )
 
-        AppServiceRegistry.get<NotificationSubsystem>().send(732094, notification)
+        DependencyRegistry.get<NotificationSubsystem>().send(732094, notification)
     }
 
     private fun getShowerDescription(context: Context, shower: MeteorShowerPeak): String {

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
 import com.kylecorry.sol.math.geometry.Size
@@ -110,7 +110,7 @@ data class PhotoMap(
     }
 
     fun hasPdf(context: Context): Boolean {
-        return AppServiceRegistry.get<FileSubsystem>().get(pdfFileName).exists()
+        return DependencyRegistry.get<FileSubsystem>().get(pdfFileName).exists()
     }
 
     companion object {

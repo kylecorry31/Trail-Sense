@@ -6,7 +6,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -32,7 +32,7 @@ class MaterialDateTimeInputView(context: Context, attrs: AttributeSet?) :
         setValue(datetime)
 
         edittext.setOnClickListener {
-            val prefs = AppServiceRegistry.get<UserPreferences>()
+            val prefs = DependencyRegistry.get<UserPreferences>()
             val supportFragmentManager = (context as? AppCompatActivity)?.supportFragmentManager
             if (supportFragmentManager != null) {
                 CustomUiUtils.pickMaterialDatetime(
@@ -53,7 +53,7 @@ class MaterialDateTimeInputView(context: Context, attrs: AttributeSet?) :
     fun setValue(datetime: LocalDateTime) {
         this.datetime = datetime
         listener?.invoke(datetime)
-        val formatter = AppServiceRegistry.get<FormatService>()
+        val formatter = DependencyRegistry.get<FormatService>()
         edittext.setText(formatter.formatDateTime(datetime.toZonedDateTime(), relative = true))
     }
 

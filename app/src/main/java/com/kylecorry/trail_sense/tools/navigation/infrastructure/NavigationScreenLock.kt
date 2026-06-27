@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.app.Activity
 import androidx.navigation.NavController
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.luna.time.CoroutineTimer
@@ -13,9 +13,9 @@ import java.lang.ref.WeakReference
 
 class NavigationScreenLock(private val alwaysLock: Boolean = false) {
 
-    private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val prefs = DependencyRegistry.get<UserPreferences>()
     private val shouldLock by lazy { prefs.navigation.keepScreenUnlockedWhileNavigating }
-    private val navigator = AppServiceRegistry.get<Navigator>()
+    private val navigator = DependencyRegistry.get<Navigator>()
 
     private var activityReference: WeakReference<Activity>? = null
     private var selfDestinationId: Int? = null

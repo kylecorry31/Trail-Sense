@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import com.google.android.material.color.DynamicColors
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -68,7 +68,7 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
         widgetTheme.entries = items.map { it.second }.toTypedArray()
         widgetTheme.entryValues = items.map { it.first.id.toString() }.toTypedArray()
         // Save the default value
-        if (AppServiceRegistry.get<PreferencesSubsystem>().preferences.getString(widgetTheme.key) == null) {
+        if (DependencyRegistry.get<PreferencesSubsystem>().preferences.getString(widgetTheme.key) == null) {
             widgetTheme.value = WidgetTheme.System.id.toString()
         }
 

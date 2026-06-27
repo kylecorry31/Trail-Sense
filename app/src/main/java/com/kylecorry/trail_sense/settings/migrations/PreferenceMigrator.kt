@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.settings.migrations
 
 import android.content.Context
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.preferences.getIntArray
@@ -349,7 +349,7 @@ class PreferenceMigrator private constructor() {
                 }
             },
             PreferenceMigration(23, 24) { _, prefs ->
-                val repo = AppServiceRegistry.get<MapLayerPreferenceRepo>()
+                val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
                 val allLayers = listOf(
                     BaseMapTileSource.SOURCE_ID,
                     ElevationMapTileSource.SOURCE_ID,
