@@ -8,6 +8,9 @@ Pedometer
 Astronomy
 - Render accurate icons for moon and eclipses
 
+Field Guide
+- Add Record Sighting quick action
+
 Misc
 - Improve Material 3 Expressive support
 - Location input fields allow selecting a location on the map
