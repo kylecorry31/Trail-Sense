@@ -1277,7 +1277,7 @@
     <string name="climate_continental">Kontynentalny</string>
     <string name="active_period">Aktywność; %1$s - %2$s</string>
     <string name="ticks">Kleszcze</string>
-    <string name="record_sighting">Rejestracja obserwacji</string>
+    <string name="record_sighting">Rejestruj obserwację</string>
     <string name="harvested">Zbiory</string>
     <string name="sightings">Obserwacje</string>
     <string name="sightings_count">Obserwacje (%d)</string>
@@ -1564,4 +1564,6 @@
         <item quantity="many">%d kroków</item>
         <item quantity="other">%d kroków</item>
     </plurals>
+    <string name="created">Utworzono</string>
+    <string name="recording_sighting_for_page">Rejestrowanie obserwacji: \'%s\'</string>
 </resources>
