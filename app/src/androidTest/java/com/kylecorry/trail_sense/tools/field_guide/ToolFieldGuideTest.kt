@@ -13,12 +13,14 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
+import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickDate
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickTime
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
+import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
@@ -33,6 +35,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         hasCategories()
         canOpenPage()
         canCreatePage()
+        canRecordSightingWithQuickAction()
         canEditPage()
         canDeletePage()
         canSearch()
@@ -122,6 +125,25 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
                 hasText(tag)
             }
         }
+        back()
+    }
+
+    private fun canRecordSightingWithQuickAction() {
+        TestUtils.openQuickActions()
+        click(quickAction(Tools.QUICK_ACTION_RECORD_SIGHTING))
+        input(R.id.search, "A Test")
+        click("A Test")
+
+        hasText("Created")
+        click("View")
+        input("Notes", "Quick action sighting")
+        click(toolbarButton(R.id.title, Side.Right))
+
+        click("A Test")
+        hasText("Sightings (1)")
+        click("Sightings (1)")
+        hasText("Quick action sighting")
+        back()
         back()
     }
 
