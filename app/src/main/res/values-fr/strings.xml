@@ -1626,4 +1626,6 @@
         <item quantity="many">%d pas</item>
         <item quantity="other">%d pas</item>
     </plurals>
+    <string name="created">Créé</string>
+    <string name="recording_sighting_for_page">Enregistrement de l\'observation de « %s »</string>
 </resources>
