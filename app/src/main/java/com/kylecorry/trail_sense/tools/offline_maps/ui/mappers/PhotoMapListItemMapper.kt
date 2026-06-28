@@ -117,7 +117,7 @@ class PhotoMapListItemMapper(
     private suspend fun loadMapThumbnail(map: PhotoMap): Bitmap = onIO {
         val size = Resources.dp(context, 48f).toInt()
         val bitmap = try {
-            files.bitmap(map.filename, Size(size, size)) ?: getDefaultMapThumbnail()
+            files.bitmap(map.imageFile.path, Size(size, size)) ?: getDefaultMapThumbnail()
         } catch (e: Exception) {
             getDefaultMapThumbnail()
         }

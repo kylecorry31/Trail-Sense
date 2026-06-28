@@ -31,7 +31,7 @@ class VectorMapListItemMapper(
             icon = ResourceListIcon(R.drawable.maps, AppColor.Gray.color, size = 48f, foregroundSize = 24f),
             subtitle = formatter.join(
                 formatter.formatDate(value.createdOn.toZonedDateTime(), includeWeekDay = false),
-                formatter.formatFileSize(value.sizeBytes),
+                formatter.formatFileSize(value.fileSizeBytes),
                 separator = FormatService.Separator.Dot
             ),
             tags = getTags(value),

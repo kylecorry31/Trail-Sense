@@ -6,6 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import java.time.Instant
 
 @Entity(tableName = "maps", indices = [Index(value = ["parent"])])
@@ -71,8 +72,9 @@ data class PhotoMapEntity(
         return PhotoMap(
             id,
             name,
-            filename,
-            0,
+            listOf(
+                OfflineMapFile(filename, 0, PhotoMap.FILE_ROLE_IMAGE)
+            ),
             metadata,
             parent,
             visible,
@@ -84,7 +86,7 @@ data class PhotoMapEntity(
             val metadata = map.georeference
             return PhotoMapEntity(
                 map.name,
-                map.filename,
+                map.imageFile.path,
                 if (metadata.calibrationPoints.isNotEmpty()) metadata.calibrationPoints[0].location.latitude else null,
                 if (metadata.calibrationPoints.isNotEmpty()) metadata.calibrationPoints[0].location.longitude else null,
                 if (metadata.calibrationPoints.isNotEmpty()) metadata.calibrationPoints[0].imageLocation.x else null,

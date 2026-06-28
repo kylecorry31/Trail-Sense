@@ -54,8 +54,7 @@ internal class PhotoMapRotationServiceTest {
         val map = PhotoMap(
             0,
             "",
-            "",
-            0,
+            listOf(OfflineMapFile("", 0, PhotoMap.FILE_ROLE_IMAGE)),
             PhotoMapGeoreference(
                 Size(100f, 200f),
                 isWarpingCompleted = true,

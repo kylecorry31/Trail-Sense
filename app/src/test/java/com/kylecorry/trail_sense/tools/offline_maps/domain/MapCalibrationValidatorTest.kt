@@ -18,8 +18,7 @@ internal class MapCalibrationValidatorTest {
         val map = PhotoMap(
             0,
             "",
-            "",
-            0,
+            listOf(OfflineMapFile("", 0, PhotoMap.FILE_ROLE_IMAGE)),
             PhotoMapGeoreference(Size(1000f, 1000f))
         )
 
@@ -147,8 +146,7 @@ internal class MapCalibrationValidatorTest {
         return PhotoMap(
             0,
             "",
-            "",
-            0,
+            listOf(OfflineMapFile("", 0, PhotoMap.FILE_ROLE_IMAGE)),
             PhotoMapGeoreference(
                 Size(1000f, 1000f),
                 isWarpingCompleted = true,

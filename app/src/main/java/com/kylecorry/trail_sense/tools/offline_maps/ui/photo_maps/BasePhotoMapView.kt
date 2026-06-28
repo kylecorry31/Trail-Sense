@@ -279,10 +279,10 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             mapAzimuth = 0f
         }
 
-        if (files.get(map.pdfFileName).exists()) {
-            setImage(map.pdfFileName, rotation)
+        if (map.pdfFile != null) {
+            setImage(map.pdfFile.path, rotation)
         } else {
-            setImage(map.filename, rotation)
+            setImage(map.imageFile.path, rotation)
         }
     }
 

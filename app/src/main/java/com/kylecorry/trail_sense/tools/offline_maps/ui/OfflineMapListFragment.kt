@@ -449,7 +449,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                 }
 
                 if (map is PhotoMap) {
-                    val isPdfMap = map.hasPdf(requireContext())
+                    val isPdfMap = map.pdfFile != null
                     if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
                         mapImportingIndicator.show()
                         val reducer = HighQualityMapReducer(requireContext())

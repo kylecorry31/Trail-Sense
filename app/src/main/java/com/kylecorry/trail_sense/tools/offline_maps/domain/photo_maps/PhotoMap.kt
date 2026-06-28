@@ -1,15 +1,13 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
-import android.content.Context
-import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.distancePerPixel
 import java.time.Instant
@@ -17,18 +15,18 @@ import java.time.Instant
 data class PhotoMap(
     override val id: Long,
     override val name: String,
-    val filename: String,
-    val fileSizeBytes: Long,
+    val files: List<OfflineMapFile>,
     val georeference: PhotoMapGeoreference,
     override val parentId: Long? = null,
     val visible: Boolean = true,
-    val isAsset: Boolean = false,
     val createdOn: Instant? = null,
 ) : IMap {
     override val isGroup = false
     override val count: Int? = null
 
-    val pdfFileName = filename.replace(".webp", "") + ".pdf"
+    val imageFile = files.single { it.role == FILE_ROLE_IMAGE }
+    val pdfFile = files.singleOrNull { it.role == FILE_ROLE_PDF }
+    val fileSizeBytes = files.sumOf { it.sizeBytes }
 
     private val hooks = Hooks()
 
@@ -109,13 +107,11 @@ data class PhotoMap(
         }
     }
 
-    fun hasPdf(context: Context): Boolean {
-        return DependencyRegistry.get<FileSubsystem>().get(pdfFileName).exists()
-    }
-
     companion object {
         // TODO: Make this based on meters per pixel
         const val DESIRED_PDF_SIZE = 20000
+        const val FILE_ROLE_PDF = "pdf"
+        const val FILE_ROLE_IMAGE = "image"
     }
 
 }

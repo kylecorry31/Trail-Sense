@@ -28,14 +28,14 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
         val allFiles = files.list(OFFLINE_MAPS_DIRECTORY).map { "$OFFLINE_MAPS_DIRECTORY/${it.name}" }
 
         // Delete files without a map
-        val mapFiles = maps.map { it.path }
+        val mapFiles = maps.flatMap { it.files.map { file -> file.path } }
         val orphanedFiles = allFiles.filter { !mapFiles.contains(it) }
         orphanedFiles.forEach {
             files.delete(it)
         }
 
         // Delete maps without a file
-        val toDelete = maps.filter { !allFiles.contains(it.path) }
+        val toDelete = maps.filter { !allFiles.contains(it.mapFile.path) }
         toDelete.forEach {
             service.delete(it)
         }
@@ -48,14 +48,14 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
         val allFiles = files.list("maps").map { "maps/${it.name}" }
 
         // Delete files without a map
-        val mapFiles = maps.flatMap { listOf(it.filename, it.pdfFileName) }
+        val mapFiles = maps.flatMap { it.files.map { file -> file.path } }
         val orphanedFiles = allFiles.filter { !mapFiles.contains(it) }
         orphanedFiles.forEach {
             files.delete(it)
         }
 
         // Delete maps without a file
-        val toDelete = maps.filter { !allFiles.contains(it.filename) }
+        val toDelete = maps.filter { !allFiles.contains(it.imageFile.path) }
 
         toDelete.forEach {
             service.delete(it)

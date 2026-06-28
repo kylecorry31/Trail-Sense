@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.selection
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
@@ -68,14 +69,14 @@ class ActiveMapSelectorTest {
 
     private fun map(id: Long, size: Size, boundary: CoordinateBounds): PhotoMap {
         return PhotoMap(
-            id, "", "", 0, PhotoMapGeoreference(
+            id, "", listOf(OfflineMapFile("", 0, PhotoMap.FILE_ROLE_IMAGE)), PhotoMapGeoreference(
                 size,
                 isWarpingCompleted = true,
                 calibrationPoints = listOf(
                     MapCalibrationPoint(boundary.northWest, PercentCoordinate(0f, 0f)),
                     MapCalibrationPoint(boundary.southEast, PercentCoordinate(1f, 1f))
                 )
-            ), null
+            )
         )
     }
 
