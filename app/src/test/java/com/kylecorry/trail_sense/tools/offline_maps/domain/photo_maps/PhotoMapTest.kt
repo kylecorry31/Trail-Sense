@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -67,8 +68,7 @@ internal class PhotoMapTest {
         return PhotoMap(
             id = 0,
             name = "",
-            filename = "",
-            fileSizeBytes = 0,
+            files = listOf(OfflineMapFile("", 0, PhotoMap.FILE_ROLE_IMAGE)),
             georeference = metadata.copy(
                 isWarpingCompleted = false,
                 rotation = rotation,
