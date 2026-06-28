@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
@@ -45,8 +46,9 @@ class CreateVectorMapFromFileCommand(
             0,
             name,
             type,
-            path,
-            files.size(path),
+            listOf(
+                OfflineMapFile(path, files.size(path), VectorMap.FILE_ROLE_MAPSFORGE_MAP)
+            ),
             Instant.now(),
             info.bounds,
             info.attribution,

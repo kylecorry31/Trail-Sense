@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.getUpsertedId
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -63,7 +64,9 @@ class MapRepo private constructor(context: Context) {
         if (map.isExternal) {
             releaseExternalAccessIfUnused(map)
         } else {
-            tryOrNothing { files.delete(map.path) }
+            map.files.forEach {
+                tryOrNothing { files.delete(it.path) }
+            }
         }
         offlineMapFileDao.delete(VectorMapEntity.from(map))
         emit(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, map.id, OfflineMapType.Trail)
@@ -74,24 +77,30 @@ class MapRepo private constructor(context: Context) {
             return@onIO map
         }
 
+        // This currently only supports a single map file, once additional files are added this will need to be modified
         val extension = MapFileTypeUtils.getExtension(map.type)
         val saved = files.copyToLocal(
-            map.path.toUri(),
+            map.mapFile.path.toUri(),
             OFFLINE_MAPS_DIRECTORY,
             "${UUID.randomUUID()}.$extension"
         ) ?: return@onIO null
 
-        val updated = map.copy(path = files.getLocalPath(saved), sizeBytes = saved.length())
+        val updated = map.copy(
+            files = listOf(
+                OfflineMapFile(files.getLocalPath(saved), saved.length(), VectorMap.FILE_ROLE_MAPSFORGE_MAP)
+            )
+        )
         add(updated)
         releaseExternalAccessIfUnused(map)
         updated
     }
 
     private suspend fun releaseExternalAccessIfUnused(map: VectorMap) = onIO {
-        val isUsedByOtherMaps = offlineMapFileDao.getAllSync()
-            .any { it.id != map.id && it.path == map.path }
-        if (!isUsedByOtherMaps) {
-            tryOrNothing { files.releasePersistentAccess(map.path.toUri()) }
+        val otherMaps = offlineMapFileDao.getAllSync().filter { it.id != map.id }
+        for (file in map.files) {
+            if (otherMaps.none { it.path == file.path }) {
+                files.releasePersistentAccess(file.path.toUri())
+            }
         }
     }
 
@@ -145,7 +154,7 @@ class MapRepo private constructor(context: Context) {
     private fun convertToMap(map: VectorMapEntity): VectorMap {
         val newMap = map.toOfflineMapFile()
         return if (newMap.isExternal) {
-            newMap.copy(isAvailable = files.canRead(newMap.path))
+            newMap.copy(isAvailable = newMap.files.all { files.canRead(it.path) })
         } else {
             newMap
         }

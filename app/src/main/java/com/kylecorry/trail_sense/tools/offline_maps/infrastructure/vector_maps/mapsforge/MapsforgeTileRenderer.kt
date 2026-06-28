@@ -89,7 +89,7 @@ class MapsforgeTileRenderer(
     ): MapsforgeRendererHolder? {
         val mapFiles = maps
             .filter { it.type == VectorMapFileType.Mapsforge }
-            .mapNotNull { MapsforgeAdapter.open(it.path) }
+            .mapNotNull { MapsforgeAdapter.open(it.mapFile.path) }
         if (mapFiles.isEmpty()) {
             return null
         }
