@@ -19,7 +19,6 @@ data class PhotoMap(
     val georeference: PhotoMapGeoreference,
     override val parentId: Long? = null,
     val visible: Boolean = true,
-    val isAsset: Boolean = false,
     val createdOn: Instant? = null,
 ) : IMap {
     override val isGroup = false

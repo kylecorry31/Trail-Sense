@@ -49,8 +49,8 @@ class PhotoMapDecoderCache {
             loaders[map]?.let { return it }
             val decoder = ImageRegionDecoder(context, Bitmap.Config.ARGB_8888)
 
-            if (map.isAsset) {
-                decoder.initFromAsset(map.imageFile.path.removePrefix(files.SCHEME_ASSETS))
+            if (map.imageFile.isAsset) {
+                decoder.initFromAsset(map.imageFile.path.removePrefix(FileSubsystem.SCHEME_ASSETS))
             } else {
                 decoder.init(files.uri(map.imageFile.path))
             }

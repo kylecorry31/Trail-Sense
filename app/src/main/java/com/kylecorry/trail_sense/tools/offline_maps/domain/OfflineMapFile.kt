@@ -8,4 +8,5 @@ data class OfflineMapFile(
     val role: String
 ) {
     val isExternal = path.startsWith(FileSubsystem.SCHEME_CONTENT)
+    val isAsset = path.startsWith(FileSubsystem.SCHEME_ASSETS)
 }

@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
@@ -32,7 +33,7 @@ class BaseMapTileSource : TileSource {
                 -1,
                 "Land",
                 listOf(
-                    OfflineMapFile("land.webp", 0, PhotoMap.FILE_ROLE_IMAGE)
+                    OfflineMapFile("${FileSubsystem.SCHEME_ASSETS}land.webp", 0, PhotoMap.FILE_ROLE_IMAGE)
                 ),
                 PhotoMapGeoreference(
                     Size(3800f, 1900f),
@@ -49,8 +50,7 @@ class BaseMapTileSource : TileSource {
                         )
                     ),
                     isFullWorld = true // TODO: Derive this using calibration points
-                ),
-                isAsset = true,
+                )
             )
         ),
         decoderCache,

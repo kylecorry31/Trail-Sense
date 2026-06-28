@@ -76,7 +76,7 @@ class ActiveMapSelectorTest {
                     MapCalibrationPoint(boundary.northWest, PercentCoordinate(0f, 0f)),
                     MapCalibrationPoint(boundary.southEast, PercentCoordinate(1f, 1f))
                 )
-            ), null
+            )
         )
     }
 

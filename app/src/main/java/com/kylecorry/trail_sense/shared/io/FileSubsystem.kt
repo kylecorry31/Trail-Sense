@@ -36,8 +36,6 @@ class FileSubsystem private constructor(private val context: Context) {
     private val local = LocalFileSystem(context)
     private val assetFiles = AssetFileSystem(context)
 
-    val SCHEME_ASSETS = "android-assets://"
-
     fun bitmap(path: String, maxWidth: Int, maxHeight: Int): Bitmap? {
         return bitmap(path, Size(maxWidth, maxHeight))
     }
@@ -275,7 +273,7 @@ class FileSubsystem private constructor(private val context: Context) {
 
     companion object {
         const val SCHEME_CONTENT = "content://"
-
+        const val SCHEME_ASSETS = "android-assets://"
         private const val TEMP_DIR = "tmp"
 
         @SuppressLint("StaticFieldLeak")
