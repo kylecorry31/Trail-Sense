@@ -12,6 +12,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
@@ -30,8 +31,9 @@ class BaseMapTileSource : TileSource {
             PhotoMap(
                 -1,
                 "Land",
-                "land.webp",
-                0,
+                listOf(
+                    OfflineMapFile("land.webp", 0, PhotoMap.FILE_ROLE_IMAGE)
+                ),
                 PhotoMapGeoreference(
                     Size(3800f, 1900f),
                     projectionType = MapProjectionType.CylindricalEquidistant,

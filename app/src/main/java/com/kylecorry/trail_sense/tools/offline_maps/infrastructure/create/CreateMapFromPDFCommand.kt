@@ -12,6 +12,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
@@ -34,6 +35,7 @@ class CreateMapFromPDFCommand(
     suspend fun execute(uri: Uri): PhotoMap? = onIO {
         val uuid = UUID.randomUUID().toString()
         val filename = "maps/$uuid.webp"
+        val pdfFilename = "maps/$uuid.pdf"
         val calibrationPoints = mutableListOf<MapCalibrationPoint>()
         var projection = MapProjectionType.CylindricalEquidistant
 
@@ -92,8 +94,10 @@ class CreateMapFromPDFCommand(
         val map = PhotoMap(
             0,
             name,
-            filename,
-            fileSize,
+            listOf(
+                OfflineMapFile(filename, fileSize, PhotoMap.FILE_ROLE_IMAGE),
+                OfflineMapFile(pdfFilename, files.size(pdfFilename), PhotoMap.FILE_ROLE_PDF)
+            ),
             PhotoMapGeoreference(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },

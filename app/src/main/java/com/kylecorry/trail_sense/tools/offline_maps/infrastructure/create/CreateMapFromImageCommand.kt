@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
@@ -35,8 +36,9 @@ class CreateMapFromImageCommand(
         val map = PhotoMap(
             0,
             name,
-            path,
-            fileSize,
+            listOf(
+                OfflineMapFile(path, fileSize, PhotoMap.FILE_ROLE_IMAGE)
+            ),
             PhotoMapGeoreference(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
                 rotation = rotation.toFloat()

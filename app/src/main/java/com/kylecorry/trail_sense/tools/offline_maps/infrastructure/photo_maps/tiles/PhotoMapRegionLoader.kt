@@ -88,7 +88,7 @@ class PhotoMapRegionLoader(
             (maxSize.height * sampleSizeMultiplier).roundToInt()
         )
 
-        val isPdf = loadPdfs && map.hasPdf(context)
+        val isPdf = loadPdfs && map.pdfFile != null
         val bitmap = decoderCache.decodeRegion(context, map, region, inSampleSize, isPdf)
 
         bitmap?.applyOperationsOrNull(

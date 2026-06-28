@@ -123,7 +123,7 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
         binding.perspective.mapRotation = map.georeference.rotation
-        binding.perspective.setImage(map.filename)
+        binding.perspective.setImage(map.imageFile.path)
         binding.nextButton.isInvisible = false
     }
 
@@ -139,18 +139,18 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
         }
         onIO {
             if (binding.perspective.hasChanges) {
-                val bitmap = files.bitmap(map.filename) ?: return@onIO
+                val bitmap = files.bitmap(map.imageFile.path) ?: return@onIO
                 val bounds =
                     percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())
                 val warped = bitmap.fixPerspective(bounds, true, Color.WHITE)
                 try {
-                    files.save(map.filename, warped, recycleOnSave = true)
+                    files.save(map.imageFile.path, warped, recycleOnSave = true)
                 } catch (e: IOException) {
                     return@onIO
                 }
 
                 // Delete the pdf file if it exists
-                files.delete(map.pdfFileName)
+                map.pdfFile?.let { files.delete(it.path) }
             }
             service.add(map.copy(georeference = map.georeference.copy(isWarpingCompleted = true)))
         }

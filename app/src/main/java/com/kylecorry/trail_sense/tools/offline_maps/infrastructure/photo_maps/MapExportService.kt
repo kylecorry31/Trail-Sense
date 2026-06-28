@@ -37,11 +37,11 @@ class MapExportService(
 
     override suspend fun export(data: PhotoMap, filename: String): Boolean {
         // If the map was auto calibrated and the PDF exists, just copy it
-        if (data.hasPdf(context) && isGeospatialPdf(data.pdfFileName)) {
+        if (data.pdfFile != null && isGeospatialPdf(data.pdfFile.path)) {
             val uri = uriPicker.create(filename, "application/pdf") ?: return false
             val outputStream = files.output(uri) ?: return false
             val saver = FileSaver()
-            saver.save(files.get(data.pdfFileName), outputStream)
+            saver.save(files.get(data.pdfFile.path), outputStream)
             return true
         }
 
@@ -70,7 +70,7 @@ class MapExportService(
             val maxImageSize = 2048
 
             bitmap =
-                files.bitmap(map.filename, Size(maxImageSize, maxImageSize)) ?: return emptyList()
+                files.bitmap(map.imageFile.path, Size(maxImageSize, maxImageSize)) ?: return emptyList()
 
             if (map.georeference.rotation != 0f) {
                 val rotated = bitmap.rotate(map.georeference.rotation)

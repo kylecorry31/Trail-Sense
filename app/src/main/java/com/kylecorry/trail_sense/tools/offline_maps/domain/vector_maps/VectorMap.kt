@@ -21,6 +21,7 @@ data class VectorMap(
     override val count: Int? = null
     val mapFile = files.single { it.role == FILE_ROLE_MAPSFORGE_MAP }
     val isExternal = files.any { it.isExternal }
+    val fileSizeBytes = files.sumOf { it.sizeBytes }
 
     companion object {
         const val FILE_ROLE_MAPSFORGE_MAP = "mapsforge-map"

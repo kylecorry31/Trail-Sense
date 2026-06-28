@@ -54,8 +54,9 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun delete(map: PhotoMap) = onIO {
-        tryOrNothing { files.delete(map.filename) }
-        tryOrNothing { files.delete(map.pdfFileName) }
+        map.files.forEach {
+            tryOrNothing { files.delete(it.path) }
+        }
         photoMapDao.delete(PhotoMapEntity.from(map))
         emit(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, map.id, OfflineMapType.Photo)
     }
@@ -163,14 +164,12 @@ class MapRepo private constructor(context: Context) {
     private fun convertToMap(map: PhotoMapEntity): PhotoMap {
         val newMap = map.toMap()
         // TODO: Save the size in the DB
-        val size = files.imageSize(newMap.filename)
-        val fileSize = files.size(newMap.filename) + files.size(newMap.pdfFileName)
+        val size = files.imageSize(newMap.imageFile.path)
+        val pdfFilename = map.filename.replace(".webp", "") + ".pdf"
+        val hasPdf = map.pdfHeight != null && map.pdfWidth != null && files.get(pdfFilename).exists()
 
         val pdfSize =
-            if (map.pdfHeight != null && map.pdfWidth != null && files.get(newMap.pdfFileName)
-                    .exists()
-            ) {
-
+            if (hasPdf) {
                 val scaledSize = MathUtils.scaleToBounds(
                     Size(map.pdfWidth, map.pdfHeight),
                     Size(PhotoMap.DESIRED_PDF_SIZE, PhotoMap.DESIRED_PDF_SIZE)
@@ -185,7 +184,10 @@ class MapRepo private constructor(context: Context) {
             }
 
         return newMap.copy(
-            fileSizeBytes = fileSize,
+            files = listOfNotNull(
+                OfflineMapFile(map.filename, files.size(map.filename), PhotoMap.FILE_ROLE_IMAGE),
+                if (hasPdf) OfflineMapFile(pdfFilename, files.size(pdfFilename), PhotoMap.FILE_ROLE_PDF) else null
+            ),
             georeference = newMap.georeference.copy(
                 size = pdfSize ?: com.kylecorry.sol.math.geometry.Size(
                     size.width.toFloat(),
