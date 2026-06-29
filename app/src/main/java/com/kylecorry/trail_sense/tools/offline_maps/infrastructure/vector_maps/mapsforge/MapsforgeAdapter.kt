@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge
 
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.luna.concurrency.onIO

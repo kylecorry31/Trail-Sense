@@ -8,25 +8,25 @@ import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 
 class IMapMapper(
     gps: IGPS,
     context: Context,
     lifecycleOwner: LifecycleOwner,
     photoMapActionHandler: (PhotoMap, MapAction) -> Unit,
-    vectorMapActionHandler: (VectorMap, VectorMapAction) -> Unit,
+    trailMapActionHandler: (TrailMap, TrailMapAction) -> Unit,
     mapGroupActionHandler: (MapGroup, MapGroupAction) -> Unit,
 ) : ListItemMapper<IMap> {
 
     private val mapMapper = PhotoMapListItemMapper(gps, context, lifecycleOwner, photoMapActionHandler)
     private val mapGroupMapper = MapGroupMapper(context, mapGroupActionHandler)
-    private val vectorMapMapper = VectorMapListItemMapper(gps, context, vectorMapActionHandler)
+    private val trailMapMapper = TrailMapListItemMapper(gps, context, trailMapActionHandler)
 
     override fun map(value: IMap): ListItem {
         return when (value) {
             is PhotoMap -> mapMapper.map(value)
-            is VectorMap -> vectorMapMapper.map(value)
+            is TrailMap -> trailMapMapper.map(value)
             is MapGroup -> mapGroupMapper.map(value)
             else -> error("Unexpected map type")
         }

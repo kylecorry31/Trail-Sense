@@ -10,10 +10,10 @@ import com.kylecorry.trail_sense.shared.concurrency.CustomDispatchers
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge.MapsforgeTileRenderer
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeTileRenderer
 import kotlinx.coroutines.ExecutorCoroutineDispatcher
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.sync.Mutex
@@ -39,10 +39,10 @@ class TrailMapsTileSource : TileSource {
         val featureId = params.getString(MapLayerParams.PARAM_FEATURE_ID)?.toLongOrNull()
         val highDetailMode = params.getBoolean(MapLayerParams.PARAM_HIGH_DETAIL_MODE, false)
         val maps = if (featureId == null) {
-            service.getAllVectorMaps().filter { it.visible }
+            service.getAllTrailMaps().filter { it.visible }
         } else {
-            listOfNotNull(service.getVectorMap(featureId))
-        }.filter { it.type == VectorMapFileType.Mapsforge }
+            listOfNotNull(service.getTrailMap(featureId))
+        }.filter { it.type == TrailMapFileType.Mapsforge }
         withContext(getOrCreateDispatcher()) {
             getOrCreateRenderer(maps, highDetailMode).render(context, tile)
         }
@@ -58,7 +58,7 @@ class TrailMapsTileSource : TileSource {
     }
 
     private suspend fun getOrCreateRenderer(
-        maps: List<VectorMap>,
+        maps: List<TrailMap>,
         highDetailMode: Boolean
     ): MapsforgeTileRenderer {
         val key = getRendererKey(maps, highDetailMode)
@@ -81,7 +81,7 @@ class TrailMapsTileSource : TileSource {
     }
 
     private fun getRendererKey(
-        maps: List<VectorMap>,
+        maps: List<TrailMap>,
         highDetailMode: Boolean
     ): MapsforgeRendererKey {
         return MapsforgeRendererKey(

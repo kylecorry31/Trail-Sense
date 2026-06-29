@@ -41,8 +41,8 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGro
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapDao
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.RebaseMapCalibrationWorker
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapDao
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence.TrailMapDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence.TrailMapEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackItemDao
@@ -68,7 +68,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, VectorMapEntity::class, StepTrackingPeriodEntity::class, StepCountBucketEntity::class],
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, TrailMapEntity::class, StepTrackingPeriodEntity::class, StepCountBucketEntity::class],
     version = 57,
     exportSchema = false
 )
@@ -96,7 +96,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cachedTileDao(): CachedTileDao
     abstract fun pluginDao(): PluginDao
     abstract fun pluginRegistrationDao(): PluginRegistrationDao
-    abstract fun vectorMapDao(): VectorMapDao
+    abstract fun trailMapDao(): TrailMapDao
     abstract fun stepTrackerDao(): StepTrackerDao
 
     companion object {

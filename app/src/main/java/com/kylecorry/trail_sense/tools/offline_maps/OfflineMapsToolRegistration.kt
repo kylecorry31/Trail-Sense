@@ -112,7 +112,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
                     tileSource = ::TrailMapsTileSource,
                     attributionLoader = {
                         val attributions = getAppService<MapService>()
-                            .getAllVectorMaps()
+                            .getAllTrailMaps()
                             .filter { it.visible }
                             .mapNotNull { it.attribution?.trim()?.takeIf { attribution -> attribution.isNotBlank() } }
                             .distinct()

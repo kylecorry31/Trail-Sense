@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps
+package com.kylecorry.trail_sense.tools.offline_maps.ui.trail_maps
 
 import android.graphics.Color
 import androidx.core.view.doOnLayout
@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayers
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.map.ui.MapView
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAt
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_view) {
+class ViewTrailMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_view) {
 
     override fun update() {
         val context = useAndroidContext()
@@ -97,18 +97,18 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
     }
 
-    private fun useOfflineMap(mapId: Long, refreshKey: String): VectorMap? {
+    private fun useOfflineMap(mapId: Long, refreshKey: String): TrailMap? {
         val service = useService<MapService>()
-        val (map, setMap) = useState<VectorMap?>(null)
+        val (map, setMap) = useState<TrailMap?>(null)
 
         useBackgroundEffect(mapId, refreshKey, lifecycleHookTrigger.onResume()) {
-            setMap(service.getVectorMap(mapId))
+            setMap(service.getTrailMap(mapId))
         }
 
         return map
     }
 
-    private fun rename(map: VectorMap, onRenamed: () -> Unit) {
+    private fun rename(map: TrailMap, onRenamed: () -> Unit) {
         inBackground {
             RenameMapCommand(requireContext(), getAppService()).execute(map)
             onMain {
@@ -117,7 +117,7 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
     }
 
-    private fun editAttribution(map: VectorMap, onUpdated: () -> Unit) {
+    private fun editAttribution(map: TrailMap, onUpdated: () -> Unit) {
         inBackground {
             EditOfflineMapAttributionCommand(requireContext()).execute(map)
             onMain {
@@ -126,11 +126,11 @@ class ViewVectorMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offli
         }
     }
 
-    private fun delete(map: VectorMap) {
+    private fun delete(map: TrailMap) {
         inBackground {
             val service = getAppService<MapService>()
             DeleteMapCommand(requireContext(), getAppService()).execute(map)
-            if (service.getVectorMap(map.id) == null) {
+            if (service.getTrailMap(map.id) == null) {
                 findNavController().popBackStack()
             }
         }

@@ -55,7 +55,7 @@
         android:label="MapSettingsFragment" />
     <fragment
         android:id="@+id/offlineMapViewFragment"
-        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.vector_maps.ViewVectorMapFragment"
+        android:name="com.kylecorry.trail_sense.tools.offline_maps.ui.trail_maps.ViewTrailMapFragment"
         android:label="OfflineMapViewFragment"
         tools:layout="@layout/fragment_offline_map_view">
         <argument

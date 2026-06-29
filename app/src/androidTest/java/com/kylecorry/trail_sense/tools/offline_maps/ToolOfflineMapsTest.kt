@@ -24,8 +24,8 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.runBlocking
@@ -204,11 +204,11 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         files.get(path, true).writeBytes(ByteArray(0))
 
         getAppService<MapService>().add(
-            VectorMap(
+            TrailMap(
                 0,
                 name,
-                VectorMapFileType.Mapsforge,
-                listOf(OfflineMapFile(path, 0, VectorMap.FILE_ROLE_MAPSFORGE_MAP)),
+                TrailMapFileType.Mapsforge,
+                listOf(OfflineMapFile(path, 0, TrailMap.FILE_ROLE_MAPSFORGE_MAP)),
                 Instant.now(),
                 null,
                 null,

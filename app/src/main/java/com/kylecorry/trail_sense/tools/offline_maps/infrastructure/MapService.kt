@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 
@@ -22,7 +22,7 @@ class MapService private constructor(private val repo: MapRepo) {
         override suspend fun deleteItems(items: List<IMap>) {
             // TODO: Bulk delete
             items.filterIsInstance<PhotoMap>().forEach { repo.delete(it) }
-            items.filterIsInstance<VectorMap>().forEach { repo.delete(it) }
+            items.filterIsInstance<TrailMap>().forEach { repo.delete(it) }
         }
 
         override suspend fun deleteGroup(group: IMap) {
@@ -34,7 +34,7 @@ class MapService private constructor(private val repo: MapRepo) {
         return when (map) {
             is MapGroup -> repo.add(map)
             is PhotoMap -> repo.add(map)
-            is VectorMap -> repo.add(map)
+            is TrailMap -> repo.add(map)
             else -> error("Unexpected map subclass")
         }
     }
@@ -62,7 +62,7 @@ class MapService private constructor(private val repo: MapRepo) {
     }
 
     private suspend fun getChildren(parentId: Long?): List<IMap> {
-        val maps = repo.getPhotoMaps(parentId) + repo.getVectorMaps(parentId)
+        val maps = repo.getPhotoMaps(parentId) + repo.getTrailMaps(parentId)
         val groups = getGroups(parentId)
         return maps + groups
     }
@@ -76,15 +76,15 @@ class MapService private constructor(private val repo: MapRepo) {
         return repo.getPhotoMaps()
     }
 
-    suspend fun getAllVectorMaps(): List<VectorMap> {
-        return repo.getVectorMaps()
+    suspend fun getAllTrailMaps(): List<TrailMap> {
+        return repo.getTrailMaps()
     }
 
-    suspend fun getVectorMap(id: Long): VectorMap? {
-        return repo.getVectorMap(id)
+    suspend fun getTrailMap(id: Long): TrailMap? {
+        return repo.getTrailMap(id)
     }
 
-    suspend fun copyToAppStorage(map: VectorMap): VectorMap? {
+    suspend fun copyToAppStorage(map: TrailMap): TrailMap? {
         return repo.copyToAppStorage(map)
     }
 

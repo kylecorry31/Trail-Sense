@@ -1,14 +1,14 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps
+package com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import java.time.Instant
 
-data class VectorMap(
+data class TrailMap(
     override val id: Long,
     override val name: String,
-    val type: VectorMapFileType,
+    val type: TrailMapFileType,
     val files: List<OfflineMapFile>,
     val createdOn: Instant,
     val bounds: CoordinateBounds?,

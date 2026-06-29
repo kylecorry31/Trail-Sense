@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge
 
 import android.app.Application
 import android.content.Context
@@ -9,8 +9,8 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -27,7 +27,7 @@ import org.mapsforge.map.rendertheme.XmlRenderTheme
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture
 
 class MapsforgeTileRenderer(
-    private val maps: List<VectorMap>,
+    private val maps: List<TrailMap>,
     private val highDetailMode: Boolean
 ) {
     @Volatile
@@ -84,11 +84,11 @@ class MapsforgeTileRenderer(
 
     private suspend fun createRenderer(
         context: Context,
-        maps: List<VectorMap>,
+        maps: List<TrailMap>,
         highDetailMode: Boolean
     ): MapsforgeRendererHolder? {
         val mapFiles = maps
-            .filter { it.type == VectorMapFileType.Mapsforge }
+            .filter { it.type == TrailMapFileType.Mapsforge }
             .mapNotNull { MapsforgeAdapter.open(it.mapFile.path) }
         if (mapFiles.isEmpty()) {
             return null

@@ -39,7 +39,7 @@ class CreateMapFromUriCommand(
             } else if (type?.startsWith(MIME_TYPE_IMAGE_PREFIX) == true) {
                 CreateMapFromImageCommand(context, name).execute(uri)
             } else {
-                CreateVectorMapFromFileCommand(name).execute(uri)
+                CreateTrailMapFromFileCommand(name).execute(uri)
             }
         } finally {
             onMain {

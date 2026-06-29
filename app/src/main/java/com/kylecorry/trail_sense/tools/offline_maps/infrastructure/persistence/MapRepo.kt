@@ -18,15 +18,15 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence.VectorMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.MapFileTypeUtils
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence.TrailMapEntity
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.util.UUID
 
 class MapRepo private constructor(context: Context) {
-    private val offlineMapFileDao = AppDatabase.getInstance(context).vectorMapDao()
+    private val offlineMapFileDao = AppDatabase.getInstance(context).trailMapDao()
     private val photoMapDao = AppDatabase.getInstance(context).photoMapDao()
     private val mapGroupDao = AppDatabase.getInstance(context).mapGroupDao()
     private val files = FileSubsystem.getInstance(context)
@@ -37,7 +37,7 @@ class MapRepo private constructor(context: Context) {
         runner.map(photoMaps, ::convertToMap)
     }
 
-    suspend fun getVectorMaps(): List<VectorMap> = onIO {
+    suspend fun getTrailMaps(): List<TrailMap> = onIO {
         offlineMapFileDao.getAllSync().map { convertToMap(it) }
     }
 
@@ -49,7 +49,7 @@ class MapRepo private constructor(context: Context) {
         photoMapDao.get(id)?.let { convertToMap(it) }
     }
 
-    suspend fun getVectorMap(id: Long): VectorMap? = onIO {
+    suspend fun getTrailMap(id: Long): TrailMap? = onIO {
         offlineMapFileDao.get(id)?.let { convertToMap(it) }
     }
 
@@ -61,7 +61,7 @@ class MapRepo private constructor(context: Context) {
         emit(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, map.id, OfflineMapType.Photo)
     }
 
-    suspend fun delete(map: VectorMap) = onIO {
+    suspend fun delete(map: TrailMap) = onIO {
         if (map.isExternal) {
             releaseExternalAccessIfUnused(map)
         } else {
@@ -69,11 +69,11 @@ class MapRepo private constructor(context: Context) {
                 tryOrNothing { files.delete(it.path) }
             }
         }
-        offlineMapFileDao.delete(VectorMapEntity.from(map))
+        offlineMapFileDao.delete(TrailMapEntity.from(map))
         emit(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, map.id, OfflineMapType.Trail)
     }
 
-    suspend fun copyToAppStorage(map: VectorMap): VectorMap? = onIO {
+    suspend fun copyToAppStorage(map: TrailMap): TrailMap? = onIO {
         if (!map.isExternal) {
             return@onIO map
         }
@@ -88,7 +88,7 @@ class MapRepo private constructor(context: Context) {
 
         val updated = map.copy(
             files = listOf(
-                OfflineMapFile(files.getLocalPath(saved), saved.length(), VectorMap.FILE_ROLE_MAPSFORGE_MAP)
+                OfflineMapFile(files.getLocalPath(saved), saved.length(), TrailMap.FILE_ROLE_MAPSFORGE_MAP)
             )
         )
         add(updated)
@@ -96,7 +96,7 @@ class MapRepo private constructor(context: Context) {
         updated
     }
 
-    private suspend fun releaseExternalAccessIfUnused(map: VectorMap) = onIO {
+    private suspend fun releaseExternalAccessIfUnused(map: TrailMap) = onIO {
         val otherMaps = offlineMapFileDao.getAllSync().filter { it.id != map.id }
         for (file in map.files) {
             if (otherMaps.none { it.path == file.path }) {
@@ -128,8 +128,8 @@ class MapRepo private constructor(context: Context) {
         newId
     }
 
-    suspend fun add(file: VectorMap): Long = onIO {
-        val newId = offlineMapFileDao.upsert(VectorMapEntity.from(file)).getUpsertedId(file.id)
+    suspend fun add(file: TrailMap): Long = onIO {
+        val newId = offlineMapFileDao.upsert(TrailMapEntity.from(file)).getUpsertedId(file.id)
         emit(
             if (file.id == 0L) OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_ADDED else OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_CHANGED,
             newId,
@@ -144,7 +144,7 @@ class MapRepo private constructor(context: Context) {
         runner.map(maps, ::convertToMap)
     }
 
-    suspend fun getVectorMaps(parentId: Long?): List<VectorMap> = onIO {
+    suspend fun getTrailMaps(parentId: Long?): List<TrailMap> = onIO {
         offlineMapFileDao.getAllWithParent(parentId).map { convertToMap(it) }
     }
 
@@ -152,7 +152,7 @@ class MapRepo private constructor(context: Context) {
         mapGroupDao.getAllWithParent(parentId).map { it.toMapGroup() }
     }
 
-    private fun convertToMap(map: VectorMapEntity): VectorMap {
+    private fun convertToMap(map: TrailMapEntity): TrailMap {
         val newMap = map.toOfflineMapFile()
         return if (newMap.isExternal) {
             newMap.copy(isAvailable = newMap.files.all { files.canRead(it.path) })

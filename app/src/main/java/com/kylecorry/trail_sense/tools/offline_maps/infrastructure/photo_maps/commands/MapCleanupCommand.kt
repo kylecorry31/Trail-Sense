@@ -18,13 +18,13 @@ class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
         }
 
         val didDeletePhotoMaps = cleanupPhotoMaps()
-        val didDeleteVectorMaps = cleanupVectorMaps()
-        didDeletePhotoMaps || didDeleteVectorMaps
+        val didDeleteTrailMaps = cleanupTrailMaps()
+        didDeletePhotoMaps || didDeleteTrailMaps
     }
 
-    private suspend fun cleanupVectorMaps(): Boolean {
+    private suspend fun cleanupTrailMaps(): Boolean {
         // External maps don't have a file in app storage, so they can't be cleaned up
-        val maps = service.getAllVectorMaps().filter { !it.isExternal }
+        val maps = service.getAllTrailMaps().filter { !it.isExternal }
         val allFiles = files.list(OFFLINE_MAPS_DIRECTORY).map { "$OFFLINE_MAPS_DIRECTORY/${it.name}" }
 
         // Delete files without a map

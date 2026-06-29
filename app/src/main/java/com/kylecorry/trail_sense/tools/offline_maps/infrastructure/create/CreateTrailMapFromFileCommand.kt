@@ -8,15 +8,15 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.MapFileTypeUtils
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.mapsforge.MapsforgeAdapter
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.MapFileTypeUtils
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeAdapter
 import java.time.Instant
 import java.util.UUID
 
-class CreateVectorMapFromFileCommand(
+class CreateTrailMapFromFileCommand(
     private val name: String
 ) {
     private val files = getAppService<FileSubsystem>()
@@ -42,12 +42,12 @@ class CreateVectorMapFromFileCommand(
 
         val info = MapsforgeAdapter.getMapInfo(path) ?: return@onIO null
 
-        val mapFile = VectorMap(
+        val mapFile = TrailMap(
             0,
             name,
             type,
             listOf(
-                OfflineMapFile(path, files.size(path), VectorMap.FILE_ROLE_MAPSFORGE_MAP)
+                OfflineMapFile(path, files.size(path), TrailMap.FILE_ROLE_MAPSFORGE_MAP)
             ),
             Instant.now(),
             info.bounds,
@@ -58,7 +58,7 @@ class CreateVectorMapFromFileCommand(
         mapFile.copy(id = id)
     }
 
-    private suspend fun copyToAppStorage(uri: Uri, type: VectorMapFileType): String? {
+    private suspend fun copyToAppStorage(uri: Uri, type: TrailMapFileType): String? {
         val extension = MapFileTypeUtils.getExtension(type)
         val saved =
             files.copyToLocal(uri, OFFLINE_MAPS_DIRECTORY, "${UUID.randomUUID()}.$extension")

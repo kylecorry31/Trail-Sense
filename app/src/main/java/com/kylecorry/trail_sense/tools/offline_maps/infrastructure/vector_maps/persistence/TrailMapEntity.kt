@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.vector_maps.persistence
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,12 +6,12 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMapFileType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import java.time.Instant
 
 @Entity(tableName = "offline_map_files", indices = [Index(value = ["parent"])])
-data class VectorMapEntity(
+data class TrailMapEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "type") val type: Long,
     @ColumnInfo(name = "path") val path: String,
@@ -29,16 +29,16 @@ data class VectorMapEntity(
     @ColumnInfo(name = "_id")
     var id: Long = 0
 
-    fun toOfflineMapFile(): VectorMap {
+    fun toOfflineMapFile(): TrailMap {
         val hasLatitudeBounds = north != null && south != null
         val hasLongitudeBounds = east != null && west != null
-        return VectorMap(
+        return TrailMap(
             id,
             name,
-            VectorMapFileType.entries.firstOrNull { it.id == type }
-                ?: VectorMapFileType.Mapsforge,
+            TrailMapFileType.entries.firstOrNull { it.id == type }
+                ?: TrailMapFileType.Mapsforge,
             listOf(
-                OfflineMapFile(path, sizeBytes, VectorMap.FILE_ROLE_MAPSFORGE_MAP)
+                OfflineMapFile(path, sizeBytes, TrailMap.FILE_ROLE_MAPSFORGE_MAP)
             ),
             Instant.ofEpochMilli(createdOn),
             if (hasLatitudeBounds && hasLongitudeBounds) {
@@ -53,8 +53,8 @@ data class VectorMapEntity(
     }
 
     companion object {
-        fun from(file: VectorMap): VectorMapEntity {
-            return VectorMapEntity(
+        fun from(file: TrailMap): TrailMapEntity {
+            return TrailMapEntity(
                 file.name,
                 file.type.id,
                 file.mapFile.path,

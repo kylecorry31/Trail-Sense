@@ -14,17 +14,17 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.offline_maps.domain.vector_maps.VectorMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 
-class VectorMapListItemMapper(
+class TrailMapListItemMapper(
     private val gps: IGPS,
     private val context: Context,
-    private val actionHandler: (VectorMap, VectorMapAction) -> Unit
-) : ListItemMapper<VectorMap> {
+    private val actionHandler: (TrailMap, TrailMapAction) -> Unit
+) : ListItemMapper<TrailMap> {
 
     private val formatter = getAppService<FormatService>()
 
-    override fun map(value: VectorMap): ListItem {
+    override fun map(value: TrailMap): ListItem {
         return ListItem(
             value.id + 10000,
             value.name,
@@ -43,16 +43,16 @@ class VectorMapListItemMapper(
                 },
                 Resources.androidTextColorSecondary(context),
                 onClick = {
-                    actionHandler(value, VectorMapAction.ToggleVisibility)
+                    actionHandler(value, TrailMapAction.ToggleVisibility)
                 }
             ),
             menu = getMenu(value)
         ) {
-            actionHandler(value, VectorMapAction.View)
+            actionHandler(value, TrailMapAction.View)
         }
     }
 
-    private fun getTags(value: VectorMap): List<ListItemTag> {
+    private fun getTags(value: TrailMap): List<ListItemTag> {
         val onMap = value.bounds?.contains(gps.location) ?: false
         return listOfNotNull(
             if (onMap) {
@@ -90,26 +90,26 @@ class VectorMapListItemMapper(
         )
     }
 
-    private fun getMenu(value: VectorMap): List<ListMenuItem> {
+    private fun getMenu(value: TrailMap): List<ListMenuItem> {
         return listOfNotNull(
             ListMenuItem(context.getString(R.string.rename)) {
-                actionHandler(value, VectorMapAction.Rename)
+                actionHandler(value, TrailMapAction.Rename)
             },
             ListMenuItem(context.getString(R.string.attribution)) {
-                actionHandler(value, VectorMapAction.EditAttribution)
+                actionHandler(value, TrailMapAction.EditAttribution)
             },
             ListMenuItem(context.getString(R.string.move_to)) {
-                actionHandler(value, VectorMapAction.Move)
+                actionHandler(value, TrailMapAction.Move)
             },
             if (value.isExternal && value.isAvailable) {
                 ListMenuItem(context.getString(R.string.copy_to_trail_sense)) {
-                    actionHandler(value, VectorMapAction.CopyToAppStorage)
+                    actionHandler(value, TrailMapAction.CopyToAppStorage)
                 }
             } else {
                 null
             },
             ListMenuItem(context.getString(R.string.delete)) {
-                actionHandler(value, VectorMapAction.Delete)
+                actionHandler(value, TrailMapAction.Delete)
             },
         )
     }
