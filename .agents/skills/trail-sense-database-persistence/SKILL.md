@@ -1,6 +1,6 @@
 ---
 name: trail-sense-database-persistence
-description: Add new Room database persistence to Trail-Sense Android app. Use when the user asks to create, add, or implement database persistence for a model, including Entity, DAO, Repository, and AppDatabase migration. Covers entity-to-model mapping, index configuration, and standard CRUD operations.
+description: Add Trail Sense Room persistence for a model, including entity mapping, DAO, repository, AppDatabase migration, and tool registration.
 ---
 
 # Trail-Sense Database Persistence
@@ -26,11 +26,13 @@ Also update:
 
 ## Workflow
 
-1. Create Entity with mapping functions
-2. Create DAO interface
-3. Add DAO to AppDatabase and create migration
-4. Create Repository
-5. Register repo singleton in ToolRegistration
+1. Inspect nearby persistence packages and the target domain model. This step is complete when table name, columns, nullability, indices, and conversion rules are known.
+2. Create the Entity with mapping functions. This step is complete when every persisted domain property round-trips through `from()` and `to{Model}()`.
+3. Create the DAO interface. This step is complete when repository-needed reads, upserts, and deletes have DAO methods.
+4. Add the entity, DAO accessor, version bump, and migration to `AppDatabase`. This step is complete when the migration SQL exactly matches the entity columns, nullability, primary key, and indices.
+5. Create the Repository. This step is complete when public methods expose domain models, run blocking work on IO, and map DAO entities only inside the repository.
+6. Register the repo singleton in ToolRegistration. This step is complete when the tool owns the repository lifecycle.
+7. Validate the persistence change with the narrowest useful build or test. This step is complete when `./scripts/build.sh` or a focused unit test passes, or the exact blocker is reported.
 
 ## 1. Entity
 
@@ -88,12 +90,13 @@ Add indices for:
 
 ### Type Mapping
 
-- `Instant` -> stored as `Long` (epoch millis), converter exists
-- `Duration` -> stored as `Long` (millis), converter exists
+- Inspect nearby entities before choosing stored types. Entity fields, converter use, and migration SQL must produce the same Room schema.
+- `Instant` -> SQL `INTEGER` epoch millis; entity field may use `Instant` with converter or `Long` mapping
+- `Duration` -> SQL `INTEGER` millis; entity field may use `Duration` with converter or `Long` mapping
 - `Coordinate` -> split into `latitude: Double`, `longitude: Double`
 - `Distance` -> store as `Float` in meters
-- Enums with `id` property -> use existing converters or add to `Converters.kt`
-- `AppColor` -> converter exists
+- Enums with `id` property -> SQL `INTEGER`; use existing converters or manual id mapping
+- `AppColor` -> SQL `INTEGER`; converter exists
 - Lists/collections -> join to comma-separated string, parse in mapping
 
 ## 2. DAO

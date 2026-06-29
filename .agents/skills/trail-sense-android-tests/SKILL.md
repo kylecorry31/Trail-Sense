@@ -1,6 +1,6 @@
 ---
 name: trail-sense-android-tests
-description: Add UI automation tests to Trail-Sense Android app using AutomationLibrary. Use when asked to create, add, write, or implement automated tests, UI tests, integration tests, or androidTests for Trail Sense tools. Covers test class structure, AutomationLibrary functions, and testing patterns.
+description: Add Trail Sense UI automation tests using AutomationLibrary and ToolTestBase for tool workflows or androidTests.
 ---
 
 # Trail Sense Android Tests
@@ -42,6 +42,12 @@ class Tool<Name>Test : ToolTestBase(Tools.<TOOL_ID>) {
 ```
 
 **Location**: `app/src/androidTest/java/com/kylecorry/trail_sense/tools/<toolname>/Tool<Name>Test.kt`
+
+## Workflow
+
+1. Inspect the target tool and nearby `Tool*Test.kt` files. This step is complete when the tool id, package, primary screen title, and existing test patterns are known.
+2. Add or update the test class under the location above. This step is complete when the test covers the requested workflow and uses stable selectors from the strategy below.
+3. Run a focused emulator integration test when an emulator is available. This step is complete when the requested test passes or the blocking reason is reported.
 
 ## Selection Strategy: Text Over IDs
 

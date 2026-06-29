@@ -1,6 +1,7 @@
 ---
 name: android-check-pr-translations
-description: Audit translation accuracy for localized Android resources and guide text files changed in a GitHub PR. Use when asked to check, review, audit, or verify translations in a pull request, including strings.xml, guides, tool keywords, field guides, and other localized guide .txt files. Identifies inaccurate translated content by comparing PR changes against the English source.
+description: Audit changed Android translations in a GitHub PR.
+disable-model-invocation: true
 ---
 
 # Check PR Translations
@@ -13,15 +14,15 @@ Audit the translation accuracy of Android string resources and localized guide f
    ```
    python scripts/extract_pr_strings.py <pr-number>
    ```
-   The output includes:
+   This step is complete when the output includes:
    - `locales`: changed translated `<string>` resources with the English source for each key.
    - `files`: changed localized guide `.txt` files, including guide pages, field guides, and `tool_keywords.txt`, with the matching `guides/en-US/...` source text.
 
-2. For each `locales.*.added` entry, compare `value` (translation) against `english` (source) using the accuracy criteria below.
+2. For every `locales.*.added` entry, compare `value` (translation) against `english` (source) using the accuracy criteria below. This step is complete when every added string resource has been classified as accurate or inaccurate.
 
-3. For each `files[]` entry, compare the added translated lines against the `english` source text. Use removed lines and hunk context to understand what changed, but report only inaccuracies present in the added translated content.
+3. For every `files[]` entry, compare the added translated lines against the `english` source text. Use removed lines and hunk context to understand what changed, but report only inaccuracies present in the added translated content. This step is complete when every added localized guide line has been classified as accurate or inaccurate.
 
-4. Report findings as JSON (see Output Format).
+4. Report findings as JSON (see Output Format). The audit is complete only when the JSON accounts for every inaccurate added translation and contains no accurate translations.
 
 ## Accuracy Criteria
 
