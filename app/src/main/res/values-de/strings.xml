@@ -1540,6 +1540,5 @@
     <string name="hide_all">Alle verbergen</string>
     <string name="tool_magnifier_title">Lupe</string>
     <string name="offline_maps">Offlinekarten</string>
-    <string name="mapsforge">Mapsforge</string>
     <string name="large_location_indicator">Großer Standortindikator</string>
 </resources>

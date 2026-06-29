@@ -1604,7 +1604,6 @@
     <string name="offline_map_import_failed">Impossible d\'importer la carte</string>
     <string name="no_offline_maps">Aucune carte hors ligne</string>
     <string name="unsupported_offline_map_file">Fichier de carte non pris en charge</string>
-    <string name="mapsforge">Mapsforge</string>
     <string name="trail_maps">Cartes des sentiers</string>
     <string name="map_layer_trail_maps_description">Vos cartes de sentiers enregistrées</string>
     <string name="manage_maps">Gérer les cartes</string>

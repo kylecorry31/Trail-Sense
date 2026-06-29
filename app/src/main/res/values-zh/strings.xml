@@ -1573,7 +1573,6 @@
     <string name="offline_map_import_failed">无法导入地图</string>
     <string name="no_offline_maps">无离线地图</string>
     <string name="unsupported_offline_map_file">不支持的地图文件</string>
-    <string name="mapsforge">Mapsforge</string>
     <string name="map_type_photo">照片</string>
     <string name="manage_maps">管理地图</string>
     <plurals name="offline_map_group_summary">

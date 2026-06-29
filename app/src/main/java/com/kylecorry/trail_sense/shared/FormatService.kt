@@ -40,7 +40,6 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.domain.Probability
-import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import com.kylecorry.trail_sense.tools.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
@@ -593,12 +592,6 @@ class FormatService private constructor(private val context: Context) {
             Formatter.formatShortFileSize(context, bytes)
         } else {
             Formatter.formatFileSize(context, bytes)
-        }
-    }
-
-    fun formatOfflineMapFileTypeName(type: TrailMapFileType): String {
-        return when (type) {
-            TrailMapFileType.Mapsforge -> strings.getString(R.string.mapsforge)
         }
     }
 

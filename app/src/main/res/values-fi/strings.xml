@@ -1518,7 +1518,6 @@
     <string name="offline_map_import_failed">Karttaa ei voitu tuoda</string>
     <string name="no_offline_maps">Ei offline-karttoja</string>
     <string name="unsupported_offline_map_file">Tukematon karttatiedosto</string>
-    <string name="mapsforge">Mapsforge</string>
     <string name="map_type_photo">Kuva</string>
     <string name="manage_maps">Hallinnoi karttoja</string>
     <string name="brightness">Kirkkaus</string>

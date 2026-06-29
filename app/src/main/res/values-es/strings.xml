@@ -1555,7 +1555,6 @@
     <string name="offline_map_import_failed">No se pudo importar el mapa</string>
     <string name="no_offline_maps">Sin mapas offline</string>
     <string name="unsupported_offline_map_file">Archivo de mapa no reconocido</string>
-    <string name="mapsforge">Mapsforge</string>
     <string name="trail_maps">Mapas de recorridos</string>
     <string name="map_layer_trail_maps_description">Mapas de recorridos guardados</string>
     <string name="map_type_trail">Recorrido</string>

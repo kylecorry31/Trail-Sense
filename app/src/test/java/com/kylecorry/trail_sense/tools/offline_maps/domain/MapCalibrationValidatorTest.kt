@@ -56,7 +56,7 @@ internal class MapCalibrationValidatorTest {
     }
 
     @Test
-    fun isCalibratedReturnsFalseForInvalidCalibration() {
+    fun stateReturnsDraftForInvalidCalibration() {
         val map = map(
             firstLocation = Coordinate(0.0, 0.0),
             secondLocation = Coordinate(0.0, 0.001),
@@ -64,7 +64,7 @@ internal class MapCalibrationValidatorTest {
             secondImageLocation = PercentCoordinate(0.5f, 0.5f)
         )
 
-        assertEquals(false, map.isCalibrated)
+        assertEquals(OfflineMapState.Draft, map.state)
     }
 
     @Test
