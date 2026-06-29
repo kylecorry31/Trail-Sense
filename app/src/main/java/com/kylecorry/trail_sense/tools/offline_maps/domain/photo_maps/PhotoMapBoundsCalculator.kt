@@ -2,11 +2,12 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 
 class PhotoMapBoundsCalculator {
 
     fun calculate(map: PhotoMap): CoordinateBounds? {
-        if (!map.isCalibrated) {
+        if (map.state != OfflineMapState.Ready) {
             return null
         }
 

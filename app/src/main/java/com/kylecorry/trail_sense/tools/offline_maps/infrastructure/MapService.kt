@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
@@ -45,7 +46,7 @@ class MapService private constructor(private val repo: MapRepo) {
 
     suspend fun setProjection(map: PhotoMap, projection: MapProjectionType): PhotoMap {
         val newMap = map.copy(georeference = map.georeference.copy(projectionType = projection))
-        val recalculatedRotation = if (newMap.isCalibrated) {
+        val recalculatedRotation = if (newMap.state == OfflineMapState.Ready) {
             MapRotationCalculator().calculate(newMap)
         } else {
             newMap.georeference.rotation

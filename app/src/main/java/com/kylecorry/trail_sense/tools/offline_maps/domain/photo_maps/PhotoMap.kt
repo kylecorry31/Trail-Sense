@@ -8,6 +8,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.distancePerPixel
 import java.time.Instant
@@ -35,6 +36,12 @@ data class PhotoMap(
      */
     val projection: IMapProjection by lazy { PhotoMapProjection(this) }
 
+    val state = if (MapCalibrationValidator.validate(this) == MapCalibrationValidationResult.Valid){
+        OfflineMapState.Ready
+    } else {
+        OfflineMapState.Draft
+    }
+
     /**
      * The projection onto the image. Does not use the PDF.
      */
@@ -43,18 +50,12 @@ data class PhotoMap(
     }
 
     /**
-     * Determines if the map is calibrated
-     */
-    val isCalibrated: Boolean
-        get() = MapCalibrationValidator.validate(this) == MapCalibrationValidationResult.Valid
-
-    /**
      * The distance per pixel of the image
      * @return the distance per pixel or null if the map is not calibrated
      */
     fun distancePerPixel(): Distance? {
 
-        if (!isCalibrated) {
+        if (state != OfflineMapState.Ready) {
             return null
         }
 

@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 
 class PhotoMapListItemMapper(
@@ -72,7 +73,16 @@ class PhotoMapListItemMapper(
                     context.getString(R.string.map_type_photo),
                     null,
                     Resources.androidTextColorSecondary(context)
-                )
+                ),
+                if (value.state == OfflineMapState.Draft) {
+                    ListItemTag(
+                        context.getString(R.string.draft),
+                        null,
+                        AppColor.Yellow.color
+                    )
+                } else {
+                    null
+                }
             ),
             trailingIcon = ResourceListIcon(
                 if (value.visible) {

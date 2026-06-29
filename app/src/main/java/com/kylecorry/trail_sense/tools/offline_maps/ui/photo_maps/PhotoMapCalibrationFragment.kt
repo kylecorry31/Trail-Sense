@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidationResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidator
@@ -249,7 +250,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     private fun updateRotation() {
         val map = map ?: return
-        val rotation = if (map.isCalibrated) {
+        val rotation = if (map.state == OfflineMapState.Ready) {
             rotationCalculator.calculate(map)
         } else {
             map.baseRotation().toFloat()

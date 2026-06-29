@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.c
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.toVector2
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import kotlin.math.absoluteValue
@@ -18,7 +19,7 @@ class MapRotationCalculator {
      * @return The rotation in degrees
      */
     fun calculate(map: PhotoMap): Float {
-        if (!map.isCalibrated) {
+        if (map.state != OfflineMapState.Ready) {
             return 0f
         }
 

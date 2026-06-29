@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.databinding.FragmentToolPhotoMapsBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
@@ -272,7 +273,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
         binding.mapTitle.title.text = map.name
         when {
             !map.georeference.isWarpingCompleted -> warp()
-            !map.isCalibrated -> calibrate()
+            map.state != OfflineMapState.Ready -> calibrate()
             else -> view()
         }
     }
@@ -297,7 +298,7 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
 
     private suspend fun autoRotate() {
         val updatedMap = service.getPhotoMap(mapId) ?: return
-        if (!updatedMap.isCalibrated) return
+        if (updatedMap.state != OfflineMapState.Ready) return
         val newRotation = MapRotationCalculator().calculate(updatedMap)
 
         val delta = Trigonometry.deltaAngle(newRotation, updatedMap.georeference.rotation).absoluteValue

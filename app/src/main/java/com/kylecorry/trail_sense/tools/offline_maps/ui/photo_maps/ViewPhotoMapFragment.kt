@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geophysics.Geophysics
@@ -46,6 +46,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
@@ -185,7 +186,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun onLongPress(location: Coordinate) {
-        if (map?.isCalibrated != true || layerManager.isMeasuringDistance() || mapLockMode == MapLockMode.Trace) {
+        if (map?.state != OfflineMapState.Ready || layerManager.isMeasuringDistance() || mapLockMode == MapLockMode.Trace) {
             return
         }
 
@@ -271,7 +272,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     fun startDistanceMeasurement(initialPoints: Array<Coordinate>) {
-        if (map?.isCalibrated != true) {
+        if (map?.state != OfflineMapState.Ready) {
             toast(getString(R.string.map_is_not_calibrated))
             return
         }

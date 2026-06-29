@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 
 class TrailMapListItemMapper(
@@ -69,6 +70,15 @@ class TrailMapListItemMapper(
                 null,
                 Resources.androidTextColorSecondary(context)
             ),
+            if (value.state == OfflineMapState.Draft) {
+                ListItemTag(
+                    context.getString(R.string.draft),
+                    null,
+                    AppColor.Yellow.color
+                )
+            } else {
+                null
+            },
             if (value.isExternal) {
                 ListItemTag(
                     context.getString(R.string.map_external),

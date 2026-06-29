@@ -17,6 +17,7 @@ import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import java.util.concurrent.ConcurrentLinkedQueue
 
@@ -32,7 +33,7 @@ class PhotoMapTileSourceSelector(
 ) : TileSource {
 
     private val sortedMaps = maps
-        .filter { it.isCalibrated }
+        .filter { it.state == OfflineMapState.Ready }
         .sortedBy { it.distancePerPixel() }
 
     private var recentMaps = ConcurrentLinkedQueue<PhotoMap>()

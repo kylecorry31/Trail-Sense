@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import kotlin.math.max
@@ -251,7 +252,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         super.draw()
         val map = map ?: return
 
-        if (!map.isCalibrated) {
+        if (map.state != OfflineMapState.Ready) {
             return
         }
         maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)

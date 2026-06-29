@@ -96,6 +96,8 @@ To sort maps by distance, time, or name, click the menu button in the top-right 
 
 The preview of a photo map is displayed on the left side of the map row. You can disable this preview in Settings > Offline Maps > 'Show map previews'. Map previews only display for images and PDFs.
 
+Maps which display a 'Draft' tag are not shown on the map and must be calibrated before they can be used.
+
 ## Renaming maps
 To rename a map, click the menu button on the map row you want to rename, then select 'Rename' and provide a new name.
 
