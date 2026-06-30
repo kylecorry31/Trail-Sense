@@ -1576,4 +1576,7 @@
     <string name="map_external">Externo</string>
     <string name="map_file_missing">Falta el archivo</string>
     <string name="copy_to_trail_sense">Copiar a Trail Sense</string>
+    <string name="created">Creado</string>
+    <string name="draft">Borrador</string>
+    <string name="recording_sighting_for_page">Guardando en avistamienos \'%s\'</string>
 </resources>
