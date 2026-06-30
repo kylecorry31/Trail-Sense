@@ -60,10 +60,18 @@ data class PhotoMap(
         }
 
         return hooks.memo("distance_per_pixel") {
-            projection.distancePerPixel(
-                georeference.calibrationPoints[0].location,
-                georeference.calibrationPoints[1].location
-            )
+            val first = georeference.calibrationPoints[0]
+            val second = georeference.calibrationPoints[1]
+            val meters = first.location.distanceTo(second.location)
+            val pixels = first.imageLocation
+                .toPixels(unrotatedSize().width, unrotatedSize().height)
+                .distanceTo(second.imageLocation.toPixels(unrotatedSize().width, unrotatedSize().height))
+
+            if (meters == 0f || pixels == 0f) {
+                null
+            } else {
+                Distance.meters(meters / pixels)
+            }
         }
     }
 

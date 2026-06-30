@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projectio
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.science.geography.projections.CylindricalEquidistantProjection
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -35,6 +36,14 @@ internal class CalibratedProjectionTest {
         assertPixels(pixel, projection.toPixels(coordinate))
         assertPixels(pixel, projection.toPixels(latitude, longitude))
         assertCoordinate(coordinate, projection.toCoordinate(pixel))
+    }
+
+    @Test
+    fun sortsCalibrationPointsByXThenY() {
+        val projection = CalibratedProjection(twoPointCalibration.reversed(), LinearProjection)
+
+        assertPixels(Vector2(50f, 100f), projection.toPixels(5.0, 25.0))
+        assertCoordinate(Coordinate(5.0, 25.0), projection.toCoordinate(Vector2(50f, 100f)))
     }
 
     @Test
@@ -95,9 +104,46 @@ internal class CalibratedProjectionTest {
         assertPixels(Vector2(0f, 0f), projection.toPixels(5.0, 25.0))
     }
 
+    @Test
+    fun canProjectFullWorldCalibration() {
+        val projection = CalibratedProjection(
+            listOf(
+                PixelCoordinate(0f, 0f) to Coordinate(90.0, -180.0),
+                PixelCoordinate(360f, 180f) to Coordinate(-90.0, 180.0)
+            ),
+            CylindricalEquidistantProjection()
+        )
+
+        assertPixels(Vector2(0f, 0f), projection.toPixels(90.0, -180.0))
+        assertPixels(Vector2(360f, 180f), projection.toPixels(-90.0, 180.0))
+        assertPixels(Vector2(180f, 90f), projection.toPixels(0.0, 0.0))
+        assertCoordinate(Coordinate(0.0, 0.0), projection.toCoordinate(Vector2(180f, 90f)))
+    }
+
+    @Test
+    fun canProjectCalibrationAcrossAntimeridian() {
+        val projection = CalibratedProjection(
+            listOf(
+                PixelCoordinate(0f, 0f) to Coordinate(10.0, 170.0),
+                PixelCoordinate(200f, 100f) to Coordinate(0.0, -170.0)
+            ),
+            CylindricalEquidistantProjection()
+        )
+
+        assertPixels(Vector2(0f, 0f), projection.toPixels(10.0, 170.0))
+        assertPixels(Vector2(200f, 100f), projection.toPixels(0.0, -170.0))
+        assertPixels(Vector2(100f, 50f), projection.toPixels(5.0, 180.0))
+        assertCoordinate(Coordinate(5.0, 180.0), projection.toCoordinate(Vector2(100f, 50f)))
+    }
+
     private fun assertCoordinate(expected: Coordinate, actual: Coordinate, tolerance: Double = 0.0001) {
         assertEquals(expected.latitude, actual.latitude, tolerance, "latitude")
-        assertEquals(expected.longitude, actual.longitude, tolerance, "longitude")
+        assertEquals(
+            0.0,
+            Coordinate.toLongitude(actual.longitude - expected.longitude),
+            tolerance,
+            "longitude"
+        )
     }
 
     private fun assertPixels(expected: Vector2, actual: Vector2, tolerance: Float = 0.001f) {

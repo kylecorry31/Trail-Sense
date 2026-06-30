@@ -55,14 +55,37 @@ class ActiveMapSelector {
         location: Coordinate
     ): PhotoMap? {
         return maps.minByOrNull {
-            val pixel = it.projection.toPixels(location)
-            val size = it.unrotatedSize()
-            val xPercent = pixel.x / size.width
-            val yPercent = pixel.y / size.height
+            val bounds = it.boundary() ?: return@minByOrNull Float.MAX_VALUE
+            val xPercent = getXPercent(bounds, location.longitude)
+            val yPercent = getYPercent(bounds, location.latitude)
             val xDist = abs(0.5f - xPercent)
             val yDist = abs(0.5f - yPercent)
             xDist + yDist
         }
+    }
+
+    private fun getXPercent(bounds: com.kylecorry.sol.science.geology.CoordinateBounds, longitude: Double): Float {
+        val width = bounds.widthDegrees()
+        if (width == 0.0) {
+            return 0.5f
+        }
+
+        val adjustedLongitude = if (bounds.west > bounds.east && longitude < bounds.west) {
+            longitude + 360.0
+        } else {
+            longitude
+        }
+
+        return ((adjustedLongitude - bounds.west) / width).toFloat()
+    }
+
+    private fun getYPercent(bounds: com.kylecorry.sol.science.geology.CoordinateBounds, latitude: Double): Float {
+        val height = bounds.heightDegrees()
+        if (height == 0.0) {
+            return 0.5f
+        }
+
+        return ((bounds.north - latitude) / height).toFloat()
     }
 
     companion object {
