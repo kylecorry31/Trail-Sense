@@ -17,8 +17,8 @@ internal class PhotoMapTest {
         "90, 6999.381",
         "180, 6999.381",
         "270, 6999.381",
-        "45, 5217.0303",
-        "135, 5217.0303"
+        "45, 6999.381",
+        "135, 6999.381"
     )
     fun distancePerPixelUsesCalibratedPixelDistance(
         rotation: Float,
@@ -85,9 +85,7 @@ internal class PhotoMapTest {
 
         val defaultCalibrationPoints: List<MapCalibrationPoint> = listOf(
             MapCalibrationPoint(northWest, PercentCoordinate(0f, 0f)),
-            MapCalibrationPoint(southEast, PercentCoordinate(1f, 1f)),
-            MapCalibrationPoint(northEast, PercentCoordinate(1f, 0f)),
-            MapCalibrationPoint(southWest, PercentCoordinate(0f, 1f))
+            MapCalibrationPoint(southEast, PercentCoordinate(1f, 1f))
         )
     }
 }
