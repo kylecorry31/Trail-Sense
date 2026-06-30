@@ -1602,4 +1602,5 @@
     </plurals>
     <string name="created">已创建</string>
     <string name="recording_sighting_for_page">正在记录“%s”目击</string>
+    <string name="draft">草图</string>
 </resources>
