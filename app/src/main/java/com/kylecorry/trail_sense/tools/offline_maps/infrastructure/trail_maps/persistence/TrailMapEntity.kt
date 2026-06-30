@@ -29,7 +29,7 @@ data class TrailMapEntity(
     @ColumnInfo(name = "_id")
     var id: Long = 0
 
-    fun toOfflineMapFile(): TrailMap {
+    fun toTrailMap(): TrailMap {
         val hasLatitudeBounds = north != null && south != null
         val hasLongitudeBounds = east != null && west != null
         return TrailMap(

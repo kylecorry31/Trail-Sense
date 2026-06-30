@@ -109,7 +109,7 @@ class PhotoMapTileSourceSelector(
             .meters().value.toDouble() * 0.25
 
         val possibleMaps = sortedMaps.filter {
-            val boundary = it.boundary() ?: return@filter false
+            val boundary = it.bounds ?: return@filter false
             if (boundary == CoordinateBounds.world) {
                 return@filter true
             }
@@ -120,7 +120,7 @@ class PhotoMapTileSourceSelector(
 
         val firstContained = possibleMaps.firstOrNull {
             contains(
-                it.boundary() ?: return@firstOrNull false,
+                it.bounds ?: return@firstOrNull false,
                 bounds,
                 fullyContained = true
             )
@@ -128,7 +128,7 @@ class PhotoMapTileSourceSelector(
 
         val containedMaps = possibleMaps.filter {
             contains(
-                it.boundary() ?: return@filter false,
+                it.bounds ?: return@filter false,
                 bounds
             )
         }.take(maxLayers).toMutableList()

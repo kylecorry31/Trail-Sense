@@ -15,6 +15,8 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
+import com.kylecorry.trail_sense.tools.offline_maps.domain.getFileSize
+import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 
 class TrailMapListItemMapper(
@@ -32,7 +34,7 @@ class TrailMapListItemMapper(
             icon = ResourceListIcon(R.drawable.maps, AppColor.Gray.color, size = 48f, foregroundSize = 24f),
             subtitle = formatter.join(
                 formatter.formatDate(value.createdOn.toZonedDateTime(), includeWeekDay = false),
-                formatter.formatFileSize(value.fileSizeBytes),
+                formatter.formatFileSize(value.getFileSize()),
                 separator = FormatService.Separator.Dot
             ),
             tags = getTags(value),
@@ -79,7 +81,7 @@ class TrailMapListItemMapper(
             } else {
                 null
             },
-            if (value.isExternal) {
+            if (value.isExternal()) {
                 ListItemTag(
                     context.getString(R.string.map_external),
                     null,
@@ -111,7 +113,7 @@ class TrailMapListItemMapper(
             ListMenuItem(context.getString(R.string.move_to)) {
                 actionHandler(value, TrailMapAction.Move)
             },
-            if (value.isExternal && value.isAvailable) {
+            if (value.isExternal() && value.isAvailable) {
                 ListMenuItem(context.getString(R.string.copy_to_trail_sense)) {
                     actionHandler(value, TrailMapAction.CopyToAppStorage)
                 }

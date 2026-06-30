@@ -1,12 +1,11 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
-import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
@@ -16,30 +15,29 @@ import java.time.Instant
 data class PhotoMap(
     override val id: Long,
     override val name: String,
-    val files: List<OfflineMapFile>,
+    override val files: List<OfflineMapFile>,
     val georeference: PhotoMapGeoreference,
     override val parentId: Long? = null,
-    val visible: Boolean = true,
-    val createdOn: Instant? = null,
-) : IMap {
+    override val visible: Boolean = true,
+    override val createdOn: Instant? = null,
+) : OfflineMap {
     override val isGroup = false
     override val count: Int? = null
 
     val imageFile = files.single { it.role == FILE_ROLE_IMAGE }
     val pdfFile = files.singleOrNull { it.role == FILE_ROLE_PDF }
-    val fileSizeBytes = files.sumOf { it.sizeBytes }
-
-    private val hooks = Hooks()
 
     /**
      * The projection onto the image/pdf.
      */
     val projection: IMapProjection by lazy { PhotoMapProjection(this) }
 
-    val state = if (MapCalibrationValidator.validate(this) == MapCalibrationValidationResult.Valid){
-        OfflineMapState.Ready
-    } else {
-        OfflineMapState.Draft
+    override val state by lazy {
+        if (MapCalibrationValidator.validate(this) == MapCalibrationValidationResult.Valid) {
+            OfflineMapState.Ready
+        } else {
+            OfflineMapState.Draft
+        }
     }
 
     /**
@@ -49,22 +47,23 @@ data class PhotoMap(
         PhotoMapProjection(this, usePdf = false)
     }
 
-    /**
-     * The distance per pixel of the image
-     * @return the distance per pixel or null if the map is not calibrated
-     */
-    fun distancePerPixel(): Distance? {
-
+    private val _distancePerPixel by lazy {
         if (state != OfflineMapState.Ready) {
-            return null
-        }
-
-        return hooks.memo("distance_per_pixel") {
+            null
+        } else {
             projection.distancePerPixel(
                 georeference.calibrationPoints[0].location,
                 georeference.calibrationPoints[1].location
             )
         }
+    }
+
+    /**
+     * The distance per pixel of the image
+     * @return the distance per pixel or null if the map is not calibrated
+     */
+    fun distancePerPixel(): Distance? {
+        return _distancePerPixel
     }
 
     /**
@@ -98,15 +97,7 @@ data class PhotoMap(
         }
     }
 
-    /**
-     * The boundary of the image
-     * @return the boundary or null if the map is not calibrated
-     */
-    fun boundary(): CoordinateBounds? {
-        return hooks.memo("boundary") {
-            PhotoMapBoundsCalculator().calculate(this)
-        }
-    }
+    override val bounds: CoordinateBounds? by lazy { PhotoMapBoundsCalculator().calculate(this) }
 
     companion object {
         // TODO: Make this based on meters per pixel
