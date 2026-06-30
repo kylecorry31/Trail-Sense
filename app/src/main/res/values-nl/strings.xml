@@ -1614,4 +1614,5 @@
     </plurals>
     <string name="created">Gemaakt</string>
     <string name="recording_sighting_for_page">Waarneming \'%s\' opnemen</string>
+    <string name="draft">Concept</string>
 </resources>
