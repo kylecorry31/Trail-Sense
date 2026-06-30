@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.MapFileTypeUtils
@@ -62,7 +63,7 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun delete(map: TrailMap) = onIO {
-        if (map.isExternal) {
+        if (map.isExternal()) {
             releaseExternalAccessIfUnused(map)
         } else {
             map.files.forEach {
@@ -74,7 +75,7 @@ class MapRepo private constructor(context: Context) {
     }
 
     suspend fun copyToAppStorage(map: TrailMap): TrailMap? = onIO {
-        if (!map.isExternal) {
+        if (!map.isExternal()) {
             return@onIO map
         }
 
@@ -153,8 +154,8 @@ class MapRepo private constructor(context: Context) {
     }
 
     private fun convertToMap(map: TrailMapEntity): TrailMap {
-        val newMap = map.toOfflineMapFile()
-        return if (newMap.isExternal) {
+        val newMap = map.toTrailMap()
+        return if (newMap.isExternal()) {
             newMap.copy(isAvailable = newMap.files.all { files.canRead(it.path) })
         } else {
             newMap

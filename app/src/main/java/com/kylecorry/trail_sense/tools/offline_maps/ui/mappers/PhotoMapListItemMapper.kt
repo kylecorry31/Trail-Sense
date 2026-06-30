@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.getFileSize
 
 class PhotoMapListItemMapper(
     private val gps: IGPS,
@@ -38,7 +39,7 @@ class PhotoMapListItemMapper(
     private val files = FileSubsystem.getInstance(context)
 
     override fun map(value: PhotoMap): ListItem {
-        val onMap = value.boundary()?.contains(gps.location) ?: false
+        val onMap = value.bounds?.contains(gps.location) ?: false
         val icon = if (prefs.photoMaps.showMapPreviews) {
             AsyncListIcon(
                 lifecycleOwner,
@@ -56,7 +57,7 @@ class PhotoMapListItemMapper(
             icon = icon,
             subtitle = formatter.join(
                 value.createdOn?.let { formatter.formatDate(it.toZonedDateTime(), includeWeekDay = false) },
-                formatter.formatFileSize(value.fileSizeBytes),
+                formatter.formatFileSize(value.getFileSize()),
                 separator = FormatService.Separator.Dot
             ),
             tags = listOfNotNull(

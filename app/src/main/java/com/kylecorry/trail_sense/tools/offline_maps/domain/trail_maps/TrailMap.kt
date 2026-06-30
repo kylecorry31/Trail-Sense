@@ -1,29 +1,27 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import java.time.Instant
 
 data class TrailMap(
     override val id: Long,
     override val name: String,
     val type: TrailMapFileType,
-    val files: List<OfflineMapFile>,
-    val createdOn: Instant,
-    val bounds: CoordinateBounds?,
+    override val files: List<OfflineMapFile>,
+    override val createdOn: Instant,
+    override val bounds: CoordinateBounds?,
     val attribution: String?,
-    val visible: Boolean,
+    override val visible: Boolean,
     override val parentId: Long? = null,
     val isAvailable: Boolean = true
-) : IMap {
+) : OfflineMap {
     override val isGroup = false
     override val count: Int? = null
-    val state = OfflineMapState.Ready
+    override val state = if (bounds == null) OfflineMapState.Draft else OfflineMapState.Ready
     val mapFile = files.single { it.role == FILE_ROLE_MAPSFORGE_MAP }
-    val isExternal = files.any { it.isExternal }
-    val fileSizeBytes = files.sumOf { it.sizeBytes }
 
     companion object {
         const val FILE_ROLE_MAPSFORGE_MAP = "mapsforge-map"

@@ -80,7 +80,7 @@ class MapExportService(
 
             val width = bitmap.width
             val height = bitmap.height
-            val bounds = map.boundary()
+            val bounds = map.bounds
 
             if (bounds == null) {
                 // No calibration, just generate a PDF containing the image

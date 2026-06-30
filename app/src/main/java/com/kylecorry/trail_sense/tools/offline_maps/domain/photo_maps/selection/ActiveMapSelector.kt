@@ -43,7 +43,7 @@ class ActiveMapSelector {
     }
 
     private fun contains(map: PhotoMap, location: Coordinate): Boolean {
-        return map.boundary()?.contains(location) == true
+        return map.bounds?.contains(location) == true
     }
 
     private fun isSimilarZoom(map: PhotoMap, base: PhotoMap, pct: Float): Boolean {

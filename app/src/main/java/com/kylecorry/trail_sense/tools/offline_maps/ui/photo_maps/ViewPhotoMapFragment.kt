@@ -380,7 +380,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         layerManager.pause(binding.map)
         this.map = map
         binding.map.minScale = 0f
-        val bounds = map.boundary() ?: CoordinateBounds(85.0, 180.0, -85.0, -180.0)
+        val bounds = map.bounds ?: CoordinateBounds(85.0, 180.0, -85.0, -180.0)
         binding.map.fitIntoView(bounds, paddingFactor = 1.05f)
         binding.map.constraintBounds = bounds
         binding.map.minScale = binding.map.scale
