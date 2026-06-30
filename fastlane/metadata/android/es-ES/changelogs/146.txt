@@ -1,0 +1,17 @@
+Mapas sin conexión
+- Detectar esquinas de los nuevos mapas calibrados
+- Ajuste para usar archivos externos de mapas
+
+Podómetro
+- Mostrar el historial del recuento de pasos por hora
+
+Astronomía
+- Renderizar iconos precisos para la luna y los eclipses
+
+Guía de campo
+- Añadir la acción rápida Registrar avistamiento
+
+Varios
+- Mejorar la compatibilidad con Material 3 Expressive
+- Los campos de entrada de ubicación permiten seleccionar una ubicación en el mapa
+- Corrección de errores
