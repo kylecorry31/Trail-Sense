@@ -22,8 +22,8 @@ class CalibratedProjection(
     private val height = (bottom?.first?.y ?: 0f) - (top?.first?.y ?: 0f)
     private val bounds = getBounds(calibration.map { it.second })
 
-    private val bottomLeft = projection.toPixels(bounds.southWest)
-    private val topRight = projection.toPixels(bounds.northEast)
+    private val bottomLeft = projection.toPixels(bounds.south, bounds.west)
+    private val topRight = projection.toPixels(bounds.north, bounds.east)
 
 
     override fun toCoordinate(pixel: Vector2): Coordinate {
@@ -34,10 +34,22 @@ class CalibratedProjection(
             return Coordinate.zero
         }
 
-        val x = map((pixel.x - left.first.x) / width, 0f, 1f, bottomLeft.x, topRight.x)
-        val y = map((pixel.y - top.first.y - height) / -height, 0f, 1f, bottomLeft.y, topRight.y)
+        val x = map(
+            (pixel.x - left.first.x).toDouble() / width.toDouble(),
+            0.0,
+            1.0,
+            bottomLeft.x.toDouble(),
+            topRight.x.toDouble()
+        )
+        val y = map(
+            (pixel.y - top.first.y - height).toDouble() / -height.toDouble(),
+            0.0,
+            1.0,
+            bottomLeft.y.toDouble(),
+            topRight.y.toDouble()
+        )
 
-        return projection.toCoordinate(Vector2(x, y))
+        return projection.toCoordinate(Vector2(x.toFloat(), y.toFloat()))
     }
 
     override fun toPixels(location: Coordinate): Vector2 {
@@ -61,9 +73,17 @@ class CalibratedProjection(
             projection.toPixels(latitude, longitude)
         }
 
-        val x = left.first.x + width * norm(coords.x, bottomLeft.x, topRight.x)
-        val y = top.first.y + height - height * norm(coords.y, bottomLeft.y, topRight.y)
-        return Vector2(x, y)
+        val x = left.first.x.toDouble() + width.toDouble() * norm(
+            coords.x.toDouble(),
+            bottomLeft.x.toDouble(),
+            topRight.x.toDouble()
+        )
+        val y = top.first.y.toDouble() + height.toDouble() - height.toDouble() * norm(
+            coords.y.toDouble(),
+            bottomLeft.y.toDouble(),
+            topRight.y.toDouble()
+        )
+        return Vector2(x.toFloat(), y.toFloat())
     }
 
     private fun getLeft(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
