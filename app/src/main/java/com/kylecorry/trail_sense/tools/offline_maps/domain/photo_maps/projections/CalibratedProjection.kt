@@ -84,8 +84,7 @@ class CalibratedProjection(
             return Coordinate.zero
         }
 
-        val projectedPixel = mapPoint(imageToProjectedMatrix, toMathCoordinates(pixel))
-
+        val projectedPixel = imageToProjectedMatrix.dot(toMathCoordinates(pixel))
         return projection.toCoordinate(projectedPixel)
     }
 
@@ -101,16 +100,8 @@ class CalibratedProjection(
             return Vector2.zero
         }
 
-        val imagePixel = mapPoint(projectedToImageMatrix, projection.toPixels(latitude, longitude))
-
+        val imagePixel = projectedToImageMatrix.dot(projection.toPixels(latitude, longitude))
         return toImageCoordinates(imagePixel)
-    }
-
-    private fun mapPoint(matrix: Matrix, point: Vector2): Vector2 {
-        return Vector2(
-            matrix[0, 0] * point.x + matrix[0, 1] * point.y + matrix[0, 2],
-            matrix[1, 0] * point.x + matrix[1, 1] * point.y + matrix[1, 2]
-        )
     }
 
     private fun toMathCoordinates(pixel: Vector2): Vector2 {
