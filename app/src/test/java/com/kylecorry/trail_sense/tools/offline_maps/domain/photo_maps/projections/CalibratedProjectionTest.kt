@@ -5,36 +5,12 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 internal class CalibratedProjectionTest {
-
-    @ParameterizedTest
-    @CsvSource(
-        "10.0, 20.0, 0, 0",
-        "10.0, 30.0, 100, 0",
-        "0.0, 20.0, 0, 200",
-        "0.0, 30.0, 100, 200",
-        "5.0, 25.0, 50, 100",
-        "2.5, 22.5, 25, 150",
-        "7.5, 27.5, 75, 50"
-    )
-    fun canProjectWith4Points(
-        latitude: Double,
-        longitude: Double,
-        expectedX: Float,
-        expectedY: Float
-    ) {
-        val projection = CalibratedProjection(fourPointCalibration, LinearProjection)
-        val coordinate = Coordinate(latitude, longitude)
-        val pixel = Vector2(expectedX, expectedY)
-
-        assertPixels(pixel, projection.toPixels(coordinate))
-        assertPixels(pixel, projection.toPixels(latitude, longitude))
-        assertCoordinate(coordinate, projection.toCoordinate(pixel))
-    }
 
     @ParameterizedTest
     @CsvSource(
@@ -62,6 +38,26 @@ internal class CalibratedProjectionTest {
     }
 
     @Test
+    fun twoPointProjectionDoesNotCollapseLatitude() {
+        val projection = CalibratedProjection(twoPointCalibration, LinearProjection)
+
+        val north = projection.toPixels(5.0, 25.0)
+        val south = projection.toPixels(4.5, 25.0)
+
+        assertNotEquals(north, south)
+    }
+
+    @Test
+    fun twoPointProjectionDoesNotCollapseTinyProjectedDeltas() {
+        val projection = CalibratedProjection(twoPointCalibration, TinyProjection)
+
+        val north = projection.toPixels(5.0, 25.0)
+        val south = projection.toPixels(4.5, 25.0)
+
+        assertNotEquals(north, south)
+    }
+
+    @Test
     fun returnsZeroesWhenCalibrationIsEmpty() {
         val projection = CalibratedProjection(emptyList(), LinearProjection)
 
@@ -70,31 +66,33 @@ internal class CalibratedProjectionTest {
     }
 
     @Test
-    fun returnsZeroesWhenCalibrationHasZeroWidth() {
+    fun returnsZeroesWhenCalibrationDoesNotHaveExactlyTwoPoints() {
         val projection = CalibratedProjection(
             listOf(
                 PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
-                PixelCoordinate(0f, 200f) to Coordinate(0.0, 20.0)
+                PixelCoordinate(100f, 0f) to Coordinate(10.0, 30.0),
+                PixelCoordinate(0f, 200f) to Coordinate(0.0, 20.0),
+                PixelCoordinate(100f, 200f) to Coordinate(0.0, 30.0)
             ),
             LinearProjection
         )
 
-        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(0f, 100f)))
-        assertPixels(Vector2(0f, 0f), projection.toPixels(5.0, 20.0))
+        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(50f, 100f)))
+        assertPixels(Vector2(0f, 0f), projection.toPixels(5.0, 25.0))
     }
 
     @Test
-    fun returnsZeroesWhenCalibrationHasZeroHeight() {
+    fun returnsZeroesWhenCalibrationPixelsAreTheSame() {
         val projection = CalibratedProjection(
             listOf(
-                PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
-                PixelCoordinate(100f, 0f) to Coordinate(10.0, 30.0)
+                PixelCoordinate(50f, 100f) to Coordinate(5.0, 25.0),
+                PixelCoordinate(50f, 100f) to Coordinate(4.0, 26.0)
             ),
             LinearProjection
         )
 
-        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(50f, 0f)))
-        assertPixels(Vector2(0f, 0f), projection.toPixels(10.0, 25.0))
+        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(50f, 100f)))
+        assertPixels(Vector2(0f, 0f), projection.toPixels(5.0, 25.0))
     }
 
     private fun assertCoordinate(expected: Coordinate, actual: Coordinate, tolerance: Double = 0.0001) {
@@ -108,13 +106,6 @@ internal class CalibratedProjectionTest {
     }
 
     private companion object {
-        val fourPointCalibration: List<Pair<PixelCoordinate, Coordinate>> = listOf(
-            PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
-            PixelCoordinate(100f, 0f) to Coordinate(10.0, 30.0),
-            PixelCoordinate(0f, 200f) to Coordinate(0.0, 20.0),
-            PixelCoordinate(100f, 200f) to Coordinate(0.0, 30.0)
-        )
-
         val twoPointCalibration: List<Pair<PixelCoordinate, Coordinate>> = listOf(
             PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
             PixelCoordinate(100f, 200f) to Coordinate(0.0, 30.0)
@@ -124,7 +115,7 @@ internal class CalibratedProjectionTest {
     private object LinearProjection : IMapProjection {
         override fun toCoordinate(pixel: Vector2): Coordinate {
             return Coordinate(
-                latitude = pixel.y.toDouble(),
+                latitude = pixel.y / 2.0,
                 longitude = pixel.x.toDouble()
             )
         }
@@ -134,7 +125,27 @@ internal class CalibratedProjectionTest {
         }
 
         override fun toPixels(latitude: Double, longitude: Double): Vector2 {
-            return Vector2(longitude.toFloat(), latitude.toFloat())
+            return Vector2(longitude.toFloat(), (latitude * 2).toFloat())
+        }
+    }
+
+    private object TinyProjection : IMapProjection {
+        override fun toCoordinate(pixel: Vector2): Coordinate {
+            return Coordinate(
+                latitude = pixel.y / 0.000001f.toDouble(),
+                longitude = pixel.x / 0.000001f.toDouble()
+            )
+        }
+
+        override fun toPixels(location: Coordinate): Vector2 {
+            return toPixels(location.latitude, location.longitude)
+        }
+
+        override fun toPixels(latitude: Double, longitude: Double): Vector2 {
+            return Vector2(
+                x = longitude.toFloat() * 0.000001f,
+                y = latitude.toFloat() * 0.000001f
+            )
         }
     }
 }

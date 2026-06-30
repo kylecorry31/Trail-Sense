@@ -2,11 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projectio
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.arithmetic.Arithmetic
-import com.kylecorry.sol.math.interpolation.Interpolation.map
-import com.kylecorry.sol.math.interpolation.Interpolation.norm
 import com.kylecorry.sol.science.geography.projections.IMapProjection
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 
 class CalibratedProjection(
@@ -14,30 +10,42 @@ class CalibratedProjection(
     private val projection: IMapProjection
 ) : IMapProjection {
 
-    private val left = getLeft(calibration)
-    private val right = getRight(calibration)
-    private val top = getTop(calibration)
-    private val bottom = getBottom(calibration)
-    private val width = (right?.first?.x ?: 0f) - (left?.first?.x ?: 0f)
-    private val height = (bottom?.first?.y ?: 0f) - (top?.first?.y ?: 0f)
-    private val bounds = getBounds(calibration.map { it.second })
-
-    private val bottomLeft = projection.toPixels(bounds.southWest)
-    private val topRight = projection.toPixels(bounds.northEast)
-
+    private val first = calibration.getOrNull(0).takeIf { calibration.size == 2 }
+    private val second = calibration.getOrNull(1).takeIf { calibration.size == 2 }
+    private val imageAnchor = first?.let {
+        toMathCoordinates(Vector2(it.first.x, it.first.y))
+    } ?: Vector2.zero
+    private val projectedAnchor = first?.let {
+        projection.toPixels(it.second)
+    } ?: Vector2.zero
+    private val imageVector = second?.let {
+        toMathCoordinates(Vector2(it.first.x, it.first.y)) - imageAnchor
+    } ?: Vector2.zero
+    private val projectedVector = second?.let {
+        projection.toPixels(it.second) - projectedAnchor
+    } ?: Vector2.zero
+    private val imageVectorMagnitudeSquared = imageVector.squaredMagnitude()
+    private val scaledCos = if (imageVectorMagnitudeSquared == 0f) {
+        0f
+    } else {
+        dot(projectedVector, imageVector) / imageVectorMagnitudeSquared
+    }
+    private val scaledSin = if (imageVectorMagnitudeSquared == 0f) {
+        0f
+    } else {
+        cross(imageVector, projectedVector) / imageVectorMagnitudeSquared
+    }
+    private val transformMagnitudeSquared = scaledCos * scaledCos + scaledSin * scaledSin
 
     override fun toCoordinate(pixel: Vector2): Coordinate {
-        val hasZeroSize = Arithmetic.isZero(width) || Arithmetic.isZero(height)
-        val hasInvalidCorner = left == null || top == null
-
-        if (hasInvalidCorner || hasZeroSize) {
+        if (imageVectorMagnitudeSquared == 0f) {
             return Coordinate.zero
         }
 
-        val x = map((pixel.x - left.first.x) / width, 0f, 1f, bottomLeft.x, topRight.x)
-        val y = map((pixel.y - top.first.y - height) / -height, 0f, 1f, bottomLeft.y, topRight.y)
+        val imageDelta = toMathCoordinates(pixel) - imageAnchor
+        val projectedDelta = applyImageToProjectedMatrix(imageDelta)
 
-        return projection.toCoordinate(Vector2(x, y))
+        return projection.toCoordinate(projectedAnchor + projectedDelta)
     }
 
     override fun toPixels(location: Coordinate): Vector2 {
@@ -48,67 +56,44 @@ class CalibratedProjection(
         latitude: Double,
         longitude: Double
     ): Vector2 {
-        val hasZeroSize = Arithmetic.isZero(width) || Arithmetic.isZero(height)
-        val hasInvalidCorner = left == null || top == null || bottom == null
-
-        if (hasInvalidCorner || hasZeroSize) {
-            return Vector2(0f, 0f)
+        if (transformMagnitudeSquared == 0f) {
+            return Vector2.zero
         }
 
-        val coords = if (longitude < 0 && bounds.west > 0) {
-            projection.toPixels(latitude, longitude + 360)
-        } else {
-            projection.toPixels(latitude, longitude)
-        }
+        val projectedDelta = projection.toPixels(latitude, longitude) - projectedAnchor
+        val imageDelta = applyProjectedToImageMatrix(projectedDelta)
 
-        val x = left.first.x + width * norm(coords.x, bottomLeft.x, topRight.x)
-        val y = top.first.y + height - height * norm(coords.y, bottomLeft.y, topRight.y)
-        return Vector2(x, y)
+        return toImageCoordinates(imageAnchor + imageDelta)
     }
 
-    private fun getLeft(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.minByOrNull { it.first.x }
+    private fun applyImageToProjectedMatrix(imageDelta: Vector2): Vector2 {
+        return Vector2(
+            scaledCos * imageDelta.x - scaledSin * imageDelta.y,
+            scaledSin * imageDelta.x + scaledCos * imageDelta.y
+        )
     }
 
-    private fun getRight(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.maxByOrNull { it.first.x }
+    private fun applyProjectedToImageMatrix(projectedDelta: Vector2): Vector2 {
+        return Vector2(
+            (scaledCos * projectedDelta.x + scaledSin * projectedDelta.y) / transformMagnitudeSquared,
+            (-scaledSin * projectedDelta.x + scaledCos * projectedDelta.y) / transformMagnitudeSquared
+        )
     }
 
-    private fun getTop(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.minByOrNull { it.first.y }
+    private fun toMathCoordinates(pixel: Vector2): Vector2 {
+        return Vector2(pixel.x, -pixel.y)
     }
 
-    private fun getBottom(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.maxByOrNull { it.first.y }
+    private fun toImageCoordinates(pixel: Vector2): Vector2 {
+        return Vector2(pixel.x, -pixel.y)
     }
 
-    private fun getBounds(coordinates: List<Coordinate>): CoordinateBounds {
-        var bounds = CoordinateBounds.from(coordinates)
+    private fun dot(a: Vector2, b: Vector2): Float {
+        return a.x * b.x + a.y * b.y
+    }
 
-        val minLongitude = coordinates.minByOrNull { it.longitude }?.longitude
-        val maxLongitude = coordinates.maxByOrNull { it.longitude }?.longitude
-
-        // TODO: Move this into the coordinate bounds class
-        if (minLongitude == -180.0 && maxLongitude == 180.0) {
-            bounds = CoordinateBounds(bounds.north, 180.0, bounds.south, -180.0)
-        }
-
-        // TODO: Map projection does not work at the poles - move this into the mercator projection class
-        if (bounds.north == 90.0) {
-            bounds = CoordinateBounds(89.9999, bounds.east, bounds.south, bounds.west)
-        }
-
-        if (bounds.south == -90.0) {
-            bounds = CoordinateBounds(bounds.north, bounds.east, -89.9999, bounds.west)
-        }
-
-        // TODO: This should be moved into the mercator projection class
-        if (bounds.east < 0 && bounds.west > 0) {
-            bounds =
-                CoordinateBounds(bounds.north, bounds.east + 360, bounds.south, bounds.west)
-        }
-
-        return bounds
+    private fun cross(a: Vector2, b: Vector2): Float {
+        return a.x * b.y - a.y * b.x
     }
 
 }
