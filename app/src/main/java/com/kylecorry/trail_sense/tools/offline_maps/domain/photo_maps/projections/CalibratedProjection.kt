@@ -9,6 +9,9 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.cross
 import com.kylecorry.trail_sense.shared.andromeda_temp.dot
 
+/**
+ * Performs a 2 point calibration of a projection
+ */
 class CalibratedProjection(
     calibration: List<Pair<PixelCoordinate, Coordinate>>,
     private val projection: IMapProjection
@@ -29,19 +32,27 @@ class CalibratedProjection(
         projection.toPixels(it.second) - projectedAnchor
     } ?: Vector2.zero
     private val imageVectorMagnitudeSquared = imageVector.squaredMagnitude()
-    private val hasValidImageVector = !Arithmetic.isZero(imageVectorMagnitudeSquared, ZERO_TOLERANCE)
-    private val scaledCos = if (Arithmetic.isZero(imageVectorMagnitudeSquared, ZERO_TOLERANCE)) {
+    private val hasValidImageVector = !Arithmetic.isZero(imageVectorMagnitudeSquared)
+    private val scaledCos = if (Arithmetic.isZero(imageVectorMagnitudeSquared)) {
         0f
     } else {
         projectedVector.dot(imageVector) / imageVectorMagnitudeSquared
     }
-    private val scaledSin = if (Arithmetic.isZero(imageVectorMagnitudeSquared, ZERO_TOLERANCE)) {
+    private val scaledSin = if (Arithmetic.isZero(imageVectorMagnitudeSquared)) {
         0f
     } else {
         imageVector.cross(projectedVector) / imageVectorMagnitudeSquared
     }
     private val transformMagnitudeSquared = scaledCos * scaledCos + scaledSin * scaledSin
-    private val hasValidTransform = !Arithmetic.isZero(transformMagnitudeSquared, ZERO_TOLERANCE)
+    private val hasValidTransform = !Arithmetic.isZero(transformMagnitudeSquared)
+
+    /*
+     * Equivalent to:
+     * matrix.postTranslate(-imageAnchor.x, -imageAnchor.y)
+     * matrix.postScale(scale, scale)
+     * matrix.postRotate(rotationDegrees)
+     * matrix.postTranslate(projectedAnchor.x, projectedAnchor.y)
+     */
     private val imageToProjectedMatrix = Matrix.create(
         3,
         3,
@@ -104,16 +115,13 @@ class CalibratedProjection(
         return toImageCoordinates(imagePixel)
     }
 
+    // toMathCoordinate and toImageCoordinate intentionally do the same thing, it's just clearer to describe what they are doing
     private fun toMathCoordinates(pixel: Vector2): Vector2 {
         return Vector2(pixel.x, -pixel.y)
     }
 
     private fun toImageCoordinates(pixel: Vector2): Vector2 {
         return Vector2(pixel.x, -pixel.y)
-    }
-
-    private companion object {
-        const val ZERO_TOLERANCE = Float.MIN_VALUE
     }
 
 }

@@ -132,8 +132,8 @@ internal class CalibratedProjectionTest {
     private object TinyProjection : IMapProjection {
         override fun toCoordinate(pixel: Vector2): Coordinate {
             return Coordinate(
-                latitude = pixel.y / 0.000001f.toDouble(),
-                longitude = pixel.x / 0.000001f.toDouble()
+                latitude = pixel.y / 0.1f.toDouble(),
+                longitude = pixel.x / 0.1f.toDouble()
             )
         }
 
@@ -143,8 +143,8 @@ internal class CalibratedProjectionTest {
 
         override fun toPixels(latitude: Double, longitude: Double): Vector2 {
             return Vector2(
-                x = longitude.toFloat() * 0.000001f,
-                y = latitude.toFloat() * 0.000001f
+                x = longitude.toFloat() * 0.1f,
+                y = latitude.toFloat() * 0.1f
             )
         }
     }
