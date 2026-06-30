@@ -2,8 +2,12 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projectio
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.algebra.Matrix
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.cross
+import com.kylecorry.trail_sense.shared.andromeda_temp.dot
 
 class CalibratedProjection(
     calibration: List<Pair<PixelCoordinate, Coordinate>>,
@@ -25,27 +29,64 @@ class CalibratedProjection(
         projection.toPixels(it.second) - projectedAnchor
     } ?: Vector2.zero
     private val imageVectorMagnitudeSquared = imageVector.squaredMagnitude()
-    private val scaledCos = if (imageVectorMagnitudeSquared == 0f) {
+    private val hasValidImageVector = !Arithmetic.isZero(imageVectorMagnitudeSquared, ZERO_TOLERANCE)
+    private val scaledCos = if (Arithmetic.isZero(imageVectorMagnitudeSquared, ZERO_TOLERANCE)) {
         0f
     } else {
-        dot(projectedVector, imageVector) / imageVectorMagnitudeSquared
+        projectedVector.dot(imageVector) / imageVectorMagnitudeSquared
     }
-    private val scaledSin = if (imageVectorMagnitudeSquared == 0f) {
+    private val scaledSin = if (Arithmetic.isZero(imageVectorMagnitudeSquared, ZERO_TOLERANCE)) {
         0f
     } else {
-        cross(imageVector, projectedVector) / imageVectorMagnitudeSquared
+        imageVector.cross(projectedVector) / imageVectorMagnitudeSquared
     }
     private val transformMagnitudeSquared = scaledCos * scaledCos + scaledSin * scaledSin
+    private val hasValidTransform = !Arithmetic.isZero(transformMagnitudeSquared, ZERO_TOLERANCE)
+    private val imageToProjectedMatrix = Matrix.create(
+        3,
+        3,
+        floatArrayOf(
+            scaledCos,
+            -scaledSin,
+            projectedAnchor.x - scaledCos * imageAnchor.x + scaledSin * imageAnchor.y,
+            scaledSin,
+            scaledCos,
+            projectedAnchor.y - scaledSin * imageAnchor.x - scaledCos * imageAnchor.y,
+            0f,
+            0f,
+            1f
+        )
+    )
+    private val projectedToImageMatrix = if (hasValidTransform) {
+        val inverseScaledCos = scaledCos / transformMagnitudeSquared
+        val inverseScaledSin = -scaledSin / transformMagnitudeSquared
+        Matrix.create(
+            3,
+            3,
+            floatArrayOf(
+                inverseScaledCos,
+                -inverseScaledSin,
+                imageAnchor.x - inverseScaledCos * projectedAnchor.x + inverseScaledSin * projectedAnchor.y,
+                inverseScaledSin,
+                inverseScaledCos,
+                imageAnchor.y - inverseScaledSin * projectedAnchor.x - inverseScaledCos * projectedAnchor.y,
+                0f,
+                0f,
+                1f
+            )
+        )
+    } else {
+        Matrix.zeros(3, 3)
+    }
 
     override fun toCoordinate(pixel: Vector2): Coordinate {
-        if (imageVectorMagnitudeSquared == 0f) {
+        if (!hasValidImageVector) {
             return Coordinate.zero
         }
 
-        val imageDelta = toMathCoordinates(pixel) - imageAnchor
-        val projectedDelta = applyImageToProjectedMatrix(imageDelta)
+        val projectedPixel = mapPoint(imageToProjectedMatrix, toMathCoordinates(pixel))
 
-        return projection.toCoordinate(projectedAnchor + projectedDelta)
+        return projection.toCoordinate(projectedPixel)
     }
 
     override fun toPixels(location: Coordinate): Vector2 {
@@ -56,27 +97,19 @@ class CalibratedProjection(
         latitude: Double,
         longitude: Double
     ): Vector2 {
-        if (transformMagnitudeSquared == 0f) {
+        if (!hasValidTransform) {
             return Vector2.zero
         }
 
-        val projectedDelta = projection.toPixels(latitude, longitude) - projectedAnchor
-        val imageDelta = applyProjectedToImageMatrix(projectedDelta)
+        val imagePixel = mapPoint(projectedToImageMatrix, projection.toPixels(latitude, longitude))
 
-        return toImageCoordinates(imageAnchor + imageDelta)
+        return toImageCoordinates(imagePixel)
     }
 
-    private fun applyImageToProjectedMatrix(imageDelta: Vector2): Vector2 {
+    private fun mapPoint(matrix: Matrix, point: Vector2): Vector2 {
         return Vector2(
-            scaledCos * imageDelta.x - scaledSin * imageDelta.y,
-            scaledSin * imageDelta.x + scaledCos * imageDelta.y
-        )
-    }
-
-    private fun applyProjectedToImageMatrix(projectedDelta: Vector2): Vector2 {
-        return Vector2(
-            (scaledCos * projectedDelta.x + scaledSin * projectedDelta.y) / transformMagnitudeSquared,
-            (-scaledSin * projectedDelta.x + scaledCos * projectedDelta.y) / transformMagnitudeSquared
+            matrix[0, 0] * point.x + matrix[0, 1] * point.y + matrix[0, 2],
+            matrix[1, 0] * point.x + matrix[1, 1] * point.y + matrix[1, 2]
         )
     }
 
@@ -88,12 +121,8 @@ class CalibratedProjection(
         return Vector2(pixel.x, -pixel.y)
     }
 
-    private fun dot(a: Vector2, b: Vector2): Float {
-        return a.x * b.x + a.y * b.y
-    }
-
-    private fun cross(a: Vector2, b: Vector2): Float {
-        return a.x * b.y - a.y * b.x
+    private companion object {
+        const val ZERO_TOLERANCE = Float.MIN_VALUE
     }
 
 }

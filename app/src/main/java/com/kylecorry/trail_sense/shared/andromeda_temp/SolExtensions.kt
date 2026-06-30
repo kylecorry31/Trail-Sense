@@ -1,6 +1,15 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.Vector2
+
+fun Vector2.dot(other: Vector2): Float {
+    return x * other.x + y * other.y
+}
+
+fun Vector2.cross(other: Vector2): Float {
+    return x * other.y - y * other.x
+}
 
 fun <T : Comparable<T>> List<Range<T>>.mergeIntersecting(): List<Range<T>> {
     val newRanges = mutableListOf<Range<T>>()
