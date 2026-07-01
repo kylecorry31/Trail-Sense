@@ -1578,5 +1578,5 @@
     <string name="copy_to_trail_sense">Copiar a Trail Sense</string>
     <string name="created">Creado</string>
     <string name="draft">Borrador</string>
-    <string name="recording_sighting_for_page">Guardando en avistamienos \'%s\'</string>
+    <string name="recording_sighting_for_page">Registrando en avistamienos \'%s\'</string>
 </resources>
