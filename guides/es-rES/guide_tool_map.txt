@@ -1,4 +1,4 @@
-La herramienta Map puede usarse para mostrar tus balizas, senderos y mapas calibrados en un único lugar. Es esencial llevar siempre un mapa físico como respaldo y validar la precisión de Trail Sense. Esto no sustituye a una app de mapas dedicada y solo mostrará los mapas que hayas cargado en la herramienta Mapas Calibrados.
+La herramienta Map puede usarse para mostrar tus balizas, senderos y mapas calibrados en un único lugar. Es esencial llevar siempre un mapa físico como respaldo y validar la precisión de Trail Sense. Esto no sustituye a una app de mapas dedicada y solo mostrará los mapas que hayas cargado en la herramienta Mapas Offline.
 
 ## Uso del mapa
 Puedes arrastrar para desplazar, pellizcar para hacer zoom o pulsar los botones de zoom en la esquina inferior derecha.
