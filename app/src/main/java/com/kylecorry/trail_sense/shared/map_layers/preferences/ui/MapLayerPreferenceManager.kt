@@ -1,6 +1,9 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 
 import android.content.Context
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import androidx.core.text.scale
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
@@ -218,7 +221,7 @@ class MapLayerPreferenceManager(
             Pickers.items(
                 context,
                 context.getString(R.string.additional_layers),
-                availableLayers.map { it.name }
+                availableLayers.map { getAdditionalLayerPickerLabel(context, it) }
             ) { selection ->
                 if (selection == null) {
                     return@items
@@ -238,6 +241,22 @@ class MapLayerPreferenceManager(
         screen.addPreference(additionalLayersPreference)
 
         lastExpanded = null
+    }
+
+    private fun getAdditionalLayerPickerLabel(
+        context: Context,
+        layer: MapLayerDefinition
+    ): CharSequence {
+        val sourceName = layer.sourceName ?: return layer.name
+        return buildSpannedString {
+            append(layer.name)
+            append("\n")
+            color(Resources.androidTextColorSecondary(context)) {
+                scale(0.85f) {
+                    append(sourceName)
+                }
+            }
+        }
     }
 
     private fun createLabelPreference(

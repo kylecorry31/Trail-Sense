@@ -163,7 +163,7 @@ class PluginDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_plugi
             layers.map {
                 ListItem(
                     it.id.hashCode().toLong(),
-                    it.name.withoutPluginPrefix(pluginName),
+                    it.name,
                     it.description.withoutPluginDescriptionPrefix(pluginName),
                     tags = listOf(
                         ListItemTag(
@@ -183,11 +183,6 @@ class PluginDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_plugi
             MapLayerType.Feature -> getString(R.string.feature_layer)
             MapLayerType.Overlay -> getString(R.string.overlay_layer)
         }
-    }
-
-    private fun String.withoutPluginPrefix(pluginName: String?): String {
-        val prefix = "${pluginName ?: return this}:"
-        return removePrefix(prefix).trimStart()
     }
 
     private fun String?.withoutPluginDescriptionPrefix(pluginName: String?): String? {

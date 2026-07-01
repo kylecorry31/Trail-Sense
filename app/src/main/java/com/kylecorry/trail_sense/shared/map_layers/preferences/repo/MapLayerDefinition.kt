@@ -49,5 +49,6 @@ data class MapLayerDefinition(
     val geoJsonSource: (() -> GeoJsonSource)? = null,
     val tileSource: (() -> TileSource)? = null,
     val openFeature: ((feature: GeoJsonFeature, fragment: Fragment) -> Unit)? = null,
-    val layer: (() -> ILayer)? = null
+    val layer: (() -> ILayer)? = null,
+    val sourceName: String? = null
 )

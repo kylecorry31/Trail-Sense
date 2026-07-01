@@ -65,7 +65,7 @@ The response payload must be JSON string matching this schema:
           "type": "string",
           "minLength": 1
           "maxLength": 100,
-          "description": "The user-visible layer name. Trail Sense prefixes this with the plugin name."
+          "description": "The user-visible layer name."
         },
         "layerType": {
           "type": "string",

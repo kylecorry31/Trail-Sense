@@ -132,7 +132,7 @@ class PluginLoader(private val context: Context) {
         }
         return MapLayerDefinition(
             "plugin::$packageId::${layer.endpoint}",
-            "${pluginName}: ${layer.name.take(PluginGuard.MAX_LAYER_NAME_LENGTH)}",
+            layer.name.take(PluginGuard.MAX_LAYER_NAME_LENGTH),
             isConfigurable = true,
             layerType = layerType,
             attribution = attribution,
@@ -158,7 +158,8 @@ class PluginLoader(private val context: Context) {
                 { PluginGeoJsonSource(packageId, layer.endpoint) }
             } else {
                 null
-            }
+            },
+            sourceName = pluginName
         )
     }
 
