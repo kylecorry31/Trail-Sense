@@ -1,5 +1,5 @@
-Mapas sin conexión
-- Mapas Calibrados ahora son Mapas sin conexión
+Mapas Offline
+- Mapas Calibrados ahora son Mapas Offline
 - Soporte para mapas vectoriales (Mapsforge)
 - Capa de mapas de mapas vectoriales
 - Prevenir calibraciones inválidas
