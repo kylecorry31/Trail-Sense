@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PersistedPlu
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationRepo
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRepo
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isPlayStoreBuild
 
 @Suppress("TooManyFunctions")
 class PluginSubsystem private constructor(private val context: Context) {
@@ -21,7 +22,7 @@ class PluginSubsystem private constructor(private val context: Context) {
     private val preferences = UserPreferences(context)
 
     fun arePluginsEnabled(): Boolean {
-        return preferences.arePluginsEnabled && !SafeMode.isEnabled()
+        return !isPlayStoreBuild() && preferences.arePluginsEnabled && !SafeMode.isEnabled()
     }
 
     // ======== Connection ========
