@@ -12,8 +12,17 @@ Por defecto, la compensación de exposición de la cámara aumentará por la noc
 ## Retícula
 Una retícula circular se muestra en el centro de tu pantalla. Puedes usarla para ver más detalles sobre el marcador que estás mirando centrando dicho marcador en la retícula.
 
+## Localizar un objetivo
+Si una de las capas visibles admite el uso de objetivos, verás un icono de búsqueda en la esquina superior derecha de la pantalla.
+
+Pulsa el icono de búsqueda para abrir el selector de **Localizar**. Esto te permite elegir una capa visible, como **Balizas** o **Astronomía**, y luego elegir un objetivo de esa capa.
+
+Cuando un objetivo está activo, se muestra un panel en la parte inferior de la pantalla y la retícula se convierte en una flecha de guía que apunta hacia el objetivo. El objetivo permanece activo hasta que lo canceles usando el botón 'X' o selecciones otro distinto.
+
 ## Balizas
-Las balizas cercanas se muestran como marcadores en la pantalla. Puedes pulsar en una baliza para empezar a Navegar hacia ella (ver la sección Navegación más abajo). La distancia de visualización puede ajustarse en Ajustes > Realidad Aumentada > Balizas > "Distancia de vista".
+Las balizas cercanas se muestran como marcadores en la pantalla. La distancia de vista se puede ajustar en ajustes > Realidad aumentada > Balizas > "Distancia de vista".
+
+Puedes iniciar la guía hacia una baliza pulsando el icono de búsqueda > **Balizas** y seleccionando una baliza de la lista. También puedes mirar una baliza con la retícula y pulsar **Navegar** para iniciar la guía/navegación.
 
 ## Rutas
 Los rutas cercanos se muestran bajo tus pies. Debido a la imprecisión del GPS, los rutas pueden no alinearse perfectamente con el mundo real. La distancia de visualización puede ajustarse en Ajustes > Realidad Aumentada > Rutas > "Distancia de vista".
@@ -25,9 +34,11 @@ Las trayectorias que el sol y la luna seguirán hoy se muestran como marcadores 
 
 Si acercas el sol o la luna a la retícula, verás más detalles sobre el marcador, como la hora.
 
-Si pulsaste el botón "Vista en 3D" en la herramienta Astronomía, puedes usar la guía para ver dónde están actualmente el sol o la luna y cambiar la fecha de vista previa en el panel inferior.
+Puedes seleccionar objetos de astronomía desde el icono de búsqueda eligiendo **Astronomía**. Esto te permite guiarte hacia el sol, la luna, las lluvias de meteoros, los planetas y las estrellas. Este selector respeta los ajustes sobre qué objetos de astronomía son visibles y sólo mostrará algunos objetivos por la noche.
 
-Puedes ver el sol y la luna cuando están bajo el horizonte activando Ajustes > Realidad Aumentada > "Mostrar bajo el horizonte".
+Si pulsaste el botón "Ver en 3D" en la herramienta de Astronomía, se te pedirá que selecciones un objetivo de astronomía.
+
+Puedes ver el sol y la luna cuando están bajo el horizonte activando ajustes > Realidad aumentada > "Mostrar bajo el horizonte".
 
 ## Estrellas / planetas / lluvias de meteoros
 Estrellas brillantes, planetas, constelaciones y lluvias de meteoros se muestran por la noche. Si acercas una estrella a la retícula, verás su nombre y la(s) constelación(es) a las que pertenece. Los nombres de las estrellas son el nombre propio reconocido por la IAU o la designación de Bayer. Las constelaciones son según la IAU.
@@ -51,6 +62,10 @@ Pulsa en una baliza para Navegar hacia ella.
 
 Mientras Navegas, verás una flecha alrededor de la retícula apuntando en la dirección de la baliza. Mueve tu teléfono hacia la flecha para traer la baliza a la vista. Cuando la baliza esté en la retícula, la flecha desaparecerá.
 
+Si la navegación por baliza ya está activa cuando abres la herramienta de Realidad aumentada, esa baliza se convierte automáticamente en el objetivo actual.
+
+Si cambias de un objetivo baliza a un objetivo que no lo es, la navegación por balizas se cancela.
+
 ## Calibración
 Si la herramienta de Realidad Aumentada no está alineada con el mundo real, puedes calibrarla pulsando el icono de brújula en la esquina superior izquierda de la pantalla. Esto te pedirá centrar el sol o la luna en la retícula y pulsar "Calibrar".
 
@@ -71,4 +86,5 @@ La herramienta de Realidad Aumentada respeta la fuente de brújula en Ajustes > 
 ## Capas
 Puedes activar o desactivar la visibilidad de las capas de balizas, rutas, astronomía y rejilla pulsando el icono de capas en la esquina superior izquierda de la pantalla o cambiando la opción "Visible" en Ajustes > Realidad Aumentada.
 
-La fecha de vista previa para la capa de astronomía puede ajustarse en el menú de capas de la herramienta Realidad Aumentada.
+## Deslizador de fecha/hora
+Pulsa el icono del reloj en el lado derecho de la pantalla para abrir el deslizador de fecha y hora. Puedes usar este panel para ver una vista previa de una hora distinta del día en una fecha determinada. Pulsa de nuevo el icono del reloj para volver a la hora real.

@@ -67,7 +67,7 @@ Para navegar a una baliza, abre la baliza a la que quieras navegar y pulsa el bo
 Consulta la guía 'Navegación' para más información sobre cómo usar la herramienta Navegación.
 
 ## Visibilidad de balizas
-Puedes elegir qué balizas son visibles en las herramientas Navegación y Mapas Calibrados pulsando el icono de ojo en el lado derecho de la fila de la baliza. Esto alternará la visibilidad de la baliza.
+Puedes elegir qué balizas son visibles en las herramientas Navegación y Mapas Offline pulsando el icono de ojo en el lado derecho de la fila de la baliza. Esto alternará la visibilidad de la baliza.
 
 Para mostrar u ocultar todas las balizas de un grupo, pulsa el botón del menú en la fila del grupo y selecciona 'Mostrar todo' o 'Ocultar todo'.
 
