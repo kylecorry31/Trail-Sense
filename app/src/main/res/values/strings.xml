@@ -783,6 +783,7 @@
     <string name="pref_unit_settings" translatable="false">pref_unit_settings</string>
     <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
     <string name="pref_experimental_metal_direction_title">Show metal direction</string>
+    <string name="pref_plugins_enabled" translatable="false">pref_plugins_enabled</string>
     <string name="pref_experimental_settings" translatable="false">pref_experimental_settings</string>
     <string name="pref_sensor_settings" translatable="false">pref_sensor_settings</string>
     <string name="location_mocked">Using mocked location</string>

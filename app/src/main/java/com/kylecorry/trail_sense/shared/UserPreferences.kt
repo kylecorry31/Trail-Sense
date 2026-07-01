@@ -112,6 +112,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    val arePluginsEnabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_plugins_enabled),
+        false
+    )
+
     val distanceUnits by StringEnumPreference(
         cache,
         getString(R.string.pref_distance_units),

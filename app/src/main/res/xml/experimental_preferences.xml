@@ -17,6 +17,13 @@
             app:title="@string/pref_experimental_metal_direction_title" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_plugins_enabled"
+            app:singleLineTitle="false"
+            app:title="@string/plugins" />
+
+        <SwitchPreferenceCompat
             android:summary="@string/camera"
             app:defaultValue="false"
             app:disableDependentsState="true"

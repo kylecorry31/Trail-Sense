@@ -9,6 +9,7 @@ import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem.GroupBehavior
 import com.kylecorry.trail_sense.shared.debugging.isDebug
+import com.kylecorry.trail_sense.shared.debugging.isPlayStoreBuild
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -23,6 +24,7 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         val hasCompass = sensors.hasCompass()
 
         preference(R.string.pref_experimental_metal_direction)?.isVisible = hasGyro && hasCompass
+        preference(R.string.pref_plugins_enabled)?.isVisible = !isPlayStoreBuild()
 
         onClick(preference(R.string.pref_cliff_height_enabled)) {
             requireMainActivity().updateBottomNavigation()

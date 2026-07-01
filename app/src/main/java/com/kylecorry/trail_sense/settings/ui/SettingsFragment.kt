@@ -39,7 +39,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
-        preference(R.string.pref_plugins_settings)?.isVisible = plugins.arePluginsEnabled()
+        updatePluginSettingsVisibility()
 
         for (nav in navigationMap) {
             navigateOnClick(preference(nav.key), nav.value)
@@ -86,6 +86,15 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             }
             toolCategoryPreference?.addPreference(preference)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updatePluginSettingsVisibility()
+    }
+
+    private fun updatePluginSettingsVisibility() {
+        preference(R.string.pref_plugins_settings)?.isVisible = plugins.arePluginsEnabled()
     }
 
 }
