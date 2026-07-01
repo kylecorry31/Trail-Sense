@@ -6,7 +6,7 @@ On the layer settings panel, the higher up a layer is in the list, the more "on 
 
 Click on the layer's name to expand its settings.
 
-You can use the "Additional layers" button at the bottom of the layers list to add additional layers.
+You can use the "Additional layers" button at the bottom of the layers list to add additional layers. Connected plugins may also provide additional map layers. Plugins are experimental and must be enabled in Settings > Experimental > Plugins, then connected from Settings > Plugins.
 
 Each layer has the following settings:
 
