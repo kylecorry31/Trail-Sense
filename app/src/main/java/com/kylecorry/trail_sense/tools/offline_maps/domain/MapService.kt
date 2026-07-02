@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.sol.units.Coordinate
@@ -139,6 +140,7 @@ class MapService private constructor(
             try {
                 files.save(map.imageFile.path, warped, recycleOnSave = true)
             } catch (e: IOException) {
+                Log.e("MapService", "Failed to save warped map", e)
                 return null
             }
 

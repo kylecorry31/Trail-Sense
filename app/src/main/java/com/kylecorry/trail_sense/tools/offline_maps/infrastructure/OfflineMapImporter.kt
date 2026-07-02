@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrLog
@@ -109,6 +110,7 @@ internal class OfflineMapImporter(
         try {
             files.save(filename, bp, recycleOnSave = true)
         } catch (e: IOException) {
+            Log.e("OfflineMapImporter", "Failed to save image", e)
             return null
         }
 
