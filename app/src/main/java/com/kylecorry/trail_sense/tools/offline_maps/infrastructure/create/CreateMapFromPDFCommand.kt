@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
+import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import java.io.IOException

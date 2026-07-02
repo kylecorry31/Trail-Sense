@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
+import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 

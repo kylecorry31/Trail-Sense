@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PercentCoordinate
+import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 
 class MapCalibrationView : BasePhotoMapView {

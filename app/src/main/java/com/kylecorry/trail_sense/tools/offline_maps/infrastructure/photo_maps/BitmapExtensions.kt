@@ -8,7 +8,7 @@ import androidx.annotation.ColorInt
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PixelBounds
+import com.kylecorry.andromeda.core.units.PixelBounds
 
 // Don't allow concave polygons
 fun Bitmap.fixPerspective(

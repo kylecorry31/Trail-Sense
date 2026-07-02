@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile

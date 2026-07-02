@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
+import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.trail_sense.shared.rotateInRect
 
 internal class PhotoMapRotationService(private val map: PhotoMap) {
