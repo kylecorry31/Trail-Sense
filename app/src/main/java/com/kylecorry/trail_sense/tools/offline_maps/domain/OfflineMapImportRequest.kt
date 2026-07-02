@@ -7,8 +7,6 @@ data class OfflineMapImportRequest(
     val uri: Uri,
     val name: String,
     val parentId: Long? = null,
-    val autoReducePhotoMaps: Boolean = false,
-    val autoReducePdfMaps: Boolean = false,
     val photoMapCalibration: List<MapCalibrationPoint>? = null,
     val visible: Boolean = true
 )

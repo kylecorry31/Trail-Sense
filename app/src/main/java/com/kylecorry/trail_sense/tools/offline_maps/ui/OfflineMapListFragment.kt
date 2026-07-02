@@ -404,11 +404,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             try {
                 binding.addBtn.isEnabled = false
 
-                val request = command.execute()?.copy(
-                    parentId = manager.root?.id,
-                    autoReducePhotoMaps = prefs.photoMaps.autoReducePhotoMaps,
-                    autoReducePdfMaps = prefs.photoMaps.autoReducePdfMaps
-                )
+                val request = command.execute()?.copy(parentId = manager.root?.id)
 
                 if (request == null) {
                     toast(getString(R.string.error_importing_map))

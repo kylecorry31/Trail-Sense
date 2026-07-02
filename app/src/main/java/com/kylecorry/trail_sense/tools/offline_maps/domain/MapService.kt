@@ -141,8 +141,8 @@ class MapService private constructor(
         }
 
         val isPdfMap = map.pdfFile != null
-        val shouldReduce = (isPdfMap && request.autoReducePdfMaps) ||
-                (!isPdfMap && request.autoReducePhotoMaps)
+        val shouldReduce = (isPdfMap && prefs.photoMaps.autoReducePdfMaps) ||
+                (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)
         if (!shouldReduce) {
             return map
         }
