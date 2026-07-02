@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -26,6 +25,7 @@ import com.kylecorry.trail_sense.databinding.FragmentOfflineMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
+import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -45,9 +45,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMap
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromUriCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.MapCleanupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.CreateMapGroupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
@@ -119,8 +117,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             createMap(
                 CreateMapFromUriCommand(
                     requireContext(),
-                    mapIntentUri,
-                    mapImportingIndicator
+                    mapIntentUri
                 )
             )
         }
@@ -173,7 +170,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         updateBackPressedCallback()
         manager.refresh()
         inBackground {
-            val mapsDeleted = MapCleanupCommand(requireContext()).execute()
+            val mapsDeleted = mapService.cleanup()
             if (mapsDeleted) {
                 manager.refresh()
             }
@@ -358,18 +355,14 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                     createMap(
                         CreateMapFromFileCommand(
                             requireContext(),
-                            uriPicker,
-                            mapImportingIndicator
+                            uriPicker
                         )
                     )
                 }
 
                 R.id.action_import_map_camera -> {
                     createMap(
-                        CreateMapFromCameraCommand(
-                            this,
-                            mapImportingIndicator
-                        )
+                        CreateMapFromCameraCommand(this)
                     )
                 }
 
@@ -379,10 +372,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
                 R.id.action_create_blank_map -> {
                     createMap(
-                        CreateBlankMapCommand(
-                            requireContext(),
-                            mapImportingIndicator
-                        )
+                        CreateBlankMapCommand(requireContext())
                     )
                 }
             }
@@ -410,42 +400,38 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
     private fun createMap(command: ICreateMapCommand) {
         inBackground(BackgroundMinimumState.Created) {
-            MapCleanupCommand.isMapImportInProgress = true
             try {
                 binding.addBtn.isEnabled = false
 
-                val importedMap = command.execute()
+                val request = command.execute()?.copy(
+                    parentId = manager.root?.id,
+                    autoReducePhotoMaps = prefs.photoMaps.autoReducePhotoMaps,
+                    autoReducePdfMaps = prefs.photoMaps.autoReducePdfMaps
+                )
 
-                if (importedMap == null) {
+                if (request == null) {
                     toast(getString(R.string.error_importing_map))
                     return@inBackground
                 }
 
-                val parentId = manager.root?.id
-                val map = if (parentId != null) {
-                    onIO {
-                        mapService.move(importedMap, parentId)
-                    }
-                } else {
-                    importedMap
+                mapImportingIndicator.show()
+                val result = try {
+                    mapService.importMap(request)
+                } finally {
+                    mapImportingIndicator.hide()
                 }
 
-                if (map is PhotoMap) {
-                    val isPdfMap = map.pdfFile != null
-                    if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
-                        mapImportingIndicator.show()
-                        val reducer = HighQualityMapReducer(requireContext())
-                        reducer.reduce(map)
-                        mapImportingIndicator.hide()
-                    }
+                if (result == null) {
+                    toast(getString(R.string.error_importing_map))
+                    return@inBackground
+                }
 
-                    if (map.georeference.calibrationPoints.isNotEmpty()) {
-                        toast(getString(R.string.map_auto_calibrated))
-                    }
+                if (result.autoCalibrated) {
+                    toast(getString(R.string.map_auto_calibrated))
                 }
 
                 manager.refresh(true)
-                when (map) {
+                when (val map = result.map) {
                     is PhotoMap -> findNavController().navigate(
                         R.id.action_mapList_to_maps,
                         Bundle().apply {
@@ -454,8 +440,8 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                     )
                 }
             } finally {
-                MapCleanupCommand.isMapImportInProgress = false
                 binding.addBtn.isEnabled = true
+                DeleteTempFilesCommand(requireContext()).execute()
             }
 
         }

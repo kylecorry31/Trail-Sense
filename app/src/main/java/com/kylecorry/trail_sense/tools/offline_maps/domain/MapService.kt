@@ -2,18 +2,37 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.OfflineMapImporter
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.OfflineMapMaintenance
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 
-class MapService private constructor(private val repo: MapRepo) {
+class MapService private constructor(
+    context: Context,
+    private val repo: MapRepo,
+    private val files: FileSubsystem,
+    private val prefs: UserPreferences
+) {
 
+    private val appContext = context.applicationContext
+    private val maintenance by lazy { OfflineMapMaintenance(files, this) }
+    private val importer by lazy {
+        OfflineMapImporter(
+            appContext,
+            files,
+            prefs,
+            this
+        )
+    }
     val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
 
@@ -82,6 +101,16 @@ class MapService private constructor(private val repo: MapRepo) {
 
             else -> error("Unexpected map subclass")
         }
+    }
+
+    suspend fun importMap(request: OfflineMapImportRequest): OfflineMapImportResult? {
+        return maintenance.withImportLock {
+            importer.import(request)
+        }
+    }
+
+    suspend fun cleanup(): Boolean {
+        return maintenance.cleanup()
     }
 
     suspend fun delete(map: OfflineMapCatalogItem) {
@@ -160,7 +189,13 @@ class MapService private constructor(private val repo: MapRepo) {
         @Synchronized
         fun getInstance(context: Context): MapService {
             if (instance == null) {
-                instance = MapService(MapRepo.getInstance(context))
+                val appContext = context.applicationContext
+                instance = MapService(
+                    appContext,
+                    MapRepo.getInstance(appContext),
+                    FileSubsystem.getInstance(appContext),
+                    UserPreferences(appContext)
+                )
             }
             return instance!!
         }
