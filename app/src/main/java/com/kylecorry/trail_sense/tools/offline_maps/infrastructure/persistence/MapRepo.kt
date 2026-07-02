@@ -18,10 +18,10 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.persistence.PhotoMapEntity
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.MapFileTypeUtils
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeAdapter
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence.TrailMapEntity
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import java.util.UUID
@@ -83,7 +83,7 @@ class MapRepo private constructor(context: Context) {
         val saved = files.copyToLocal(
             map.mapFile.path.toUri(),
             OFFLINE_MAPS_DIRECTORY,
-            "${UUID.randomUUID()}.${MapFileTypeUtils.MAPSFORGE_MAP_EXTENSION}"
+            "${UUID.randomUUID()}.${MapsforgeAdapter.MAPSFORGE_MAP_EXTENSION}"
         ) ?: return@onIO null
 
         val updated = map.copy(

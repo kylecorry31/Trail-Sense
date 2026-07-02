@@ -4,7 +4,7 @@ import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionFactory
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import kotlin.math.absoluteValue
 

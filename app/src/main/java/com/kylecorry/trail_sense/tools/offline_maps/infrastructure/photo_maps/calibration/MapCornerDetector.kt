@@ -17,7 +17,7 @@ import com.kylecorry.sol.math.geometry.LineCandidate
 import com.kylecorry.sol.math.geometry.Polygon
 import com.kylecorry.trail_sense.shared.andromeda_temp.combinations
 import com.kylecorry.andromeda.core.units.PixelBounds
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.GradientCalculator
+import com.kylecorry.trail_sense.shared.andromeda_temp.GradientCalculator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.AggregateQuadrilateralScoringStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.EdgeMagnitudeQuadrilateralScoringStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.PerimeterQuadrilateralScoringStrategy

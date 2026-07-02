@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.persistence
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,6 +8,10 @@ import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import java.time.Instant
 
 @Entity(tableName = "maps", indices = [Index(value = ["parent"])])

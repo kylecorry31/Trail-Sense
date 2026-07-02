@@ -1,6 +1,5 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.persistence
 
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

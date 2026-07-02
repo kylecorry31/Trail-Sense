@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import java.time.Duration
 import java.time.Instant
 

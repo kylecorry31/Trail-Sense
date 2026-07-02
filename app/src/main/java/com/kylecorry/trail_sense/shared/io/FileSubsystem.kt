@@ -21,7 +21,7 @@ import com.kylecorry.andromeda.files.ExternalFileSystem
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.trail_sense.shared.debugging.ifDebug
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.ImageSaver
+import com.kylecorry.trail_sense.shared.andromeda_temp.ImageSaver
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream

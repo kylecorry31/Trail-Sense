@@ -19,9 +19,9 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapCornerDetector
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.fixPerspective
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import kotlinx.coroutines.launch
 import java.io.IOException
 

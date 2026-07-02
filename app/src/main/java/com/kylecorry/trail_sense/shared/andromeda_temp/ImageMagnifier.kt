@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -19,7 +19,7 @@ class ImageMagnifier(private val imageSize: Size, private val magnifierSize: Siz
             imageSize.width - magnifierSize.width
         }
 
-        return PixelCoordinate(x, 0f)
+        return com.kylecorry.andromeda.core.units.PixelCoordinate(x, 0f)
     }
 
     // TODO: Support zoom

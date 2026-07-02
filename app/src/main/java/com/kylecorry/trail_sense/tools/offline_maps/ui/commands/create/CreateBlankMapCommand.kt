@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
+package com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create
 
 import android.content.Context
 import android.graphics.Canvas
@@ -25,10 +25,10 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 
 class CreateBlankMapCommand(
     private val context: Context,

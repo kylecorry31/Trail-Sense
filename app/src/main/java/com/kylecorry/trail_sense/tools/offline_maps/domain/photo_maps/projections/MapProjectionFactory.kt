@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections
 
 import com.kylecorry.sol.science.geography.projections.CylindricalEquidistantProjection
 import com.kylecorry.sol.science.geography.projections.IMapProjection

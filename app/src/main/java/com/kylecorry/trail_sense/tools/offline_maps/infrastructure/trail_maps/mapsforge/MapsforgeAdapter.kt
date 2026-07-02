@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge
 
+import android.net.Uri
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -8,6 +9,8 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import org.mapsforge.map.reader.MapFile
 
 object MapsforgeAdapter {
+
+    const val MAPSFORGE_MAP_EXTENSION = "map"
 
     /**
      * Opens a mapsforge map file from either a local path or an external content URI. The caller
@@ -46,6 +49,13 @@ object MapsforgeAdapter {
                 mapFile.close()
             }
         }
+    }
+
+    fun isMapsforgeMap(uri: Uri): Boolean {
+        val name = getAppService<FileSubsystem>().getFileName(uri, fallbackToPathName = true)
+            ?: uri.lastPathSegment
+
+        return name.orEmpty().endsWith(".${MAPSFORGE_MAP_EXTENSION}", ignoreCase = true)
     }
 
     private fun getBounds(mapFile: MapFile): CoordinateBounds {

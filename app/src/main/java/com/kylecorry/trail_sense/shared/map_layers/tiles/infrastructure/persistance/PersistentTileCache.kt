@@ -9,7 +9,7 @@ import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.ImageSaver
+import com.kylecorry.trail_sense.shared.andromeda_temp.ImageSaver
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.io.FileOutputStream

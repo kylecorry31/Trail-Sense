@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 
 data class PhotoMapGeoreference(
     val size: Size,

@@ -1,10 +1,9 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.persistence
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
 
 @Dao
 interface PhotoMapDao {

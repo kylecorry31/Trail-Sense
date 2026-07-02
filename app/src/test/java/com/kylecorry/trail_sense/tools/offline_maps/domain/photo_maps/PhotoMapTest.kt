@@ -2,8 +2,11 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -58,13 +61,75 @@ internal class PhotoMapTest {
         assertNull(map.distancePerPixel())
     }
 
+    @ParameterizedTest
+    @CsvSource(
+        "0, 9.9999997, 30.0000008, 0.0, 19.9999994",
+        "90, 9.9999997, 30.0000008, 0.0, 19.9999994",
+        "180, 9.9999997, 30.0000008, 0.0, 19.9999994",
+        "270, 9.9999997, 30.0000008, 0.0, 19.9999994",
+        "45, 9.9999997, 30.0000008, -0.0000007, 19.9999994",
+        "135, 9.9999997, 30.0000008, -0.0000007, 19.9999994"
+    )
+    fun boundsUseCalibratedCorners(
+        rotation: Float,
+        expectedNorth: Double,
+        expectedEast: Double,
+        expectedSouth: Double,
+        expectedWest: Double
+    ) {
+        val map = map(rotation = rotation)
+
+        assertBounds(
+            CoordinateBounds(expectedNorth, expectedEast, expectedSouth, expectedWest),
+            map.bounds
+        )
+    }
+
+    @Test
+    fun boundsUsePdfSize() {
+        val map = map(
+            metadata = PhotoMapGeoreference(
+                size = Size(200f, 400f),
+                imageSize = Size(100f, 200f),
+                projectionType = MapProjectionType.CylindricalEquidistant
+            )
+        )
+
+        assertBounds(
+            CoordinateBounds(9.9999997, 30.0000008, 0.0, 19.9999994),
+            map.bounds
+        )
+    }
+
+    @Test
+    fun boundsAreNullWhenUncalibrated() {
+        val map = map(calibrationPoints = emptyList())
+
+        assertNull(map.bounds)
+    }
+
+    @Test
+    fun boundsAreWorldWhenFullWorld() {
+        val map = map(isFullWorld = true)
+
+        assertEquals(CoordinateBounds.world, map.bounds)
+    }
+
+    private fun assertBounds(expected: CoordinateBounds, actual: CoordinateBounds?) {
+        assertEquals(expected.north, actual?.north ?: 0.0, 0.000001, "north")
+        assertEquals(expected.east, actual?.east ?: 0.0, 0.000001, "east")
+        assertEquals(expected.south, actual?.south ?: 0.0, 0.000001, "south")
+        assertEquals(expected.west, actual?.west ?: 0.0, 0.000001, "west")
+    }
+
     private fun map(
         rotation: Float = 0f,
         calibrationPoints: List<MapCalibrationPoint> = defaultCalibrationPoints,
         metadata: PhotoMapGeoreference = PhotoMapGeoreference(
             size = Size(100f, 200f),
             projectionType = MapProjectionType.CylindricalEquidistant
-        )
+        ),
+        isFullWorld: Boolean = false
     ): PhotoMap {
         return PhotoMap(
             id = 0,
@@ -73,7 +138,8 @@ internal class PhotoMapTest {
             georeference = metadata.copy(
                 isWarpingCompleted = false,
                 rotation = rotation,
-                calibrationPoints = calibrationPoints
+                calibrationPoints = calibrationPoints,
+                isFullWorld = isFullWorld
             )
         )
     }

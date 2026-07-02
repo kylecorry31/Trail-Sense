@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
+package com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator

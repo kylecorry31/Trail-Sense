@@ -36,10 +36,10 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.Nav
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingEntity
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.persistence.PhotoMapEntity
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupDao
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapDao
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.persistence.PhotoMapDao
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.RebaseMapCalibrationWorker
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence.TrailMapDao
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence.TrailMapEntity

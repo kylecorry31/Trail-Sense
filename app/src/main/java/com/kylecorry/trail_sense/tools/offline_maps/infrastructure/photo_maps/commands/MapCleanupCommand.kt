@@ -5,7 +5,7 @@ import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 
 class MapCleanupCommand(context: Context) : CoroutineValueCommand<Boolean> {
 

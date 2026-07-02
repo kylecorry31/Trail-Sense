@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups
+package com.kylecorry.trail_sense.tools.offline_maps.domain.groups
 
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
@@ -6,7 +6,8 @@ import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 
-class MapGroupLoader(private val loader: IGroupLoader<OfflineMapCatalogItem>) : ISearchableGroupLoader<OfflineMapCatalogItem> {
+class MapGroupLoader(private val loader: IGroupLoader<OfflineMapCatalogItem>) :
+    ISearchableGroupLoader<OfflineMapCatalogItem> {
 
     private val filter = GroupFilter(loader)
 

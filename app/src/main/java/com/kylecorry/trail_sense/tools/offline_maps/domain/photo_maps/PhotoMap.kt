@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
 
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -9,6 +10,8 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationValidationResult
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationValidator
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.distancePerPixel
 import java.time.Instant
@@ -99,7 +102,21 @@ data class PhotoMap(
         }
     }
 
-    override val bounds: CoordinateBounds? by lazy { PhotoMapBoundsCalculator().calculate(this) }
+    override val bounds: CoordinateBounds? by lazy {
+        if (state != OfflineMapState.Ready) {
+            null
+        } else if (georeference.isFullWorld) {
+            CoordinateBounds.world
+        } else {
+            val size = unrotatedSize()
+            val topLeft = projection.toCoordinate(Vector2(0f, 0f))
+            val bottomLeft = projection.toCoordinate(Vector2(0f, size.height))
+            val topRight = projection.toCoordinate(Vector2(size.width, 0f))
+            val bottomRight = projection.toCoordinate(Vector2(size.width, size.height))
+
+            CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
+        }
+    }
 
     companion object {
         // TODO: Make this based on meters per pixel

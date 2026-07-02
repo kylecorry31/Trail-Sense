@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.create
+package com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create
 
 import android.net.Uri
 import com.kylecorry.andromeda.core.tryOrDefault
@@ -9,8 +9,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.MapFileTypeUtils
+import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeAdapter
 import java.time.Instant
 import java.util.UUID
@@ -23,11 +22,11 @@ class CreateTrailMapFromFileCommand(
     private val prefs = getAppService<UserPreferences>()
 
     suspend fun execute(uri: Uri): OfflineMapCatalogItem? = onIO {
-        if (!MapFileTypeUtils.isMapsforgeMap(uri)) {
+        if (!MapsforgeAdapter.isMapsforgeMap(uri)) {
             return@onIO null
         }
         val path = if (prefs.photoMaps.copyTrailMapsToAppStorage) {
-            copyToAppStorage(uri, MapFileTypeUtils.MAPSFORGE_MAP_EXTENSION) ?: return@onIO null
+            copyToAppStorage(uri, MapsforgeAdapter.MAPSFORGE_MAP_EXTENSION) ?: return@onIO null
         } else {
             // Some URIs can't be persisted (ex. shared from another app), so fall back to copying
             val canPersist = tryOrDefault(false) {

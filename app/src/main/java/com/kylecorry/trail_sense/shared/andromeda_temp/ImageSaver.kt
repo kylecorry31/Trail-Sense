@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps
+package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import android.graphics.Bitmap
 import android.os.Build

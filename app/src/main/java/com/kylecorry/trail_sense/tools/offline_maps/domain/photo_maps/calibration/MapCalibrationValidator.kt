@@ -1,7 +1,9 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration
 
 import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 
 object MapCalibrationValidator {
 

@@ -1,13 +1,12 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration
 
+import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationPoint
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidationResult
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapCalibrationValidator
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
-import com.kylecorry.andromeda.core.units.PercentCoordinate
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

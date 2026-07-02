@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration
 
 enum class MapCalibrationValidationResult {
     Uncalibrated,

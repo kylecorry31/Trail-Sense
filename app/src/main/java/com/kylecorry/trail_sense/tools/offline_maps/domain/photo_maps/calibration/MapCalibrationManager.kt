@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps
+package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration
 
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.sol.units.Coordinate
