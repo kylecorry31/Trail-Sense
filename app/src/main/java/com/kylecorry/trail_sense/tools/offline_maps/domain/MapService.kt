@@ -33,8 +33,7 @@ class MapService private constructor(
         OfflineMapImporter(
             appContext,
             files,
-            prefs,
-            this
+            prefs
         )
     }
     val loader = GroupLoader(this::getGroup, this::getChildren)
@@ -52,11 +51,23 @@ class MapService private constructor(
         }
     }
 
-    suspend fun add(map: OfflineMapCatalogItem): Long {
+    suspend fun add(map: OfflineMapCatalogItem): OfflineMapCatalogItem {
         return when (map) {
-            is MapGroup -> repo.add(map)
-            is PhotoMap -> repo.add(map)
-            is TrailMap -> repo.add(map)
+            is MapGroup -> {
+                val id = repo.add(map)
+                map.copy(id = id)
+            }
+
+            is PhotoMap -> {
+                val id = repo.add(map)
+                map.copy(id = id)
+            }
+
+            is TrailMap -> {
+                val id = repo.add(map)
+                map.copy(id = id)
+            }
+
             else -> error("Unexpected map subclass")
         }
     }
@@ -109,8 +120,34 @@ class MapService private constructor(
 
     suspend fun importMap(request: OfflineMapImportRequest): OfflineMapImportResult? {
         return maintenance.withImportLock {
-            importer.import(request)
+            val imported = importer.import(request)?.let {
+                // This is safe to do, since add won't change it to a group
+                add(it) as OfflineMap
+            } ?: return@withImportLock null
+            val reduced = maybeReduce(imported, request)
+            OfflineMapImportResult(
+                reduced,
+                reduced is PhotoMap && reduced.georeference.calibrationPoints.isNotEmpty()
+            )
         }
+    }
+
+    private suspend fun maybeReduce(
+        map: OfflineMap,
+        request: OfflineMapImportRequest
+    ): OfflineMap {
+        if (map !is PhotoMap) {
+            return map
+        }
+
+        val isPdfMap = map.pdfFile != null
+        val shouldReduce = (isPdfMap && request.autoReducePdfMaps) ||
+                (!isPdfMap && request.autoReducePhotoMaps)
+        if (!shouldReduce) {
+            return map
+        }
+
+        return reduce(map, PhotoMapResolution.High)
     }
 
     suspend fun cleanup(): Boolean {

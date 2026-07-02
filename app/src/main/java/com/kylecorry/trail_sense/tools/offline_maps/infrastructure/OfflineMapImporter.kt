@@ -15,14 +15,11 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapImportRequest
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapImportResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
@@ -34,23 +31,16 @@ import java.util.UUID
 internal class OfflineMapImporter(
     private val context: Context,
     private val files: FileSubsystem,
-    private val prefs: UserPreferences,
-    private val service: MapService
+    private val prefs: UserPreferences
 ) {
 
-    suspend fun import(request: OfflineMapImportRequest): OfflineMapImportResult? = onIO {
+    suspend fun import(request: OfflineMapImportRequest): OfflineMap? = onIO {
         val type = files.getMimeType(request.uri) ?: getMimeTypeFromExtension(request.uri)
-        val imported = when {
+        when {
             type == MIME_TYPE_PDF -> importPdf(request)
             type?.startsWith(MIME_TYPE_IMAGE_PREFIX) == true -> importImage(request)
             else -> importTrailMap(request)
-        } ?: return@onIO null
-
-        val reduced = maybeReduce(imported, request)
-        OfflineMapImportResult(
-            reduced,
-            reduced is PhotoMap && reduced.georeference.calibrationPoints.isNotEmpty()
-        )
+        }
     }
 
     private suspend fun importImage(request: OfflineMapImportRequest): PhotoMap? {
@@ -65,7 +55,7 @@ internal class OfflineMapImporter(
         val imageSize = files.imageSize(path)
         val fileSize = files.size(path)
 
-        val map = PhotoMap(
+        return PhotoMap(
             0,
             request.name,
             listOf(
@@ -81,9 +71,6 @@ internal class OfflineMapImporter(
             visible = request.visible,
             createdOn = Instant.now()
         )
-
-        val id = service.add(map)
-        return map.copy(id = id)
     }
 
     private suspend fun importPdf(request: OfflineMapImportRequest): PhotoMap? {
@@ -139,7 +126,7 @@ internal class OfflineMapImporter(
         }
 
         val requestedCalibration = request.photoMapCalibration
-        val map = PhotoMap(
+        return PhotoMap(
             0,
             request.name,
             listOf(
@@ -157,9 +144,6 @@ internal class OfflineMapImporter(
             visible = request.visible,
             createdOn = Instant.now()
         )
-
-        val id = service.add(map)
-        return map.copy(id = id)
     }
 
     private suspend fun importTrailMap(request: OfflineMapImportRequest): TrailMap? {
@@ -182,7 +166,7 @@ internal class OfflineMapImporter(
 
         val info = MapsforgeAdapter.getMapInfo(path) ?: return null
 
-        val map = TrailMap(
+        return TrailMap(
             0,
             request.name,
             listOf(
@@ -194,26 +178,6 @@ internal class OfflineMapImporter(
             visible = request.visible,
             parentId = request.parentId
         )
-        val id = service.add(map)
-        return map.copy(id = id)
-    }
-
-    private suspend fun maybeReduce(
-        map: OfflineMap,
-        request: OfflineMapImportRequest
-    ): OfflineMap {
-        if (map !is PhotoMap) {
-            return map
-        }
-
-        val isPdfMap = map.pdfFile != null
-        val shouldReduce = (isPdfMap && request.autoReducePdfMaps) ||
-                (!isPdfMap && request.autoReducePhotoMaps)
-        if (!shouldReduce) {
-            return map
-        }
-
-        return service.reduce(map, PhotoMapResolution.High)
     }
 
     private suspend fun copyToAppStorage(uri: Uri, extension: String): String? {
