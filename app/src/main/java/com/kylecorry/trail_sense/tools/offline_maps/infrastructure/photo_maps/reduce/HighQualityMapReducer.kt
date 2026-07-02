@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce
 
-import android.content.Context
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 
-class HighQualityMapReducer(context: Context) : BaseMapReduce(context, 75, Size(2048f, 2048f))
+class HighQualityMapReducer(
+    files: FileSubsystem,
+    service: MapService
+) : BaseMapReduce(files, service, 75, Size(2048f, 2048f))

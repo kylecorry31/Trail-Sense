@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui
 
 import android.R
 import android.content.Context
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
@@ -24,7 +25,7 @@ object MapPickers {
         scope: CoroutineScope = CoroutineScope(Dispatchers.Main),
         filter: (List<MapGroup>) -> List<MapGroup> = { it }
     ): Pair<Boolean, MapGroup?> = suspendCoroutine { cont ->
-        val loader = MapGroupLoader(MapService.getInstance(context).loader)
+        val loader = MapGroupLoader(getAppService<MapService>().loader)
         val manager = GroupListManager(
             scope,
             loader,

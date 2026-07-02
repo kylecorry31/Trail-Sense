@@ -45,7 +45,7 @@ class RepoCleanupWorker(
             repo.clean()
         }
 
-        MapService.getInstance(context).cleanup()
+        getAppService<MapService>().cleanup()
         DeleteTempFilesCommand(context).execute()
 
         Log.d("RepoCleanupWorker", "Finished cleaning up repositories")

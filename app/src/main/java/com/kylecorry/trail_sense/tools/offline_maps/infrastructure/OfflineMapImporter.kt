@@ -22,10 +22,10 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapImportReque
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapImportResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeAdapter
 import java.io.IOException
 import java.time.Instant
@@ -213,8 +213,7 @@ internal class OfflineMapImporter(
             return map
         }
 
-        HighQualityMapReducer(context).reduce(map)
-        return service.getPhotoMap(map.id) ?: map
+        return service.reduce(map, PhotoMapResolution.High)
     }
 
     private suspend fun copyToAppStorage(uri: Uri, extension: String): String? {

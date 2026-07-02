@@ -9,12 +9,16 @@ import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.OfflineMapImporter
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.OfflineMapMaintenance
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.LowQualityMapReducer
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.MediumQualityMapReducer
 
 class MapService private constructor(
     context: Context,
@@ -111,6 +115,16 @@ class MapService private constructor(
 
     suspend fun cleanup(): Boolean {
         return maintenance.cleanup()
+    }
+
+    suspend fun reduce(map: PhotoMap, resolution: PhotoMapResolution): PhotoMap {
+        val reducer = when (resolution) {
+            PhotoMapResolution.Low -> LowQualityMapReducer(files, this)
+            PhotoMapResolution.Medium -> MediumQualityMapReducer(files, this)
+            PhotoMapResolution.High -> HighQualityMapReducer(files, this)
+        }
+        reducer.reduce(map)
+        return getPhotoMap(map.id) ?: map
     }
 
     suspend fun delete(map: OfflineMapCatalogItem) {

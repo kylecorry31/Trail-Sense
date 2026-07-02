@@ -22,6 +22,7 @@ import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentOfflineMapListBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
@@ -65,7 +66,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val mapService by lazy { MapService.getInstance(requireContext()) }
+    private val mapService by lazy { getAppService<MapService>() }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
     private lateinit var manager: GroupListManager<OfflineMapCatalogItem>
     private lateinit var mapper: IMapMapper

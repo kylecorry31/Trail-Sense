@@ -1,25 +1,26 @@
 package com.kylecorry.trail_sense.tools.offline_maps.quickactions
 
 import android.os.Bundle
-import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.selection.ActiveMapSelector
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 import kotlinx.coroutines.launch
 
 class QuickActionOpenPhotoMap(button: QuickActionButtonView, fragment: Fragment) : QuickActionButton(
     button, fragment
 ) {
-    private val mapService = MapService.getInstance(fragment.requireContext())
+    private val mapService = getAppService<MapService>()
     private val navigator = Navigator.getInstance(fragment.requireContext())
     private val selector = ActiveMapSelector()
 
