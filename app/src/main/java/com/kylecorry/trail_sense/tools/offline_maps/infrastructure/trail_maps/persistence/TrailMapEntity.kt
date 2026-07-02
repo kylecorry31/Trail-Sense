@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import java.time.Instant
 
 @Entity(tableName = "offline_map_files", indices = [Index(value = ["parent"])])
@@ -35,8 +34,6 @@ data class TrailMapEntity(
         return TrailMap(
             id,
             name,
-            TrailMapFileType.entries.firstOrNull { it.id == type }
-                ?: TrailMapFileType.Mapsforge,
             listOf(
                 OfflineMapFile(path, sizeBytes, TrailMap.FILE_ROLE_MAPSFORGE_MAP)
             ),
@@ -53,10 +50,12 @@ data class TrailMapEntity(
     }
 
     companion object {
+        private const val LEGACY_TYPE_ID = 1L
+
         fun from(file: TrailMap): TrailMapEntity {
             return TrailMapEntity(
                 file.name,
-                file.type.id,
+                LEGACY_TYPE_ID,
                 file.mapFile.path,
                 file.mapFile.sizeBytes,
                 file.createdOn.toEpochMilli(),

@@ -13,4 +13,5 @@ interface OfflineMap : IMap {
      */
     val bounds: CoordinateBounds?
     val createdOn: Instant?
+    val type: OfflineMapType
 }

@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.distancePerPixel
 import java.time.Instant
@@ -21,6 +22,7 @@ data class PhotoMap(
     override val visible: Boolean = true,
     override val createdOn: Instant? = null,
 ) : OfflineMap {
+    override val type = OfflineMapType.Photo
     override val isGroup = false
     override val count: Int? = null
 

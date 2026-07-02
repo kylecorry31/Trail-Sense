@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Bundle
 import android.util.Size
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.core.math.MathUtils
@@ -10,20 +9,21 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.luna.concurrency.ParallelCoroutineRunner
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.events.EventData
 import com.kylecorry.trail_sense.shared.getUpsertedId
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapEntity
-import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.groups.MapGroupEntity
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.MapFileTypeUtils
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.persistence.TrailMapEntity
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import java.util.UUID
 
 class MapRepo private constructor(context: Context) {
@@ -80,11 +80,10 @@ class MapRepo private constructor(context: Context) {
         }
 
         // This currently only supports a single map file, once additional files are added this will need to be modified
-        val extension = MapFileTypeUtils.getExtension(map.type)
         val saved = files.copyToLocal(
             map.mapFile.path.toUri(),
             OFFLINE_MAPS_DIRECTORY,
-            "${UUID.randomUUID()}.$extension"
+            "${UUID.randomUUID()}.${MapFileTypeUtils.MAPSFORGE_MAP_EXTENSION}"
         ) ?: return@onIO null
 
         val updated = map.copy(
@@ -203,11 +202,11 @@ class MapRepo private constructor(context: Context) {
     }
 
     private fun emit(broadcastId: String, mapId: Long, mapType: OfflineMapType) {
-        val data = Bundle().apply {
+        val data = EventData().apply {
             putLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_ID, mapId)
             putLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_TYPE, mapType.id)
         }
-        Tools.broadcast(broadcastId, data)
+        ToolEventEmitter.broadcast(broadcastId, data)
     }
 
     companion object {

@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.MapFileTypeUtils
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeAdapter
@@ -24,9 +23,11 @@ class CreateTrailMapFromFileCommand(
     private val prefs = getAppService<UserPreferences>()
 
     suspend fun execute(uri: Uri): IMap? = onIO {
-        val type = MapFileTypeUtils.getType(uri) ?: return@onIO null
+        if (!MapFileTypeUtils.isMapsforgeMap(uri)) {
+            return@onIO null
+        }
         val path = if (prefs.photoMaps.copyTrailMapsToAppStorage) {
-            copyToAppStorage(uri, type) ?: return@onIO null
+            copyToAppStorage(uri, MapFileTypeUtils.MAPSFORGE_MAP_EXTENSION) ?: return@onIO null
         } else {
             // Some URIs can't be persisted (ex. shared from another app), so fall back to copying
             val canPersist = tryOrDefault(false) {
@@ -45,7 +46,6 @@ class CreateTrailMapFromFileCommand(
         val mapFile = TrailMap(
             0,
             name,
-            type,
             listOf(
                 OfflineMapFile(path, files.size(path), TrailMap.FILE_ROLE_MAPSFORGE_MAP)
             ),
@@ -58,8 +58,7 @@ class CreateTrailMapFromFileCommand(
         mapFile.copy(id = id)
     }
 
-    private suspend fun copyToAppStorage(uri: Uri, type: TrailMapFileType): String? {
-        val extension = MapFileTypeUtils.getExtension(type)
+    private suspend fun copyToAppStorage(uri: Uri, extension: String): String? {
         val saved =
             files.copyToLocal(uri, OFFLINE_MAPS_DIRECTORY, "${UUID.randomUUID()}.$extension")
                 ?: return null

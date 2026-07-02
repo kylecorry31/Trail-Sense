@@ -4,12 +4,12 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import java.time.Instant
 
 data class TrailMap(
     override val id: Long,
     override val name: String,
-    val type: TrailMapFileType,
     override val files: List<OfflineMapFile>,
     override val createdOn: Instant,
     override val bounds: CoordinateBounds?,
@@ -18,6 +18,7 @@ data class TrailMap(
     override val parentId: Long? = null,
     val isAvailable: Boolean = true
 ) : OfflineMap {
+    override val type = OfflineMapType.Trail
     override val isGroup = false
     override val count: Int? = null
     override val state = if (bounds == null) OfflineMapState.Draft else OfflineMapState.Ready

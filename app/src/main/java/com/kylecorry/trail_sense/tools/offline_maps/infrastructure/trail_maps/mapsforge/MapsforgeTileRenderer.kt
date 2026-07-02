@@ -10,7 +10,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMapFileType
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -88,7 +87,6 @@ class MapsforgeTileRenderer(
         highDetailMode: Boolean
     ): MapsforgeRendererHolder? {
         val mapFiles = maps
-            .filter { it.type == TrailMapFileType.Mapsforge }
             .mapNotNull { MapsforgeAdapter.open(it.mapFile.path) }
         if (mapFiles.isEmpty()) {
             return null
