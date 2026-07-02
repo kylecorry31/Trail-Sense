@@ -8,9 +8,9 @@ import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.ui.MapPickers
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 
-class MoveMapCommand(private val context: Context, private val service: MapService) :
+class MoveMapCommand(private val context: Context, private val service: OfflineMapService) :
     CoroutineCommand<OfflineMapCatalogItem> {
     override suspend fun execute(value: OfflineMapCatalogItem) {
         val results = MapPickers.pickGroup(

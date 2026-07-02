@@ -8,7 +8,7 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
 
@@ -16,7 +16,7 @@ class ResizeMapCommand(
     private val context: Context,
     private val loadingIndicator: ILoadingIndicator
 ) : CoroutineCommand<PhotoMap> {
-    private val service = getAppService<MapService>()
+    private val service = getAppService<OfflineMapService>()
 
     override suspend fun execute(value: PhotoMap) {
         val resolution = onMain {

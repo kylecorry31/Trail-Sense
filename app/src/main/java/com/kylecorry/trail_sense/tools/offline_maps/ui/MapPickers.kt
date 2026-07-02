@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapGroupMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ object MapPickers {
         scope: CoroutineScope = CoroutineScope(Dispatchers.Main),
         filter: (List<MapGroup>) -> List<MapGroup> = { it }
     ): Pair<Boolean, MapGroup?> = suspendCoroutine { cont ->
-        val loader = MapGroupLoader(getAppService<MapService>().loader)
+        val loader = MapGroupLoader(getAppService<OfflineMapService>().loader)
         val manager = GroupListManager(
             scope,
             loader,

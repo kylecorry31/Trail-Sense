@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.map.ui.MapView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
@@ -98,7 +98,7 @@ class ViewTrailMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offlin
     }
 
     private fun useOfflineMap(mapId: Long, refreshKey: String): TrailMap? {
-        val service = useService<MapService>()
+        val service = useService<OfflineMapService>()
         val (map, setMap) = useState<TrailMap?>(null)
 
         useBackgroundEffect(mapId, refreshKey, lifecycleHookTrigger.onResume()) {
@@ -128,7 +128,7 @@ class ViewTrailMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offlin
 
     private fun delete(map: TrailMap) {
         inBackground {
-            val service = getAppService<MapService>()
+            val service = getAppService<OfflineMapService>()
             DeleteMapCommand(requireContext(), getAppService()).execute(map)
             if (service.getTrailMap(map.id) == null) {
                 findNavController().popBackStack()

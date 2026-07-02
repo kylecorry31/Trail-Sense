@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 
 class RebaseMapCalibrationWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
 
-    private val service = getAppService<MapService>()
+    private val service = getAppService<OfflineMapService>()
 
     override suspend fun doWork(): Result {
         try {

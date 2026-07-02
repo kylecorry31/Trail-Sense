@@ -17,13 +17,13 @@ import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsPerspectiveBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapCornerDetector
 import kotlinx.coroutines.launch
 
 class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
 
-    private val service = getAppService<MapService>()
+    private val service = getAppService<OfflineMapService>()
 
     private val cornerDetector = MapCornerDetector()
 

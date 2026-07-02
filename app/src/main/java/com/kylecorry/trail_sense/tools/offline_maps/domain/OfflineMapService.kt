@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.re
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.MediumQualityMapReducer
 import java.io.IOException
 
-class MapService private constructor(
+class OfflineMapService private constructor(
     context: Context,
     private val repo: MapRepo,
     private val files: FileSubsystem,
@@ -303,13 +303,13 @@ class MapService private constructor(
 
     companion object {
         @SuppressLint("StaticFieldLeak")
-        private var instance: MapService? = null
+        private var instance: OfflineMapService? = null
 
         @Synchronized
-        fun getInstance(context: Context): MapService {
+        fun getInstance(context: Context): OfflineMapService {
             if (instance == null) {
                 val appContext = context.applicationContext
-                instance = MapService(
+                instance = OfflineMapService(
                     appContext,
                     MapRepo.getInstance(appContext),
                     FileSubsystem.getInstance(appContext),

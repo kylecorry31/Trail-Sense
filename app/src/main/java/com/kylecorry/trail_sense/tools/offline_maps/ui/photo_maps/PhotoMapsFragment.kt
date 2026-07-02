@@ -25,7 +25,7 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
@@ -33,7 +33,7 @@ import kotlin.math.absoluteValue
 
 class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
 
-    private val service = getAppService<MapService>()
+    private val service = getAppService<OfflineMapService>()
     private val formatter = getAppService<FormatService>()
 
     private var mapId = 0L

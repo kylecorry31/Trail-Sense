@@ -39,7 +39,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MostRecentMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.NameMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateBlankMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromCameraCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromFileCommand
@@ -66,7 +66,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val mapService by lazy { getAppService<MapService>() }
+    private val mapService by lazy { getAppService<OfflineMapService>() }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
     private lateinit var manager: GroupListManager<OfflineMapCatalogItem>
     private lateinit var mapper: IMapMapper

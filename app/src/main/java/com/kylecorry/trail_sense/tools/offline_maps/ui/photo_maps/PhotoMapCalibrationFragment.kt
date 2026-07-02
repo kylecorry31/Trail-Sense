@@ -34,7 +34,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationManager
@@ -45,7 +45,7 @@ import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 
-    private val service = getAppService<MapService>()
+    private val service = getAppService<OfflineMapService>()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
