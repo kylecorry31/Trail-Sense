@@ -60,8 +60,7 @@ class MapService private constructor(
             is TrailMap -> map.copy(name = name)
             else -> error("Unexpected map subclass")
         }
-        add(updated)
-        return updated
+        return add(updated)
     }
 
     suspend fun move(map: OfflineMapCatalogItem, parentId: Long?): OfflineMapCatalogItem {
@@ -71,8 +70,7 @@ class MapService private constructor(
             is TrailMap -> map.copy(parentId = parentId)
             else -> error("Unexpected map subclass")
         }
-        add(updated)
-        return updated
+        return add(updated)
     }
 
     suspend fun updateAttribution(map: TrailMap, attribution: String?): TrailMap {
@@ -199,8 +197,7 @@ class MapService private constructor(
         val updatedMap = newMap.copy(
             georeference = newMap.georeference.copy(rotation = recalculatedRotation)
         )
-        repo.add(updatedMap)
-        return updatedMap
+        return add(updatedMap)
     }
 
     private suspend fun getGroups(parent: Long?): List<MapGroup> {
