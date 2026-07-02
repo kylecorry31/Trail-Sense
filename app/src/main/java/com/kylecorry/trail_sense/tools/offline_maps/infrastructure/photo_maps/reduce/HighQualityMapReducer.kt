@@ -7,4 +7,4 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 class HighQualityMapReducer(
     files: FileSubsystem,
     service: MapService
-) : BaseMapReduce(files, service, 75, Size(2048f, 2048f))
+) : BaseMapReduce(files, 75, Size(2048f, 2048f))

@@ -32,15 +32,8 @@ class MapService private constructor(
     private val prefs: UserPreferences
 ) {
 
-    private val appContext = context.applicationContext
-    private val maintenance by lazy { OfflineMapMaintenance(files, this) }
-    private val importer by lazy {
-        OfflineMapImporter(
-            appContext,
-            files,
-            prefs
-        )
-    }
+    private val maintenance = OfflineMapMaintenance(files, this)
+    private val importer = OfflineMapImporter(context, files, prefs)
     val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
 
@@ -56,26 +49,8 @@ class MapService private constructor(
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    suspend fun <T : OfflineMapCatalogItem> add(map: T): T {
-        return when (map) {
-            is MapGroup -> {
-                val id = repo.add(map)
-                map.copy(id = id)
-            }
-
-            is PhotoMap -> {
-                val id = repo.add(map)
-                map.copy(id = id)
-            }
-
-            is TrailMap -> {
-                val id = repo.add(map)
-                map.copy(id = id)
-            }
-
-            else -> error("Unexpected map subclass")
-        } as T
+    suspend fun createGroup(name: String, parentId: Long? = null): MapGroup {
+        return add(MapGroup(0, name, parentId))
     }
 
     suspend fun rename(map: OfflineMapCatalogItem, name: String): OfflineMapCatalogItem {
@@ -98,6 +73,10 @@ class MapService private constructor(
         }
         add(updated)
         return updated
+    }
+
+    suspend fun updateAttribution(map: TrailMap, attribution: String?): TrailMap {
+        return add(map.copy(attribution = attribution?.trim()))
     }
 
     suspend fun setVisible(map: OfflineMapCatalogItem, visible: Boolean) {
@@ -163,8 +142,7 @@ class MapService private constructor(
             PhotoMapResolution.Medium -> MediumQualityMapReducer(files, this)
             PhotoMapResolution.High -> HighQualityMapReducer(files, this)
         }
-        reducer.reduce(map)
-        return getPhotoMap(map.id) ?: map
+        return add(reducer.reduce(map))
     }
 
     suspend fun warp(map: PhotoMap, bounds: PercentBounds?): PhotoMap? {
@@ -188,9 +166,8 @@ class MapService private constructor(
     }
 
     suspend fun calibrate(map: PhotoMap, points: List<MapCalibrationPoint>): PhotoMap {
-        val current = getPhotoMap(map.id) ?: map
-        val updated = current.copy(
-            georeference = current.georeference.copy(calibrationPoints = points)
+        val updated = map.copy(
+            georeference = map.georeference.copy(calibrationPoints = points)
         )
         return add(updated)
     }
@@ -275,6 +252,28 @@ class MapService private constructor(
 
     suspend fun getPhotoMap(id: Long): PhotoMap? {
         return repo.getPhotoMap(id)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private suspend fun <T : OfflineMapCatalogItem> add(map: T): T {
+        return when (map) {
+            is MapGroup -> {
+                val id = repo.add(map)
+                map.copy(id = id)
+            }
+
+            is PhotoMap -> {
+                val id = repo.add(map)
+                map.copy(id = id)
+            }
+
+            is TrailMap -> {
+                val id = repo.add(map)
+                map.copy(id = id)
+            }
+
+            else -> error("Unexpected map subclass")
+        } as T
     }
 
     companion object {

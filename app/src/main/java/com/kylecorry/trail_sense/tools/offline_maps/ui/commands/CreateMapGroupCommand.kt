@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.tools.offline_maps.ui.commands
 
 import android.content.Context
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.pickers.CoroutinePickers
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 
 class CreateMapGroupCommand(
@@ -20,6 +19,6 @@ class CreateMapGroupCommand(
                 hint = context.getString(R.string.name)
             )
         } ?: return
-        mapService.add(MapGroup(0, name, value))
+        mapService.createGroup(name, value)
     }
 }

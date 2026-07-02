@@ -24,7 +24,7 @@ class RebaseMapCalibrationWorker(
                 val points = it.georeference.calibrationPoints.map { point ->
                     point.copy(imageLocation = point.imageLocation.rotate(-it.baseRotation()))
                 }
-                service.add(it.copy(georeference = it.georeference.copy(calibrationPoints = points)))
+                service.calibrate(it, points)
             }
         } catch (e: Exception) {
             // Could not migrate

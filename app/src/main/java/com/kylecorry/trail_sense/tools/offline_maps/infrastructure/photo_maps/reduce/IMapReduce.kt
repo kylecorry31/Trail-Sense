@@ -4,6 +4,6 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 
 interface IMapReduce {
 
-    suspend fun reduce(map: PhotoMap)
+    suspend fun reduce(map: PhotoMap): PhotoMap
 
 }

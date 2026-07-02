@@ -5,8 +5,8 @@ import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 
 class EditOfflineMapAttributionCommand(
     private val context: Context
@@ -21,6 +21,6 @@ class EditOfflineMapAttributionCommand(
             default = value.attribution.orEmpty()
         ) ?: return
 
-        service.add(value.copy(attribution = attribution.trim()))
+        service.updateAttribution(value, attribution)
     }
 }
