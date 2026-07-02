@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
@@ -13,8 +13,8 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapPickers
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 
 class MoveMapCommand(private val context: Context, private val service: MapService) :
-    CoroutineCommand<IMap> {
-    override suspend fun execute(value: IMap) {
+    CoroutineCommand<OfflineMapCatalogItem> {
+    override suspend fun execute(value: OfflineMapCatalogItem) {
         val results = MapPickers.pickGroup(
             context,
             null,

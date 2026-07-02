@@ -3,16 +3,16 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.sort.mappers
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 
 class MapMinimumDistanceMapper(
-    override val loader: IGroupLoader<IMap>,
+    override val loader: IGroupLoader<OfflineMapCatalogItem>,
     private val offMapPenalty: Float = 0f,
     private val locationProvider: () -> Coordinate
-) : GroupMapper<IMap, Float, Float>() {
+) : GroupMapper<OfflineMapCatalogItem, Float, Float>() {
 
-    override suspend fun getValue(item: IMap): Float {
+    override suspend fun getValue(item: OfflineMapCatalogItem): Float {
         val bounds = when (item) {
             is OfflineMap -> item.bounds
             else -> null

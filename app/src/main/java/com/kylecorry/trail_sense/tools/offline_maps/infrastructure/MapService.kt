@@ -5,7 +5,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.MapProjectionType
@@ -19,19 +19,19 @@ class MapService private constructor(private val repo: MapRepo) {
     val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
 
-    private val deleter = object : GroupDeleter<IMap>(loader) {
-        override suspend fun deleteItems(items: List<IMap>) {
+    private val deleter = object : GroupDeleter<OfflineMapCatalogItem>(loader) {
+        override suspend fun deleteItems(items: List<OfflineMapCatalogItem>) {
             // TODO: Bulk delete
             items.filterIsInstance<PhotoMap>().forEach { repo.delete(it) }
             items.filterIsInstance<TrailMap>().forEach { repo.delete(it) }
         }
 
-        override suspend fun deleteGroup(group: IMap) {
+        override suspend fun deleteGroup(group: OfflineMapCatalogItem) {
             (group as? MapGroup)?.let { repo.delete(it) }
         }
     }
 
-    suspend fun add(map: IMap): Long {
+    suspend fun add(map: OfflineMapCatalogItem): Long {
         return when (map) {
             is MapGroup -> repo.add(map)
             is PhotoMap -> repo.add(map)
@@ -40,7 +40,7 @@ class MapService private constructor(private val repo: MapRepo) {
         }
     }
 
-    suspend fun delete(map: IMap) {
+    suspend fun delete(map: OfflineMapCatalogItem) {
         deleter.delete(map)
     }
 
@@ -62,7 +62,7 @@ class MapService private constructor(private val repo: MapRepo) {
         return repo.getMapGroups(parent).map { it.copy(count = counter.count(it.id)) }
     }
 
-    private suspend fun getChildren(parentId: Long?): List<IMap> {
+    private suspend fun getChildren(parentId: Long?): List<OfflineMapCatalogItem> {
         val maps = repo.getPhotoMaps(parentId) + repo.getTrailMaps(parentId)
         val groups = getGroups(parentId)
         return maps + groups

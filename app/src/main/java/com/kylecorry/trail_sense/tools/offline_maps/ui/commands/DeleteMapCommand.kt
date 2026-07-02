@@ -5,14 +5,14 @@ import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
 
 class DeleteMapCommand(
     private val context: Context,
     private val mapService: MapService
-) : CoroutineCommand<IMap> {
-    override suspend fun execute(value: IMap) {
+) : CoroutineCommand<OfflineMapCatalogItem> {
+    override suspend fun execute(value: OfflineMapCatalogItem) {
         val shouldDelete = onMain {
             !CoroutineAlerts.dialog(
                 context,

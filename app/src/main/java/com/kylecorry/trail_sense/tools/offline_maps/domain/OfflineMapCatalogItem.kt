@@ -2,6 +2,6 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 
-interface IMap : Groupable {
+interface OfflineMapCatalogItem : Groupable {
     val name: String
 }

@@ -6,13 +6,13 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 
 class CreateMapFromCameraCommand(
     private val fragment: AndromedaFragment,
     private val loadingIndicator: ILoadingIndicator
 ) : ICreateMapCommand {
-    override suspend fun execute(): IMap? = onIO {
+    override suspend fun execute(): OfflineMapCatalogItem? = onIO {
         val uri = CustomUiUtils.takePhoto(fragment) ?: return@onIO null
         onMain {
             loadingIndicator.show()

@@ -6,7 +6,7 @@ import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.MapService
@@ -22,7 +22,7 @@ class CreateTrailMapFromFileCommand(
     private val service = getAppService<MapService>()
     private val prefs = getAppService<UserPreferences>()
 
-    suspend fun execute(uri: Uri): IMap? = onIO {
+    suspend fun execute(uri: Uri): OfflineMapCatalogItem? = onIO {
         if (!MapFileTypeUtils.isMapsforgeMap(uri)) {
             return@onIO null
         }

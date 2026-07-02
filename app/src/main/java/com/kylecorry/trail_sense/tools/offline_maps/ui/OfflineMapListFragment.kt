@@ -30,7 +30,7 @@ import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.tools.offline_maps.domain.IMap
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.ClosestMapSortStrategy
@@ -69,12 +69,12 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val mapService by lazy { MapService.Companion.getInstance(requireContext()) }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
-    private lateinit var manager: GroupListManager<IMap>
+    private lateinit var manager: GroupListManager<OfflineMapCatalogItem>
     private lateinit var mapper: IMapMapper
 
     private var sort = MapSortMethod.Closest
 
-    private var lastRoot: IMap? = null
+    private var lastRoot: OfflineMapCatalogItem? = null
     private var backPressedCallback: OnBackPressedCallback? = null
 
     private val uriPicker by lazy { IntentUriPicker(this, requireContext()) }
@@ -208,7 +208,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         manager.refresh(true)
     }
 
-    private suspend fun sortMaps(maps: List<IMap>): List<IMap> = onDefault {
+    private suspend fun sortMaps(maps: List<OfflineMapCatalogItem>): List<OfflineMapCatalogItem> = onDefault {
         val strategy = when (sort) {
             MapSortMethod.Closest -> ClosestMapSortStrategy(gps.location, mapService.loader)
             MapSortMethod.MostRecent -> MostRecentMapSortStrategy(mapService.loader)
@@ -309,7 +309,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         exportService.export(map)
     }
 
-    private fun rename(map: IMap) {
+    private fun rename(map: OfflineMapCatalogItem) {
         inBackground {
             RenameMapCommand(requireContext(), mapService).execute(map)
             manager.refresh()
@@ -323,28 +323,28 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         }
     }
 
-    private fun move(map: IMap) {
+    private fun move(map: OfflineMapCatalogItem) {
         inBackground {
             MoveMapCommand(requireContext(), mapService).execute(map)
             manager.refresh()
         }
     }
 
-    private fun toggleVisibility(map: IMap) {
+    private fun toggleVisibility(map: OfflineMapCatalogItem) {
         inBackground {
             ToggleVisibilityMapCommand(mapService).execute(map)
             manager.refresh()
         }
     }
 
-    private fun delete(map: IMap) {
+    private fun delete(map: OfflineMapCatalogItem) {
         inBackground {
             DeleteMapCommand(requireContext(), mapService).execute(map)
             manager.refresh()
         }
     }
 
-    private fun view(map: IMap) {
+    private fun view(map: OfflineMapCatalogItem) {
         when (map) {
             is MapGroup -> manager.open(map.id)
             is PhotoMap -> findNavController().navigate(
