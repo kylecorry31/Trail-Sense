@@ -136,9 +136,9 @@ class MapService private constructor(
 
     suspend fun reduce(map: PhotoMap, resolution: PhotoMapResolution): PhotoMap {
         val reducer = when (resolution) {
-            PhotoMapResolution.Low -> LowQualityMapReducer(files, this)
-            PhotoMapResolution.Medium -> MediumQualityMapReducer(files, this)
-            PhotoMapResolution.High -> HighQualityMapReducer(files, this)
+            PhotoMapResolution.Low -> LowQualityMapReducer(files)
+            PhotoMapResolution.Medium -> MediumQualityMapReducer(files)
+            PhotoMapResolution.High -> HighQualityMapReducer(files)
         }
         return add(reducer.reduce(map))
     }
