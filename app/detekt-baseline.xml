@@ -183,7 +183,6 @@
     <ID>ForbiddenComment:MapLayersBottomSheet.kt:MapLayersBottomSheet$// TODO: Show loading indicator once plugin layers are in place</ID>
     <ID>ForbiddenComment:MapPickers.kt:MapPickers$// TODO: Add sort</ID>
     <ID>ForbiddenComment:MapRepo.kt:MapRepo$// TODO: Save the size in the DB</ID>
-    <ID>ForbiddenComment:MapService.kt:MapService.&lt;no name provided&gt;$// TODO: Bulk delete</ID>
     <ID>ForbiddenComment:MapToolWidgetView.kt:MapToolWidgetView$// TODO: Do something with the scale bar (center it or render it like the radar compass)</ID>
     <ID>ForbiddenComment:MapView.kt:MapView$// TODO: If map bounds changed, invalidate layers</ID>
     <ID>ForbiddenComment:MapView.kt:MapView$// TODO: This doesn't work for world maps</ID>
@@ -205,6 +204,7 @@
     <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Each error condition should be responsible for its own display and dismissal</ID>
     <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Improve architecture using the strategy pattern and remove this class all together</ID>
     <ID>ForbiddenComment:NextPathPointNavigator.kt:NextPathPointNavigator$// TODO: This doesn't take into consideration which points you've already reached - if the path is a out and back type, it will not work properly</ID>
+    <ID>ForbiddenComment:OfflineMapService.kt:OfflineMapService.&lt;no name provided&gt;$// TODO: Bulk delete</ID>
     <ID>ForbiddenComment:PathExtensions.kt:// TODO: Extract this and add solid style</ID>
     <ID>ForbiddenComment:PathOverviewFragment.kt:PathOverviewFragment$// TODO: Eventually move all of this to the path layer (including waypoint rendering)</ID>
     <ID>ForbiddenComment:PathsFragment.kt:PathsFragment$// TODO: See if it is possible to get notified of changes without loading all paths</ID>
@@ -452,9 +452,9 @@
     <ID>TooManyFunctions:IPathService.kt:IPathService : ICleanable</ID>
     <ID>TooManyFunctions:IWaypointRepo.kt:IWaypointRepo</ID>
     <ID>TooManyFunctions:MapRepo.kt:MapRepo</ID>
-    <ID>TooManyFunctions:MapService.kt:MapService</ID>
     <ID>TooManyFunctions:MapViewLayerManager.kt:MapViewLayerManager</ID>
     <ID>TooManyFunctions:Navigator.kt:Navigator</ID>
+    <ID>TooManyFunctions:OfflineMapService.kt:OfflineMapService</ID>
     <ID>TooManyFunctions:PermissionUtils.kt:com.kylecorry.trail_sense.shared.permissions.PermissionUtils.kt</ID>
     <ID>TooManyFunctions:SensorService.kt:SensorService</ID>
     <ID>TooManyFunctions:TideTableDao.kt:TideTableDao</ID>
