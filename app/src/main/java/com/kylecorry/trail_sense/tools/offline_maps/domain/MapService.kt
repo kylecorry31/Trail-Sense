@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import com.kylecorry.andromeda.core.units.PercentBounds
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
@@ -15,6 +16,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.selection.ActiveMapSelector
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.OfflineMapImporter
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.OfflineMapMaintenance
@@ -32,9 +34,10 @@ class MapService private constructor(
     private val prefs: UserPreferences
 ) {
 
+    val loader = GroupLoader(this::getGroup, this::getChildren)
+
     private val maintenance = OfflineMapMaintenance(files, repo)
     private val importer = OfflineMapImporter(context, files, prefs)
-    val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)
 
     private val deleter = object : GroupDeleter<OfflineMapCatalogItem>(loader) {
@@ -115,21 +118,6 @@ class MapService private constructor(
         }
     }
 
-    private suspend fun maybeReduce(map: OfflineMap): OfflineMap {
-        if (map !is PhotoMap) {
-            return map
-        }
-
-        val isPdfMap = map.pdfFile != null
-        val shouldReduce = (isPdfMap && prefs.photoMaps.autoReducePdfMaps) ||
-                (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)
-        if (!shouldReduce) {
-            return map
-        }
-
-        return reduce(map, PhotoMapResolution.High)
-    }
-
     suspend fun cleanup(): Boolean {
         return maintenance.cleanup()
     }
@@ -200,27 +188,32 @@ class MapService private constructor(
         return add(updatedMap)
     }
 
-    private suspend fun getGroups(parent: Long?): List<MapGroup> {
-        return repo.getMapGroups(parent).map { it.copy(count = counter.count(it.id)) }
-    }
-
-    private suspend fun getChildren(parentId: Long?): List<OfflineMapCatalogItem> {
-        val maps = repo.getPhotoMaps(parentId) + repo.getTrailMaps(parentId)
-        val groups = getGroups(parentId)
-        return maps + groups
-    }
-
     suspend fun getGroup(id: Long?): MapGroup? {
         id ?: return null
         return repo.getMapGroup(id)?.copy(count = counter.count(id))
     }
 
-    suspend fun getAllPhotoMaps(): List<PhotoMap> {
-        return repo.getPhotoMaps()
+    suspend fun getActivePhotoMap(location: Coordinate, destination: Coordinate?): PhotoMap? {
+        return ActiveMapSelector().getActiveMap(getAllPhotoMaps(), location, destination)
     }
 
-    suspend fun getAllTrailMaps(): List<TrailMap> {
-        return repo.getTrailMaps()
+    suspend fun getVisibleTrailMapAttributions(): List<String> {
+        return getAllTrailMaps()
+            .filter { it.visible }
+            .mapNotNull { it.attribution?.trim()?.takeIf { attribution -> attribution.isNotBlank() } }
+            .distinct()
+    }
+
+    suspend fun rebasePhotoMapCalibrationsToBaseRotation() {
+        getAllPhotoMaps().forEach {
+            if (it.georeference.calibrationPoints.isEmpty()) {
+                return@forEach
+            }
+            val points = it.georeference.calibrationPoints.map { point ->
+                point.copy(imageLocation = point.imageLocation.rotate(-it.baseRotation()))
+            }
+            calibrate(it, points)
+        }
     }
 
     suspend fun getRenderablePhotoMaps(featureId: Long?): List<PhotoMap> {
@@ -249,6 +242,39 @@ class MapService private constructor(
 
     suspend fun getPhotoMap(id: Long): PhotoMap? {
         return repo.getPhotoMap(id)
+    }
+
+    private suspend fun getGroups(parent: Long?): List<MapGroup> {
+        return repo.getMapGroups(parent).map { it.copy(count = counter.count(it.id)) }
+    }
+
+    private suspend fun getChildren(parentId: Long?): List<OfflineMapCatalogItem> {
+        val maps = repo.getPhotoMaps(parentId) + repo.getTrailMaps(parentId)
+        val groups = getGroups(parentId)
+        return maps + groups
+    }
+
+    private suspend fun getAllPhotoMaps(): List<PhotoMap> {
+        return repo.getPhotoMaps()
+    }
+
+    private suspend fun getAllTrailMaps(): List<TrailMap> {
+        return repo.getTrailMaps()
+    }
+
+    private suspend fun maybeReduce(map: OfflineMap): OfflineMap {
+        if (map !is PhotoMap) {
+            return map
+        }
+
+        val isPdfMap = map.pdfFile != null
+        val shouldReduce = (isPdfMap && prefs.photoMaps.autoReducePdfMaps) ||
+                (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)
+        if (!shouldReduce) {
+            return map
+        }
+
+        return reduce(map, PhotoMapResolution.High)
     }
 
     @Suppress("UNCHECKED_CAST")

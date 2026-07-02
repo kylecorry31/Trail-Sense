@@ -15,17 +15,7 @@ class RebaseMapCalibrationWorker(
 
     override suspend fun doWork(): Result {
         try {
-            val maps = service.getAllPhotoMaps()
-            maps.forEach {
-                if (it.georeference.calibrationPoints.isEmpty()) {
-                    return@forEach
-                }
-                // Convert all calibration points to rotation 0
-                val points = it.georeference.calibrationPoints.map { point ->
-                    point.copy(imageLocation = point.imageLocation.rotate(-it.baseRotation()))
-                }
-                service.calibrate(it, points)
-            }
+            service.rebasePhotoMapCalibrationsToBaseRotation()
         } catch (e: Exception) {
             // Could not migrate
             return Result.failure()
