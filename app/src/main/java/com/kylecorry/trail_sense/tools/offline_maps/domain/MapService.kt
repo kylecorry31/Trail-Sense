@@ -2,6 +2,9 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
+import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
@@ -10,6 +13,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.OfflineMapImporter
@@ -19,6 +23,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.ca
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.LowQualityMapReducer
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.MediumQualityMapReducer
+import java.io.IOException
 
 class MapService private constructor(
     context: Context,
@@ -51,7 +56,8 @@ class MapService private constructor(
         }
     }
 
-    suspend fun add(map: OfflineMapCatalogItem): OfflineMapCatalogItem {
+    @Suppress("UNCHECKED_CAST")
+    suspend fun <T : OfflineMapCatalogItem> add(map: T): T {
         return when (map) {
             is MapGroup -> {
                 val id = repo.add(map)
@@ -69,7 +75,7 @@ class MapService private constructor(
             }
 
             else -> error("Unexpected map subclass")
-        }
+        } as T
     }
 
     suspend fun rename(map: OfflineMapCatalogItem, name: String): OfflineMapCatalogItem {
@@ -124,7 +130,7 @@ class MapService private constructor(
                 // This is safe to do, since add won't change it to a group
                 add(it) as OfflineMap
             } ?: return@withImportLock null
-            val reduced = maybeReduce(imported, request)
+            val reduced = maybeReduce(imported)
             OfflineMapImportResult(
                 reduced,
                 reduced is PhotoMap && reduced.georeference.calibrationPoints.isNotEmpty()
@@ -132,10 +138,7 @@ class MapService private constructor(
         }
     }
 
-    private suspend fun maybeReduce(
-        map: OfflineMap,
-        request: OfflineMapImportRequest
-    ): OfflineMap {
+    private suspend fun maybeReduce(map: OfflineMap): OfflineMap {
         if (map !is PhotoMap) {
             return map
         }
@@ -162,6 +165,47 @@ class MapService private constructor(
         }
         reducer.reduce(map)
         return getPhotoMap(map.id) ?: map
+    }
+
+    suspend fun warp(map: PhotoMap, bounds: PercentBounds?): PhotoMap? {
+        if (bounds != null) {
+            val bitmap = files.bitmap(map.imageFile.path) ?: return null
+            val pixelBounds = bounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())
+            val warped = bitmap.fixPerspective(pixelBounds, true, Color.WHITE)
+            try {
+                files.save(map.imageFile.path, warped, recycleOnSave = true)
+            } catch (e: IOException) {
+                return null
+            }
+
+            map.pdfFile?.let { files.delete(it.path) }
+        }
+
+        val updated = map.copy(
+            georeference = map.georeference.copy(isWarpingCompleted = true)
+        )
+        return add(updated)
+    }
+
+    suspend fun calibrate(map: PhotoMap, points: List<MapCalibrationPoint>): PhotoMap {
+        val current = getPhotoMap(map.id) ?: map
+        val updated = current.copy(
+            georeference = current.georeference.copy(calibrationPoints = points)
+        )
+        return add(updated)
+    }
+
+    suspend fun autoRotate(map: PhotoMap): PhotoMap {
+        if (map.state != OfflineMapState.Ready) {
+            return map
+        }
+
+        val updated = map.copy(
+            georeference = map.georeference.copy(
+                rotation = MapRotationCalculator().calculate(map)
+            )
+        )
+        return add(updated)
     }
 
     suspend fun delete(map: OfflineMapCatalogItem) {

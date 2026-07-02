@@ -408,11 +408,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {
-        var updated = service.getPhotoMap(map.id) ?: return map
-        updated =
-            updated.copy(georeference = updated.georeference.copy(calibrationPoints = manager.getCalibration()))
-        service.add(updated)
-        return updated
+        return service.calibrate(map, manager.getCalibration())
     }
 
     private fun loadCalibrationPointsFromMap() {
