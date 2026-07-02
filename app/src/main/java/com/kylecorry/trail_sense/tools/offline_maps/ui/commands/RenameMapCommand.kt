@@ -5,9 +5,6 @@ import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 
 class RenameMapCommand(private val context: Context, private val service: MapService) :
@@ -16,10 +13,6 @@ class RenameMapCommand(private val context: Context, private val service: MapSer
         val newName =
             CoroutinePickers.text(context, context.getString(R.string.name), default = value.name)
                 ?: return
-        when (value) {
-            is MapGroup -> service.add(value.copy(name = newName))
-            is PhotoMap -> service.add(value.copy(name = newName))
-            is TrailMap -> service.add(value.copy(name = newName))
-        }
+        service.rename(value, newName)
     }
 }

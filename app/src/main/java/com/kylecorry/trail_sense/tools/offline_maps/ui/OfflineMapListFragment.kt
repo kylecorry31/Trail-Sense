@@ -232,22 +232,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     private fun setGroupVisibility(group: MapGroup, visible: Boolean) {
         inBackground {
             Alerts.withLoading(requireContext(), getString(R.string.loading)) {
-                val maps = mapService.loader.getChildren(group.id, null)
-
-                // Photo Maps
-                maps
-                    .asSequence()
-                    .filterIsInstance<PhotoMap>()
-                    .filter { it.visible != visible }
-                    .forEach { mapService.add(it.copy(visible = visible)) }
-
-                // Trail Maps
-                maps
-                    .asSequence()
-                    .filterIsInstance<TrailMap>()
-                    .filter { it.visible != visible }
-                    .forEach { mapService.add(it.copy(visible = visible)) }
-
+                mapService.setVisible(group, visible)
                 onMain {
                     manager.refresh()
                 }
@@ -429,23 +414,20 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             try {
                 binding.addBtn.isEnabled = false
 
-                val map = command.execute()?.let {
-                    when (it) {
-                        is PhotoMap -> it.copy(parentId = manager.root?.id)
-                        is TrailMap -> it.copy(parentId = manager.root?.id)
-                        else -> null
-                    }
-                }
+                val importedMap = command.execute()
 
-                if (map == null) {
+                if (importedMap == null) {
                     toast(getString(R.string.error_importing_map))
                     return@inBackground
                 }
 
-                if (map.parentId != null) {
+                val parentId = manager.root?.id
+                val map = if (parentId != null) {
                     onIO {
-                        mapService.add(map)
+                        mapService.move(importedMap, parentId)
                     }
+                } else {
+                    importedMap
                 }
 
                 if (map is PhotoMap) {

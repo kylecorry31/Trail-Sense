@@ -7,8 +7,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.ui.MapPickers
 import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 
@@ -34,11 +32,7 @@ class MoveMapCommand(private val context: Context, private val service: MapServi
             return
         }
 
-        when (value) {
-            is MapGroup -> service.add(value.copy(parentId = results.second?.id))
-            is PhotoMap -> service.add(value.copy(parentId = results.second?.id))
-            is TrailMap -> service.add(value.copy(parentId = results.second?.id))
-        }
+        service.move(value, results.second?.id)
 
         val groupName = results.second?.name ?: context.getString(R.string.no_group)
 

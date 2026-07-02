@@ -45,11 +45,7 @@ class PhotoMapTileSource : TileSource {
 
         val selector = lock.withLock {
             if (internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || featureId != lastFeatureId) {
-                val maps = if (featureId == null) {
-                    service.getAllPhotoMaps().filter { it.visible }
-                } else {
-                    listOfNotNull(service.getPhotoMap(featureId))
-                }
+                val maps = service.getRenderablePhotoMaps(featureId)
                 internalSelector = PhotoMapTileSourceSelector(
                     DependencyRegistry.get(),
                     maps,

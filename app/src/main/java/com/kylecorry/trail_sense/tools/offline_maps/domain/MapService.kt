@@ -38,6 +38,52 @@ class MapService private constructor(private val repo: MapRepo) {
         }
     }
 
+    suspend fun rename(map: OfflineMapCatalogItem, name: String): OfflineMapCatalogItem {
+        val updated = when (map) {
+            is MapGroup -> map.copy(name = name)
+            is PhotoMap -> map.copy(name = name)
+            is TrailMap -> map.copy(name = name)
+            else -> error("Unexpected map subclass")
+        }
+        add(updated)
+        return updated
+    }
+
+    suspend fun move(map: OfflineMapCatalogItem, parentId: Long?): OfflineMapCatalogItem {
+        val updated = when (map) {
+            is MapGroup -> map.copy(parentId = parentId)
+            is PhotoMap -> map.copy(parentId = parentId)
+            is TrailMap -> map.copy(parentId = parentId)
+            else -> error("Unexpected map subclass")
+        }
+        add(updated)
+        return updated
+    }
+
+    suspend fun setVisible(map: OfflineMapCatalogItem, visible: Boolean) {
+        when (map) {
+            is MapGroup -> {
+                loader.getChildren(map.id, null).forEach {
+                    setVisible(it, visible)
+                }
+            }
+
+            is PhotoMap -> {
+                if (map.visible != visible) {
+                    add(map.copy(visible = visible))
+                }
+            }
+
+            is TrailMap -> {
+                if (map.visible != visible) {
+                    add(map.copy(visible = visible))
+                }
+            }
+
+            else -> error("Unexpected map subclass")
+        }
+    }
+
     suspend fun delete(map: OfflineMapCatalogItem) {
         deleter.delete(map)
     }
@@ -77,6 +123,22 @@ class MapService private constructor(private val repo: MapRepo) {
 
     suspend fun getAllTrailMaps(): List<TrailMap> {
         return repo.getTrailMaps()
+    }
+
+    suspend fun getRenderablePhotoMaps(featureId: Long?): List<PhotoMap> {
+        return (if (featureId == null) {
+            getAllPhotoMaps().filter { it.visible }
+        } else {
+            listOfNotNull(getPhotoMap(featureId))
+        }).filter { it.state == OfflineMapState.Ready }
+    }
+
+    suspend fun getRenderableTrailMaps(featureId: Long?): List<TrailMap> {
+        return (if (featureId == null) {
+            getAllTrailMaps().filter { it.visible }
+        } else {
+            listOfNotNull(getTrailMap(featureId))
+        }).filter { it.state == OfflineMapState.Ready }
     }
 
     suspend fun getTrailMap(id: Long): TrailMap? {
