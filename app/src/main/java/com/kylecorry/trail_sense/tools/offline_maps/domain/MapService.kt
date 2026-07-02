@@ -32,7 +32,7 @@ class MapService private constructor(
     private val prefs: UserPreferences
 ) {
 
-    private val maintenance = OfflineMapMaintenance(files, this)
+    private val maintenance = OfflineMapMaintenance(files, repo)
     private val importer = OfflineMapImporter(context, files, prefs)
     val loader = GroupLoader(this::getGroup, this::getChildren)
     private val counter = GroupCounter(loader)

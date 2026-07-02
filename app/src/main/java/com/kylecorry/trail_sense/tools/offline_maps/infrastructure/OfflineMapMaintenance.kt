@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure
 
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import kotlinx.coroutines.sync.Mutex
 
 internal class OfflineMapMaintenance(
     private val files: FileSubsystem,
-    private val service: MapService
+    private val repo: MapRepo
 ) {
 
     suspend fun <T> withImportLock(block: suspend () -> T): T {
@@ -36,7 +36,7 @@ internal class OfflineMapMaintenance(
 
     private suspend fun cleanupTrailMaps(): Boolean {
         // External maps don't have a file in app storage, so they can't be cleaned up
-        val maps = service.getAllTrailMaps().filter { !it.isExternal() }
+        val maps = repo.getTrailMaps().filter { !it.isExternal() }
         val allFiles = files.list(OFFLINE_MAPS_DIRECTORY).map { "$OFFLINE_MAPS_DIRECTORY/${it.name}" }
 
         // Delete files without a map
@@ -49,14 +49,14 @@ internal class OfflineMapMaintenance(
         // Delete maps without a file
         val toDelete = maps.filter { !allFiles.contains(it.mapFile.path) }
         toDelete.forEach {
-            service.delete(it)
+            repo.delete(it)
         }
 
         return toDelete.isNotEmpty()
     }
 
     private suspend fun cleanupPhotoMaps(): Boolean {
-        val maps = service.getAllPhotoMaps()
+        val maps = repo.getPhotoMaps()
         val allFiles = files.list(PHOTO_MAPS_DIRECTORY).map { "$PHOTO_MAPS_DIRECTORY/${it.name}" }
 
         // Delete files without a map
@@ -70,7 +70,7 @@ internal class OfflineMapMaintenance(
         val toDelete = maps.filter { !allFiles.contains(it.imageFile.path) }
 
         toDelete.forEach {
-            service.delete(it)
+            repo.delete(it)
         }
 
         return toDelete.isNotEmpty()
