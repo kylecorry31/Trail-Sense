@@ -34,18 +34,18 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationValidationResult
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationValidator
-import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapRotationCalculator
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 
-    private val service = getAppService<MapService>()
+    private val service = getAppService<OfflineMapService>()
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var mapId = 0L
@@ -136,7 +136,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.calibrationNext.setOnClickListener {
             if (calibrationIndex == (maxPoints - 1)) {
                 inBackground {
-                    map = map?.let { save(it) }
+                    map = map?.let { save(service.getPhotoMap(it.id) ?: it) }
                     manager.reset(map?.georeference?.calibrationPoints ?: emptyList())
                     backCallback.remove()
                     onDone()
@@ -408,11 +408,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     private suspend fun save(map: PhotoMap): PhotoMap {
-        var updated = service.getPhotoMap(map.id) ?: return map
-        updated =
-            updated.copy(georeference = updated.georeference.copy(calibrationPoints = manager.getCalibration()))
-        service.add(updated)
-        return updated
+        return service.calibrate(map, manager.getCalibration())
     }
 
     private fun loadCalibrationPointsFromMap() {

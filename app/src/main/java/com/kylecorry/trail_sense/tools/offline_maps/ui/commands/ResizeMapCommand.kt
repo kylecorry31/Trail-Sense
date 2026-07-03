@@ -2,20 +2,22 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
+import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.HighQualityMapReducer
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.LowQualityMapReducer
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.MediumQualityMapReducer
+import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
 
 class ResizeMapCommand(
     private val context: Context,
     private val loadingIndicator: ILoadingIndicator
 ) : CoroutineCommand<PhotoMap> {
+    private val service = getAppService<OfflineMapService>()
+
     override suspend fun execute(value: PhotoMap) {
         val resolution = onMain {
             CoroutinePickers.item(
@@ -34,12 +36,12 @@ class ResizeMapCommand(
         }
 
         onIO {
-            val reducer = when (resolution) {
-                0 -> LowQualityMapReducer(context)
-                1 -> MediumQualityMapReducer(context)
-                else -> HighQualityMapReducer(context)
+            val mapResolution = when (resolution) {
+                0 -> PhotoMapResolution.Low
+                1 -> PhotoMapResolution.Medium
+                else -> PhotoMapResolution.High
             }
-            reducer.reduce(value)
+            service.reduce(value, mapResolution)
         }
 
         onMain {

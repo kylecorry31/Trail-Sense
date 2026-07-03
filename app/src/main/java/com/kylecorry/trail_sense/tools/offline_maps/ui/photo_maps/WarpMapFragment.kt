@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,18 +16,14 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsPerspectiveBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.MapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.MapCornerDetector
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
 
-    private val service = getAppService<MapService>()
-    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
+    private val service = getAppService<OfflineMapService>()
 
     private val cornerDetector = MapCornerDetector()
 
@@ -133,26 +128,16 @@ class WarpMapFragment : BoundFragment<FragmentPhotoMapsPerspectiveBinding>() {
 
     private suspend fun next() {
         val map = map ?: return
-        val percentBounds = binding.perspective.getPercentBounds() ?: return
+        val percentBounds = if (binding.perspective.hasChanges) {
+            binding.perspective.getPercentBounds() ?: return
+        } else {
+            null
+        }
         val loading = onMain {
             Alerts.loading(requireContext(), getString(R.string.saving))
         }
         onIO {
-            if (binding.perspective.hasChanges) {
-                val bitmap = files.bitmap(map.imageFile.path) ?: return@onIO
-                val bounds =
-                    percentBounds.toPixelBounds(bitmap.width.toFloat(), bitmap.height.toFloat())
-                val warped = bitmap.fixPerspective(bounds, true, Color.WHITE)
-                try {
-                    files.save(map.imageFile.path, warped, recycleOnSave = true)
-                } catch (e: IOException) {
-                    return@onIO
-                }
-
-                // Delete the pdf file if it exists
-                map.pdfFile?.let { files.delete(it.path) }
-            }
-            service.add(map.copy(georeference = map.georeference.copy(isWarpingCompleted = true)))
+            service.warp(map, percentBounds)
         }
 
         onMain {

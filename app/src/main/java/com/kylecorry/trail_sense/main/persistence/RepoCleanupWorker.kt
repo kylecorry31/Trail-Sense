@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persista
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
-import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.MapCleanupCommand
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
@@ -45,7 +45,7 @@ class RepoCleanupWorker(
             repo.clean()
         }
 
-        MapCleanupCommand(context).execute()
+        getAppService<OfflineMapService>().cleanup()
         DeleteTempFilesCommand(context).execute()
 
         Log.d("RepoCleanupWorker", "Finished cleaning up repositories")
