@@ -57,6 +57,19 @@ class OfflineMapService internal constructor(
         return add(MapGroup(0, name, parentId))
     }
 
+    suspend fun createMap(request: CreateOfflineMapRequest): CreateOfflineMapResult? {
+        return maintenance.withImportLock {
+            val imported = importer.import(request)?.let {
+                add(it)
+            } ?: return@withImportLock null
+            val reduced = maybeReduce(imported)
+            CreateOfflineMapResult(
+                reduced,
+                reduced is PhotoMap && reduced.georeference.calibrationPoints.isNotEmpty()
+            )
+        }
+    }
+
     suspend fun rename(map: OfflineMapCatalogItem, name: String): OfflineMapCatalogItem {
         val updated = when (map) {
             is MapGroup -> map.copy(name = name)
@@ -77,7 +90,7 @@ class OfflineMapService internal constructor(
         return add(updated)
     }
 
-    suspend fun updateAttribution(map: TrailMap, attribution: String?): TrailMap {
+    suspend fun setAttribution(map: TrailMap, attribution: String?): TrailMap {
         return add(map.copy(attribution = attribution?.trim()))
     }
 
@@ -102,19 +115,6 @@ class OfflineMapService internal constructor(
             }
 
             else -> error("Unexpected map subclass")
-        }
-    }
-
-    suspend fun importMap(request: OfflineMapImportRequest): OfflineMapImportResult? {
-        return maintenance.withImportLock {
-            val imported = importer.import(request)?.let {
-                add(it)
-            } ?: return@withImportLock null
-            val reduced = maybeReduce(imported)
-            OfflineMapImportResult(
-                reduced,
-                reduced is PhotoMap && reduced.georeference.calibrationPoints.isNotEmpty()
-            )
         }
     }
 

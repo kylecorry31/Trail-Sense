@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapImportRequest
+import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
 import com.kylecorry.andromeda.core.units.PercentCoordinate
 
@@ -35,7 +35,7 @@ class CreateBlankMapCommand(
     private val prefs = UserPreferences(context)
     private val formatter = FormatService.getInstance(context)
 
-    override suspend fun execute(): OfflineMapImportRequest? = onIO {
+    override suspend fun execute(): CreateOfflineMapRequest? = onIO {
         val calibration = getCalibration() ?: return@onIO null
 
         val file = files.createTemp(".webp")

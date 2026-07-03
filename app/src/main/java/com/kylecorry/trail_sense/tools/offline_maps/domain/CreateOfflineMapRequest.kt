@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 import android.net.Uri
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
 
-data class OfflineMapImportRequest(
+data class CreateOfflineMapRequest(
     val uri: Uri,
     val name: String,
     val parentId: Long? = null,

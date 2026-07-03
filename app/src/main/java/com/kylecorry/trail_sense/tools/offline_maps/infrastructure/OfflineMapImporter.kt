@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapImportRequest
+import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapGeoreference
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
@@ -35,7 +35,7 @@ internal class OfflineMapImporter(
     private val prefs: UserPreferences
 ) {
 
-    suspend fun import(request: OfflineMapImportRequest): OfflineMap? = onIO {
+    suspend fun import(request: CreateOfflineMapRequest): OfflineMap? = onIO {
         val type = files.getMimeType(request.uri) ?: getMimeTypeFromExtension(request.uri)
         when {
             type == MIME_TYPE_PDF -> importPdf(request)
@@ -44,7 +44,7 @@ internal class OfflineMapImporter(
         }
     }
 
-    private suspend fun importImage(request: OfflineMapImportRequest): PhotoMap? {
+    private suspend fun importImage(request: CreateOfflineMapRequest): PhotoMap? {
         val file = files.copyToLocal(request.uri, PHOTO_MAPS_DIRECTORY) ?: return null
         var rotation = 0
         tryOrLog {
@@ -74,7 +74,7 @@ internal class OfflineMapImporter(
         )
     }
 
-    private suspend fun importPdf(request: OfflineMapImportRequest): PhotoMap? {
+    private suspend fun importPdf(request: CreateOfflineMapRequest): PhotoMap? {
         val uuid = UUID.randomUUID().toString()
         val filename = "$PHOTO_MAPS_DIRECTORY/$uuid.webp"
         val pdfFilename = "$PHOTO_MAPS_DIRECTORY/$uuid.pdf"
@@ -148,7 +148,7 @@ internal class OfflineMapImporter(
         )
     }
 
-    private suspend fun importTrailMap(request: OfflineMapImportRequest): TrailMap? {
+    private suspend fun importTrailMap(request: CreateOfflineMapRequest): TrailMap? {
         if (!MapsforgeAdapter.isMapsforgeMap(request.uri)) {
             return null
         }

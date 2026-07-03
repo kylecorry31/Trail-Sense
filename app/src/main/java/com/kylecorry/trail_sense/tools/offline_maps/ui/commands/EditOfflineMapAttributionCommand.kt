@@ -21,6 +21,6 @@ class EditOfflineMapAttributionCommand(
             default = value.attribution.orEmpty()
         ) ?: return
 
-        service.updateAttribution(value, attribution)
+        service.setAttribution(value, attribution)
     }
 }

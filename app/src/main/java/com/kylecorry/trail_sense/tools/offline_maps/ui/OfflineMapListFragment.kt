@@ -413,7 +413,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
                 mapImportingIndicator.show()
                 val result = try {
-                    mapService.importMap(request)
+                    mapService.createMap(request)
                 } finally {
                     mapImportingIndicator.hide()
                 }
