@@ -15,7 +15,7 @@ class RebaseMapCalibrationWorker(
 
     override suspend fun doWork(): Result {
         try {
-            service.rebasePhotoMapCalibrationsToBaseRotation()
+            service.migratePhotoMapCalibrationsToBaseRotation()
         } catch (e: Exception) {
             // Could not migrate
             return Result.failure()

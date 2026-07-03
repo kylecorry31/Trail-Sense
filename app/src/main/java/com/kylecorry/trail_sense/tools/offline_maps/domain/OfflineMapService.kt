@@ -40,6 +40,8 @@ class OfflineMapService private constructor(
     private val maintenance = OfflineMapMaintenance(files, repo)
     private val importer = OfflineMapImporter(context, files, prefs)
     private val counter = GroupCounter(loader)
+    private val rotationCalculator = MapRotationCalculator()
+    private val activeMapSelector = ActiveMapSelector()
 
     private val deleter = object : GroupDeleter<OfflineMapCatalogItem>(loader) {
         override suspend fun deleteItems(items: List<OfflineMapCatalogItem>) {
@@ -108,8 +110,7 @@ class OfflineMapService private constructor(
     suspend fun importMap(request: OfflineMapImportRequest): OfflineMapImportResult? {
         return maintenance.withImportLock {
             val imported = importer.import(request)?.let {
-                // This is safe to do, since add won't change it to a group
-                add(it) as OfflineMap
+                add(it)
             } ?: return@withImportLock null
             val reduced = maybeReduce(imported)
             OfflineMapImportResult(
@@ -167,7 +168,7 @@ class OfflineMapService private constructor(
 
         val updated = map.copy(
             georeference = map.georeference.copy(
-                rotation = MapRotationCalculator().calculate(map)
+                rotation = rotationCalculator.calculate(map)
             )
         )
         return add(updated)
@@ -180,7 +181,7 @@ class OfflineMapService private constructor(
     suspend fun setProjection(map: PhotoMap, projection: MapProjectionType): PhotoMap {
         val newMap = map.copy(georeference = map.georeference.copy(projectionType = projection))
         val recalculatedRotation = if (newMap.state == OfflineMapState.Ready) {
-            MapRotationCalculator().calculate(newMap)
+            rotationCalculator.calculate(newMap)
         } else {
             newMap.georeference.rotation
         }
@@ -196,18 +197,18 @@ class OfflineMapService private constructor(
     }
 
     suspend fun getActivePhotoMap(location: Coordinate, destination: Coordinate?): PhotoMap? {
-        return ActiveMapSelector().getActiveMap(getAllPhotoMaps(), location, destination)
+        return activeMapSelector.getActiveMap(repo.getPhotoMaps(), location, destination)
     }
 
     suspend fun getVisibleTrailMapAttributions(): List<String> {
-        return getAllTrailMaps()
+        return repo.getTrailMaps()
             .filter { it.visible }
             .mapNotNull { it.attribution?.trim()?.takeIf { attribution -> attribution.isNotBlank() } }
             .distinct()
     }
 
-    suspend fun rebasePhotoMapCalibrationsToBaseRotation() {
-        getAllPhotoMaps().forEach {
+    suspend fun migratePhotoMapCalibrationsToBaseRotation() {
+        repo.getPhotoMaps().forEach {
             if (it.georeference.calibrationPoints.isEmpty()) {
                 return@forEach
             }
@@ -220,7 +221,7 @@ class OfflineMapService private constructor(
 
     suspend fun getRenderablePhotoMaps(featureId: Long?): List<PhotoMap> {
         return (if (featureId == null) {
-            getAllPhotoMaps().filter { it.visible }
+            repo.getPhotoMaps().filter { it.visible }
         } else {
             listOfNotNull(getPhotoMap(featureId))
         }).filter { it.state == OfflineMapState.Ready }
@@ -228,7 +229,7 @@ class OfflineMapService private constructor(
 
     suspend fun getRenderableTrailMaps(featureId: Long?): List<TrailMap> {
         return (if (featureId == null) {
-            getAllTrailMaps().filter { it.visible }
+            repo.getTrailMaps().filter { it.visible }
         } else {
             listOfNotNull(getTrailMap(featureId))
         }).filter { it.state == OfflineMapState.Ready }
@@ -254,14 +255,6 @@ class OfflineMapService private constructor(
         val maps = repo.getPhotoMaps(parentId) + repo.getTrailMaps(parentId)
         val groups = getGroups(parentId)
         return maps + groups
-    }
-
-    private suspend fun getAllPhotoMaps(): List<PhotoMap> {
-        return repo.getPhotoMaps()
-    }
-
-    private suspend fun getAllTrailMaps(): List<TrailMap> {
-        return repo.getTrailMaps()
     }
 
     private suspend fun maybeReduce(map: OfflineMap): OfflineMap {
