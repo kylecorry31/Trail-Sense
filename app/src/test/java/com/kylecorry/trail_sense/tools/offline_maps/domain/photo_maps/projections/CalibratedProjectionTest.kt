@@ -16,37 +16,12 @@ internal class CalibratedProjectionTest {
     @ParameterizedTest
     @CsvSource(
         "10.0, 20.0, 0, 0",
-        "10.0, 30.0, 100, 0",
-        "0.0, 20.0, 0, 200",
+        "10.0, 30.0, 150, 50",
+        "0.0, 20.0, -50, 150",
         "0.0, 30.0, 100, 200",
         "5.0, 25.0, 50, 100",
-        "2.5, 22.5, 25, 150",
-        "7.5, 27.5, 75, 50"
-    )
-    fun canProjectWith4Points(
-        latitude: Double,
-        longitude: Double,
-        expectedX: Float,
-        expectedY: Float
-    ) {
-        val projection = CalibratedProjection(fourPointCalibration, LinearProjection)
-        val coordinate = Coordinate(latitude, longitude)
-        val pixel = Vector2(expectedX, expectedY)
-
-        assertPixels(pixel, projection.toPixels(coordinate))
-        assertPixels(pixel, projection.toPixels(latitude, longitude))
-        assertCoordinate(coordinate, projection.toCoordinate(pixel))
-    }
-
-    @ParameterizedTest
-    @CsvSource(
-        "10.0, 20.0, 0, 0",
-        "10.0, 30.0, 100, 0",
-        "0.0, 20.0, 0, 200",
-        "0.0, 30.0, 100, 200",
-        "5.0, 25.0, 50, 100",
-        "2.5, 22.5, 25, 150",
-        "7.5, 27.5, 75, 50"
+        "2.5, 22.5, 0, 125",
+        "7.5, 27.5, 100, 75"
     )
     fun canProjectWith2Points(
         latitude: Double,
@@ -72,31 +47,31 @@ internal class CalibratedProjectionTest {
     }
 
     @Test
-    fun returnsZeroesWhenCalibrationHasZeroWidth() {
+    fun returnsZeroesWhenCalibrationHasSamePixel() {
         val projection = CalibratedProjection(
             listOf(
                 PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
-                PixelCoordinate(0f, 200f) to Coordinate(0.0, 20.0)
+                PixelCoordinate(0f, 0f) to Coordinate(0.0, 30.0)
             ),
             LinearProjection
         )
 
-        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(0f, 100f)))
-        assertPixels(Vector2(0f, 0f), projection.toPixels(5.0, 20.0))
+        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(50f, 50f)))
+        assertPixels(Vector2(0f, 0f), projection.toPixels(5.0, 25.0))
     }
 
     @Test
-    fun returnsZeroesWhenCalibrationHasZeroHeight() {
+    fun returnsZeroesWhenCalibrationHasSameLocation() {
         val projection = CalibratedProjection(
             listOf(
                 PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
-                PixelCoordinate(100f, 0f) to Coordinate(10.0, 30.0)
+                PixelCoordinate(100f, 100f) to Coordinate(10.0, 20.0)
             ),
             LinearProjection
         )
 
-        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(50f, 0f)))
-        assertPixels(Vector2(0f, 0f), projection.toPixels(10.0, 25.0))
+        assertCoordinate(Coordinate.zero, projection.toCoordinate(Vector2(50f, 50f)))
+        assertPixels(Vector2(0f, 0f), projection.toPixels(10.0, 20.0))
     }
 
     @Test
@@ -153,12 +128,12 @@ internal class CalibratedProjectionTest {
     @ParameterizedTest
     @CsvSource(
         "10.0, 170.0, 0, 0",
-        "10.0, -170.0, 100, 0",
-        "0.0, 170.0, 0, 200",
+        "10.0, -170.0, 160, 120",
+        "0.0, 170.0, -60, 80",
         "0.0, -170.0, 100, 200",
         "5.0, 180.0, 50, 100",
-        "5.0, -175.0, 75, 100",
-        "5.0, 175.0, 25, 100"
+        "5.0, -175.0, 90, 130",
+        "5.0, 175.0, 10, 70"
     )
     fun canProjectBoundsCrossingAntimeridian(
         latitude: Double,
@@ -189,13 +164,6 @@ internal class CalibratedProjectionTest {
     }
 
     private companion object {
-        val fourPointCalibration: List<Pair<PixelCoordinate, Coordinate>> = listOf(
-            PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
-            PixelCoordinate(100f, 0f) to Coordinate(10.0, 30.0),
-            PixelCoordinate(0f, 200f) to Coordinate(0.0, 20.0),
-            PixelCoordinate(100f, 200f) to Coordinate(0.0, 30.0)
-        )
-
         val twoPointCalibration: List<Pair<PixelCoordinate, Coordinate>> = listOf(
             PixelCoordinate(0f, 0f) to Coordinate(10.0, 20.0),
             PixelCoordinate(100f, 200f) to Coordinate(0.0, 30.0)
@@ -203,15 +171,11 @@ internal class CalibratedProjectionTest {
 
         val fullWorldCalibration: List<Pair<PixelCoordinate, Coordinate>> = listOf(
             PixelCoordinate(0f, 0f) to Coordinate(80.0, -180.0),
-            PixelCoordinate(360f, 0f) to Coordinate(80.0, 180.0),
-            PixelCoordinate(0f, 160f) to Coordinate(-80.0, -180.0),
             PixelCoordinate(360f, 160f) to Coordinate(-80.0, 180.0)
         )
 
         val antimeridianCrossingCalibration: List<Pair<PixelCoordinate, Coordinate>> = listOf(
             PixelCoordinate(0f, 0f) to Coordinate(10.0, 170.0),
-            PixelCoordinate(100f, 0f) to Coordinate(10.0, -170.0),
-            PixelCoordinate(0f, 200f) to Coordinate(0.0, 170.0),
             PixelCoordinate(100f, 200f) to Coordinate(0.0, -170.0)
         )
     }

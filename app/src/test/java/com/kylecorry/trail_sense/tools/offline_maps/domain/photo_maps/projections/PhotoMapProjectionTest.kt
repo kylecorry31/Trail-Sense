@@ -19,41 +19,41 @@ internal class PhotoMapProjectionTest {
     @CsvSource(
         // 0 degrees
         "0, false, 10.0, 20.0, 0, 0",
-        "0, false, 10.0, 30.0, 100, 0",
-        "0, false, 0.0, 20.0, 0, 200",
+        "0, false, 10.0, 30.0, 150, 50",
+        "0, false, 0.0, 20.0, -50, 150",
         "0, false, 0.0, 30.0, 100, 200",
         "0, false, 5.0, 25.0, 50, 100",
-        "0, false, 2.5, 22.5, 25, 150",
-        "0, false, 7.5, 27.5, 75, 50",
+        "0, false, 2.5, 22.5, 0, 125",
+        "0, false, 7.5, 27.5, 100, 75",
         "0, true, 10.0, 20.0, 0, 0",
         "0, true, 0.0, 30.0, 100, 200",
         // 90 degrees, base rotation disabled
-        "90, false, 10.0, 20.0, 0, 200",
-        "90, false, 10.0, 30.0, 0, 0",
-        "90, false, 0.0, 20.0, 100, 200",
-        "90, false, 0.0, 30.0, 100, 0",
+        "90, false, 10.0, 20.0, 0, 0",
+        "90, false, 10.0, 30.0, 150, 50",
+        "90, false, 0.0, 20.0, -50, 150",
+        "90, false, 0.0, 30.0, 100, 200",
         // 90 degrees, base rotation enabled
-        "90, true, 10.0, 20.0, 0, 0",
-        "90, true, 10.0, 30.0, 200, 0",
-        "90, true, 0.0, 20.0, 0, 100",
-        "90, true, 0.0, 30.0, 200, 100",
+        "90, true, 10.0, 20.0, 200, 0",
+        "90, true, 10.0, 30.0, 150, 150",
+        "90, true, 0.0, 20.0, 50, -50",
+        "90, true, 0.0, 30.0, 0, 100",
         // 180 degrees
-        "180, false, 10.0, 20.0, 100, 200",
-        "180, true, 10.0, 20.0, 0, 0",
+        "180, false, 10.0, 20.0, 0, 0",
+        "180, true, 10.0, 20.0, 100, 200",
         // 270 degrees
-        "270, false, 10.0, 20.0, 100, 0",
-        "270, true, 10.0, 20.0, 0, 0",
+        "270, false, 10.0, 20.0, 0, 0",
+        "270, true, 10.0, 20.0, 0, 100",
         // 45 degrees, base rotation disabled
-        "45, false, 10.0, 20.0, -100, 100",
-        "45, false, 10.0, 30.0, 50, -50",
-        "45, false, 0.0, 20.0, 50, 250",
-        "45, false, 0.0, 30.0, 200, 100",
+        "45, false, 10.0, 20.0, 0, 0",
+        "45, false, 10.0, 30.0, 150, 50",
+        "45, false, 0.0, 20.0, -50, 150",
+        "45, false, 0.0, 30.0, 100, 200",
         "45, false, 5.0, 25.0, 50, 100",
         // 45 degrees, base rotation enabled
-        "45, true, 10.0, 20.0, 100, -100",
-        "45, true, 10.0, 30.0, 250, 50",
-        "45, true, 0.0, 20.0, -50, 50",
-        "45, true, 0.0, 30.0, 100, 200",
+        "45, true, 10.0, 20.0, 200, 0",
+        "45, true, 10.0, 30.0, 150, 150",
+        "45, true, 0.0, 20.0, 50, -50",
+        "45, true, 0.0, 30.0, 0, 100",
         "45, true, 5.0, 25.0, 100, 50"
     )
     fun canProject(
@@ -141,14 +141,10 @@ internal class PhotoMapProjectionTest {
 
     private companion object {
         val northWest: Coordinate = Coordinate(10.0, 20.0)
-        val northEast: Coordinate = Coordinate(10.0, 30.0)
-        val southWest: Coordinate = Coordinate(0.0, 20.0)
         val southEast: Coordinate = Coordinate(0.0, 30.0)
 
         val defaultCalibrationPoints: List<MapCalibrationPoint> = listOf(
             MapCalibrationPoint(northWest, PercentCoordinate(0f, 0f)),
-            MapCalibrationPoint(northEast, PercentCoordinate(1f, 0f)),
-            MapCalibrationPoint(southWest, PercentCoordinate(0f, 1f)),
             MapCalibrationPoint(southEast, PercentCoordinate(1f, 1f))
         )
     }

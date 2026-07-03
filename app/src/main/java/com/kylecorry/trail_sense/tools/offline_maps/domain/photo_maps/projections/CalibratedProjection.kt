@@ -2,9 +2,6 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projectio
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.arithmetic.Arithmetic
-import com.kylecorry.sol.math.interpolation.Interpolation.map
-import com.kylecorry.sol.math.interpolation.Interpolation.norm
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
@@ -14,42 +11,11 @@ class CalibratedProjection(
     private val projection: IMapProjection
 ) : IMapProjection {
 
-    private val left = getLeft(calibration)
-    private val right = getRight(calibration)
-    private val top = getTop(calibration)
-    private val bottom = getBottom(calibration)
-    private val width = (right?.first?.x ?: 0f) - (left?.first?.x ?: 0f)
-    private val height = (bottom?.first?.y ?: 0f) - (top?.first?.y ?: 0f)
     private val bounds = getBounds(calibration.map { it.second })
-
-    private val bottomLeft = projection.toPixels(bounds.south, bounds.west)
-    private val topRight = projection.toPixels(bounds.north, bounds.east)
-
+    private val transform = getTransform(calibration)
 
     override fun toCoordinate(pixel: Vector2): Coordinate {
-        val hasZeroSize = Arithmetic.isZero(width) || Arithmetic.isZero(height)
-        val hasInvalidCorner = left == null || top == null
-
-        if (hasInvalidCorner || hasZeroSize) {
-            return Coordinate.zero
-        }
-
-        val x = map(
-            (pixel.x - left.first.x).toDouble() / width.toDouble(),
-            0.0,
-            1.0,
-            bottomLeft.x.toDouble(),
-            topRight.x.toDouble()
-        )
-        val y = map(
-            (pixel.y - top.first.y - height).toDouble() / -height.toDouble(),
-            0.0,
-            1.0,
-            bottomLeft.y.toDouble(),
-            topRight.y.toDouble()
-        )
-
-        return projection.toCoordinate(Vector2(x.toFloat(), y.toFloat()))
+        return projection.toCoordinate(transform?.toSource(pixel) ?: return Coordinate.zero)
     }
 
     override fun toPixels(location: Coordinate): Vector2 {
@@ -60,46 +26,13 @@ class CalibratedProjection(
         latitude: Double,
         longitude: Double
     ): Vector2 {
-        val hasZeroSize = Arithmetic.isZero(width) || Arithmetic.isZero(height)
-        val hasInvalidCorner = left == null || top == null || bottom == null
-
-        if (hasInvalidCorner || hasZeroSize) {
-            return Vector2(0f, 0f)
-        }
-
         val coords = if (longitude < 0 && bounds.west > 0) {
             projection.toPixels(latitude, longitude + 360)
         } else {
             projection.toPixels(latitude, longitude)
         }
 
-        val x = left.first.x.toDouble() + width.toDouble() * norm(
-            coords.x.toDouble(),
-            bottomLeft.x.toDouble(),
-            topRight.x.toDouble()
-        )
-        val y = top.first.y.toDouble() + height.toDouble() - height.toDouble() * norm(
-            coords.y.toDouble(),
-            bottomLeft.y.toDouble(),
-            topRight.y.toDouble()
-        )
-        return Vector2(x.toFloat(), y.toFloat())
-    }
-
-    private fun getLeft(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.minByOrNull { it.first.x }
-    }
-
-    private fun getRight(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.maxByOrNull { it.first.x }
-    }
-
-    private fun getTop(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.minByOrNull { it.first.y }
-    }
-
-    private fun getBottom(pixels: List<Pair<PixelCoordinate, Coordinate>>): Pair<PixelCoordinate, Coordinate>? {
-        return pixels.maxByOrNull { it.first.y }
+        return transform?.toDestination(coords) ?: Vector2(0f, 0f)
     }
 
     private fun getBounds(coordinates: List<Coordinate>): CoordinateBounds {
@@ -129,6 +62,82 @@ class CalibratedProjection(
         }
 
         return bounds
+    }
+
+    private fun getTransform(calibration: List<Pair<PixelCoordinate, Coordinate>>): Transform? {
+        if (calibration.size < 2) {
+            return null
+        }
+
+        val points = calibration.map {
+            toProjectionPixels(it.second.latitude, it.second.longitude) to Vector2(
+                it.first.x,
+                it.first.y
+            )
+        }
+
+        return getSimilarityTransform(points[0], points[1])
+    }
+
+    private fun getSimilarityTransform(
+        first: Pair<Vector2, Vector2>,
+        second: Pair<Vector2, Vector2>
+    ): Transform? {
+        val sourceDx = second.first.x - first.first.x
+        val sourceDy = second.first.y - first.first.y
+        val destinationDx = second.second.x - first.second.x
+        val destinationDy = second.second.y - first.second.y
+        val sourceLengthSquared = sourceDx * sourceDx + sourceDy * sourceDy
+        if (sourceLengthSquared == 0f) {
+            return null
+        }
+
+        val a = (destinationDx * sourceDx - destinationDy * sourceDy) / sourceLengthSquared
+        val b = (destinationDx * sourceDy + destinationDy * sourceDx) / sourceLengthSquared
+        val c = first.second.x - a * first.first.x - b * first.first.y
+        val d = (destinationDy * sourceDx + destinationDx * sourceDy) / sourceLengthSquared
+        val e = (destinationDy * sourceDy - destinationDx * sourceDx) / sourceLengthSquared
+        val f = first.second.y - d * first.first.x - e * first.first.y
+
+        return Transform(a, b, c, d, e, f)
+    }
+
+    private data class Transform(
+        val a: Float,
+        val b: Float,
+        val c: Float,
+        val d: Float,
+        val e: Float,
+        val f: Float
+    ) {
+        fun toDestination(source: Vector2): Vector2 {
+            return Vector2(
+                a * source.x + b * source.y + c,
+                d * source.x + e * source.y + f
+            )
+        }
+
+        fun toSource(destination: Vector2): Vector2? {
+            val determinant = a * e - b * d
+            if (determinant == 0f) {
+                return null
+            }
+
+            val x = destination.x - c
+            val y = destination.y - f
+            return Vector2(
+                (e * x - b * y) / determinant,
+                (-d * x + a * y) / determinant
+            )
+        }
+    }
+
+    private fun toProjectionPixels(latitude: Double, longitude: Double): Vector2 {
+        return if (longitude < 0 && bounds.west > 0) {
+            projection.toPixels(latitude, longitude + 360)
+        } else {
+            projection.toPixels(latitude, longitude)
+        }
     }
 
 }

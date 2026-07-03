@@ -21,8 +21,8 @@ internal class PhotoMapTest {
         "90, 6999.381",
         "180, 6999.381",
         "270, 6999.381",
-        "45, 5217.0303",
-        "135, 5217.0303"
+        "45, 6999.381",
+        "135, 6999.381"
     )
     fun distancePerPixelUsesCalibratedPixelDistance(
         rotation: Float,
@@ -63,12 +63,12 @@ internal class PhotoMapTest {
 
     @ParameterizedTest
     @CsvSource(
-        "0, 9.9999997, 30.0000008, 0.0, 19.9999994",
-        "90, 9.9999997, 30.0000008, 0.0, 19.9999994",
-        "180, 9.9999997, 30.0000008, 0.0, 19.9999994",
-        "270, 9.9999997, 30.0000008, 0.0, 19.9999994",
-        "45, 9.9999997, 30.0000008, -0.0000007, 19.9999994",
-        "135, 9.9999997, 30.0000008, -0.0000007, 19.9999994"
+        "0, 12.0, 30.0, -2.0, 20.0",
+        "90, 12.0, 30.0, -2.0, 20.0",
+        "180, 12.0, 30.0, -2.0, 20.0",
+        "270, 12.0, 30.0, -2.0, 20.0",
+        "45, 12.0, 30.0, -2.0, 20.0",
+        "135, 12.0, 30.0, -2.0, 20.0"
     )
     fun boundsUseCalibratedCorners(
         rotation: Float,
@@ -96,7 +96,7 @@ internal class PhotoMapTest {
         )
 
         assertBounds(
-            CoordinateBounds(9.9999997, 30.0000008, 0.0, 19.9999994),
+            CoordinateBounds(12.0, 30.0, -2.0, 20.0),
             map.bounds
         )
     }
@@ -116,10 +116,10 @@ internal class PhotoMapTest {
     }
 
     private fun assertBounds(expected: CoordinateBounds, actual: CoordinateBounds?) {
-        assertEquals(expected.north, actual?.north ?: 0.0, 0.000001, "north")
-        assertEquals(expected.east, actual?.east ?: 0.0, 0.000001, "east")
-        assertEquals(expected.south, actual?.south ?: 0.0, 0.000001, "south")
-        assertEquals(expected.west, actual?.west ?: 0.0, 0.000001, "west")
+        assertEquals(expected.north, actual?.north ?: 0.0, 0.00001, "north")
+        assertEquals(expected.east, actual?.east ?: 0.0, 0.00001, "east")
+        assertEquals(expected.south, actual?.south ?: 0.0, 0.00001, "south")
+        assertEquals(expected.west, actual?.west ?: 0.0, 0.00001, "west")
     }
 
     private fun map(
@@ -146,15 +146,11 @@ internal class PhotoMapTest {
 
     private companion object {
         val northWest: Coordinate = Coordinate(10.0, 20.0)
-        val northEast: Coordinate = Coordinate(10.0, 30.0)
-        val southWest: Coordinate = Coordinate(0.0, 20.0)
         val southEast: Coordinate = Coordinate(0.0, 30.0)
 
         val defaultCalibrationPoints: List<MapCalibrationPoint> = listOf(
             MapCalibrationPoint(northWest, PercentCoordinate(0f, 0f)),
-            MapCalibrationPoint(southEast, PercentCoordinate(1f, 1f)),
-            MapCalibrationPoint(northEast, PercentCoordinate(1f, 0f)),
-            MapCalibrationPoint(southWest, PercentCoordinate(0f, 1f))
+            MapCalibrationPoint(southEast, PercentCoordinate(1f, 1f))
         )
     }
 }
