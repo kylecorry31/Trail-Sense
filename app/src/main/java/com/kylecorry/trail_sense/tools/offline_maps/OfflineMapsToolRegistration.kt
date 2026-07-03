@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.quickactions.QuickActionOpenPhotoMap
@@ -68,7 +69,15 @@ object OfflineMapsToolRegistration : ToolRegistration {
             ).distinctBy { it.id },
             intentHandlers = listOf(importMapIntentHandler),
             initialize = {
-                DependencyRegistry.addSingleton(OfflineMapService.getInstance(it))
+                DependencyRegistry.addSingleton(MapRepo.getInstance(it))
+                DependencyRegistry.addSingleton(
+                    OfflineMapService(
+                        it,
+                        getAppService(),
+                        getAppService(),
+                        getAppService()
+                    )
+                )
             },
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_OFFLINE_MAP_CHANGED, "Offline map changed"),

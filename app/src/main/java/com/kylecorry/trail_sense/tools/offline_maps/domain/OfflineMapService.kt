@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.offline_maps.domain
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.util.Log
@@ -28,13 +27,12 @@ import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.re
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.reduce.MediumQualityMapReducer
 import java.io.IOException
 
-class OfflineMapService private constructor(
+class OfflineMapService internal constructor(
     context: Context,
     private val repo: MapRepo,
     private val files: FileSubsystem,
     private val prefs: UserPreferences
 ) {
-
     val loader = GroupLoader(this::getGroup, this::getChildren)
 
     private val maintenance = OfflineMapMaintenance(files, repo)
@@ -207,18 +205,6 @@ class OfflineMapService private constructor(
             .distinct()
     }
 
-    suspend fun migratePhotoMapCalibrationsToBaseRotation() {
-        repo.getPhotoMaps().forEach {
-            if (it.georeference.calibrationPoints.isEmpty()) {
-                return@forEach
-            }
-            val points = it.georeference.calibrationPoints.map { point ->
-                point.copy(imageLocation = point.imageLocation.rotate(-it.baseRotation()))
-            }
-            calibrate(it, points)
-        }
-    }
-
     suspend fun getRenderablePhotoMaps(featureId: Long?): List<PhotoMap> {
         return (if (featureId == null) {
             repo.getPhotoMaps().filter { it.visible }
@@ -293,24 +279,4 @@ class OfflineMapService private constructor(
             else -> error("Unexpected map subclass")
         } as T
     }
-
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        private var instance: OfflineMapService? = null
-
-        @Synchronized
-        fun getInstance(context: Context): OfflineMapService {
-            if (instance == null) {
-                val appContext = context.applicationContext
-                instance = OfflineMapService(
-                    appContext,
-                    MapRepo.getInstance(appContext),
-                    FileSubsystem.getInstance(appContext),
-                    UserPreferences(appContext)
-                )
-            }
-            return instance!!
-        }
-    }
-
 }
