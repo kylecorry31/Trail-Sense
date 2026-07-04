@@ -209,8 +209,8 @@ open class TileMapLayer<T : TileSource>(
         }
 
         getTilesToRender(desiredTiles).forEach { renderTile ->
-            renderTile.imageTile.withImage { bitmap ->
-                bitmap ?: return@withImage
+            renderTile.imageTile.tryWithImage { bitmap ->
+                bitmap ?: return@tryWithImage
                 tryOrLog {
                     val clipTile = renderTile.clipTo
                     if (clipTile != null) {
