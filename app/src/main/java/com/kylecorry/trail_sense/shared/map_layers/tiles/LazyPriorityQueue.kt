@@ -74,6 +74,7 @@ class LazyPriorityQueue<T : Any>(initialCapacity: Int, comparator: Comparator<T>
         priorityQueue.clear()
         count.set(0)
         stagedCount.set(0)
+        prioritiesChanged = false
     }
 
     fun count(): Int {

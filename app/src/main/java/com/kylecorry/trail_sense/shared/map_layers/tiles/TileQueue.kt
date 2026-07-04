@@ -4,6 +4,8 @@ import android.util.Log
 import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 import kotlin.math.log
 
 class TileQueue {
@@ -23,6 +25,8 @@ class TileQueue {
 
     @Volatile
     private var desiredTiles: Set<Tile>? = null
+
+    private val dequeueLock = ReentrantLock()
 
     fun setMapProjection(projection: IMapViewProjection) {
         mapProjection = projection
@@ -54,7 +58,7 @@ class TileQueue {
     }
 
     fun clear() {
-        queue.clear()
+        dequeueLock.withLock { queue.clear() }
         synchronized(queuedKeys) {
             queuedKeys.clear()
         }
@@ -69,7 +73,7 @@ class TileQueue {
     }
 
     private fun dequeue(): ImageTile? {
-        val tile = queue.dequeue().firstOrNull()
+        val tile = dequeueLock.withLock { queue.dequeue().firstOrNull() }
         if (tile != null) {
             synchronized(queuedKeys) {
                 queuedKeys.remove(tile.key)
