@@ -2,7 +2,9 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
 import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.read
 import kotlin.concurrent.withLock
+import kotlin.concurrent.write
 
 class ImageTile(
     val key: String,
@@ -40,19 +42,19 @@ class ImageTile(
     }
 
     fun hasImage(): Boolean {
-        return lock.readLock().withLock {
+        return lock.read {
             image != null
         }
     }
 
     fun setLoader(loader: (suspend () -> Bitmap?)?) {
-        lock.writeLock().withLock {
+        lock.write {
             _loadFunction = loader
         }
     }
 
     fun invalidate() {
-        lock.writeLock().withLock {
+        lock.write {
             state = TileState.Stale
             _loadFunction = null
         }
@@ -60,7 +62,7 @@ class ImageTile(
 
     suspend fun load() {
         var wasIdle = false
-        val loader = lock.writeLock().withLock {
+        val loader = lock.write {
             if (_loadFunction == null) {
                 state = TileState.Stale
                 return
@@ -74,7 +76,7 @@ class ImageTile(
         var wasSuccess = false
         try {
             val newImage = loader?.invoke()
-            lock.writeLock().withLock {
+            lock.write {
                 image?.recycle()
                 image = newImage
                 hasImage = image != null
@@ -82,7 +84,7 @@ class ImageTile(
             wasSuccess = true
         } catch (e: Throwable) {
             e.printStackTrace()
-            lock.writeLock().withLock {
+            lock.write {
                 image?.recycle()
                 image = null
             }
@@ -91,7 +93,7 @@ class ImageTile(
             loadingStartTime = System.currentTimeMillis()
         }
 
-        lock.writeLock().withLock {
+        lock.write {
             if (state == TileState.Stale) {
                 return
             }
@@ -105,13 +107,13 @@ class ImageTile(
     }
 
     fun withImage(block: (image: Bitmap?) -> Unit) {
-        lock.readLock().withLock {
+        lock.read {
             block(image)
         }
     }
 
     fun recycle() {
-        lock.writeLock().withLock {
+        lock.write {
             image?.recycle()
             image = null
             state = TileState.Idle
