@@ -8,17 +8,16 @@ import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
-import com.kylecorry.luna.cache.ObjectPool
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPolygon
 import com.kylecorry.andromeda.geojson.GeoJsonPosition
+import com.kylecorry.luna.cache.ObjectPool
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.PolygonClipper
 import com.kylecorry.trail_sense.shared.extensions.getColor
@@ -34,9 +33,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
 
     private var filterEpsilon = 0f
     private val clipper = PolygonClipper()
-    private var pathPool = ObjectPool { Path() }
     private var polygons = listOf<PrecomputedPolygon>()
-    private val lock = Any()
     private var updateListener: (() -> Unit)? = null
     private val matrix = Matrix()
     private val src = FloatArray(8)
@@ -105,7 +102,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
                 feature.getStrokeColor(),
                 feature.getStrokeWeight() ?: 0f,
                 feature.getOpacity(),
-                pathPool.get(),
+                Path(),
                 bounds,
                 projectedCorners
             )
@@ -123,12 +120,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
             render(polygon, actualViewBounds, projection)
         }
 
-        synchronized(lock) {
-            polygons.forEach {
-                pathPool.release(it.path)
-            }
-            polygons = precomputed
-        }
+        polygons = precomputed
     }
 
     override fun draw(
@@ -144,60 +136,58 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
         val scale = map.layerScale
         drawer.noPathEffect()
 
-        synchronized(lock) {
-            for (polygon in polygons) {
-                val path = polygon.path
+        for (polygon in polygons) {
+            val path = polygon.path
 
-                val currentNW = map.toPixel(polygon.referenceBounds.northWest)
-                val currentNE = map.toPixel(polygon.referenceBounds.northEast)
-                val currentSE = map.toPixel(polygon.referenceBounds.southEast)
-                val currentSW = map.toPixel(polygon.referenceBounds.southWest)
+            val currentNW = map.toPixel(polygon.referenceBounds.northWest)
+            val currentNE = map.toPixel(polygon.referenceBounds.northEast)
+            val currentSE = map.toPixel(polygon.referenceBounds.southEast)
+            val currentSW = map.toPixel(polygon.referenceBounds.southWest)
 
-                // Source points (precomputed projected corners)
-                System.arraycopy(polygon.projectedCorners, 0, src, 0, 8)
+            // Source points (precomputed projected corners)
+            System.arraycopy(polygon.projectedCorners, 0, src, 0, 8)
 
-                // Destination points (current screen coordinates)
-                // NW
-                dst[0] = currentNW.x
-                dst[1] = currentNW.y
-                // NE
-                dst[2] = currentNE.x
-                dst[3] = currentNE.y
-                // SE
-                dst[4] = currentSE.x
-                dst[5] = currentSE.y
-                // SW
-                dst[6] = currentSW.x
-                dst[7] = currentSW.y
+            // Destination points (current screen coordinates)
+            // NW
+            dst[0] = currentNW.x
+            dst[1] = currentNW.y
+            // NE
+            dst[2] = currentNE.x
+            dst[3] = currentNE.y
+            // SE
+            dst[4] = currentSE.x
+            dst[5] = currentSE.y
+            // SW
+            dst[6] = currentSW.x
+            dst[7] = currentSW.y
 
-                matrix.setPolyToPoly(src, 0, dst, 0, 4)
+            matrix.setPolyToPoly(src, 0, dst, 0, 4)
 
-                // Calculate scale from matrix
-                val matrixValues = FloatArray(9)
-                matrix.getValues(matrixValues)
-                val scaleX = matrixValues[Matrix.MSCALE_X]
-                val skewY = matrixValues[Matrix.MSKEW_Y]
-                val relativeScale = kotlin.math.sqrt(scaleX * scaleX + skewY * skewY)
+            // Calculate scale from matrix
+            val matrixValues = FloatArray(9)
+            matrix.getValues(matrixValues)
+            val scaleX = matrixValues[Matrix.MSCALE_X]
+            val skewY = matrixValues[Matrix.MSKEW_Y]
+            val relativeScale = kotlin.math.sqrt(scaleX * scaleX + skewY * skewY)
 
-                drawer.canvas.withMatrix(matrix) {
+            drawer.canvas.withMatrix(matrix) {
 
-                    if (polygon.fillColor != null) {
-                        drawer.fill(polygon.fillColor.withAlpha(polygon.opacity))
-                    } else {
-                        drawer.noFill()
-                    }
-
-                    if (polygon.strokeColor != null && polygon.strokeWeight > 0) {
-                        drawer.stroke(polygon.strokeColor.withAlpha(polygon.opacity))
-                        drawer.strokeWeight(drawer.dp(polygon.strokeWeight * scale) / relativeScale)
-                        drawer.strokeJoin(StrokeJoin.Round)
-                        drawer.strokeCap(StrokeCap.Round)
-                    } else {
-                        drawer.noStroke()
-                    }
-
-                    drawer.path(path)
+                if (polygon.fillColor != null) {
+                    drawer.fill(polygon.fillColor.withAlpha(polygon.opacity))
+                } else {
+                    drawer.noFill()
                 }
+
+                if (polygon.strokeColor != null && polygon.strokeWeight > 0) {
+                    drawer.stroke(polygon.strokeColor.withAlpha(polygon.opacity))
+                    drawer.strokeWeight(drawer.dp(polygon.strokeWeight * scale) / relativeScale)
+                    drawer.strokeJoin(StrokeJoin.Round)
+                    drawer.strokeCap(StrokeCap.Round)
+                } else {
+                    drawer.noStroke()
+                }
+
+                drawer.path(path)
             }
         }
 
