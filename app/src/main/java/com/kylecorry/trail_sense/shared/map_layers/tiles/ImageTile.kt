@@ -15,7 +15,7 @@ class ImageTile(
 
     private val lock = ReentrantLock()
 
-    private var _loadFunction: (suspend () -> Bitmap?)? = loadFunction
+    @Volatile private var _loadFunction: (suspend () -> Bitmap?)? = loadFunction
 
     var loadingStartTime: Long? = null
     fun getAlpha(): Int {

@@ -9,7 +9,7 @@ import kotlin.math.log
 class TileQueue {
     // Enable this to log what tiles are being loaded
     private val shouldLog = false
-    private var changeListener: (tile: ImageTile) -> Unit = {}
+    private var changeListener: suspend (tile: ImageTile) -> Unit = {}
     private val loadingKeys = mutableSetOf<String>()
     private val queuedKeys = mutableSetOf<String>()
     private val loadingCount = AtomicInteger(0)
@@ -125,7 +125,7 @@ class TileQueue {
         }
     }
 
-    private fun onStateChange(tile: ImageTile) {
+    private suspend fun onStateChange(tile: ImageTile) {
         synchronized(loadingKeys) {
             if (loadingKeys.remove(tile.key)) {
                 loadingCount.decrementAndGet()
@@ -152,7 +152,7 @@ class TileQueue {
         return 65536 * log(resolution, 10.0) + distance / resolution
     }
 
-    fun setChangeListener(listener: (tile: ImageTile) -> Unit) {
+    fun setChangeListener(listener: suspend (tile: ImageTile) -> Unit) {
         changeListener = listener
     }
 
