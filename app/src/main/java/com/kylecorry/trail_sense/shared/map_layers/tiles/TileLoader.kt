@@ -19,8 +19,6 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import java.time.Instant
 
 class TileLoader(
@@ -33,7 +31,6 @@ class TileLoader(
 ) {
 
     val tileCache = TileCache(tag ?: "", 256)
-    private val borderPopulationLock = Mutex()
 
     private val persistentCache =
         if (key != null) getAppService<PersistentTileCache>() else null
@@ -56,10 +53,8 @@ class TileLoader(
     init {
         // TODO: This should be handled by a higher level component
         tileQueue.setChangeListener { imageTile ->
-            borderPopulationLock.withLock {
-                tryOrLog {
-                    populateBorderAndNeighbors(imageTile)
-                }
+            tryOrLog {
+                populateBorderAndNeighbors(imageTile)
             }
             updateListener()
         }
