@@ -86,6 +86,7 @@ open class TileMapLayer<T : TileSource>(
     private val clipPath = Path()
     protected var layerPreferences: Bundle = Bundle()
     private var featureId: String? = null
+    private var hasFadingTiles = false
 
     private val loadTimer = CoroutineTimer(
         scope = CoroutineScope(tileLoadDispatcher),
@@ -189,6 +190,7 @@ open class TileMapLayer<T : TileSource>(
     }
 
     private fun renderTiles(context: Context, canvas: Canvas, map: IMapView) {
+        hasFadingTiles = false
         val bounds = map.mapBounds
         val projection = map.mapProjection
         val desiredTiles = getTiles(
@@ -231,6 +233,10 @@ open class TileMapLayer<T : TileSource>(
                     }
                 }
             }
+        }
+
+        if (hasFadingTiles) {
+            notifyListeners()
         }
     }
 
@@ -416,7 +422,7 @@ open class TileMapLayer<T : TileSource>(
             tilePaint.alpha = imageTile.getAlpha()
             // There are still tiles being faded in, so keep re-rendering the map
             if (tilePaint.alpha != 255) {
-                notifyListeners()
+                hasFadingTiles = true
             }
 
             drawBitmap(bitmap, srcRect, destRect, tilePaint)

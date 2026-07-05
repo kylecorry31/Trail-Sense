@@ -25,6 +25,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.andromeda_temp.ThresholdChangeTrigger
 import com.kylecorry.trail_sense.shared.map_layers.MapViewLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -65,23 +66,74 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var pendingScaleChangeCallback = false
     private var onScaleChange: ((resolutionPixels: Float) -> Unit)? = null
     private var onCenterChange: ((center: Coordinate) -> Unit)? = null
+    private val userLocationInvalidateTrigger = ThresholdChangeTrigger(
+        Coordinate.zero,
+        MIN_USER_LOCATION_CHANGE_METERS
+    ) { previous, current ->
+        if (previous == Coordinate.zero || current == Coordinate.zero) {
+            if (previous == current) 0f else Float.POSITIVE_INFINITY
+        } else {
+            previous.distanceTo(current)
+        }
+    }
+    private val userLocationAccuracyInvalidateTrigger = ThresholdChangeTrigger(
+        null as Distance?,
+        MIN_USER_LOCATION_ACCURACY_CHANGE_METERS
+    ) { previous, current ->
+        if (previous == null || current == null) {
+            if (previous == current) 0f else Float.POSITIVE_INFINITY
+        } else {
+            (previous.meters().value - current.meters().value).absoluteValue
+        }
+    }
+    private val userAzimuthInvalidateTrigger = ThresholdChangeTrigger(
+        Bearing.from(0f),
+        MIN_USER_AZIMUTH_CHANGE_DEGREES
+    ) { previous, current ->
+        deltaAngle(previous.value, current.value).absoluteValue
+    }
+    private val mapCenterInvalidateTrigger = ThresholdChangeTrigger(
+        Coordinate.zero,
+        MIN_MAP_CENTER_CHANGE_METERS
+    ) { previous, current ->
+        if (previous == Coordinate.zero || current == Coordinate.zero) {
+            if (previous == current) 0f else Float.POSITIVE_INFINITY
+        } else {
+            previous.distanceTo(current)
+        }
+    }
+    private val mapAzimuthInvalidateTrigger = ThresholdChangeTrigger(
+        0f,
+        MIN_MAP_AZIMUTH_CHANGE_DEGREES
+    ) { previous, current ->
+        deltaAngle(previous, current).absoluteValue
+    }
 
     override var userLocation: Coordinate = Coordinate.zero
         set(value) {
+            val shouldInvalidate = userLocationInvalidateTrigger.update(value)
             field = value
-            invalidate()
+            if (shouldInvalidate) {
+                invalidate()
+            }
         }
 
     override var userLocationAccuracy: Distance? = null
         set(value) {
+            val shouldInvalidate = userLocationAccuracyInvalidateTrigger.update(value)
             field = value
-            invalidate()
+            if (shouldInvalidate) {
+                invalidate()
+            }
         }
 
     override var userAzimuth: Bearing = Bearing.from(0f)
         set(value) {
+            val shouldInvalidate = userAzimuthInvalidateTrigger.update(value)
             field = value
-            invalidate()
+            if (shouldInvalidate) {
+                invalidate()
+            }
         }
 
     init {
@@ -154,9 +206,13 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var mapCenter: Coordinate = Coordinate.zero
         set(value) {
-            field = constrainToBounds(value)
+            val constrained = constrainToBounds(value)
+            val shouldInvalidate = mapCenterInvalidateTrigger.update(constrained)
+            field = constrained
             onCenterChange?.invoke(field)
-            invalidate()
+            if (shouldInvalidate) {
+                invalidate()
+            }
         }
 
     private val mapCenterPixels: Vector2
@@ -166,8 +222,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var mapAzimuth: Float = 0f
         set(value) {
+            val shouldInvalidate = mapAzimuthInvalidateTrigger.update(value)
             field = value
-            invalidate()
+            if (shouldInvalidate) {
+                invalidate()
+            }
         }
     override val mapRotation: Float = 0f
 
@@ -615,5 +674,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         private const val FLING_MULTIPLIER = 1000000
         private const val FLING_VELOCITY_SCALE = 0.6f
         private const val MIN_RESOLUTION_PIXELS = 0.1f
+        private const val MIN_USER_AZIMUTH_CHANGE_DEGREES = 0.5f
+        private const val MIN_MAP_AZIMUTH_CHANGE_DEGREES = 0.1f
+        private const val MIN_MAP_CENTER_CHANGE_METERS = 0.5f
+        private const val MIN_USER_LOCATION_CHANGE_METERS = 0.5f
+        private const val MIN_USER_LOCATION_ACCURACY_CHANGE_METERS = 0.5f
     }
 }
