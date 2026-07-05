@@ -49,6 +49,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     private val matrix = Matrix()
     private val src = FloatArray(8)
     private val dst = FloatArray(8)
+    private val matrixValues = FloatArray(9)
     private val labelPoint = FloatArray(2)
 
     init {
@@ -119,6 +120,18 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             viewBounds.bottom - margin
         )
 
+        val projectedNW = projection.toPixels(bounds.northWest)
+        val projectedNE = projection.toPixels(bounds.northEast)
+        val projectedSE = projection.toPixels(bounds.southEast)
+        val projectedSW = projection.toPixels(bounds.southWest)
+
+        val projectedCorners = floatArrayOf(
+            projectedNW.x, projectedNW.y,
+            projectedNE.x, projectedNE.y,
+            projectedSE.x, projectedSE.y,
+            projectedSW.x, projectedSW.y
+        )
+
         val precomputed = features.mapNotNull {
             val geometry = it.geometry as GeoJsonLineString
             val line = geometry.line
@@ -154,21 +167,8 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 emptyList()
             }
 
-            val projectedNW = projection.toPixels(bounds.northWest)
-            val projectedNE = projection.toPixels(bounds.northEast)
-            val projectedSE = projection.toPixels(bounds.southEast)
-            val projectedSW = projection.toPixels(bounds.southWest)
-
-            val projectedCorners = floatArrayOf(
-                projectedNW.x, projectedNW.y,
-                projectedNE.x, projectedNE.y,
-                projectedSE.x, projectedSE.y,
-                projectedSW.x, projectedSW.y
-            )
-
             PrecomputedLineString(
-                it,
-                coordinates,
+                coordinates.size,
                 lineSegments,
                 name,
                 it.getColor() ?: Color.TRANSPARENT,
@@ -282,7 +282,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             matrix.setPolyToPoly(src, 0, dst, 0, 4)
 
             // Calculate scale from matrix
-            val matrixValues = FloatArray(9)
             matrix.getValues(matrixValues)
             val scaleX = matrixValues[Matrix.MSCALE_X]
             val skewY = matrixValues[Matrix.MSKEW_Y]
@@ -336,7 +335,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         matrix: Matrix
     ) {
         if (shouldRenderLabels && path.name != null) {
-            if (path.points.size < 2) return
+            if (path.pointCount < 2) return
 
             // TODO: Adjust text size / wrapping based on name length
             drawer.textSize(drawer.sp(10f * map.layerScale))
@@ -404,8 +403,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     }
 
     class PrecomputedLineString(
-        val feature: GeoJsonFeature,
-        val points: List<Coordinate>,
+        val pointCount: Int,
         val line: FloatArray,
         val name: String?,
         val color: Int,

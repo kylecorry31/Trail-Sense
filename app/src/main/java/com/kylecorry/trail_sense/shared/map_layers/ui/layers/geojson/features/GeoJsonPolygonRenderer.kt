@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPolygon
 import com.kylecorry.andromeda.geojson.GeoJsonPosition
-import com.kylecorry.luna.cache.ObjectPool
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -38,6 +37,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
     private val matrix = Matrix()
     private val src = FloatArray(8)
     private val dst = FloatArray(8)
+    private val matrixValues = FloatArray(9)
 
     init {
         setRunInBackgroundWhenChanged(this::renderFeaturesInBackground)
@@ -81,6 +81,15 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
             projectedSW.x, projectedSW.y
         )
 
+        // Canvas bounds are inverted
+        val margin = 100f
+        val actualViewBounds = Rectangle(
+            viewBounds.left - margin,
+            viewBounds.bottom - margin,
+            viewBounds.right + margin,
+            viewBounds.top + margin
+        )
+
         val precomputed = features.mapNotNull { feature ->
             val geometry = feature.geometry as GeoJsonPolygon
             val rings = geometry.polygon ?: return@mapNotNull null
@@ -94,30 +103,18 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
             val filteredRings = rings.map { ring ->
                 rdp.filter(ring).map { it.coordinate }
             }
+            val path = Path()
+            render(path, filteredRings, actualViewBounds, projection)
 
             PrecomputedPolygon(
-                feature,
-                filteredRings,
                 feature.getColor(),
                 feature.getStrokeColor(),
                 feature.getStrokeWeight() ?: 0f,
                 feature.getOpacity(),
-                Path(),
+                path,
                 bounds,
                 projectedCorners
             )
-        }
-
-        // Canvas bounds are inverted
-        val margin = 100f
-        val actualViewBounds = Rectangle(
-            viewBounds.left - margin,
-            viewBounds.bottom - margin,
-            viewBounds.right + margin,
-            viewBounds.top + margin
-        )
-        for (polygon in precomputed) {
-            render(polygon, actualViewBounds, projection)
         }
 
         polygons = precomputed
@@ -164,7 +161,6 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
             matrix.setPolyToPoly(src, 0, dst, 0, 4)
 
             // Calculate scale from matrix
-            val matrixValues = FloatArray(9)
             matrix.getValues(matrixValues)
             val scaleX = matrixValues[Matrix.MSCALE_X]
             val skewY = matrixValues[Matrix.MSKEW_Y]
@@ -196,14 +192,15 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
     }
 
     private fun render(
-        polygon: PrecomputedPolygon,
+        path: Path,
+        rings: List<List<Coordinate>>,
         bounds: Rectangle,
         projection: IMapViewProjection
     ) {
-        polygon.path.reset()
-        polygon.path.fillType = Path.FillType.EVEN_ODD
+        path.reset()
+        path.fillType = Path.FillType.EVEN_ODD
 
-        polygon.rings.forEach { ring ->
+        rings.forEach { ring ->
             if (ring.isEmpty()) {
                 return@forEach
             }
@@ -218,19 +215,17 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
             }
 
             val start = clipped[0]
-            polygon.path.moveTo(start.x, start.y)
+            path.moveTo(start.x, start.y)
 
             for (i in 1 until clipped.size) {
                 val pixel = clipped[i]
-                polygon.path.lineTo(pixel.x, pixel.y)
+                path.lineTo(pixel.x, pixel.y)
             }
-            polygon.path.close()
+            path.close()
         }
     }
 
     class PrecomputedPolygon(
-        val feature: GeoJsonFeature,
-        val rings: List<List<Coordinate>>,
         val fillColor: Int?,
         val strokeColor: Int?,
         val strokeWeight: Float,
