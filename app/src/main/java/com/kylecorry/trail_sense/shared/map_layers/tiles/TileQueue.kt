@@ -4,8 +4,9 @@ import android.util.Log
 import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.locks.ReentrantLock
-import kotlin.concurrent.withLock
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.read
+import kotlin.concurrent.write
 import kotlin.math.log
 
 class TileQueue {
@@ -13,6 +14,7 @@ class TileQueue {
     private val shouldLog = false
     private var changeListener: suspend (tile: ImageTile) -> Unit = {}
     private val loadingKeys = mutableSetOf<String>()
+    private val loadingLock = ReentrantReadWriteLock()
     private val queuedKeys = mutableSetOf<String>()
     private val loadingCount = AtomicInteger(0)
 
@@ -25,8 +27,6 @@ class TileQueue {
 
     @Volatile
     private var desiredTiles: Set<Tile>? = null
-
-    private val dequeueLock = ReentrantLock()
 
     fun setMapProjection(projection: IMapViewProjection) {
         mapProjection = projection
@@ -42,7 +42,7 @@ class TileQueue {
         if (state != TileState.Idle && state != TileState.Stale) {
             return
         }
-        synchronized(loadingKeys) {
+        loadingLock.read {
             if (loadingKeys.contains(tile.key)) {
                 return
             }
@@ -58,11 +58,11 @@ class TileQueue {
     }
 
     fun clear() {
-        dequeueLock.withLock { queue.clear() }
+        queue.clear()
         synchronized(queuedKeys) {
             queuedKeys.clear()
         }
-        synchronized(loadingKeys) {
+        loadingLock.write {
             loadingKeys.clear()
             loadingCount.set(0)
         }
@@ -73,7 +73,7 @@ class TileQueue {
     }
 
     private fun dequeue(): ImageTile? {
-        val tile = dequeueLock.withLock { queue.dequeue().firstOrNull() }
+        val tile = queue.dequeue().firstOrNull()
         if (tile != null) {
             synchronized(queuedKeys) {
                 queuedKeys.remove(tile.key)
@@ -95,7 +95,7 @@ class TileQueue {
             val key = tile.key
             val tileState = tile.state
             if (tileState == TileState.Idle || tileState == TileState.Stale) {
-                val shouldLoad = synchronized(loadingKeys) {
+                val shouldLoad = loadingLock.write {
                     loadingKeys.add(key).also {
                         if (it) {
                             loadingCount.incrementAndGet()
@@ -119,7 +119,7 @@ class TileQueue {
                 onStateChange(it)
             }
         } finally {
-            synchronized(loadingKeys) {
+            loadingLock.write {
                 jobs.forEach {
                     if (loadingKeys.remove(it.key)) {
                         loadingCount.decrementAndGet()
@@ -130,7 +130,7 @@ class TileQueue {
     }
 
     private suspend fun onStateChange(tile: ImageTile) {
-        synchronized(loadingKeys) {
+        loadingLock.write {
             if (loadingKeys.remove(tile.key)) {
                 loadingCount.decrementAndGet()
             }
