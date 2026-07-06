@@ -1,4 +1,4 @@
-Las capas se usan para mostrar información en el mapa. Son configurables en Navegar, Mapas Calibrados y Herramienta de Mapa. Consulta las guías de la herramienta correspondiente para saber cómo acceder a los ajustes de capa.
+Las capas se usan para mostrar información en el mapa. Son configurables en Navegar, Mapas Offline y Herramienta de Mapa. Consulta las guías de la herramienta correspondiente para saber cómo acceder a los ajustes de capa.
 
 Algunas capas dependen del tiempo (marcadas abajo). Al ver estas capas en la herramienta Mapa, puedes cambiar la hora del mapa para verlas en distintos momentos. En otras herramientas, siempre muestran la hora actual.
 
@@ -6,7 +6,7 @@ En el panel de ajustes de capas, cuanto más arriba esté una capa en la lista, 
 
 Pulsa  el nombre de la capa para ver sus ajustes.
 
-Puedes usar el botón "Capas adicionales" en la parte inferior de la lista de capas para añadir capas adicionales.
+Puedes usar el botón "Capas adicionales" en la parte inferior de la lista de capas para añadir capas adicionales. Los plugins conectados también pueden proporcionar capas de mapa adicionales. Los plugins son experimentales y deben habilitarse en Ajustes > Experimental > Plugins, y luego conectarse desde Ajustes > Plugins
 
 Cada capa tiene los siguientes ajustes:
 
@@ -17,6 +17,12 @@ Cada capa tiene los siguientes ajustes:
 
 ## Mapa base
 Esta capa muestra un mapa del mundo con colores basados en imágenes satelitales. Tiene muy baja resolución y no es adecuado para navegación.
+
+## Mapas de recorridos
+Esta capa muestra los Mapas de recorridos visibles de la herramienta Mapas Offline.
+
+Ajustes:
+- **Gestionar mapas**: Enlace a la herramienta Mapas Offline.
 
 ## Elevación
 Esta capa muestra la elevación del modelo digital de elevación (DEM) como color.
@@ -71,8 +77,8 @@ Ajustes:
 - **Modelo de elevación digital (DEM)**: Enlaza con Ajustes > Altímetro para configurar la fuente DEM.
 - **Alta resolución**: La resolución aumentará al alejar el zoom. Esto puede ser más lento.
 
-## Mapas Calibrados
-Esta capa muestra los mapas calibrados visibles, con el mapa más acercado apareciendo arriba. Puedes añadir nuevos mapas en la herramienta Mapas Calibrados.
+## Mapas sin conexión
+Esta capa muestra los mapas sin conexión visibles, con el mapa más cerca apareciendo arriba. Puedes añadir nuevos mapas en la herramienta Mapas Offline.
 
 Ajustes:
 

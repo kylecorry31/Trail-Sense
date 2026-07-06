@@ -1,7 +1,7 @@
 La herramienta Triangular Ubicación puede usarse para determinar las coordenadas de una ubicación usando dos ubicaciones conocidas. Esto puede servir para determinar tu ubicación si el GPS no funciona, o para determinar las coordenadas de una ubicación en la distancia.
 
 ## Determinar tu ubicación
-Si tu GPS no funciona y quieres determinar tu ubicación actual, primero tendrás que ver dos ubicaciones conocidas. Idealmente, estas ubicaciones están al menos 60 grados separadas para la mejor precisión. Las ubicaciones pueden ser balizas o puedes determinarlas usando un mapa. Para una guía sobre cómo obtener las coordenadas de una ubicación desde un mapa, consulta la guía 'Mapas Calibrados' en la sección 'Calibrar desde la cuadrícula del mapa'. Una vez que tengas las coordenadas de las dos ubicaciones conocidas, puedes usar los siguientes pasos para determinar tu ubicación:
+Si tu GPS no funciona y quieres determinar tu ubicación actual, primero tendrás que ver dos ubicaciones conocidas. Idealmente, estas ubicaciones están al menos 60 grados separadas para la mejor precisión. Las ubicaciones pueden ser balizas o puedes determinarlas usando un mapa. Para una guía sobre cómo obtener las coordenadas de una ubicación desde un mapa, consulta la guía 'Mapas Calibrados' en la sección 'Calibrar mapas'. Una vez que tengas las coordenadas de las dos ubicaciones conocidas, puedes usar los siguientes pasos para determinar tu ubicación:
 
 1. Selecciona 'Mi ubicación' como la ubicación a triangular.
 2. Introduce las coordenadas de la primera ubicación conocida y registra la dirección desde donde estás hasta esa ubicación como Ubicación 1. Puedes pulsar el icono de la cámara en el lado derecho del campo de dirección para apuntar la ubicación usando la cámara.
