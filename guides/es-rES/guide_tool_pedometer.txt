@@ -7,6 +7,13 @@ La distancia recorrida se mostrará en la parte superior de la pantalla, junto c
 
 Puedes detener el podómetro en cualquier momento (p. ej., mientras descansas o en un campamento) pulsando el botón detener en la esquina inferior derecha. Detener el podómetro no restablecerá la distancia recorrida, por lo que puedes reanudarlo pulsando iniciar de nuevo. Si quieres comenzar una nueva medición, puedes pulsar el botón de restablecer.
 
+## Historial
+La sección de Historial muestra tus pasos y distancia totales para el día seleccionado, junto con un gráfico que desglosa los pasos por hora. Pulsa una barra del gráfico para ver los pasos y la distancia de esa hora. Usa las flechas o el botón de calendario para ver otro día.
+
+Pulsa el botón del reloj junto al Historial para ver tus sesiones del podómetro. Cada sesión muestra la hora, pasos, distancia, velocidad media y duración. Se crea una nueva sesión siempre que reinicias el podómetro. Puedes eliminar una sesión desde su menú.
+
+De forma predeterminada, el historial de pasos se conserva durante 30 días. Puedes cambiarlo en Ajustes > Podómetro > Historial de pasos.
+
 ## Alerta de distancia
 Si el podómetro está activado, puedes elegir recibir una notificación cuando alcanzas cierta distancia recorrida. Para activarlo, pulsa el icono de alerta en la esquina superior derecha de la pantalla e introduce la distancia a la que quieres ser avisado. Una vez alcanzada la distancia, recibirás una notificación. La alerta de distancia usa la distancia total, así que si ya has recorrido 4 km y quieres ser avisado tras 1 km más, establece la alerta en 5 km. Alternativamente, puedes restablecer el podómetro y establecer la alerta en 1 km.
 
