@@ -1565,4 +1565,5 @@
     </plurals>
     <string name="created">Utworzono</string>
     <string name="recording_sighting_for_page">Rejestrowanie obserwacji: \'%s\'</string>
+    <string name="draft">Szkic</string>
 </resources>
