@@ -8,10 +8,10 @@ import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.bitmaps.ImagePixelReader
-import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
+import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.arithmetic.Arithmetic.wrap
 import com.kylecorry.sol.math.interpolation.Interpolation
@@ -28,8 +28,8 @@ import kotlin.math.roundToInt
 object TideModel {
 
     // Cache
-    private val cache = LRUCache<PixelCoordinate, TideModelResult>(size = 5)
-    private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate?>(size = 20)
+    private val cache = MemoryLRUCache<PixelCoordinate, TideModelResult>(size = 5)
+    private val locationToPixelCache = MemoryLRUCache<Coordinate, PixelCoordinate?>(size = 20)
 
     // Image data source
     private val size = Size(720, 360)

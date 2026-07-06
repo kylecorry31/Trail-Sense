@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.precipitation
 
 import android.util.Size
-import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -16,7 +16,7 @@ import java.time.Month
 internal object HistoricMonthlyPrecipitationRepo {
 
     // Cache
-    private val cache = LRUCache<PixelCoordinate, Map<Month, Distance>>(size = 5)
+    private val cache = MemoryLRUCache<PixelCoordinate, Map<Month, Distance>>(size = 5)
 
     // Image data source
     private val size = Size(360, 180)

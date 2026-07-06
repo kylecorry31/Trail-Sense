@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
-import com.kylecorry.luna.cache.LRUCache
+import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.interpolation.Interpolation
@@ -43,8 +43,8 @@ object DEM {
     private const val CACHE_SIZE = 500
     private var cache =
         GeospatialCache<DEMElevation>(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
-    private var pixelCache = LRUCache<String, ElevationBitmap>(1)
-    private var tileCache = LRUCache<String, ElevationBitmap>(16)
+    private var pixelCache = MemoryLRUCache<String, ElevationBitmap>(1)
+    private var tileCache = MemoryLRUCache<String, ElevationBitmap>(16)
     private var cachedSources: List<GeographicImageSource>? = null
     private var cachedHasWaterMask: Boolean = false
     private var cachedIsExternal: Boolean? = null

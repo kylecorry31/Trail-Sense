@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.dewpoint
 
 import android.util.Size
-import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
@@ -15,7 +15,7 @@ import java.time.Month
 internal object HistoricMonthlyDewpointRepo {
 
     // Cache
-    private val cache = LRUCache<PixelCoordinate, Map<Month, Temperature>>(size = 5)
+    private val cache = MemoryLRUCache<PixelCoordinate, Map<Month, Temperature>>(size = 5)
 
     // Image data source
     private val size = Size(360, 180)

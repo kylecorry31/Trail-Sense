@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures
 
 import android.util.Size
-import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Temperature
@@ -19,7 +19,7 @@ import kotlin.math.min
 internal object HistoricMonthlyTemperatureRangeRepo {
 
     // Cache
-    private val cache = LRUCache<PixelCoordinate, Map<Month, Range<Temperature>>>(size = 5)
+    private val cache = MemoryLRUCache<PixelCoordinate, Map<Month, Range<Temperature>>>(size = 5)
 
     // Image data source
     private const val highA = 1.3492063283920288

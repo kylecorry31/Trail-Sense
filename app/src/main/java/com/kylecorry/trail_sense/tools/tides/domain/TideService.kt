@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
 import android.content.Context
-import com.kylecorry.luna.cache.LRUCache
+import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
@@ -23,7 +23,7 @@ class TideService(private val context: Context) {
 
     private val maxSearchIterations = 10
 
-    private val cache = LRUCache<TideTable, TideTableWaterLevelCalculator>(100)
+    private val cache = MemoryLRUCache<TideTable, TideTableWaterLevelCalculator>(100)
 
     suspend fun getTides(
         table: TideTable,
