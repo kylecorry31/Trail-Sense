@@ -1032,9 +1032,7 @@
     <string name="horizon">Horizont</string>
     <string name="weather_thunderstorm">Bouřka</string>
     <string name="astronomy_direction_peak">Špičkový směr</string>
-    <string name="map_calibration_instructions">Klepněte na známou pozici na mapě a poté zadejte její skutečné souřadnice. Kalibraci můžete uložit klepnutím na tlačítko „Hotovo“.
-\n
-\nPříklady dobrých bodů kalibrace: parkoviště, bod značení, orientační bod nebo křižovatka podél stezky.</string>
+    <string name="map_calibration_instructions">Klepněte na známou pozici na mapě a poté zadejte její skutečné souřadnice. Kalibraci můžete uložit klepnutím na tlačítko „Hotovo“. \n \nPříklady dobrých bodů kalibrace: parkoviště, bod značení, orientační bod nebo křižovatka podél stezky.</string>
     <string name="rotation_amount">Rotace: %s</string>
     <string name="i_agree">Souhlasím</string>
     <string name="reset_calibration">Resetovat kalibraci</string>
