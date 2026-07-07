@@ -1091,9 +1091,7 @@
 \n%4$s</string>
     <string name="pack_sort_percent_high_to_low">已打包百分比（從高至低）</string>
     <string name="weather_alert_cold_description">為應對寒冷天氣做好準備。採取額外的預防措施以防止體溫過低和凍傷。</string>
-    <string name="map_calibration_instructions">在地圖上點擊已知的位置，然後輸入現實世界的座標。你可以透過點擊「完成」按鈕以儲存校正。
-\n
-\n良好校正點的範例包括停車場、標誌點、地標或路的交會處。</string>
+    <string name="map_calibration_instructions">在地圖上點擊已知的位置，然後輸入現實世界的座標。你可以透過點擊「完成」按鈕以儲存校正。 \n \n良好校正點的範例包括停車場、標誌點、地標或路的交會處。</string>
     <string name="battery_usage">%s 電池使用情況</string>
     <string name="estimate_stride_length">估計步幅</string>
     <string name="pack_sort_percent_low_to_high">已打包百分比（從低至高）</string>
