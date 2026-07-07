@@ -278,15 +278,14 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     private fun selectPoint(index: Int) {
         binding.mapCalibrationTitle.text =
-            getString(R.string.calibrate_map_point, index + 1, maxPoints)
+            getString(R.string.calibrate_map_point_title, index + 1, maxPoints)
         binding.mapCalibrationCoordinate.coordinate = if (manager.isCalibrated(index)) {
             manager.getCalibrationPoint(index).location
         } else {
             null
         }
         binding.mapCalibrationBottomPanel.isVisible = true
-        binding.calibrationNext.text =
-            if (index == (maxPoints - 1)) getString(R.string.done) else getString(R.string.next)
+        updateNextButtonText()
         binding.calibrationPrev.isVisible = index == 1
 
         updateCompletionState()
@@ -295,10 +294,11 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private fun updateCompletionState() {
         val validation = validateCalibration()
         val notice = getCalibrationNotice(validation)
-        updateCalibrationTitle(notice)
+        updateCalibrationText(notice)
 
         val isValid = validation == MapCalibrationValidationResult.Valid
         binding.previewButton.isEnabled = isValid
+        updateNextButtonText()
 
         // If it is calibrated, replace the info icon with a green checkmark
         if (notice.isNotBlank()) {
@@ -322,6 +322,14 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
                 binding.mapCalibrationTitle,
                 Resources.androidTextColorSecondary(requireContext())
             )
+        }
+    }
+
+    private fun updateNextButtonText() {
+        binding.calibrationNext.text = when {
+            calibrationIndex != maxPoints - 1 -> getString(R.string.next)
+            validateCalibration() == MapCalibrationValidationResult.Valid -> getString(R.string.finish_calibration)
+            else -> getString(R.string.save_draft)
         }
     }
 
@@ -385,13 +393,14 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         }
     }
 
-    private fun updateCalibrationTitle(notice: String) {
-        val title = getString(R.string.calibrate_map_point, calibrationIndex + 1, maxPoints)
-        binding.mapCalibrationTitle.text = if (notice.isBlank()) {
-            title
+    private fun updateCalibrationText(notice: String) {
+        binding.mapCalibrationTitle.text =
+            getString(R.string.calibrate_map_point_title, calibrationIndex + 1, maxPoints)
+        binding.mapCalibrationSubtitle.text = if (notice.isBlank()) {
+            getString(R.string.calibrate_map_point_instructions)
         } else {
             buildSpannedString {
-                append(title)
+                append(getString(R.string.calibrate_map_point_instructions))
                 appendLine()
                 color(getErrorColor()) {
                     append(notice)

@@ -242,7 +242,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         click(R.id.calibration_map, xPercent = 0.7f, yPercent = 0.3f)
         input("Location", "42.1, -72.1")
         click(string(R.string.preview))
-        click("Done")
+        click("Finish calibration")
 
         hasText("Test Map")
         if (goBack) {
@@ -385,9 +385,9 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         // Calibrate
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Calibrate")
-        hasText("Calibrate with known locations")
+        hasText("Point 1 of 2")
         click("Next")
-        click("Done")
+        click("Finish calibration")
         isVisible(R.id.map)
 
         // User guide

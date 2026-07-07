@@ -165,7 +165,7 @@ class SmokeTest {
             yPercent = 0.3f
         )
         input("Location", "42.1, -72.1")
-        click("Done")
+        click("Finish calibration")
 
         hasText("Test Map")
         back()

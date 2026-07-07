@@ -58,9 +58,19 @@
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:drawableStartCompat="@drawable/ic_info"
             app:drawableTint="?android:textColorSecondary"
-            tools:text="Calibrate with known locations (1 / 2)" />
+            tools:text="Point 1 of 2" />
+
+        <TextView
+            android:id="@+id/map_calibration_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/calibrate_map_point_instructions"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?android:attr/textColorSecondary" />
 
         <com.kylecorry.trail_sense.shared.views.CoordinateInputView
             android:id="@+id/map_calibration_coordinate"

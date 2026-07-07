@@ -1164,7 +1164,11 @@
     <string name="permission_alarms_and_reminders">Alarms and reminders</string>
     <string name="change_resolution">Change resolution</string>
     <string name="done">Done</string>
+    <string name="save_draft">Save draft</string>
+    <string name="finish_calibration">Finish calibration</string>
     <string name="calibrate_map_point">Calibrate with known locations (%1$d / %2$d)</string>
+    <string name="calibrate_map_point_title">Point %1$d of %2$d</string>
+    <string name="calibrate_map_point_instructions">Tap this location on the map, then enter its real-world coordinates.</string>
     <string name="descent">Descent</string>
     <string name="ascent">Ascent</string>
     <string name="lowest_point_elevation">Lowest point</string>
@@ -1271,7 +1275,7 @@
     <string name="print">Print</string>
     <string name="autofill_source">Autofill source</string>
     <string name="map_calibration">Map calibration</string>
-    <string name="map_calibration_instructions">Tap a known location on the map, then enter the real-world coordinates. You can save the calibration by clicking the “Done” button.\n\nExamples of good calibration points are a parking lot, a signage point, a landmark, or a junction along a trail.</string>
+    <string name="map_calibration_instructions">Choose two points that you can identify both on this map and in the real world. For each point, tap its exact position on the map, then enter its real-world coordinates.\n\nGood points are far apart and easy to recognize, such as a trailhead, parking lot, sign, landmark, map grid intersection, or trail junction.\n\nIf both points are valid, tap "Finish calibration". If you only have one point or want to finish later, tap "Save draft".</string>
     <string name="map_calibration_error_same_pixel">Select two different points on the map.</string>
     <string name="map_calibration_error_same_image_axis">Select two map points that are not directly beside or above each other.</string>
     <string name="map_calibration_error_same_location">Enter two different real-world locations.</string>

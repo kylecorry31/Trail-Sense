@@ -36,8 +36,8 @@ To calibrate a photo map:
     - You can recenter the map on your screen by clicking the recenter button in the top-right corner.
     - Use pinch-to-zoom or the zoom buttons in the bottom-right to more accurately select locations.
     - Calibration automatically aligns the map with North facing up, with the calculated rotation amount displayed under the map name at the top.
-    - At any point, you can save the calibration by clicking 'Next' + 'Done'.
-3. Save the calibration by tapping 'Done'.
+    - At any point, you can save an incomplete calibration by clicking 'Next' + 'Save draft'.
+3. Save the completed calibration by tapping 'Finish calibration'.
 
 If Trail Sense reports that calibration is invalid, make sure the two map points are different, the two real-world coordinates are different, and the distance between the selected map points is roughly proportional to their real-world distance.
 
