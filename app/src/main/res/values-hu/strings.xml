@@ -980,9 +980,7 @@
     <string name="historic_temperatures">Történelmi hőmérsékletek</string>
     <string name="astronomy_direction_peak">Csúcs irány</string>
     <string name="battery_usage_allowed">Akkumulátorhasználat megengedett</string>
-    <string name="map_calibration_instructions">Érints meg egy ismert helyet a térképen, majd add meg a valós koordinátákat. A kalibrálást a „Kész” gombra kattintva mentheted el.
-\n
-\nJó kalibrációs pontok például a parkolók, a jelzőtáblák, a tereptárgyak vagy az ösvények mentén található elágazások.</string>
+    <string name="map_calibration_instructions">Érints meg egy ismert helyet a térképen, majd add meg a valós koordinátákat. A kalibrálást a „Kész” gombra kattintva mentheted el. \n \nJó kalibrációs pontok például a parkolók, a jelzőtáblák, a tereptárgyak vagy az ösvények mentén található elágazások.</string>
     <string name="offline_maps_summary">Használ fotót térképként</string>
     <string name="blank">Üres</string>
     <string name="illumination">Megvilágítottság</string>
