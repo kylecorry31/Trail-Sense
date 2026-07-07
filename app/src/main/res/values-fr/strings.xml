@@ -1005,9 +1005,7 @@
     <string name="unable_to_find_next_astronomy">Impossible de trouver le suivant %s</string>
     <string name="until_sunrise">jusqu’au lever du soleil</string>
     <string name="map_calibration">Calibration de la carte</string>
-    <string name="map_calibration_instructions">Touchez un emplacement connu sur la carte, puis saisissez les coordonnées réelles. Vous pouvez enregistrer l’étalonnage en cliquant sur le bouton « Terminé ».
-\n
-\nDes exemples de bons points d’étalonnage sont un stationnement, un point de signalisation, un point de repère ou une jonction le long d’un sentier.</string>
+    <string name="map_calibration_instructions">Touchez un emplacement connu sur la carte, puis saisissez les coordonnées réelles. Vous pouvez enregistrer l’étalonnage en cliquant sur le bouton « Terminé ». \n \nDes exemples de bons points d’étalonnage sont un stationnement, un point de signalisation, un point de repère ou une jonction le long d’un sentier.</string>
     <string name="compass_source_legacy_ts">Héritage (Trail Sense)</string>
     <string name="compass_source_legacy_android">Héritage (Android)</string>
     <string name="photo_maps">Cartes illustrées</string>
