@@ -66,8 +66,9 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
         }
 
         // Freeze frame
-        useEffect(isFrozen) {
+        useEffect(frozenFrameView, cameraView, focusToggleBtn, isFrozen) {
             if (isFrozen) {
+                focusToggleBtn.isVisible = false
                 val bitmap = cameraView.previewImage
                 if (bitmap != null) {
                     frozenFrameView.setImageBitmap(bitmap)
@@ -75,9 +76,9 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
                     setHasFrozenBitmap(true)
                 } else {
                     setIsFrozen(false)
-                    setHasFrozenBitmap(false)
                 }
             } else {
+                focusToggleBtn.isVisible = true
                 frozenFrameView.isVisible = false
                 frozenFrameView.setImageBitmap(null)
                 setHasFrozenBitmap(false)
@@ -85,6 +86,11 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
             freezeBtn.setImageResource(
                 if (isFrozen) R.drawable.ic_baseline_play_arrow_24 else R.drawable.ic_pause
             )
+        }
+
+        useEffect(frozenFrameView){
+            // Consume touch events when the frozen frame view is visible to prevent interactions with the camera view behind it
+            frozenFrameView.setOnTouchListener { _, _ -> true }
         }
 
         // Button click listeners
