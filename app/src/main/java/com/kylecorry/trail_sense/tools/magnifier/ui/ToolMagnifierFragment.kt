@@ -22,6 +22,7 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
         val (isCameraEnabled, setIsCameraEnabled) = useState(false)
         val (isFrozen, setIsFrozen) = useState(false)
         val (isCloseUpFocus, setIsCloseUpFocus) = useState(false)
+        val (hasFrozenBitmap, setHasFrozenBitmap) = useState(false)
 
         useResumeEffect {
             requestCamera {
@@ -33,8 +34,8 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
         }
 
         // Start / stop camera
-        useEffect(isCameraEnabled, resetOnResume) {
-            if (isCameraEnabled) {
+        useEffect(isCameraEnabled, resetOnResume, hasFrozenBitmap) {
+            if (isCameraEnabled && !hasFrozenBitmap) {
                 cameraView.defaultZoomRatio = 2f
                 cameraView.minZoomRatio = 1f
                 cameraView.setShowTorch(true)
@@ -71,12 +72,15 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
                 if (bitmap != null) {
                     frozenFrameView.setImageBitmap(bitmap)
                     frozenFrameView.isVisible = true
+                    setHasFrozenBitmap(true)
                 } else {
                     setIsFrozen(false)
+                    setHasFrozenBitmap(false)
                 }
             } else {
                 frozenFrameView.isVisible = false
                 frozenFrameView.setImageBitmap(null)
+                setHasFrozenBitmap(false)
             }
             freezeBtn.setImageResource(
                 if (isFrozen) R.drawable.ic_baseline_play_arrow_24 else R.drawable.ic_pause
