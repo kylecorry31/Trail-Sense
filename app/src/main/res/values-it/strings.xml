@@ -921,9 +921,7 @@
     <string name="hot">Molto caldo</string>
     <string name="weather_thunderstorm">Temporale</string>
     <string name="unable_to_find_next_astronomy">Impossibile trovare la prossima %s</string>
-    <string name="map_calibration_instructions">Tocca una posizione nota sulla mappa poi inserisci le coordinate reali. Puoi salvare la calibrazione premendo il tasto \"Fatto\".
-\n
-\nEsempi di buoni punti di calibrazione sono un parcheggio, un punti di segnalazione, un punto di riferimento, o un incrocio lungo un sentiero.</string>
+    <string name="map_calibration_instructions">Tocca una posizione nota sulla mappa poi inserisci le coordinate reali. Puoi salvare la calibrazione premendo il tasto \"Fatto\". \n \nEsempi di buoni punti di calibrazione sono un parcheggio, un punti di segnalazione, un punto di riferimento, o un incrocio lungo un sentiero.</string>
     <string name="compass_source_legacy_ts">Dati precedenti (Trail Sense)</string>
     <string name="allow_schedule_exact_alarms_instructions">Questo permette a %1$s di impostare notifiche e promemoria esatti, come gli avvisi di tramonto. Senza questa autorizzazione, le notifiche potrebbero venir mostrate al momento sbagliato.
 \n
