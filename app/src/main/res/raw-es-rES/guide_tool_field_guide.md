@@ -35,5 +35,10 @@ Puedes ocultar avistamientos individuales para que no aparezcan en la capa de ma
 ## Eliminar una página
 Para eliminar una página, pulsa el botón de menú en la fila de la página y selecciona "Eliminar". Se pedirá que confirmes la eliminación. Eliminar una página es permanente y no puede deshacerse.
 
+## Acción rápida
+Puedes activar la acción rápida Registrar avistamiento en los ajustes de la pestaña que desees.
+
+Para usar la acción rápida, pulsa el botón de acción rápida Registrar avistamiento y selecciona una página para registrar un avistamiento. Esto creará un nuevo avistamiento en tu ubicación actual. Una vez creado, verás una notificación en la parte inferior de la pantalla con un botón para ver el avistamiento.
+
 ## Descargo de responsabilidad
 Esta herramienta está destinada únicamente a fines educativos. Siempre debes tener precaución al identificar plantas, animales u hongos. Algunas especies pueden ser peligrosas o estar protegidas. Si no estás seguro sobre una identificación, consulta a un profesional.

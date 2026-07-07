@@ -174,6 +174,23 @@ Some tools such as Navigation and Astronomy display error banners at the top of 
 ## Experimental
 Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
 
+### Plugins
+Plugins allow other installed apps to add features to Trail Sense. Right now they are limited to additional map layers.
+
+To use plugins, enable Settings > Experimental > Plugins. After enabling plugins, a Plugins page will appear in Settings where you can connect or disconnect available plugins.
+
+Connect a plugin by clicking on it in the "Available plugins" section. Only connect plugins that you trust. You can click on a connected plugin to see details about what features it adds, reload it, open its app, or disconnect.
+
+**Plugins are not currently available on the Google Play version of Trail Sense.**
+
+#### Privacy and Security
+
+Trail Sense will not communicate with plugins you haven't explicitly connected. Once connected, Trail Sense asks the plugin what features it adds and does not send any of your data over.
+
+When a map layer plugin is connected and the layer is enabled on the map, Trail Sense checks to make sure it has the precise location permission granted. If it does not, you will need to grant it to the plugin to use and Trail Sense will not load map data from it until that is done. If that is granted, Trail Sense will send the viewport bounds of the map to the plugin to load features and tiles.
+
+If the plugin's signature changes, it will be disconnected, and you will need to reconnect.
+
 ### Notification grouping
 Android 16 introduces forced notification grouping for apps. This normally puts all of Trail Sense's notifications into one group, which can be hard to read at a glance.
 

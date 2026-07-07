@@ -35,5 +35,10 @@ You can hide individual sightings from appearing on the Sightings map layer. Whe
 ## Delete a page
 To delete a page, click the menu button on a page row and select "Delete". You will be asked to confirm the deletion. Deleting a page is permanent and cannot be undone.
 
+## Quick action
+You can enable the Record Sighting quick action in the settings for the desired tab.
+
+To use the quick action, tap the Record Sighting quick action button and select a page to record a sighting. This will create a new sighting at your current location. Once created you will see a notification at the bottom of the screen with a button to view the sighting.
+
 ## Disclaimer
 This tool is intended for educational purposes only. Always use caution when identifying plants, animals, or mushrooms. Some species may be dangerous or protected. If you are unsure about an identification, consult a professional.

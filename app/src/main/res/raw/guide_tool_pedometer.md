@@ -7,6 +7,13 @@ The distance traveled will be shown at the top of the screen, along with the num
 
 You can stop the pedometer at any point (e.g., while resting or at a campsite) by clicking the stop button in the bottom-right corner. Stopping the pedometer will not reset the distance traveled, so you can resume it by clicking start again. If you want to start a new measurement, you can click the reset button instead.
 
+## History
+The History section shows your total steps and distance for the selected day, along with a chart that breaks the steps down by hour. Tap a bar on the chart to view the steps and distance for that hour. Use the arrows or calendar button to view another day.
+
+Tap the clock button next to History to view your pedometer sessions. Each session shows its time, steps, distance, average speed, and duration. A new session is created whenever you reset the pedometer. You can delete a session from its menu.
+
+By default, step history is kept for 30 days. You can change this in Settings > Pedometer > Step history.
+
 ## Distance alert
 If the pedometer is on, you can choose to receive a notification when you've reached a certain distance traveled. To activate, click the alert icon in the top-right corner of the screen and enter the distance you want to be alerted at. Once you've reached the distance, you'll receive a notification. The distance alert uses the total distance, so if you've already traveled 4 km and want to be notified after another 1 km, set the alert to 5 km. Alternatively, you can reset the pedometer and set the alert to 1 km.
 
