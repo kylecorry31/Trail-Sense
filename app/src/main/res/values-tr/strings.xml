@@ -1009,9 +1009,7 @@
     <string name="location_number">Konum %d</string>
     <string name="direction">Yön</string>
     <string name="battery_usage_allowed">Pil kullanımına izin verilir</string>
-    <string name="map_calibration_instructions">Haritada bilinen bir konuma dokunun, ardından gerçek dünya koordinatlarını girin. “Bitti” düğmesine tıklayarak kalibrasyonu kaydedebilirsiniz.
-\n
-\nİyi kalibrasyon noktalarına örnek olarak bir otopark, bir tabela noktası, bir yer işareti veya bir yol boyunca bir kavşak verilebilir.</string>
+    <string name="map_calibration_instructions">Haritada bilinen bir konuma dokunun, ardından gerçek dünya koordinatlarını girin. “Bitti” düğmesine tıklayarak kalibrasyonu kaydedebilirsiniz. \n \nİyi kalibrasyon noktalarına örnek olarak bir otopark, bir tabela noktası, bir yer işareti veya bir yol boyunca bir kavşak verilebilir.</string>
     <string name="offline_maps_summary">Harita olarak bir fotoğraf kullan</string>
     <string name="zero_shutter_lag">Sıfır deklanşör gecikmesi</string>
     <string name="illumination">Aydınlanma</string>
