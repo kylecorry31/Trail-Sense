@@ -938,9 +938,7 @@
     <string name="gps_unavailable_resolution">Aktiver posisjon eller endre posisjonskilde til \'Bare telefon\' eller \'Høy nøyaktighet\'</string>
     <string name="calibrate_map_point">Kalibrer med kjente steder (%1$d / %2$d)</string>
     <string name="map_calibration">Kartkalibrering</string>
-    <string name="map_calibration_instructions">Trykk på et kjent sted på kartet, deretter angi de virkelige koordinatene. Lagre kalibreringen ved å trykke knappen “Ferdig”.
-\n
-\nEksempler på gode kalibreringspunkter er en parkeringsplass, et skiltpunkt, et landemerke eller et stikryss.</string>
+    <string name="map_calibration_instructions">Trykk på et kjent sted på kartet, deretter angi de virkelige koordinatene. Lagre kalibreringen ved å trykke knappen “Ferdig”. \n \nEksempler på gode kalibreringspunkter er en parkeringsplass, et skiltpunkt, et landemerke eller et stikryss.</string>
     <string name="accelerometer">Akselerometer</string>
     <string name="yes">Ja</string>
     <string name="times">Tider</string>
