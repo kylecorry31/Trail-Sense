@@ -12,8 +12,9 @@ Audit the translation accuracy of Android string resources and localized guide f
 
 1. Run the extraction script from the skill's folder to get the changed translated content from the PR:
    ```
-   python scripts/extract_pr_strings.py <pr-number>
+   python3 scripts/extract_pr_strings.py <pr-number> --output /tmp/pr-strings.json
    ```
+   Read the extracted JSON from `/tmp/pr-strings.json`.
    This step is complete when the output includes:
    - `locales`: changed translated `<string>` resources with the English source for each key.
    - `files`: changed localized guide `.txt` files, including guide pages, field guides, and `tool_keywords.txt`, with the matching `guides/en-US/...` source text.
@@ -49,7 +50,7 @@ The script parses the output of `gh pr diff` and extracts:
 
 **Usage:**
 ```
-python scripts/extract_pr_strings.py <pr-number>
+python3 scripts/extract_pr_strings.py <pr-number> --output /tmp/pr-strings.json
 ```
 
 **Output schema:**

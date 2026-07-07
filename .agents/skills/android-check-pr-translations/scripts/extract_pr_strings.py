@@ -5,6 +5,7 @@ the English source.
 
 Usage:
     python3 extract_pr_strings.py <pr-number>
+    python3 extract_pr_strings.py <pr-number> --output /tmp/pr-strings.json
 
 Run from the repository root. Output: JSON with the structure:
 {
@@ -31,6 +32,7 @@ Run from the repository root. Output: JSON with the structure:
 import sys
 import re
 import json
+import argparse
 import subprocess
 from pathlib import Path
 
@@ -225,11 +227,19 @@ def parse_guide_diff(diff_text: str) -> list[dict]:
 
 
 def main():
-    if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} <pr-number>", file=sys.stderr)
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Extract translated text changes from a PR diff."
+    )
+    parser.add_argument("pr_number", type=int)
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=Path,
+        help="Write JSON to this file instead of stdout.",
+    )
+    args = parser.parse_args()
 
-    pr_number = int(sys.argv[1])
+    pr_number = args.pr_number
 
     result = subprocess.run(
         ["gh", "pr", "diff", str(pr_number)],
@@ -243,7 +253,11 @@ def main():
     locales = parse_string_diff(result.stdout, english)
     files = parse_guide_diff(result.stdout)
     output = {"pr_number": pr_number, "locales": locales, "files": files}
-    print(json.dumps(output, indent=2, ensure_ascii=False))
+    output_text = json.dumps(output, indent=2, ensure_ascii=False) + "\n"
+    if args.output:
+        args.output.write_text(output_text, encoding="utf-8")
+    else:
+        print(output_text, end="")
 
 
 if __name__ == "__main__":
