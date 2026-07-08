@@ -971,9 +971,7 @@
     <string name="autofill_source">自动填充源</string>
     <string name="calibrate_map_point">用已知位置校准 (%1$d / %2$d)</string>
     <string name="map_calibration">地图校准</string>
-    <string name="map_calibration_instructions">轻按地图上的已知位置，然后输入真实世界的坐标。 您可以通过单击“完成”按钮来保存校准。
-\n
-\n良好校准点的示例包括停车场、标志点、地标或小径沿线的交叉点。</string>
+    <string name="map_calibration_instructions">选取在此地图和真实世界中均可识别的两个点。在地图上轻触每个点的准确位置，然后输入其真实世界坐标。\n \n这两个点最好相距很远，易于识别，如小道的起点、停车场、指示牌、地标、地图网格交点或道路汇合点。\n\n如果确认两个点均有效，轻触完成校准。如果只有一个点或想稍后完成，轻触保存草图。</string>
     <string name="compass_source_mag_gyro">磁力计+陀螺仪</string>
     <string name="compass_source_legacy_ts">传统（Trail Sense）</string>
     <string name="compass_source_legacy_android">传统（Android）</string>
@@ -1603,4 +1601,8 @@
     <string name="created">已创建</string>
     <string name="recording_sighting_for_page">正在记录“%s”目击</string>
     <string name="draft">草图</string>
+    <string name="save_draft">保存草图</string>
+    <string name="finish_calibration">完成校准</string>
+    <string name="calibrate_map_point_title">第 %1$d 点，共 %2$d 点</string>
+    <string name="calibrate_map_point_instructions">在地图上轻按此位置，然后输入其真实世界坐标。</string>
 </resources>
