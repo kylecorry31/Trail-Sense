@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerType
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
+import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileCacheInvalidationHandler
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.quickactions.QuickActionOpenPhotoMap
@@ -78,6 +79,8 @@ object OfflineMapsToolRegistration : ToolRegistration {
                         getAppService()
                     )
                 )
+
+                PhotoMapTileCacheInvalidationHandler(getAppService()).run()
             },
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_OFFLINE_MAP_CHANGED, "Offline map changed"),

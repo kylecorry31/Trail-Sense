@@ -3,15 +3,10 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persist
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Bundle
 import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
-import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapType
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageSaver
-import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import java.io.FileOutputStream
 import java.time.Instant
 import java.util.UUID
@@ -22,34 +17,6 @@ class PersistentTileCache(context: Context) {
     private val repo = CachedTileRepo.getInstance(appContext)
     private val files = CacheFileSystem(appContext)
     private val imageSaver = ImageSaver()
-
-    init {
-        Tools.subscribe(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_CHANGED, ::onOfflineMapsChanged)
-        Tools.subscribe(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_ADDED, ::onOfflineMapsChanged)
-        Tools.subscribe(OfflineMapsToolRegistration.BROADCAST_OFFLINE_MAP_DELETED, ::onOfflineMapsChanged)
-    }
-
-    private suspend fun onOfflineMapsChanged(data: Bundle) {
-        val mapId = data.getLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_ID)
-        val mapTypeId = data.getLong(OfflineMapsToolRegistration.BROADCAST_PARAM_OFFLINE_MAP_TYPE)
-
-        if (mapTypeId != OfflineMapType.Photo.id) {
-            return
-        }
-
-        val cacheKeys = listOf(
-            "${PhotoMapTileSource.SOURCE_ID}-true-$mapId",
-            "${PhotoMapTileSource.SOURCE_ID}-false-$mapId",
-            "${PhotoMapTileSource.SOURCE_ID}-null-$mapId",
-            "${PhotoMapTileSource.SOURCE_ID}-true",
-            "${PhotoMapTileSource.SOURCE_ID}-false",
-            "${PhotoMapTileSource.SOURCE_ID}-null",
-        )
-
-        cacheKeys.forEach {
-            invalidate(it)
-        }
-    }
 
 
     suspend fun getOrPut(key: String, tile: Tile, producer: suspend () -> Bitmap): Bitmap = onIO {
@@ -109,8 +76,10 @@ class PersistentTileCache(context: Context) {
         val filename = "${UUID.randomUUID()}.webp"
         val file = files.getFile("${CachedTileRepo.TILES_FOLDER}/$filename", create = true)
 
-        FileOutputStream(file).use { out ->
-            imageSaver.save(bitmap, out, LOSSLESS_QUALITY)
+        onIO {
+            FileOutputStream(file).use { out ->
+                imageSaver.save(bitmap, out, LOSSLESS_QUALITY)
+            }
         }
 
         val hasAlpha = bitmap.config == Bitmap.Config.ARGB_8888
