@@ -1,0 +1,6 @@
+Règle
+- Amélioration de la précision de la règle sur un plus grand nombre d'appareils
+
+Modifications liées à la prise en charge d'Android 12
+- Affichage des applications en exécution en arrière-plan (nécessaire pour maintenir le fonctionnement de Backtrack et de Weather Monitor)
+- Demande d'exemption de gestion de la batterie pour Backtrack et Weather afin d'améliorer la précision

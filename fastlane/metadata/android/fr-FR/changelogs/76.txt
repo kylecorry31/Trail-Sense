@@ -1,0 +1,10 @@
+Itinéraires
+- Organiser les itinéraires en groupes
+- Créer manuellement un itinéraire
+- Ajouter manuellement des points à un itinéraire
+
+Balises
+- Les recherches incluent désormais les balises des sous-groupes
+
+Divers
+- Corrections de bugs

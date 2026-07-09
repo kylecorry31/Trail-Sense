@@ -1,0 +1,6 @@
+Cartes (en phase d'expérimentation)
+- Exportation de la carte au format PDF géospatial
+- Importation de la carte via l'appareil photo
+- Amélioration de la prise en charge de l'importation des cartes au format PDF
+- Amélioration de la visibilité des itinéraires sur les cartes
+- Corrections de bogues

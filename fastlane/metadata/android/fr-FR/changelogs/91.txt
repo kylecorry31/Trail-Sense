@@ -1,0 +1,10 @@
+Météo
+- Nouveaux types de conditions météorologiques en fonction de la température : pluie, neige, orage
+- Affichage de la température actuelle dans la notification météo
+- Affichage d'alertes dans l'outil météo : chaleur, froid, tempête
+- Remplacement des conditions de tempête par le type de précipitations
+- Possibilité de compléter rétrospectivement l'historique des températures
+
+Astronomie
+- Prise en compte de la réfraction atmosphérique dans les heures du soleil et de la lune (heures apparentes)
+- Affichage des heures de lever et de coucher du soleil dans les détails des balises

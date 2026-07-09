@@ -1,0 +1,13 @@
+Chemins
+- Recherche par nom
+
+Cartes photo (en phase d'expérimentation)
+- Renommer les cartes hors ligne en « Cartes photo »
+- Ajouter des groupes de cartes
+- Recherche par nom
+- Trier par nom, date de création, distance
+- Appuyer longuement pour naviguer, placer une balise ou mesurer une distance
+- Nom par défaut de la carte : nom du fichier
+
+Divers
+- Corrections de bugs
