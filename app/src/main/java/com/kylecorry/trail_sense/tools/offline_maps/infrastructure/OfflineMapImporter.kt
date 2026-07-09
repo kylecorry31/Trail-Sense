@@ -152,21 +152,28 @@ internal class OfflineMapImporter(
         if (!MapsforgeAdapter.isMapsforgeMap(request.uri)) {
             return null
         }
+        var hasPersistentAccess = false
         val path = if (prefs.photoMaps.copyTrailMapsToAppStorage) {
             copyToAppStorage(request.uri, MapsforgeAdapter.MAPSFORGE_MAP_EXTENSION) ?: return null
         } else {
-            val canPersist = tryOrDefault(false) {
+            hasPersistentAccess = tryOrDefault(false) {
                 files.acceptPersistentAccess(request.uri)
                 true
             }
-            if (canPersist) {
+            if (hasPersistentAccess) {
                 request.uri.toString()
             } else {
                 throw IllegalStateException("Can't persist access to ${request.uri}")
             }
         }
 
-        val info = MapsforgeAdapter.getMapInfo(path) ?: return null
+        val info = MapsforgeAdapter.getMapInfo(path)
+        if (info == null) {
+            if (hasPersistentAccess) {
+                files.releasePersistentAccess(request.uri)
+            }
+            return null
+        }
 
         return TrailMap(
             0,
