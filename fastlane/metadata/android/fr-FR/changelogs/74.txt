@@ -1,0 +1,6 @@
+Retour sur les pas
+- Permettre des mises à jour plus fréquentes du retour sur les pas (pour tracer un itinéraire)
+- Afficher et modifier la fréquence du retour sur les pas depuis l'outil « Itinéraires »
+
+Divers
+- Corrections éventuelles de bugs liés à l'appareil photo

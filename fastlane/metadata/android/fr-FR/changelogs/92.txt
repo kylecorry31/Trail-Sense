@@ -1,0 +1,8 @@
+Météo
+- Estimation du temps restant avant les précipitations lorsque des nuages sont détectés
+- Affichage de la distance du dernier coup de foudre
+- Ajout d'une option permettant de masquer la température dans les notifications météo
+
+Divers
+- Utilisation du bouton de volume pour prendre une photo (nuages, cartes hors ligne)
+- Corrections de bugs
