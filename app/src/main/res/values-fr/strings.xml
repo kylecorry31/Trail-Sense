@@ -1630,4 +1630,6 @@
     <string name="finish_calibration">Terminer l\'étalonnage</string>
     <string name="calibrate_map_point_title">Point %1$d sur %2$d</string>
     <string name="calibrate_map_point_instructions">Appuyez sur cet emplacement sur la carte, puis saisissez ses coordonnées réelles.</string>
+    <string name="invalid_trail_map">Carte des sentiers non valide</string>
+    <string name="invalid_trail_map_message">Le fichier de la carte des sentiers n\'est pas valide ou est manquant. Vous pouvez supprimer cette carte et en importer une nouvelle.</string>
 </resources>
