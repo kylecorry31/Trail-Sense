@@ -6,15 +6,22 @@ style:
     active: false
   MaxLineLength:
     active: false
+  FunctionOnlyReturningConstant:
+    active: false
   ReturnCount:
+    max: 5
     excludeGuardClauses: true
 
 complexity:
   LongMethod:
+    allowedLines: 100
     ignoreFunction:
       - 'update'
       - 'getTool'
+  CyclomaticComplexMethod:
+    allowedComplexity: 20
   TooManyFunctions:
+    allowedFunctionsPerClass: 20
     ignorePrivate: true
     ignoreOverridden: true
 

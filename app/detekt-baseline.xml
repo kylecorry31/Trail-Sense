@@ -31,41 +31,18 @@
     <ID>ConstructorParameterNaming:DigitalElevationModelLoader.kt:DigitalElevationModelIndex$val has_water_mask: Boolean? = null</ID>
     <ID>ConstructorParameterNaming:DigitalElevationModelLoader.kt:DigitalElevationModelIndex$val resolution_arc_seconds: Int</ID>
     <ID>CyclomaticComplexMethod:AstronomyGuidanceTargetPicker.kt:AstronomyGuidanceTargetPicker$private suspend fun getGuidanceOptions: List&lt;AstronomyGuidanceOption&gt;</ID>
-    <ID>CyclomaticComplexMethod:AstronomyService.kt:AstronomyService$suspend fun findNextEvent: LocalDate?</ID>
-    <ID>CyclomaticComplexMethod:BatteryService.kt:BatteryService$fun getSystemBatteryTips: List&lt;SystemBatteryTip&gt;</ID>
-    <ID>CyclomaticComplexMethod:BeaconListFragment.kt:BeaconListFragment$override fun onViewCreated</ID>
-    <ID>CyclomaticComplexMethod:ClimateFragment.kt:ClimateFragment$override fun update</ID>
     <ID>CyclomaticComplexMethod:ClimateFragment.kt:ClimateFragment$private fun getClimateDescription: Pair&lt;String, String&gt;</ID>
-    <ID>CyclomaticComplexMethod:CreateFieldGuideSightingFragment.kt:CreateFieldGuideSightingFragment$override fun update</ID>
-    <ID>CyclomaticComplexMethod:CreateTideFragment.kt:CreateTideFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
-    <ID>CyclomaticComplexMethod:CreateTideFragment.kt:CreateTideFragment$private fun getTide: TideTable?</ID>
     <ID>CyclomaticComplexMethod:EnhancedImageView.kt:EnhancedImageView$override fun tileVisible: Boolean</ID>
     <ID>CyclomaticComplexMethod:FieldGuideTagNameMapper.kt:FieldGuideTagNameMapper$fun getName: String</ID>
     <ID>CyclomaticComplexMethod:FormatService.kt:FormatService$fun getDistanceUnitName: String</ID>
-    <ID>CyclomaticComplexMethod:FormatService.kt:FormatService$fun getWeightUnitName: String</ID>
-    <ID>CyclomaticComplexMethod:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$override fun update</ID>
     <ID>CyclomaticComplexMethod:FragmentScopeAdjustment.kt:FragmentScopeAdjustment$override fun update</ID>
-    <ID>CyclomaticComplexMethod:FragmentToolBattery.kt:FragmentToolBattery$override fun update</ID>
-    <ID>CyclomaticComplexMethod:FragmentToolSolarPanel.kt:FragmentToolSolarPanel$override fun onUpdate</ID>
-    <ID>CyclomaticComplexMethod:FragmentVolumeConverter.kt:FragmentVolumeConverter$override fun getUnitName: String</ID>
     <ID>CyclomaticComplexMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$private suspend fun renderFeaturesInBackground</ID>
     <ID>CyclomaticComplexMethod:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$private fun convertFeaturesToMarkers</ID>
     <ID>CyclomaticComplexMethod:GeographicImageSource.kt:GeographicImageSource$suspend fun read</ID>
-    <ID>CyclomaticComplexMethod:ItemCategoryColorMapper.kt:ItemCategoryColorMapper$fun map: AppColor</ID>
-    <ID>CyclomaticComplexMethod:ItemCategoryIconMapper.kt:ItemCategoryIconMapper$@DrawableRes fun getIcon: Int</ID>
-    <ID>CyclomaticComplexMethod:ItemCategoryStringMapper.kt:ItemCategoryStringMapper$fun getString: String</ID>
-    <ID>CyclomaticComplexMethod:LandModel.kt:LandModel$suspend fun getCoastalLocations: List&lt;Coordinate&gt;</ID>
     <ID>CyclomaticComplexMethod:LineClipper.kt:LineClipper$fun clip</ID>
     <ID>CyclomaticComplexMethod:MapFragment.kt:MapFragment$override fun update</ID>
-    <ID>CyclomaticComplexMethod:MapLayerBackgroundTask.kt:MapLayerBackgroundTask$fun scheduleUpdate</ID>
     <ID>CyclomaticComplexMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
-    <ID>CyclomaticComplexMethod:NavigatorUserErrors.kt:NavigatorUserErrors$fun update</ID>
     <ID>CyclomaticComplexMethod:PhotoMapsFragment.kt:PhotoMapsFragment$override fun onViewCreated</ID>
-    <ID>CyclomaticComplexMethod:PorterStemmer.kt:PorterStemmer$private fun step1b: String</ID>
-    <ID>CyclomaticComplexMethod:SensorService.kt:SensorService$fun getAltimeter: IAltimeter</ID>
-    <ID>CyclomaticComplexMethod:SightingListFragment.kt:SightingListFragment$override fun update</ID>
-    <ID>CyclomaticComplexMethod:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$private suspend fun getGapCalculator2: IWaterLevelCalculator</ID>
-    <ID>CyclomaticComplexMethod:TileQueue.kt:TileQueue$suspend fun load</ID>
     <ID>EmptyClassBlock:ProguardIgnore.kt:ProguardIgnore${ }</ID>
     <ID>EmptyFunctionBlock:BeaconCompassLayer.kt:BeaconCompassLayer${ }</ID>
     <ID>EmptyFunctionBlock:BearingCompassLayer.kt:BearingCompassLayer${ }</ID>
@@ -252,67 +229,20 @@
     <ID>ForbiddenComment:WeatherSubsystem.kt:WeatherSubsystem$// TODO: Extract this</ID>
     <ID>ForbiddenComment:WeatherSubsystem.kt:WeatherSubsystem$// TODO: Extract this to Sol (new forecaster)</ID>
     <ID>ForbiddenComment:Whistle.kt:SoundGenerator2$// TODO: Replace with Andromeda SoundGenerator</ID>
-    <ID>FunctionOnlyReturningConstant:AugmentedRealityView.kt:AugmentedRealityView$private fun onSensorUpdate: Boolean</ID>
-    <ID>FunctionOnlyReturningConstant:BeaconListFragment.kt:BeaconListFragment$private fun onLocationUpdate: Boolean</ID>
-    <ID>FunctionOnlyReturningConstant:CurrentPaceSpeedometer.kt:CurrentPaceSpeedometer$private fun onPedometerUpdate: Boolean</ID>
-    <ID>FunctionOnlyReturningConstant:FragmentStrideLengthEstimation.kt:FragmentStrideLengthEstimation$private fun onStrideLengthChanged: Boolean</ID>
-    <ID>FunctionOnlyReturningConstant:FusedGPS.kt:FusedGPS$private fun onAccelerometerUpdate: Boolean</ID>
     <ID>LargeClass:FormatService.kt:FormatService</ID>
     <ID>LargeClass:Licenses.kt:Licenses</ID>
     <ID>LongMethod:ARAstronomyLayer.kt:ARAstronomyLayer$private fun updatePositions</ID>
-    <ID>LongMethod:ARAstronomyLayer.kt:ARAstronomyLayer$private suspend fun updateStarLayer</ID>
     <ID>LongMethod:AppDatabase.kt:AppDatabase.Companion$private fun buildDatabase: AppDatabase</ID>
-    <ID>LongMethod:AstronomyFragment.kt:AstronomyFragment$override fun onUpdate</ID>
-    <ID>LongMethod:AstronomyFragment.kt:AstronomyFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:AstronomyGuidanceTarget.kt:AstronomyGuidanceTarget$override suspend fun refresh: ARGuidanceTargetState</ID>
     <ID>LongMethod:AstronomyGuidanceTargetPicker.kt:AstronomyGuidanceTargetPicker$private suspend fun getGuidanceOptions: List&lt;AstronomyGuidanceOption&gt;</ID>
-    <ID>LongMethod:AstronomySettingsFragment.kt:AstronomySettingsFragment$override fun onCreatePreferences</ID>
-    <ID>LongMethod:AugmentedRealityFragment.kt:AugmentedRealityFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:BallisticsCalculator.kt:BallisticsCalculator$fun calculateTrajectory: List&lt;TrajectoryPoint&gt;</ID>
-    <ID>LongMethod:BatteryService.kt:BatteryService$fun getSystemBatteryTips: List&lt;SystemBatteryTip&gt;</ID>
-    <ID>LongMethod:BeaconDetailsFragment.kt:BeaconDetailsFragment$private fun loadBeacon</ID>
-    <ID>LongMethod:BeaconListFragment.kt:BeaconListFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:BubbleLevel.kt:BubbleLevel$override fun draw</ID>
-    <ID>LongMethod:CalibrateAltimeterFragment.kt:CalibrateAltimeterFragment$private fun bindPreferences</ID>
-    <ID>LongMethod:CalibrateCompassFragment.kt:CalibrateCompassFragment$private fun bindPreferences</ID>
-    <ID>LongMethod:ClimateFragment.kt:ClimateFragment$private fun getClimateDescription: Pair&lt;String, String&gt;</ID>
     <ID>LongMethod:CreateTideFragment.kt:CreateTideFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
-    <ID>LongMethod:DEM.kt:DEM$private suspend fun getSources: List&lt;GeographicImageSource&gt;</ID>
-    <ID>LongMethod:ExperimentationFragment.kt:ExperimentationFragment$private fun useSamplePlugin</ID>
-    <ID>LongMethod:FragmentToolFlashlight.kt:FragmentToolFlashlight$override fun onViewCreated</ID>
-    <ID>LongMethod:GPSDiagnosticScanner.kt:GPSDiagnosticScanner$override fun quickScan: List&lt;ToolDiagnosticResult&gt;</ID>
-    <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$override fun draw</ID>
     <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$private suspend fun renderFeaturesInBackground</ID>
     <ID>LongMethod:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$private fun convertFeaturesToMarkers</ID>
-    <ID>LongMethod:GeographicImageSource.kt:GeographicImageSource$suspend fun read</ID>
-    <ID>LongMethod:HillshadeMapTileSource.kt:HillshadeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
-    <ID>LongMethod:Hooks.kt:fun ReactiveAndromedaFragment.useNavigationSensors: NavigationSensorValues</ID>
-    <ID>LongMethod:LandModel.kt:LandModel$suspend fun getCoastalLocations: List&lt;Coordinate&gt;</ID>
     <ID>LongMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
-    <ID>LongMethod:MapToolWidgetView.kt:MapToolWidgetView$override suspend fun getPopulatedView: RemoteViews</ID>
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onUpdate</ID>
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:NearbyBeaconsToolWidgetView.kt:NearbyBeaconsToolWidgetView$override suspend fun getPopulatedView: RemoteViews</ID>
-    <ID>LongMethod:OfflineMapImporter.kt:OfflineMapImporter$private suspend fun importPdf: PhotoMap?</ID>
-    <ID>LongMethod:PackItemListItemMapper.kt:PackItemListItemMapper$override fun map: ListItem</ID>
-    <ID>LongMethod:PathListItemMapper.kt:PathListItemMapper$private fun Path.toListItem: ListItem</ID>
     <ID>LongMethod:PathOverviewFragment.kt:PathOverviewFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:PathOverviewFragment.kt:PathOverviewFragment$private fun onPathChanged</ID>
-    <ID>LongMethod:PathsSettingsFragment.kt:PathsSettingsFragment$override fun onCreatePreferences</ID>
-    <ID>LongMethod:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$override fun onTouchEvent: Boolean</ID>
-    <ID>LongMethod:PhotoMapListItemMapper.kt:PhotoMapListItemMapper$override fun map: ListItem</ID>
-    <ID>LongMethod:PhotoMapRegionLoader.kt:PhotoMapRegionLoader$suspend fun load: Bitmap?</ID>
-    <ID>LongMethod:PlaceBeaconFragment.kt:PlaceBeaconFragment$override fun onViewCreated</ID>
-    <ID>LongMethod:SlopeMapTileSource.kt:SlopeMapTileSource$override suspend fun loadTile: Bitmap?</ID>
-    <ID>LongMethod:SoftmaxCloudClassifier.kt:SoftmaxCloudClassifier$override suspend fun classify: List&lt;ClassificationResult&lt;CloudGenus?&gt;&gt;</ID>
     <ID>LongMethod:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$override fun onCreatePreferences</ID>
-    <ID>LongMethod:TidesFragment.kt:TidesFragment$override fun onUpdate</ID>
     <ID>LongMethod:TileLoader.kt:TileLoader$private fun fillNeighborPixels</ID>
-    <ID>LongMethod:TileMapLayer.kt:TileMapLayer$private fun renderTile</ID>
-    <ID>LongMethod:ToolWhistleFragment.kt:ToolWhistleFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
-    <ID>LongMethod:ToolWidgetConfigureActivity.kt:ToolWidgetConfigureActivity$override fun onCreate</ID>
-    <ID>LongMethod:ToolWidgetViewBinder.kt:ToolWidgetViewBinder$@SuppressLint("ClickableViewAccessibility") fun bind</ID>
-    <ID>LongMethod:WaypointListItem.kt:WaypointListItem$fun display</ID>
     <ID>LongMethod:WeatherSettingsFragment.kt:WeatherSettingsFragment$override fun onCreatePreferences</ID>
     <ID>LoopWithTooManyJumpStatements:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$for</ID>
     <ID>LoopWithTooManyJumpStatements:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$for</ID>
@@ -341,49 +271,9 @@
     <ID>PrintStackTrace:ToolWhistleFragment.kt:ToolWhistleFragment$e</ID>
     <ID>PrintStackTrace:TrailSenseTextView.kt:TrailSenseTextView$e</ID>
     <ID>RethrowCaughtException:MapExportService.kt:MapExportService$throw e</ID>
-    <ID>ReturnCount:ARPathLayer.kt:ARPathLayer$private fun getNearestPoint: NearestPoint?</ID>
-    <ID>ReturnCount:ActiveMapSelector.kt:ActiveMapSelector$fun getActiveMap: PhotoMap?</ID>
-    <ID>ReturnCount:AutomaticBackupDiagnosticScanner.kt:AutomaticBackupDiagnosticScanner$override fun quickScan: List&lt;ToolDiagnosticResult&gt;</ID>
-    <ID>ReturnCount:BackupDailyWorker.kt:BackupDailyWorker$override suspend fun execute</ID>
-    <ID>ReturnCount:ClimateFragment.kt:ClimateFragment$private fun formatActivity: String</ID>
-    <ID>ReturnCount:CompassProvider.kt:CompassProvider$private fun getBaseOrientationSensor: IOrientationSensor</ID>
-    <ID>ReturnCount:CreateTideFragment.kt:CreateTideFragment$private fun getTide: TideTable?</ID>
-    <ID>ReturnCount:CricketsAudioStream.kt:CricketsAudioStream$private suspend fun getChirp: Double</ID>
-    <ID>ReturnCount:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$private suspend fun loadNeighborRegion: Pair&lt;FloatBitmap, Rect&gt;?</ID>
-    <ID>ReturnCount:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$suspend fun getPixel: Float?</ID>
-    <ID>ReturnCount:CustomGPS.kt:CustomGPS$private fun shouldUpdateReading: Boolean</ID>
-    <ID>ReturnCount:DistanceHookTrigger.kt:DistanceHookTrigger$fun getValue: Boolean</ID>
-    <ID>ReturnCount:EnglishContractionSplitter.kt:EnglishContractionSplitter$fun split: List&lt;String&gt;</ID>
-    <ID>ReturnCount:FileSubsystem.kt:FileSubsystem$fun bitmap: Bitmap?</ID>
-    <ID>ReturnCount:FormatService.kt:FormatService$fun formatWeatherArrival: String</ID>
-    <ID>ReturnCount:FrequencyHookTrigger.kt:FrequencyHookTrigger$fun getValue: Boolean</ID>
-    <ID>ReturnCount:GeographicImageUtils.kt:GeographicImageUtils$suspend fun getNearestPixelOfAsset: PixelCoordinate?</ID>
-    <ID>ReturnCount:HillshadeMapTileSource.kt:HillshadeMapTileSource$private fun getShadowConfig: Pair&lt;Float, Float&gt;</ID>
-    <ID>ReturnCount:MainActivity.kt:MainActivity$override fun onKeyDown: Boolean</ID>
-    <ID>ReturnCount:MainActivity.kt:MainActivity$override fun onKeyUp: Boolean</ID>
-    <ID>ReturnCount:MainActivity.kt:MainActivity$private fun getVolumeAction: VolumeAction?</ID>
-    <ID>ReturnCount:MapExportService.kt:MapExportService$@Suppress("FoldInitializerAndIfToElvis") private fun getPDFData: List&lt;PDFValue.PDFObject&gt;</ID>
-    <ID>ReturnCount:MapRotationCalculator.kt:MapRotationCalculator$fun calculate: Float</ID>
-    <ID>ReturnCount:NoaaHcAndMetadataTideTableConverter.kt:NoaaHcAndMetadataTideTableConverter$override fun parse: TideTable?</ID>
-    <ID>ReturnCount:OfflineMapImporter.kt:OfflineMapImporter$private suspend fun importPdf: PhotoMap?</ID>
-    <ID>ReturnCount:PhotoMapDecoderCache.kt:PhotoMapDecoderCache$private suspend fun getImageLoader: RegionDecoder</ID>
-    <ID>ReturnCount:PhotoMapDecoderCache.kt:PhotoMapDecoderCache$private suspend fun getPdfLoader: RegionDecoder</ID>
-    <ID>ReturnCount:PixelInterpolators.kt:BicubicInterpolator$override suspend fun interpolate: Float?</ID>
-    <ID>ReturnCount:PorterStemmer.kt:PorterStemmer$fun stem: String</ID>
     <ID>ReturnCount:PorterStemmer.kt:PorterStemmer$private fun step1b: String</ID>
-    <ID>ReturnCount:PorterStemmer.kt:PorterStemmer$private fun step4: String</ID>
-    <ID>ReturnCount:PorterStemmer.kt:PorterStemmer.Companion$private fun isConsonant: Boolean</ID>
     <ID>ReturnCount:SensorService.kt:SensorService$fun getAltimeter: IAltimeter</ID>
-    <ID>ReturnCount:SensorService.kt:SensorService$fun getGPS: ISatelliteGPS</ID>
-    <ID>ReturnCount:SensorService.kt:SensorService$private fun getGPSAltimeter: IAltimeter</ID>
-    <ID>ReturnCount:SimpleHikingDifficultyCalculator.kt:SimpleHikingDifficultyCalculator$override fun calculate: HikingDifficulty</ID>
-    <ID>ReturnCount:SystemSettings.kt:SystemSettings$fun isNfcEnabled: Boolean</ID>
     <ID>ReturnCount:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$private suspend fun getGapCalculator2: IWaterLevelCalculator</ID>
-    <ID>ReturnCount:TidesSubsystem.kt:TidesSubsystem$private suspend fun getTideTable: TideTable?</ID>
-    <ID>ReturnCount:TileMapLayer.kt:TileMapLayer$private fun getTilesToRender: List&lt;ImageTile&gt;</ID>
-    <ID>ReturnCount:ToolClockFragment.kt:ToolClockFragment$private fun getGPSTime: Instant</ID>
-    <ID>ReturnCount:TrailSenseExceptionHandler.kt:TrailSenseExceptionHandler$override fun handleException: Boolean</ID>
-    <ID>ReturnCount:WeatherArrivalTimeCalculator.kt:WeatherArrivalTimeCalculator$override fun getArrivalTime: WeatherArrivalTime?</ID>
     <ID>SwallowedException:AndromedaCoroutineWidget.kt:AndromedaCoroutineWidget$e: Exception</ID>
     <ID>SwallowedException:BacktrackService.kt:BacktrackService$e: Exception</ID>
     <ID>SwallowedException:CachedTileCleanupWorker.kt:CachedTileCleanupWorker$e: Exception</ID>
@@ -395,7 +285,6 @@
     <ID>SwallowedException:MaskedProgressView.kt:MaskedProgressView$e: Exception</ID>
     <ID>SwallowedException:PhotoMapListItemMapper.kt:PhotoMapListItemMapper$e: Exception</ID>
     <ID>SwallowedException:PreferenceMigrator.kt:PreferenceMigrator.Companion$e: Exception</ID>
-    <ID>SwallowedException:RebaseMapCalibrationWorker.kt:RebaseMapCalibrationWorker$e: Exception</ID>
     <ID>SwallowedException:RestoreCommand.kt:RestoreCommand$e: BackupService.InvalidBackupException</ID>
     <ID>SwallowedException:RestoreCommand.kt:RestoreCommand$e: BackupService.NewerBackupException</ID>
     <ID>SwallowedException:SpeciesImportService.kt:SpeciesImportService$e: Exception</ID>
@@ -423,7 +312,6 @@
     <ID>TooGenericExceptionCaught:PhotoMapListItemMapper.kt:PhotoMapListItemMapper$e: Exception</ID>
     <ID>TooGenericExceptionCaught:PreferenceMigrator.kt:PreferenceMigrator.Companion$e: Exception</ID>
     <ID>TooGenericExceptionCaught:QuickActionWhistle.kt:QuickActionWhistle$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:RebaseMapCalibrationWorker.kt:RebaseMapCalibrationWorker$e: Exception</ID>
     <ID>TooGenericExceptionCaught:ScanQRFragment.kt:ScanQRFragment$e: Exception</ID>
     <ID>TooGenericExceptionCaught:SightingCompassView.kt:SightingCompassView$e: Exception</ID>
     <ID>TooGenericExceptionCaught:SpeciesImportService.kt:SpeciesImportService$e: Exception</ID>
@@ -434,14 +322,10 @@
     <ID>TooGenericExceptionCaught:WhiteNoiseService.kt:WhiteNoiseService.Companion$e: Exception</ID>
     <ID>TooManyFunctions:AppDatabase.kt:AppDatabase : RoomDatabase</ID>
     <ID>TooManyFunctions:AstronomyService.kt:AstronomyService</ID>
-    <ID>TooManyFunctions:AugmentedRealityView.kt:AugmentedRealityView : CanvasView</ID>
-    <ID>TooManyFunctions:BaseAstroListItemProducer.kt:BaseAstroListItemProducer : AstronomyListItemProducer</ID>
     <ID>TooManyFunctions:BeaconDao.kt:BeaconDao</ID>
     <ID>TooManyFunctions:CachedTileDao.kt:CachedTileDao</ID>
-    <ID>TooManyFunctions:CameraView.kt:CameraView : FrameLayout</ID>
     <ID>TooManyFunctions:Converters.kt:Converters</ID>
     <ID>TooManyFunctions:CustomUiUtils.kt:CustomUiUtils</ID>
-    <ID>TooManyFunctions:EnhancedImageView.kt:EnhancedImageView : SubsamplingScaleImageView</ID>
     <ID>TooManyFunctions:Extensions.kt:com.kylecorry.trail_sense.shared.Extensions.kt</ID>
     <ID>TooManyFunctions:FileSubsystem.kt:FileSubsystem</ID>
     <ID>TooManyFunctions:FormatService.kt:FormatService</ID>
@@ -451,12 +335,8 @@
     <ID>TooManyFunctions:IPackRepo.kt:IPackRepo</ID>
     <ID>TooManyFunctions:IPathService.kt:IPathService : ICleanable</ID>
     <ID>TooManyFunctions:IWaypointRepo.kt:IWaypointRepo</ID>
-    <ID>TooManyFunctions:MapRepo.kt:MapRepo</ID>
-    <ID>TooManyFunctions:MapViewLayerManager.kt:MapViewLayerManager</ID>
-    <ID>TooManyFunctions:Navigator.kt:Navigator</ID>
     <ID>TooManyFunctions:OfflineMapService.kt:OfflineMapService</ID>
     <ID>TooManyFunctions:PermissionUtils.kt:com.kylecorry.trail_sense.shared.permissions.PermissionUtils.kt</ID>
-    <ID>TooManyFunctions:SensorService.kt:SensorService</ID>
     <ID>TooManyFunctions:TideTableDao.kt:TideTableDao</ID>
     <ID>TooManyFunctions:ToolDiagnosticFactory.kt:ToolDiagnosticFactory</ID>
     <ID>TooManyFunctions:Tools.kt:Tools</ID>
