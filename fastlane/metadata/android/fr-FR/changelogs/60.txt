@@ -1,0 +1,6 @@
+- Éclipses lunaires et super-lunes dans l'onglet « Astronomie »
+- Notifications d'événements astronomiques (pluies de météores ou éclipses lunaires) (à activer dans les paramètres « Astronomie »)
+- Appuyez sur les éléments astronomiques pour obtenir plus de détails
+- Optimisation de l'orientation des panneaux solaires en fonction de l'ensoleillement restant
+- Exportation des données météo au format CSV (paramètres « Météo »)
+- Corrections de bugs

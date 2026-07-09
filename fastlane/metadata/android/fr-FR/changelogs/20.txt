@@ -1,0 +1,7 @@
+- Groupes de balises
+- Niveau à bulle 2D
+- Calculs améliorés de la pression au niveau de la mer (réglage disponible dans les paramètres d'étalonnage du baromètre)
+- Suivi météo en arrière-plan amélioré
+- Guide d'utilisation (d'autres informations à venir très bientôt !)
+- Un clic sur le soleil ou la lune affiche l'altitude
+- Corrections de bugs

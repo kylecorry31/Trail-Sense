@@ -1,0 +1,24 @@
+Batterie
+- Amélioration de la présentation de l'outil « Batterie »
+- Ajout de conseils système pour économiser la batterie
+
+Recherche de signal
+- Amélioration de la localisation des antennes-relais
+
+Calques de carte
+- Ajout d'un calque « Antennes-relais »
+- Estimation de la distance par rapport à l'antenne-relais connectée
+
+Navigation
+- Appuyez sur le nom d'une balise pour l'ouvrir pendant la navigation
+
+Balistique
+- Ajout de calculs balistiques (chute, vitesse)
+
+Météo
+- [Expérimental] Afficher les prévisions de pression atmosphérique sur le graphique
+
+Divers
+- Ajouter des raccourcis vers les outils sur l'écran d'accueil
+- Ajouter la personnalisation du thème des widgets
+- Utiliser par défaut une source de capteur de boussole personnalisée

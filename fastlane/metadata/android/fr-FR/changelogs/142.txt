@@ -1,0 +1,33 @@
+Navigation
+- Refonte du cadran de la boussole
+- Option permettant d’afficher les balises à proximité
+
+Climat
+- Estimation de l’activité des insectes
+
+Carte
+- Mode « Trace »
+- Option permettant d’agrandir l’indicateur de position
+
+Balises
+- Ajout d’icônes supplémentaires
+
+Règle
+- Option permettant d’inverser le sens
+- Mise en évidence de la mesure
+
+Astronomie
+- Appuyer sur le graphique pour modifier l’heure
+
+Loupe
+- Nouvel outil
+
+Réalité augmentée
+- Option permettant d'afficher les étoiles et planètes de faible luminosité
+
+Capteurs
+- Action rapide pour recalibrer l'altimètre
+
+Listes de voyage
+- Marquer des articles comme facultatifs
+- Saisie du poids en livres et onces

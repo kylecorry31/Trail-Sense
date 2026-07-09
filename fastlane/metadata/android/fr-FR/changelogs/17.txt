@@ -1,0 +1,10 @@
+- Altimètre barométrique
+- Température et humidité
+- Données astronomiques plus précises
+- Affichage des heures du crépuscule et de l'aube
+- Valeur de référence de la pression (appuyer longuement sur la pression actuelle dans l'onglet « Météo »)
+- Affichage des balises dans un certain rayon
+- Possibilité de personnaliser la fréquence de mise à jour des données météo
+- Meilleure prise en charge d'Android 11
+- Traductions améliorées
+- Corrections de bugs

@@ -1,0 +1,16 @@
+Calques cartographiques
+- Ajouter des calques d'altitude et d'ombrage de relief
+- Ajouter un paramètre de couleur d'arrière-plan pour le calque des sentiers
+
+Guide de terrain
+- Ajouter un journal d'observations pour chaque page
+
+Bruit blanc
+- Ajouter un sélecteur de sons : bruit (blanc, rose, brun), grillons, vagues, ventilateur
+
+Réalité augmentée
+- Afficher les constellations
+- Augmenter l'exposition la nuit
+
+Détecteur de signal
+- Afficher la distance estimée du signal (en phase expérimentale)

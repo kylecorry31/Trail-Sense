@@ -1,0 +1,23 @@
+Cartes hors ligne
+- Renommer l'outil « Photo Maps » en « Cartes hors ligne »
+- Ajouter la prise en charge des fichiers de cartes vectorielles (Mapsforge)
+- Ajouter une couche cartographique « Cartes vectorielles »
+- Détecter et empêcher les calibrages de carte non valides
+
+Réalité augmentée
+- Sélection de cibles d’observation astronomique
+- Modification de l’heure de la journée
+
+Estimation de la température
+- Calcul du refroidissement éolien et de l’indice de chaleur
+
+Outils
+- Amélioration de la recherche d’outils
+
+Horloge
+- Affichage de la source de l’horloge
+
+Divers
+- Améliorations du style de l’interface utilisateur
+- Prise en charge d’Android 17
+- Activation de la couleur dynamique par défaut

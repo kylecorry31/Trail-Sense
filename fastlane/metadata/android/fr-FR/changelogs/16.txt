@@ -1,0 +1,8 @@
+- Réglages manuels de la position, de l'altitude et de la déclinaison
+- Précision GPS améliorée
+- Rappel d'étalonnage
+- Affichage de la tendance de pression (dans l'onglet et dans les notifications)
+- Possibilité de forcer la prise de mesures de pression à un intervalle défini
+- Fonctionnalités expérimentales : inclinomètre et amplitude des marées (à activer dans les paramètres)
+- Section « À propos » dans les paramètres
+- Corrections de bogues

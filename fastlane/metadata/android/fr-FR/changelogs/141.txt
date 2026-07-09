@@ -1,0 +1,14 @@
+Couches cartographiques
+- Nouvelles couches : pente, exposition, indice de relief, observations (guide de terrain), nuit et éclipses solaires/lunaires
+- Gestion des couches (ajouter, supprimer, réorganiser)
+- Option d’ombrage multidirectionnel pour le relief
+- Option d’affichage des phases de marée
+- Prise en charge du geste « Fling »
+- Amélioration des performances
+- Appuyer sur une balise pour obtenir des détails plutôt que de naviguer
+
+Carte
+- Réglage de la durée d’affichage des couches dépendantes du temps
+
+Divers
+- Amélioration de la gestion des erreurs

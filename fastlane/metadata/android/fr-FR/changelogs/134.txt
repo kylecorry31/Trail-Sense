@@ -1,0 +1,13 @@
+Outil Carte (nouveau)
+- Afficher toutes les balises, tous les itinéraires, toutes les cartes photo, etc. sur une carte
+
+Calques de carte
+- Ajouter un calque de courbes de niveau
+
+Cartes photo
+- Calibrage automatique d'un plus grand nombre de fichiers PDF
+- Amélioration du rendu des PDF
+
+Réalité augmentée
+- Visualisation des planètes visibles et des pluies de météores la nuit
+- Amélioration de la mise au point lorsque l'appareil est pointé vers le ciel

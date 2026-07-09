@@ -1,0 +1,7 @@
+- Ajout de l'outil « Convertisseur de distance »
+- Ajout de l'outil « Hauteur de falaise »
+- Ajout de l'outil « Sifflet »
+- Ajout de l'option « Profondeur maximale » à l'outil « Profondeur »
+- Ajout du guide d'utilisation des applications recommandées
+- Ajout de l'option « Tout supprimer » à l'inventaire
+- Corrections de bugs

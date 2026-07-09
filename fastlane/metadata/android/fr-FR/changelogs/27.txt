@@ -1,0 +1,5 @@
+- Ajout de l'outil « Horloge GPS »
+- Ajout de l'outil « Distance de la foudre »
+- Ajout de l'outil « Règle » (appuyez sur la règle pour obtenir une mesure plus précise)
+- Amélioration des instructions concernant le minuteur pour l'ébullition de l'eau
+- Le mode stroboscopique ne réactive plus la lampe torche

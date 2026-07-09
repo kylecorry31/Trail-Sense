@@ -1,0 +1,8 @@
+- Ajout de la lampe torche aux outils (le mode SOS n'est désormais disponible que dans cette section)
+- Ajout de l'outil « Aligneur de panneaux solaires »
+- Ajout de l'outil « Minuterie d'ébullition de l'eau »
+- Ajout de l'affichage des détails des capteurs dans la section « À propos » des paramètres
+- Corrections de bugs
+
+Problèmes connus
+- Cliquer pour désactiver le mode stroboscopique ou le mode SOS peut parfois entraîner l'activation de la lampe torche normale

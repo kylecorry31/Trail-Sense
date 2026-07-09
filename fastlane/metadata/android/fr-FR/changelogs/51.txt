@@ -1,0 +1,3 @@
+- Ajout d'une estimation de la température (à titre expérimental, à partir de l'outil thermomètre)
+- Possibilité de vider le cache GPS
+- Correction d'un bug lié à un cache GPS obsolète
