@@ -20,6 +20,8 @@ To import or create a map:
 
 Once a map is imported, the original file can be deleted if you want to save space. If you turn off Settings > Offline Maps > 'Copy maps to Trail Sense', trail maps will use the original file instead of a copy, so the file must be kept on your device. These maps show an 'External' tag in the map list, and you can copy one into Trail Sense later using the map's menu and selecting 'Copy to Trail Sense'.
 
+If a trail map is marked 'Draft', its file is invalid or missing and it cannot be opened. Delete the map and import a new copy.
+
 If a map is imported from an image or non-geospatial PDF, Trail Sense will open the calibration screen.
 
 Trail Sense supports Mapsforge maps v3, v4, and v5.

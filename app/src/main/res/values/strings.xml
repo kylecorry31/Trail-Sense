@@ -1973,6 +1973,8 @@
     <string name="map_type_trail">Trail</string>
     <string name="map_external">External</string>
     <string name="map_file_missing">File missing</string>
+    <string name="invalid_trail_map">Invalid trail map</string>
+    <string name="invalid_trail_map_message">The trail map file is invalid or missing. You may want to delete this map and import a new one.</string>
     <string name="copy_to_trail_sense">Copy to Trail Sense</string>
     <!--%s is the name of the field guide page the sighting is being recorded for-->
     <string name="recording_sighting_for_page">Recording \'%s\' sighting</string>

@@ -13,13 +13,13 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentOfflineMapListBinding
 import com.kylecorry.trail_sense.main.getAppService
@@ -32,20 +32,16 @@ import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
+import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.ClosestMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.MostRecentMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.sort.NameMapSortStrategy
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
-import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateBlankMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromCameraCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromFileCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromUriCommand
-import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.ICreateMapCommand
-import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroupLoader
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.commands.PrintMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.CreateMapGroupCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
@@ -55,6 +51,11 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.ResizeMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.ShowMapsDisclaimerCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.ToggleVisibilityMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateBlankMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromCameraCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromFileCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.CreateMapFromUriCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create.ICreateMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapGroupAction
@@ -337,12 +338,24 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                 }
             )
 
-            is TrailMap -> findNavController().navigateWithAnimation(
-                R.id.offlineMapViewFragment,
-                Bundle().apply {
-                    putLong("offline_map_file_id", map.id)
+            is TrailMap -> {
+                if (map.state == OfflineMapState.Draft) {
+                    Alerts.dialog(
+                        requireContext(),
+                        getString(R.string.invalid_trail_map),
+                        getString(R.string.invalid_trail_map_message),
+                        cancelText = null
+                    )
+                    return
                 }
-            )
+
+                findNavController().navigateWithAnimation(
+                    R.id.offlineMapViewFragment,
+                    Bundle().apply {
+                        putLong("offline_map_file_id", map.id)
+                    }
+                )
+            }
         }
     }
 
