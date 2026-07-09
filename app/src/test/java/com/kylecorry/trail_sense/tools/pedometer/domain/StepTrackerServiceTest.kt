@@ -302,7 +302,7 @@ internal class StepTrackerServiceTest {
         service.clean()
 
         assertEquals(listOf(recentBucket), repository.buckets)
-        verifyNoInteractions(eventBus)
+        verifyStepsChanged(0)
     }
 
     @Test
@@ -311,11 +311,46 @@ internal class StepTrackerServiceTest {
         val emptyOpenPeriod = repository.addPeriod(period(id = 2, endTime = null))
         val nonEmptyClosedPeriod = repository.addPeriod(period(id = 3, endTime = NOW))
         repository.addBucket(bucket(id = 4, periodId = nonEmptyClosedPeriod.id, endTime = NOW))
+        repository.addBucket(
+            bucket(
+                id = 5,
+                periodId = emptyOpenPeriod.id,
+                startTime = NOW.minus(Duration.ofHours(1)),
+                steps = 42
+            )
+        )
 
         service.clean()
 
         assertEquals(listOf(emptyClosedPeriod), repository.deletedPeriods)
         assertEquals(listOf(emptyOpenPeriod, nonEmptyClosedPeriod), repository.periods)
+        verifyStepsChanged(42)
+    }
+
+    @Test
+    fun cleanDoesNotEmitWhenNothingIsDeleted() = runBlocking {
+        val openPeriod = repository.addPeriod(period(id = 1, endTime = null))
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = openPeriod.id,
+                startTime = NOW.minus(Duration.ofDays(1)),
+                steps = 10
+            )
+        )
+        val closedPeriod = repository.addPeriod(period(id = 3, endTime = NOW))
+        repository.addBucket(
+            bucket(
+                id = 4,
+                periodId = closedPeriod.id,
+                startTime = NOW.minus(Duration.ofDays(1)),
+                endTime = NOW,
+                steps = 5
+            )
+        )
+
+        service.clean()
+
         verifyNoInteractions(eventBus)
     }
 
@@ -406,16 +441,17 @@ internal class StepTrackerServiceTest {
             deletedBucketPeriodIds.add(periodId)
         }
 
-        override suspend fun deleteBucketsOlderThan(endTime: Instant) {
-            buckets.removeAll { it.endTime.isBefore(endTime) }
+        override suspend fun deleteBucketsOlderThan(endTime: Instant): Boolean {
+            return buckets.removeAll { it.endTime.isBefore(endTime) }
         }
 
-        override suspend fun deleteEmptyClosedPeriods() {
+        override suspend fun deleteEmptyClosedPeriods(): Boolean {
             val emptyClosedPeriods = periods.filter { period ->
                 period.endTime != null && buckets.none { it.periodId == period.id }
             }
             periods.removeAll(emptyClosedPeriods)
             deletedPeriods.addAll(emptyClosedPeriods)
+            return emptyClosedPeriods.isNotEmpty()
         }
 
         fun addPeriod(period: StepTrackingPeriod): StepTrackingPeriod {

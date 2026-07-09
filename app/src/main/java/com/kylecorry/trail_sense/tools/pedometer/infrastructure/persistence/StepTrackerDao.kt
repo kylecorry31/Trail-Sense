@@ -38,12 +38,12 @@ interface StepTrackerDao {
     suspend fun deleteBucketsInPeriod(periodId: Long)
 
     @Query("DELETE FROM step_count_buckets WHERE end_time < :endTime")
-    suspend fun deleteBucketsOlderThan(endTime: Instant)
+    suspend fun deleteBucketsOlderThan(endTime: Instant): Int
 
     @Query(
         "DELETE FROM step_tracking_periods " +
             "WHERE end_time IS NOT NULL " +
             "AND _id NOT IN (SELECT DISTINCT period_id FROM step_count_buckets)"
     )
-    suspend fun deleteEmptyClosedPeriods()
+    suspend fun deleteEmptyClosedPeriods(): Int
 }

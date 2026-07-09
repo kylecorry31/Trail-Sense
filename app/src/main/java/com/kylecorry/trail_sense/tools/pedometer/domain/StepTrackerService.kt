@@ -2,12 +2,12 @@ package com.kylecorry.trail_sense.tools.pedometer.domain
 
 import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.events.EventData
 import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.abstractions.IStepTrackerRepository
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Duration
@@ -148,8 +148,11 @@ class StepTrackerService(
 
     override suspend fun clean() = stepMutex.withLock {
         val cutoff = timeProvider.getTime().toInstant().minus(preferences.stepHistory)
-        repository.deleteBucketsOlderThan(cutoff)
-        repository.deleteEmptyClosedPeriods()
+        val deletedBuckets = repository.deleteBucketsOlderThan(cutoff)
+        val deletedPeriods = repository.deleteEmptyClosedPeriods()
+        if (deletedBuckets || deletedPeriods) {
+            emitStepsChanged(repository.getOpenStepTrackingPeriod()?.steps ?: 0)
+        }
     }
 
     private fun emitStepsChanged(steps: Long) {

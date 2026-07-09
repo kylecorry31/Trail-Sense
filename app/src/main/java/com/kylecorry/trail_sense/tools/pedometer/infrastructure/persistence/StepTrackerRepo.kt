@@ -46,11 +46,11 @@ class StepTrackerRepo private constructor(private val dao: StepTrackerDao) : ISt
     }
 
     override suspend fun deleteBucketsOlderThan(endTime: Instant) = onIO {
-        dao.deleteBucketsOlderThan(endTime)
+        dao.deleteBucketsOlderThan(endTime) > 0
     }
 
     override suspend fun deleteEmptyClosedPeriods() = onIO {
-        dao.deleteEmptyClosedPeriods()
+        dao.deleteEmptyClosedPeriods() > 0
     }
 
     private suspend fun getBuckets(periodId: Long): List<StepCountBucket> {

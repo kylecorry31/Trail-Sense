@@ -15,6 +15,6 @@ interface IStepTrackerRepository {
     suspend fun getStepCountBuckets(startTime: Instant, endTime: Instant): List<StepCountBucket>
     suspend fun upsertStepCountBucket(bucket: StepCountBucket): Long
     suspend fun deleteBucketsInPeriod(periodId: Long)
-    suspend fun deleteBucketsOlderThan(endTime: Instant)
-    suspend fun deleteEmptyClosedPeriods()
+    suspend fun deleteBucketsOlderThan(endTime: Instant): Boolean
+    suspend fun deleteEmptyClosedPeriods(): Boolean
 }
