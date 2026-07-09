@@ -1,0 +1,11 @@
+- Boussole de visée (fonctionnalité expérimentale : obtenez un relèvement plus précis grâce à votre appareil photo)
+   - Activez la boussole de visée en activant les fonctionnalités expérimentales, les fonctionnalités de l'appareil photo et la boussole linéaire
+- Couleurs personnalisées des balises
+- Prise en charge de l'altitude NMEA
+- Historique de la batterie
+- Dernière balise de signal (lorsque Backtrack est activé)
+- Fusion de la conversion de distance et de coordonnées
+- Améliorations de la carte (fonctionnalité expérimentale : correction de la perspective, rotation)
+- Nouvelle méthode d'étalonnage automatique du baromètre (expérimentale, à activer dans les paramètres du baromètre) - vos retours seraient très utiles
+- Réduction de l'utilisation de la mémoire
+- Corrections de bugs

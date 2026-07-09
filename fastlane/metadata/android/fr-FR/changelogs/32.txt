@@ -1,0 +1,9 @@
+- Ajout de la fonction « Backtrack » pour enregistrer des points de passage afin de retracer votre parcours – remplace la règle dans l'onglet Navigation
+- Ajout d'un convertisseur d'échelle cartographique à l'outil « Règle »
+- Ajout du format de coordonnées UTM (et d'un outil de conversion des coordonnées)
+- Mise à jour du design du niveau à bulle
+- Ajout d'une balise indiquant la distance et la direction
+- Ajout d'un étalonnage de la température
+- Ajout d'un outil « Bruit blanc » pour vous aider à vous endormir (en phase expérimentale)
+- Ajout de nouveaux guides d'utilisation
+- Corrections de bugs

@@ -1,0 +1,12 @@
+- Refonte de la page consacrée à l'astronomie
+- Ajout d'un thème sombre
+- Correction des problèmes de stabilité de la boussole sur certains appareils
+- Ajout de paramètres permettant de régler le lissage de la boussole et d'utiliser un mode boussole expérimental
+- L'autorisation d'accès à la localisation est désormais facultative (certaines fonctionnalités peuvent être désactivées)
+- Possibilité d'arrêter la surveillance météo via une notification
+- Un clic sur la notification ouvre désormais l'application
+- Le partage de position se fait désormais via un lien vers la position dans OSM plutôt que par de simples coordonnées
+- Désactivation des fonctionnalités météo pour les téléphones sans baromètre
+- Ajout d'une correction d'altitude à ASML
+- Ajout d'une règle à l'écran de navigation
+- Ajustements de l'interface utilisateur

@@ -1,0 +1,8 @@
+- Activation de la lampe torche à l'aide de la touche de volume (désactivée par défaut)
+- Nouvelle organisation des paramètres
+- Durée personnalisable de l'enregistrement du parcours
+- Amélioration du calcul de la profondeur de l'eau
+- Orientation du détecteur de métaux (fonctionnalité expérimentale, nécessite un gyroscope)
+- Améliorations de la carte (fonctionnalité expérimentale)
+- Ajout de la durée de la journée
+- Corrections de bugs

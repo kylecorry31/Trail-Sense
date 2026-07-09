@@ -1,0 +1,8 @@
+- Convertisseur de poids
+- Convertisseur de volume
+- Convertisseur de temps
+- Convertisseur de température
+- Estimation de la température en fonction de l'altitude (en phase d'expérimentation)
+- Paramétrage du format de l'URL de partage de carte
+- Zoom par pincement sur la boussole radar
+- Corrections de bugs

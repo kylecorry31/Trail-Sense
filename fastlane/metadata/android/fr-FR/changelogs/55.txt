@@ -1,0 +1,6 @@
+- La rubrique « Inventaire » a été remaniée et rebaptisée « Listes de matériel »
+- Créez des listes de matériel pour préparer vos randonnées
+- Suivez le poids de votre sac à dos
+- Davantage de catégories d'articles
+- Davantage de couleurs pour les balises
+- Ajout des formats de coordonnées USNG et OSNG

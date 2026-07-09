@@ -1,0 +1,19 @@
+Astronomie
+- Option permettant d'afficher les bandes de lever et de coucher du soleil
+
+Couches cartographiques
+- Ombrage de relief/altitude : option haute résolution
+- Option permettant de tracer des ombres précises avec l'ombrage de relief
+- Rendre la couche cartographique accessible à toutes les cartes
+- Copier les paramètres d'une couche cartographique vers d'autres cartes
+- Améliorer la résolution des cartes photographiques
+- Refonte de l'interface utilisateur des paramètres des couches cartographiques
+
+Marées
+- Paramètre de couche cartographique permettant d'afficher les marées côtières
+
+Niveau à bulle
+- Changement de couleur lorsque le niveau est atteint
+
+Guide d'utilisation
+- Guide sur les couches cartographiques

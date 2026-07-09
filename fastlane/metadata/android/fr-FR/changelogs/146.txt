@@ -1,0 +1,17 @@
+Cartes hors ligne
+- Détection automatique des coins des nouvelles cartes photographiques
+- Ajout d'un paramètre permettant d'utiliser des fichiers de cartes de sentiers externes
+
+Podomètre
+- Affichage de l'historique du nombre de pas par heure
+
+Astronomie
+- Affichage d'icônes précises pour la Lune et les éclipses
+
+Guide de terrain
+- Ajout d'une action rapide « Enregistrer une observation »
+
+Divers
+- Amélioration de la prise en charge de Material 3 Expressive
+- Les champs de saisie de localisation permettent de sélectionner un lieu sur la carte
+- Corrections de bugs

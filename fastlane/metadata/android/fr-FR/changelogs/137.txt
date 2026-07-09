@@ -1,0 +1,18 @@
+Navigation
+- Option permettant de verrouiller le relèvement sur un emplacement
+- Affichage des relèvements vers la destination sur la feuille de navigation
+
+Carte / Cartes photo
+- Affichage de l'altitude DEM de l'emplacement sur lequel on appuie longuement
+- Mémorisation de l'état de la carte (zoom, panoramique, mode) - Outil Carte uniquement
+
+Niveau à bulle
+- Maintien de l'écran allumé
+
+Réalité augmentée
+- Option permettant d'afficher les éléments astronomiques situés sous l'horizon
+
+Divers
+- Signaler une précision réduite de la boussole à proximité de métaux
+- Épingler l’outil Carte dans la barre de navigation inférieure pour les nouveaux utilisateurs
+- Paramètre permettant de masquer l’interface utilisateur du système en mode nuit

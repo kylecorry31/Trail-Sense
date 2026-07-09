@@ -1,0 +1,9 @@
+- Ajout d'un mode faible consommation (pour Trail Sense uniquement), accessible dans les paramètres et dans l'outil de gestion de la batterie
+- Ajout d'un outil simple d'identification des nuages
+- Ajout de la sélection des unités dans la règle
+- Ajout du format de coordonnées MGRS
+- Amélioration des pages d'accueil
+- Ajout d'un paramètre définissant le nombre de satellites GPS requis
+- Ajout d'un délai d'expiration de 10 secondes pour le GPS
+- Ajout d'un rappel de calibrage de la boussole en cas de précision faible ou moyenne
+- Corrections de bugs

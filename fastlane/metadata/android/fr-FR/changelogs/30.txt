@@ -1,0 +1,6 @@
+- Ajout d'un outil de détection de métaux
+- Ajout d'un outil de triangulation de localisation
+- Réorganisation de l'onglet « Outils »
+- Ajout d'une notification de synchronisation de l'horloge (Outils > Horloge)
+- Mise à jour du design de l'outil de mesure de la hauteur des falaises
+- Corrections de bugs

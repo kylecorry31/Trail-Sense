@@ -1,0 +1,4 @@
+- Nouvelle carte astronomique permettant de mieux visualiser les positions réelles du soleil et de la lune
+- Option permettant d'afficher le soleil et la lune sur la boussole lorsqu'ils sont visibles
+- Prise en charge des lieux où le soleil et la lune ne se lèvent et ne se couchent pas à heures fixes
+- Corrections de bugs

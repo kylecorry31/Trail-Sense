@@ -1,0 +1,6 @@
+Trajets
+- Ajout de nouveaux styles de ligne
+- Accès au segment de trajet le plus proche
+
+Divers
+- Corrections de bugs
