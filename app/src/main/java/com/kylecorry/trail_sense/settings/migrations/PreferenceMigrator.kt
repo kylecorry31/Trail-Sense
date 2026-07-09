@@ -34,7 +34,6 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSo
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
-import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.signal_finder.map_layers.CellTowerGeoJsonSource
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -467,13 +466,8 @@ class PreferenceMigrator private constructor() {
                 }
 
             },
-            PreferenceMigration(28, 29) { context, prefs ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    PedometerPreferenceMigration(
-                        getAppService<StepTrackerService>(),
-                        prefs
-                    ).migrate()
-                }
+            PreferenceMigration(28, 29) { context, _ ->
+                PedometerPreferenceMigrationWorker.start(context)
             }
         )
 
