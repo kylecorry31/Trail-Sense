@@ -1,0 +1,17 @@
+Balistique
+- Nouvel outil pour calculer le réglage de la lunette et l'énergie
+
+Cartes photo
+- Prise en compte de l'option « Afficher sur l'écran de verrouillage pendant la navigation » dans les paramètres de navigation
+
+Convertisseur
+- Ajout des milligrammes et des grains
+
+Détecteur de métaux
+- Bouton permettant de désactiver les vibrations
+
+Guide de survie
+- Ajustement du contenu et des illustrations
+
+Guide de terrain
+- Remplacement de toutes les images par des illustrations personnalisées

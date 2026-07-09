@@ -1,0 +1,13 @@
+Climat
+- Précipitations mensuelles historiques
+- Classification climatique
+- [Expérimental] Activité des moustiques et des tiques
+
+Cartes photo
+- Enregistrer la rotation de l'appareil photo
+
+Guide de survie
+- Modifier le contenu et les illustrations
+
+Convertir
+- Ajouter une action rapide (coordonnées, distance, température)
