@@ -26,7 +26,7 @@ This app can help identify plants through image recognition. After taking a phot
 
 ## iNaturalist
 
-This app is a social network for naturalists. You can use it to record your observations of plants and animals, share them with others, and discuss your findings. It is also useful to obtaining species identification, either from another person or through image recognition.
+This app is a social network for naturalists. You can use it to record your observations of plants and animals, share them with others, and discuss your findings. It is also useful for obtaining species identification, either from another person or through image recognition.
 
 [Download](market://details?id=org.inaturalist.android)
 

@@ -42,7 +42,7 @@ When planning a route, choose one that matches your skill and fitness levels, us
 <!-- K: move, terrain, trekking, pole, walking-stick -->
 <!-- S: Move carefully and adapt to the terrain. Avoid following animal trails. -->
 
-Moving carefully and adapting to the terrain are important preventions you can take against injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
+Moving carefully and adapting to the terrain are important precautions you can take against injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
 
 Trekking poles or a walking stick can be beneficial for some people, especially in rough terrain or if you have knee problems. You can check if you are using the correct-height pole by making sure you have a 90-degree bend at your elbow when the pole is touching the ground.
 
