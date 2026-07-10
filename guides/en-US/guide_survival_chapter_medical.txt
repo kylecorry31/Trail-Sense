@@ -459,7 +459,7 @@ Perform the Heimlich maneuver on someone else (only perform this if you know the
 ![](file:///android_asset/survival_guide/choking.webp)
 
 ## Cramps
-<!-- K: cramp, muscle, pain, spasm, weak, electrolyte -->
+<!-- K: cramp, muscle, pain, spasm, electrolyte -->
 <!-- S: Treat by stretching, massaging, applying heat or cold, and hydrating. Prevent by staying hydrated and replenishing electrolytes. -->
 
 Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
@@ -467,7 +467,6 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 ### Symptoms
 - Muscle pain
 - Muscle spasms
-- Muscle weakness
 
 ### Treatment
 - Gently stretch the muscle.
@@ -475,13 +474,14 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 - Apply heat or cold to the muscle.
 - Drink water or an electrolyte solution containing sodium and potassium.
 - Eat salty foods.
-- Eat potassium-rich foods (such as bananas or potatoes).
+- Eat potassium-rich foods (such as bananas).
 - Slow down or stop physical activity.
+- Rest in the shade.
+- Take a pain reliever, such as ibruprofen or acetaminophen.
 
 ### Prevention
 - Stay hydrated.
 - Replenish electrolytes.
-- Warm up your muscles before physical activity.
 - Stretch before and after physical activity.
 - Maintain a slow and steady pace.
 
