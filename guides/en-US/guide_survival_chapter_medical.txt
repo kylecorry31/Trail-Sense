@@ -373,6 +373,8 @@ If the bleeding is life-threatening and you are unable to control it with direct
 <!-- K: blister, rub, shoe, sock, moleskin, red, sore -->
 <!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Preventing this by keeping feet dry and wearing properly fitting shoes. -->
 
+Blisters are fluid-filled raised areas of skin which can be painful. They are usually caused by continuous friction or pressure on the skin.
+
 ### Symptoms
 - Red, sore area
 - Blister
@@ -384,8 +386,8 @@ If the blister is small:
 
 If the blister is large or painful:
 1. Sterilize a needle with hand sanitizer or fire.
-2. Pierce the blister near the edge and drain the fluid.
-3. Clean and wash the area.
+2. Clean and wash the area.
+3. Pierce the blister near the edge and drain the fluid. Do not remove the skin.
 4. Apply a bandage and, optionally, antibiotic ointment.
 
 ### Prevention
