@@ -1578,10 +1578,10 @@
     </plurals>
     <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
     <string name="include_mapsforge_backups_summary">Mapsforge (.map) 文件可能占用不少空间</string>
-    <string name="include_mapsforge_backups">在备份中包含路线地图</string>
-    <string name="trail_maps">路线地图</string>
-    <string name="map_layer_trail_maps_description">你保存了路线地图</string>
-    <string name="map_type_trail">路线</string>
+    <string name="include_mapsforge_backups">在备份中包含路径地图</string>
+    <string name="trail_maps">路径地图</string>
+    <string name="map_layer_trail_maps_description">你保存了路径地图</string>
+    <string name="map_type_trail">路径</string>
     <string name="pref_show_all_bottom_navigation_labels">显示所有底部导航标签</string>
     <string name="brightness">亮度</string>
     <string name="pref_copy_trail_maps_title">复制地图到 Trail Sense</string>
@@ -1605,4 +1605,6 @@
     <string name="finish_calibration">完成校准</string>
     <string name="calibrate_map_point_title">第 %1$d 点，共 %2$d 点</string>
     <string name="calibrate_map_point_instructions">在地图上轻按此位置，然后输入其真实世界坐标。</string>
+    <string name="invalid_trail_map">无效的路径图</string>
+    <string name="invalid_trail_map_message">路径图文件无效或缺失。你可能想删除此地图并导入新地图。</string>
 </resources>
