@@ -39,7 +39,11 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
             // Wait for the chapter to load
             hasText(R.id.guide_name, chapter.title, ignoreCase = true)
             hasText(R.id.guide_scroll) { it.isNotEmpty() }
-            click("Be prepared")
+            if (chapter.searchable) {
+                click("Be prepared")
+            } else {
+                hasText("ATP 3-50.21")
+            }
 
             back()
         }

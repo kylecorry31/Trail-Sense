@@ -82,7 +82,7 @@ abstract class BaseSurvivalGuideSearch(private val loader: GuideLoader) :
 
     private suspend fun getGuides(): List<GuideDetails> {
         return cache.getOrPut {
-            loader.load(false)
+            loader.load(false).filter { it.chapter.searchable }
         }
     }
 }

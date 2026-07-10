@@ -70,6 +70,10 @@ chapters = [
     {
         "title": "Weather",
         "file": "app/src/main/res/raw/guide_survival_chapter_weather.md"
+    },
+    {
+        "title": "References",
+        "file": "app/src/main/res/raw/guide_survival_chapter_references.md"
     }
 ]
 

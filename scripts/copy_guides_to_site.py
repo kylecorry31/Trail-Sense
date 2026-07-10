@@ -75,7 +75,8 @@ chapters = chapters = [
     "guide_survival_chapter_fire.txt",
     "guide_survival_chapter_food.txt",
     "guide_survival_chapter_navigation.txt",
-    "guide_survival_chapter_weather.txt"
+    "guide_survival_chapter_weather.txt",
+    "guide_survival_chapter_references.txt"
 ]
 
 
