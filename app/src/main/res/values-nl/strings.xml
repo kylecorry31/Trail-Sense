@@ -1619,4 +1619,6 @@
     <string name="finish_calibration">Kalibratie voltooien</string>
     <string name="calibrate_map_point_title">Punt %1$d van %2$d</string>
     <string name="calibrate_map_point_instructions">Tik op deze locatie op de kaart, voer vervolgens de coördinaten in de echte wereld in.</string>
+    <string name="invalid_trail_map">Ongeldige wandelkaart</string>
+    <string name="invalid_trail_map_message">Het kaartbestand is ongeldig of ontbreekt. Je kunt deze kaart verwijderen en een nieuwe importeren.</string>
 </resources>
