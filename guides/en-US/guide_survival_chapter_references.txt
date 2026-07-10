@@ -17,3 +17,5 @@ This chapter lists the resources which were referenced in the creation of this s
 - [American Heart Association](https://www.heart.org/)
 - [U.S. Centers for Disease Control and Prevention (CDC)](https://www.cdc.gov/)
 - [Mayo Clinic](https://www.mayoclinic.org/)
+- [UK NHS](https://www.nhs.uk/)
+- [Cleveland Clinic](https://my.clevelandclinic.org/)

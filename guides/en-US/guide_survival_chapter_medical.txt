@@ -131,20 +131,20 @@ If you have asthma and are having an attack, use your inhaler.
 - Tell others about your allergies and where your epinephrine auto-injector is kept.
 
 ## Altitude sickness
-<!-- K: altitude, mountain, headache, nausea, fatigue, dizziness, breath, sleep, appetite, heartbeat, cough, acclimate, descend -->
-<!-- S: Symptoms include headache, nausea, fatigue, dizziness, and shortness of breath. Treat by descending to a lower altitude or with pain relievers. Prevent by ascending slowly. -->
+<!-- K: altitude, mountain, headache, nausea, fatigue, dizziness, breath, sleep, appetite, cough, acclimate, descend -->
+<!-- S: Symptoms include headache, nausea, fatigue, and dizziness. Treat by descending to a lower altitude or with pain relievers. Prevent by ascending slowly. -->
 
 Altitude sickness is caused by low oxygen levels at high altitudes.
 
 ### Symptoms
 - Headache
 - Nausea
+- Vomiting
 - Fatigue
 - Dizziness
 - Shortness of breath
-- Poor sleep
+- Difficulty sleeping
 - Loss of appetite
-- Rapid heartbeat
 - Coughing
 
 ### Treatment
@@ -157,7 +157,7 @@ Altitude sickness is caused by low oxygen levels at high altitudes.
 
 - Ascend slowly.
 - Acclimate before ascending further.
-- Watch for symptoms above 6,500 feet (2,000 meters).
+- Watch for symptoms above 8,000 feet (2,500 meters).
 
 ## Bites, stings, and attacks
 
