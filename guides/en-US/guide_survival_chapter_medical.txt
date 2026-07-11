@@ -72,15 +72,15 @@ Once you have mastered these skills, you should learn how to do the following:
 
 This is a list of common medications hikers might carry. It's not a complete list. Only use these in accordance with your doctor's recommendations and follow the package directions. Know the side effects, how much to take, and when to take them before your trip.
 
-- **Aspirin**: A pain reliever used for headaches, sore muscles, joint pain, inflammation, and fevers. Many doctors recommend taking aspirin at the first signs of a heart attack, as it can help prevent further blood clots. High doses can lead to gastrointestinal bleeding.
-- **Ibuprofen**: A pain reliever used for headaches, sore muscles, joint pain, inflammation, and fevers. It can cause stomachaches for some people.
-- **Acetaminophen**: A pain reliever used for headaches, sore muscles, joint pain, or fevers.
-- **Diphenhydramine**: An antihistamine used for allergies, itching, and sleeplessness. It may cause drowsiness.
-- **Loperamide**: Used to treat diarrhea.
-- **Simethicone**: A gas reliever used for gas pains.
+- **Aspirin**: Used to relieve mild to moderate pain and inflammation, reduce fevers, prevent heart attacks and strokes, and to reduce the risk of death when experiencing a heart attack.
+- **Ibuprofen**: Used to relieve mild to moderate pain and inflammation, and reduce fevers.
+- **Acetaminophen**: Used to relieve mild to moderate pain and reduce fevers.
+- **Diphenhydramine**: Used to treat allergy and cold symptoms such as sneezing, runny nose, or itching. It is also used to help fall asleep and stay asleep.
+- **Loperamide**: Used to control acute diarrhea.
+- **Simethicone**: Used to treat symptoms of gas such as pain or bloating.
 - **Antacid tablets**: Used to treat heartburn and indigestion.
-- **Hydrocortisone cream**: Soothes itchy or red skin from bites, rashes, or irritation.
-- **Antibiotic ointment**: Helps prevent infection in minor cuts, scrapes, or burns.
+- **Hydrocortisone cream**: Used to treat redness, itching, and discomfort of the skin.
+- **Antibiotic ointment**: Used to help prevent infection in minor cuts, scrapes, and burns.
 
 ## Allergic reactions
 <!-- K: allergy, allergic, reaction, rash, itch, swell, hives, sneeze, cough, throat, breath, epinephrine, epi-pen, epipen, inject, asthma, anaphylaxis -->
