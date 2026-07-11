@@ -797,12 +797,14 @@ Use soap and clean water to wash your hands:
 - Before dressing a wound.
 - After touching something likely to carry germs or be poisonous.
 
-If you do not have soap, you may be able to use hand sanitizer or clean water.
+If you only have hand sanitizer, rub it over all surfaces of your hands until dry. Wash your hands with water first if they are visibly dirty or greasy, then dry them and apply hand sanitizer.
+
+You can use clean water to wash if you do not have soap or hand sanitizer, but it will not be as effective.
 
 ### Teeth
 <!-- K: teeth, tooth, toothbrush, toothpaste, floss, brush -->
 
-If you do not have a toothbrush, you can clean your teeth with a small stick (fray it by chewing on one end) or a piece of cloth. An inner strand of paracord can be used as dental floss.
+If you do not have a toothbrush, you can clean your teeth with a small hardwood stick (fray it by chewing on one end). An inner strand of paracord can be used as dental floss.
 
 ### Feet
 <!-- K: foot, feet, sock, shoe -->
@@ -810,21 +812,21 @@ If you do not have a toothbrush, you can clean your teeth with a small stick (fr
 Do the following to prevent foot problems:
 - Change and wash socks daily.
 - Wash, dry, and massage your feet.
-- Check frequently for blisters and red areas. Use adhesive tape/moleskin to prevent blisters.
 
 ### Clothing
 <!-- K: clothes -->
 
-Keep clothing clean and dry. Wash clothes with water and soap or boil them. To dry clothes, lay them in the sun on rocks, or hang them in the sun or near a fire (not too close).
+Keep clothing clean and dry. Wash clothes with water and soap. To dry clothes, lay them in the sun on rocks, or hang them in the sun or near a fire (not too close).
 
 ### Bowel movements and urination
 <!-- K: defecate, urinate, bathroom, waste, trowel, dig, hole -->
 
 - Dig a hole 6 to 8 inches (15 to 20 centimeters) deep for bowel movements and cover it with dirt.
   - If you do not have a trowel, use a stick to dig the hole.
+  - Local regulations may require that you pack out toilet paper in a waste bag rather than burying it.
 - If you do not have toilet paper or a bidet, use non-poisonous leaves, moss, or smooth rocks to clean yourself.
 - Always wash your hands after using the bathroom.
-- Do not defecate or urinate near water sources (at least 200 feet/60 meters away).
+- Do not defecate or urinate near water sources, campsites, or trails (at least 200 feet/60 meters away).
 
 ## Hypothermia
 <!-- K: hypothermia, cold, freeze, frozen, shiver, coordination, memory, speech, slur, speak, drowsiness, breath, heartbeat, heat, warm, fire -->

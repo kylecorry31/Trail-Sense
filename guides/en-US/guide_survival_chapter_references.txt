@@ -20,3 +20,5 @@ This chapter lists the resources which were referenced in the creation of this s
 - [UK NHS](https://www.nhs.uk/)
 - [Cleveland Clinic](https://my.clevelandclinic.org/)
 - [MedlinePlus](https://medlineplus.gov/)
+- [U.S. National Park Service](https://www.nps.gov/)
+- [Leave No Trace](https://lnt.org/)
