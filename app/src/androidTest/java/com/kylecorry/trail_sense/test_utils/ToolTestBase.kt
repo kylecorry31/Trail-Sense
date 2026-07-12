@@ -23,11 +23,16 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.rules.Timeout
+import java.util.concurrent.TimeUnit
 
 open class ToolTestBase(
     private val toolId: Long,
     private val locationOverride: Coordinate? = null
 ) {
+
+    @get:Rule
+    val timeoutRule: Timeout = Timeout(5, TimeUnit.MINUTES)
 
     @get:Rule
     val grantPermissionRule = TestUtils.allPermissionsGranted()

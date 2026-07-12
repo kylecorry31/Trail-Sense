@@ -28,8 +28,13 @@ import com.kylecorry.trail_sense.test_utils.views.viewWithResourceId
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.Timeout
+import java.util.concurrent.TimeUnit
 
 class SmokeTest {
+
+    @get:Rule
+    val timeoutRule: Timeout = Timeout(45, TimeUnit.MINUTES)
 
     @get:Rule
     val screenshotRule: ScreenshotFailureRule = ScreenshotFailureRule()
