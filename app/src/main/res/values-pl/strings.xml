@@ -886,7 +886,7 @@
     <string name="photo_maps">Mapy ze zdjęć</string>
     <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Historyczne (%d rok)</string>
     <string name="astronomy_altitude_peak">Wysokość górowania</string>
-    <string name="map_calibration_instructions">Naciśnij znaną lokalizację na mapie, następnie wprowadź współrzędne rzeczywiste. Zapisz kalibrację naciskając \"Gotowe\". \n \nPrzykłady dobrych punktów kalibracji to parking, punkt informacyjny, punkt orientacyjny lub skrzyżowanie wzdłuż szlaku.</string>
+    <string name="map_calibration_instructions">Wybierz dwie lokalizacje, które możesz rozpoznać na mapie oraz w świecie. Naciśnij dokładną pozycję na mapie, następnie wprowadź rzeczywiste współrzędne obu punktów.\n \nPrzykłady dobrych punktów to takie, które są oddalone od siebie oraz łatwe w rozpoznaniu, np: początek szlaku, parking, punkt informacyjny, punkt orientacyjny, przecięcie siatki mapy lub skrzyżowanie szlaków.\n\nJeśli lokalizacje obu punktów są poprawne, naciśnij \"Zakończ kalibracje\". Jeśli masz tylko jeden punkt lub chcesz dokończyć później, naciśnij \"Zapisz szkic\".</string>
     <string name="compass_source_mag_gyro">Magnetometr + Żyroskop</string>
     <string name="pref_keep_map_facing_up_title">Zablokuj orientację mapy, aby północ była na górze</string>
     <string name="pref_keep_map_facing_up_summary">Wyrównaj mapę do górnej krawędzi ekranu, zamiast do rzeczywistej północy.</string>
@@ -1530,7 +1530,7 @@
     <string name="clock_source_gps">Czas GPS</string>
     <string name="map_calibration_error_same_pixel">Wybierz dwa różne punkty na mapie.</string>
     <string name="map_calibration_error_same_image_axis">Wybierz dwa różne punkty na mapie, które nie są bezpośrednio obok lub nad sobą.</string>
-    <string name="map_calibration_error_same_location">Wprowadź dwie pary różnych współrzędnych.</string>
+    <string name="map_calibration_error_same_location">Wprowadź dwie różne rzeczywiste lokalizacje.</string>
     <string name="manage_maps">Zarządzaj mapami</string>
     <string name="map_calibration_error_implausible_scale">Kalibracja jest niewiarygodna. Sprawdź punkty oraz współrzędne.</string>
     <string name="offline_maps">Mapy offline</string>
@@ -1566,4 +1566,10 @@
     <string name="created">Utworzono</string>
     <string name="recording_sighting_for_page">Rejestrowanie obserwacji: \'%s\'</string>
     <string name="draft">Szkic</string>
+    <string name="save_draft">Zapisz szkic</string>
+    <string name="finish_calibration">Zakończ kalibrację</string>
+    <string name="calibrate_map_point_title">Punkt %1$d z %2$d</string>
+    <string name="calibrate_map_point_instructions">Naciśnij lokalizację na mapie, następnie wprowadź rzeczywiste współrzędne.</string>
+    <string name="invalid_trail_map">Nieprawidłowa mapa szlaku</string>
+    <string name="invalid_trail_map_message">Nieprawidłowy lub brakujący plik mapy szlaku. Usuń oraz zaimportuj nową mapę.</string>
 </resources>
