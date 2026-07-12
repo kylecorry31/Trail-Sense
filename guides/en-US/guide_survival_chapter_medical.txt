@@ -5,6 +5,8 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 
 **This chapter is for informational purposes only and does not replace professional advice, diagnosis, or treatment; use at your own risk, ensure compliance with local laws, and consult qualified healthcare providers whenever possible. If you call emergency services, follow their instructions. This chapter is not medical advice.**
 
+If emergency services are needed, put them on speaker or have someone else call to avoid delaying first aid.
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medication, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, gel, swab, mirror, tampon, pad, menstrual, cup, floss, toothbrush, toothpaste, toilet-paper, bidet, bag, trowel, soap, towel, lip-balm, electrolyte -->
 <!-- S: Bring a first aid kit. Learn basic first aid and CPR. -->
@@ -440,21 +442,28 @@ This is a burn that goes through all layers of skin and may be life-threatening.
 <!-- K: choke, throat, breath, heimlich, maneuver -->
 <!-- S: Perform the Heimlich maneuver. -->
 
-If you are choking and someone is nearby, place your hands on your throat to signal that you are choking.
+A person is partially choking if they can audibly cough or speak and are completely choking if they cannot cough, speak, and breathe.
+
 
 ### Treatment
+If someone is partially choking, encourage them to keep coughing to try to expel the object.
+
+If someone is completely choking, call emergency services and perform the Heimlich maneuver. If you are completely choking and someone is nearby, place your hands on your throat to signal that you are choking.
+
 Perform the Heimlich maneuver on yourself:
 1. If possible, bend over a hard surface.
 2. Make a fist with one hand.
 3. Place the thumb side of your fist against your abdomen, below your ribcage and above your navel.
 4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.
 
-Perform the Heimlich maneuver on someone else (only perform this if you know they are choking, upright, and have signaled for help):
-1. Stand behind the person.
-2. Reach around the person's waist.
-3. Make a fist with one hand.
-4. Place the thumb side of your fist against the person's abdomen, below the ribcage and above the navel.
-5. Grasp your fist with your other hand and press into the person's abdomen with a quick upward thrust.
+Perform the Heimlich maneuver on someone else (only perform this if you know they are fully choking, upright, have signaled for help, and are over the age of 1):
+1. Stand to the side and behind the person.
+2. Lean them forward and support their chest with one hand.
+3. Use the heel of the other hand to strike between their shoulder blades up to 5 times. Pause between each strike to check if the object has been expelled.
+4. If they are still choking, get behind them and reach around their waist.
+5. Make a fist and place the thumb side of your fist against the person's abdomen, below the ribcage and above the navel.
+6. Grasp your fist with your other hand and press into the person's abdomen with a quick inward and upward thrust. Repeat up to 5 times.
+7. Repeat steps 1-6 until the object is expelled or the person becomes unconscious. If they become unresponsive, lower them safely to a firm surface and begin CPR (see the Heart problems section).
 
 ![](file:///android_asset/survival_guide/choking.webp)
 
@@ -477,7 +486,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 - Eat potassium-rich foods (such as bananas).
 - Slow down or stop physical activity.
 - Rest in the shade.
-- Take a pain reliever, such as ibruprofen or acetaminophen.
+- Take a pain reliever, such as ibuprofen or acetaminophen.
 
 ### Prevention
 - Stay hydrated.
