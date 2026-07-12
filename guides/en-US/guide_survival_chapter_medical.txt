@@ -962,9 +962,21 @@ If you come into contact with these plants, wash the area with soap and water as
 <!-- K: sleep, asleep, rest, nap -->
 <!-- S: To fall asleep you should calm your mind, ensure you aren't too hot or cold, and use comfortable bedding. -->
 
-Falling asleep can be difficult in the wilderness, but getting adequate rest is important for maintaining energy. To help yourself fall asleep, wind down at night by avoiding strenuous activity and calming your mind, perhaps using meditation. Ensure you aren't too hot or cold and that your sleeping area is comfortable. You might find it easier to sleep if you make a pillow by stuffing spare clothing or a stuff sack with dry leaves or other soft materials.
+Falling asleep can be difficult in the wilderness, but getting adequate rest is important for maintaining energy.
 
-Some people may also find it necessary to block out noise using earplugs or by listening to music or white noise if available.
+### Treatment
+- Calm your mind, perhaps using meditation.
+- Take a sleep aid medicine.
+- Block out noise using earplugs.
+- Turn on calming background music or white noise.
+
+### Prevention
+- Avoid strenuous activity, heavy meals, and caffeine before bed.
+- Adjust your bedding and shelter so that you aren't too hot or cold.
+- Make your sleeping area comfortable.
+- Use a pillow by stuffing spare clothing or a stuff sack with dry leaves or other soft materials.
+- Keep light levels low as you prepare for sleep.
+- Consider using a sleep mask to block out light from the moon, campfire, or other campers.
 
 ## Snow blindness
 <!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->
