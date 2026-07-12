@@ -666,13 +666,12 @@ Gastrointestinal issues can be caused by contaminated food or water.
 <!-- K: headache, pain, electrolyte -->
 <!-- S: Treat by taking pain relievers, drinking water, and resting. Prevent by staying hydrated and replenishing electrolytes. -->
 
-Headaches can be caused by various factors, such as dehydration, stress, lack of sleep, eye strain, tight muscles, or illness.
+Headaches can be caused by various factors, such as dehydration, stress, lack of sleep, eye strain, bad posture, skipped meals, strenuous exercise, or illness.
 
 ### Treatment
 - Take pain relievers.
 - Drink water or an electrolyte solution.
 - Rest.
-- Eat salty foods.
 - Massage tight muscles in your upper body.
 
 ### Prevention
