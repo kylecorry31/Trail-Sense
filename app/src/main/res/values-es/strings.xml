@@ -948,7 +948,7 @@
     <string name="calibrate_map_point">Calibrar con ubicaciones conocidas (%1$d/%2$d)</string>
     <string name="map_calibration">Calibración del mapa</string>
     <string name="accelerometer">Acelerómetro</string>
-    <string name="map_calibration_instructions">Toca una ubicación conocida en el mapa y, a continuación, introduce las coordenadas reales. Puedes guardar la calibración pulsando el botón \"Hecho\". \n \nEjemplos de buenos puntos de calibración son un aparcamiento, un punto de señalización, un punto de referencia o un cruce a lo largo de un sendero.</string>
+    <string name="map_calibration_instructions">Elige dos puntos que puedas identificar tanto en el mapa como en el mundo real. Para cada uno, pulsa en su lugar exacto en el mapa e introduce sus coordenadas reales.\n \nPuntos buenos son los que están muy separados y son fáciles de reconocer, como un inicio de sendero, estacionamiento, señal, punto de referencia, intersección de la cuadrícula del mapa o cruce de senderos.\n\nSi ambos puntos son válidos, pulsa \"Terminar calibración\". Si sólo tiene un punto o deseas terminar más tarde, pulsa en \"Guardar borrador\".</string>
     <string name="compass_source_mag_gyro">Magnetómetro + Giróscopo</string>
     <string name="compass_source_legacy_android">Heredado (Android)</string>
     <string name="compass_source_legacy_ts">Heredado (Trail Sense)</string>
@@ -1577,4 +1577,10 @@
     <string name="created">Creado</string>
     <string name="draft">Borrador</string>
     <string name="recording_sighting_for_page">Registrando en avistamienos \'%s\'</string>
+    <string name="save_draft">Guardar borrador</string>
+    <string name="finish_calibration">Terminar calibración</string>
+    <string name="calibrate_map_point_title">Punto %1$d de %2$d</string>
+    <string name="calibrate_map_point_instructions">Pulsa esta posición del mapa, después ingresa las cordenadas reales.</string>
+    <string name="invalid_trail_map">Mapa de recorrido no válido</string>
+    <string name="invalid_trail_map_message">El archivo del mapa de recorrido falta o es no válido. Puedes borrar este mapa e importar uno nuevo.</string>
 </resources>
