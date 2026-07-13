@@ -991,18 +991,23 @@ Falling asleep can be difficult in the wilderness, but getting adequate rest is 
 <!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->
 <!-- S: Symptoms include red, scratchy, and watery eyes, sensitivity to light, and headache. Treat by covering your eyes with a dark cloth. Prevent by wearing UV-protective sunglasses or snow goggles. -->
 
-Snow blindness is caused when too much sunlight reflects off snow, ice, or water into your eyes.
+Snow blindness is caused by overexposure of sunlight reflected off snow, ice, or water into your eyes.
 
 ### Symptoms
 - Eyes are red, scratchy, and watery
+- Blurry vision
 - Sensitivity to light
 - Headache
 
 ### Treatment
-Cover your eyes with a dark cloth until symptoms disappear.
+1. Remove contact lenses.
+2. Rest with your eyes closed. You may also place a cold cloth over your eyes.
 
 ### Prevention
-Wear UV-protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
+- Wear UV-protective sunglasses or snow goggles.
+- Wear a wide-brimmed hat.
+
+If you do not have these, see the "Craft: Sunglasses" or put soot under your eyes to reduce glare.
 
 ## Splinters, thorns, spines, and needles
 <!-- K: splinter, thorn, wood, needle, spike, spine, remove, tweezers, hand, porcupine, urchin, cactus -->
