@@ -375,7 +375,7 @@ If the bleeding is life-threatening and you are unable to control it with direct
 <!-- K: blister, rub, shoe, sock, moleskin, red, sore -->
 <!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Preventing this by keeping feet dry and wearing properly fitting shoes. -->
 
-Blisters are fluid-filled raised areas of skin which can be painful. They are usually caused by continuous friction or pressure on the skin.
+Blisters are fluid-filled raised areas of skin that can be painful. They are usually caused by continuous friction or pressure on the skin.
 
 ### Symptoms
 - Red, sore area
@@ -442,7 +442,7 @@ This is a burn that goes through all layers of skin and may be life-threatening.
 <!-- K: choke, throat, breath, heimlich, maneuver -->
 <!-- S: Perform the Heimlich maneuver. -->
 
-A person is partially choking if they can audibly cough or speak and are completely choking if they cannot cough, speak, and breathe.
+A person is partially choking if they can audibly cough or speak. They are completely choking if they cannot cough, speak, and breathe.
 
 
 ### Treatment
@@ -975,7 +975,7 @@ Falling asleep can be difficult in the wilderness, but getting adequate rest is 
 
 ### Treatment
 - Calm your mind, perhaps using meditation.
-- Take a sleep aid medicine.
+- Take a sleep aid.
 - Block out noise using earplugs.
 - Turn on calming background music or white noise.
 
