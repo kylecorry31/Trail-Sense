@@ -1087,7 +1087,7 @@ If caught in a rip current, swim parallel to the shore until you are out of the 
 <!-- K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf, skin -->
 <!-- S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent this by wearing sunscreen, proper clothing, and staying in the shade. -->
 
-Sunburn is caused by prolonged exposure to the sun's ultraviolet (UV) radiation.
+Sunburn is caused by overexposure to the sun's ultraviolet (UV) radiation.
 
 ### Symptoms
 - Redness
@@ -1097,8 +1097,8 @@ Sunburn is caused by prolonged exposure to the sun's ultraviolet (UV) radiation.
 
 ### Treatment
 1. Get out of the sun.
-2. Run cool water over the burn or apply a cold compress to relieve pain.
-3. To reduce pain and swelling, apply aloe vera gel, calamine lotion, or hydrocortisone cream.
+2. Run cool water over the burn or apply a cold compress.
+3. Apply aloe vera gel, calamine lotion, or hydrocortisone cream.
 4. Optionally, take pain relievers.
 5. Drink extra water.
 
