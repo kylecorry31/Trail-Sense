@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.offline_maps
 
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -208,7 +209,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
                 name,
                 listOf(OfflineMapFile(path, 0, TrailMap.FILE_ROLE_MAPSFORGE_MAP)),
                 Instant.now(),
-                null,
+                CoordinateBounds(1.0, 1.0, -1.0, -1.0),
                 null,
                 visible = true
             )
