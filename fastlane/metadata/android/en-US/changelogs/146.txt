@@ -3,7 +3,8 @@ Offline Maps
 - Add setting to use external trail map files
 
 Pedometer
-- Show hourly step count history
+- Show hourly step count history, pace, and active time
+- Add option to use active or elapsed time for average pace
 
 Astronomy
 - Render accurate icons for moon and eclipses
