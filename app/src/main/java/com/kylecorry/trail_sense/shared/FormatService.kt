@@ -534,9 +534,12 @@ class FormatService private constructor(private val context: Context) {
             .convertTo(DistanceUnits.Meters)
             .value
         val duration = Duration.ofSeconds((metersPerUnit / metersPerSecond).roundToLong())
+        val minutes = duration.toMinutes()
+        val seconds = duration.seconds % 60
+        val formattedPace = "$minutes:${seconds.toString().padStart(2, '0')}"
         return strings.getString(
             R.string.slash_separated_pair,
-            formatDuration(duration),
+            formattedPace,
             getDistanceUnitName(distanceUnit, short = true)
         )
     }

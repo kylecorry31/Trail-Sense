@@ -7,6 +7,8 @@ The distance traveled and number of steps taken are shown at the top of the scre
 
 Your current and average speed and pace are also shown. Pace is displayed as time per kilometer or mile, depending on your distance units. The current speed and pace are calculated over the last 10 seconds. By default, the average speed and pace use active time since the last reset, which does not include breaks. You can include breaks by selecting elapsed time under Settings > Pedometer > Average pace time.
 
+If you are not familiar with pace, a pace of 12:30 / km means it takes 12 minutes and 30 seconds to travel one kilometer. A lower pace means you are moving faster.
+
 The current session time is shown at the top of the screen, followed by the active duration in parentheses.
 
 You can stop the pedometer at any point (e.g., while resting or at a campsite) by clicking the stop button in the bottom-right corner. Stopping the pedometer will not reset the distance traveled, so you can resume it by clicking start again. If you want to start a new measurement, you can click the reset button instead.
