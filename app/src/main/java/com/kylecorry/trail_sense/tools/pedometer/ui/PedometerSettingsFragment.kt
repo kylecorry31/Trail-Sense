@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -101,12 +102,23 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         setupStepHistorySetting()
+        setupAveragePaceTimeSetting()
 
         setupNotificationSetting(
             getString(R.string.pref_pedometer_notification_link),
             StepCounterService.CHANNEL_ID,
             getString(R.string.pedometer)
         )
+    }
+
+    private fun setupAveragePaceTimeSetting() {
+        val names = mapOf(
+            AveragePaceTimeMode.Active to getString(R.string.active_time),
+            AveragePaceTimeMode.Elapsed to getString(R.string.elapsed_time)
+        )
+        val averagePaceTime = list(R.string.pref_pedometer_average_pace_time)
+        averagePaceTime?.entries = names.values.toTypedArray()
+        averagePaceTime?.entryValues = names.keys.map { it.id.toString() }.toTypedArray()
     }
 
     private fun setupStepHistorySetting() {

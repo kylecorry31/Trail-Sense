@@ -54,6 +54,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
+import kotlin.math.roundToLong
 
 class FormatService private constructor(private val context: Context) {
 
@@ -517,6 +518,30 @@ class FormatService private constructor(private val context: Context) {
         } else {
             strings.getString(R.string.miles_per_hour_format, formattedSpeed)
         }
+    }
+
+    fun formatPace(metersPerSecond: Float): String {
+        if (!metersPerSecond.isFinite() || metersPerSecond <= 0f) {
+            return strings.getString(R.string.dash)
+        }
+
+        val distanceUnit = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) {
+            DistanceUnits.Kilometers
+        } else {
+            DistanceUnits.Miles
+        }
+        val metersPerUnit = Distance.from(1f, distanceUnit)
+            .convertTo(DistanceUnits.Meters)
+            .value
+        val duration = Duration.ofSeconds((metersPerUnit / metersPerSecond).roundToLong())
+        val minutes = duration.toMinutes()
+        val seconds = duration.seconds % 60
+        val formattedPace = "$minutes:${seconds.toString().padStart(2, '0')}"
+        return strings.getString(
+            R.string.slash_separated_pair,
+            formattedPace,
+            getDistanceUnitName(distanceUnit, short = true)
+        )
     }
 
     val builtInCoordinateFormatMap = mapOf<BuiltInCoordinateFormat, CoordinateFormat>(

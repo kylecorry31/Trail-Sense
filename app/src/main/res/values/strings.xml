@@ -935,6 +935,7 @@
     <string name="auto">Auto</string>
     <string name="dash_separated_pair" translatable="false">%1$s - %2$s</string>
     <string name="dot_separated_pair" translatable="false">%1$s • %2$s</string>
+    <string name="parenthesized_pair" translatable="false">%1$s (%2$s)</string>
     <string name="dot" translatable="false">•</string>
     <string name="slash_separated_pair" translatable="false">%1$s / %2$s</string>
     <string name="delete_path">Delete path?</string>
@@ -1108,10 +1109,13 @@
     <!--This is in Markdown format-->
     <string name="onboarding_explore">- Designed for hiking, backpacking, camping, and geocaching\n\n- Place beacons and navigate to them\n\n- Follow paths\n\n- Retrace your steps with backtrack\n\n- Plan what to pack\n\n- Be alerted before the sun sets\n\n- Predict the weather\n\n- Use your phone as a flashlight\n\n- And much more!</string>
     <string name="average_speed">Average speed</string>
+    <string name="average_pace">Average pace</string>
     <string name="steps">Steps</string>
     <string name="pref_pedometer_enabled" translatable="false">pref_pedometer_enabled</string>
     <string name="pref_pedometer_history_days" translatable="false">pref_pedometer_history_days</string>
     <string name="pref_pedometer_history_days_title">Step history</string>
+    <string name="pref_pedometer_average_pace_time" translatable="false">pref_pedometer_average_pace_time</string>
+    <string name="pref_pedometer_average_pace_time_title">Average pace time</string>
     <string name="pref_distance_alert" translatable="false">pref_distance_alert</string>
     <string name="distance_alert">Distance alert</string>
     <string name="remove_distance_alert">Remove distance alert (%s)?</string>
@@ -1124,6 +1128,7 @@
     <string name="stride_length_stand_still">Stand still</string>
     <string name="stride_length_walk">Walk in a straight line, press stop when you are done</string>
     <string name="current_speed">Current speed</string>
+    <string name="current_pace">Current pace</string>
     <string name="current_speed_pedometer">Current speed (Pedometer)</string>
     <string name="current_speed_gps">Current speed (GPS)</string>
     <string name="average_speed_pedometer">Average speed (Pedometer)</string>
@@ -1159,6 +1164,9 @@
     <string name="frequency">Frequency</string>
     <string name="tide_frequency_description">The number of high tides per day. Most tides are semidiurnal.</string>
     <string name="current_session">Current session</string>
+    <string name="active_time">Active time</string>
+    <string name="active_duration">Active: %s</string>
+    <string name="elapsed_time">Elapsed time</string>
     <string name="history">History</string>
     <string name="no_pedometer_sessions">No sessions</string>
     <string name="permission_alarms_and_reminders">Alarms and reminders</string>

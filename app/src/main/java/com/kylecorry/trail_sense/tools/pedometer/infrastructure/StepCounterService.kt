@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.system.Intents
@@ -25,9 +26,11 @@ import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.domain.ActiveTimeCalculator
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
 class StepCounterService : AndromedaService() {
 
@@ -39,26 +42,34 @@ class StepCounterService : AndromedaService() {
     private val dailyResetCommand: CoroutineCommand by lazy { commandFactory.getDailyStepReset() }
     private val distanceAlertCommand: CoroutineCommand by lazy { commandFactory.getDistanceAlert() }
     private val notificationSubsystem = getAppService<NotificationSubsystem>()
+    private val activeTimeCalculator = ActiveTimeCalculator()
 
     private val addStepsQueue = CoroutineQueueRunner()
+
+    private var lastSteps = -1
+    private var lastTime = -1L
 
     private val addStepsTask = BackgroundTask {
         addStepsQueue.enqueue {
             val currentSteps = pedometer.steps
-            if (lastSteps == -1) {
+            val currentTime = SystemClock.elapsedRealtime()
+
+            if (lastSteps == -1 || currentSteps < lastSteps) {
                 lastSteps = currentSteps
+                lastTime = currentTime
             }
 
             dailyResetCommand.execute()
 
             val newSteps = currentSteps - lastSteps
-            stepTrackerService.addSteps(newSteps.toLong())
+            val timeDelta = currentTime - lastTime
+            val activeTime = activeTimeCalculator.calculate(newSteps, Duration.ofMillis(timeDelta))
+            stepTrackerService.addSteps(newSteps.toLong(), activeTime = activeTime)
             lastSteps = currentSteps
+            lastTime = currentTime
             distanceAlertCommand.execute()
         }
     }
-
-    private var lastSteps = -1
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val flag = super.onStartCommand(intent, flags, startId)
@@ -130,7 +141,6 @@ class StepCounterService : AndromedaService() {
         const val CHANNEL_ID = "pedometer"
         const val NOTIFICATION_ID = 1279812
         private const val NOTIFICATION_GROUP_PEDOMETER = "trail_sense_pedometer"
-
 
         var isRunning = false
             private set

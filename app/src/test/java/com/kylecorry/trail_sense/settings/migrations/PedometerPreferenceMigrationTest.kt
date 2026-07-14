@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -136,7 +137,7 @@ internal class PedometerPreferenceMigrationTest {
         override suspend fun startNewStepTrackingPeriod(endTime: Instant) {
         }
 
-        override suspend fun addSteps(steps: Long, time: Instant) {
+        override suspend fun addSteps(steps: Long, time: Instant, activeTime: Duration) {
             addedSteps.add(StepAddition(steps, time))
         }
 

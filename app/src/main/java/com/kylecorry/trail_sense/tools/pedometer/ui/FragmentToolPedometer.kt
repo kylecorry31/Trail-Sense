@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeed
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 
@@ -48,7 +49,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private val stepTrackerService by lazy { getAppService<StepTrackerService>() }
     private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
     private val averageSpeedometer by lazy {
-        AveragePaceSpeedometer(stepTrackerService, paceCalculator)
+        AveragePaceSpeedometer(stepTrackerService, paceCalculator, prefs.pedometer)
     }
     private val instantSpeedometer by lazy {
         CurrentPaceSpeedometer(Pedometer(requireContext()), paceCalculator)
@@ -59,6 +60,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private var steps by state(0L)
     private var lastResetTime by state<Instant?>(null)
+    private var currentSession by state<StepTrackingPeriod?>(null)
     private var selectedDate by state(LocalDate.now())
     private var hourlySteps by state(emptyList<HourlyStepCount>())
     private var selectedHourlySteps by state<HourlyStepCount?>(null)
@@ -80,7 +82,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         setupDistanceAlertButton()
         setupHourlyStepsDatePicker()
         setupPedometerSessionsButton()
-
         observe(averageSpeedometer) { onUpdate() }
 
         observe(instantSpeedometer) { onUpdate() }
@@ -182,6 +183,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private suspend fun updateSteps(data: Bundle?) {
         val trackingPeriod = stepTrackerService.getOpenStepTrackingPeriod()
+        currentSession = trackingPeriod
         steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS)
             ?: trackingPeriod?.steps
                     ?: 0L
@@ -263,10 +265,18 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             } else {
                 formatService.formatRelativeDate(lastReset.toLocalDate())
             }
-            binding.currentSessionTime.text = getString(
+            val sessionTime = getString(
                 R.string.dash_separated_pair,
                 dateString,
                 getString(R.string.now)
+            )
+            val activeTime = formatService.formatDuration(
+                currentSession?.activeTime ?: Duration.ZERO
+            )
+            binding.currentSessionTime.text = getString(
+                R.string.parenthesized_pair,
+                sessionTime,
+                getString(R.string.active_duration, activeTime)
             )
         }
 
@@ -277,7 +287,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             false
         )
         binding.pedometerDistance.title = formattedDistance
-
         binding.currentSessionTime.isVisible = lastReset != null
 
         binding.pedometerTitle.title.text = getString(R.string.pedometer)
@@ -300,12 +309,22 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         } else {
             getString(R.string.dash)
         }
+        binding.pedometerAveragePace.title = if (averageSpeedometer.hasValidReading) {
+            formatService.formatPace(speed.value)
+        } else {
+            getString(R.string.dash)
+        }
     }
 
     private fun updateCurrentSpeed() {
         val speed = instantSpeedometer.speed
         binding.pedometerSpeed.title = if (instantSpeedometer.hasValidReading) {
             formatService.formatSpeed(speed.value)
+        } else {
+            getString(R.string.dash)
+        }
+        binding.pedometerPace.title = if (instantSpeedometer.hasValidReading) {
+            formatService.formatPace(speed.value)
         } else {
             getString(R.string.dash)
         }

@@ -142,7 +142,8 @@ class SensorService(ctx: Context) {
 
             NavigationPreferences.SpeedometerMode.AveragePace -> AveragePaceSpeedometer(
                 getAppService<StepTrackerService>(),
-                StrideLengthPaceCalculator(userPrefs.pedometer.strideLength)
+                StrideLengthPaceCalculator(userPrefs.pedometer.strideLength),
+                userPrefs.pedometer
             )
         }
     }
