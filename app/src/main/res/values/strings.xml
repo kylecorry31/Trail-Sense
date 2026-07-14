@@ -935,6 +935,7 @@
     <string name="auto">Auto</string>
     <string name="dash_separated_pair" translatable="false">%1$s - %2$s</string>
     <string name="dot_separated_pair" translatable="false">%1$s • %2$s</string>
+    <string name="parenthesized_pair" translatable="false">%1$s (%2$s)</string>
     <string name="dot" translatable="false">•</string>
     <string name="slash_separated_pair" translatable="false">%1$s / %2$s</string>
     <string name="delete_path">Delete path?</string>
@@ -1164,6 +1165,7 @@
     <string name="tide_frequency_description">The number of high tides per day. Most tides are semidiurnal.</string>
     <string name="current_session">Current session</string>
     <string name="active_time">Active time</string>
+    <string name="active_duration">Active: %s</string>
     <string name="elapsed_time">Elapsed time</string>
     <string name="history">History</string>
     <string name="no_pedometer_sessions">No sessions</string>

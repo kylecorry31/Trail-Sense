@@ -52,9 +52,6 @@ class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
         hasText(R.id.pedometer_average_pace, "-")
         hasText(R.id.pedometer_average_pace, string(R.string.average_pace))
 
-        hasText(R.id.pedometer_active_time, string(R.string.duration_second_format, 0))
-        hasText(R.id.pedometer_active_time, string(R.string.active_time))
-
         hasText(R.id.play_bar_title, string(R.string.off))
 
         click(R.id.play_btn)
@@ -68,7 +65,13 @@ class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
         click(R.id.reset_btn)
         clickOk()
 
-        hasText(R.id.current_session_time, Regex("\\d+:\\d+ [AP]M - ${string(R.string.now)}"))
+        hasText(
+            R.id.current_session_time,
+            Regex(
+                "\\d+:\\d+ [AP]M - ${string(R.string.now)} " +
+                        "\\(${string(R.string.active_duration, ".*")}\\)"
+            )
+        )
 
         click(toolbarButton(R.id.pedometer_title, Side.Right))
         input(R.id.amount, "0")

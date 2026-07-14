@@ -28,7 +28,6 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -83,8 +82,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         setupDistanceAlertButton()
         setupHourlyStepsDatePicker()
         setupPedometerSessionsButton()
-        binding.pedometerActiveTime.isVisible = isDebug()
-
         observe(averageSpeedometer) { onUpdate() }
 
         observe(instantSpeedometer) { onUpdate() }
@@ -268,10 +265,18 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             } else {
                 formatService.formatRelativeDate(lastReset.toLocalDate())
             }
-            binding.currentSessionTime.text = getString(
+            val sessionTime = getString(
                 R.string.dash_separated_pair,
                 dateString,
                 getString(R.string.now)
+            )
+            val activeTime = formatService.formatDuration(
+                currentSession?.activeTime ?: Duration.ZERO
+            )
+            binding.currentSessionTime.text = getString(
+                R.string.parenthesized_pair,
+                sessionTime,
+                getString(R.string.active_duration, activeTime)
             )
         }
 
@@ -282,10 +287,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             false
         )
         binding.pedometerDistance.title = formattedDistance
-        binding.pedometerActiveTime.title = formatService.formatDuration(
-            currentSession?.activeTime ?: Duration.ZERO
-        )
-
         binding.currentSessionTime.isVisible = lastReset != null
 
         binding.pedometerTitle.title.text = getString(R.string.pedometer)
