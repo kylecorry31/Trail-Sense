@@ -1607,4 +1607,10 @@
     <string name="calibrate_map_point_instructions">在地图上轻按此位置，然后输入其真实世界坐标。</string>
     <string name="invalid_trail_map">无效的路径图</string>
     <string name="invalid_trail_map_message">路径图文件无效或缺失。你可能想删除此地图并导入新地图。</string>
+    <string name="average_pace">平均速度</string>
+    <string name="pref_pedometer_average_pace_time_title">平均速度时间</string>
+    <string name="current_pace">当前速度</string>
+    <string name="active_time">活跃时间</string>
+    <string name="active_duration">已活跃：%s</string>
+    <string name="elapsed_time">流逝时间</string>
 </resources>
