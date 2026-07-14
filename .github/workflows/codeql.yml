@@ -41,9 +41,8 @@ jobs:
         include:
         - language: actions
           build-mode: none
-        # Disabling because it doesn't support the newer version of Kotlin yet
-        # - language: java-kotlin
-        #   build-mode: manual
+        - language: java-kotlin
+          build-mode: manual
         - language: javascript-typescript
           build-mode: none
         - language: python
