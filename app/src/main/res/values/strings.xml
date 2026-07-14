@@ -1108,6 +1108,7 @@
     <!--This is in Markdown format-->
     <string name="onboarding_explore">- Designed for hiking, backpacking, camping, and geocaching\n\n- Place beacons and navigate to them\n\n- Follow paths\n\n- Retrace your steps with backtrack\n\n- Plan what to pack\n\n- Be alerted before the sun sets\n\n- Predict the weather\n\n- Use your phone as a flashlight\n\n- And much more!</string>
     <string name="average_speed">Average speed</string>
+    <string name="average_pace">Average pace</string>
     <string name="steps">Steps</string>
     <string name="pref_pedometer_enabled" translatable="false">pref_pedometer_enabled</string>
     <string name="pref_pedometer_history_days" translatable="false">pref_pedometer_history_days</string>
@@ -1126,6 +1127,7 @@
     <string name="stride_length_stand_still">Stand still</string>
     <string name="stride_length_walk">Walk in a straight line, press stop when you are done</string>
     <string name="current_speed">Current speed</string>
+    <string name="current_pace">Current pace</string>
     <string name="current_speed_pedometer">Current speed (Pedometer)</string>
     <string name="current_speed_gps">Current speed (GPS)</string>
     <string name="average_speed_pedometer">Average speed (Pedometer)</string>

@@ -46,6 +46,12 @@ class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
         hasText(R.id.pedometer_average_speed, "-")
         hasText(R.id.pedometer_average_speed, string(R.string.average_speed))
 
+        hasText(R.id.pedometer_pace, "-")
+        hasText(R.id.pedometer_pace, string(R.string.current_pace))
+
+        hasText(R.id.pedometer_average_pace, "-")
+        hasText(R.id.pedometer_average_pace, string(R.string.average_pace))
+
         hasText(R.id.pedometer_active_time, string(R.string.duration_second_format, 0))
         hasText(R.id.pedometer_active_time, string(R.string.active_time))
 
