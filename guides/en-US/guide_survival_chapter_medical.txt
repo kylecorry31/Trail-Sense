@@ -5,7 +5,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 
 **This chapter is for informational purposes only and does not replace professional advice, diagnosis, or treatment; use at your own risk, ensure compliance with local laws, and consult qualified healthcare providers whenever possible. If you call emergency services, follow their instructions. This chapter is not medical advice.**
 
-If emergency services are needed, put them on speaker or have someone else call to avoid delaying first aid.
+If emergency services are needed, put the call on speakerphone or have someone else call to avoid delaying first aid.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medication, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, gel, swab, mirror, tampon, pad, menstrual, cup, floss, toothbrush, toothpaste, toilet-paper, bidet, bag, trowel, soap, towel, lip-balm, electrolyte -->
@@ -74,7 +74,7 @@ Once you have mastered these skills, you should learn how to do the following:
 
 This is a list of common medications hikers might carry. It's not a complete list. Only use these in accordance with your doctor's recommendations and follow the package directions. Know the side effects, how much to take, and when to take them before your trip.
 
-- **Aspirin**: Used to relieve mild to moderate pain and inflammation, reduce fevers, prevent heart attacks and strokes, and to reduce the risk of death when experiencing a heart attack.
+- **Aspirin**: Used to relieve mild to moderate pain and inflammation, reduce fevers, prevent heart attacks and strokes, and reduce the risk of death when experiencing a heart attack.
 - **Ibuprofen**: Used to relieve mild to moderate pain and inflammation, and reduce fevers.
 - **Acetaminophen**: Used to relieve mild to moderate pain and reduce fevers.
 - **Diphenhydramine**: Used to treat allergy and cold symptoms such as sneezing, runny nose, or itching. It is also used to help fall asleep and stay asleep.
@@ -442,7 +442,7 @@ This is a burn that goes through all layers of skin and may be life-threatening.
 <!-- K: choke, throat, breath, heimlich, maneuver -->
 <!-- S: Perform the Heimlich maneuver. -->
 
-A person is partially choking if they can audibly cough or speak. They are completely choking if they cannot cough, speak, and breathe.
+A person is partially choking if they can audibly cough or speak. They are completely choking if they cannot cough, speak, or breathe.
 
 
 ### Treatment
@@ -456,7 +456,7 @@ Perform the Heimlich maneuver on yourself:
 3. Place the thumb side of your fist against your abdomen, below your ribcage and above your navel.
 4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.
 
-Perform the Heimlich maneuver on someone else (only perform this if you know they are fully choking, upright, have signaled for help, and are over the age of 1):
+Perform the Heimlich maneuver on someone else (only perform this if you know they are fully choking, are upright, have signaled for help, and are over the age of 1):
 1. Stand to the side and behind the person.
 2. Lean them forward and support their chest with one hand.
 3. Use the heel of the other hand to strike between their shoulder blades up to 5 times. Pause between each strike to check if the object has been expelled.
@@ -779,7 +779,7 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 1. Call emergency services.
 2. Move to a cool place.
 3. Remove excess clothing.
-4. Cool yourself with water. Ideally, immersion when someone else is there to prevent drowning.
+4. Cool yourself with water. Ideally, immerse the person when someone else is present to prevent drowning.
 5. Be cautious when rehydrating, as seizures and vomiting can lead to choking.
 
 ### Prevention
@@ -990,7 +990,7 @@ Falling asleep can be difficult in the wilderness, but getting adequate rest is 
 <!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->
 <!-- S: Symptoms include red, scratchy, and watery eyes, sensitivity to light, and headache. Treat by covering your eyes with a dark cloth. Prevent by wearing UV-protective sunglasses or snow goggles. -->
 
-Snow blindness is caused by overexposure of sunlight reflected off snow, ice, or water into your eyes.
+Snow blindness is caused by overexposure to sunlight reflected off snow, ice, or water into your eyes.
 
 ### Symptoms
 - Eyes are red, scratchy, and watery
@@ -1006,7 +1006,7 @@ Snow blindness is caused by overexposure of sunlight reflected off snow, ice, or
 - Wear UV-protective sunglasses or snow goggles.
 - Wear a wide-brimmed hat.
 
-If you do not have these, see the "Craft: Sunglasses" or put soot under your eyes to reduce glare.
+If you do not have these, see the "Craft: Sunglasses" section or put soot under your eyes to reduce glare.
 
 ## Splinters, thorns, spines, and needles
 <!-- K: splinter, thorn, wood, needle, spike, spine, remove, tweezers, hand, porcupine, urchin, cactus -->
