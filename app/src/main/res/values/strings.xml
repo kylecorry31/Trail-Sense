@@ -1112,6 +1112,8 @@
     <string name="pref_pedometer_enabled" translatable="false">pref_pedometer_enabled</string>
     <string name="pref_pedometer_history_days" translatable="false">pref_pedometer_history_days</string>
     <string name="pref_pedometer_history_days_title">Step history</string>
+    <string name="pref_pedometer_average_pace_time" translatable="false">pref_pedometer_average_pace_time</string>
+    <string name="pref_pedometer_average_pace_time_title">Average pace time</string>
     <string name="pref_distance_alert" translatable="false">pref_distance_alert</string>
     <string name="distance_alert">Distance alert</string>
     <string name="remove_distance_alert">Remove distance alert (%s)?</string>
@@ -1159,7 +1161,8 @@
     <string name="frequency">Frequency</string>
     <string name="tide_frequency_description">The number of high tides per day. Most tides are semidiurnal.</string>
     <string name="current_session">Current session</string>
-    <string name="active_time" translatable="false">Active time</string>
+    <string name="active_time">Active time</string>
+    <string name="elapsed_time">Elapsed time</string>
     <string name="history">History</string>
     <string name="no_pedometer_sessions">No sessions</string>
     <string name="permission_alarms_and_reminders">Alarms and reminders</string>

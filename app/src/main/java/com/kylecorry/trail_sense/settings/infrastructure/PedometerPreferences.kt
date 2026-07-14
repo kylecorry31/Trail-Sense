@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
 import java.time.Duration
 
 class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedometerPreferences {
@@ -45,6 +47,13 @@ class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedomet
         cache,
         getString(R.string.pref_pedometer_use_alarm_for_distance_alert),
         false
+    )
+
+    override val averagePaceTimeMode by StringEnumPreference(
+        cache,
+        getString(R.string.pref_pedometer_average_pace_time),
+        AveragePaceTimeMode.entries.associateBy { it.id.toString() },
+        AveragePaceTimeMode.Active
     )
 
     override var stepHistory: Duration

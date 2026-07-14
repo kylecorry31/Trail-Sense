@@ -50,7 +50,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private val stepTrackerService by lazy { getAppService<StepTrackerService>() }
     private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
     private val averageSpeedometer by lazy {
-        AveragePaceSpeedometer(stepTrackerService, paceCalculator)
+        AveragePaceSpeedometer(stepTrackerService, paceCalculator, prefs.pedometer)
     }
     private val instantSpeedometer by lazy {
         CurrentPaceSpeedometer(Pedometer(requireContext()), paceCalculator)
