@@ -90,7 +90,11 @@ class StepTrackerService(
         }
     }
 
-    override suspend fun addSteps(steps: Long, time: Instant) = stepMutex.withLock {
+    override suspend fun addSteps(
+        steps: Long,
+        time: Instant,
+        activeTime: Duration
+    ) = stepMutex.withLock {
         val existingOpenPeriod = getOrCreateOpenStepTrackingPeriodWithoutLock(time)
         val openPeriod = if (time.isBefore(existingOpenPeriod.startTime)) {
             existingOpenPeriod.copy(startTime = time).also {
@@ -103,7 +107,10 @@ class StepTrackerService(
             (time == it.startTime || time.isAfter(it.startTime)) && time.isBefore(it.endTime)
         }
         val bucketToAdd = if (containedBucket != null) {
-            containedBucket.copy(steps = containedBucket.steps + steps)
+            containedBucket.copy(
+                steps = containedBucket.steps + steps,
+                activeTime = containedBucket.activeTime.plus(activeTime)
+            )
         } else {
             // Buckets always start on the hour and are 1 hour long
             val startTime = time.toZonedDateTime()
@@ -117,7 +124,8 @@ class StepTrackerService(
                 periodId = openPeriod.id,
                 startTime = startTime,
                 endTime = endTime,
-                steps = steps
+                steps = steps,
+                activeTime = activeTime
             )
         }
         repository.upsertStepCountBucket(bucketToAdd)

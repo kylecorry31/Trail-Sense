@@ -91,6 +91,17 @@
                     app:dataPointIcon="@drawable/ic_speed"
                     app:layout_columnWeight="1" />
 
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/pedometer_active_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:visibility="gone"
+                    app:dataPointDescription="@string/active_time"
+                    app:dataPointIcon="@drawable/ic_tool_clock"
+                    app:layout_columnWeight="1"
+                    tools:visibility="visible" />
+
             </androidx.gridlayout.widget.GridLayout>
 
             <Button

@@ -207,14 +207,39 @@ internal class StepTrackerServiceTest {
     fun addStepsAddsToExistingBucketWhenTimeIsInsideBucket() = runBlocking {
         val startTime = Instant.parse("2026-01-01T10:00:00Z")
         val openPeriod = repository.addPeriod(period(id = 1, startTime = startTime))
-        repository.addBucket(bucket(id = 2, periodId = openPeriod.id, startTime = startTime, steps = 10))
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = openPeriod.id,
+                startTime = startTime,
+                steps = 10,
+                activeTime = Duration.ofSeconds(1)
+            )
+        )
 
-        service.addSteps(7, Instant.parse("2026-01-01T10:59:59Z"))
+        service.addSteps(
+            7,
+            Instant.parse("2026-01-01T10:59:59Z"),
+            activeTime = Duration.ofSeconds(2)
+        )
 
         assertEquals(17, service.getOpenStepTrackingPeriod()?.steps)
         assertEquals(1, repository.buckets.size)
         assertEquals(17, repository.buckets.first().steps)
+        assertEquals(Duration.ofSeconds(3), repository.buckets.first().activeTime)
         verifyStepsChanged(17)
+    }
+
+    @Test
+    fun addStepsSavesActiveTimeToNewBucket() = runBlocking {
+        val time = Instant.parse("2026-01-01T10:15:30Z")
+
+        service.addSteps(12, time, activeTime = Duration.ofSeconds(5))
+
+        assertEquals(
+            Duration.ofSeconds(5),
+            service.getOpenStepTrackingPeriod()?.stepCountBuckets?.single()?.activeTime
+        )
     }
 
     @Test
@@ -377,9 +402,10 @@ internal class StepTrackerServiceTest {
         periodId: Long,
         startTime: Instant = Instant.parse("2026-01-01T10:00:00Z"),
         endTime: Instant = startTime.plusSeconds(3600),
-        steps: Long = 1
+        steps: Long = 1,
+        activeTime: Duration = Duration.ZERO
     ): StepCountBucket {
-        return StepCountBucket(id, periodId, startTime, endTime, steps)
+        return StepCountBucket(id, periodId, startTime, endTime, steps, activeTime)
     }
 
     private class FakeStepTrackerRepository : IStepTrackerRepository {

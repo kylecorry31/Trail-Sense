@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -39,6 +40,7 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeed
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 
@@ -59,6 +61,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private var steps by state(0L)
     private var lastResetTime by state<Instant?>(null)
+    private var currentSession by state<StepTrackingPeriod?>(null)
     private var selectedDate by state(LocalDate.now())
     private var hourlySteps by state(emptyList<HourlyStepCount>())
     private var selectedHourlySteps by state<HourlyStepCount?>(null)
@@ -80,6 +83,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         setupDistanceAlertButton()
         setupHourlyStepsDatePicker()
         setupPedometerSessionsButton()
+        binding.pedometerActiveTime.isVisible = isDebug()
 
         observe(averageSpeedometer) { onUpdate() }
 
@@ -182,6 +186,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private suspend fun updateSteps(data: Bundle?) {
         val trackingPeriod = stepTrackerService.getOpenStepTrackingPeriod()
+        currentSession = trackingPeriod
         steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS)
             ?: trackingPeriod?.steps
                     ?: 0L
@@ -277,6 +282,9 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             false
         )
         binding.pedometerDistance.title = formattedDistance
+        binding.pedometerActiveTime.title = formatService.formatDuration(
+            currentSession?.activeTime ?: Duration.ZERO
+        )
 
         binding.currentSessionTime.isVisible = lastReset != null
 

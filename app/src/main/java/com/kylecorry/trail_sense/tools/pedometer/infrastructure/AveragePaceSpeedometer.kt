@@ -7,8 +7,6 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import com.kylecorry.trail_sense.tools.pedometer.domain.IPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.domain.IStepTrackerService
-import java.time.Duration
-import java.time.Instant
 
 class AveragePaceSpeedometer(
     private val stepTrackerService: IStepTrackerService,
@@ -20,7 +18,7 @@ class AveragePaceSpeedometer(
             reset()
             return@CoroutineTimer
         }
-        speed = paceCalculator.speed(stepPeriod.steps, Duration.between(stepPeriod.startTime, Instant.now()))
+        speed = paceCalculator.speed(stepPeriod.steps, stepPeriod.elapsedTime)
         hasValidReading = true
 
         notifyListeners()
