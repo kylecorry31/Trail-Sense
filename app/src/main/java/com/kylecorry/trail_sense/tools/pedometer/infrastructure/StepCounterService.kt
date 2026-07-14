@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.domain.ActiveTimeCalculator
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -41,6 +42,7 @@ class StepCounterService : AndromedaService() {
     private val dailyResetCommand: CoroutineCommand by lazy { commandFactory.getDailyStepReset() }
     private val distanceAlertCommand: CoroutineCommand by lazy { commandFactory.getDistanceAlert() }
     private val notificationSubsystem = getAppService<NotificationSubsystem>()
+    private val activeTimeCalculator = ActiveTimeCalculator()
 
     private val addStepsQueue = CoroutineQueueRunner()
 
@@ -61,7 +63,7 @@ class StepCounterService : AndromedaService() {
 
             val newSteps = currentSteps - lastSteps
             val timeDelta = currentTime - lastTime
-            val activeTime = getActiveTime(newSteps, timeDelta)
+            val activeTime = activeTimeCalculator.calculate(newSteps, Duration.ofMillis(timeDelta))
             stepTrackerService.addSteps(newSteps.toLong(), activeTime = activeTime)
             lastSteps = currentSteps
             lastTime = currentTime
@@ -135,26 +137,10 @@ class StepCounterService : AndromedaService() {
         )
     }
 
-    private fun getActiveTime(steps: Int, elapsedMs: Long): Duration {
-        if (steps <= 0 || elapsedMs <= 0) {
-            return Duration.ZERO
-        }
-
-        val stepsPerMinute = steps.toDouble() * MILLIS_PER_MINUTE / elapsedMs
-
-        return when {
-            stepsPerMinute >= MIN_ACTIVE_STEPS_PER_MINUTE -> Duration.ofMillis(elapsedMs)
-            else -> Duration.ofMillis(minOf(elapsedMs, steps * ACTIVE_MILLIS_PER_STEP))
-        }
-    }
-
     companion object {
         const val CHANNEL_ID = "pedometer"
         const val NOTIFICATION_ID = 1279812
         private const val NOTIFICATION_GROUP_PEDOMETER = "trail_sense_pedometer"
-        private const val MILLIS_PER_MINUTE = 60_000L
-        private const val MIN_ACTIVE_STEPS_PER_MINUTE = 30.0
-        private const val ACTIVE_MILLIS_PER_STEP = 2_000L
 
         var isRunning = false
             private set
