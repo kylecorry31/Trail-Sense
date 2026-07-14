@@ -495,7 +495,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 - Maintain a slow and steady pace.
 
 ## Dehydration
-<!-- K: dehydrate, water, thirst, dry, fatigue, dizziness, dark, urine, headache, confusion, electrolyte, drink -->
+<!-- K: dehydrate, water, thirst, dry, fatigue, dizziness, dark, urine, headache, electrolyte, drink -->
 <!-- S: Rehydrate by drinking water with electrolytes. Prevent by drinking water frequently and increasing intake during physical activity. -->
 
 ### Symptoms
@@ -505,9 +505,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 - Dizziness
 - Dark urine
 - Reduced urine output
-- Dry skin
 - Headache
-- Confusion
 - Nausea
 
 ### Treatment
@@ -758,7 +756,6 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 - Nausea or vomiting
 - Muscle cramps
 - Headache
-- Chills
 
 **Heatstroke**:
 
@@ -773,14 +770,16 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 
 1. Move to a cool place.
 2. Slowly drink a lot of water or an electrolyte solution.
-3. Douse yourself with water or slowly immerse yourself in water.
+3. Loosen or remove unnecessary clothing.
+4. Cool yourself with water.
+5. Call emergency services if symptoms persist or worsen.
 
 **Heatstroke**:
 
 1. Call emergency services.
 2. Move to a cool place.
 3. Remove excess clothing.
-4. Immerse yourself in water.
+4. Cool yourself with water. Ideally, immersion when someone else is there to prevent drowning.
 5. Be cautious when rehydrating, as seizures and vomiting can lead to choking.
 
 ### Prevention
