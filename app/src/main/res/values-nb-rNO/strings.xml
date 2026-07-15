@@ -688,9 +688,9 @@
     <string name="backtrack_battery_warning">Små intervaller (under 15 minutter) kan forårsake ekstra batteritrekk</string>
     <string name="kwh_per_meter_squared_format">%s kWh/m²</string>
     <string name="temporary">Midlertidig</string>
-    <string name="importing">Importer</string>
+    <string name="importing">Importerer</string>
     <string name="simplification_quality">Forenklingskvalitet</string>
-    <string name="saving">Lagrer …</string>
+    <string name="saving">Lagrer</string>
     <string name="low_amount">Lav (%s)</string>
     <string name="medium_amount">Middels (%s)</string>
     <string name="high_amount">Høy (%s)</string>
@@ -715,7 +715,7 @@
     <string name="duration">Varighet</string>
     <string name="pref_auto_simplify_paths_title">Forenkle stier ved import</string>
     <string name="change_map_projection">Endre projeksjon</string>
-    <string name="map_projection_mercator">Mercator</string>
+    <string name="map_projection_mercator">Merkator</string>
     <string name="qr_code_scanner">QR-kode-skanner</string>
     <string name="tool_temperature_estimation_title">Temperaturberegning</string>
     <string name="tool_temperature_estimation_description">Forutsi temperaturen ved en annen høyde, vindhastighet og luftfuktighet</string>
@@ -724,11 +724,11 @@
     <string name="easy">Lett</string>
     <string name="map_projection_equidistant">Ekvidistant</string>
     <string name="reduce_map_resolution">Reduser kartoppløsning</string>
-    <string name="hard">Hard</string>
+    <string name="hard">Vanskelig</string>
     <string name="sort_by">Sorter etter: %s</string>
     <string name="beam_distance">%s stråledistanse</string>
     <string name="guide_light_meter_description">Hvordan bestemme stråledistansen til lommelykter</string>
-    <string name="difficulty">Vanskelighet</string>
+    <string name="difficulty">Vanskelighetsgrad</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tidevann</item>
         <item quantity="other">%d tidevann</item>
@@ -919,7 +919,7 @@
     <string name="create_blank_map">Opprett tomt kart</string>
     <string name="unblock_notification_channel">Fjern blokkering av %s-merknad for Trail Sense</string>
     <string name="battery_restricted_resolution">Sett Trail Sense som «Ikke optimalisert»</string>
-    <string name="loading">Laster inn …</string>
+    <string name="loading">Laster inn</string>
     <string name="unable_to_find_next_astronomy">Finner ikke neste %s</string>
     <string name="create_path">Opprett sti</string>
     <string name="solar_eclipses">Solformørkelser</string>
