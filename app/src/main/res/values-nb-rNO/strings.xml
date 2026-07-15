@@ -1284,4 +1284,22 @@
     <string name="view_distance">Visningsdistanse</string>
     <string name="path_distance_performance_disclaimer">Anbefalt maksimum %s</string>
     <string name="on_import">Ved import</string>
+    <string name="plugins">Programtillegg</string>
+    <string name="tile_layer">Flislag</string>
+    <string name="feature_layer">Funksjonslag</string>
+    <string name="overlay_layer">Overleggslag</string>
+    <string name="reload">Last inn på nytt</string>
+    <string name="disconnect">Koble fra</string>
+    <string name="plugin_unavailable">Dette programtillegget er utilgjengelig eller ikke lenger tilkoblet.</string>
+    <string name="clear_plugin_cache">Tøm mellomlagring for programtillegg</string>
+    <string name="connected_plugins">Tilkoblede programtillegg</string>
+    <string name="available_plugins">Tilgjengelige programtillegg</string>
+    <string name="plugin_name">Programtillegg: %s</string>
+    <string name="plugin_connect_title">Koble til programtillegg?</string>
+    <string name="plugin_connect_message">Koble bare til %s dersom du stoler på det.</string>
+    <string name="plugin_disconnect_title">Frakoble programtillegg?</string>
+    <string name="plugin_disconnect_message">Frakoble %s?</string>
+    <string name="brightness">Lysstyrke</string>
+    <string name="pref_night_mode_fullscreen_summary">Skjul systemets brukergrensesnitt for å enklere beholde nattsynet</string>
+    <string name="pref_ruler_flip_direction_title">Snu linjalretningen</string>
 </resources>
