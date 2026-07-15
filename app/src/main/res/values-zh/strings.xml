@@ -124,7 +124,7 @@
     <string name="direction_north">北</string>
     <string name="duration_minute_format">%d 分钟</string>
     <string name="duration_hour_format">%d 小时</string>
-    <string name="access_background_location_rationale">Trail Sense 在后台使用位置信息，用于天气检测部分的海平面气压校正以及提供更精确的日落警报。[查看隐私权条款](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense 在后台使用位置信息，即使当应用关闭或未使用时也是如此。后台位置访问用于天气监测器海平面气压校正、backtrack、小组件更新以及提供更精确的日出/日落警报。[查看隐私权条款](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">更新定位设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
