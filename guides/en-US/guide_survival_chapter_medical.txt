@@ -1118,9 +1118,9 @@ Do not pop blisters.
 
 ## Craft: Sunglasses
 <!-- K: sunglasses, uv, sun, protect, eyes, birch, cloth, slit, bark, craft -->
-<!-- S: Craft sunglasses using a piece of cloth or birch bark with slits cut in it. -->
+<!-- S: Craft "sunglasses" using a piece of cloth or birch bark with slits cut in it. -->
 
-You can make sunglasses using a piece of cloth or birch bark with slits cut in it. This helps protect your eyes from UV rays and glare.
+You can make "sunglasses" using a piece of cloth or birch bark with slits cut in it. This helps protect your eyes from UV rays and glare.
 
 ![](file:///android_asset/survival_guide/improvised_sunglasses.webp)
 
