@@ -204,8 +204,7 @@ class FileSubsystem private constructor(private val context: Context) {
 
     fun canRead(uri: Uri): Boolean {
         return tryOrDefault(false) {
-            context.contentResolver.openFileDescriptor(uri, "r")?.close()
-            true
+            context.contentResolver.openFileDescriptor(uri, "r")?.use { true } ?: false
         }
     }
 
