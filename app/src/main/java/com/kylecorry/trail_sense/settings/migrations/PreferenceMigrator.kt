@@ -69,7 +69,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 29
+        private const val version = 30
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -468,6 +468,12 @@ class PreferenceMigrator private constructor() {
             },
             PreferenceMigration(28, 29) { context, _ ->
                 PedometerPreferenceMigrationWorker.start(context)
+            },
+            PreferenceMigration(29, 30) { context, prefs ->
+                val key = context.getString(R.string.pref_odometer_reset_daily)
+                if (AppState.isReturningUser && !prefs.contains(key)) {
+                    prefs.putBoolean(key, false)
+                }
             }
         )
 

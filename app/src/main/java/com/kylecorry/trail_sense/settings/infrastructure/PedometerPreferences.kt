@@ -18,7 +18,7 @@ class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedomet
     override val resetDaily by BooleanPreference(
         cache,
         getString(R.string.pref_odometer_reset_daily),
-        false
+        true
     )
 
     override var strideLength: Distance

@@ -39,7 +39,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:title="@string/pref_odometer_reset_daily_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_odometer_reset_daily"

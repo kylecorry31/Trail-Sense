@@ -20,6 +20,9 @@ Tap the clock button next to History to view your pedometer sessions. Each sessi
 
 By default, step history is kept for 30 days. You can change this in Settings > Pedometer > Step history.
 
+## Daily reset
+By default, the pedometer starts a new session when you first record steps on a new day. You can disable this in Settings > Pedometer > Reset daily.
+
 ## Distance alert
 If the pedometer is on, you can choose to receive a notification when you've reached a certain distance traveled. To activate, click the alert icon in the top-right corner of the screen and enter the distance you want to be alerted at. Once you've reached the distance, you'll receive a notification. The distance alert uses the total distance, so if you've already traveled 4 km and want to be notified after another 1 km, set the alert to 5 km. Alternatively, you can reset the pedometer and set the alert to 1 km.
 
