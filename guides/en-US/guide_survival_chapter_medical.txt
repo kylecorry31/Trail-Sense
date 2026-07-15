@@ -1040,21 +1040,23 @@ For urchin spines, soak the area in hot (not scalding) water for 10 to 90 minute
 <!-- K: sprain, strain, tendon, ligament, muscle, pain, swell, bruise, move, spasm, cramp, weakness, pop, tear -->
 <!-- S: Symptoms include pain, swelling, bruising, loss of motion, muscle spasms, cramping, and weakness. Treat by resting, icing, compressing, and elevating the area. Prevent this by doing warm-ups, wearing proper footwear, and watching your steps. -->
 
-Sprains are injuries to a tendon or ligament, while strains are injuries to a muscle or tendon.
+Sprains are injuries to a ligament, while strains are injuries to a muscle or tendon.
 
 ### Symptoms
 - Pain
 - Swelling
 - Bruising
 - Loss of functional movement
+- Reduced range of motion
 - Muscle spasms and cramping
 - Muscle weakness
+- Joint instability
 - A pop or tear may be heard or felt during injury
 
 ### Treatment
 1. Rest the injured area.
-2. Ice the area for 24 to 48 hours. You can improvise using a cloth soaked in cold water or filled with snow/ice.
-3. Compress the area with a bandage or splint.
+2. Ice the area for 15 to 20 minutes at a time every 2 to 3 hours for the first few days. You can improvise using a cloth soaked in cold water or filled with snow/ice. Do not apply snow or ice directly to the skin.
+3. Compress the area with a bandage and if needed, splint to help stabilize it.
 4. Elevate the area.
 
 ### Prevention
