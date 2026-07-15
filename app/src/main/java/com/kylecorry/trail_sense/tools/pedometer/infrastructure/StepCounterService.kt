@@ -63,7 +63,7 @@ class StepCounterService : AndromedaService() {
 
             val newSteps = currentSteps - lastSteps
             val timeDelta = currentTime - lastTime
-            val activeTime = activeTimeCalculator.calculate(newSteps, Duration.ofMillis(timeDelta))
+            val activeTime = activeTimeCalculator.calculate(newSteps.toLong(), Duration.ofMillis(timeDelta))
             stepTrackerService.addSteps(newSteps.toLong(), activeTime = activeTime)
             lastSteps = currentSteps
             lastTime = currentTime

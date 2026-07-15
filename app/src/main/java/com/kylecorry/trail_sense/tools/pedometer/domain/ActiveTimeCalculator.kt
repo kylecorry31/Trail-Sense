@@ -4,7 +4,7 @@ import java.time.Duration
 
 class ActiveTimeCalculator {
 
-    fun calculate(steps: Int, elapsedTime: Duration): Duration {
+    fun calculate(steps: Long, elapsedTime: Duration): Duration {
         if (steps <= 0 || elapsedTime.isZero || elapsedTime.isNegative) {
             return Duration.ZERO
         }

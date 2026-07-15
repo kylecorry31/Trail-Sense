@@ -13,7 +13,7 @@ internal class ActiveTimeCalculatorTest {
 
     @ParameterizedTest
     @MethodSource("provideActiveTimes")
-    fun calculate(steps: Int, elapsedTime: Duration, expected: Duration) {
+    fun calculate(steps: Long, elapsedTime: Duration, expected: Duration) {
         assertEquals(expected, calculator.calculate(steps, elapsedTime))
     }
 
@@ -21,13 +21,13 @@ internal class ActiveTimeCalculatorTest {
         @JvmStatic
         fun provideActiveTimes(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(0, Duration.ofSeconds(10), Duration.ZERO),
-                Arguments.of(-1, Duration.ofSeconds(10), Duration.ZERO),
-                Arguments.of(10, Duration.ZERO, Duration.ZERO),
-                Arguments.of(10, Duration.ofSeconds(-1), Duration.ZERO),
-                Arguments.of(10, Duration.ofSeconds(10), Duration.ofSeconds(10)),
-                Arguments.of(10, Duration.ofMinutes(1), Duration.ofSeconds(20)),
-                Arguments.of(10, Duration.ofSeconds(15), Duration.ofSeconds(15))
+                Arguments.of(0L, Duration.ofSeconds(10), Duration.ZERO),
+                Arguments.of(-1L, Duration.ofSeconds(10), Duration.ZERO),
+                Arguments.of(10L, Duration.ZERO, Duration.ZERO),
+                Arguments.of(10L, Duration.ofSeconds(-1), Duration.ZERO),
+                Arguments.of(10L, Duration.ofSeconds(10), Duration.ofSeconds(10)),
+                Arguments.of(10L, Duration.ofMinutes(1), Duration.ofSeconds(20)),
+                Arguments.of(10L, Duration.ofSeconds(15), Duration.ofSeconds(15))
             )
         }
     }

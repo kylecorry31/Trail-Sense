@@ -28,9 +28,17 @@ internal class PedometerPreferenceMigrationTest {
 
         assertEquals(
             listOf(
-                StepAddition(4, start),
-                StepAddition(3, Instant.parse("2026-06-14T11:00:00Z")),
-                StepAddition(3, Instant.parse("2026-06-14T12:00:00Z"))
+                StepAddition(4, start, Duration.ofSeconds(8)),
+                StepAddition(
+                    3,
+                    Instant.parse("2026-06-14T11:00:00Z"),
+                    Duration.ofSeconds(6)
+                ),
+                StepAddition(
+                    3,
+                    Instant.parse("2026-06-14T12:00:00Z"),
+                    Duration.ofSeconds(6)
+                )
             ),
             stepTracker.addedSteps
         )
@@ -49,9 +57,17 @@ internal class PedometerPreferenceMigrationTest {
 
         assertEquals(
             listOf(
-                StepAddition(30, start),
-                StepAddition(30, Instant.parse("2026-06-14T02:00:00Z")),
-                StepAddition(30, Instant.parse("2026-06-14T03:00:00Z"))
+                StepAddition(30, start, Duration.ofSeconds(60)),
+                StepAddition(
+                    30,
+                    Instant.parse("2026-06-14T02:00:00Z"),
+                    Duration.ofSeconds(60)
+                ),
+                StepAddition(
+                    30,
+                    Instant.parse("2026-06-14T03:00:00Z"),
+                    Duration.ofSeconds(60)
+                )
             ),
             stepTracker.addedSteps
         )
@@ -77,9 +93,17 @@ internal class PedometerPreferenceMigrationTest {
 
         assertEquals(
             listOf(
-                StepAddition(30, start),
-                StepAddition(30, Instant.parse("2026-06-14T02:00:00Z")),
-                StepAddition(30, Instant.parse("2026-06-14T03:00:00Z"))
+                StepAddition(30, start, Duration.ofSeconds(60)),
+                StepAddition(
+                    30,
+                    Instant.parse("2026-06-14T02:00:00Z"),
+                    Duration.ofSeconds(60)
+                ),
+                StepAddition(
+                    30,
+                    Instant.parse("2026-06-14T03:00:00Z"),
+                    Duration.ofSeconds(60)
+                )
             ),
             stepTracker.addedSteps
         )
@@ -95,11 +119,26 @@ internal class PedometerPreferenceMigrationTest {
         PedometerPreferenceMigration(stepTracker, prefs) { end }.migrate()
 
         assertEquals(
-            listOf(StepAddition(7, start)),
+            listOf(StepAddition(7, start, Duration.ZERO)),
             stepTracker.addedSteps
         )
         verify(prefs).remove("cache_steps")
         verify(prefs).remove("last_odometer_reset")
+    }
+
+    @Test
+    fun migrateCapsActiveTimeToBucketElapsedTime() = runBlocking {
+        val start = Instant.parse("2026-06-14T10:00:00Z")
+        val end = Instant.parse("2026-06-14T10:01:00Z")
+        val prefs = getPrefs(start, 100)
+        val stepTracker = FakeStepTrackerService()
+
+        PedometerPreferenceMigration(stepTracker, prefs) { end }.migrate()
+
+        assertEquals(
+            listOf(StepAddition(100, start, Duration.ofMinutes(1))),
+            stepTracker.addedSteps
+        )
     }
 
     private fun getPrefs(startTime: Instant, steps: Long): IPreferences {
@@ -111,7 +150,8 @@ internal class PedometerPreferenceMigrationTest {
 
     private data class StepAddition(
         val steps: Long,
-        val time: Instant
+        val time: Instant,
+        val activeTime: Duration
     )
 
     private class FakeStepTrackerService(
@@ -138,7 +178,7 @@ internal class PedometerPreferenceMigrationTest {
         }
 
         override suspend fun addSteps(steps: Long, time: Instant, activeTime: Duration) {
-            addedSteps.add(StepAddition(steps, time))
+            addedSteps.add(StepAddition(steps, time, activeTime))
         }
 
         override suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod) {
