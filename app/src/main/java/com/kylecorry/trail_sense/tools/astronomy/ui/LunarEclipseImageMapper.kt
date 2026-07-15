@@ -36,6 +36,7 @@ class LunarEclipseImageMapper(private val context: Context) {
             it.setBounds(0, 0, width, height)
             it.draw(canvas)
         }
+        drawer.pop()
 
         val shadowOffset = Trigonometry.getAngularOffset(
             moon.azimuth.value,
@@ -71,7 +72,6 @@ class LunarEclipseImageMapper(private val context: Context) {
         drawer.opacity(255)
         drawer.fill(SHADOW_COLOR)
         drawer.circle(shadowCenterX, shadowCenterY, umbraRadius * 2f)
-        drawer.pop()
         drawer.pop()
 
         return output
