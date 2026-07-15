@@ -128,3 +128,4 @@ sonarqube-report.json
 .codex
 trace_processor
 tracebox
+.scratch/

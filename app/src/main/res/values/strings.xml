@@ -29,7 +29,7 @@
     <string name="plugin_disconnect_message">Disconnect %s?</string>
     <!--Permissions-->
     <string name="access_background_location">Update location settings</string>
-    <string name="access_background_location_rationale">Trail Sense uses location data in the background for the sea level pressure calibration in weather monitoring and to provide more accurate sunset alerts. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense uses location data in the background, even when the app is closed or not in use. This background access is used for the weather monitor sea level pressure calibration, backtrack, widget updates, and to provide more accurate sunrise/sunset alerts. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="app_disclaimer_message_title">Disclaimer / terms of service</string>
