@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
-import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
+import com.kylecorry.andromeda.background.WorkTaskScheduler
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
@@ -39,9 +39,11 @@ class PedometerPreferenceMigrationWorker(
         private const val MAX_RETRY_ATTEMPTS = 3
 
         private fun getScheduler(context: Context): IOneTimeTaskScheduler {
-            return OneTimeTaskSchedulerFactory(context.applicationContext).deferrable(
+            return WorkTaskScheduler(
+                context.applicationContext,
                 PedometerPreferenceMigrationWorker::class.java,
-                UNIQUE_ID
+                WorkTaskScheduler.createStringId(context, UNIQUE_ID),
+                expedited = true
             )
         }
 
