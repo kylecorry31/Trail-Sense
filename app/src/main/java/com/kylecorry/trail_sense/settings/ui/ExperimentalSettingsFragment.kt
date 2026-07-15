@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Build
 import android.os.Bundle
-import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
@@ -30,11 +29,9 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
             requireMainActivity().updateBottomNavigation()
         }
 
-        onClick(switch(R.string.pref_widget_icon_compatibility)) { pref ->
+        onClick(switch(R.string.pref_widget_icon_compatibility)) {
             // Refresh all widgets so the new icon rendering takes effect immediately
-            if ((pref as? SwitchPreferenceCompat)?.isChecked == true) {
-                Tools.triggerWidgetUpdate(requireContext(), null)
-            }
+            Tools.triggerWidgetUpdate(requireContext(), null)
         }
 
         val sources = ForecastSource.entries
