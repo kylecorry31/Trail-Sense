@@ -226,7 +226,9 @@ class OfflineMapService internal constructor(
     }
 
     suspend fun copyToAppStorage(map: TrailMap): TrailMap? {
-        return repo.copyToAppStorage(map)
+        return maintenance.withImportLock {
+            repo.copyToAppStorage(map)
+        }
     }
 
     suspend fun getPhotoMap(id: Long): PhotoMap? {
