@@ -55,6 +55,10 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
             val altimeter = sensors.getAltimeter(gps = gps)
             readAll(listOf(gps, altimeter))
 
+            if (!gps.hasValidReading) {
+                return@launch
+            }
+
             // Record the sighting
             id = service.recordSighting(
                 Sighting(
