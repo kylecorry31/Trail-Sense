@@ -163,7 +163,7 @@ internal class OfflineMapImporter(
             if (hasPersistentAccess) {
                 request.uri.toString()
             } else {
-                throw IllegalStateException("Can't persist access to ${request.uri}")
+                return null
             }
         }
 
