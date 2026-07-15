@@ -1632,4 +1632,10 @@
     <string name="calibrate_map_point_instructions">Appuyez sur cet emplacement sur la carte, puis saisissez ses coordonnées réelles.</string>
     <string name="invalid_trail_map">Carte des sentiers non valide</string>
     <string name="invalid_trail_map_message">Le fichier de la carte des sentiers n\'est pas valide ou est manquant. Vous pouvez supprimer cette carte et en importer une nouvelle.</string>
+    <string name="average_pace">Allure moyenne</string>
+    <string name="pref_pedometer_average_pace_time_title">Temps moyen par allure</string>
+    <string name="current_pace">Rythme actuel</string>
+    <string name="active_time">Temps d\'activité</string>
+    <string name="active_duration">Actif : %s</string>
+    <string name="elapsed_time">Temps écoulé</string>
 </resources>
