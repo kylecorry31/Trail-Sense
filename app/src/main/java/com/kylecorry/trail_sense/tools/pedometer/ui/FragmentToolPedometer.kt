@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.luna.topics.generic.getOrNull
 import com.kylecorry.luna.topics.generic.replay
@@ -56,6 +57,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val hourlyStepsRunner = CoroutineQueueRunner()
     private var hourlyStepsChart: HourlyStepsChart? = null
 
     private var steps by state(0L)
@@ -241,14 +243,16 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     }
 
     private suspend fun updateHourlySteps() {
-        val date = selectedDate
-        val updatedHourlySteps = stepTrackerService.getHourlyStepCounts(date)
-        hourlySteps = updatedHourlySteps
-        selectedHourlySteps = selectedHourlySteps?.let { selected ->
-            updatedHourlySteps.firstOrNull { it.startTime == selected.startTime }
-        }
-        onMain {
-            binding.hourlyStepsDate.date = date
+        hourlyStepsRunner.replace {
+            val date = selectedDate
+            val updatedHourlySteps = stepTrackerService.getHourlyStepCounts(date)
+            hourlySteps = updatedHourlySteps
+            selectedHourlySteps = selectedHourlySteps?.let { selected ->
+                updatedHourlySteps.firstOrNull { it.startTime == selected.startTime }
+            }
+            onMain {
+                binding.hourlyStepsDate.date = date
+            }
         }
     }
 
