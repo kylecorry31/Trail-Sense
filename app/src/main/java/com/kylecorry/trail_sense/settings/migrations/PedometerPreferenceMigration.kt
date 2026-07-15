@@ -20,12 +20,16 @@ class PedometerPreferenceMigration(
         val steps = prefs.getLong(STEPS_KEY) ?: 0L
         val startTime = prefs.getInstant(LAST_RESET_KEY)
         if (steps > 0 && startTime != null) {
-            createStepAdditions(startTime, now(), steps).forEach {
+            var remainingSteps = steps
+            createStepAdditions(startTime, now().coerceAtLeast(startTime), steps).forEach {
                 stepTracker.addSteps(
                     it.steps,
                     it.time,
                     activeTimeCalculator.calculate(it.steps, it.elapsedTime)
                 )
+                remainingSteps -= it.steps
+                prefs.putLong(STEPS_KEY, remainingSteps)
+                prefs.putInstant(LAST_RESET_KEY, it.endTime)
             }
         }
         prefs.remove(STEPS_KEY)
@@ -44,7 +48,8 @@ class PedometerPreferenceMigration(
             StepAddition(
                 time = range.first,
                 steps = baseSteps + if (index.toLong() < remainingSteps) 1 else 0,
-                elapsedTime = Duration.between(range.first, minOf(range.second, endTime))
+                elapsedTime = Duration.between(range.first, minOf(range.second, endTime)),
+                endTime = minOf(range.second, endTime)
             )
         }
     }
@@ -69,7 +74,8 @@ class PedometerPreferenceMigration(
     private data class StepAddition(
         val time: Instant,
         val steps: Long,
-        val elapsedTime: Duration
+        val elapsedTime: Duration,
+        val endTime: Instant
     )
 
     companion object {
