@@ -51,6 +51,7 @@ class BatteryService {
         return powerService.getTimeUntilFull(capacity, maxCapacity, lastChargeRate)
     }
 
+    @Suppress("LongMethod")
     fun getSystemBatteryTips(context: Context): List<SystemBatteryTip> {
         val isAirplaneOn = tryOrDefault(false) { SystemSettings.isAirplaneModeEnabled(context) }
         val isWifiOn = tryOrDefault(null) { SystemSettings.isWifiEnabled(context) }
