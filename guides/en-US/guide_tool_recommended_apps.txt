@@ -52,7 +52,7 @@ This app can help you identify nearby birds using the sound of their calls.
 
 ## FlashDim
 
-This app can be used for fine tuned control over your phone's flashlight. You can also use it to send custom morse code messages.
+This app can be used for fine-tuned control over your phone's flashlight. You can also use it to send custom Morse code messages.
 
 [Download](market://details?id=com.cyb3rko.flashdim)
 
@@ -76,7 +76,7 @@ This app allows for offline encrypted communication using bluetooth or WiFi dire
 
 ## SaverTuner
 
-This app allows you to customize the battery saver mode on your device. It requires running a command from your computer the first time it is used so it can modify system settings. Not available on the Play Store (only F-Droid and Codeberg)
+This app allows you to customize the battery saver mode on your device. It requires running a command from your computer the first time it is used so it can modify system settings. Not available on the Play Store (only F-Droid and Codeberg).
 
 [Download](market://details?id=s1m.savertuner)
 

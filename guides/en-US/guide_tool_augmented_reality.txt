@@ -71,7 +71,7 @@ If the Augmented Reality tool is not aligned with the real world, you can calibr
 
 Always check the accuracy against the sun, moon, or known landmarks before using this tool. Depending on the quality of your phone's sensors, you may need to repeat calibration frequently.
 
-You will not be able to calibration on a moonless night.
+You will not be able to calibrate on a moonless night.
 
 If your device has a gyroscope, calibrating will switch the tool to use the gyroscope for orientation. You can disable this in Settings > Augmented Reality > "Use gyroscope after calibration".
 
