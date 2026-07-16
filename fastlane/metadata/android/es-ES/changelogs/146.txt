@@ -1,17 +1,18 @@
 Mapas sin conexión
 - Detectar esquinas de los nuevos mapas calibrados
-- Ajuste para usar archivos externos de mapas
+- Ajuste para archivos externos de mapas
 
 Podómetro
-- Mostrar el historial del recuento de pasos por hora
+- Historial recuento de pasos por hora, paso y tiempo en activo
+- Opción tiempo activo o tiempo transcurrido en paso medio.
 
 Astronomía
-- Renderizar iconos precisos para la luna y los eclipses
+- Renderizar iconos precisos para luna y eclipses
 
 Guía de campo
-- Añadir la acción rápida Registrar avistamiento
+- Acción rápida Registrar avistamiento
 
 Varios
-- Mejorar la compatibilidad con Material 3 Expressive
-- Los campos de entrada de ubicación permiten seleccionar una ubicación en el mapa
-- Corrección de errores
+- Compatibilidad Material 3 Expressive
+- El campo entrada de ubicación permite seleccionar ubicación en mapa
+- Corrección errores
