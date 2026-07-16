@@ -158,7 +158,7 @@
     <string name="calibrate_compass_dialog_content">Faites tourner votre téléphone plusieurs fois en formant un « 8 » ou dans toutes les directions, puis cliquez sur %s lorsque vous avez terminé.</string>
     <string name="pref_adjust_for_temperature_title">Prendre en compte la température</string>
     <string name="coordinate_format_degrees_decimal_minutes">Degrés minutes décimales</string>
-    <string name="access_background_location_rationale">Trail Sense utilise les données de localisation en arrière-plan pour calibrer la pression atmosphérique au niveau de la mer dans le cadre de la surveillance météorologique et pour fournir des alertes plus précises concernant le coucher du soleil. [Consulter la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense utilise les données de localisation en arrière-plan, même lorsque l\'application est fermée ou n\'est pas utilisée. Cet accès en arrière-plan sert à l\'étalonnage de la pression au niveau de la mer pour la surveillance météorologique, au retracement du parcours, à la mise à jour des widgets et à fournir des alertes plus précises concernant le lever et le coucher du soleil. [Consulter la politique de confidentialité](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Mettre à jour les paramètres de localisation</string>
     <string name="error_occurred_message">Trail Sense a rencontré une erreur. Veuillez envoyer un e-mail au développeur pour résoudre ce problème.</string>
     <string name="error_occurred">Une erreur est survenue</string>
