@@ -13,7 +13,7 @@ Each layer has the following settings:
 - **Visible**: Determines if the layer is shown on the map. When it is not visible, the layer header will be grayed out.
 - **Opacity**: Determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
 - **Copy settings to other maps**: Copy the layer settings to other maps. Clicking this will open a dialog where you can choose which maps to copy the settings to.
-- **Remove layer**:: Remove this layer from the active layer list. You can re-add it via the "Additional layers" button.
+- **Remove layer**: Remove this layer from the active layer list. You can re-add it via the "Additional layers" button.
 
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.

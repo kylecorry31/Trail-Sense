@@ -3,7 +3,7 @@
 
 This chapter covers basic medical knowledge and techniques for common injuries and illnesses in the wilderness. 
 
-**This chapter is for informational purposes only and does not replace professional advice, diagnosis, or treatment; use at your own risk, ensure compliance with local laws, and consult qualified healthcare providers whenever possible.**
+**This chapter is for informational purposes only and does not replace professional advice, diagnosis, or treatment; use at your own risk, ensure compliance with local laws, and consult qualified healthcare providers whenever possible. If you call emergency services, follow their instructions. This chapter is not medical advice.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medication, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, gel, swab, mirror, tampon, pad, menstrual, cup, floss, toothbrush, toothpaste, toilet-paper, bidet, bag, trowel, soap, towel, lip-balm, electrolyte -->
@@ -357,7 +357,7 @@ Seek medical attention if the wound is deep, bleeding profusely, or shows signs 
 5. Raise the wound above the level of the heart.
 6. Seek medical attention if bleeding does not stop or if the wound is deep.
 
-You can apply a tourniquet to stop blood flow to a limb if direct pressure does not work. This should only be done as a last resort, as it can cause permanent damage. Only a medical professional should remove a tourniquet.
+If the bleeding is life-threatening and you are unable to control it with direct pressure, you can apply a commercial tourniquet. It should be tightened 2-3 inches (5-8 cm) above the wound, and not on a joint, until bleeding stops. It may be painful to tighten. Take note of the time you applied the tourniquet. Only a medical professional should loosen or remove a tourniquet.
 
 ### Prevention
 - Use caution when handling sharp objects.
@@ -424,9 +424,9 @@ Do not pop blisters.
 This is a burn that goes through all layers of skin and may be life-threatening. Pain may be minimal due to nerve damage. Second-degree burns are likely also present.
 
 1. Call emergency services.
-2. Soak with cool water.
-3. Remove clothing and jewelry from the area.
-4. Drink water with electrolytes.
+2. Briefly apply cool, wet compresses to the area.
+3. Remove clothing and jewelry from the area unless they are stuck to the burn.
+4. Drink water with electrolytes if alert and able.
 5. Bandage loosely.
 
 ### Prevention
@@ -554,15 +554,7 @@ A fracture is a broken bone. A fracture can be closed (bone is broken, but skin 
 - Bone protruding from the skin
 
 ### Treatment
-If the bone is out of place and medical attention is unavailable for several hours, you may need to set it. Otherwise, splint it in place and seek medical attention.
-
-**Setting a bone**
-
-1. Irrigate and clean the wound if the bone is protruding.
-2. Grab the limb below the fracture.
-3. Pull the limb to straighten the bone. It may pop into place, and pain may decrease.
-4. Splint the bone while holding it in place.
-5. Cover the open wound with a sterile dressing and bandage.
+Splint it in place and seek medical attention.
 
 **Splinting a bone**
 
@@ -621,7 +613,7 @@ Rewarm the area using body heat (such as placing a hand under the armpit), warm 
 Only thaw the area if you can keep it thawed. Refreezing can cause more damage. Do not use a fire to thaw the area. Do not rub the area. Seek medical attention as soon as possible.
 
 1. Take pain medicine before thawing.
-2. Prepare hot water (104-108°F/40-42°C).
+2. Prepare warm water (99-102°F/37-39°C).
 3. Thaw the area for 30 to 45 minutes or until it is pink/red and soft. If the water cools, change it-remove the area from the water before changing it.
 4. Wrap the area in a sterile dressing and keep warm.
 
@@ -634,7 +626,7 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 - Treat at the first sign of frostnip.
 
 ## Gastrointestinal issues
-<!-- K: gastrointestinal, stomach, gut, diarrhea, vomit, nausea, cramp, gas, food, water, poison, charcoal, tea, parasite, constipated -->
+<!-- K: gastrointestinal, stomach, gut, diarrhea, vomit, nausea, cramp, gas, food, water, poison, tea, parasite, constipated -->
 <!-- S: Treat by rehydrating or using medicine. Prevent this by boiling water, washing hands, cooking, and storing food properly. -->
 
 Gastrointestinal issues can be caused by contaminated food or water.
@@ -659,7 +651,6 @@ Gastrointestinal issues can be caused by contaminated food or water.
     - Walnut bark
   - For gas and cramps:
     - Mint leaves
-- Eating campfire ash or ground charcoal (mixed into water) can also help with diarrhea.
 - If you ate something poisonous, seek medical help immediately.
 
 ### Prevention
@@ -704,21 +695,21 @@ To be safe, seek medical attention as soon as possible if you experience symptom
 
 ### Treatment
 1. Stop and sit comfortably.
-2. If you have as-needed heart medication, take it. Otherwise, take aspirin. Chew the aspirin for faster absorption.
-3. Call emergency services and have help come to you.
+2. Call emergency services and have help come to you.
+3. If you have as-needed heart medication, take as directed. If you are alert and are able to take aspirin, use it as directed.
 
 If someone else becomes unresponsive and you suspect heart problems:
 
 **CPR**:
 
-1. Check for responsiveness, breathing, and pulse.
+1. Check for unresponsiveness and absent or abnormal breathing.
 2. Call emergency services and start CPR. You can put your phone on speaker to do the two at the same time.
 3. Make sure the person is on their back on a hard, stable surface.
 4. Place the heel of one hand on the center of the chest.
 5. Place the heel of the other hand on top of the first hand.
 6. Interlock fingers.
 7. Keep your arms straight and your shoulders directly over your hands.
-8. Push hard and fast at least 2 inches (5 cm) at 100 to 120 compressions per minute.
+8. Push hard and fast between 2 inches (5 cm) and 2.4 inches (6 cm) in depth at 100 to 120 compressions per minute.
 9. Let the chest rise completely between compressions.
 10. Continue until the patient is responsive, emergency services arrive, or you are too exhausted to continue.
 
@@ -797,19 +788,19 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 ### Washing
 <!-- K: wash, soap, shampoo, sanitize, hands -->
 
-If you do not have soap, you can substitute white ashes, sand, or loamy soil.
-
-Wash hands:
+Use soap and clean water to wash your hands:
 - Before and after preparing food.
 - Before eating.
 - After urinating or defecating.
 - Before dressing a wound.
 - After touching something likely to carry germs or be poisonous.
 
+If you do not have soap, you may be able to use hand sanitizer or clean water.
+
 ### Teeth
 <!-- K: teeth, tooth, toothbrush, toothpaste, floss, brush -->
 
-If you do not have a toothbrush, you can clean your teeth with a small stick (fray it by chewing on one end) or a piece of cloth. An inner strand of paracord can be used as dental floss. You can grind up charcoal and combine it with water to make a mildly abrasive toothpaste.
+If you do not have a toothbrush, you can clean your teeth with a small stick (fray it by chewing on one end) or a piece of cloth. An inner strand of paracord can be used as dental floss.
 
 ### Feet
 <!-- K: foot, feet, sock, shoe -->

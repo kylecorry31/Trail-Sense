@@ -1,9 +1,15 @@
 The Pedometer tool can be used to track the distance traveled by counting your steps.
 
-## Track distance and speed
+## Track distance, speed, and pace
 To track the distance traveled, tap the start button in the bottom-right corner of the screen. You may be asked to grant the "Physical Activity" permission, which allows Trail Sense to access your phone's pedometer. You can then put your phone away and begin your hike.
 
-The distance traveled will be shown at the top of the screen, along with the number of steps taken, your average speed, and your current speed. The average speed is calculated since the last reset, and does not factor in breaks. The current speed is calculated over the last 10 seconds. The distance traveled is calculated based on your steps and stride length. The time since the last reset is shown at the top of the screen.
+The distance traveled and number of steps taken are shown at the top of the screen. The distance is calculated based on your steps and stride length.
+
+Your current and average speed and pace are also shown. Pace is displayed as time per kilometer or mile, depending on your distance units. The current speed and pace are calculated over the last 10 seconds. By default, the average speed and pace use active time since the last reset, which does not include breaks. You can include breaks by selecting elapsed time under Settings > Pedometer > Average pace time.
+
+If you are not familiar with pace, a pace of 12:30 / km means it takes 12 minutes and 30 seconds to travel one kilometer. A lower pace means you are moving faster.
+
+The current session time is shown at the top of the screen, followed by the active duration in parentheses.
 
 You can stop the pedometer at any point (e.g., while resting or at a campsite) by clicking the stop button in the bottom-right corner. Stopping the pedometer will not reset the distance traveled, so you can resume it by clicking start again. If you want to start a new measurement, you can click the reset button instead.
 
@@ -13,6 +19,9 @@ The History section shows your total steps and distance for the selected day, al
 Tap the clock button next to History to view your pedometer sessions. Each session shows its time, steps, distance, average speed, and duration. A new session is created whenever you reset the pedometer. You can delete a session from its menu.
 
 By default, step history is kept for 30 days. You can change this in Settings > Pedometer > Step history.
+
+## Daily reset
+By default, the pedometer starts a new session when you first record steps on a new day. You can disable this in Settings > Pedometer > Reset daily.
 
 ## Distance alert
 If the pedometer is on, you can choose to receive a notification when you've reached a certain distance traveled. To activate, click the alert icon in the top-right corner of the screen and enter the distance you want to be alerted at. Once you've reached the distance, you'll receive a notification. The distance alert uses the total distance, so if you've already traveled 4 km and want to be notified after another 1 km, set the alert to 5 km. Alternatively, you can reset the pedometer and set the alert to 1 km.

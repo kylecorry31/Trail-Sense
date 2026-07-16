@@ -174,6 +174,23 @@ Algunas herramientas como Navegación y Astronomía muestran banners de error en
 ## Experimental
 Las funciones experimentales se pueden habilitar en 'Ajustes > Experimental'. Estas funciones no están listas para uso general y pueden no funcionar como se espera.
 
+### Plugins
+Los plugins permiten que otras aplicaciones instaladas añadan funciones a Trail Sense. Ahora mismo están limitados a capas de mapa adicionales.
+
+Para usar plugins, habilita Ajustes > Experimental > Plugins. Después de habilitar los plugins, aparecerá una página de Plugins en Ajustes donde puedes conectar o desconectar los plugins disponibles.
+
+Conecta un plugin pulsando sobre él en la sección "Plugins disponibles". Conecta solo los plugins en los que confíes. Puedes pulsar sobre un plugin conectado para ver detalles sobre qué funciones añade, recargarlo, abrir su app o desconectarlo.
+
+**Los plugins no están disponibles actualmente en la versión de Google Play de Trail Sense.**
+
+#### Privacidad y seguridad
+
+Trail Sense no se comunicará con plugins que no hayas conectado explícitamente. Una vez conectado, Trail Sense pregunta al plugin qué funciones añade y no envía ninguno de tus datos.
+
+Cuando se conecta un plugin de capa de mapa y la capa está habilitada en el mapa, Trail Sense comprueba que tiene concedido el permiso de ubicación precisa. Si no lo tiene, tendrás que concedérselo al plugin para usarlo y Trail Sense no cargará datos de mapa de este hasta que eso se haga. Si se concede el permiso, Trail Sense enviará los límites del área visible del mapa al plugin para cargar funciones y teselas.
+
+Si cambia la firma del plugin, se desconectará y tendrás que volver a conectarlo.
+
 ### Agrupación de notificaciones
 Android 16 introduce agrupación forzada de notificaciones para apps. Normalmente esto pone todas las notificaciones de Trail Sense en un grupo, lo que puede ser difícil de leer de un vistazo.
 
@@ -208,6 +225,7 @@ Los ajustes relacionados con el tema se pueden ajustar en 'Ajustes > Tema'.
 - **Brujula con colores dinámicos**: Usa los colores dinámicos de tu dispositivo en la brújula (direcciones cardinales y ciertos marcadores en mapas).
 - **Tema predetarminado del widget**: Tema predeterminado para los widgets. Se puede anular mediante las opciones de personalización del widget en la pantalla de inicio.
 - **Modo compacto**: Usa un diseño más compacto para la barra inferior (más delgado y no muestra etiquetas).
+- **Mostrar todas las etiquetas de la barra inferior**: Permite mostrar etiquetas para todos los elementos de la barra de navegación inferior en lugar de solo para el elemento seleccionado.
 - **Pantalla completa en modo noche**: Usa modo de pantalla completa cuando el tema nocturno está habilitado. Desliza desde la parte superior para mostrar la interfaz del sistema.
 
 ## Acerca de

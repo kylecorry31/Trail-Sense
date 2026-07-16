@@ -100,6 +100,10 @@ This guide only covers a small portion of the vast knowledge of survival and bus
 - *SAS Survival Handbook* by John 'Lofty' Wiseman
 - *Tom Brown's Field Guide to Wilderness Survival* by Tom Brown Jr., with Brandt Morgan
 - *Wilderness & Travel Medicine* by Eric A. Weiss, MD
+- *ATP 3-50.21 SURVIVAL* by the U.S. Department of the Army
+- American Red Cross website
+- Wilderness Medical Society website
+- American Heart Association website
 
 ## What to do in a survival situation
 <!-- K: think, observe, act -->
