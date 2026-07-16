@@ -181,6 +181,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     override fun onPause() {
         super.onPause()
         Tools.unsubscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, ::updateSteps)
+        hourlyStepsRunner.cancel()
     }
 
     private suspend fun updateSteps(data: Bundle?) {
@@ -249,9 +250,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
             hourlySteps = updatedHourlySteps
             selectedHourlySteps = selectedHourlySteps?.let { selected ->
                 updatedHourlySteps.firstOrNull { it.startTime == selected.startTime }
-            }
-            onMain {
-                binding.hourlyStepsDate.date = date
             }
         }
     }
