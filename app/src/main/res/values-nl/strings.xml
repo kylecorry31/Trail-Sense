@@ -166,7 +166,7 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mijl</string>
     <string name="precise_feet_format">%s voet</string>
-    <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond voor het kalibreren van de zeeniveauluchtdrukmeter, voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense gebruikt locatiegegevens op de achtergrond, zelfs wanneer de app gesloten is of niet wordt gebruikt. Deze achtergrondtoegang wordt gebruikt voor de weermonitor, zeeniveauluchtdrukkalibratie, terugweg, verversen van widgets en om nauwkeurige meldingen voor zonsopkomst/-ondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Locatie-instellingen bijwerken</string>
     <string name="copied_to_clipboard_toast">Naar klembord gekopieerd</string>
     <string name="moderate">Matig</string>
@@ -566,7 +566,7 @@
     <string name="on_map">Op de kaart</string>
     <string name="no_maps">Geen kaarten</string>
     <string name="rename">Hernoemen</string>
-    <string name="pedometer_disclaimer">De nauwkeurigheid en het batterijgebruik van de stappenteller zijn afhankelijk van de fabrikant van je apparaat en de ingevoerde staplengte. Probeer het een tijdje thuis om het leeglopen van de batterij en de nauwkeurigheid te controleren voordat je het op pad gebruikt.</string>
+    <string name="pedometer_disclaimer">De nauwkeurigheid en het batterijgebruik van de stappenteller zijn afhankelijk van de fabrikant van je apparaat en de ingevoerde paslengte. Probeer het een tijdje thuis om het leeglopen van de batterij en de nauwkeurigheid te controleren voordat je op pad gaat.</string>
     <string name="pref_meteor_showers_title">Meteorenzwermen</string>
     <string name="meteors_per_hour">Max %d meteoren / h</string>
     <string name="meteor_shower">Meteorenzwerm</string>
@@ -1621,4 +1621,10 @@
     <string name="calibrate_map_point_instructions">Tik op deze locatie op de kaart, voer vervolgens de coördinaten in de echte wereld in.</string>
     <string name="invalid_trail_map">Ongeldige wandelkaart</string>
     <string name="invalid_trail_map_message">Het kaartbestand is ongeldig of ontbreekt. Je kunt deze kaart verwijderen en een nieuwe importeren.</string>
+    <string name="average_pace">Gemiddelde pas</string>
+    <string name="active_time">Actieve tijd</string>
+    <string name="active_duration">Actief: %s</string>
+    <string name="current_pace">Huidige pas</string>
+    <string name="pref_pedometer_average_pace_time_title">Gemiddelde tijd per stap</string>
+    <string name="elapsed_time">Verlopen tijd</string>
 </resources>
