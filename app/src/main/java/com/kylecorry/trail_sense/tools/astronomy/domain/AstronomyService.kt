@@ -25,6 +25,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
+import kotlinx.coroutines.ensureActive
 import java.time.Clock
 import java.time.Duration
 import java.time.LocalDate
@@ -458,6 +459,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         var date = start.plusDays(1)
         val end = start.plusDays(maxSearch.toDays())
         while (date <= end) {
+            ensureActive()
             val hasEvent = when (event) {
                 AstronomyEvent.FullMoon -> getMoonPhase(date).phase == MoonTruePhase.Full
                 AstronomyEvent.NewMoon -> getMoonPhase(date).phase == MoonTruePhase.New
