@@ -122,7 +122,7 @@
     <string name="precise_meters_format">%s m</string>
     <string name="precise_miles_format">%s mill</string>
     <string name="precise_feet_format">%s pies</string>
-    <string name="access_background_location_rationale">Trail Sense usa datos de ubicación en segundo plano para calibrar la presión a nivel del mar en la monitorización meteorológica y proporcionar alertas más precisas de la puesta de sol. [Ver política de privacidad](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense usa datos de ubicación en segundo plano incluso cuando la app no se usa o está cerrada. El acceso en segundo plano se usa para la monitorización y calibración de la presión a nivel del mar, actualización de widgets, retroceder, y para proporcionar alertas más precisas sobre las salidas y puestas de sol. [Ver política de privacidad](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Actualizar ajustes de ubicación</string>
     <string name="dash">-</string>
     <string name="battery_capacity_format">%s mAh</string>
@@ -1583,4 +1583,10 @@
     <string name="calibrate_map_point_instructions">Pulsa esta posición del mapa, después ingresa las cordenadas reales.</string>
     <string name="invalid_trail_map">Mapa de recorrido no válido</string>
     <string name="invalid_trail_map_message">El archivo del mapa de recorrido falta o es no válido. Puedes borrar este mapa e importar uno nuevo.</string>
+    <string name="average_pace">Paso medio</string>
+    <string name="pref_pedometer_average_pace_time_title">Tiempo de paso medio</string>
+    <string name="current_pace">Paso actual</string>
+    <string name="active_time">Tiempo activo</string>
+    <string name="active_duration">Activo:%s</string>
+    <string name="elapsed_time">Tiempo transcurrido</string>
 </resources>
