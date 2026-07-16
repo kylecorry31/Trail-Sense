@@ -29,6 +29,10 @@ class StepTrackerRepo private constructor(private val dao: StepTrackerDao) : ISt
         dao.delete(StepTrackingPeriodEntity.from(period))
     }
 
+    override suspend fun setMinimumPeriodStartTime(startTime: Instant) = onIO {
+        dao.setMinimumPeriodStartTime(startTime) > 0
+    }
+
     override suspend fun getStepCountBuckets(
         startTime: Instant,
         endTime: Instant

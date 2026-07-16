@@ -308,18 +308,19 @@ internal class StepTrackerServiceTest {
 
     @Test
     fun cleanDeletesBucketsOlderThanStepHistory() = runBlocking {
+        val cutoff = NOW.minus(Duration.ofDays(30))
         val period = repository.addPeriod(period(id = 1, endTime = NOW))
         val oldBucket = bucket(
             id = 2,
             periodId = period.id,
             startTime = NOW.minus(Duration.ofDays(31)),
-            endTime = NOW.minus(Duration.ofDays(30)).minusSeconds(1)
+            endTime = cutoff.minusSeconds(1)
         )
         val recentBucket = bucket(
             id = 3,
             periodId = period.id,
-            startTime = NOW.minus(Duration.ofDays(30)),
-            endTime = NOW.minus(Duration.ofDays(30))
+            startTime = cutoff,
+            endTime = cutoff
         )
         repository.addBucket(oldBucket)
         repository.addBucket(recentBucket)
@@ -327,14 +328,92 @@ internal class StepTrackerServiceTest {
         service.clean()
 
         assertEquals(listOf(recentBucket), repository.buckets)
+        assertEquals(cutoff, repository.periods.single().startTime)
         verifyStepsChanged(0)
     }
 
     @Test
+    fun cleanAdvancesOpenPeriodStartTimeToHistoryCutoff() = runBlocking {
+        val originalStartTime = NOW.minus(Duration.ofDays(31))
+        val retainedStartTime = NOW.minus(Duration.ofDays(29))
+        val cutoff = NOW.minus(Duration.ofDays(30))
+        val period = repository.addPeriod(
+            period(id = 1, startTime = originalStartTime, endTime = null)
+        )
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = period.id,
+                startTime = originalStartTime,
+                endTime = originalStartTime.plus(Duration.ofHours(1))
+            )
+        )
+        repository.addBucket(
+            bucket(id = 3, periodId = period.id, startTime = retainedStartTime)
+        )
+
+        service.clean()
+
+        assertEquals(cutoff, repository.periods.single().startTime)
+        assertEquals(listOf(3L), repository.buckets.map { it.id })
+        verifyStepsChanged(1)
+    }
+
+    @Test
+    fun cleanAdvancesPeriodStartTimeAndEmitsWhenNoBucketsAreDeleted() = runBlocking {
+        val cutoff = NOW.minus(Duration.ofDays(30))
+        repository.addPeriod(period(id = 1, startTime = cutoff.minusSeconds(1)))
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = 1,
+                startTime = cutoff,
+                endTime = cutoff
+            )
+        )
+
+        service.clean()
+
+        assertEquals(cutoff, repository.periods.single().startTime)
+        verifyStepsChanged(1)
+    }
+
+    @Test
+    fun cleanDoesNotAdvanceClosedPeriodStartPastEndTime() = runBlocking {
+        val cutoff = NOW.minus(Duration.ofDays(30))
+        val endTime = cutoff.minusSeconds(1)
+        val originalStartTime = cutoff.minus(Duration.ofDays(1))
+        repository.addPeriod(
+            period(id = 1, startTime = originalStartTime, endTime = endTime)
+        )
+        repository.addBucket(
+            bucket(
+                id = 2,
+                periodId = 1,
+                startTime = cutoff.minus(Duration.ofHours(1)),
+                endTime = cutoff
+            )
+        )
+
+        service.clean()
+
+        assertEquals(originalStartTime, repository.periods.single().startTime)
+        assertEquals(endTime, repository.periods.single().endTime)
+        verifyNoInteractions(eventBus)
+    }
+
+    @Test
     fun cleanDeletesEmptyClosedPeriods() = runBlocking {
-        val emptyClosedPeriod = repository.addPeriod(period(id = 1, endTime = NOW))
-        val emptyOpenPeriod = repository.addPeriod(period(id = 2, endTime = null))
-        val nonEmptyClosedPeriod = repository.addPeriod(period(id = 3, endTime = NOW))
+        val startTime = NOW.minus(Duration.ofDays(1))
+        val emptyClosedPeriod = repository.addPeriod(
+            period(id = 1, startTime = startTime, endTime = NOW)
+        )
+        val emptyOpenPeriod = repository.addPeriod(
+            period(id = 2, startTime = startTime, endTime = null)
+        )
+        val nonEmptyClosedPeriod = repository.addPeriod(
+            period(id = 3, startTime = startTime, endTime = NOW)
+        )
         repository.addBucket(bucket(id = 4, periodId = nonEmptyClosedPeriod.id, endTime = NOW))
         repository.addBucket(
             bucket(
@@ -354,7 +433,9 @@ internal class StepTrackerServiceTest {
 
     @Test
     fun cleanDoesNotEmitWhenNothingIsDeleted() = runBlocking {
-        val openPeriod = repository.addPeriod(period(id = 1, endTime = null))
+        val openPeriod = repository.addPeriod(
+            period(id = 1, startTime = NOW.minus(Duration.ofDays(1)), endTime = null)
+        )
         repository.addBucket(
             bucket(
                 id = 2,
@@ -363,7 +444,9 @@ internal class StepTrackerServiceTest {
                 steps = 10
             )
         )
-        val closedPeriod = repository.addPeriod(period(id = 3, endTime = NOW))
+        val closedPeriod = repository.addPeriod(
+            period(id = 3, startTime = NOW.minus(Duration.ofDays(1)), endTime = NOW)
+        )
         repository.addBucket(
             bucket(
                 id = 4,
@@ -447,6 +530,15 @@ internal class StepTrackerServiceTest {
         override suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod) {
             periods.removeAll { it.id == period.id }
             deletedPeriods.add(period)
+        }
+
+        override suspend fun setMinimumPeriodStartTime(startTime: Instant): Boolean {
+            val periodsToUpdate = periods.filter {
+                it.startTime.isBefore(startTime) && it.endTime?.isBefore(startTime) != true
+            }
+            periods.removeAll(periodsToUpdate)
+            periods.addAll(periodsToUpdate.map { it.copy(startTime = startTime) })
+            return periodsToUpdate.isNotEmpty()
         }
 
         override suspend fun upsertStepCountBucket(bucket: StepCountBucket): Long {

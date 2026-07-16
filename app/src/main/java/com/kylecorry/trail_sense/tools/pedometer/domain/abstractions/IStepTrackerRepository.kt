@@ -10,6 +10,7 @@ interface IStepTrackerRepository {
     suspend fun getOpenStepTrackingPeriod(): StepTrackingPeriod?
     suspend fun upsertStepTrackingPeriod(period: StepTrackingPeriod): Long
     suspend fun deleteStepTrackingPeriod(period: StepTrackingPeriod)
+    suspend fun setMinimumPeriodStartTime(startTime: Instant): Boolean
 
     // Step count buckets
     suspend fun getStepCountBuckets(startTime: Instant, endTime: Instant): List<StepCountBucket>

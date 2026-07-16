@@ -21,6 +21,13 @@ interface StepTrackerDao {
     @Delete
     suspend fun delete(period: StepTrackingPeriodEntity)
 
+    @Query(
+        "UPDATE step_tracking_periods SET start_time = :startTime " +
+            "WHERE start_time < :startTime " +
+            "AND (end_time IS NULL OR end_time >= :startTime)"
+    )
+    suspend fun setMinimumPeriodStartTime(startTime: Instant): Int
+
     @Query("SELECT * FROM step_count_buckets WHERE period_id = :periodId ORDER BY start_time")
     suspend fun getStepCountBuckets(periodId: Long): List<StepCountBucketEntity>
 

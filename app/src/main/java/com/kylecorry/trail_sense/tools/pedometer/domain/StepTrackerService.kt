@@ -158,7 +158,8 @@ class StepTrackerService(
         val cutoff = timeProvider.getTime().toInstant().minus(preferences.stepHistory)
         val deletedBuckets = repository.deleteBucketsOlderThan(cutoff)
         val deletedPeriods = repository.deleteEmptyClosedPeriods()
-        if (deletedBuckets || deletedPeriods) {
+        val updatedPeriods = repository.setMinimumPeriodStartTime(cutoff)
+        if (deletedBuckets || deletedPeriods || updatedPeriods) {
             emitStepsChanged(repository.getOpenStepTrackingPeriod()?.steps ?: 0)
         }
     }
