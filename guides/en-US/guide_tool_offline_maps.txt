@@ -20,8 +20,6 @@ To import or create a map:
 
 Once a map is imported, the original file can be deleted if you want to save space. If you turn off Settings > Offline Maps > 'Copy maps to Trail Sense', trail maps will use the original file instead of a copy, so the file must be kept on your device. These maps show an 'External' tag in the map list, and you can copy one into Trail Sense later using the map's menu and selecting 'Copy to Trail Sense'.
 
-If a trail map is marked 'Draft', its file is invalid or missing and it cannot be opened. Delete the map and import a new copy.
-
 If a map is imported from an image or non-geospatial PDF, Trail Sense will open the calibration screen.
 
 Trail Sense supports Mapsforge maps v3, v4, and v5.
@@ -98,7 +96,7 @@ To sort maps by distance, time, or name, click the menu button in the top-right 
 
 The preview of a photo map is displayed on the left side of the map row. You can disable this preview in Settings > Offline Maps > 'Show map previews'. Map previews only display for images and PDFs.
 
-Maps which display a 'Draft' tag are not shown on the map and must be calibrated before they can be used.
+Photo maps which display a 'Draft' tag are not shown on the map and must be calibrated before they can be used. Trail maps which display a 'Draft' tag are not shown on the map, likely have a missing or invalid file, and need to be deleted and re-imported to use.
 
 ## Renaming maps
 To rename a map, click the menu button on the map row you want to rename, then select 'Rename' and provide a new name.
