@@ -1345,7 +1345,6 @@
     <string name="use_gyroscope_after_calibration">Bruk gyroskop etter kalibrering</string>
     <string name="use_gyroscope_after_calibration_description">Istedenfor kompass (unngår magnetisk drift)</string>
     <string name="reset_calibration_question">Tilbakestille kalibreringen?</string>
-    <string name="use_path_elevation">Bruk sti-elevasjon på \"utvidet virkelighet\"-verktøyet</string>
     <string name="smooth_gps_readings">Jevne GPS-avlesninger</string>
     <string name="widget_icon_compatibility_mode">Widget-ikon kompabilitetsmodus</string>
     <string name="widget_icon_compatibility_mode_summary">Fikser manglende widget-ikon på enkelte enheter</string>
@@ -1353,6 +1352,5 @@
         <item quantity="one">%d skritt</item>
         <item quantity="other">%d skritt</item>
     </plurals>
-    <string name="projection_type">Kameraprojeksjonstype for utvidet virkelighet (feks. perspektiv)</string>
     <string name="projection_estimated_intrinsics">Estimert intrinsikk</string>
 </resources>
