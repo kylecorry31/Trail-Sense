@@ -224,7 +224,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now()
     ): CelestialObservation {
-        return Astronomy.getSunPosition(time, location)
+        return Astronomy.getSunPosition(time, location, withRefraction = true)
     }
 
     fun getSunAboveHorizonTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime>? {
