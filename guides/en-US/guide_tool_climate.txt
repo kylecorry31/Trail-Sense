@@ -21,7 +21,7 @@ It currently shows the following where applicable:
 Each entry shows an estimated active period (for example, "Active from May to September"). Tap the activity text to view more detailed timing ranges.
 
 ## Changing the date
-To change the date, you can tap the calendar icon above the chart and select a date. Additionally, you can use the arrows to move to the next/previous date or long press the calendar to quickly jump to today's date.
+To change the date, you can tap the calendar icon above the chart and select a date. Additionally, you can use the arrows to move to the next/previous date or long-press the calendar to quickly jump to today's date.
 
 Tapping on one of the lines on the chart will also change the date to the point you tapped.
 

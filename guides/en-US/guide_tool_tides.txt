@@ -3,18 +3,18 @@ The Tides tool helps you keep track of tides at a specific location.
 ## Create a tide table
 Before venturing into coastal areas, consult an official tide table for accurate times and water heights. Once you have this information, follow these steps to import it into Trail Sense's Tide tool:
 
-1. Click the tides button in the top-right corner of the screen.
+1. Tap the tides button in the top-right corner of the screen.
 2. Tap the '+' button in the bottom-right corner.
 3. Optionally, provide a name and location for the tide.
 4. Adjust the tide frequency, indicating how many high tides typically occur in a day (most places have 2, known as Semidiurnal).
 5. Scroll down to the tide table section.
-6. Click either 'H' for high tide or 'L' for low tide to toggle between them.
+6. Tap either 'H' for high tide or 'L' for low tide to toggle between them.
 7. Select 'Time not set' and enter the date and time of the tide.
-8. Optionally, click the '-' in the 'Height' column to input the tide's height.
+8. Optionally, tap the '-' in the 'Height' column to input the tide's height.
 9. To add another tide, tap the '+' button in the top-left corner of the table.
-10. You can delete a tide by clicking the 'X' icon to the right of the tide.
-11. The tide estimation method can be changed by clicking the 'Estimation method' dropdown. Lunitidal interval uses the moon's position to estimate tides, and may be more accurate in some locations.
-12. Save the tide table by clicking the checkmark in the top-right corner.
+10. You can delete a tide by tapping the 'X' icon to the right of the tide.
+11. The tide estimation method can be changed by tapping the 'Estimation method' dropdown. Lunitidal interval uses the moon's position to estimate tides, and may be more accurate in some locations.
+12. Save the tide table by tapping the checkmark in the top-right corner.
 
 For the best accuracy, input all tides for each relevant day. Trail Sense will distinguish between entered and estimated tides on the tide chart.
 
@@ -30,7 +30,7 @@ For the best accuracy, input all tides for each relevant day. Trail Sense will d
 ## Viewing a tide table
 By default, the Tides tool displays the closest tide to your location when you open it. To change this, go to Settings > Tides > 'Show closest tide' to toggle between displaying the closest tide and the last tide you viewed.
 
-To select a different tide, click the tides button in the top-right corner of the screen. This opens a list of all the tide tables you've created. Simply click on a tide to view it.
+To select a different tide, tap the tides button in the top-right corner of the screen. This opens a list of all the tide tables you've created. Simply tap on a tide to view it.
 
 ### Nearby tide
 This shows the tide near your location using an offline tide modal. For most locations, tides should be accurate to within an hour, but always use official tide tables if possible. If you are not close to a tide you entered, this will be shown by default.
@@ -40,7 +40,7 @@ This may be inaccurate in some areas, especially in areas with complicated geogr
 The nearby tide table can't be modified or deleted.
 
 ## Tide chart
-The tide chart displays the tides for the current day. The X-axis represents time, while the Y-axis represents the tide height. A dot marks the current time on the chart. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. Additionally, you can use the arrows to move to the next/previous date or long press the calendar to quickly jump to today's date.
+The tide chart displays the tides for the current day. The X-axis represents time, while the Y-axis represents the tide height. A dot marks the current time on the chart. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. Additionally, you can use the arrows to move to the next/previous date or long-press the calendar to quickly jump to today's date.
 
 At the top of the screen, you'll find the current tide level and, if available, the tide's height. A down arrow means a falling tide, while an up arrow means a rising tide.
 
@@ -49,24 +49,24 @@ The bottom of the screen displays a tide table for the current day. If the tide 
 ## Editing a tide table
 You can edit a tide table with the following steps:
 
-1. Click the tides button in the top-right corner of the screen.
-2. Click the menu button to the right of the tide you wish to edit.
+1. Tap the tides button in the top-right corner of the screen.
+2. Tap the menu button to the right of the tide you wish to edit.
 3. Select 'Edit.'
 4. You'll be taken to the same screen used to create the tide table. Edit the table as needed.
-5. Save your changes by clicking the checkmark in the top-right corner.
+5. Save your changes by tapping the checkmark in the top-right corner.
 
 ## Deleting a tide table
 You can delete a tide table using the following steps:
 
-1. Click the tides button in the top-right corner of the screen.
-2. Click the menu button to the right of the tide you want to delete.
+1. Tap the tides button in the top-right corner of the screen.
+2. Tap the menu button to the right of the tide you want to delete.
 3. Choose 'Delete.'
 
 ## Viewing tides on the map
 By default, tides with a location entered will appear on the Tides map layer. To hide/show a tide, follow these steps:
 
-1. Click the tides button in the top-right corner of the screen.
-2. Click the menu button to the right of the tide you wish to hide or show.
+1. Tap the tides button in the top-right corner of the screen.
+2. Tap the menu button to the right of the tide you wish to hide or show.
 3. Select 'Hide' or 'Show.'
 
 ## Estimating tides without a tide table

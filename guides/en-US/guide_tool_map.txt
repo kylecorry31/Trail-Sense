@@ -3,13 +3,13 @@ The Map tool can be used to display your beacons, paths, and photo maps in a sin
 ## Using the map
 You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right.
 
-Click the GPS button in the bottom-right to center the map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it.
+Tap the GPS button in the bottom-right to center the map on your location. Tapping it again will lock both your location and orientation, while a final tap unlocks it.
 
 ## Changing time
-If you have a time dependent layer enabled (like tides or solar eclipse), a clock button will appear in the top-right corner. Click it to change the time used for these layers. Use the slider to scrub through time, or click the time text to enter a specific time. The map will update to reflect the selected time. Click the button again to reset to the current time.
+If you have a time dependent layer enabled (like tides or solar eclipse), a clock button will appear in the top-right corner. Tap it to change the time used for these layers. Use the slider to scrub through time, or tap the time text to enter a specific time. The map will update to reflect the selected time. Tap the button again to reset to the current time.
 
 ## Navigating and creating beacons
-When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, click the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
+When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. To cancel navigation, tap the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
 
 You can initiate navigation from the map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
 
@@ -18,22 +18,22 @@ To create a beacon from the map, long-press a map point and choose 'Beacon.' Thi
 For further details on beacons, refer to the 'Beacons' guide.
 
 ## Measuring distance and creating paths
-You can measure distances by clicking the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, click the undo button in the bottom left. Cancel by clicking the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by clicking the 'Create path' button at the bottom.
+You can measure distances by tapping the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, tap the undo button in the bottom left. Cancel by tapping the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by tapping the 'Create path' button at the bottom.
 
-For a quick measurement from your location to a point, long-press that point on the map and click 'Distance'.
+For a quick measurement from your location to a point, long-press that point on the map and tap 'Distance'.
 
 ## Measuring elevation
-Long press a location on the map to view the elevation (from the DEM).
+Long-press a location on the map to view the elevation (from the DEM).
 
 ## Layers
 Layers are used to display information on the map. For more information on layers, refer to the 'Map Layers' guide.
 
 ## Trace a map
-To trace a map, click the menu button in the top-right and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
+To trace a map, tap the menu button in the top-right and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
 
 Bottom navigation will be disabled until you turn off trace mode.
 
-When you are finished tracing, click the lock icon in the bottom-right to turn off trace mode.
+When you are finished tracing, tap the lock icon in the bottom-right to turn off trace mode.
 
 ## Sensor status
 The GPS and compass accuracy are displayed as status badges in the bottom-left corner of the map. Tap them to see tips on improving location and compass accuracy.
@@ -44,4 +44,4 @@ The following widgets can be placed on your device's home screen or viewed in-ap
 - **Map**: Displays your map layers centered on your current location, always oriented north-up. The widget updates automatically and tapping it opens the Map tool.
 
 ## Settings
-You can change tile detail in "Settings > Map > High detail mode" if the tiles appear blurry. This will use more memory and be slower to load.
+You can change tile detail in 'Settings > Map > High detail mode' if the tiles appear blurry. This will use more memory and be slower to load.

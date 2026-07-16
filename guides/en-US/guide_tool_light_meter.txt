@@ -9,7 +9,7 @@ To measure a flashlight's beam distance:
 4. Holding the flashlight at the set distance, point it at the phone screen and turn it on.
 5. Move the flashlight around while maintaining the set distance and keeping it pointed at your phone.
 6. Once the reading stops changing, the beam distance has been determined.
-7. You can click 'Reset' to test another flashlight.
+7. You can tap 'Reset' to test another flashlight.
 
 ## Choosing an appropriate beam distance
 The beam distance you need depends on how you will use the flashlight:

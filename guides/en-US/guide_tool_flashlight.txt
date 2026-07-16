@@ -16,7 +16,7 @@ Drag the dial to the SOS indicator to continuously play the SOS distress signal 
 ## Screen
 You can use your screen as a flashlight, which may be better for close-up work. Tap the screen button to start. From there, you can adjust the brightness using the slider at the bottom, and toggle the color between red (preserves night vision) and white (brighter) using the button at the top.
 
-Press back or tap the 'Turn off' button to turn off the screen flashlight. Your settings will be saved for next time.
+Press the back button or tap the 'Turn off' button to turn off the screen flashlight. Your settings will be saved for next time.
 
 You can choose to control the brightness of the screen flashlight by enabling 'Settings > Flashlight > Control screen flashlight brightness with volume buttons'.
 

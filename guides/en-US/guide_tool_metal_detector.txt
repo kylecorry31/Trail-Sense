@@ -4,7 +4,7 @@ The Metal Detector tool allows you to detect magnetic metals like iron. It's use
 Calibrating the metal detector improves the accuracy of readings. To calibrate:
 
 1. Hold your phone 2-3 inches (5-8 cm) above the ground with the screen facing up.
-2. Press 'Calibrate'.
+2. Tap 'Calibrate'.
 3. Recalibrate occasionally for accuracy.
 
 The detector automatically calibrates when started.
