@@ -25,24 +25,28 @@ object SystemSettings {
         )?.split(',') ?: emptyList()
     }
 
-    fun isWifiEnabled(context: Context): Boolean {
+    fun isWifiEnabled(context: Context): Boolean? {
         if (!getBooleanSystemSetting(context, Settings.Global.WIFI_ON)) {
             return false
         }
         if (!isAirplaneModeEnabled(context)) {
             return true
         }
-        return !getAirplaneModeRadios(context).contains(Settings.Global.RADIO_WIFI)
+        // Airplane mode is on but Wi-Fi was re-enabled; the raw setting may be
+        // stale and cannot be trusted without ACCESS_WIFI_STATE permission.
+        return null
     }
 
-    fun isBluetoothEnabled(context: Context): Boolean {
+    fun isBluetoothEnabled(context: Context): Boolean? {
         if (!getBooleanSystemSetting(context, Settings.Global.BLUETOOTH_ON)) {
             return false
         }
         if (!isAirplaneModeEnabled(context)) {
             return true
         }
-        return !getAirplaneModeRadios(context).contains(Settings.Global.RADIO_BLUETOOTH)
+        // Airplane mode is on but Bluetooth was re-enabled; the raw setting may be
+        // stale and cannot be trusted without BLUETOOTH_CONNECT permission.
+        return null
     }
 
     fun isNfcEnabled(context: Context): Boolean {

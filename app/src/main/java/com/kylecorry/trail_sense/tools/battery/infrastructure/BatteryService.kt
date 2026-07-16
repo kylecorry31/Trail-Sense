@@ -51,10 +51,11 @@ class BatteryService {
         return powerService.getTimeUntilFull(capacity, maxCapacity, lastChargeRate)
     }
 
+    @Suppress("LongMethod")
     fun getSystemBatteryTips(context: Context): List<SystemBatteryTip> {
         val isAirplaneOn = tryOrDefault(false) { SystemSettings.isAirplaneModeEnabled(context) }
-        val isWifiOn = tryOrDefault(true) { SystemSettings.isWifiEnabled(context) }
-        val isBluetoothOn = tryOrDefault(true) { SystemSettings.isBluetoothEnabled(context) }
+        val isWifiOn = tryOrDefault(null) { SystemSettings.isWifiEnabled(context) }
+        val isBluetoothOn = tryOrDefault(null) { SystemSettings.isBluetoothEnabled(context) }
         val isNfcOn = tryOrDefault(true) { SystemSettings.isNfcEnabled(context) }
         val isPowerSaverOn = tryOrDefault(false) { SystemSettings.isPowerSaverEnabled(context) }
         val isLocationOn = tryOrDefault(true) { SystemSettings.isLocationEnabled(context) }
@@ -73,8 +74,16 @@ class BatteryService {
             ),
             SystemBatteryTip(
                 context.getString(R.string.wifi),
-                if (!isWifiOn) context.getString(R.string.off) else context.getString(R.string.battery_tip_wifi),
-                if (isWifiOn) BatteryUsage.High else BatteryUsage.Low,
+                when (isWifiOn) {
+                    true -> context.getString(R.string.battery_tip_wifi)
+                    false -> context.getString(R.string.off)
+                    null -> context.getString(R.string.unknown)
+                },
+                when (isWifiOn) {
+                    true -> BatteryUsage.High
+                    false -> BatteryUsage.Low
+                    null -> BatteryUsage.Unknown
+                },
                 getSystemAction(
                     context, if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         Settings.Panel.ACTION_WIFI
@@ -85,8 +94,16 @@ class BatteryService {
             ),
             SystemBatteryTip(
                 context.getString(R.string.bluetooth),
-                if (!isBluetoothOn) context.getString(R.string.off) else context.getString(R.string.battery_tip_bluetooth),
-                if (isBluetoothOn) BatteryUsage.High else BatteryUsage.Low,
+                when (isBluetoothOn) {
+                    true -> context.getString(R.string.battery_tip_bluetooth)
+                    false -> context.getString(R.string.off)
+                    null -> context.getString(R.string.unknown)
+                },
+                when (isBluetoothOn) {
+                    true -> BatteryUsage.High
+                    false -> BatteryUsage.Low
+                    null -> BatteryUsage.Unknown
+                },
                 getSystemAction(context, Settings.ACTION_BLUETOOTH_SETTINGS)
             ),
             SystemBatteryTip(
