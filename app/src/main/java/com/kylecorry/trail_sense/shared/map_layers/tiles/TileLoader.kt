@@ -153,6 +153,7 @@ class TileLoader(
         tileCache.peek(tile)?.withImage { bitmap ->
             bitmap ?: return@withImage
             tryOrNothing {
+                // NOTE: This modifies the bitmap in place under a read lock, but if we use the write lock then the UI will block until the bitmap is loaded, which is worse
                 fillNeighborPixels(tile, bitmap)
             }
         }
