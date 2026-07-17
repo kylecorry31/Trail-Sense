@@ -923,11 +923,11 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 <!-- K: poison, ivy, oak, sumac, trumpet, rengas, stinging, nettle, rash, itch, blister, red, swell, dermatitis, contact -->
 <!-- S: Symptoms include a rash, itching, and blisters. Treat by washing the area with soap and water, applying calamine lotion, and taking antihistamines. Prevent by learning to identify and avoid poisonous plants. -->
 
-Contact dermatitis is caused by contact with poisonous plants, such as poison ivy/poison oak, poison sumac, stinging nettle, and many other plants around the world (always check what is dangerous in your area).
+Contact dermatitis can be caused by contact with poisonous plants, such as poison ivy/poison oak, poison sumac, stinging nettle, and many other plants around the world (always check what is dangerous in your area).
 
 ![](file:///android_asset/survival_guide/dangerous_plants.webp)
 
-1. **Poison ivy**: A toxic plant with three glossy, pointed leaflets, commonly found in forests, fields, and along trails. Contact with its oil causes itchy rashes and skin irritation.
+1. **Poison ivy**: A toxic plant with three usually glossy, pointed leaflets, commonly found in forests, fields, and along trails. Contact with its oil causes itchy rashes and skin irritation.
 2. **Stinging nettle**: A plant with serrated leaves and tiny stinging hairs, commonly found in moist, shaded areas. Contact causes a painful, itchy rash.
 
 ### Symptoms
@@ -936,18 +936,18 @@ Contact dermatitis is caused by contact with poisonous plants, such as poison iv
 - Blisters
 
 ### Treatment
-1. Try to remove oil from the plant using soap and water with vigorous scrubbing (imagine trying to remove oil from your skin). Sand or dirt can be used as a substitute, unless there are blisters.
+1. Wash using soap and water, rubbing alcohol, or poison ivy/oak/sumac wash. Then rinse with water.
 2. Dry the area.
 3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If unavailable, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
 4. Optionally, take antihistamine pills to reduce itching.
 
-If you touched stinging nettle, apply mud to the area and remove it when it dries. You can also use tape to pull the small needles out.
+If you touched stinging nettle, wash the area with soap and water or with a clean cloth. You can use tape to remove any remaining fibers.
 
-Some plants, such as wild parsnip or giant hogweed, have compounds that react to sunlight and can cause a sunburn-like rash. Wash as you would with poison ivy and wear protective clothing to hide the area from sunlight.
+Some plants, such as wild parsnip or giant hogweed, have compounds that react to sunlight and can cause a sunburn-like rash. Wash with soap and water and wear protective clothing to hide the area from sunlight.
 
 Avoid scratching the rash, as it can cause infection. Leave blisters alone.
 
-Seek medical attention if needed, especially if you got sap in your eyes or if blisters appear.
+Seek medical attention if needed, especially if the rash is severe, widespread, or on the face or genitals.
 
 ### Prevention
 Learn to identify and avoid contact with the following plants:

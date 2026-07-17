@@ -26,3 +26,5 @@ This chapter lists the resources which were referenced in the creation of this s
 - [Merck Manual](https://www.merckmanuals.com/professional)
 - [Healthline](https://www.healthline.com/)
 - [World Health Organization (WHO)](https://www.who.int/)
+- [Healthdirect](https://www.healthdirect.gov.au/)
+- [American Academy of Dermatology](https://www.aad.org/)
