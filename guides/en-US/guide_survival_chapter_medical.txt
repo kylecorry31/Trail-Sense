@@ -192,7 +192,7 @@ If a mammal bit you, seek medical attention as soon as possible; you may need ra
   - Use bear or pepper spray if available.
   - Fight back if attacked, except for grizzly bears.
     - Aim for eyes, nose, or throat with rocks, sticks, or hands.
-    - If a **grizzly bear** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking-then fight back.
+    - If a **grizzly bear** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking - then fight back.
   - Keep your backpack on; it can offer protection.
   - Protect your vital areas (neck, head, and chest).
 
@@ -373,7 +373,7 @@ If the bleeding is life-threatening and you are unable to control it with direct
 
 ## Blisters
 <!-- K: blister, rub, shoe, sock, moleskin, red, sore -->
-<!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Preventing this by keeping feet dry and wearing properly fitting shoes. -->
+<!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Prevent this by keeping feet dry and wearing properly fitting shoes. -->
 
 Blisters are fluid-filled raised areas of skin that can be painful. They are usually caused by continuous friction or pressure on the skin.
 
@@ -551,7 +551,7 @@ In some cases, you may be able to use a pair of pliers instead of the fishing li
 <!-- K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, set, arm, leg -->
 <!-- S: Treat by splinting and seeking medical attention. Prevent this by being cautious and wearing proper footwear. -->
 
-A fracture is a broken bone. A fracture can be closed (bone is broken, but skin is intact) or open (bone is broken and protruding from the skin).
+A fracture is a broken bone. A fracture can be closed (the bone is broken, but the skin is intact) or open (the bone is broken and protruding from the skin).
 
 ### Symptoms
 - Pain
@@ -1057,7 +1057,7 @@ Sprains are injuries to a ligament, while strains are injuries to a muscle or te
 ### Treatment
 1. Rest the injured area.
 2. Ice the area for 15 to 20 minutes at a time every 2 to 3 hours for the first few days. You can improvise using a cloth soaked in cold water or filled with snow/ice. Do not apply snow or ice directly to the skin.
-3. Compress the area with a bandage and if needed, splint to help stabilize it.
+3. Compress the area with a bandage and, if needed, splint to help stabilize it.
 4. Elevate the area.
 
 ### Prevention
