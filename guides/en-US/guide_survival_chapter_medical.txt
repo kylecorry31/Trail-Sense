@@ -159,7 +159,7 @@ Altitude sickness is caused by low oxygen levels at high altitudes.
 ## Bites, stings, and attacks
 
 ### Animals
-<!-- K: bite, attack, animal, mammal, bell, fight, pepper-spray, bear -->
+<!-- K: bite, attack, animal, mammal, bell, fight, pepper, spray, bear -->
 <!-- S: Treat by washing the wound with soap and water, applying antibiotics, bandaging, and seeking medical attention. Prevent this by avoiding wild animals and making noise to alert them of your presence. -->
 
 Many animals bite when threatened, and some can transmit diseases.
@@ -168,28 +168,32 @@ Many animals bite when threatened, and some can transmit diseases.
 
 1. Wash the wound with soap and water.
 2. Apply antibiotic ointment.
-3. Cover the wound with a bandage. Pack deep wounds with gauze but do not suture or tape them closed.
-4. Seek medical attention if the wound is deep, bleeding, or shows signs of infection.
+3. Cover the wound with a bandage.
+4. Seek medical attention.
 
-If a mammal bit you, seek medical attention as soon as possible; you may need rabies shots.
+For severe bleeding, see the 'Bleeding' section.
 
 #### Prevention
 
 - Do not approach, corner, or feed wild animals.
-- Use a bear bell or make noise to alert animals of your presence.
 - Avoid animals with young nearby.
-- If approached by an animal:
+
+The following is specific to bears but may also apply to other large animals:
+
+- Make noise to alert animals to your presence.
+- If approached:
   - Don't run, as this may trigger a chase.
   - Make yourself look big.
   - Make noise (not high-pitched screaming).
-  - Pick up children and pets.
-  - Back away slowly or move sideways.
-  - Use bear or pepper spray if available.
+  - Pick up small children and pets.
+  - Back away slowly.
+  - Use bear spray if available.
   - Fight back if attacked, except for grizzly bears.
-    - Aim for eyes, nose, or throat with rocks, sticks, or hands.
+    - Aim for the face and muzzle with rocks, sticks, or hands.
     - If a **grizzly bear** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking - then fight back.
   - Keep your backpack on; it can offer protection.
-  - Protect your vital areas (neck, head, and chest).
+  - Protect your vital areas (neck, head, and stomach).
+
 
 ### Leeches
 <!-- K: leech, bite, suck, blood, remove -->
@@ -201,8 +205,6 @@ Leeches attach to your skin and suck your blood. They can be found in freshwater
 
 - Leech attached to the skin
 - Bleeding
-- Swelling
-- Pain
 
 #### Treatment
 
@@ -228,12 +230,15 @@ Do not salt, burn, or pull the leech off, as this can cause it to regurgitate in
 Always check your path for snakes, especially in areas with tall grass, loose rocks, or logs. In hot and arid regions, snakes may hide in shaded areas, under brush or debris, or in holes. In temperate areas, snakes may be in areas exposed to the sun. Most snakes are nonvenomous, but if you don't know the type of snake, treat the bite as venomous.
 
 #### Treatment
-1. Rinse the bite area with water.
+1. Rinse the bite area with soap and water.
 2. Clean the wound and cover with a bandage.
 3. Remove any rings or jewelry from the affected limb.
-4. Wrap the limb with a bandage, starting at the bite and moving up the limb. The bandage should be tight but not cut off circulation. You should be able to slip a finger under the bandage. If you are bitten by a pit viper (like a rattlesnake), do not bandage or apply compression as this can lead to increased tissue damage.
-5. Keep the limb immobilized, as you would a fracture, and below the level of the heart.
-6. Seek medical attention as soon as possible. Call the hospital ahead of time so they can prepare antivenom if needed.
+4. If you are bitten by a North American pit viper (rattlesnake, copperhead, cottonmouth), do not bandage or apply compression.
+5. If you are bitten by another type of snake (coral snake, cobra, or exotic snake), wrap the limb with a bandage, starting at the bite and moving up the limb. The bandage should be tight but not cut off circulation. You should be able to slip a finger under the bandage.
+6. Keep the limb immobilized below heart level.
+7. Seek medical attention as soon as possible. Call the hospital ahead of time so they can prepare antivenom if needed.
+
+Taking a photograph of the snake from a distance can help medical professionals identify the species and determine the appropriate treatment.
 
 Do not do the following:
 - Cut the wound.
@@ -243,9 +248,9 @@ Do not do the following:
 
 #### Prevention
 - Watch where you step.
-- Wear high boots.
+- Wear boots.
 - Do not put your hands or feet somewhere you cannot first see.
-- Do not try to catch or kill snakes unless you know they are not venomous.
+- Do not try to catch or kill snakes.
 
 ### Insects, spiders, and scorpions
 <!-- K: bug, bite, repel, spray, sting, insect, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red, remove -->
@@ -263,15 +268,15 @@ Many insects can bite or sting you, causing pain, swelling, and itching. Some in
 
 **Bites**
 
-To reduce itching, avoid scratching and apply calamine lotion or hydrocortisone cream. To reduce swelling, use a cloth soaked in cold water or filled with snow/ice.
+To reduce itching, apply calamine lotion or hydrocortisone cream. To reduce swelling, briefly use a cloth soaked in cold water.
 
-If you were bitten by a spider you believe to be venomous, treat it as you would a snakebite and seek medical attention.
+If you were bitten by a spider you believe to be venomous, seek medical attention.
 
 **Stings**
 
-Remove any stingers, taking care not to squeeze the venom sac. Treat it as if it were a bug bite.
+Remove any stingers, taking care not to squeeze the venom sac. Treat it as if it were a bug bite. See the 'Allergic reactions' section for information on severe reactions to stings.
 
-If you were stung by a scorpion or insect you believe to be venomous, treat it as a snakebite and seek medical attention.
+If you were stung by a scorpion or insect you believe to be venomous, seek medical attention.
 
 **Bugs in eyes**
 
@@ -302,7 +307,7 @@ Ticks attach to your skin and will feed on your blood. They can transmit disease
 
 #### Treatment
 
-1. Using tweezers or a tick spoon if available, grasp the tick where it is attached to the skin. You may be able to use your fingernails if they are long enough.
+1. Using tweezers or a tick spoon if available, grasp the tick as close to the skin as possible. You may be able to use your fingernails if they are long enough.
 2. Pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body.
 3. Treat the area as you would for a bug bite.
 
@@ -329,8 +334,8 @@ Many jellyfish have small, venomous stinging cells, typically on tentacles. Even
 
 #### Treatment
 
-1. Use the edge of a credit card, tweezers, or stick to remove the stingers.
-2. Rinse the area with seawater (or vinegar if you somehow have it on you). Do not rinse with fresh water, as this can cause the stingers to release more venom.
+1. Use the edge of a credit card or tweezers to remove the stingers. Do not use your fingers to remove the stingers.
+2. Rinse the area with seawater. Do not rinse with fresh water, as this can cause the stingers to release more venom.
 3. Soak the area in hot water for 30 minutes.
 4. Take pain relievers if needed.
 
@@ -834,7 +839,7 @@ Keep clothing clean and dry. Wash clothes with water and soap. To dry clothes, l
 <!-- K: hypothermia, cold, freeze, frozen, shiver, coordination, memory, speech, slur, speak, drowsiness, breath, heartbeat, heat, warm, fire -->
 <!-- S: Symptoms include shivering, coldness, impaired coordination, memory loss, slurred speech, and drowsiness. Treat by getting dry and warming up. Prevent by wearing proper clothing, keeping dry, moving, and keeping warm. -->
 
-Hypothermia is caused when your body loses heat faster than it can produce.
+Hypothermia occurs when your body loses heat faster than it can produce it.
 
 ### Symptoms
 - Shivering. If shivering stops and you have not warmed up, it is a sign of severe hypothermia.
