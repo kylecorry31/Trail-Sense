@@ -839,7 +839,7 @@ Keep clothing clean and dry. Wash clothes with water and soap. To dry clothes, l
 <!-- K: hypothermia, cold, freeze, frozen, shiver, coordination, memory, speech, slur, speak, drowsiness, breath, heartbeat, heat, warm, fire -->
 <!-- S: Symptoms include shivering, coldness, impaired coordination, memory loss, slurred speech, and drowsiness. Treat by getting dry and warming up. Prevent by wearing proper clothing, keeping dry, moving, and keeping warm. -->
 
-Hypothermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce.
+Hypothermia is caused when your body loses heat faster than it can produce.
 
 ### Symptoms
 - Shivering. If shivering stops and you have not warmed up, it is a sign of severe hypothermia.
@@ -853,16 +853,17 @@ Hypothermia is caused by exposure to cold temperatures, causing the body to lose
 ### Treatment
 - Change into dry clothes.
 - Increase layers of dry clothing.
-- Add insulation into clothing (such as dry leaves).
+- Add insulation into clothing (such as dry leaves or grasses).
 - Consume warm liquids.
 - Warm near a fire.
 - Use a sleeping bag or blanket.
 - Use the body heat of another person.
+- Call emergency services if symptoms persist or worsen.
 
 ### Prevention
 - Wear proper clothing.
 - Keep dry.
-- Keep moving.
+- Keep moving, but avoid exertion that causes sweating.
 - Keep warm.
 
 ## Objects in the eye
