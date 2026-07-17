@@ -1,4 +1,4 @@
-<!-- K: references, sources, citations, books, manuals, guidelines -->
+<!-- K: references, sources, citations, books, manuals, guidelines, websites -->
 This chapter lists the resources which were referenced in the creation of this survival guide. These resources provide additional information and may be more up-to-date than the information contained in this guide. They are not affiliated with this guide.
 
 ## Books and manuals
