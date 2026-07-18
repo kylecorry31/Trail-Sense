@@ -42,14 +42,14 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
             if (chapter.searchable) {
                 click("Be prepared")
             } else {
-                hasText("ATP 3-50.21")
+                click("Books and manuals")
             }
 
             back()
         }
 
         // Search
-        input(R.id.search, "Eating fish")
+        input(R.id.search, "Catching fish")
         hasText("fishing gear")
         click("Fish")
 
@@ -65,9 +65,9 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE))
 
-        input(R.id.search, "Eating fish", closeKeyboardOnCompletion = true)
-        hasText("fishing gear")
-        click("Fish")
+        input(R.id.search, "Catching fish", closeKeyboardOnCompletion = true)
+        hasText("Fish are most active")
+        click("Fish > Fishing")
 
         hasText("Food")
 
@@ -76,12 +76,12 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE))
 
-        input(R.id.search, "Eating fish", closeKeyboardOnCompletion = Build.VERSION.SDK_INT == 23)
+        input(R.id.search, "Catching fish", closeKeyboardOnCompletion = Build.VERSION.SDK_INT == 23)
 
         // Continue search on survival guide list
         click(toolbarButton(R.id.title, Side.Right))
 
         isVisible(R.id.list)
-        hasText(R.id.search, "Eating fish")
+        hasText(R.id.search, "Catching fish")
     }
 }
