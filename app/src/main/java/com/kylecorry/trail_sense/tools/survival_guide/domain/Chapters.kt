@@ -47,6 +47,12 @@ object Chapters {
                 R.raw.guide_survival_chapter_weather,
                 R.drawable.cloud
             ),
+            Chapter(
+                context.getString(R.string.references),
+                R.raw.guide_survival_chapter_references,
+                R.drawable.ic_open_book,
+                searchable = false
+            )
         )
     }
 
