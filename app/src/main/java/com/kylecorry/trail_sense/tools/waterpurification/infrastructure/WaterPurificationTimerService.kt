@@ -9,11 +9,14 @@ import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
+import com.kylecorry.trail_sense.shared.permissions.canPlayAlarmInBackground
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
 
@@ -50,27 +53,6 @@ class WaterPurificationTimerService : AndromedaService() {
         timer?.cancel()
         if (!done) {
             Notify.cancel(this, NOTIFICATION_ID)
-        } else {
-            val prefs = DependencyRegistry.get<UserPreferences>()
-            val useAlarm = prefs.waterBoilTimer.useAlarm
-            val notification = Notify.alert(
-                this@WaterPurificationTimerService,
-                CHANNEL_ID,
-                getString(R.string.water_boil_timer_done_title),
-                getString(R.string.water_boil_timer_done_content),
-                R.drawable.ic_tool_boil_done,
-                group = NOTIFICATION_GROUP_WATER,
-                intent = openIntent,
-                mute = useAlarm
-            )
-            DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
-
-            val alarm = AlarmAlerter(
-                this,
-                useAlarm,
-                WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER
-            )
-            alarm.alert()
         }
         stopService(false)
         super.onDestroy()
@@ -94,10 +76,38 @@ class WaterPurificationTimerService : AndromedaService() {
 
             override fun onFinish() {
                 done = true
-                stopService(false)
+                alertTimerComplete()
             }
 
         }.start()
+    }
+
+    private fun alertTimerComplete() {
+        val prefs = DependencyRegistry.get<UserPreferences>()
+        val useAlarm = prefs.waterBoilTimer.useAlarm && Permissions.canPlayAlarmInBackground(
+            this,
+            // This FGS was started by the user, there's no other way to start it so it has while-in-use permission
+            hasWhileInUsePermissionOverride = true
+        )
+        val notification = Notify.alert(
+            this,
+            CHANNEL_ID,
+            getString(R.string.water_boil_timer_done_title),
+            getString(R.string.water_boil_timer_done_content),
+            R.drawable.ic_tool_boil_done,
+            group = NOTIFICATION_GROUP_WATER,
+            intent = openIntent,
+            mute = useAlarm
+        )
+        DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
+
+        val alarm = AlarmAlerter(
+            this,
+            useAlarm,
+            WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,
+            onComplete = { stopService(false) }
+        )
+        alarm.alert()
     }
 
     private fun getNotification(secondsLeft: Int): Notification {
