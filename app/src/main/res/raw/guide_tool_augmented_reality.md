@@ -7,7 +7,7 @@ You can toggle the camera on and off by tapping the camera icon in the top-right
 
 Additionally, while the camera is active, you can adjust the zoom level using two fingers to pinch or the slider at the bottom of the screen.
 
-By default, the camera's exposure compensation will increase at night. You can disable this via "Settings > Augmented Reality > Increase exposure at night". 
+By default, the camera's exposure compensation will increase at night. You can disable this via 'Settings > Augmented Reality > Increase exposure at night'.
 
 ## Reticle
 A circular reticle is displayed in the center of your screen. You can use this to see more details about the marker you are looking at by centering it in the reticle.
@@ -20,14 +20,14 @@ Tap the search icon to open the **Locate** picker. This lets you choose a visibl
 When a target is active, a panel is shown at the bottom of the screen and the reticle turns into a guidance arrow which points toward the target. The target stays active until you cancel it using the 'X' button or select a different one.
 
 ## Beacons
-Nearby beacons are displayed as markers on the screen. The view distance can be adjusted in Settings > Augmented Reality > Beacons > "View distance".
+Nearby beacons are displayed as markers on the screen. The view distance can be adjusted in Settings > Augmented Reality > Beacons > 'View distance'.
 
 You can start guidance to a beacon by tapping the search icon > **Beacons** and selecting a beacon from the list. You can also look at a beacon with the reticle and tap **Navigate** to start guidance/navigation.
 
 ## Paths
-Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may not be perfectly aligned with the real world. The view distance can be adjusted in Settings > Augmented Reality > Paths > "View distance"
+Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may not be perfectly aligned with the real world. The view distance can be adjusted in Settings > Augmented Reality > Paths > 'View distance'
 
-You can choose to adjust paths using their recorded elevation by enabling Settings > Augmented Reality > "Use path elevation". This should make the paths line up better with hills and valleys, but is dependent on the accuracy of the elevation data.
+You can choose to adjust paths using their recorded elevation by enabling Settings > Augmented Reality > 'Use path elevation'. This should make the paths line up better with hills and valleys, but is dependent on the accuracy of the elevation data.
 
 ## Sun / moon
 The paths that the sun and moon will take today are displayed as markers on the screen. The sun's path is displayed in yellow and the moon's path is displayed in white. A larger marker is displayed at the current time, and will also show the moon phase. Times in the past are lighter.
@@ -36,20 +36,20 @@ If you bring the sun or moon into the reticle, you will see more details about t
 
 You can target astronomy objects from the search icon by choosing **Astronomy**. This lets you guide to the sun, moon, meteor showers, planets, and stars. This picker respects your settings for which astronomy objects are visible and will only show some targets at night.
 
-If you tapped the "View in 3D" button on the Astronomy tool, you will be prompted to select an astronomy target.
+If you tapped the 'View in 3D' button on the Astronomy tool, you will be prompted to select an astronomy target.
 
-You can view the sun and moon when they are below the horizon by enabling Settings > Augmented Reality > "Show below horizon".
+You can view the sun and moon when they are below the horizon by enabling Settings > Augmented Reality > 'Show below horizon'.
 
 ## Stars / planets / meteor showers
 Bright stars, planets, constellations, and meteor showers are shown at night. If you bring a star into the reticle, you will see its name and the constellation(s) it belongs to. The star names are either the IAU proper names or the bayer designation. The constellations are from IAU.
 
-You can turn off the stars and planets by disabling Settings > Augmented Reality > "Show stars and planets".
+You can turn off the stars and planets by disabling Settings > Augmented Reality > 'Show stars and planets'.
 
-By default, only the brightest stars and the most visible planets (Venus, Mars, Jupiter, Saturn) are shown. You can enable Settings > Augmented Reality > "Show low brightness stars/planets" to also display dimmer stars and planets.
+By default, only the brightest stars and the most visible planets (Venus, Mars, Jupiter, Saturn) are shown. You can enable Settings > Augmented Reality > 'Show low brightness stars/planets' to also display dimmer stars and planets.
 
-You can turn off the constellations by disabling Settings > Augmented Reality > "Show constellations".
+You can turn off the constellations by disabling Settings > Augmented Reality > 'Show constellations'.
 
-Stars, planets, constellations, and meteor showers below the horizon can also be viewed by enabling Settings > Augmented Reality > "Show below horizon".
+Stars, planets, constellations, and meteor showers below the horizon can also be viewed by enabling Settings > Augmented Reality > 'Show below horizon'.
 
 ## Grid / compass
 A grid is displayed on the screen to help orient you. The grid is aligned with the cardinal directions and is spaced at 30 degrees. The grid line for north is highlighted in orange. The cardinal directions are displayed over the grid.
@@ -67,15 +67,15 @@ If beacon navigation is already active when you open the Augmented Reality tool,
 If you switch from a beacon target to a non-beacon target, beacon navigation is canceled.
 
 ## Calibration
-If the Augmented Reality tool is not aligned with the real world, you can calibrate it by tapping the compass icon in the top-left corner of the screen. This will prompt you to center either the sun or moon in the reticle and click "Calibrate".
+If the Augmented Reality tool is not aligned with the real world, you can calibrate it by tapping the compass icon in the top-left corner of the screen. This will prompt you to center either the sun or moon in the reticle and tap 'Calibrate'.
 
 Always check the accuracy against the sun, moon, or known landmarks before using this tool. Depending on the quality of your phone's sensors, you may need to repeat calibration frequently.
 
-You will not be able to calibration on a moonless night.
+You will not be able to calibrate on a moonless night.
 
-If your device has a gyroscope, calibrating will switch the tool to use the gyroscope for orientation. You can disable this in Settings > Augmented Reality > "Use gyroscope after calibration".
+If your device has a gyroscope, calibrating will switch the tool to use the gyroscope for orientation. You can disable this in Settings > Augmented Reality > 'Use gyroscope after calibration'.
 
-To reset the calibration, long press the compass icon or close and reopen the tool.
+To reset the calibration, long-press the compass icon or close and reopen the tool.
 
 ### Accuracy
 The accuracy of the compass and GPS are shown in the bottom-left of the screen. You can tap the status icons to see more details about the accuracy and for further instructions on calibrating your compass.
@@ -84,7 +84,7 @@ The accuracy of the compass and GPS are shown in the bottom-left of the screen. 
 The Augmented Reality tool respects the compass source in Settings > Sensors > Compass > Source. If your device does not have a gyroscope, the tool will still work but will not be as accurate and may jitter.
 
 ## Layers
-You can toggle the visibility of the beacons, paths, astronomy, and grid layers by clicking the layer icon in the top-left corner of the screen or by changing the "Visible" setting in Settings > Augmented Reality.
+You can toggle the visibility of the beacons, paths, astronomy, and grid layers by tapping the layer icon in the top-left corner of the screen or by changing the 'Visible' setting in Settings > Augmented Reality.
 
 ## Date / time slider
 Tap the clock icon on the right side of the screen to open the date and time slider. You can use this panel to preview a different time of day on a given date. Tap the clock icon again to return to the live time.

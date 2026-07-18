@@ -71,16 +71,26 @@ Starvation occurs when the body does not receive enough nutrients to function co
 
 ## Plants and mushrooms
 <!-- K: plant, mushroom, seaweed, weeds, green, fungus, berries -->
-<!-- S: Only eat plants you can confidently identify as safe, and don't eat mushrooms. Aggregate berries, like raspberries and blackberries, are generally safe. -->
+<!-- S: Only eat plants you can confidently identify as safe, and don't eat mushrooms. Aggregate berries, like raspberries and blackberries, are generally edible. -->
 
 Plants typically contain fewer calories than animals but can be easier to obtain if you can identify them. If you can't identify which plants are safe, just focus on bugs and shellfish. You should also avoid mushrooms unless you are experienced in foraging, since many can make you sick. Familiarize yourself with local plants and mushrooms before your trip.
 
 ### Foraging
 <!-- K: forage, identify, edible, inedible, poison, toxic, sap, safe -->
 
-The safest plants to forage are aggregate berries, such as raspberries and blackberries, since they have a distinctive look and are generally edible. Nuts and seeds are higher in calories than leafy greens, but some nuts, such as acorns, require multiple rounds of boiling to remove bitterness. Also, just because you see an animal eating a plant doesn't mean it is safe for human consumption. Never eat a plant you aren't certain is edible; even if you are certain, only eat a small amount and be on the lookout for side effects.
+**Never eat a plant or mushroom you aren't certain is edible**; even if you are certain, only eat a small amount and monitor for side effects. Also, just because you see an animal eating a plant doesn't mean it is safe for human consumption.
 
-Here's an example of what an aggregate berry looks like (brambles):
+You should learn common edible plants in your area that are both easy to identify and distinguish from lookalikes. Be sure to learn which parts of the plants are edible and how they should be prepared. Some examples of plants that you should learn to identify include:
+- Raspberries, blackberries, and other aggregate berries in the Rubus genus
+- Blueberries
+- Grapes
+- Dandelions
+- Common purslane
+- Wood sorrel
+- Acorns
+- Walnuts
+
+Here's an example of what an aggregate berry in the Rubus genus looks like (brambles):
 
 ![](file:///android_asset/field_guide/brambles.webp)
 
@@ -105,7 +115,7 @@ Here's an example of what an aggregate berry looks like (brambles):
 ### Preparation
 <!-- K: leach, wash, cook, boil, prepare -->
 
-All plants you gather should be washed and cooked. Many can be eaten raw, but if you have the means to cook them, it will be safer to avoid the risk of contamination.
+All edible plants you gather should be washed. If the plants you forage can be eaten raw but you have the means to cook them, it will likely be safer to cook them.
 
 ## Insects
 <!-- K: insect, bug, grub, worm, ant, termite, locust, grasshopper, cricket, dragonfly, bait -->
@@ -142,7 +152,7 @@ Shellfish and crustaceans are good sources of protein and can be found in both f
 
 Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required; they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish trap with bait.
 
-Some shellfish may be poisonous. Be especially cautious of mussels in tropical waters during the summer, any shellfish within three days of a red tide, or shellfish not covered by water during high tide.
+Some shellfish may be poisonous. Be especially cautious of mussels in tropical waters during the summer, any shellfish within three days of a red tide, or shellfish not covered by water during high tide. Check and abide by local warnings regarding the harvesting of shellfish.
 
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
@@ -174,7 +184,7 @@ If you need to craft a hook, go with a gorge hook since it is easy to make and d
 
 If you do not have fishing line, you can make it from plant fibers, inner strands of paracord (using a bend knot to join them together), or other strong cordage.
 
-If you do not have a fishing pole, you can tie the line to both the base and tip of a sturdy stick-try to mimic what an actual fishing pole looks like. You can also wrap the line around a short stick and use it as a hand line. An easier technique may be to tie the line to a tree branch so you can do other things and check it frequently.
+If you do not have a fishing pole, you can tie the line to both the base and tip of a sturdy stick—try to mimic what an actual fishing pole looks like. You can also wrap the line around a short stick and use it as a hand line. An easier technique may be to tie the line to a tree branch so you can do other things and check it frequently.
 
 **Traps**
 
@@ -256,7 +266,7 @@ To prepare a bird for cooking:
 3. For larger birds, cut off the feet and separate the bird into usable pieces along the joints.
 4. Cook the bird.
 
-If you catch a seabird, skin it instead of plucking the feathers to remove the oil glands. If you catch a scavenger bird like a vulture, boil it for at least 20 minutes to kill parasites.
+If you catch a seabird, skin it instead of plucking the feathers to remove the oil glands. Avoid scavenger birds.
 
 ### Reptiles and amphibians
 <!-- K: reptile, amphibian, frog, snake, turtle, lizard, skin, prepare, cook, clean, boil, bake, roast -->

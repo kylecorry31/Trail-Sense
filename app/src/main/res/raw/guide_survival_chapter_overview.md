@@ -94,16 +94,7 @@ Start by learning how to do the following:
 See each chapter for additional knowledge and skills recommendations.
 
 ### Additional reading
-This guide only covers a small portion of the vast knowledge of survival and bushcraft. If you want to learn about more skills, then I recommend the following books (not affiliated):
-
-- *Bushcraft 101* by Dave Canterbury
-- *SAS Survival Handbook* by John 'Lofty' Wiseman
-- *Tom Brown's Field Guide to Wilderness Survival* by Tom Brown Jr., with Brandt Morgan
-- *Wilderness & Travel Medicine* by Eric A. Weiss, MD
-- *ATP 3-50.21 SURVIVAL* by the U.S. Department of the Army
-- American Red Cross website
-- Wilderness Medical Society website
-- American Heart Association website
+This guide only covers a small portion of the vast knowledge of survival and bushcraft. If you want to learn about more skills, then I recommend the materials in the References chapter.
 
 ## What to do in a survival situation
 <!-- K: think, observe, act -->

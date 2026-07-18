@@ -1,8 +1,8 @@
 The Astronomy tool can be used to see when the sun or moon is up. It can also be used to know when astronomical events are happening, such as a meteor shower or lunar eclipse.
 
-With the exception of the time until sunrise or sunset (always today), all information shown on the page is for the selected date. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. On the calendar, you will see the moon phase, meteor showers, and eclipses for each day. Additionally, you can use the arrows to move to the next/previous date or long press the calendar to quickly jump to today's date.
+With the exception of the time until sunrise or sunset (always today), all information shown on the page is for the selected date. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. On the calendar, you will see the moon phase, meteor showers, and eclipses for each day. Additionally, you can use the arrows to move to the next/previous date or long-press the calendar to quickly jump to today's date.
 
-You can also click the search icon to find the next occurrence of an astronomical event at your location, such as the next full moon or meteor shower.
+You can also tap the search icon to find the next occurrence of an astronomical event at your location, such as the next full moon or meteor shower.
 
 ## Time until sunrise/sunset
 
@@ -83,9 +83,9 @@ You can choose to use the alarm audio channel for this alert by enabling Setting
 Alerts can be set for astronomical events to ensure you don't miss them. To set an alert, open Settings > Astronomy and enable the alerts you want to be notified about for your location. You can receive notifications for meteor showers, lunar eclipses, and solar eclipses. The alert will be shown up to 24 hours in advance of the event start time.
 
 ## View in 3D
-If your phone has a compass, you will see a "View in 3D" button. Clicking this will open the Augmented Reality tool with the selected date and allow you to see where the sun and moon will be throughout the day using your camera.
+If your phone has a compass, you will see a 'View in 3D' button. Tapping this will open the Augmented Reality tool with the selected date and allow you to see where the sun and moon will be throughout the day using your camera.
 
-You can choose to disable the camera when clicked by disabling the "Settings > Astronomy > Use camera for 3D viewing" setting.
+You can choose to disable the camera when tapped by disabling the 'Settings > Astronomy > Use camera for 3D viewing' setting.
 
 ## Quick action
 You can enable the Sunset Alert and Sunrise Alert quick action in the settings for the tab where you want it to appear.

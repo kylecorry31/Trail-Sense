@@ -10,7 +10,7 @@ All other tools can be found in the Tools bottom navigation item on the far righ
 ## Tool list
 The tool list can be accessed by tapping the Tools item in the bottom navigation bar. This will show a list of all tools available in Trail Sense.
 
-Clicking on a tool will open it.
+Tapping on a tool will open it.
 
 You can also long-press on a tool to see more options:
 - **About**: Provides more details about what the tool does.
@@ -26,7 +26,7 @@ You can pin tools to the top of the tool list by long-pressing on a tool and sel
 You can also pin/unpin tools in bulk by tapping the edit icon to the right of the pinned tools header.
 
 ## Sorting tools
-You can change the order of the tools by clicking the sort icon to the right of the tools header. This will allow you to sort by:
+You can change the order of the tools by tapping the sort icon to the right of the tools header. This will allow you to sort by:
 - **Name**: Sorts alphabetically by tool name.
 - **Category**: Groups tools by category and sorts alphabetically within each category.
 
@@ -44,9 +44,9 @@ You can enable quick actions at the top of the tool list in 'Settings > Tools > 
 
 The quick actions can also be accessed by long pressing the bottom navigation. In addition to the quick actions you selected, you will also see contextual quick actions for the active tool, such as the user guide or settings.
 
-You can find more information about each quick action by viewing the user guide for its respective tool. All quick actions that begin with 'Tool:' will open the tool when clicked.
+You can find more information about each quick action by viewing the user guide for its respective tool. All quick actions that begin with 'Tool:' will open the tool when tapped.
 
 ## In-app widgets
-In-app widgets can be accessed by long pressing the bottom navigation and changing to the "Widgets" tab. For the most part, these are the same widgets that you can place on your device's homescreen.
+In-app widgets can be accessed by long pressing the bottom navigation and changing to the 'Widgets' tab. For the most part, these are the same widgets that you can place on your device's homescreen.
 
 You can customize which widgets are shown in-app in 'Settings > Tools > In-app widgets'.

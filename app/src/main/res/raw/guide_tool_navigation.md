@@ -54,7 +54,7 @@ The compass shows the direction of the sun and moon, allowing you to navigate us
 
 ### Calibration
 
-Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, click the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
+Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, tap the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
 
 ## Beacon navigation
 
@@ -72,7 +72,7 @@ While navigating to a beacon, the direction will be displayed on the compass and
 
 You can stop navigating to a beacon by tapping the 'X' button.
 
-You can open the beacon by clicking the beacon name.
+You can open the beacon by tapping the beacon name.
 
 You can quickly create a beacon from your current location by long-pressing the navigation icon at the bottom-right. This will open the Beacons tool with the location and elevation pre-filled.
 
@@ -82,8 +82,7 @@ For more information on beacons, see the Beacons guide.
 
 You can navigate using a bearing by tapping the compass to set a bearing. The set bearing will be displayed on the compass and in the navigation panel. You can tap the compass again or tap the 'X' button to clear the bearing.
 
-By default, bearings don't change when you move to a different location. If you would like to keep the bearing fixed to your initial location, you can enable 
-Settings > Navigation > Lock bearing to location'. This is similar to creating a beacon at a distance and navigating to it.
+By default, bearings don't change when you move to a different location. If you would like to keep the bearing fixed to your initial location, you can enable Settings > Navigation > 'Lock bearing to location'. This is similar to creating a beacon at a distance and navigating to it.
 
 ## Path navigation
 
@@ -104,7 +103,7 @@ You can long-press the location to quickly bring up the share menu.
 
 ## Elevation
 
-Your elevation is shown at the top-left of the screen. You can tap it to see a history of your elevation. The history is only available if you have Backtrack or the weather monitor running - see the Paths or Weather guide for details on how to turn this on. You can adjust the length of the history by clicking the "Last 24h" dropdown at the top of the history panel.
+Your elevation is shown at the top-left of the screen. You can tap it to see a history of your elevation. The history is only available if you have Backtrack or the weather monitor running - see the Paths or Weather guide for details on how to turn this on. You can adjust the length of the history by tapping the 'Last 24h' dropdown at the top of the history panel.
 
 ## Speed
 

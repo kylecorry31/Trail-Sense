@@ -1,22 +1,22 @@
 The Weather tool can be used to roughly predict the weather.
 
 ## Weather prediction
-The weather prediction appears at the top of your screen. This does not use the Internet and factors in pressure history, historical (30-year average) temperatures, and the clouds from the Clouds tool. It also attempts to estimate when the weather change will occur, displayed beneath the prediction. The accuracy of the time frame depends on if the clouds indicate a weather front; if it's detected, an approximate time will be displayed, otherwise, it's more vague, like "soon" or "later."
+The weather prediction appears at the top of your screen. This does not use the Internet and factors in pressure history, historical (30-year average) temperatures, and the clouds from the Clouds tool. It also attempts to estimate when the weather change will occur, displayed beneath the prediction. The accuracy of the time frame depends on whether the clouds indicate a weather front; if one is detected, an approximate time will be displayed; otherwise, it's more vague, like "soon" or "later."
 
 If the weather monitor is on, it records pressure history automatically. Otherwise, pressure updates only occur when you open the Weather tool. For accuracy, it's best to record pressure every 30 minutes.
 
 You can adjust prediction sensitivity in Settings > Weather > Forecast sensitivity. Higher sensitivity may detect more patterns but might yield more false predictions.
 
 ## Weather monitor
-The weather monitor runs in the background to record pressure history. Enable it by clicking the start icon at the bottom-right. This causes a notification to appear with the current prediction and an option to stop the weather monitor. You can also stop it by clicking the stop icon in the bottom-right.
+The weather monitor runs in the background to record pressure history. Enable it by tapping the start icon at the bottom-right. This causes a notification to appear with the current prediction and an option to stop the weather monitor. You can also stop it by tapping the stop icon in the bottom-right.
 
-To change the recording frequency, click the time under the weather monitor label at the bottom left and enter a new interval.
+To change the recording frequency, tap the time under the weather monitor label at the bottom left and enter a new interval.
 
 For better accuracy, grant Trail Sense Location permission to determine your elevation via GPS. This helps convert pressure to sea level pressure, improving prediction accuracy.
 
 In Settings > Weather, you can customize the notification to show:
 - **Pressure**: Displays the current pressure.
-- **Temperature**:  Displays the current temperature (refer to Thermometer guide for details).
+- **Temperature**: Displays the current temperature (refer to the Thermometer guide for details).
 
 You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the weather monitor being active, you won't receive these notifications. The timing of this notification is configurable in Settings > Weather > Daily weather time.
 
@@ -36,21 +36,21 @@ The Weather tool displays alerts when a storm is detected or historical temperat
 ### Pressure
 A pressure history chart is displayed at the top of the screen. Falling pressure may indicate an incoming storm, rising pressure suggests clearing weather, and steady pressure indicates no significant changes. The current pressure and its tendency (change over time) are listed below the chart.
 
-The current pressure system is also displayed. Low pressure often means poor weather, while high pressure indicates fair conditions. Clicking on it provides a description of the pressure system.
+The current pressure system is also displayed. Low pressure often means poor weather, while high pressure indicates fair conditions. Tapping on it provides a description of the pressure system.
 
-You can change the history duration in Settings > Weather > "Pressure history".
+You can change the history duration in Settings > Weather > 'Pressure history'.
 
 ### Temperature
-The current temperature, sourced from historical data or the onboard thermometer, is shown in the weather list. Daily high/low temperatures are also provided using historical data. Clicking on the current temperature reveals a temperature history chart, while clicking on high/low temperatures displays a 24-hour temperature prediction chart based on historical temperatures.
+The current temperature, sourced from historical data or the onboard thermometer, is shown in the weather list. Daily high/low temperatures are also provided using historical data. Tapping on the current temperature reveals a temperature history chart, while tapping on high/low temperatures displays a 24-hour temperature prediction chart based on historical temperatures.
 
 ### Humidity
-If your device has a humidity sensor, the current humidity is displayed. Clicking on it reveals a humidity history chart.
+If your device has a humidity sensor, the current humidity is displayed. Tapping on it reveals a humidity history chart.
 
 ### Clouds
-The last logged cloud type appears in the weather list. Clicking on it provides a description of the cloud type.
+The last logged cloud type appears in the weather list. Tapping on it provides a description of the cloud type.
 
 ### Weather front
-The current weather front is displayed in the weather list. Fronts typically indicate weather changes and are often associated with precipitation and wind. Clicking on it provides a description of the weather front.
+The current weather front is displayed in the weather list. Fronts typically indicate weather changes and are often associated with precipitation and wind. Tapping on it provides a description of the weather front.
 
 ## Exporting weather data
 You can export the recorded weather data to a CSV file with Settings > Weather > Export weather readings.

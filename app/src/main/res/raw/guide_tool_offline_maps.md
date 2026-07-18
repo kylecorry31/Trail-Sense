@@ -16,7 +16,7 @@ To import or create a map:
     - **Camera**: Capture a picture of a map, ensuring the entire map is within the frame.
     - **Blank**: Generate a blank photo map based on a specified location and map size. By default, it centers the map on your current location. The size is the distance from the center to the corner. No further calibration is required when using this option.
     - **Group**: Create a group for organizing maps.
-3. Enter a name for the map and click 'OK'.
+3. Enter a name for the map and tap 'OK'.
 
 Once a map is imported, the original file can be deleted if you want to save space. If you turn off Settings > Offline Maps > 'Copy maps to Trail Sense', trail maps will use the original file instead of a copy, so the file must be kept on your device. These maps show an 'External' tag in the map list, and you can copy one into Trail Sense later using the map's menu and selecting 'Copy to Trail Sense'.
 
@@ -27,16 +27,16 @@ Trail Sense supports Mapsforge maps v3, v4, and v5.
 ## Calibrating photo maps
 To calibrate a photo map:
 
-1. Crop the photo to match the map's boundaries. Trail Sense will try to automatically detect the map in the image, but you can drag the crop box's corners to the map edges if needed. You can click 'Reset' to start the crop over and 'Preview' to visualize the cropped map. Changes to the crop cannot be made after clicking 'Next'.
+1. Crop the photo to match the map's boundaries. Trail Sense will try to automatically detect the map in the image, but you can drag the crop box's corners to the map edges if needed. You can tap 'Reset' to start the crop over and 'Preview' to visualize the cropped map. Changes to the crop cannot be made after tapping 'Next'.
 2. Calibrate the map using two known locations:
     - Input the real-world location in the provided field, such as a trail sign, trailhead, or point of interest.
     - Tap on the map to select where the location is.
     - Utilize 'Previous'/'Next' to switch between calibration points.
-    - Once you have two calibration points, click 'Preview' to preview the calibrated map, displaying nearby paths and beacons.
-    - You can recenter the map on your screen by clicking the recenter button in the top-right corner.
+    - Once you have two calibration points, tap 'Preview' to preview the calibrated map, displaying nearby paths and beacons.
+    - You can recenter the map on your screen by tapping the recenter button in the top-right corner.
     - Use pinch-to-zoom or the zoom buttons in the bottom-right to more accurately select locations.
     - Calibration automatically aligns the map with North facing up, with the calculated rotation amount displayed under the map name at the top.
-    - At any point, you can save an incomplete calibration by clicking 'Next' + 'Save draft'.
+    - At any point, you can save an incomplete calibration by tapping 'Next' + 'Save draft'.
 3. Save the completed calibration by tapping 'Finish calibration'.
 
 If Trail Sense reports that calibration is invalid, make sure the two map points are different, the two real-world coordinates are different, and the distance between the selected map points is roughly proportional to their real-world distance.
@@ -63,9 +63,9 @@ If you have Internet access, you can look up the coordinates of a map feature (e
 ## Viewing maps
 Tap a map in the list to open it.
 
-Photo maps open in the map viewer. You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. To recenter the map on your screen, click the recenter button in the top-right. The map's scale is shown in the bottom-right.
+Photo maps open in the map viewer. You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. To recenter the map on your screen, tap the recenter button in the top-right. The map's scale is shown in the bottom-right.
 
-Click the GPS button in the bottom-right to center a photo map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it. The compass icon in the top-right always points North.
+Tap the GPS button in the bottom-right to center a photo map on your location. Tapping it again will lock both your location and orientation, while a final tap unlocks it. The compass icon in the top-right always points North.
 
 Trail maps open in a preview viewer. You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. The preview viewer is limited, so use the Map or Navigation tool with the Trail maps layer for regular use.
 
@@ -76,47 +76,47 @@ By default, Trail Sense loads more tiles for higher quality when viewing a photo
 ## Layers
 Layers are used to display information on the map. For more information on layers, refer to the 'Map Layers' guide.
 
-Photo maps are shown by the "Photo maps" layer. You can't disable this layer when viewing a photo map.
+Photo maps are shown by the 'Photo maps' layer. You can't disable this layer when viewing a photo map.
 
-Trail maps (Mapsforge) are shown by the "Trail maps" layer.
+Trail maps (Mapsforge) are shown by the 'Trail maps' layer.
 
 ## Organizing maps
-You can organize maps into groups. To create a group, click the '+' button in the bottom-right of the map list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map import instructions. The map will be added to the chosen group.
+You can organize maps into groups. To create a group, tap the '+' button in the bottom-right of the map list and select 'Group'. Give the group a name and tap 'OK'. To add maps to the group, tap on the group in the list and follow the map import instructions. The map will be added to the chosen group.
 
-To change the group of an existing map, click the menu button on the map row you want to move, select 'Move to', and choose the target group.
+To change the group of an existing map, tap the menu button on the map row you want to move, select 'Move to', and choose the target group.
 
-To rename a group, click the menu button on the group row you want to rename, then select 'Rename' and provide a new name.
+To rename a group, tap the menu button on the group row you want to rename, then select 'Rename' and provide a new name.
 
-You can delete a group, along with all maps within it, by clicking the menu button on the group row you wish to remove, then selecting 'Delete'.
+You can delete a group, along with all maps within it, by tapping the menu button on the group row you wish to remove, then selecting 'Delete'.
 
 ## Searching and sorting maps
 To search through your maps, use the search bar at the top of the map list. This search includes the current group and all subgroups.
 
-To sort maps by distance, time, or name, click the menu button in the top-right and select 'Sort'.
+To sort maps by distance, time, or name, tap the menu button in the top-right and select 'Sort'.
 
 The preview of a photo map is displayed on the left side of the map row. You can disable this preview in Settings > Offline Maps > 'Show map previews'. Map previews only display for images and PDFs.
 
 Photo maps which display a 'Draft' tag are not shown on the map and must be calibrated before they can be used. Trail maps which display a 'Draft' tag are not shown on the map, likely have a missing or invalid file, and need to be deleted and re-imported to use.
 
 ## Renaming maps
-To rename a map, click the menu button on the map row you want to rename, then select 'Rename' and provide a new name.
+To rename a map, tap the menu button on the map row you want to rename, then select 'Rename' and provide a new name.
 
-You can also rename a photo map by opening the map, clicking the menu button in the top-right, and choosing 'Rename'.
+You can also rename a photo map by opening the map, tapping the menu button in the top-right, and choosing 'Rename'.
 
 ## Map visibility
-You can choose which maps are visible on map layers by clicking the eye icon on the right side of the map row.
+You can choose which maps are visible on map layers by tapping the eye icon on the right side of the map row.
 
-To show or hide all maps in a group, click the menu button on the group row and select 'Show all' or 'Hide all'.
+To show or hide all maps in a group, tap the menu button on the group row and select 'Show all' or 'Hide all'.
 
 ## Deleting maps
-To delete a map, click the menu button on the map row you want to remove, then select 'Delete'.
+To delete a map, tap the menu button on the map row you want to remove, then select 'Delete'.
 
-You can also delete a photo map by opening the map, clicking the menu button in the top-right, and choosing 'Delete'.
+You can also delete a photo map by opening the map, tapping the menu button in the top-right, and choosing 'Delete'.
 
 ## Using beacons on photo maps
 If you've created beacons, they will appear on photo maps.
 
-When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. A line is drawn from your location to the beacon. To cancel navigation, click the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
+When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. A line is drawn from your location to the beacon. To cancel navigation, tap the 'X' button. You can open the beacon by tapping the beacon name in the navigation sheet.
 
 You can initiate navigation from a photo map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
 
@@ -132,46 +132,46 @@ To create a path from a photo map, follow the instructions in the 'Measuring dis
 For further details on paths, refer to the 'Paths' guide.
 
 ## Measuring distance on a photo map
-You can measure distances on a photo map by opening the map, clicking the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, click the undo button in the bottom left. Cancel by clicking the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by clicking the 'Create path' button at the bottom.
+You can measure distances on a photo map by opening the map, tapping the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, tap the undo button in the bottom left. Cancel by tapping the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by tapping the 'Create path' button at the bottom.
 
-For a quick measurement from your location to a point, long-press that point on the photo map and click 'Distance'.
+For a quick measurement from your location to a point, long-press that point on the photo map and tap 'Distance'.
 
 ## Measuring elevation on a photo map
-Long press a location on a photo map to view the elevation from the DEM.
+Long-press a location on a photo map to view the elevation from the DEM.
 
 ## Recalibrating a photo map
-To recalibrate a photo map, open the map, click the menu button in the top-right, and choose 'Calibrate'. Follow the instructions above to recalibrate.
+To recalibrate a photo map, open the map, tap the menu button in the top-right, and choose 'Calibrate'. Follow the instructions above to recalibrate.
 
 ## Changing photo map projection
-If your photo map points are not aligning correctly while calibrating, try calibrating again with different points first. If they still do not align, open the map, click the menu button in the top-right, and select 'Change projection'.
+If your photo map points are not aligning correctly while calibrating, try calibrating again with different points first. If they still do not align, open the map, tap the menu button in the top-right, and select 'Change projection'.
 
 Changing the projection while calibrating will clear any unsaved changes.
 
 ## Exporting a photo map
-To export a photo map, click the menu button on the map row you want to export, then select 'Export'. You can also open the map, click the menu button in the top-right, and choose 'Export'. This action exports the map as a PDF, and if calibrated, it will convert it into a geospatial PDF.
+To export a photo map, tap the menu button on the map row you want to export, then select 'Export'. You can also open the map, tap the menu button in the top-right, and choose 'Export'. This action exports the map as a PDF, and if calibrated, it will convert it into a geospatial PDF.
 
 ## Printing a photo map
-To print a photo map, click the menu button on the map row you want to print, then select 'Print'. You can also open the map, click the menu button in the top-right, and choose 'Print'. This opens the system print dialog, enabling you to print the map.
+To print a photo map, tap the menu button on the map row you want to print, then select 'Print'. You can also open the map, tap the menu button in the top-right, and choose 'Print'. This opens the system print dialog, enabling you to print the map.
 
 ## Tracing a photo map
-To trace a photo map, open it, click the menu button in the top-right, and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
+To trace a photo map, open it, tap the menu button in the top-right, and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
 
 Bottom navigation will be disabled until you turn off trace mode.
 
-When you are finished tracing, click the lock icon in the bottom-right to turn off trace mode.
+When you are finished tracing, tap the lock icon in the bottom-right to turn off trace mode.
 
 ## Changing photo map resolution
-To alter the resolution of a photo map, click the menu button on the map row you want to adjust, then select 'Change resolution'. A dialog will appear, allowing you to switch between low (lowest quality and smallest file size), medium (moderate quality and file size), and high (highest quality and largest file size) resolutions. Keep in mind that changing the resolution is a permanent action and cannot be undone.
+To alter the resolution of a photo map, tap the menu button on the map row you want to adjust, then select 'Change resolution'. A dialog will appear, allowing you to switch between low (lowest quality and smallest file size), medium (moderate quality and file size), and high (highest quality and largest file size) resolutions. Keep in mind that changing the resolution is a permanent action and cannot be undone.
 
 By default, Trail Sense will automatically reduce the map resolution on import. To change this, disable Settings > Offline Maps > 'Reduce photo resolution' or 'Reduce PDF resolution'.
 
 ## Editing trail map attribution
-Some trail map files include attribution. To edit attribution, click the menu button on the map row, select 'Attribution', and provide the attribution text. If attribution is populated, it will be shown on the map when the layer is displayed.
+Some trail map files include attribution. To edit attribution, tap the menu button on the map row, select 'Attribution', and provide the attribution text. If attribution is populated, it will be shown on the map when the layer is displayed.
 
 ## Quick action
 You can enable the Open Photo Map quick action in the settings for the tab where you want it to appear.
 
-To use the quick action, tap the quick action button and the active photo map will be opened and locked to your location. If no photo map is active, the map list will be displayed. Long press the quick action to open the Offline Maps tool.
+To use the quick action, tap the quick action button and the active photo map will be opened and locked to your location. If no photo map is active, the map list will be displayed. Long-press the quick action to open the Offline Maps tool.
 
 ## Video guide
 If you prefer a video guide on using photo maps, here's a video by one of Trail Sense's users: [YouTube: Turn Photos into Navigational Maps with Trail Sense! by DeathfireD](https://www.youtube.com/watch?v=RT4PmBODdzw)

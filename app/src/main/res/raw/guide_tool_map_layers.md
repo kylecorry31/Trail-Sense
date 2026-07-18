@@ -1,19 +1,19 @@
-Layers are used to display information on the map, they are configurable on the Navigation, Offline Maps, and Map tool. See the respective tool guides for how to access the layer settings.
+Layers are used to display information on the map; they are configurable on the Navigation, Offline Maps, and Map tool. See the respective tool guides for how to access the layer settings.
 
 Some layers are time dependent (marked below). When viewing these layers in the Map tool, you can change the map time to see them at different times. In other tools, they always display the current time.
 
-On the layer settings panel, the higher up a layer is in the list, the more "on top" it will be drawn on the map. You can use the arrows on the left side to adjust the order of the layers.
+On the layer settings panel, the higher up a layer is in the list, the more 'on top' it will be drawn on the map. You can use the arrows on the left side to adjust the order of the layers.
 
-Click on the layer's name to expand its settings.
+Tap the layer's name to expand its settings.
 
-You can use the "Additional layers" button at the bottom of the layers list to add additional layers. Connected plugins may also provide additional map layers. Plugins are experimental and must be enabled in Settings > Experimental > Plugins, then connected from Settings > Plugins.
+You can use the 'Additional layers' button at the bottom of the layers list to add additional layers. Connected plugins may also provide additional map layers. Plugins are experimental and must be enabled in Settings > Experimental > Plugins, then connected from Settings > Plugins.
 
 Each layer has the following settings:
 
 - **Visible**: Determines if the layer is shown on the map. When it is not visible, the layer header will be grayed out.
 - **Opacity**: Determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
-- **Copy settings to other maps**: Copy the layer settings to other maps. Clicking this will open a dialog where you can choose which maps to copy the settings to.
-- **Remove layer**: Remove this layer from the active layer list. You can re-add it via the "Additional layers" button.
+- **Copy settings to other maps**: Copy the layer settings to other maps. Tapping this will open a dialog where you can choose which maps to copy the settings to.
+- **Remove layer**: Remove this layer from the active layer list. You can re-add it via the 'Additional layers' button.
 
 ## Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
@@ -122,7 +122,7 @@ Settings:
 - **Smooth**: If enabled, the darkness will be smoothed so you can better see gradual changes between day and night.
 
 ## Cell towers
-This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can click on a cell tower to navigate to it.
+This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can tap on a cell tower to navigate to it.
 
 ## Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
@@ -132,7 +132,7 @@ Settings:
 - **Background color**: The background color to render behind paths for increased visibility.
 
 ## Beacons
-This layer shows visible beacons. You can add new beacons in the Beacons tool. You can click on a beacon to navigate to it.
+This layer shows visible beacons. You can add new beacons in the Beacons tool. You can tap on a beacon to navigate to it.
 
 ## Navigation
 This layer draws a line between your location and the destination point you are navigating to.
@@ -146,7 +146,7 @@ Settings:
 - **Show tide phase**: If enabled, tides will display the current phase direction instead of the high/low tide icon.
 
 ## Sightings
-This layer shows your field guide sightings with location data. The icon displayed represents the classification of the field guide entry (plant, bird, mammal, etc.). You can click on a sighting to navigate to it.
+This layer shows your field guide sightings with location data. The icon displayed represents the classification of the field guide entry (plant, bird, mammal, etc.). You can tap on a sighting to navigate to it.
 
 Settings:
 

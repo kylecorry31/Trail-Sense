@@ -8,13 +8,13 @@ A survival guide application. This app will teach you how to use resources aroun
 
 ## Organic maps
 
-An offline maps application. Prior to going on a hike, download the maps you need. From Trail Sense, you can also open a beacon with this app by selecting the "Maps" option on the beacon select screen.
+An offline maps application. Prior to going on a hike, download the maps you need. From Trail Sense, you can also open a beacon with this app by selecting the 'Maps' option on the beacon select screen.
 
 [Download](market://details?id=app.organicmaps)
 
 ## OsmAnd~
 
-An offline maps application. Prior to going on a hike, download the maps you need. From Trail Sense, you can also open a beacon with this app by selecting the "Maps" option on the beacon select screen. This app is free via F-Droid.
+An offline maps application. Prior to going on a hike, download the maps you need. From Trail Sense, you can also open a beacon with this app by selecting the 'Maps' option on the beacon select screen. This app is free via F-Droid.
 
 [Download](market://details?id=net.osmand.plus)
 
@@ -52,7 +52,7 @@ This app can help you identify nearby birds using the sound of their calls.
 
 ## FlashDim
 
-This app can be used for fine tuned control over your phone's flashlight. You can also use it to send custom morse code messages.
+This app can be used for fine-tuned control over your phone's flashlight. You can also use it to send custom Morse code messages.
 
 [Download](market://details?id=com.cyb3rko.flashdim)
 
@@ -76,7 +76,7 @@ This app allows for offline encrypted communication using bluetooth or WiFi dire
 
 ## SaverTuner
 
-This app allows you to customize the battery saver mode on your device. It requires running a command from your computer the first time it is used so it can modify system settings. Not available on the Play Store (only F-Droid and Codeberg)
+This app allows you to customize the battery saver mode on your device. It requires running a command from your computer the first time it is used so it can modify system settings. Not available on the Play Store (only F-Droid and Codeberg).
 
 [Download](market://details?id=s1m.savertuner)
 
