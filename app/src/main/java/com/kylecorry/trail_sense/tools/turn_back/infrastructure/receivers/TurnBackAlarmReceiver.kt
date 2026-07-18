@@ -9,12 +9,14 @@ import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
+import com.kylecorry.trail_sense.shared.permissions.canPlayAlarmInBackground
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
 import com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackFragment
@@ -41,7 +43,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             R.drawable.ic_undo,
             group = NOTIFIATION_GROUP,
             autoCancel = true,
-            mute = useAlarm
+            mute = useAlarm && Permissions.canPlayAlarmInBackground(context)
         )
         DependencyRegistry.get<NotificationSubsystem>().send(
             TURN_BACK_NOTIFICATION_ID,

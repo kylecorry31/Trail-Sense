@@ -51,7 +51,9 @@ class DistanceAlerter(private val context: Context) : IAlerter {
         val alarm = AlarmAlerter(
             context,
             useAlarm,
-            PedometerToolRegistration.NOTIFICATION_CHANNEL_DISTANCE_ALERT
+            PedometerToolRegistration.NOTIFICATION_CHANNEL_DISTANCE_ALERT,
+            // This is always called from a foreground service
+            isInForeground = true
         )
         alarm.alert()
     }

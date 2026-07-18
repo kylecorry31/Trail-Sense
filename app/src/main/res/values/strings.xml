@@ -1797,6 +1797,7 @@
     <string name="use_alarm_for_sunset_alert">Use alarm for sunset alert</string>
     <string name="use_alarm_for_sunrise_alert">Use alarm for sunrise alert</string>
     <string name="alarm_description">Plays a sound even if media and notifications are muted</string>
+    <string name="alarm_notification_title">Alarm in progress</string>
     <string name="mute_alarm_at_night">Mute alarm at night</string>
     <!--Start to end time (ex. 8AM to 8PM)-->
     <string name="alarm_time_range">Only plays from %1$s to %2$s</string>

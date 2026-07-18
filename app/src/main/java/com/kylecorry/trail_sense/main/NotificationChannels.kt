@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.main
 
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.alerts.AlarmService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object NotificationChannels {
@@ -11,6 +13,16 @@ object NotificationChannels {
     private const val CHANNEL_BACKGROUND_LAUNCHER = "background_launcher"
 
     fun createChannels(context: Context) {
+        Notify.createChannel(
+            context,
+            AlarmService.NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.permission_alarms_and_reminders),
+            context.getString(R.string.alarm_description),
+            Notify.CHANNEL_IMPORTANCE_LOW,
+            muteSound = true,
+            showBadge = false
+        )
+
         val tools = Tools.getTools(context)
         val channels = tools.flatMap { it.notificationChannels }
 

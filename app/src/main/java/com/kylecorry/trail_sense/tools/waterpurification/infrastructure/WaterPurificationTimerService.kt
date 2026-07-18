@@ -68,7 +68,9 @@ class WaterPurificationTimerService : AndromedaService() {
             val alarm = AlarmAlerter(
                 this,
                 useAlarm,
-                WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER
+                WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,
+                // This is always called from a foreground service
+                isInForeground = true
             )
             alarm.alert()
         }

@@ -5,6 +5,7 @@ import android.util.Log
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -14,6 +15,7 @@ import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
+import com.kylecorry.trail_sense.shared.permissions.canPlayAlarmInBackground
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -119,7 +121,7 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
             R.drawable.ic_sunrise_notification,
             intent = openIntent,
             autoCancel = true,
-            mute = useAlarm
+            mute = useAlarm && Permissions.canPlayAlarmInBackground(context)
         )
 
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)

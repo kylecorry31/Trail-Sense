@@ -136,6 +136,13 @@ fun Permissions.canGetLocationCustom(context: Context): Boolean {
     return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = true)
 }
 
+fun Permissions.canPlayAlarmInBackground(context: Context): Boolean {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
+        return true
+    }
+    return hasPermission(context, SpecialPermission.SCHEDULE_EXACT_ALARMS)
+}
+
 /**
  * Request location permission when absolutely required to start a foreground service (Android 14+)
  */
