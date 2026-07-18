@@ -1638,4 +1638,5 @@
     <string name="active_time">Temps d\'activité</string>
     <string name="active_duration">Actif : %s</string>
     <string name="elapsed_time">Temps écoulé</string>
+    <string name="references">Références</string>
 </resources>
