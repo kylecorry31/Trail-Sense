@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -11,6 +12,7 @@ import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
+import com.kylecorry.trail_sense.shared.permissions.canPlayAlarmInBackground
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 
@@ -25,7 +27,7 @@ class DistanceAlerter(private val context: Context) : IAlerter {
         val distance =
             prefs.pedometer.alertDistance?.convertTo(prefs.baseDistanceUnits)?.toRelativeDistance()
 
-        val useAlarm = prefs.pedometer.useAlarmForDistanceAlert
+        val useAlarm = prefs.pedometer.useAlarmForDistanceAlert && Permissions.canPlayAlarmInBackground(context)
         val notification = Notify.alert(
             context,
             NOTIFICATION_CHANNEL_ID,

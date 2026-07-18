@@ -4,9 +4,9 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.SystemSoundPlayer
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import java.time.Duration
@@ -14,7 +14,8 @@ import java.time.Duration
 class AlarmAlerter(
     private val context: Context,
     private val isEnabled: Boolean,
-    private val notificationChannel: String
+    private val notificationChannel: String,
+    private val onComplete: () -> Unit = {}
 ) :
     IAlerter {
 
@@ -34,6 +35,7 @@ class AlarmAlerter(
 
         val timer = CoroutineTimer {
             player.stop()
+            onComplete()
         }
 
         val end = if (duration == -1) {
