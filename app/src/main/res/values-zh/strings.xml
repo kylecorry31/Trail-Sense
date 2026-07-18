@@ -1613,4 +1613,5 @@
     <string name="active_time">活跃时间</string>
     <string name="active_duration">已活跃：%s</string>
     <string name="elapsed_time">流逝时间</string>
+    <string name="references">参照</string>
 </resources>
