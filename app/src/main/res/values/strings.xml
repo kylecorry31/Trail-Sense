@@ -1170,6 +1170,7 @@
     <string name="history">History</string>
     <string name="no_pedometer_sessions">No sessions</string>
     <string name="permission_alarms_and_reminders">Alarms and reminders</string>
+    <string name="alarm">Alarm</string>
     <string name="change_resolution">Change resolution</string>
     <string name="done">Done</string>
     <string name="save_draft">Save draft</string>
@@ -1536,6 +1537,7 @@
     <!--    First %s is the time to turn back (10:24), the second is the countdown to turn back (1h 10m), the third is the time of return (14:24)-->
     <string name="turn_back_instructions">Turn around by %1$s (%2$s) to return at %3$s</string>
     <string name="turn_back_alerts">Turn back alerts</string>
+    <string name="turn_back_alarm_channel">Turn back (Alarm)</string>
     <string name="turn_back_notification_title">It\'s time to turn back</string>
     <!--    The %s is the return time (14:24)-->
     <string name="turn_back_notification_description">Turn back now to return at %s</string>

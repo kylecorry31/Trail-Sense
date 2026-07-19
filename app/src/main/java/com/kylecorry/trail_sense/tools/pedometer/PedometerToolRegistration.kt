@@ -76,6 +76,17 @@ object PedometerToolRegistration : ToolRegistration {
                     context.getString(R.string.distance_alert),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     false
+                ),
+                ToolNotificationChannel(
+                    NOTIFICATION_CHANNEL_DISTANCE_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.distance_alert),
+                        context.getString(R.string.alarm)
+                    ),
+                    context.getString(R.string.distance_alert),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    isAlarm = true
                 )
             ),
             services = listOf(PedometerToolService(context)),
@@ -156,4 +167,5 @@ object PedometerToolRegistration : ToolRegistration {
     const val WIDGET_PEDOMETER = "pedometer-widget-pedometer"
 
     const val NOTIFICATION_CHANNEL_DISTANCE_ALERT = DistanceAlerter.NOTIFICATION_CHANNEL_ID
+    const val NOTIFICATION_CHANNEL_DISTANCE_ALARM = "distance-alarm"
 }
