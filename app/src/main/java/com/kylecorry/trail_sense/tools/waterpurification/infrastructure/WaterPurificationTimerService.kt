@@ -9,14 +9,12 @@ import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
+import com.kylecorry.trail_sense.shared.extensions.useAlarmSound
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
-import com.kylecorry.trail_sense.shared.permissions.canPlayAlarmInBackground
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
 
@@ -84,30 +82,26 @@ class WaterPurificationTimerService : AndromedaService() {
 
     private fun alertTimerComplete() {
         val prefs = DependencyRegistry.get<UserPreferences>()
-        val useAlarm = prefs.waterBoilTimer.useAlarm && Permissions.canPlayAlarmInBackground(
-            this,
-            // This FGS was started by the user, there's no other way to start it so it has while-in-use permission
-            hasWhileInUsePermissionOverride = true
-        )
+        val useAlarm = prefs.waterBoilTimer.useAlarm
+        val notificationChannel = if (useAlarm) {
+            WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER_ALARM
+        } else {
+            WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER
+        }
         val notification = Notify.alert(
             this,
-            CHANNEL_ID,
+            notificationChannel,
             getString(R.string.water_boil_timer_done_title),
             getString(R.string.water_boil_timer_done_content),
             R.drawable.ic_tool_boil_done,
             group = NOTIFICATION_GROUP_WATER,
-            intent = openIntent,
-            mute = useAlarm
+            intent = openIntent
         )
+        if (useAlarm) {
+            notification.useAlarmSound()
+        }
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
-
-        val alarm = AlarmAlerter(
-            this,
-            useAlarm,
-            WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,
-            onComplete = { stopService(false) }
-        )
-        alarm.alert()
+        stopService(false)
     }
 
     private fun getNotification(secondsLeft: Int): Notification {

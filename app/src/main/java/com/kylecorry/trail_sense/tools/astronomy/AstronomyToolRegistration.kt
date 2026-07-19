@@ -101,11 +101,33 @@ object AstronomyToolRegistration : ToolRegistration {
                     false
                 ),
                 ToolNotificationChannel(
+                    NOTIFICATION_CHANNEL_SUNSET_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.sunset_alert_channel_title),
+                        context.getString(R.string.alarm)
+                    ),
+                    context.getString(R.string.sunset_alerts),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    isAlarm = true
+                ),
+                ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_SUNRISE_ALERT,
                     context.getString(R.string.sunrise_alert_channel_title),
                     context.getString(R.string.sunrise_alerts),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     false
+                ),
+                ToolNotificationChannel(
+                    NOTIFICATION_CHANNEL_SUNRISE_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.sunrise_alert_channel_title),
+                        context.getString(R.string.alarm)
+                    ),
+                    context.getString(R.string.sunrise_alerts),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    isAlarm = true
                 ),
                 ToolNotificationChannel(
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,
@@ -236,4 +258,6 @@ object AstronomyToolRegistration : ToolRegistration {
 
     const val NOTIFICATION_CHANNEL_SUNRISE_ALERT = SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID
     const val NOTIFICATION_CHANNEL_SUNSET_ALERT = SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID
+    const val NOTIFICATION_CHANNEL_SUNRISE_ALARM = "sunrise-alarm"
+    const val NOTIFICATION_CHANNEL_SUNSET_ALARM = "sunset-alarm"
 }

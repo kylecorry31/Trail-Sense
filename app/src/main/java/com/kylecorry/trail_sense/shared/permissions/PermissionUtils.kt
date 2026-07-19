@@ -8,7 +8,6 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
-import com.kylecorry.andromeda.core.system.CurrentApp
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -135,39 +134,6 @@ fun Permissions.canStartLocationForgroundService(context: Context): Boolean {
 
 fun Permissions.canGetLocationCustom(context: Context): Boolean {
     return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = true)
-}
-
-fun Permissions.canPlayAlarmInBackground(
-    context: Context,
-    hasWhileInUsePermissionOverride: Boolean? = null
-): Boolean {
-    // https://developer.android.com/about/versions/17/changes/bg-audio
-    // Android 17+
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
-        return true
-    }
-
-    // Must have a visible activity or must be running a foreground service that is not of type SHORT_SERVICE (not used by Trail Sense)
-    val isActivityOpen = CurrentApp.isInForeground(includeForegroundServices = false)
-    if (isActivityOpen) {
-        return true
-    }
-
-    val hasForegroundService = CurrentApp.isInForeground(includeForegroundServices = true)
-
-    /**
-     *  If the app is running in the background, the app must be running a foreground service that has while-in-use (WIU) capabilities.
-     *
-     *  However, the requirement for WIU capabilities is waived if the app has been granted the exact alarm permission,
-     *  and it is making changes to audio streams that have the USAGE_ALARM attribute.
-     *
-     *  NOTE: There doesn't seem to be a way to check if the FGS has while-in-use capabilities
-     */
-    val meetsWhileInUseCriteria =
-        hasWhileInUsePermissionOverride == true || hasPermission(context, SpecialPermission.SCHEDULE_EXACT_ALARMS)
-
-
-    return hasForegroundService && meetsWhileInUseCriteria
 }
 
 /**

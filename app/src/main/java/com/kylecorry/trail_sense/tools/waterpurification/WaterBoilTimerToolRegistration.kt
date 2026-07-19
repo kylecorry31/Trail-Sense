@@ -29,6 +29,17 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
                     context.getString(R.string.water_boil_timer_channel_description),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     false
+                ),
+                ToolNotificationChannel(
+                    NOTIFICATION_CHANNEL_WATER_BOIL_TIMER_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.water_boil_timer),
+                        context.getString(R.string.alarm)
+                    ),
+                    context.getString(R.string.water_boil_timer_channel_description),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    isAlarm = true
                 )
             ),
             diagnostics = listOf(
@@ -42,4 +53,5 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
     }
 
     const val NOTIFICATION_CHANNEL_WATER_BOIL_TIMER = WaterPurificationTimerService.CHANNEL_ID
+    const val NOTIFICATION_CHANNEL_WATER_BOIL_TIMER_ALARM = "water-boil-timer-alarm"
 }

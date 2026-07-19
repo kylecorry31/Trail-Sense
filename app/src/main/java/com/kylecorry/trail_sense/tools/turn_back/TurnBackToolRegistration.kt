@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.turn_back
 
 import android.content.Context
+import android.media.AudioAttributes
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -29,6 +30,17 @@ object TurnBackToolRegistration : ToolRegistration {
                     context.getString(R.string.turn_back_alerts),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     false
+                ),
+                ToolNotificationChannel(
+                    NOTIFICATION_CHANNEL_TURN_BACK_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.tool_turn_back),
+                        context.getString(R.string.alarm)
+                    ),
+                    context.getString(R.string.turn_back_alerts),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    isAlarm = true
                 )
             ),
             services = listOf(TurnBackToolService(context)),
@@ -45,4 +57,5 @@ object TurnBackToolRegistration : ToolRegistration {
 
     const val SERVICE_TURN_BACK = "turn_back-service-turn-back"
     const val NOTIFICATION_CHANNEL_TURN_BACK_ALERT = TurnBackAlarmReceiver.NOTIFICATION_CHANNEL_ID
+    const val NOTIFICATION_CHANNEL_TURN_BACK_ALARM = "turn-back-alarm"
 }

@@ -92,6 +92,17 @@ object WeatherToolRegistration : ToolRegistration {
                     Notify.CHANNEL_IMPORTANCE_HIGH
                 ),
                 ToolNotificationChannel(
+                    NOTIFICATION_CHANNEL_STORM_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.storm_alerts),
+                        context.getString(R.string.alarm)
+                    ),
+                    context.getString(R.string.storm_alerts),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    isAlarm = true
+                ),
+                ToolNotificationChannel(
                     CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
                     context.getString(R.string.weather_monitor),
                     context.getString(R.string.notification_monitoring_weather),
@@ -196,4 +207,5 @@ object WeatherToolRegistration : ToolRegistration {
     const val WIDGET_PRESSURE_CHART = "weather-widget-pressure-chart"
 
     const val NOTIFICATION_CHANNEL_STORM_ALERT = StormAlerter.STORM_CHANNEL_ID
+    const val NOTIFICATION_CHANNEL_STORM_ALARM = "storm-alarm"
 }
