@@ -1639,4 +1639,6 @@
     <string name="active_duration">Actif : %s</string>
     <string name="elapsed_time">Temps écoulé</string>
     <string name="references">Références</string>
+    <string name="alarm">Alarme</string>
+    <string name="turn_back_alarm_channel">Faire demi-tour (Alarme)</string>
 </resources>
