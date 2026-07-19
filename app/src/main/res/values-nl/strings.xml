@@ -1628,4 +1628,6 @@
     <string name="pref_pedometer_average_pace_time_title">Gemiddelde tijd per stap</string>
     <string name="elapsed_time">Verlopen tijd</string>
     <string name="references">Referenties</string>
+    <string name="alarm">Wekker</string>
+    <string name="turn_back_alarm_channel">Keer terug (wekker)</string>
 </resources>
