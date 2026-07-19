@@ -1614,4 +1614,6 @@
     <string name="active_duration">已活跃：%s</string>
     <string name="elapsed_time">流逝时间</string>
     <string name="references">参照</string>
+    <string name="alarm">警报</string>
+    <string name="turn_back_alarm_channel">折返（警报）</string>
 </resources>
