@@ -216,7 +216,7 @@ internal enum class ClockOffsetDirection {
     Fast
 }
 
-internal fun getClockOffset(duration: Duration): ClockOffset {
+private fun getClockOffset(duration: Duration): ClockOffset {
     val seconds = duration.abs().seconds
     val direction = when {
         seconds == 0L -> ClockOffsetDirection.Accurate
