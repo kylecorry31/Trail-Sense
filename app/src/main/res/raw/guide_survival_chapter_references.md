@@ -5,7 +5,7 @@ This chapter lists the resources which were referenced in the creation of this s
 
 - *ATP 3-50.21: Survival* by the U.S. Department of the Army
 - *Bushcraft 101: A Field Guide to the Art of Wilderness Survival* by Dave Canterbury
-- *FM 21-76: US Army Survival Manual* by the U.S. Department of the Army
+- *FM 21-76: Survival* by the U.S. Department of the Army
 - *Outdoor Survival Handbook* by Ray Mears
 - *SAS Survival Handbook, Third Edition: The Ultimate Guide to Surviving Anywhere* by John "Lofty" Wiseman
 - *Tom Brown's Field Guide to Wilderness Survival* by Tom Brown Jr., with Brandt Morgan
@@ -13,18 +13,19 @@ This chapter lists the resources which were referenced in the creation of this s
 
 ## Websites
 
-- [American Academy of Dermatology](https://www.aad.org/)
-- [American Heart Association](https://www.heart.org/)
-- [American Red Cross](https://www.redcross.org)
-- [Cleveland Clinic](https://my.clevelandclinic.org/)
-- [Healthdirect](https://www.healthdirect.gov.au/)
-- [Healthline](https://www.healthline.com/)
-- [Leave No Trace](https://lnt.org/)
-- [Mayo Clinic](https://www.mayoclinic.org/)
-- [MedlinePlus](https://medlineplus.gov/)
-- [Merck Manual](https://www.merckmanuals.com/professional)
-- [UK NHS](https://www.nhs.uk/)
-- [U.S. Centers for Disease Control and Prevention (CDC)](https://www.cdc.gov/)
-- [U.S. National Park Service](https://www.nps.gov/)
-- [Wilderness Medical Society](https://wms.org)
-- [World Health Organization (WHO)](https://www.who.int/)
+- American Academy of Dermatology (https://www.aad.org)
+- American Heart Association (https://www.heart.org)
+- American Red Cross (https://www.redcross.org)
+- Cleveland Clinic (https://my.clevelandclinic.org)
+- Healthdirect (https://www.healthdirect.gov.au)
+- Healthline (https://www.healthline.com)
+- Leave No Trace (https://lnt.org)
+- Mayo Clinic (https://www.mayoclinic.org)
+- MedlinePlus (https://medlineplus.gov)
+- Merck Manual (https://www.merckmanuals.com/professional)
+- NHS website for England (https://www.nhs.uk)
+- U.S. Centers for Disease Control and Prevention (CDC) (https://www.cdc.gov)
+- U.S. National Park Service (https://www.nps.gov)
+- U.S. National Weather Service (https://www.weather.gov)
+- Wilderness Medical Society (https://wms.org)
+- World Health Organization (WHO) (https://www.who.int)

@@ -384,7 +384,7 @@ If the blister is small:
 2. Place the moleskin around the blister, with the blister in the hole.
 
 If the blister is large or painful:
-1. Sterilize a needle with hand sanitizer or fire.
+1. Sterilize a needle with hand sanitizer or fire (this may not completely sterilize it).
 2. Clean and wash the area.
 3. Pierce the blister near the edge and drain the fluid. Do not remove the skin.
 4. Apply a bandage and, optionally, antibiotic ointment.
@@ -925,7 +925,7 @@ Contact dermatitis can be caused by contact with poisonous plants, such as poiso
 ### Treatment
 1. Wash using soap and water, rubbing alcohol, or poison ivy/oak/sumac wash. Then rinse with water.
 2. Dry the area.
-3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If unavailable, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
+3. Apply calamine lotion or hydrocortisone cream to reduce the itch.
 4. Optionally, take antihistamine pills to reduce itching.
 
 If you touched stinging nettle, wash the area with soap and water or with a clean cloth. You can use tape to remove any remaining fibers.
@@ -1005,7 +1005,7 @@ Splinters and thorns can be painful and may lead to infection if not removed.
 If the splinter is deep or very large, seek medical attention and do not try to remove it yourself.
 
 1. Inspect the splinter to see if any part is exposed and determine which direction it entered.
-2. If no part is exposed, sterilize a needle with hand sanitizer or fire and gently dig at the skin to expose one end of the splinter.
+2. If no part is exposed, sterilize a needle with hand sanitizer or fire (this may not completely sterilize it) and gently dig at the skin to expose one end of the splinter.
 3. Use tweezers to grab the exposed end of the splinter, preferably pulling in the opposite direction from how it entered.
 4. Slowly pull the splinter out.
 5. Repeat if any pieces remain.

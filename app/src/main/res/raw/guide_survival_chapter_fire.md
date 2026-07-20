@@ -34,7 +34,7 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: build, prepare, location -->
 <!-- S: Choose a flat, dry area protected from the wind. Gather tinder, kindling, and fuel. -->
 
-You should prepare the fire site before attempting to start a fire. Choose a flat, dry area protected from the wind that is close to your shelter and your fuel supply. If you are sheltered near a large rock, cliff, or embankment, lay out your fire so that it is on the opposite side of your shelter from the rock face. This will reflect more heat onto your shelter.
+You should prepare the fire site before attempting to start a fire. Choose a flat, dry area protected from the wind that is near your shelter and your fuel supply. If you are sheltered near a large rock, cliff, or embankment, lay out your fire so that it is on the opposite side of your shelter from the rock face. This will reflect more heat onto your shelter.
 
 Clear the ground of flammable material and, if possible, line the area with dry rocks, dirt, or sand. Do not construct a fire under a tree with low branches or over a root system or peat. Avoid areas with dry grass, leaves, or conifer needles nearby. In snowy environments, lay down logs to prevent the fire from touching the snow. Gather all materials before trying to start the fire.
 
@@ -164,7 +164,7 @@ Most camp stoves require another ignition device, such as a lighter, but some ma
 ### Magnifying glass/lens
 <!-- K: magnifying, glass, lens -->
 
-Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and adjust the lens closer to maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
+Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and adjust the lens closer to maintain a small point. A magnifying glass, a Fresnel lens, some prescription glasses, or even a clear bottle filled with clear water can work. This may take a while, and direct sunlight is required.
 
 ![](file:///android_asset/survival_guide/fire_magnifying_glass.webp)
 
@@ -236,7 +236,7 @@ You can also heat rocks **near** the fire and place them in your shelter or slee
 <!-- K: charcoal, filter, coal, craft -->
 <!-- S: You can make charcoal by not allowing wood to burn fully. -->
 
-Charcoal is made by preventing wood from completely burning. It can be used for filtering water, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
+Charcoal is made by preventing wood from completely burning. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
 
 **Resources**
 - Wood
