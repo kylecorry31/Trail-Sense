@@ -3,7 +3,7 @@
 
 This chapter covers basic medical knowledge and techniques for common injuries and illnesses in the wilderness. 
 
-**This chapter is for informational purposes only and does not replace professional advice, diagnosis, or treatment; use at your own risk, ensure compliance with local laws, and consult qualified healthcare providers whenever possible. If you call emergency services, follow their instructions. This chapter is not medical advice.**
+**This chapter provides general educational information only. It is not medical advice, diagnosis, or treatment, and it does not replace professional training, emergency services, qualified healthcare providers, local guidance, or product/manufacturer instructions. Medical conditions and treatment recommendations vary; if you call emergency services, follow their instructions, and do not delay seeking care to consult this chapter.**
 
 If emergency services are needed, put the call on speakerphone or have someone else call to avoid delaying first aid.
 

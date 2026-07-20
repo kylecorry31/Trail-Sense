@@ -7,7 +7,7 @@ This guide is intended to be practical and to the point, with the sole purpose o
 
 If you are in a survival situation, try to stay calm and start with this chapter's "What to Do in a Survival Situation" section.
 
-**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+**This chapter provides general educational information only. It is not a substitute for professional training, emergency services, local guidance, or product/manufacturer instructions. Conditions, risks, laws, and recommended practices vary by location and situation; verify information before acting, follow local laws and instructions, and do not delay seeking help in an emergency. Do not rely on this guide or your phone as your only safety plan or means of communication.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill -->
@@ -217,4 +217,4 @@ Ground-to-air signals are large markers you create on the ground to communicate 
 An avalanche beacon is a device that broadcasts a signal which can be picked up by other nearby transceivers. It can help rescuers locate you if you are buried in the snow of an avalanche.
 
 ## Disclaimer
-This guide is provided for informational purposes only, and neither the author, publisher, nor any contributors guarantee its accuracy or suitability for any purpose. By using this guide, you acknowledge that outdoor activities involve risks, you do such activities at your own risk, and you agree to hold harmless and indemnify the author, publisher, and any contributors from any claims or damages arising from your use of this guide. Always consult professionals for advice specific to your situation, as this guide does not substitute for professional guidance. Furthermore, be aware that local laws and regulations may affect the legal use of the techniques described herein, and lawful compliance with the statutes of your jurisdiction is your responsibility.
+This guide is provided for general educational purposes only. It is not professional training, medical advice, diagnosis, or treatment, and it does not replace emergency services, qualified healthcare providers, local guidance, or product/manufacturer instructions. Conditions, risks, laws, and recommended practices vary by location and situation; verify information before acting, follow local laws and instructions, and do not delay seeking help in an emergency. Do not rely on this guide, Trail Sense, or your phone as your only safety plan or means of communication. Use your own judgment and act at your own risk.

@@ -57,8 +57,9 @@ class FragmentToolSurvivalGuideList :
         useShowDisclaimer(
             getString(R.string.survival_guide),
             getString(R.string.survival_guide_disclaimer),
-            "pref_survival_guide_disclaimer_shown",
-            cancelText = null
+            "pref_survival_guide_disclaimer_shown_v2",
+            cancelText = null,
+            considerShownIfCancelled = false
         )
 
         useBackPressedCallback(query, searchView) {
