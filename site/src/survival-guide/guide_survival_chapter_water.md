@@ -7,7 +7,7 @@ title: "4 - Water"
 
 You can only survive at most a few days without water. Knowing how to find and purify water is vital in a survival situation.
 
-**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+**This chapter provides general educational information only. It is not a substitute for professional training, emergency services, local guidance, or product/manufacturer instructions. Conditions, risks, laws, and recommended practices vary by location and situation; verify information before acting, follow local laws and instructions, and do not delay seeking help in an emergency. Do not rely on this guide or your phone as your only safety plan or means of communication.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, container, filter, sheet, tarp, tablet -->
@@ -65,7 +65,7 @@ You can find water in many places if you know where to look. Unless otherwise st
 ### Precipitation
 <!-- K: rain, snow, ice, rainwater, precipitation -->
 
-Rainwater collected directly in clean containers does not need purification, but it should be purified if it has touched another surface. Snow and ice should be melted using a fire or body heat before drinking; eating it directly can lower your core body temperature.
+Rainwater collected directly in clean containers may not need purification, but it should be purified if it has touched another surface or you have the ability to do so. Snow and ice should be melted using a fire or body heat before drinking; eating it directly can lower your core body temperature.
 
 ### Bodies of water
 <!-- K: river, stream, lake, pond, ocean, sea, saltwater -->
@@ -75,7 +75,7 @@ Flowing water from rivers or streams is typically safer than lakes, ponds, and s
 ### Groundwater
 <!-- K: groundwater, ground, dig, underground, hole -->
 
-Water is available in many places by just digging a hole in the ground and allowing water to seep in. You can find groundwater in dry environments by looking for green vegetation, valleys, low areas, or dry riverbeds.
+Water is available in some areas by just digging a hole in the ground and allowing water to seep in. Groundwater is most likely to be found in areas with green vegetation, valleys, low areas, dry riverbeds, or near water sources.
 
 ### Plants
 <!-- K: plant, dew, coconut, bamboo, vine -->

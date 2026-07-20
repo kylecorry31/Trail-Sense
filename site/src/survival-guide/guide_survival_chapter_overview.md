@@ -11,7 +11,7 @@ This guide is intended to be practical and to the point, with the sole purpose o
 
 If you are in a survival situation, try to stay calm and start with this chapter's "What to Do in a Survival Situation" section.
 
-**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+**This chapter provides general educational information only. It is not a substitute for professional training, emergency services, local guidance, or product/manufacturer instructions. Conditions, risks, laws, and recommended practices vary by location and situation; verify information before acting, follow local laws and instructions, and do not delay seeking help in an emergency. Do not rely on this guide or your phone as your only safety plan or means of communication.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill -->
@@ -23,7 +23,7 @@ Before entering the wilderness, you should be as prepared as possible. This mean
 
 The gear you bring will depend on your skill level, trip duration, trail popularity/remoteness, terrain, time of day, and weather.
 
-On short nature hikes (under 2 hours), a phone with offline maps, a knife or multi-tool, a lighter, sunglasses, and a bottle of water may be sufficient. You can apply insect repellent or sunscreen before going out.
+On short nature hikes (under 2 hours) in ideal weather, a phone with offline maps, a knife or multi-tool, a lighter, sunglasses, and a bottle of water may be sufficient. You can apply insect repellent or sunscreen before going out.
 
 Many people carry a smartphone with them at all times, and while you shouldn't rely solely on it, it can be very helpful. To make the most of it, download an offline navigation app or maps and place money, bandages, and a Fresnel lens under the back of the case for emergencies.
 
@@ -101,12 +101,7 @@ Start by learning how to do the following:
 See each chapter for additional knowledge and skills recommendations.
 
 ### Additional reading
-This guide only covers a small portion of the vast knowledge of survival and bushcraft. If you want to learn about more skills, then I recommend the following books (not affiliated):
-
-- *Bushcraft 101* by Dave Canterbury
-- *SAS Survival Handbook* by John 'Lofty' Wiseman
-- *Tom Brown's Field Guide to Wilderness Survival* by Tom Brown Jr., with Brandt Morgan
-- *Wilderness & Travel Medicine* by Eric A. Weiss, MD
+This guide only covers a small portion of the vast knowledge of survival and bushcraft. If you want to learn about more skills, then I recommend the materials in the References chapter.
 
 ## What to do in a survival situation
 <!-- K: think, observe, act -->
@@ -189,7 +184,7 @@ On some smartphones, there may be a satellite feature available that can be used
 ### Whistle
 <!-- K: whistle, sound, acorn -->
 
-Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
+Three short blasts are a common signal for help. You may want to cover your ears when using the whistle at full volume.
 
 In a pinch, an acorn or bottle cap can be used as a whistle. Hold it with your thumbs as pictured below, then place your lips over your thumbs' knuckles and blow. It won't be as loud as a regular whistle, but it is usable.
 
@@ -230,4 +225,5 @@ Ground-to-air signals are large markers you create on the ground to communicate 
 An avalanche beacon is a device that broadcasts a signal which can be picked up by other nearby transceivers. It can help rescuers locate you if you are buried in the snow of an avalanche.
 
 ## Disclaimer
-This guide is provided for informational purposes only, and neither the author, publisher, nor any contributors guarantee its accuracy or suitability for any purpose. By using this guide, you acknowledge that outdoor activities involve risks, you do such activities at your own risk, and you agree to hold harmless and indemnify the author, publisher, and any contributors from any claims or damages arising from your use of this guide. Always consult professionals for advice specific to your situation, as this guide does not substitute for professional guidance. Furthermore, be aware that local laws and regulations may affect the legal use of the techniques described herein, and lawful compliance with the statutes of your jurisdiction is your responsibility.
+This guide is provided for general educational purposes only. It is not professional training, medical advice, diagnosis, or treatment, and it does not replace emergency services, qualified healthcare providers, local guidance, or product/manufacturer instructions. Conditions, risks, laws, and recommended practices vary by location and situation; verify information before acting, follow local laws and instructions, and do not delay seeking help in an emergency. Do not rely on this guide, Trail Sense, or your phone as your only safety plan or means of communication. Use your own judgment and act at your own risk.
+

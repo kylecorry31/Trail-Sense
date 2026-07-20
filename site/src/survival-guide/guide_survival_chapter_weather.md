@@ -7,7 +7,7 @@ title: "8 - Weather"
 
 Weather can quickly change from a nice day to a life-threatening situation. You should always be prepared for the weather in your area and keep tabs on the forecast.
 
-**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+**This chapter provides general educational information only. It is not a substitute for professional training, emergency services, local guidance, or product/manufacturer instructions. Conditions, risks, laws, and recommended practices vary by location and situation; verify information before acting, follow local laws and instructions, and do not delay seeking help in an emergency. Do not rely on this guide or your phone as your only safety plan or means of communication.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, forecast, clothes, shelter, poncho, sunglasses, barometer, thermometer -->
@@ -88,11 +88,11 @@ Fog reduces visibility, making navigation difficult. If hiking in fog, stay on m
 ### Lightning
 <!-- K: lightning, thunder, thunderstorm, strike, hair -->
 
-If caught outdoors during a thunderstorm, seek shelter immediately. Avoid staying in or near open fields, peaks, ridges, tall trees, water, cave entrances, and fences or poles. If you are in a forest, stay near lower trees. Tents do not protect you from lightning. If you're in an open area and can't take shelter, stand, crouch, or sit on your pack or sleeping pad with your feet together.
+If caught outdoors during a thunderstorm, seek shelter immediately. Avoid staying in or near open fields, peaks, ridges, tall trees, water, cave entrances, and fences or poles. If you are in a forest, stay near lower trees. Tents do not protect you from lightning.
 
 If you feel your hair stand on end or hear a crackling noise, you are in imminent danger of being struck by lightning.
 
-You can estimate how far away a thunderstorm is by counting the seconds between a flash of lightning and the sound of thunder. Divide the number of seconds by 5 to get the distance in miles. One mile is about 1.6 kilometers. Any storm within 6 miles (10 kilometers) is a threat.
+You can estimate how far away a thunderstorm is by counting the seconds between a flash of lightning and the sound of thunder. Divide the number of seconds by 5 to get the distance in miles. One mile is about 1.6 kilometers. Any storm within 6 miles (10 kilometers) is an immediate threat, but if you hear thunder at all, then seek shelter.
 
 ### Sun
 <!-- K: sun, uv, uv-index, sunburn, heatstroke, shade -->
@@ -194,3 +194,4 @@ You can estimate the time until sunset by holding your hand horizontally with yo
 Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp to light your way. On nights with a nearly full moon, you can use the moonlight to help navigate.
 
 If you are in a mountainous region, it may get dark sooner if you are on the eastern side of the range.
+
