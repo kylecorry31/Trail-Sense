@@ -123,7 +123,7 @@ While gathering materials for your shelter, prefer wood and debris that are alre
 <!-- K: sleep, shelter, type -->
 <!-- S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. -->
 
-You can construct various shelters using tarps, ponchos, or natural elements. To retain heat, build the smallest shelter that meets your needs and position it against prevailing winds to avoid excess heat loss. Before sleeping in your shelter, make sure there is adequate airflow to manage condensation and smoke from your fire.
+You can construct various shelters using tarps, ponchos, or natural elements. To retain heat, build the smallest shelter that meets your needs and position it against prevailing winds to avoid excess heat loss. Before sleeping in your shelter, make sure there is adequate airflow to manage condensation and smoke from your fire (do not build your fire in your shelter).
 
 ### Lean-to
 <!-- K: lean-to, build, ridgeline, tarp -->
@@ -152,7 +152,7 @@ A-frames are a more enclosed shelter that provides better protection from the el
 ### Cave
 <!-- K: cave -->
 
-Caves offer protection from the elements and require minimal effort to use. Be careful when entering caves, though, as they can be home to animals or have poor ventilation. Avoid lighting a fire if possible, since smoke can accumulate; if you do light a fire, do it away from the entrance so the smoke isn't blown back into the cave.
+Caves offer protection from the elements and require minimal effort to use. Be careful when entering caves, though, as they can be home to animals or have poor ventilation. Avoid lighting a fire if possible, since smoke and carbon monoxide can accumulate.
 
 ### Emergency space blanket
 <!-- K: emergency-space-blanket, space-blanket, blanket -->

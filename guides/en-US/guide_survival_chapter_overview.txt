@@ -19,7 +19,7 @@ Before entering the wilderness, you should be as prepared as possible. This mean
 
 The gear you bring will depend on your skill level, trip duration, trail popularity/remoteness, terrain, time of day, and weather.
 
-On short nature hikes (under 2 hours), a phone with offline maps, a knife or multi-tool, a lighter, sunglasses, and a bottle of water may be sufficient. You can apply insect repellent or sunscreen before going out.
+On short nature hikes (under 2 hours) in ideal weather, a phone with offline maps, a knife or multi-tool, a lighter, sunglasses, and a bottle of water may be sufficient. You can apply insect repellent or sunscreen before going out.
 
 Many people carry a smartphone with them at all times, and while you shouldn't rely solely on it, it can be very helpful. To make the most of it, download an offline navigation app or maps and place money, bandages, and a Fresnel lens under the back of the case for emergencies.
 
@@ -176,7 +176,7 @@ On some smartphones, there may be a satellite feature available that can be used
 ### Whistle
 <!-- K: whistle, sound, acorn -->
 
-Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
+Three short blasts are a common signal for help. You may want to cover your ears when using the whistle at full volume.
 
 In a pinch, an acorn or bottle cap can be used as a whistle. Hold it with your thumbs as pictured below, then place your lips over your thumbs' knuckles and blow. It won't be as loud as a regular whistle, but it is usable.
 

@@ -56,7 +56,7 @@ The steep slopes of mountainous terrain can tire you out or injure your joints, 
 
 It can be taxing to travel in snowy conditions, and you don't know for sure what you are stepping on; the snow may be hiding a patch of ice, a hole, or water. You can use a pole or stick to test ice and snow before stepping. Avoid walking on frozen bodies of water unless you know the ice thickness. If you have snowshoes or skis, use them to help prevent your feet from sinking into the snow.
 
-Watch out for areas prone to avalanches. They are usually marked and typically occur on slopes between 30° and 45°.
+Watch out for areas prone to avalanches. These areas may be marked and typically occur on slopes between 30° and 45°.
 
 ### Desert
 <!-- K: desert, hot, shade -->
@@ -76,9 +76,9 @@ If you can avoid traveling at night, then it is best to remain where you are. If
 ### Rivers and streams
 <!-- K: river, current, cross -->
 
-When crossing rivers or streams, search for the narrowest section or areas where the water splits into multiple channels. Whenever possible, use bridges, fallen trees, or rocks as crossing points, but be cautious of slippery or loose surfaces. Avoid crossing where currents are strong or near ledges. Anytime you cross a river or stream, unbuckle your backpack and carry it in front of you to prevent being pulled underwater by its weight if you fall.
+When crossing rivers or streams, search for the shallowest and calmest section or areas where the water splits into multiple channels. Whenever possible, use bridges or dry rocks as crossing points, but be cautious of slippery or loose surfaces. Avoid crossing where currents are strong or near ledges. Anytime you cross a river or stream, unbuckle your backpack to prevent being pulled underwater by its weight if you fall.
 
-In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources.
+In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources. This is not guaranteed, though.
 
 ### Coastal
 <!-- K: coast, ocean, beach, tide, sea -->
@@ -382,5 +382,6 @@ You can craft a makeshift compass by magnetizing a needle and floating it in wat
 - Water
 
 **Instructions**
-1. Magnetize the needle by stroking it with the knife in one direction (to avoid dulling the blade, use the back of the knife). Stroke at least 50 times.
-2. Place the needle on the leaf/cap and float it in water. The needle will slowly align to the north-south axis. Ensure no currents or wind could affect the needle.
+1. Attempt to magnetize the needle by stroking it with the knife in one direction (to avoid dulling the blade, use the back of the knife). Stroke at least 50 times.
+2. Place the needle on the leaf/cap and float it in water. If properly magnetized, the needle will slowly align to the north-south axis. Ensure no currents or wind could affect the needle.
+3. Repeat step 2 a few times to ensure it is consistently pointing in the same direction.

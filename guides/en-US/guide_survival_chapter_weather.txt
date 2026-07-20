@@ -79,11 +79,11 @@ Fog reduces visibility, making navigation difficult. If hiking in fog, stay on m
 ### Lightning
 <!-- K: lightning, thunder, thunderstorm, strike, hair -->
 
-If caught outdoors during a thunderstorm, seek shelter immediately. Avoid staying in or near open fields, peaks, ridges, tall trees, water, cave entrances, and fences or poles. If you are in a forest, stay near lower trees. Tents do not protect you from lightning. If you're in an open area and can't take shelter, stand, crouch, or sit on your pack or sleeping pad with your feet together.
+If caught outdoors during a thunderstorm, seek shelter immediately. Avoid staying in or near open fields, peaks, ridges, tall trees, water, cave entrances, and fences or poles. If you are in a forest, stay near lower trees. Tents do not protect you from lightning.
 
 If you feel your hair stand on end or hear a crackling noise, you are in imminent danger of being struck by lightning.
 
-You can estimate how far away a thunderstorm is by counting the seconds between a flash of lightning and the sound of thunder. Divide the number of seconds by 5 to get the distance in miles. One mile is about 1.6 kilometers. Any storm within 6 miles (10 kilometers) is a threat.
+You can estimate how far away a thunderstorm is by counting the seconds between a flash of lightning and the sound of thunder. Divide the number of seconds by 5 to get the distance in miles. One mile is about 1.6 kilometers. Any storm within 6 miles (10 kilometers) is an immediate threat, but if you hear thunder at all, then seek shelter.
 
 ### Sun
 <!-- K: sun, uv, uv-index, sunburn, heatstroke, shade -->
