@@ -7,7 +7,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
-import com.kylecorry.trail_sense.shared.extensions.useAlarmSound
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
@@ -29,11 +28,9 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
             R.drawable.ic_alert,
             group = NOTIFICATION_GROUP_STORM,
             intent = NavigationUtils.pendingIntent(context, R.id.action_weather),
-            autoCancel = true
+            autoCancel = true,
+            isAlarm = useAlarm
         )
-        if (useAlarm) {
-            notification.useAlarmSound()
-        }
         DependencyRegistry.get<NotificationSubsystem>()
             .send(STORM_ALERT_NOTIFICATION_ID, notification)
     }

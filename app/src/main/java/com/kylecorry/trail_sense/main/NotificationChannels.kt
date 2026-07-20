@@ -22,32 +22,16 @@ object NotificationChannels {
         val channels = tools.flatMap { it.notificationChannels }
 
         channels.forEach {
-            if (!it.isAlarm) {
-                Notify.createChannel(
-                    context,
-                    it.id,
-                    it.name,
-                    it.description,
-                    it.importance,
-                    muteSound = it.muteSound,
-                    showBadge = it.showBadge
-                )
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val channel = NotificationChannel(it.id, it.name, it.importance).apply {
-                    description = it.description
-                    setShowBadge(it.showBadge)
-                    setSound(
-                        Settings.System.DEFAULT_NOTIFICATION_URI,
-                        AudioAttributes.Builder()
-                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                            .setLegacyStreamType(AudioManager.STREAM_ALARM)
-                            .setUsage(AudioAttributes.USAGE_ALARM)
-                            .build()
-                    )
-                    enableVibration(true)
-                }
-                context.getSystemService<NotificationManager>()?.createNotificationChannel(channel)
-            }
+            Notify.createChannel(
+                context,
+                it.id,
+                it.name,
+                it.description,
+                it.importance,
+                muteSound = it.muteSound,
+                showBadge = it.showBadge,
+                isAlarm = it.isAlarm
+            )
         }
 
         // CHANNEL CLEANUP SECTION

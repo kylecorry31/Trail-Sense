@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
-import com.kylecorry.trail_sense.shared.extensions.useAlarmSound
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -47,11 +46,9 @@ class DistanceAlerter(private val context: Context) : IAlerter {
             },
             R.drawable.steps,
             intent = openIntent,
-            autoCancel = true
+            autoCancel = true,
+            isAlarm = useAlarm
         )
-        if (useAlarm) {
-            notification.useAlarmSound()
-        }
 
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
     }

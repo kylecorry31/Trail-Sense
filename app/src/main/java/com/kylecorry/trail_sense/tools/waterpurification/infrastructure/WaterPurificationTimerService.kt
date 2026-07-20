@@ -9,11 +9,9 @@ import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
-import com.kylecorry.trail_sense.shared.extensions.useAlarmSound
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
@@ -95,11 +93,9 @@ class WaterPurificationTimerService : AndromedaService() {
             getString(R.string.water_boil_timer_done_content),
             R.drawable.ic_tool_boil_done,
             group = NOTIFICATION_GROUP_WATER,
-            intent = openIntent
+            intent = openIntent,
+            isAlarm = useAlarm
         )
-        if (useAlarm) {
-            notification.useAlarmSound()
-        }
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
         stopService(false)
     }

@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
-import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -12,7 +12,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
-import com.kylecorry.trail_sense.shared.extensions.useAlarmSound
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
@@ -123,11 +122,9 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
             ),
             R.drawable.ic_sunrise_notification,
             intent = openIntent,
-            autoCancel = true
+            autoCancel = true,
+            isAlarm = useAlarm
         )
-        if (useAlarm) {
-            notification.useAlarmSound()
-        }
 
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
     }
