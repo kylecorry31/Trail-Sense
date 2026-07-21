@@ -7,13 +7,14 @@
     android:padding="16dp">
 
     <LinearLayout
+        android:id="@+id/toolbar_text_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/toolbar_right_button"
-        app:layout_constraintStart_toEndOf="@id/toolbar_left_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView

@@ -2,7 +2,10 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
@@ -15,6 +18,7 @@ class Toolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context, att
     val rightButton: MaterialButton
     val title: TextView
     val subtitle: TextView
+    private val textContainer: LinearLayout
 
     init {
         inflate(context, R.layout.view_toolbar, this)
@@ -22,6 +26,7 @@ class Toolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context, att
         rightButton = findViewById(R.id.toolbar_right_button)
         title = findViewById(R.id.toolbar_title)
         subtitle = findViewById(R.id.toolbar_subtitle)
+        textContainer = findViewById(R.id.toolbar_text_container)
 
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.Toolbar, 0, 0)
         title.text = a.getString(R.styleable.Toolbar_title) ?: ""
@@ -50,6 +55,36 @@ class Toolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context, att
         }
 
         a.recycle()
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val actionSpace = maxOf(
+            getActionSpace(leftButton),
+            getActionSpace(rightButton)
+        )
+        if (textContainer.paddingStart != actionSpace ||
+            textContainer.paddingEnd != actionSpace
+        ) {
+            textContainer.setPaddingRelative(
+                actionSpace,
+                textContainer.paddingTop,
+                actionSpace,
+                textContainer.paddingBottom
+            )
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        }
+    }
+
+    private fun getActionSpace(button: View): Int {
+        if (!button.isVisible) {
+            return 0
+        }
+
+        val margins = button.layoutParams as? MarginLayoutParams
+        return button.measuredWidth + (margins?.marginStart ?: 0) +
+                (margins?.marginEnd ?: 0)
     }
 
 }
