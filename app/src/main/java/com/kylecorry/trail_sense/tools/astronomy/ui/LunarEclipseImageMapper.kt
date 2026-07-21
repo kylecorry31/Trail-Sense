@@ -11,6 +11,7 @@ import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.astronomy.eclipse.LunarEclipseShadow
 import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.astronomy.domain.MoonTilt
 
 class LunarEclipseImageMapper(private val context: Context) {
 
@@ -23,14 +24,14 @@ class LunarEclipseImageMapper(private val context: Context) {
         shadow: LunarEclipseShadow,
         width: Int,
         height: Int,
-        tilt: Float? = null
+        tilt: MoonTilt? = null
     ): Bitmap {
         val output = createBitmap(width, height)
         val canvas = Canvas(output)
         val drawer = CanvasDrawer(context, canvas)
         drawer.push()
         tilt?.let {
-            drawer.rotate(it, width / 2f, height / 2f)
+            drawer.rotate(it.parallacticAngle, width / 2f, height / 2f)
         }
         moonDrawable?.let {
             it.setBounds(0, 0, width, height)

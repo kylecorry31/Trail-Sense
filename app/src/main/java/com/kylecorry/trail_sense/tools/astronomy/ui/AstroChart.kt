@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.ClickChartLayer
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.astronomy.domain.MoonTilt
 import com.kylecorry.trail_sense.tools.navigation.ui.BitmapLoader
 import java.time.Instant
 import java.time.ZonedDateTime
@@ -236,13 +237,12 @@ class AstroChart(
         chart.invalidate()
     }
 
-    fun moveMoon(position: Reading<Float>?, tilt: Float? = null) {
+    fun moveMoon(position: Reading<Float>?) {
         moonImage.data = if (position == null) {
             emptyList()
         } else {
             Chart.getDataFromReadings(listOf(position), startTime) { it }
         }
-        moonImage.rotation = tilt ?: 0f
         updateMoonArea()
         chart.invalidate()
     }

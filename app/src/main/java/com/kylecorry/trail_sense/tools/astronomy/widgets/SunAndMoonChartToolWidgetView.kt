@@ -3,10 +3,9 @@ package com.kylecorry.trail_sense.tools.astronomy.widgets
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
-import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
@@ -48,11 +47,11 @@ class SunAndMoonChartToolWidgetView : ChartToolWidgetViewBase() {
 
             val size = Resources.dp(context, 24f).toInt()
             val moonImage =
-                MoonPhaseImageMapper(context).getPhaseImage(moon.phaseAngle, size, size)
+                MoonPhaseImageMapper(context).getPhaseImage(moon.phaseAngle, size, size, moon.tilt)
 
             astroChart.setMoonImage(moonImage)
             astroChart.moveSun(currentSun)
-            astroChart.moveMoon(currentMoon, moon.tilt)
+            astroChart.moveMoon(currentMoon)
 
             renderChart(context, views, chart)
         }

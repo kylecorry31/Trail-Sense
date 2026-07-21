@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.luna.text.capitalizeWords
@@ -59,6 +60,7 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
@@ -90,7 +92,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private var location by state(Coordinate.zero)
     private var currentSeekChartTime by state(ZonedDateTime.now())
     private var isSeeking by state(false)
-    private var currentMoonTilt by state(0f)
+
+    private val moonUpdaterQueue = CoroutineQueueRunner()
 
     private val astroChartDataProvider by lazy {
         if (prefs.astronomy.centerSunAndMoon) {
@@ -353,17 +356,16 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             return
         }
 
-        val displayDate = binding.displayDate.date
-
-        val moonPhase = withContext(Dispatchers.Default) {
-            if (displayDate == LocalDate.now()) {
-                astronomyService.getCurrentMoonPhase()
-            } else {
-                astronomyService.getMoonPhase(displayDate)
-            }
+        val time = if (isSeeking) {
+            currentSeekChartTime
+        } else if (displayDate == LocalDate.now()) {
+            ZonedDateTime.now()
+        } else {
+            displayDate.atStartOfDay(ZoneId.systemDefault())
         }
 
-        currentMoonTilt = onDefault { astronomyService.getMoonTilt(location) }
+        val moonPhase = onDefault { astronomyService.getMoonPhase(time) }
+        val tilt = onDefault { astronomyService.getMoonTilt(location, time) }
 
         withContext(Dispatchers.Main) {
             val size = Resources.dp(requireContext(), 24f).toInt()
@@ -371,7 +373,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 MoonPhaseImageMapper(requireContext()).getPhaseImage(
                     moonPhase.phaseAngle,
                     size,
-                    size
+                    size,
+                    tilt
                 )
             )
         }
@@ -416,13 +419,12 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private fun plotMoonImage(
         altitudes: List<Reading<Float>>,
         time: ZonedDateTime = ZonedDateTime.now(),
-        tilt: Float? = null
     ) {
         val instant = time.toInstant()
         val current = altitudes.minByOrNull {
             Duration.between(instant, it.time).abs()
         }
-        chart.moveMoon(current, tilt ?: currentMoonTilt)
+        chart.moveMoon(current)
     }
 
     private suspend fun updateAstronomyDetails() {
@@ -548,7 +550,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             currentSeekChartTime,
             isSeeking,
             location,
-            currentMoonTilt,
             triggers.frequency("chart", Duration.ofMinutes(1)),
             lifecycleHookTrigger.onResume()
         ) {
@@ -558,10 +559,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 }
                 updateAstronomyChart()
 
-                val tilt = astronomyService.getMoonTilt(location, currentSeekChartTime)
-
                 if (isSeeking) {
-                    plotMoonImage(data.moon, currentSeekChartTime, tilt)
+                    plotMoonImage(data.moon, currentSeekChartTime)
                     plotSunImage(data.sun, currentSeekChartTime)
                 }
             }
@@ -581,11 +580,15 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         effect(
             "moon_phase",
             displayDate,
+            currentSeekChartTime,
+            isSeeking,
             triggers.frequency("moon_phase", Duration.ofMinutes(15)),
             lifecycleHookTrigger.onResume()
         ) {
             inBackground {
-                updateMoonUI()
+                moonUpdaterQueue.enqueue {
+                    updateMoonUI()
+                }
             }
         }
 
