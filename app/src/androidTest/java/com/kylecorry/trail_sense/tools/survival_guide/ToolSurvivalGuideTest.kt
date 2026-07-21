@@ -40,9 +40,9 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
             hasText(R.id.guide_name, chapter.title, ignoreCase = true)
             hasText(R.id.guide_scroll) { it.isNotEmpty() }
             if (chapter.searchable) {
-                click("Be prepared")
+                scrollUntil { click("Be prepared") }
             } else {
-                click("Books and manuals")
+                scrollUntil { click("Books and manuals") }
             }
 
             back()
