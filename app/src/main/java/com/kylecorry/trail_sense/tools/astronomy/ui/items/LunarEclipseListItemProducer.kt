@@ -11,6 +11,7 @@ import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.tools.astronomy.domain.MoonTilt
 import com.kylecorry.trail_sense.tools.astronomy.ui.LunarEclipseImageMapper
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.EclipseFormatter
 import java.time.LocalDate
@@ -84,7 +85,7 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
     private fun getIcon(
         moon: CelestialObservation,
         shadow: LunarEclipseShadow,
-        moonTilt: Float
+        moonTilt: MoonTilt
     ): DrawableListIcon {
         return DrawableListIcon(
             LunarEclipseImageMapper(context).getEclipseImage(

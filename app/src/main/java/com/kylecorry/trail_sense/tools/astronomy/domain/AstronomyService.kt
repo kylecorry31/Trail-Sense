@@ -124,7 +124,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now(),
         useNearestTransit: Boolean = false
-    ): Float {
+    ): MoonTilt {
         val timeToUse = if (useNearestTransit) {
             getMoonTimes(location, time.toLocalDate()).transit ?: getMoonTimes(
                 location,
@@ -134,8 +134,9 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             time
         }
 
-
-        return Astronomy.getMoonParallacticAngle(timeToUse, location)
+        val parallacticAngle = Astronomy.getMoonParallacticAngle(timeToUse, location)
+        val brightLimbAngleFromNorth = Astronomy.getMoonPositionAngleOfBrightLimb(timeToUse)
+        return MoonTilt(parallacticAngle, brightLimbAngleFromNorth)
     }
 
     // PUBLIC SUN METHODS

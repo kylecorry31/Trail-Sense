@@ -14,5 +14,5 @@ data class MoonDetails(
     val illumination: Float,
     val altitude: Float,
     val azimuth: Bearing,
-    val tilt: Float
+    val tilt: MoonTilt
 )

@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.trigonometry.Trigonometry.cosDegrees
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.astronomy.domain.MoonTilt
 import kotlin.math.abs
 
 class MoonPhaseImageMapper(private val context: Context) {
@@ -30,19 +31,27 @@ class MoonPhaseImageMapper(private val context: Context) {
         phaseAngle: Float,
         width: Int,
         height: Int,
-        tilt: Float? = null
+        tilt: MoonTilt? = null
     ): Bitmap {
         val output = createBitmap(width, height)
         val canvas = Canvas(output)
         canvas.withSave {
             tilt?.let {
-                rotate(it, width / 2f, height / 2f)
+                rotate(it.parallacticAngle, width / 2f, height / 2f)
             }
             moonDrawable?.let {
                 it.setBounds(0, 0, width, height)
                 it.draw(this)
             }
 
+            tilt?.let {
+                val rotationAdjustment = if (phaseAngle < 180) {
+                    90f
+                } else {
+                    -90f
+                }
+                rotate(-(it.brightLimbAngleFromNorth + rotationAdjustment), width / 2f, height / 2f)
+            }
             drawShadow(this, phaseAngle, width.toFloat(), height.toFloat(), shadowPaint)
         }
         return output
