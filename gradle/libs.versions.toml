@@ -1,8 +1,8 @@
 [versions]
-androidApplication = "9.2.1"
+androidApplication = "9.3.0"
 androidXTest = "1.7.0"
 androidXTestRunner = "1.7.0"
-androidXTestUiAutomator = "2.3.0"
+androidXTestUiAutomator = "2.4.0"
 androidXArchCore = "2.2.0"
 androidXCoreRemoteViews = "1.1.0"
 androidXExifinterfaceVersion = "1.4.2"
