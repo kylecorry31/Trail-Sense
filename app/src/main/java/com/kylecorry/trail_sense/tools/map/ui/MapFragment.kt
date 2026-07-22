@@ -53,6 +53,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScree
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
+import com.kylecorry.trail_sense.tools.map.ui.MapSelectedPointSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import java.time.Instant
@@ -67,6 +68,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val menuButton = useView<MaterialButton>(R.id.menu_btn)
         val navigationSheetView = useView<NavigationSheetView>(R.id.navigation_sheet)
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
+        val selectedPointSheetView = useView<MapSelectedPointSheetView>(R.id.selected_point_sheet)
         val attributionView = useView<TextView>(R.id.map_attribution)
         val timeSheet = useView<DateTimeSliderSheet>(R.id.time_sheet)
         val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.sensor_status_badges)
@@ -195,9 +197,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         // Distance
-        val stopDistanceMeasurement = useCallback<Unit>(mapDistanceSheetView, manager) {
+        val stopDistanceMeasurement = useCallback<Unit>(mapDistanceSheetView, manager, selectedPointSheetView) {
             manager.stopDistanceMeasurement()
             mapDistanceSheetView.hide()
+            selectedPointSheetView.hide()
         }
 
         val startDistanceMeasurement =
@@ -315,19 +318,34 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs) {
+        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs, selectedPointSheetView, navigation.location) {
             mapView.setOnLongPressListener { location ->
                 if (manager.isMeasuringDistance()) {
                     return@setOnLongPressListener
                 }
                 manager.setSelectedLocation(location)
                 inBackground {
-                    val elevation = Distance.meters(DEM.getElevation(location).elevation)
+                    val selectedElevation = DEM.getElevation(location).elevation
+                    val userElevation = DEM.getElevation(navigation.location).elevation
+                    val formattedLocation = formatter.formatLocation(location)
 
                     onMain {
+                        // Show the navigation-style sheet with distance, direction, and elevation diff
+                        selectedPointSheetView.show(
+                            selectedLocation = location,
+                            userLocation = navigation.location,
+                            userElevationMeters = userElevation,
+                            selectedElevationMeters = selectedElevation,
+                            formattedLocation = formattedLocation
+                        )
+                        selectedPointSheetView.onDismiss = {
+                            manager.setSelectedLocation(null)
+                        }
+
+                        // Also show the actions sheet so the user can act on the point
                         Share.actions(
                             this@MapFragment,
-                            formatter.formatLocation(location),
+                            formattedLocation,
                             listOf(
                                 ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
                                     val bundle = Bundle().apply {
@@ -337,27 +355,27 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                                         R.id.placeBeaconFragment,
                                         bundle
                                     )
+                                    selectedPointSheetView.hide()
                                     manager.setSelectedLocation(null)
                                 },
                                 ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
                                     navigator.navigateTo(
                                         location,
-                                        formatter.formatLocation(location),
+                                        formattedLocation,
                                         BeaconOwner.Maps
                                     )
+                                    selectedPointSheetView.hide()
                                     manager.setSelectedLocation(null)
                                 },
                                 ActionItem(getString(R.string.distance), R.drawable.ruler) {
                                     startDistanceMeasurement(location, true)
+                                    selectedPointSheetView.hide()
                                     manager.setSelectedLocation(null)
                                 },
                             ),
-                            subtitle = getString(
-                                R.string.elevation_value,
-                                formatter.formatElevation(elevation)
-                            ),
                         ) {
-                            manager.setSelectedLocation(null)
+                            // Actions sheet dismissed without selecting an action —
+                            // leave the info sheet visible so the user can still read it
                         }
                     }
                 }
