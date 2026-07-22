@@ -82,6 +82,7 @@ object Share {
         title: String,
         actions: List<ActionItem>,
         subtitle: String? = null,
+        customView: android.view.View? = null,
         noActionSelected: () -> Unit
     ) {
         var called = false
@@ -97,7 +98,7 @@ object Share {
                 }
             }
         }
-        val sheet = ActionSheet(title, subtitle, actions, customOnAction)
+        val sheet = ActionSheet(title, subtitle, actions, customOnAction, customView)
         sheet.show(fragment)
         sheet.dismissOnPause(fragment)
     }

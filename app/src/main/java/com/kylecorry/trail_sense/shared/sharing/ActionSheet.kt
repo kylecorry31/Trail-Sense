@@ -17,7 +17,8 @@ class ActionSheet(
     private val title: String,
     private val subtitle: String?,
     private val actions: List<ActionItem>,
-    private val onAction: (action: ActionItem?, sheet: ActionSheet) -> Unit
+    private val onAction: (action: ActionItem?, sheet: ActionSheet) -> Unit,
+    private val customView: View? = null
 ) : BoundBottomSheetDialogFragment<FragmentActionSheetBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,6 +26,14 @@ class ActionSheet(
         binding.shareSheetTitle.title.text = title
         binding.shareSheetTitle.subtitle.isVisible = subtitle != null
         binding.shareSheetTitle.subtitle.text = subtitle
+
+        // Insert custom view between toolbar and action buttons if provided
+        customView?.let { cv ->
+            (cv.parent as? ViewGroup)?.removeView(cv)
+            val idx = binding.root.indexOfChild(binding.shareSheetItems)
+            binding.root.addView(cv, idx)
+        }
+
         actions.forEach { action ->
             val tile = TileButton(requireContext(), null)
             tile.setText(action.name)

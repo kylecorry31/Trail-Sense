@@ -108,16 +108,6 @@
         app:layout_constraintBottom_toTopOf="@+id/time_sheet"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.kylecorry.trail_sense.tools.map.ui.MapSelectedPointSheetView
-        android:id="@+id/selected_point_sheet"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/navigation_sheet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
-
     <com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
         android:id="@+id/navigation_sheet"
         android:layout_width="0dp"

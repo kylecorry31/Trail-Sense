@@ -4,6 +4,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.widget.LinearLayout
+import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.views.DataPointView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
@@ -53,7 +57,6 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScree
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
-import com.kylecorry.trail_sense.tools.map.ui.MapSelectedPointSheetView
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import java.time.Instant
@@ -68,7 +71,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val menuButton = useView<MaterialButton>(R.id.menu_btn)
         val navigationSheetView = useView<NavigationSheetView>(R.id.navigation_sheet)
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
-        val selectedPointSheetView = useView<MapSelectedPointSheetView>(R.id.selected_point_sheet)
         val attributionView = useView<TextView>(R.id.map_attribution)
         val timeSheet = useView<DateTimeSliderSheet>(R.id.time_sheet)
         val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.sensor_status_badges)
@@ -197,10 +199,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         // Distance
-        val stopDistanceMeasurement = useCallback<Unit>(mapDistanceSheetView, manager, selectedPointSheetView) {
+        val stopDistanceMeasurement = useCallback<Unit>(mapDistanceSheetView, manager) {
             manager.stopDistanceMeasurement()
             mapDistanceSheetView.hide()
-            selectedPointSheetView.hide()
         }
 
         val startDistanceMeasurement =
@@ -318,7 +319,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs, selectedPointSheetView, navigation.location) {
+        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs, navigation.location) {
             mapView.setOnLongPressListener { location ->
                 if (manager.isMeasuringDistance()) {
                     return@setOnLongPressListener
@@ -330,19 +331,63 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                     val formattedLocation = formatter.formatLocation(location)
 
                     onMain {
-                        // Show the navigation-style sheet with distance, direction, and elevation diff
-                        selectedPointSheetView.show(
-                            selectedLocation = location,
-                            userLocation = navigation.location,
-                            userElevationMeters = userElevation,
-                            selectedElevationMeters = selectedElevation,
-                            formattedLocation = formattedLocation
-                        )
-                        selectedPointSheetView.onDismiss = {
-                            manager.setSelectedLocation(null)
+                        // Build a DataPointView row to embed in the share sheet
+                        val infoView = LinearLayout(requireContext()).apply {
+                            orientation = LinearLayout.HORIZONTAL
+                            val padding = com.kylecorry.andromeda.core.system.Resources
+                                .dp(requireContext(), 8f).toInt()
+                            setPadding(padding, 0, padding, padding)
                         }
 
-                        // Also show the actions sheet so the user can act on the point
+                        fun addDataPoint(icon: Int, title: String, description: String) {
+                            val dp = DataPointView(requireContext(), null)
+                            dp.layoutParams = LinearLayout.LayoutParams(
+                                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
+                            )
+                            dp.setImageResource(icon)
+                            dp.title = title
+                            dp.description = description
+                            infoView.addView(dp)
+                        }
+
+                        // Distance
+                        val horizontalDist = Distance.meters(
+                            navigation.location.distanceTo(location)
+                        ).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+                        addDataPoint(
+                            R.drawable.ruler,
+                            formatter.formatDistance(
+                                horizontalDist,
+                                Units.getDecimalPlaces(horizontalDist.units),
+                                strict = false
+                            ),
+                            getString(R.string.distance)
+                        )
+
+                        // Direction
+                        val azimuth = navigation.location.bearingTo(location).value
+                        addDataPoint(
+                            R.drawable.ic_compass_icon,
+                            formatter.formatDegrees(azimuth, replace360 = true) +
+                                    " " + formatter.formatDirection(
+                                        CompassDirection.nearest(azimuth)
+                                    ),
+                            getString(R.string.direction)
+                        )
+
+                        // Elevation diff
+                        val elevChange = selectedElevation - userElevation
+                        val sign = if (elevChange > 0) getString(R.string.increase) else ""
+                        addDataPoint(
+                            R.drawable.ic_altitude,
+                            getString(
+                                R.string.elevation_diff_format,
+                                sign,
+                                formatter.formatElevation(Distance.meters(elevChange))
+                            ),
+                            getString(R.string.elevation)
+                        )
+
                         Share.actions(
                             this@MapFragment,
                             formattedLocation,
@@ -355,7 +400,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                                         R.id.placeBeaconFragment,
                                         bundle
                                     )
-                                    selectedPointSheetView.hide()
                                     manager.setSelectedLocation(null)
                                 },
                                 ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
@@ -364,18 +408,16 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                                         formattedLocation,
                                         BeaconOwner.Maps
                                     )
-                                    selectedPointSheetView.hide()
                                     manager.setSelectedLocation(null)
                                 },
                                 ActionItem(getString(R.string.distance), R.drawable.ruler) {
                                     startDistanceMeasurement(location, true)
-                                    selectedPointSheetView.hide()
                                     manager.setSelectedLocation(null)
                                 },
                             ),
+                            customView = infoView
                         ) {
-                            // Actions sheet dismissed without selecting an action —
-                            // leave the info sheet visible so the user can still read it
+                            manager.setSelectedLocation(null)
                         }
                     }
                 }
