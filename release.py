@@ -51,8 +51,15 @@ else:
 with open(changelog, "r") as changelog_file:
     release_notes = changelog_file.read()
 
+patch_notes_url = (
+    "https://github.com/kylecorry31/Trail-Sense/blob/main/patchnotes/"
+    + version_name
+    + ".md"
+)
+release_notes += "\n\nPatch notes: [" + version_name + "](" + patch_notes_url + ")\n"
+
 if milestone_url:
-    release_notes += "\n\nMilestone: [" + version_name + "](" + milestone_url + ")\n"
+    release_notes += "\nMilestone: [" + version_name + "](" + milestone_url + ")\n"
 
 with tempfile.NamedTemporaryFile("w", delete=False) as release_notes_file:
     release_notes_file.write(release_notes)
