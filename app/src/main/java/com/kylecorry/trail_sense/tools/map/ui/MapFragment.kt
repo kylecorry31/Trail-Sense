@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
@@ -315,19 +316,31 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs) {
+        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs, navigation.location) {
             mapView.setOnLongPressListener { location ->
                 if (manager.isMeasuringDistance()) {
                     return@setOnLongPressListener
                 }
                 manager.setSelectedLocation(location)
                 inBackground {
-                    val elevation = Distance.meters(DEM.getElevation(location).elevation)
+                    val selectedElevation = DEM.getElevation(location).elevation
+                    val formattedLocation = formatter.formatLocation(location)
 
                     onMain {
+                        // Build the data point row using the shared LocationDataPointView
+                        val infoView = LocationDataPointView(requireContext(), null)
+                        infoView.setDistance(
+                            Distance.meters(navigation.location.distanceTo(location))
+                                .convertTo(prefs.baseDistanceUnits)
+                        )
+                        infoView.setDirection(navigation.location.bearingTo(location))
+                        infoView.setElevationDiff(
+                            Distance.meters(selectedElevation - navigation.elevation.meters().value)
+                        )
+
                         Share.actions(
                             this@MapFragment,
-                            formatter.formatLocation(location),
+                            formattedLocation,
                             listOf(
                                 ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
                                     val bundle = Bundle().apply {
@@ -342,7 +355,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                                 ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
                                     navigator.navigateTo(
                                         location,
-                                        formatter.formatLocation(location),
+                                        formattedLocation,
                                         BeaconOwner.Maps
                                     )
                                     manager.setSelectedLocation(null)
@@ -354,8 +367,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                             ),
                             subtitle = getString(
                                 R.string.elevation_value,
-                                formatter.formatElevation(elevation)
+                                formatter.formatElevation(Distance.meters(selectedElevation))
                             ),
+                            customView = infoView
                         ) {
                             manager.setSelectedLocation(null)
                         }
