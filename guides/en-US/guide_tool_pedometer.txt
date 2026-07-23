@@ -16,7 +16,7 @@ You can stop the pedometer at any point (e.g., while resting or at a campsite) b
 ## History
 The History section shows your total steps and distance for the selected day, along with a chart that breaks the steps down by hour. Tap a bar on the chart to view the steps and distance for that hour. Use the arrows or calendar button to view another day.
 
-Tap the clock button next to History to view your pedometer sessions. Each session shows its time, steps, distance, average speed, and duration. A new session is created whenever you reset the pedometer. You can delete a session from its menu.
+Tap the clock button next to History to view your pedometer sessions. Each session shows its time, steps, distance, average speed, and active duration. A new session is created whenever you reset the pedometer. You can delete a session from its menu.
 
 By default, step history is kept for 30 days. You can change this in Settings > Pedometer > Step history.
 
