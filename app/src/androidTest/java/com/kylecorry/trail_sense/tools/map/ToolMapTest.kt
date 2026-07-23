@@ -159,6 +159,12 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         longClick(R.id.map)
         hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
         hasText(Regex("Elevation: -?\\d+(\\.\\d+)?\\s*(ft|m)"))
+        // Verify distance/direction/elevation data points are shown
+        hasText(string(R.string.distance))
+        hasText(string(R.string.direction))
+        hasText(string(R.string.elevation))
+        hasText(Regex("-?\\d+(\\.\\d+)?\\s*(mi|ft|km|m)"))
+        hasText(Regex("-?\\d+°\\s+\\w+"))
         hasText("Beacon")
         hasText("Navigate")
         hasText("Distance")

@@ -4,10 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
-import android.widget.LinearLayout
-import com.kylecorry.sol.units.CompassDirection
-import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.views.DataPointView
+import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
@@ -327,65 +324,18 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 manager.setSelectedLocation(location)
                 inBackground {
                     val selectedElevation = DEM.getElevation(location).elevation
-                    val userElevation = DEM.getElevation(navigation.location).elevation
                     val formattedLocation = formatter.formatLocation(location)
 
                     onMain {
-                        // Build a DataPointView row to embed in the share sheet
-                        val infoView = LinearLayout(requireContext()).apply {
-                            orientation = LinearLayout.HORIZONTAL
-                            val padding = com.kylecorry.andromeda.core.system.Resources
-                                .dp(requireContext(), 8f).toInt()
-                            setPadding(padding, 0, padding, padding)
-                        }
-
-                        fun addDataPoint(icon: Int, title: String, description: String) {
-                            val dp = DataPointView(requireContext(), null)
-                            dp.layoutParams = LinearLayout.LayoutParams(
-                                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
-                            )
-                            dp.setImageResource(icon)
-                            dp.title = title
-                            dp.description = description
-                            infoView.addView(dp)
-                        }
-
-                        // Distance
-                        val horizontalDist = Distance.meters(
-                            navigation.location.distanceTo(location)
-                        ).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-                        addDataPoint(
-                            R.drawable.ruler,
-                            formatter.formatDistance(
-                                horizontalDist,
-                                Units.getDecimalPlaces(horizontalDist.units),
-                                strict = false
-                            ),
-                            getString(R.string.distance)
+                        // Build the data point row using the shared LocationDataPointView
+                        val infoView = LocationDataPointView(requireContext(), null)
+                        infoView.setDistance(
+                            Distance.meters(navigation.location.distanceTo(location))
+                                .convertTo(prefs.baseDistanceUnits)
                         )
-
-                        // Direction
-                        val azimuth = navigation.location.bearingTo(location).value
-                        addDataPoint(
-                            R.drawable.ic_compass_icon,
-                            formatter.formatDegrees(azimuth, replace360 = true) +
-                                    " " + formatter.formatDirection(
-                                        CompassDirection.nearest(azimuth)
-                                    ),
-                            getString(R.string.direction)
-                        )
-
-                        // Elevation diff
-                        val elevChange = selectedElevation - userElevation
-                        val sign = if (elevChange > 0) getString(R.string.increase) else ""
-                        addDataPoint(
-                            R.drawable.ic_altitude,
-                            getString(
-                                R.string.elevation_diff_format,
-                                sign,
-                                formatter.formatElevation(Distance.meters(elevChange))
-                            ),
-                            getString(R.string.elevation)
+                        infoView.setDirection(navigation.location.bearingTo(location))
+                        infoView.setElevationDiff(
+                            Distance.meters(selectedElevation - navigation.elevation.meters().value)
                         )
 
                         Share.actions(
@@ -414,6 +364,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                                     startDistanceMeasurement(location, true)
                                     manager.setSelectedLocation(null)
                                 },
+                            ),
+                            subtitle = getString(
+                                R.string.elevation_value,
+                                formatter.formatElevation(Distance.meters(selectedElevation))
                             ),
                             customView = infoView
                         ) {
