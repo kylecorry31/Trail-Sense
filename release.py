@@ -51,12 +51,18 @@ else:
 with open(changelog, "r") as changelog_file:
     release_notes = changelog_file.read()
 
-patch_notes_url = (
-    "https://github.com/kylecorry31/Trail-Sense/blob/main/patchnotes/"
+detailed_release_notes_url = (
+    "https://github.com/kylecorry31/Trail-Sense/blob/main/release-notes/"
     + version_name
     + ".md"
 )
-release_notes += "\n\nPatch notes: [" + version_name + "](" + patch_notes_url + ")\n"
+release_notes += (
+    "\n\nRelease notes: ["
+    + version_name
+    + "]("
+    + detailed_release_notes_url
+    + ")\n"
+)
 
 if milestone_url:
     release_notes += "\nMilestone: [" + version_name + "](" + milestone_url + ")\n"
