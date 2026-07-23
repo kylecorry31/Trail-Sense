@@ -23,7 +23,9 @@ import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsViewBinding
 import com.kylecorry.trail_sense.main.getAppService
@@ -193,12 +195,23 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         selectLocation(location)
 
         inBackground {
-            val elevation = Distance.meters(DEM.getElevation(location).elevation)
+            val selectedElevation = DEM.getElevation(location).elevation
+            val formattedLocation = formatService.formatLocation(location)
 
             onMain {
+                val infoView = LocationDataPointView(requireContext(), null)
+                infoView.setDistance(
+                    Distance.meters(gps.location.distanceTo(location))
+                        .convertTo(prefs.baseDistanceUnits)
+                )
+                infoView.setDirection(gps.location.bearingTo(location))
+                infoView.setElevationDiff(
+                    Distance.meters(selectedElevation - altimeter.altitude)
+                )
+
                 Share.actions(
                     this@ViewPhotoMapFragment,
-                    formatService.formatLocation(location),
+                    formattedLocation,
                     listOf(
                         ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
                             createBeacon(location)
@@ -215,8 +228,9 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                     ),
                     subtitle = getString(
                         R.string.elevation_value,
-                        formatService.formatElevation(elevation)
-                    )
+                        formatService.formatElevation(Distance.meters(selectedElevation))
+                    ),
+                    customView = infoView
                 ) {
                     selectLocation(null)
                 }
