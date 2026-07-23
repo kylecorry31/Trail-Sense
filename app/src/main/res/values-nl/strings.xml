@@ -1631,4 +1631,12 @@
     <string name="alarm">Wekker</string>
     <string name="turn_back_alarm_channel">Keer terug (wekker)</string>
     <string name="clock_device_time_accurate">Apparaatklok is accuraat</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="one">Apparaatklok is %d seconde traag</item>
+        <item quantity="other">Apparaatklok is %d seconden traag</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="one">Apparaatklok is %d seconde snel</item>
+        <item quantity="other">Apparaatklok is %d seconden snel</item>
+    </plurals>
 </resources>
