@@ -1630,4 +1630,5 @@
     <string name="references">Referenties</string>
     <string name="alarm">Wekker</string>
     <string name="turn_back_alarm_channel">Keer terug (wekker)</string>
+    <string name="clock_device_time_accurate">Apparaatklok is accuraat</string>
 </resources>
