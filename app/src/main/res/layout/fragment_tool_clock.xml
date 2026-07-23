@@ -52,6 +52,21 @@
         app:layout_constraintTop_toBottomOf="@+id/clock_container" />
 
     <TextView
+        android:id="@+id/clock_offset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?android:textColorSecondary"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clock_source"
+        tools:text="Device clock is 5 seconds slow"
+        tools:visibility="visible" />
+
+    <TextView
         android:id="@+id/updating_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

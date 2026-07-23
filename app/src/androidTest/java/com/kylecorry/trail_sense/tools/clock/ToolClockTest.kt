@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.clock
 
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -23,6 +24,29 @@ class ToolClockTest : ToolTestBase(Tools.CLOCK) {
 
         // Wait for the GPS to be found
         hasText(R.id.pip_button, string(R.string.pip_button), waitForTime = GPS_WAIT_FOR_TIMEOUT)
+        any(
+            {
+                hasText(
+                    R.id.clock_offset,
+                    string(R.string.clock_device_time_accurate),
+                    waitForTime = 0
+                )
+            },
+            {
+                hasText(
+                    R.id.clock_offset,
+                    Regex("Device clock is \\d+ seconds? slow"),
+                    waitForTime = 0
+                )
+            },
+            {
+                hasText(
+                    R.id.clock_offset,
+                    Regex("Device clock is \\d+ seconds? fast"),
+                    waitForTime = 0
+                )
+            }
+        )
 
         // Update time from GPS
         click(toolbarButton(R.id.clock_title, Side.Right))
