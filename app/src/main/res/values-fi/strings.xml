@@ -59,7 +59,7 @@
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
-    <string name="access_background_location_rationale">Trail Sense käyttää sijaintitietoja taustalla merenpinnan tason ilmanpaineen kalibrointiin sääseurannassa ja tarkempien auringonlaskuilmoitusten tarjoamiseksi. [Katso tietosuojakäytäntö] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense käyttää sijaintitietoja taustalla, myös kun sovellus on suljettu. Tätä taustapääsyä käytetään sääseurannassa merenpinnan tason ilmanpaineen kalibrointiin, reitintallennuksen pienoisohjelman päivittämiseen sekä tarkempien auringonnousu- ja auringonlaskuilmoitusten tarjoamiseksi. [Katso tietosuojakäytäntö] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Päivitä sijainnin asetukset</string>
     <string name="copied_to_clipboard_toast">Kopioitu leikepöydälle</string>
     <string name="tools">Työkalut</string>
@@ -655,7 +655,7 @@
     <string name="no_packing_lists">Ei pakkauslistoja</string>
     <string name="pref_start_on_boot_title">Aloita laitteen käynnistyessä</string>
     <string name="stride_length_walk">Kävele suoraa linjaa ja paina stop kun olet valmis</string>
-    <string name="map_calibration_instructions">Napauta tunnettua sijaintia kartalla ja anna sitten todelliset koordinaatit. Voit tallentaa kalibroinnin napsauttamalla \"Valmis\"-painiketta.\n\nEsimerkkejä hyvistä kalibrointipisteistä ovat parkkipaikka, opastepiste, maamerkki tai polun varrella oleva risteys.</string>
+    <string name="map_calibration_instructions">Valitse kaksi pistettä jotka tunnistat sekä kartalla että todellisessa maailmassa. Napauta pisteiden tarkkaa sijaintia kartalla ja syötä sitten niiden todellisen maailman koordinaatit.\n\nHyvät pisteet ovat kaukana toisistaan ja ne ovat helppo tunnistaa, kuten mm. polun alkupiste, parkkipaikka, kyltti, maamerkki, kartan ruudukon risteyskohta tai polkujen risteyskohta.\n\nJos molemmat pisteet ovat kelpoja, paina Viimeistele kalibrointi -painiketta. Jos sinulla on vain yksi piste tai haluat viimeistellä asian myöhemmin, paina Tallenna luonnos -painiketta.</string>
     <string name="unsaved_changes_message">Tekemiäsi muutoksia ei tallenneta.</string>
     <string name="tool_user_guide_summary">Ohje Trail Sensen käyttöön</string>
     <string name="lightning">Salama</string>
@@ -1213,7 +1213,7 @@
     <string name="cell_tower_disclaimer">Mastojen sijainnit ovat likiarvioita OpenCelliD:stä, Mozillan Sijaintipalvelusta, ja FCC:n Antennirekisteristä.\n\n[OpenCelliD Project](https://opencellid.org/) on lisensoitu seuraavan lisenssin alaisena: [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="create_page">Luo sivu</string>
     <string name="field_guide_disclaimer">Tämä työkalu on tarkoitettu vain opetuksellisiin käyttötarkoituksiin. Ole aina varovainen tunnistaessasi kasveja, eläimiä tai sieniä. Jotkut lajit saattavat olla vaarallisia tai suojeltuja. Jos olet epävarma tunnistuksesta, kysy neuvoa ammattilaiselta.</string>
-    <string name="survival_guide_disclaimer">Tämä opas on tarkoitettu vain informatiivisiin tarkoituksiin ja sen kirjoittaja, julkaisija tai kukaan edistäjistä ei takaa sen tarkkuutta tai käyttökelpoisuutta mihinkään tarkoitukseen. Käyttämällä tätä opasta hyväksyt, että ulkona liikkuminen pitää sisällään riskejä ja teet kaiken kyseisen toiminnan omalla vastuullasi, sekä vapautat kirjoittajan, julkaisijan että kaikki edistäjät kaikista tämän oppaan käytöstä johtuvista vahingoista tai korvausvaatimuksista. Kysy aina ammattilaisilta tarkkoja neuvoja omiin tilanteisiisi, sillä tämä opas ei korvaa ammattilaisopastusta. Huomio lisäksi, että paikalliset lait ja määräykset saattaavat vaikuttaa tiettyjen oppaassa kuvattujen tekniikoiden laillisuuteen, ja että lakien noudattaminen on aina sinun vastuullasi.</string>
+    <string name="survival_guide_disclaimer">Tämä opas antaa vain yleisluontoista tietomateriaalia. Se ei vastaa ammattimaista opetusta, lääkinnällisiä neuvoja, lääkinnällisiä diagnooseja tai lääkinnällisiä hoitoja, eikä se korvaa hätätilannepalveluita, ammattihoitoa tai -hoitajia, paikallista opastusta tai tuotteen tai valmistajan ohjeita. Ole aina ensimmäisenä yhteydessä hätäkeskukseen hätätilanteissa, seuraa heidän antamiaan ohjeita äläkä viivästytä yhteydenottoa hätäkeskukseen lukeaksesi tätä opasta. Älä pidä tätä opasta, Trail Senseä taikka puhelintasi ainoana turvasuunnitelmanasi tai yhteydenpitovälineenäsi. Olosuhteet, riskit, lait ja suositeltavat käytännöt riippuvat sijainnistasi sekä tilanteestasi; tarkista kaikki tieto ennen sen käyttämistä ja käytä omaa harkintakykyäsi.</string>
     <string name="no_results">Ei tuloksia</string>
     <string name="permits">Luvat</string>
     <string name="no_permits">Ei lupia</string>
@@ -1532,4 +1532,32 @@
     <string name="map_external">Ulkoinen</string>
     <string name="map_file_missing">Tiedosto puuttuu</string>
     <string name="copy_to_trail_sense">Kopioi Trail Senseen</string>
+    <string name="created">Luotu</string>
+    <string name="average_pace">Keskitahti</string>
+    <string name="pref_pedometer_history_days_title">Askelhistoria</string>
+    <string name="pref_pedometer_average_pace_time_title">Tahdin ajan keskiarvo</string>
+    <string name="current_pace">Nykyinen tahti</string>
+    <string name="current_session">Nykyinen sessio</string>
+    <string name="active_time">Aktiivinen aika</string>
+    <string name="active_duration">Aktiivinen: %s</string>
+    <string name="elapsed_time">Kulunut aika</string>
+    <string name="history">Historia</string>
+    <string name="no_pedometer_sessions">Ei sessioita</string>
+    <string name="alarm">Hälytys</string>
+    <string name="save_draft">Tallenna luonnos</string>
+    <string name="finish_calibration">Viimeistele kalibrointi</string>
+    <string name="calibrate_map_point_title">%1$d. piste %2$d:sta</string>
+    <string name="calibrate_map_point_instructions">Napauta tätä kohtaa kartalla ja syötä sitten sen todellisen maailman koordinaatit.</string>
+    <string name="draft">Luonnos</string>
+    <string name="widget_icon_compatibility_mode">Pienoisohjelmien ikonien yhteensopivuustila</string>
+    <string name="widget_icon_compatibility_mode_summary">Korjaa puuttuvat pienoisohjelmien ikonit joillakin laitteilla</string>
+    <plurals name="step_count">
+        <item quantity="one">%d askel</item>
+        <item quantity="other">%d askelta</item>
+    </plurals>
+    <string name="turn_back_alarm_channel">Käänny takaisin (Hälytys)</string>
+    <string name="references">Viittaukset</string>
+    <string name="invalid_trail_map">Epäkelpo reittikartta</string>
+    <string name="invalid_trail_map_message">Reittikarttatiedosto on epäkelpo tai se puuttuu. Saatat haluta poistaa tämän kartan ja tuoda uuden sen tilalle.</string>
+    <string name="recording_sighting_for_page">Tallennetaan \'%s\' havainto</string>
 </resources>
