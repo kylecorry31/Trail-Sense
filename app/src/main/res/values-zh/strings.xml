@@ -1616,4 +1616,11 @@
     <string name="references">参照</string>
     <string name="alarm">警报</string>
     <string name="turn_back_alarm_channel">折返（警报）</string>
+    <string name="clock_device_time_accurate">设备时钟不精确</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="other">设备时钟慢了 %d 秒</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="other">设备时钟快了 %d 秒</item>
+    </plurals>
 </resources>
