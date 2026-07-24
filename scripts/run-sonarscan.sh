@@ -1,6 +1,6 @@
 #!/bin/bash
 # Run sonarqube
-# Usage: ./sonarscan.sh [--autostop]
+# Usage: ./run-sonarscan.sh [--autostop]
 
 AUTOSTOP=false
 if [ "$1" = "--autostop" ]; then

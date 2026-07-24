@@ -41,7 +41,7 @@ def check_changelog_length(changelog_number):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python changelog-length.py <changelog_number>")
+        print("Usage: python validate_changelog_length.py <changelog_number>")
         sys.exit(1)
 
     changelog_number = sys.argv[1]
