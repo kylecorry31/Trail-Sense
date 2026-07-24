@@ -1641,4 +1641,15 @@
     <string name="references">Références</string>
     <string name="alarm">Alarme</string>
     <string name="turn_back_alarm_channel">Faire demi-tour (Alarme)</string>
+    <string name="clock_device_time_accurate">L\'horloge de l\'appareil est précise</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="one">L\'horloge de l\'appareil est en retard de %d seconde</item>
+        <item quantity="many">L\'horloge de l\'appareil est en retard de %d secondes</item>
+        <item quantity="other">L\'horloge de l\'appareil est en retard de %d secondes</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="one">L\'horloge de l\'appareil est en avance de %d seconde</item>
+        <item quantity="many">L\'horloge de l\'appareil est en avance de %d secondes</item>
+        <item quantity="other">L\'horloge de l\'appareil est en avance de %d secondes</item>
+    </plurals>
 </resources>
