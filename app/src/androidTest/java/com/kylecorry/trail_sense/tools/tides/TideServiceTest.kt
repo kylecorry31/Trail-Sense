@@ -81,6 +81,24 @@ internal class TideServiceTest {
         )
     }
 
+    @Test
+    fun getPhase() = runBlocking {
+        val table = TideTable(
+            0, listOf(
+                Tide.low(time(10, 8, 0), 0f),
+                Tide.high(time(10, 14, 0), 1f)
+            )
+        )
+        val service = TideService(context)
+
+
+        assertEquals(180f, service.getPhase(table, time(10, 8, 0))!!, 5f)
+        assertEquals(270f, service.getPhase(table, time(10, 11, 0))!!, 5f)
+        assertEquals(359f, service.getPhase(table, time(10, 13, 58))!!, 5f)
+        assertEquals(0f, service.getPhase(table, time(10, 14, 0))!!, 5f)
+        assertEquals(90f, service.getPhase(table, time(10, 17, 0))!!, 5f)
+    }
+
     @Suppress("UNCHECKED_CAST")
     @Test
     fun testRealWorldAccuracyHighLow() = runBlocking {

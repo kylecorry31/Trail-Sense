@@ -5,6 +5,7 @@ import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
+import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.oceanography.Oceanography
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
@@ -111,7 +112,7 @@ class TideService(private val context: Context) {
         val delta = Duration.between(previous.time, time).toMillis().toDouble()
         val progress = (delta / total).toFloat()
         return if (next.isHigh) {
-            Interpolation.map(progress, 0f, 1f, 180f, 270f)
+            Trigonometry.normalizeAngle(Interpolation.map(progress, 0f, 1f, 180f, 360f))
         } else {
             Interpolation.map(progress, 0f, 1f, 0f, 180f)
         }
