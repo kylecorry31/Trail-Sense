@@ -15,11 +15,12 @@ class GeographicImageSource(
     private val precision: Int = 2,
     private val valuePixelOffset: Float = 0f,
     // TODO: All of these should be hidden from the geographic image source
-    private val interpolationOrder: Int = 1
+    private val interpolationOrder: Int = 1,
+    private val verticalResolutionDegrees: Double? = null
 ) {
     val imageSize = reader.getSize()
     private val horizontalRes = bounds.widthDegrees() / imageSize.width
-    private val verticalRes = bounds.heightDegrees() / imageSize.height
+    private val verticalRes = verticalResolutionDegrees ?: (bounds.heightDegrees() / imageSize.height)
     private val west = bounds.west + horizontalRes * valuePixelOffset
     private val north = bounds.north - verticalRes * valuePixelOffset
 
@@ -63,10 +64,6 @@ class GeographicImageSource(
     }
 
     fun getLocation(pixel: PixelCoordinate): Coordinate {
-        val imageSize = reader.getSize()
-        val horizontalRes = bounds.widthDegrees() / imageSize.width
-        val verticalRes = bounds.heightDegrees() / imageSize.height
-
         val longitude = (pixel.x + valuePixelOffset) * horizontalRes + bounds.west
         val latitude = bounds.north - (pixel.y + valuePixelOffset) * verticalRes
 
