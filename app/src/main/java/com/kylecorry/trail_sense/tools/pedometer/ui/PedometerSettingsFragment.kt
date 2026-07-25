@@ -7,11 +7,11 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
@@ -77,9 +77,13 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         permissionPref.setOnPreferenceClickListener {
-            val intent = Intents.appSettings(requireContext())
-            getResult(intent) { _, _ ->
+            requestActivityRecognition { hasPermission ->
+                if (!hasPermission) {
+                    val intent = Intents.appSettings(requireContext())
+                    getResult(intent) { _, _ ->
 
+                    }
+                }
             }
             true
         }
@@ -168,11 +172,7 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun updatePermissionRequestPreference() {
-        val hasActivityRecognition = Permissions.canRecognizeActivity(requireContext())
-        permissionPref.isVisible =
-            (userPrefs.pedometer.isEnabled && !hasActivityRecognition) || (!userPrefs.pedometer.isEnabled && !Permissions.isBackgroundLocationEnabled(
-                requireContext()
-            ))
+        permissionPref.isVisible = !Permissions.canRecognizeActivity(requireContext())
     }
 
     private suspend fun onPedometerEnabled(data: Bundle) = onMain {
