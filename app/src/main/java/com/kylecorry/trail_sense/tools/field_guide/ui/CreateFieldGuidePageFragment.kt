@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.net.toFile
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.exifinterface.media.ExifInterface
@@ -214,7 +213,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         // Reduce the resolution
         var rotation = 0
         tryOrLog {
-            val exif = ExifInterface(uri.toFile())
+            val exif = ExifInterface(file)
             rotation = exif.rotationDegrees
         }
         val bmp = files.bitmap(path, Size(500, 500)) ?: return@onIO
