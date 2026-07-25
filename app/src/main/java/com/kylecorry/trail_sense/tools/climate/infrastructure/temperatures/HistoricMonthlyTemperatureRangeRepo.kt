@@ -27,7 +27,6 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     private const val lowA = 1.4010988473892212
     private const val lowB = 56.0
     private val size = Size(576, 361)
-    private const val verticalResolutionDegrees = 0.5
 
     private val extensionMap = mapOf(
         "1-3" to Triple(Month.JANUARY, Month.FEBRUARY, Month.MARCH),
@@ -46,8 +45,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 SingleImageReader(size, AssetInputStreamable(file)),
                 decoder = EncodedDataImageReader.scaledDecoder(lowA, lowB),
                 maxChannels = 3
-            ),
-            verticalResolutionDegrees = verticalResolutionDegrees
+            )
         )
     }
 
@@ -58,8 +56,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
                 SingleImageReader(size, AssetInputStreamable(file)),
                 decoder = EncodedDataImageReader.scaledDecoder(highA, highB),
                 maxChannels = 3
-            ),
-            verticalResolutionDegrees = verticalResolutionDegrees
+            )
         )
     }
 
