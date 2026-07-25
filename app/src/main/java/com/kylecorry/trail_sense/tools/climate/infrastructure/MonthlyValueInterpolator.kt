@@ -32,8 +32,8 @@ class MonthlyValueInterpolator {
             }.toMutableList()
             dates.add(0, LocalDate.of(midYear.year - 1, Month.DECEMBER, 15))
             dates.add(0, LocalDate.of(midYear.year - 1, Month.NOVEMBER, 15))
-            dates.add(LocalDate.of(midYear.year + 1, Month.NOVEMBER, 15))
-            dates.add(LocalDate.of(midYear.year + 1, Month.DECEMBER, 15))
+            dates.add(LocalDate.of(midYear.year + 1, Month.JANUARY, 15))
+            dates.add(LocalDate.of(midYear.year + 1, Month.FEBRUARY, 15))
             val points = dates.map {
                 val value = monthlyValues[it.month] ?: 0f
                 Vector2(midYear.daysUntil(it).toFloat(), value)
