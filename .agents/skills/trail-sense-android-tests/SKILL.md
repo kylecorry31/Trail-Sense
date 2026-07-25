@@ -198,8 +198,8 @@ backUntil { isVisible(R.id.paths_title, waitForTime = 1000) }
 ## Running Tests
 
 ```bash
-./scripts/emulator-integration-tests.sh
-./scripts/emulator-integration-tests.sh com.kylecorry.trail_sense.tools.notes.ToolNotesTest 180
+./scripts/run-emulator-integration-tests.sh
+./scripts/run-emulator-integration-tests.sh com.kylecorry.trail_sense.tools.notes.ToolNotesTest 180
 ```
 
 The script defaults to a 1800 second timeout. Most individual integration tests should finish in 60 to 180 seconds, so pass a shorter timeout for focused runs when practical.

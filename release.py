@@ -49,7 +49,19 @@ else:
     print("Unable to check for release milestone")
 
 with open(changelog, "r") as changelog_file:
-    release_notes = changelog_file.read()
+    changelog_contents = changelog_file.read()
+
+detailed_release_notes_url = (
+    "https://github.com/kylecorry31/Trail-Sense/blob/main/release-notes/"
+    + version_name
+    + ".md"
+)
+release_notes = (
+    "[Read the detailed release notes]("
+    + detailed_release_notes_url
+    + ")\n\n## Highlights\n\n"
+    + changelog_contents
+)
 
 if milestone_url:
     release_notes += "\n\nMilestone: [" + version_name + "](" + milestone_url + ")\n"

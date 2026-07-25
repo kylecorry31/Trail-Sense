@@ -51,6 +51,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
             }
         }
         binding.clockTitle.rightButton.setOnClickListener {
+            binding.clockOffset.isVisible = false
             gps.start(this::onGPSUpdate)
             binding.updatingClock.visibility = View.VISIBLE
             binding.pipButton.visibility = View.INVISIBLE
@@ -66,6 +67,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
 
     override fun onResume() {
         super.onResume()
+        binding.clockOffset.isVisible = false
         gps.start(this::onGPSUpdate)
         binding.updatingClock.visibility = View.VISIBLE
         binding.pipButton.visibility = View.INVISIBLE
@@ -132,6 +134,26 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
             getString(R.string.clock_source_device)
         }
         binding.clockSource.visibility = View.VISIBLE
+        binding.clockOffset.isVisible = isGpsTime
+        if (!isGpsTime) {
+            return
+        }
+
+        val offset = getClockOffset(Duration.between(systemTime, gpsTime))
+        binding.clockOffset.text = when (offset.direction) {
+            ClockOffsetDirection.Accurate -> getString(R.string.clock_device_time_accurate)
+            ClockOffsetDirection.Slow -> resources.getQuantityString(
+                R.plurals.clock_device_time_slow,
+                offset.seconds.toInt(),
+                offset.seconds
+            )
+
+            ClockOffsetDirection.Fast -> resources.getQuantityString(
+                R.plurals.clock_device_time_fast,
+                offset.seconds.toInt(),
+                offset.seconds
+            )
+        }
     }
 
     private fun sendNextMinuteNotification() {
@@ -184,4 +206,22 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     ): FragmentToolClockBinding {
         return FragmentToolClockBinding.inflate(layoutInflater, container, false)
     }
+}
+
+internal data class ClockOffset(val seconds: Long, val direction: ClockOffsetDirection)
+
+internal enum class ClockOffsetDirection {
+    Accurate,
+    Slow,
+    Fast
+}
+
+private fun getClockOffset(duration: Duration): ClockOffset {
+    val seconds = duration.abs().seconds
+    val direction = when {
+        seconds == 0L -> ClockOffsetDirection.Accurate
+        duration.isNegative -> ClockOffsetDirection.Fast
+        else -> ClockOffsetDirection.Slow
+    }
+    return ClockOffset(seconds, direction)
 }

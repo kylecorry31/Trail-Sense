@@ -455,6 +455,15 @@
     <string name="tool_ruler_title">Ruler</string>
     <string name="clock_source_device">Device time</string>
     <string name="clock_source_gps">GPS time</string>
+    <string name="clock_device_time_accurate">Device clock is accurate</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="one">Device clock is %d second slow</item>
+        <item quantity="other">Device clock is %d seconds slow</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="one">Device clock is %d second fast</item>
+        <item quantity="other">Device clock is %d seconds fast</item>
+    </plurals>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>

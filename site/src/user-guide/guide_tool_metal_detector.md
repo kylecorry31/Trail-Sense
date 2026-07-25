@@ -8,7 +8,7 @@ The Metal Detector tool allows you to detect magnetic metals like iron. It's use
 Calibrating the metal detector improves the accuracy of readings. To calibrate:
 
 1. Hold your phone 2-3 inches (5-8 cm) above the ground with the screen facing up.
-2. Press 'Calibrate'.
+2. Tap 'Calibrate'.
 3. Recalibrate occasionally for accuracy.
 
 The detector automatically calibrates when started.
@@ -40,3 +40,4 @@ Tapping the speaker icon in the top-right corner enables audio feedback. A tone 
 This experimental feature attempts to indicate metal direction with two on-screen dots. One points towards the metal and the other away from it. Unfortunately, it's uncertain which is which. Move your phone towards one dot; if the number in the center increases, you are getting closer. If the dots swap, it likely means you just passed over the metal. This requires a gyroscope sensor.
 
 Enable it on 'Settings > Experimental > Show metal direction'.
+

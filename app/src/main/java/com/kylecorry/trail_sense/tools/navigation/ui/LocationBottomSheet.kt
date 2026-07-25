@@ -39,6 +39,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
         format = prefs.navigation.coordinateFormat
 
+        binding.locationTitle.title.textSize = 32f
         binding.locationTitle.subtitle.setCompoundDrawables(
             Resources.dp(requireContext(), 24f).toInt(),
             right = R.drawable.ic_drop_down

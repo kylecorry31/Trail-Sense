@@ -12,6 +12,9 @@ Astronomy
 Field Guide
 - Add Record Sighting quick action
 
+Survival Guide
+- Content updates
+
 Misc
 - Improve Material 3 Expressive support
 - Location input fields allow selecting a location on the map

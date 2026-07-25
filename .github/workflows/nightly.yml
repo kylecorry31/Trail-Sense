@@ -24,7 +24,7 @@ jobs:
 
       - name: Generate changelog
         run: |
-          sh ./scripts/list-nightly-commits.sh | python ./scripts/generate-changelog.py >> $GITHUB_STEP_SUMMARY
+          sh ./scripts/list-nightly-commits.sh | python ./scripts/generate_changelog.py >> $GITHUB_STEP_SUMMARY
 
       - name: Setup Java
         uses: actions/setup-java@v5.3.0

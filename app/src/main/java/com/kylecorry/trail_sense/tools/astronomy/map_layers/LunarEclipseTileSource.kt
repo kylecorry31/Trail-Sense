@@ -1,18 +1,18 @@
 package com.kylecorry.trail_sense.tools.astronomy.map_layers
 
 import android.content.Context
-
 import android.graphics.Bitmap
 import android.os.Bundle
 import com.kylecorry.andromeda.core.ui.colormaps.AlphaColorMap
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ParallelCoordinateGridValueProvider
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileImageUtils
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Duration
@@ -79,6 +79,11 @@ class LunarEclipseTileSource : TileSource {
         if (time < eclipse.start.minus(buffer) || time > eclipse.end.plus(buffer)) {
             return null
         }
+
+        if (Arithmetic.isZero(eclipse.obscuration)) {
+            return null
+        }
+
         return eclipse.obscuration
     }
 
