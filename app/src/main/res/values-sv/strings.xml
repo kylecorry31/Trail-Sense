@@ -5,7 +5,6 @@
     <string name="settings">Inställningar</string>
     <string name="astronomy">Astronomi</string>
     <string name="tools">Verktyg</string>
-    <string name="access_background_location">Tillåt platsåtkomst i bakgrunden</string>
     <string name="direction_west">V</string>
     <string name="direction_north_east">NÖ</string>
     <string name="direction_south_east">SÖ</string>
