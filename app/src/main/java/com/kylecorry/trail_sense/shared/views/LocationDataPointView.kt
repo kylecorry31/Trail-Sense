@@ -40,6 +40,7 @@ class LocationDataPointView(context: Context, attrs: AttributeSet? = null) :
         val dp = DataPointView(context, null)
         dp.layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
         dp.setImageResource(icon)
+        dp.setShowDescription(false)
         addView(dp)
         return dp
     }
