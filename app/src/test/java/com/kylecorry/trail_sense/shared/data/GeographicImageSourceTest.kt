@@ -4,6 +4,7 @@ import android.util.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -12,6 +13,27 @@ import org.mockito.kotlin.mock
 import java.util.stream.Stream
 
 class GeographicImageSourceTest {
+
+    @Test
+    fun respectsVerticalResolutionOverride() {
+        val size = mock<Size> {
+            on { width } doReturn 576
+            on { height } doReturn 361
+        }
+        val reader = mock<DataImageReader> {
+            on { getSize() } doReturn size
+        }
+        val source = GeographicImageSource(
+            reader,
+            precision = 5,
+            verticalResolutionDegrees = 0.5
+        )
+
+        assertEquals(0f, source.getPixel(Coordinate(90.0, 0.0)).y)
+        assertEquals(180f, source.getPixel(Coordinate(0.0, 0.0)).y)
+        assertEquals(359f, source.getPixel(Coordinate(-89.5, 0.0)).y)
+        assertEquals(360f, source.getPixel(Coordinate(-90.0, 0.0)).y)
+    }
 
     @ParameterizedTest
     @MethodSource("provideTestData")
