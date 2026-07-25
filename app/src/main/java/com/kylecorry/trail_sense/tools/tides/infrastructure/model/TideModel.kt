@@ -71,10 +71,17 @@ object TideModel {
         TideConstituent.T2 to 79.61186981201172,
     )
 
+    private data class LargeAmplitude(
+        val constituent: TideConstituent,
+        val x: Int,
+        val y: Int,
+        val amplitude: Double
+    )
+
     private val largeAmplitudes = listOf(
-        listOf(TideConstituent.S1, 181, 257, 3582),
-        listOf(TideConstituent.S2, 181, 257, 3022),
-        listOf(TideConstituent.T2, 181, 257, 504),
+        LargeAmplitude(TideConstituent.S1, 257, 181, 3582.0),
+        LargeAmplitude(TideConstituent.S2, 257, 181, 3022.0),
+        LargeAmplitude(TideConstituent.T2, 257, 181, 504.0),
     )
 
     suspend fun getHarmonics(
@@ -160,8 +167,11 @@ object TideModel {
 
                 // If there's a match in the large amplitudes array, use that for the amplitude
                 val largeAmplitude =
-                    (largeAmplitudes.firstOrNull { it[0] == harmonic && it[1] == pixel.x.roundToInt() && it[2] == pixel.y.roundToInt() }
-                        ?.get(3) as Double?)?.toFloat()
+                    largeAmplitudes.firstOrNull {
+                        it.constituent == harmonic &&
+                                it.x == pixel.x.roundToInt() &&
+                                it.y == pixel.y.roundToInt()
+                    }?.amplitude?.toFloat()
 
                 val amplitude = (largeAmplitude ?: Interpolation.lerp(
                     (getColorIndex(amplitudePixel, j).toDouble() / 255),
