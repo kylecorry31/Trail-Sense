@@ -35,6 +35,7 @@ class WhiteNoiseService : AndromedaService() {
         val soundId = cache.getLong(CACHE_KEY_SLEEP_SOUND_ID) ?: SleepSound.PinkNoise.id
         val sound = SleepSound.entries.withId(soundId) ?: SleepSound.PinkNoise
 
+        soundPlayer?.fadeOff(true)
         soundPlayer = SleepSoundFactory().getSleepSound(sound)
         soundPlayer?.fadeOn()
         return START_STICKY
