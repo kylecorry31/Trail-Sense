@@ -48,6 +48,10 @@ class MultilingualFuzzySearchStrategy(
     }
 
     private fun percentMatch(queryKeywords: Set<String>, textKeywords: Set<String>): Float {
+        if (queryKeywords.isEmpty() || textKeywords.isEmpty()) {
+            return 0f
+        }
+
         val distanceMetric = LevenshteinDistance()
         val scores = mutableMapOf<String, Float>()
 
