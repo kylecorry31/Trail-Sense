@@ -63,12 +63,12 @@
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="@id/camera_toggle"
         app:layout_constraintStart_toStartOf="@id/camera_toggle"
-        app:layout_constraintTop_toBottomOf="@id/search_btn"
+        app:layout_constraintTop_toBottomOf="@id/ar_search_btn"
         app:srcCompat="@drawable/ic_tool_clock"
         app:tint="@color/white" />
 
     <ImageButton
-        android:id="@+id/search_btn"
+        android:id="@+id/ar_search_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="8dp"
