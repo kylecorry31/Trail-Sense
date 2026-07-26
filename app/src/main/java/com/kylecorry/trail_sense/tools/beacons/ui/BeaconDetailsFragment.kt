@@ -172,7 +172,6 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
     private suspend fun updateBeaconTides(beacon: Beacon) {
         val tide = tides.getNearestTide(beacon.coordinate)
-        println(tide)
         if (tide != null) {
             binding.beaconTide.title = tideFormatter.getTideTypeName(tide.now.type)
         } else {
