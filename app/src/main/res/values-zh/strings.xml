@@ -1622,4 +1622,5 @@
     <plurals name="clock_device_time_fast">
         <item quantity="other">设备时钟快了 %d 秒</item>
     </plurals>
+    <string name="clock_device_time_accurate">设备时钟准确</string>
 </resources>
