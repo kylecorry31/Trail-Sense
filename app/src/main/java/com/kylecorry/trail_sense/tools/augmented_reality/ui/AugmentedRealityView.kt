@@ -14,11 +14,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.luna.signals.SchmittTrigger
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
@@ -26,6 +25,8 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.luna.signals.SchmittTrigger
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.Quaternion
@@ -81,6 +82,7 @@ class AugmentedRealityView : CanvasView {
     private val orientation = FloatArray(3)
     private var previewRect: RectF? = null
     private var cameraMapper: CameraAnglePixelMapper? = null
+    private var lastActiveCamera: ICamera? = null
     private val defaultMapper = SimplePerspectiveCameraAnglePixelMapper()
 
     // Sensors / preferences
@@ -547,6 +549,7 @@ class AugmentedRealityView : CanvasView {
         syncTimer.stop()
         fovRunner.cancel()
         cameraMapper = null
+        lastActiveCamera = null
         camera = null
         owner = null
     }
@@ -615,13 +618,15 @@ class AugmentedRealityView : CanvasView {
                 if (previewRect == null) {
                     previewRect = camera.camera?.getPreviewRect(false)
                 }
-                if (cameraMapper == null) {
-                    cameraMapper = camera.camera?.let {
+                val activeCamera = camera.camera
+                if (activeCamera !== lastActiveCamera || cameraMapper == null) {
+                    cameraMapper = activeCamera?.let {
                         CameraAnglePixelMapperFactory().getMapper(
                             userPrefs.camera.projectionType,
                             it
                         )
                     }
+                    lastActiveCamera = activeCamera
                 }
             }
         }
