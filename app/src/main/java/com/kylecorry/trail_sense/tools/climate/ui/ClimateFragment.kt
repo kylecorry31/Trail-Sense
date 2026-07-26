@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivityType
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.luna.hooks.Ref
 import java.time.LocalDate
 import java.time.Month
 
@@ -73,6 +74,11 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         val (date, setDate) = useState(LocalDate.now())
         val (location, setLocation) = useState(locationSubsystem.location)
         val (elevation, setElevation) = useState(locationSubsystem.elevation.convertTo(distanceUnits))
+        val dateRef = useRef(date)
+
+        useEffect(date) {
+            dateRef.current = date
+        }
 
         // Charts
         val temperatureChart = useMemo(temperatureChartView) {
@@ -83,8 +89,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
 
         val precipitationChart = useMemo(precipitationChartView) {
             MonthlyPrecipitationChart(precipitationChartView) {
-                // TODO: This really needs the prev version of a setter
-                setDate(LocalDate.now().withDayOfMonth(15).withMonth(it.value))
+                setDate(dateRef.current.withDayOfMonth(15).withMonth(it.value))
             }
         }
 
