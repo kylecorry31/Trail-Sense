@@ -230,7 +230,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             showLayersSheet()
         }
 
-        binding.searchBtn.setOnClickListener {
+        binding.arSearchBtn.setOnClickListener {
             showGuidanceLayerPicker()
         }
 
@@ -633,7 +633,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     private fun updateGuidanceButtonState() {
         val hasGuidanceLayers = currentVisibleLayers().any { it is ARGuidanceLayer }
-        binding.searchBtn.isVisible = activeGuidanceTarget != null || hasGuidanceLayers
+        binding.arSearchBtn.isVisible = activeGuidanceTarget != null || hasGuidanceLayers
     }
 
     private fun showLayersSheet() {
