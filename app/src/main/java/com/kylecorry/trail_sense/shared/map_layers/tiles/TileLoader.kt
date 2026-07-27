@@ -306,15 +306,15 @@ class TileLoader(
                             destX + destWidth,
                             destY + destHeight
                         )
-                        fallbackBitmap.copy(fallbackBitmap.config ?: Bitmap.Config.ARGB_8888, false)
-                            .use {
-                                canvas.drawBitmap(
-                                    this,
-                                    fallbackSrcRect,
-                                    destRect,
-                                    neighborPaint
-                                )
-                            }
+                        Bitmap.createBitmap(
+                            fallbackBitmap,
+                            fallbackSrcRect.left,
+                            fallbackSrcRect.top,
+                            fallbackSrcRect.width(),
+                            fallbackSrcRect.height()
+                        ).use {
+                            canvas.drawBitmap(this, null, destRect, neighborPaint)
+                        }
                     }
                     return@withImage
                 }
