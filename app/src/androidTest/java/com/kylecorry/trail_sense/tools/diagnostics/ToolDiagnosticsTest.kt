@@ -16,6 +16,7 @@ class ToolDiagnosticsTest : ToolTestBase(Tools.DIAGNOSTICS) {
     @Test
     fun verifyBasicFunctionality() {
         hasText(R.id.diagnostics_title, string(R.string.diagnostics))
+        hasText(R.id.download_logs, string(R.string.export_logs))
 
         // Battery usage always starts restricted, so just check for that
         hasText(string(R.string.battery_usage_restricted), waitForTime = GPS_WAIT_FOR_TIMEOUT)

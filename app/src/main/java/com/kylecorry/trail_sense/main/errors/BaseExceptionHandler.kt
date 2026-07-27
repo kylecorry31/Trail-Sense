@@ -12,7 +12,8 @@ abstract class BaseExceptionHandler(
     private val generator: IBugReportGenerator,
     private val filename: String = "errors/error.txt",
     private val fileSystem: IFileSystem = LocalFileSystem(context),
-    private val shouldRestartApp: Boolean = true
+    private val shouldRestartApp: Boolean = true,
+    private val retainedErrorCount: Int = 0
 ) {
 
     fun bind() {
@@ -43,6 +44,9 @@ abstract class BaseExceptionHandler(
     private fun setupHandler() {
         val handler = { throwable: Throwable ->
             val details = generator.generate(context, throwable)
+            tryOrLog {
+                retainException(details)
+            }
             if (!handleException(throwable, details)) {
                 recordException(details)
                 if (shouldRestartApp) {
@@ -58,6 +62,26 @@ abstract class BaseExceptionHandler(
 
     private fun recordException(details: String) {
         fileSystem.write(filename, details, false)
+    }
+
+    private fun retainException(details: String) {
+        if (retainedErrorCount <= 0) {
+            return
+        }
+
+        val directory = filename.substringBeforeLast('/', "")
+        val historyDirectory = if (directory.isEmpty()) {
+            "history"
+        } else {
+            "$directory/history"
+        }
+        val timestamp = System.currentTimeMillis()
+        fileSystem.write("$historyDirectory/crash-$timestamp.txt", details, false)
+        fileSystem.list(historyDirectory)
+            .filter { it.isFile }
+            .sortedByDescending { it.lastModified() }
+            .drop(retainedErrorCount)
+            .forEach { it.delete() }
     }
 
     private fun wrapOnUncaughtException(exceptionHandler: (throwable: Throwable) -> Unit) {

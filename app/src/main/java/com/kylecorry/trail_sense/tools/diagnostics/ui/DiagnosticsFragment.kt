@@ -43,6 +43,9 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         binding.diagnosticsTitle.rightButton.setOnClickListener {
             findNavController().navigate(R.id.action_diagnostics_to_sensor_details)
         }
+        binding.downloadLogs.setOnClickListener {
+            DownloadDiagnosticsLogsCommand(this).execute()
+        }
         diagnosticListView =
             ListView(binding.diagnosticsList, R.layout.list_item_plain_icon) { itemView, item ->
                 val itemBinding = ListItemPlainIconBinding.bind(itemView)

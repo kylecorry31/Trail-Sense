@@ -917,6 +917,7 @@
     <string name="camera">Camera</string>
     <string name="no_permission">Permission not granted</string>
     <string name="diagnostics">Diagnostics</string>
+    <string name="export_logs">Export logs</string>
     <string name="pref_diagnostics" translatable="false">pref_diagnostics</string>
     <string name="battery_usage_restricted">Battery usage restricted</string>
     <string name="overridden">Overridden</string>
@@ -1159,6 +1160,8 @@
     <string name="exporting_map">Exporting map</string>
     <string name="map_exported">Map exported</string>
     <string name="exported">Exported</string>
+    <string name="exporting">Exporting</string>
+    <string name="export_failed">Unable to export</string>
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
     <string name="map_file">File (JPG, PNG, PDF, Mapsforge)</string>
