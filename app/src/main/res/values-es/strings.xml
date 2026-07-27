@@ -1299,7 +1299,7 @@
     <string name="pref_navigation_lock_screen_when_open_title">Mostrar en pantalla de bloqueo mientras está abierto</string>
     <string name="caliber_format">%s cal</string>
     <string name="grains_format">%s gr</string>
-    <string name="survival_guide_disclaimer">Esta guía se proporciona únicamente con fines informativos. Ni el autor ni el editor ni ninguno de los colaboradores garantizan su exactitud o idoneidad para cualquier propósito. Al usar esta guía aceptas que las actividades al aire libre implican riesgos y lo haces bajo tu responsabilidad eximiendo de toda responsabilidad al autor, al editor y a cualquier colaborador por cualquier reclamación o daño derivado del uso de esta guía. Consulta siempre a profesionales para obtener asesoramiento específico para la situación ya que esta guía no sustituye a la orientación profesional. Además, ten en cuenta que las leyes y normativas locales pueden afectar al uso legal de las técnicas aquí descritas, y su cumplimiento es tu responsabilidad.</string>
+    <string name="survival_guide_disclaimer">Esta guía proporciona únicamente información educativa general. No constituye formación profesional, consejo médico, diagnóstico ni tratamiento, y no sustituye a los servicios de emergencia, a profesionales sanitarios cualificados, a las guías locales, ni a las instrucciones del fabricante del producto. En caso de emergencia, contacta con los servicios de emergencia lo antes posible, sigue sus instrucciones y no retrases la búsqueda de ayuda para consultar esta guía. No confíes en esta guía, en Trail Sense ni en el teléfono como tu único plan de seguridad o medio de comunicación. Las condiciones, los riesgos, las leyes y las prácticas recomendadas varían según el lugar y la situación; verifica la información antes de actuar y usa tu propio criterio.</string>
     <string name="survival_guide_empty_desc">Busca en temas de supervivencia como agua, medicina, alimentos, meteorología, refugios o técnicas de navegación.</string>
     <string name="signal_finder_description">Ver torres de telefonía móvil y señales cercanas.</string>
     <string name="cell_tower_disclaimer">La ubicación de las torres es aproximada a partir de OpenCelliD, Mozilla Location Service, y FCC Antenna Registrations\n\n[OpenCelliD Project](https://opencellid.org/) está bajo licencia [Creative Commons Attribution-ShareAlike 4.0 International].(https://creativecommons.org/licenses/by-sa/4.0/)</string>
@@ -1589,4 +1589,18 @@
     <string name="active_time">Tiempo activo</string>
     <string name="active_duration">Activo:%s</string>
     <string name="elapsed_time">Tiempo transcurrido</string>
+    <string name="clock_device_time_accurate">El reloj del dispositivo es preciso</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="one">El reloj del dispositivo está atrasado %d segundo</item>
+        <item quantity="many">El reloj del dispositivo está atrasado %d segundos</item>
+        <item quantity="other">El reloj del dispositivo está atrasado %d segundos</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="one">El reloj del dispositivo está adelantado %d segundo</item>
+        <item quantity="many">El reloj del dispositivo está adelantado %d segundos</item>
+        <item quantity="other">El reloj del dispositivo está adelantado %d segundos</item>
+    </plurals>
+    <string name="alarm">Alarma</string>
+    <string name="references">Referencias</string>
+    <string name="turn_back_alarm_channel">Volver (Alarma)</string>
 </resources>
