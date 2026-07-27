@@ -6,13 +6,16 @@ Podómetro
 - Historial recuento de pasos por hora, paso y tiempo en activo
 - Opción tiempo activo o tiempo transcurrido en paso medio.
 
+
 Astronomía
 - Renderizar iconos precisos para luna y eclipses
+
 
 Guía de campo
 - Acción rápida Registrar avistamiento
 
+
 Varios
 - Compatibilidad Material 3 Expressive
-- El campo entrada de ubicación permite seleccionar ubicación en mapa
+- Entrada de ubicación permite seleccionar ubicación en mapa
 - Corrección errores
