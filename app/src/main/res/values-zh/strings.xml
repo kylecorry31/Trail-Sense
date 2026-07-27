@@ -1623,4 +1623,7 @@
         <item quantity="other">设备时钟快了 %d 秒</item>
     </plurals>
     <string name="clock_device_time_accurate">设备时钟准确</string>
+    <string name="export_logs">导出日志</string>
+    <string name="exporting">导出中</string>
+    <string name="export_failed">无法导出</string>
 </resources>
