@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
 import java.util.concurrent.locks.ReentrantReadWriteLock
-import kotlin.concurrent.read
 import kotlin.concurrent.write
 
 class ImageTile(
@@ -46,7 +45,7 @@ class ImageTile(
     }
 
     fun hasImage(): Boolean {
-        return imageLock.read { image != null }
+        return image != null
     }
 
     fun setLoader(loader: (suspend () -> Bitmap?)) {
@@ -107,9 +106,23 @@ class ImageTile(
 
     }
 
+    /**
+     * Attempts to obtain a read lock on the image. If a write lock is active, this will call the block with null.
+     * Otherwise, the block will be called with the current image (if any) under a read lock.
+     *
+     * The contents of image bitmap may be modified in block, though it should be avoided if possible and done in a way
+     * that doesn't impact other readers. Changes may be overridden, so use with caution.
+     */
     fun withImage(block: (image: Bitmap?) -> Unit) {
-        imageLock.read {
+        val readLock = imageLock.readLock()
+        if (!readLock.tryLock()) {
+            block(null)
+            return
+        }
+        try {
             block(image)
+        } finally {
+            readLock.unlock()
         }
     }
 
