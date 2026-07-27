@@ -151,8 +151,24 @@ object AstronomyToolRegistration : ToolRegistration {
                     context.getString(R.string.sunset_alerts)
                 ),
                 ToolDiagnosticFactory.notification(
+                    NOTIFICATION_CHANNEL_SUNSET_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.sunset_alerts),
+                        context.getString(R.string.alarm)
+                    )
+                ),
+                ToolDiagnosticFactory.notification(
                     SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.sunrise_alerts)
+                ),
+                ToolDiagnosticFactory.notification(
+                    NOTIFICATION_CHANNEL_SUNRISE_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.sunrise_alerts),
+                        context.getString(R.string.alarm)
+                    )
                 ),
                 ToolDiagnosticFactory.notification(
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,

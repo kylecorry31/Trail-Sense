@@ -132,6 +132,14 @@ object WeatherToolRegistration : ToolRegistration {
                     context.getString(R.string.storm_alerts),
                 ),
                 ToolDiagnosticFactory.notification(
+                    NOTIFICATION_CHANNEL_STORM_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.storm_alerts),
+                        context.getString(R.string.alarm)
+                    )
+                ),
+                ToolDiagnosticFactory.notification(
                     DailyWeatherAlerter.DAILY_CHANNEL_ID,
                     context.getString(R.string.todays_forecast),
                 ),

@@ -47,6 +47,14 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.notification(
                     NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,
                     context.getString(R.string.water_boil_timer)
+                ),
+                ToolDiagnosticFactory.notification(
+                    NOTIFICATION_CHANNEL_WATER_BOIL_TIMER_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.water_boil_timer),
+                        context.getString(R.string.alarm)
+                    )
                 )
             ).distinctBy { it.id }
         )

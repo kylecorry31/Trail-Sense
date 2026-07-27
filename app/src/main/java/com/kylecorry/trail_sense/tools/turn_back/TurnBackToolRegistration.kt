@@ -50,6 +50,14 @@ object TurnBackToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.notification(
                     NOTIFICATION_CHANNEL_TURN_BACK_ALERT,
                     context.getString(R.string.turn_back_alerts)
+                ),
+                ToolDiagnosticFactory.notification(
+                    NOTIFICATION_CHANNEL_TURN_BACK_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.turn_back_alerts),
+                        context.getString(R.string.alarm)
+                    )
                 )
             )
         )

@@ -101,6 +101,14 @@ object PedometerToolRegistration : ToolRegistration {
                     DistanceAlerter.NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.distance_alert)
                 ),
+                ToolDiagnosticFactory.notification(
+                    NOTIFICATION_CHANNEL_DISTANCE_ALARM,
+                    context.getString(
+                        R.string.parenthesized_pair,
+                        context.getString(R.string.distance_alert),
+                        context.getString(R.string.alarm)
+                    )
+                ),
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
             ),
