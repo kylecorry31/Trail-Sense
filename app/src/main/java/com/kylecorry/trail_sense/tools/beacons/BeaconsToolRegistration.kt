@@ -129,7 +129,8 @@ object BeaconsToolRegistration : ToolRegistration {
                     },
                     geoJsonSource = ::BeaconGeoJsonSource,
                     refreshBroadcasts = listOf(
-                        NavigationToolRegistration.BROADCAST_DESTINATION_CHANGED
+                        NavigationToolRegistration.BROADCAST_DESTINATION_CHANGED,
+                        BROADCAST_BEACONS_CHANGED
                     )
                 )
             )
