@@ -1639,4 +1639,7 @@
         <item quantity="one">Apparaatklok is %d seconde snel</item>
         <item quantity="other">Apparaatklok is %d seconden snel</item>
     </plurals>
+    <string name="export_logs">Logs exporteren</string>
+    <string name="exporting">Bezig met exporteren</string>
+    <string name="export_failed">Exporteren mislukt</string>
 </resources>
