@@ -30,7 +30,7 @@ class TileLoader(
     private val updateListener: () -> Unit = {}
 ) {
 
-    val tileCache = TileCache(tag ?: "", 256)
+    val tileCache = TileCache(tag ?: "", STANDARD_DETAIL_CACHE_SIZE)
 
     private val persistentCache =
         if (key != null) getAppService<PersistentTileCache>() else null
@@ -71,8 +71,15 @@ class TileLoader(
         featureId: String? = null,
         isWidget: Boolean = false,
         isHighDetailMode: Boolean = false,
+        useHighDetailCache: Boolean = isHighDetailMode,
         context: Context
     ) {
+        val cacheSize =
+            if (useHighDetailCache) HIGH_DETAIL_CACHE_SIZE else STANDARD_DETAIL_CACHE_SIZE
+        if (tileCache.maxSize() != cacheSize) {
+            tileCache.resize(cacheSize)
+        }
+
         val params = Bundle().apply {
             putLong(MapLayerParams.PARAM_TIME, time.toEpochMilli())
             putBoolean(MapLayerParams.PARAM_IS_WIDGET, isWidget)
@@ -340,6 +347,11 @@ class TileLoader(
                 )
             }
         }
+    }
+
+    companion object {
+        private const val STANDARD_DETAIL_CACHE_SIZE = 128
+        private const val HIGH_DETAIL_CACHE_SIZE = 256
     }
 
 }
