@@ -206,8 +206,9 @@ open class TileMapLayer<T : TileSource>(
                 layerPreferences,
                 featureId,
                 map.isWidget,
-                map.isHighDetailMode,
-                context
+                isHighDetailMode = map.isHighDetailMode,
+                useHighDetailCache = map.isHighDetailMode || zoomOffset > 0,
+                context = context
             )
         } else if (desiredTiles.size > MAX_TILES) {
             Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
