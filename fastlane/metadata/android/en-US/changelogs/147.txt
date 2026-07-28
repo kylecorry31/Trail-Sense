@@ -1,0 +1,21 @@
+Offline Maps
+- Automatically detect corners of new photo maps
+- Add setting to use external trail map files
+
+Pedometer
+- Show hourly step count history, pace, and active time
+- Add option to use active or elapsed time for average pace
+
+Astronomy
+- Render accurate icons for moon and eclipses
+
+Field Guide
+- Add Record Sighting quick action
+
+Survival Guide
+- Content updates
+
+Misc
+- Improve Material 3 Expressive support
+- Location input fields allow selecting a location on the map
+- Bug fixes
