@@ -1652,4 +1652,7 @@
         <item quantity="many">L\'horloge de l\'appareil est en avance de %d secondes</item>
         <item quantity="other">L\'horloge de l\'appareil est en avance de %d secondes</item>
     </plurals>
+    <string name="export_logs">Exporter les journaux</string>
+    <string name="exporting">Exportation</string>
+    <string name="export_failed">Impossible d\'exporter</string>
 </resources>
