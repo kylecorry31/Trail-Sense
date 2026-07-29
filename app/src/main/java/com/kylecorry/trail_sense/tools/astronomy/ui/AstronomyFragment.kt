@@ -391,7 +391,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         minChartTime = data.sun.first().time.toZonedDateTime()
-        maxChartTime = minChartTime.atEndOfDay()
+        maxChartTime = data.sun.last().time.toZonedDateTime()
 
         onMain {
             chart.plot(data.sun, data.moon)
