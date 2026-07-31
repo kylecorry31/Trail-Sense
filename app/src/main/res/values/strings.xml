@@ -1544,6 +1544,13 @@
     <string name="open_photo_map">Open photo map</string>
     <string name="mirror_camera">Mirror Camera</string>
     <string name="tool_magnifier_title">Magnifier</string>
+    <string name="tool_species_identification_title">Species Identification</string>
+    <string name="tool_species_identification_description">Identify plants, animals, and fungi with the camera</string>
+    <string name="species_model_loading">Loading identification model…</string>
+    <string name="species_model_error">Unable to load the identification model</string>
+    <string name="species_camera_hint">Center a plant, animal, or fungus in the frame</string>
+    <string name="species_best_match_confidence">Best match · %1$s</string>
+    <string name="species_alternative_match">%1$s · %2$s</string>
     <string name="tool_turn_back">Turn Back</string>
     <string name="return_time">Return time</string>
     <!--    First %s is the time to turn back (10:24), the second is the countdown to turn back (1h 10m), the third is the time of return (14:24)-->

@@ -825,6 +825,10 @@
         android:name="com.kylecorry.trail_sense.tools.magnifier.ui.ToolMagnifierFragment"
         android:label="ToolMagnifierFragment" />
     <fragment
+        android:id="@+id/speciesIdentificationFragment"
+        android:name="com.kylecorry.trail_sense.tools.species.ui.SpeciesIdentificationFragment"
+        android:label="SpeciesIdentificationFragment" />
+    <fragment
         android:id="@+id/turnBackFragment"
         android:name="com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackFragment"
         android:label="TurnBackFragment" />

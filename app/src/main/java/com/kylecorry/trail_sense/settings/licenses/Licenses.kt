@@ -180,6 +180,14 @@ object Licenses {
             }"
         },
         Library(
+            "iNaturalist Species Identification Model",
+            "https://github.com/inaturalist/model-files/releases/tag/v25.01.15"
+        ) { mit("2025", "iNaturalist") },
+        Library(
+            "LiteRT",
+            "https://github.com/google-ai-edge/LiteRT"
+        ) { apache2(APACHE_NO_YEAR_SPECIFIED, "The TensorFlow Authors", "") },
+        Library(
             "Pictogrammers",
             "https://pictogrammers.com/"
         ) {

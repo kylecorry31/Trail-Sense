@@ -25,6 +25,7 @@ kotlinxCoroutinesAndroid = "1.11.0"
 ksp = "2.3.9"
 navVersion = "2.9.8"
 lifecycleVersion = "2.11.0"
+litert = "1.4.1"
 material = "1.14.0"
 luna = "2.2.2"
 mockitoKotlin = "6.3.0"
@@ -99,6 +100,7 @@ junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
 lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycleVersion" }
+litert = { module = "com.google.ai.edge.litert:litert", version.ref = "litert" }
 luna = { module = "com.kylecorry:luna", version.ref = "luna" }
 mapsforge-map-android = { module = "com.github.kylecorry31.mapsforge:mapsforge-map-android", version.ref = "mapsforge" }
 mapsforge-map-reader = { module = "com.github.kylecorry31.mapsforge:mapsforge-map-reader", version.ref = "mapsforge" }

@@ -41,6 +41,7 @@ android {
     androidResources {
         // Support for auto-generated locales for per-app language settings
         generateLocaleConfig = true
+        noCompress += "tflite"
     }
     buildFeatures {
         // Support for view binding
@@ -212,6 +213,7 @@ dependencies {
     implementation(libs.andromeda.geojson)
 
     // Misc
+    implementation(libs.litert)
     implementation(libs.sol)
     implementation(libs.luna)
 

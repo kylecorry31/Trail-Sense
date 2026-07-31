@@ -46,3 +46,4 @@
 46 (Declination): declination, magnetic, north, true north, variation, compass, correction
 47 (Map): map, maps, terrain, elevation, topographic, slope, contour, hillshade
 48 (Magnifier): magnifier, magnify, zoom, magnifying glass, enlarge, camera
+49 (Species Identification): species, identify, identification, plant, animal, fungi, mushroom, wildlife, nature, camera, classifier

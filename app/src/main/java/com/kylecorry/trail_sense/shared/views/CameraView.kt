@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.SystemClock
 import android.util.AttributeSet
 import android.util.Size
 import android.view.GestureDetector
@@ -52,6 +53,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private val zoomSeek: Slider
     private var zoomListener: ((Float) -> Unit)? = null
     private var imageListener: ((Bitmap) -> Unit)? = null
+    private var minimumFrameIntervalMillis = 0L
+    private var lastFrameTime = 0L
     private var captureListener: ((Bitmap) -> Unit)? = null
     private var isTorchOn = false
     private var zoom: Float = -1f
@@ -85,6 +88,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         readFrames: Boolean = true,
         shouldStabilizePreview: Boolean = true,
         preferBackCamera: Boolean = true,
+        minimumFrameInterval: Duration? = null,
         onImage: ((Bitmap) -> Unit)? = null
     ) {
         val owner = lifecycleOwner ?: this.findViewTreeLifecycleOwner() ?: return
@@ -116,6 +120,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
         camera?.stop(this::onCameraUpdate)
         imageListener = onImage
+        minimumFrameIntervalMillis = minimumFrameInterval?.toMillis() ?: 0L
+        lastFrameTime = 0L
         camera = Camera(
             context,
             owner,
@@ -244,6 +250,12 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             camera?.image?.close()
             return true
         }
+        val now = SystemClock.elapsedRealtime()
+        if (captureListener == null && now - lastFrameTime < minimumFrameIntervalMillis) {
+            camera?.image?.close()
+            return true
+        }
+        lastFrameTime = now
         try {
             val rotation = camera?.image?.imageInfo?.rotationDegrees?.toFloat() ?: 0f
             val bitmap = camera?.image?.image?.toBitmap(rotation)

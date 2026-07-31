@@ -53,6 +53,7 @@ import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.signal_finder.SignalFinderToolRegistration
 import com.kylecorry.trail_sense.tools.solarpanel.SolarPanelAlignerToolRegistration
+import com.kylecorry.trail_sense.tools.species.SpeciesIdentificationToolRegistration
 import com.kylecorry.trail_sense.tools.survival_guide.SurvivalGuideToolRegistration
 import com.kylecorry.trail_sense.tools.temperature_estimation.TemperatureEstimateToolRegistration
 import com.kylecorry.trail_sense.tools.tides.TidesToolRegistration
@@ -115,7 +116,8 @@ object Tools {
         PermitsToolRegistration,
         DeclinationToolRegistration,
         MapToolRegistration,
-        MagnifierToolRegistration
+        MagnifierToolRegistration,
+        SpeciesIdentificationToolRegistration
     )
     private val bus = EventBus<Bundle>()
 
@@ -292,6 +294,7 @@ object Tools {
     const val DECLINATION = 46L
     const val MAP = 47L
     const val MAGNIFIER = 48L
+    const val SPECIES_IDENTIFICATION = 49L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
