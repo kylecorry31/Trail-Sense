@@ -110,7 +110,7 @@ internal class OfflineMapImporter(
         try {
             files.save(filename, bp, recycleOnSave = true)
         } catch (e: IOException) {
-            Log.e("OfflineMapImporter", "Failed to save image", e)
+            Log.e(TAG, "Failed to save image", e)
             return null
         }
 
@@ -150,6 +150,7 @@ internal class OfflineMapImporter(
 
     private suspend fun importTrailMap(request: CreateOfflineMapRequest): TrailMap? {
         if (!MapsforgeAdapter.isMapsforgeMap(request.uri)) {
+            Log.e(TAG, "Invalid extension")
             return null
         }
         var hasPersistentAccess = false
@@ -163,12 +164,14 @@ internal class OfflineMapImporter(
             if (hasPersistentAccess) {
                 request.uri.toString()
             } else {
+                Log.e(TAG, "Unable to obtain persistent access")
                 return null
             }
         }
 
         val info = MapsforgeAdapter.getMapInfo(path)
         if (info == null) {
+            Log.e(TAG, "Map file is invalid")
             if (hasPersistentAccess) {
                 files.releasePersistentAccess(request.uri)
             }
@@ -215,5 +218,6 @@ internal class OfflineMapImporter(
         private const val MIME_TYPE_IMAGE_PREFIX = "image/"
         private const val PHOTO_MAPS_DIRECTORY = "maps"
         private const val OFFLINE_MAPS_DIRECTORY = "offline_maps"
+        private const val TAG = "OfflineMapImporter"
     }
 }
