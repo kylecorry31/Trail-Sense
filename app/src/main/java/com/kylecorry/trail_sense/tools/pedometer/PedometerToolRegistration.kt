@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannelGroup
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
@@ -61,13 +62,17 @@ object PedometerToolRegistration : ToolRegistration {
             tiles = listOf(
                 "com.kylecorry.trail_sense.tools.pedometer.tiles.PedometerTile"
             ),
+            notificationChannelGroups = listOf(
+                ToolNotificationChannelGroup(NOTIFICATION_CHANNEL_GROUP_PEDOMETER, context.getString(R.string.pedometer))
+            ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     StepCounterService.CHANNEL_ID,
                     context.getString(R.string.pedometer),
                     context.getString(R.string.pedometer),
                     Notify.CHANNEL_IMPORTANCE_LOW,
-                    true
+                    true,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_PEDOMETER
                 ),
                 // This may be shared at some point
                 ToolNotificationChannel(
@@ -75,7 +80,8 @@ object PedometerToolRegistration : ToolRegistration {
                     context.getString(R.string.distance_alert),
                     context.getString(R.string.distance_alert),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
-                    false
+                    false,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_PEDOMETER
                 ),
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_DISTANCE_ALARM,
@@ -86,7 +92,8 @@ object PedometerToolRegistration : ToolRegistration {
                     ),
                     context.getString(R.string.distance_alert),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
-                    isAlarm = true
+                    isAlarm = true,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_PEDOMETER
                 )
             ),
             services = listOf(PedometerToolService(context)),
@@ -176,4 +183,5 @@ object PedometerToolRegistration : ToolRegistration {
 
     const val NOTIFICATION_CHANNEL_DISTANCE_ALERT = DistanceAlerter.NOTIFICATION_CHANNEL_ID
     const val NOTIFICATION_CHANNEL_DISTANCE_ALARM = "distance-alarm"
+    const val NOTIFICATION_CHANNEL_GROUP_PEDOMETER = "pedometer"
 }

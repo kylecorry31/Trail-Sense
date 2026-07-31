@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannelGroup
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
@@ -22,13 +23,20 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
             context.getString(R.string.tool_boil_summary),
             guideId = R.raw.guide_tool_water_boil_timer,
             settingsNavAction = R.id.fragmentWaterBoilTimerSettings,
+            notificationChannelGroups = listOf(
+                ToolNotificationChannelGroup(
+                    NOTIFICATION_CHANNEL_GROUP_WATER_BOIL_TIMER,
+                    context.getString(R.string.water_boil_timer)
+                )
+            ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,
                     context.getString(R.string.water_boil_timer),
                     context.getString(R.string.water_boil_timer_channel_description),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
-                    false
+                    false,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_WATER_BOIL_TIMER
                 ),
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_WATER_BOIL_TIMER_ALARM,
@@ -39,7 +47,8 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
                     ),
                     context.getString(R.string.water_boil_timer_channel_description),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
-                    isAlarm = true
+                    isAlarm = true,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_WATER_BOIL_TIMER
                 )
             ),
             diagnostics = listOf(
@@ -62,4 +71,5 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
 
     const val NOTIFICATION_CHANNEL_WATER_BOIL_TIMER = WaterPurificationTimerService.CHANNEL_ID
     const val NOTIFICATION_CHANNEL_WATER_BOIL_TIMER_ALARM = "water-boil-timer-alarm"
+    const val NOTIFICATION_CHANNEL_GROUP_WATER_BOIL_TIMER = "water-boil-timer"
 }

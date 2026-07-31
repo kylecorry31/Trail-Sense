@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannelGroup
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
@@ -67,13 +68,17 @@ object PathsToolRegistration : ToolRegistration {
                     )
                 )
             ),
+            notificationChannelGroups = listOf(
+                ToolNotificationChannelGroup(NOTIFICATION_CHANNEL_GROUP_PATHS, context.getString(R.string.paths))
+            ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     BacktrackService.FOREGROUND_CHANNEL_ID,
                     context.getString(R.string.backtrack),
                     context.getString(R.string.backtrack_notification_channel_description),
                     Notify.CHANNEL_IMPORTANCE_LOW,
-                    muteSound = true
+                    muteSound = true,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_PATHS
                 )
             ),
             services = listOf(BacktrackToolService(context)),
@@ -168,4 +173,5 @@ object PathsToolRegistration : ToolRegistration {
     const val SERVICE_BACKTRACK = "paths-service-backtrack"
 
     const val WIDGET_BACKTRACK = "paths-widget-backtrack"
+    const val NOTIFICATION_CHANNEL_GROUP_PATHS = "paths"
 }

@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastR
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannelGroup
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
@@ -21,13 +22,17 @@ object ClockToolRegistration : ToolRegistration {
             ToolCategory.Time,
             guideId = R.raw.guide_tool_clock,
             settingsNavAction = R.id.clockSettingsFragment,
+            notificationChannelGroups = listOf(
+                ToolNotificationChannelGroup(NOTIFICATION_CHANNEL_GROUP_CLOCK, context.getString(R.string.tool_clock_title))
+            ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     NextMinuteBroadcastReceiver.CHANNEL_ID,
                     context.getString(R.string.notification_channel_clock_sync),
                     context.getString(R.string.notification_channel_clock_sync_description),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
-                    false
+                    false,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_CLOCK
                 )
             ),
             diagnostics = listOf(
@@ -40,4 +45,6 @@ object ClockToolRegistration : ToolRegistration {
             )
         )
     }
+
+    const val NOTIFICATION_CHANNEL_GROUP_CLOCK = "clock"
 }

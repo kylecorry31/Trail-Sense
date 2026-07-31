@@ -7,5 +7,6 @@ data class ToolNotificationChannel(
     val importance: Int,
     val muteSound: Boolean = false,
     val showBadge: Boolean = true,
-    val isAlarm: Boolean = false
+    val isAlarm: Boolean = false,
+    val groupId: String? = null
 )

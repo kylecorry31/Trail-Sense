@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannelGroup
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
@@ -84,12 +85,16 @@ object WeatherToolRegistration : ToolRegistration {
             tiles = listOf(
                 "com.kylecorry.trail_sense.tools.weather.tiles.WeatherMonitorTile"
             ),
+            notificationChannelGroups = listOf(
+                ToolNotificationChannelGroup(NOTIFICATION_CHANNEL_GROUP_WEATHER, context.getString(R.string.weather))
+            ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_STORM_ALERT,
                     context.getString(R.string.storm_alerts),
                     context.getString(R.string.storm_alerts),
-                    Notify.CHANNEL_IMPORTANCE_HIGH
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_WEATHER
                 ),
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_STORM_ALARM,
@@ -100,21 +105,24 @@ object WeatherToolRegistration : ToolRegistration {
                     ),
                     context.getString(R.string.storm_alerts),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
-                    isAlarm = true
+                    isAlarm = true,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_WEATHER
                 ),
                 ToolNotificationChannel(
                     CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
                     context.getString(R.string.weather_monitor),
                     context.getString(R.string.notification_monitoring_weather),
                     Notify.CHANNEL_IMPORTANCE_LOW,
-                    true
+                    true,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_WEATHER
                 ),
                 ToolNotificationChannel(
                     DailyWeatherAlerter.DAILY_CHANNEL_ID,
                     context.getString(R.string.todays_forecast),
                     context.getString(R.string.todays_forecast),
                     Notify.CHANNEL_IMPORTANCE_LOW,
-                    true
+                    true,
+                    groupId = NOTIFICATION_CHANNEL_GROUP_WEATHER
                 )
             ),
             services = listOf(WeatherMonitorToolService(context)),
@@ -216,4 +224,5 @@ object WeatherToolRegistration : ToolRegistration {
 
     const val NOTIFICATION_CHANNEL_STORM_ALERT = StormAlerter.STORM_CHANNEL_ID
     const val NOTIFICATION_CHANNEL_STORM_ALARM = "storm-alarm"
+    const val NOTIFICATION_CHANNEL_GROUP_WEATHER = "weather"
 }

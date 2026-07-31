@@ -23,6 +23,7 @@ data class Tool(
     val volumeActions: List<ToolVolumeAction> = emptyList(),
     val tiles: List<String> = emptyList(),
     val notificationChannels: List<ToolNotificationChannel> = emptyList(),
+    val notificationChannelGroups: List<ToolNotificationChannelGroup> = emptyList(),
     val services: List<ToolService> = emptyList(),
     val diagnostics: List<ToolDiagnostic> = emptyList(),
     val intentHandlers: List<ToolIntentHandler> = emptyList(),
