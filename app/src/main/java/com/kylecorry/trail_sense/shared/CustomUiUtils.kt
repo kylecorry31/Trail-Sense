@@ -29,6 +29,7 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.dismissOnPause
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
@@ -41,8 +42,6 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.andromeda_temp.BottomSheetFragmentWrapper
-import com.kylecorry.trail_sense.shared.andromeda_temp.dismissOnPause
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -410,16 +409,6 @@ object CustomUiUtils {
         val sheet = ScanQRBottomSheet(title, onScan)
         sheet.show(fragment)
         sheet.dismissOnPause(fragment)
-        return sheet
-    }
-
-    fun showFragmentAsSheet(
-        parentFragment: Fragment,
-        contentFragment: Fragment
-    ): BottomSheetDialogFragment {
-        val sheet = BottomSheetFragmentWrapper(contentFragment)
-        sheet.show(parentFragment)
-        sheet.dismissOnPause(parentFragment)
         return sheet
     }
 
