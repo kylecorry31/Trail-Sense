@@ -158,7 +158,7 @@
     <string name="strobe_warning_title">闪烁的灯光</string>
     <string name="clock_waiting_for_gps">正从 GPS 更新时间 …</string>
     <string name="water_purification_step_3">启动计时器</string>
-    <string name="water_purification_step_2">将水煮沸</string>
+    <string name="water_purification_step_2">将水煮沸至沸腾</string>
     <string name="water_purification_step_1">过滤水</string>
     <string name="three">3</string>
     <string name="two">2</string>
@@ -181,7 +181,7 @@
     <string name="water_boil_timer_done_content">你的水现在可以饮用了</string>
     <string name="water_boil_timer_title">烧开水计时器</string>
     <string name="water_boil_timer_channel_description">水在沸腾</string>
-    <string name="water_boil_timer">水沸腾计时器</string>
+    <string name="water_boil_timer">烧水定时器</string>
     <string name="solar_panel_instructions">要开始，请把你的手机放在太阳能电池板表面。</string>
     <string name="tool_solar_panel_title">太阳能板对准器</string>
     <string name="tool_solar_panel_summary">放置太阳能电池板以获得最优的电力生产效率</string>
@@ -219,7 +219,7 @@
     <string name="group">群组</string>
     <string name="delete_beacon_group_message">%s 及其所有信标都将被删除。</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
-    <string name="tool_user_guide_title">用户指南</string>
+    <string name="tool_user_guide_title">使用指南</string>
     <string name="error_occurred_message">Trail Sense 出现了错误。请给开发者发邮件，以便修复这个问题。</string>
     <string name="error_occurred">发生一个错误</string>
     <string name="pref_email_title">给开发者发邮件</string>
@@ -499,7 +499,7 @@
     <string name="noon">最高点</string>
     <string name="weather_monitor">天气监测</string>
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
-    <string name="battery_history">历史电量 - 过去 %s</string>
+    <string name="battery_history">历史电量 — 过去 %s</string>
     <string name="no_data">无数据</string>
     <string name="pref_nmea_elevation_title">NMEA 海拔高度修正</string>
     <string name="pref_nmea_elevation_summary">使用 NMEA（卫星）而不是内置模型来修正海拔高度</string>
@@ -675,10 +675,7 @@
     <string name="weather_exported">已导出气温</string>
     <string name="pref_show_nearest_tide_title">显示最近的潮汐</string>
     <string name="sun">太阳</string>
-    <string name="sun_moon_position_template">### %1$s
-\n**高度**: %2$s
-\n
-\n**方位角**: %3$s</string>
+    <string name="sun_moon_position_template">### %1$s \n**仰角**: %2$s \n \n**方位角**: %3$s</string>
     <string name="moon">月亮</string>
     <string name="weather_monitoring_disabled">已禁用天气检测</string>
     <string name="no_clouds">没有云</string>
@@ -802,8 +799,8 @@
     <string name="tool_temperature_estimation_description">预测不同海拔、风速和湿度的气温</string>
     <string name="pressure_tendency">趋势</string>
     <string name="since_time">从 %s 开始</string>
-    <string name="humidity_history">湿度历史 — 上 %s</string>
-    <string name="temperature_history">温度历史 — 上 %s</string>
+    <string name="humidity_history">历史湿度 — 过去 %s</string>
+    <string name="temperature_history">历史温度 — 过去 %s</string>
     <string name="average_speed">平均速度</string>
     <string name="steps">步数</string>
     <string name="distance_alert">距离提醒</string>
@@ -889,29 +886,29 @@
     <string name="updating_weather">正在更新天气</string>
     <string name="camera_unavailable">相机不可用</string>
     <string name="icon">图标</string>
-    <string name="clouds_clear">澄澈</string>
+    <string name="clouds_clear">晴天</string>
     <string name="manual">手动</string>
     <string name="cumulonimbus_forecast">可能预示雷雨会在数分钟内落下。</string>
     <string name="altocumulus_forecast">可能预示未来 %d 小时内发生降水或雷雨。</string>
     <string name="altostratus_forecast">可能预示未来 %d 小时内发生降水。</string>
     <string name="nimbostratus_forecast">降水会在未来 %d 小时持续。</string>
-    <string name="cloud_fair_forecast_hours">未来 %d 小时都是晴好天气。</string>
+    <string name="cloud_fair_forecast_hours">未来 %d 小时都是晴天。</string>
     <string name="cumulus_forecast">可能预示天气晴好。如果上升，可能预示未来 %d 小时内发生降水或雷雨。</string>
     <string name="high_pressure">高</string>
     <string name="low_pressure_system_description">与恶劣的天气、阴天和较高温度有关。</string>
     <string name="high_pressure_system_description">与好天气、晴朗的天空和较凉爽的温度有关。</string>
     <string name="pressure_system">气压系统</string>
     <string name="low_pressure">低</string>
-    <string name="weather_front">锋</string>
+    <string name="weather_front">锋面</string>
     <string name="weather_warm_front">暖锋</string>
     <string name="weather_cold_front">冷锋</string>
-    <string name="then_weather">接着 %s</string>
-    <string name="weather_clear">天气晴朗，无云</string>
-    <string name="weather_overcast">阴天，乌云密布</string>
+    <string name="then_weather">随后 %s</string>
+    <string name="weather_clear">晴天</string>
+    <string name="weather_overcast">多云</string>
     <string name="weather_precipitation">降水</string>
     <string name="weather_wind">风</string>
     <string name="later">稍后</string>
-    <string name="now">马上</string>
+    <string name="now">现在</string>
     <string name="cloud_stratus_forecast">如果雾蒙蒙地，可能表明接下去 %d 个小时会是好天气，否则可能表明很快会有降水。</string>
     <string name="pref_show_map_previews_title">显示地图预览</string>
     <string name="smoothing">平滑</string>
@@ -919,7 +916,7 @@
     <string name="sensor_summary">指南针、GPS、高度计、气压计等。</string>
     <string name="historic">历史数值</string>
     <string name="sensor">传感器</string>
-    <string name="temperature_high_low">高位/低位</string>
+    <string name="temperature_high_low">最高/最低</string>
     <string name="next_24_hours">接下来 24 小时</string>
     <string name="altimeter_cache">高度计缓存</string>
     <string name="tool_climate">气候</string>
@@ -940,7 +937,7 @@
     <string name="pref_show_temperature_in_notification_title">在通知中显示气温</string>
     <string name="at_time">于 %s</string>
     <string name="photo_maps">照片地图</string>
-    <string name="historic_temperature_years">历史值（%d 年）</string>
+    <string name="historic_temperature_years">历史数据（%d 年）</string>
     <string name="historic_temperatures">历史气温</string>
     <string name="historic_temperatures_full_disclaimer">气温基于历史数据的 %d 年均值得出，不反映当前天气状况。</string>
     <plurals name="map_group_summary">
@@ -966,7 +963,7 @@
     <string name="magnitude">食分</string>
     <string name="unable_to_find_next_astronomy">无法找到下一个 %s</string>
     <string name="print">打印</string>
-    <string name="astronomy_direction_peak">最大仰角方向</string>
+    <string name="astronomy_direction_peak">仰角方向</string>
     <string name="autofill_source">自动填充源</string>
     <string name="calibrate_map_point">用已知位置校准 (%1$d / %2$d)</string>
     <string name="map_calibration">地图校准</string>
@@ -983,9 +980,9 @@
     <string name="map_auto_rotated">已通过校准调整了地图旋转</string>
     <string name="pref_keep_map_facing_up_title">保持地图正面朝上</string>
     <string name="yes">是</string>
-    <string name="rate">率</string>
+    <string name="rate">频率</string>
     <string name="season">季节</string>
-    <string name="until_sunset">直到日落</string>
+    <string name="until_sunset">后日落</string>
     <string name="until_sunrise">直到日出</string>
     <string name="astronomy_set">落下</string>
     <string name="astronomy_rise">升起</string>
@@ -1312,7 +1309,7 @@
     <string name="meters_per_second">米/秒</string>
     <string name="speed">速度</string>
     <string name="climate_temperature_amount">气温：%s</string>
-    <string name="climate_precipitation_amount">降水量：%s 月总计</string>
+    <string name="climate_precipitation_amount">月降水量：%s</string>
     <string name="source_era5">数据源：ERA5</string>
     <string name="source_merra_2">数据源：MERRA-2</string>
     <string name="climate_tropical_rainforest">热带雨林</string>
@@ -1361,7 +1358,7 @@
     <string name="alarm_description">即使媒体和通知被静音也播放声音</string>
     <string name="alarm_time_range">仅在 %1$s 到 %2$s 响起</string>
     <string name="use_alarm_for_storm_alert">暴风雨（雪）警报使用闹铃</string>
-    <string name="use_alarm_for_water_boil_timer">水煮沸定时器使用闹铃</string>
+    <string name="use_alarm_for_water_boil_timer">烧水定时器使用闹铃</string>
     <string name="mute_alarm_at_night">夜间将闹铃消音</string>
     <string name="use_alarm_for_sunset_alert">日落警报使用闹铃</string>
     <string name="use_alarm_for_sunrise_alert">日出警报使用闹铃</string>
@@ -1434,7 +1431,7 @@
     <string name="wifi">Wi-Fi</string>
     <string name="bluetooth">蓝牙</string>
     <string name="nfc">NFC</string>
-    <string name="battery_saver">电量节省器</string>
+    <string name="battery_saver">省电模式</string>
     <string name="data_saver">流量节省器</string>
     <string name="adaptive_brightness">自适应亮度</string>
     <string name="screen_timeout">息屏时间</string>
