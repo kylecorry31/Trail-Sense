@@ -511,7 +511,6 @@
     <string name="pref_odometer_reset_daily_title">Reinício diário</string>
     <string name="sleep_timer">Suspensão programada</string>
     <string name="import_gpx">Importar arquivo GPX</string>
-    <string name="error_importing_map">Erro ao importar mapas</string>
     <string name="importing_map">Importando mapas</string>
     <string name="map_auto_calibrated">Mapa calibrado automaticamente, verifique sua precisão</string>
     <string name="time_until_full">até completar</string>

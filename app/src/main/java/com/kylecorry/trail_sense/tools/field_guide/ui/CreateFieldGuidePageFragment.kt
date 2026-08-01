@@ -21,6 +21,7 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateFieldGuidePageBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
@@ -106,7 +107,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
         binding.selectPhotoButton.setOnClickListener {
             inBackground(BackgroundMinimumState.Created) {
-                val uri = uriPicker.open(listOf("image/*"))
+                val uri = uriPicker.open(listOf("image/*")).getOrNull()
                 uploadPhoto(uri)
             }
         }

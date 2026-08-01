@@ -13,7 +13,6 @@
     <string name="pref_odometer_reset_daily_title">Скидувати щодня</string>
     <string name="sleep_timer">Відлік часу сну</string>
     <string name="import_gpx">Імпорт GPX</string>
-    <string name="error_importing_map">Помилка під час імпортування мапи</string>
     <string name="importing_map">Імпортування мапи</string>
     <string name="map_auto_calibrated">Мапа відкалібрована автоматично, перевірте її точність</string>
     <string name="time_until_full">до повного</string>

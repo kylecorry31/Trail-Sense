@@ -110,7 +110,6 @@
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">ممکن است آب و هوای مناسب را نشان دهد. اگر بلندتر شد، ممکن است نشان دهنده بارش یا رعد و برق در %d ساعت آینده باشد.</string>
     <string name="gps_stale">کهنه</string>
     <string name="no_tides">بدون جزر و مد</string>
-    <string name="error_importing_map">خطا در وارد کردن نقشه</string>
     <string name="move">حرکت</string>
     <string name="coordinates_tab">مختصات</string>
     <string name="base_elevation">ارتفاع پایه</string>

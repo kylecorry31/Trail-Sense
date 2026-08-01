@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.core.system.CurrentApp
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.io.UriPicker
 
@@ -25,7 +26,7 @@ class RestoreCommand(private val context: Context, private val uriPicker: UriPic
         if (isCancelled) return
 
         // Select the source file
-        val source = uriPicker.open(listOf("application/zip")) ?: return
+        val source = uriPicker.open(listOf("application/zip")).getOrNull() ?: return
 
         try {
             Alerts.withProgress(

@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.Result
+import com.kylecorry.trail_sense.shared.andromeda_temp.map
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
@@ -57,16 +59,17 @@ class OfflineMapService internal constructor(
         return add(MapGroup(0, name, parentId))
     }
 
-    suspend fun createMap(request: CreateOfflineMapRequest): CreateOfflineMapResult? {
+    suspend fun createMap(request: CreateOfflineMapRequest): Result<CreateOfflineMapResult, CreateOfflineMapError> {
         return maintenance.withImportLock {
-            val imported = importer.import(request)?.let {
-                add(it)
-            } ?: return@withImportLock null
-            val reduced = maybeReduce(imported)
-            CreateOfflineMapResult(
-                reduced,
-                reduced is PhotoMap && reduced.georeference.calibrationPoints.isNotEmpty()
-            )
+            importer.import(request)
+                .map { maybeReduce(add(it)) }
+                .map {
+                    CreateOfflineMapResult(
+                        it,
+                        it is PhotoMap && it.georeference.calibrationPoints.isNotEmpty()
+                    )
+                }
+
         }
     }
 

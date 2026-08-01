@@ -7,9 +7,10 @@ import android.view.View
 import androidx.core.graphics.createBitmap
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.units.PercentCoordinate
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Distance
@@ -18,13 +19,15 @@ import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.Result
+import com.kylecorry.trail_sense.shared.andromeda_temp.map
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapError
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.calibration.MapCalibrationPoint
-import com.kylecorry.andromeda.core.units.PercentCoordinate
 
 class CreateBlankMapCommand(
     private val context: Context
@@ -35,8 +38,8 @@ class CreateBlankMapCommand(
     private val prefs = UserPreferences(context)
     private val formatter = FormatService.getInstance(context)
 
-    override suspend fun execute(): CreateOfflineMapRequest? = onIO {
-        val calibration = getCalibration() ?: return@onIO null
+    override suspend fun execute(): Result<CreateOfflineMapRequest, CreateOfflineMapError> = onIO {
+        val calibration = getCalibration() ?: return@onIO Result.Err(CreateOfflineMapError.Cancelled)
 
         val file = files.createTemp(".webp")
         val bitmap = createBitmap(100, 100)
@@ -47,10 +50,9 @@ class CreateBlankMapCommand(
         CreateMapFromUriCommand(
             context,
             file.toUri()
-        ).execute()?.copy(
-            photoMapCalibration = calibration,
-            visible = false
-        )
+        ).execute().map {
+            it.copy(photoMapCalibration = calibration, visible = false)
+        }
     }
 
     private suspend fun getCalibration(): List<MapCalibrationPoint>? {

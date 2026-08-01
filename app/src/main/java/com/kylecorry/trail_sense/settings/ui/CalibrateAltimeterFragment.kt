@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.URLs
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.DEMRepo
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelLoader
@@ -435,7 +436,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             val source = IntentUriPicker(
                 this@CalibrateAltimeterFragment,
                 requireContext()
-            ).open(listOf("application/zip")) ?: return@inBackground
+            ).open(listOf("application/zip")).getOrNull() ?: return@inBackground
 
             val loader = DigitalElevationModelLoader()
             try {

@@ -464,7 +464,6 @@
     <string name="rename">重命名</string>
     <string name="experimental">实验性功能</string>
     <string name="import_gpx">导入 GPX</string>
-    <string name="error_importing_map">导入地图时出错</string>
     <string name="importing_map">导入地图中</string>
     <string name="map_auto_calibrated">已自动校准地图，请验证精度</string>
     <string name="time_until_empty">距离耗尽还剩</string>

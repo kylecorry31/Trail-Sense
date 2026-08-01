@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.shared.io
 
-import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.gpx.GPXParser
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 
 class GpxIOService(private val uriPicker: UriPicker, private val uriService: UriService) :
     IOService<GPXData> {
@@ -13,7 +14,7 @@ class GpxIOService(private val uriPicker: UriPicker, private val uriService: Uri
     }
 
     override suspend fun import(): GPXData? = onIO {
-        val uri = uriPicker.open(listOf("*/*")) ?: return@onIO null
+        val uri = uriPicker.open(listOf("*/*")).getOrNull() ?: return@onIO null
         val stream = uriService.inputStream(uri) ?: return@onIO null
         GPXParser.parse(stream)
     }

@@ -496,7 +496,6 @@
     <string name="map_calibration_clear_message">Ao trocar a proxección do mapa, borraranse os trocos de calibración.</string>
     <string name="importing_map">Importando o mapa</string>
     <string name="scanning_image">Escaneando imaxe</string>
-    <string name="error_importing_map">Erro ao importar o mapa</string>
     <string name="import_gpx">Importar GPX</string>
     <string name="sleep_timer">Temporizador de sono</string>
     <string name="pref_odometer_reset_daily_title">Restablecer diariamente</string>

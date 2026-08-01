@@ -164,7 +164,6 @@
     <string name="pref_odometer_reset_daily_title">Resetujte svakodnevno</string>
     <string name="sleep_timer">Naštimajte za koliko će uključeno ostati</string>
     <string name="import_gpx">Uvezi GPX</string>
-    <string name="error_importing_map">Greška pri uvozu karte</string>
     <string name="importing_map">Uvozi se karta</string>
     <string name="map_auto_calibrated">Mapa je automatski kalibrirana, molimo provjerite njezinu preciznost</string>
     <string name="time_until_full">dok nije puno</string>

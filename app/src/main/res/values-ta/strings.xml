@@ -758,7 +758,6 @@
     <string name="map_auto_calibrated">தானாக அளவீடு செய்யப்பட்ட வரைபடம், தயவுசெய்து அதன் துல்லியத்தை சரிபார்க்கவும்</string>
     <string name="importing_map">வரைபடத்தை இறக்குமதி செய்கிறது</string>
     <string name="scanning_image">படத்தை ச்கேன் செய்கிறது</string>
-    <string name="error_importing_map">வரைபடத்தை இறக்குமதி செய்வதில் பிழை</string>
     <string name="import_gpx">சிபிஎக்ச் இறக்குமதி செய்யுங்கள்</string>
     <string name="sleep_timer">தூக்க நேரங்குறிகருவி</string>
     <string name="pref_odometer_reset_daily_title">தினமும் மீட்டமைக்கவும்</string>

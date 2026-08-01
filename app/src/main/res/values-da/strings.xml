@@ -895,7 +895,6 @@
     <string name="tool_light_meter_title">Lysmåler</string>
     <string name="previous">Tidligere</string>
     <string name="pedometer_disclaimer">Skridttællerens nøjagtighed og batteriforbrug afhænger af din enheds producent og den indtastede skridtlængde. Prøv det derhjemme et stykke tid for at kontrollere batteriets afladning og nøjagtighed, før du bruger det på stien.</string>
-    <string name="error_importing_map">Fejl ved import af kort</string>
     <string name="actual_frequency_disclaimer">Den faktiske frekvens kan variere, da nogle enheder har baggrundsgrænser.</string>
     <string name="camera_permission_denied">Kameratilladelse nægtet, kan ikke aktivere kamerafunktioner. Du kan aktivere det i indstillinger.</string>
     <string name="whistle_signal_acknowledged">Bekræftet</string>

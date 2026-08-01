@@ -496,7 +496,6 @@
     <string name="next">Successivo</string>
     <string name="map_auto_calibrated">Mappa calibrata automaticamente, per favore verificane l\'accuratezza</string>
     <string name="importing_map">Importando la mappa</string>
-    <string name="error_importing_map">Errore importando la mappa</string>
     <string name="pref_odometer_reset_daily_title">Azzera giornalmente</string>
     <string name="search">Cerca</string>
     <string name="pref_weather_show_detailed_icon_title">Mostra un\'icona di notifica colorata</string>

@@ -15,7 +15,9 @@ import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.Result
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapError
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
@@ -35,7 +37,7 @@ internal class OfflineMapImporter(
     private val prefs: UserPreferences
 ) {
 
-    suspend fun import(request: CreateOfflineMapRequest): OfflineMap? = onIO {
+    suspend fun import(request: CreateOfflineMapRequest): Result<OfflineMap, CreateOfflineMapError> = onIO {
         val type = files.getMimeType(request.uri) ?: getMimeTypeFromExtension(request.uri)
         when {
             type == MIME_TYPE_PDF -> importPdf(request)
@@ -44,8 +46,9 @@ internal class OfflineMapImporter(
         }
     }
 
-    private suspend fun importImage(request: CreateOfflineMapRequest): PhotoMap? {
-        val file = files.copyToLocal(request.uri, PHOTO_MAPS_DIRECTORY) ?: return null
+    private suspend fun importImage(request: CreateOfflineMapRequest): Result<PhotoMap, CreateOfflineMapError> {
+        val file = files.copyToLocal(request.uri, PHOTO_MAPS_DIRECTORY)
+            ?: return Result.Err(CreateOfflineMapError.UnableToCopy)
         var rotation = 0
         tryOrLog {
             val exif = ExifInterface(file)
@@ -56,25 +59,27 @@ internal class OfflineMapImporter(
         val imageSize = files.imageSize(path)
         val fileSize = files.size(path)
 
-        return PhotoMap(
-            0,
-            request.name,
-            listOf(
-                OfflineMapFile(path, fileSize, PhotoMap.FILE_ROLE_IMAGE)
-            ),
-            PhotoMapGeoreference(
-                Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
-                rotation = rotation.toFloat(),
-                isWarpingCompleted = request.photoMapCalibration != null,
-                calibrationPoints = request.photoMapCalibration.orEmpty()
-            ),
-            parentId = request.parentId,
-            visible = request.visible,
-            createdOn = Instant.now()
+        return Result.Ok(
+            PhotoMap(
+                0,
+                request.name,
+                listOf(
+                    OfflineMapFile(path, fileSize, PhotoMap.FILE_ROLE_IMAGE)
+                ),
+                PhotoMapGeoreference(
+                    Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
+                    rotation = rotation.toFloat(),
+                    isWarpingCompleted = request.photoMapCalibration != null,
+                    calibrationPoints = request.photoMapCalibration.orEmpty()
+                ),
+                parentId = request.parentId,
+                visible = request.visible,
+                createdOn = Instant.now()
+            )
         )
     }
 
-    private suspend fun importPdf(request: CreateOfflineMapRequest): PhotoMap? {
+    private suspend fun importPdf(request: CreateOfflineMapRequest): Result<PhotoMap, CreateOfflineMapError> {
         val uuid = UUID.randomUUID().toString()
         val filename = "$PHOTO_MAPS_DIRECTORY/$uuid.webp"
         val pdfFilename = "$PHOTO_MAPS_DIRECTORY/$uuid.pdf"
@@ -87,7 +92,7 @@ internal class OfflineMapImporter(
         }
         val maxSize = 2048
         val (bp, scale) = PDFRenderer().toBitmap(context, request.uri, maxSize = maxSize)
-            ?: return null
+            ?: return Result.Err(CreateOfflineMapError.InvalidMapFile)
 
         if (metadata != null && metadata.points.size >= 4) {
             val first = metadata.points[0]
@@ -111,7 +116,7 @@ internal class OfflineMapImporter(
             files.save(filename, bp, recycleOnSave = true)
         } catch (e: IOException) {
             Log.e(TAG, "Failed to save image", e)
-            return null
+            return Result.Err(CreateOfflineMapError.UnableToCopy)
         }
 
         tryOrNothing {
@@ -128,34 +133,38 @@ internal class OfflineMapImporter(
         }
 
         val requestedCalibration = request.photoMapCalibration
-        return PhotoMap(
-            0,
-            request.name,
-            listOf(
-                OfflineMapFile(filename, fileSize, PhotoMap.FILE_ROLE_IMAGE),
-                OfflineMapFile(pdfFilename, files.size(pdfFilename), PhotoMap.FILE_ROLE_PDF)
-            ),
-            PhotoMapGeoreference(
-                Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
-                pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
-                projectionType = projection,
-                isWarpingCompleted = requestedCalibration != null || calibrationPoints.isNotEmpty(),
-                calibrationPoints = requestedCalibration ?: calibrationPoints
-            ),
-            parentId = request.parentId,
-            visible = request.visible,
-            createdOn = Instant.now()
+        return Result.Ok(
+            PhotoMap(
+                0,
+                request.name,
+                listOf(
+                    OfflineMapFile(filename, fileSize, PhotoMap.FILE_ROLE_IMAGE),
+                    OfflineMapFile(pdfFilename, files.size(pdfFilename), PhotoMap.FILE_ROLE_PDF)
+                ),
+                PhotoMapGeoreference(
+                    Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
+                    pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
+                    projectionType = projection,
+                    isWarpingCompleted = requestedCalibration != null || calibrationPoints.isNotEmpty(),
+                    calibrationPoints = requestedCalibration ?: calibrationPoints
+                ),
+                parentId = request.parentId,
+                visible = request.visible,
+                createdOn = Instant.now()
+            )
         )
     }
 
-    private suspend fun importTrailMap(request: CreateOfflineMapRequest): TrailMap? {
+    private suspend fun importTrailMap(request: CreateOfflineMapRequest): Result<TrailMap, CreateOfflineMapError> {
         if (!MapsforgeAdapter.isMapsforgeMap(request.uri)) {
             Log.e(TAG, "Invalid extension")
-            return null
+            return Result.Err(CreateOfflineMapError.InvalidMapFile)
         }
         var hasPersistentAccess = false
         val path = if (prefs.photoMaps.copyTrailMapsToAppStorage) {
-            copyToAppStorage(request.uri, MapsforgeAdapter.MAPSFORGE_MAP_EXTENSION) ?: return null
+            copyToAppStorage(request.uri, MapsforgeAdapter.MAPSFORGE_MAP_EXTENSION) ?: return Result.Err(
+                CreateOfflineMapError.UnableToCopy
+            )
         } else {
             hasPersistentAccess = tryOrDefault(false) {
                 files.acceptPersistentAccess(request.uri)
@@ -165,7 +174,7 @@ internal class OfflineMapImporter(
                 request.uri.toString()
             } else {
                 Log.e(TAG, "Unable to obtain persistent access")
-                return null
+                return Result.Err(CreateOfflineMapError.AccessDenied)
             }
         }
 
@@ -175,20 +184,22 @@ internal class OfflineMapImporter(
             if (hasPersistentAccess) {
                 files.releasePersistentAccess(request.uri)
             }
-            return null
+            return Result.Err(CreateOfflineMapError.InvalidMapFile)
         }
 
-        return TrailMap(
-            0,
-            request.name,
-            listOf(
-                OfflineMapFile(path, files.size(path), TrailMap.FILE_ROLE_MAPSFORGE_MAP)
-            ),
-            Instant.now(),
-            info.bounds,
-            info.attribution,
-            visible = request.visible,
-            parentId = request.parentId
+        return Result.Ok(
+            TrailMap(
+                0,
+                request.name,
+                listOf(
+                    OfflineMapFile(path, files.size(path), TrailMap.FILE_ROLE_MAPSFORGE_MAP)
+                ),
+                Instant.now(),
+                info.bounds,
+                info.attribution,
+                visible = request.visible,
+                parentId = request.parentId
+            )
         )
     }
 

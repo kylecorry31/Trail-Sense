@@ -475,7 +475,6 @@
     <string name="previous">Précédent</string>
     <string name="next">Suivant</string>
     <string name="importing_map">Importation de carte</string>
-    <string name="error_importing_map">Erreur d’importation de carte</string>
     <string name="import_gpx">Importation de GPX</string>
     <string name="sleep_timer">Minuteur de sommeil</string>
     <string name="actual_frequency_disclaimer">La fréquence varie selon la limite d’activité en arrière plan des appareils.</string>

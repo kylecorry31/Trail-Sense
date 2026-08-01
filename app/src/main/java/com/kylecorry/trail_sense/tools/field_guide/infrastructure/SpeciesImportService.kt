@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.files.ZipUtils.unzip
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.ImportService
@@ -30,7 +31,7 @@ class SpeciesImportService(
                 "application/json",
                 "application/zip"
             )
-        ) ?: return@onIO null
+        ).getOrNull() ?: return@onIO null
         val stream = uriService.inputStream(uri) ?: return@onIO null
         stream.use {
             if (files.getMimeType(uri) == "application/json") {

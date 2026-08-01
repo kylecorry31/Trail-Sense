@@ -287,7 +287,6 @@
     <string name="none">無</string>
     <string name="high_tide">漲潮</string>
     <string name="importing_map">匯入緊地圖</string>
-    <string name="error_importing_map">匯入地圖嘅時候發生錯誤</string>
     <string name="battery_warning">耗電警告</string>
     <string name="preview">預覽</string>
     <string name="pref_cell_signal_refresh_cache_title">重新整理訊號快取</string>

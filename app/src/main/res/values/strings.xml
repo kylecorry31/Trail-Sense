@@ -705,7 +705,6 @@
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
     <string name="importing_map">Importing map</string>
     <string name="scanning_image">Scanning image</string>
-    <string name="error_importing_map">Error importing map</string>
     <string name="import_gpx">Import GPX</string>
     <string name="sleep_timer">Sleep timer</string>
     <string name="pref_odometer_reset_daily_title">Reset daily</string>
@@ -2005,4 +2004,7 @@
     <string name="copy_to_trail_sense">Copy to Trail Sense</string>
     <!--%s is the name of the field guide page the sighting is being recorded for-->
     <string name="recording_sighting_for_page">Recording \'%s\' sighting</string>
+    <string name="map_error_invalid_map_file">Invalid map file</string>
+    <string name="map_error_access_denied">Access to map file was denied</string>
+    <string name="map_error_unable_to_copy">Unable to copy map file</string>
 </resources>

@@ -15,7 +15,6 @@
     <string name="pref_odometer_reset_daily_title">Gündelik sıfırla</string>
     <string name="sleep_timer">Uyku zamanlayıcısı</string>
     <string name="import_gpx">GPX\'i içeri aktar</string>
-    <string name="error_importing_map">Haritayı içeri aktarmada hata</string>
     <string name="importing_map">Harita içe aktarılıyor</string>
     <string name="time_until_full">dolmasına kalan süre</string>
     <string name="time_until_empty">bitmesine kalan süre</string>

@@ -497,7 +497,6 @@
     <string name="tool_notes_title">Poznámky</string>
     <string name="cross">Kříž</string>
     <string name="pref_default_path_color_title">Výchozí barva cesty</string>
-    <string name="error_importing_map">Chyba při importu mapy</string>
     <string name="import_gpx">Import GPX</string>
     <string name="diamond">Diamant</string>
     <string name="camera_permission_denied">Povolení používání fotoaparátu bylo zamítnuto, nelze zapnout funkce, které používající fotoaparát. Můžete je povolit v nastavení.</string>

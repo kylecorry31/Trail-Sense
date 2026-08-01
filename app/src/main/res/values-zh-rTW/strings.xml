@@ -499,7 +499,6 @@
     <string name="pedometer">計步器</string>
     <string name="next">下一頁</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">最多 %d 顆流星每小時</string>
-    <string name="error_importing_map">匯入地圖時發生錯誤</string>
     <string name="sleep_timer">睡眠定時器</string>
     <string name="pref_show_last_signal_beacon_summary">為最後一個手機訊號位置建立信標</string>
     <string name="battery_history">電池歷史記錄—過去 %s</string>

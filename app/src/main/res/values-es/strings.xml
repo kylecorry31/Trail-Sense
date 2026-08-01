@@ -450,7 +450,6 @@
     <string name="next">Siguiente</string>
     <string name="time_until_full">Hasta que se cargue</string>
     <string name="importing_map">Importando mapa</string>
-    <string name="error_importing_map">Error importando mapa</string>
     <string name="import_gpx">Importar GPX</string>
     <string name="sleep_timer">Temporizador de hora de dormir</string>
     <string name="pref_odometer_reset_daily_title">Reiniciar a diario</string>

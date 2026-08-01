@@ -573,7 +573,6 @@
     <string name="time_until_full">sampai penuh</string>
     <string name="map_auto_calibrated">Peta dikalibrasi secara otomatis, harap verifikasi keakuratannya</string>
     <string name="importing_map">Mengimpor peta</string>
-    <string name="error_importing_map">Kesalahan mengimpor peta</string>
     <string name="import_gpx">Impor GPX</string>
     <string name="sleep_timer">Pengatur waktu tidur</string>
     <string name="pref_odometer_reset_daily_title">Atur ulang setiap hari</string>

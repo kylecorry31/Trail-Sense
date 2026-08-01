@@ -469,7 +469,6 @@
     <string name="pedometer">Шагомер</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="import_gpx">Импорт GPX</string>
-    <string name="error_importing_map">Ошибка при импорте карты</string>
     <string name="importing_map">Импорт карты</string>
     <string name="map_auto_calibrated">Карта откалибрована автоматически, проверьте её точность</string>
     <string name="time_until_empty">до опустения</string>

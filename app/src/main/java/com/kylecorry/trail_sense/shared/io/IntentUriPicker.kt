@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.io
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import com.kylecorry.andromeda.core.system.IntentResultRetriever
 import com.kylecorry.andromeda.core.system.UriAccess
 import com.kylecorry.andromeda.core.system.createFile
@@ -10,6 +9,7 @@ import com.kylecorry.andromeda.core.system.pickFile
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.Result
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -21,7 +21,7 @@ class IntentUriPicker(private val resolver: IntentResultRetriever, private val c
     private val prefs = getAppService<PreferencesSubsystem>().preferences
     private val userPreferences = getAppService<UserPreferences>()
 
-    override suspend fun open(types: List<String>, requirePersistentAccess: Boolean): Uri? {
+    override suspend fun open(types: List<String>, requirePersistentAccess: Boolean): Result<Uri, UriPickerError> {
         return suspendCancellableCoroutine { cont ->
             resolver.pickFile(
                 types,
@@ -42,12 +42,15 @@ class IntentUriPicker(private val resolver: IntentResultRetriever, private val c
                     }
                 }
 
-                if (readResult?.canRead == false) {
-                    Log.e("IntentUriPicker", "Read permission was not granted")
-                    cont.resume(null)
-                } else {
-                    cont.resume(it)
-                }
+                cont.resume(
+                    if (readResult?.canRead == false) {
+                        Result.Err(UriPickerError.AccessDenied)
+                    } else if (it == null) {
+                        Result.Err(UriPickerError.Cancelled)
+                    } else {
+                        Result.Ok(it)
+                    }
+                )
             }
         }
     }

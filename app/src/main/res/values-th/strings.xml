@@ -289,7 +289,6 @@
     <string name="location_not_mocked">ใช้ตำแหน่งที่แน่นอน</string>
     <string name="error_occurred">มีข้อผิดพลาดเกิดขึ้น</string>
     <string name="beacon_export_error">ส่งออกบีคอนไม่ได้</string>
-    <string name="error_importing_map">การนำเข้าแผนที่เกิดข้อผิดพลาด</string>
     <string name="error_banners">ป้ายข้อความที่ผิดพลาด</string>
     <string name="errors">ข้อผิดพลาด</string>
     <string name="error">ข้อผิดพลาด</string>

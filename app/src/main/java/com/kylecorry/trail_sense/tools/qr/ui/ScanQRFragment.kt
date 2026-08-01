@@ -15,17 +15,18 @@ import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.qr.QR
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -125,7 +126,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         inBackground(BackgroundMinimumState.Created) {
             val uri =
                 IntentUriPicker(this@ScanQRFragment, requireContext()).open(listOf("image/*"))
-                    ?: return@inBackground
+                    .getOrNull() ?: return@inBackground
 
             try {
                 pickMediaLoadingIndicator.show()

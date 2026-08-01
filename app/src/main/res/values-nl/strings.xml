@@ -557,7 +557,6 @@
     <string name="sleep_timer">Slaaptimer</string>
     <string name="importing_map">Kaart Importeren</string>
     <string name="import_gpx">GPX Importeren</string>
-    <string name="error_importing_map">Fout bij importeren kaart</string>
     <string name="map_auto_calibrated">Kaart automatisch gekalibreerd, controleer de nauwkeurigheid ervan</string>
     <string name="time_until_full">tot vol</string>
     <string name="time_until_empty">tot leeg</string>

@@ -371,7 +371,6 @@
     <string name="sun_civil">Αστική</string>
     <string name="category_natural">Φυσιοδιφία</string>
     <string name="new_packing_list">Νέα λίστα συσκευασίας</string>
-    <string name="error_importing_map">Σφάλμα κατά την εισαγωγή χάρτη</string>
     <string name="milliliter_format">%s ml</string>
     <string name="sun_nautical">Ναυτική</string>
     <string name="guide_recommended_apps_description">Χρήσιμες εφαρμογές για καταστάσεις επιβίωσης</string>

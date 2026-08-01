@@ -24,6 +24,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentOfflineMapListBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.map
+import com.kylecorry.trail_sense.shared.andromeda_temp.unwrap
+import com.kylecorry.trail_sense.shared.andromeda_temp.unwrapError
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
@@ -31,6 +34,7 @@ import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
+import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapError
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
@@ -417,31 +421,32 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             try {
                 binding.addBtn.isEnabled = false
 
-                val request = command.execute()?.copy(parentId = manager.root?.id)
+                val request = command.execute().map { it.copy(parentId = manager.root?.id) }
 
-                if (request == null) {
-                    toast(getString(R.string.error_importing_map))
+                if (request.isErr) {
+                    getCreateMapErrorMessage(request.unwrapError())?.let { toast(it) }
                     return@inBackground
                 }
 
                 mapImportingIndicator.show()
                 val result = try {
-                    mapService.createMap(request)
+                    mapService.createMap(request.unwrap())
                 } finally {
                     mapImportingIndicator.hide()
                 }
 
-                if (result == null) {
-                    toast(getString(R.string.error_importing_map))
+                if (result.isErr) {
+                    getCreateMapErrorMessage(result.unwrapError())?.let { toast(it) }
                     return@inBackground
                 }
 
-                if (result.autoCalibrated) {
+                val unwrappedResult = result.unwrap()
+                if (unwrappedResult.autoCalibrated) {
                     toast(getString(R.string.map_auto_calibrated))
                 }
 
                 manager.refresh(true)
-                when (val map = result.map) {
+                when (val map = unwrappedResult.map) {
                     is PhotoMap -> findNavController().navigate(
                         R.id.action_mapList_to_maps,
                         Bundle().apply {
@@ -454,6 +459,15 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                 DeleteTempFilesCommand(requireContext()).execute()
             }
 
+        }
+    }
+
+    private fun getCreateMapErrorMessage(error: CreateOfflineMapError): String? {
+        return when (error) {
+            CreateOfflineMapError.InvalidMapFile -> getString(R.string.map_error_invalid_map_file)
+            CreateOfflineMapError.AccessDenied -> getString(R.string.map_error_access_denied)
+            CreateOfflineMapError.UnableToCopy -> getString(R.string.map_error_unable_to_copy)
+            CreateOfflineMapError.Cancelled -> null
         }
     }
 

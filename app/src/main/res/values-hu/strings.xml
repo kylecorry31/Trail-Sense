@@ -372,7 +372,6 @@
     <string name="time">Idő</string>
     <string name="supermoon">Szuperhold</string>
     <string name="moon">Hold</string>
-    <string name="error_importing_map">Hiba a térkép importálásában</string>
     <string name="calibrate_new_tide">Kalibrálás új árapályhoz\?</string>
     <string name="sun_does_not_rise">nem kel fel</string>
     <string name="sun_up_no_set">Fent van a Nap</string>

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.io
 
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.ImportService
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
@@ -24,7 +25,7 @@ class TideImportService(private val uriPicker: UriPicker, private val uriService
 //            "text/plain"
 
             )
-        ) ?: return@onIO null
+        ).getOrNull() ?: return@onIO null
         val stream = uriService.inputStream(uri) ?: return@onIO null
         val parsers: List<TideTableParser> = listOf(NoaaHcAndMetadataTideTableConverter())
         stream.use {
