@@ -1622,4 +1622,6 @@
     <string name="export_logs">导出日志</string>
     <string name="exporting">导出中</string>
     <string name="export_failed">无法导出</string>
+    <string name="external_storage">外部存储</string>
+    <string name="external_storage_diagnostic_instructions">系统文件选择器无权访问设备上的文件。这可能阻止 Trail Sense 打开或保存所选的文件。为系统文件选择器启用“允许管理所有文件的权限”（可能叫“外部存储”）。</string>
 </resources>
