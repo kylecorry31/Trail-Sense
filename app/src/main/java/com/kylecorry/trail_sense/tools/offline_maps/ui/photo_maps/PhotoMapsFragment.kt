@@ -141,8 +141,10 @@ class PhotoMapsFragment : BoundFragment<FragmentToolPhotoMapsBinding>() {
     private fun delete() {
         inBackground {
             map?.let {
-                DeleteMapCommand(requireContext(), service).execute(it)
-                findNavController().popBackStack()
+                val deleted = DeleteMapCommand(requireContext(), service).execute(it)
+                if (deleted) {
+                    findNavController().popBackStack()
+                }
             }
         }
     }
