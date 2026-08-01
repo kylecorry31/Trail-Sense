@@ -25,8 +25,12 @@ class ExportPackingListCommand(private val fragment: AndromedaFragment) : Comman
             Alerts.withLoading(fragment.requireContext(), fragment.getString(R.string.loading)) {
                 items = repo.getItemsFromPackAsync(value.id)
             }
-            exportService.export(items, "${value.name.slugify()}.csv")
-            fragment.toast(fragment.getString(R.string.exported))
+            val exported = exportService.export(items, "${value.name.slugify()}.csv")
+            if (exported) {
+                fragment.toast(fragment.getString(R.string.exported))
+            } else {
+                fragment.toast(fragment.getString(R.string.export_failed))
+            }
         }
     }
 }
