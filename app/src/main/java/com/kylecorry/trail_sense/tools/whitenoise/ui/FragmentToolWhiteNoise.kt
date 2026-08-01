@@ -96,10 +96,16 @@ class FragmentToolWhiteNoise :
             }
         }
 
-        useEffect(sleepTimerPickerView, cache, runEveryCycle) {
+        useEffect(sleepTimerPickerView, sleepTimerSwitchView, cache, runEveryCycle) {
             val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
-            if (stopTime != null && stopTime > Instant.now()) {
+            val isActive = stopTime != null && stopTime > Instant.now()
+            if (isActive) {
                 sleepTimerPickerView.updateDuration(Duration.between(Instant.now(), stopTime))
+            } else if (stopTime != null) {
+                // The deadline exists but has already passed — the timer expired naturally.
+                // Clear the stale checked state so the UI reflects "no timer".
+                sleepTimerSwitchView.isChecked = false
+                sleepTimerPickerView.isVisible = false
             }
         }
     }
