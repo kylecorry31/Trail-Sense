@@ -22,6 +22,14 @@ object ToolDiagnosticFactory {
         )
     }
 
+    fun externalStorage(context: Context): ToolDiagnostic {
+        return ToolDiagnostic(
+            "external-storage",
+            context.getString(R.string.external_storage),
+            scanner = ExternalStorageDiagnosticScanner()
+        )
+    }
+
     fun backgroundService(context: Context): ToolDiagnostic {
         return ToolDiagnostic(
             "background-service",

@@ -83,6 +83,7 @@ object PathsToolRegistration : ToolRegistration {
             ),
             services = listOf(BacktrackToolService(context)),
             diagnostics = listOf(
+                ToolDiagnosticFactory.externalStorage(context),
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context),
                 *ToolDiagnosticFactory.compass(context),

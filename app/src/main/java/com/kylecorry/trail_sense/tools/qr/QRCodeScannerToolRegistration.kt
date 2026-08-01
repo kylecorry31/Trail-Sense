@@ -18,6 +18,7 @@ object QRCodeScannerToolRegistration : ToolRegistration {
             ToolCategory.Other,
             guideId = R.raw.guide_tool_qr_code_scanner,
             diagnostics = listOf(
+                ToolDiagnosticFactory.externalStorage(context),
                 ToolDiagnosticFactory.camera(context)
             )
         )

@@ -918,6 +918,8 @@
     <string name="no_permission">Permission not granted</string>
     <string name="diagnostics">Diagnostics</string>
     <string name="export_logs">Export logs</string>
+    <string name="external_storage">External storage</string>
+    <string name="external_storage_diagnostic_instructions">The system file picker does not have permission to access files on your device. This can prevent Trail Sense from opening or saving files you choose. Enable “Allow access to manage all files” for the system file picker (it might be called "External Storage").</string>
     <string name="pref_diagnostics" translatable="false">pref_diagnostics</string>
     <string name="battery_usage_restricted">Battery usage restricted</string>
     <string name="overridden">Overridden</string>

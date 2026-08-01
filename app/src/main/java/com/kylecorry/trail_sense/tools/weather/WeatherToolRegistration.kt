@@ -127,6 +127,7 @@ object WeatherToolRegistration : ToolRegistration {
             ),
             services = listOf(WeatherMonitorToolService(context)),
             diagnostics = listOf(
+                ToolDiagnosticFactory.externalStorage(context),
                 ToolDiagnosticFactory.barometer(context),
                 *ToolDiagnosticFactory.altimeter(context),
                 ToolDiagnosticFactory.backgroundLocation(context),

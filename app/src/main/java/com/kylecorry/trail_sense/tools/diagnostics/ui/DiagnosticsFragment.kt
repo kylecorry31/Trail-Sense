@@ -21,6 +21,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticResult
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticSeverity
 import com.kylecorry.trail_sense.tools.tools.ui.items.DiagnosticItem
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 
 class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
@@ -79,7 +81,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         // Start all scanners
         toolDiagnostics.forEach { diagnostic ->
             observeFlow(
-                diagnostic.scanner.fullScan(requireContext()),
+                flow { emitAll(diagnostic.scanner.fullScan(requireContext())) },
                 BackgroundMinimumState.Resumed
             ) {
                 synchronized(resultsLock) {

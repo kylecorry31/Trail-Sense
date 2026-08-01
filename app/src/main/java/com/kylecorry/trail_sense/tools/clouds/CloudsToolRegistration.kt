@@ -30,6 +30,7 @@ object CloudsToolRegistration : ToolRegistration {
                 R.id.cloudResultsFragment
             ),
             diagnostics = listOf(
+                ToolDiagnosticFactory.externalStorage(context),
                 ToolDiagnosticFactory.camera(context)
             )
         )

@@ -82,6 +82,7 @@ object BeaconsToolRegistration : ToolRegistration {
                 R.id.placeBeaconFragment
             ),
             diagnostics = listOf(
+                ToolDiagnosticFactory.externalStorage(context),
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context),
                 ToolDiagnosticFactory.camera(context),

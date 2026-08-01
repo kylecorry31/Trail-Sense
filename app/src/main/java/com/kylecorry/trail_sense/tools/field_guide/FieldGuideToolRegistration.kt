@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
 object FieldGuideToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -51,6 +52,9 @@ object FieldGuideToolRegistration : ToolRegistration {
             },
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_SIGHTING_RECORDED, "Sighting recorded")
+            ),
+            diagnostics = listOf(
+                ToolDiagnosticFactory.externalStorage(context)
             ),
             mapLayers = listOf(
                 MapLayerDefinition(

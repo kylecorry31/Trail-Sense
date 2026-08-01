@@ -64,6 +64,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
                 R.id.offlineMapViewFragment
             ),
             diagnostics = listOf(
+                ToolDiagnosticFactory.externalStorage(context),
                 ToolDiagnosticFactory.gps(context),
                 ToolDiagnosticFactory.camera(context),
                 *ToolDiagnosticFactory.compass(context)
