@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.system.createFile
 import com.kylecorry.andromeda.core.system.pickFile
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -18,12 +19,14 @@ class IntentUriPicker(private val resolver: IntentResultRetriever, private val c
 
     private val files = getAppService<FileSubsystem>()
     private val prefs = getAppService<PreferencesSubsystem>().preferences
+    private val userPreferences = getAppService<UserPreferences>()
 
     override suspend fun open(types: List<String>, requirePersistentAccess: Boolean): Uri? {
         return suspendCancellableCoroutine { cont ->
             resolver.pickFile(
                 types,
                 context.getString(R.string.pick_file),
+                useSAF = !userPreferences.useLegacyFilePicker,
                 access = UriAccess(
                     requirePersistentAccess = requirePersistentAccess,
                     requireReadAccess = true

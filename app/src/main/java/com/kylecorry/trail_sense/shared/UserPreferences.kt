@@ -106,6 +106,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    val useLegacyFilePicker by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_legacy_file_picker),
+        false
+    )
+
     var isCliffHeightEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_cliff_height_enabled),

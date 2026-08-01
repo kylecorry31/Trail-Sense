@@ -57,6 +57,13 @@
             app:summary="@string/widget_icon_compatibility_mode_summary"
             app:title="@string/widget_icon_compatibility_mode" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_legacy_file_picker"
+            app:singleLineTitle="false"
+            app:title="@string/use_legacy_file_picker" />
+
         <ListPreference
             app:defaultValue="1"
             app:iconSpaceReserved="false"
