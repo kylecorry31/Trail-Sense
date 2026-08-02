@@ -5,11 +5,13 @@ import com.google.android.material.materialswitch.MaterialSwitch
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useToolEventListener
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
 import com.kylecorry.trail_sense.shared.views.TileButton
 import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.SleepSound
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import java.time.Duration
@@ -41,6 +43,10 @@ class FragmentToolWhiteNoise :
                 SleepSound.Fan to getString(R.string.sleep_sound_fan)
             )
         }
+
+        // Tracks whether playback has just finished so we can clear the sleep timer UI.
+        // Reset to false once the UI has acknowledged it (i.e. next render after it fires).
+        val (playbackFinished, setPlaybackFinished) = useState(false)
 
         // Effects
         useEffect(whiteNoiseButtonView, WhiteNoiseService.isRunning) {
@@ -96,16 +102,25 @@ class FragmentToolWhiteNoise :
             }
         }
 
-        useEffect(sleepTimerPickerView, sleepTimerSwitchView, cache, runEveryCycle) {
+        useEffect(sleepTimerPickerView, cache, runEveryCycle) {
             val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
-            val isActive = stopTime != null && stopTime > Instant.now()
-            if (isActive) {
+            if (stopTime != null && stopTime > Instant.now()) {
                 sleepTimerPickerView.updateDuration(Duration.between(Instant.now(), stopTime))
-            } else if (stopTime != null) {
-                // The deadline exists but has already passed — the timer expired naturally.
-                // Clear the stale checked state so the UI reflects "no timer".
+            }
+        }
+
+        // When the service stops, clear the sleep timer UI.
+        // We use useState so the actual view mutation happens on the main thread during the
+        // next render cycle, not on the Dispatchers.Default thread the bus callback runs on.
+        useToolEventListener(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_FINISHED) {
+            setPlaybackFinished(true)
+        }
+
+        useEffect(sleepTimerSwitchView, sleepTimerPickerView, playbackFinished) {
+            if (playbackFinished) {
                 sleepTimerSwitchView.isChecked = false
                 sleepTimerPickerView.isVisible = false
+                setPlaybackFinished(false)
             }
         }
     }

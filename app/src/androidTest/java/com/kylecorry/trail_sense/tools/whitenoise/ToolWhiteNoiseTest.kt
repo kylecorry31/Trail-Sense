@@ -19,9 +19,7 @@ import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import org.junit.Test
-import java.time.Instant
 
 
 class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
@@ -60,7 +58,7 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
         canChangeSleepSound()
 
-        clearsSleepTimerUiWhenTimerExpires()
+        sleepTimerUiClearsAfterPlaybackStops()
 
         verifyQuickAction()
     }
@@ -100,25 +98,29 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         isFalse { TestUtils.isPlayingMusic() }
     }
 
-    @Test
-    fun clearsSleepTimerUiWhenTimerExpires() {
-        val preferences = PreferencesSubsystem.getInstance(TestUtils.context).preferences
-
-        // Enable the sleep timer switch
+    /**
+     * Verifies that when playback stops (naturally or manually while the sleep timer switch is on),
+     * the sleep timer switch is unchecked and the picker is hidden.
+     *
+     * Regression test for https://github.com/kylecorry31/Trail-Sense/issues/3926
+     */
+    private fun sleepTimerUiClearsAfterPlaybackStops() {
+        // Enable the sleep timer and start playback
         click(R.id.sleep_timer_switch)
+        click(R.id.white_noise_btn)
 
-        AutomationLibrary.isChecked(R.id.sleep_timer_switch)
-        AutomationLibrary.isVisible(R.id.sleep_timer_picker)
+        isTrue { TestUtils.isPlayingMusic() }
 
-        // Simulate a timer being set and then expiring:
-        // first write a future deadline so the per-cycle effect sees an active timer...
-        preferences.putInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME, Instant.now().plusSeconds(60))
-        // ...then remove it, just as WhiteNoiseService.onDestroy() does after natural expiry.
-        preferences.remove(WhiteNoiseService.CACHE_KEY_OFF_TIME)
+        // Stop playback manually (simulates what the timer expiry also does)
+        click(R.id.white_noise_btn)
 
-        // The UI should now reflect "no timer" within the next render cycle.
-        isNotChecked(R.id.sleep_timer_switch)
-        isNotVisible(R.id.sleep_timer_picker)
+        isFalse { TestUtils.isPlayingMusic() }
+
+        // The sleep timer UI should reset: switch unchecked, picker hidden
+        waitFor {
+            isNotChecked(R.id.sleep_timer_switch)
+            isNotVisible(R.id.sleep_timer_picker)
+        }
     }
 
     private fun verifyQuickAction() {

@@ -69,4 +69,5 @@ object WhiteNoiseToolRegistration : ToolRegistration {
 
     const val SERVICE_WHITE_NOISE = "whitenoise-service-white-noise"
     const val NOTIFICATION_CHANNEL_GROUP_WHITE_NOISE = "white-noise"
+    const val BROADCAST_PLAYBACK_FINISHED = "whitenoise-broadcast-playback-finished"
 }
