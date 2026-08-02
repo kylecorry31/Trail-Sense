@@ -98,29 +98,16 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         isFalse { TestUtils.isPlayingMusic() }
     }
 
-    /**
-     * Verifies that when playback stops (naturally or manually while the sleep timer switch is on),
-     * the sleep timer switch is unchecked and the picker is hidden.
-     *
-     * Regression test for https://github.com/kylecorry31/Trail-Sense/issues/3926
-     */
     private fun sleepTimerUiClearsAfterPlaybackStops() {
-        // Enable the sleep timer and start playback
         click(R.id.sleep_timer_switch)
         click(R.id.white_noise_btn)
-
         isTrue { TestUtils.isPlayingMusic() }
 
-        // Stop playback manually (simulates what the timer expiry also does)
         click(R.id.white_noise_btn)
-
         isFalse { TestUtils.isPlayingMusic() }
 
-        // The sleep timer UI should reset: switch unchecked, picker hidden
-        waitFor {
-            isNotChecked(R.id.sleep_timer_switch)
-            isNotVisible(R.id.sleep_timer_picker)
-        }
+        isNotChecked(R.id.sleep_timer_switch)
+        isNotVisible(R.id.sleep_timer_picker)
     }
 
     private fun verifyQuickAction() {

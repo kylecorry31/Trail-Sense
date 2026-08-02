@@ -61,7 +61,7 @@ object WhiteNoiseToolRegistration : ToolRegistration {
             broadcasts = listOf(
                 ToolBroadcast(
                     BROADCAST_PLAYBACK_FINISHED,
-                    "Playback finished"
+                    "White noise playback finished"
                 )
             ),
             services = listOf(WhiteNoiseToolService(context)),

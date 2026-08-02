@@ -44,9 +44,7 @@ class FragmentToolWhiteNoise :
             )
         }
 
-        // Tracks whether playback has just finished so we can clear the sleep timer UI.
-        // Reset to false once the UI has acknowledged it (i.e. next render after it fires).
-        val (playbackFinished, setPlaybackFinished) = useState(false)
+        val (playbackJustFinished, setPlaybackJustFinished) = useState(false)
 
         // Effects
         useEffect(whiteNoiseButtonView, WhiteNoiseService.isRunning) {
@@ -109,18 +107,15 @@ class FragmentToolWhiteNoise :
             }
         }
 
-        // When the service stops, clear the sleep timer UI.
-        // We use useState so the actual view mutation happens on the main thread during the
-        // next render cycle, not on the Dispatchers.Default thread the bus callback runs on.
         useToolEventListener(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_FINISHED) {
-            setPlaybackFinished(true)
+            setPlaybackJustFinished(true)
         }
 
-        useEffect(sleepTimerSwitchView, sleepTimerPickerView, playbackFinished) {
-            if (playbackFinished) {
+        useEffect(sleepTimerSwitchView, sleepTimerPickerView, playbackJustFinished) {
+            if (playbackJustFinished) {
                 sleepTimerSwitchView.isChecked = false
                 sleepTimerPickerView.isVisible = false
-                setPlaybackFinished(false)
+                setPlaybackJustFinished(false)
             }
         }
     }
