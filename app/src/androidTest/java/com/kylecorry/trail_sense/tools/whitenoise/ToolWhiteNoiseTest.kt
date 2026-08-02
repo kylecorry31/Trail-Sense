@@ -7,6 +7,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isFalse
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.TestUtils
@@ -56,6 +58,8 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
         canChangeSleepSound()
 
+        sleepTimerUiClearsAfterPlaybackStops()
+
         verifyQuickAction()
     }
 
@@ -92,6 +96,31 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
             not { notification(WhiteNoiseService.NOTIFICATION_ID) }
         }
         isFalse { TestUtils.isPlayingMusic() }
+    }
+
+    /**
+     * Verifies that when playback stops (naturally or manually while the sleep timer switch is on),
+     * the sleep timer switch is unchecked and the picker is hidden.
+     *
+     * Regression test for https://github.com/kylecorry31/Trail-Sense/issues/3926
+     */
+    private fun sleepTimerUiClearsAfterPlaybackStops() {
+        // Enable the sleep timer and start playback
+        click(R.id.sleep_timer_switch)
+        click(R.id.white_noise_btn)
+
+        isTrue { TestUtils.isPlayingMusic() }
+
+        // Stop playback manually (simulates what the timer expiry also does)
+        click(R.id.white_noise_btn)
+
+        isFalse { TestUtils.isPlayingMusic() }
+
+        // The sleep timer UI should reset: switch unchecked, picker hidden
+        waitFor {
+            isNotChecked(R.id.sleep_timer_switch)
+            isNotVisible(R.id.sleep_timer_picker)
+        }
     }
 
     private fun verifyQuickAction() {

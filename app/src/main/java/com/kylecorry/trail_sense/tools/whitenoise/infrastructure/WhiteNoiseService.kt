@@ -12,6 +12,8 @@ import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
 import java.time.Duration
 import java.time.Instant
 
@@ -60,6 +62,7 @@ class WhiteNoiseService : AndromedaService() {
         soundPlayer?.fadeOff(true)
         stopService(true)
         clearSleepTimer(this)
+        Tools.broadcast(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_FINISHED)
         super.onDestroy()
     }
 
