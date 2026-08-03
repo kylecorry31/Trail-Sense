@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.domain.loading
 
 import android.content.Context
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
+import com.kylecorry.trail_sense.tools.tides.infrastructure.TidePreferences
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.tides.domain.selection.DefaultTideSelectionStrategy
 import com.kylecorry.trail_sense.tools.tides.domain.selection.EstimateTideSelectionStrategy

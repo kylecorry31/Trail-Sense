@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.pedometer.domain
 import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.sol.time.Time.toZonedDateTime
-import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.events.EventData
 import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration

@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
 import com.kylecorry.trail_sense.tools.pedometer.domain.IPaceCalculator

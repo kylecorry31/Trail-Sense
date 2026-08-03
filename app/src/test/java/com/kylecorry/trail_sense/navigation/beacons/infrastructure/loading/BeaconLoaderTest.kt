@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.loading
 
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner

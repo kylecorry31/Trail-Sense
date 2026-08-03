@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach

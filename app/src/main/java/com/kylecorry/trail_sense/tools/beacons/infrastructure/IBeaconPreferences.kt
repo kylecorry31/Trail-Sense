@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings.infrastructure
+package com.kylecorry.trail_sense.tools.beacons.infrastructure
 
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod

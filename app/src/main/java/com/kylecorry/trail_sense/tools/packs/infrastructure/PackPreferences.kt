@@ -1,8 +1,9 @@
-package com.kylecorry.trail_sense.settings.infrastructure
+package com.kylecorry.trail_sense.tools.packs.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.preferences.StringPreference
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
 
 class PackPreferences(context: Context) : PreferenceRepo(context) {
 

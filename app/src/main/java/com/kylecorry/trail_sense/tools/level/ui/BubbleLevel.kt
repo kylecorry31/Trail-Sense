@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
-import com.kylecorry.trail_sense.settings.infrastructure.BubbleLevelPreferences
+import com.kylecorry.trail_sense.tools.level.infrastructure.BubbleLevelPreferences
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getColorOnPrimary
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService

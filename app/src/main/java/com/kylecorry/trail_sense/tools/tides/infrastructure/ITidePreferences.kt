@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings.infrastructure
+package com.kylecorry.trail_sense.tools.tides.infrastructure
 
 interface ITidePreferences {
     val showNearestTide: Boolean

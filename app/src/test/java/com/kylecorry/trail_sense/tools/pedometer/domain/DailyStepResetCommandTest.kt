@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
 import com.kylecorry.luna.specifications.Specification
-import com.kylecorry.trail_sense.settings.infrastructure.IPedometerPreferences
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod

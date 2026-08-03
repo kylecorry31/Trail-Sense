@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings.infrastructure
+package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
