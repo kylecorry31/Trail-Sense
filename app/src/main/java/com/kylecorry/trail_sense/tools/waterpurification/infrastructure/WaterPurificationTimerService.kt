@@ -4,6 +4,7 @@ import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
+import androidx.core.app.NotificationCompat
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
@@ -94,7 +95,8 @@ class WaterPurificationTimerService : AndromedaService() {
             R.drawable.ic_tool_boil_done,
             group = NOTIFICATION_GROUP_WATER,
             intent = openIntent,
-            isAlarm = useAlarm
+            isAlarm = useAlarm,
+            category = NotificationCompat.CATEGORY_ALARM
         )
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
         stopService(false)

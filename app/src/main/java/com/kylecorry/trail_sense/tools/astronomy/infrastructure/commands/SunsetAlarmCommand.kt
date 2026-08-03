@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.luna.concurrency.onDefault
@@ -120,7 +121,8 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
             R.drawable.ic_sunset_notification,
             intent = openIntent,
             autoCancel = true,
-            isAlarm = useAlarm
+            isAlarm = useAlarm,
+            category = NotificationCompat.CATEGORY_REMINDER
         )
 
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.turn_back.infrastructure.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
@@ -45,7 +46,8 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             R.drawable.ic_undo,
             group = NOTIFIATION_GROUP,
             autoCancel = true,
-            isAlarm = useAlarm
+            isAlarm = useAlarm,
+            category = NotificationCompat.CATEGORY_REMINDER
         )
         DependencyRegistry.get<NotificationSubsystem>().send(
             TURN_BACK_NOTIFICATION_ID,

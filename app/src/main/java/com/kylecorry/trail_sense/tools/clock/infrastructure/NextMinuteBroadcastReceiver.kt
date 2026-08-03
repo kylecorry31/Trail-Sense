@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.NotificationCompat
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
@@ -21,7 +22,8 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
             null,
             R.drawable.ic_tool_clock,
             group = NOTIFICATION_GROUP_CLOCK,
-            intent = NavigationUtils.pendingIntent(context, R.id.toolClockFragment)
+            intent = NavigationUtils.pendingIntent(context, R.id.toolClockFragment),
+            category = NotificationCompat.CATEGORY_ALARM
         )
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
     }
