@@ -110,7 +110,8 @@ object CustomUiUtils {
     @ColorInt
     fun getQualityColor(quality: Quality): Int {
         return when (quality) {
-            Quality.Poor, Quality.Unknown -> AppColor.Red.color
+            Quality.Poor -> AppColor.Red.color
+            Quality.Unknown -> AppColor.Gray.color
             Quality.Moderate -> AppColor.Yellow.color
             Quality.Good -> AppColor.Green.color
         }
