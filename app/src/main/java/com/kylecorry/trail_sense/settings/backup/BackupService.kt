@@ -70,6 +70,8 @@ class BackupService(
         // Check the validity of the zip file
         val backup = verifyBackupFile(source)
 
+        val stream = fileSubsystem.stream(source) ?: return@onIO
+
         // Get the root directory where the files will be restored to
         val root = AppData.getDataDirectory(context)
 
@@ -84,12 +86,12 @@ class BackupService(
 
         // Unzip the files to the root directory (this will overwrite existing files)
         var count = 0
-        fileSubsystem.stream(source)?.use {
+        stream.use {
             ZipUtils.unzip(it, root, MAX_ZIP_FILE_COUNT) {
                 count++
                 onProgress?.invoke(count / backup.fileCount.coerceAtLeast(1).toFloat())
             }
-        } ?: return@onIO
+        }
 
         // Rename the shared prefs file
         renameSharedPrefsFile(backup.sharedPrefsFileName)
@@ -100,7 +102,7 @@ class BackupService(
         onProgress?.invoke(1f)
     }
 
-    private fun deleteVersionFiles(){
+    private fun deleteVersionFiles() {
         fileSubsystem.list("")
             .filter { it.name.startsWith("app-version-") }
             .forEach { it.delete() }
