@@ -38,6 +38,7 @@ All code/translation contributors will be credited in the Licenses section of Tr
 
 ## Pull Requests
 - All sections of the pull request description template must be filled out.
+- Use the PR description to describe what this change does and why (not how). Please don't generate it with an LLM - it doesn't know why you made the decisions you did.
 - There must be a related issue and your code must implement it as specified. Raise in discussions or the issue if you believe something different is needed before submitting the pull request for review.
 - If your change involves modifications to the app code (ex. not just tests/docs/etc), a screenshot is required.
 - Only include changes related to the issue you are addressing. For example, don't adjust the code styling of the file.
@@ -67,4 +68,4 @@ I don't care what tools you use*. Review and understand the output, clean it up 
 *The following uses are banned in Trail Sense:
 - Generating artwork
 - Generating survival guide content (survival guide is locked for contributions anyway)
-- Generating translations in a language you are not proficient in
+- Generating in-app translations in a language you are not proficient in
