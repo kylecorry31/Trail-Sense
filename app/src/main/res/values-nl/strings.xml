@@ -565,7 +565,7 @@
     <string name="on_map">Op de kaart</string>
     <string name="no_maps">Geen kaarten</string>
     <string name="rename">Hernoemen</string>
-    <string name="pedometer_disclaimer">De nauwkeurigheid en het batterijgebruik van de stappenteller zijn afhankelijk van de fabrikant van je apparaat en de ingevoerde paslengte. Probeer het een tijdje thuis om het leeglopen van de batterij en de nauwkeurigheid te controleren voordat je op pad gaat.</string>
+    <string name="pedometer_disclaimer">De nauwkeurigheid en het batterijgebruik van de stappenteller zijn afhankelijk van de fabrikant van je apparaat en de ingevoerde staplengte. Probeer het een tijdje thuis om het leeglopen van de batterij en de nauwkeurigheid te controleren voordat je op pad gaat.</string>
     <string name="pref_meteor_showers_title">Meteorenzwermen</string>
     <string name="meteors_per_hour">Max %d meteoren / h</string>
     <string name="meteor_shower">Meteorenzwerm</string>
@@ -1641,4 +1641,10 @@
     <string name="export_logs">Logs exporteren</string>
     <string name="exporting">Bezig met exporteren</string>
     <string name="export_failed">Exporteren mislukt</string>
+    <string name="external_storage">Externe opslag</string>
+    <string name="use_legacy_file_picker">Oude bestandskiezer gebruiken</string>
+    <string name="map_error_invalid_map_file">Ongeldig kaartbestand</string>
+    <string name="map_error_access_denied">Toegang tot bestand geweigerd</string>
+    <string name="map_error_unable_to_copy">Bestand kopiëren mislukt</string>
+    <string name="external_storage_diagnostic_instructions">De systeembestandskiezer heeft geen toestemming om bestanden op je apparaat te openen. Dit kan voorkomen dat Trail Sense de door jou geselecteerde bestanden opent of opslaat. Schakel \'Toegang om alle bestanden te beheren\' in voor de bestandskiezer (deze kan ook \'Externe opslag\' heten).</string>
 </resources>
