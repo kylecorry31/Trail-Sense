@@ -561,7 +561,7 @@
     <string name="left_quick_action">Tindakan cepat kiri</string>
     <string name="since_time">sejak %s</string>
     <string name="pedometer">Pedometer</string>
-    <string name="pref_stride_length_title">Panjang langkah</string>
+    <string name="pref_step_length_title">Panjang langkah</string>
     <string name="pref_meteor_showers_title">Hujan meteor</string>
     <string name="pedometer_disclaimer">Keakuratan dan penggunaan baterai pedometer tergantung pada produsen perangkant Anda dan panjang langkah yang dimasukkan. Cobalah di rumah sebentar untuk memverifikasi penggunaan baterai dan keakuratannya sebelum menggunakan di jalan.</string>
     <string name="rename">Ubah nama</string>
@@ -771,7 +771,7 @@
     <string name="distance_alert_distance_reached">Anda telah mencapai %s</string>
     <string name="off">Mati</string>
     <string name="saved">Tersimpan</string>
-    <string name="stride_length_walk">Berjalan dalam garis lurus, tekan berhenti ketika Anda selesai</string>
+    <string name="step_length_walk">Berjalan dalam garis lurus, tekan berhenti ketika Anda selesai</string>
     <string name="reset_distance_title">Atur ulang jarak\?</string>
     <string name="tide_diurnal">Harian</string>
     <string name="path_slope_steep">Curam</string>
@@ -821,12 +821,12 @@
 \n
 \n- Dan masih banyak lagi!</string>
     <string name="exporting_map">Mengekspor peta</string>
-    <string name="estimate_stride_length">Memperkirakan panjang langkah</string>
+    <string name="estimate_step_length">Memperkirakan panjang langkah</string>
     <string name="bearing">Bantalan</string>
     <string name="warning">Peringatan</string>
     <string name="tool_temperature_estimation_description">Prediksi suhu pada ketinggian, kecepatan angin, dan kelembapan yang berbeda</string>
     <string name="save">Simpan</string>
-    <string name="stride_length_stand_still">Berdiri diam</string>
+    <string name="step_length_stand_still">Berdiri diam</string>
     <string name="line_style">Gaya garis</string>
     <string name="simplify">Sederhanakan</string>
     <string name="simplification_quality">Kualitas penyederhanaan</string>

@@ -89,11 +89,11 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         setupDistanceSetting(
-            getString(R.string.pref_stride_length_holder),
-            { userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits) },
+            getString(R.string.pref_step_length_holder),
+            { userPrefs.pedometer.stepLength.convertTo(userPrefs.baseDistanceUnits) },
             { distance ->
                 if (distance != null && distance.value > 0f) {
-                    userPrefs.pedometer.strideLength = distance
+                    userPrefs.pedometer.stepLength = distance
                 }
             },
             DistanceUtils.humanDistanceUnits,
@@ -101,8 +101,8 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
             decimalPlacesOverride = 2
         )
 
-        onClick(preference(R.string.pref_estimate_stride_length_holder)) {
-            findNavController().navigate(R.id.action_calibrate_pedometer_to_estimate_stride_length)
+        onClick(preference(R.string.pref_estimate_step_length_holder)) {
+            findNavController().navigate(R.id.action_calibrate_pedometer_to_estimate_step_length)
         }
 
         setupStepHistorySetting()

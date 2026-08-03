@@ -525,7 +525,7 @@
     <string name="meteors_per_hour">Máximo %d meteoros / h</string>
     <string name="meteor_shower">Chuva de meteoros</string>
     <string name="no_tides">Sem marés</string>
-    <string name="pref_stride_length_title">Distância de passos</string>
+    <string name="pref_step_length_title">Distância de passos</string>
     <string name="pedometer">Pedômetro</string>
     <string name="pref_daily_weather_time_title">Horário meteorológico diário</string>
     <string name="time_not_set">Horário não definido</string>
@@ -812,7 +812,7 @@
     <string name="distance_alert_distance_reached">Você chegou a %s</string>
     <string name="save">Salvar</string>
     <string name="saved">Salvo</string>
-    <string name="stride_length_walk">Caminhe em uma linha reta e toque em \"Parar\" quando terminar</string>
+    <string name="step_length_walk">Caminhe em uma linha reta e toque em \"Parar\" quando terminar</string>
     <string name="current_speed">Velocidade atual</string>
     <string name="current_speed_pedometer">Velocidade atual (Pedômetro)</string>
     <string name="current_speed_gps">Velocidade atual (GPS)</string>
@@ -826,8 +826,8 @@
     <string name="pref_default_path_color_title">Cor padrão do percurso</string>
     <string name="humidity_history">Histórico de umidade - último %s</string>
     <string name="temperature_history">Histórico de temperatura - último %s</string>
-    <string name="estimate_stride_length">Estimar distância do passo</string>
-    <string name="stride_length_stand_still">Fique parado</string>
+    <string name="estimate_step_length">Estimar distância do passo</string>
+    <string name="step_length_stand_still">Fique parado</string>
     <string name="disclaimer_estimated_tide">As marés previstas podem ser imprecisas. Por favor, use uma tabela oficial de marés para os horários exatos.</string>
     <string name="disclaimer_estimated_tide_title">Maré prevista</string>
     <string name="estimated">Previsto</string>

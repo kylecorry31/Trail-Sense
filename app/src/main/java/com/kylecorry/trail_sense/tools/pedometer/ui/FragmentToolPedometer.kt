@@ -35,7 +35,7 @@ import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.HourlyStepCount
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
-import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
@@ -48,7 +48,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private val pedometer by lazy { PedometerSubsystem.getInstance(requireContext()) }
     private val stepTrackerService by lazy { getAppService<StepTrackerService>() }
-    private val paceCalculator by lazy { StrideLengthPaceCalculator(prefs.pedometer.strideLength) }
+    private val paceCalculator by lazy { StepLengthPaceCalculator(prefs.pedometer.stepLength) }
     private val averageSpeedometer by lazy {
         AveragePaceSpeedometer(stepTrackerService, paceCalculator, prefs.pedometer)
     }

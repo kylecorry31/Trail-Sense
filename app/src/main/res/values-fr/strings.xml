@@ -421,7 +421,7 @@
     <string name="tap_to_turn_off">Appuyez pour éteindre</string>
     <string name="always_on">Toujours activé</string>
     <string name="guide_light_meter_description">Comment déterminer la portée d’une source lumineuse</string>
-    <string name="pref_stride_length_title">Longueur d’enjambée</string>
+    <string name="pref_step_length_title">Longueur d’enjambée</string>
     <string name="pref_meteor_showers_title">Pluies de météores</string>
     <string name="time_until_empty">jusqu\'à ce que ce soit vide</string>
     <string name="time_until_full">jusqu\'à ce que ça soit plein</string>
@@ -865,7 +865,7 @@
     <string name="distance_alert">Distance d\'alerte</string>
     <string name="current_speed_gps">Vitesse actuelle (GPS)</string>
     <string name="navigating_to_nearest_path_point">Navigation jusqu’au point de cheminement le plus proche</string>
-    <string name="estimate_stride_length">Estimer la longueur de foulée</string>
+    <string name="estimate_step_length">Estimer la longueur de foulée</string>
     <string name="tide_semidiurnal">Semi diurne</string>
     <string name="ascent">Ascension</string>
     <string name="lowest_point_elevation">Point le plus bas</string>
@@ -934,8 +934,8 @@
     <string name="off">Eteint</string>
     <string name="explore">Explorer</string>
     <string name="current_speed">Vitesse actuelle</string>
-    <string name="stride_length_stand_still">S\'arrêter</string>
-    <string name="stride_length_walk">Marchez en ligne droite, appuyez sur arrêt lorsque vous avez terminé</string>
+    <string name="step_length_stand_still">S\'arrêter</string>
+    <string name="step_length_walk">Marchez en ligne droite, appuyez sur arrêt lorsque vous avez terminé</string>
     <string name="warning">Alerte</string>
     <string name="map_export_error">Impossible d\'exporter la carte dans le fichier sélectionné</string>
     <string name="point">Point</string>

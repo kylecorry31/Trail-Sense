@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.ActiveTimeCalculator
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
-import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
@@ -90,7 +90,7 @@ class StepCounterService : AndromedaService() {
 
     private suspend fun onStepsChanged(data: Bundle?) {
         val steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: 0L
-        val paceCalculator = StrideLengthPaceCalculator(prefs.pedometer.strideLength)
+        val paceCalculator = StepLengthPaceCalculator(prefs.pedometer.stepLength)
         val distance = paceCalculator.distance(steps)
         notificationSubsystem.send(NOTIFICATION_ID, getNotification(distance))
     }

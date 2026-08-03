@@ -9,17 +9,17 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentStrideLengthEstimationBinding
+import com.kylecorry.trail_sense.databinding.FragmentStepLengthEstimationBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length.StrideLengthEstimatorFactory
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.step_length.StepLengthEstimatorFactory
 
-class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimationBinding>() {
+class FragmentStepLengthEstimation : BoundFragment<FragmentStepLengthEstimationBinding>() {
 
     private val estimator by lazy {
-        StrideLengthEstimatorFactory(requireContext()).getEstimator()
+        StepLengthEstimatorFactory(requireContext()).getEstimator()
     }
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
@@ -32,10 +32,10 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.strideLengthBtn.setOnClickListener {
+        binding.stepLengthBtn.setOnClickListener {
             when {
                 !isRunning && estimator.hasValidReading -> {
-                    prefs.pedometer.strideLength = estimator.strideLength ?: Distance.meters(0f)
+                    prefs.pedometer.stepLength = estimator.stepLength ?: Distance.meters(0f)
                     toast(getString(R.string.saved))
                 }
 
@@ -45,12 +45,12 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
 
                 else -> {
                     isRunning = false
-                    estimator.stop(this::onStrideLengthChanged)
+                    estimator.stop(this::onStepLengthChanged)
                 }
             }
         }
 
-        binding.resetStrideBtn.setOnClickListener {
+        binding.resetStepBtn.setOnClickListener {
             estimator.reset()
         }
 
@@ -60,48 +60,48 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentStrideLengthEstimationBinding {
-        return FragmentStrideLengthEstimationBinding.inflate(layoutInflater, container, false)
+    ): FragmentStepLengthEstimationBinding {
+        return FragmentStepLengthEstimationBinding.inflate(layoutInflater, container, false)
     }
 
-    private fun onStrideLengthChanged(): Boolean {
+    private fun onStepLengthChanged(): Boolean {
         return true
     }
 
     override fun onUpdate() {
         super.onUpdate()
 
-        estimator.strideLength.let {
-            binding.resetStrideBtn.isVisible = !isRunning && it != null
-            binding.strideLengthTitle.title.text = if (it != null) {
+        estimator.stepLength.let {
+            binding.resetStepBtn.isVisible = !isRunning && it != null
+            binding.stepLengthTitle.title.text = if (it != null) {
                 formatter.formatDistance(it.convertTo(units), 2, false)
             } else {
                 getString(R.string.dash)
             }
         }
 
-        binding.strideLengthBtn.text = when {
+        binding.stepLengthBtn.text = when {
             !isRunning && estimator.hasValidReading -> getString(R.string.save)
             !isRunning -> getString(R.string.start)
             else -> getString(R.string.stop)
         }
 
-        binding.strideLengthDescription.text = when {
-            isRunning && !estimator.hasValidReading -> getString(R.string.stride_length_stand_still)
-            isRunning -> getString(R.string.stride_length_walk)
+        binding.stepLengthDescription.text = when {
+            isRunning && !estimator.hasValidReading -> getString(R.string.step_length_stand_still)
+            isRunning -> getString(R.string.step_length_walk)
             else -> ""
         }
     }
 
     override fun onPause() {
         super.onPause()
-        estimator.stop(this::onStrideLengthChanged)
+        estimator.stop(this::onStepLengthChanged)
     }
 
     override fun onResume() {
         super.onResume()
         if (isRunning) {
-            estimator.start(this::onStrideLengthChanged)
+            estimator.start(this::onStepLengthChanged)
         }
     }
 
@@ -109,7 +109,7 @@ class FragmentStrideLengthEstimation : BoundFragment<FragmentStrideLengthEstimat
         requestActivityRecognition { hasPermission ->
             if (hasPermission) {
                 isRunning = true
-                estimator.start(this::onStrideLengthChanged)
+                estimator.start(this::onStepLengthChanged)
             } else {
                 isRunning = false
                 alertNoActivityRecognitionPermission()

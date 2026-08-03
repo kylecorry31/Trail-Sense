@@ -597,8 +597,8 @@
         android:name="com.kylecorry.trail_sense.tools.pedometer.ui.PedometerSettingsFragment"
         android:label="CalibrateOdometerFragment">
         <action
-            android:id="@+id/action_calibrate_pedometer_to_estimate_stride_length"
-            app:destination="@id/fragmentStrideLengthEstimation"
+            android:id="@+id/action_calibrate_pedometer_to_estimate_step_length"
+            app:destination="@id/fragmentStepLengthEstimation"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -805,9 +805,9 @@
             app:argType="boolean" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentStrideLengthEstimation"
-        android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentStrideLengthEstimation"
-        android:label="FragmentStrideLengthEstimation" />
+        android:id="@+id/fragmentStepLengthEstimation"
+        android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentStepLengthEstimation"
+        android:label="FragmentStepLengthEstimation" />
     <fragment
         android:id="@+id/cloudResultsFragment"
         android:name="com.kylecorry.trail_sense.tools.clouds.ui.CloudResultsFragment"

@@ -533,7 +533,7 @@
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Può indicare bel tempo. Se cresce in altezza, può indicare precipitazioni o temporali nelle prossime %d ore.</string>
     <string name="since_time">da %s</string>
     <string name="pref_include_leading_zero_title">Aggiungi lo zero iniziale all\'ora</string>
-    <string name="pref_stride_length_title">Lunghezza del passo</string>
+    <string name="pref_step_length_title">Lunghezza del passo</string>
     <string name="time_until_full">fino alla ricarica</string>
     <string name="actual_frequency_disclaimer">La frequenza effettiva può variare in quanto alcuni dispositivi hanno delle limitazioni alle attività in background.</string>
     <string name="weather_no_change">Nessun cambiamento</string>
@@ -741,7 +741,7 @@
     <string name="pref_flashlight_should_timeout_title">Spegni automaticamente</string>
     <string name="pref_flashlight_timeout_title">Spegni dopo</string>
     <string name="tool_temperature_estimation_description">Prevede la temperatura ad una quota differente</string>
-    <string name="stride_length_stand_still">Rimani fermo</string>
+    <string name="step_length_stand_still">Rimani fermo</string>
     <string name="no_clouds">Niente nuvole</string>
     <string name="reduce_map_resolution_crop_disclaimer">Il ritaglio della mappa ne ridurrà la risoluzione. Se è necessario ritagliare la mappa con un alta risoluzione, utilizzare un\'applicazione per la modifica di foto. Si prevede di risolvere questo problema in futuro.</string>
     <string name="solar_eclipses">Eclissi solari</string>
@@ -757,9 +757,9 @@
     <string name="most_recent">Più recente</string>
     <string name="qr_text_too_long">Il testo è troppo lungo, il codice QR è stato troncato</string>
     <string name="distance_alert">Avviso di distanza</string>
-    <string name="estimate_stride_length">Stima la lunghezza della falcata</string>
+    <string name="estimate_step_length">Stima la lunghezza della falcata</string>
     <string name="current_speed">Velocità attuale</string>
-    <string name="stride_length_walk">Cammina in una linea retta, premi stop quando hai fatto</string>
+    <string name="step_length_walk">Cammina in una linea retta, premi stop quando hai fatto</string>
     <string name="average_speed_backtrack">Velocità media (percorso di ritorno)</string>
     <string name="pref_only_navigate_path_points_title">Naviga solo verso punti registrati</string>
     <string name="file">File</string>

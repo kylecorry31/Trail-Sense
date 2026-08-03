@@ -520,9 +520,9 @@
     <string name="errors">Hibák</string>
     <string name="compass_unavailable">Iránytű nem elérhető</string>
     <string name="distance_alert">Távolsági figyelmeztetés</string>
-    <string name="estimate_stride_length">Lépéshossz becslése</string>
-    <string name="stride_length_stand_still">Állj egy helyben</string>
-    <string name="stride_length_walk">Gyalogolj egyenes vonalban, nyomd meg a stop-ot, ha kész</string>
+    <string name="estimate_step_length">Lépéshossz becslése</string>
+    <string name="step_length_stand_still">Állj egy helyben</string>
+    <string name="step_length_walk">Gyalogolj egyenes vonalban, nyomd meg a stop-ot, ha kész</string>
     <string name="current_speed_pedometer">Jelenlegi sebesség (Lépésszámláló)</string>
     <string name="pref_only_navigate_path_points_title">Csak felvett pontokhoz navigálás</string>
     <string name="tide_instructions">Használj egy hivatalos árapály táblázatot referencia árapályok megadásához az utazásod idejére.</string>
@@ -685,7 +685,7 @@
     <string name="screen_flashlight">Kijelző</string>
     <string name="since_time">%s óta</string>
     <string name="pedometer">Lépésszámláló</string>
-    <string name="pref_stride_length_title">Lépéshossz</string>
+    <string name="pref_step_length_title">Lépéshossz</string>
     <string name="on_map">Térképen</string>
     <string name="square">Négyzetes</string>
     <string name="diamond">Gyémánt</string>

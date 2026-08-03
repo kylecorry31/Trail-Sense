@@ -458,7 +458,7 @@
     <string name="beam_distance">%s Reichweite</string>
     <string name="stratocumulus_desc">Niedrige Wolken, die wie eine Schicht aus Wattebäuschen mit kleinen Lücken aussehen. Die Farbe ist weiß bis dunkelgrau.</string>
     <string name="on_map">Auf der Karte</string>
-    <string name="pref_stride_length_title">Schrittlänge</string>
+    <string name="pref_step_length_title">Schrittlänge</string>
     <string name="pref_daily_weather_time_title">Zeit der täglichen Benachrichtigung</string>
     <string name="none">Keine</string>
     <string name="backtrack_notification_channel_description">Standortaktualisierungen für Rückweg</string>
@@ -843,9 +843,9 @@
     <string name="distance_alert_distance_reached">Du hast %s erreicht</string>
     <string name="save">Speichern</string>
     <string name="saved">Gespeichert</string>
-    <string name="estimate_stride_length">Geschätzte Schrittlänge</string>
-    <string name="stride_length_stand_still">Still stehen</string>
-    <string name="stride_length_walk">Laufe auf einer geraden Linie, drücke Stopp, wenn du fertig bist</string>
+    <string name="estimate_step_length">Geschätzte Schrittlänge</string>
+    <string name="step_length_stand_still">Still stehen</string>
+    <string name="step_length_walk">Laufe auf einer geraden Linie, drücke Stopp, wenn du fertig bist</string>
     <string name="current_speed">Aktuelle Geschwindigkeit</string>
     <string name="current_speed_pedometer">Aktuelle Geschwindigkeit (Schrittzähler)</string>
     <string name="current_speed_gps">Aktuelle Geschwindigkeit (GPS)</string>

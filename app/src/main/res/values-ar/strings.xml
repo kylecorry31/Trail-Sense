@@ -123,7 +123,7 @@
     <string name="time_until_empty">حتى النفاد</string>
     <string name="arrow">سهم</string>
     <string name="path">المسار</string>
-    <string name="stride_length_walk">امشِ في خط مستقيم، اضغط على إيقاف عند الانتهاء</string>
+    <string name="step_length_walk">امشِ في خط مستقيم، اضغط على إيقاف عند الانتهاء</string>
     <string name="exporting_map">تصدير الخريطة</string>
     <string name="map_exported">تم تصدير الخريطة</string>
     <string name="change_resolution">تغيير الدقة</string>
@@ -163,7 +163,7 @@
     <string name="gps_user">المستخدم</string>
     <string name="gps_searching">يبحث</string>
     <string name="pedometer">عداد الخطوات</string>
-    <string name="pref_stride_length_title">طول الخطوة</string>
+    <string name="pref_step_length_title">طول الخطوة</string>
     <string name="pref_require_satellites_title">طلب تثبيت الأقمار</string>
     <string name="network_5g">5G</string>
     <string name="network_4g">4G</string>
@@ -355,8 +355,8 @@
     <string name="explore">استكشاف</string>
     <string name="remove_distance_alert">إزالة تنبيه المسافة (%s)؟</string>
     <string name="save">الحفظ</string>
-    <string name="estimate_stride_length">تقدير طول الخطوة</string>
-    <string name="stride_length_stand_still">قف ساكنًا</string>
+    <string name="estimate_step_length">تقدير طول الخطوة</string>
+    <string name="step_length_stand_still">قف ساكنًا</string>
     <string name="current_speed_pedometer">السرعة الحالية (عداد الخطوات)</string>
     <string name="current_speed_gps">السرعة الحالية (GPS)</string>
     <string name="average_speed_pedometer">السرعة المتوسطة (عداد الخطوات)</string>

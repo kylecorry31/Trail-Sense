@@ -7,7 +7,7 @@ import java.time.Duration
 interface IPedometerPreferences {
     var isEnabled: Boolean
     val resetDaily: Boolean
-    var strideLength: Distance
+    var stepLength: Distance
     var alertDistance: Distance?
     val useAlarmForDistanceAlert: Boolean
     var stepHistory: Duration

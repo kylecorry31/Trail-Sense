@@ -15,12 +15,12 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
-import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepLengthPaceCalculator
 import java.time.Instant
 
 class PedometerSessionListItemMapper(
     private val context: Context,
-    private val paceCalculator: StrideLengthPaceCalculator,
+    private val paceCalculator: StepLengthPaceCalculator,
     private val onDelete: (period: StepTrackingPeriod, title: String) -> Unit
 ) : ListItemMapper<StepTrackingPeriod> {
 

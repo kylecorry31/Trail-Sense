@@ -403,7 +403,7 @@
     <string name="half_tide">Połowa przypływu</string>
     <string name="beacon_export_error">Nie udało się wyeksportować punktów nawigacyjnych</string>
     <string name="turn_off">Wyłącz</string>
-    <string name="pref_stride_length_title">Długość kroku</string>
+    <string name="pref_step_length_title">Długość kroku</string>
     <string name="pedometer">Krokomierz</string>
     <string name="delete_tide_prompt">Usunąć pływ\?</string>
     <string name="no_tides">Brak pływów</string>
@@ -761,8 +761,8 @@
     <string name="reset_distance_title">Zresetować odległość\?</string>
     <string name="save">Zapisz</string>
     <string name="saved">Zapisano</string>
-    <string name="stride_length_stand_still">Stój w miejscu</string>
-    <string name="stride_length_walk">Idź linią prostą, naciśnij \"Stop\", aby zakończyć</string>
+    <string name="step_length_stand_still">Stój w miejscu</string>
+    <string name="step_length_walk">Idź linią prostą, naciśnij \"Stop\", aby zakończyć</string>
     <string name="current_speed">Aktualna prędkość</string>
     <string name="current_speed_pedometer">Aktualna prędkość (Krokomierz)</string>
     <string name="current_speed_gps">Aktualna prędkość (GPS)</string>
@@ -936,7 +936,7 @@
     <string name="bearing">Namiar</string>
     <string name="sunrise_alert_channel_title">Alert wschodu słońca</string>
     <string name="square">Kwadrat</string>
-    <string name="estimate_stride_length">Szacowana długość kroku</string>
+    <string name="estimate_step_length">Szacowana długość kroku</string>
     <string name="cross">Krzyż</string>
     <string name="astronomy_altitude">Wysokość</string>
     <string name="theme_system_black">Systemowy (Czarny)</string>

@@ -177,7 +177,7 @@
     <string name="pref_meteor_showers_title">Meteorski pljuskovi</string>
     <string name="meteor_shower">Meteorski pljusak</string>
     <string name="meteors_per_hour">Maksimalno %d meteora po satu</string>
-    <string name="pref_stride_length_title">Dužina koraka</string>
+    <string name="pref_step_length_title">Dužina koraka</string>
     <string name="pedometer">Pedometar</string>
     <string name="speedometer">Brzinomjer</string>
     <string name="screen_flashlight">Zaslon</string>
@@ -759,7 +759,7 @@
     <string name="high_tide_letter">V</string>
     <string name="view">Prikaz</string>
     <string name="average_speed">Prosječna brzina</string>
-    <string name="stride_length_walk">Hodajte u pravoj liniji, pritisnite stop kada završite</string>
+    <string name="step_length_walk">Hodajte u pravoj liniji, pritisnite stop kada završite</string>
     <string name="current_speed">Trenutna brzina</string>
     <string name="current_speed_pedometer">Trenutna brzina (Pedometar)</string>
     <string name="current_speed_gps">Trenutna brzina (GPS)</string>
@@ -882,8 +882,8 @@
     <string name="disclaimer_estimated_tide">Procijenjene plime mogu biti netačne. Za tačna vremena koristite službenu tabelu plime i oseke.</string>
     <string name="disclaimer_estimated_tide_title">Procijenjena plima</string>
     <string name="tool_temperature_estimation_title">Procjena temperature</string>
-    <string name="estimate_stride_length">Procijenite daljinu koraka</string>
-    <string name="stride_length_stand_still">Stanite mirno</string>
+    <string name="estimate_step_length">Procijenite daljinu koraka</string>
+    <string name="step_length_stand_still">Stanite mirno</string>
     <string name="average_speed_backtrack">Prosječna brzina (Izatrag)</string>
     <string name="map_exported">Karta je izvezena</string>
     <string name="camera_capture">Snimanje</string>

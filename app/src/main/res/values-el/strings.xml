@@ -641,7 +641,7 @@
     <string name="keep_forever">Διατήρηση για πάντα</string>
     <string name="weight">Βάρος</string>
     <string name="show">Εμφάνιση</string>
-    <string name="pref_stride_length_title">Μήκος βηματισμού</string>
+    <string name="pref_step_length_title">Μήκος βηματισμού</string>
     <string name="map_perspective_instructions">Σκιαγράφηση χάρτη</string>
     <string name="pref_display_multi_beacons_title">Εμφάνιση κοντινών τοπόσημων</string>
     <string name="pref_display_multi_beacons_summary">Εμφάνιση κοντινών τοπόσημων στην πυξίδα</string>
@@ -784,10 +784,10 @@
     <string name="reset_distance_title">Επαναφορά απόστασης;</string>
     <string name="distance_alert">Ειδοποίηση απόστασης</string>
     <string name="saved">Αποθηκεύτηκε</string>
-    <string name="stride_length_stand_still">Σταθείτε σε ακινησία</string>
+    <string name="step_length_stand_still">Σταθείτε σε ακινησία</string>
     <string name="explore">Εξερευνήστε</string>
     <string name="merging">Γίνεται συγχώνευση</string>
-    <string name="estimate_stride_length">Υπολογισμός μήκους βηματισμού</string>
+    <string name="estimate_step_length">Υπολογισμός μήκους βηματισμού</string>
     <string name="difficulty">Βαθμός δυσκολίας</string>
     <string name="exporting_map">Ο χάρτης εξάγεται</string>
     <string name="navigating_to_nearest_path_point">Πλοήγηση στον πλησιέστερο δείκτη στη διαδρομή</string>
@@ -822,7 +822,7 @@
     <string name="tool_temperature_estimation_description">Κάντε πρόβλεψη της θερμοκρασίας σε διαφορετικό υψόμετρο</string>
     <string name="pressure_tendency">Τάση</string>
     <string name="pref_start_on_boot_title">Άνοιγμα εφαρμογής στην εκκίνηση του τηλεφώνου</string>
-    <string name="stride_length_walk">Προχωρήστε σε ευθεία γραμμή, αγγίξτε τέλος στην οθόνη όταν ολοκληρώσετε</string>
+    <string name="step_length_walk">Προχωρήστε σε ευθεία γραμμή, αγγίξτε τέλος στην οθόνη όταν ολοκληρώσετε</string>
     <string name="remove_distance_alert">Αφαίρεση ειδοποίησης απόστασης (%s);</string>
     <string name="error">Σφάλμα</string>
     <string name="map_exported">Ο χάρτης εξήχθη</string>

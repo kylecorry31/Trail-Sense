@@ -317,7 +317,7 @@
     <string name="documents">Asiakirjat</string>
     <string name="next">Seuraava</string>
     <string name="cirrocumulus_desc">Palleropilvet (Cirrocumulus) ovat korkealla olevia pilviä, jotka muodostavat aaltoilevan peiton. Peitto koostuu pienistä pisteistä, jotka näyttävät melkein kaksiulotteisilta.</string>
-    <string name="stride_length_stand_still">Pysy paikallasi</string>
+    <string name="step_length_stand_still">Pysy paikallasi</string>
     <string name="distance_unset">Etäisyyttä ei ole asetettu</string>
     <string name="unavailable">Ei saatavilla</string>
     <string name="closest">Lähin</string>
@@ -337,7 +337,7 @@
     <string name="tide_instructions">Käytä virallista vuorovesitaulukkoa syöttääksesi vertailuvuorovedet matkasi ajalle.</string>
     <string name="saved_to_note">Tallennettu muistiinpanoon</string>
     <string name="tool_battery_title">Akku</string>
-    <string name="estimate_stride_length">Arvioi askeleen pituus</string>
+    <string name="estimate_step_length">Arvioi askeleen pituus</string>
     <string name="map_auto_calibrated">Kartta kalibroitu automaattisesti, tarkista sen tarkkuus</string>
     <string name="path_slope_moderate">Kohtalainen</string>
     <string name="tide_user_guide_recommendation">Viralliset vuorovesitaulukkosivustot löytyvät käyttöoppaasta.</string>
@@ -653,7 +653,7 @@
     <string name="battery_usage_allowed">Akun käyttö sallittu</string>
     <string name="no_packing_lists">Ei pakkauslistoja</string>
     <string name="pref_start_on_boot_title">Aloita laitteen käynnistyessä</string>
-    <string name="stride_length_walk">Kävele suoraa linjaa ja paina stop kun olet valmis</string>
+    <string name="step_length_walk">Kävele suoraa linjaa ja paina stop kun olet valmis</string>
     <string name="map_calibration_instructions">Valitse kaksi pistettä jotka tunnistat sekä kartalla että todellisessa maailmassa. Napauta pisteiden tarkkaa sijaintia kartalla ja syötä sitten niiden todellisen maailman koordinaatit.\n\nHyvät pisteet ovat kaukana toisistaan ja ne ovat helppo tunnistaa, kuten mm. polun alkupiste, parkkipaikka, kyltti, maamerkki, kartan ruudukon risteyskohta tai polkujen risteyskohta.\n\nJos molemmat pisteet ovat kelpoja, paina Viimeistele kalibrointi -painiketta. Jos sinulla on vain yksi piste tai haluat viimeistellä asian myöhemmin, paina Tallenna luonnos -painiketta.</string>
     <string name="unsaved_changes_message">Tekemiäsi muutoksia ei tallenneta.</string>
     <string name="tool_user_guide_summary">Ohje Trail Sensen käyttöön</string>
@@ -752,7 +752,7 @@
     <string name="gps_unavailable_resolution">Ota Sijainti käyttöön tai vaihda sijaintilähteeksi \"Vain laite\" tai \"Suuri tarkkuus\"</string>
     <string name="weather_alert_storm_description">Varaudu voimakkaisiin tuuliin ja rankkasateisiin.</string>
     <string name="show">Näytä</string>
-    <string name="pref_stride_length_title">Askelpituus</string>
+    <string name="pref_step_length_title">Askelpituus</string>
     <string name="map_perspective_instructions">Hahmottele kartta</string>
     <string name="gravity">Painovoima</string>
     <string name="battery_usage">%s akun käyttö</string>

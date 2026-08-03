@@ -23,7 +23,7 @@ class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedomet
         true
     )
 
-    override var strideLength: Distance
+    override var stepLength: Distance
         get() {
             val raw = cache.getFloat(getString(R.string.pref_stride_length)) ?: 0.7f
             return Distance.meters(raw)

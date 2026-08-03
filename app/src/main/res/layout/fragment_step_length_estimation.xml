@@ -7,14 +7,14 @@
     android:orientation="vertical">
 
     <com.kylecorry.trail_sense.shared.views.Toolbar
-        android:id="@+id/stride_length_title"
+        android:id="@+id/step_length_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:showSubtitle="false"
         tools:title="-" />
 
     <TextView
-        android:id="@+id/stride_length_description"
+        android:id="@+id/step_length_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,12 +30,12 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/stride_length_btn"
+            android:id="@+id/step_length_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageButton
-            android:id="@+id/reset_stride_btn"
+            android:id="@+id/reset_step_btn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"

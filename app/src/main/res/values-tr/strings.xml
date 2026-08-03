@@ -458,7 +458,7 @@
     <string name="pref_meteor_showers_title">Gök taşı yağmurları</string>
     <string name="meteors_per_hour">Saatte en fazla %d gök taşı</string>
     <string name="meteor_shower">Gök taşı yağmuru</string>
-    <string name="pref_stride_length_title">Adım uzunluğu</string>
+    <string name="pref_step_length_title">Adım uzunluğu</string>
     <string name="experimental">Deneysel</string>
     <string name="no_gps_signal">GPS Sinyali Yok</string>
     <string name="low">Düşük</string>
@@ -804,7 +804,7 @@
 \n3. Eğim ölçeri hedefin üstüne yeniden hizalayın
 \n4. Kilidi serbest bırakın ve hedefin yüksekliğini görün</string>
     <string name="saved">Kaydedildi</string>
-    <string name="estimate_stride_length">Tahmini adım uzunluğu</string>
+    <string name="estimate_step_length">Tahmini adım uzunluğu</string>
     <string name="average_speed_backtrack">Ortalama hız (Geri iz sürme)</string>
     <string name="bearing">Kerteriz</string>
     <string name="quart_format">%s quart</string>
@@ -817,8 +817,8 @@
     <string name="imperial_cups">İngiliz su bardağı</string>
     <string name="us_ounces_volume">Amerikan ons</string>
     <string name="pounds">Libre</string>
-    <string name="stride_length_stand_still">Hareketsiz durun</string>
-    <string name="stride_length_walk">Düz bir çizgide yürüyün, işiniz bittiğinde dur düğmesine basın</string>
+    <string name="step_length_stand_still">Hareketsiz durun</string>
+    <string name="step_length_walk">Düz bir çizgide yürüyün, işiniz bittiğinde dur düğmesine basın</string>
     <string name="current_speed_pedometer">Geçerli hız (Adımsayar)</string>
     <string name="average_speed_pedometer">Ortalama hız (Adımsayar)</string>
     <string name="current_speed">Geçerli hız</string>

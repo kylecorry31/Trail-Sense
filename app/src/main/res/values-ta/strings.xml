@@ -407,7 +407,7 @@
     <string name="pref_daily_weather_time_title">நாள்தோறும் வானிலை நேரம்</string>
     <string name="screen_flashlight">திரை</string>
     <string name="speedometer">ச்பீடோமீட்டர்</string>
-    <string name="pref_stride_length_title">ச்ட்ரைட் நீளம்</string>
+    <string name="pref_step_length_title">ச்ட்ரைட் நீளம்</string>
     <string name="no_tides">அலைகள் இல்லை</string>
     <string name="meteor_shower">விண்கல் மழை</string>
     <string name="map_auto_rotated">வரைபட சுழற்சி அளவுத்திருத்தத்துடன் சரிசெய்யப்பட்டது</string>
@@ -467,7 +467,7 @@
     <string name="distance_alert_distance_reached">நீங்கள் %s ஐ எட்டியுள்ளீர்கள்</string>
     <string name="off">அணை</string>
     <string name="save">சேமி</string>
-    <string name="stride_length_walk">ஒரு நேர் கோட்டில் நடந்து, நீங்கள் முடிந்ததும் நிறுத்துங்கள்</string>
+    <string name="step_length_walk">ஒரு நேர் கோட்டில் நடந்து, நீங்கள் முடிந்ததும் நிறுத்துங்கள்</string>
     <string name="current_speed">தற்போதைய விரைவு</string>
     <string name="pref_enable_analog_title">அனலாக் கடிகாரம்</string>
     <string name="bearing">தாங்கி</string>
@@ -1007,8 +1007,8 @@
     <string name="onboarding_explore">- ஐகிங், பேக் பேக்கிங், கேம்பிங் மற்றும் சியோகாச்சிங் ஆகியவற்றிற்காக வடிவமைக்கப்பட்டுள்ளது\n\n - பீக்கான்களை வைத்து அவர்களுக்கு செல்லவும்\n\n - பாதைகளைப் பின்பற்றவும்\n\n - உங்கள் படிகளை பின்னடைவுடன் மீண்டும் மாற்றவும்\n\n - எதைக் கட்ட வேண்டும் என்று திட்டமிடுங்கள்\n\n - சூரியன் மறையும் முன் எச்சரிக்கையாக இருங்கள்\n\n - வானிலை கணிக்கவும்\n\n - உங்கள் தொலைபேசியை ஒளிரும் விளக்காகப் பயன்படுத்தவும்\n\n - மேலும் இன்னும்!</string>
     <string name="remove_distance_alert">தூர எச்சரிக்கையை (%s) அகற்றவா?</string>
     <string name="saved">சேமிக்கப்பட்டது</string>
-    <string name="estimate_stride_length">ச்ட்ரைட் நீளத்தை மதிப்பிடுங்கள்</string>
-    <string name="stride_length_stand_still">அசையாமல் நிற்கவும்</string>
+    <string name="estimate_step_length">ச்ட்ரைட் நீளத்தை மதிப்பிடுங்கள்</string>
+    <string name="step_length_stand_still">அசையாமல் நிற்கவும்</string>
     <string name="current_speed_pedometer">தற்போதைய விரைவு (பெடோமீட்டர்)</string>
     <string name="current_speed_gps">தற்போதைய விரைவு (சி.பி.எச்)</string>
     <string name="average_speed_pedometer">சராசரி விரைவு (பெடோமீட்டர்)</string>

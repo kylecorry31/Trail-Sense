@@ -27,7 +27,7 @@
     <string name="meteors_per_hour">Щонайбільше %d метеорів / год</string>
     <string name="meteor_shower">Зорепад</string>
     <string name="no_tides">Немає припливів</string>
-    <string name="pref_stride_length_title">Довжина кроку</string>
+    <string name="pref_step_length_title">Довжина кроку</string>
     <string name="pedometer">Крокомір</string>
     <string name="speedometer">Спідометр</string>
     <string name="screen_flashlight">Екран</string>
@@ -860,11 +860,11 @@
     <string name="tool_temperature_estimation_description">Спрогнозувати температуру на іншій висоті</string>
     <string name="explore">Вивчити</string>
     <string name="off">Вимк</string>
-    <string name="estimate_stride_length">Приблизна довжина кроку</string>
-    <string name="stride_length_stand_still">Стійте на місці</string>
+    <string name="estimate_step_length">Приблизна довжина кроку</string>
+    <string name="step_length_stand_still">Стійте на місці</string>
     <string name="saved">Збережено</string>
     <string name="save">Зберегти</string>
-    <string name="stride_length_walk">Ідіть по прямій, натисніть «Зупинити», коли закінчите</string>
+    <string name="step_length_walk">Ідіть по прямій, натисніть «Зупинити», коли закінчите</string>
     <string name="activity_recognition_permission_denied">У дозволі на фізичну активність відмовлено, не вдається ввімкнути функції крокоміра. Ви можете увімкнути його в налаштуваннях.</string>
     <string name="current_speed">Поточна швидкість</string>
     <string name="current_speed_pedometer">Поточна швидкість (крокомір)</string>

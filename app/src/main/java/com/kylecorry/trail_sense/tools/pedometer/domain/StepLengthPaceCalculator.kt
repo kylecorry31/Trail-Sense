@@ -6,9 +6,9 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import java.time.Duration
 
-class StrideLengthPaceCalculator(private val strideLength: Distance) : IPaceCalculator {
+class StepLengthPaceCalculator(private val stepLength: Distance) : IPaceCalculator {
     override fun distance(steps: Long): Distance {
-        return Distance.from(steps * strideLength.value, strideLength.units)
+        return Distance.from(steps * stepLength.value, stepLength.units)
     }
 
     override fun speed(steps: Long, time: Duration): Speed {

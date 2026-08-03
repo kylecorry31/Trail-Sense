@@ -376,7 +376,7 @@
     <string name="gps_cache">GPS-hurtiglager</string>
     <string name="tool_light_meter_title">Lysmåler</string>
     <string name="distance_from_flashlight">Avstand fra telefon til lommelykt</string>
-    <string name="pref_stride_length_title">Skrittlengde</string>
+    <string name="pref_step_length_title">Skrittlengde</string>
     <string name="pedometer">Skritteller</string>
     <string name="screen_flashlight">Skjerm</string>
     <string name="pref_daily_weather_time_title">Daglig værtid</string>
@@ -742,10 +742,10 @@
     <string name="remove_distance_alert">Fjerne distansevarsel (%s)\?</string>
     <string name="off">Av</string>
     <string name="saved">Lagret</string>
-    <string name="stride_length_stand_still">Stå stille</string>
-    <string name="stride_length_walk">Gå i en rett linje, trykk stopp når du er ferdig</string>
+    <string name="step_length_stand_still">Stå stille</string>
+    <string name="step_length_walk">Gå i en rett linje, trykk stopp når du er ferdig</string>
     <string name="save">Lagre</string>
-    <string name="estimate_stride_length">Beregn skrittlengde</string>
+    <string name="estimate_step_length">Beregn skrittlengde</string>
     <string name="current_speed_pedometer">Gjeldende fart (Skritteller)</string>
     <string name="current_speed_gps">Gjeldende fart (GPS)</string>
     <string name="average_speed_backtrack">Gjennomsnittsfart (tilbakesporing)</string>

@@ -205,7 +205,7 @@
     <string name="remove_distance_alert">להסיר את התראת המרחק (%s)\?</string>
     <string name="distance_alert">התראת מרחק</string>
     <string name="navigating_to_nearest_path_point">ניווט לנקודת הנתיב הקרובה ביותר</string>
-    <string name="stride_length_walk">יש ללכת בקו ישר, בסיום יש ללחוץ על עצור</string>
+    <string name="step_length_walk">יש ללכת בקו ישר, בסיום יש ללחוץ על עצור</string>
     <string name="current_speed">מהירות נוכחית</string>
     <string name="current_speed_pedometer">מהירות נוכחית (מד צעדים)</string>
     <string name="average_speed_pedometer">מהירות ממוצעת (מד צעדים)</string>
@@ -571,7 +571,7 @@
     <string name="none">ללא</string>
     <string name="high_tide">גבוה</string>
     <string name="low_tide">נמוך</string>
-    <string name="pref_stride_length_title">אורך פסיעה</string>
+    <string name="pref_step_length_title">אורך פסיעה</string>
     <string name="no_tides">אין גאות ושפל</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">מקסימום %d מטאורים/שעה</string>
     <string name="on_map">על המפה</string>
@@ -765,8 +765,8 @@
     <string name="distance_alert_distance_reached">הגעתם ל%s</string>
     <string name="save">שמירה</string>
     <string name="saved">נשמר</string>
-    <string name="estimate_stride_length">הערכת אורך פסיעה</string>
-    <string name="stride_length_stand_still">עמידה במקום</string>
+    <string name="estimate_step_length">הערכת אורך פסיעה</string>
+    <string name="step_length_stand_still">עמידה במקום</string>
     <string name="pref_start_on_boot_title">הפעלה באתחול</string>
     <plurals name="tides_entered_count">
         <item quantity="one">גאות ושפל אחת</item>

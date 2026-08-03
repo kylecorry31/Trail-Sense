@@ -465,7 +465,7 @@
     <string name="pedometer_disclaimer">Точность шагомера и его использование батареи зависят от производителя вашего устройства и введенной длины шага. Попробуйте походить немного дома, чтобы проверить разряд батареи и точность перед использованием на тропе.</string>
     <string name="meteors_per_hour">Максимум %d метеоров в час</string>
     <string name="no_tides">Нет приливов</string>
-    <string name="pref_stride_length_title">Длина шага</string>
+    <string name="pref_step_length_title">Длина шага</string>
     <string name="pedometer">Шагомер</string>
     <string name="delete_tide_prompt">Удалить прилив\?</string>
     <string name="import_gpx">Импорт GPX</string>
@@ -860,15 +860,15 @@
     <string name="remove_distance_alert">Удалить предупреждение о расстоянии (%s)\?</string>
     <string name="distance_alert_distance_reached">Вы достигли %s</string>
     <string name="off">Выкл.</string>
-    <string name="stride_length_stand_still">Стойте на месте</string>
+    <string name="step_length_stand_still">Стойте на месте</string>
     <string name="average_speed_pedometer">Средняя скорость (шагомер)</string>
-    <string name="estimate_stride_length">Оценить длину шага</string>
+    <string name="estimate_step_length">Оценить длину шага</string>
     <string name="activity_recognition_permission_denied">Разрешение на физическую активность не предоставлено, не удается включить функцию шагомера. Вы можете включить ее в настройках.</string>
     <string name="save">Сохранить</string>
     <string name="saved">Сохранено</string>
     <string name="current_speed">Текущая скорость</string>
     <string name="current_speed_gps">Текущая скорость (GPS)</string>
-    <string name="stride_length_walk">Идите по прямой линии, нажмите \"стоп\", когда закончите</string>
+    <string name="step_length_walk">Идите по прямой линии, нажмите \"стоп\", когда закончите</string>
     <string name="current_speed_pedometer">Текущая скорость (шагомер)</string>
     <string name="average_speed_backtrack">Средняя скорость (история маршрута)</string>
     <string name="reset_distance_title">Сбросить расстояние\?</string>

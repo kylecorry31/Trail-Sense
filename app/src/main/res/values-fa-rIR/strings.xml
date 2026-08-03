@@ -250,7 +250,7 @@
     <string name="map_projection_mercator">مرکاتور</string>
     <string name="map_projection_equidistant">مساوی فاصله</string>
     <string name="compass_declination_override">لغو انحراف</string>
-    <string name="pref_stride_length_title">طول گام</string>
+    <string name="pref_step_length_title">طول گام</string>
     <string name="clock_sync_notification">همگام سازی ساعت - %s</string>
     <string name="unsaved_changes">تغییرات ذخیره نشده</string>
     <string name="quarter_moon">ربع ماه</string>

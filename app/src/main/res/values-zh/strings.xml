@@ -448,7 +448,7 @@
     <string name="screen_flashlight">屏幕</string>
     <string name="turn_off">关闭</string>
     <string name="speedometer">速度计</string>
-    <string name="pref_stride_length_title">步幅</string>
+    <string name="pref_step_length_title">步幅</string>
     <string name="pedometer">计步器</string>
     <string name="no_tides">无潮汐</string>
     <string name="tides">潮汐</string>
@@ -830,9 +830,9 @@
     <string name="off">关闭</string>
     <string name="save">保存</string>
     <string name="saved">已保存</string>
-    <string name="estimate_stride_length">估算步幅</string>
-    <string name="stride_length_stand_still">静止不动</string>
-    <string name="stride_length_walk">沿直线走，走完按“停止”键</string>
+    <string name="estimate_step_length">估算步幅</string>
+    <string name="step_length_stand_still">静止不动</string>
+    <string name="step_length_walk">沿直线走，走完按“停止”键</string>
     <string name="current_speed_gps">当前速度（GPS）</string>
     <string name="average_speed_pedometer">平均速度（计步器）</string>
     <string name="average_speed_backtrack">平均速度（Backtrack）</string>

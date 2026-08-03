@@ -11,12 +11,12 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.time.Duration
 import java.util.stream.Stream
 
-internal class StrideLengthPaceCalculatorTest {
+internal class StepLengthPaceCalculatorTest {
 
     @ParameterizedTest
     @MethodSource("provideDistance")
     fun distance(stride: Float, steps: Long, expected: Float, units: DistanceUnits) {
-        val calculator = StrideLengthPaceCalculator(Distance.from(stride, units))
+        val calculator = StepLengthPaceCalculator(Distance.from(stride, units))
         val actual = calculator.distance(steps)
         assertEquals(Distance.from(expected, units), actual)
     }
@@ -24,7 +24,7 @@ internal class StrideLengthPaceCalculatorTest {
     @ParameterizedTest
     @MethodSource("provideSpeed")
     fun speed(stride: Float, steps: Long, time: Duration, expected: Float, units: DistanceUnits) {
-        val calculator = StrideLengthPaceCalculator(Distance.from(stride, units))
+        val calculator = StepLengthPaceCalculator(Distance.from(stride, units))
         val actual = calculator.speed(steps, time)
         assertEquals(Speed.from(expected, units, TimeUnits.Seconds), actual)
     }

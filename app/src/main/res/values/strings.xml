@@ -680,8 +680,8 @@
     <string name="speedometer">Speedometer</string>
     <string name="since_time">since %s</string>
     <string name="pedometer">Pedometer</string>
-    <string name="pref_stride_length_title">Stride length</string>
-    <string name="pref_stride_length_holder" translatable="false">pref_stride_length_holder</string>
+    <string name="pref_step_length_title">Step length</string>
+    <string name="pref_step_length_holder" translatable="false">pref_step_length_holder</string>
     <string name="pref_stride_length" translatable="false">pref_stride_length</string>
     <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
@@ -691,7 +691,7 @@
     <string name="meteor_shower">Meteor shower</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteors / h</string>
     <string name="pref_meteor_showers_title">Meteor showers</string>
-    <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
+    <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the step length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
     <string name="rename">Rename</string>
     <string name="no_maps">No maps</string>
     <string name="on_map">On map</string>
@@ -1134,10 +1134,10 @@
     <string name="off">Off</string>
     <string name="save">Save</string>
     <string name="saved">Saved</string>
-    <string name="estimate_stride_length">Estimate stride length</string>
-    <string name="pref_estimate_stride_length_holder" translatable="false">pref_estimate_stride_length_holder</string>
-    <string name="stride_length_stand_still">Stand still</string>
-    <string name="stride_length_walk">Walk in a straight line, press stop when you are done</string>
+    <string name="estimate_step_length">Estimate step length</string>
+    <string name="pref_estimate_step_length_holder" translatable="false">pref_estimate_step_length_holder</string>
+    <string name="step_length_stand_still">Stand still</string>
+    <string name="step_length_walk">Walk in a straight line, press stop when you are done</string>
     <string name="current_speed">Current speed</string>
     <string name="current_pace">Current pace</string>
     <string name="current_speed_pedometer">Current speed (Pedometer)</string>

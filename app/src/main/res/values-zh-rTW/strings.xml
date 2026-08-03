@@ -668,7 +668,7 @@
     <string name="todays_forecast">今天的預測</string>
     <string name="moderate">中等</string>
     <string name="low">低</string>
-    <string name="pref_stride_length_title">步幅</string>
+    <string name="pref_step_length_title">步幅</string>
     <string name="meteor_shower">流星雨</string>
     <string name="map_auto_calibrated">地圖已自動校正，請驗證其準確性</string>
     <string name="solid">實線</string>
@@ -759,7 +759,7 @@
     <string name="view">檢視</string>
     <string name="tide_table">潮汐表</string>
     <string name="off">關</string>
-    <string name="stride_length_stand_still">站著不動</string>
+    <string name="step_length_stand_still">站著不動</string>
     <string name="average_speed_pedometer">平均速度（計步器）</string>
     <string name="wgs84">WGS 84</string>
     <string name="elevation_history_length">海拔歷史記錄長度</string>
@@ -942,7 +942,7 @@
 \n
 \n請瀏覽[不要終止我的應用程式（英文）](https://dontkillmyapp.com/) 以取得特定裝置的說明。</string>
     <string name="weather_clear">天晴</string>
-    <string name="stride_length_walk">沿直線行走，當你完成後按下停止</string>
+    <string name="step_length_walk">沿直線行走，當你完成後按下停止</string>
     <string name="point_added">點已增加至路線</string>
     <string name="fast_path_rendering_summary">以犧牲外觀為代價提高性能</string>
     <string name="weather_front">鋒</string>
@@ -1092,7 +1092,7 @@
     <string name="weather_alert_cold_description">為應對寒冷天氣做好準備。採取額外的預防措施以防止體溫過低和凍傷。</string>
     <string name="map_calibration_instructions">在地圖上點擊已知的位置，然後輸入現實世界的座標。你可以透過點擊「完成」按鈕以儲存校正。 \n \n良好校正點的範例包括停車場、標誌點、地標或路的交會處。</string>
     <string name="battery_usage">%s 電池使用情況</string>
-    <string name="estimate_stride_length">估計步幅</string>
+    <string name="estimate_step_length">估計步幅</string>
     <string name="pack_sort_percent_low_to_high">已打包百分比（從低至高）</string>
     <string name="for_historic_temperatures">用於歷史溫度</string>
     <string name="delete_pack">刪除打包？</string>

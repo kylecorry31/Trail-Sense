@@ -441,7 +441,7 @@
     <string name="half_tide">Media</string>
     <string name="pref_daily_weather_time_title">Hora meteorología diaria</string>
     <string name="screen_flashlight">Pantalla</string>
-    <string name="pref_stride_length_title">Longitud de la zancada</string>
+    <string name="pref_step_length_title">Longitud de la zancada</string>
     <string name="meteor_shower">Lluvia de meteoros</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Máximo %d meteoros / h</string>
     <string name="no_maps">Sin mapas</string>
@@ -806,9 +806,9 @@
     <string name="cross">Cruz</string>
     <string name="humidity_history">Historial de humedad - últimas %s</string>
     <string name="steps">Pasos</string>
-    <string name="estimate_stride_length">Estimar longitud de zancada</string>
-    <string name="stride_length_stand_still">Manténgase inmóvil</string>
-    <string name="stride_length_walk">Camine en una línea recta; pulse Parar cuando haya acabado</string>
+    <string name="estimate_step_length">Estimar longitud de zancada</string>
+    <string name="step_length_stand_still">Manténgase inmóvil</string>
+    <string name="step_length_walk">Camine en una línea recta; pulse Parar cuando haya acabado</string>
     <string name="current_speed">Velocidad actual</string>
     <string name="current_speed_pedometer">Velocidad actual (Podómetro)</string>
     <string name="reset_distance_title">¿Reiniciar la distancia?</string>

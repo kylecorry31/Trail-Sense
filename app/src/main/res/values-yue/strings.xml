@@ -950,7 +950,7 @@
     <string name="diamond">菱形</string>
     <string name="pref_experimental_metal_direction_title">騷埋金屬方向</string>
     <string name="old">舊</string>
-    <string name="estimate_stride_length">斷估步幅</string>
+    <string name="estimate_step_length">斷估步幅</string>
     <string name="high_sensitivity">高敏感度</string>
     <string name="size">大細</string>
     <string name="group">路綫</string>
@@ -962,7 +962,7 @@
     <string name="new_text">新</string>
     <string name="pref_tiles_battery_log">電量紀錄</string>
     <string name="no_group">未有路綫</string>
-    <string name="pref_stride_length_title">步幅</string>
+    <string name="pref_step_length_title">步幅</string>
     <string name="move">搬去</string>
     <string name="guide_light_meter_description">點樣去斷定閃光燈嘅射程</string>
     <string name="arrow">箭咀</string>

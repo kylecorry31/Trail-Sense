@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length
+package com.kylecorry.trail_sense.tools.pedometer.infrastructure.step_length
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.location.IGPS
@@ -6,14 +6,14 @@ import com.kylecorry.andromeda.sense.pedometer.IPedometer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 
-class EndPointStrideLengthEstimator(private val gps: IGPS, private val pedometer: IPedometer) :
-    AbstractSensor(), IStrideLengthEstimator {
+class EndPointStepLengthEstimator(private val gps: IGPS, private val pedometer: IPedometer) :
+    AbstractSensor(), IStepLengthEstimator {
 
-    override var strideLength: Distance? = null
+    override var stepLength: Distance? = null
         private set
 
     override val hasValidReading: Boolean
-        get() = strideLength != null
+        get() = stepLength != null
 
     private var startLocation: Coordinate? = null
     private var startSteps: Long? = null
@@ -32,7 +32,7 @@ class EndPointStrideLengthEstimator(private val gps: IGPS, private val pedometer
         if (startLocation == null) {
             startLocation = gps.location
         }
-        updateStrideLength()
+        updateStepLength()
         return true
     }
 
@@ -40,29 +40,29 @@ class EndPointStrideLengthEstimator(private val gps: IGPS, private val pedometer
         if (startSteps == null) {
             startSteps = pedometer.steps.toLong()
         }
-        updateStrideLength()
+        updateStepLength()
         return true
     }
 
     override fun reset() {
         startLocation = null
         startSteps = null
-        updateStrideLength()
+        updateStepLength()
     }
 
-    private fun updateStrideLength() {
+    private fun updateStepLength() {
         val startLocation = startLocation
         val startSteps = startSteps
 
         if (startLocation == null || startSteps == null) {
-            strideLength = null
+            stepLength = null
             return
         }
 
         val distance = gps.location.distanceTo(startLocation)
         val steps = pedometer.steps - startSteps
 
-        strideLength = if (steps == 0L) {
+        stepLength = if (steps == 0L) {
             Distance.meters(0f)
         } else {
             Distance.meters(distance / steps)
