@@ -1625,4 +1625,7 @@
     <string name="external_storage">外部存储</string>
     <string name="external_storage_diagnostic_instructions">系统文件选择器无权访问设备上的文件。这可能阻止 Trail Sense 打开或保存所选的文件。为系统文件选择器启用“允许管理所有文件的权限”（可能叫“外部存储”）。</string>
     <string name="use_legacy_file_picker">使用旧式的文件选择器</string>
+    <string name="map_error_invalid_map_file">无效的地图文件</string>
+    <string name="map_error_access_denied">地图文件访问被拒绝</string>
+    <string name="map_error_unable_to_copy">无法复制地图文件</string>
 </resources>
