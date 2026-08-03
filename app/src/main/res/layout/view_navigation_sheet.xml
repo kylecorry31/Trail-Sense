@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:paddingBottom="@dimen/default_bottom_margin"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
