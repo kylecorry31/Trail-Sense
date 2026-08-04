@@ -239,3 +239,4 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
         return FragmentBeaconDetailsBinding.inflate(layoutInflater, container, false)
     }
 }
+
