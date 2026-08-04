@@ -2007,4 +2007,6 @@
     <string name="map_error_invalid_map_file">Invalid map file</string>
     <string name="map_error_access_denied">Access to map file was denied</string>
     <string name="map_error_unable_to_copy">Unable to copy map file</string>
+    <!--Whether field guide sightings should be colored based on the classification (ex. animal, plant) on the map-->
+    <string name="color_by_classification">Color by classification</string>
 </resources>

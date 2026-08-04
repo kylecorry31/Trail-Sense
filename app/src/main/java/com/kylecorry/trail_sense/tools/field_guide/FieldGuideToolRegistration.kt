@@ -67,6 +67,12 @@ object FieldGuideToolRegistration : ToolRegistration {
                             title = context.getString(R.string.show_images),
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = false
+                        ),
+                        MapLayerPreference(
+                            id = FieldGuideSightingGeoJsonSource.PREFERENCE_COLOR_BY_CLASSIFICATION,
+                            title = context.getString(R.string.color_by_classification),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = true
                         )
                     ),
                     openFeature = { feature, fragment ->
