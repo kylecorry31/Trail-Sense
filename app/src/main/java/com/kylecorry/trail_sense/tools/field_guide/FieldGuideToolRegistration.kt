@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.field_guide
 
 import android.content.Context
-import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.trail_sense.R
@@ -10,11 +9,11 @@ import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
-import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
 import com.kylecorry.trail_sense.tools.field_guide.quickactions.QuickActionRecordSighting
+import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideDeepLinks
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -48,7 +47,13 @@ object FieldGuideToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_field_guide,
             initialize = {
                 DependencyRegistry.addSingleton(FieldGuideRepo.getInstance(it))
-                DependencyRegistry.addSingleton(FieldGuideService(it, getAppService<FieldGuideRepo>(), ToolEventEmitter))
+                DependencyRegistry.addSingleton(
+                    FieldGuideService(
+                        it,
+                        getAppService<FieldGuideRepo>(),
+                        ToolEventEmitter
+                    )
+                )
             },
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_SIGHTING_RECORDED, "Sighting recorded")
@@ -78,15 +83,12 @@ object FieldGuideToolRegistration : ToolRegistration {
                     openFeature = { feature, fragment ->
                         val fieldGuidePageId =
                             feature.getLongProperty(FieldGuideSightingGeoJsonSource.PROPERTY_PAGE_ID)
+                                ?: return@MapLayerDefinition
+                        val fieldGuideSightingId =
+                            feature.getLongProperty(FieldGuideSightingGeoJsonSource.PROPERTY_SIGHTING_ID)
+                                ?: return@MapLayerDefinition
                         val navController = fragment.findNavController()
-                        navController.navigateWithAnimation(
-                            R.id.fieldGuidePageFragment,
-                            Bundle().apply {
-                                fieldGuidePageId?.let {
-                                    putLong("page_id", it)
-                                }
-                            }
-                        )
+                        FieldGuideDeepLinks.navigateToSighting(navController, fieldGuidePageId, fieldGuideSightingId)
                     },
                     geoJsonSource = ::FieldGuideSightingGeoJsonSource,
                     refreshBroadcasts = listOf(BROADCAST_SIGHTING_RECORDED)

@@ -114,7 +114,8 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
                     layerId = SOURCE_ID,
                     bitmap = bitmap,
                     additionalProperties = mapOf(
-                        PROPERTY_PAGE_ID to page.id
+                        PROPERTY_PAGE_ID to page.id,
+                        PROPERTY_SIGHTING_ID to sighting.id
                     )
                 )
                 point
@@ -189,6 +190,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
     companion object {
         const val SOURCE_ID = "field_guide_sighting"
         const val PROPERTY_PAGE_ID = "pageId"
+        const val PROPERTY_SIGHTING_ID = "sightingId"
         const val PREFERENCE_SHOW_IMAGES = "show_images"
         const val PREFERENCE_COLOR_BY_CLASSIFICATION = "color_by_classification"
     }

@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.field_guide.quickactions
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -12,7 +11,6 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
-import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -20,6 +18,7 @@ import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideUtils
+import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideDeepLinks
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -90,21 +89,10 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
                     duration = Snackbar.LENGTH_LONG,
                     action = fragment.getString(R.string.view)
                 ) {
-                    fragment.findNavController().navigateWithAnimation(
-                        R.id.createFieldGuideSightingFragment,
-                        Bundle().apply {
-                            putLong("page_id", page.id)
-                            putLong("sighting_id", id)
-                        }
-                    )
+                    FieldGuideDeepLinks.navigateToSighting(fragment.findNavController(), page.id, id)
                 }
             } else if (!wasCancelled) {
-                fragment.findNavController().navigateWithAnimation(
-                    R.id.createFieldGuideSightingFragment,
-                    Bundle().apply {
-                        putLong("page_id", page.id)
-                    }
-                )
+                FieldGuideDeepLinks.navigateToSighting(fragment.findNavController(), page.id)
             }
         }
     }
