@@ -105,10 +105,12 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
                     }
 
                     binding.beaconTitle.rightButton.setOnClickListener {
-                        Pickers.menu(
-                            it,
+                        val menuItems = if (temporary) {
+                            listOf(getString(R.string.share_ellipsis))
+                        } else {
                             listOf(getString(R.string.share_ellipsis), getString(R.string.delete))
-                        ) { idx ->
+                        }
+                        Pickers.menu(it, menuItems) { idx ->
                             when (idx) {
                                 0 -> {
                                     BeaconSender(this@BeaconDetailsFragment).send(this)
@@ -237,4 +239,3 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
         return FragmentBeaconDetailsBinding.inflate(layoutInflater, container, false)
     }
 }
-
