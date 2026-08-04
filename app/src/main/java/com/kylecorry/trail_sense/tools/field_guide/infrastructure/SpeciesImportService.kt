@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.field_guide.infrastructure
 
 import com.kylecorry.andromeda.files.ZipUtils
-import com.kylecorry.andromeda.files.ZipUtils.unzip
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.concurrency.onIO
@@ -13,6 +12,7 @@ import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideImage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import java.io.InputStream
@@ -66,7 +66,7 @@ class SpeciesImportService(
                 FieldGuidePage(
                     0,
                     parsed.name,
-                    images,
+                    images.map { FieldGuideImage(0, it) },
                     parsed.tags.mapNotNull { FieldGuidePageTag.entries.withId(it) },
                     parsed.notes ?: ""
                 )

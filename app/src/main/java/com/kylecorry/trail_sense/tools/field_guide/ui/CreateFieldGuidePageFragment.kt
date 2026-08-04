@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
 import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideImage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
@@ -174,7 +175,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             )
         }
 
-        val image = page.images.firstOrNull()
+        val image = page.images.firstOrNull()?.path
         useEffect(image) {
             binding.imageHolder.isVisible = image != null
             if (image != null) {
@@ -205,7 +206,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         // Delete unsaved images
         val originalImages = originalPage.images
         val imagesToDelete = page.images.filter { it !in originalImages }
-        imagesToDelete.forEach { files.delete(it) }
+        imagesToDelete.forEach { files.delete(it.path) }
 
         // Copy over the new image
         val file = files.copyToLocal(uri, "field_guide", "${UUID.randomUUID()}.webp") ?: return@onIO
@@ -231,13 +232,13 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         files.save(path, rotated, 75, true)
 
         // Update the page
-        page = page.copy(images = listOf(path))
+        page = page.copy(images = listOf(FieldGuideImage(0, path)))
     }
 
     private suspend fun deleteImage() = onIO {
         val originalImages = originalPage.images
         val imagesToDelete = page.images.filter { it !in originalImages }
-        imagesToDelete.forEach { files.delete(it) }
+        imagesToDelete.forEach { files.delete(it.path) }
         page = page.copy(images = emptyList())
     }
 

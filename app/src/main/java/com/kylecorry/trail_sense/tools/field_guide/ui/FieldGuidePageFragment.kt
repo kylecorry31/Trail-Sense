@@ -70,7 +70,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             val noteText = page?.notes?.toSpannable()
             noteText?.let { LinkifyCompat.addLinks(it, WEB_URLS) }
             notesView.text = noteText
-            val image = page?.images?.firstOrNull()
+            val image = page?.images?.firstOrNull()?.path
             imageView.setImageDrawable(
                 image?.let { files.drawable(it) }
             )

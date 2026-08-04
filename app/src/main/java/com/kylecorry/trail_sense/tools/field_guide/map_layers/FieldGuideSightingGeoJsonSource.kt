@@ -120,7 +120,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         val sizePixels = Resources.dp(context, imageSize * 2).toInt()
 
         val sourceBitmap = tryOrDefault(null) {
-            files.bitmap(page.images.first(), Size(sizePixels, sizePixels))
+            files.bitmap(page.images.first().path, Size(sizePixels, sizePixels))
         }
 
         val circularBitmap = sourceBitmap?.let { cropToCircle(it, sizePixels) }

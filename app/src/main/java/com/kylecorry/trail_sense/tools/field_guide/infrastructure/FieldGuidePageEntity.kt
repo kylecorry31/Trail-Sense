@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.luna.text.toLongCompat
 import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideImage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 
@@ -24,7 +25,9 @@ data class FieldGuidePageEntity(
         return FieldGuidePage(
             id,
             name,
-            images.split(',').filter { it.isNotBlank() },
+            images.split(',')
+                .filter { it.isNotBlank() }
+                .map { FieldGuideImage(0, it) },
             tags.split(',').mapNotNull {
                 val id = it.toLongCompat() ?: return@mapNotNull null
                 FieldGuidePageTag.entries.withId(id)
@@ -40,7 +43,7 @@ data class FieldGuidePageEntity(
         fun fromFieldGuidePage(page: FieldGuidePage): FieldGuidePageEntity {
             return FieldGuidePageEntity(
                 page.name,
-                page.images.joinToString(","),
+                page.images.joinToString(",") { it.path },
                 page.tags.joinToString(",") { it.id.toString() },
                 page.notes,
                 page.importId

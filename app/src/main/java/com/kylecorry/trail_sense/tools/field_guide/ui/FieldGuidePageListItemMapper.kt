@@ -68,7 +68,7 @@ class FieldGuidePageListItemMapper(
     private suspend fun loadThumbnail(species: FieldGuidePage): Bitmap = onIO {
         val size = Resources.dp(context, 48f).toInt()
         try {
-            files.bitmap(species.images.first(), Size(size, size)) ?: getDefaultThumbnail()
+            files.bitmap(species.images.first().path, Size(size, size)) ?: getDefaultThumbnail()
         } catch (e: Exception) {
             getDefaultThumbnail()
         }

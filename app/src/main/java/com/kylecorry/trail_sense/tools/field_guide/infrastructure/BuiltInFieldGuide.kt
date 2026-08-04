@@ -7,6 +7,7 @@ import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.text.TextUtils
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideImage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 
@@ -56,7 +57,7 @@ object BuiltInFieldGuide {
         return FieldGuidePage(
             -(index.toLong() + 1),
             name,
-            listOf("android-assets://${page.image}"),
+            listOf(FieldGuideImage(0, "android-assets://${page.image}")),
             page.tags.map { FieldGuidePageTag.valueOf(it.split("_").last()) },
             notes,
             isReadOnly = true

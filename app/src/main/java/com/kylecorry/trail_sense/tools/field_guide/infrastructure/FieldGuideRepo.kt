@@ -37,7 +37,7 @@ class FieldGuideRepo private constructor(private val context: Context) : IFieldG
         if (page.isReadOnly) {
             return@onIO
         }
-        page.images.forEach { files.delete(it) }
+        page.images.forEach { files.delete(it.path) }
         sightingDao.deleteAllSightingsForPage(page.id)
         pageDao.delete(FieldGuidePageEntity.fromFieldGuidePage(page))
     }
@@ -49,7 +49,7 @@ class FieldGuideRepo private constructor(private val context: Context) : IFieldG
         // Delete photos if they've changed
         if (page.id != 0L) {
             val existing = pageDao.getPage(page.id)?.toFieldGuidePage()
-            existing?.images?.filter { it !in page.images }?.forEach { files.delete(it) }
+            existing?.images?.filter { it !in page.images }?.forEach { files.delete(it.path) }
         }
 
         val entity = FieldGuidePageEntity.fromFieldGuidePage(page)

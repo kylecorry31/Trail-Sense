@@ -16,7 +16,7 @@ class FieldGuideCleanupCommand(context: Context) : CoroutineCommand {
         val allFiles = files.list("field_guide").map { "field_guide/${it.name}" }
 
         // Delete files without a page
-        val existingFiles = pages.flatMap { it.images }
+        val existingFiles = pages.flatMap { it.images.map { image -> image.path } }
         val orphanedFiles = allFiles.filter { !existingFiles.contains(it) }
         orphanedFiles.forEach {
             files.delete(it)
