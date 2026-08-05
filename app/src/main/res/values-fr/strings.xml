@@ -469,7 +469,7 @@
     <string name="speedometer">Tachymètre</string>
     <string name="since_time">depuis %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d météores / h</string>
-    <string name="pedometer_disclaimer">La précision et la consommation de batterie du podomètre dépend du fabricant de l’appareil ainsi que de la longueur d’enjambée défini. À essayer chez soi avant d’aller sur le terrain.</string>
+    <string name="pedometer_disclaimer">La précision et l\'autonomie de la batterie du podomètre dépendent du fabricant de votre appareil et de la longueur de pas que vous avez saisie. Testez-le un peu chez vous pour vérifier son autonomie et sa précision avant de l\'utiliser en randonnée.</string>
     <string name="no_maps">Pas de cartes</string>
     <string name="on_map">Sur la carte</string>
     <string name="previous">Précédent</string>
@@ -1654,4 +1654,11 @@
     <string name="export_logs">Exporter les journaux</string>
     <string name="exporting">Exportation</string>
     <string name="export_failed">Impossible d\'exporter</string>
+    <string name="external_storage">Stockage externe</string>
+    <string name="external_storage_diagnostic_instructions">Le sélecteur de fichiers système ne dispose pas des autorisations nécessaires pour accéder aux fichiers de votre appareil. Cela peut empêcher Trail Sense de s\'ouvrir ou d\'enregistrer les fichiers que vous sélectionnez. Activez l\'option « Autoriser l\'accès pour gérer tous les fichiers » pour le sélecteur de fichiers système (qui peut s\'intituler « Stockage externe »).</string>
+    <string name="use_legacy_file_picker">Utiliser l\'ancien sélecteur de fichiers</string>
+    <string name="map_error_invalid_map_file">Fichier de carte non valide</string>
+    <string name="map_error_access_denied">L\'accès au fichier de carte a été refusé</string>
+    <string name="map_error_unable_to_copy">Impossible de copier le fichier de carte</string>
+    <string name="color_by_classification">Couleur par catégorie</string>
 </resources>
