@@ -1628,4 +1628,5 @@
     <string name="map_error_invalid_map_file">无效的地图文件</string>
     <string name="map_error_access_denied">地图文件访问被拒绝</string>
     <string name="map_error_unable_to_copy">无法复制地图文件</string>
+    <string name="color_by_classification">按分类着色</string>
 </resources>
