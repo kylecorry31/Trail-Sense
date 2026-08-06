@@ -111,6 +111,7 @@ class FragmentToolWhiteNoise :
             setPlaybackJustFinished(true)
         }
 
+        // This intentionally clears the timer even when the user stops the playback
         useEffect(sleepTimerSwitchView, sleepTimerPickerView, playbackJustFinished) {
             if (playbackJustFinished) {
                 sleepTimerSwitchView.isChecked = false
