@@ -31,18 +31,13 @@ class LocationDataPointView(context: Context, attrs: AttributeSet? = null) :
         val padding = Resources.dp(context, 8f).toInt()
         setPadding(padding, 0, padding, padding)
 
-        distanceView = addDataPoint(R.drawable.ruler)
-        directionView = addDataPoint(R.drawable.ic_compass_icon)
-        elevationView = addDataPoint(R.drawable.ic_altitude)
-    }
-
-    private fun addDataPoint(icon: Int): DataPointView {
-        val dp = DataPointView(context, null)
-        dp.layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
-        dp.setImageResource(icon)
-        dp.setShowDescription(false)
-        addView(dp)
-        return dp
+        inflate(context, R.layout.view_location_data_point, this)
+        distanceView = findViewById(R.id.location_data_distance)
+        directionView = findViewById(R.id.location_data_direction)
+        elevationView = findViewById(R.id.location_data_elevation_diff)
+        listOf(distanceView, directionView, elevationView).forEach {
+            it.setShowDescription(false)
+        }
     }
 
     /**

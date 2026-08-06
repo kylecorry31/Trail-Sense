@@ -357,9 +357,10 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         longClick(R.id.map)
         hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
         hasText(Regex("Elevation: -?\\d+(\\.\\d+)?\\s*(ft|m)"))
-        // Verify distance/direction/elevation data points are shown
-        hasText(Regex("-?\\d+(\\.\\d+)?\\s*(mi|ft|km|m)"))
-        hasText(Regex("-?\\d+°\\s+\\w+"))
+        // Verify the distance, direction, and elevation-difference data points are shown.
+        hasText(R.id.location_data_distance, Regex("-?\\d+(\\.\\d+)?\\s*(mi|ft|km|m)"))
+        hasText(R.id.location_data_direction, Regex("-?\\d+°\\s+\\w+"))
+        hasText(R.id.location_data_elevation_diff, Regex("[+-]?\\d+(\\.\\d+)?\\s*(ft|m)"))
         hasText("Beacon")
         hasText("Navigate")
         hasText("Distance")
