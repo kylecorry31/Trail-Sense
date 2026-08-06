@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.shared.extensions.useToolEventListener
 import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.openTool
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.field_guide.FieldGuideToolRegistration
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
@@ -38,6 +39,7 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         val listView = useView<AndromedaListView>(R.id.list)
         val emptyTextView = useView<TextView>(R.id.sightings_empty_text)
         val createButtonView = useView<FloatingActionButton>(R.id.create_btn)
+        val titleView = useView<Toolbar>(R.id.title)
 
         // Services
         val formatter = useService<FormatService>()
@@ -106,11 +108,13 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
 
         val createBeacon = useCallback(navController, page) { sighting: Sighting ->
             val bundle = Bundle().apply {
-                putParcelable("initial_location", GeoUri(
-                    sighting.location ?: Coordinate.zero,
-                    sighting.altitude,
-                    mapOf("label" to (page?.name ?: ""))
-                ))
+                putParcelable(
+                    "initial_location", GeoUri(
+                        sighting.location ?: Coordinate.zero,
+                        sighting.altitude,
+                        mapOf("label" to (page?.name ?: ""))
+                    )
+                )
             }
             navController.navigateWithAnimation(R.id.placeBeaconFragment, bundle)
         }
@@ -179,6 +183,10 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
                     }
                 )
             }
+        }
+
+        useEffect(titleView, page) {
+            titleView.subtitle.text = page?.name
         }
 
     }

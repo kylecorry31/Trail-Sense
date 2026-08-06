@@ -8,13 +8,11 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useArgument
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
-import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useBindCoordinateAndElevationViews
@@ -24,6 +22,7 @@ import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useUnsavedChangesPrompt
 import com.kylecorry.trail_sense.shared.views.MaterialDateTimeInputView
 import com.kylecorry.trail_sense.shared.views.Notepad
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import java.time.LocalDateTime
@@ -95,6 +94,10 @@ class CreateFieldGuideSightingFragment :
                         harvested ||
                         !showOnMap
             }
+        }
+
+        val page = useBackgroundMemo(repo, pageId) {
+            repo.getPage(pageId)
         }
 
         // Effects
@@ -206,6 +209,10 @@ class CreateFieldGuideSightingFragment :
                     }
                 }
             }
+        }
+
+        useEffect(titleView, page) {
+            titleView.subtitle.text = page?.name
         }
 
         useBindCoordinateAndElevationViews(coordinateView, elevationView)

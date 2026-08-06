@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:rightButtonIcon="@drawable/ic_check"
-        app:showSubtitle="false"
         app:title="@string/record_sighting" />
 
     <androidx.core.widget.NestedScrollView

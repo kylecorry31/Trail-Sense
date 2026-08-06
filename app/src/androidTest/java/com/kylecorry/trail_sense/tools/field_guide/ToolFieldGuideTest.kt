@@ -215,7 +215,9 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
     private fun canLogSightings() {
         click("Sightings (0)")
         hasText("No sightings")
+        hasText(R.id.toolbar_subtitle, "Ant", exact = true)
         click(R.id.create_btn)
+        hasText(R.id.toolbar_subtitle, "Ant", exact = true)
         click(R.id.time)
         pickDate(2025, 1, 1)
         pickTime(6, 0, true)
