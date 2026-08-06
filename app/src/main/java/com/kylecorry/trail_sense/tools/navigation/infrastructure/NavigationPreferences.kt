@@ -229,6 +229,23 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         false
     )
 
+    var bearingDistance: Float
+        get() {
+            val raw =
+                cache.getString(context.getString(R.string.pref_bearing_distance)) ?: "5.0"
+            return Distance.kilometers(raw.toFloatCompat() ?: 5.0f)
+                .meters()
+                .value
+                .coerceIn(100f, 25000000f)
+        }
+        set(value) {
+            val meters = Distance.meters(value.coerceIn(100f, 25000000f))
+            cache.putString(
+                context.getString(R.string.pref_bearing_distance),
+                meters.convertTo(DistanceUnits.Kilometers).value.toString()
+            )
+        }
+
     enum class SpeedometerMode {
         Backtrack,
         GPS,

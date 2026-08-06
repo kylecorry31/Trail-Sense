@@ -60,6 +60,18 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             DistanceUtils.hikingDistanceUnits
         )
 
+        setupDistanceSetting(
+            getString(R.string.pref_bearing_distance_holder),
+            { relative(Distance.meters(userPrefs.navigation.bearingDistance), userPrefs) },
+            { distance ->
+                if (distance != null && distance.value > 0) {
+                    userPrefs.navigation.bearingDistance = distance.meters().value
+                }
+            },
+            DistanceUtils.hikingDistanceUnits,
+            description = getString(R.string.bearing_length_description)
+        )
+
         editText(R.string.pref_num_visible_beacons)
             ?.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
