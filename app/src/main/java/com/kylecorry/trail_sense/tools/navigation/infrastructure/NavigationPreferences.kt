@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
@@ -229,20 +230,23 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         false
     )
 
-    var bearingDistance: Float
+    var bearingDistance: Distance
         get() {
-            val raw =
-                cache.getString(context.getString(R.string.pref_bearing_distance)) ?: "5.0"
-            return Distance.kilometers(raw.toFloatCompat() ?: 5.0f)
-                .meters()
-                .value
-                .coerceIn(100f, 25000000f)
+            val raw = cache.getString(context.getString(R.string.pref_bearing_distance)) ?: "5.0"
+            return Distance.meters(
+                Distance.kilometers(raw.toFloatCompat() ?: 5.0f)
+                    .meters()
+                    .value
+                    .coerceIn(1f, Destination.Bearing.maxBearingDistance.value)
+            )
         }
         set(value) {
-            val meters = Distance.meters(value.coerceIn(100f, 25000000f))
+            val km = value.meters().value
+                .coerceIn(1f, Destination.Bearing.maxBearingDistance.value)
+                .let { Distance.meters(it).convertTo(DistanceUnits.Kilometers).value }
             cache.putString(
                 context.getString(R.string.pref_bearing_distance),
-                meters.convertTo(DistanceUnits.Kilometers).value.toString()
+                km.toString()
             )
         }
 

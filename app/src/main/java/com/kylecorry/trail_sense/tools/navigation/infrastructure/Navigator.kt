@@ -68,7 +68,7 @@ class Navigator private constructor(context: Context) {
                 userPrefs.compass.useTrueNorth,
                 declination,
                 it.startLocation,
-                Distance.meters(userPrefs.navigation.bearingDistance)
+                userPrefs.navigation.bearingDistance
             )
         }
     }

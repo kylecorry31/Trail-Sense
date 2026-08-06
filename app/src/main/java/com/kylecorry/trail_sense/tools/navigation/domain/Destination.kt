@@ -28,8 +28,8 @@ sealed class Destination {
             }
 
         companion object {
-            /** Default 5 km bearing line length (used when no preference is configured). */
             val defaultBearingDistance: Distance = Distance.kilometers(5f).meters()
+            val maxBearingDistance: Distance = Distance.kilometers(20f).meters()
             val defaultColor: Int = AppColor.Blue.color
         }
     }
