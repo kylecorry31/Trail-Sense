@@ -139,11 +139,10 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input("Notes", "Quick action sighting")
         click(toolbarButton(R.id.title, Side.Right))
 
-        click("A Test")
-        hasText("Sightings (1)")
-        click("Sightings (1)")
+        // The quick action deep link returns to the sightings list after saving.
         hasText("Quick action sighting")
         back()
+        hasText("Sightings (1)")
         back()
     }
 
