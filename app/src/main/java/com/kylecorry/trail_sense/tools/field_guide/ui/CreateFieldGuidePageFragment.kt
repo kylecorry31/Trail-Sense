@@ -88,6 +88,10 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             page = page.copy(name = it.toString())
         }
 
+        binding.scientificName.setOnTextChangeListener {
+            page = page.copy(scientificName = it?.toString()?.takeIf(String::isNotBlank))
+        }
+
         binding.notes.addTextChangedListener {
             page = page.copy(notes = it.toString())
         }
@@ -151,6 +155,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         // Original content
         useEffect(originalPage) {
             binding.name.text = originalPage.name
+            binding.scientificName.text = originalPage.scientificName
             binding.notes.setText(originalPage.notes)
         }
 

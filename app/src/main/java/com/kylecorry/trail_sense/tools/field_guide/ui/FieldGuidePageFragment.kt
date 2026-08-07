@@ -49,12 +49,13 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         // Services
         val files = useService<FileSubsystem>()
         val prefs = useService<UserPreferences>()
+        val fieldGuideFormatter = useService<FieldGuideFormatService>()
 
         useEffect(notesView) {
             notesView.movementMethod = LinkMovementMethodCompat.getInstance()
         }
 
-        useEffect(page, titleView, notesView, imageView, tagsView, navController) {
+        useEffect(page, titleView, notesView, imageView, tagsView, navController, fieldGuideFormatter) {
             titleView.rightButton.isVisible = page?.isReadOnly == false
             titleView.rightButton.setOnClickListener {
                 navController.navigate(
@@ -66,7 +67,10 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
                     }
                 )
             }
-            titleView.title.text = page?.name
+            titleView.title.text = page?.let(fieldGuideFormatter::formatTitle)
+            val subtitle = page?.let(fieldGuideFormatter::formatSubtitle)
+            titleView.subtitle.isVisible = subtitle != null
+            titleView.subtitle.text = subtitle
             val noteText = page?.notes?.toSpannable()
             noteText?.let { LinkifyCompat.addLinks(it, WEB_URLS) }
             notesView.text = noteText

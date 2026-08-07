@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
@@ -14,6 +15,7 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.field_guide.map_layers.FieldGuideSightingGeoJsonSource
 import com.kylecorry.trail_sense.tools.field_guide.quickactions.QuickActionRecordSighting
 import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideDeepLinks
+import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFormatService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -45,8 +47,10 @@ object FieldGuideToolRegistration : ToolRegistration {
                 )
             ),
             guideId = R.raw.guide_tool_field_guide,
+            settingsNavAction = R.id.fieldGuideSettingsFragment,
             initialize = {
                 DependencyRegistry.addSingleton(FieldGuideRepo.getInstance(it))
+                DependencyRegistry.addSingleton(FieldGuideFormatService(getAppService<UserPreferences>()))
                 DependencyRegistry.addSingleton(
                     FieldGuideService(
                         it,

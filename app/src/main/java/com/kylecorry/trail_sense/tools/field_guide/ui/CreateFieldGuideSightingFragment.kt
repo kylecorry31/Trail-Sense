@@ -58,6 +58,7 @@ class CreateFieldGuideSightingFragment :
         val navController = useNavController()
         val context = useAndroidContext()
         val prefs = useService<UserPreferences>()
+        val fieldGuideFormatter = useService<FieldGuideFormatService>()
 
         // Memo
         val initialSighting = useBackgroundMemo(repo, sightingId) {
@@ -212,7 +213,7 @@ class CreateFieldGuideSightingFragment :
         }
 
         useEffect(titleView, page) {
-            titleView.subtitle.text = page?.name
+            titleView.subtitle.text = page?.let(fieldGuideFormatter::formatName)
         }
 
         useBindCoordinateAndElevationViews(coordinateView, elevationView)

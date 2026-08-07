@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.withId
 data class FieldGuidePage(
     override val id: Long,
     val name: String = "",
+    val scientificName: String? = null,
     val images: List<String> = emptyList(),
     val directTags: List<FieldGuidePageTag> = emptyList(),
     val notes: String? = null,

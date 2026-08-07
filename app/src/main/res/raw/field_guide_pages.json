@@ -24,6 +24,7 @@
     },
     {
       "content": "raw/field_guide_sunfish",
+      "scientificName": "Lepomis spp.",
       "image": "field_guide/sunfish.webp",
       "tags": [
         "L_Africa",
@@ -41,6 +42,7 @@
     },
     {
       "content": "raw/field_guide_black_bass",
+      "scientificName": "Micropterus spp.",
       "image": "field_guide/black_bass.webp",
       "tags": [
         "L_Africa",
@@ -58,6 +60,7 @@
     },
     {
       "content": "raw/field_guide_carp",
+      "scientificName": "Cyprinus spp.",
       "image": "field_guide/carp.webp",
       "tags": [
         "L_Africa",
@@ -351,6 +354,7 @@
     },
     {
       "content": "raw/field_guide_poison_ivy",
+      "scientificName": "Toxicodendron radicans",
       "image": "survival_guide/poison_ivy.webp",
       "tags": [
         "L_Asia",
@@ -366,6 +370,7 @@
     },
     {
       "content": "raw/field_guide_stinging_nettle",
+      "scientificName": "Urtica dioica",
       "image": "survival_guide/stinging_nettle.webp",
       "tags": [
         "L_Africa",
@@ -385,6 +390,7 @@
     },
     {
       "content": "raw/field_guide_dandelion",
+      "scientificName": "Taraxacum spp.",
       "image": "field_guide/dandelion.webp",
       "tags": [
         "L_Africa",
@@ -420,6 +426,7 @@
     },
     {
       "content": "raw/field_guide_dock",
+      "scientificName": "Rumex acetosa",
       "image": "field_guide/dock.webp",
       "tags": [
         "L_Africa",
@@ -438,6 +445,7 @@
     },
     {
       "content": "raw/field_guide_clover",
+      "scientificName": "Trifolium spp.",
       "image": "field_guide/clover.webp",
       "tags": [
         "L_Africa",
@@ -455,6 +463,7 @@
     },
     {
       "content": "raw/field_guide_cattail",
+      "scientificName": "Typha spp.",
       "image": "field_guide/cattail.webp",
       "tags": [
         "L_Africa",
@@ -490,6 +499,7 @@
     },
     {
       "content": "raw/field_guide_common_plantain",
+      "scientificName": "Plantago major",
       "image": "field_guide/common_plantain.webp",
       "tags": [
         "L_Africa",
@@ -507,6 +517,7 @@
     },
     {
       "content": "raw/field_guide_brambles",
+      "scientificName": "Rubus spp.",
       "image": "field_guide/brambles.webp",
       "tags": [
         "L_Africa",
@@ -524,6 +535,7 @@
     },
     {
       "content": "raw/field_guide_chicken_of_the_woods",
+      "scientificName": "Laetiporus spp.",
       "image": "field_guide/chicken_of_the_woods.webp",
       "tags": [
         "L_Africa",
@@ -548,12 +560,12 @@
         "L_NorthAmerica",
         "L_SouthAmerica",
         "C_Fungus",
-        "H_Forest",
-        "I_Edible"
+        "H_Forest"
       ]
     },
     {
       "content": "raw/field_guide_morel",
+      "scientificName": "Morchella spp.",
       "image": "field_guide/morel.webp",
       "tags": [
         "L_Africa",
@@ -569,6 +581,7 @@
     },
     {
       "content": "raw/field_guide_oyster_mushroom",
+      "scientificName": "Pleurotus spp.",
       "image": "field_guide/oyster_mushroom.webp",
       "tags": [
         "L_Africa",
@@ -598,6 +611,7 @@
     },
     {
       "content": "raw/field_guide_tinder_fungus",
+      "scientificName": "Fomes fomentarius",
       "image": "survival_guide/tinder_fungus.webp",
       "tags": [
         "L_Africa",
@@ -611,6 +625,7 @@
     },
     {
       "content": "raw/field_guide_chaga",
+      "scientificName": "Inonotus obliquus",
       "image": "survival_guide/chaga.webp",
       "tags": [
         "L_NorthAmerica",

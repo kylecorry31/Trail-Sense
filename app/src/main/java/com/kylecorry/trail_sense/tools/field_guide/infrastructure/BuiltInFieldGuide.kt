@@ -18,6 +18,7 @@ object BuiltInFieldGuide {
 
     private class BuiltInFieldGuidePage : ProguardIgnore {
         var content: String = ""
+        var scientificName: String? = null
         var image: String = ""
         var tags: List<String> = emptyList()
     }
@@ -54,11 +55,12 @@ object BuiltInFieldGuide {
         val name = lines.first()
         val notes = lines.drop(1).joinToString("\n").trim()
         return FieldGuidePage(
-            -(index.toLong() + 1),
-            name,
-            listOf("android-assets://${page.image}"),
-            page.tags.map { FieldGuidePageTag.valueOf(it.split("_").last()) },
-            notes,
+            id = -(index.toLong() + 1),
+            name = name,
+            scientificName = page.scientificName,
+            images = listOf("android-assets://${page.image}"),
+            directTags = page.tags.map { FieldGuidePageTag.valueOf(it.split("_").last()) },
+            notes = notes,
             isReadOnly = true
         )
     }

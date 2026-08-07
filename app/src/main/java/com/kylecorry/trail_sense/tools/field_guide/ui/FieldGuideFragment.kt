@@ -102,8 +102,9 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
 
     private fun useDeletePage(triggerReload: () -> Unit): (page: FieldGuidePage) -> Unit {
         val service = useService<FieldGuideService>()
-        return useCallback(service, triggerReload) { page ->
-            dialog(getString(R.string.delete), page.name) { cancelled ->
+        val formatter = useService<FieldGuideFormatService>()
+        return useCallback(service, triggerReload, formatter) { page ->
+            dialog(getString(R.string.delete), formatter.formatName(page)) { cancelled ->
                 if (!cancelled) {
                     inBackground {
                         service.deletePage(page)

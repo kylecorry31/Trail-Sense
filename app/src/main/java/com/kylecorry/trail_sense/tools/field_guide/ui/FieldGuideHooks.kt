@@ -64,6 +64,7 @@ fun ReactiveComponent.useFieldGuidePageList(
 ): FieldGuidePageListResult {
     val context = useAndroidContext()
     val viewLifecycleOwner = useLifecycleOwner()
+    val formatter = useService<FieldGuideFormatService>()
 
     val (tagFilter, setTagFilter) = useState<FieldGuidePageTag?>(null)
     val (filter, setFilter) = useState("")
@@ -78,6 +79,7 @@ fun ReactiveComponent.useFieldGuidePageList(
         listView,
         context,
         viewLifecycleOwner,
+        formatter,
         handleAction,
         showMenu
     ) {
@@ -86,6 +88,7 @@ fun ReactiveComponent.useFieldGuidePageList(
         val pageMapper = FieldGuidePageListItemMapper(
             context,
             viewLifecycleOwner,
+            formatter,
             action = handleAction,
             showMenu = showMenu
         )

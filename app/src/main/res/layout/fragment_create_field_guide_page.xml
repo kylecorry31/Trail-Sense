@@ -34,6 +34,13 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/name" />
 
+            <com.kylecorry.trail_sense.shared.views.TextInputView
+                android:id="@+id/scientific_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/scientific_name" />
+
             <com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
                 android:id="@+id/tag_classifications"
                 android:layout_width="match_parent"

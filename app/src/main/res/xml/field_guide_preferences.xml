@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/field_guide">
+
+        <ListPreference
+            app:defaultValue="1"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_field_guide_name_display"
+            app:singleLineTitle="false"
+            app:title="@string/field_guide_name_display"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

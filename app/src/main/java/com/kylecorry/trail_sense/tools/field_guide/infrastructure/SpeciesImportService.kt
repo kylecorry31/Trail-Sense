@@ -64,11 +64,11 @@ class SpeciesImportService(
             val images = parsed.images.map { saveImage(it) }
             listOf(
                 FieldGuidePage(
-                    0,
-                    parsed.name,
-                    images,
-                    parsed.tags.mapNotNull { FieldGuidePageTag.entries.withId(it) },
-                    parsed.notes ?: ""
+                    id = 0,
+                    name = parsed.name,
+                    images = images,
+                    directTags = parsed.tags.mapNotNull { FieldGuidePageTag.entries.withId(it) },
+                    notes = parsed.notes ?: ""
                 )
             )
         } catch (e: Exception) {

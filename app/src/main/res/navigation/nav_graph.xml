@@ -154,6 +154,10 @@
         android:name="com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFragment"
         android:label="FieldGuideFragment" />
     <fragment
+        android:id="@+id/fieldGuideSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideSettingsFragment"
+        android:label="FieldGuideSettingsFragment" />
+    <fragment
         android:id="@+id/fieldGuidePageFragment"
         android:name="com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuidePageFragment"
         android:label="FieldGuidePageFragment">

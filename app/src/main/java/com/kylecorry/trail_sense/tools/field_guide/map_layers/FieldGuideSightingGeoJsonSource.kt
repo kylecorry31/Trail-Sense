@@ -29,11 +29,13 @@ import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
+import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFormatService
 
 class FieldGuideSightingGeoJsonSource : GeoJsonSource {
 
     private val repo = DependencyRegistry.get<FieldGuideRepo>()
     private val files = DependencyRegistry.get<FileSubsystem>()
+    private val formatter = DependencyRegistry.get<FieldGuideFormatService>()
     var nameFormat = ""
     private val size = 12f
     private val imageSize = size * 1.5f
@@ -98,7 +100,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
                 val point = GeoJsonFeature.point(
                     sighting.location!!,
                     sighting.id,
-                    nameFormat.format(page.name),
+                    nameFormat.format(formatter.formatName(page)),
                     color = color,
                     icon = if (bitmap == null) icon.id else null,
                     iconSize = if (bitmap == null) size * 0.75f else imageSize,

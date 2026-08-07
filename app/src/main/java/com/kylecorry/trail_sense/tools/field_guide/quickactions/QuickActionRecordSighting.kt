@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideUtils
 import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideDeepLinks
+import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFormatService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
     QuickActionButton(btn, fragment) {
 
     private val service = getAppService<FieldGuideService>()
+    private val formatter = getAppService<FieldGuideFormatService>()
     private val sensors = getAppService<SensorService>()
 
     override fun onCreate() {
@@ -75,7 +77,7 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
 
         Alerts.withCancelableLoading(
             fragment.requireContext(),
-            context.getString(R.string.recording_sighting_for_page, page.name),
+            context.getString(R.string.recording_sighting_for_page, formatter.formatName(page)),
             onCancel = {
                 wasCancelled = true
                 job.cancel()

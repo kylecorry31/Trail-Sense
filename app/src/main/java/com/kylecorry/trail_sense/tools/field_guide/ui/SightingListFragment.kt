@@ -43,6 +43,7 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
 
         // Services
         val formatter = useService<FormatService>()
+        val fieldGuideFormatter = useService<FieldGuideFormatService>()
         val repo = useService<FieldGuideRepo>()
         val navController = useNavController()
         val navigator = useService<Navigator>()
@@ -95,10 +96,10 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         }
 
         val navigateToSighting =
-            useCallback(navigator, navController, page) { sighting: Sighting ->
+            useCallback(navigator, navController, page, fieldGuideFormatter) { sighting: Sighting ->
                 navigator.navigateTo(
                     sighting.location ?: Coordinate.zero,
-                    page?.name ?: "",
+                    page?.let(fieldGuideFormatter::formatName)?.toString() ?: "",
                     BeaconOwner.FieldGuide,
                     elevation = sighting.altitude
                 )
@@ -106,13 +107,13 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
                 navController.openTool(Tools.NAVIGATION)
             }
 
-        val createBeacon = useCallback(navController, page) { sighting: Sighting ->
+        val createBeacon = useCallback(navController, page, fieldGuideFormatter) { sighting: Sighting ->
             val bundle = Bundle().apply {
                 putParcelable(
                     "initial_location", GeoUri(
                         sighting.location ?: Coordinate.zero,
                         sighting.altitude,
-                        mapOf("label" to (page?.name ?: ""))
+                        mapOf("label" to (page?.let(fieldGuideFormatter::formatName)?.toString() ?: ""))
                     )
                 )
             }
@@ -186,7 +187,7 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         }
 
         useEffect(titleView, page) {
-            titleView.subtitle.text = page?.name
+            titleView.subtitle.text = page?.let(fieldGuideFormatter::formatName)
         }
 
     }

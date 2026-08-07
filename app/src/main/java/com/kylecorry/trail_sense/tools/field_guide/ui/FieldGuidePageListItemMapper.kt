@@ -25,6 +25,7 @@ enum class FieldGuidePageListItemActionType {
 class FieldGuidePageListItemMapper(
     private val context: Context,
     private val viewLifecycleOwner: LifecycleOwner,
+    private val formatter: FieldGuideFormatService,
     private val showMenu: Boolean = true,
     private val action: (FieldGuidePageListItemActionType, FieldGuidePage) -> Unit
 ) : ListItemMapper<FieldGuidePage> {
@@ -37,7 +38,7 @@ class FieldGuidePageListItemMapper(
                 ?: ""
         return ListItem(
             value.id,
-            value.name,
+            formatter.formatName(value),
             firstSentence.take(200),
             icon = AsyncListIcon(
                 viewLifecycleOwner,

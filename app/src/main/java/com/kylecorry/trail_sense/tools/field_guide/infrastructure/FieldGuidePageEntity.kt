@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 @Entity(tableName = "field_guide_pages")
 data class FieldGuidePageEntity(
     @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "scientific_name") val scientificName: String? = null,
     @ColumnInfo(name = "images") val images: String,
     @ColumnInfo(name = "tags") val tags: String,
     @ColumnInfo(name = "notes") val notes: String? = null,
@@ -22,14 +23,15 @@ data class FieldGuidePageEntity(
 
     fun toFieldGuidePage(): FieldGuidePage {
         return FieldGuidePage(
-            id,
-            name,
-            images.split(',').filter { it.isNotBlank() },
-            tags.split(',').mapNotNull {
+            id = id,
+            name = name,
+            scientificName = scientificName,
+            images = images.split(',').filter { it.isNotBlank() },
+            directTags = tags.split(',').mapNotNull {
                 val id = it.toLongCompat() ?: return@mapNotNull null
                 FieldGuidePageTag.entries.withId(id)
             },
-            notes,
+            notes = notes,
             isReadOnly = false,
             sightings = emptyList(),
             importId = importId
@@ -39,11 +41,12 @@ data class FieldGuidePageEntity(
     companion object {
         fun fromFieldGuidePage(page: FieldGuidePage): FieldGuidePageEntity {
             return FieldGuidePageEntity(
-                page.name,
-                page.images.joinToString(","),
-                page.tags.joinToString(",") { it.id.toString() },
-                page.notes,
-                page.importId
+                name = page.name,
+                scientificName = page.scientificName,
+                images = page.images.joinToString(","),
+                tags = page.tags.joinToString(",") { it.id.toString() },
+                notes = page.notes,
+                importId = page.importId
             ).apply {
                 id = page.id
             }

@@ -46,6 +46,7 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPrefere
 import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPreferences
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimatePreferenceRepo
+import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePreferences
 import com.kylecorry.trail_sense.tools.map.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapPreferences
@@ -91,6 +92,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val waterBoilTimer by lazy { WaterBoilTimerPreferences(context) }
     val turnBack by lazy { TurnBackPreferences(context) }
     val bubbleLevel by lazy { BubbleLevelPreferences(context) }
+    val fieldGuide by lazy { FieldGuidePreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 
