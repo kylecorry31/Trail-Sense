@@ -1629,4 +1629,7 @@
     <string name="map_error_access_denied">地图文件访问被拒绝</string>
     <string name="map_error_unable_to_copy">无法复制地图文件</string>
     <string name="color_by_classification">按分类着色</string>
+    <string name="bearing_length">轴承长度</string>
+    <string name="bearing_length_description">轴承工作时的轴承线长度</string>
+    <string name="bearing_length_max">最大：%s</string>
 </resources>
