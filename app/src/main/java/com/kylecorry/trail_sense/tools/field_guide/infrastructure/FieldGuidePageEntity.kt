@@ -32,7 +32,7 @@ data class FieldGuidePageEntity(
                 FieldGuidePageTag.entries.withId(id)
             },
             notes = notes,
-            isReadOnly = false,
+            isBuiltIn = false,
             sightings = emptyList(),
             importId = importId
         )

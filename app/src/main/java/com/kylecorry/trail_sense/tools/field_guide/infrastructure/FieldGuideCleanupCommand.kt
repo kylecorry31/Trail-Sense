@@ -12,7 +12,7 @@ class FieldGuideCleanupCommand(context: Context) : CoroutineCommand {
 
 
     override suspend fun execute() = onIO {
-        val pages = repo.getAllPages().filter { !it.isReadOnly }
+        val pages = repo.getAllPages().filter { !it.isBuiltIn }
         val allFiles = files.list("field_guide").map { "field_guide/${it.name}" }
 
         // Delete files without a page

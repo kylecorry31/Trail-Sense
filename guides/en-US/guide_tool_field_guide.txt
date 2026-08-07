@@ -8,7 +8,7 @@ You can choose to display common names, scientific names, or both names in 'Sett
 You can search for pages by name, notes, or tags. The search results will be displayed as you type.
 
 ## Built-in pages
-Trail Sense includes a set of built-in pages that cover common plants, animals, mushrooms, and rocks that are beneficial for wilderness survival. You can not edit or delete these pages.
+Trail Sense includes a set of built-in pages that cover common plants, animals, mushrooms, and rocks that are beneficial for wilderness survival. You can not edit or delete these pages, but you can hide one using the menu on its row. To unhide a page or adjust which built-in pages are shown, use 'Settings > Field Guide > Built-in pages'.
 
 ## Create a page
 To create a new page, tap the add button in the bottom right corner of the screen. You can add a common name, scientific name, image, notes, and tags to the page. The image can be taken with the camera or selected from the gallery. You can tap the check button in the top right corner to save the page.

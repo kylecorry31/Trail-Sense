@@ -12,5 +12,11 @@
             app:singleLineTitle="false"
             app:title="@string/field_guide_name_display"
             app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_field_guide_built_in_pages_holder"
+            app:singleLineTitle="false"
+            app:title="@string/built_in_pages" />
     </PreferenceCategory>
 </PreferenceScreen>

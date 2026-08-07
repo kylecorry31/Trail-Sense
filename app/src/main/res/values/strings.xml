@@ -107,6 +107,10 @@
     <string name="scientific_name">Scientific name</string>
     <string name="field_guide_name_display">Name display</string>
     <string name="pref_field_guide_name_display" translatable="false">pref_field_guide_name_display</string>
+    <string name="built_in_pages">Built-in pages</string>
+    <string name="pref_field_guide_built_in_pages_holder" translatable="false">pref_field_guide_built_in_pages_holder</string>
+    <string name="pref_field_guide_hidden_pages" translatable="false">pref_field_guide_hidden_pages</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nYou can unhide this page in the Field Guide settings.</string>
     <string name="common_name">Common name</string>
     <string name="both_names">Both names</string>
     <string name="beacon_invalid_name">Invalid name</string>

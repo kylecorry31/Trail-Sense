@@ -60,7 +60,10 @@ object FieldGuideToolRegistration : ToolRegistration {
                 )
             },
             broadcasts = listOf(
-                ToolBroadcast(BROADCAST_SIGHTING_RECORDED, "Sighting recorded")
+                ToolBroadcast(BROADCAST_SIGHTING_RECORDED, "Sighting recorded"),
+                ToolBroadcast(BROADCAST_PAGE_ADDED, "Field guide page added"),
+                ToolBroadcast(BROADCAST_PAGE_CHANGED, "Field guide page changed"),
+                ToolBroadcast(BROADCAST_PAGE_DELETED, "Field guide page deleted")
             ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.externalStorage(context)
@@ -95,11 +98,19 @@ object FieldGuideToolRegistration : ToolRegistration {
                         FieldGuideDeepLinks.navigateToSighting(navController, fieldGuidePageId, fieldGuideSightingId)
                     },
                     geoJsonSource = ::FieldGuideSightingGeoJsonSource,
-                    refreshBroadcasts = listOf(BROADCAST_SIGHTING_RECORDED)
+                    refreshBroadcasts = listOf(
+                        BROADCAST_SIGHTING_RECORDED,
+                        BROADCAST_PAGE_ADDED,
+                        BROADCAST_PAGE_CHANGED,
+                        BROADCAST_PAGE_DELETED
+                    )
                 )
             )
         )
     }
 
     const val BROADCAST_SIGHTING_RECORDED = "field-guide-broadcast-sighting-recorded"
+    const val BROADCAST_PAGE_ADDED = "field-guide-broadcast-page-added"
+    const val BROADCAST_PAGE_CHANGED = "field-guide-broadcast-page-changed"
+    const val BROADCAST_PAGE_DELETED = "field-guide-broadcast-page-deleted"
 }

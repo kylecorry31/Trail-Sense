@@ -13,12 +13,36 @@ class FieldGuideService(
     private val eventBus: IEventEmitter
 ) {
 
-    suspend fun getAllPages(): List<FieldGuidePage> {
-        return repo.getAllPages().sortedBy { it.name }
+    suspend fun getAllPages(includeHidden: Boolean = false): List<FieldGuidePage> {
+        return repo.getAllPages()
+            .filter { includeHidden || !it.isHidden }
+            .sortedBy { it.name }
     }
 
     suspend fun deletePage(page: FieldGuidePage) {
         repo.delete(page)
+        eventBus.broadcast(FieldGuideToolRegistration.BROADCAST_PAGE_DELETED)
+    }
+
+    suspend fun savePage(page: FieldGuidePage): Long {
+        val id = repo.add(page)
+        val event = if (page.id == 0L) {
+            FieldGuideToolRegistration.BROADCAST_PAGE_ADDED
+        } else {
+            FieldGuideToolRegistration.BROADCAST_PAGE_CHANGED
+        }
+        eventBus.broadcast(event)
+        return id
+    }
+
+    suspend fun setPageHidden(pageId: Long, isHidden: Boolean): Boolean {
+        if (!repo.isBuiltInPage(pageId)) {
+            // Only built-in pages can be hidden right now
+            return false
+        }
+        repo.setPageHidden(pageId, isHidden)
+        eventBus.broadcast(FieldGuideToolRegistration.BROADCAST_PAGE_CHANGED)
+        return true
     }
 
     suspend fun recordSighting(sighting: Sighting): Sighting {

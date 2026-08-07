@@ -39,6 +39,15 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         canEditPage()
         canDeletePage()
         canSearch()
+        canHideBuiltInPage()
+    }
+
+    private fun canHideBuiltInPage() {
+        click("Animal")
+        hasText("Ant")
+        clickListItemMenu("Hide")
+        clickOk()
+        not { hasText("Ant") }
     }
 
     private fun canSearch() {

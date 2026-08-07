@@ -17,4 +17,8 @@ interface IFieldGuideRepo {
     suspend fun getSighting(id: Long): Sighting?
 
     suspend fun deleteSighting(sighting: Sighting)
+
+    suspend fun setPageHidden(pageId: Long, isHidden: Boolean)
+
+    fun isBuiltInPage(pageId: Long): Boolean
 }

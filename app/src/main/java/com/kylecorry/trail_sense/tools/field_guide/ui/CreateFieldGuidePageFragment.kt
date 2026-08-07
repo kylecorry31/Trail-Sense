@@ -20,6 +20,7 @@ import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateFieldGuidePageBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
@@ -28,6 +29,7 @@ import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
@@ -36,6 +38,7 @@ import java.util.UUID
 class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageBinding>() {
 
     private val repo by lazy { FieldGuideRepo.getInstance(requireContext()) }
+    private val service by lazy { getAppService<FieldGuideService>() }
     private val tagNameMapper by lazy { FieldGuideTagNameMapper(requireContext()) }
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
     private val uriPicker by lazy { IntentUriPicker(this, requireContext()) }
@@ -192,7 +195,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
     private fun save() {
         inBackground {
-            repo.add(page)
+            service.savePage(page)
             onMain {
                 backCallback?.remove()
                 findNavController().navigateUp()

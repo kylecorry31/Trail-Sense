@@ -56,7 +56,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         }
 
         useEffect(page, titleView, notesView, imageView, tagsView, navController, fieldGuideFormatter) {
-            titleView.rightButton.isVisible = page?.isReadOnly == false
+            titleView.rightButton.isVisible = page?.isBuiltIn == false
             titleView.rightButton.setOnClickListener {
                 navController.navigate(
                     R.id.createFieldGuidePageFragment,

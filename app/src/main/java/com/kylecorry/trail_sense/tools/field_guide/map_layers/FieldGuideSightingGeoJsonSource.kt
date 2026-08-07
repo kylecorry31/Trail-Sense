@@ -28,12 +28,12 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
-import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFormatService
 
 class FieldGuideSightingGeoJsonSource : GeoJsonSource {
 
-    private val repo = DependencyRegistry.get<FieldGuideRepo>()
+    private val service = DependencyRegistry.get<FieldGuideService>()
     private val files = DependencyRegistry.get<FileSubsystem>()
     private val formatter = DependencyRegistry.get<FieldGuideFormatService>()
     var nameFormat = ""
@@ -77,7 +77,7 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         if (nameFormat.isEmpty()) {
             nameFormat = context.getString(R.string.sighting_label)
         }
-        val pages = repo.getAllPages()
+        val pages = service.getAllPages()
 
         val allSightings = pages
             .flatMap { page ->

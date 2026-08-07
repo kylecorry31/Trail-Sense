@@ -61,7 +61,7 @@ object BuiltInFieldGuide {
             images = listOf("android-assets://${page.image}"),
             directTags = page.tags.map { FieldGuidePageTag.valueOf(it.split("_").last()) },
             notes = notes,
-            isReadOnly = true
+            isBuiltIn = true
         )
     }
 }

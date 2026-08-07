@@ -10,7 +10,8 @@ data class FieldGuidePage(
     val images: List<String> = emptyList(),
     val directTags: List<FieldGuidePageTag> = emptyList(),
     val notes: String? = null,
-    val isReadOnly: Boolean = false,
+    val isBuiltIn: Boolean = false,
+    val isHidden: Boolean = false,
 
     // User specific fields (not exported)
     val sightings: List<Sighting> = emptyList(),
