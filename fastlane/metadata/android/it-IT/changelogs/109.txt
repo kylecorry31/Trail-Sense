@@ -1,0 +1,17 @@
+Clinometro
+- Imposta la fotocamera come clinometro predefinito
+- Aumenta le dimensioni del campo visivo della fotocamera
+- Aggiungi il supporto AR (sperimentale)
+
+Metal detector
+- Migliora la sensibilità
+
+Realtà aumentata (sperimentale)
+- Migliora l'allineamento
+- Mostra le linee della griglia
+- Migliora l'esperienza su dispositivi senza giroscopio
+
+Varie
+- Migliora l'altimetro GPS + barometro
+- Notifica se i servizi in background non possono essere avviati
+- Aggiungi altre guide utente
