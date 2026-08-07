@@ -1938,8 +1938,8 @@
     <string name="lock_bearing_to_location_description">Lock the bearing line to your starting location</string>
     <string name="pref_bearing_distance_holder" translatable="false">pref_bearing_distance_holder</string>
     <string name="pref_bearing_distance" translatable="false">pref_bearing_distance</string>
-    <string name="bearing_length">Set bearing length</string>
-    <string name="bearing_length_description">The length of the bearing line when a set bearing is active</string>
+    <string name="bearing_length">Bearing length</string>
+    <string name="bearing_length_description">The length of the bearing line when a bearing is active</string>
     <string name="bearing_length_max">Max: %s</string>
     <string name="pref_show_astronomy_bands_title">Show sunrise/set bands</string>
     <string name="pref_show_astronomy_bands" translatable="false">pref_show_astronomy_bands</string>
