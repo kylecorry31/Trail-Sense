@@ -56,6 +56,12 @@
             app:summary="@string/lock_bearing_to_location_description"
             app:title="@string/lock_bearing_to_location" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_bearing_distance_holder"
+            app:singleLineTitle="false"
+            app:title="@string/bearing_length" />
+
         <ListPreference
             android:entries="@array/speedometer_entries"
             android:entryValues="@array/speedometer_values"

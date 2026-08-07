@@ -80,7 +80,7 @@ class NavigationGeoJsonSource : GeoJsonSource {
             listOf(
                 createPath(
                     myLocation,
-                    myLocation.plus(Destination.Bearing.bearingDistance, bearing.trueBearing),
+                    myLocation.plus(bearing.bearingDistance, bearing.trueBearing),
                     Destination.Bearing.defaultColor
                 )
             )

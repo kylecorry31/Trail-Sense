@@ -9,7 +9,8 @@ sealed class Destination {
         val bearing: com.kylecorry.sol.units.Bearing,
         val isTrueNorth: Boolean,
         val declination: Float,
-        val startingLocation: Coordinate? = null
+        val startingLocation: Coordinate? = null,
+        val bearingDistance: Distance = defaultBearingDistance
     ) : Destination() {
 
         val trueBearing: com.kylecorry.sol.units.Bearing
@@ -27,7 +28,8 @@ sealed class Destination {
             }
 
         companion object {
-            val bearingDistance: Distance = Distance.kilometers(5f).meters()
+            val defaultBearingDistance: Distance = Distance.kilometers(5f).meters()
+            val maxBearingDistance: Distance = Distance.kilometers(20f).meters()
             val defaultColor: Int = AppColor.Blue.color
         }
     }

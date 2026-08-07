@@ -8,6 +8,8 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
@@ -58,6 +60,24 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
                 }
             },
             DistanceUtils.hikingDistanceUnits
+        )
+
+        val maxBearingDistanceFormatted = relative(
+            Destination.Bearing.maxBearingDistance,
+            userPrefs
+        ).let { FormatService.getInstance(requireContext()).formatDistance(it) }
+
+        setupDistanceSetting(
+            getString(R.string.pref_bearing_distance_holder),
+            { relative(userPrefs.navigation.bearingDistance, userPrefs) },
+            { distance ->
+                if (distance != null && distance.value > 0) {
+                    userPrefs.navigation.bearingDistance = distance
+                }
+            },
+            DistanceUtils.hikingDistanceUnits,
+            description = getString(R.string.bearing_length_description) +
+                    "\n" + getString(R.string.bearing_length_max, maxBearingDistanceFormatted)
         )
 
         editText(R.string.pref_num_visible_beacons)

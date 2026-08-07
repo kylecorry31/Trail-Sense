@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
@@ -228,6 +229,26 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         context.getString(R.string.pref_lock_bearing_to_location),
         false
     )
+
+    var bearingDistance: Distance
+        get() {
+            val raw = cache.getString(context.getString(R.string.pref_bearing_distance)) ?: "5.0"
+            return Distance.meters(
+                Distance.kilometers(raw.toFloatCompat() ?: 5.0f)
+                    .meters()
+                    .value
+                    .coerceIn(1f, Destination.Bearing.maxBearingDistance.value)
+            )
+        }
+        set(value) {
+            val km = value.meters().value
+                .coerceIn(1f, Destination.Bearing.maxBearingDistance.value)
+                .let { Distance.meters(it).convertTo(DistanceUnits.Kilometers).value }
+            cache.putString(
+                context.getString(R.string.pref_bearing_distance),
+                km.toString()
+            )
+        }
 
     enum class SpeedometerMode {
         Backtrack,
