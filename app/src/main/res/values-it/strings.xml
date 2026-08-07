@@ -1252,4 +1252,11 @@
     <string name="plugin_connect_title">Connetti il plugin?</string>
     <string name="plugin_disconnect_title">Disconnetti il plugin?</string>
     <string name="brightness">Luminosità</string>
+    <string name="scientific_name">Nome scientifico</string>
+    <string name="common_name">Nome comune</string>
+    <string name="both_names">Entrambi i nomi</string>
+    <string name="do_not_ask_again">Non chiedere più</string>
+    <string name="quick_action_recalibrate_altimeter">Ricalibra l\'altimetro</string>
+    <string name="recalibrating">Ricalibrazione</string>
+    <string name="delete_offline_map_group_message"> </string>
 </resources>
