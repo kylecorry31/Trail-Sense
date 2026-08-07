@@ -1651,4 +1651,8 @@
     <string name="bearing_length_max">Max: %s</string>
     <string name="bearing_length_description">Lengte van de peilinglijn wanneer een peiling actief is</string>
     <string name="bearing_length">Peilinglengte</string>
+    <string name="scientific_name">Wetenschappelijke naam</string>
+    <string name="common_name">Algemene naam</string>
+    <string name="both_names">Beide namen</string>
+    <string name="field_guide_name_display">Naamweergave</string>
 </resources>
