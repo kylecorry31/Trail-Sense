@@ -1648,4 +1648,7 @@
     <string name="map_error_unable_to_copy">Bestand kopiëren mislukt</string>
     <string name="external_storage_diagnostic_instructions">De systeembestandskiezer heeft geen toestemming om bestanden op je apparaat te openen. Dit kan voorkomen dat Trail Sense de door jou geselecteerde bestanden opent of opslaat. Schakel \'Toegang om alle bestanden te beheren\' in voor de bestandskiezer (deze kan ook \'Externe opslag\' heten).</string>
     <string name="color_by_classification">Kleur op classificatie</string>
+    <string name="bearing_length_max">Max: %s</string>
+    <string name="bearing_length_description">Lengte van de peilinglijn wanneer een peiling actief is</string>
+    <string name="bearing_length">Peilinglengte</string>
 </resources>
