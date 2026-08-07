@@ -982,7 +982,6 @@
     <string name="yes">是</string>
     <string name="rate">频率</string>
     <string name="season">季节</string>
-    <string name="until_sunset">后日落</string>
     <string name="until_sunrise">直到日出</string>
     <string name="astronomy_set">落下</string>
     <string name="astronomy_rise">升起</string>
@@ -1572,7 +1571,6 @@
     <plurals name="offline_map_group_summary">
         <item quantity="other">%d 张地图</item>
     </plurals>
-    <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
     <string name="include_mapsforge_backups_summary">Mapsforge (.map) 文件可能占用不少空间</string>
     <string name="include_mapsforge_backups">在备份中包含路径地图</string>
     <string name="trail_maps">路径地图</string>
@@ -1629,7 +1627,5 @@
     <string name="map_error_access_denied">地图文件访问被拒绝</string>
     <string name="map_error_unable_to_copy">无法复制地图文件</string>
     <string name="color_by_classification">按分类着色</string>
-    <string name="bearing_length">轴承长度</string>
-    <string name="bearing_length_description">轴承工作时的轴承线长度</string>
     <string name="bearing_length_max">最大：%s</string>
 </resources>
