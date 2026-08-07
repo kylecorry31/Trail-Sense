@@ -174,6 +174,9 @@ Some tools such as Navigation and Astronomy display error banners at the top of 
 ## Experimental
 Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
 
+### Use legacy file picker
+If the system file picker is not working correctly on your device, enable this setting to use the legacy file picker instead. It might help, but this is just a potential workaround for an upstream issue.
+
 ### Plugins
 Plugins allow other installed apps to add features to Trail Sense. Right now they are limited to additional map layers.
 

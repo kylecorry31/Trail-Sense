@@ -151,6 +151,7 @@ This layer shows your field guide sightings with location data. The icon display
 Settings:
 
 - **Show images**: If enabled, the field guide page's image will be displayed instead of the category icon.
+- **Color by classification**: If enabled, the color of the marker will be based on the page's classification (ex. animal, plant).
 
 ## Location
 This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS.

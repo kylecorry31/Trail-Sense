@@ -46,6 +46,7 @@ object Licenses {
                 "CesPaul",
                 "delthia",
                 "another-sapiens",
+                "Maqbool61",
                 "cleveHEX",
                 "BorATICI",
                 "khwolf",
@@ -87,6 +88,7 @@ object Licenses {
                 "AshishDhyani131",
                 "KovalevArtem",
                 "arifpedia",
+                "qinmin1212",
                 "Poussinou",
                 "rezaalmanda",
                 "Ricky-Tigg",
@@ -100,9 +102,9 @@ object Licenses {
                 "lucasmz-dev",
                 "mellvie",
                 "jere-a",
-                "qinmin1212",
                 "AHOHNMYC",
                 "asafran",
+                "arpitagarwal1301",
                 "helloiamcait",
                 "sguinetti",
                 "tetrdd",
@@ -126,7 +128,7 @@ object Licenses {
                 "the7thNightmare",
                 "mgorny",
                 "Kapral67",
-                "TomasCartman",
+                "ARtHryDr",
                 "dependabot[bot]",
                 "efraletti",
                 "f4n0",
@@ -140,7 +142,6 @@ object Licenses {
                 "zaioti",
                 "btsmartx",
                 "love80312",
-                "ARtHryDr",
                 "Abdulkarim28",
                 "Akamar",
                 "dasrecht",
@@ -166,7 +167,7 @@ object Licenses {
                 "Luiz-bro",
                 "BatuAtlas",
                 "xmbhasin",
-                "Maqbool61"
+                "TomasCartman"
             )
             "${
                 mit(

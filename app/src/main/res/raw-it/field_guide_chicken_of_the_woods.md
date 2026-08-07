@@ -1,0 +1,4 @@
+Laetiporus (Pollo dei boschi)
+Un fungo a mensola di colore giallo-arancio brillante che cresce sugli alberi, spesso su latifoglie nelle foreste. La parte inferiore presenta pori al posto delle lamelle ed è bianca o gialla. È commestibile quando è giovane e tenero, ma può causare disturbi gastrointestinali in alcuni individui.
+
+https://it.wikipedia.org/wiki/Laetiporus
