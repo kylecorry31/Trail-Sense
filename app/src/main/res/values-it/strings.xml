@@ -65,7 +65,7 @@
     <string name="high_tide">Alta</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
-    <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background. Sono utilizzati per calibrare la pressione al livello del mare nelle osservazioni meteo e per fornire dati più accurati sulle notifiche sull\'alba. [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background anche quando l\'app e chiusa o non in uso. L\'accesso in background è utilizzato per calibrare la pressione al livello del mare, nelle osservazioni meteo, backtrack, update dei widgets e per fornire dati più accurati sulle notifiche sull\'alba/tramonto. [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Aggiorna le impostazioni di geolocalizzazione</string>
     <string name="pref_num_visible_beacons_title">Segnaposto vicini</string>
     <string name="never">Mai</string>
@@ -1240,4 +1240,16 @@
     <string name="grains_format">%s gr</string>
     <string name="pref_night_mode_fullscreen_title">Schermo intero in modalità notturna</string>
     <string name="pref_night_mode_fullscreen_summary">Nascondi l\'interfaccia di sistema per una migliore conservazione della visione notturna</string>
+    <string name="plugins">Plugins</string>
+    <string name="map_layers">Livelli della mappa</string>
+    <string name="app_info">App info</string>
+    <string name="reload">Ricarica</string>
+    <string name="disconnect">Disconnetti</string>
+    <string name="plugin_unavailable">Il plugin non è disponibile o non è connesso</string>
+    <string name="clear_plugin_cache">Svuota la cache del plugin</string>
+    <string name="connected_plugins">Plugin connessi</string>
+    <string name="available_plugins">Plugin disponibili</string>
+    <string name="plugin_connect_title">Connetti il plugin?</string>
+    <string name="plugin_disconnect_title">Disconnetti il plugin?</string>
+    <string name="brightness">Luminosità</string>
 </resources>
