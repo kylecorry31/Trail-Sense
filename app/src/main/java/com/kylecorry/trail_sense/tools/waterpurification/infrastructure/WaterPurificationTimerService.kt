@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
+import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
@@ -41,9 +42,11 @@ class WaterPurificationTimerService : AndromedaService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
-        super.onStartCommand(intent, flags, startId)
-        startTimer(seconds)
-        return START_STICKY
+        return tryStartForegroundOrNotify {
+            super.onStartCommand(intent, flags, startId)
+            startTimer(seconds)
+            START_STICKY
+        }
     }
 
     override fun onDestroy() {

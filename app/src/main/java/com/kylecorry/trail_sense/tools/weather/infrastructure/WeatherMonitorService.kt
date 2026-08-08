@@ -9,8 +9,8 @@ import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.background.services.IntervalService
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
@@ -50,12 +50,8 @@ class WeatherMonitorService :
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         isRunning = true
-        try {
-            return super.onStartCommand(intent, flags, startId)
-        } catch (e: Exception) {
-            ServiceRestartAlerter(this).alert()
-            stopSelf()
-            return START_NOT_STICKY
+        return tryStartForegroundOrNotify {
+            super.onStartCommand(intent, flags, startId)
         }
     }
 

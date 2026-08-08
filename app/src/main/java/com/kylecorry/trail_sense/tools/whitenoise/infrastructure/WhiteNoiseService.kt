@@ -10,6 +10,7 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -27,20 +28,22 @@ class WhiteNoiseService : AndromedaService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        super.onStartCommand(intent, flags, startId)
-        isRunning = true
-        val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
-        if (stopAt != null && Instant.now() < stopAt) {
-            offTimer.once(Duration.between(Instant.now(), stopAt))
+        return tryStartForegroundOrNotify {
+            super.onStartCommand(intent, flags, startId)
+            isRunning = true
+            val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
+            if (stopAt != null && Instant.now() < stopAt) {
+                offTimer.once(Duration.between(Instant.now(), stopAt))
+            }
+
+            val soundId = cache.getLong(CACHE_KEY_SLEEP_SOUND_ID) ?: SleepSound.PinkNoise.id
+            val sound = SleepSound.entries.withId(soundId) ?: SleepSound.PinkNoise
+
+            soundPlayer?.fadeOff(true)
+            soundPlayer = SleepSoundFactory().getSleepSound(sound)
+            soundPlayer?.fadeOn()
+            START_STICKY
         }
-
-        val soundId = cache.getLong(CACHE_KEY_SLEEP_SOUND_ID) ?: SleepSound.PinkNoise.id
-        val sound = SleepSound.entries.withId(soundId) ?: SleepSound.PinkNoise
-
-        soundPlayer?.fadeOff(true)
-        soundPlayer = SleepSoundFactory().getSleepSound(sound)
-        soundPlayer?.fadeOn()
-        return START_STICKY
     }
 
     override fun getForegroundInfo(): ForegroundInfo {
