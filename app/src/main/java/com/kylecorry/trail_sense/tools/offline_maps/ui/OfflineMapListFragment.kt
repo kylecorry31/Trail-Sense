@@ -65,7 +65,6 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.MapGroupAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.mappers.TrailMapAction
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.FragmentMapExportService
-import com.kylecorry.trail_sense.tools.offline_maps.ui.trail_maps.FragmentTrailMapExportService
 
 class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
@@ -90,7 +89,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         )
     }
     private val exportService by lazy { FragmentMapExportService(this) }
-    private val trailMapExportService by lazy { FragmentTrailMapExportService(this) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -272,7 +270,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     }
 
     private fun exportTrailMap(map: TrailMap) {
-        trailMapExportService.export(map)
+        exportService.export(map)
     }
 
     private fun copyToAppStorage(map: TrailMap) {

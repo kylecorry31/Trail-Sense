@@ -113,7 +113,7 @@ class TrailMapListItemMapper(
             ListMenuItem(context.getString(R.string.move_to)) {
                 actionHandler(value, TrailMapAction.Move)
             },
-            if (value.isAvailable) {
+            if (!value.isExternal() && value.isAvailable) {
                 ListMenuItem(context.getString(R.string.export)) {
                     actionHandler(value, TrailMapAction.Export)
                 }
