@@ -142,7 +142,7 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="pref_monitor_weather_title">Controllo meteo</string>
     <string name="pref_monitor_weather_summary">In background</string>
-    <string name="pref_max_beacon_distance_title">Raggio del Segnaposto vicino</string>
+    <string name="pref_max_beacon_distance_title">Distanza del Segnaposto vicino</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibra prima della navigazione</string>
     <string name="pref_display_multi_beacons_summary">Mostra sulla bussola i Segnaposto più vicini</string>
     <string name="pref_adjust_for_temperature_title">Considera la temperatura</string>
@@ -1258,4 +1258,17 @@
     <string name="do_not_ask_again">Non chiedere più</string>
     <string name="quick_action_recalibrate_altimeter">Ricalibra l\'altimetro</string>
     <string name="recalibrating">Ricalibrazione</string>
+    <string name="plugin_name">Plugin: %s</string>
+    <string name="plugin_disconnect_message">Disconnetti %s?</string>
+    <plurals name="offline_map_group_summary">
+        <item quantity="one">%d mappa</item>
+        <item quantity="many">%d mappe</item>
+        <item quantity="other">%d mappe</item>
+    </plurals>
+    <string name="field_guide_name_display">Nome visualizzato</string>
+    <string name="tile_layer">Livello a riquadri</string>
+    <string name="feature_layer">Livello di elementi</string>
+    <string name="overlay_layer">Livello sovrapposto</string>
+    <string name="plugin_connect_message">Connettiti solo a %s di cui ti fidi.</string>
+    <string name="built_in_pages">Pagine integrate</string>
 </resources>
