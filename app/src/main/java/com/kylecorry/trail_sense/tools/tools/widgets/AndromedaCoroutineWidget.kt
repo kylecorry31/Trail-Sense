@@ -19,21 +19,17 @@ abstract class AndromedaCoroutineWidget(
         appWidgetIds: IntArray
     ) {
         val pendingResult = goAsync()
-        try {
-            CoroutineScope(dispatcher).launch {
-                try {
-                    for (appWidgetId in appWidgetIds) {
-                        val views = getUpdatedRemoteViews(context, appWidgetManager, appWidgetId)
-                        onMain {
-                            appWidgetManager.updateAppWidget(appWidgetId, views)
-                        }
+        CoroutineScope(dispatcher).launch {
+            try {
+                for (appWidgetId in appWidgetIds) {
+                    val views = getUpdatedRemoteViews(context, appWidgetManager, appWidgetId)
+                    onMain {
+                        appWidgetManager.updateAppWidget(appWidgetId, views)
                     }
-                } finally {
-                    pendingResult.finish()
                 }
+            } finally {
+                pendingResult.finish()
             }
-        } catch (e: Exception) {
-            pendingResult.finish()
         }
     }
 
