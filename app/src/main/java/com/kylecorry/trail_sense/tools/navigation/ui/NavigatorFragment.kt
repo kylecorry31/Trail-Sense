@@ -306,9 +306,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompassMap.latitudeScaleFactor = { 1f }
         binding.radarCompassMap.projection = AzimuthalEquidistantProjection(gps.location)
         binding.radarCompassMap.resolutionPixels = userPrefs.navigation.radarCompassScale
+        val radarCompassMap = binding.radarCompassMap
+        val radarCompass = binding.radarCompass
         binding.radarCompassMap.setOnScaleChangeListener(true) { resolutionPixels ->
-            val radiusMeters = resolutionPixels * binding.radarCompassMap.width / 2f
-            binding.radarCompass.setRadiusDistance(Distance.meters(radiusMeters))
+            val radiusMeters = resolutionPixels * radarCompassMap.width / 2f
+            radarCompass.setRadiusDistance(Distance.meters(radiusMeters))
             userPrefs.navigation.radarCompassScale = resolutionPixels
         }
 
