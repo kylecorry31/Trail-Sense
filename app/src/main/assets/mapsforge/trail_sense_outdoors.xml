@@ -111,6 +111,33 @@
         <area fill="#F5F4F2" />
     </rule>
 
+    <!-- Administrative boundaries -->
+    <rule e="way" k="building" v="~">
+        <rule e="way" k="boundary" v="~|administrative">
+            <!-- Countries -->
+            <rule e="way" k="admin_level" v="2">
+                <line
+                    stroke="#8D618B"
+                    stroke-dasharray="8,2,2,2"
+                    stroke-linecap="butt"
+                    stroke-width="1.5"
+                    scale="all"
+                />
+            </rule>
+
+            <!-- States and equivalent first-level administrative divisions -->
+            <rule e="way" k="admin_level" v="4">
+                <line
+                    stroke="#8D618B"
+                    stroke-dasharray="6,4"
+                    stroke-linecap="butt"
+                    stroke-width="1.0"
+                    scale="all"
+                />
+            </rule>
+        </rule>
+    </rule>
+
     <!-- Public lands: https://wiki.openstreetmap.org/wiki/United_States/Public_lands -->
 
     <rule
@@ -576,6 +603,7 @@
                 priority="50"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
+                text-transform="uppercase"
             />
         </rule>
         <rule e="node" k="place" v="country" zoom-max="4" zoom-min="4">
@@ -587,6 +615,7 @@
                 priority="50"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
+                text-transform="uppercase"
             />
         </rule>
         <rule e="node" k="place" v="country" zoom-max="5" zoom-min="5">
@@ -598,9 +627,10 @@
                 priority="50"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
+                text-transform="uppercase"
             />
         </rule>
-        <rule e="node" k="place" v="country" zoom-max="6" zoom-min="6">
+        <rule e="node" k="place" v="country" zoom-max="7" zoom-min="6">
             <caption
                 fill="#000000"
                 font-size="20"
@@ -609,6 +639,30 @@
                 priority="50"
                 stroke="#FFFFFF"
                 stroke-width="2.0"
+                text-transform="uppercase"
+            />
+        </rule>
+        <rule e="node" k="place" v="state" zoom-max="7" zoom-min="6">
+            <caption
+                fill="#5F455E"
+                font-size="12"
+                k="name"
+                priority="35"
+                stroke="#FFFFFF"
+                stroke-width="2.0"
+                text-transform="uppercase"
+            />
+        </rule>
+        <rule e="node" k="place" v="state" zoom-max="9" zoom-min="8">
+            <caption
+                fill="#5F455E"
+                font-size="14"
+                font-style="bold"
+                k="name"
+                priority="35"
+                stroke="#FFFFFF"
+                stroke-width="2.0"
+                text-transform="uppercase"
             />
         </rule>
     </rule>
