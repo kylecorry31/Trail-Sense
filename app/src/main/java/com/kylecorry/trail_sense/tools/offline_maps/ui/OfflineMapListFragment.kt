@@ -261,11 +261,16 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             TrailMapAction.View -> view(map)
             TrailMapAction.Rename -> rename(map)
             TrailMapAction.EditAttribution -> editAttribution(map)
+            TrailMapAction.Export -> exportTrailMap(map)
             TrailMapAction.Delete -> delete(map)
             TrailMapAction.Move -> move(map)
             TrailMapAction.ToggleVisibility -> toggleVisibility(map)
             TrailMapAction.CopyToAppStorage -> copyToAppStorage(map)
         }
+    }
+
+    private fun exportTrailMap(map: TrailMap) {
+        exportService.export(map)
     }
 
     private fun copyToAppStorage(map: TrailMap) {

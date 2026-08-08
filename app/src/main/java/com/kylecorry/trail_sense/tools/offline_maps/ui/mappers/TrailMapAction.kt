@@ -4,6 +4,7 @@ enum class TrailMapAction {
     View,
     Rename,
     EditAttribution,
+    Export,
     Delete,
     Move,
     ToggleVisibility,
