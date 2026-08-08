@@ -56,6 +56,7 @@ class FieldGuideService(
         return TextUtils.search(filter, pages) { page ->
             listOf(
                 page.name,
+                page.scientificName ?: "",
                 page.notes ?: "",
                 page.tags.joinToString { mapper.getName(it) })
         }.filter { pages ->
