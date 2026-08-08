@@ -534,7 +534,7 @@
     <string name="cumulus_desc">Awan rendah yang terlihat seperti bola kapas. Awan-awan ini berjarak dan biasanya berwarna putih dengan bercak-bercak yang lebih gelap di bawahnya.</string>
     <string name="cumulonimbus_desc">Awan gembung rendah yang sangat tinggi. Awan ini biasanya memiliki bentuk paron dan berwarna gelap.</string>
     <string name="cirrus_desc">Awan tipis tinggi yang terlihat seperti jumbai rambut putih.</string>
-    <string name="onboarding_user_guide">Pelajari cara menggunakan fitur-fitur Trail Sense dengan panduan pengguna. Tersedia di bagian bawah tab Alat. \n \nLebih banyak panduan akan segera hadir.</string>
+    <string name="onboarding_user_guide">Pelajari cara menggunakan fitur Trail Sense melalui panduan pengguna. Tersedia di tab Alat.</string>
     <string name="onboarding_privacy">- Trail Sense menghormati privasi Anda dan data lokasi tidak pernah meninggalkan perangkat Anda
 \n
 \n- Trail Sense tidak akan pernah memerlukan izin Internet
@@ -563,7 +563,7 @@
     <string name="pedometer">Pedometer</string>
     <string name="pref_step_length_title">Panjang langkah</string>
     <string name="pref_meteor_showers_title">Hujan meteor</string>
-    <string name="pedometer_disclaimer">Keakuratan dan penggunaan baterai pedometer tergantung pada produsen perangkant Anda dan panjang langkah yang dimasukkan. Cobalah di rumah sebentar untuk memverifikasi penggunaan baterai dan keakuratannya sebelum menggunakan di jalan.</string>
+    <string name="pedometer_disclaimer">Akurasi dan penggunaan baterai pedometer bergantung pada produsen perangkat Anda serta panjang langkah yang dimasukkan. Cobalah di rumah terlebih dahulu untuk memeriksa penggunaan baterai dan akurasinya sebelum digunakan di jalur.</string>
     <string name="rename">Ubah nama</string>
     <string name="no_maps">Tidak ada peta</string>
     <string name="on_map">Pada peta</string>
@@ -889,7 +889,7 @@
     <string name="sunrise_alerts">Pemberitahuan matahari terbit</string>
     <string name="sunrise_alert_channel_title">Pemberitahuan matahari terbit</string>
     <string name="illumination">Iluminasi</string>
-    <string name="photo_maps">Peta Foto</string>
+    <string name="photo_maps">Peta foto</string>
     <string name="pref_include_leading_zero_title">Tambahkan nol di depan pada waktu</string>
     <string name="theme_system_black">Sistem (hitam)</string>
     <string name="pref_night_mode_fullscreen_title">Layar penuh dalam mode malam</string>
@@ -951,7 +951,7 @@
     <string name="astronomy_direction_peak">Arah puncak</string>
     <string name="pref_enable_analog_title">Jam analog</string>
     <string name="exported">Diekspor</string>
-    <string name="map_file">File (JPG, PNG, PDF)</string>
+    <string name="map_file">File (JPG, PNG, PDF, Mapsforge)</string>
     <string name="tide_frequency_description">Jumlah pasang tinggi per hari. Sebagian besar pasang bersifat semidiurnal.</string>
     <string name="calibrate_map_point">Kalibrasi dengan lokasi yang diketahui (%1$d / %2$d)</string>
     <string name="descent">Turun</string>
@@ -1013,7 +1013,7 @@
     <string name="print">Cetak</string>
     <string name="autofill_source">Sumber isi otomatis</string>
     <string name="map_calibration">Kalibrasi peta</string>
-    <string name="map_calibration_instructions">Ketuk lokasi yang diketahui pada peta, lalu masukkan koordinat dunia nyata. Anda dapat menyimpan kalibrasi dengan mengklik tombol \"Selesai\".\n\nContoh titik kalibrasi yang baik adalah tempat parkir, titik penanda, landmark, atau persimpangan di sepanjang jalur.</string>
+    <string name="map_calibration_instructions">Pilih dua titik yang dapat Anda identifikasi baik pada peta ini maupun di dunia nyata. Untuk setiap titik, ketuk posisi tepatnya pada peta, lalu masukkan koordinat sebenarnya di dunia nyata.\n\nTitik yang baik berjauhan dan mudah dikenali, seperti titik awal jalur, area parkir, rambu, penanda lokasi, perpotongan grid peta, atau persimpangan jalur.\n\nJika kedua titik valid, ketuk Selesaikan kalibrasi. Jika Anda hanya memiliki satu titik atau ingin menyelesaikannya nanti, ketuk Simpan draf.</string>
     <string name="compass_source_mag_gyro">Magnetometer + Giroskop</string>
     <string name="compass_source_legacy_ts">Lama (Trail Sense)</string>
     <string name="compass_source_legacy_android">Lama (Android)</string>
@@ -1196,7 +1196,7 @@
     <string name="shelter">Tempat berlindung</string>
     <string name="overview">Ikhtisar</string>
     <string name="crafting">Kerajinan</string>
-    <string name="survival_guide_disclaimer">Panduan ini disediakan hanya untuk tujuan informasi, dan penulis, penerbit, maupun kontributor mana pun tidak menjamin keakuratan atau kesesuaiannya untuk tujuan apa pun. Dengan menggunakan panduan ini, Anda mengakui bahwa aktivitas di luar ruangan mengandung risiko, dan Anda melakukannya atas risiko Anda sendiri, setuju untuk membebaskan dan mengganti rugi penulis, penerbit, dan kontributor mana pun dari klaim atau kerusakan yang timbul akibat penggunaan panduan ini. Selalu konsultasikan dengan profesional untuk saran yang spesifik untuk situasi Anda, karena panduan ini tidak menggantikan bimbingan profesional. Selain itu, ketahuilah bahwa hukum dan peraturan setempat dapat memengaruhi penggunaan teknik yang dijelaskan di sini secara legal, dan kepatuhan adalah tanggung jawab Anda.</string>
+    <string name="survival_guide_disclaimer">Panduan ini hanya menyediakan informasi edukatif umum. Panduan ini bukan pelatihan profesional, saran medis, diagnosis, atau perawatan, serta tidak menggantikan layanan darurat, tenaga kesehatan yang berkualifikasi, panduan setempat, atau petunjuk produk/produsen. Dalam keadaan darurat, hubungi layanan darurat sesegera mungkin, ikuti petunjuk mereka, dan jangan menunda mencari bantuan untuk berkonsultasi dengan panduan ini. Jangan mengandalkan panduan ini, Trail Sense, atau ponsel Anda sebagai satu-satunya rencana keselamatan atau sarana komunikasi. Kondisi, risiko, hukum, dan praktik yang direkomendasikan berbeda-beda menurut lokasi dan situasi; verifikasi informasi sebelum bertindak dan gunakan pertimbangan Anda sendiri.</string>
     <string name="field_required">%s (wajib)</string>
     <string name="reduce_photo_resolution">Kurangi resolusi foto</string>
     <string name="survival_guide_empty_desc">Cari topik bertahan hidup seperti air, medis, makanan, cuaca, tempat berlindung, atau teknik navigasi.</string>
@@ -1407,7 +1407,7 @@
     <string name="planet_neptune">Neptunus</string>
     <string name="load_pdf_tiles">Muat ubin PDF</string>
     <string name="load_pdf_tiles_summary">Peta PDF akan lebih tajam, tetapi performa mungkin terpengaruh</string>
-    <string name="map_tool_disclaimer">Alat ini tidak menyertakan peta jalan bawaan, citra satelit, atau data jalur. Alat ini tidak mengunduh peta dari internet. Untuk menampilkan latar belakang peta, Anda harus mengimpor gambar sendiri menggunakan alat Peta Foto. Jika Anda membutuhkan peta jalan, satelit, atau jalur yang langsung atau terunduh, gunakan aplikasi pemetaan khusus.</string>
+    <string name="map_tool_disclaimer">Alat ini tidak menyertakan peta jalan bawaan, citra satelit, atau data jalur. Alat ini tidak mengunduh peta dari internet. Untuk menampilkan latar belakang peta, Anda harus mengimpor gambar sendiri menggunakan alat Peta Offline. Jika Anda memerlukan peta jalan, satelit, atau jalur yang langsung tersedia atau telah dimuat sebelumnya, gunakan aplikasi pemetaan khusus.</string>
     <string name="open_settings">Buka pengaturan</string>
     <string name="show_gps_accuracy">Tampilkan akurasi GPS</string>
     <string name="large_location_indicator">Indikator lokasi besar</string>
@@ -1562,4 +1562,77 @@
     </plurals>
     <string name="delete_offline_map_group_message">%s dan seluruh peta terkait akan dihapus.</string>
     <string name="clock_source_device">Waktu perangkat</string>
+    <string name="brightness">Kecerahan</string>
+    <string name="scientific_name">Nama ilmiah</string>
+    <string name="field_guide_name_display">Tampilan nama</string>
+    <string name="built_in_pages">Halaman bawaan</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nAnda dapat menampilkan kembali halaman ini di pengaturan Panduan Lapangan.</string>
+    <string name="common_name">Nama umum</string>
+    <string name="both_names">Kedua nama</string>
+    <string name="clock_source_gps">Waktu GPS</string>
+    <string name="clock_device_time_accurate">Jam perangkat akurat</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="other">Jam perangkat terlambat %d detik</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="other">Jam perangkat lebih cepat %d detik</item>
+    </plurals>
+    <string name="pref_copy_trail_maps_title">Salin peta ke Trail Sense</string>
+    <string name="pref_copy_trail_maps_summary">Saat impor. Jika dinonaktifkan, file asli digunakan dan harus tetap disimpan di perangkat Anda.</string>
+    <string name="export_logs">Ekspor log</string>
+    <string name="external_storage">Penyimpanan eksternal</string>
+    <string name="external_storage_diagnostic_instructions">Pemilih file sistem tidak memiliki izin untuk mengakses file di perangkat Anda. Hal ini dapat mencegah Trail Sense membuka atau menyimpan file yang Anda pilih. Aktifkan “Izinkan akses untuk mengelola semua file” bagi pemilih file sistem (mungkin disebut Penyimpanan Eksternal).</string>
+    <string name="created">Dibuat</string>
+    <string name="average_pace">Kecepatan rata-rata</string>
+    <string name="pref_pedometer_history_days_title">Riwayat langkah</string>
+    <string name="pref_pedometer_average_pace_time_title">Waktu kecepatan rata-rata</string>
+    <string name="current_pace">Kecepatan saat ini</string>
+    <string name="exporting">Mengekspor</string>
+    <string name="export_failed">Tidak dapat mengekspor</string>
+    <string name="current_session">Sesi saat ini</string>
+    <string name="active_time">Waktu aktif</string>
+    <string name="active_duration">Aktif: %s</string>
+    <string name="elapsed_time">Waktu berlalu</string>
+    <string name="history">Riwayat</string>
+    <string name="no_pedometer_sessions">Tidak ada sesi</string>
+    <string name="alarm">Alarm</string>
+    <string name="save_draft">Simpan draf</string>
+    <string name="finish_calibration">Selesaikan kalibrasi</string>
+    <string name="calibrate_map_point_title">Titik %1$d dari %2$d</string>
+    <string name="calibrate_map_point_instructions">Ketuk lokasi ini pada peta, lalu masukkan koordinat sebenarnya di dunia nyata.</string>
+    <string name="draft">Draf</string>
+    <string name="photo_map_disclaimer">Selalu bawa peta fisik sebagai cadangan dan verifikasi akurasi Trail Sense.\n\nFile peta tidak disertakan dengan Trail Sense dan harus diunduh atau dikalibrasi dari foto. Anda dapat menemukan peta untuk diunduh di [https://kylecorry.com/Trail-Sense/offline_maps.html](https://kylecorry.com/Trail-Sense/offline_maps.html)</string>
+    <string name="pref_show_all_bottom_navigation_labels">Tampilkan semua label navigasi bawah</string>
+    <string name="use_legacy_file_picker">Gunakan pemilih file lama</string>
+    <string name="widget_icon_compatibility_mode">Mode kompatibilitas ikon widget</string>
+    <string name="widget_icon_compatibility_mode_summary">Memperbaiki ikon widget yang hilang pada beberapa perangkat</string>
+    <plurals name="step_count">
+        <item quantity="other">%d langkah</item>
+    </plurals>
+    <string name="turn_back_alarm_channel">Kembali (Alarm)</string>
+    <string name="references">Referensi</string>
+    <string name="include_mapsforge_backups">Sertakan peta jalur dalam cadangan</string>
+    <string name="include_mapsforge_backups_summary">File Mapsforge (.map) dapat berukuran besar</string>
+    <string name="offline_maps">Peta Offline</string>
+    <string name="offline_map_import_failed">Tidak dapat mengimpor peta</string>
+    <string name="no_offline_maps">Tidak ada peta offline</string>
+    <string name="unsupported_offline_map_file">File peta tidak didukung</string>
+    <string name="trail_maps">Peta jalur</string>
+    <string name="bearing_length">Panjang arah</string>
+    <string name="bearing_length_description">Panjang garis arah ketika arah aktif</string>
+    <string name="bearing_length_max">Maks.: %s</string>
+    <string name="map_layer_trail_maps_description">Peta jalur tersimpan Anda</string>
+    <string name="manage_maps">Kelola peta</string>
+    <string name="map_type_photo">Foto</string>
+    <string name="map_type_trail">Jalur</string>
+    <string name="map_external">Eksternal</string>
+    <string name="map_file_missing">File tidak ditemukan</string>
+    <string name="invalid_trail_map">Peta jalur tidak valid</string>
+    <string name="invalid_trail_map_message">File peta jalur tidak valid atau tidak ditemukan. Anda mungkin perlu menghapus peta ini dan mengimpor yang baru.</string>
+    <string name="copy_to_trail_sense">Salin ke Trail Sense</string>
+    <string name="recording_sighting_for_page">Merekam penampakan \'%s\'</string>
+    <string name="map_error_invalid_map_file">File peta tidak valid</string>
+    <string name="map_error_access_denied">Akses ke file peta ditolak</string>
+    <string name="map_error_unable_to_copy">Tidak dapat menyalin file peta</string>
+    <string name="color_by_classification">Warna berdasarkan klasifikasi</string>
 </resources>
