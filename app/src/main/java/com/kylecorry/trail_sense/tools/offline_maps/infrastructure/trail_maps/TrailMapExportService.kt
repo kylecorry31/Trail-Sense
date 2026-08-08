@@ -18,13 +18,9 @@ class TrailMapExportService(
         val uri = uriPicker.create(filename, MIME_TYPE) ?: return false
         val outputStream = files.output(uri) ?: return false
         val inputStream = files.fileInputStream(data.mapFile.path) ?: return false
-        return try {
-            val saver = FileSaver()
-            saver.save(inputStream, outputStream)
-            true
-        } catch (e: Exception) {
-            false
-        }
+        val saver = FileSaver()
+        saver.save(inputStream, outputStream)
+        return true
     }
 
     companion object {
