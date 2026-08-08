@@ -1628,4 +1628,14 @@
     <string name="map_error_unable_to_copy">无法复制地图文件</string>
     <string name="color_by_classification">按分类着色</string>
     <string name="bearing_length_max">最大：%s</string>
+    <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
+    <string name="until_sunset">直到日落</string>
+    <string name="bearing_length">轴承长度</string>
+    <string name="bearing_length_description">轴承工作时的轴承线长度</string>
+    <string name="scientific_name">学名</string>
+    <string name="field_guide_name_display">名称显示</string>
+    <string name="built_in_pages">内置页面</string>
+    <string name="hide_field_guide_page_message">%1$s\n\n可以在野外图鉴设置中取消隐藏此页面。</string>
+    <string name="common_name">通用名</string>
+    <string name="both_names">两种名称</string>
 </resources>
