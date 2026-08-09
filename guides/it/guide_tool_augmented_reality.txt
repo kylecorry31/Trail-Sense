@@ -1,0 +1,93 @@
+Lo strumento Realtà Aumentata ti permette di visualizzare i punti di riferimento e le traiettorie del sole e della luna sovrapposti al mondo reale.
+
+## Fotocamera
+Se hai l'autorizzazione per accedere alla fotocamera, vedrai un feed video in diretta sullo sfondo. Se non hai l'autorizzazione, vedrai uno sfondo nero.
+
+Puoi attivare e disattivare la fotocamera toccando l'icona della fotocamera nell'angolo in alto a destra dello schermo.
+
+Inoltre, mentre la fotocamera è attiva, puoi regolare il livello di zoom pizzicando con due dita o utilizzando il cursore nella parte inferiore dello schermo.
+
+Per impostazione predefinita, la compensazione dell'esposizione della fotocamera aumenta di notte. Puoi disattivarla tramite "Impostazioni > Realtà Aumentata > Aumenta l'esposizione di notte".
+
+## Mirino
+Un mirino circolare viene visualizzato al centro dello schermo. Puoi usarlo per vedere maggiori dettagli sul punto di riferimento che stai osservando, centrandolo nel mirino.
+
+## Individua il bersaglio
+Se uno dei layer visibili supporta la selezione del bersaglio, vedrai un'icona di ricerca nell'angolo in alto a destra dello schermo.
+
+Tocca l'icona di ricerca per aprire il selettore **Individua**. Questo ti permette di scegliere un layer visibile, come **Beacon** o **Astronomia**, e quindi selezionare un bersaglio da quel layer.
+
+Quando un bersaglio è attivo, viene visualizzato un pannello nella parte inferiore dello schermo e il reticolo si trasforma in una freccia di guida che punta verso il bersaglio. Il bersaglio rimane attivo finché non lo annulli usando il pulsante 'X' o ne selezioni un altro.
+
+## Beacon
+I beacon vicini vengono visualizzati come marcatori sullo schermo. La distanza di visualizzazione può essere regolata in Impostazioni > Realtà Aumentata > Beacon > 'Distanza di visualizzazione'.
+
+Puoi avviare la guida verso un beacon toccando l'icona di ricerca > **Beacon** e selezionando un beacon dall'elenco. Puoi anche puntare il mirino su un faro e toccare **Naviga** per avviare la guida/navigazione.
+
+## Percorsi
+I percorsi nelle vicinanze vengono visualizzati sotto i tuoi piedi. A causa dell'imprecisione del GPS, i percorsi potrebbero non essere perfettamente allineati con la realtà. La distanza di visualizzazione può essere regolata in Impostazioni > Realtà Aumentata > Percorsi > 'Distanza di visualizzazione'.
+
+Puoi scegliere di adattare i percorsi utilizzando l'altitudine registrata attivando Impostazioni > Realtà Aumentata > 'Usa altitudine percorso'. Questo dovrebbe allineare meglio i percorsi con colline e valli, ma dipende dalla precisione dei dati altimetrici.
+
+## Sole/Luna
+Le traiettorie del sole e della luna di oggi vengono visualizzate come indicatori sullo schermo. La traiettoria del sole è visualizzata in giallo e quella della luna in bianco. Un indicatore più grande viene visualizzato all'ora corrente e mostrerà anche la fase lunare. Gli orari passati sono visualizzati con un indicatore più chiaro.
+
+Se inquadri il sole o la luna nel mirino, vedrai maggiori dettagli sull'indicatore, come l'ora.
+
+È possibile selezionare oggetti astronomici dall'icona di ricerca scegliendo **Astronomia**. Questo permette di individuare il Sole, la Luna, gli sciami meteorici, i pianeti e le stelle. Questo strumento di selezione rispetta le impostazioni relative agli oggetti astronomici visibili e mostrerà alcuni bersagli solo di notte.
+
+Se hai toccato il pulsante "Visualizza in 3D" nello strumento Astronomia, ti verrà chiesto di selezionare un oggetto astronomico.
+
+Puoi visualizzare il Sole e la Luna quando sono sotto l'orizzonte attivando Impostazioni > Realtà Aumentata > "Mostra sotto l'orizzonte".
+
+## Stelle / pianeti / sciami meteorici
+Le stelle luminose, i pianeti, le costellazioni e gli sciami meteorici vengono visualizzati di notte. Se inquadri una stella nel reticolo, ne vedrai il nome e la costellazione o le costellazioni a cui appartiene. I nomi delle stelle sono i nomi propri IAU o la designazione Bayer. Le costellazioni sono quelle dell'IAU.
+
+
+È possibile disattivare la visualizzazione di stelle e pianeti disattivando l'opzione "Mostra stelle e pianeti" in Impostazioni > Realtà Aumentata > 'Mostra stelle e pianeti'.
+
+Per impostazione predefinita, vengono visualizzate solo le stelle più luminose e i pianeti più visibili (Venere, Marte, Giove, Saturno). È possibile attivare l'opzione "Mostra stelle/pianeti a bassa luminosità" in Impostazioni > Realtà Aumentata > 'Mostra stelle/pianeti meno luminosi' per visualizzare anche stelle e pianeti meno luminosi.
+
+È possibile disattivare la visualizzazione delle costellazioni disattivando l'opzione "Mostra costellazioni" in Impostazioni > Realtà Aumentata > 'Mostra costellazioni'.
+
+È inoltre possibile visualizzare stelle, pianeti, costellazioni e sciami meteorici sotto l'orizzonte attivando l'opzione "Mostra sotto l'orizzonte" in Impostazioni > Realtà Aumentata > 'Mostra sotto l'orizzonte'.
+
+## Griglia / bussola
+Sullo schermo viene visualizzata una griglia per aiutarti a orientarti. La griglia è allineata con i punti cardinali ed è distanziata di 30 gradi. La linea della griglia per il nord è evidenziata in arancione. I punti cardinali sono visualizzati sopra la griglia.
+
+## Orientamento
+L'orientamento del dispositivo viene visualizzato nella parte superiore dello schermo. Questo include la direzione della bussola e l'angolo di inclinazione. Lo strumento Realtà Aumentata rispetta l'impostazione del nord geografico che si trova in Impostazioni > Sensori > Bussola > Nord geografico.
+
+## Navigazione
+Tocca il beacon per navigare verso di esso.
+
+Durante la navigazione, vedrai una freccia attorno al mirino che punta nella direzione del beacon. Muovi il telefono verso la freccia per visualizzare il beacon. Quando il beacon è nel mirino, la freccia scomparirà.
+
+Se la navigazione tramite beacon è già attiva quando apri lo strumento Realtà Aumentata, quel beacon verrà visualizzato.
+diventa automaticamente il bersaglio corrente.
+
+Se passi da un bersaglio beacon a un bersaglio non beacon, la navigazione beacon viene annullata.
+
+## Calibrazione
+Se lo strumento di Realtà Aumentata non è allineato con il mondo reale, puoi calibrarlo toccando l'icona della bussola nell'angolo in alto a sinistra dello schermo. Ti verrà chiesto di centrare il sole o la luna nel reticolo e di toccare "Calibra".
+
+Verifica sempre la precisione rispetto al sole, alla luna o a punti di riferimento noti prima di utilizzare questo strumento. A seconda della qualità dei sensori del telefono, potrebbe essere necessario ripetere la calibrazione frequentemente.
+
+Non sarà possibile calibrare in una notte senza luna.
+
+Se il dispositivo è dotato di giroscopio, la calibrazione imposterà lo strumento in modo che utilizzi il giroscopio per l'orientamento. Puoi disabilitare questa funzione in Impostazioni > Realtà Aumentata > "Usa giroscopio dopo la calibrazione".
+
+Per reimpostare la calibrazione, tieni premuta l'icona della bussola oppure chiudi e riapri lo strumento.
+
+
+### Precisione
+La precisione della bussola e del GPS viene visualizzata in basso a sinistra dello schermo. Tocca le icone di stato per visualizzare maggiori dettagli sulla precisione e per ulteriori istruzioni sulla calibrazione della bussola.
+
+## Sensore
+Lo strumento Realtà Aumentata utilizza la sorgente della bussola impostata in Impostazioni > Sensori > Bussola > Sorgente. Se il dispositivo non dispone di un giroscopio, lo strumento funzionerà comunque, ma non sarà altrettanto preciso e potrebbe presentare delle oscillazioni.
+
+## Livelli
+È possibile attivare o disattivare la visibilità dei livelli relativi a beacon, percorsi, astronomia e griglia toccando l'icona del livello nell'angolo in alto a sinistra dello schermo o modificando l'impostazione "Visibile" in Impostazioni > Realtà Aumentata.
+
+## Cursore data/ora
+Tocca l'icona dell'orologio sul lato destro dello schermo per aprire il cursore di data e ora. Puoi utilizzare questo pannello per visualizzare in anteprima un orario diverso in una data specifica. Tocca di nuovo l'icona dell'orologio per tornare all'ora corrente.

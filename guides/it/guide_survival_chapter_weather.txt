@@ -1,0 +1,206 @@
+<!-- K: meteo, condizioni, cielo -->
+<!-- S: Conoscere le previsioni del tempo. -->
+
+Il tempo può cambiare rapidamente, passando da una bella giornata a una situazione di pericolo per la vita. È fondamentale essere sempre preparati alle condizioni meteorologiche della propria zona e tenersi aggiornati sulle previsioni.
+
+**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non sostituisce la formazione professionale, i servizi di emergenza, le indicazioni locali o le istruzioni del produttore/del prodotto. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; verificare le informazioni prima di agire, seguire le leggi e le istruzioni locali e non esitare a chiedere aiuto in caso di emergenza. Non affidarsi esclusivamente a questa guida o al telefono come unico piano di sicurezza o mezzo di comunicazione.**
+
+## Prepararsi
+<!-- K: preparare, attrezzatura, conoscenza, abilità, previsioni, abbigliamento, riparo, poncho, occhiali da sole, barometro, termometro -->
+<!-- S: Portare abbigliamento e riparo adeguati alle condizioni meteorologiche. Imparare a riconoscere i segnali di un peggioramento del tempo. -->
+
+### Attrezzatura
+
+**Necessario**:
+- Previsioni meteo a 7 giorni
+- Abbigliamento e riparo adeguati alle condizioni meteorologiche (vedi il capitolo Riparo)
+- Poncho
+- Occhiali da sole
+
+**Facoltativo**:
+- Barometro
+- Molti smartphone hanno un barometro, ma richiedono un'app per utilizzarlo
+- Termometro
+
+### Conoscenze e abilità
+Inizia imparando a fare quanto segue:
+- Leggere le previsioni del tempo.
+
+- Affrontare diversi tipi di tempo.
+
+- Riconoscere i segnali di un peggioramento del tempo.
+
+Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
+- Riconoscere i segnali di un miglioramento del tempo.
+
+Prevedere il tempo in base alle osservazioni.
+
+Comprendere il clima della tua regione.
+
+- Prevedere le maree.
+
+## Meteo
+<!-- K: meteo, tempesta -->
+<!-- Q: Cerca riparo durante le tempeste violente. Preparati a diverse condizioni, come precipitazioni, temperatura, umidità e vento forte. Le condizioni meteorologiche possono cambiare rapidamente e influenzare significativamente le attività all'aperto. Nelle regioni montuose, è necessario prestare particolare attenzione quando ci si trova al di sopra del limite della vegetazione arborea, poiché il tempo può essere più rigido e si è più esposti agli agenti atmosferici.
+
+### Precipitazioni
+<!-- K: pioggia, neve, grandine, nevischio, precipitazioni -->
+
+In genere, è possibile continuare le attività all'aperto in caso di precipitazioni leggere. Tuttavia, se inizia a piovere forte, è consigliabile cercare riparo. Durante le forti piogge, i fiumi e i torrenti possono ingrossarsi rapidamente e sono possibili inondazioni improvvise. Le precipitazioni possono anche causare ipotermia, quindi è importante essere consapevoli dei rischi e adottare misure per rimanere al caldo e all'asciutto.
+
+Le bufere di neve possono causare condizioni di visibilità quasi nulla, riducendo drasticamente la visibilità. Se sorpresi da una bufera di neve, è necessario cercare immediatamente riparo e rimanere al caldo e all'asciutto.
+
+### Temperatura e umidità
+<!-- K: temperatura, umidità, caldo, freddo, caldo, tiepido, fresco -->
+
+Con il freddo, vestirsi a strati e indossare cappello e guanti per evitare la dispersione di calore. Rimanete asciutti, poiché gli indumenti bagnati possono causare una più rapida dispersione del calore corporeo.
+
+Con il caldo, idratatevi e fate delle pause all'ombra. Indossate la crema solare e indumenti protettivi per proteggervi dall'esposizione al sole. L'elevata umidità può far percepire una temperatura più alta e rendere più difficile rinfrescarsi.
+
+La temperatura diminuisce di circa 2 °C ogni 305 metri di dislivello. Se state facendo un'escursione in una regione montuosa, potrebbe fare caldo a valle, ma preparatevi a temperature fredde e ventose in cima.
+
+### Vento
+<!-- K: wind, gust, storm, hurane, tornado, sandstorm, prevalenting, blow, direction -->
+
+Il vento può far percepire il freddo in modo ancora più intenso, aumentando il rischio di ipotermia e congelamento. Vestitevi a strati e indossate un cappello e dei guanti per proteggervi dal vento. Durante le tempeste di vento, alberi e rami instabili possono diventare pericolosi. È necessario prestare particolare attenzione quando la velocità del vento supera i 32 km/h (20 mph). Il vento può causare tempeste di sabbia negli ambienti desertici, riducendo la visibilità e rendendo difficile la respirazione. Cercate riparo durante una tempesta di sabbia e proteggete occhi e bocca con una bandana o un panno. Nelle zone costiere, il vento può causare condizioni di mare pericolose, come onde alte o correnti di risacca.
+
+I venti prevalenti sono venti che soffiano costantemente in una direzione per un periodo prolungato. Sebbene la geografia locale e la presenza di specchi d'acqua possano influenzare i modelli dei venti, i modelli generali per le seguenti latitudini sono i seguenti:
+- da 60° N a 90° N: i venti soffiano generalmente da est.
+
+- da 30° N a 60° N: i venti soffiano generalmente da ovest.
+
+- da 0° a 30° N: i venti soffiano generalmente da nord-est.
+
+- da 0° a 30° S: i venti soffiano generalmente da sud-est.
+
+- da 30° S a 60° S: i venti soffiano generalmente da ovest. - Da 60° S a 90° S: I venti soffiano generalmente da est.
+
+Queste direzioni indicano anche da dove è più probabile che arrivi il maltempo. Ad esempio, se vi trovate a una latitudine di 40° N e vedete un temporale a ovest, è probabile che arrivi presto anche nella vostra zona.
+
+### Nebbia
+<!-- K: fog, visibility -->
+
+La nebbia riduce la visibilità, rendendo difficile l'orientamento. Se fate escursioni nella nebbia, attenetevi ai sentieri segnalati e utilizzate una mappa, una bussola o un GPS per orientarvi. Fate molta attenzione a dove mettete i piedi, poiché la nebbia può rendere il terreno scivoloso.
+
+### Fulmini
+<!--- K: fulmine, tuono, temporale, colpire, capelli -->
+
+Se ti trovi all'aperto durante un temporale, cerca immediatamente riparo. Evita di rimanere in campi aperti, cime, crinali, alberi alti, corsi d'acqua, ingressi di grotte, recinzioni o pali, o nelle loro vicinanze. Se ti trovi in una foresta, resta vicino ad alberi più bassi. Le tende non proteggono dai fulmini.
+
+Se senti i capelli rizzarsi o un crepitio, sei in imminente pericolo di essere colpito da un fulmine.
+
+Puoi stimare la distanza di un temporale contando i secondi che intercorrono tra il lampo e il tuono. Dividi il numero di secondi per 5 per ottenere la distanza in miglia. Un miglio corrisponde a circa 1,6 chilometri. Qualsiasi temporale entro 6 miglia (10 chilometri) rappresenta una minaccia immediata, ma se senti anche solo un tuono, cerca riparo.
+
+### Sole
+<!-- K: sole, UV, indice UV, scottature, colpo di calore, ombra -->
+
+Indossa crema solare, indumenti protettivi e occhiali da sole nelle giornate con un alto indice UV. Nei climi caldi, mantieniti idratato e fai delle pause all'ombra. Se c'è neve al suolo o ti trovi in acqua, indossa occhiali da sole per prevenire la cecità da neve.
+
+### Fumo
+<!-- K: fumo, incendi boschivi, qualità dell'aria, inquinamento -->
+
+Gli incendi boschivi possono causare la propagazione del fumo su lunghe distanze, apparendo come una foschia. Se possibile, evita le attività all'aperto nelle giornate con scarsa qualità dell'aria.
+
+## Clima
+<!-- K: clima, media -->
+<!-- Q: Il clima della tua regione può indicare quali condizioni meteorologiche sono comuni in quel periodo dell'anno. -->
+
+Il clima di una regione si riferisce alle sue condizioni meteorologiche medie nel tempo. Dovresti informarti sulle temperature medie giornaliere massime e minime, sulla frequenza di pioggia o neve, sul livello di umidità normale e sulla direzione del vento prevalente. Dovresti prepararti a un ritorno alle condizioni climatiche normali a lungo termine, quindi se durante la tua escursione fa insolitamente caldo ma la temperatura minima media è sotto zero, porta con te abbigliamento adatto al freddo. Durante la stagione secca, fai molta attenzione ad accendere un fuoco e tieni conto della scarsità di fonti d'acqua naturali.
+
+## Previsioni
+<!-- Q: previsioni, predizioni, segnali -->
+<!-- S: I segnali di un peggioramento del tempo includono aumento della nuvolosità, cielo che si oscura, vento forte e improvvisi cali di temperatura. -->
+
+Puoi imparare a prevedere il tempo osservando i segnali intorno a te. Più segnali noti, più accurate saranno le tue previsioni.
+
+### Segnali di peggioramento del tempo
+<!-- K: tempesta, peggiorare, brutto, pioggia, buio -->
+
+- Aumento della copertura nuvolosa
+- Le nuvole iniziano a crescere verticalmente (assumendo una forma a incudine)
+- Questo indica un temporale
+- Dietro le nuvole
+- Le nuvole si muovono velocemente
+- Nuvole basse
+- Aumento della velocità del vento
+- Improvvisi cali di temperatura
+
+- Diminuzione della pressione barometrica
+
+Cali più rapidi possono indicare condizioni meteorologiche più avverse
+- La direzione del vento cambia e diventa opposta al vento prevalente
+- Gli animali diventano silenziosi
+- Aumento dell'umidità
+- Si vedono fulmini o si sente il tuono.
+
+- Senti odore di pioggia
+
+### Segnali di miglioramento del tempo
+<!-- K: miglioramento, buono, sereno -->
+
+- Diminuzione della copertura nuvolosa
+- Diminuzione della velocità del vento
+- Aumento della temperatura
+- Aumento della pressione barometrica
+- Cambio di direzione del vento per adattarsi al vento prevalente
+- Gli animali diventano attivi
+- Diminuzione dell'umidità
+
+### Nuvole
+<!-- K: nuvola, tipo, cumulo, cirro, cumulonembo, altocumulo, strato, altostrato, sereno, cirrostrato, nimbostrato, cirrocumulo -->
+
+Identificare il tipo di nuvola può migliorare la tua capacità di prevedere il tempo.
+
+![](file:///android_asset/survival_guide/clouds.webp)
+
+1. **Cirrocumuli**: Nuvole ad alta quota che formano uno strato ondulato. Lo strato è composto da piccoli punti che sembrano quasi bidimensionali. Possono indicare precipitazioni nelle prossime 8-12 ore.
+
+2. **Altocumuli**: Nuvole di media altitudine, soffici e simili a batuffoli di cotone. Sono tipicamente bianche con zone più scure nella parte inferiore e possono essere sparse o a forma di velo. Possono indicare precipitazioni o un temporale nelle prossime 12 ore.
+
+3. **Cumuloni**: Nuvole basse, soffici e simili a batuffoli di cotone. Sono sparse e tipicamente bianche con zone più scure nella parte inferiore. Di solito indicano bel tempo, ma se si stanno alzando, potrebbero verificarsi precipitazioni o un temporale nelle prossime ore.
+
+4. **Cumulonimbi**: Nuvole basse e soffici, molto alte. Hanno tipicamente una forma a incudine e sono scure. Possono indicare un temporale entro pochi minuti.
+
+5. **Cirrostrati**: Nuvole alte che coprono il cielo. Sono trasparenti e in genere causano la formazione di un alone intorno al sole. Possono indicare precipitazioni nelle prossime 10-15 ore.
+
+6. **Altostrati**: Nuvole di media altitudine che coprono il cielo. Il sole è appena visibile come una macchia luminosa. Potrebbe indicare precipitazioni nelle prossime 8 ore.
+
+7. **Strato**: una nuvola bassa che copre il cielo. Gli oggetti non proiettano ombre e può esserci nebbia. Se c'è nebbia, potrebbe indicare bel tempo per le prossime ore; altrimenti, potrebbe indicare precipitazioni a breve.
+
+8. **Nimbostrato**: una nuvola di media altitudine, di colore grigio scuro, che copre il cielo. Se non piove, potrebbe trattarsi di uno strato. Potrebbe causare precipitazioni nelle prossime ore.
+Tratocumuli**: Nuvole basse che sembrano batuffoli di cotone con piccoli spazi vuoti. Il colore varia dal bianco al grigio scuro. Possono indicare bel tempo per le prossime ore.
+
+Cirri**: Nuvole alte e sottili che sembrano ciuffi di capelli bianchi. Possono indicare precipitazioni nelle prossime 12-24 ore.
+
+## Maree
+<!-- K: marea, acqua, costa, innalzamento, abbassamento, luna, oceano, mare, semidiurna, diurna, mista -->
+<!-- S: Nella maggior parte dei luoghi si verificano due alte maree e due basse maree al giorno. Consultare le tabelle delle maree prima di recarsi in costa. -->
+
+Le maree possono influenzare le attività all'aperto vicino alla costa. Consultare le tabelle delle maree prima di recarsi in costa. Le tabelle delle maree sono disponibili online o sui giornali locali.
+
+Questa mappa mostra i tipi di marea in tutto il mondo. Il verde indica maree semidiurne, il blu maree miste e l'arancione maree diurne.
+
+
+![](file:///android_asset/survival_guide/tides.webp)
+
+### Maree semidiurne
+Le maree semidiurne hanno due alte maree e due basse maree al giorno. Se conosci l'ora dell'alta marea, la successiva bassa marea si verificherà circa 6 ore dopo, e la successiva alta marea circa 6 ore dopo ancora.
+
+### Maree miste
+Le maree miste sono un tipo di marea semidiurna, ma l'altezza dell'alta e/o della bassa marea varia durante il giorno.
+
+### Maree giornaliere
+Le maree giornaliere hanno un'alta marea e una bassa marea al giorno. Se conosci l'ora dell'alta marea, la successiva bassa marea si verificherà circa 12 ore dopo, e la successiva alta marea circa 12 ore dopo ancora.
+
+## Notte
+<!-- K: notte, buio, luce, luna, stelle, torcia elettrica -->
+<!-- S: Fai attenzione all'orario del tramonto per evitare di essere colto al buio. Usa una torcia elettrica per orientarti di notte. -->
+
+Puoi stimare il tempo che manca al tramonto tenendo la mano orizzontalmente con le dita unite e contando il numero di dita che separano il sole dall'orizzonte. Ogni dito rappresenta circa 15 minuti.
+
+![](file:///android_asset/survival_guide/sunset_hand.webp)
+
+Orientarsi al buio è sconsigliato; se necessario, usa una torcia elettrica o una lampada frontale per illuminare il percorso. Nelle notti di luna quasi piena, puoi usare la luce lunare per orientarti.
+
+Se ti trovi in una zona montuosa, potrebbe fare buio prima se ti trovi sul versante orientale della catena montuosa.
+9. **S**

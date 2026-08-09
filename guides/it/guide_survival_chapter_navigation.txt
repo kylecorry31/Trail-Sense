@@ -1,0 +1,416 @@
+<!-- K: navigazione -->
+<!-- S: Pianifica un percorso e determina la tua posizione. -->
+
+Saper orientarsi in un ambiente selvaggio può aiutarti a evitare di perderti o a ritrovare la strada verso la salvezza se esci dal sentiero.
+
+**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non sostituisce la formazione professionale, i servizi di emergenza, le indicazioni locali o le istruzioni del produttore/del prodotto. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; verifica le informazioni prima di agire, segui le leggi e le istruzioni locali e non esitare a chiedere aiuto in caso di emergenza. Non fare affidamento su questa guida o sul tuo telefono come unico piano di sicurezza o mezzo di comunicazione.**
+
+## Preparati
+<!-- K: preparazione, attrezzatura, conoscenza, abilità, mappa, bussola, torcia, GPS -->
+<!-- S: Porta con te una mappa, una bussola e una torcia. Impara a orientarti con una mappa e una bussola e a pianificare i percorsi. -->
+
+### Attrezzatura
+**Necessario**:
+- Mappa
+- Bussola
+- Torcia/lampada frontale
+
+**Opzionale**:
+- Dispositivo GPS
+
+### Conoscenze e abilità
+Inizia imparando a fare quanto segue:
+- Orientarsi con una mappa e una bussola.
+
+- Pianificare un percorso.
+
+- Impostare la declinazione magnetica su una bussola.
+
+- Determinare la propria posizione su una mappa.
+
+- Misurare le distanze su una mappa.
+
+- Leggere una carta topografica.
+
+Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
+- Usare un dispositivo GPS per la navigazione.
+
+Utilizzare tecniche di navigazione avanzate, come l'uso del sole e delle stelle.
+
+Fare una deviazione.
+
+## Pianificazione del percorso
+<!-- K: percorso, pianificazione, viaggio -->
+<!-- S: Pianifica il tuo percorso per evitare di perderti e assicurarti di raggiungere la tua destinazione in sicurezza. -->
+
+Quando pianifichi un percorso, scegline uno adatto al tuo livello di abilità e forma fisica, utilizzando una carta topografica per valutare la difficoltà del terreno. Utilizzate la mappa per identificare punti di riferimento lungo il percorso, come guadi di torrenti o fiumi, formazioni naturali o incroci di sentieri, per aiutarvi a rimanere sulla giusta via. Assicuratevi inoltre di individuare fonti d'acqua, percorsi alternativi e indicazioni per strade o paesi.
+
+## Movimento
+<!-- K: movimento, terreno, trekking, bastone da trekking
+<!-- S: Muovetevi con cautela e adattatevi al terreno. Evitate di seguire le tracce degli animali. -->
+
+Muovervi con cautela e adattarvi al terreno sono precauzioni importanti per evitare infortuni o di perdervi. In generale, mantenete il peso del corpo ben distribuito sui piedi, fate attenzione a dove mettete i piedi e fate frequenti pause per riposare. Rimanete sempre sui sentieri segnalati e fate attenzione alle tracce degli animali; potrebbero condurre a risorse come l'acqua, ma possono anche farvi perdere.
+
+I bastoncini da trekking o un bastone da passeggio possono essere utili per alcune persone, soprattutto su terreni accidentati o in caso di problemi alle ginocchia. Puoi verificare se stai usando il bastone dell'altezza corretta assicurandoti che il gomito formi un angolo di 90 gradi quando il bastone tocca terra.
+
+### Montagna
+
+I ripidi pendii dei terreni montuosi possono stancarti o causare lesioni alle articolazioni, quindi fai molta attenzione a fare delle pause. Per facilitare la salita, cammina a zig-zag; questo schema aumenterà la distanza percorsa, ma sarà meno ripido. In discesa, mantieni le ginocchia leggermente piegate per proteggere le articolazioni. Se stai scalando una montagna alta, prenditi il tuo tempo in modo da poterti acclimatare all'altitudine senza ammalarti.
+
+### Neve
+
+Camminare sulla neve può essere faticoso e non sai mai con certezza su cosa stai camminando; la neve potrebbe nascondere una lastra di ghiaccio, una buca o dell'acqua. Prima di camminare, potete usare un bastone o un'asta per testare lo spessore del ghiaccio e della neve. Evitate di camminare su specchi d'acqua ghiacciati a meno che non conosciate lo spessore del ghiaccio. Se avete racchette da neve o sci, usateli per evitare che i piedi affondino nella neve.
+
+Fate attenzione alle zone a rischio valanghe. Queste zone possono essere segnalate e si trovano in genere su pendii con inclinazione compresa tra 30° e 45°.
+
+### Deserto
+<!-- K: deserto, caldo, ombra -->
+
+I deserti sono in genere caldi e secchi, con notti potenzialmente fredde, quindi preparatevi portando con voi abbigliamento adeguato e acqua a sufficienza. Evitate di viaggiare nelle ore più calde della giornata e, se possibile, rimanete in zone ombreggiate. A causa della mancanza di punti di riferimento visivi, i sentieri nel deserto possono sembrare più corti di quanto non siano in realtà. Se portate con voi dispositivi elettronici, assicuratevi di proteggerli dal calore eccessivo e dalla luce solare diretta.
+
+### Giungla
+<!-- K: giungla, umido, vegetazione -->
+
+Le giungle sono caratterizzate da una vegetazione fitta, elevata umidità e frequenti precipitazioni. Muoviti seguendo la vegetazione anziché contrastarla per risparmiare energia e concentrati su punti di riferimento lontani piuttosto che su oggetti vicini per mantenere la direzione. La fitta chioma degli alberi rende più difficile per le squadre di soccorso trovarti e i dispositivi GPS potrebbero non essere affidabili. Indossa sempre indumenti protettivi per evitare punture e morsi di insetti e cura tempestivamente eventuali ferite o graffi per prevenire infezioni.
+
+### Notte
+<!-- K: night, dark, light, flashlight -->
+
+Se puoi evitare di viaggiare di notte, è meglio rimanere dove sei. Se deviDurante i viaggi, utilizzate una torcia o una lampada frontale per illuminare il percorso, muovendovi lentamente e con attenzione per evitare incidenti. Usate l'udito per individuare utili segnali ambientali come l'acqua corrente o strade lontane che possono aiutarvi nell'orientamento.
+
+### Fiumi e torrenti
+<!-- K: fiume, corrente, attraversare -->
+
+Quando attraversate fiumi o torrenti, cercate il tratto più basso e calmo o le zone in cui l'acqua si divide in più canali. Quando possibile, utilizzate ponti o rocce asciutte come punti di attraversamento, ma fate attenzione alle superfici scivolose o instabili. Evitate di attraversare dove le correnti sono forti o vicino a sporgenze. Ogni volta che attraversate un fiume o un torrente, slacciate lo zaino per evitare di essere trascinati sott'acqua dal suo peso in caso di caduta.
+
+In situazioni di emergenza, seguire un fiume a valle potrebbe condurre a un centro abitato, poiché molti insediamenti sorgono vicino a fonti d'acqua. Tuttavia, questo non è garantito.
+
+### Zone costiere
+<!-- K: costa, oceano, spiaggia, marea, mare -->
+
+Le regioni costiere sono tipicamente caratterizzate da maree, scogliere e spiagge rocciose o sabbiose. Non camminate sulle spiagge a piedi nudi, poiché potrebbero esserci vetri o altri oggetti appuntiti sepolti. Per evitare di rimanere bloccati durante l'alta marea, consultate le tabelle delle maree prima della partenza e tenete d'occhio l'orario. Consultate il capitolo "Meteo" per informazioni sulle previsioni delle maree.
+
+### Deviazioni
+<!-- K: deviazione, ostacolo -->
+
+Se incontrate un ostacolo sul vostro percorso, potrebbe essere necessario fare una deviazione. Per farlo, individuate un punto di riferimento da raggiungere dall'altro lato dell'ostacolo, quindi girate di 90 gradi e camminate fino alla fine dell'ostacolo. Una volta lì, girate di nuovo di 90 gradi nella direzione originale e superate l'ostacolo. Quindi, girate di nuovo di 90 gradi e camminate fino al punto di riferimento che avete scelto. Infine, girate di nuovo di 90 gradi per riprendere la direzione originale.
+
+
+## Segnaletica dei sentieri
+<!-- K: sentiero, segnaletica -->
+<!-- S: La segnaletica dei sentieri ti aiuta a rimanere sul percorso. -->
+
+La segnaletica dei sentieri indica la posizione del sentiero e distingue un sentiero dall'altro. Esistono molti metodi per segnalare i sentieri e non esiste uno standard universale.
+
+### Segnalibri
+<!-- K: segnale, vernice, simbolo, rettangolo, quadrato, cerchio, triangolo, croce, bandiera -->
+
+I segnali sono simboli dipinti su alberi o rocce. In genere, sono rettangoli, quadrati, cerchi, triangoli o croci. Nella maggior parte dei casi, ogni sentiero è dipinto con un colore e/o una forma di segnale diversa.
+
+Alcuni segnali possono anche indicare la direzione del sentiero, ma questo potrebbe non valere ovunque.
+
+![](file:///android_asset/survival_guide/trail_blazes.webp)
+
+1. **Due segnavia, quello in alto a sinistra**: Continuare a sinistra
+2. **Due segnavia, quello in alto a destra**: Continuare a destra
+3. **Un segnavia**: Continuare dritto
+
+Sebbene non sia sempre vero, il colore e/o la forma dei segnavia dovrebbero corrispondere a quanto appare su una mappa, tranne per il fatto che i segnavia bianchi sono in genere neri su una mappa. Se un sentiero è nuovo, potrebbe avere piccole strisce di plastica o bandierine legate a un albero al posto dei segnavia.
+
+### Ometti di pietra
+<!-- K: ometto di pietra, cumulo, roccia, pila -->
+
+Gli ometti di pietra sono cumuli di pietre, in genere utilizzati in luoghi privi di grandi alberi da segnare. Gli ometti di pietra sono solitamente posizionati a lato del sentiero e dovreste essere in grado di vederne diversi contemporaneamente. In alcuni punti, i cairn possono essere piccoli cumuli di pietre (in genere 3) e possono essere difficili da individuare.
+
+### Segnaletica
+<!-- K: segnale -->
+
+I cartelli dei sentieri forniscono informazioni sul sentiero che si sta percorrendo, sulla distanza/direzione per raggiungere punti di interesse o offrono informazioni/avvisi generali. Leggere sempre e rispettare la segnaletica dei sentieri.
+
+### Ostacoli
+<!-- K: blocco, mucchio, ostacolo, bastone -->
+
+In alcuni punti, alberi caduti o detriti vengono intenzionalmente posizionati davanti a un sentiero per indicare che non deve essere utilizzato.
+
+## GPS
+<!-- K: gps, dispositivo -->
+<!-- S: Un dispositivo GPS può aiutarti a determinare la tua posizione e a navigare verso un punto specifico, ma è sempre bene avere un piano di riserva nel caso in cui il dispositivo si guasti. -->
+
+Un dispositivo GPS può aiutarti a determinare la tua posizione e a navigare verso un punto specifico, ma è sempre bene avere un piano di riserva nel caso in cui il dispositivo si guasti. Un dispositivo GPS specifico per l'escursionismo è in genere più resistente di uno smartphone, ma uno smartphone con un'app GPS o di mappe è sufficiente.
+
+### Posizione
+<!-- K: posizione, latitudine, longitudine, coordinate, satellite -->
+
+Un GPS utilizza i satelliti per determinare la tua posizione. Assicurati che il dispositivo abbia una visuale libera del cielo in modo che possa ricevere i segnali. La maggior parte dei dispositivi GPS visualizza le coordinate in latitudine e longitudine, che possono essere riportate su una mappa.
+
+### Waypoint
+<!-- K: waypoint, beacon, backtrack, satellite, save, posizione, poi, point-of-interest -->
+
+Un waypoint è una posizione specifica verso cui si desidera navigare. È possibile inserire waypoint nel GPS per essere guidati a destinazione. La maggior parte dei dispositivi consente di inserire waypoint prima del viaggio, ma è anche possibile aggiungerli durante il percorso. Posiziona i waypoint frequentemente in modo da poter tornare indietro se necessario.
+
+### Batteria
+<!-- K: battery, charge, power -->
+
+Il tuo dispositivo GPS potrebbe scaricarsi, quindi porta con te batterie di ricambio o un caricabatterie portatile per mantenerlo alimentato.
+
+### Mappe digitali
+<!-- K: map, download, digital -->
+
+Se il tuo GPS supporta le mappe digitali Per orientarsi, scaricate in anticipo le mappe della vostra zona, anche in caso di perdita del segnale.
+
+## Bussola
+<!-- K: bussola, nord, sud, est, ovest, orientamento, trovare, determinare -->
+<!-- S: Una bussola aiuta a determinare la direzione. Assicuratevi di impostare la stessa declinazione magnetica della mappa. -->
+
+Una bussola aiuta a determinare la direzione ed è essenziale per la navigazione, soprattutto con una mappa. Non usate la bussola in prossimità di oggetti metallici, poiché la lettura risulterà imprecisa. Se utilizzate una bussola digitale su uno smartphone, dovrete calibrarla ruotando il dispositivo a forma di otto (la sequenza può variare a seconda del dispositivo).
+
+### Indicazioni stradali
+<!-- K: direzione, cardinale, nord, sud, est, ovest, primaria, secondaria, nord-est, sud-est, nord-ovest, sud-ovest -->
+
+Potreste vedere le direzioni indicate con simboli, parole o gradi (da 0° a 360°). Ecco alcune direzioni comuni che potresti incontrare:
+
+- Nord (N): 0° o 360°
+- Nord-est (NE): 45°
+- Est (E): 90°
+- Sud-est (SE): 135°
+- Sud (S): 180°
+- Sud-ovest (SO): 225°
+- Ovest (O): 270°
+- Nord-ovest (NO): 315°
+
+### Rilevamenti
+<!-- K: rilevamento, direzione, ago, lettura -->
+
+Un rilevamento è la direzione da seguire per raggiungere un punto specifico. Determinare il rilevamento dipende dal tipo di bussola che stai utilizzando. Nella maggior parte delle bussole, l'intero quadrante o un ago ruota per indicare il nord.
+
+Le bussole a quadrante (a bottone, a quadrante, a lente, digitali) hanno una piastra circolare con indicatori di direzione e tacche stampate. Tieni la bussola piatta davanti a te. La direzione sulla piastra rivolta in avanti è il tuo rilevamento.
+
+
+Le bussole ad ago o a piastra hanno un ago rotante, con un lato solitamente dipinto di rosso per indicare il nord. Le direzioni sono stampate su una ghiera che si può ruotare a mano, e sotto l'ago si può notare una freccia larga che ruota insieme ad essa. Di solito c'è una freccia o una linea fissa sul corpo della bussola. Tenete la bussola piatta davanti a voi con la freccia fissa rivolta lontano da voi. Ruotate la ghiera finché il lato nord dell'ago non si allinea con la freccia larga sottostante o con il nord sul quadrante (sono la stessa cosa). La direzione immediatamente dietro la freccia indica la vostra rotta.
+
+Potete usare l'immagine qui sotto per vedere come leggere la direzione sulla bussola.
+
+![](file:///android_asset/survival_guide/compass_bearings.webp)
+
+Se sapete in quale direzione dovete andare, ruotatevi fino a essere rivolti verso quella rotta. Potete evitare di dover tenere la bussola in vista individuando un punto di riferimento evidente in lontananza e dirigendovi verso di esso.
+
+### Rilevamento inverso
+<!-- K: indietro, rilevamento inverso, opposto, ritorno -->
+
+Il rilevamento inverso è la direzione opposta a quella attuale. Per calcolare il rilevamento inverso: se la direzione attuale è inferiore a 180 gradi, aggiungi 180. Se è superiore a 180, sottrai 180. Su una bussola, il rilevamento inverso è esattamente di fronte alla direzione attuale.
+
+Per utilizzare il rilevamento inverso per orientarsi, è necessario rilevare la direzione prima di iniziare l'escursione. Annota o memorizza questo rilevamento e, a meno che tu non abbia cambiato drasticamente direzione, seguire il rilevamento inverso ti condurrà vicino al punto di partenza. Ogni volta che effettui una svolta, dovresti annotare il rilevamento.
+
+
+### Declinazione
+<!-- K: declinazione, vera, magnetica, griglia, nord, somma, sottrazione -->
+
+La declinazione è la differenza tra il nord magnetico (solitamente indicato con MN) e il nord vero (solitamente indicato con TN o una stella) e viene generalmente rappresentata sulla mappa da due frecce e un grado. La tua mappa è probabilmente allineata con il nord vero. Se la tua bussola ha una regolazione per la declinazione, ruotala in modo che corrisponda alla freccia e sarai pronto a confrontare le rilevazioni tra la bussola e la mappa senza ulteriori regolazioni. Altrimenti, dovrai compensare manualmente la declinazione utilizzando le seguenti tecniche: Per convertire una lettura della bussola in una lettura sulla mappa, aggiungi la declinazione alla lettura della bussola. Per convertire dalla mappa alla bussola, sottrai la declinazione. Se la freccia del nord magnetico è disegnata a sinistra della freccia del nord vero, il valore della declinazione è negativo. Ad esempio, se la tua mappa indica 10° di declinazione:
+
+- Una rilevazione della bussola di 20° corrisponderebbe a 30° sulla mappa (20° + 10°). - Una lettura di 30° sulla mappa corrisponde a 20° sulla bussola (30° - 10°).
+
+In rari casi, una mappa può essere orientata rispetto al nord geografico (GN) anziché al nord geografico. Queste mappe riportano un valore in secondi, che rappresenta la differenza tra il nord geografico e il nord geografico. Aggiungete questo valore alla declinazione magnetica per orientare la bussola in base alle linee sulla mappa.
+
+La declinazione magnetica cambia nel tempo, quindi se state usando una mappa vecchia, dovreste cercare il valore attuale della declinazione magnetica per la vostra posizione.
+
+Ecco una mappa della declinazione magnetica per il 2025:
+
+![](file:///android_asset/survival_guide/declination.webp)
+
+## Mappa
+<!-- K: mappa, lettura -->
+<!-- S: È possibile utilizzare una mappa per orientarsi una volta imparato a leggerla. Assicuratevi che sia aggiornata. -->
+
+Una mappa è uno strumento fondamentale per la navigazione, soprattutto se abbinata a una bussola.
+
+
+### Orientamento
+<!-- K: orient, north, compass -->
+
+È possibile orientare una mappa verso nordOrientarsi a nord con una bussola:
+1. Posizionare la bussola sulla mappa con la freccia di direzione rivolta verso l'alto.
+
+2. Ruotare la mappa e la bussola insieme finché la bussola non indica nord. L'immagine sottostante mostra come apparirà la mappa se la bussola è regolata per la declinazione magnetica (1) o se è necessario allinearla con il nord magnetico (2).
+
+![](file:///android_asset/survival_guide/map_orientation.webp)
+
+### Determinazione della posizione
+<!-- K: posizione, triangolazione, punto di riferimento, rilevamento, trovare -->
+
+Per determinare la propria posizione su una mappa, individuare i punti di riferimento principali intorno a sé e riportarli sulla mappa. Utilizzare una bussola per determinare la direzione e orientare la mappa di conseguenza.
+
+Per triangolare la propria posizione:
+1. Orientare la mappa in modo che punti a nord utilizzando la bussola.
+
+2. Individuare e segnare sulla mappa due punti di riferimento principali intorno a sé.
+
+3. Misurare il rilevamento di ciascun punto di riferimento utilizzando la bussola.
+
+4. Traccia delle linee da ciascun punto di riferimento nella direzione indicata sulla mappa.
+
+5. Il punto di intersezione delle linee rappresenta la tua posizione.
+
+![](file:///android_asset/survival_guide/triangulation.webp)
+
+Per ottenere le tue coordinate GPS su una mappa in UTM (un sistema di coordinate molto comune):
+
+1. Trova il numero della zona UTM, che è un numero di una o due cifre seguito da una lettera (ad esempio, "16T").
+
+2. Individua i valori di Est e Nord sui bordi della mappa. Di solito sono indicati e possono avere da 3 a 6 o 7 cifre. Aggiungi tre zeri se ci sono solo 3 cifre (ad esempio, 123 diventa 123000). L'Est si troverà in alto o in basso; il Nord a sinistra o a destra.
+
+3. Osserva le linee della griglia sulla mappa per identificare la zona della griglia in cui ti trovi. Queste linee rappresentano le prime cifre della tua posizione (ad esempio, 123000E e 234000N).
+
+4. Per una maggiore precisione, dividi la griglia in 10 sezioni uguali verticalmente e orizzontalmente. Individua la linea della griglia più vicina alla tua posizione. Usa un righello per maggiore precisione. Ad esempio, se la tua posizione si trova a due decimi a destra e un decimo in alto rispetto all'angolo inferiore sinistro della griglia, la tua nuova posizione sarà 123200E e 234100N.
+
+![](file:///android_asset/survival_guide/map_location.webp)
+
+Puoi seguire questi passaggi al contrario per trasferire le coordinate GPS sulla mappa. Assicurati solo di impostare le coordinate GPS in modo che corrispondano al formato delle coordinate della mappa.
+
+Se la tua mappa non ha linee di griglia UTM, puoi comunque seguire lo stesso approccio utilizzando i valori delle coordinate ai lati della mappa. Alcuni sistemi potrebbero utilizzare le cifre decimali.
+
+### Scala
+<!-- K: scala, distanza, misura, righello -->
+
+Le mappe sono disegnate in scala, consentendo di determinare le distanze tra i punti. Solitamente, sulla mappa è presente una barra che indica la scala, e si può utilizzare un righello, una corda o il dito per misurare le distanze. La scala può essere indicata testualmente, ad esempio 1 pollice = 1 miglio, il che significa che ogni pollice misurato sulla mappa con un righello corrisponde a 1 miglio sul terreno reale. Si può anche trovare un rapporto, ad esempio 1:10000, che significa che ogni pollice sulla mappa corrisponde a 10.000 pollici nel mondo reale.
+
+
+![](file:///android_asset/survival_guide/map_scale.webp)
+
+### Mappe topografiche
+<!-- K: topografia, elevazione, contorno, terreno, vetta, valle, crinale, depressione, scogliera, vegetazione, legenda -->
+
+Le mappe topografiche mostrano le variazioni di altitudine e le caratteristiche del terreno, risultando utili per orientarsi in zone montuose o collinari. Le curve di livello indicano l'altitudine; più le curve sono ravvicinate, più il terreno è ripido. I marcatori di altitudine sulle curve di livello aiutano a identificare vette e valli.
+
+
+![](file:///android_asset/survival_guide/topographical_map.webp)
+
+1. Vetta
+2. Scogliera
+3. Cresta
+4. Depressione
+5. Valle
+
+I colori tipici delle mappe includono:
+- **Nero**: Strutture
+- **Rosso**: Strade
+- **Verde**: Vegetazione
+- **Bianco**: Assenza di vegetazione
+- **Marrone**: Curve di livello
+- **Blu**: Acqua
+
+## Stima della distanza
+<!-- K: stimare, distanza, misurare -->
+<!-- S: Puoi misurare la distanza usando i passi o la velocità media. -->
+
+Quando ti orienti, è spesso importante tenere traccia della distanza percorsa. Se il tuo GPS o telefono supporta il tracciamento della distanza, questo sarà il metodo più semplice. In caso contrario, puoi misurare le distanze su una mappa o stimarle usando i tuoi passi o la velocità media.
+
+Quando si stimano le distanze, è utile considerare un intervallo di possibili stime anziché calcolare un singolo valore. Ad esempio, calcola la distanza percorsa a una velocità di 1,5 mph e a 3 mph per ottenere un limite inferiore e superiore. Puoi fare lo stesso con il metodo del passo, scegliendo una lunghezza del passo inferiore e superiore alla tua velocità media.
+
+### Passi
+<!-- K: passo, passo, conteggio, falcata -->
+
+Un passo è la distanza percorsa con ogni passo completo con lo **stesso piede**, e può essere utilizzato per stimare la distanza percorsa. La lunghezza di un passo (chiamata lunghezza della falcata) varia a seconda della persona, del terreno e del peso dell'attrezzatura, quindi è importante ottenere una buona stima della lunghezza della falcata in diverse condizioni. Per stimare la lunghezza della falcata, procedi come segue: Ecco come procedere:
+
+1. Misura una distanza fissa sul terreno desiderato; 100 metri/iarde sono generalmente una buona misura.
+
+2. Indossa lo zaino, se necessario.
+
+3. Percorri questa distanza e conta quanti passi ti servono.
+
+4. Dividi la distanza per il numero di passi (ad esempio, 100 metri/130 passi = 0,77).
+
+5. Ripeti i passaggi 3 e 4 diverse volte e calcola la media dei passi per una stima più precisa.
+
+Una volta che conosci la media dei tuoi passi, puoi stimare la distanza percorsa contando i passi e moltiplicandoli per la media dei passi (ad esempio, 130 passi × 0,77 metri/passo = 100 metri).
+
+Se hai uno smartphone con un'app contapassi, puoi usarla per stimare la distanza. In genere, queste app convertono i passi in distanza.
+
+
+Per aiutarti a stimare la distanza, ecco la distanza percorsa considerando una falcata media di 0,78 iarde (0,71 m):
+- 200 passi ≈ 156 iarde (143 m, 0,09 miglia, 0,14 km)
+- 500 passi ≈ 390 iarde (357 m, 0,22 miglia, 0,36 km)
+- 1000 passi ≈ 780 iarde (713 m, 0,44 miglia, 0,71 km)
+
+Puoi tenere traccia dei passi mettendo un sassolino in tasca ogni 100 iarde/metri. Quando hai 10 sassolini in tasca, toglili tutti e mettine uno nell'altra tasca. I sassolini nella seconda tasca rappresenteranno 1000 iarde/metri e ridurranno il numero di sassolini che devi portare.
+
+La lunghezza del tuo passo sarà probabilmente più corta su terreni difficili o in caso di maltempo.
+
+### Velocità media
+<!-- K: average, speed -->
+
+Un metodo più semplice per stimare la distanza percorsa è moltiplicare la velocità media di camminata per il tempo impiegato. Puoi calcolare la tua velocità di camminata cronometrando il tempo impiegato per percorrere un sentiero di distanza nota e dividendo la distanza per il tempo. In media, una persona cammina a circa 3,2 km/h (2 mph) su terreno pianeggiante, ma questa velocità può variare in base al livello di allenamento, al tipo di terreno e al carico.
+
+Per calcolare la distanza percorsa con questo metodo, moltiplica la tua velocità media per il tempo impiegato in ore. Ad esempio, se hai camminato per 15 minuti e hai una velocità media di 3,2 km/h (2 mph), allora dovresti moltiplicare 0,25 ore per 3,2 km/h (2 mph) per ottenere 0,8 km (0,5 miglia).
+
+
+Per aiutarti a stimare, ecco la distanza percorsa utilizzando una velocità media di 2 mph (3,2 km/h):
+- 15 minuti ≈ 0,5 miglia (0,8 km)
+- 30 minuti ≈ 1 miglio (1,6 km)
+- 1 ora ≈ 2 miglia (3,2 km)
+
+## Orientamento avanzato
+<!-- K: nord, sud, est, ovest, avanzato, tecnica -->
+<!-- S: Puoi usare il sole, la luna o le stelle per determinare la direzione. Se ne hai bisogno, è meglio rimanere dove sei e segnalare la tua posizione per chiedere aiuto. -->
+
+Puoi usare il sole o le stelle per determinare la direzione senza bussola. Se ne hai bisogno, è meglio rimanere dove sei e segnalare la tua posizione per chiedere aiuto con i metodi menzionati nel capitolo Panoramica.
+
+
+### Sole/Luna
+
+Al mattino presto, il sole sarà vicino a est, mentre nel tardo pomeriggio sarà vicino a ovest. Lo stesso vale per la luna al sorgere e al tramonto. Durante il giorno, il sole si troverà nella metà meridionale del cielo nell'emisfero settentrionale e nella metà settentrionale nell'emisfero meridionale.
+
+### Ombre
+
+Misurando la direzione del movimento delle ombre nel tempo, è possibile determinarne la direzione. Questo perché il sole si muove da est a ovest nel cielo e, di conseguenza, le ombre si muovono nella direzione opposta.
+
+1. Pianta un bastoncino verticalmente nel terreno e segna la punta dell'ombra.
+
+2. Dopo 15-30 minuti, segna la nuova posizione della punta dell'ombra.
+
+3. Traccia una linea tra i due punti per ottenere una linea est-ovest. L'ovest sarà nella direzione del primo punto.
+
+4. Traccia una linea perpendicolare alla linea est-ovest. Il sud (o il nord nell'emisfero australe) indicherà la direzione del sole.
+
+![](file:///android_asset/survival_guide/direction_shadow.webp)
+
+### Ora
+<!-- K: time, watch, hour, hand, analog -->
+
+Puoi determinare la tua direzione utilizzando la posizione del sole e l'ora corrente. Si tratta di un'approssimazione, ma è meglio di niente. Punta la lancetta delle ore di un orologio analogico verso il sole; il sud si trova all'incirca a metà strada tra la lancetta delle ore e le 12 nell'emisfero boreale. Nell'emisfero australe, punta la posizione delle 12 verso il sole e il nord si troverà all'incirca a metà strada tra le 12 e la lancetta delle ore. Se è in vigore l'ora legale, usa l'1 invece delle 12; l'ora legale è solitamente in vigore durante l'estate nelle regioni che la adottano, ma questo può variare.
+
+
+![](file:///android_asset/survival_guide/direction_watch.webp)
+
+### Stelle
+<!-- K: stella, notte, costellazione, Polaris, Grande Carro, Cassiopea, Croce del Sud -->
+
+Saper identificare alcune costellazioni ti aiuterà a orientarti di notte. Le costellazioni possono apparire ruotate nel cielo a seconda dell'ora (ruotano attorno ai poli celesti), quindi se non le vedi subito, prova a cercare una versione ruotata della costellazione.
+
+Nell'emisfero settentrionale, identifica Polaris (la Stella Polare) usando il Grande Carro e Cassiopea.Usa Peia come punti di riferimento. Polaris si trova direttamente a nord.
+
+![](file:///android_asset/survival_guide/northern_stars.webp)
+
+Nell'emisfero australe, puoi usare la Croce del Sud per determinare il sud. Traccia una linea dalle stelle più alte e più basse dell'asse maggiore della Croce, continuando per circa 4,5 volte la distanza tra queste stelle verso l'orizzonte per approssimare il Polo Sud. Questo metodo è più difficile di quello usato nell'emisfero boreale.
+
+![](file:///android_asset/survival_guide/southern_stars.webp)
+
+## Creazione: Bussola
+<!-- K: bussola, ago, magnete, nord, sud, est, ovest, direzione, creazione -->
+<!-- S: Puoi creare una bussola usando un ago, un coltello e una foglia. -->
+
+Puoi creare una bussola improvvisata magnetizzando un ago e facendolo galleggiare in acqua.
+
+![](file:///android_asset/survival_guide/bushcraft_compass.webp)
+
+**Risorse**
+- Ago
+- Coltello
+- Foglia o tappo di bottiglia
+- Acqua
+
+**Istruzioni**
+1. Prova a magnetizzare l'ago passandolo con il coltello in una direzione (per evitare di smussare la lama, usa il dorso del coltello). Passalo almeno 50 volte.
+
+2. Posiziona l'ago sulla foglia/tappo e lascialo galleggiare nell'acqua. Se magnetizzato correttamente, l'ago si allineerà lentamente all'asse nord-sud. Assicurati che non ci siano correnti o vento che possano influenzare l'ago.
+
+3. Ripeti il passaggio 2 alcune volte per assicurarti che punti sempre nella stessa direzione.

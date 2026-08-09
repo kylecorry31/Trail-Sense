@@ -1,0 +1,78 @@
+Lo strumento Meteo può essere utilizzato per prevedere approssimativamente il tempo.
+
+## Previsioni meteo
+Le previsioni meteo vengono visualizzate nella parte superiore dello schermo. Non utilizzano Internet e tengono conto dello storico della pressione, delle temperature storiche (media trentennale) e delle nuvole visualizzate nello strumento Nuvole. Cercano inoltre di stimare quando si verificherà il cambiamento del tempo, visualizzato sotto la previsione. L'accuratezza dell'intervallo temporale dipende dalla presenza o meno di nuvole che indicano un fronte meteorologico; se ne viene rilevato uno, verrà visualizzato un orario approssimativo; altrimenti, l'indicazione sarà più vaga, ad esempio "presto" o "più tardi".
+
+Se il monitor meteo è attivo, registra automaticamente lo storico della pressione. In caso contrario, gli aggiornamenti della pressione vengono visualizzati solo quando si apre lo strumento Meteo. Per una maggiore precisione, è consigliabile registrare la pressione ogni 30 minuti.
+
+È possibile regolare la sensibilità delle previsioni in Impostazioni > Meteo > Sensibilità previsioni. Una sensibilità maggiore potrebbe rilevare più modelli, ma potrebbe anche generare un maggior numero di previsioni errate.
+
+## Monitor meteo
+Il monitor meteo viene eseguito in background per registrare lo storico della pressione. Per attivarlo, toccare l'icona di avvio in basso a destra. Questo fa sì che appaia una notifica con le previsioni meteo attuali e un'opzione per interrompere il monitoraggio meteo. Puoi interromperlo anche toccando l'icona di arresto in basso a destra.
+
+Per modificare la frequenza di registrazione, tocca l'ora sotto l'etichetta del monitoraggio meteo in basso a sinistra e inserisci un nuovo intervallo.
+
+Per una maggiore precisione, concedi a Trail Sense l'autorizzazione di localizzazione per determinare la tua altitudine tramite GPS. Questo aiuta a convertire la pressione atmosferica in pressione atmosferica al livello del mare, migliorando la precisione delle previsioni.
+
+In Impostazioni > Meteo, puoi personalizzare la notifica per visualizzare:
+- **Pressione**: visualizza la pressione attuale.
+
+- **Temperatura**: visualizza la temperatura attuale (consulta la guida al termometro per maggiori dettagli).
+
+Puoi anche abilitare le notifiche meteo giornaliere in Impostazioni > Meteo > Notifiche meteo giornaliere. Senza il monitoraggio meteo attivo, non riceverai queste notifiche. L'orario di questa notifica è configurabile in Impostazioni > Meteo > Orario meteo giornaliero.
+
+Puoi disabilitare le notifiche del monitoraggio meteo nelle impostazioni di notifica di Android per Trail Sense.
+
+## Allerta tempesta
+Se il monitoraggio meteo è attivo, Trail Sense può avvisarti in caso di temporali. Attiva questa funzione in Impostazioni > Meteo > Allerta tempesta. Puoi regolare la sensibilità in Impostazioni > Meteo > Sensibilità tempesta. Una sensibilità più elevata potrebbe generare falsi allarmi, mentre una sensibilità inferiore potrebbe non rilevare alcuni temporali.
+
+Puoi scegliere di utilizzare il canale audio dell'allarme per questo avviso attivando Impostazioni > Meteo > Usa allarme per allerta tempesta. In questo modo verrà riprodotto un suono come allarme anche se i contenuti multimediali e le notifiche sono silenziati. Puoi scegliere di utilizzare l'allarme solo durante il giorno attivando Impostazioni > Meteo > Silenzia allarme di notte.
+
+## Dettagli meteo
+Lo strumento Meteo fornisce anche ulteriori informazioni sulle condizioni meteorologiche attuali e previste.
+
+### Avvisi
+Lo strumento Meteo visualizza avvisi quando viene rilevato un temporale o quando le temperature storiche suggeriscono condizioni di caldo o freddo.
+
+### Pressione
+Nella parte superiore dello schermo viene visualizzato un grafico storico della pressione. Una pressione in calo può indicare l'arrivo di un temporale, una pressione in aumento suggerisce un miglioramento del tempo e una pressione stabile indica l'assenza di cambiamenti significativi. Sotto il grafico sono riportate la pressione attuale e la sua tendenza (variazione nel tempo).
+
+Viene visualizzato anche il sistema di pressione attuale. La bassa pressione spesso indica maltempo, mentre l'alta pressione indica condizioni favorevoli. Toccando il grafico, viene visualizzata una descrizione del sistema di pressione.
+
+È possibile modificare la durata della cronologia in Impostazioni > Meteo > 'Cronologia pressione'.
+
+### Temperatura
+La temperatura attuale, ricavata da dati storici o dal termometro integrato, viene visualizzata nell'elenco meteo. Vengono inoltre fornite le temperature massime e minime giornaliere, sempre utilizzando i dati storici. Toccando la temperatura attuale, viene visualizzato un grafico della cronologia delle temperature, mentre toccando le temperature massime e minime viene visualizzato un grafico delle previsioni di temperatura per le prossime 24 ore, basato sulle temperature storiche.
+
+### Umidità
+Se il dispositivo è dotato di un sensore di umidità, viene visualizzato il valore attuale dell'umidità. Toccandolo, viene visualizzato un grafico della cronologia dell'umidità.
+
+### Nuvole
+L'ultimo tipo di nuvola registrato viene visualizzato nell'elenco meteo. Toccandolo, viene visualizzata una descrizione del tipo di nuvola.
+
+### Fronte meteorologico
+Il fronte meteorologico attuale viene visualizzato nell'elenco meteo. I fronti indicano in genere cambiamenti meteorologici e sono spesso associati a precipitazioni e vento. Toccandoli, viene visualizzata una descrizione del fronte meteorologico.
+
+## Esportazione dei dati meteorologici
+È possibile esportare i dati meteorologici registrati in un file CSV tramite Impostazioni > Meteo > Esporta dati meteorologici.
+
+## Azione rapida
+È possibile abilitare l'azione rapida Monitoraggio meteo nelle impostazioni della scheda in cui si desidera utilizzarla.
+
+Per utilizzare l'azione rapida, toccare il pulsante Azione rapida Monitoraggio meteo per attivarla o disattivarla.
+
+## Precisione
+Le previsioni meteo sono una stima approssimativa basata sui dati dei sensori disponibili e potrebbero non essere accurate. Se Trail Sense indica che il tempo sarà sereno ma si osserva quello che sembra Se avvertite l'arrivo di nubi temporalesche, fidatevi del vostro istinto: a volte i temporali si avvicinano con graduali variazioni di pressione. Cercate riparo se percepite l'arrivo di un temporale, indipendentemente dalle previsioni di Trail Sense.
+
+Le medie climatiche (temperature storiche) si basano sulla media trentennale dei dati storici e indicano le condizioni meteorologiche tipiche. I valori effettivi possono variare per diversi motivi, ma dovrebbero rimanere abbastanza vicini ai valori storici. Differenze significative sono generalmente dovute a temporali o altri eventi meteorologici.
+
+Le temperature storiche sono stimate utilizzando un modello personalizzato di "normalità climatica" trentennale derivato dai dati MERRA-2 (1991-2020) del NASA Global Modeling and Assimilation Office.
+
+## Widget
+I seguenti widget possono essere posizionati sulla schermata iniziale del dispositivo o visualizzati all'interno dell'app:
+
+- **Meteo**: Mostra le condizioni meteorologiche attuali e le previsioni di temperatura.
+
+- **Pressione**: Mostra la pressione attuale e la freccia di tendenza.
+
+- **Grafico della pressione**: Il grafico della pressione.

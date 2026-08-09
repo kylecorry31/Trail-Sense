@@ -1,0 +1,16 @@
+La livella a bolla può essere utilizzata per verificare se una superficie è piana. Può essere utile per montare una tenda o un fornello da campeggio.
+
+## Verificare la planarità di una superficie
+Per verificare la planarità di una superficie:
+
+1. Posizionare il dispositivo orizzontalmente sulla superficie.
+
+2. Attendere che la livella a bolla si stabilizzi.
+
+3. Se la bolla è centrata, la superficie è piana. Se la bolla si trova a sinistra dello schermo, la superficie è più alta sul lato sinistro. Se la bolla si trova nella parte superiore dello schermo, la superficie è più alta sul lato superiore.
+
+Quando la superficie è piana, il colore di sfondo della livella cambierà. È possibile regolare la soglia in "Impostazioni > Livella a bolla > Soglia di livellamento".
+
+L'angolo esatto della superficie in gradi sugli assi X (sinistra/destra) e Y (alto/basso) viene visualizzato nella parte superiore.
+
+È anche possibile tenere il dispositivo in orizzontale per misurare un angolo e utilizzare l'asse Y per misurare l'angolo.
