@@ -2023,4 +2023,21 @@
     <string name="map_error_unable_to_copy">Unable to copy map file</string>
     <!--Whether field guide sightings should be colored based on the classification (ex. animal, plant) on the map-->
     <string name="color_by_classification">Color by classification</string>
+    <string name="celestial_navigation">Celestial navigation</string>
+    <string name="celestial_navigation_description">Estimate your location from a live view of the stars</string>
+    <string name="celestial_navigation_experimental">Experimental estimate — verify your location with another method</string>
+    <string name="celestial_navigation_searching">Point the camera at a clear, dark section of sky and hold it steady</string>
+    <string name="celestial_navigation_analyzing">Analyzing the latest camera frame…</string>
+    <string name="celestial_navigation_no_fix">Waiting for a star fix</string>
+    <!--First placeholder is the estimated accuracy, second is the number of accepted video frames-->
+    <string name="celestial_navigation_accuracy">± %1$s · %2$d frames</string>
+    <string name="celestial_navigation_too_bright">The sky is too bright to detect stars</string>
+    <!--Placeholder is the number of stars detected-->
+    <string name="celestial_navigation_detected_stars">Detected %d stars; keep the camera still and aim at a wider star field</string>
+    <!--First placeholder is the number of matched stars, second is the number detected-->
+    <string name="celestial_navigation_matched_stars">Matched %1$d of %2$d stars; keep scanning slowly</string>
+    <string name="celestial_navigation_no_solution">Stars matched, but no stable location could be calculated</string>
+    <!--First placeholder is the number of matched stars, second is the number of accepted video frames-->
+    <string name="celestial_navigation_fix_status">Tracking %1$d stars · refining with frame %2$d</string>
+    <string name="celestial_navigation_outlier">Ignored an inconsistent location fix</string>
 </resources>

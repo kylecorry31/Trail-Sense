@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityToolReg
 import com.kylecorry.trail_sense.tools.ballistics.BallisticsToolRegistration
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.beacons.BeaconsToolRegistration
+import com.kylecorry.trail_sense.tools.celestial_navigation.CelestialNavigationToolRegistration
 import com.kylecorry.trail_sense.tools.cliffheight.CliffHeightToolRegistration
 import com.kylecorry.trail_sense.tools.climate.ClimateToolRegistration
 import com.kylecorry.trail_sense.tools.clinometer.ClinometerToolRegistration
@@ -82,6 +83,7 @@ object Tools {
         BubbleLevelToolRegistration,
         ClockToolRegistration,
         AstronomyToolRegistration,
+        CelestialNavigationToolRegistration,
         WaterBoilTimerToolRegistration,
         TidesToolRegistration,
         BatteryToolRegistration,
@@ -292,6 +294,7 @@ object Tools {
     const val DECLINATION = 46L
     const val MAP = 47L
     const val MAGNIFIER = 48L
+    const val CELESTIAL_NAVIGATION = 49L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
