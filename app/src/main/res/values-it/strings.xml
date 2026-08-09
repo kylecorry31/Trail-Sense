@@ -476,7 +476,7 @@
     <string name="delete_waypoint_prompt">Cancellare segnaposto\?</string>
     <string name="stratocumulus_desc">Nuvole basse che somigliano a uno strato di cotone con piccoli buchi. I colori spaziano dal bianco al grigio scuro.</string>
     <string name="cumulus_desc">Nuvole basse che somigliano a palline di cotone. Sono sparpagliate e tipicamente bianche con chiazze più scure sotto.</string>
-    <string name="onboarding_user_guide">Impara a usare le funzionalità di Trail Sense tramite il manuale utente. Disponibile in fondo alla scheda Strumenti. \n \nGuide aggiuntive saranno disponibili a breve.</string>
+    <string name="onboarding_user_guide">Impara a usare le funzionalità di Trail Sense tramite il manuale utente. Disponibile in fondo alla scheda Strumenti.</string>
     <string name="time_ago">%s fa</string>
     <string name="dbm_format">%s dBm</string>
     <string name="distance_from_flashlight">Distanza del telefono dalla torcia</string>
@@ -1271,4 +1271,29 @@
     <string name="overlay_layer">Livello sovrapposto</string>
     <string name="plugin_connect_message">Connettiti solo a %s di cui ti fidi.</string>
     <string name="built_in_pages">Pagine integrate</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nPuoi visualizzare questa pagina nelle impostazioni della Guida sul campo.</string>
+    <string name="pref_ruler_flip_direction_title">Invertire la direzione del righello</string>
+    <string name="pref_nearby_linear_only_title">Mostra solo i beacon vicini sulla bussola lineare</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_title">Mostra la lunetta del quadrante della bussola</string>
+    <string name="pref_navigation_draw_compass_dial_bezel_summary">Traccia delle tacche di gradi attorno al quadrante della bussola</string>
+    <string name="pref_navigation_show_azimuth_indicator_title">Mostra l\'indicatore di azimut</string>
+    <string name="pref_navigation_show_azimuth_indicator_summary">Evidenziare la direzione attuale della bussola</string>
+    <string name="delete_offline_map_group_message">%s e tutte le sue mappe verranno eliminate.</string>
+    <string name="pref_bubble_level_threshold_title">Livello di soglia</string>
+    <string name="map_error_unable_to_copy">Non è possibile copiare il file della mappa</string>
+    <string name="guide_map_layers">Livello della mappa</string>
+    <string name="clock_source_device">Ora del device</string>
+    <string name="clock_source_gps">Ora GPS</string>
+    <string name="clock_device_time_accurate">L\'ora del telefono è accurata</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="one">L\'orologio del telefono è più lento di %d secondo</item>
+        <item quantity="many">L\'orologio del telefono è più lento di %d secondi</item>
+        <item quantity="other">L\'orologio del telefono è più lento di %d secondi</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="one">L\'orologio del telefono è più veloce di %d secondo</item>
+        <item quantity="many">L\'orologio del telefono è più veloce di %d secondi</item>
+        <item quantity="other">L\'orologio del telefono è più veloce di %d secondi</item>
+    </plurals>
+    <string name="map_calibration_clear_message">Modificando la proiezione cartografica, annullerai le modifiche di calibrazione.</string>
 </resources>
