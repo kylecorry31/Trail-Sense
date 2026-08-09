@@ -10,6 +10,7 @@ import com.kylecorry.sol.science.oceanography.Oceanography
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
+import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLev
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -171,7 +173,7 @@ class TideService(private val context: Context) {
             todayTides.lastOrNull { it.time <= time && (isTypeHigh == null || it.isHigh == isTypeHigh) }
         return previous ?: getPreviousTide(
             table,
-            time.toLocalDate().minusDays(1).atStartOfDay().atZone(time.zone),
+            time.toLocalDate().minusDays(1).atEndOfDay().atZone(time.zone),
             iteration + 1,
             type
         )
