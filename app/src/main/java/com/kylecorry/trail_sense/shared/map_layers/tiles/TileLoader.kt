@@ -350,7 +350,7 @@ class TileLoader(
     }
 
     companion object {
-        private const val STANDARD_DETAIL_CACHE_SIZE = 128
+        private const val STANDARD_DETAIL_CACHE_SIZE = 150
         private const val HIGH_DETAIL_CACHE_SIZE = 256
     }
 

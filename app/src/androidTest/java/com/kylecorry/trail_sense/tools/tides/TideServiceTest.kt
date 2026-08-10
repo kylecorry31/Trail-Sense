@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import java.time.Duration
 import java.time.LocalDate
@@ -97,6 +98,21 @@ internal class TideServiceTest {
         assertEquals(359f, service.getPhase(table, time(10, 13, 58))!!, 5f)
         assertEquals(0f, service.getPhase(table, time(10, 14, 0))!!, 5f)
         assertEquals(90f, service.getPhase(table, time(10, 17, 0))!!, 5f)
+    }
+
+    @Test
+    fun getPhaseBetweenMidnightAndFirstTideUsesPreviousDaysTide() = runBlocking {
+        val table = TideTable(
+            0, listOf(
+                Tide.high(time(10, 14, 0), 2.71f),
+                Tide.low(time(10, 19, 27), 0.39f),
+                Tide.high(time(11, 14, 56), 2.54f),
+            )
+        )
+
+        val phase = TideService(context).getPhase(table, time(11, 0, 30))
+
+        assertNotNull(phase)
     }
 
     @Suppress("UNCHECKED_CAST")

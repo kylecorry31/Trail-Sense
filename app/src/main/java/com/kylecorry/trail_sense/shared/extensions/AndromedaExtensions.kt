@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.extensions
 
 import android.app.ForegroundServiceStartNotAllowedException
+import android.app.Service
 import android.content.Context
 import android.graphics.Path
 import android.os.Build
@@ -119,11 +120,31 @@ inline fun tryStartForegroundOrNotify(context: Context, action: () -> Unit) {
     try {
         action()
     } catch (e: Exception) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && (e is ForegroundServiceStartNotAllowedException || e is SecurityException)) {
+        if (isForegroundServiceStartError(e)) {
             ServiceRestartAlerter(context.applicationContext).alert()
-            Log.d("tryStartForegroundOrNotify", "Cannot start service")
+            Log.w("tryStartForegroundOrNotify", "Cannot start service", e)
         } else {
             throw e
         }
     }
+}
+
+@Suppress("TooGenericExceptionCaught")
+inline fun Service.tryStartForegroundOrNotify(action: () -> Int): Int {
+    return try {
+        action()
+    } catch (e: Exception) {
+        if (!isForegroundServiceStartError(e)) {
+            throw e
+        }
+        Log.w("tryStartForegroundOrNotify", "Cannot start service", e)
+        ServiceRestartAlerter(this).alert()
+        stopSelf()
+        Service.START_NOT_STICKY
+    }
+}
+
+fun isForegroundServiceStartError(error: Exception): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+            (error is ForegroundServiceStartNotAllowedException || error is SecurityException)
 }

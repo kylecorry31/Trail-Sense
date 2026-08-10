@@ -72,11 +72,13 @@ class StepCounterService : AndromedaService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val flag = super.onStartCommand(intent, flags, startId)
-        isRunning = true
-        pedometer.start(this::onPedometer)
-        Tools.subscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, this::onStepsChanged)
-        return flag
+        return tryStartForegroundOrNotify {
+            val flag = super.onStartCommand(intent, flags, startId)
+            isRunning = true
+            pedometer.start(this::onPedometer)
+            Tools.subscribe(PedometerToolRegistration.BROADCAST_STEPS_CHANGED, this::onStepsChanged)
+            flag
+        }
     }
 
     override fun getForegroundInfo(): ForegroundInfo {
