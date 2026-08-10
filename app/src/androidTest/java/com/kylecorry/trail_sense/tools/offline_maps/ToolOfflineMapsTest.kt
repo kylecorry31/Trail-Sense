@@ -87,6 +87,8 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
 
         canToggleOfflineMapVisibility()
         canViewOfflineMap()
+        canExportOfflineMapFromList()
+        canExportOpenedOfflineMap()
         canRenameOfflineMapGroup()
         canSearchOfflineMaps()
         canRenameOfflineMap()
@@ -131,6 +133,34 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         hasText("Test Map")
         click(R.id.zoom_in_btn)
         click(R.id.zoom_out_btn)
+        back()
+    }
+
+    private fun canExportOfflineMapFromList() {
+        input(R.id.searchbox, "Test Map")
+        clickListItemMenu(string(R.string.export))
+        backUntil {
+            hasText("test-map.map")
+        }
+        backUntil {
+            isVisible(R.id.map_list_title)
+        }
+        input(R.id.searchbox, "")
+    }
+
+    private fun canExportOpenedOfflineMap() {
+        click("Test Map")
+        waitFor {
+            isVisible(R.id.zoom_in_btn)
+        }
+        click(toolbarButton(R.id.title, Side.Right))
+        click(string(R.string.export))
+        backUntil {
+            hasText("test-map.map")
+        }
+        backUntil {
+            isVisible(R.id.map)
+        }
         back()
     }
 
