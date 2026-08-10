@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
-import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
+import com.kylecorry.trail_sense.shared.permissions.canStartLocationForegroundService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
@@ -56,7 +56,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun enable() {
-        if (!Permissions.canStartLocationForgroundService(context)) {
+        if (!Permissions.canStartLocationForegroundService(context)) {
             ServiceRestartAlerter(context).alert()
             Log.d("BacktrackSubsystem", "Cannot start backtrack")
             return

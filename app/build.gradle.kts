@@ -162,6 +162,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.lifecycle.service)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.process)
     implementation(libs.camera.camera2)
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)

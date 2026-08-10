@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.os.Build
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
@@ -122,25 +124,34 @@ fun AndromedaFragment.requestCamera(action: (hasPermission: Boolean) -> Unit) {
     }
 }
 
-fun Permissions.canStartLocationForgroundService(context: Context): Boolean {
+fun Permissions.canStartLocationForegroundService(context: Context): Boolean {
     // Older API versions don't need foreground permission
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         return true
     }
 
-    // The service can be started if it has background permission or if the system says it can get location
-    return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = true)
+    return canGetLocationCustom(context)
+}
+
+fun isAppForeground(): Boolean {
+    return ProcessLifecycleOwner.get()
+        .lifecycle.currentState
+        .isAtLeast(Lifecycle.State.STARTED)
 }
 
 fun Permissions.canGetLocationCustom(context: Context): Boolean {
-    return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = true)
+    return isBackgroundLocationEnabled(context) || canGetLocation(
+        context,
+        // We only need to check app ops when running in the background. Running in foreground grants while-in-use and some manufacters incorrectly deal with app ops
+        checkAppOps = !isAppForeground()
+    )
 }
 
 /**
  * Request location permission when absolutely required to start a foreground service (Android 14+)
  */
 fun Fragment.requestBacktrackPermission(action: (hasPermission: Boolean) -> Unit) {
-    if (Permissions.canStartLocationForgroundService(requireContext())) {
+    if (Permissions.canStartLocationForegroundService(requireContext())) {
         action(true)
         return
     }
@@ -151,7 +162,7 @@ fun Fragment.requestBacktrackPermission(action: (hasPermission: Boolean) -> Unit
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
     ) {
-        val hasPermission = Permissions.canStartLocationForgroundService(requireContext())
+        val hasPermission = Permissions.canStartLocationForegroundService(requireContext())
         if (!hasPermission) {
             toast(getString(R.string.backtrack_no_permission))
         }

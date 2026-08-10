@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.background.services.IntervalService
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
-import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
+import com.kylecorry.trail_sense.shared.permissions.canStartLocationForegroundService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
@@ -26,7 +26,7 @@ class WeatherMonitorService :
         return ForegroundInfo(
             WEATHER_NOTIFICATION_ID,
             CurrentWeatherAlerter.getDefaultNotification(applicationContext),
-            if (!Permissions.canStartLocationForgroundService(applicationContext)) {
+            if (!Permissions.canStartLocationForegroundService(applicationContext)) {
                 listOf(ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
             } else {
                 // This shouldn't be needed, but I was seeing several crashes on Android 14 around security exceptions (might be a known bug in Android), so I'm adding it to experiment

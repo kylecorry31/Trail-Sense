@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
-import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
+import com.kylecorry.trail_sense.shared.permissions.canStartLocationForegroundService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -121,7 +121,7 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
 
     private fun hasPermissions(context: Context): Boolean {
         // Either it didn't need location or it has foreground location permission (runtime check)
-        return !Permissions.canGetLocation(context) || Permissions.canStartLocationForgroundService(
+        return !Permissions.canGetLocation(context) || Permissions.canStartLocationForegroundService(
             context
         )
     }
