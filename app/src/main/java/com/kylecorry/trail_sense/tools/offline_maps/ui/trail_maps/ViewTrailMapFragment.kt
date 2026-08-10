@@ -24,10 +24,14 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.DeleteMapCommand
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.EditOfflineMapAttributionCommand
+import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.ui.commands.RenameMapCommand
+import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.FragmentMapExportService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ViewTrailMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offline_map_view) {
+
+    private val exportService by lazy { FragmentMapExportService(this) }
 
     override fun update() {
         val context = useAndroidContext()
@@ -57,18 +61,22 @@ class ViewTrailMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offlin
         useEffect(title, map) {
             title.rightButton.setOnClickListener {
                 val currentMap = map ?: return@setOnClickListener
+                val canExport = !currentMap.isExternal() && currentMap.isAvailable
+                val actions = listOf(
+                    getString(R.string.rename),
+                    getString(R.string.attribution),
+                    if (canExport) getString(R.string.export) else null,
+                    getString(R.string.delete)
+                )
                 Pickers.menu(
                     it,
-                    listOf(
-                        getString(R.string.rename),
-                        getString(R.string.attribution),
-                        getString(R.string.delete)
-                    )
+                    actions
                 ) { index ->
-                    when (index) {
-                        0 -> rename(currentMap, refresh)
-                        1 -> editAttribution(currentMap, refresh)
-                        2 -> delete(currentMap)
+                    when (actions[index]) {
+                        getString(R.string.rename) -> rename(currentMap, refresh)
+                        getString(R.string.attribution) -> editAttribution(currentMap, refresh)
+                        getString(R.string.export) -> export(currentMap)
+                        getString(R.string.delete) -> delete(currentMap)
                     }
                     true
                 }
@@ -106,6 +114,10 @@ class ViewTrailMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offlin
         }
 
         return map
+    }
+
+    private fun export(map: TrailMap) {
+        exportService.export(map)
     }
 
     private fun rename(map: TrailMap, onRenamed: () -> Unit) {
