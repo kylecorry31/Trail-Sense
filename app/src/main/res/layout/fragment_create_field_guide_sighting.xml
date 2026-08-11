@@ -9,6 +9,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:leftButtonIcon="@drawable/ic_menu_dots"
         app:rightButtonIcon="@drawable/ic_check"
         app:title="@string/record_sighting" />
 

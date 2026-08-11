@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
+import android.content.Context
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.kylecorry.andromeda.alerts.Alerts
@@ -8,11 +10,14 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useArgument
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
+import com.kylecorry.andromeda.pickers.MenuItem
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useBindCoordinateAndElevationViews
@@ -58,6 +63,7 @@ class CreateFieldGuideSightingFragment :
         val navController = useNavController()
         val context = useAndroidContext()
         val prefs = useService<UserPreferences>()
+        val formatter = useService<FormatService>()
         val fieldGuideFormatter = useService<FieldGuideFormatService>()
 
         // Memo
@@ -212,6 +218,36 @@ class CreateFieldGuideSightingFragment :
             }
         }
 
+        useEffect(
+            titleView,
+            context,
+            initialSighting,
+            repo,
+            navController,
+            formatter
+        ) {
+            titleView.leftButton.isVisible = initialSighting != null
+            titleView.leftButton.setOnClickListener { view ->
+                val sighting = initialSighting ?: return@setOnClickListener
+                Pickers.menu(
+                    view,
+                    listOf(
+                        MenuItem(getString(R.string.delete)) {
+                            deleteSighting(
+                                context,
+                                formatter,
+                                sighting,
+                                repo
+                            ) {
+                                navController.navigateUp()
+                            }
+                            true
+                        }
+                    )
+                )
+            }
+        }
+
         useEffect(titleView, page) {
             titleView.subtitle.text = page?.let(fieldGuideFormatter::formatName)
         }
@@ -219,5 +255,33 @@ class CreateFieldGuideSightingFragment :
         useBindCoordinateAndElevationViews(coordinateView, elevationView)
 
         useUnsavedChangesPrompt(hasChanges)
+    }
+
+    private fun deleteSighting(
+        context: Context,
+        formatter: FormatService,
+        sighting: Sighting,
+        repo: FieldGuideRepo,
+        onDeleted: () -> Unit
+    ) {
+        Alerts.dialog(
+            context,
+            getString(R.string.delete),
+            sighting.time?.let {
+                formatter.formatRelativeDateTime(
+                    it.toZonedDateTime(),
+                    includeSeconds = false
+                )
+            } ?: getString(R.string.sighting)
+        ) { cancelled ->
+            if (!cancelled) {
+                inBackground {
+                    repo.deleteSighting(sighting)
+                    onMain {
+                        onDeleted()
+                    }
+                }
+            }
+        }
     }
 }

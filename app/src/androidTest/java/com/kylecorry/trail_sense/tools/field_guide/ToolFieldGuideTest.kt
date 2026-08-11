@@ -289,8 +289,22 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
             click("Sightings (1)")
         }
 
-        // Delete
+        // Delete from the list
         clickListItemMenu("Delete")
+        clickOk()
+
+        hasText("No sightings")
+
+        // Create another sighting to delete from the edit page
+        click(R.id.create_btn)
+        input("Notes", "Delete from edit page")
+        click(toolbarButton(R.id.title, Side.Right))
+        hasText("Delete from edit page")
+
+        // Delete from the edit page
+        click("Delete from edit page")
+        click(toolbarButton(R.id.title, Side.Left))
+        click("Delete")
         clickOk()
 
         hasText("No sightings")

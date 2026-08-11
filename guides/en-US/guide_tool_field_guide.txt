@@ -25,7 +25,7 @@ You can create a new sighting by tapping the plus button in the bottom right of 
 
 You can edit a sighting by tapping on it in the sightings list or using the menu on the right and selecting 'Edit'.
 
-You can delete a sighting by using the menu on the right and selecting 'Delete'.
+You can delete a sighting from the sightings list by using the menu on the right and selecting 'Delete'. You can also delete a sighting while editing it by tapping the menu button in the top left and selecting 'Delete'.
 
 You can navigate to a sighting by using the menu on the right and selecting 'Navigate'. This will open the Navigation tool with the sighting's location as the destination.
 
