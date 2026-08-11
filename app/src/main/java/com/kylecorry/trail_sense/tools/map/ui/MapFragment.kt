@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.map.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.View
 import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
@@ -40,6 +39,7 @@ import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.requireMainActivity
@@ -141,7 +141,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         useEffect(attributionView) {
-            attributionView.movementMethod = LinkMovementMethod.getInstance()
+            attributionView.setupMapAttribution()
         }
 
         // Layers

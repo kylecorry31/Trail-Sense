@@ -93,11 +93,13 @@
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:linksClickable="true"
+        android:minHeight="24dp"
         android:textColor="?android:textColorSecondary"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radar_compass"
+        app:layout_constraintWidth_percent="0.75"
         tools:text="Map Attribution" />
 
     <View

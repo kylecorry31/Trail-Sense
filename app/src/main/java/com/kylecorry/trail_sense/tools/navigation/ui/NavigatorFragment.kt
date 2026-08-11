@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +42,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
+import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -275,7 +275,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.accuracyView.setSensors(gps, compass)
         binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
-        binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
+        binding.mapAttribution.setupMapAttribution()
         binding.radarCompassMap.setOnSingleTapListener {
             toggleDestinationBearing()
         }

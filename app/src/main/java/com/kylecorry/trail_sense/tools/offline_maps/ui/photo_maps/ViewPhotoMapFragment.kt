@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +36,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
+import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -141,7 +141,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             setDestination(it)
         }
 
-        binding.mapAttribution.movementMethod = LinkMovementMethod.getInstance()
+        binding.mapAttribution.setupMapAttribution()
 
         reloadMap()
 
