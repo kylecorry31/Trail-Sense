@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:id="@+id/navigation_grid"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -99,7 +99,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radar_compass"
-        app:layout_constraintWidth_percent="0.75"
         tools:text="Map Attribution" />
 
     <View
