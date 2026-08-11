@@ -94,7 +94,8 @@ data class SpeciesPhenology(
                                 TemperatureUnits.Celsius,
                                 Temperature.zero
                             ),
-                            Duration.ofDays(60)
+                            Duration.ofDays(60),
+                            resetWhenBaseNotTriggered = true
                         ),
                     )
                 ),
