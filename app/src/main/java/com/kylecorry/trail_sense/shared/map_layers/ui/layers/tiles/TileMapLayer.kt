@@ -40,6 +40,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import java.time.Duration
 import java.time.Instant
+import java.util.UUID
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -55,6 +56,7 @@ open class TileMapLayer<T : TileSource>(
     private val refreshBroadcasts: List<String> = emptyList(),
     private val cacheKeys: List<String>? = null
 ) : IAsyncLayer {
+    private val runtimeId = UUID.randomUUID().toString()
     private var _timeOverride: Instant? = null
     private var _renderTime: Instant = Instant.now()
     override var isLoaded: Boolean = false
@@ -471,7 +473,7 @@ open class TileMapLayer<T : TileSource>(
             source,
             queue,
             TILE_BORDER_PIXELS,
-            tag = layerId,
+            tag = "$layerId-$runtimeId",
             key = getCacheKey()
         ) {
             notifyListeners()
