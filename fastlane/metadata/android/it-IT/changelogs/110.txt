@@ -1,0 +1,18 @@
+Inclinometro
+- Imposta la fotocamera come inclinometro predefinito
+- Aumenta le dimensioni del campo visivo della fotocamera
+- Aggiungi il supporto AR (sperimentale)
+
+Metal detector
+- Migliora la sensibilità
+
+Realtà aumentata (sperimentale)
+- Migliora l'allineamento
+- Mostra le linee della griglia
+- Migliora l'esperienza su dispositivi senza giroscopio
+
+Varie
+- Migliora GPS + Altimetro Barometro
+- Notifica se i servizi in background non possono essere avviati
+- Aggiungi ulteriori guide utente
+- Correzione di bug

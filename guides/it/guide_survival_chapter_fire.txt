@@ -1,0 +1,310 @@
+<!-- K: fuoco, fiamma, luce, calore, caldo, bruciare -->
+<!-- S: Come accendere e mantenere un fuoco. -->
+
+Saper accendere un fuoco può aiutarti a stare al caldo, purificare l'acqua e cucinare.
+
+**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non sostituisce la formazione professionale, i servizi di emergenza, le linee guida locali o le istruzioni del produttore/del prodotto. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; verifica le informazioni prima di agire, segui le leggi e le istruzioni locali e non esitare a chiedere aiuto in caso di emergenza. Non fare affidamento su questa guida o sul tuo telefono come unico piano di sicurezza o mezzo di comunicazione.**
+
+## Preparati
+<!-- K: preparare, attrezzatura, conoscenza, abilità, accendifuoco, fiammiferi, accendino, acciaio, ferro, ferrocerio, esca -->
+<!-- S: Porta con te un accendifuoco. Impara come accendere e mantenere un fuoco. -->
+
+### Attrezzatura
+**Necessario**:
+- Accendifuoco (accendino, fiammiferi impermeabili, acciarino dorato)
+
+- Puoi portare con te una lente di Fresnel delle dimensioni di una carta di credito nel portafoglio o nella custodia del telefono e un accendifuoco di emergenza.
+
+
+
+**Facoltativo**:
+- Esca (panno carbonizzato, lanugine dell'asciugatrice, batuffoli di cotone imbevuti di vaselina o accendifuoco commerciali)
+
+### Conoscenze e abilità
+Inizia imparando a fare quanto segue:
+- Accendere un fuoco usando diversi accendifuoco (fiammiferi, accendini, acciarino)
+- Raccogliere e preparare esca, legna da ardere e combustibile
+- Mantenere il fuoco
+- Usare gli estintori
+- Accendere un fuoco in condizioni di umidità
+
+Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
+- Proteggere un fuoco dal vento e dalla pioggia
+- Costruire e usare un archetto per accendere il fuoco
+- Produrre carbone
+
+## Preparazione del luogo per accendere il fuoco
+<!-- K: costruire, preparare, affittare -->
+<!-- S: Scegliere un'area pianeggiante e asciutta, riparata dal vento. Raccogli esca, legna da ardere e combustibile. -->
+
+È necessario preparare il luogo per accendere il fuoco prima di tentare di accenderlo. Scegli un'area pianeggiante e asciutta, riparata dal vento, vicino al tuo rifugio e alla tua scorta di combustibile. Se vi trovate al riparo vicino a una grande roccia, una scogliera o un terrapieno, posizionate il fuoco in modo che si trovi sul lato opposto del riparo rispetto alla parete rocciosa. Questo rifletterà più calore sul riparo.
+
+Rimuovete dal terreno qualsiasi materiale infiammabile e, se possibile, rivestite l'area con pietre asciutte, terra o sabbia. Non accendete un fuoco sotto un albero con rami bassi o sopra un apparato radicale o torba. Evitate le zone con erba secca, foglie o aghi di conifere nelle vicinanze. In ambienti innevati, disponete dei tronchi per evitare che il fuoco tocchi la neve. Raccogliete tutto il materiale prima di tentare di accendere il fuoco.
+
+Dovreste anche essere a conoscenza delle leggi e dei regolamenti locali, poiché in alcune zone potrebbe essere vietato accendere fuochi.
+
+### Raccolta del materiale
+
+Per accendere e mantenere un fuoco sono necessari tre tipi di materiale: esca, legna da ardere e combustibile. L'esca è un materiale secco e fine che prende fuoco facilmente e viene utilizzato per accendere un fuoco. La legna da ardere è composta da piccoli rametti e ramoscelli che bruciano facilmente e vengono utilizzati per alimentare il fuoco dopo aver acceso l'esca. Infine, il combustibile serve a mantenere il fuoco ed è costituito da rami o tronchi più grandi. Per accendere un fuoco, procuratevi circa una manciata di esca, due manciate di legna da ardere e un mucchio di combustibile, il doppio della quantità che pensate di aver bisogno.
+
+Trovare legna secca può essere difficile, ma cercate rami secchi sugli alberi, rami caduti che non toccano completamente terra e rametti che si spezzano nettamente. Potete asciugare l'esca umida tenendola vicino al corpo o nel sacco a pelo, e potete asciugare il combustibile tenendolo vicino al fuoco.
+
+
+- **Esca**
+
+- Corteccia interna sminuzzata (betulla, cedro, castagno, olmo rosso)
+
+- Trucioli o scaglie di legno fini
+
+- Legno resinoso: legno ricco di resina proveniente dai pini, tipicamente presente alla base dei rami secchi
+
+- Erba secca, foglie, aghi di pino giallo
+
+- Linfa secca in polvere proveniente dai pini
+
+- Fibre schiacciate provenienti da piante morte
+
+- Semi (tifa, asclepiade, cardo)
+
+- Bastoncini di piume (trucioli di legno attaccati a un bastoncino)
+
+- Accendifuoco commerciali
+
+- Batuffoli di cotone (preferibilmente imbevuti di vaselina)
+
+- Lanugine
+- Carta
+
+- Fungo esca o chaga
+
+- Legno marcio secco (presente in alberi morti in piedi e tronchi caduti)
+- **Legna da ardere**
+
+- Bastoncini e ramoscelli (spessore da matita a dito)
+
+- Legno spaccato finemente
+- Plastica, come cannucce o cucchiai (solo in caso di emergenza; questi rilasciano fumi che non si devono inalare)
+
+- Legno imbevuto di un liquido infiammabile come l'insetticida Spray o disinfettante per le mani (usare con cautela)
+- **Combustibile**
+
+- Preferire la legna caduta che si può spezzare a mano rispetto alla legna che richiede il taglio.
+
+Per spezzare un pezzo di legno più grande, inserirlo tra due alberi vivi nel punto in cui si desidera spezzarlo e spingerlo di lato finché non si spezza, come mostrato di seguito.
+
+![](file:///android_asset/survival_guide/breaking_branches.webp)
+
+### Bastoncini di piuma
+<!-- K: feather-stick -->
+
+Un bastoncino di piuma può essere usato come esca e legna da ardere per accendere un fuoco quando è difficile trovare altro materiale infiammabile.
+
+Per realizzare un bastoncino di piuma:
+
+1. Trovare un bastoncino dritto, spesso e asciutto.
+
+2. Partendo dalla parte superiore, usare un coltello per ricavare una striscia lunga g. Tagliate un sottile accendino di legno allontanandolo dal bastoncino, ma cercate di non reciderlo completamente.
+
+3. Ripetete questo processo, ma tagliando lungo la cresta creata dal taglio precedente. Fate attenzione a non tagliare gli accendini precedenti.
+
+4. Raccogliete gli accendini che cadono. Potete ancora usarli come esca.
+
+5. Per accendere un fuoco, seguite la sezione successiva usando il bastoncino di legno come esca.
+
+![](file:///android_asset/survival_guide/feather_stick.webp)
+
+## Accendere un fuoco
+<!-- K: start, light, build, ignite, teepee, tepee, type, structure -->
+<!-- S: Se avete un accendifuoco, usatelo. Potete improvvisare se necessario, ma sarà più difficile e richiederà pratica. -->
+
+Una volta preparato il luogo e procurata una quantità sufficiente di esca, legna da ardere e combustibile, siete pronti per accendere il fuoco. Mentre accendete il fuoco, fate attenzione a lasciare sempre una sezione con la fiamma libera esposta per evitare di soffocarla. Inoltre, evitate di aggiungere legna umida o verde finché il fuoco non è ben caldo e non si è formato un letto di braci.
+
+Ecco i passaggi da seguire per accendere il fuoco:
+
+1. Disponete l'esca in un piccolo fascio o nido a terra.
+
+2. Appoggiate alcuni pezzi di legna da ardere all'esca, formando una sorta di teepee.
+
+3. Accendete l'esca.
+
+4. Aggiungete con cautela la legna da ardere al fuoco e soffiate delicatamente alla base per favorire la crescita delle braci. Quando soffiate nel fuoco, fatelo con delicatezza e respirate lontano dal fumo.
+
+5. Una volta che il fuoco è stabile, aggiungete altra legna mantenendo la struttura a teepee.
+
+
+![](file:///android_asset/survival_guide/fire_tepee.webp)
+
+### Come accendere un fuoco con un secchio
+<!-- K: bucket, nurse, blow, oxygen, tinder -->
+
+Una brace è un piccolo pezzo di esca che sta covando ma non ha ancora formato una fiamma. Una volta ottenuta una brace, soffiateci delicatamente dentro e alimentatela con altra esca finché non compare una fiamma. A volte, è più facile tenere l'esca con la brace e avvicinare le mani per trovare il giusto equilibrio di ossigeno, combustibile e calore.
+
+### Accendino
+<!-- K: lighter -->
+
+Un accendino affidabile è il modo più semplice per accendere un fuoco. Usate la rotella per produrre una fiamma e usate la mano per proteggerla dal vento. Avvicinate la fiamma all'esca per accenderla, quindi spegnete l'accendino. Quando accendete l'esca a livello del suolo, tenete l'accendino in posizione orizzontale e ruotatelo in modo che la fiamma sia sopra la rotella e le vostre dita. Se occorrono più di un paio di secondi per accendere l'esca, significa che non è abbastanza fine o asciutta.
+
+Alcuni accendini richiedono l'aggiunta di combustibile prima dell'uso, quindi assicuratevi di provarli prima di averne bisogno. Il combustibile dovrebbe durare a lungo, anche anni con un utilizzo moderato. Se il vostro accendino è senza combustibile, potete comunque usare la rotella di accensione per generare scintille e accendere l'esca molto fine.
+
+Un accendino generalmente non funziona quando è bagnato, ma potete asciugarlo rapidamente strofinando delicatamente la rotella di accensione contro i vestiti nella direzione opposta a quella in cui la usereste per accenderla e soffiando con forza sulla rotella.
+
+Potete anche rimuovere il dispositivo di sicurezza per bambini dalla rotella di accensione per asciugare più facilmente l'accendino o usarlo al freddo. Per farlo, puntatelo lontano dagli occhi (il dispositivo di sicurezza è a molla) e usate un coltello o un multiutensile per staccarlo. **Fate questa operazione a vostro rischio e pericolo.**
+
+Esistono anche accendini elettrici/ad arco, ma sono meno affidabili e richiedono una ricarica. Possono essere usati in modo simile agli accendini normali, ma in genere richiedono un'esca più piccola e fine.
+
+### Fiammiferi
+<!-- K: matches -->
+
+I fiammiferi in genere richiedono una superficie di sfregamento specifica per accendersi, anche se esistono fiammiferi che si accendono ovunque e possono essere accesi anche con una pietra ruvida. I fiammiferi normali non funzionano se bagnati o ventosi, ma sono disponibili varietà impermeabili e resistenti alle intemperie.
+
+Per accendere un fuoco con i fiammiferi, accendete il fiammifero e usate la mano per proteggerlo dal vento. Tenete il fiammifero acceso in modo che la capocchia sia leggermente al di sotto del livello del fiammifero stesso, per permettere alla fiamma di bruciare più a lungo. Avvicinate la fiamma all'esca per accenderla e lasciate cadere con attenzione il fiammifero nella fiamma.
+
+### Acciarino
+<!-- K: fire-steel, iron, ferrocerium, magnesium, strike, spark -->
+
+Un acciarino o un'asta di ferrocerio è resistente e funziona in tutte le condizioni atmosferiche. Puoi raschiare velocemente l'esca con un bordo affilato, come il dorso di un coltello, un raschietto apposito o anche un pezzo appuntito di quarzo o selce. Evita di usare la lama del coltello per non rovinarla. Se hai difficoltà a tenere ferma l'esca mentre la strofini, fissala tra l'acciarino e il terreno e raschia verso l'esca. Alcuni trovano più facile tenere fermo il bordo del raschietto e tirare l'acciarino verso l'alto/lontano dall'esca per produrre scintille.
+
+Alcuni acciarini sono dotati di un blocco di magnesio, che puoi raschiare sull'esca prima di strozzarla per facilitare la produzione di scintille. Crea un piccolo mucchietto di trucioli, delle dimensioni di un sassolino, prima di provare ad accenderla.
+
+
+![](file:///android_asset/survival_guide/ferrorod.webp)
+
+### Fornello da campo
+<!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, propane -->
+
+La maggior parte dei fornelli da campeggio richiede un'ann altro dispositivo di accensione.
+Il fornello si accende tramite un dispositivo di accensione, come un accendino, ma alcuni modelli possono avere un accenditore piezoelettrico integrato. Posizionare sempre il fornello su una superficie piana e stabile che non prenda fuoco (come una pietra). Assicurarsi di leggere le istruzioni del produttore prima dell'uso.
+
+**Per utilizzare un fornello a cartuccia di gas:**
+
+1. Assicurarsi che la valvola sia chiusa (generalmente, ruotare in senso orario).
+
+2. Avvitare la testa del fornello sulla cartuccia.
+
+3. Posizionare il fornello su una superficie piana e assicurarsi che sia stabile.
+
+4. Allargare i supporti per pentole sulla testa, se necessario.
+
+5. Aprire leggermente la valvola (ruotare in senso antiorario).
+
+6. Accendere il gas e regolare la valvola secondo necessità.
+
+7. Una volta terminato, chiudere completamente la valvola (ruotare in senso orario). Attendere che si raffreddi prima di rimuovere la cartuccia e riporla.
+
+**Per utilizzare un fornello ad alcool o a combustibile solido:**
+
+1. Posizionare il fornello su una superficie piana e assicurarsi che sia stabile.
+
+
+2. Riempite il fornello con il combustibile.
+
+3. Accendete il combustibile.
+
+4. Una volta terminato, appoggiate delicatamente il coperchio sul fornello (senza stringerlo). Aspettate che si raffreddi prima di stringere il coperchio e riporre il fornello. Se utilizzate un fornello a combustibile solido, potrebbe essere necessario attendere che si consumi completamente.
+
+### Lente d'ingrandimento
+<!-- K: lente d'ingrandimento, lente -->
+
+Utilizzando una lente, concentrate la luce del sole in un piccolo punto sull'esca. Quando l'esca inizia a fumare, soffiate delicatamente al suo interno e avvicinate la lente per mantenere il punto focale. Una lente d'ingrandimento, una lente di Fresnel, degli occhiali da vista o anche una bottiglia trasparente piena d'acqua possono essere utili. Questa operazione potrebbe richiedere del tempo ed è necessaria la luce solare diretta.
+
+
+![](file:///android_asset/survival_guide/fire_magnifying_glass.webp)
+
+### Selce e acciarino
+<!-- K: selce, acciaio -->
+
+Colpite una pietra focaia con un utensile in acciaio al carbonio per creare scintille e accendere materiale infiammabile molto secco e delicato. L'acciaio inossidabile, e quindi la maggior parte dei coltelli tascabili, non funzionerà. Se vi trovate in questa situazione, potrebbe essere meglio concentrarsi sull'isolamento termico e sulla costruzione di un riparo per rimanere al caldo.
+
+### Trapani
+<!-- K: trapano, trapano ad arco, trapano a mano -->
+
+Potete creare attrito facendo ruotare un bastoncino come un trapano su una base di legno (tavoletta). Un trapano a mano è semplice da costruire, poiché è composto solo dal bastoncino, dalla tavoletta e dalle vostre mani. Un trapano ad arco è più complesso da costruire, ma più facile da usare per creare una brace. Entrambi i metodi sono difficili da padroneggiare e richiedono molta pratica. Se vi trovate in questa situazione, potrebbe essere meglio concentrarsi sull'isolamento termico e sulla costruzione di un riparo per rimanere al caldo.
+
+Per creare un archetto per trapano:
+
+1. Trova una piccola pietra piatta o un pezzo di legno duro con una piccola depressione vicino al centro per creare l'incavo.
+
+2. Crea il trapano trovando un bastoncino dritto e asciutto lungo circa 25-30 cm e con un diametro di 2 cm.
+
+3. Trova un pezzo di legno tenero piatto e asciutto per la base. Sono preferibili yucca, larice, pioppo tremulo, abete balsamico, tiglio, pioppo, cipresso, pioppo americano, ontano, cedro rosso e salice. Evita i legni resinosi come il pino.
+
+4. Intaglia una leggera depressione a circa 1-2 cm dal bordo della base.
+
+5. Sul lato inferiore della base, pratica un taglio a V dal bordo della base alla depressione.
+
+6. Trova un bastoncino curvo che possa essere usato come archetto. Dovrebbe essere lungo circa 30-35 cm e avere un diametro di 1 cm.
+
+7. Fissare una corda o un laccio da scarpe a entrambe le estremità dell'arco.
+
+8. Trovare il braciere: un pezzo piatto di corteccia o legno per raccogliere la brace.
+
+9. Avvolgere la punta del trapano nella corda dell'arco in modo che possa rotolare mentre scorre lungo la corda.
+
+10. Posizionare la tavoletta di legno sopra il braciere in modo che l'incavo a V la tocchi.
+
+11. Inserire la punta del trapano (attaccata all'arco) nell'incavo della tavoletta di legno.
+
+12. Posizionare l'innesto sull'estremità superiore della punta del trapano e applicare una pressione verso il basso con la mano non dominante.
+
+13. Appoggiare il piede sulla tavoletta di legno (dallo stesso lato della mano non dominante) e appoggiare la mano che tiene l'innesto sul ginocchio.
+
+14. Con la mano dominante, muovere l'arco da un lato all'altro per far ruotare la punta del trapano. Assicurati di utilizzare tutta la lunghezza della corda dell'arco. Mantieni un ritmo costante e veloce.
+
+15. Dopo un po' inizierai a vedere del fumo. Continua finché non sei sicuro che si sia formata la brace.
+
+16. La brace va trasferita sul braciere (potrebbe essere già lì) e spostata su un fascio di esca, dove potrai alimentarla fino a farla diventare un fuoco. Se hai della tela carbonizzata, mettila nel braciere.
+
+
+![](file:///android_asset/survival_guide/bow_drill_usage.webp)
+
+Se stai usando un trapano a mano, segui gli stessi passaggi del trapano ad arco, ma non creare l'arco e l'incavo. Invece, fai rotolare il trapano tra i palmi delle mani fino a raggiungere la base, quindi ricomincia dall'alto. Usa un bastone più lungo come trapano per avere più spazio per le mani per farlo ruotare prima di riposizionarlo.
+
+
+## Spegnere un incendio
+<!-- K: spegnere, sicurezza -->
+<!-- S: Spegnete completamente il fuoco con acqua o terra. -->
+
+Dovreste sempre avere un piano per spegnere rapidamente il fuoco nel caso in cui inizi a propagarsi. Spegnete completamente il fuoco bagnandolo con acqua e/o coprendolo con terra. Assicuratevi che non rimangano braci che potrebbero riaccendersi o causare un incendio boschivo. Se vi trovate su una spiaggia, Non coprire il fuoco con la sabbia; può isolare il calore e causare ustioni. Non lasciare mai un fuoco acceso incustodito.
+
+## Aumentare il calore
+<!-- K: aumentare, massimizzare -->
+<!-- S: Massimizza il calore utilizzando un riflettore per il fuoco o pietre riscaldate. -->
+
+Per massimizzare il calore del fuoco, puoi aggiungere altro combustibile secco, costruire un riflettore per il fuoco, riscaldare le pietre o aumentare l'isolamento termico dei tuoi vestiti e del tuo riparo.
+
+### Tipi di legno
+<!-- K: legno duro, legno tenero, tipo, legno -->
+
+I legni duri (quercia, acero, frassino, faggio, ecc.) bruciano lentamente e producono molto calore, mentre i legni teneri (pino, abete, abete rosso, cedro, ecc.) bruciano velocemente e a temperatura inferiore (ma comunque molto caldi). Una volta acceso un fuoco ben caldo, inizia ad aggiungere legna dura per farlo durare più a lungo e bruciare a una temperatura più elevata.
+
+
+### Riflettore di fuoco
+<!-- K: Spotlight -->
+
+Un riflettore di fuoco è una barriera costruita dietro il fuoco per riflettere il calore verso di te e proteggere il fuoco dal vento. Usa pietre, tronchi (preferibilmente verdi o imbevuti d'acqua) o neve per creare una barriera.
+
+![](file:///android_asset/survival_guide/fire_reflector.webp)
+
+Costruire un secondo riflettore dietro di te aiuterà a riflettere ancora più calore. Puoi anche usare una coperta termica di emergenza o un ombrello come riflettore.
+
+## Riscaldare le pietre
+<!-- K: rock, hand-warmer -->
+
+Puoi anche riscaldare le pietre **vicino** al fuoco e posizionarle nel tuo rifugio o nella zona notte, oppure seppellirle sotto le coperte. Per evitare ustioni o incendi, non lasciare che le pietre diventino troppo calde; dovrebbero essere tiepide al tatto. Assicurati di controllare la temperatura delle pietre prima di toccarle. Non usare pietre trovate vicino a fonti d'acqua, poiché potrebbero esplodere in caso di incendio. In alternativa, puoi scaldare dell'acqua e metterla in un contenitore o in una bottiglia per mantenerla calda.
+
+## Artigianato: carbone
+<!-- K: carbone, filtro, carbone, artigianato -->
+<!-- S: Puoi produrre carbone impedendo alla legna di bruciare completamente. -->
+
+Il carbone si ottiene impedendo alla legna di bruciare del tutto. Puoi macinare il carbone fino a ridurlo in polvere mettendolo in un contenitore e schiacciandolo con un bastone o una pietra.
+
+**Risorse**
+- Legna
+- Acqua o terra
+
+**Istruzioni**
+1. Abbassa il fuoco fino a ridurlo a braci.
+
+2. Spegni rapidamente il fuoco con acqua o terra.
+
+3. Attendi che le braci si raffreddino; sulla cenere dovrebbe rimanere del carbone. Il carbone è molto leggero e completamente nero.

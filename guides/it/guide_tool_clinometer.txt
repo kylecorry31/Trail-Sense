@@ -1,0 +1,76 @@
+Lo strumento inclinometro misura gli angoli e può essere utilizzato per determinare la pendenza di una collina, l'altezza di un oggetto o la distanza da un oggetto. Può essere utilizzato anche per valutare il rischio di valanghe.
+
+La seguente guida utilizza un albero come esempio, ma gli stessi passaggi possono essere utilizzati per qualsiasi oggetto.
+
+## Misurare una pendenza
+Per misurare una pendenza (o qualsiasi angolo), allinea la linea al centro del mirino con la cima della collina. Toccando un punto qualsiasi dello schermo, bloccherai l'inclinometro; toccando di nuovo, lo sbloccherai.
+
+In alternativa, puoi utilizzare il lato del telefono per misurare una pendenza. Per farlo, tocca l'icona dello schermo in alto a sinistra. Quindi tieni il telefono in verticale e usa il lato (dove si trovano normalmente i pulsanti del volume e di accensione) per mirare. Guarda lungo il lato del telefono e puntalo verso la cima della collina. Vedrai la variazione dell'angolo nella parte superiore dello schermo.
+
+La percentuale di pendenza o il grado di pendenza viene visualizzato anche sotto l'angolo.
+
+Se preferisci bloccare l'angolo usando i pulsanti del volume anziché toccare lo schermo, puoi abilitare questa opzione in Impostazioni > inclinometro > Blocca con i pulsanti del volume.
+
+Le misurazioni dell'angolo verranno visualizzate anche nel mirino della fotocamera.
+
+## Misurazione del rischio valanghe
+La maggior parte delle valanghe si verifica su pendii con inclinazione compresa tra 30° (57%) e 45° (100%). Quando misuri l'angolo di un pendio, il rischio valanghe verrà visualizzato nella parte inferiore dello schermo. Puoi anche utilizzare le bande colorate sul quadrante del clinometro: il rosso indica un rischio elevato, il giallo un rischio moderato e il verde un rischio basso.
+
+## Stima dell'altezza di un albero
+L'altezza di un albero può essere misurata se si conosce la distanza dall'albero.
+
+1. Tocca l'icona del righello in alto a destra.
+
+2. Tocca "Altezza".
+
+3. Inserisci la distanza dall'albero.
+
+4. Allinea il clinometro alla base dell'albero.
+
+5. Tocca e tieni premuto sullo schermo. 6. Riallinea il clinometro alla cima dell'albero.
+
+7. Rilascia per bloccare e visualizzare l'altezza dell'albero.
+
+Se normalmente misuri l'altezza degli alberi alla stessa distanza, puoi impostare una distanza predefinita in Impostazioni > inclinometro > Distanza di riferimento.
+
+## Stimare la distanza da un albero (altezza nota)
+Se conosci l'altezza di un albero, puoi stimarne la distanza utilizzando l'inclinometro.
+
+1. Tocca l'icona del righello in alto a destra.
+
+2. Tocca "Distanza".
+
+3. Inserisci l'altezza dell'albero.
+
+4. Allinea il clinometro alla base dell'albero.
+
+5. Tocca e tieni premuto sullo schermo.
+
+6. Riallinea l'inclinometro alla cima dell'albero.
+
+7. Rilascia per bloccare e visualizzare la distanza dall'albero.
+
+
+## Stima della distanza da un albero (altezza sconosciuta)
+Se non conosci l'altezza dell'albero, puoi comunque stimarne la distanza utilizzando la tua altezza come riferimento.
+
+1. Tocca l'icona del righello in alto a destra.
+
+2. Tocca "Distanza".
+
+3. Inserisci la tua altezza.
+
+4. Posizionati accanto all'albero e prendi nota di dove si trova la sommità della tua testa sul tronco.
+
+5. Allontanati dall'albero e raggiungi il punto in cui desideri misurare la distanza.
+
+6. Allinea l'inclinometro alla base dell'albero.
+
+7. Tocca lo schermo e tieni premuto.
+
+8. Riallinea l'inclinometro al punto in cui si trovava la sommità della tua testa sull'albero.
+
+9. Rilascia per bloccare e visualizzare la distanza dall'albero.
+
+## Avvertenza
+Trail Sense utilizza una regola empirica generale per determinare se un pendio presenta un potenziale di valanghe, che è limitata dai sensori del tuo telefono. Se ritieni che un pendio sia pericoloso, cerca un percorso alternativo per evitarlo o prendi delle precauzioni.

@@ -1,0 +1,160 @@
+Lo strumento Beacon può essere utilizzato per salvare posizioni e raggiungerle in seguito.
+
+## Creazione del beacon
+1. Tocca il pulsante '+' nell'angolo in basso a destra dello schermo.
+
+2. Tocca 'Beacon'.
+
+3. Inserisci un nome per il beacon.
+
+4. Inserisci la posizione del beacon. Puoi toccare l'icona GPS accanto al campo della posizione per utilizzare la tua posizione attuale.
+
+5. Compila i campi facoltativi che desideri registrare.
+
+6. Tocca il pulsante con il segno di spunta nell'angolo in alto a destra dello schermo.
+
+### Campi facoltativi
+- **Altitudine**: l'altitudine del beacon. Puoi toccare l'icona dell'altitudine accanto al campo dell'altitudine per utilizzare la tua altitudine attuale.
+
+- **Crea a distanza**: se desideri posizionare un beacon a una distanza e direzione note da una posizione, puoi attivare questa opzione. Dovrai quindi inserire la distanza e impostare la direzione verso la nuova posizione prima di poter salvare il beacon. Il nuovo beacon verrà posizionato alla distanza e nella direzione specificate rispetto alla posizione inserita in precedenza.
+
+- **Gruppo**: il gruppo a cui aggiungere il beacon. Tocca un gruppo e poi "OK" per aggiungere il beacon. Per creare un nuovo gruppo, consulta la sezione "Organizzazione dei beacon" qui sotto.
+
+- **Colore**: il colore da utilizzare per il beacon.
+
+- **Icona**: l'icona da utilizzare per il beacon.
+
+- **Note**: eventuali note da registrare sul beacon.
+
+### Creazione da codice QR
+È possibile condividere i beacon tramite codice QR toccando il pulsante del menu sulla riga del beacon che si desidera condividere, quindi selezionando "Condividi...". A questo punto, è possibile condividere il codice QR con Trail Sense per creare un beacon.
+
+1. Tocca il pulsante "+" nell'angolo in basso a destra dello schermo.
+
+2. Tocca "Codice QR".
+
+3. Scansiona il codice QR da cui desideri creare un beacon.
+
+4. Segui i passaggi precedenti per inserire le informazioni del beacon. Tutte le informazioni presenti nel codice QR saranno precompilate.
+
+### Creazione da un file GPX
+Se hai posizioni salvate in un file GPX, puoi importarle in Trail Sense come beacon.
+
+1. Tocca il pulsante '+' nell'angolo in basso a destra dello schermo.
+
+2. Tocca 'File GPX'.
+
+3. Seleziona il file GPX da cui desideri caricare i beacon.
+
+4. Conferma l'importazione dei beacon toccando 'OK'. Puoi deselezionare i beacon che non desideri importare.
+
+5. I beacon verranno creati nel gruppo corrente.
+
+### Creazione da dati OSM
+Esistono diversi strumenti online che possono essere utilizzati per interrogare i dati di OpenStreetMap ed esportarli come file GPX.
+
+Per utilizzare Overpass Turbo:
+
+1. Apri [Overpass Turbo](https://overpass-turbo.eu/).
+
+2. Regola la mappa sull'area che desideri interrogare.
+
+3. Inserisci la query. Questa verrà compilata automaticamente se utilizzi uno dei link sottostanti.
+
+4. Tocca "Esegui".
+
+5. Tocca "Esporta" e seleziona "GPX".
+
+6. Salva il file GPX sul tuo dispositivo.
+
+7. Segui i passaggi precedenti per importare i beacon.
+
+- [**Cime**](https://overpass-turbo.eu/s/1SVW): Interroga le cime montuose. Modifica il valore 1000 nella query con l'altitudine desiderata in metri per l'altezza minima della cima.
+
+## Visualizzazione di un beacon
+I beacon verranno visualizzati nell'elenco e mostreranno la distanza dal beacon dalla tua posizione attuale.
+
+Per aprire un beacon, toccalo nell'elenco. Si aprirà la pagina dei dettagli del beacon. Verranno visualizzate le seguenti informazioni:
+- **Nome**: Il nome del beacon.
+
+- **Posizione**: La posizione del beacon.
+
+- **Altitudine**: L'altitudine del beacon.
+
+- **Distanza**: La distanza dal beacon dalla tua posizione attuale.
+
+- **Temperatura massima/minima storica**: La temperatura media massima e minima storica per la posizione del beacon. Consulta la guida "Clima" per ulteriori informazioni.
+
+- **Alba/Tramonto**: Gli orari di alba e tramonto per la posizione del beacon.
+
+- **Marea**: La marea stimata in prossimità della posizione del beacon.
+
+- **Note**: Eventuali note registrate sul beacon.
+
+## Navigazione verso il beacon
+Per navigare verso un beacon, apri il beacon e tocca il pulsante "Naviga" in basso. Si aprirà lo strumento di navigazione con il beacon come destinazione. In alternativa, puoi toccare il pulsante del menu sulla riga del beacon verso cui desideri navigare, quindi selezionare "Naviga".
+
+Consulta la guida "Navigazione" per ulteriori informazioni su come utilizzare lo strumento di navigazione.
+
+## Visibilità dei beacon
+Puoi scegliere quali beacon visualizzare nello strumento Navigazione e Mappe offline toccando l'icona a forma di occhio sul lato destro della riga del beacon. Questo attiverà o disattiverà la visibilità del beacon.
+
+Per mostrare o nascondere tutti i beacon di un gruppo, tocca il pulsante del menu sulla riga del gruppo e seleziona "Mostra tutto" o "Nascondi tutto".
+
+## Condividi il beacon
+Puoi condividere un beacon toccando il pulsante del menu sulla riga del beacon che desideri condividere, quindi selezionando "Condividi...". In alternativa, apri il beacon, tocca il pulsante del menu in alto a destra e scegli "Condividi...". Puoi scegliere tra le seguenti opzioni:
+
+- **Copia**: copia i dettagli del beacon negli appunti.
+
+- **Codice QR**: condivide un codice QR per il beacon.
+
+- **Mappe**: condivide il beacon con un'applicazione di mappe.
+
+- **Invia**: condivide i dettagli del beacon con un'altra app tramite SMS.
+
+## Modifica del beacon
+Per modificare un beacon, apri il beacon e tocca il pulsante di modifica in basso. In alternativa, tocca il pulsante del menu sul beacon.
+Se desideri modificare un beacon, seleziona "Modifica".
+
+Consulta la sezione "Creazione di un beacon" qui sopra per informazioni sui campi che puoi modificare.
+
+## Eliminazione di un beacon
+Per eliminare un beacon, tocca il pulsante del menu sulla riga del beacon che desideri rimuovere, quindi seleziona "Elimina". In alternativa, apri il beacon, tocca il pulsante del menu in alto a destra e scegli "Elimina".
+
+## Esportazione di beacon
+Per esportare i beacon, apri il gruppo che desideri esportare e tocca il pulsante del menu nell'angolo in alto a destra dello schermo. Seleziona "Esporta", deseleziona i beacon che non desideri esportare, quindi tocca "OK". I beacon verranno esportati in un file GPX.
+
+## Organizzazione dei beacon
+Puoi organizzare i beacon in gruppi. Per creare un gruppo, tocca il pulsante "+" in basso a destra dell'elenco dei beacon e seleziona "Gruppo". Assegna un nome al gruppo e tocca "OK". Tocca il gruppo nell'elenco per visualizzare i beacon in esso contenuti.
+
+Se crei un beacon o un gruppo mentre è aperto, il nuovo beacon o gruppo verrà aggiunto al gruppo attualmente aperto.
+
+Per cambiare il gruppo di un beacon esistente, tocca il pulsante del menu sulla riga del beacon che desideri spostare, seleziona "Sposta in" e scegli il gruppo di destinazione.
+
+Per rinominare un gruppo, tocca il pulsante del menu sulla riga del gruppo che desideri rinominare, quindi seleziona "Rinomina" e inserisci un nuovo nome.
+
+Puoi eliminare un gruppo (insieme a tutti i beacon al suo interno) toccando il pulsante del menu sulla riga del gruppo che desideri rimuovere, quindi selezionando "Elimina".
+
+## Ricerca di beacon
+Per cercare tra i beacon creati, utilizza la barra di ricerca nella parte superiore dell'elenco dei beacon. La ricerca include il gruppo corrente e tutti i sottogruppi. Inoltre, puoi ordinare i beacon per distanza, tempo o nome toccando il pulsante del menu in alto a destra e selezionando "Ordina".
+
+## Ultimo beacon del segnale cellulare
+Se hai attivato Backtrack (vedi la guida "Percorsi") ed è configurato per registrare il segnale cellulare, vedrai un beacon creato per l'ultima posizione nota in cui avevi un segnale cellulare.
+
+Puoi disattivare questo beacon in Impostazioni > Percorsi > "Ultimo beacon del segnale".
+
+Puoi anche scegliere di navigare verso il segnale cellulare più vicino toccando il pulsante del menu in alto a destra nell'elenco dei beacon e selezionando "Naviga verso il segnale cellulare più vicino". In questo modo verrà avviata la navigazione verso la posizione registrata più vicina con un segnale cellulare.
+
+## Impostazioni
+- **Colore predefinito del beacon**: il colore che verrà preselezionato quando crei un nuovo beacon. Puoi modificarlo in Impostazioni > Beacon > "Colore predefinito del beacon".
+
+
+## Azione rapida
+Puoi abilitare l'azione rapida "Crea beacon" nelle impostazioni della scheda desiderata.
+
+Per utilizzare l'azione rapida, tocca il pulsante "Beacon" per creare un beacon nella tua posizione attuale. Il titolo del beacon verrà impostato sulla data e l'ora correnti. Una volta creato, vedrai una notifica nella parte inferiore dello schermo con un pulsante per visualizzare il beacon.
+
+## Widget
+I seguenti widget possono essere posizionati sulla schermata iniziale del dispositivo o visualizzati all'interno dell'app:
+
+- **Beacon nelle vicinanze**: visualizza i beacon entro 1 km (0,62 miglia) dalla tua posizione.

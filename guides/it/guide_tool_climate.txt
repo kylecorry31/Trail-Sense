@@ -1,0 +1,35 @@
+Lo strumento Clima visualizza i dati climatici storici per una determinata località.
+
+## Temperatura
+Le temperature massime e minime storiche vengono visualizzate nella parte superiore dello schermo per la data selezionata. Il grafico mostra anche le temperature massime con una linea rossa e le temperature minime con una linea blu.
+
+Il punto di congelamento viene visualizzato nella parte inferiore del grafico come un'area colorata.
+
+## Precipitazioni
+Vengono inoltre mostrati i totali mensili storici delle precipitazioni per la località selezionata. Prestare particolare attenzione quando si accendono falò durante la stagione secca.
+
+## Classificazione climatica
+Il clima della località corrente è classificato in base a temperature e precipitazioni. Climi diversi presentano tipi di vegetazione diversi e pericoli specifici di cui è bene essere a conoscenza.
+
+## Ecologia
+La sezione ecologia mostra i dettagli sull'attività di animali e piante nella località.
+
+Attualmente mostra, ove applicabile, le seguenti informazioni:
+- Mosche/zanzare
+- Zecche
+
+Ogni voce mostra un periodo di attività stimato (ad esempio, "Attivo da maggio a settembre"). Toccare il testo dell'attività per visualizzare intervalli temporali più dettagliati.
+
+## Modifica della data
+Per modificare la data, tocca l'icona del calendario sopra il grafico e seleziona una data. In alternativa, puoi usare le frecce per spostarti alla data successiva/precedente oppure tenere premuto il calendario per passare rapidamente alla data odierna.
+
+Toccando una delle linee del grafico, la data cambierà e verrà visualizzata nel punto selezionato.
+
+## Modifica della posizione
+Per impostazione predefinita, viene utilizzata la tua posizione attuale. Se desideri modificarla, inserisci una nuova posizione nel campo di input sotto il grafico. Puoi anche modificare l'altitudine utilizzando l'apposito campo.
+
+## Precisione
+I valori climatici medi si basano sulla media trentennale dei dati storici e indicano le condizioni meteorologiche tipiche. I valori effettivi possono variare per diversi motivi, ma dovrebbero rimanere abbastanza vicini ai valori storici. Differenze significative sono generalmente dovute a tempeste o altri eventi meteorologici.
+
+
+Le temperature e le precipitazioni storiche sono stimate utilizzando un modello "climatico normale" personalizzato di 30 anni, derivato dai dati del NASA Global Modeling and Assimilation Office - MERRA-2 ed ERA5, rispettivamente (1991-2020).

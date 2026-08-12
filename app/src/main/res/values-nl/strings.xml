@@ -1653,4 +1653,6 @@
     <string name="common_name">Algemene naam</string>
     <string name="both_names">Beide namen</string>
     <string name="field_guide_name_display">Naamweergave</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nJe kunt deze pagina weer zichtbaar maken in de veldgidsinstellingen.</string>
+    <string name="built_in_pages">Ingebouwde pagina\'s</string>
 </resources>

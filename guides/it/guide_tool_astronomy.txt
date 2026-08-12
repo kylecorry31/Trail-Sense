@@ -1,0 +1,127 @@
+Lo strumento Astronomia può essere utilizzato per visualizzare l'orario di sorgere del sole o della luna. Può anche essere utilizzato per conoscere gli eventi astronomici in programma, come uno sciame meteorico o un'eclissi lunare.
+
+Ad eccezione dell'orario rimanente all'alba o al tramonto (sempre visualizzato oggi), tutte le informazioni mostrate nella pagina si riferiscono alla data selezionata. Per impostazione predefinita, è selezionata la data odierna, ma è possibile modificarla toccando l'icona del calendario nella parte superiore dello schermo. Sul calendario, verranno visualizzate le fasi lunari, gli sciami meteorici e le eclissi per ogni giorno. Inoltre, è possibile utilizzare le frecce per spostarsi alla data successiva/precedente oppure tenere premuto a lungo sul calendario per passare rapidamente alla data odierna.
+
+È anche possibile toccare l'icona di ricerca per trovare il prossimo evento astronomico nella propria posizione, come la prossima luna piena o il prossimo sciame meteorico.
+
+## Orario rimanente all'alba/al tramonto
+
+L'orario rimanente all'alba o al tramonto viene visualizzato nella parte superiore dello schermo. Questo rispetta gli "Orari di alba/tramonto" impostati in Impostazioni > Astronomia. Per una descrizione di ciascun orario, consultare la sezione Sole qui sotto.
+
+## Grafico
+Il grafico mostra la posizione del sole e della luna durante il giorno. L'asse X rappresenta il tempo e l'asse Y l'altitudine o l'altezza nel cielo. È possibile toccare l'icona del sole o della luna nel grafico per visualizzarne la posizione attuale oppure toccare il grafico per visualizzarne la posizione in un altro momento della giornata. In questo caso, apparirà un cursore che consentirà di visualizzare la posizione in un momento diverso della giornata.
+
+È anche possibile scegliere di mantenere l'ora corrente centrata nel grafico attivando l'opzione "Mantieni sole/luna centrati" in Impostazioni > Astronomia. In questo modo, l'ora corrente rimarrà centrata nel grafico quando è selezionata la data odierna e verranno visualizzate le 12 ore precedenti e successive all'ora corrente. Se è selezionata una data diversa, verrà visualizzata l'intera giornata.
+
+## Sole
+Tutti gli orari relativi al sole rispettano gli orari di alba/tramonto in Impostazioni > Astronomia. Per una descrizione di ciascun orario, vedere di seguito.
+
+
+Nella parte superiore dello schermo viene visualizzato il tempo rimanente all'alba o al tramonto.
+
+Sotto il grafico vengono mostrati l'orario dell'alba, del tramonto e di mezzogiorno, nonché la durata del giorno. Toccando questa sezione, visualizzerai maggiori dettagli sulla posizione del sole per la giornata corrente:
+
+- **Reale**: Questo è l'orario effettivo dell'alba, del tramonto e di mezzogiorno. È l'orario in cui il sole si trova all'orizzonte.
+
+- **Civile**: Questo è l'orario dell'alba, del tramonto e di mezzogiorno quando il sole si trova tra 0 e 6 gradi sotto l'orizzonte. C'è abbastanza luce per vedere chiaramente gli oggetti.
+
+- **Navigativa**: Questo è l'orario dell'alba, del tramonto e di mezzogiorno quando il sole si trova tra 6 e 12 gradi sotto l'orizzonte. L'orizzonte è ancora visibile, ma è troppo buio per vedere chiaramente gli oggetti.
+
+- **Astronomica**: Questo è l'orario dell'alba, del tramonto e di mezzogiorno quando il sole si trova tra 12 e 18 gradi sotto l'orizzonte. È completamente buio, ma è perfetto per osservare le stelle. - **Altitudine massima**: è il punto più alto raggiunto dal sole nel cielo. Viene espressa in gradi sopra l'orizzonte.
+
+- **Durata del giorno**: è il tempo in cui il sole è visibile.
+
+- **Notte**: è il tempo in cui il sole è tramontato.
+
+- **Stagione**: è la stagione astronomica in base alla posizione della Terra rispetto al sole. Può essere una delle seguenti: primavera, estate, autunno o inverno.
+
+- **Altitudine**: è l'angolo attuale del sole sopra l'orizzonte. Viene espressa in gradi.
+
+- **Direzione**: è la direzione attuale del sole. Viene espressa in gradi.
+
+## Luna
+Sotto il grafico sono indicati l'orario di sorgere e tramontare della luna e il mezzogiorno lunare, nonché la fase lunare attuale e la percentuale di illuminazione. Toccando questa sezione, visualizzerai maggiori dettagli sulla luna per il giorno corrente:
+
+- **Orari**: sono indicati l'orario di sorgere e tramontare della luna e il mezzogiorno lunare. - **Fase lunare**: indica la fase lunare attuale, così come appare nel cielo.
+
+- **Illuminazione**: indica la percentuale di superficie lunare illuminata. La luna piena è illuminata al 100%, mentre la luna nuova è illuminata allo 0%.
+
+- **Altitudine massima**: è il punto più alto raggiunto dalla luna nel cielo. Viene espressa in gradi sopra l'orizzonte.
+
+- **Superluna**: si verifica quando la luna è più vicina alla Terra del normale, apparendo quindi più grande e luminosa nel cielo.
+
+## Sciami meteorici
+Se nella data selezionata e nella tua località è previsto il picco di uno sciame meteorico, questo verrà visualizzato nell'elenco. Vengono mostrati gli orari di inizio, picco e fine dello sciame, nonché il numero medio di meteore all'ora. Toccando lo sciame, potrai visualizzare maggiori dettagli:
+
+- **Orari**: indicano gli orari di inizio, picco e fine dello sciame.
+
+- **Nome**: indica il nome dello sciame.
+
+- **Frequenza**: indica il numero medio di meteore all'ora.
+
+- **Altitudine massima**: indica il punto più alto raggiunto dal radiante (l'area da cui sembrano provenire le meteore) nel cielo. Viene mostrato in gradi sopra l'orizzonte.
+
+- **Direzione massima**: indica la direzione del radiante.
+
+## Eclissi lunari
+Se nella data selezionata e nella tua località si verifica un'eclissi lunare, verrà visualizzata nell'elenco. Vengono mostrati gli orari di inizio, picco e fine dell'eclissi.Inoltre, gran parte della Luna è eclissata. Puoi toccare l'eclissi per visualizzare maggiori dettagli:
+
+- **Orari**: indica l'ora di inizio, di picco e di fine dell'eclissi.
+
+- **Durata**: indica la durata dell'eclissi.
+
+- **Oscuramento**: indica la percentuale di Luna eclissata.
+
+- **Magnitudo**: indica la magnitudine dell'eclissi. È la frazione del diametro lunare eclissata.
+
+- **Altezza massima**: indica l'altitudine della Luna al culmine dell'eclissi. È espressa in gradi sopra l'orizzonte.
+
+- **Direzione massima**: indica la direzione in cui si trova la Luna al culmine dell'eclissi.
+
+## Eclissi solari
+Se nella data selezionata e nella tua località si verifica un'eclissi solare, verrà visualizzata nell'elenco. Mostra l'ora di inizio, di picco e di fine dell'eclissi, nonché la porzione di Sole oscurata. Toccando l'eclissi, potrai visualizzare maggiori dettagli:
+
+- **Orari**: Orari di inizio, di picco e di fine dell'eclissi.
+
+- **Durata**: Durata dell'eclissi.
+
+- **Oscuramento**: Percentuale di Sole oscurata.
+
+- **Magnitudo**: Magnitudine dell'eclissi. Indica la frazione del diametro del Sole oscurata.
+
+- **Altezza massima**: Altezza del Sole al culmine dell'eclissi, espressa in gradi sopra l'orizzonte.
+
+- **Direzione massima**: Direzione del Sole al culmine dell'eclissi.
+
+## Avvisi per il tramonto
+È possibile impostare avvisi per il tramonto per evitare di trovarsi all'aperto al buio. Per impostare un avviso, apri Impostazioni > Astronomia e abilita "Avvisi tramonto". Puoi regolare l'impostazione "Orario avviso tramonto" per determinare con quanto anticipo desideri essere avvisato. È disponibile anche un'azione rapida per l'avviso tramonto. Vedi sotto per maggiori informazioni.
+
+Puoi scegliere di utilizzare il canale audio della sveglia per questo avviso abilitando Impostazioni > Astronomia > Usa sveglia per avviso tramonto. In questo modo verrà riprodotto un suono come allarme anche se i contenuti multimediali e le notifiche sono silenziati.
+
+## Avvisi per l'alba
+È possibile configurare avvisi per l'alba per non perdere l'inizio della giornata. Per impostare un avviso, vai su Impostazioni > Astronomia e attiva "Avvisi alba". Puoi regolare l'impostazione "Orario avviso alba" per decidere con quanto anticipo desideri essere avvisato. Inoltre, è disponibile un'azione rapida per l'avviso alba. Consulta le informazioni seguenti per maggiori dettagli.
+
+Puoi scegliere di utilizzare il canale audio della sveglia per questo avviso abilitando Impostazioni > Astronomia > Usa sveglia per avviso alba. Questo emetterà un suono di allarme anche se i contenuti multimediali e le notifiche sono silenziati.
+
+## Avvisi astronomici
+È possibile impostare avvisi per gli eventi astronomici per non perderli. Per impostare un avviso, apri Impostazioni > Astronomia e abilita gli avvisi per i quali desideri ricevere notifiche per la tua posizione. Puoi ricevere notifiche per sciami meteorici, eclissi lunari ed eclissi solari. L'avviso verrà visualizzato fino a 24 ore prima dell'inizio dell'evento.
+
+## Visualizzazione in 3D
+Se il tuo telefono è dotato di bussola, vedrai un pulsante "Visualizza in 3D". Toccandolo, si aprirà lo strumento di Realtà Aumentata con la data selezionata e potrai vedere la posizione del sole e della luna durante il giorno utilizzando la fotocamera.
+
+Puoi scegliere di disattivare la fotocamera quando tocchi questo pulsante disattivando l'impostazione "Impostazioni > Astronomia > Usa la fotocamera per la visualizzazione 3D".
+
+
+## Azioni rapide
+Puoi attivare le azioni rapide Avviso tramonto e Avviso alba nelle impostazioni della scheda in cui desideri visualizzarle.
+
+Per utilizzare l'azione rapida, tocca il pulsante Avviso tramonto o Avviso alba per attivarla o disattivarla.
+
+## Widget
+I seguenti widget possono essere posizionati sulla schermata iniziale del dispositivo o visualizzati all'interno dell'app:
+
+- **Sole**: Mostra l'ora della prossima alba o del prossimo tramonto.
+
+- **Luna**: Mostra la fase lunare.
+
+- **Grafico del sole e della luna**: Il grafico dell'altezza del sole e della luna nel cielo.

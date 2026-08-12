@@ -1,0 +1,33 @@
+Lo strumento di balistica fornisce calcolatori per armi da fuoco per aiutare i cacciatori a effettuare un tiro preciso. Ricorda di trattare sempre la tua arma da fuoco come se fosse carica e di maneggiarla in sicurezza per evitare infortuni. Assicurati di rispettare sempre le leggi e i regolamenti locali.
+
+## Scopo
+Puoi utilizzare il calcolatore per cannocchiali per tarare un cannocchiale. È consigliabile sparare alcuni colpi e misurare la distanza dal centro della rosata. Non cambiare il punto di mira tra un colpo e l'altro.
+
+- **Regolazione per clic**: Questa impostazione si trova solitamente sulle ghiere del cannocchiale. Se il tuo cannocchiale indica pollici per 100 iarde, questo equivale a MOA (1/4" a 100 iarde = 1/4 MOA).
+- **Distanza dal bersaglio**: la distanza dal bersaglio per cui stai tarando il cannocchiale.
+- **Deviazione laterale**: la quantità di deviazione del gruppo di colpi dal punto di mira a sinistra o a destra.
+- **Deviazione in elevazione**: la quantità di deviazione del gruppo di colpi dal punto di mira sopra o sotto.
+
+Una volta compilati i campi, l'entità della regolazione del cannocchiale verrà visualizzata in basso. La regolazione per clic e la distanza dal bersaglio verranno memorizzate.
+
+## Balistica
+È possibile utilizzare il calcolatore balistico per determinare la caduta del proiettile a una data distanza. Questo funziona solo per i proiettili che utilizzano il modello di resistenza aerodinamica G1.
+
+- **Distanza di taratura**: la distanza alla quale è stata tarata la carabina.
+- **Altezza del cannocchiale**: l'altezza del cannocchiale rispetto al centro della canna.
+- **Velocità alla volata**: la velocità del proiettile quando lascia la canna. Volata. Questo dato si trova solitamente sulla scatola delle munizioni, può essere cercato online o misurato con un cronografo.
+
+- **Coefficiente balistico**: Il coefficiente balistico del proiettile. Questo dato si trova solitamente sulla scatola delle munizioni o può essere cercato online. Se non lo si fornisce, la resistenza aerodinamica non verrà presa in considerazione.
+
+Una volta inseriti i dati nei campi sopra indicati, verrà visualizzata una tabella contenente tempo, gittata, velocità e caduta. Tutti i campi verranno memorizzati.
+
+## Energia
+È possibile utilizzare il calcolatore di energia per determinare quanta energia avrà il proiettile all'impatto. È necessario assicurarsi che l'energia del proiettile sia sufficiente per l'animale che si intende cacciare.
+
+- **Velocità alla volata**: La velocità del proiettile all'uscita dalla canna. Questo dato si trova solitamente sulla scatola delle munizioni, può essere cercato online o misurato con un cronografo.
+
+- **Peso del proiettile**: Il peso del proiettile. Questo dato si trova solitamente sulla scatola delle munizioni, può essere cercato online o misurato con una bilancia.
+
+Una volta inseriti i dati nei campi sopra indicati, verrà visualizzata una tabella contenente tempo, gittata, velocità e caduta.
+
+Una volta inseriti i dati nei campi sopra indicati, verrà visualizzata la tabella contenente tempo, gittata, velocità e caduta. saranno visualizzati in basso. Verificare le leggi, i regolamenti e le linee guida etiche locali per determinare l'energia minima necessaria per una caccia legale ed etica. Tutti i campi saranno ricordati.

@@ -1,0 +1,19 @@
+Lo strumento Nuvole ti aiuta a monitorare e prevedere le condizioni meteorologiche identificando le nuvole. Se il tuo telefono è dotato di barometro, Trail Sense può combinare le osservazioni delle nuvole con le letture del barometro per migliorare le previsioni meteo nello strumento Meteo.
+
+## Registro delle nuvole
+Nel registro delle nuvole troverai le osservazioni delle nuvole delle ultime 48 ore. Ogni riga include l'ora dell'osservazione, il tipo di nuvola e le potenziali indicazioni meteorologiche. Tocca una riga per maggiori dettagli sulla nuvola, tra cui la sua descrizione, i possibili scenari meteorologici, le probabilità di precipitazione e i tipi di precipitazione più comuni che può generare. Per eliminare un'osservazione, usa il pulsante del menu situato a destra di ogni riga. Inoltre, puoi toccare l'immagine della nuvola per visualizzarne una versione più grande.
+
+## Registrazione di una nuvola
+Per registrare una nuvola, tocca il pulsante '+' in basso a destra. Puoi scegliere di utilizzare un'immagine della nuvola dai file del dispositivo o dalla fotocamera, oppure identificarla manualmente.
+
+### Identificazione automatica
+Se scegli di utilizzare la fotocamera o un file, Trail Sense tenterà di identificare automaticamente le nuvole. Mostrerà il suo livello di affidabilità per ogni tipo di nuvola e ti permetterà di selezionare i tipi di nuvole che desideri registrare utilizzando le caselle di controllo. Per impostazione predefinita, seleziona il/i tipo/i di nuvole più probabile/i. Puoi anche regolare il tempo di osservazione toccando l'ora nella parte superiore dello schermo. Una volta soddisfatto/a dell'osservazione, tocca il pulsante con il segno di spunta in alto a destra dello schermo.
+
+### Identificazione manuale
+Se scegli di identificare manualmente le nuvole, visualizzerai un elenco di tipi di nuvole. Utilizza le caselle di controllo per selezionare i tipi di nuvole che desideri registrare. Puoi anche regolare il tempo di osservazione toccando l'ora nella parte superiore dello schermo. Una volta soddisfatto/a dell'osservazione, tocca il pulsante con il segno di spunta in alto a destra dello schermo.
+
+## Azione rapida
+Puoi abilitare l'azione rapida "Scanner nuvole" nelle impostazioni della scheda in cui desideri visualizzarla.
+
+
+Toccando il pulsante di azione rapida si aprirà la fotocamera per scattare una foto di una nuvola e identificarla. Tenendo premuto il pulsante si aprirà lo strumento Nuvole.
