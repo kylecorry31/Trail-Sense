@@ -36,7 +36,7 @@
     <string name="theme_dark">Mörkt</string>
     <string name="theme_black">Svart</string>
     <string name="theme_system">System</string>
-    <string name="theme_sunset_sunrise">Soluppgång/nedgång</string>
+    <string name="theme_sunset_sunrise">Solnedgång/soluppgång</string>
     <string name="sensors">Sensorer</string>
     <string name="pref_compass_sensor_title">Kompass</string>
     <string name="calibrate">Kalibrera</string>
@@ -136,7 +136,7 @@
     <string name="saved">Sparat</string>
     <string name="error">Fel</string>
     <string name="warning">Varning</string>
-    <string name="access_background_location_rationale">Trail Sense använder platsdata i bakgrunden för att kalibrera havsnivåtrycket under väderövervakning och ge noggrannare varningar om solnedgången. [Läs integritetspolicyn](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense använder platsdata i bakgrunden för att kalibrera lufttrycket vid havsnivå under väderövervakning och ge noggrannare varningar om solnedgången. [Läs integritetspolicyn](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="precise_feet_format">%s fot</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="charging_fast">Laddar snabbt (%s)</string>
@@ -174,7 +174,7 @@
     <string name="sun_does_not_set">går inte ner</string>
     <string name="sun_does_not_rise">går inte upp</string>
     <string name="new_moon">Nymåne</string>
-    <string name="map_trace_instructions">Gå till en skuggig plats eller skärma av solen med en tygbit och lägg ett papper över skärmen så att du kan se kartan genom papperet. Använd en penna eller blyertspenna för att rita av kartan, men undvik tuschpennor eller pennor som kan blöda igenom papperet.\n\nNavigeringen längst ned på skärmen kommer att vara inaktiverad tills du stänger av avritningsläget.</string>
+    <string name="map_trace_instructions">Gå till en skuggig plats eller skärma av solen med en tygbit och lägg ett papper över skärmen så att du kan se kartan genom papperet. Använd en penna eller blyertspenna för att rita av kartan, men undvik tuschpennor och andra pennor vars bläck kan gå igenom papperet.\n\nNavigeringen längst ned på skärmen är inaktiverad tills du stänger av avritningsläget.</string>
     <string name="current_temperature">Aktuell temperatur</string>
     <string name="clear_cache">Rensa cacheminnet</string>
     <string name="liter_format">%s l</string>
