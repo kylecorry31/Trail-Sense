@@ -39,6 +39,7 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
@@ -64,9 +65,12 @@ fun ReactiveComponent.useGPSSensor(frequency: Duration = Duration.ofMillis(20)):
     return useMemo(sensors, frequency.seconds, frequency.nano) { sensors.getGPS(frequency) }
 }
 
-fun ReactiveComponent.useCellSignalSensor(removeUnregisteredSignals: Boolean = true): ICellSignalSensor {
+fun ReactiveComponent.useCellSignalSensor(
+    removeUnregisteredSignals: Boolean = true,
+    vararg values: Any?
+): ICellSignalSensor {
     val sensors = useService<SensorService>()
-    return useMemo(sensors, removeUnregisteredSignals) {
+    return useMemo(sensors, removeUnregisteredSignals, *values) {
         sensors.getCellSignal(
             removeUnregisteredSignals
         )
@@ -203,6 +207,10 @@ fun ReactiveAndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorR
     }
 
     return location to isUpToDate
+}
+
+fun ReactiveComponent.useMainActivity(): MainActivity {
+    return useActivity() as MainActivity
 }
 
 fun <T> T.useNavController(): NavController where T : ReactiveComponent, T : Fragment {

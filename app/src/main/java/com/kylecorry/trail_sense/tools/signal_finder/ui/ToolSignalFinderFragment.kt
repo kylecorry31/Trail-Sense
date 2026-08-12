@@ -3,25 +3,34 @@ package com.kylecorry.trail_sense.tools.signal_finder.ui
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
+import androidx.lifecycle.Observer
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
-import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellSignal
+import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
+import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCellSignalSensor
+import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useGPSLocation
+import com.kylecorry.trail_sense.shared.extensions.useMainActivity
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.openTool
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.Toolbar
+import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -43,12 +52,27 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
         val markdown = useService<MarkdownService>()
         val navigator = useService<Navigator>()
         val queue = useCoroutineQueue()
+        val sensorService = useService<SensorService>()
+        val mainActivity = useMainActivity()
 
         // State
-        val signals = useCellSignals()
+        val hasLocationPermission = useMemo(sensorService, lifecycleHookTrigger.onResume()) {
+            sensorService.hasLocationPermission()
+        }
+        val signals = useCellSignals(hasLocationPermission)
         val (location, _) = useGPSLocation(Duration.ofSeconds(5))
         val (nearby, setNearby) = useState<List<ApproximateCoordinate>>(emptyList())
         val (loading, setLoading) = useState(false)
+
+        // Only reported when the permission changes so a banner the user closed doesn't come back
+        // every time they resume the tool
+        useEffect(mainActivity, hasLocationPermission) {
+            updateLocationPermissionError(mainActivity, hasLocationPermission)
+        }
+
+        useDestroyEffect(mainActivity) {
+            mainActivity.errorBanner.dismiss(ErrorBannerReason.LocationPermissionDenied)
+        }
 
         list.emptyView = emptyText
 
@@ -118,14 +142,55 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
         }
     }
 
-    private fun useCellSignals(): List<CellSignal> {
-        val cellSignal = useCellSignalSensor(false)
-        return useTopic(cellSignal, emptyList()) {
-            it.signals.sortedWith(
-                compareByDescending<CellSignal> { signal -> signal.isRegistered }
-                    .thenByDescending { signal -> signal.strength }
-                    .thenByDescending { signal -> signal.id }
-            )
+    private fun useCellSignals(vararg values: Any?): List<CellSignal> {
+        val cellSignal = useCellSignalSensor(false, *values)
+        val (signals, setSignals) = useState<List<CellSignal>>(emptyList())
+        val owner = useLifecycleOwner()
+
+        useEffectWithCleanup(cellSignal, owner) {
+            val liveData = cellSignal.asLiveData()
+            val observer = object : Observer<ICellSignalSensor?> {
+                override fun onChanged(value: ICellSignalSensor?) {
+                    if (value == null) {
+                        return
+                    }
+                    setSignals(
+                        cellSignal.signals.sortedWith(
+                            compareByDescending<CellSignal> { signal -> signal.isRegistered }
+                                .thenByDescending { signal -> signal.strength }
+                                .thenByDescending { signal -> signal.id }
+                        )
+                    )
+                }
+            }
+            liveData.observe(owner, observer)
+            return@useEffectWithCleanup {
+                liveData.removeObserver(observer)
+            }
         }
+
+        return signals
+    }
+
+    private fun updateLocationPermissionError(
+        mainActivity: MainActivity,
+        hasPermission: Boolean
+    ) {
+        val banner = mainActivity.errorBanner
+        if (hasPermission) {
+            banner.dismiss(ErrorBannerReason.LocationPermissionDenied)
+            return
+        }
+
+        banner.report(
+            UserError(
+                ErrorBannerReason.LocationPermissionDenied,
+                getString(R.string.location_required_for_cell_signals),
+                R.drawable.signal_cellular_outline,
+                getString(R.string.settings)
+            ) {
+                startActivity(Intents.appSettings(requireContext()))
+            }
+        )
     }
 }
