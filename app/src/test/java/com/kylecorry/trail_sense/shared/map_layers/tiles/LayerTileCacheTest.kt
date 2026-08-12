@@ -16,12 +16,15 @@ internal class LayerTileCacheTest {
         val cache = LayerTileCache(owner, 1)
         val firstTile = Tile(0, 0, 1)
         val secondTile = Tile(1, 0, 1)
-        val first = cache.getOrPut(firstTile) { key -> loadedTile(key, firstTile, owner) }
-
-        cache.getOrPut(secondTile) { key -> loadedTile(key, secondTile, owner) }
+        val first = cache.getOrPut(listOf(firstTile, secondTile)) { tile, key ->
+            loadedTile(key, tile, owner)
+        }.first()
 
         assertSame(first, cache.peek(firstTile))
-        assertSame(first, cache.getOrPut(firstTile) { key -> loadedTile(key, firstTile, owner) })
+        assertSame(
+            first,
+            cache.getOrPut(listOf(firstTile)) { tile, key -> loadedTile(key, tile, owner) }.single()
+        )
         cache.clear()
     }
 
@@ -31,16 +34,19 @@ internal class LayerTileCacheTest {
         val cache = LayerTileCache(owner, 1)
         val firstTile = Tile(0, 0, 1)
         val secondTile = Tile(1, 0, 1)
-        val first = cache.getOrPut(firstTile) { key ->
-            ImageTile(
-                key = key,
-                tile = firstTile,
-                state = TileState.Loading,
-                owner = owner,
-                loadFunction = { null }
-            )
-        }
-        cache.getOrPut(secondTile) { key -> loadedTile(key, secondTile, owner) }
+        val first = cache.getOrPut(listOf(firstTile, secondTile)) { tile, key ->
+            if (tile == firstTile) {
+                ImageTile(
+                    key = key,
+                    tile = tile,
+                    state = TileState.Loading,
+                    owner = owner,
+                    loadFunction = { null }
+                )
+            } else {
+                loadedTile(key, tile, owner)
+            }
+        }.first()
 
         first.load()
         cache.onLoadComplete(first)
@@ -49,7 +55,7 @@ internal class LayerTileCacheTest {
             assertEquals(TileState.Empty, first.state)
             assertSame(
                 first,
-                cache.getOrPut(firstTile) { error("Empty tile was loaded again") }
+                cache.getOrPut(listOf(firstTile)) { _, _ -> error("Empty tile was loaded again") }.single()
             )
         } finally {
             cache.clear()
@@ -63,16 +69,13 @@ internal class LayerTileCacheTest {
         val otherCache = LayerTileCache(otherOwner, 1)
         val clearedCache = LayerTileCache(clearedOwner, 1)
         val sharedTile = Tile(0, 0, 9)
-        val shared = otherCache.getOrPut(sharedTile) { key ->
-            loadedTile(key, sharedTile, otherOwner)
-        }
-        repeat(256) { x ->
-            val tile = Tile(x + 1, 0, 9)
-            otherCache.getOrPut(tile) { key -> loadedTile(key, tile, otherOwner) }
-        }
+        val otherTiles = listOf(sharedTile) + (1..256).map { x -> Tile(x, 0, 9) }
+        val shared = otherCache.getOrPut(otherTiles) { tile, key ->
+            loadedTile(key, tile, otherOwner)
+        }.first()
         val clearedTile = Tile(0, 1, 9)
-        clearedCache.getOrPut(clearedTile) { key ->
-            loadedTile(key, clearedTile, clearedOwner)
+        clearedCache.getOrPut(listOf(clearedTile)) { tile, key ->
+            loadedTile(key, tile, clearedOwner)
         }
 
         try {
@@ -80,7 +83,9 @@ internal class LayerTileCacheTest {
 
             assertSame(
                 shared,
-                otherCache.getOrPut(sharedTile) { error("Other owner's shared tile was evicted") }
+                otherCache.getOrPut(listOf(sharedTile)) { _, _ ->
+                    error("Other owner's shared tile was evicted")
+                }.single()
             )
         } finally {
             clearedCache.clear()
@@ -94,8 +99,9 @@ internal class LayerTileCacheTest {
         val cache = LayerTileCache(owner, 1)
         val firstTile = Tile(0, 0, 1)
         val secondTile = Tile(1, 0, 1)
-        val first = cache.getOrPut(firstTile) { key -> loadedTile(key, firstTile, owner) }
-        val second = cache.getOrPut(secondTile) { key -> loadedTile(key, secondTile, owner) }
+        val (first, second) = cache.getOrPut(listOf(firstTile, secondTile)) { tile, key ->
+            loadedTile(key, tile, owner)
+        }
 
         cache.invalidate()
 

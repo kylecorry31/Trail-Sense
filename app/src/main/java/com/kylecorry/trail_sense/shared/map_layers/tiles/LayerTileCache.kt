@@ -34,13 +34,6 @@ class LayerTileCache(
         return layerCache.peek(key) ?: sharedCache.peek(key)
     }
 
-    fun getOrPut(tile: Tile, provider: (key: String) -> ImageTile): ImageTile {
-        // Acquiring a tile can update LRU ordering and transfer ownership, but it can run alongside other normal use.
-        return lifecycleLock.read {
-            getOrPutLocked(tile, provider)
-        }
-    }
-
     fun getOrPut(
         tiles: List<Tile>,
         provider: (tile: Tile, key: String) -> ImageTile
