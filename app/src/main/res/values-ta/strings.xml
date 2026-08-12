@@ -583,8 +583,6 @@
     <string name="unit_miles">மைல்கள்</string>
     <string name="water_boil_timer_done_content">உங்கள் நீர் இப்போது குடிக்கலாம்</string>
     <string name="unit_nautical_miles">கடல் மைல்கள்</string>
-    <string name="guide_recommended_apps">பரிந்துரைக்கப்பட்ட பயன்பாடுகள்</string>
-    <string name="guide_recommended_apps_description">உயிர்வாழும் சூழ்நிலைகளுக்கு பயனுள்ள பயன்பாடுகள்</string>
     <string name="tool_solar_panel_summary">உகந்த மின் உற்பத்திக்கு சோலார் பேனல்களை நிலைநிறுத்துங்கள்</string>
     <string name="tool_solar_panel_title">சோலார் பேனல் சீரமைப்பு</string>
     <string name="solar_panel_instructions">உங்கள் தொலைபேசியை சோலார் பேனலின் முகத்தில் தொடங்கவும்.</string>

@@ -239,8 +239,6 @@
     <string name="tomorrows_forecast">Previsioni per domani</string>
     <string name="todays_forecast">Previsioni per oggi</string>
     <string name="tool_solar_panel_title">Allineamento pannelli solari</string>
-    <string name="guide_recommended_apps_description">App utili in situazioni di emergenza</string>
-    <string name="guide_recommended_apps">App Consigliate</string>
     <string name="unit_nautical_miles">Miglia nautiche</string>
     <string name="category_natural">Naturali</string>
     <string name="category_safety">Sicurezza</string>

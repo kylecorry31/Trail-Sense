@@ -179,7 +179,6 @@
     <string name="water_boil_timer_channel_description">Woda wrze</string>
     <string name="water_boil_timer">Minutnik przegotowywania wody</string>
     <string name="start">Start</string>
-    <string name="guide_recommended_apps">Polecane aplikacje</string>
     <string name="distance_to">Do</string>
     <string name="distance_from">Z</string>
     <string name="pref_sensor_details_title">Szczegóły czujników</string>
@@ -232,7 +231,6 @@
     <string name="one">1</string>
     <string name="tool_ruler_title">Linijka</string>
     <string name="precise_centimeters_format">%s cm</string>
-    <string name="guide_recommended_apps_description">Przydatne aplikacje w wymagających sytuacjach</string>
     <string name="tool_battery_title">Bateria</string>
     <string name="discharging_fast">Szybkie rozładowywanie (%s)</string>
     <string name="discharging_slow">Powolne rozładowywanie (%s)</string>

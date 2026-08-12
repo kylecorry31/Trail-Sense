@@ -186,8 +186,6 @@
     <string name="tool_solar_panel_title">太阳能板对准器</string>
     <string name="tool_solar_panel_summary">放置太阳能电池板以获得最优的电力生产效率</string>
     <string name="pref_privacy_policy_title">隐私政策</string>
-    <string name="guide_recommended_apps_description">对生存情境有用的应用程序</string>
-    <string name="guide_recommended_apps">推荐的应用</string>
     <string name="unit_nautical_miles">海里</string>
     <string name="unit_miles">英里</string>
     <string name="unit_kilometers">千米</string>

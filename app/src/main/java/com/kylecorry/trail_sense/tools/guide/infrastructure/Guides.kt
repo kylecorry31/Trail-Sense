@@ -14,8 +14,6 @@ object Guides {
         val sortedTools = CategoricalToolSort(context).sort(tools)
 
         val locationCategoryName = context.getString(R.string.location)
-        val otherCategoryName = context.getString(R.string.other)
-
         val toolGuides = sortedTools.mapNotNull { category ->
             val guides = category.tools.mapNotNull { tool ->
                 if (tool.guideId == null) {
@@ -34,14 +32,6 @@ object Guides {
                         context.getString(R.string.guide_map_layers),
                         null,
                         R.raw.guide_tool_map_layers
-                    )
-                } else null,
-                // Add recommended apps guide to the bottom of the other category
-                if (category.categoryName == otherCategoryName) {
-                    UserGuide(
-                        context.getString(R.string.guide_recommended_apps),
-                        context.getString(R.string.guide_recommended_apps_description),
-                        R.raw.guide_tool_recommended_apps
                     )
                 } else null
             )

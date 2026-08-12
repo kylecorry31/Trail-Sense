@@ -388,8 +388,6 @@
     <string name="tool_solar_panel_title">Poravnavač Solarnih Ploča</string>
     <string name="tool_solar_panel_summary">Postavite solarne panele za optimalnu proizvodnju energije</string>
     <string name="pref_privacy_policy_title">Politika privatnosti</string>
-    <string name="guide_recommended_apps_description">Korisne aplikacije za situacije preživljavanja</string>
-    <string name="guide_recommended_apps">Preporučene aplikacije</string>
     <string name="unit_nautical_miles">Nautičkih Milja</string>
     <string name="unit_miles">Milja</string>
     <string name="unit_feet">Stopa</string>

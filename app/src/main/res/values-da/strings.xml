@@ -463,8 +463,6 @@
     <string name="arrow">Pil</string>
     <string name="tool_whistle_title">Fløjte</string>
     <string name="inventory_empty_text">Tom</string>
-    <string name="guide_recommended_apps">Anbefalede apps</string>
-    <string name="guide_recommended_apps_description">Nyttige apps til overlevelsessituationer</string>
     <string name="pref_privacy_policy_title">Fortrolighedspolitik</string>
     <string name="water_boil_timer_done_title">Vandet er kogt</string>
     <string name="battery_health">Sundhed: %s</string>

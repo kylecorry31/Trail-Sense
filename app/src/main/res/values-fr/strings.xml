@@ -237,8 +237,6 @@
     <string name="tool_solar_panel_title">Alignement du panneau solaire</string>
     <string name="tool_solar_panel_summary">Position des panneaux solaires pour une production optimale</string>
     <string name="pref_privacy_policy_title">Politique de confidentialité</string>
-    <string name="guide_recommended_apps_description">Applications utiles en situation de survie</string>
-    <string name="guide_recommended_apps">Applications recommandées</string>
     <string name="unit_nautical_miles">Milles nautiques</string>
     <string name="unit_feet">Pieds</string>
     <string name="unit_kilometers">Kilomètres</string>

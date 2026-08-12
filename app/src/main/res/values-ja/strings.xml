@@ -217,7 +217,6 @@
     <string name="unit_meters">メートル</string>
     <string name="inventory_empty_text">アイテムがありません</string>
     <string name="distance_to">まで</string>
-    <string name="guide_recommended_apps_description">サバイバル場面で有用なアプリ</string>
     <string name="thunder">雷鳴</string>
     <string name="water_purification_step_2">水を沸かします</string>
     <string name="clock_waiting_for_gps">GPSを使用して時刻を修正中…</string>
@@ -253,7 +252,6 @@
     <string name="unit_feet">フィート</string>
     <string name="unit_miles">マイル</string>
     <string name="unit_nautical_miles">海里</string>
-    <string name="guide_recommended_apps">おすすめアプリ</string>
     <string name="pref_privacy_policy_title">個人情報保護指針</string>
     <string name="solar_panel_instructions">太陽光パネルの表面に端末を置き、開始します。</string>
     <string name="water_boil_timer_channel_description">お湯を沸かしています</string>

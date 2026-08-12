@@ -187,8 +187,6 @@
     <string name="pref_show_linear_compass_summary">Når telefonen er loddrett</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Angi gjeldende trykk ved havnivå i hPa</string>
     <string name="pref_auto_declination_summary">Basert på din nåværende posisjon</string>
-    <string name="guide_recommended_apps">Anbefalte apper</string>
-    <string name="guide_recommended_apps_description">Nyttige apper for overlevelsessituasjoner</string>
     <string name="unit_nautical_miles">Nautisk mil</string>
     <string name="tool_whistle_title">Fløyte</string>
     <string name="error_occurred_message">Trail Sense støtte på en feil. Send e-post til utvikleren for å få dette problemet løst.</string>

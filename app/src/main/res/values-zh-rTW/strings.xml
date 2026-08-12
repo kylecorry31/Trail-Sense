@@ -116,7 +116,6 @@
     <string name="precise_inches_format">%s 英寸</string>
     <string name="precise_centimeters_format">%s 公分</string>
     <string name="pref_privacy_policy_title">隱私權政策</string>
-    <string name="guide_recommended_apps">推薦的應用程式</string>
     <string name="inventory_empty_text">沒有物品</string>
     <string name="tool_cliff_height_title">懸崖高度</string>
     <string name="tool_bubble_level_title">水平儀</string>
@@ -553,7 +552,6 @@
     <string name="pin">釘選</string>
     <string name="restart_services_title">重新啟動服務</string>
     <string name="category_hydration">保濕</string>
-    <string name="guide_recommended_apps_description">面對求生處境時的有用應用程式</string>
     <string name="tool_category_signaling">訊號傳遞</string>
     <string name="pref_show_last_signal_beacon_title">最後一個訊號信標</string>
     <string name="moved_to">已移動至 %s</string>

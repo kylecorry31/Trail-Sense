@@ -249,12 +249,10 @@
     <string name="pref_category_about">O aplikaci</string>
     <string name="tool_bubble_level_summary">Určete, zda jsou povrchy rovné</string>
     <string name="distance_to">Na</string>
-    <string name="guide_recommended_apps">Doporučené aplikace</string>
     <string name="tool_bubble_level_title">Bublinová vodováha</string>
     <string name="category_clothing">Oblečení</string>
     <string name="unit_nautical_miles">Námořní míle</string>
     <string name="pref_privacy_policy_title">Zásady ochrany osobních údajů</string>
-    <string name="guide_recommended_apps_description">Užitečné aplikace pro přežití</string>
     <string name="duration_second_format">%ds</string>
     <string name="tap_to_turn_off">Klepněte pro vypnutí</string>
     <string name="thunder">Hrom</string>

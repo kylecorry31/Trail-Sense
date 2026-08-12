@@ -318,7 +318,6 @@
     <string name="water_purification_step_1">Filter het water</string>
     <string name="three">3</string>
     <string name="two">2</string>
-    <string name="guide_recommended_apps_description">Handige apps voor overlevingssituaties</string>
     <string name="pref_display_multi_beacons_summary">Dichtstbijzijnde bakens op het kompas weergeven</string>
     <string name="unit_inches">Inch (Engelse duim)</string>
     <string name="map_scale_verbal">Omzetten</string>
@@ -428,7 +427,6 @@
     <string name="units">Eenheden</string>
     <string name="unit_centimeters">Centimeter</string>
     <string name="unit_feet">Engelse/internationale voet</string>
-    <string name="guide_recommended_apps">Aanbevolen apps</string>
     <string name="unit_nautical_miles">Internationale zeemijl</string>
     <string name="unit_miles">Engelse mijl</string>
     <string name="pref_privacy_policy_title">Privacybeleid</string>

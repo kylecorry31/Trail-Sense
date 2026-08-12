@@ -224,7 +224,6 @@
     <string name="unit_meters">Metres</string>
     <string name="unit_feet">Peus</string>
     <string name="unit_miles">Milles</string>
-    <string name="guide_recommended_apps_description">Aplicacions útils per a situacions de supervivència</string>
     <string name="pref_privacy_policy_title">Política de privadesa</string>
     <string name="tool_solar_panel_title">Alineador de panells solars</string>
     <string name="tool_clock_title">Rellotge</string>
@@ -280,7 +279,6 @@
 \nY: %2$s</string>
     <string name="distance_to">Fins a</string>
     <string name="unit_nautical_miles">Milles nàutiques</string>
-    <string name="guide_recommended_apps">Aplicacions recomanades</string>
     <string name="solar_panel_instructions">Col·loqueu el telèfon a la cara del panell solar per començar.</string>
     <string name="water_boil_timer_done_content">La vostra aigua ja és potable</string>
     <string name="thunder">Tro</string>

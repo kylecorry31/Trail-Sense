@@ -232,7 +232,6 @@
     <string name="pref_sensor_details_title">Sentsoreen xehetasunak</string>
     <string name="water_boil_timer_title">Ura irakin</string>
     <string name="pref_privacy_policy_title">Pribatutasun politika</string>
-    <string name="guide_recommended_apps">Gomendatutako aplikazioak</string>
     <string name="unit_nautical_miles">Itsas miliak</string>
     <string name="inventory_empty_text">Elementurik ez</string>
     <string name="no_group">Talderik ez</string>
@@ -350,7 +349,6 @@
     <string name="delete_path_group_message">%s eta bere bide guztiak ezabatuko dira.</string>
     <string name="tool_bubble_level_summary">Azaleraren bat laua den determinatzen du</string>
     <string name="tool_cliff_height_disclaimer">Tresna hau soilik segurua denean erabili, eta ziurtatu zer dagoen amildegiaren beheran zauriak ekiditeko. Erabiltzailearen gida irakurri argibideentzako.</string>
-    <string name="guide_recommended_apps_description">Aplikazio erabilgarriak biziraupen uneentzako</string>
     <string name="solar_panel_instructions">Hasteko, kokatu zure mugikorra eguzki-panelaren aurrealdean.</string>
     <string name="water_boil_timer_done_content">Zure ura edangarria da</string>
     <string name="one">1</string>

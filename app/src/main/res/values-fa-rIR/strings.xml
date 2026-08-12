@@ -254,7 +254,6 @@
     <string name="clock_sync_notification">همگام سازی ساعت - %s</string>
     <string name="unsaved_changes">تغییرات ذخیره نشده</string>
     <string name="quarter_moon">ربع ماه</string>
-    <string name="guide_recommended_apps">برنامه های توصیه شده</string>
     <string name="water_boil_timer_done_content">آب شما اکنون قابل شرب است</string>
     <string name="start">شروع</string>
     <string name="water_purification_step_1">آب را فیلتر کنید</string>
@@ -536,7 +535,6 @@
     <string name="pref_altimeter_calibration_title">ارتفاع سنج</string>
     <string name="pref_privacy_policy_title">سیاست حفظ حریم خصوصی</string>
     <string name="tool_cliff_height_title">ارتفاع صخره</string>
-    <string name="guide_recommended_apps_description">برنامه های مفید برای شرایط بقا</string>
     <string name="astronomy_altitude">ارتفاع</string>
     <string name="supermoon">سوپرماه</string>
     <string name="season_summer">تابستان</string>

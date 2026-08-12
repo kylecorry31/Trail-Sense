@@ -257,7 +257,6 @@
 \n
 \n- Αφού επιλέξετε το στοιχείο συνέχεια, θα σας ζητηθεί να εκχωρήσετε την άδεια τοποθεσίας. Η άρνηση αυτής της άδειας θα αποτρέψει την πρόσβαση του Trail Sense στην τοποθεσία σας, οπότε και συνιστάται η μη αυτόματη καταχώριση τοποθεσίας.</string>
     <string name="tool_cliff_height_disclaimer">Χρησιμοποιήστε αυτό το εργαλείο μόνο όταν είναι ασφαλές και βεβαιωθείτε ότι έχετε ελέγξει τι βρίσκεται κάτω από τον γκρεμό για να αποφύγετε τραυματισμούς. Ανατρέξτε στον οδηγό χρήσης για οδηγίες.</string>
-    <string name="guide_recommended_apps">Προτεινόμενες εφαρμογές</string>
     <string name="pressure_48_hours">48 ώρες</string>
     <string name="us_cups">Κούπες ΗΠΑ</string>
     <string name="imperial_ounces_volume">Αγγλικές Ουγγιές</string>
@@ -373,7 +372,6 @@
     <string name="new_packing_list">Νέα λίστα συσκευασίας</string>
     <string name="milliliter_format">%s ml</string>
     <string name="sun_nautical">Ναυτική</string>
-    <string name="guide_recommended_apps_description">Χρήσιμες εφαρμογές για καταστάσεις επιβίωσης</string>
     <string name="grant_permission">Χορήγηση άδειας για %s</string>
     <string name="whistle_signal_where_are_you">Πού βρίσκεσαι;</string>
     <string name="packing_lists">Λίστες Συσκευασίας</string>

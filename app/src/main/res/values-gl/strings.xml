@@ -267,8 +267,6 @@
     <string name="unit_feet">Pés</string>
     <string name="unit_miles">Millas</string>
     <string name="unit_nautical_miles">Millas náuticas</string>
-    <string name="guide_recommended_apps">Aplicacións recomendadas</string>
-    <string name="guide_recommended_apps_description">Aplicacións útiles para situacións de supervivencia</string>
     <string name="guide_map_layers">Capas do Mapa</string>
     <string name="pref_privacy_policy_title">Política de privacidade</string>
     <string name="tool_solar_panel_summary">Coloca os paneis solares para unha produción óptima de enerxía</string>

@@ -345,8 +345,6 @@
     <string name="unit_kilometers">Kilometer</string>
     <string name="unit_miles">Mil</string>
     <string name="unit_nautical_miles">Mil laut</string>
-    <string name="guide_recommended_apps">Aplikasi yang direkomendasikan</string>
-    <string name="guide_recommended_apps_description">Aplikasi yang berguna untuk situasi bertahan hidup</string>
     <string name="tool_solar_panel_summary">Posisikan panel surya untuk produksi daya yang optimal</string>
     <string name="tool_solar_panel_title">Penyelaras Panel Surya</string>
     <string name="solar_panel_instructions">Letakkan ponsel Anda di bagian depan panel surya untuk memulai.</string>

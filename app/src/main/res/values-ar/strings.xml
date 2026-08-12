@@ -133,7 +133,6 @@
     <string name="sun_down_no_set">الشمس غاربة</string>
     <string name="compass_declination_override">تجاوز الانحراف</string>
     <string name="pref_center_sun_and_moon_title">إبقاء الشمس/القمر في المنتصف</string>
-    <string name="guide_recommended_apps">التطبيقات الموصى بها</string>
     <string name="category_natural">طبيعي</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="sunrise_alert_notification_title">الشمس ستشرق قريبًا</string>
@@ -250,7 +249,6 @@
     <string name="distance_from">من</string>
     <string name="unit_kilometers">كيلومتر</string>
     <string name="unit_miles">ميل</string>
-    <string name="guide_recommended_apps_description">تطبيقات مفيدة لمواقف البقاء</string>
     <string name="pref_privacy_policy_title">سياسة الخصوصية</string>
     <string name="tool_solar_panel_summary">وضع الألواح الشمسية لتحقيق أقصى إنتاج للطاقة</string>
     <string name="tool_solar_panel_title">محاذاة الألواح الشمسية</string>
@@ -486,26 +484,26 @@
     <plurals name="page_group_summary">
         <item quantity="zero">صفحة واحدة</item>
         <item quantity="one">%d صفحات</item>
-        <item quantity="two" />
-        <item quantity="few" />
-        <item quantity="many" />
-        <item quantity="other" />
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <plurals name="beacon_group_summary">
         <item quantity="zero">منارة واحدة</item>
         <item quantity="one">%d منارات</item>
-        <item quantity="two" />
-        <item quantity="few" />
-        <item quantity="many" />
-        <item quantity="other" />
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <plurals name="path_group_summary">
         <item quantity="zero">مسار واحد</item>
         <item quantity="one">%d مسارات</item>
-        <item quantity="two" />
-        <item quantity="few" />
-        <item quantity="many" />
-        <item quantity="other" />
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="one">1</string>
     <string name="could_not_triangulate">تعذر تحديد الموقع بالتثليث</string>
@@ -535,10 +533,10 @@
     <plurals name="beacons_exported">
         <item quantity="zero">تم تصدير منارة واحدة</item>
         <item quantity="one">تم تصدير %d منارات</item>
-        <item quantity="two" />
-        <item quantity="few" />
-        <item quantity="many" />
-        <item quantity="other" />
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="tool_bubble_level_title">ميزان الفقاعة</string>
     <string name="tool_bubble_level_summary">تحديد ما إذا كانت الأسطح مستوية</string>
@@ -554,10 +552,10 @@
     <plurals name="beacons_imported">
         <item quantity="zero">تم استيراد منارة واحدة</item>
         <item quantity="one">تم استيراد %d منارات</item>
-        <item quantity="two" />
-        <item quantity="few" />
-        <item quantity="many" />
-        <item quantity="other" />
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="gps_location_accuracy">دقة موقع GPS</string>
     <string name="charging_slow">الشحن البطيء (%s)</string>
@@ -607,10 +605,10 @@
     <plurals name="water_boil_timer_content">
         <item quantity="zero">ثانية واحدة حتى تصبح صالحة للشرب</item>
         <item quantity="one">%d ثوانٍ حتى تصبح صالحة للشرب</item>
-        <item quantity="two" />
-        <item quantity="few" />
-        <item quantity="many" />
-        <item quantity="other" />
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="speed">السرعة</string>
     <string name="clear_cache">مسح ذاكرة التخزين المؤقت</string>

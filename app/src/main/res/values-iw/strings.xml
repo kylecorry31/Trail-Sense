@@ -380,7 +380,6 @@
     <string name="tool_user_guide_title">מדריך למשתמש</string>
     <string name="error_occurred_message">Trail Sense נתקל בשגיאה. יש לשלח דוא\"ל למפתח כדי לפתור בעיה זו.</string>
     <string name="unit_nautical_miles">מיילים ימיים</string>
-    <string name="guide_recommended_apps">יישומים מומלצים</string>
     <string name="three">3</string>
     <string name="water_purification_step_2">הרתחת מים עד לבעבוע</string>
     <string name="water_purification_step_3">הפעל את שעון העצר</string>
@@ -394,7 +393,6 @@
     <string name="category_medical">רפואי</string>
     <string name="category_fire">אש</string>
     <string name="tool_cliff_height_description">מדוד את גובהו של צוק או ירידה</string>
-    <string name="guide_recommended_apps_description">יישומים שימושיים למצבי הישרדות</string>
     <string name="solar_panel_instructions">הנח את הטלפון שלך על פני הפאנל הסולארי כדי להתחיל.</string>
     <string name="strobe_warning_title">אורות מהבהבים</string>
     <string name="tool_category_signaling">איתות</string>

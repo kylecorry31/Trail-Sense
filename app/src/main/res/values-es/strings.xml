@@ -144,8 +144,6 @@
     <string name="tool_solar_panel_title">Alineador de Panel Solar</string>
     <string name="tool_solar_panel_summary">Posicionar paneles solares de forma óptima para generar energía</string>
     <string name="pref_privacy_policy_title">Política de privacidad</string>
-    <string name="guide_recommended_apps_description">Aplicaciones útiles para situaciones de supervivencia</string>
-    <string name="guide_recommended_apps">Aplicaciones recomendadas</string>
     <string name="unit_nautical_miles">Millas náuticas</string>
     <string name="unit_miles">Millas</string>
     <string name="unit_feet">Pies</string>

@@ -309,7 +309,6 @@
     <string name="pref_auto_location_title">Hely automatikus állítása</string>
     <string name="elevation_override_updated_toast">Magasság-felülírás frissítve</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Tengerszinti nyomás megadása</string>
-    <string name="guide_recommended_apps">Javasolt appok</string>
     <string name="how">Hogyan</string>
     <string name="low_tide">Apály</string>
     <string name="half_tide">Köztes</string>
@@ -415,7 +414,6 @@
     <string name="category_medical">Egészségügy</string>
     <string name="category_shelter">Búvóhely</string>
     <string name="category_natural">Természetes</string>
-    <string name="guide_recommended_apps_description">Hasznos appok túlélési helyzetekre</string>
     <string name="water_boil_timer">Vízforralás Időzítő</string>
     <string name="compass_calibrate_toast">Az iránytű pontossága %s, kalibrálás javasolt</string>
     <string name="unit_centimeters">Centiméter</string>

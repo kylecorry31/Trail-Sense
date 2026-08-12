@@ -236,8 +236,6 @@
     <string name="tool_solar_panel_title">Solarpanel ausrichten</string>
     <string name="tool_solar_panel_summary">Solarpanels für optimale Energiegewinnung ausrichten</string>
     <string name="pref_privacy_policy_title">Datenschutzerklärung</string>
-    <string name="guide_recommended_apps_description">Nützliche Apps für Überlebenssituationen</string>
-    <string name="guide_recommended_apps">Empfohlene Apps</string>
     <string name="unit_nautical_miles">Seemeilen</string>
     <string name="unit_miles">Meilen</string>
     <string name="unit_feet">Fuß</string>
