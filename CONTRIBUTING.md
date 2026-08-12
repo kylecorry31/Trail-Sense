@@ -7,6 +7,7 @@
 - [Test out experimental features](https://github.com/kylecorry31/Trail-Sense/discussions/2099)
 - [Supported Use Cases](docs/use-cases.md)
 - [Architectural Decision Record](docs/adr): records key decisions I've made for Trail Sense's code
+- [Recommend a related app](https://github.com/kylecorry31/Trail-Sense/discussions/4002)
 
 ## Discussions and Issues
 Use [Discussions](https://github.com/kylecorry31/Trail-Sense/discussions/new/choose) for feature ideas, bug reports, and questions. Issues are reserved for maintainers only.
