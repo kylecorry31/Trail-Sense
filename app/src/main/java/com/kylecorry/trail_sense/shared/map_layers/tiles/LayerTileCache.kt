@@ -61,7 +61,7 @@ class LayerTileCache(
 
     fun clear() {
         lifecycleLock.write {
-            layerCache.evictAll()
+            layerCache.takeAll().forEach { recycle(it) }
             sharedCache.evictOwner(source)
         }
     }
@@ -113,7 +113,7 @@ class LayerTileCache(
     }
 
     private fun isCacheable(tile: ImageTile): Boolean {
-        return tile.hasImage() || tile.state == TileState.Loading
+        return tile.hasImage() || tile.state == TileState.Loading || tile.state == TileState.Empty
     }
 
     companion object {

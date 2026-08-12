@@ -83,6 +83,17 @@ class TileCache(
         }
     }
 
+    fun takeAll(): List<ImageTile> {
+        synchronized(this) {
+            return snapshot().keys.mapNotNull {
+                val value = get(it) ?: return@mapNotNull null
+                transferring[it] = value
+                remove(it)
+                value
+            }
+        }
+    }
+
     fun removeIfSame(key: String, tile: ImageTile): Boolean {
         synchronized(this) {
             if (entries[key] !== tile) {

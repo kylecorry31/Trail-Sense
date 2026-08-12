@@ -93,10 +93,11 @@ class TileLoader(
         isHighDetailMode: Boolean = false,
         context: Context
     ) {
+        val screenCacheSize = (tiles.size * 2).coerceAtLeast(1)
         val cacheSize = if (prefs.useLargeTileCache) {
-            LARGE_LAYER_CACHE_SIZE
+            maxOf(LARGE_LAYER_CACHE_SIZE, screenCacheSize)
         } else {
-            (tiles.size * 2).coerceAtLeast(1)
+            screenCacheSize
         }
         if (tileCache.maxSize() != cacheSize) {
             tileCache.resize(cacheSize)
@@ -372,6 +373,15 @@ class TileLoader(
 
     companion object {
         private const val LARGE_LAYER_CACHE_SIZE = 256
+
+        internal fun getCacheSize(tileCount: Int, useLargeCache: Boolean): Int {
+            val screenCacheSize = (tileCount * 2).coerceAtLeast(1)
+            return if (useLargeCache) {
+                maxOf(LARGE_LAYER_CACHE_SIZE, screenCacheSize)
+            } else {
+                screenCacheSize
+            }
+        }
     }
 
 }

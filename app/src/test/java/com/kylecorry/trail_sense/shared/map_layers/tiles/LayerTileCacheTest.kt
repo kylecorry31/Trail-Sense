@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.map_layers.tiles
 import android.graphics.Bitmap
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotSame
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
@@ -27,7 +26,7 @@ internal class LayerTileCacheTest {
     }
 
     @Test
-    fun removesSharedTileWhenLoadCompletesWithoutImage() = runBlocking {
+    fun keepsSharedTileWhenLoadCompletesWithoutImage() = runBlocking {
         val owner = UUID.randomUUID().toString()
         val cache = LayerTileCache(owner, 1)
         val firstTile = Tile(0, 0, 1)
@@ -46,9 +45,47 @@ internal class LayerTileCacheTest {
         first.load()
         cache.onLoadComplete(first)
 
-        val replacement = cache.getOrPut(firstTile) { key -> loadedTile(key, firstTile, owner) }
-        assertNotSame(first, replacement)
-        cache.clear()
+        try {
+            assertEquals(TileState.Empty, first.state)
+            assertSame(
+                first,
+                cache.getOrPut(firstTile) { error("Empty tile was loaded again") }
+            )
+        } finally {
+            cache.clear()
+        }
+    }
+
+    @Test
+    fun clearingLayerDoesNotEvictOtherOwnersFromSharedCache() {
+        val otherOwner = UUID.randomUUID().toString()
+        val clearedOwner = UUID.randomUUID().toString()
+        val otherCache = LayerTileCache(otherOwner, 1)
+        val clearedCache = LayerTileCache(clearedOwner, 1)
+        val sharedTile = Tile(0, 0, 9)
+        val shared = otherCache.getOrPut(sharedTile) { key ->
+            loadedTile(key, sharedTile, otherOwner)
+        }
+        repeat(256) { x ->
+            val tile = Tile(x + 1, 0, 9)
+            otherCache.getOrPut(tile) { key -> loadedTile(key, tile, otherOwner) }
+        }
+        val clearedTile = Tile(0, 1, 9)
+        clearedCache.getOrPut(clearedTile) { key ->
+            loadedTile(key, clearedTile, clearedOwner)
+        }
+
+        try {
+            clearedCache.clear()
+
+            assertSame(
+                shared,
+                otherCache.getOrPut(sharedTile) { error("Other owner's shared tile was evicted") }
+            )
+        } finally {
+            clearedCache.clear()
+            otherCache.clear()
+        }
     }
 
     @Test
