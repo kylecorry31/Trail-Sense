@@ -7,5 +7,6 @@ enum class ErrorBannerReason(override val id: Long) : Identifiable {
     NoGPS(2),
     LocationNotSet(3),
     CompassPoor(4),
-    GPSTimeout(5)
+    GPSTimeout(5),
+    LocationPermissionDenied(6)
 }

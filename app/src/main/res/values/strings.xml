@@ -938,6 +938,7 @@
     <string name="no_resolution">No resolution</string>
     <string name="grant_permission">Grant the %s permission</string>
     <string name="background_location_permission">Location (Allow all the time)</string>
+    <string name="location_permission">Location permission</string>
     <string name="activity_recognition">Activity recognition</string>
     <string name="get_gps_signal">Go outside with an unobstructed view of the sky.</string>
     <string name="unblock_notification_channel">Unblock %s notification for Trail Sense</string>
@@ -1707,6 +1708,7 @@
     <string name="tool_signal_finder">Signal Finder</string>
     <string name="cell_towers">Cell towers</string>
     <string name="signal_finder_description">View nearby cell towers and signals.</string>
+    <string name="location_required_for_cell_signals">Location permission is required to view nearby cell signals</string>
     <string name="no_cell_towers_found">No cell towers found</string>
     <string name="cell_tower_disclaimer">Tower locations are approximated from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations.\n\n[OpenCelliD Project](https://opencellid.org/) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
     <string name="full_service">Full service</string>
