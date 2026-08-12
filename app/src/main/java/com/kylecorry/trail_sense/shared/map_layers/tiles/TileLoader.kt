@@ -37,13 +37,7 @@ class TileLoader(
     private val debugLogs = false
     private val prefs = getAppService<UserPreferences>()
 
-    val tileCache = TileCache(owner, 1) { tile ->
-        if (tile.hasImage() || tile.state == TileState.Loading) {
-            sharedTileCache.store(tile.key, tile)
-        } else {
-            tile.recycle()
-        }
-    }
+    val tileCache = LayerTileCache(owner, 1)
 
     private val persistentCache =
         if (key != null) getAppService<PersistentTileCache>() else null
@@ -66,6 +60,7 @@ class TileLoader(
     init {
         // TODO: This should be handled by a higher level component
         tileQueue.setChangeListener { imageTile ->
+            tileCache.onLoadComplete(imageTile)
             tryOrLog {
                 populateBorderAndNeighbors(imageTile)
             }
@@ -74,7 +69,7 @@ class TileLoader(
                 Log.d(
                     "TileCache",
                     "Layer cache ($owner): ${formatter.formatFileSize(tileCache.sizeBytes())}, " +
-                            "shared cache: ${formatter.formatFileSize(sharedTileCache.sizeBytes())}"
+                            "shared cache: ${formatter.formatFileSize(tileCache.sharedSizeBytes())}"
                 )
             }
             updateListener()
@@ -82,13 +77,11 @@ class TileLoader(
     }
 
     fun clearCache() {
-        tileCache.evictAll()
-        sharedTileCache.evictOwner(owner)
+        tileCache.clear()
     }
 
     fun invalidateCache() {
-        tileCache.snapshot().values.forEach { it.invalidate() }
-        sharedTileCache.invalidateOwner(owner)
+        tileCache.invalidate()
     }
 
     fun loadTiles(
@@ -116,24 +109,22 @@ class TileLoader(
             putBundle(MapLayerParams.PARAM_PREFERENCES, Bundle(preferences))
         }
         featureId?.let { params.putString(MapLayerParams.PARAM_FEATURE_ID, it) }
-        val imageTiles = tiles.map { tile ->
-            val key = "${tag}_${tile.x}_${tile.y}_${tile.z}"
-            val newTile = tileCache.getOrPut(key) {
-                sharedTileCache.take(key) ?: ImageTile(
-                    key = key,
-                    tile = tile,
-                    shouldFadeIn = !isWidget,
-                    owner = owner,
-                    loadFunction = {
-                        loadTile(source, context, tile, params)
-                    }
-                )
-            }
+        val imageTiles = tileCache.getOrPut(tiles) { tile, key ->
+            ImageTile(
+                key = key,
+                tile = tile,
+                shouldFadeIn = !isWidget,
+                owner = owner,
+                loadFunction = {
+                    loadTile(source, context, tile, params)
+                }
+            )
+        }
+        imageTiles.forEach { imageTile ->
             // Replace the load function every cycle to ensure it uses the latest parameters
-            newTile.setLoader {
-                loadTile(source, context, tile, params)
+            imageTile.setLoader {
+                loadTile(source, context, imageTile.tile, params)
             }
-            newTile
         }
 
         imageTiles.forEach { tileQueue.enqueue(it) }
@@ -380,9 +371,7 @@ class TileLoader(
     }
 
     companion object {
-        private val sharedTileCache = TileCache("", SHARED_CACHE_SIZE)
         private const val LARGE_LAYER_CACHE_SIZE = 256
-        private const val SHARED_CACHE_SIZE = 256
     }
 
 }

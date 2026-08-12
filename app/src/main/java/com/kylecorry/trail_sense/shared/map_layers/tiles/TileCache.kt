@@ -29,8 +29,8 @@ class TileCache(
         return get(getKey(tile))
     }
 
-    fun peek(tile: Tile): ImageTile? {
-        return entries[getKey(tile)]
+    fun peek(key: String): ImageTile? {
+        return entries[key]
     }
 
     fun getOrPut(key: String, provider: () -> ImageTile): ImageTile {
@@ -80,6 +80,16 @@ class TileCache(
             transferring[key] = value
             remove(key)
             return value
+        }
+    }
+
+    fun removeIfSame(key: String, tile: ImageTile): Boolean {
+        synchronized(this) {
+            if (entries[key] !== tile) {
+                return false
+            }
+            remove(key)
+            return true
         }
     }
 
