@@ -3,23 +3,17 @@ package com.kylecorry.trail_sense.tools.celestial_navigation.ui
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.os.SystemClock
-import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.view.doOnLayout
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.average
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
-import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
-import com.kylecorry.andromeda.sense.orientation.CustomRotationSensor
-import com.kylecorry.andromeda.sense.orientation.Gyroscope
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.stars.DetectedStar
@@ -40,9 +34,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.ACCELEROMETER_LOW_PASS
-import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.MAGNETOMETER_LOW_PASS
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
@@ -50,18 +41,19 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.BrightestPointFinder
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialLocationEstimate
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialLocationEstimator
-import com.kylecorry.trail_sense.tools.celestial_navigation.domain.StarFinderFactory
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -69,36 +61,20 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val locationSubsystem by lazy { LocationSubsystem.getInstance(requireContext()) }
-    private val starFinder = StarFinderFactory().getStarFinder()
+    private val brightestPointFinder = BrightestPointFinder()
     private val estimator = CelestialLocationEstimator()
-    private val isProcessing = AtomicBoolean(false)
-    private var lastFrameTime = 0L
+    private val isDetecting = AtomicBoolean(false)
+    private val isSolving = AtomicBoolean(false)
+    private val shouldSolve = AtomicBoolean(false)
+    private val observationVersion = AtomicInteger(0)
+    private val observedStars = mutableListOf<CelestialObservation>()
     private var isResumed = false
     private var estimate by state<CelestialLocationEstimate?>(null)
     private var status by state("")
     private var plateLocation: Coordinate? = null
 
-    private val orientationSensor by lazy {
-        CustomRotationSensor(
-            LowPassMagnetometer(
-                requireContext(),
-                SensorService.MOTION_SENSOR_DELAY,
-                MAGNETOMETER_LOW_PASS
-            ),
-            LowPassAccelerometer(
-                requireContext(),
-                SensorService.MOTION_SENSOR_DELAY,
-                ACCELEROMETER_LOW_PASS
-            ),
-            Gyroscope(requireContext(), SensorService.MOTION_SENSOR_DELAY),
-            gyroWeight = 1f,
-            validMagnetometerMagnitudes = Range(20f, 65f),
-            validAccelerometerMagnitudes = Range(4f, 20f),
-            onlyUseMagnetometerQuality = true
-        )
-    }
-
     private val detectedStarLayer = ARMarkerLayer()
+    private val observedStarLayer = ARMarkerLayer()
     private val gridLayer by lazy {
         ARGridLayer(
             30,
@@ -125,12 +101,23 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
-        binding.camera.setManualExposure(Duration.ofMillis(250), 3200)
+        binding.camera.setExposureCompensation(1f)
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
-        binding.arView.reticleDiameter = Resources.dp(requireContext(), 8f)
-        binding.arView.setLayers(listOf(gridLayer, detectedStarLayer))
+        binding.arView.reticleDiameter = Resources.dp(requireContext(), RETICLE_DIAMETER_DP)
+        binding.arView.setLayers(listOf(gridLayer, observedStarLayer, detectedStarLayer))
+
+        binding.detectStar.setOnClickListener {
+            detectStarAtReticle()
+        }
+        binding.celestialNavigationTitle.leftButton.isEnabled = false
+        binding.celestialNavigationTitle.leftButton.setOnClickListener {
+            undoLastStar()
+        }
+        binding.exposureSlider.setOnProgressChangeListener { progress, _ ->
+            binding.camera.setExposureCompensation(progress / 100f)
+        }
 
         val layerFactory = LayerFactory()
         val mapLayers = listOf(
@@ -142,6 +129,14 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
         binding.celestialNavigationTitle.rightButton.setOnClickListener {
             estimator.clear()
+            synchronized(observedStars) {
+                observedStars.clear()
+            }
+            observationVersion.incrementAndGet()
+            binding.celestialNavigationTitle.leftButton.isEnabled = false
+            observedStarLayer.setMarkers(emptyList())
+            detectedStarLayer.setMarkers(emptyList())
+            binding.arView.resetCalibration()
             estimate = null
             plateLocation = locationSubsystem.location
                 ?: Time.getLocationFromTimeZone(ZoneId.systemDefault())
@@ -179,7 +174,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         super.onResume()
         isResumed = true
         binding.map.start()
-        binding.arView.start(useGPS = false, customOrientationSensor = orientationSensor)
+        binding.arView.start(useGPS = false)
         requestCamera { hasPermission ->
             if (hasPermission && isResumed) {
                 startCamera()
@@ -199,85 +194,157 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
     private fun startCamera() {
         binding.camera.start(
-            readFrames = true,
+            readFrames = false,
             shouldStabilizePreview = false,
             preferBackCamera = true
-        ) { image ->
-            val now = SystemClock.elapsedRealtime()
-            if (!isResumed || now - lastFrameTime < FRAME_INTERVAL_MS ||
-                !isProcessing.compareAndSet(false, true)
-            ) {
-                image.recycle()
-                return@start
+        )
+    }
+
+    private fun detectStarAtReticle() {
+        if (!isDetecting.compareAndSet(false, true)) {
+            return
+        }
+        val image = binding.camera.previewImage
+        if (image == null) {
+            isDetecting.set(false)
+            return
+        }
+        val rotationMatrix = binding.arView.rotationMatrix.copyOf()
+
+        binding.detectStar.isEnabled = false
+        status = getString(R.string.celestial_navigation_analyzing)
+        inBackground {
+            val detected = withContext(Dispatchers.Default) {
+                try {
+                    detectStar(image, rotationMatrix)
+                } finally {
+                    image.recycle()
+                }
             }
-            lastFrameTime = now
-            val arView = binding.arView
-            val rotationMatrix = arView.rotationMatrix.copyOf()
-            val previewRect = binding.camera.camera?.getPreviewRect(false)
-            if (previewRect == null) {
-                isProcessing.set(false)
-                image.recycle()
-                return@start
+            isDetecting.set(false)
+            if (isResumed) {
+                binding.detectStar.isEnabled = true
             }
-            inBackground {
-                status = getString(R.string.celestial_navigation_analyzing)
-                withContext(Dispatchers.Default) {
-                    try {
-                        processFrame(
-                            image,
-                            arView,
-                            rotationMatrix,
-                            previewRect.left,
-                            previewRect.top,
-                            previewRect.width(),
-                            previewRect.height()
-                        )
-                    } finally {
-                        image.recycle()
-                        isProcessing.set(false)
+            if (detected) {
+                requestLocationSolve()
+            }
+        }
+    }
+
+    private suspend fun detectStar(image: Bitmap, rotationMatrix: FloatArray): Boolean {
+        val arView = binding.arView
+        val scaleX = image.width.toFloat() / arView.width
+        val scaleY = image.height.toFloat() / arView.height
+        val reticleCenter = PixelCoordinate(arView.width / 2f, arView.height / 2f)
+        val imageCenter = PixelCoordinate(
+            reticleCenter.x * scaleX,
+            reticleCenter.y * scaleY
+        )
+        val reticleRadius = arView.reticleDiameter / 2f
+        val starPixel = brightestPointFinder.find(
+            image,
+            imageCenter,
+            reticleRadius * scaleX,
+            reticleRadius * scaleY
+        )
+        if (starPixel == null) {
+            setStatus(R.string.celestial_navigation_observed_stars, getObservedStarCount())
+            return false
+        }
+
+        val previewPixel = PixelCoordinate(
+            starPixel.x / scaleX,
+            starPixel.y / scaleY
+        )
+        val coordinate = arView.toCoordinate(
+            previewPixel,
+            rotationMatrixOverride = rotationMatrix
+        )
+        val observedStarCount = synchronized(observedStars) {
+            observedStars.add(
+                CelestialObservation(Bearing.from(coordinate.bearing), coordinate.elevation)
+            )
+            observedStars.size
+        }
+        observationVersion.incrementAndGet()
+        onMain {
+            if (isResumed) {
+                binding.celestialNavigationTitle.leftButton.isEnabled = true
+            }
+        }
+        showObservedStars()
+        if (observedStarCount == 1) {
+            onMain {
+                if (isResumed) {
+                    arView.switchToGyro()
+                }
+            }
+        }
+        setStatus(R.string.celestial_navigation_observed_stars, observedStarCount)
+        return true
+    }
+
+    private fun undoLastStar() {
+        val remaining = synchronized(observedStars) {
+            if (observedStars.isEmpty()) {
+                return
+            }
+            observedStars.removeLast()
+            observedStars.size
+        }
+        observationVersion.incrementAndGet()
+
+        shouldSolve.set(false)
+        estimator.clear()
+        estimate = null
+        plateLocation = locationSubsystem.location
+            ?: Time.getLocationFromTimeZone(ZoneId.systemDefault())
+        detectedStarLayer.setMarkers(emptyList())
+        binding.celestialNavigationTitle.leftButton.isEnabled = remaining > 0
+        if (remaining == 0) {
+            binding.arView.resetCalibration()
+        }
+        status = if (remaining == 0) {
+            getString(R.string.celestial_navigation_searching)
+        } else {
+            getString(R.string.celestial_navigation_undo_star)
+        }
+        inBackground {
+            showObservedStars()
+        }
+        if (remaining >= MIN_MATCHED_STARS) {
+            requestLocationSolve()
+        }
+    }
+
+    private fun requestLocationSolve() {
+        shouldSolve.set(true)
+        if (!isSolving.compareAndSet(false, true)) {
+            return
+        }
+        inBackground {
+            try {
+                while (shouldSolve.compareAndSet(true, false)) {
+                    val observations = synchronized(observedStars) { observedStars.toList() }
+                    val version = observationVersion.get()
+                    if (observations.size >= MIN_MATCHED_STARS) {
+                        withContext(Dispatchers.Default) {
+                            withTimeoutOrNull(FRAME_PROCESSING_TIMEOUT_MS) {
+                                solveLocation(observations, version)
+                            }
+                        }
                     }
+                }
+            } finally {
+                isSolving.set(false)
+                if (shouldSolve.get()) {
+                    requestLocationSolve()
                 }
             }
         }
     }
 
-    private suspend fun processFrame(
-        image: Bitmap,
-        arView: AugmentedRealityView,
-        rotationMatrix: FloatArray,
-        previewLeft: Float,
-        previewTop: Float,
-        previewWidth: Float,
-        previewHeight: Float
-    ) {
-        if (image.average() >= MAX_SKY_BRIGHTNESS) {
-            setStatus(R.string.celestial_navigation_too_bright)
-            return
-        }
-
-        val allStarPixels = starFinder.findStars(image)
-        if (allStarPixels.size < MIN_DETECTED_STARS) {
-            setStatus(R.string.celestial_navigation_detected_stars, allStarPixels.size)
-            return
-        }
-        val starPixels = allStarPixels.sortedByDescending {
-            Color.red(
-                image.getPixel(
-                    it.x.toInt().coerceIn(0, image.width - 1),
-                    it.y.toInt().coerceIn(0, image.height - 1)
-                )
-            )
-        }.take(MAX_PLATE_STARS)
-
-        val scaleX = image.width / previewWidth
-        val scaleY = image.height / previewHeight
-        val observations = starPixels.map {
-            PixelCoordinate(it.x / scaleX + previewLeft, it.y / scaleY + previewTop)
-        }.map {
-            arView.toCoordinate(it, rotationMatrixOverride = rotationMatrix)
-        }.map {
-            CelestialObservation(Bearing.from(it.bearing), it.elevation)
-        }
+    private suspend fun solveLocation(observations: List<CelestialObservation>, version: Int) {
 
         val readingTime = ZonedDateTime.now()
         val detected = Astronomy.plateSolve(
@@ -289,7 +356,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         )
         showDetectedStars(detected)
         if (detected.size < MIN_MATCHED_STARS) {
-            setStatus(R.string.celestial_navigation_matched_stars, detected.size, starPixels.size)
+            setStatus(R.string.celestial_navigation_matched_stars, detected.size, observations.size)
             return
         }
 
@@ -303,6 +370,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         }
 
         val frameAccuracy = getFrameAccuracy(readings, location, detected)
+        if (version != observationVersion.get()) {
+            return
+        }
         val update = estimator.add(location, frameAccuracy)
         if (update.accepted) {
             plateLocation = update.estimate.location
@@ -318,6 +388,29 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             }
         } else {
             setStatus(R.string.celestial_navigation_outlier)
+        }
+    }
+
+    private fun getObservedStarCount(): Int {
+        return synchronized(observedStars) { observedStars.size }
+    }
+
+    private suspend fun showObservedStars() {
+        val observations = synchronized(observedStars) { observedStars.toList() }
+        val markers = observations.map {
+            ARMarker(
+                SphericalARPoint(
+                    it.azimuth.value,
+                    it.altitude,
+                    angularDiameter = 0.25f
+                ),
+                CanvasCircle(Color.YELLOW.withAlpha(80), Color.YELLOW)
+            )
+        }
+        onMain {
+            if (isResumed) {
+                observedStarLayer.setMarkers(markers)
+            }
         }
     }
 
@@ -351,7 +444,11 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                     it.reading.altitude,
                     angularDiameter = 0.25f
                 ),
-                CanvasCircle(Color.GREEN.withAlpha(80), Color.GREEN)
+                CanvasCircle(Color.GREEN.withAlpha(80), Color.GREEN),
+                onFocusedFn = {
+                    binding.arView.focusText = it.star.name
+                    true
+                }
             )
         }
         onMain {
@@ -390,11 +487,10 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     }
 
     companion object {
-        private const val FRAME_INTERVAL_MS = 2000L
-        private const val MAX_SKY_BRIGHTNESS = 100f
-        private const val MIN_DETECTED_STARS = 6
+        private const val FRAME_PROCESSING_TIMEOUT_MS = 10_000L
+        private const val RETICLE_DIAMETER_DP = 48f
         private const val MIN_MATCHED_STARS = 4
-        private const val MAX_PLATE_STARS = 20
         private const val MAX_CATALOG_MAGNITUDE = 3f
     }
+
 }

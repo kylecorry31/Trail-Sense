@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:leftButtonIcon="@drawable/ic_star"
+        app:leftButtonIcon="@drawable/ic_undo"
         app:rightButtonIcon="@drawable/ic_baseline_refresh_24"
         app:title="@string/celestial_navigation" />
 
@@ -35,6 +35,28 @@
             android:id="@+id/ar_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/detect_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="64dp"
+            android:contentDescription="@string/celestial_navigation_detect_star"
+            android:src="@drawable/ic_star"
+            app:tint="?attr/colorOnPrimaryContainer" />
+
+        <SeekBar
+            android:id="@+id/exposure_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="88dp"
+            android:layout_marginBottom="64dp"
+            android:max="100"
+            android:progress="100" />
 
         <TextView
             android:id="@+id/status"
