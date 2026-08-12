@@ -207,7 +207,6 @@ open class TileMapLayer<T : TileSource>(
                 featureId,
                 map.isWidget,
                 isHighDetailMode = map.isHighDetailMode,
-                useHighDetailCache = map.isHighDetailMode || zoomOffset > 0,
                 context = context
             )
         } else if (desiredTiles.size > MAX_TILES) {
@@ -502,9 +501,7 @@ open class TileMapLayer<T : TileSource>(
         refreshTime()
         loadTimer.stop()
         queue.clear()
-        loader?.tileCache?.snapshot()?.forEach {
-            it.value.invalidate()
-        }
+        loader?.invalidateCache()
         isLoaded = false
         loadTimer.interval(100)
         invalidate()

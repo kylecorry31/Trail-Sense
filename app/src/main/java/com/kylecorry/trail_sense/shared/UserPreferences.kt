@@ -114,6 +114,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    val useLargeTileCache by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_large_tile_cache),
+        false
+    )
+
     var isCliffHeightEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_cliff_height_enabled),

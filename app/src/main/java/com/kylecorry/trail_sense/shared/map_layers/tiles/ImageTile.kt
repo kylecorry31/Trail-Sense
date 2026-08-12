@@ -10,6 +10,7 @@ class ImageTile(
     @Volatile private var image: Bitmap? = null,
     state: TileState = TileState.Idle,
     private val shouldFadeIn: Boolean = true,
+    val owner: String = "",
     loadFunction: (suspend () -> Bitmap?)?
 ) {
 

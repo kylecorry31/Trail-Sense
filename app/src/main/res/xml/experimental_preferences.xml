@@ -19,6 +19,13 @@
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
+            app:key="@string/pref_large_tile_cache"
+            app:singleLineTitle="false"
+            app:title="@string/pref_large_tile_cache_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_plugins_enabled"
             app:singleLineTitle="false"
             app:title="@string/plugins" />
