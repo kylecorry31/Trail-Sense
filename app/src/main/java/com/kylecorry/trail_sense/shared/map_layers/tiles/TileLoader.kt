@@ -38,7 +38,11 @@ class TileLoader(
     private val prefs = getAppService<UserPreferences>()
 
     val tileCache = TileCache(owner, 1) { tile ->
-        sharedTileCache.store(tile.key, tile)
+        if (tile.hasImage() || tile.state == TileState.Loading) {
+            sharedTileCache.store(tile.key, tile)
+        } else {
+            tile.recycle()
+        }
     }
 
     private val persistentCache =
