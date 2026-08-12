@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.celestial_navigation.ui
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.BrightestPointFinder
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialPlateSolver
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialLocationEstimate
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialLocationEstimator
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
@@ -62,10 +64,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val locationSubsystem by lazy { LocationSubsystem.getInstance(requireContext()) }
     private val brightestPointFinder = BrightestPointFinder()
+    private val plateSolver = CelestialPlateSolver(MAX_CATALOG_MAGNITUDE)
     private val estimator = CelestialLocationEstimator()
     private val isDetecting = AtomicBoolean(false)
-    private val isSolving = AtomicBoolean(false)
-    private val shouldSolve = AtomicBoolean(false)
     private val observationVersion = AtomicInteger(0)
     private val observedStars = mutableListOf<CelestialObservation>()
     private var isResumed = false
@@ -201,14 +202,18 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     }
 
     private fun detectStarAtReticle() {
+        Log.d(TAG, "Detect button tapped")
         if (!isDetecting.compareAndSet(false, true)) {
+            Log.d(TAG, "Ignoring tap because reticle detection is already running")
             return
         }
         val image = binding.camera.previewImage
         if (image == null) {
+            Log.d(TAG, "No preview image was available at tap time")
             isDetecting.set(false)
             return
         }
+        Log.d(TAG, "Captured ${image.width}x${image.height} preview at tap time")
         val rotationMatrix = binding.arView.rotationMatrix.copyOf()
 
         binding.detectStar.isEnabled = false
@@ -226,7 +231,10 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 binding.detectStar.isEnabled = true
             }
             if (detected) {
+                Log.d(TAG, "Reticle detection succeeded; requesting location solve")
                 requestLocationSolve()
+            } else {
+                Log.d(TAG, "Reticle detection did not produce a star")
             }
         }
     }
@@ -248,6 +256,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             reticleRadius * scaleY
         )
         if (starPixel == null) {
+            Log.d(TAG, "No brightest point found inside reticle")
             setStatus(R.string.celestial_navigation_observed_stars, getObservedStarCount())
             return false
         }
@@ -266,7 +275,12 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             )
             observedStars.size
         }
-        observationVersion.incrementAndGet()
+        val version = observationVersion.incrementAndGet()
+        Log.d(
+            TAG,
+            "Detected star $observedStarCount at pixel (${starPixel.x}, ${starPixel.y}), " +
+                    "azimuth=${coordinate.bearing}, altitude=${coordinate.elevation}, version=$version"
+        )
         onMain {
             if (isResumed) {
                 binding.celestialNavigationTitle.leftButton.isEnabled = true
@@ -292,9 +306,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             observedStars.removeLast()
             observedStars.size
         }
-        observationVersion.incrementAndGet()
+        val version = observationVersion.incrementAndGet()
+        Log.d(TAG, "Undo removed last star; $remaining observations remain, version=$version")
 
-        shouldSolve.set(false)
         estimator.clear()
         estimate = null
         plateLocation = locationSubsystem.location
@@ -313,47 +327,44 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             showObservedStars()
         }
         if (remaining >= MIN_MATCHED_STARS) {
+            Log.d(TAG, "Undo left enough observations; requesting a new solve")
             requestLocationSolve()
+        } else {
+            Log.d(TAG, "Undo left fewer than $MIN_MATCHED_STARS observations; not solving")
         }
     }
 
     private fun requestLocationSolve() {
-        shouldSolve.set(true)
-        if (!isSolving.compareAndSet(false, true)) {
+        val observations = synchronized(observedStars) { observedStars.toList() }
+        val version = observationVersion.get()
+        Log.d(TAG, "Location solve requested for version=$version with ${observations.size} observations")
+        if (observations.size < MIN_MATCHED_STARS) {
+            Log.d(TAG, "Skipping solve; only ${observations.size} observations")
             return
         }
         inBackground {
-            try {
-                while (shouldSolve.compareAndSet(true, false)) {
-                    val observations = synchronized(observedStars) { observedStars.toList() }
-                    val version = observationVersion.get()
-                    if (observations.size >= MIN_MATCHED_STARS) {
-                        withContext(Dispatchers.Default) {
-                            withTimeoutOrNull(FRAME_PROCESSING_TIMEOUT_MS) {
-                                solveLocation(observations, version)
-                            }
-                        }
-                    }
-                }
-            } finally {
-                isSolving.set(false)
-                if (shouldSolve.get()) {
-                    requestLocationSolve()
+            Log.d(TAG, "Starting independent solve for version=$version")
+            withContext(Dispatchers.Default) {
+                val completed = withTimeoutOrNull(FRAME_PROCESSING_TIMEOUT_MS) {
+                    solveLocation(observations, version)
+                } != null
+                if (!completed) {
+                    Log.d(TAG, "Solve timed out for version=$version")
                 }
             }
+            Log.d(TAG, "Solve finished for version=$version")
         }
     }
 
     private suspend fun solveLocation(observations: List<CelestialObservation>, version: Int) {
 
         val readingTime = ZonedDateTime.now()
-        val detected = Astronomy.plateSolve(
+        val detected = plateSolver.solve(
             observations,
             readingTime,
-            plateLocation,
-            tolerance = 0.1f,
-            minMagnitude = MAX_CATALOG_MAGNITUDE
+            plateLocation ?: Time.getLocationFromTimeZone(readingTime.zone)
         )
+        Log.d(TAG, "Plate solver returned ${detected.size}/${observations.size} matches")
         showDetectedStars(detected)
         if (detected.size < MIN_MATCHED_STARS) {
             setStatus(R.string.celestial_navigation_matched_stars, detected.size, observations.size)
@@ -365,16 +376,19 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         }
         val location = Astronomy.getLocationFromStars(readings, plateLocation)
         if (location == null) {
+            Log.d(TAG, "Matched stars did not produce a location")
             setStatus(R.string.celestial_navigation_no_solution)
             return
         }
 
         val frameAccuracy = getFrameAccuracy(readings, location, detected)
         if (version != observationVersion.get()) {
+            Log.d(TAG, "Discarding stale solve for version=$version")
             return
         }
         val update = estimator.add(location, frameAccuracy)
         if (update.accepted) {
+            Log.d(TAG, "Accepted location ${update.estimate.location}")
             plateLocation = update.estimate.location
             onMain {
                 if (isResumed) {
@@ -387,6 +401,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 }
             }
         } else {
+            Log.d(TAG, "Rejected location as an outlier")
             setStatus(R.string.celestial_navigation_outlier)
         }
     }
@@ -487,6 +502,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     }
 
     companion object {
+        private const val TAG = "CelestialNavigation"
         private const val FRAME_PROCESSING_TIMEOUT_MS = 10_000L
         private const val RETICLE_DIAMETER_DP = 48f
         private const val MIN_MATCHED_STARS = 4
