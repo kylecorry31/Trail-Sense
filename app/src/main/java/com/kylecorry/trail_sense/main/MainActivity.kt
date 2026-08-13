@@ -15,7 +15,6 @@ import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
-import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -84,7 +83,6 @@ class MainActivity : AndromedaActivity() {
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
-    private var bottomInsets = 0
     private var appInitialized = false
 
     init {
@@ -186,10 +184,10 @@ class MainActivity : AndromedaActivity() {
     private fun setBottomNavLabelsVisibility() {
         binding.bottomNavigation.apply {
             if (userPrefs.useCompactMode) {
-                layoutParams.height = Resources.dp(context, 55f).toInt() + bottomInsets
+                contentHeight = Resources.dp(context, 55f).toInt()
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
             } else {
-                layoutParams.height = LayoutParams.WRAP_CONTENT
+                contentHeight = null
                 if (userPrefs.useShowAllBottomNavigationLabels) {
                     labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
                 } else {
@@ -204,13 +202,14 @@ class MainActivity : AndromedaActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets =
                 windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            val ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top
                 leftMargin = insets.left
                 rightMargin = insets.right
+                // Push the bottom navigation below the keyboard
+                bottomMargin = (ime.bottom - binding.bottomNavigation.height).coerceAtLeast(0)
             }
-            bottomInsets = insets.bottom
-            setBottomNavLabelsVisibility()
             windowInsets
         }
     }
