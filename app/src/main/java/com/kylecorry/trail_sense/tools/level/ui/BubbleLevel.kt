@@ -155,6 +155,14 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             bubbleRadius * 2
         )
 
+        // Center bubble label
+        val centerTilt = hypot(xAngle, yAngle).coerceAtMost(90f)
+        val centerLabel = formatter.formatDegrees(centerTilt)
+        fill(textColor)
+        textSize(textSize)
+        textMode(TextMode.Center)
+        text(centerLabel, xBarLeft + barLength / 2f + xPercentCenter, yBarTop + barLength / 2f + yPercentCenter)
+
         // Text
         val xText = formatter.formatDegrees(abs(xAngle))
         val yText = formatter.formatDegrees(abs(yAngle))
