@@ -1653,4 +1653,6 @@
     <string name="field_guide_name_display">Naamweergave</string>
     <string name="hide_field_guide_page_message">%1$s\n\nJe kunt deze pagina weer zichtbaar maken in de veldgidsinstellingen.</string>
     <string name="built_in_pages">Ingebouwde pagina\'s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nHoek: %3$s</string>
+    <string name="pref_large_tile_cache_title">Cache met grote kaarttegels</string>
 </resources>
