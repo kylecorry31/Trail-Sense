@@ -624,7 +624,6 @@
     <string name="tool_notes_title">குறிப்புகள்</string>
     <string name="note_title_hint">தலைப்பு</string>
     <string name="contents">உள்ளடக்கங்கள்</string>
-    <string name="bubble_level_angles">எக்ச்: %1$s\n Y: %2$s</string>
     <string name="unit_centimeters">சென்டிமீட்டர்</string>
     <string name="unit_centimeters_abbreviation">முதல்வர்</string>
     <string name="unit_inches_abbreviation">இல்</string>

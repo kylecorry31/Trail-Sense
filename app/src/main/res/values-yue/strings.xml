@@ -678,8 +678,6 @@
     <string name="weather_monitor">氣象監測</string>
     <string name="battery_history">電量紀錄：過去嗰 %s</string>
     <string name="tool_bubble_level_summary">睇下個面係咪平</string>
-    <string name="bubble_level_angles">橫：%1$s
-\n縱：%2$s</string>
     <string name="humidity">濕度</string>
     <string name="elevation_history">海拔紀錄</string>
     <string name="elevation_history_length">海拔紀錄幾耐</string>

@@ -365,8 +365,6 @@
     <string name="unit_inches_abbreviation">дюйм</string>
     <string name="unit_centimeters_abbreviation">см</string>
     <string name="unit_centimeters">Сантиметри</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
     <string name="note_title_hint">Заголовок</string>
     <string name="tool_notes_title">Примітки</string>
     <string name="delete_note_title">Видалити примітку\?</string>

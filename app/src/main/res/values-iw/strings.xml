@@ -325,7 +325,6 @@
     <string name="tool_lightning_title">מרחק מכת ברק</string>
     <string name="tool_battery_title">סוללה</string>
     <string name="clock_sync_instructions">הגדר את השעה ל- %s כאשר ההודעה מגיעה</string>
-    <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
     <string name="unit_centimeters_abbreviation">ס\"מ</string>
     <string name="map_scale_title">קנה מידה של מפה</string>
     <string name="map_scale_ratio">יחס</string>

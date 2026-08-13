@@ -643,8 +643,6 @@
     <string name="threshold">Határérték</string>
     <string name="tool_metal_detector_title">Fémérzékelő</string>
     <string name="contents">Tartalom</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
     <string name="unit_inches">Inch</string>
     <string name="metal_detector_disclaimer">Csak mágneses fémeket érzékel (pl. vas)</string>
     <string name="update_gps_override">GPS felülírás frissítése</string>

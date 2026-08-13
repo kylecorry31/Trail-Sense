@@ -84,8 +84,6 @@
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_centimeters">Centímetros</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
     <string name="contents">Conteúdos</string>
     <string name="note_title_hint">Título</string>
     <string name="tool_notes_title">Anotações</string>

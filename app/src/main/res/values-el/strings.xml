@@ -518,8 +518,6 @@
     <string name="import_btn">Εισαγωγή</string>
     <string name="calibrate_new_tide">Βαθμονόμηση σε νέα παλίρροια;</string>
     <string name="gps_searching">Σε αναζήτηση</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
     <string name="water_purification_step_3">Εκκινήστε το χρονόμετρο</string>
     <string name="gps_signal_lost">Χάθηκε το σήμα GPS</string>
     <string name="delete_waypoint_prompt">Διαγραφή σημείου διαδρομής;</string>

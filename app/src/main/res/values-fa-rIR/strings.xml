@@ -428,8 +428,6 @@
     <string name="strobe_warning_title">چراغ چشمک زن</string>
     <string name="clock_waiting_for_gps">در حال به‌روزرسانی زمان از GPS…</string>
     <string name="tool_notes_title">یادداشت</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
     <string name="delete_note_title">یادداشت حذف شود؟</string>
     <string name="note_title_hint">عنوان</string>
     <string name="pref_backtrack_frequency_title">فاصله بک ترک</string>

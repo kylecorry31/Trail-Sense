@@ -19,6 +19,7 @@ class ToolBubbleLevelTest : ToolTestBase(Tools.BUBBLE_LEVEL) {
                 string(
                     R.string.bubble_level_angles,
                     "\\d+\\.\\d°",
+                    "\\d+\\.\\d°",
                     "\\d+\\.\\d°"
                 )
             )

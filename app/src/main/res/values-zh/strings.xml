@@ -283,8 +283,6 @@
     <string name="map_distance">地图：%s</string>
     <string name="unit_inches">英寸</string>
     <string name="unit_centimeters">厘米</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
     <string name="contents">内容</string>
     <string name="note_title_hint">标题</string>
     <string name="tool_notes_title">笔记</string>

@@ -510,7 +510,7 @@
     <string name="tool_notes_title">Notes</string>
     <string name="note_title_hint">Title</string>
     <string name="contents">Contents</string>
-    <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nAngle: %3$s</string>
     <string name="unit_centimeters">Centimeters</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">in</string>
