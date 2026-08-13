@@ -466,7 +466,6 @@
     <string name="current_format">%s mA</string>
     <string name="pref_privacy_policy_title">Informativa sulla privacy</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nAngle: %3$s</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="battery_power_ac">AC</string>
     <string name="battery_power_wireless">Senza fili</string>
