@@ -1657,4 +1657,15 @@
     <string name="map_error_access_denied">L\'accès au fichier de carte a été refusé</string>
     <string name="map_error_unable_to_copy">Impossible de copier le fichier de carte</string>
     <string name="color_by_classification">Couleur par catégorie</string>
+    <string name="scientific_name">Nom scientifique</string>
+    <string name="field_guide_name_display">Affichage du nom</string>
+    <string name="built_in_pages">Pages intégrées</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nVous pouvez réafficher cette page dans les paramètres du Guide pratique.</string>
+    <string name="common_name">Nom commun</string>
+    <string name="both_names">Les deux noms</string>
+    <string name="bubble_level_angles">X : %1$s\nY : %2$s\nAngle : %3$s</string>
+    <string name="pref_large_tile_cache_title">Utiliser un cache de tuiles de carte de grande taille</string>
+    <string name="bearing_length">Longueur du roulement</string>
+    <string name="bearing_length_description">La longueur de la ligne de relèvement lorsqu\'un relèvement est actif</string>
+    <string name="bearing_length_max">Max : %s</string>
 </resources>
