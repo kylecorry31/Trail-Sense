@@ -408,8 +408,7 @@
     <string name="map_scale_ratio">Poměr</string>
     <string name="min_temp_uncalibrated">Minimální teplota telefonu (nekalibrovaná)</string>
     <string name="note_title_hint">Titulek</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nAngle: %3$s</string>
     <string name="unit_centimeters">Centimetry</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="unit_inches_abbreviation">in</string>

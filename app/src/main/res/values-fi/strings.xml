@@ -919,7 +919,7 @@
     <string name="compass_declination">Eranto</string>
     <string name="tool_category_signaling">Viestitys</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nAngle: %3$s</string>
     <string name="cirrus">Untuvapilviä</string>
     <string name="imperial_cups">Imperiallista kuppia</string>
     <string name="imperial_pints">Imperiallista tuoppia</string>

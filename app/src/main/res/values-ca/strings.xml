@@ -275,8 +275,7 @@
     <string name="metal_detector_disclaimer">Només detecta metalls magnètics (ex. ferro)</string>
     <string name="notes_empty_text">Sense notes</string>
     <string name="contents">Contingut</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nAngle: %3$s</string>
     <string name="distance_to">Fins a</string>
     <string name="unit_nautical_miles">Milles nàutiques</string>
     <string name="solar_panel_instructions">Col·loqueu el telèfon a la cara del panell solar per començar.</string>

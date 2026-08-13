@@ -241,7 +241,7 @@
     <string name="notes_empty_text">Brak notatek</string>
     <string name="delete_note_title">Usunąć notatkę\?</string>
     <string name="tool_notes_title">Notatki</string>
-    <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nAngle: %3$s</string>
     <string name="unit_centimeters">Centymetry</string>
     <string name="unit_inches">Cale</string>
     <string name="map_distance">Mapa: %s</string>

@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.databinding.FragmentToolLevelBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlin.math.abs
+import kotlin.math.hypot
 
 class LevelFragment : BoundFragment<FragmentToolLevelBinding>() {
 
@@ -39,10 +40,13 @@ class LevelFragment : BoundFragment<FragmentToolLevelBinding>() {
         binding.level.xAngle = x
         binding.level.yAngle = y
 
+        val hypotenuse = hypot(x, y).coerceAtMost(90f)
+
         binding.levelTitle.title.text = getString(
             R.string.bubble_level_angles,
             formatService.formatDegrees(abs(x), 1),
-            formatService.formatDegrees(abs(y), 1)
+            formatService.formatDegrees(abs(y), 1),
+            formatService.formatDegrees(hypotenuse, 1)
         )
         return true
     }
