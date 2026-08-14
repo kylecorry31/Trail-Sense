@@ -1665,7 +1665,6 @@
     <string name="both_names">Les deux noms</string>
     <string name="bubble_level_angles">X : %1$s\nY : %2$s\nAngle : %3$s</string>
     <string name="pref_large_tile_cache_title">Utiliser un cache de tuiles de carte de grande taille</string>
-    <string name="bearing_length">Longueur du roulement</string>
     <string name="bearing_length_description">La longueur de la ligne de relèvement lorsqu\'un relèvement est actif</string>
     <string name="bearing_length_max">Max : %s</string>
 </resources>
