@@ -178,6 +178,8 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     override fun onResume() {
         super.onResume()
         isResumed = true
+        // A detection in progress is cancelled when the fragment is paused
+        endDetection()
         binding.map.start()
         binding.arView.start(useGPS = false)
         requestCamera { hasPermission ->
@@ -223,16 +225,19 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.detectStar.isEnabled = false
         status = getString(R.string.celestial_navigation_analyzing)
         inBackground {
-            val detected = withContext(Dispatchers.Default) {
-                try {
-                    detectStar(image, rotationMatrix)
-                } finally {
-                    image.recycle()
+            var detected = false
+            try {
+                detected = withContext(Dispatchers.Default) {
+                    try {
+                        detectStar(image, rotationMatrix)
+                    } finally {
+                        image.recycle()
+                    }
                 }
-            }
-            isDetecting.set(false)
-            if (isResumed) {
-                binding.detectStar.isEnabled = true
+            } finally {
+                // This has to happen even if the detection was cancelled or failed, otherwise the
+                // button will never work again
+                endDetection()
             }
             if (detected) {
                 Log.d(TAG, "Reticle detection succeeded; requesting location solve")
@@ -240,6 +245,13 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             } else {
                 Log.d(TAG, "Reticle detection did not produce a star")
             }
+        }
+    }
+
+    private fun endDetection() {
+        isDetecting.set(false)
+        if (isResumed) {
+            binding.detectStar.isEnabled = true
         }
     }
 
