@@ -577,7 +577,7 @@
     <string name="privacy">Privacidad</string>
     <string name="pref_experimental_metal_direction_title">Mostrar dirección del metal</string>
     <string name="location_mocked">Usar ubicación simulada</string>
-    <string name="pref_tiles_enabled_title">Azulejos del sistema</string>
+    <string name="pref_tiles_enabled_title">Mosaico del sistema</string>
     <string name="pref_flashlight_toggle_with_volume_title">Alternar con botones de volumen</string>
     <string name="pref_auto_low_power_summary">Cuando batería está baja</string>
     <string name="pref_auto_low_power_title">Ahorro de energía automático</string>
@@ -1598,4 +1598,25 @@
     <string name="alarm">Alarma</string>
     <string name="references">Referencias</string>
     <string name="turn_back_alarm_channel">Volver (Alarma)</string>
+    <string name="scientific_name">Nombre científico</string>
+    <string name="field_guide_name_display">Nombre mostrado</string>
+    <string name="common_name">Nombre común</string>
+    <string name="both_names">Ambos nombres</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nÁngulo: %3$s</string>
+    <string name="export_logs">Exportar registros</string>
+    <string name="external_storage">Almacenamiento externo</string>
+    <string name="exporting">Exportando</string>
+    <string name="export_failed">No se pudo exportar</string>
+    <string name="use_legacy_file_picker">Usa un selector de archivos heredado</string>
+    <string name="bearing_length">Longitud rumbo</string>
+    <string name="bearing_length_description">Longitud de la línea de rumbo cuando el rumbo está activo</string>
+    <string name="bearing_length_max">Max: %s</string>
+    <string name="map_error_invalid_map_file">Archivo de mapa no válido</string>
+    <string name="map_error_access_denied">Se ha denegado el acceso al archivo de mapa</string>
+    <string name="map_error_unable_to_copy">No se pudo copiar el archivo de mapa</string>
+    <string name="color_by_classification">Color según clasificación</string>
+    <string name="built_in_pages">Páginas integradas</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nPuedes desocultar la página en los ajustes de la Guía de Campo.</string>
+    <string name="pref_large_tile_cache_title">Usar caché para mosáicos de mapa grandes</string>
+    <string name="external_storage_diagnostic_instructions">El selector de archivos del sistema no tiene permiso para acceder a los archivos de tu dispositivo. Esto puede impedir que Trail Sense abra o guarde los archivos que elijas. Activa “Permitir acceso para administrar todos los archivos” para el selector de archivos del sistema (podría llamarse Almacenamiento externo).</string>
 </resources>
