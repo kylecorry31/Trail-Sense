@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.AndromedaListView
-import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Distance
@@ -22,6 +21,7 @@ import com.kylecorry.trail_sense.shared.extensions.useCellSignalSensor
 import com.kylecorry.trail_sense.shared.extensions.useGPSLocation
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.openTool
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -120,6 +120,12 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
 
     private fun useCellSignals(): List<CellSignal> {
         val cellSignal = useCellSignalSensor(false)
-        return useTopic(cellSignal, emptyList()) { it.signals }
+        return useTopic(cellSignal, emptyList()) {
+            it.signals.sortedWith(
+                compareByDescending<CellSignal> { signal -> signal.isRegistered }
+                    .thenByDescending { signal -> signal.strength }
+                    .thenByDescending { signal -> signal.id }
+            )
+        }
     }
 }
