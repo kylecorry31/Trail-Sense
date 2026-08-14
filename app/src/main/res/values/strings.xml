@@ -2039,6 +2039,8 @@
     <string name="celestial_navigation_detected_stars">Detected %d stars; keep the camera still and aim at a wider star field</string>
     <!--First placeholder is the number of matched stars, second is the number detected-->
     <string name="celestial_navigation_matched_stars">Matched %1$d of %2$d stars; keep scanning slowly</string>
+    <!--Placeholder is the number of matched stars-->
+    <string name="celestial_navigation_solving">Matched %d stars; calculating your location…</string>
     <string name="celestial_navigation_no_solution">Stars matched, but no stable location could be calculated</string>
     <!--First placeholder is the number of matched stars, second is the number of accepted video frames-->
     <string name="celestial_navigation_fix_status">Tracking %1$d stars · refining with fix %2$d</string>

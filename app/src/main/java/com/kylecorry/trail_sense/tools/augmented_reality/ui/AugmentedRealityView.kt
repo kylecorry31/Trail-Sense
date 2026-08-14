@@ -151,6 +151,11 @@ class AugmentedRealityView : CanvasView {
 
     var infiniteFocusWhenPointedUp: Boolean = false
 
+    /**
+     * If true, the camera will always focus to infinity rather than only when pointed up
+     */
+    var alwaysUseInfiniteFocus: Boolean = false
+
     private var reticleColor = Color.WHITE.withAlpha(127)
 
     /**
@@ -197,8 +202,10 @@ class AugmentedRealityView : CanvasView {
         updateOrientation()
 
         val isPointedUp = pointedUpTrigger.update(inclination)
-        hooks.effect("focusAdjuster", camera, isPointedUp, infiniteFocusWhenPointedUp) {
-            if (isPointedUp && infiniteFocusWhenPointedUp) {
+        val shouldUseInfiniteFocus =
+            alwaysUseInfiniteFocus || (isPointedUp && infiniteFocusWhenPointedUp)
+        hooks.effect("focusAdjuster", camera, shouldUseInfiniteFocus) {
+            if (shouldUseInfiniteFocus) {
                 camera?.setFocus(1f)
             } else {
                 camera?.setFocus(null)

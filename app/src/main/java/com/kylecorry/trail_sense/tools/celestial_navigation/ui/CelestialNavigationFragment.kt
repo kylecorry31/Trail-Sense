@@ -16,7 +16,6 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.stars.DetectedStar
 import com.kylecorry.sol.science.astronomy.stars.StarReading
 import com.kylecorry.sol.science.astronomy.units.CelestialObservation
@@ -43,9 +42,11 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.BrightestPointFinder
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialFixAccuracyEstimator
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialPlateSolver
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialLocationEstimate
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialLocationEstimator
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.CelestialLocationSolver
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -54,10 +55,8 @@ import java.time.ZonedDateTime
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
-import kotlin.math.max
-import kotlin.math.sqrt
 
 class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBinding>() {
 
@@ -66,6 +65,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private val brightestPointFinder = BrightestPointFinder()
     private val plateSolver = CelestialPlateSolver(MAX_CATALOG_MAGNITUDE)
     private val estimator = CelestialLocationEstimator()
+    private val accuracyEstimator = CelestialFixAccuracyEstimator()
+    private val locationSolver = CelestialLocationSolver()
+    private var solveJob: Job? = null
     private val isDetecting = AtomicBoolean(false)
     private val observationVersion = AtomicInteger(0)
     private val observedStars = mutableListOf<CelestialObservation>()
@@ -105,6 +107,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.camera.setExposureCompensation(1f)
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
+        binding.arView.alwaysUseInfiniteFocus = true
         binding.arView.backgroundFillColor = Color.TRANSPARENT
         binding.arView.reticleDiameter = Resources.dp(requireContext(), RETICLE_DIAMETER_DP)
         binding.arView.setLayers(listOf(gridLayer, observedStarLayer, detectedStarLayer))
@@ -129,6 +132,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.map.setLayers(mapLayers)
 
         binding.celestialNavigationTitle.rightButton.setOnClickListener {
+            solveJob?.cancel()
             estimator.clear()
             synchronized(observedStars) {
                 observedStars.clear()
@@ -309,6 +313,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         val version = observationVersion.incrementAndGet()
         Log.d(TAG, "Undo removed last star; $remaining observations remain, version=$version")
 
+        solveJob?.cancel()
         estimator.clear()
         estimate = null
         plateLocation = locationSubsystem.location
@@ -342,15 +347,12 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             Log.d(TAG, "Skipping solve; only ${observations.size} observations")
             return
         }
-        inBackground {
-            Log.d(TAG, "Starting independent solve for version=$version")
+        // Only the newest set of observations matters, so don't let solves pile up
+        solveJob?.cancel()
+        solveJob = inBackground {
+            Log.d(TAG, "Starting solve for version=$version")
             withContext(Dispatchers.Default) {
-                val completed = withTimeoutOrNull(FRAME_PROCESSING_TIMEOUT_MS) {
-                    solveLocation(observations, version)
-                } != null
-                if (!completed) {
-                    Log.d(TAG, "Solve timed out for version=$version")
-                }
+                solveLocation(observations, version)
             }
             Log.d(TAG, "Solve finished for version=$version")
         }
@@ -370,18 +372,27 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             setStatus(R.string.celestial_navigation_matched_stars, detected.size, observations.size)
             return
         }
+        setStatus(R.string.celestial_navigation_solving, detected.size)
 
         val readings = detected.map {
             StarReading(it.star, it.reading.altitude, it.reading.azimuth.value, readingTime)
         }
-        val location = Astronomy.getLocationFromStars(readings, plateLocation)
-        if (location == null) {
+        val location = locationSolver.solve(
+            readings,
+            plateLocation ?: Time.getLocationFromTimeZone(readingTime.zone)
+        )
+        if (location == null || !isValid(location)) {
             Log.d(TAG, "Matched stars did not produce a location")
             setStatus(R.string.celestial_navigation_no_solution)
             return
         }
 
-        val frameAccuracy = getFrameAccuracy(readings, location, detected)
+        val frameAccuracy = accuracyEstimator.getAccuracy(
+            readings,
+            location,
+            detected.map { it.confidence }.average().toFloat()
+        )
+        Log.d(TAG, "Solved location $location with an accuracy of $frameAccuracy m")
         if (version != observationVersion.get()) {
             Log.d(TAG, "Discarding stale solve for version=$version")
             return
@@ -406,6 +417,10 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         }
     }
 
+    private fun isValid(location: Coordinate): Boolean {
+        return location.latitude.isFinite() && location.longitude.isFinite()
+    }
+
     private fun getObservedStarCount(): Int {
         return synchronized(observedStars) { observedStars.size }
     }
@@ -427,28 +442,6 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 observedStarLayer.setMarkers(markers)
             }
         }
-    }
-
-    private fun getFrameAccuracy(
-        readings: List<StarReading>,
-        location: Coordinate,
-        detected: List<DetectedStar>
-    ): Float {
-        val alternateLocations = readings.indices.mapNotNull { excludedIndex ->
-            Astronomy.getLocationFromStars(
-                readings.filterIndexed { index, _ -> index != excludedIndex },
-                plateLocation
-            )
-        }
-        val stability = if (alternateLocations.isEmpty()) {
-            50_000f
-        } else {
-            sqrt(alternateLocations.map { location.distanceTo(it).toDouble() }
-                .map { it * it }
-                .average()).toFloat() * 2
-        }
-        val confidencePenalty = (1 - detected.map { it.confidence }.average()).toFloat() * 100_000f
-        return max(5000f, max(stability, confidencePenalty))
     }
 
     private suspend fun showDetectedStars(detected: List<DetectedStar>) {
@@ -503,7 +496,6 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
     companion object {
         private const val TAG = "CelestialNavigation"
-        private const val FRAME_PROCESSING_TIMEOUT_MS = 10_000L
         private const val RETICLE_DIAMETER_DP = 48f
         private const val MIN_MATCHED_STARS = 4
         private const val MAX_CATALOG_MAGNITUDE = 3f
