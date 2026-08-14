@@ -1,0 +1,21 @@
+Mapas sin conexión
+- Detectar esquinas de nuevos mapas calibrados
+- Ajuste para usar archivos externos de mapas
+
+Podómetro
+- Historial del recuento de pasos, ritmo y tiempo activo
+- Tiempo activo o transcurrido para el ritmo medio
+
+Astronomía
+- Iconos precisos para la luna y los eclipses
+
+Guía de campo
+- Acción rápida: Registrar avistamiento
+
+Guía de supervivencia
+- Actualizada
+
+Varios
+- Compatibilidad Material 3 Expressive
+- Entrada de ubicación permite seleccionar ubicación en mapa
+- Errores
