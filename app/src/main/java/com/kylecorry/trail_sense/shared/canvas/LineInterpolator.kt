@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.canvas
 
+import kotlin.math.sqrt
+
 class LineInterpolator {
 
     /**
@@ -35,7 +37,11 @@ class LineInterpolator {
             val dx = x2 - x1
             val dy = y2 - y1
             val squareDistance = dx * dx + dy * dy
-            val segments = (squareDistance / squareMinSpacing).toInt()
+            val segments = if (squareDistance < squareMinSpacing) {
+                0
+            } else {
+                (sqrt(squareDistance) / minSpacing).toInt()
+            }
 
             // Line is too short to interpolate, so keep it as is
             if (segments < 1) {

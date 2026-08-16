@@ -50,7 +50,7 @@ class ARPathLayer(
     private val clipper = LineClipper()
     private val interpolator = LineInterpolator()
 
-    private val pointSpacing = 5f // meters
+    private val pointSpacing = 2f // meters
     private val pathSimplification = 0.5f // meters
     private val snapDistance = 2 * viewDistanceMeters / 3f // meters
     private val snapDistanceSquared = square(snapDistance)
