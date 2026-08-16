@@ -76,15 +76,15 @@ class TidesSubsystem private constructor(private val context: Context) {
     }
 
     private fun isDailyStillValid(table: TideTable, location: Coordinate?): Boolean {
-        if (table != lastTable || location != lastLocation || lastDate == null || lastDailyTide == null) {
+        if (lastDate == null || lastDailyTide == null) {
             return false
         }
 
-        if (lastDate != LocalDate.now()) {
+        if (table != lastTable || location != lastLocation) {
             return false
         }
 
-        return true
+        return lastDate == LocalDate.now()
     }
 
     companion object {
