@@ -58,7 +58,7 @@ import java.time.Instant
 
 class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
-    private val gps by lazy { sensorService.getGPS() }
+    private val gps by lazy { sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY) }
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private lateinit var navController: NavController

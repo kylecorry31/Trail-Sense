@@ -210,7 +210,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
         }
 
-        gps = sensorService.getGPS()
+        gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
 
         sunTimesMode = prefs.astronomy.sunTimesMode
 

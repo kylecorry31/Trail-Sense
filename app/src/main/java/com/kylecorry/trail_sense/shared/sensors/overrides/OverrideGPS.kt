@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
 import java.time.Duration
 import java.time.Instant
 
-class OverrideGPS(context: Context, updateFrequency: Long = 20L) :
+class OverrideGPS(context: Context, updateFrequency: Long = 1000L) :
     IntervalSensor(Duration.ofMillis(updateFrequency)),
     ISatelliteGPS, InactiveGPS {
 

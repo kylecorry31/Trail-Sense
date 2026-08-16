@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.MockedGPS
 import java.time.Instant
 
-class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : AbstractSensor(),
+class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : AbstractSensor(),
     ISatelliteGPS, InactiveGPS, MockedGPS {
     override val location: Coordinate
         get() {

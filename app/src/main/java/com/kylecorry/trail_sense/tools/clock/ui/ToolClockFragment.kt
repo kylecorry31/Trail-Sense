@@ -34,7 +34,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS() }
+    private val gps by lazy { sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val timer = CoroutineTimer { update() }
 

@@ -28,7 +28,7 @@ class BacktrackCommand(
     private val prefs = UserPreferences(context)
 
     private val sensorService = SensorService(context)
-    private val gps = sensorService.getGPS()
+    private val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
     private val altimeter = sensorService.getAltimeter(gps = gps)
     private val cellSignalSensor =
         if (prefs.backtrackSaveCellHistory && pathId == 0L) sensorService.getCellSignal() else MockCellSignalSensor()

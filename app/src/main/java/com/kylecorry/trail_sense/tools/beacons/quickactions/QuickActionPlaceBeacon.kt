@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
@@ -15,10 +14,11 @@ import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment
+import java.time.Duration
 import java.time.ZonedDateTime
 import kotlinx.coroutines.launch
 
@@ -37,10 +37,11 @@ class QuickActionPlaceBeacon(btn: QuickActionButtonView, fragment: Fragment) :
             var wasSuccessful = false
             var id = 0L
             val job = launch {
-                val sensors = SensorService(fragment.requireContext())
-                val gps = sensors.getGPS()
-                val altimeter = sensors.getAltimeter(gps = gps)
-                readAll(listOf(gps, altimeter))
+                val (location, elevation) = SensorSubsystem.getInstance(fragment.requireContext())
+                    .getLocationAndElevation(
+                        SensorSubsystem.SensorRefreshPolicy.Refresh,
+                        timeout = Duration.ofMinutes(1)
+                    )
 
                 // Create a beacon
                 val formatter = FormatService.getInstance(fragment.requireContext())
@@ -52,8 +53,8 @@ class QuickActionPlaceBeacon(btn: QuickActionButtonView, fragment: Fragment) :
                     Beacon(
                         0,
                         time,
-                        gps.location,
-                        elevation = altimeter.altitude,
+                        location,
+                        elevation = elevation.meters().value,
                         color = prefs.beacons.defaultBeaconColor.color,
                     )
                 )

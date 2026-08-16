@@ -80,8 +80,7 @@ class SensorService(ctx: Context) {
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
 
-    // TODO: This should control update frequency
-    fun getGPS(frequency: Duration = Duration.ofMillis(20)): ISatelliteGPS {
+    fun getGPS(frequency: Duration = DEFAULT_GPS_FREQUENCY): ISatelliteGPS {
 
         val hasPermission = hasLocationPermission()
 
@@ -148,7 +147,7 @@ class SensorService(ctx: Context) {
         }
     }
 
-    private fun getGPSAltimeter(gps: IGPS? = null): IAltimeter {
+    private fun getGPSAltimeter(gps: IGPS? = null, frequency: Duration): IAltimeter {
         val mode = userPrefs.altimeterMode
 
         if (mode == UserPreferences.AltimeterMode.Override) {
@@ -158,29 +157,31 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val actualGPS = gps ?: getGPS()
+            val actualGPS = gps ?: getGPS(frequency)
 
             if (mode.usesDem) {
-                return getDigitalElevationModel(gps)
+                return getDigitalElevationModel(gps, frequency)
             }
 
             return actualGPS
         }
     }
 
-    private fun getDigitalElevationModel(gps: IGPS? = null): IGPS {
+    private fun getDigitalElevationModel(gps: IGPS? = null, frequency: Duration): IGPS {
         return DigitalElevationModel(
-            gps ?: getGPS()
+            gps ?: getGPS(frequency)
         )
     }
 
     fun getAltimeter(
-        preferGPS: Boolean = false, gps: IGPS? = null
+        preferGPS: Boolean = false,
+        gps: IGPS? = null,
+        frequency: Duration = DEFAULT_GPS_FREQUENCY
     ): IAltimeter {
         if (preferGPS) {
             return CachingAltimeterWrapper(
                 context, GaussianAltimeterWrapper(
-                    getGPSAltimeter(gps), userPrefs.altimeterSamples
+                    getGPSAltimeter(gps, frequency), userPrefs.altimeterSamples
                 )
             )
         }
@@ -199,7 +200,7 @@ class SensorService(ctx: Context) {
                 )
             )
         } else if (mode == UserPreferences.AltimeterMode.DigitalElevationModel) {
-            return CachingAltimeterWrapper(context, getDigitalElevationModel(gps))
+            return CachingAltimeterWrapper(context, getDigitalElevationModel(gps, frequency))
         } else {
             if (!GPS.isAvailable(context)) {
                 if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
@@ -214,9 +215,9 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            var gps = gps ?: getGPS()
+            var gps = gps ?: getGPS(frequency)
             if (mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer) {
-                gps = getDigitalElevationModel(gps)
+                gps = getDigitalElevationModel(gps, frequency)
             }
 
             return if ((mode == UserPreferences.AltimeterMode.GPSBarometer || mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer) && hasBarometer) {
@@ -369,6 +370,9 @@ class SensorService(ctx: Context) {
     companion object {
         const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
         private const val ENVIRONMENT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
+        val DEFAULT_GPS_FREQUENCY: Duration = Duration.ofSeconds(1)
+        val NAVIGATION_GPS_FREQUENCY: Duration = Duration.ofMillis(200)
+        val SINGLE_FIX_GPS_FREQUENCY: Duration = Duration.ofMillis(20)
     }
 
 }

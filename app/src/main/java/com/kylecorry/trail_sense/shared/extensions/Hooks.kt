@@ -60,7 +60,7 @@ import kotlin.coroutines.CoroutineContext
 
 // Sensors
 
-fun ReactiveComponent.useGPSSensor(frequency: Duration = Duration.ofMillis(20)): IGPS {
+fun ReactiveComponent.useGPSSensor(frequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY): IGPS {
     val sensors = useService<SensorService>()
     return useMemo(sensors, frequency.seconds, frequency.nano) { sensors.getGPS(frequency) }
 }
@@ -97,7 +97,7 @@ fun ReactiveComponent.useSpeedometerSensor(gps: IGPS? = null): ISpeedometer {
 }
 
 // Common sensor readings
-fun ReactiveAndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)): Pair<Coordinate, Float?> {
+fun ReactiveAndromedaFragment.useGPSLocation(frequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY): Pair<Coordinate, Float?> {
     val gps = useGPSSensor(frequency)
     return useTopic(gps, gps.location to gps.horizontalAccuracy) {
         it.location to it.horizontalAccuracy
@@ -105,7 +105,7 @@ fun ReactiveAndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMi
 }
 
 fun ReactiveAndromedaFragment.useNavigationSensors(
-    gpsFrequency: Duration = Duration.ofMillis(20),
+    gpsFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
     trueNorth: Boolean = false
 ): NavigationSensorValues {
     val gps = useGPSSensor(gpsFrequency)

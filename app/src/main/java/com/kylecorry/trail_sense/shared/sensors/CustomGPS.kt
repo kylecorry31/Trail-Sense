@@ -32,8 +32,8 @@ import java.time.Instant
 
 class CustomGPS(
     private val context: Context,
-    private val gpsFrequency: Duration = Duration.ofMillis(20),
-    private val updateFrequency: Duration = Duration.ofMillis(20),
+    private val gpsFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
+    private val updateFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
 ) : AbstractSensor(), ISatelliteGPS {
 
     override val hasValidReading: Boolean

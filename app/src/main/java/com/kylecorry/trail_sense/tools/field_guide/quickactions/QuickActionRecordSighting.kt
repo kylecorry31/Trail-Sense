@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.sense.readAll
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFormatService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.Instant
 
 class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) :
@@ -30,7 +31,7 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
 
     private val service = getAppService<FieldGuideService>()
     private val formatter = getAppService<FieldGuideFormatService>()
-    private val sensors = getAppService<SensorService>()
+    private val sensors = getAppService<SensorSubsystem>()
 
     override fun onCreate() {
         super.onCreate()
@@ -52,11 +53,12 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
         var wasCancelled = false
         var id = 0L
         val job = scope.launch {
-            val gps = sensors.getGPS()
-            val altimeter = sensors.getAltimeter(gps = gps)
-            readAll(listOf(gps, altimeter))
+            val (location, elevation) = sensors.getLocationAndElevation(
+                SensorSubsystem.SensorRefreshPolicy.Refresh,
+                timeout = Duration.ofMinutes(1)
+            )
 
-            if (!gps.hasValidReading) {
+            if (location == Coordinate.zero) {
                 return@launch
             }
 
@@ -66,8 +68,8 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
                     0,
                     page.id,
                     Instant.now(),
-                    gps.location,
-                    altimeter.altitude,
+                    location,
+                    elevation.meters().value,
                 )
             ).id
 

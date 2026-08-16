@@ -15,7 +15,7 @@ import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
 
-class TimezoneGPS(updateFrequency: Long = 20L) :
+class TimezoneGPS(updateFrequency: Long = 1000L) :
     IntervalSensor(Duration.ofMillis(updateFrequency)),
     ISatelliteGPS, InactiveGPS, MockedGPS {
 

@@ -79,7 +79,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     init {
         context?.let {
             inflate(it, R.layout.view_coordinate_input, this)
-            gps = sensorService.getGPS()
+            gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
             locationEdit = findViewById(R.id.utm)
             gpsLoadingIndicator = findViewById(R.id.gps_loading)
             helpBtn = findViewById(R.id.coordinate_input_help_btn)

@@ -60,7 +60,7 @@ class SensorSubsystem private constructor(private val context: Context) {
             return lastKnownLocation
         }
 
-        val gps = sensorService.getGPS()
+        val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
 
         readAll(
             listOf(gps),
@@ -85,7 +85,8 @@ class SensorSubsystem private constructor(private val context: Context) {
             return lastKnownElevation
         }
 
-        val altimeter = sensorService.getAltimeter()
+        val altimeter =
+            sensorService.getAltimeter(frequency = SensorService.SINGLE_FIX_GPS_FREQUENCY)
 
         readAll(
             listOf(altimeter),
@@ -94,6 +95,32 @@ class SensorSubsystem private constructor(private val context: Context) {
         )
 
         return Distance.meters(altimeter.altitude)
+    }
+
+    /**
+     * Get the current location and elevation using a single GPS reading
+     * @param preferredPolicy the preferred policy for getting the readings
+     * @param timeout the maximum time to wait for the readings
+     * @return the location and elevation, which may be Coordinate.zero / Distance.meters(0f) if unknown
+     */
+    suspend fun getLocationAndElevation(
+        preferredPolicy: SensorRefreshPolicy = SensorRefreshPolicy.RefreshIfInvalid,
+        timeout: Duration = Duration.ofSeconds(15)
+    ): Pair<Coordinate, Distance> {
+        if (preferredPolicy == SensorRefreshPolicy.Cache) {
+            return lastKnownLocation to lastKnownElevation
+        }
+
+        val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
+        val altimeter = sensorService.getAltimeter(gps = gps)
+
+        readAll(
+            listOf(gps, altimeter),
+            timeout,
+            onlyIfInvalid = preferredPolicy == SensorRefreshPolicy.RefreshIfInvalid
+        )
+
+        return gps.location to Distance.meters(altimeter.altitude)
     }
 
     enum class SensorRefreshPolicy {
