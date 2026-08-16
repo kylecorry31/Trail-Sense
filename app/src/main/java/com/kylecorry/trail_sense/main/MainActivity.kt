@@ -114,6 +114,7 @@ class MainActivity : AndromedaActivity() {
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
             return
         }
 
