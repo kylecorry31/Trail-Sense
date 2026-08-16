@@ -3,7 +3,9 @@ package com.kylecorry.trail_sense.tools.tides.subsystem
 import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.tides.domain.TideDetails
+import com.kylecorry.trail_sense.tools.tides.domain.TideLocationKey
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideCommand
@@ -21,20 +23,28 @@ class TidesSubsystem private constructor(private val context: Context) {
     private val tideLoaderFactory = TideLoaderFactory()
 
     private var lastTable: TideTable? = null
+    private var lastLocation: Coordinate? = null
     private var lastDate: LocalDate? = null
     private var lastDailyTide: DailyTideData? = null
     private val mutex = Mutex()
 
     suspend fun getNearestTide(location: Coordinate? = null): TideDetails? {
         val table = getTideTable(location) ?: return null
+        // Automatic nearby tides require on the fly locations rather than the location being part of the model
+        val resolvedLocation = if (table.isAutomaticNearbyTide) {
+            TideLocationKey.of(location ?: LocationSubsystem.getInstance(context).location)
+        } else {
+            null
+        }
         val tide = CurrentTideCommand(tideService).execute(table)
         val times = mutex.withLock {
-            if (isDailyStillValid(table)) {
+            if (isDailyStillValid(table, resolvedLocation)) {
                 lastDailyTide!!
             } else {
                 val newDaily = DailyTideCommand(tideService).execute(table, LocalDate.now())
                 lastDailyTide = newDaily
                 lastTable = table
+                lastLocation = resolvedLocation
                 lastDate = LocalDate.now()
                 newDaily
             }
@@ -65,8 +75,8 @@ class TidesSubsystem private constructor(private val context: Context) {
         )
     }
 
-    private fun isDailyStillValid(table: TideTable): Boolean {
-        if (table != lastTable || lastDate == null || lastDailyTide == null) {
+    private fun isDailyStillValid(table: TideTable, location: Coordinate?): Boolean {
+        if (table != lastTable || location != lastLocation || lastDate == null || lastDailyTide == null) {
             return false
         }
 

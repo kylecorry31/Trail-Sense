@@ -13,12 +13,12 @@ import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.atEndOfDay
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -26,7 +26,10 @@ class TideService(private val context: Context) {
 
     private val maxSearchIterations = 10
 
-    private val cache = MemoryLRUCache<TideTable, TideTableWaterLevelCalculator>(100)
+    private val locationSubsystem by lazy { LocationSubsystem.getInstance(context) }
+
+    private val cache =
+        MemoryLRUCache<Pair<TideTable, Coordinate?>, TideTableWaterLevelCalculator>(100)
 
     suspend fun getTides(
         table: TideTable,
@@ -180,7 +183,13 @@ class TideService(private val context: Context) {
     }
 
     private suspend fun getTableCalculator(table: TideTable): TideTableWaterLevelCalculator {
-        return cache.getOrPut(table) {
+        // Automatic nearby tides require on the fly locations rather than the location being part of the model
+        val key = table to if (table.isAutomaticNearbyTide) {
+            TideLocationKey.of(locationSubsystem.location)
+        } else {
+            null
+        }
+        return cache.getOrPut(key) {
             val calculator = TideTableWaterLevelCalculator(context, table)
             // Precompute to populate all lookups
             calculator.calculateSuspend(ZonedDateTime.now())
