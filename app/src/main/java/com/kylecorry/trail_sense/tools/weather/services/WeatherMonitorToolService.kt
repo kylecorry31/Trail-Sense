@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.weather.services
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
@@ -14,6 +13,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
 import java.time.Duration
 
@@ -76,8 +76,7 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun stop() {
-        WeatherMonitorService.stop(context)
-        Notify.cancel(context, WeatherMonitorService.WEATHER_NOTIFICATION_ID)
+        WeatherMonitorScheduler.stop(context)
     }
 
     private fun start() {
@@ -98,7 +97,7 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
         }
 
         tryStartForegroundOrNotify(context) {
-            WeatherMonitorService.start(context)
+            WeatherMonitorScheduler.start(context)
         }
     }
 
