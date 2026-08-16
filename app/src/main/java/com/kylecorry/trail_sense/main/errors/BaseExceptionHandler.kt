@@ -85,14 +85,27 @@ abstract class BaseExceptionHandler(
     }
 
     private fun wrapOnUncaughtException(exceptionHandler: (throwable: Throwable) -> Unit) {
-        val originalHandler = Thread.getDefaultUncaughtExceptionHandler()
-        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+        val currentHandler = Thread.getDefaultUncaughtExceptionHandler()
+        if (currentHandler !== installedHandler) {
+            systemHandler = currentHandler
+        }
+
+        val originalHandler = systemHandler
+        val handler = Thread.UncaughtExceptionHandler { thread, throwable ->
             try {
                 exceptionHandler(throwable)
             } finally {
                 originalHandler?.uncaughtException(thread, throwable)
             }
         }
+
+        installedHandler = handler
+        Thread.setDefaultUncaughtExceptionHandler(handler)
+    }
+
+    companion object {
+        private var installedHandler: Thread.UncaughtExceptionHandler? = null
+        private var systemHandler: Thread.UncaughtExceptionHandler? = null
     }
 
 }
