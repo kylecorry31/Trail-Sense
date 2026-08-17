@@ -142,7 +142,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="pref_monitor_weather_title">Controllo meteo</string>
     <string name="pref_monitor_weather_summary">In background</string>
-    <string name="pref_max_beacon_distance_title">Distanza del Segnaposto vicino</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibra prima della navigazione</string>
     <string name="pref_display_multi_beacons_summary">Mostra sulla bussola i Segnaposto più vicini</string>
     <string name="pref_adjust_for_temperature_title">Considera la temperatura</string>
@@ -472,7 +471,6 @@
     <string name="delete_waypoint_prompt">Cancellare segnaposto\?</string>
     <string name="stratocumulus_desc">Nuvole basse che somigliano a uno strato di cotone con piccoli buchi. I colori spaziano dal bianco al grigio scuro.</string>
     <string name="cumulus_desc">Nuvole basse che somigliano a palline di cotone. Sono sparpagliate e tipicamente bianche con chiazze più scure sotto.</string>
-    <string name="onboarding_user_guide">Impara a usare le funzionalità di Trail Sense tramite il manuale utente. Disponibile in fondo alla scheda Strumenti.</string>
     <string name="time_ago">%s fa</string>
     <string name="dbm_format">%s dBm</string>
     <string name="distance_from_flashlight">Distanza del telefono dalla torcia</string>
@@ -1278,7 +1276,6 @@
     <string name="pref_bubble_level_threshold_title">Livello di soglia</string>
     <string name="map_error_unable_to_copy">Non è possibile copiare il file della mappa</string>
     <string name="guide_map_layers">Livello della mappa</string>
-    <string name="clock_source_device">Ora del device</string>
     <string name="clock_source_gps">Ora GPS</string>
     <string name="clock_device_time_accurate">L\'ora del telefono è accurata</string>
     <plurals name="clock_device_time_slow">

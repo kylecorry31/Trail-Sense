@@ -136,7 +136,6 @@
     <string name="saved">Sparat</string>
     <string name="error">Fel</string>
     <string name="warning">Varning</string>
-    <string name="access_background_location_rationale">Trail Sense använder platsdata i bakgrunden för att kalibrera lufttrycket vid havsnivå under väderövervakning och ge noggrannare varningar om solnedgången. [Läs integritetspolicyn](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="precise_feet_format">%s fot</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="charging_fast">Laddar snabbt (%s)</string>

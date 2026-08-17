@@ -6,7 +6,6 @@
     <string name="astronomy">Himmel</string>
     <string name="tools">Verkty</string>
     <string name="map_layers">Kartlag</string>
-    <string name="overlay_layer">Legg lag oppå</string>
     <string name="app_info">Appinfo</string>
     <string name="reload">Last inn på nytt</string>
     <string name="disconnect">Kopl frå</string>
@@ -16,11 +15,9 @@
     <string name="plugin_disconnect_title">Kopl frå pluginen?</string>
     <string name="plugin_disconnect_message">Kopl frå %s?</string>
     <string name="access_background_location">Oppdater stadinnstillingar</string>
-    <string name="access_background_location_rationale">Trail Sanse nyttar staddata i bakgrunnen, sjølv når appen er attlaten eller ikkje i bruk. Bakgrunnsåtgangen er brukt til å stilla inn vêret, havnivå, trykkmålar, attergang, widget-oppdateringar, og til å gje rettare varsel om soloppgang og -solnedgang. [Les om Personvernet vårt](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="disclaimer_message_title">Andsvarsfråskriving</string>
     <string name="app_disclaimer_message_title">Andsvarsfråskriving / bruksvilkår</string>
     <string name="precise_feet_format">%s fot</string>
-    <string name="precise_miles_format">%s mil</string>
     <string name="precise_nautical_miles_format">%s sjømil</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_kilometers_format">%s km</string>
@@ -78,7 +75,6 @@
     </plurals>
     <string name="share_action_send">Send inn</string>
     <string name="maps">Kart</string>
-    <string name="name">Gje namn</string>
     <string name="scientific_name">Vitskapleg namn</string>
     <string name="built_in_pages">Innebygde sidor</string>
     <string name="common_name">Kvardagsnamn</string>
@@ -119,13 +115,9 @@
     <string name="sunrise_label">Solrenning</string>
     <string name="sunset_label">Soleglad</string>
     <string name="new_moon">Nymåne</string>
-    <string name="waning_crescent">I ny</string>
     <string name="third_quarter">Tridje kvarter</string>
-    <string name="waning_gibbous">I ny</string>
     <string name="full_moon">Fullmåne</string>
-    <string name="waxing_gibbous">I ne</string>
     <string name="first_quarter">Fyrste kvarter</string>
-    <string name="waxing_crescent">I ne</string>
     <string name="sunset_alert_notification_title">Sola gladar snart</string>
     <string name="sunrise_alert_notification_title">Sola renn snart</string>
     <string name="sunset_alert_notification_text">Sola gladar klokka %s</string>
@@ -140,17 +132,14 @@
     <string name="clinometer_title">Hallingsmålar</string>
     <string name="tool_clinometer_summary">Rekn ut snøskredefåre og høgda på ting</string>
     <string name="clinometer_rotate_device">Haldt mobilen loddbein</string>
-    <string name="set_inclination_instructions">Rør kvar som helst for å låsa opp eller igjen</string>
     <string name="add">Legg til</string>
     <string name="subtract">Trekk frå</string>
     <string name="delete">Slett</string>
     <string name="edit">Gjer om</string>
     <string name="category">Kategori</string>
     <string name="dialog_item_amount">Mengd</string>
-    <string name="create_item_title">Skip gjenstand</string>
     <string name="edit_item_title">Gjer om på gjenstand</string>
     <string name="general">Ålment</string>
-    <string name="feet_miles">Fot / mil</string>
     <string name="pressure">Trykk</string>
     <string name="pref_use_24_hour_title">Nytt 24-timarsformat</string>
     <string name="pref_include_leading_zero_title">Ha førestilt null på klokkeslett</string>
@@ -197,7 +186,6 @@
     <string name="pref_elevation_override_sea_level_dialog_msg">Skriv inn lufttrykket på havnivå i hPa</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Skriv inn lufttrykket på havnivå</string>
     <string name="pref_elevation_override_sea_level_title">Nyttar eit kjent havnivå-lufttrykk</string>
-    <string name="altimeter_mode_gps_barometer">GPS + Djupnemålar</string>
     <string name="never">Aldri</string>
     <string name="pref_use_sea_level_pressure_title">Lufttrykk på havnivå</string>
     <string name="pref_adjust_for_temperature_title">Rekn med temperaturen</string>

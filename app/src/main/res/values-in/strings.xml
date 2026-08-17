@@ -1597,7 +1597,7 @@
     <string name="calibrate_map_point_title">Titik %1$d dari %2$d</string>
     <string name="calibrate_map_point_instructions">Ketuk lokasi ini pada peta, lalu masukkan koordinat sebenarnya di dunia nyata.</string>
     <string name="draft">Draf</string>
-    <string name="photo_map_disclaimer">Selalu bawa peta fisik sebagai cadangan dan verifikasi akurasi Trail Sense.\n\nFile peta tidak disertakan dengan Trail Sense dan harus diunduh atau dikalibrasi dari foto. Anda dapat menemukan peta untuk diunduh di [https://kylecorry.com/Trail-Sense/offline_maps.html](https://kylecorry.com/Trail-Sense/offline_maps.html)</string>
+    <string name="photo_map_disclaimer">Selalu bawa peta fisik sebagai cadangan dan verifikasi akurasi Trail Sense.\n\nFile peta tidak disertakan dengan Trail Sense dan harus diunduh atau dikalibrasi dari foto. Anda dapat menemukan peta untuk diunduh di https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="pref_show_all_bottom_navigation_labels">Tampilkan semua label navigasi bawah</string>
     <string name="use_legacy_file_picker">Gunakan pemilih file lama</string>
     <string name="widget_icon_compatibility_mode">Mode kompatibilitas ikon widget</string>
