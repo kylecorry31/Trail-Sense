@@ -35,4 +35,8 @@ object AltitudeCorrection {
             source.read(location).first()
         }
     }
+
+    fun isSameGeoid(location1: Coordinate, location2: Coordinate): Boolean {
+        return source.getPixel(location1) == source.getPixel(location2)
+    }
 }

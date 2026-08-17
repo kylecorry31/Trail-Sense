@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
@@ -104,8 +105,10 @@ class CustomGPS(
         onTimeout()
     }
 
-    private val geoidTimer = CoroutineTimer {
-        geoidOffset = AltitudeCorrection.getGeoid(location)
+    private val geoidTask = BackgroundTask {
+        val currentLocation = location
+        geoidOffset = AltitudeCorrection.getGeoid(currentLocation)
+        geoidLocation = currentLocation
     }
 
     private var _altitude = 0f
@@ -119,7 +122,11 @@ class CustomGPS(
     private var _mslAltitude: Float? = null
     private var _isTimedOut = false
     private var mslOffset = 0f
+    @Volatile
     private var geoidOffset = 0f
+
+    @Volatile
+    private var geoidLocation: Coordinate? = null
     private var _rawBearing: Float? = null
     private var _bearing: Float? = null
     private var _bearingAccuracy: Float? = null
@@ -202,12 +209,16 @@ class CustomGPS(
             return mslOffset
         }
 
-        if (geoidOffset != 0f) {
-            return geoidOffset
+        val lastLocation = geoidLocation
+
+        if (lastLocation == null) {
+            // This is not ideal, but an offset is needed (and this service caches it)
+            geoidOffset = runBlocking { AltitudeCorrection.getGeoid(location) }
+            geoidLocation = location
+        } else if (!AltitudeCorrection.isSameGeoid(lastLocation, location)) {
+            geoidTask.start()
         }
 
-        // This is not ideal, but an offset is needed (and this service caches it)
-        geoidOffset = runBlocking { AltitudeCorrection.getGeoid(location) }
         return geoidOffset
     }
 
@@ -252,13 +263,14 @@ class CustomGPS(
 
         baseGPS.start(this::onLocationUpdate)
         timeout.once(TIMEOUT_DURATION)
-        geoidTimer.interval(Duration.ofMillis(200))
+        // Load the offset for the last known location so the first fix doesn't have to wait on it
+        geoidTask.start()
     }
 
     override fun stopImpl() {
         baseGPS.stop(this::onLocationUpdate)
         timeout.stop()
-        geoidTimer.stop()
+        geoidTask.stop()
     }
 
     private fun onLocationUpdate(): Boolean {
