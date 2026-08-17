@@ -77,9 +77,9 @@ fun ReactiveComponent.useCellSignalSensor(
     }
 }
 
-fun ReactiveAndromedaFragment.useCompassSensor(): ICompass {
+fun ReactiveAndromedaFragment.useCompassSensor(delay: Int = SensorService.MOTION_SENSOR_DELAY): ICompass {
     val sensors = useService<SensorService>()
-    return useMemo(sensors) { sensors.getCompass() }
+    return useMemo(sensors, delay) { sensors.getCompass(delay = delay) }
 }
 
 fun ReactiveAndromedaFragment.useAltimeterSensor(gps: IGPS? = null): IAltimeter {
@@ -106,10 +106,11 @@ fun ReactiveAndromedaFragment.useGPSLocation(frequency: Duration = SensorService
 
 fun ReactiveAndromedaFragment.useNavigationSensors(
     gpsFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
-    trueNorth: Boolean = false
+    trueNorth: Boolean = false,
+    compassDelay: Int = SensorService.MOTION_SENSOR_DELAY
 ): NavigationSensorValues {
     val gps = useGPSSensor(gpsFrequency)
-    val compass = useCompassSensor()
+    val compass = useCompassSensor(compassDelay)
     val altimeter = useAltimeterSensor(gps)
     val speedometer = useSpeedometerSensor(gps)
     val prefs = useService<UserPreferences>()

@@ -88,8 +88,9 @@ class AugmentedRealityView : CanvasView {
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private var calibrationBearingOffset: Float = 0f
-    val geomagneticOrientationSensor = sensors.getOrientation()
-    val gyroOrientationSensor = sensors.getGyroscope()
+    val geomagneticOrientationSensor =
+        sensors.getOrientation(SensorService.FAST_MOTION_SENSOR_DELAY)
+    val gyroOrientationSensor = sensors.getGyroscope(SensorService.FAST_MOTION_SENSOR_DELAY)
     private var customOrientationSensor: IOrientationSensor? = null
     private val hasGyro = Sensors.hasGyroscope(context)
     var orientationSensor = geomagneticOrientationSensor

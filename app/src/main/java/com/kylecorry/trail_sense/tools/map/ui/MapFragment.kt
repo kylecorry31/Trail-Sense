@@ -101,7 +101,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        val navigation = useNavigationSensors(trueNorth = true)
+        val navigation = useNavigationSensors(
+            trueNorth = true,
+            compassDelay = SensorService.FAST_MOTION_SENSOR_DELAY
+        )
         val context = useAndroidContext()
         val sensors = useService<SensorService>()
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }

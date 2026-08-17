@@ -253,15 +253,18 @@ class SensorService(ctx: Context) {
     }
 
     // TODO: Expose a way to see that a disturbance is present
-    fun getCompass(orientationSensor: IOrientationSensor? = null): ICompass {
+    fun getCompass(
+        orientationSensor: IOrientationSensor? = null,
+        delay: Int = MOTION_SENSOR_DELAY
+    ): ICompass {
         return CompassProvider(context, userPrefs.compass).get(
-            MOTION_SENSOR_DELAY,
+            delay,
             orientationSensor
         )
     }
 
-    fun getOrientation(): IOrientationSensor {
-        return CompassProvider(context, userPrefs.compass).getOrientationSensor(MOTION_SENSOR_DELAY)
+    fun getOrientation(delay: Int = MOTION_SENSOR_DELAY): IOrientationSensor {
+        return CompassProvider(context, userPrefs.compass).getOrientationSensor(delay)
     }
 
     fun getDeviceOrientationSensor(): DeviceOrientation {
@@ -333,34 +336,37 @@ class SensorService(ctx: Context) {
         )
     }
 
-    fun getGravity(): IAccelerometer {
+    fun getGravity(delay: Int = MOTION_SENSOR_DELAY): IAccelerometer {
         return if (Sensors.hasSensor(context, Sensor.TYPE_GRAVITY)) {
-            GravitySensor(context, MOTION_SENSOR_DELAY)
+            GravitySensor(context, delay)
         } else {
-            LowPassAccelerometer(context, MOTION_SENSOR_DELAY)
+            LowPassAccelerometer(context, delay)
         }
     }
 
-    fun getMagnetometer(filtered: Boolean = false): IMagnetometer {
+    fun getMagnetometer(
+        filtered: Boolean = false,
+        delay: Int = MOTION_SENSOR_DELAY
+    ): IMagnetometer {
         return if (filtered) {
-            LowPassMagnetometer(context, MOTION_SENSOR_DELAY)
+            LowPassMagnetometer(context, delay)
         } else {
-            Magnetometer(context, MOTION_SENSOR_DELAY)
+            Magnetometer(context, delay)
         }
     }
 
-    fun getGyroscope(): IOrientationSensor {
+    fun getGyroscope(delay: Int = MOTION_SENSOR_DELAY): IOrientationSensor {
         if (!Sensors.hasGyroscope(context)) {
             return MockGyroscope()
         }
         if (Sensors.hasSensor(context, Sensor.TYPE_GAME_ROTATION_VECTOR)) {
-            return GameRotationSensor(context, MOTION_SENSOR_DELAY)
+            return GameRotationSensor(context, delay)
         }
-        return Gyroscope(context, MOTION_SENSOR_DELAY)
+        return Gyroscope(context, delay)
     }
 
-    fun getAccelerometer(): IAccelerometer {
-        return Accelerometer(context, MOTION_SENSOR_DELAY)
+    fun getAccelerometer(delay: Int = MOTION_SENSOR_DELAY): IAccelerometer {
+        return Accelerometer(context, delay)
     }
 
     fun getLightSensor(): ILightSensor {
@@ -368,7 +374,8 @@ class SensorService(ctx: Context) {
     }
 
     companion object {
-        const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
+        const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_UI
+        const val FAST_MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
         private const val ENVIRONMENT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
         val DEFAULT_GPS_FREQUENCY: Duration = Duration.ofSeconds(1)
         val NAVIGATION_GPS_FREQUENCY: Duration = Duration.ofMillis(200)

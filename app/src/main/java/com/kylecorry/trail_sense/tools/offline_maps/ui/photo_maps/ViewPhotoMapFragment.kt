@@ -62,7 +62,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
-    private val compass by lazy { sensorService.getCompass() }
+    private val compass by lazy { sensorService.getCompass(delay = SensorService.FAST_MOTION_SENSOR_DELAY) }
     private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val service = getAppService<OfflineMapService>()
