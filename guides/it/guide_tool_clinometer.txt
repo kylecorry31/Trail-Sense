@@ -20,15 +20,11 @@ La maggior parte delle valanghe si verifica su pendii con inclinazione compresa 
 L'altezza di un albero può essere misurata se si conosce la distanza dall'albero.
 
 1. Tocca l'icona del righello in alto a destra.
-
 2. Tocca "Altezza".
-
 3. Inserisci la distanza dall'albero.
-
 4. Allinea il clinometro alla base dell'albero.
-
-5. Tocca e tieni premuto sullo schermo. 6. Riallinea il clinometro alla cima dell'albero.
-
+5. Tocca e tieni premuto sullo schermo.
+6. Riallinea il clinometro alla cima dell'albero.
 7. Rilascia per bloccare e visualizzare l'altezza dell'albero.
 
 Se normalmente misuri l'altezza degli alberi alla stessa distanza, puoi impostare una distanza predefinita in Impostazioni > inclinometro > Distanza di riferimento.
@@ -37,39 +33,24 @@ Se normalmente misuri l'altezza degli alberi alla stessa distanza, puoi impostar
 Se conosci l'altezza di un albero, puoi stimarne la distanza utilizzando l'inclinometro.
 
 1. Tocca l'icona del righello in alto a destra.
-
 2. Tocca "Distanza".
-
 3. Inserisci l'altezza dell'albero.
-
 4. Allinea il clinometro alla base dell'albero.
-
 5. Tocca e tieni premuto sullo schermo.
-
 6. Riallinea l'inclinometro alla cima dell'albero.
-
 7. Rilascia per bloccare e visualizzare la distanza dall'albero.
-
 
 ## Stima della distanza da un albero (altezza sconosciuta)
 Se non conosci l'altezza dell'albero, puoi comunque stimarne la distanza utilizzando la tua altezza come riferimento.
 
 1. Tocca l'icona del righello in alto a destra.
-
 2. Tocca "Distanza".
-
 3. Inserisci la tua altezza.
-
 4. Posizionati accanto all'albero e prendi nota di dove si trova la sommità della tua testa sul tronco.
-
 5. Allontanati dall'albero e raggiungi il punto in cui desideri misurare la distanza.
-
 6. Allinea l'inclinometro alla base dell'albero.
-
 7. Tocca lo schermo e tieni premuto.
-
 8. Riallinea l'inclinometro al punto in cui si trovava la sommità della tua testa sull'albero.
-
 9. Rilascia per bloccare e visualizzare la distanza dall'albero.
 
 ## Avvertenza

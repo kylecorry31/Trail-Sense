@@ -31,5 +31,4 @@ Per impostazione predefinita, viene utilizzata la tua posizione attuale. Se desi
 ## Precisione
 I valori climatici medi si basano sulla media trentennale dei dati storici e indicano le condizioni meteorologiche tipiche. I valori effettivi possono variare per diversi motivi, ma dovrebbero rimanere abbastanza vicini ai valori storici. Differenze significative sono generalmente dovute a tempeste o altri eventi meteorologici.
 
-
 Le temperature e le precipitazioni storiche sono stimate utilizzando un modello "climatico normale" personalizzato di 30 anni, derivato dai dati del NASA Global Modeling and Assimilation Office - MERRA-2 ed ERA5, rispettivamente (1991-2020).

@@ -18,5 +18,4 @@ Tieni premuto il pulsante Aiuto per riprodurre i segnali comuni.
 ## Azione rapida
 Puoi abilitare l'azione rapida del fischietto nelle impostazioni della scheda in cui desideri utilizzarla.
 
-
 Per utilizzare l'azione rapida, tieni premuto il pulsante di azione rapida del fischietto.

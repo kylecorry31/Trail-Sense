@@ -4,11 +4,8 @@ Lo strumento Timer per l'ebollizione dell'acqua ti aiuta a determinare il tempo 
 Per garantire che l'acqua sia potabile, è necessario prima filtrarla e poi bollirla. Tieni presente che filtrare e bollire non renderà potabile l'acqua inquinata. Segui questi passaggi per rendere l'acqua potabile:
 
 1. Filtra l'acqua nel contenitore di metallo.
-
 2. Porta l'acqua a ebollizione.
-
 3. Tocca il pulsante "Avvia" quando l'acqua raggiunge l'ebollizione.
-
 4. L'acqua sarà probabilmente potabile allo scadere del timer.
 
 Per impostazione predefinita, il timer utilizza la tua altitudine attuale per calcolare il tempo di ebollizione necessario. In alternativa, puoi selezionare manualmente una durata di 1 minuto o 3 minuti utilizzando i pulsanti situati nella parte inferiore dello schermo.

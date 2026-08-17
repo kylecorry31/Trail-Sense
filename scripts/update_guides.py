@@ -92,6 +92,9 @@ def check_markdown_integrity(original_text: str, translated_text: str) -> bool:
     
     return original_header_count == translated_header_count and original_unordered_list_count == translated_unordered_list_count
 
+def check_no_todo(translated_text: str) -> bool:
+    return "TODO:" not in translated_text
+
 
 def get_issues(original, translated):
     """Returns a list of issues found in the translated guide. If no issues are found, an empty list is returned."""
@@ -112,6 +115,9 @@ def get_issues(original, translated):
     
     if not check_is_translated(original_text, translated_text):
         issues.append("not-fully-translated")
+
+    if not check_no_todo(translated_text):
+        issues.append("todo")
 
     return issues
 

@@ -43,7 +43,6 @@ Puoi visualizzare il Sole e la Luna quando sono sotto l'orizzonte attivando Impo
 ## Stelle / pianeti / sciami meteorici
 Le stelle luminose, i pianeti, le costellazioni e gli sciami meteorici vengono visualizzati di notte. Se inquadri una stella nel reticolo, ne vedrai il nome e la costellazione o le costellazioni a cui appartiene. I nomi delle stelle sono i nomi propri IAU o la designazione Bayer. Le costellazioni sono quelle dell'IAU.
 
-
 È possibile disattivare la visualizzazione di stelle e pianeti disattivando l'opzione "Mostra stelle e pianeti" in Impostazioni > Realtà Aumentata > 'Mostra stelle e pianeti'.
 
 Per impostazione predefinita, vengono visualizzate solo le stelle più luminose e i pianeti più visibili (Venere, Marte, Giove, Saturno). È possibile attivare l'opzione "Mostra stelle/pianeti a bassa luminosità" in Impostazioni > Realtà Aumentata > 'Mostra stelle/pianeti meno luminosi' per visualizzare anche stelle e pianeti meno luminosi.
@@ -63,8 +62,7 @@ Tocca il beacon per navigare verso di esso.
 
 Durante la navigazione, vedrai una freccia attorno al mirino che punta nella direzione del beacon. Muovi il telefono verso la freccia per visualizzare il beacon. Quando il beacon è nel mirino, la freccia scomparirà.
 
-Se la navigazione tramite beacon è già attiva quando apri lo strumento Realtà Aumentata, quel beacon verrà visualizzato.
-diventa automaticamente il bersaglio corrente.
+TODO: Incomplete translation.
 
 Se passi da un bersaglio beacon a un bersaglio non beacon, la navigazione beacon viene annullata.
 
@@ -78,7 +76,6 @@ Non sarà possibile calibrare in una notte senza luna.
 Se il dispositivo è dotato di giroscopio, la calibrazione imposterà lo strumento in modo che utilizzi il giroscopio per l'orientamento. Puoi disabilitare questa funzione in Impostazioni > Realtà Aumentata > "Usa giroscopio dopo la calibrazione".
 
 Per reimpostare la calibrazione, tieni premuta l'icona della bussola oppure chiudi e riapri lo strumento.
-
 
 ### Precisione
 La precisione della bussola e del GPS viene visualizzata in basso a sinistra dello schermo. Tocca le icone di stato per visualizzare maggiori dettagli sulla precisione e per ulteriori istruzioni sulla calibrazione della bussola.

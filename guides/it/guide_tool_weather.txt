@@ -16,7 +16,6 @@ Per una maggiore precisione, concedi a Trail Sense l'autorizzazione di localizza
 
 In Impostazioni > Meteo, puoi personalizzare la notifica per visualizzare:
 - **Pressione**: visualizza la pressione attuale.
-
 - **Temperatura**: visualizza la temperatura attuale (consulta la guida al termometro per maggiori dettagli).
 
 Puoi anche abilitare le notifiche meteo giornaliere in Impostazioni > Meteo > Notifiche meteo giornaliere. Senza il monitoraggio meteo attivo, non riceverai queste notifiche. L'orario di questa notifica è configurabile in Impostazioni > Meteo > Orario meteo giornaliero.
@@ -62,7 +61,7 @@ Il fronte meteorologico attuale viene visualizzato nell'elenco meteo. I fronti i
 Per utilizzare l'azione rapida, toccare il pulsante Azione rapida Monitoraggio meteo per attivarla o disattivarla.
 
 ## Precisione
-Le previsioni meteo sono una stima approssimativa basata sui dati dei sensori disponibili e potrebbero non essere accurate. Se Trail Sense indica che il tempo sarà sereno ma si osserva quello che sembra Se avvertite l'arrivo di nubi temporalesche, fidatevi del vostro istinto: a volte i temporali si avvicinano con graduali variazioni di pressione. Cercate riparo se percepite l'arrivo di un temporale, indipendentemente dalle previsioni di Trail Sense.
+Le previsioni meteo sono una stima approssimativa basata sui dati dei sensori disponibili e potrebbero non essere accurate. TODO: Incomplete translation. A volte i temporali si avvicinano con graduali variazioni di pressione. Cercate riparo se percepite l'arrivo di un temporale, indipendentemente dalle previsioni di Trail Sense.
 
 Le medie climatiche (temperature storiche) si basano sulla media trentennale dei dati storici e indicano le condizioni meteorologiche tipiche. I valori effettivi possono variare per diversi motivi, ma dovrebbero rimanere abbastanza vicini ai valori storici. Differenze significative sono generalmente dovute a temporali o altri eventi meteorologici.
 
@@ -72,7 +71,5 @@ Le temperature storiche sono stimate utilizzando un modello personalizzato di "n
 I seguenti widget possono essere posizionati sulla schermata iniziale del dispositivo o visualizzati all'interno dell'app:
 
 - **Meteo**: Mostra le condizioni meteorologiche attuali e le previsioni di temperatura.
-
 - **Pressione**: Mostra la pressione attuale e la freccia di tendenza.
-
 - **Grafico della pressione**: Il grafico della pressione.

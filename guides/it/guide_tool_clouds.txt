@@ -15,5 +15,4 @@ Se scegli di identificare manualmente le nuvole, visualizzerai un elenco di tipi
 ## Azione rapida
 Puoi abilitare l'azione rapida "Scanner nuvole" nelle impostazioni della scheda in cui desideri visualizzarla.
 
-
 Toccando il pulsante di azione rapida si aprirà la fotocamera per scattare una foto di una nuvola e identificarla. Tenendo premuto il pulsante si aprirà lo strumento Nuvole.
