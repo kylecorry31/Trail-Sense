@@ -37,9 +37,11 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.Batter
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_battery) {
-    private val currentFilterSize = 100
+    private val currentFilterSize = 20
+    private val currentSampleInterval = 200L
 
     override fun update() {
         // Views
@@ -67,13 +69,10 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         val (percent, setPercent) = useState(0f)
         val (capacity, setCapacity) = useState(0f)
         val (health, setHealth) = useState(BatteryHealth.Unknown)
-        val (current, setCurrent) = useState(0f)
         val (chargingStatus, setChargingStatus) = useState(BatteryChargingStatus.Unknown)
         val (chargeMethod, setChargeMethod) = useState(BatteryChargingMethod.Unknown)
-        val currentFilter = useMemo(resetOnResume, chargingStatus) {
-            MedianFilter(currentFilterSize)
-        }
         val isCharging = chargingStatus == BatteryChargingStatus.Charging
+        val current = useBatteryCurrent(battery, isCharging)
         val rawReadings = useLiveData(batteryRepo.get(), emptyList()) { allReadings ->
             allReadings.sortedBy { it.time }
         }
@@ -91,7 +90,7 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         }
         val (services, triggerServicesUpdate) = useRunningServices(batteryService)
         val tips = useSystemBatteryTips(batteryService)
-        val time = useMemo(isCharging, readings, current, percent) {
+        val time = useMemo(isCharging, readings, percent) {
             if (isCharging) {
                 batteryService.getTimeUntilFull(battery, readings)
             } else {
@@ -103,10 +102,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         // TODO: Extract battery reading to a custom hook
         useEffect(battery, batteryKey) {
             setChargingStatus(battery.chargingStatus)
-            val isCharging = battery.chargingStatus == BatteryChargingStatus.Charging
-
-            // If charging and current is negative, invert current
-            setCurrent(currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1))
             setCapacity(battery.capacity)
             setPercent(battery.percent)
             setHealth(battery.health)
@@ -117,10 +112,10 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             triggerBatteryUpdate()
         }
 
-        useTimer(INTERVAL_30_FPS) {
+        // Some battery attributes are polled rather than pushed, so they need a fallback
+        useTimer(1000) {
             triggerBatteryUpdate()
         }
-
 
         // View - Services List
         val onServiceDisable = useCallback<RunningService, Unit> { service: RunningService ->
@@ -258,6 +253,19 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         useLowPowerToggle(lowPowerSwitchView, lowPowerMode, prefs, triggerServicesUpdate)
     }
 
+    private fun useBatteryCurrent(battery: Battery, isCharging: Boolean): Int {
+        val (current, setCurrent) = useState(0)
+        val filter = useMemo(resetOnResume, isCharging) { MedianFilter(currentFilterSize) }
+
+        useTimer(currentSampleInterval) {
+            // If charging and current is negative, invert current
+            val reading = battery.current.absoluteValue * if (isCharging) 1 else -1
+            setCurrent(filter.filter(reading).roundToInt())
+        }
+
+        return current
+    }
+
     private fun useRunningServices(batteryService: BatteryService): Pair<List<RunningService>, () -> Unit> {
         val context = useAndroidContext()
         val (servicesKey, triggerServicesUpdate) = useTrigger()
@@ -292,14 +300,14 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
 
     private fun useShowCurrent(
         textView: TextView,
-        current: Float,
+        current: Int,
         isCharging: Boolean,
         chargeMethod: BatteryChargingMethod,
         formatter: FormatService
     ) {
         useEffect(textView, current, isCharging, chargeMethod) {
-            if (current.absoluteValue >= 0.5f) {
-                val formattedCurrent = formatter.formatCurrent(current.absoluteValue)
+            if (current != 0) {
+                val formattedCurrent = formatter.formatCurrent(current.absoluteValue.toFloat())
                 textView.text = when {
                     current > 500 -> getString(R.string.charging_fast, formattedCurrent)
                     current > 0 -> getString(R.string.charging_slow, formattedCurrent)
