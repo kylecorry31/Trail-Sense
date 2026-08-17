@@ -65,8 +65,10 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
     companion object {
         private const val UNIQUE_ID = 267389
 
+        val FREQUENCY: Duration = Duration.ofMinutes(30)
+
         fun start(context: Context) {
-            scheduler(context).interval(Duration.ofMinutes(30))
+            scheduler(context).interval(FREQUENCY)
         }
 
         fun stop(context: Context) {

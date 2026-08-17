@@ -13,7 +13,7 @@ class WidgetUpdateToolService(private val context: Context) : ToolService {
     override val name: String = context.getString(R.string.widget_updater)
 
     override fun getFrequency(): Duration {
-        return Duration.ofHours(1)
+        return WidgetUpdateWorker.FREQUENCY
     }
 
     override fun isRunning(): Boolean {
