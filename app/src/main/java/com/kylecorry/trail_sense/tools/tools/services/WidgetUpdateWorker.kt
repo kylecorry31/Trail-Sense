@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.core.system.Wakelocks
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.widgets.Widgets
-import com.kylecorry.luna.concurrency.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
@@ -47,25 +46,19 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
         val locationSubsystem = LocationSubsystem.getInstance(applicationContext)
         val sensorSubsystem = SensorSubsystem.getInstance(applicationContext)
 
-        if (Permissions.canGetLocationCustom(applicationContext)) {
-            val parallelRunner = ParallelCoroutineRunner()
-            parallelRunner.run(
-                listOfNotNull(
-                if (locationSubsystem.locationAge.toMinutes() > 30) {
-                    suspend {
-                        sensorSubsystem.getLocation(SensorRefreshPolicy.Refresh)
-                    }
-                } else {
-                    null
-                },
-                if (locationSubsystem.elevationAge.toMinutes() > 30) {
-                    suspend {
-                        sensorSubsystem.getElevation(SensorRefreshPolicy.Refresh)
-                    }
-                } else {
-                    null
-                }
-            ))
+        if (!Permissions.canGetLocationCustom(applicationContext)) {
+            return
+        }
+
+        val isLocationStale = locationSubsystem.locationAge.toMinutes() > 30
+        val isElevationStale = locationSubsystem.elevationAge.toMinutes() > 30
+
+        if (isLocationStale && isElevationStale) {
+            sensorSubsystem.getLocationAndElevation(SensorRefreshPolicy.Refresh)
+        } else if (isLocationStale) {
+            sensorSubsystem.getLocation(SensorRefreshPolicy.Refresh)
+        } else if (isElevationStale) {
+            sensorSubsystem.getElevation(SensorRefreshPolicy.Refresh)
         }
     }
 
