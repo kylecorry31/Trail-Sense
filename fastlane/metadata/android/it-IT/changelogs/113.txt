@@ -1,0 +1,20 @@
+Percorsi
+- Aggiunta impostazione per migliorare le prestazioni di rendering a scapito dell'aspetto
+
+Torcia
+- Aggiunta azione rapida per la torcia a schermo
+
+Livella a bolla
+- Aumento delle dimensioni
+
+Realtà aumentata (sperimentale)
+- Guida al sole/luna (pulsante nello strumento Astronomia)
+- Navigazione verso i beacon
+- Aggiunta impostazione distanza di visualizzazione
+- Applicazione smussatura bussola alla realtà aumentata
+
+Varie
+- Aggiunto supporto per colori dinamici (abilitabile nelle impostazioni sui dispositivi supportati)
+- Aggiunta della guida utente in Strumenti per impostazione predefinita
+- Miglioramenti delle prestazioni
+- Correzione di bug
