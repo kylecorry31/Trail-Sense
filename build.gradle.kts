@@ -4,6 +4,6 @@ plugins {
     alias(libs.plugins.ksp) apply false
 }
 
-tasks.register("clean") {
+tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
