@@ -1,0 +1,40 @@
+Lo strumento Batteria può essere utilizzato per monitorare il consumo della batteria.
+
+## Tempo rimanente alla carica/scarica
+Lo strumento Batteria fornisce una stima (basata sulla cronologia dell'ultimo giorno) di quanto tempo ci vorrà prima che il telefono si scarichi completamente o si ricarichi del tutto. Il tempo effettivo può variare in base all'utilizzo.
+
+## Statistiche della batteria
+L'indicatore della batteria mostra la percentuale di batteria attuale e, se supportato, la capacità rimanente (in mAh). Sotto, è possibile visualizzare la velocità di carica o scarica del dispositivo. Inoltre, se lo stato della batteria è compromesso, verrà visualizzato un avviso.
+
+## Cronologia della batteria
+È possibile visualizzare la cronologia della percentuale di batteria toccando l'icona del grafico nell'angolo in alto a destra. Questa mostra la cronologia dell'ultimo giorno, registrata da Trail Sense.
+
+La cronologia viene aggiornata circa ogni ora; è possibile disabilitare questa funzione in "Impostazioni > Batteria > Registro batteria". Se questa opzione è disabilitata, non verrà più visualizzata la cronologia della batteria e potrebbe non essere possibile visualizzare il tempo rimanente alla carica completa o allo scaricamento.
+
+## Impostazioni di sistema
+Per accedere alle impostazioni e all'utilizzo della batteria di sistema, tocca l'icona delle impostazioni nell'angolo in alto a destra.
+
+## Modalità di risparmio energetico
+Attivando la "Modalità di risparmio energetico", puoi ridurre il consumo di energia di Trail Sense interrompendo alcuni servizi, come Backtrack e Meteo, e utilizzando il tema scuro. Puoi attivare questa funzione tramite l'interruttore "Modalità di risparmio energetico" nello strumento Batteria.
+
+Puoi configurare la modalità di risparmio energetico in modo che si attivi automaticamente quando la batteria è scarica, abilitando "Impostazioni > Batteria > Risparmio energetico automatico".
+
+## Servizi
+I servizi in esecuzione sono elencati sotto le statistiche della batteria. Puoi vedere con quale frequenza vengono eseguiti e quanto influiscono sulla durata della batteria. Puoi interrompere un servizio toccando il pulsante "X" accanto ad esso.
+
+## Impostazioni di sistema
+Un elenco delle impostazioni di sistema che influiscono sulla durata della batteria viene visualizzato sotto i servizi di Trail Sense. Verrà visualizzata un'icona di avviso rossa o gialla se è possibile modificarle per cambiare un'impostazione. L'icona grigia "sconosciuto" indica che Trail Sense non è in grado di verificare quell'impostazione, quindi è consigliabile ricontrollarla per assicurarsi che sia configurata correttamente. Toccando una delle impostazioni si aprirà la pagina delle impostazioni di sistema, che consentirà di apportare le modifiche necessarie.
+
+## Azioni rapide
+È possibile attivare l'azione rapida "Modalità risparmio energetico" nelle impostazioni della scheda desiderata.
+
+Per utilizzare l'azione rapida, toccare il pulsante "Modalità risparmio energetico" per attivarla o disattivarla.
+
+## Suggerimenti aggiuntivi
+- Attivare la modalità di risparmio energetico del telefono.
+
+- Ridurre la luminosità dello schermo.
+
+- Attivare la modalità aereo (in questo caso non sarà possibile ricevere chiamate/messaggi).
+
+- Spegnere lo schermo quando non lo si utilizza.
