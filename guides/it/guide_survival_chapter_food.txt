@@ -1,9 +1,9 @@
 <!-- K: cibo, mangiare, pasto, fame, affamato -->
 <!-- S: Raziona il cibo e cerca cibo quando non ce n'è più. -->
 
-Il cibo fornisce energia, ma nella maggior parte delle situazioni di sopravvivenza è una priorità bassa, dato che si può stare settimane senza. Se non si mangia da un po', è consigliabile concentrarsi sulla ricerca di insetti, molluschi e bacche.
+Il cibo fornisce energia, ma nella maggior parte delle situazioni di sopravvivenza è una priorità bassa, dato che si può stare settimane senza. TODO: Incomplete translation.
 
-**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non sostituisce la formazione professionale, i servizi di emergenza, le indicazioni locali o le istruzioni del produttore/del prodotto. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; verificare le informazioni prima di agire, seguire le leggi e le istruzioni locali e non esitare a chiedere aiuto in caso di emergenza. Non affidatevi esclusivamente a questa guida o al vostro telefono come unico piano di sicurezza o mezzo di comunicazione.
+**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non sostituisce la formazione professionale, i servizi di emergenza, le indicazioni locali o le istruzioni del produttore/del prodotto. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; verificare le informazioni prima di agire, seguire le leggi e le istruzioni locali e non esitare a chiedere aiuto in caso di emergenza. Non affidatevi esclusivamente a questa guida o al vostro telefono come unico piano di sicurezza o mezzo di comunicazione.**
 
 ## Preparatevi
 <!-- K: preparare, attrezzatura, conoscenza, abilità, noci, semi, essiccato, frutta, carne secca, energia, barretta, razioni militari, lattina, coltello, multiutensile, borsa, contenitore, utensile, fornello, combustibile -->
@@ -13,16 +13,13 @@ Il cibo fornisce energia, ma nella maggior parte delle situazioni di sopravviven
 
 **Necessità**:
 - Cibo (sufficiente per tutta la durata del viaggio, più un po' di scorta). Non portate cibo che non avete mai mangiato prima. Alcune buone opzioni includono:
-
-- Noci
-- Semi
-- Frutta secca
-- Carne essiccata
-- Barrette energetiche
-
-- Pasti disidratati (con acqua extra)
-
-- Cibo in scatola (con un apriscatole se necessario)
+  - Noci
+  - Semi
+  - Frutta secca
+  - Carne essiccata
+  - Barrette energetiche
+  - Pasti disidratati (con acqua extra)
+  - Cibo in scatola (con un apriscatole se necessario)
 - Coltello o multiutensile con lama
 - Sacchetto anti-orso o contenitore (per i pernottamenti)
 
@@ -34,18 +31,13 @@ Il cibo fornisce energia, ma nella maggior parte delle situazioni di sopravviven
 ### Conoscenze e abilità
 Inizia imparando a fare quanto segue:
 - Pianificare i pasti per il viaggio.
-
 - Cucinare il cibo bollendolo o arrostendolo sul fuoco.
-
 - Usare un sacchetto anti-orso o un contenitore per proteggere il cibo.
 
 Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
 - Identificare piante e funghi commestibili.
-
 - Trovare e catturare insetti, molluschi, crostacei, pesci e altri animali.
-
 - Conservare il cibo.
-
 - Costruire trappole.
 
 ## Alimenti essenziali
@@ -58,15 +50,12 @@ Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
 Una persona media ha bisogno di circa 2.000 calorie al giorno. Bilancia carboidrati, proteine, grassi, vitamine e minerali nella tua dieta.
 
 - **Carboidrati**: Forniscono una fonte di energia immediata e si trovano nei cereali, nella frutta e nella verdura. Punta al 45-65% del tuo apporto calorico giornaliero.
-
 - **Grassi**: Forniscono energia a lungo termine e sono utilizzati nelle funzioni corporee essenziali. Si trovano nella carne, negli oli, nella frutta secca e nei semi. Punta al 20-35% del tuo apporto calorico giornaliero.
-
 - **Proteine**: Costruiscono e riparano i tessuti e si trovano in carne, legumi, frutta secca e semi.
-
 - **Vitamine e minerali**: Essenziali per la salute generale, si trovano nella maggior parte degli alimenti, ma è necessaria una dieta varia per assicurarsi di assumere tutti i nutrienti essenziali.
 
 ### Conservazione
-<!-- K: storage, spoil, contamination, airtlock, zipper, bag -->
+<!-- K: storage, spoil, contamination, airtight, zipper, bag -->
 
 Il cibo deve essere conservato in contenitori ermetici per ridurre il rischio di deterioramento e contaminazione. Non imballare alimenti che si deteriorano rapidamente o che richiedono refrigerazione. Se porti con te sacchetti con chiusura a zip, puoi usarli anche per raccogliere l'acqua.
 
@@ -75,10 +64,10 @@ Il cibo deve essere conservato in contenitori ermetici per ridurre il rischio di
 
 In una situazione di sopravvivenza, raziona il cibo per farlo durare più a lungo. Pianifica di consumare la maggior parte del cibo entro la data prevista di rientro e il restante 10-30% nei giorni successivi. Mangiare ti darà l'energia necessaria per costruire un riparo e pianificare.
 
-### Fame
-<!-- K: fame -->
+### TODO: Incomplete translation.
+<!-- K: starvation -->
 
-La fame si verifica quando il corpo non riceve abbastanza nutrienti per funzionare correttamente. I sintomi includono perdita di grasso corporeo, difficoltà respiratorie, sensazione di freddo, affaticamento e tempi di guarigione più lunghi. È improbabile che tu ne soffra a meno che tu non rimanga senza cibo per più di una o due settimane.
+TODO: Incomplete translation.
 
 ## Piante e funghi
 <!-- K: pianta, fungo, alghe, erbacce, verde, funghi, bacche -->
@@ -91,8 +80,7 @@ Le piante in genere contengono meno calorie degli animali, ma possono essere pi�
 
 **Non mangiare mai una pianta o un fungo di cui non sei certo che sia commestibile**; anche se ne sei certo, mangiane solo una piccola quantità e monitora eventuali effetti collaterali. Inoltre, il fatto che tu veda un animale mangiare una pianta non significa che sia sicura per il consumo umano.
 
-Dovresti imparare a riconoscere le piante commestibili comuni nella tua zona che sono facili da raccogliere.
-Identificare e distinguere le piante dalle specie simili. Assicurarsi di imparare quali parti delle piante sono commestibili e come devono essere preparate. Ecco alcuni esempi di piante che dovresti imparare a identificare:
+TODO: Incomplete translation. Assicurarsi di imparare quali parti delle piante sono commestibili e come devono essere preparate. Ecco alcuni esempi di piante che dovresti imparare a identificare:
 - Lamponi, more e altre bacche aggregate del genere Rubus
 - Mirtilli
 - Uva
@@ -109,27 +97,17 @@ Ecco un esempio di come appare una bacca aggregata del genere Rubus (rovi):
 **È meglio evitare le seguenti piante, poiché il rischio non vale le calorie:**
 - Funghi
 - Piante che presentano:
-
-- Fiori a forma di ombrello
-
-- Linfa lattiginosa
-
-- Foglie lucide
-
-- Bacche bianche, gialle o rosse (tranne le bacche aggregate)
-
-- Fagioli, bulbi o semi all'interno di baccelli
-
-- Odore pungente
-
-Odore di mandorla/cianuro nelle foglie o nel legno
-
-- Sapore amaro o saponoso
-
-- Spine, peli o aculei
-- Una struttura di crescita a tre foglie
-
-- Muffa o funghi
+  - Fiori a forma di ombrello
+  - Linfa lattiginosa
+  - Foglie lucide
+  - Bacche bianche, gialle o rosse (tranne le bacche aggregate)
+  - Fagioli, bulbi o semi all'interno di baccelli
+  - Odore pungente
+  - Odore di mandorla/cianuro nelle foglie o nel legno
+  - Sapore amaro o saponoso
+  - Spine, peli o aculei
+  - Una struttura di crescita a tre foglie
+  - Muffa o funghi
 - Piante simili ad aneto, carota, pastinaca o prezzemolo
 - Piante/funghi/alghe marce
 - Qualsiasi cosa cresca lungo una strada o in acqua sporca
@@ -150,7 +128,6 @@ Gli insetti sono una buona fonte di proteine, ma devono essere raccolti in grand
 
 Ottimi posti per trovare insetti includono tronchi in decomposizione, sotto le rocce e nei campi erbosi. Se cercate lombrichi, potete usare un bastoncino per scavare piccole buche nel terreno, controllare la superficie dopo la pioggia o di notte, oppure ripulire un'area dalle foglie secche. Di notte, molti insetti volanti possono essere attratti da una fonte di luce. Tra gli insetti commestibili più comuni ci sono formiche, termiti, locuste, cavallette, grilli, libellule, larve e vermi.
 
-
 Non mangiare i seguenti insetti:
 - Insetti che mordono o pungono
 - Insetti pelosi o dai colori vivaci
@@ -164,19 +141,18 @@ Non mangiare i seguenti insetti:
 
 Per preparare gli insetti per la cottura, rimuovere eventuali pungiglioni e, facoltativamente, zampe, ali e testa prima di mangiarli. Per sicurezza, è consigliabile cuocere tutti gli insetti prima di mangiarli, ma in caso di necessità molti possono essere consumati crudi. I vermi possono essere messi in acqua per 15 minuti per purificare il loro apparato digerente prima della cottura. Se non riuscite a mangiare un verme, provate ad essiccarlo completamente al sole o ad arrostirlo e poi a macinarlo fino a ottenere una polvere.
 
-
 ## Molluschi e crostacei
 <!-- K: molluschi, crostacei, vongole, cozze, chiocciole, patelle, gamberi di fiume, aragoste, granchi, gamberetti, conchiglie, esche, frutti di mare -->
 <!-- S: Molti molluschi e crostacei si trovano lungo la costa; la maggior parte è commestibile dopo la cottura. -->
 
-Molucchi e crostacei sono buone fonti di proteine e si trovano sia in acqua dolce che salata. Sono relativamente facili da catturare, il che li rende un'ottima fonte di cibo per la sopravvivenza.
+Molluschi e crostacei sono buone fonti di proteine e si trovano sia in acqua dolce che salata. Sono relativamente facili da catturare, il che li rende un'ottima fonte di cibo per la sopravvivenza.
 
 ### Raccolta
 <!-- K: raccogliere, trovare, intrappolare, rosso, marea -->
 
 Cerca molluschi e crostacei in acque basse, pozze di marea e zone rocciose. Lumache e patelle sono spesso attaccate alle rocce, che possono essere più facili da raggiungere con la bassa marea. Gamberi di fiume, aragoste e granchi si possono trovare sotto e intorno alle pietre, nel fango morbido o nella sabbia, e possono essere più attivi di notte. I crostacei possono essere catturati attaccando un'esca a una lenza (non serve l'amo; la afferreranno da soli), posizionando l'esca sulla riva e aspettando che escano dall'acqua, oppure utilizzando una trappola per pesci con l'esca.
 
-Alcuni molluschi possono essere velenosi. Prestare particolare attenzione alle cozze nelle acque tropicali durante l'estate, a qualsiasi mollusco raccolto nei tre giorni precedenti una marea rossa o a quelli non sommersi dall'acqua durante l'alta marea. Verificare e rispettare gli avvisi locali relativi alla raccolta di molluschi.
+Alcuni molluschi possono essere velenosi. TODO: Incomplete translation. Verificare e rispettare gli avvisi locali relativi alla raccolta di molluschi.
 
 ### Preparazione
 <!-- K: preparare, cucinare, bollire, arrostire, cuocere al forno -->
@@ -206,7 +182,7 @@ Se devi fabbricare un amo, opta per un amo da gola, poiché è facile da realizz
 
 ![](file:///android_asset/survival_guide/gorge_hook.webp)
 
-Se non hai una lenza da pesca, puoi realizzarla con fibre vegetali, fili interni di paracord (usando un nodo a otto per unirli) o altri tipi di corda resistenti.
+TODO: Incomplete translation.
 
 Se non hai una canna da pesca, puoi legare la lenza sia alla base che alla punta di un bastone robusto, cercando di imitare l'aspetto di una vera canna da pesca. Puoi anche avvolgere la lenza attorno a un bastoncino corto e usarlo come lenza a mano. Una tecnica più semplice potrebbe essere quella di legare la lenza a un ramo d'albero, in modo da poter fare altro e controllarla frequentemente.
 
@@ -214,7 +190,7 @@ Se non hai una canna da pesca, puoi legare la lenza sia alla base che alla punta
 
 Le trappole sono un metodo passivo per catturare piccoli pesci o crostacei con poco sforzo. Assicuratevi di controllare le trappole ogni poche ore.
 
-Potete costruire una trappola per pesci con una bottiglia tagliando il tappo e il quarto superiore di una bottiglia d'acqua di scarto. Innescate la trappola con del cibo e usate una piccola pietra per appesantirla. Inserite il tappo capovolto nel resto della bottiglia e posizionatela in acque poco profonde. Se necessario, potete legare una corda alla bottiglia per facilitarne l'accesso.
+Potete costruire una trappola per pesci con una bottiglia tagliando il tappo e il quarto superiore di una bottiglia d'acqua di scarto. Innescate la trappola con del cibo e usate una piccola pietra per appesantirla. TODO: Incomplete translation. Se necessario, potete legare una corda alla bottiglia per facilitarne l'accesso.
 
 ![](file:///android_asset/survival_guide/fish_trap_bottle.webp)
 
@@ -227,15 +203,10 @@ In alternativa, potete costruire una trappola a imbuto a forma di M piantando de
 
 1. Una volta catturato un pesce, allontanatelo dalla riva. Non tenetelo in mano né avvicinatelo all'acqua prima di ucciderlo, perché potrebbe ricadere in acqua.
 2. Stordite il pesce colpendolo con forza sulla testa (parte superiore della testa, appena dietro gli occhi) con una mazza o una pietra. Quindi usate un coltello per tagliare le branchie o perforare il cervello per assicurarvi che sia morto.
-
 3. (Facoltativo) Rimuovete le squame raschiandole via con un coltello (dalla coda alla testa).
-
 4. Aprite il ventre e rimuovete le interiora. Potete anche tagliare la testa e la coda per facilitare l'operazione.
-
 5. (Facoltativo) Tagliate il pesce in pezzi utilizzabili o sfilettatelo.
-
 6. Cuocete il pesce.
-
 
 <!-- \pagebreak -->
 
@@ -267,7 +238,7 @@ In caso di necessità, potete lanciare un bastone pesante o una pietra per uccid
 ### Trappole
 <!-- K: trap, deadfall, bait -->
 
-Le trappole consentono la cattura passiva di piccoli animali. Possono essere posizionate e lasciate indisturbate mentre svolgete altre attività. Controllatele ogni poche ore. Cercate segni di attività animale come impronte, escrementi o vegetazione rosicchiata. Posizionate le trappole in aree dove è probabile che gli animali passino. Potete costruire imbuti o muri per guidare gli animali all'interno delle trappole. L'esca può aumentarne l'efficacia. Fumare le trappole può aiutare a mascherare il tuo odore.
+Le trappole consentono la cattura passiva di piccoli animali. Possono essere posizionate e lasciate indisturbate mentre svolgete altre attività. Controllatele ogni poche ore. Cercate segni di attività animale come impronte, escrementi o vegetazione rosicchiata. Posizionate le trappole in aree dove è probabile che gli animali passino. Potete costruire imbuti o muri per guidare gli animali all'interno delle trappole. L'esca può aumentarne l'efficacia. TODO: Incomplete translation.
 
 **Trappole a caduta**
 
@@ -291,11 +262,8 @@ Gli uccelli si catturano più facilmente di notte, quando sono appollaiati, oppu
 Per preparare un uccello per la cottura:
 
 1. Spenna. Per facilitare l'operazione, metti l'uccello in acqua bollente. Facoltativamente, puoi scuoiare l'uccello, ma questo rimuoverà parte del grasso.
-
 2. Apri la cavità addominale e rimuovi le interiora.
-
 3. Per gli uccelli più grandi, taglia le zampe e separa l'uccello in pezzi utilizzabili lungo le articolazioni.
-
 4. Cuocete l'uccello.
 
 Se catturate un uccello marino, scuoiatelo invece di strappargli le piume per rimuovere le ghiandole sebacee. Evitate gli uccelli spazzini.
@@ -316,8 +284,7 @@ Lavatevi sempre le mani dopo aver maneggiato rettili e anfibi, poiché possono e
 - Rospi
 - Salamandre
 - Serpenti: sono commestibili, ma catturarli può essere pericoloso
-
-Se uccidi un serpente, taglia e seppellisci la testa prima di pulirla. Non toccare mai la testa con le mani; usa invece dei bastoni.
+  - Se uccidi un serpente, taglia e seppellisci la testa prima di pulirla. Non toccare mai la testa con le mani; usa invece dei bastoni.
 
 ### Piccoli mammiferi
 <!-- K: mammifero, roditore, coniglio, lepre, scoiattolo, procione, topo, piccolo, pelle, preparare, cucinare, pulire, bollire, cuocere al forno, arrostire -->
@@ -327,7 +294,6 @@ I piccoli mammiferi possono essere catturati con trappole, clave, bastoni da lan
 Per preparare un piccolo mammifero per la cottura:
 
 1. Pratica un taglio sul dorso e strappa via il pelo e la pelle. Potrebbe essere necessario recidere la testa e le zampe.
-
 2. Capovolgilo, apri la cavità addominale e rimuovi le interiora. Fai attenzione a non perforare l'intestino.
 
 ![](file:///android_asset/survival_guide/skin_mammal.webp)
@@ -346,15 +312,17 @@ Non cercate di conservare il cibo che catturate; cucinatelo e mangiatelo. Se pos
 La bollitura preserva la maggior parte dei nutrienti negli alimenti ed è il metodo di cottura più sicuro. Un recipiente di metallo pieno d'acqua può essere sospeso sopra un fuoco o posizionato su braci ardenti. Bere il brodo una volta raffreddato a sufficienza vi fornirà più nutrienti. Per maggiori informazioni sulla bollitura, consultare il capitolo sull'acqua.
 
 ### Arrostire
-
+<!-- K: roast -->
 
 L'arrostire è un metodo di cottura rapido e semplice, ma il cibo risulta meno nutriente rispetto ad altri metodi. È possibile arrostire il cibo su uno spiedo sopra il fuoco, oppure posizionarlo su braci ardenti o su pietre asciutte riscaldate dal fuoco.
 
 ### Cuocere al forno
+<!-- K: bake -->
 
 È possibile avvolgere il cibo in foglie verdi commestibili o in argilla e cuocerlo al forno tra le braci. Questo metodo è più lento dell'arrostire, ma preserva meglio le sostanze nutritive. Non spellare il pesce o il pollame avvolti nell'argilla; la pelle si attaccherà all'argilla e potrà essere rimossa dopo la cottura.
 
 ### Utensili
+<!-- K: utensil -->
 
 Se si utilizzano utensili, una forchetta-cucchiaio (spork) è un'ottima opzione. In alternativa, è possibile maneggiare il cibo con un bastoncino o con le mani. Assicurarsi di lavarsi le mani prima e dopo aver mangiato.
 
@@ -370,13 +338,9 @@ Potrebbe essere necessario proteggere il cibo dagli animali. Ecco alcuni metodi 
 Un sacco anti-orso è un sacco di cibo issato su un albero per tenerlo fuori dalla portata degli orsi e di altri animali. Trova un albero con un ramo a circa 6 metri da terra e abbastanza spesso da sostenere il peso del cibo a circa 3 metri dal tronco. Questo albero dovrebbe trovarsi a una distanza di 20-70 metri sottovento rispetto al tuo rifugio.
 
 1. Metti il cibo in un sacco.
-
 2. Lega una corda al sacco.
-
 3. Fai passare l'altra estremità della corda sopra un ramo. Per dare peso alla corda, attacca un bastoncino corto all'estremità. Fissa il bastoncino con un nodo a bocca di lupo o un nodo scorsoio.
-
 4. Solleva il sacco a circa 4,5 metri da terra.
-
 5. Lega la corda a un albero per mantenere il sacco sollevato. Usa un nodo a bocca di lupo o un nodo a gassa d'amante.
 
 ![](file:///android_asset/survival_guide/bear_bag.webp)
@@ -384,7 +348,6 @@ Un sacco anti-orso è un sacco di cibo issato su un albero per tenerlo fuori dal
 Consulta il capitolo "Riparo" per i dettagli su come fare i nodi.
 
 ### Contenitori anti-orso
-
 <!-- K: canister, box, bear -->
 
 Un contenitore anti-orso è un contenitore rigido a prova di orso utilizzato per conservare il cibo che può essere lasciato a terra. Alcuni campeggi potrebbero fornire una grande scatola metallica anti-orso per conservare il cibo.

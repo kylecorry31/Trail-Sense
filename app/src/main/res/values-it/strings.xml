@@ -1074,7 +1074,6 @@
     <string name="distance_away_from_self">%s di distanza</string>
     <string name="unpin">Rimuovi da fissati</string>
     <string name="pin">Fissa</string>
-    <string name="show_dial_ticks_on_nearby_radar">Mostra i ticchettii del quadrante</string>
     <string name="view_in_3d">Visualizza in 3D</string>
     <string name="locate">Localizza</string>
     <string name="location_to_triangulate">Posizione da triangolare</string>
@@ -1293,7 +1292,6 @@
     <string name="pref_default_beacon_color_title">Colore di default dei beacon</string>
     <string name="pref_large_tile_cache_title">Utilizzare una cache di grandi dimensioni per i riquadri della mappa</string>
     <string name="pref_copy_trail_maps_title">Copia le mappe in Trail Sense</string>
-    <string name="pref_copy_trail_maps_summary">Importazione attivata. Se disattivata, viene utilizzato il file originale, che deve essere conservato sul dispositivo.</string>
     <string name="caliber_format">%s cal</string>
     <string name="current_temperature">Temperatura corrente</string>
     <string name="stone_format">%s st</string>
@@ -1315,7 +1313,6 @@
     <string name="finish_calibration">Termina la calibrazione</string>
     <string name="calibrate_map_point_title">Punti %1$d di %2$d</string>
     <string name="calibrate_map_point_instructions">Tocca questa posizione sulla mappa, quindi inserisci le sue coordinate reali.</string>
-    <string name="aspect">Aspetto</string>
     <string name="wind_speed">Velocità del vento</string>
     <string name="draft">Bozza</string>
     <string name="map_calibration_error_same_pixel">Seleziona sulla mappa due punti differenti.</string>
@@ -1329,7 +1326,6 @@
     <string name="not_visible">Non visibile</string>
     <string name="use_legacy_file_picker">Utilizzare il selettore di file legacy</string>
     <string name="widget_icon_compatibility_mode">Modalità di compatibilità dell\'icona del widget</string>
-    <string name="stone">Pietra</string>
     <string name="location_permission">Permesso localizzazione</string>
     <string name="average_pace">Ritmo medio</string>
     <string name="pref_pedometer_history_days_title">Statistiche dei passi</string>
@@ -1443,7 +1439,6 @@
     <string name="right">Destra</string>
     <string name="below">Sotto</string>
     <string name="distance_to_target">Distanza dal bersaglio</string>
-    <string name="scope">Scopo</string>
     <string name="windage_miss">Errore di deriva</string>
     <string name="elevation_miss">mancato rialzo</string>
     <string name="adjustment_per_click">Regolazione per clic</string>
