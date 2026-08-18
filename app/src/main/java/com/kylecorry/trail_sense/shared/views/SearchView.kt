@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.core.content.getSystemService
@@ -28,10 +28,8 @@ class SearchView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             onSearch?.invoke(it?.toString().orEmpty())
         }
 
-        binding.searchViewEditText.setOnKeyListener { view, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER &&
-                event.action == KeyEvent.ACTION_DOWN
-            ) {
+        binding.searchViewEditText.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 view.context
                     .getSystemService<InputMethodManager>()
                     ?.hideSoftInputFromWindow(view.windowToken, 0)
