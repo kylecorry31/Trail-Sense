@@ -19,6 +19,10 @@
             style="@style/Widget.App.SearchTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLength="200"
+            android:maxLines="1"
             android:hint="@string/search" />
 
     </com.google.android.material.textfield.TextInputLayout>

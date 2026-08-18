@@ -2,7 +2,10 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import androidx.core.content.getSystemService
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewSearchBinding
@@ -20,8 +23,21 @@ class SearchView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     init {
         inflate(context, R.layout.view_search, this)
         binding = ViewSearchBinding.bind(this)
+
         binding.searchViewEditText.addTextChangedListener {
-            onSearch?.invoke(binding.searchViewEditText.text.toString())
+            onSearch?.invoke(it?.toString().orEmpty())
+        }
+
+        binding.searchViewEditText.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                view.context
+                    .getSystemService<InputMethodManager>()
+                    ?.hideSoftInputFromWindow(view.windowToken, 0)
+
+                true
+            } else {
+                false
+            }
         }
     }
 
