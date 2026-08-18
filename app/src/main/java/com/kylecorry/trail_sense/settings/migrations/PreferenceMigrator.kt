@@ -49,19 +49,23 @@ class PreferenceMigrator private constructor() {
     fun migrate(context: Context) {
         synchronized(lock) {
             val prefs = PreferencesSubsystem.getInstance(context).preferences
-            var currentVersion = prefs.getInt("pref_version") ?: 0
+            migrate(prefs) { migration -> migration.action(context, prefs) }
+        }
+    }
 
-            AppState.isReturningUser = currentVersion > 0
+    internal fun migrate(prefs: IPreferences, runMigration: (PreferenceMigration) -> Unit) {
+        var currentVersion = prefs.getInt(VERSION_KEY) ?: 0
 
-            while (currentVersion < version) {
-                val current = currentVersion
-                val next = currentVersion + 1
-                val migration =
-                    migrations.find { it.fromVersion == current && it.toVersion == next }
-                migration?.action?.invoke(context, prefs)
-                currentVersion++
-                prefs.putInt("pref_version", currentVersion)
-            }
+        AppState.isReturningUser = currentVersion > 0
+
+        while (currentVersion < version) {
+            val current = currentVersion
+            val next = currentVersion + 1
+            val migration =
+                migrations.find { it.fromVersion == current && it.toVersion == next }
+            migration?.let(runMigration)
+            currentVersion++
+            prefs.putInt(VERSION_KEY, currentVersion)
         }
     }
 
@@ -69,8 +73,10 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Any()
 
-        private const val version = 30
-        private val migrations = listOf(
+        internal const val VERSION_KEY = "pref_version"
+
+        internal const val version = 30
+        internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
                     prefs.remove("pref_enable_experimental")
