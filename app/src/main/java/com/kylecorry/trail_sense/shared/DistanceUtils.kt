@@ -8,7 +8,8 @@ object DistanceUtils {
         val metric = listOf(
             DistanceUnits.Kilometers,
             DistanceUnits.Meters,
-            DistanceUnits.Centimeters
+            DistanceUnits.Centimeters,
+            DistanceUnits.Millimeters
         ).contains(this.units)
         val baseDistance =
             if (metric) this.convertTo(DistanceUnits.Meters) else this.convertTo(DistanceUnits.Feet)

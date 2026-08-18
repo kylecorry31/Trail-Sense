@@ -10,9 +10,12 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.get3hTendency
+import java.time.Clock
 import java.time.Instant
 
-internal class WeatherArrivalTimeCalculator : IWeatherArrivalTimeCalculator {
+internal class WeatherArrivalTimeCalculator(
+    private val clock: Clock = Clock.systemDefaultZone()
+) : IWeatherArrivalTimeCalculator {
     override fun getArrivalTime(
         forecast: List<WeatherForecast>,
         clouds: List<Reading<CloudGenus?>>
@@ -22,7 +25,7 @@ internal class WeatherArrivalTimeCalculator : IWeatherArrivalTimeCalculator {
 
         if (forecastedTime != null) {
             // This handles the case when the forecasted time is in the past, therefore the weather is now
-            if (forecastedTime < Instant.now()) {
+            if (forecastedTime < Instant.now(clock)) {
                 return WeatherArrivalTime(forecastedTime, true)
             }
             val rounded = forecastedTime.toZonedDateTime().roundNearestMinute(15).toInstant()
@@ -35,17 +38,17 @@ internal class WeatherArrivalTimeCalculator : IWeatherArrivalTimeCalculator {
         return when {
             currentConditions.isEmpty() -> null
             currentConditions.contains(WeatherCondition.Storm) || tendency.characteristic.isRapid -> WeatherArrivalTime.fromRelative(
-                Instant.now(),
+                Instant.now(clock),
                 RelativeArrivalTime.VerySoon
             )
 
             tendency.characteristic != PressureCharacteristic.Steady -> WeatherArrivalTime.fromRelative(
-                Instant.now(),
+                Instant.now(clock),
                 RelativeArrivalTime.Soon
             )
 
             else -> WeatherArrivalTime.fromRelative(
-                Instant.now(),
+                Instant.now(clock),
                 RelativeArrivalTime.Later
             )
         }
