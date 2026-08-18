@@ -29,6 +29,9 @@ class ExternalStorageDiagnosticScanner : ToolDiagnosticScanner {
                     context.getString(R.string.no_permission),
                     context.getString(R.string.external_storage_diagnostic_instructions),
                     ToolDiagnosticAction(context.getString(R.string.settings)) {
+                        // There's no way to verify the file picker's permission directly, so the
+                        // denial is cleared when the settings are opened. If it wasn't granted, the
+                        // next failed file pick will report it again.
                         prefs.remove(IntentUriPicker.KEY_HAS_EXTERNAL_STORAGE_DENIAL)
                         prefs.remove(IntentUriPicker.KEY_EXTERNAL_STORAGE_DENIED_BY)
                         it.startActivity(intent)
