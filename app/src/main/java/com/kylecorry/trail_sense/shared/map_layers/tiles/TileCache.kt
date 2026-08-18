@@ -104,7 +104,7 @@ class TileCache(
         }
     }
 
-    private fun getKey(tile: Tile): String {
+    fun getKey(tile: Tile): String {
         return "${source}_${tile.x}_${tile.y}_${tile.z}"
     }
 
