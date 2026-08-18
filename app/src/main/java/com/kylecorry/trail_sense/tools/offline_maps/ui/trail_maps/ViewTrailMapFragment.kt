@@ -8,6 +8,7 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
+import com.kylecorry.andromeda.pickers.MenuItem
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.R
@@ -62,24 +63,31 @@ class ViewTrailMapFragment : TrailSenseReactiveFragment(R.layout.fragment_offlin
             title.rightButton.setOnClickListener {
                 val currentMap = map ?: return@setOnClickListener
                 val canExport = !currentMap.isExternal() && currentMap.isAvailable
-                val actions = listOf(
-                    getString(R.string.rename),
-                    getString(R.string.attribution),
-                    if (canExport) getString(R.string.export) else null,
-                    getString(R.string.delete)
-                )
                 Pickers.menu(
                     it,
-                    actions
-                ) { index ->
-                    when (actions[index]) {
-                        getString(R.string.rename) -> rename(currentMap, refresh)
-                        getString(R.string.attribution) -> editAttribution(currentMap, refresh)
-                        getString(R.string.export) -> export(currentMap)
-                        getString(R.string.delete) -> delete(currentMap)
-                    }
-                    true
-                }
+                    listOfNotNull(
+                        MenuItem(getString(R.string.rename)) {
+                            rename(currentMap, refresh)
+                            true
+                        },
+                        MenuItem(getString(R.string.attribution)) {
+                            editAttribution(currentMap, refresh)
+                            true
+                        },
+                        if (canExport) {
+                            MenuItem(getString(R.string.export)) {
+                                export(currentMap)
+                                true
+                            }
+                        } else {
+                            null
+                        },
+                        MenuItem(getString(R.string.delete)) {
+                            delete(currentMap)
+                            true
+                        }
+                    )
+                )
             }
         }
 
