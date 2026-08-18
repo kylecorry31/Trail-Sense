@@ -1,0 +1,19 @@
+Astronomia
+- Opzione per visualizzare le fasce di alba/tramonto
+
+Livelli della mappa
+- Ombreggiatura/altitudine: opzione ad alta risoluzione
+- Opzione per disegnare ombre accurate con l'ombreggiatura
+- Aumenta il numero di livelli della mappa disponibili per tutte le mappe
+- Copia le impostazioni dei livelli della mappa su altre mappe
+- Migliora la risoluzione delle foto delle mappe
+- Riprogetta l'interfaccia utente delle impostazioni dei livelli della mappa
+
+Maree
+- Impostazione del livello della mappa per visualizzare le maree costiere
+
+Livella a bolla
+- Cambia colore quando è livellata
+
+Guida utente
+- Guida per i livelli della mappa
