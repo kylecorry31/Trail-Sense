@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
 import kotlin.math.absoluteValue
+import kotlin.math.sqrt
 
 class LineClipper {
 
@@ -144,8 +145,7 @@ class LineClipper {
                 lines.add(intersection[0].x - origin.x)
                 lines.add(intersection[0].y - origin.y)
                 if (zOutput != null) {
-                    val originalDistance = start.squaredDistanceTo(end)
-                    val t = start.squaredDistanceTo(intersection[0]) / originalDistance.real(1f)
+                    val t = interpolationAmount(start, end, intersection[0])
                     zOutput.add(interpolateZ(startZ, endZ, 0f))
                     zOutput.add(interpolateZ(startZ, endZ, t))
                 }
@@ -161,8 +161,7 @@ class LineClipper {
                 lines.add(end.x - origin.x)
                 lines.add(end.y - origin.y)
                 if (zOutput != null) {
-                    val originalDistance = start.squaredDistanceTo(end)
-                    val t = start.squaredDistanceTo(intersection[0]) / originalDistance.real(1f)
+                    val t = interpolationAmount(start, end, intersection[0])
                     zOutput.add(interpolateZ(startZ, endZ, t))
                     zOutput.add(interpolateZ(startZ, endZ, 1f))
                 }
@@ -177,13 +176,23 @@ class LineClipper {
             lines.add(intersection[1].x - origin.x)
             lines.add(intersection[1].y - origin.y)
             if (zOutput != null) {
-                val originalDistance = start.squaredDistanceTo(end)
-                val t1 = start.squaredDistanceTo(intersection[0]) / originalDistance.real(1f)
-                val t2 = start.squaredDistanceTo(intersection[1]) / originalDistance.real(1f)
+                val t1 = interpolationAmount(start, end, intersection[0])
+                val t2 = interpolationAmount(start, end, intersection[1])
                 zOutput.add(interpolateZ(startZ, endZ, t1))
                 zOutput.add(interpolateZ(startZ, endZ, t2))
             }
         }
+    }
+
+    /**
+     * The fraction of the way from start to end that the point falls at
+     */
+    private fun interpolationAmount(
+        start: PixelCoordinate,
+        end: PixelCoordinate,
+        point: PixelCoordinate
+    ): Float {
+        return sqrt(start.squaredDistanceTo(point) / start.squaredDistanceTo(end).real(1f))
     }
 
     private fun interpolateZ(start: Float?, end: Float?, t: Float): Float {

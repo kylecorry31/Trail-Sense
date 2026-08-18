@@ -12,16 +12,16 @@ class PolygonClipper {
         var output = polygon
 
         // Clip against Left
-        output = clipEdge(output, bounds.left, true) { it.x }
+        output = clipEdge(output, bounds.left, true, Axis.X)
 
         // Clip against Right
-        output = clipEdge(output, bounds.right, false) { it.x }
+        output = clipEdge(output, bounds.right, false, Axis.X)
 
         // Clip against Top
-        output = clipEdge(output, bounds.top, true) { it.y }
+        output = clipEdge(output, bounds.top, true, Axis.Y)
 
         // Clip against Bottom
-        output = clipEdge(output, bounds.bottom, false) { it.y }
+        output = clipEdge(output, bounds.bottom, false, Axis.Y)
 
         return output
     }
@@ -30,7 +30,7 @@ class PolygonClipper {
         polygon: List<PixelCoordinate>,
         edge: Float,
         keepGreater: Boolean,
-        getValue: (PixelCoordinate) -> Float
+        axis: Axis
     ): List<PixelCoordinate> {
         if (polygon.isEmpty()) return emptyList()
 
@@ -38,8 +38,8 @@ class PolygonClipper {
         var start = polygon.last()
 
         for (end in polygon) {
-            val startVal = getValue(start)
-            val endVal = getValue(end)
+            val startVal = axis.get(start)
+            val endVal = axis.get(end)
 
             val isStartInside = if (keepGreater) startVal >= edge else startVal <= edge
             val isEndInside = if (keepGreater) endVal >= edge else endVal <= edge
@@ -47,9 +47,9 @@ class PolygonClipper {
             if (isStartInside && isEndInside) {
                 output.add(end)
             } else if (isStartInside && !isEndInside) {
-                output.add(intersect(start, end, edge, getValue))
+                output.add(intersect(start, end, edge, axis))
             } else if (!isStartInside && isEndInside) {
-                output.add(intersect(start, end, edge, getValue))
+                output.add(intersect(start, end, edge, axis))
                 output.add(end)
             }
 
@@ -63,20 +63,24 @@ class PolygonClipper {
         start: PixelCoordinate,
         end: PixelCoordinate,
         edge: Float,
-        getValue: (PixelCoordinate) -> Float
+        axis: Axis
     ): PixelCoordinate {
-        val startVal = getValue(start)
-        val endVal = getValue(end)
+        val startVal = axis.get(start)
+        val endVal = axis.get(end)
         val t = (edge - startVal) / (endVal - startVal)
 
-        return if (getValue(start) == start.x) {
-            // Vertical edge (x is constant)
-            val y = start.y + (end.y - start.y) * t
-            PixelCoordinate(edge, y)
-        } else {
-            // Horizontal edge (y is constant)
-            val x = start.x + (end.x - start.x) * t
-            PixelCoordinate(x, edge)
+        return when (axis) {
+            Axis.X -> PixelCoordinate(edge, start.y + (end.y - start.y) * t)
+            Axis.Y -> PixelCoordinate(start.x + (end.x - start.x) * t, edge)
+        }
+    }
+
+    private enum class Axis {
+        X,
+        Y;
+
+        fun get(pixel: PixelCoordinate): Float {
+            return if (this == X) pixel.x else pixel.y
         }
     }
 }
