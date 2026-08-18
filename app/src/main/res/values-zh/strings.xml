@@ -1636,4 +1636,6 @@
     <string name="bubble_level_angles">X: %1$s\nY: %2$s\n角度: %3$s</string>
     <string name="location_permission">位置权限</string>
     <string name="location_required_for_cell_signals">需要位置权限来查看附近的手机信号</string>
+    <string name="bearing_length_description">方位角活跃时，方位角线段的长度</string>
+    <string name="bearing_length">方位角线长</string>
 </resources>
