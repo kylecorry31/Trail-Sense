@@ -105,6 +105,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             trueNorth = true,
             compassDelay = SensorService.FAST_MOTION_SENSOR_DELAY
         )
+
+        // This ref is used by listeners to avoid constantly re-registering
+        val navigationRef = useRef(navigation)
+        useEffect(navigation) {
+            navigationRef.current = navigation
+        }
+
         val context = useAndroidContext()
         val sensors = useService<SensorService>()
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
@@ -319,7 +326,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs, navigation.location) {
+        useEffect(mapView, manager, navController, startDistanceMeasurement, prefs) {
             mapView.setOnLongPressListener { location ->
                 if (manager.isMeasuringDistance()) {
                     return@setOnLongPressListener
@@ -331,14 +338,17 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
                     onMain {
                         // Build the data point row using the shared LocationDataPointView
+                        val currentNavigation = navigationRef.current
                         val infoView = LocationDataPointView(requireContext(), null)
                         infoView.setDistance(
-                            Distance.meters(navigation.location.distanceTo(location))
+                            Distance.meters(currentNavigation.location.distanceTo(location))
                                 .convertTo(prefs.baseDistanceUnits)
                         )
-                        infoView.setDirection(navigation.location.bearingTo(location))
+                        infoView.setDirection(currentNavigation.location.bearingTo(location))
                         infoView.setElevationDiff(
-                            Distance.meters(selectedElevation - navigation.elevation.meters().value)
+                            Distance.meters(
+                                selectedElevation - currentNavigation.elevation.meters().value
+                            )
                         )
 
                         Share.actions(
