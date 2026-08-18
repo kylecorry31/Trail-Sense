@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.DiagnosticsLogExportService
+import kotlinx.coroutines.CancellationException
 import java.time.Instant
 
 class DownloadDiagnosticsLogsCommand(private val fragment: AndromedaFragment) {
@@ -27,6 +28,8 @@ class DownloadDiagnosticsLogsCommand(private val fragment: AndromedaFragment) {
                     DiagnosticsLogExportService(fragment.requireContext()).export(destination)
                 }
                 fragment.toast(fragment.getString(R.string.exported))
+            } catch (e: CancellationException) {
+                throw e
             } catch (_: Exception) {
                 fragment.toast(fragment.getString(R.string.export_failed))
             }

@@ -136,16 +136,15 @@ class DiagnosticsLogExportService(
             .redirectErrorStream(true)
             .start()
 
-        val output = try {
-            process.inputStream.bufferedReader().use { it.readText() }
+        try {
+            zip.putNextEntry(
+                ZipEntry("logcat/logcat-${filenameTimestamp(System.currentTimeMillis())}.txt")
+            )
+            process.inputStream.use { it.copyTo(zip) }
+            zip.closeEntry()
         } finally {
             process.destroy()
         }
-
-        zip.putText(
-            "logcat/logcat-${filenameTimestamp(System.currentTimeMillis())}.txt",
-            output
-        )
     }
 
     private fun ZipOutputStream.putText(path: String, text: String) {
