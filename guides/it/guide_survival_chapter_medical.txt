@@ -1,0 +1,1139 @@
+<!-- K: medicina, medico, guarire, salute, infortunio, malato, malessere, primo soccorso, sintomo, trattare, prevenire, aiutare -->
+<!-- S: Calmati e presta il primo soccorso. -->
+
+Questo capitolo tratta le nozioni mediche di base e le tecniche per le lesioni e le malattie più comuni in ambienti selvaggi.
+
+**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non costituisce consulenza medica, diagnosi o trattamento e non sostituisce la formazione professionale, i servizi di emergenza, il personale sanitario qualificato, le indicazioni locali o le istruzioni del produttore/del prodotto. Le condizioni mediche e le raccomandazioni terapeutiche variano; se chiami i servizi di emergenza, segui le loro istruzioni e non ritardare la consultazione di questo capitolo per ricevere assistenza medica.**
+
+Se è necessario chiamare i servizi di emergenza, attiva il vivavoce o chiedi a qualcun altro di chiamare per evitare di ritardare il primo soccorso.
+
+## Preparati
+<!-- K: prepararsi, attrezzatura, conoscenza, abilità, antidolorifico, benda, garza, cerotto, spillo, ago, pinzetta, antibiotico, unguento, crema, crema solare, repellente, spray, medicina, farmaco, ricetta, pillola, lenti a contatto, occhiali, antidolorifico, disinfettante, epinefrina, EpiPen, inalatore, cerotto per vesciche, schiuma per vesciche, laccio emostatico, stecca, aloe vera, gel, tampone, specchio, tampone, assorbente, mestruale, coppetta mestruale, filo interdentale, spazzolino da denti, dentifricio, carta igienica, bidet, sacchetto, cazzuola, sapone, asciugamano, balsamo per le labbra, elettroliti -->
+<!-- S: Porta un kit di pronto soccorso. Impara le basi del pronto soccorso e della rianimazione cardiopolmonare (RCP). -->
+
+### Attrezzatura
+
+**Necessario**:
+- Cerotti assortiti
+- Garze
+- Cerotto chirurgico
+- Spilla da balia o ago
+- Pinzette
+- Pomata antibiotica
+- Crema solare
+- Repellente per insetti
+- Farmaci con prescrizione (incluse dosi extra per diversi giorni), lenti a contatto e occhiali
+- Analgesici (aspirina, ibuprofene, paracetamolo)
+- Gel disinfettante per le mani
+- Autoiniettore di epinefrina (in caso di allergie gravi)
+- Inalatore per l'asma (in caso di asma)
+
+**Facoltativo**:
+- Cerotti per la chiusura delle ferite/cerotti a farfalla
+- Cerotti per vesciche
+- Gommapiuma per vesciche
+- Laccio emostatico
+- Stecca cervicale
+- Gel di aloe vera
+- Salviette antisettiche
+- Crema all'idrocortisone
+- Compresse antistaminiche (difenidramina)
+- Colla super forte
+- Tamponi di cotone
+- Farmaco antidiarroico (loperamide)
+- Gas Farmaci antiacidi (simeticone)
+- Compresse antiacide
+- Specchio
+- Tamponi/assorbenti/coppetta mestruale
+- Filo interdentale
+- Spazzolino da denti
+- Dentifricio (conservarlo nella borsa/contenitore anti-orso durante la notte)
+- Carta igienica e/o bidet portatile
+- Sacchi/contenitori per la spazzatura (verificare le normative locali in materia di carta igienica e rifiuti umani)
+- Paletta
+- Sapone
+- Asciugamano/salvietta in microfibra
+- Balsamo per le labbra
+- Miscela di elettroliti
+
+### Conoscenze e abilità
+
+Inizia imparando a fare quanto segue:
+- Eseguire il primo soccorso di base e la rianimazione cardiopolmonare (RCP).
+
+- Calmare te stesso e gli altri.
+
+Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
+- Eseguire tecniche avanzate di primo soccorso/medicina d'emergenza in ambiente selvaggio.
+
+## Farmaci comuni
+<!-- K: farmaco, medicinale, pillola, medicinale, aspirina, ibuprofene, paracetamolo, difenidramina, loperamide, simeticone, antiacido, idrocortisone, antibiotico, unguento, crema -->
+<!-- S: Portate con voi i farmaci comuni. Usateli solo come indicato dal medico e seguite le istruzioni del produttore. -->
+
+Questo è un elenco di farmaci comuni che gli escursionisti potrebbero portare con sé. Non è un elenco completo. Usateli solo secondo le raccomandazioni del medico e seguite le istruzioni sulla confezione. Informatevi sugli effetti collaterali, sul dosaggio e sulla frequenza di assunzione prima della partenza.
+
+- **Aspirina**: Utilizzata per alleviare il dolore e l'infiammazione da lievi a moderati, ridurre la febbre, prevenire infarti e ictus e ridurre il rischio di morte in caso di infarto.
+
+- **Ibuprofene**: Utilizzato per alleviare il dolore e l'infiammazione da lievi a moderati e ridurre la febbre.
+
+- **Paracetamolo**: Utilizzato per alleviare il dolore lieve o moderato e ridurre la febbre.
+
+- **Difenidramina**: Utilizzata per trattare i sintomi di allergia e raffreddore come starnuti, naso che cola o prurito. Viene anche utilizzata per favorire l'addormentamento e il mantenimento del sonno.
+
+- **Loperamide**: Utilizzata per controllare la diarrea acuta.
+
+- **Simeticone**: Utilizzato per trattare i sintomi del meteorismo come dolore o gonfiore.
+
+- **Compresse antiacide**: Utilizzate per trattare bruciore di stomaco e indigestione.
+
+- **Crema all'idrocortisone**: Utilizzata per trattare arrossamento, prurito e fastidio cutaneo.
+
+- **Unguento antibiotico**: Utilizzato per aiutare a prevenire le infezioni in caso di piccoli tagli, abrasioni e ustioni.
+
+
+## Reazioni allergiche
+<!-- K: allergia, allergico, reazione, eruzione cutanea, prurito, gonfiore, orticaria, starnuti, tosse, gola, respiro, epinefrina, epi-pen, epipen, iniezione, asma, anafilassi -->
+<!-- S: I sintomi includono eruzione cutanea, prurito, gonfiore, orticaria e difficoltà respiratorie. Il trattamento consiste nell'eliminare l'allergene, utilizzare antistaminici o un autoiniettore di epinefrina. La prevenzione consiste nell'evitare gli allergeni noti. -->
+
+Le reazioni allergiche possono variare dalla dermatite da contatto (come quella da edera velenosa) o dalle punture di insetti all'anafilassi, una reazione grave che può essere potenzialmente letale.
+
+### Sintomi
+
+- Eruzione cutanea
+- Prurito
+- Gonfiore
+- Orticaria
+- Naso che cola
+- Starnuti
+- Tosse
+- Mal di gola
+
+**Gravi:**
+
+- Difficoltà respiratorie
+- Gonfiore del viso, delle labbra o della lingua
+
+### Trattamento
+
+1. Se possibile, rimuovere l'allergene.
+2. In caso di eruzione cutanea, applicare lozione alla calamina o crema all'idrocortisone.
+3. Assumere antistaminici.
+
+**Gravi:**
+
+Le reazioni allergiche gravi che compromettono la respirazione o causano gonfiore del viso, delle labbra o della lingua richiedono immediata assistenza medica. Chiamare il pronto soccorso.
+
+Se si dispone di un autoiniettore di epinefrina, utilizzarlo o aiutare la persona con la reazione allergica a utilizzarlo. Di solito sono presenti le istruzioni sull'autoiniettore.
+
+In caso di asma e attacco, utilizzare l'inalatore.
+
+### Prevenzione
+
+- Evitare gli allergeni noti.
+- Se prescritto, portare sempre con sé due autoiniettori di epinefrina.
+- Prendere precauzioni contro le punture di insetti e le piante velenose (vedere le sezioni pertinenti).
+- Informare gli altri delle proprie allergie e del luogo in cui si trova l'autoiniettore di epinefrina.
+
+## Mal di montagna
+<!-- K: altitudine, montagna, mal di testa, nausea, affaticamento, vertigini, respiro, sonno, appetito, tosse, acclimatamento, discesa -->
+<!-- S: I sintomi includono mal di testa, nausea, affaticamento e vertigini. Il trattamento consiste nel scendere a una quota inferiore o nell'assumere antidolorifici. La prevenzione consiste nel salire lentamente. -->
+
+Il mal di montagna è causato dalla bassa concentrazione di ossigeno ad alta quota.
+
+### Sintomi
+- Mal di testa
+- Nausea
+- Vomito
+- Affaticamento
+- Vertigini
+- Respiro corto
+- Difficoltà a dormire
+- Perdita di appetito
+- Tosse
+
+### Trattamento
+
+- Assumere antidolorifici (ibuprofene) per il mal di testa.
+- Non salire finché i sintomi non scompaiono.
+- Scendere a una quota inferiore se i sintomi sono gravi o non migliorano entro un giorno.
+
+### Prevenzione
+
+- Salire lentamente.
+- Acclimatarsi prima di salire ulteriormente.
+
+- Presta attenzione ai sintomi al di sopra dei 2.500 metri (8.000 piedi).
+
+## Morsi, punture e attacchi
+
+### Animali
+<!-- K: morso, attacco, animale, mammifero, campana, lotta, peperoncino, spruzzo, orso -->
+<!-- S: Trattare lavando la ferita con acqua e sapone, applicando antibiotici, fasciando e consultando un medico. Prevenire questo problema evitando gli animali selvatici e facendo rumore per segnalare la propria presenza. -->
+
+Molti animali mordono quando si sentono minacciati e alcuni possono trasmettere malattie.
+
+#### Trattamento
+
+1. Lavare la ferita con acqua e sapone.
+2. Applicare una pomata antibiotica.
+3. Coprire la ferita con una benda.
+4. Consultare un medico.
+
+In caso di sanguinamento grave, consultare la sezione "Sanguinamento".
+
+#### Prevenzione
+
+- Non avvicinarsi, non mettere alle strette e non dare da mangiare agli animali selvatici.
+
+- Evitare gli animali con cuccioli nelle vicinanze.
+
+Le seguenti indicazioni sono specifiche per gli orsi, ma possono essere valide anche per altri animali di grossa taglia:
+
+- Fate rumore per avvisare gli animali della vostra presenza.
+- Se vi avvicinano:
+- Non correte, perché potreste scatenare un inseguimento.
+- Cercate di sembrare più grandi.
+- Fate rumore (non urlate acute).
+- Prendete in braccio i bambini piccoli e gli animali domestici.
+- Allontanatevi lentamente.
+- Usate lo spray anti-orso, se disponibile.
+- Difendetevi se attaccati, tranne che dagli orsi grizzly.
+- Mirate al muso e al viso con pietre, bastoni o mani.
+- Se un **orso grizzly** attacca, fingete di essere morti a meno che non vi stia pedinando, non vi attacchi nella tenda o continui ad attaccare: in tal caso, difendetevi.
+- Tenete lo zaino in spalla; può offrire protezione.
+- Proteggete le zone vitali (collo, testa e addome).
+
+### Sanguisughe
+<!-- K: sanguisuga, morso, succhiare, sangue, rimuovere -->
+<!-- S: Trattare rimuovendo la sanguisuga con un'unghia o un oggetto piatto e pulendo la zona. Prevenire l'infestazione utilizzando un repellente per insetti e indossando indumenti a maniche lunghe e pantaloni. -->
+
+Le sanguisughe si attaccano alla pelle e succhiano il sangue. Si possono trovare in laghi d'acqua dolce, stagni, paludi e sulla vegetazione della giungla.
+
+#### Sintomi
+
+- Sanguisuga attaccata alla pelle
+- Sanguinamento
+
+#### Trattamento
+
+1. Afferrare la parte posteriore della sanguisuga (l'estremità più spessa) e tirarla (ma non troppo forte). Se la parte posteriore è attaccata alla pelle tramite aspirazione, si può usare un'unghia per staccarla.
+2. Infilare un'unghia o un altro oggetto piatto tra la testa della sanguisuga (l'estremità più piccola) e la pelle per staccarla.
+3. Scacciare la sanguisuga prima che possa riattaccarsi. 4. Pulire la ferita e applicare una pomata antibiotica.
+5. Applicare una benda per controllare il sanguinamento. È normale che la ferita sanguini per un po'.
+Non salare, bruciare o strappare la sanguisuga, poiché ciò potrebbe causarne il rigurgito nella ferita.
+
+![](file:///android_asset/survival_guide/leech_removal.webp)
+
+#### Prevenzione
+- Utilizzare un repellente per insetti.
+- Indossare maniche lunghe e pantaloni.
+- Controllare frequentemente la presenza di sanguisughe.
+
+### Serpenti
+<!-- K: serpente, morso, veleno, veleno, antidoto, morso di serpente -->
+<!-- S: Trattare pulendo la ferita, applicando una benda, immobilizzando l'arto e consultando un medico. Prevenire questo problema facendo attenzione a dove si mettono i piedi e indossando stivali alti. -->
+
+Controllare sempre il percorso per la presenza di serpenti, soprattutto in zone con erba alta, rocce instabili o tronchi. Nelle regioni calde e aride, i serpenti possono nascondersi in zone ombreggiate, sotto cespugli o detriti, oppure in tane. Nelle zone temperate, i serpenti possono trovarsi in aree esposte al sole. La maggior parte dei serpenti non è velenosa, ma se non si conosce la specie, è necessario trattare il morso come se fosse velenoso.
+
+#### Trattamento
+1. Sciacquare la zona del morso con acqua e sapone.
+2. Pulire la ferita e coprirla con una benda.
+3. Rimuovere anelli o gioielli dall'arto colpito.
+4. Se si viene morsi da una vipera nordamericana (serpente a sonagli, testa di rame, mocassino acquatico), non fasciare, non applicare una compressione.
+5. In caso di morso di un altro tipo di serpente (serpente corallo, cobra o serpente esotico), fasciare l'arto con una benda, partendo dal morso e procedendo verso l'alto. La benda deve essere stretta ma non deve interrompere la circolazione. Dovreste riuscire a infilare un dito sotto la benda.
+6. Mantenere l'arto immobilizzato al di sotto del livello del cuore.
+7. Consultare un medico il prima possibile. Chiamare l'ospedale in anticipo in modo che possano preparare l'antidoto, se necessario.
+
+Fotografare il serpente da lontano può aiutare il personale medico a identificarne la specie e a determinare il trattamento appropriato.
+
+Non fare quanto segue:
+- Incidere la ferita.
+- Aspirare il veleno.
+- Applicare un laccio emostatico.
+- Applicare ghiaccio.
+
+### Prevenzione
+- Fare attenzione a dove si mettono i piedi.
+- Indossare scarponi.
+- Non mettere mani o piedi in punti che non si possono vedere prima.
+- Non cercare di catturare o uccidere i serpenti.
+
+### Insetti, ragni e scorpioni
+<!-- K: insetto, morso, repellente, spray, puntura, insetto, ragno, scorpione, zanzara, formica, ape, vespa, calabrone, mosca, prurito, gonfiore, rossore, rimuovere -->
+<!-- S: Trattare rimuovendo il pungiglione/zecca/sanguisuga, pulendo la zona e, se necessario, consultando un medico. Prevenire questo problema utilizzando un repellente per insetti e indossando maniche lunghe e pantaloni. -->
+
+Molti insetti possono mordere o pungere, causando dolore, gonfiore e prurito. Alcuni insetti possono anche trasmettere malattie.
+
+#### Sintomi
+- Prurito
+- Gonfiore
+- Arrossamento
+- Dolore
+
+#### Trattamento
+
+**Punture**
+
+Per ridurre il prurito, applicare una lozione alla calamina o una crema all'idrocortisone. Per ridurre il gonfiore, utilizzare brevemente un panno imbevuto di acqua fredda.
+
+Se sei stato morso da un ragno che ritieni velenoso, consulta un medico.
+
+**Punture**
+
+Rimuovi il pungiglione, facendo attenzione a non schiacciare la sacca velenifera. Tratta la puntura come se fosse una puntura d'insetto. Consulta la sezione "Reazioni allergiche" per informazioni sulle reazioni gravi alle punture.
+
+Se sei stato punto da uno scorpione o da un insetto che ritieni velenoso, consulta un medico.
+
+**Insetti negli occhi**
+
+Consulta la sezione relativa agli oggetti negli occhi.
+
+#### Prevenzione
+- Usa un repellente per insetti.
+- Indossa maniche lunghe e pantaloni.
+- Copri il viso con una bandana.
+- Indossa occhiali da vista/da sole (per tenere gli insetti lontani dagli occhi).
+- Usa una zanzariera.
+
+- Assicurati di essere in regola con le vaccinazioni contro le malattie trasmesse dagli insetti nella zona.
+
+Puoi creare un repellente per insetti improvvisato applicando del fango sulla pelle o usando il fumo di un fuoco.
+
+
+### Zecche
+<!-- K: morso, respingere, spruzzare, zecca, prurito, gonfiore, rossore, rimuovere -->
+<!-- S: Trattare rimuovendo la zecca, pulendo la zona e, se necessario, consultando un medico. Prevenire le zecche utilizzando un repellente per insetti e indossando indumenti a maniche lunghe e pantaloni. -->
+
+Le zecche si attaccano alla pelle e si nutrono di sangue. Possono trasmettere malattie come la malattia di Lyme e la febbre maculosa delle Montagne Rocciose.
+
+#### Sintomi
+
+- Prurito
+- Gonfiore
+- Arrossamento
+- Zecca attaccata
+
+#### Trattamento
+
+1. Utilizzando una pinzetta o un cucchiaio per zecche, se disponibile, afferrare la zecca il più vicino possibile alla pelle. È possibile utilizzare le unghie se sono abbastanza lunghe.
+2. Tirare dritto verso l'esterno con una pressione costante e uniforme. Non torcere o strattonare la zecca. Non schiacciare il corpo della zecca.
+3. Trattare la zona come si farebbe per una puntura d'insetto.
+
+![](file:///android_asset/survival_guide/tick_removal.webp)
+
+#### Prevenzione
+- Utilizzare un repellente per insetti.
+
+- Indossare maniche lunghe e pantaloni.
+
+- Controllare frequentemente la presenza di zecche, soprattutto se si utilizzano foglie secche ed erba come isolante.
+
+### Meduse
+<!-- K: medusa, puntura, tentacolo -->
+<!-- S: Trattare rimuovendo i tentacoli, sciacquando con acqua di mare e applicando calore. Prevenire questo problema evitando il contatto con le meduse. -->
+
+Molte meduse hanno piccole cellule urticanti velenose, in genere sui tentacoli. Anche le meduse morte possono pungere.
+
+#### Sintomi
+
+- Dolore
+- Prurito
+- Arrossamento
+- Eruzione cutanea
+- Gonfiore
+
+#### Trattamento
+
+1. Utilizzare il bordo di una carta di credito o una pinzetta per rimuovere i tentacoli. Non utilizzare le dita per rimuovere i tentacoli.
+2. Sciacquare la zona con acqua di mare. Non sciacquare con acqua dolce, poiché ciò potrebbe indurre i pungiglioni a rilasciare più veleno.
+3. Immergere la zona in acqua calda per 30 minuti.
+4. Assumere antidolorifici se necessario.
+
+## Sanguinamento
+<!-- K: sanguinamento, sangue, ferita, taglio, graffio, profondo, coagulo, pressione, laccio emostatico, benda, rosso, gonfiore, caldo, pus -->
+<!-- S: Trattare applicando pressione, pulendo la ferita, fasciando e, se necessario, consultare un medico. Prevenire le infezioni pulendo le ferite e cambiando frequentemente le bende. -->
+
+### Trattamento
+Consultare un medico se la ferita è profonda, sanguina abbondantemente o mostra segni di infezione. Le ferite infette si riconoscono per arrossamento, gonfiore, calore e pus.
+
+**Graffi e piccoli tagli**
+1. Pulire la ferita con acqua.
+2. Facoltativamente, applicare una pomata antibiotica. 3. Applicare una benda.
+
+**Tagli più profondi**
+1. Applicare pressione sulla ferita con un panno pulito o una benda fino a quando il sanguinamento non si arresta.
+2. Pulire la ferita e lavarla con acqua.
+3. Fasciare la ferita con una medicazione sterile.
+4. Applicare una nuova benda sopra quella vecchia se si impregna di sangue.
+5. Sollevare la ferita al di sopra del livello del cuore.
+6. Consultare un medico se il sanguinamento non si arresta dopo alcuni minuti, se la ferita è profonda o contaminata.
+
+Se l'emorragia è pericolosa per la vita e non è possibile controllarla con la pressione diretta, è possibile applicare un laccio emostatico commerciale. Va stretto 5-8 cm sopra la ferita, non su un'articolazione, fino all'arresto dell'emorragia. Stringerlo potrebbe essere doloroso. Annotare l'ora di applicazione del laccio emostatico. Solo un operatore sanitario deve allentare o rimuovere un laccio emostatico.
+
+### Prevenzione
+- Prestare attenzione quando si maneggiano oggetti taglienti.
+- Non tagliare verso di sé.
+- Prestare attenzione a dove si mettono i piedi.
+- Essere consapevoli di ciò che ci circonda.
+- Per prevenire le infezioni:
+- Pulire le ferite.
+- Applicare una pomata antibiotica.
+- Cambiare frequentemente le bende.
+
+## Vesciche
+<!-- K: vescica, sfregamento, scarpa, calzino, cerotto per vesciche, rosso, dolorante -->
+<!-- S: Trattare le piccole vesciche applicando un cerotto per vesciche, mentre quelle più grandi drenandole con un ago sterilizzato, pulendole e fasciandole. Prevenire la formazione di vesciche mantenendo i piedi asciutti e indossando scarpe della misura giusta. -->
+
+Le vesciche sono aree di pelle rialzate piene di liquido che possono essere dolorose. Sono generalmente causate da attrito o pressione continua sulla pelle.
+
+### Sintomi
+- Area arrossata e dolorante
+- Vescica
+
+### Trattamento
+Se la vescica è piccola:
+1. Tagliare un pezzo di cerotto per vesciche a forma di ciambella.
+2. Posizionare il cerotto intorno alla vescica, con la vescica all'interno del foro.
+Se la vescica è grande o dolorosa:
+1. Sterilizzare un ago con un disinfettante per le mani o con il fuoco (questo potrebbe non sterilizzarlo completamente).
+2. Pulire e lavare l'area.
+3. Forare la vescica vicino al bordo e drenare il liquido. Non rimuovere la pelle.
+4. Applicare una benda e, facoltativamente, una pomata antibiotica.
+
+### Prevenzione
+- Mantenere i piedi asciutti.
+- Indossare scarpe della misura giusta.
+- Indossare due paia di calze.
+- Controllare frequentemente i piedi per individuare arrossamenti e vesciche.
+- Interrompere l'escursione al primo segno di sfregamento della pelle contro gli scarponi.
+- Applicare del nastro adesivo o un cerotto per prevenire le vesciche.
+
+## Ustioni
+<!-- K: burn, scald, blister, red, pain, aloe, vera, fire, skin -->
+<!-- S: Trattare le ustioni lievi immergendo la parte interessata in acqua fredda e fasciandola senza stringere troppo. Consultare un medico per le ustioni gravi. Prevenire le ustioni facendo attenzione in prossimità di fuochi e oggetti caldi. -->
+
+### Trattamento
+
+**Ustioni di primo grado**
+
+Queste ustioni sono paragonabili a una lieve scottatura solare.
+
+1. Immergere la parte interessata in acqua fredda per 5-30 minuti.
+2. Facoltativamente, assumere antidolorifici.
+3. Quando la bruciatura inizia a guarire, applicare gel di aloe vera, lozione alla calamina o crema all'idrocortisone.
+
+**Ustioni di secondo grado**
+Si tratta di ustioni che formano vesciche e possono essere molto dolorose.
+
+1. Immergere la zona in acqua fredda per almeno 15 minuti.
+2. Assumere antidolorifici.
+3. Asciugare la zona tamponando delicatamente.
+4. Applicare una benda non troppo stretta.
+Non forare le vesciche.
+
+**Ustioni di terzo grado**
+Si tratta di ustioni che interessano tutti gli strati della pelle e possono essere potenzialmente letali. Il dolore può essere minimo a causa del danno ai nervi. Possono essere presenti anche ustioni di primo e secondo grado.
+
+1. Chiamare i servizi di emergenza.
+2. Fare il bagno sotto acqua fresca e pulita per 5-20 minuti o applicare brevemente impacchi freddi e umidi sulla zona
+3. Rimuovere indumenti e gioielli dalla zona ustionata, a meno che non siano attaccati alla bruciatura stessa.
+4. Bere acqua con elettroliti se la persona è cosciente e in grado di farlo.
+5. Fasciare la zona ustionata senza stringere troppo.
+
+### Prevenzione
+- Prestare attenzione in prossimità di fiamme, soprattutto se si indossano indumenti sintetici.
+
+- Non toccare oggetti caldi.
+
+- Se i vestiti prendono fuoco, fermarsi, gettarsi a terra e rotolare per spegnere le fiamme.
+
+## Soffocamento
+<!-- K: soffocamento, gola, respiro, manovra di Heimlich -->
+<!-- S: Eseguire la manovra di Heimlich. -->
+
+Una persona sta soffocando parzialmente se riesce a tossire o parlare udibilmente. Sta soffocando completamente se non riesce a tossire, parlare o respirare.
+
+### Trattamento
+Se una persona sta soffocando parzialmente, incoraggiarla a continuare a tossire per cercare di espellere l'oggetto.
+
+Se una persona sta soffocando completamente, chiamare i servizi di emergenza ed eseguire la manovra di Heimlich. Se stai soffocando e c'è qualcuno nelle vicinanze, metti le mani sulla gola per segnalare che stai soffocando.
+
+Esegui la manovra di Heimlich su te stesso:
+1. Se possibile, piegati su una superficie rigida.
+2. Chiudi una mano a pugno.
+3. Appoggia il lato del pollice del pugno sull'addome, sotto la gabbia toracica e sopra l'ombelico.
+4. Afferra il pugno con l'altra mano e premi sull'addome con una rapida spinta verso l'alto.
+
+Esegui la manovra di Heimlich su un'altra persona (eseguila solo se sai che sta soffocando, è in posizione eretta, ha segnalato di aver bisogno di aiuto e ha più di 1 anno):
+1. Posizionati di lato e dietro la persona.
+2. Inclinala in avanti e sostieni il suo torace con una mano.
+3. Usa il palmo dell'altra mano per colpire tra le scapole fino a 5 volte. Fai una pausa tra ogni colpo per verificare se l'oggetto è stato espulso.
+4. Se la persona continua a soffocare, mettetevi dietro di lei e afferratela per la vita.
+5. Chiudete il pugno e posizionate il lato del pollice contro l'addome della persona, sotto la gabbia toracica e sopra l'ombelico.
+6. Afferrate il pugno con l'altra mano e premete sull'addome della persona con una rapida spinta verso l'interno e verso l'alto. Ripetete fino a 5 volte.
+7. Ripetete i passaggi da 1 a 6 finché l'oggetto non viene espulso o non riprende conoscenza.Se non rispondono più agli stimoli, adagiateli in sicurezza su una superficie solida e iniziate la rianimazione cardiopolmonare (RCP) (vedere la sezione Problemi cardiaci
+
+![](file:///android_asset/survival_guide/choking.webp)
+
+## Crampi
+<!-- K: crampo, muscolo, dolore, spasmo, elettroliti -->
+<!-- S: Trattare con stretching, massaggi, applicazione di calore o freddo e idratazione. Prevenire mantenendosi idratati e reintegrando gli elettroliti. -->
+
+I crampi possono essere causati da disidratazione, sforzo eccessivo o carenza di elettroliti.
+
+### Sintomi
+- Dolore muscolare
+- Spasmi muscolari
+
+### Trattamento
+- Allungare delicatamente il muscolo.
+- Massaggiare il muscolo.
+- Applicare calore o freddo al muscolo.
+- Bere acqua o una soluzione elettrolitica contenente sodio e potassio.
+- Mangiare cibi salati.
+- Mangiare cibi ricchi di potassio (come le banane). - Rallenta o interrompi l'attività fisica.
+- Riposa all'ombra.
+- Assumi un antidolorifico, come ibuprofene o paracetamolo.
+
+### Prevenzione
+- Mantieniti idratato.
+- Reintegra gli elettroliti.
+- Fai stretching prima e dopo l'attività fisica.
+- Mantieni un ritmo lento e costante.
+
+## Disidratazione
+<!-- K: disidratazione, acqua, sete, secco, affaticamento, vertigini, scuro, urina, mal di testa, elettroliti, bevanda -->
+<!-- S: Reidratati bevendo acqua con elettroliti. Previeni bevendo acqua frequentemente e aumentando l'assunzione durante l'attività fisica. -->
+
+### Sintomi
+- Sete
+- Bocca e gola secche
+- Affaticamento
+- Vertigini
+- Urina scura
+- Riduzione della produzione di urina
+- Mal di testa
+- Nausea
+
+### Trattamento
+Reidratati bevendo lentamente acqua, una soluzione elettrolitica o un'altra bevanda analcolica. Evita i diuretici.
+
+### Prevenzione
+- Bevi acqua frequentemente, aumentando l'assunzione durante l'attività fisica.
+
+## Ami da pesca conficcati
+<!-- K: amo, amo, rimuovere -->
+<!-- S: Gli ami possono essere rimossi facendo passare una lenza attraverso la curvatura e tirando rapidamente mentre si spinge verso il basso l'amo. Per evitare che si conficchino, maneggia gli ami con cura. -->
+
+Gli ami da pesca sono progettati per penetrare la carne e sono difficili da rimuovere senza causare ulteriori lesioni. A meno che non sia necessario rimuovere l'amo per prevenire ulteriori lesioni, è meglio lasciarlo in sede e consultare un medico.
+
+### Trattamento
+Non tentare di rimuovere un amo da pesca se è conficcato nell'occhio.
+
+**Metodo 1**
+
+1. Spingi l'amo attraverso la pelle fino a esporre l'ardiglione.
+2. Taglia l'ardiglione con delle tronchesi, come quelle di un multiutensile, o con delle pinze. Fai attenzione al pezzo di amo tagliato che potrebbe schizzare via.
+3. Tira l'amo nella direzione opposta a quella di ingresso.
+4. Pulire la ferita e applicare una pomata antibiotica.
+
+**Metodo 2**
+
+1. Infilare una lenza da pesca o una corda nella curvatura dell'amo.
+2. Afferrare le estremità della lenza.
+3. Esercitare una pressione verso il basso sull'occhiello dell'amo.
+4. Tirare rapidamente la lenza, facendo uscire l'amo nella stessa direzione in cui è entrato.
+5. Pulire la ferita e applicare una pomata antibiotica.
+In alcuni casi, è possibile utilizzare un paio di pinze al posto della lenza da pesca per eseguire la stessa operazione.
+
+![](file:///android_asset/survival_guide/fish_hook_removal.webp)
+
+### Prevenzione
+- Prestare attenzione quando si maneggiano gli ami da pesca, soprattutto le esche con più ami tripli.
+
+- Prestare particolare attenzione quando si rimuove un amo da un pesce che si dimena o che è scivoloso.
+
+- Gli ami senza ardiglione sono più facili da rimuovere in caso di abboccata, ma può essere più difficile recuperare il pesce.
+
+## Fratture
+<!-- K: frattura, rottura, rotto, osso, dolore, gonfiore, livido, deformazione, peso, stecca, fasciatura, braccio, gamba -->
+<!-- S: Trattare con una stecca e consultare un medico. Prevenire questo problema facendo attenzione e indossando calzature adeguate. -->
+
+Una frattura è una rottura di un osso. Una frattura può essere chiusa (l'osso è rotto, ma la pelle è intatta) o aperta (l'osso è rotto e sporge dalla pelle).
+
+### Sintomi
+- Dolore
+- Gonfiore
+- Livido
+- Deformità
+- Perdita di funzionalità
+- Incapacità di appoggiare il peso
+- Osso che sporge dalla pelle
+
+### Trattamento
+Immobilizzare la frattura con una stecca e consultare un medico.
+
+**Immobilizzazione di un osso**
+
+1. Rimuovere tutti i gioielli e gli indumenti stretti dalla zona interessata.
+2. Applicare un'imbottitura intorno alla frattura.
+3. Costruire una stecca utilizzando un oggetto rigido (bastone, bastone da trekking, palo da tenda). Dovrebbe estendersi oltre la frattura su entrambi i lati.
+4. Fissare la stecca con bende, nastro adesivo o corda. Deve essere stretta ma non bloccare la circolazione. Se si immobilizza un dito, fissarlo con del nastro adesivo a quello adiacente.
+5. Applicare un'imbracatura se la frattura è al braccio per immobilizzare l'arto. È possibile creare un'imbracatura improvvisata infilando il braccio in una giacca o in un panno e annodando le estremità libere dietro il collo.
+
+Stecca:
+
+![](file:///android_asset/survival_guide/splint.webp)
+
+<!-- \pagebreak -->
+
+Imbracatura:
+
+![](file:///android_asset/survival_guide/sling.webp)
+
+### Prevenzione
+- Prestare attenzione quando si cammina su terreni irregolari.
+
+- Indossa calzature adeguate.
+Non sforzarti eccessivamenche
+Fai attenzione quando maneggi oggetti pesanti.
+
+## Congelamento
+<!-- K: congelamento, gelo, freddo, gelo, congelato, intorpidimento, bianco, grigio, giallo, ceroso, dolore, disgelo, caldo, calore, rosso, gelo intenso -->
+<!-- S: Tratta riscaldando la zona e consultando un medico. Previeni mantenendoti al caldo e all'asciutto. -->
+
+Il congelamento è causato dall'esposizione a basse temperature, che irrita la pelle e i tessuti sottostanti. Se non trattato, può causare danni permanenti.
+
+### Sintomi
+
+**Congelamento superficiale**:
+
+- Arrossamento
+- Intorpidimento
+- Pelle pallida o bianca
+- La zona è ancora morbida ed elastica
+
+**Congelamento profondo**:
+
+- Pelle bianca o giallo-grigiastra
+- Pelle dura o cerosa
+- Intorpidimento
+
+### Trattamento
+
+**Congelamento superficiale**:
+
+Riscaldare la zona con il calore corporeo (ad esempio, mettendo una mano sotto l'ascella) o con acqua calda.
+
+**Congelamento profondo**:
+
+Scongelare la zona solo se è possibile mantenerla scongelata. Ricongelare può causare ulteriori danni. Non utilizzare il fuoco per scongelare la zona. Non strofinare la zona. Consultare un medico il prima possibile.
+
+1. Assumere un antidolorifico prima dello scongelamento.
+2. Preparare acqua calda (37-39 °C).
+3. Scongelare la zona fino a quando non diventa rosa/rossa e morbida. Se l'acqua si raffredda, cambiarla - rimuovere la zona dall'acqua prima di cambiarla.
+4. Avvolgere la zona con una medicazione sterile e tenerla al caldo.
+
+### Prevenzione
+- Indossare indumenti adeguati.
+- Mantenersi asciutti e cambiarsi gli indumenti bagnati.
+- Muoversi.
+- Tenersi al caldo.
+- Mantenersi idratati e ben nutriti.
+- Trattare ai primi segni di congelamento.
+
+## Problemi gastrointestinali
+<!-- K: gastrointestinale, stomaco, intestino, diarrea, vomito, nausea, crampi, gas, cibo, acqua, veleno, tè, parassita, stitichezza -->
+<!-- S: Trattare reidratando o somministrando farmaci. Prevenire questo problema facendo bollire l'acqua, lavandosi le mani, cucinando e conservando correttamente il cibo. -->
+
+I problemi gastrointestinali possono essere causati da cibo o acqua contaminati.
+
+### Sintomi
+- Diarrea
+- Vomito
+- Nausea
+- Crampi allo stomaco
+- Flatulenza
+
+### Trattamento
+- Reidratarsi con acqua pulita, una bevanda elettrolitica o una tisana.
+
+- In caso di ingestione di sostanze tossiche, consultare immediatamente un medico.
+
+- Assumere farmaci per alleviare i sintomi.
+
+### Prevenzione
+- Purificare adeguatamente l'acqua prima di berla.
+- Lavarsi le mani prima di mangiare.
+- Cuocere bene gli alimenti.
+- Consumare solo alimenti sicuri.
+- Conservare correttamente gli alimenti.
+
+## Mal di testa
+<!-- K: mal di testa, dolore, elettroliti -->
+<!-- S: Trattare assumendo antidolorifici, bevendo acqua e riposando. Prevenire mantenendosi idratati e reintegrando gli elettroliti. -->
+
+Il mal di testa può essere causato da diversi fattori, come disidratazione, stress, mancanza di sonno, affaticamento degli occhi, postura scorretta, pasti saltati, esercizio fisico intenso o malattie.
+
+### Trattamento
+- Assumere antidolorifici.
+- Bere acqua o una soluzione elettrolitica.
+- Riposare.
+- Massaggiare i muscoli contratti della parte superiore del corpo.
+
+### Prevenzione
+- Mantenersi idratati.
+- Reintegrare gli elettroliti.
+- Indossare occhiali da sole se necessario.
+- Non sforzarsi eccessivamente.
+
+## Problemi cardiaci
+<!-- K: cuore, petto, dolore, braccio, schiena, collo, mascella, stomaco, attacco, ictus, spossatezza, sudorazione, nausea, vertigini, respiro, battito cardiaco, rianimazione cardiopolmonare -->
+<!-- S: Consultare un medico in caso di dolore al petto. I sintomi includono dolore al petto, mancanza di respiro, dolore agli arti, nausea, vertigini e sudorazione fredda. -->
+
+Per sicurezza, consultare un medico il prima possibile in caso di sintomi di problemi cardiaci.
+
+Sintomi
+- Dolore al petto
+- Difficoltà respiratorie
+- Dolore alle braccia, alla schiena, al collo, alla mascella o allo stomaco
+- Nausea
+- Vertigini
+- Sudorazione fredda
+
+Trattamento
+1. Fermati e siediti comodamente.
+2. Chiama i servizi di emergenza e fatti raggiungere.
+3. Se hai farmaci per il cuore da assumere al bisogno, prendili come indicato. Se sei cosciente e in grado di assumere aspirina, usala come indicato.
+Se qualcun altro perde conoscenza e sospetti problemi cardiaci:
+
+**Rianimazione cardiopolmonare (RCP)**:
+
+1. Verifica la presenza di incoscienza e di respirazione assente o anomala.
+2. Chiama i servizi di emergenza e inizia la RCP. Puoi mettere il telefono in vivavoce per fare entrambe le cose contemporaneamente.
+3. Assicurati che la persona sia supina su una superficie dura e stabile.
+4. Posiziona il palmo di una mano al centro del torace.
+5. Posiziona il palmo dell'altra mano sopra la prima.
+6. Intreccia le dita. 
+7. Tenete le braccia tese e le spalle allineate con le mani.
+8. Eseguite compressioni forti e rapide fino a una profondità di 5-6 cm (2-2,4 pollici) con una frequenza di 100-120 compressioni al minuto.
+9. Lasciate che il torace si sollevi completamente tra una compressione e l'altra.
+10. Continuate fino a quando il paziente non mostra segni di vita, come la respirazione, l'area non diventa pericolosa, non arrivano i soccorsi o non siete troppo esausti per continuare.
+
+Se avete una formazione completa in RCP, eseguite la respirazione artificiale dopo 30 compressioni. Altrimenti, eseguite solo le compressioni.
+
+![](file:///android_asset/survival_guide/cpr.webp)
+
+**Respirazione artificiale**:
+
+1. Con le vie aeree libere, inclinate la testa all'indietro e sollevate il mento.
+2. Chiudete le narici con le dita.
+3. Eseguite due insufflazioni, ciascuna della durata di circa 1 secondo, che provochino l'innalzamento del torace.
+4. Ripetere il ciclo di 30 compressioni e due respiri.
+
+### Prevenzione
+- Mantenersi idratati.
+- Non sforzarsi eccessivamente.
+- Parlare con il medico della salute del cuore e dei fattori di rischio.
+- Consultare un medico in caso di sintomi di problemi cardiaci.
+
+## Esaurimento da calore e colpo di calore
+<!-- K: calore, esaurimento, ictus, colpo di calore, pallido, caldo, sudore, affaticamento, battito cardiaco, vertigini, nausea, vomito, crampi, muscoli, mal di testa, brividi, confusione, convulsioni, incoscienza, elettroliti, ombra, pausa, sforzo eccessivo -->
+<!-- S: I sintomi includono pelle pallida, sudorazione, affaticamento, battito cardiaco accelerato, vertigini, nausea, crampi muscolari, mal di testa e brividi. Trattamento: spostarsi in un luogo fresco e bere acqua. Prevenzione: mantenersi idratati, indossare abiti adeguati e fare pause all'ombra.
+
+L'esaurimento da calore e il colpo di calore sono causati dall'esposizione ad alte temperature e dalla disidratazione.
+
+### Sintomi
+
+**Esaurimento da calore**:
+
+- Pallore
+- Sudorazione
+- Affaticamento
+- Battito cardiaco accelerato
+- Vertigini
+- Nausea o vomito
+- Crampi muscolari
+- Mal di testa
+
+**Colpo di calore**:
+
+- Stessi sintomi dell'esaurimento da calore, ma più gravi
+- Confusione
+- Convulsioni
+- Perdita di coscienza
+
+### Trattamento
+
+**Esaurimento da calore**:
+
+1. Spostarsi in un luogo fresco.
+2. Bere lentamente molta acqua o una soluzione elettrolitica.
+3. Allentare o togliere gli indumenti non necessari.
+4. Rinfrescarsi con acqua.
+5. Chiamare i servizi di emergenza se i sintomi persistono o peggiorano. 
+
+**Colpo di calore**:
+
+1. Chiamare i servizi di emergenza.
+2. Spostarsi in un luogo fresco.
+3. Togliere gli indumenti in eccesso.
+4. Raffreddarsi con acqua. Idealmente, immergere la persona in presenza di qualcun altro per evitare il rischio di annegamento.
+5. Prestare attenzione durante la reidratazione, poiché convulsioni e vomito possono causare soffocamento.
+
+### Prevenzione
+- Mantenersi idratati.
+- Indossare indumenti adeguati.
+- Stare all'ombra.
+- Fare delle pause all'ombra.
+- Evitare l'attività fisica durante le ore più calde della giornata.
+
+- Non sforzarsi eccessivamente.
+
+## Igiene
+<!-- K: igiene, pulito, asciutto -->
+<!-- S: Lavarsi spesso le mani, soprattutto prima di mangiare e dopo aver usato il bagno. -->
+
+### Lavaggio
+<!-- K: lavare, sapone, shampoo, igienizzare, mani -->
+
+Usare sapone e acqua pulita per lavarsi le mani:
+- Prima e dopo aver preparato il cibo.
+- Prima di mangiare.
+- Dopo aver urinato o defecato.
+- Prima di medicare una ferita.
+- Dopo aver toccato qualcosa che potrebbe contenere germi o essere velenoso.
+Se si dispone solo di un gel igienizzante per le mani, strofinarlo su tutta la superficie delle mani fino a completa asciugatura. Lavare prima le mani con acqua se sono visibilmente sporche o unte, quindi asciugarle e applicare il gel igienizzante.
+
+È possibile lavarsi le mani con acqua pulita se non si dispone di sapone o gel igienizzante, ma non sarà altrettanto efficace.
+
+### Denti
+<!-- K: denti, dente, spazzolino da denti, dentifricio, filo interdentale, spazzola -->
+
+Se non si dispone di uno spazzolino da denti, è possibile pulire i denti con un piccolo bastoncino di legno duro (sfilacciarlo masticandone un'estremità). Un filo interno di paracord può essere usato come filo interdentale.
+
+### Piedi
+<!-- K: piede, piedi, calzino, scarpa -->
+
+Per prevenire problemi ai piedi, segui questi consigli:
+- Cambia e lava i calzini ogni giorno.
+- Lava, asciuga e massaggia i piedi.
+
+### Abbigliamento
+<!-- K: vestiti -->
+
+Mantieni gli indumenti puliti e asciutti. Lava i vestiti con acqua e sapone. Per asciugarli, stendili al sole su delle rocce, oppure appendili al sole o vicino a un fuoco (non troppo vicino).
+
+## Evacuazione intestinale e minzione
+<!-- K: defecare, urinare, bagno, rifiuti, cazzuola, scavare, buca -->
+
+- Scava una buca profonda dai 15 ai 20 centimetri per evacuare e ricoprila di terra.
+
+- Se non hai una cazzuola, usa un bastone per scavare la buca.
+
+- Le normative locali potrebbero richiedere di gettare la carta igienica in un sacchetto per i rifiuti anziché seppellirla.
+
+Se non si dispone di carta igienica o di un bidet, utilizzare foglie non velenose, muschio o pietre lisce per lavarsi.
+
+Lavarsi sempre le mani dopo aver usato il bagno.
+
+Non defecare o urinare vicino a fonti d'acqua, campeggi o sentieri (almeno 60 metri di distanza).
+
+## Ipotermia
+<!-- K: ipotermia, freddo, congelamento, congelato, brividi, coordinazione, memoria, linguaggio, difficoltà di parola, parlare, sonnolenza, respiro, battito cardiaco, calore, caldo, fuoco -->
+<!-- S: I sintomi includono brividi, freddo, difficoltà di coordinazione, perdita di memoria, difficoltà di parola e sonnolenza. Il trattamento consiste nell'asciugarsi e riscaldarsi. La prevenzione consiste nell'indossare abiti adeguati, mantenersi asciutti, muoversi e stare al caldo. -->
+
+L'ipotermia si verifica quando il corpo perde calore più velocemente di quanto riesca a produrlo.
+
+### Sintomi
+- Brividi. Se i brividi cessano e non vi siete riscaldati, è segno di grave ipotermia.
+
+- Sensazione di freddo
+- Difficoltà di coordinazione
+- Perdita di memoria
+- Difficoltà di linguaggio
+- Sonnolenza
+- Respirazione e battito cardiaco rallentati
+
+### Trattamento
+- Indossare abiti asciutti.
+Aumentare gli strati di indumenti asciutti.
+Aggiungere materiale isolante agli indumenti (come foglie secche o erba).
+Assumere liquidi caldi.
+Riscaldarsi vicino a un fuoco.
+Usare un sacco a pelo o una coperta.
+Sfruttare il calore corporeo di un'altra persona.
+Chiamare i servizi di emergenza se i sintomi persistono o peggiorano.
+
+### Prevenzione
+- Indossare abiti adeguati.
+- Mantenersi asciutti.
+- Movimentarsi, ma evitare sforzi che causino sudorazione.
+- Mantenersi al caldo.
+
+## Oggetti nell'occhio
+<!-- K: occhio, oggetto, qualcosa, insetto -->
+<!-- S: Trattare irrigando l'occhio con acqua pulita e rimuovendo l'oggetto con un panno umido o un batuffolo di cotone. Prevenire indossando occhiali da vista o da sole. -->
+
+È comune che oggetti finiscano nell'occhio quando si è in mezzo alla natura, come terra, sabbia, insetti o un ciglio.
+
+### Sintomi
+- Dolore e fastidio all'occhio
+- Arrossamento dell'occhio
+- Lacrimazione eccessiva
+- Difficoltà a tenere l'occhio aperto
+
+### Trattamento
+1. Evitare di strofinare l'occhio.
+2. Irrigare l'occhio con acqua pulita versandovi acqua.
+3. Se l'oggetto è ancora nell'occhio, usare uno specchio per individuarlo e tentare di rimuoverlo (solo se si trova sulla parte bianca dell'occhio) con un panno umido o un batuffolo di cotone. Procedete con molta delicatezza.
+4. Se l'oggetto si trova sotto la palpebra superiore e avete un'altra persona, chiedetele di posizionare la punta di un batuffolo di cotone al centro della palpebra superiore e di ripiegare delicatamente la palpebra sopra il batuffolo. Potrà quindi rimuovere l'oggetto con un panno umido o un batuffolo di cotone.
+5. Dopo la rimozione dell'oggetto, se avvertite prurito all'occhio, applicate un panno freddo e umido, tenete l'occhio chiuso e riposate, oppure utilizzate delle gocce oculari.
+6. Consultate un medico se l'oggetto non viene rimosso o se i sintomi persistono.
+
+### Prevenzione
+- Indossate occhiali da vista o da sole.
+
+- Non sollevate oggetti sporchi o con detriti sopra la testa senza proteggere gli occhi.
+
+## Attacchi di panico e tecniche di rilassamento
+<!-- K: panico, attacco, paura, battito cardiaco, sudorazione, tremore, respiro, petto, dolore, nausea, vertigini, intorpidimento, formicolio, calma, meditazione, tecnica -->
+<!-- S: I sintomi includono battito cardiaco accelerato, sudorazione, tremore, respiro corto, dolore al petto, nausea, vertigini, paura, intorpidimento e formicolio. Trattare con una tecnica di rilassamento, come la meditazione. -->
+
+### Sintomi
+- Battito cardiaco accelerato
+- Sudorazione
+- Tremore
+- Respiro corto
+- Iperventilazione
+- Dolore al petto
+- Nausea
+- Vertigini
+- Paura
+- Intorpidimento o formicolio
+
+### Trattamento
+1. Siediti.
+2. Chiudi gli occhi.
+3. Esegui una o più delle seguenti azioni:
+- Fai respiri lenti e profondi inspirando dal naso ed espirando dal naso o dalla bocca.
+- Conta fino a 10.
+- Ripeti una frase rilassante. - Visualizza un luogo rilassante.
+- Medita.
+- Contrai e rilassa ogni muscolo, partendo dalla testa e scendendo fino ai piedi.
+- Ascolta musica o rumore bianco.
+- Rassicurati che andrà tutto bene.
+
+## Dermatite da contatto causata dall'edera velenosa
+<!-- K: veleno, edera, quercia velenosa, sommacco velenoso, tromba, rengas, pungente, ortica, eruzione cutanea, prurito, vesciche, rosso, gonfiore, dermatite, contatto -->
+<!-- S: I sintomi includono eruzione cutanea, prurito e vesciche. Il trattamento consiste nel lavare la zona con acqua e sapone, applicare una lozione alla calamina e assumere antistaminici. La prevenzione consiste nell'imparare a identificare ed evitare le piante velenose. -->
+
+La dermatite da contatto può essere causata dal contatto con piante velenose, come l'edera velenosa/quercia velenosa, il sommacco velenoso, l'ortica e molte altre piante in tutto il mondo (verifica sempre quali sono le piante pericolose nella tua zona).
+
+![](file:///android_asset/survival_guide/dangerous_plants.webp)
+
+1. **Edera velenosa**: una pianta tossica con tre foglioline solitamente lucide e appuntite, che si trova comunemente nei boschi, nei campi e lungo i sentieri. Il contatto con il suo olio provoca eruzioni cutanee pruriginose e irritazioni della pelle.
+2. **Ortica**: una pianta con foglie seghettate e minuscoli peli urticanti, che si trova comunemente in zone umide e ombreggiate. Il contatto provoca un'eruzione cutanea dolorosa e pruriginosa.
+
+### Sintomi
+- Bruciore, arrossamento e gonfiore
+- Prurito
+- Vesciche
+
+### Trattamento
+1. Lavare con acqua e sapone, alcol denaturato o un detergente specifico per edera velenosa/quercia velenosa/sommacco velenoso. Quindi risciacquare con acqua.
+2. Asciugare la zona.
+3. Applicare una lozione alla calamina o una crema all'idrocortisone per ridurre il prurito.
+4. Facoltativamente, assumere antistaminici per ridurre il prurito.
+
+Se hai toccato l'ortica, lava la zona con acqua e sapone o con un panno pulito. Puoi usare del nastro adesivo per rimuovere eventuali fibre rimaste.
+
+Alcune piante, come la pastinaca selvatica o la panace gigante, contengono composti che reagiscono alla luce solare e possono causare un'eruzione cutanea simile a una scottatura. Lava con acqua e sapone e indossa indumenti protettivi per proteggere la zona dal sole.
+
+Evita di grattare l'eruzione cutanea, poiché può causare infezioni. Non toccare le vesciche.
+
+Consulta un medico se necessario, soprattutto se l'eruzione cutanea è grave, diffusa o si trova sul viso o sui genitali.
+
+### Prevenzione
+Impara a identificare ed evitare il contatto con le seguenti piante:
+- Mucuna incarnata
+- Edera velenosa
+- Quercia velenosa
+- Sommacco velenoso
+- Albero di Rengas
+- Tromba d'India
+- Ortica
+- Gympie-gympie/albero urticante
+- Pastinaca selvatica
+- Panace gigante
+
+Informati e impara a identificare altre piante pericolose nella tua regione.
+
+Se venite a contatto con queste piante, lavate la zona interessata con acqua e sapone il prima possibile. Non aspettate che compaia un'eruzione cutanea. Non bruciate queste piante, poiché il fumo può causare irritazione.
+
+## Sonno
+<!-- K: sonno, addormentato, riposo, pisolino -->
+<!-- S: Per addormentarsi è necessario calmare la mente, assicurarsi di non avere né troppo caldo né troppo freddo e utilizzare lenzuola comode. -->
+
+Addormentarsi in mezzo alla natura può essere difficile, ma un riposo adeguato è importante per mantenere le energie.
+
+### Trattamento
+- Calmate la mente, magari con la meditazione.
+- Assumete un sonnifero.
+- Isolatevi dai rumori con i tappi per le orecchie.
+Ascoltate musica rilassante in sottofondo o rumore bianco.
+
+### Prevenzione
+- Evitate attività faticose, pasti abbondanti e caffeina prima di andare a letto.
+- Sistemate le lenzuola e il riparo in modo da non avere né troppo caldo né troppo freddo.
+- Rendete confortevole la vostra zona notte.
+- Usa un cuscino imbottendolo con vestiti di ricambio o un sacco di raccolta riempito con foglie secche o altro materiale morbido.
+- Mantieni un'illuminazione bassa mentre ti prepari per dormire.
+- Valuta l'utilizzo di una maschera per dormire per bloccare la luce della luna, del falò o degli altri campeggiatori.
+
+## Cecità da neve
+<!-- K: neve, cecità, occhi, mal di testa, luce, sensibilità, rossore, prurito, bruciore, UV -->
+<!-- S: I sintomi includono occhi rossi, bruciore e lacrimazione, sensibilità alla luce e mal di testa. Trattare coprendo gli occhi con un panno scuro. Prevenire indossando occhiali da sole con protezione UV o occhiali da sci. -->
+
+La cecità da neve è causata da una sovraesposizione alla luce solare riflessa da neve, ghiaccio o acqua negli occhi.
+
+### Sintomi
+- Occhi rossi, bruciore e lacrimazione
+- Visione offuscata
+- Sensibilità alla luce
+- Mal di testa
+
+### Trattamento
+1. Rimuovere le lenti a contatto.
+2. Riposare con gli occhi chiusi. È possibile anche applicare un panno freddo sugli occhi.
+
+### Prevenzione
+- Indossare occhiali da sole con protezione UV o occhiali da sci.
+- Indossare un cappello a tesa larga.
+
+Se non si dispone di questi, consultare la sezione "Lavoretti: Occhiali da sole" o applicare della fuliggine sotto gli occhi per ridurre il riverbero.
+
+## Schegge, spine, aculei e aghi
+<!-- K: scheggia, spina, legno, ago, aculeo, spina, rimuovere, pinzette, mano, porcospino, riccio di mare, cactus -->
+<!-- S: Trattare rimuovendo la scheggia con una pinzetta e pulendo la zona. Prevenire facendo attenzione quando si maneggia legno secco o cespugli spinosi. -->
+
+Schegge e spine possono essere dolorose e, se non rimosse, possono causare infezioni.
+
+### Trattamento
+Se la scheggia è profonda o molto grande, consultare un medico e non tentare di rimuoverla da soli.
+
+1. Esaminare la scheggia per verificare se qualche parte è esposta e determinare la direzione in cui è penetrata.
+2. Se nessuna parte è esposta, sterilizzare un ago con un disinfettante per le mani o con il fuoco (questo potrebbe non sterilizzarlo completamente) e incidere delicatamente la pelle per esporre un'estremità della scheggia.
+3. Usate una pinzetta per afferrare l'estremità esposta della scheggia, preferibilmente tirando nella direzione opposta a quella in cui è entrata.
+4. Estraete lentamente la scheggia.
+5. Ripetete l'operazione se rimangono dei frammenti.
+6. Se la scheggia ha causato una ferita sanguinante durante la rimozione, trattatela come un taglio.
+
+Spine, aculei e aghi possono essere rimossi allo stesso modo delle schegge. Alcune spine possono essere rimosse facilmente anche senza pinzetta.
+
+Per gli aculei di riccio di mare, immergete la zona in acqua calda (non bollente) per 10-90 minuti prima di rimuoverli.
+
+### Prevenzione
+- Fate attenzione quando maneggiate legno secco o cespugli spinosi.
+- Evitate di camminare tra i cespugli spinosi.
+- Indossate maniche lunghe e pantaloni se vi avventurate fuori dai sentieri battuti.
+- Indossate calzature.
+- Non toccate animali o piante con spine o aculei.
+- Fate attenzione ai ricci di mare se camminate in mare.
+
+## Distorsioni e stiramenti
+<!-- K: distorsione, stiramento, tendine, legamento, muscolo, dolore, gonfiore, livido, movimento, spasmo, crampo, debolezza, schiocco, lacerazione -->
+<!-- S: I sintomi includono dolore, gonfiore, lividi, limitazione dei movimenti, spasmi muscolari, crampi e debolezza. Il trattamento prevede riposo, applicazione di ghiaccio, compressione ed elevazione della zona interessata. Per prevenire questi problemi, è consigliabile fare riscaldamento, indossare calzature adeguate e prestare attenzione a dove si mettono i piedi. -->
+
+Le distorsioni sono lesioni a un legamento, mentre gli stiramenti sono lesioni a un muscolo o a un tendine.
+
+### Sintomi
+- Dolore
+- Gonfiore
+- Lividi
+- Perdita di mobilità funzionale
+- Riduzione dell'ampiezza di movimento
+- Spasmi e crampi muscolari
+- Debolezza muscolare
+- Instabilità articolare
+- Durante l'infortunio si può avvertire uno schiocco o una lacerazione
+
+### Trattamento
+1. Mettere a riposo la zona lesa.
+2. Applicare del ghiaccio sulla zona interessata per 15-20 minuti ogni 2-3 ore per i primi giorni. È possibile utilizzare un panno imbevuto di acqua fredda o riempito di neve/ghiaccio. Non applicare neve o ghiaccio direttamente sulla pelle.
+3. Comprimere la zona con una benda e, se necessario, con una stecca per stabilizzarla.
+4. Tenere la zona sollevata.
+
+### Prevenzione
+- Riscaldarsi prima dell'attività fisica.
+- Indossare calzature adeguate.
+- Non sforzarsi eccessivamente.
+- Fare attenzione a dove si mettono i piedi.
+## Immersione in acqua
+<!-- K: acqua, annegare, galleggiare, immergersi, nuotare, corrente, risacca, marea, neve, ipotermia, caduta -->
+<!-- S: Se si viene trascinati da una corrente di risacca, nuotare parallelamente alla riva fino a quando non si è fuori. Se si cade nel ghiaccio, usare le gambe per risalire sul ghiaccio, quindi trattare l'ipotermia. -->
+
+### Caduta nel ghiaccio
+<!-- K: ghiaccio, neve, ipotermia, caduta -->
+
+Se cadi nel ghiaccio e rimani a galla, fai quanto segue:
+1. Torna indietro da dove sei venuto.
+2. Usa le gambe per spingerti sul ghiaccio.
+3. Rotola lontano dal buco.
+4. Striscia o scivola a pancia in giù per metterti in salvo.
+5. Raggiungi un luogo sicuro e caldo il più velocemente possibile.
+6. Togliti gli abiti bagnati e indossa abiti asciutti.
+7. Usa foglie o erba secca come isolante e riscaldati vicino a un fuoco.
+
+### Correnti di risacca
+<!-- K: risacca, corrente, marea -->
+
+Se vieni trascinato da una corrente di risacca, nuota parallelamente alla riva finché non ne esci. Quindi, nuota verso riva.
+
+![](file:///android_asset/survival_guide/rip_current.webp)
+
+## Scottatura solare
+<!-- K: scottatura solare, bruciatura, crema solare, UV, sole, rossore, dolore, gonfiore, vesciche, SPF, pelle -->
+<!-- S: I sintomi includono rossore, dolore, gonfiore e vesciche. Il trattamento consiste nell'evitare l'esposizione al sole, applicare una crema per scottature e assumere antidolorifici. Per prevenirla, è consigliabile indossare una crema solare, indumenti adeguati e rimanere all'ombra. -->
+
+La scottatura solare è causata da una sovraesposizione alle radiazioni ultraviolette (UV) del sole.
+
+### Sintomi
+- Rossore
+- Dolore
+- Gonfiore
+- Vesciche
+
+### Trattamento
+1. Evitare l'esposizione al sole.
+2.1. Fai scorrere acqua fredda sulla bruciatura o applica un impacco freddo.
+2. Applica gel di aloe vera, lozione alla calamina o crema all'idrocortisone.
+3. Facoltativamente, assumi antidolorifici.
+4. Bevi molta acqua
+Non bucare le vesciche.
+
+## Prevenzione
+- Usa una crema solare con un SPF di almeno 30.
+- Indossa un cappello.
+- Indossa maniche lunghe e pantaloni.
+- Rimani all'ombra.
+- Prendi maggiori precauzioni nei giorni con un alto indice UV.
+
+## Lavoretto: Occhiali da sole
+<!-- K: occhiali da sole, uv, sole, proteggere, occhi, betulla, stoffa, fessura, corteccia, lavoretto -->
+<!-- S: Crea degli "occhiali da sole" usando un pezzo di stoffa o corteccia di betulla con delle fessure. -->
+
+Puoi realizzare degli "occhiali da sole" usando un pezzo di stoffa o corteccia di betulla con delle fessure. Questo aiuta a proteggere gli occhi dai raggi UV e dal riverbero.
+
+![](file:///android_asset/survival_guide/improvised_sunglasses.webp)
+
+**Risorse**
+
+- Stoffa o corteccia di betulla
+- Corda
+
+**Istruzioni**
+
+1. Ritaglia un pezzo di stoffa o corteccia di betulla abbastanza grande da coprire gli occhi.
+2. Pratica dei piccoli tagli rettangolari in corrispondenza degli occhi. Non praticare i tagli mentre indossi la maschera.
+3. Fissa la corda a entrambe le estremità della maschera e assicurati che aderisca bene al viso.
