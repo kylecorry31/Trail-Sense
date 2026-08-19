@@ -1,0 +1,25 @@
+Realtà Aumentata
+- Disponibile in versione beta: visualizza punti di interesse, percorsi e sole/luna con la fotocamera
+- Non disponibile su dispositivi senza bussola
+- Attiva/disattiva i livelli
+- Distanza di visualizzazione del percorso regolabile
+- Visualizza la precisione della bussola/GPS
+
+Clinometro
+- Visualizza la misurazione nella visuale della fotocamera
+
+Astronomia
+- Visualizza il percorso del sole/luna in 3D
+- Visualizza la direzione e l'altitudine attuali del sole/luna con un clic
+
+Rilevatore di metalli
+- Riproduci un suono quando viene rilevato un metallo
+
+Sensori
+- Elenca tutti i sensori
+
+Guida utente
+- Aggiungi guide per le impostazioni
+
+Orologio
+- Aggiungi un'impostazione per utilizzare l'orologio digitale

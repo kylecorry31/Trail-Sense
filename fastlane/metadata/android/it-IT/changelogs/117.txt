@@ -1,0 +1,20 @@
+Batteria
+- Aggiunta impostazione per attivare/disattivare la registrazione della batteria
+
+Meteo
+- Spostata l'impostazione della cronologia della pressione nelle impostazioni meteo
+
+Realtà aumentata (sperimentale)
+- Migliorati i percorsi
+- Calibrazione dell'orientamento AR utilizzando il sole o la luna
+- Aggiunta impostazione per regolare i percorsi in base all'altitudine
+- Migliorata la calibrazione della fotocamera su alcuni dispositivi
+
+Orologio
+- Migliorata la precisione dell'ora GPS
+
+Varie
+- [Sperimentale] Fluidificazione della posizione
+- Passaggio tra fotocamera anteriore e posteriore nella maggior parte delle visualizzazioni
+- Aggiunto magnetometro e giroscopio personalizzati; potrebbe migliorare la precisione su alcuni dispositivi
+- Correzione di bug

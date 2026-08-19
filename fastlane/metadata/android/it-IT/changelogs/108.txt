@@ -15,4 +15,4 @@ Realtà aumentata (sperimentale)
 - Mostrare le posizioni del sole e della luna in AR
 
 Varie
-- Nuove azioni rapide: Pedometro, Monitoraggio meteo, Backtrack (toggle) e Modalità notturna.
+- Nuove azioni rapide: Pedometro, Monitoraggio meteo, Backtrack (toggle) e Modalità notturna

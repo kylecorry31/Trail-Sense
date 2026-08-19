@@ -1,0 +1,6 @@
+Astronomia
+- Visualizza le fasi lunari, le eclissi e gli sciami meteorici sul calendario
+
+Strumenti
+- Scegli quali strumenti visualizzare nella barra inferiore
+- Tieni premuto a lungo sulla barra inferiore per visualizzare le azioni rapide

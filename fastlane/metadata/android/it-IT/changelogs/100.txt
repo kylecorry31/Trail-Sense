@@ -7,7 +7,7 @@ Astronomia
 - Mostra l'orario di inizio e fine delle piogge di meteoriti
 - Mostra l'orario di picco delle eclissi
 - Aggiunge un pulsante di ricerca per trovare il prossimo evento astronomico
-- Clicca sulle voci dell'elenco del sole e della luna per vedere i dettagli avanzati
+- Clicca sulle voci sole / luna per vedere i dettagli avanzati
 
 Meteo / Clima
 - Migliora l'accuratezza della temperatura storica
