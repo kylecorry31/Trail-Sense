@@ -1667,4 +1667,7 @@
     <string name="pref_large_tile_cache_title">Utiliser un cache de tuiles de carte de grande taille</string>
     <string name="bearing_length_description">La longueur de la ligne de relèvement lorsqu\'un relèvement est actif</string>
     <string name="bearing_length_max">Max : %s</string>
+    <string name="location_permission">Autorisation d\'accès à la localisation</string>
+    <string name="location_required_for_cell_signals">L\'autorisation de localisation est requise pour afficher les signaux de réseau mobile à proximité</string>
+    <string name="bearing_length">Longueur du relèvement</string>
 </resources>
