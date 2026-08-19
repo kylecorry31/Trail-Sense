@@ -1,0 +1,46 @@
+Lo strumento Guida da campo può essere utilizzato per identificare piante, animali e altri oggetti in natura.
+
+## Pagine
+Le pagine sono organizzate in categorie, come piante e animali. Toccando una categoria, è possibile visualizzare le pagine corrispondenti. Per ogni elemento vengono visualizzati il nome, l'immagine e la prima frase delle note. Toccando un elemento, si visualizza la pagina completa. Nelle pagine create dall'utente, è presente un pulsante di menu che consente di modificare o eliminare la pagina.
+
+È possibile scegliere di visualizzare i nomi comuni, i nomi scientifici o entrambi in "Impostazioni > Guida da campo > Visualizzazione nome".
+
+È possibile cercare le pagine per nome, note o tag. I risultati della ricerca verranno visualizzati durante la digitazione.
+
+## Pagine predefinite
+Trail Sense include una serie di pagine predefinite che trattano piante, animali, funghi e rocce comuni utili per la sopravvivenza in natura. Non è possibile modificare o eliminare queste pagine, ma è possibile nasconderle utilizzando il menu corrispondente. Per visualizzare una pagina nascosta o per regolare quali pagine predefinite vengono mostrate, vai su "Impostazioni > Guida sul campo > Pagine predefinite".
+
+## Creare una pagina
+Per creare una nuova pagina, tocca il pulsante "Aggiungi" nell'angolo in basso a destra dello schermo. Puoi aggiungere un nome comune, un nome scientifico, un'immagine, delle note e dei tag alla pagina. L'immagine può essere scattata con la fotocamera o selezionata dalla galleria. Puoi toccare il pulsante di spunta nell'angolo in alto a destra per salvare la pagina.
+
+Se hai selezionato una categoria durante la creazione della pagina, la nuova pagina verrà precompilata con tale categoria. Le pagine senza categoria verranno visualizzate nella categoria "Altro".
+
+## Modificare una pagina
+Per modificare una pagina, tocca il pulsante del menu sulla riga della pagina e seleziona "Modifica". Puoi modificare il nome comune, il nome scientifico, l'immagine, le note e i tag della pagina. Puoi toccare il pulsante di spunta nell'angolo in alto a destra per salvare le modifiche.
+
+## Avvistamenti
+È possibile visualizzare e registrare gli avvistamenti relativi a una voce della guida sul campo toccando il link "Avvistamenti" sotto l'immagine della pagina della guida. Si aprirà l'elenco degli avvistamenti, che mostra l'ora e le note. Il numero totale di avvistamenti viene visualizzato accanto al link degli avvistamenti nella pagina della voce.
+
+È possibile creare un nuovo avvistamento toccando il pulsante "+" in basso a destra nell'elenco degli avvistamenti. È possibile inserire l'ora, la posizione, l'altitudine, se l'animale è stato raccolto, se visualizzarlo sulla mappa e aggiungere note. Tutti i campi sono facoltativi. Toccare il pulsante con il segno di spunta in alto a destra per salvare l'avvistamento.
+
+È possibile modificare un avvistamento toccandolo nell'elenco degli avvistamenti oppure utilizzando il menu a destra e selezionando "Modifica".
+
+È possibile eliminare un avvistamento dall'elenco degli avvistamenti utilizzando il menu a destra e selezionando "Elimina". È possibile eliminare un avvistamento anche durante la modifica, toccando il pulsante del menu in alto a sinistra e selezionando "Elimina".
+
+È possibile navigare verso un avvistamento utilizzando il menu a destra e selezionando "Naviga". Si aprirà lo strumento di navigazione con la posizione dell'avvistamento come destinazione.
+
+È possibile creare un beacon da un avvistamento utilizzando il menu a destra e selezionando "Crea beacon". Si aprirà lo strumento Beacon con un nuovo beacon precompilato con la posizione e il nome dell'avvistamento.
+
+## Visibilità del layer della mappa
+È possibile nascondere i singoli avvistamenti dal layer della mappa Avvistamenti. Quando si crea o si modifica un avvistamento, disattivare l'interruttore "Mostra sulla mappa" per nascondere l'avvistamento dalla mappa. Per impostazione predefinita, gli avvistamenti vengono visualizzati sulla mappa.
+
+## Eliminare una pagina
+Per eliminare una pagina, toccare il pulsante del menu sulla riga della pagina e selezionare "Elimina". Verrà richiesto di confermare l'eliminazione. L'eliminazione di una pagina è permanente e non può essere annullata.
+
+## Azione rapida
+È possibile abilitare l'azione rapida "Registra avvistamento" nelle impostazioni della scheda desiderata.
+
+Per utilizzare l'azione rapida, toccare il pulsante "Registra avvistamento" e selezionare una pagina per registrare un avvistamento. Verrà creato un nuovo avvistamento nella posizione corrente. Una volta creato, verrà visualizzata una notifica nella parte inferiore dello schermo con un pulsante per visualizzare l'avvistamento.
+
+## Avvertenza
+Questo strumento è destinato esclusivamente a scopi didattici. Prestare sempre attenzione nell'identificazione di piante, animali o funghi. Alcune specie possono essere pericolose o protette. In caso di dubbi sull'identificazione, consultare un professionista.

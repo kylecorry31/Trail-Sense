@@ -1,0 +1,17 @@
+Lo strumento Misuratore di Luce misura la distanza del fascio luminoso di una torcia, ovvero fino a che distanza può proiettare una luce utilizzabile.
+
+## Come testare la distanza del fascio luminoso di una torcia
+Per misurare la distanza del fascio luminoso di una torcia:
+
+1. Entra in una stanza buia.
+2. Appoggia il telefono sul pavimento, con lo schermo rivolto verso l'alto.
+3. Inserisci la distanza a cui terrai la torcia dal telefono (ad esempio, 1 metro).
+4. Tenendo la torcia alla distanza impostata, puntala verso lo schermo del telefono e accendila.
+5. Muovi la torcia mantenendo la distanza impostata e tenendola puntata verso il telefono.
+6. Quando la lettura smette di cambiare, la distanza del fascio luminoso è stata determinata.
+7. Puoi toccare "Ripristina" per testare un'altra torcia.
+
+## Scegliere la distanza del fascio luminoso appropriata
+La distanza del fascio luminoso necessaria dipende da come utilizzerai la torcia:
+- Per il campeggio, un fascio luminoso più corto ti permette di vedere l'ambiente circostante.
+- Per le escursioni, un fascio luminoso più lungo permette di vedere più lontano: prova a iniziare con 300 piedi (100 metri).

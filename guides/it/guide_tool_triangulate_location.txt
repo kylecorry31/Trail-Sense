@@ -1,0 +1,32 @@
+Lo strumento Triangola posizione può essere utilizzato per determinare le coordinate di una posizione utilizzando due posizioni note. Può essere utile sia per determinare la propria posizione se il GPS non funziona, sia per determinare le coordinate di una posizione distante.
+
+## Determinare la propria posizione
+Se il GPS non funziona e si desidera determinare la propria posizione attuale, è necessario innanzitutto visualizzare due posizioni note. Idealmente, queste posizioni dovrebbero essere distanti almeno 60 gradi l'una dall'altra per una maggiore precisione. Le posizioni possono essere dei beacon oppure è possibile determinarle utilizzando una mappa. Per una guida su come ottenere le coordinate di una posizione da una mappa, consultare la guida "Mappe offline" nella sezione "Calibrazione di fotomappe" > "Calibrazione dalla griglia della mappa". Una volta ottenute le coordinate delle due posizioni note, è possibile seguire questi passaggi per determinare la propria posizione:
+
+1. Selezionare "La mia posizione" come posizione da triangolare.
+2. Inserisci le coordinate della prima posizione nota e annota la direzione dalla tua posizione attuale a quella posizione come Posizione 1. Puoi toccare l'icona della fotocamera a destra del campo della direzione per inquadrare la posizione con la fotocamera.
+3. Ripeti la procedura per la Posizione 2 utilizzando la seconda posizione nota.
+4. Se la tua posizione può essere determinata, verrà visualizzata nella parte superiore dello schermo.
+
+## Determinare la posizione di una destinazione
+Se riesci a visualizzare una destinazione da più posizioni, puoi utilizzare lo strumento Triangola posizione per determinarne le coordinate.
+
+1. Seleziona "Destinazione" come posizione da triangolare.
+2. Annota la tua posizione e la direzione dalla tua posizione attuale a quella posizione come Posizione 1. Puoi toccare l'icona GPS accanto al campo della posizione per utilizzare la tua posizione attuale. Puoi toccare l'icona della fotocamera a destra del campo della direzione per inquadrare la posizione con la fotocamera.
+3. Spostati in una nuova posizione ad almeno 30 m / 100 piedi dalla prima posizione e ripeti l'operazione per la Posizione 2. Puoi riporre il telefono mentre ti sposti; lo strumento salverà i dati inseriti.
+4. Se la destinazione può essere determinata, verrà visualizzata nella parte superiore dello schermo.
+
+## Mappa di triangolazione
+Man mano che inserisci le posizioni, la mappa nella parte superiore dello schermo si aggiornerà mostrando l'intersezione delle due linee. Puoi usarla per verificare che le posizioni inserite siano corrette. La mappa ha sempre il Nord in alto.
+
+## Opzioni di condivisione
+Una volta triangolata una posizione, hai diverse opzioni:
+
+- **Beacon**: crea un beacon nella posizione triangolata. Si aprirà lo strumento Beacon. Per ulteriori informazioni sui beacon, consulta la guida "Beacon".
+
+- **Navigazione**: naviga verso la posizione triangolata. Si aprirà lo strumento Navigazione. Per maggiori informazioni sulla navigazione, consulta la guida "Navigazione".
+
+- **Condividi...**: Condividi la posizione triangolata. Si aprirà il menu di condivisione, dove potrai copiare le coordinate, condividerle come codice QR, aprirle in un'app di mappe o condividerle con un'altra app (ad esempio, tramite SMS).
+
+## Ripristina
+Puoi ripristinare lo strumento toccando il pulsante di ripristino nella parte inferiore dello schermo.

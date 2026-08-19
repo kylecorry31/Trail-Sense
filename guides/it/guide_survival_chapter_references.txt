@@ -1,0 +1,31 @@
+<!-- K: riferimenti, fonti, citazioni, libri, manuali, linee guida, siti web -->
+Questo capitolo elenca le risorse utilizzate per la creazione di questa guida di sopravvivenza. Tali risorse forniscono informazioni aggiuntive e potrebbero essere più aggiornate rispetto alle informazioni contenute in questa guida. Non sono affiliate a questa guida.
+
+## Libri e manuali
+
+- *ATP 3-50.21: Sopravvivenza* del Dipartimento dell'Esercito degli Stati Uniti
+- *Bushcraft 101: Guida pratica all'arte della sopravvivenza in natura* di Dave Canterbury
+- *FM 21-76: Sopravvivenza* del Dipartimento dell'Esercito degli Stati Uniti
+- *Manuale di sopravvivenza all'aperto* di Ray Mears
+- *Manuale di sopravvivenza SAS, terza edizione: La guida definitiva per sopravvivere ovunque* di John "Lofty" Wiseman
+- *Guida pratica alla sopravvivenza in natura di Tom Brown* di Tom Brown Jr., con Brandt Morgan
+- *Medicina in natura e in viaggio: Guida completa, quarta edizione* di Eric A. Weiss, MD
+
+## Siti web
+
+- American Academy of Dermatology ([aad.org](https://www.aad.org))
+- American Heart Association ([heart.org](https://www.heart.org))
+- Croce Rossa Americana ([redcross.org](https://www.redcross.org))
+- Cleveland Clinic ([my.clevelandclinic.org](https://my.clevelandclinic.org))
+- Healthdirect ([healthdirect.gov.au](https://www.healthdirect.gov.au))
+- Healthline ([healthline.com](https://www.healthline.com))
+- Leave No Trace ([lnt.org](https://lnt.org))
+- Mayo Clinic ([mayoclinic.org](https://www.mayoclinic.org))
+- MedlinePlus ([medlineplus.gov](https://medlineplus.gov))
+- Manuale Merck ([merckmanuals.com/professional](https://www.merckmanuals.com/professional))
+- Sito web del Servizio Sanitario Nazionale (NHS) per l'Inghilterra ([nhs.uk](https://www.nhs.uk))
+- Stati Uniti Centri per il controllo e la prevenzione delle malattie (CDC) ([cdc.gov](https://www.cdc.gov))
+- Servizio dei parchi nazionali degli Stati Uniti ([nps.gov](https://www.nps.gov))
+- Servizio meteorologico nazionale degli Stati Uniti ([weather.gov](https://www.weather.gov))
+- Wilderness Medical Society ([wms.org](https://wms.org))
+- Organizzazione Mondiale della Sanità (OMS) ([who.int](https://www.who.int))
