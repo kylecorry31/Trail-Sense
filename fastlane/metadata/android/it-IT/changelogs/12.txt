@@ -1,0 +1,8 @@
+- Ricevi una notifica X ore prima del tramonto (configurabile nelle impostazioni)
+- Aggiunti maggiori dettagli alla scheda astronomia (posizioni dei picchi, altitudine, azimut, escursione di marea)
+- La fase lunare ora riflette la data selezionata
+- Aggiunte torcia e SOS alla scheda di navigazione
+- Visualizzazione della precisione GPS grezza al clic sulle icone
+- Configura il formato delle coordinate nelle impostazioni
+- Risolto il problema di latenza all'apertura della scheda di navigazione
+- Miglioramenti all'interfaccia utente

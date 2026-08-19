@@ -1,0 +1,1 @@
+- Correzione dei colori dinamici sui dispositivi Samsung

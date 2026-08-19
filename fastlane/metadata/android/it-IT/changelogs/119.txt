@@ -1,0 +1,20 @@
+Realtà Aumentata
+- Non più in versione beta
+
+Torna indietro
+- Nuovo strumento per ricordarti di tornare indietro a metà escursione
+
+Fotocamera speculare
+- Nuovo strumento che funge da "specchio" utilizzando la fotocamera frontale
+
+Mappe fotografiche
+- Aggiunta l'azione rapida Apri mappa fotografica (apre la mappa attiva)
+
+Nuvole
+- Aggiunta l'azione rapida Scanner nuvole
+
+Beacon
+- Navigazione verso il segnale cellulare più vicino
+
+Varie
+- Apri qualsiasi strumento come azione rapida

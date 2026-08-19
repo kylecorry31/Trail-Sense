@@ -8,6 +8,7 @@ Meteo
 
 Astronomia
 - Aggiunge un'azione rapida per l'avviso del tramonto.
+
 Mappe fotografiche
 - Migliora la rotazione automatica
 

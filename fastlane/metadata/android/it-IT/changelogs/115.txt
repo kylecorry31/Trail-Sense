@@ -1,0 +1,13 @@
+Azioni rapide
+- Novità: Crea punto di riferimento, Nota
+- Rimozione dei limiti alle azioni rapide disponibili
+
+Realtà aumentata
+- Aggiunto supporto per i percorsi
+- Abilitata la barra dello zoom
+
+Varie
+- Separazione delle impostazioni di navigazione e percorso
+- Aggiunta opzione impostazioni durante la pressione prolungata di uno strumento
+- Aggiunta modalità compatta per la navigazione inferiore
+- Correzione di bug
