@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.concurrency.onIO
@@ -17,6 +20,8 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
+import com.kylecorry.andromeda.views.list.ListMenuItem
+import com.kylecorry.trail_sense.shared.views.PhotoUploadPagerAdapter
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
@@ -35,6 +40,11 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
     private var page by state(originalPage)
 
     private var backCallback: OnBackPressedCallback? = null
+
+    private val photoAdapter by lazy {
+        PhotoUploadPagerAdapter("field_guide", this::onPhotoAdded, this::getPhotoMenuItems)
+    }
+    private var pendingPhotoPosition = 0
 
     // Tags
     private val tags =
@@ -87,12 +97,20 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             page = page.copy(notes = it.toString())
         }
 
-        binding.photoUpload.folder = "field_guide"
-        binding.photoUpload.setOnPhotoChangeListener { path ->
-            inBackground {
-                deleteUnsavedImages()
-                page = page.copy(images = listOfNotNull(path))
+        binding.photoUploadPager.adapter = photoAdapter
+        binding.photoUploadPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updatePhotoArrows()
             }
+        })
+
+        binding.previousPhotoButton.setOnClickListener {
+            binding.photoUploadPager.setCurrentItem(binding.photoUploadPager.currentItem - 1, true)
+        }
+
+        binding.nextPhotoButton.setOnClickListener {
+            binding.photoUploadPager.setCurrentItem(binding.photoUploadPager.currentItem + 1, true)
         }
 
         initializeTags(
@@ -158,10 +176,73 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             )
         }
 
-        val image = page.images.firstOrNull()
-        useEffect(image) {
-            binding.photoUpload.setPhoto(image)
+        useEffect(page.images) {
+            photoAdapter.setPhotos(page.images)
+            binding.photoUploadPager.setCurrentItem(pendingPhotoPosition, false)
+            updatePhotoArrows()
         }
+    }
+
+    private fun getPhotoMenuItems(position: Int): List<ListMenuItem> {
+        return listOfNotNull(
+            // The first photo is already the default
+            if (position > 0) {
+                ListMenuItem(getString(R.string.set_as_default_photo)) {
+                    val images = page.images.toMutableList()
+                    images.add(0, images.removeAt(position))
+                    onPhotosChanged(images)
+                }
+            } else {
+                null
+            },
+            ListMenuItem(getString(R.string.delete)) {
+                Alerts.dialog(
+                    requireContext(),
+                    getString(R.string.delete)
+                ) { cancelled ->
+                    if (!cancelled) {
+                        onPhotosChanged(page.images.filterIndexed { index, _ -> index != position })
+                    }
+                }
+            }
+        )
+    }
+
+    private fun onPhotoAdded(path: String) {
+        onPhotosChanged(page.images + path)
+    }
+
+    private fun onPhotosChanged(images: List<String>) {
+        val existing = page.images
+        pendingPhotoPosition = when {
+            // Show the photo which was just added
+            images.size > existing.size -> images.lastIndex
+            // Show the photo which took the place of the deleted one
+            images.size < existing.size -> binding.photoUploadPager.currentItem.coerceAtMost(images.size)
+            // Show the new default photo
+            else -> 0
+        }
+
+        inBackground {
+            deleteUnsavedImages(images)
+            page = page.copy(images = images)
+        }
+    }
+
+    private fun updatePhotoArrows() {
+        val position = binding.photoUploadPager.currentItem
+        // There is always a page for adding a photo, so there is nothing to page through until
+        // there is at least one photo
+        val hasMultiplePages = photoAdapter.itemCount > 1
+        binding.previousPhotoButton.isVisible = hasMultiplePages
+        binding.nextPhotoButton.isVisible = hasMultiplePages
+        binding.previousPhotoButton.isEnabled = position > 0
+        binding.nextPhotoButton.isEnabled = position < photoAdapter.itemCount - 1
+
+        // The last page is used to add a photo rather than to view one
+        val photoCount = photoAdapter.itemCount - 1
+        binding.photoPosition.isVisible = hasMultiplePages && position < photoCount
+        binding.photoPosition.text = getString(R.string.image_index, position + 1, photoCount)
     }
 
     private fun save() {
@@ -178,9 +259,9 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         return originalPage != page
     }
 
-    private suspend fun deleteUnsavedImages() = onIO {
+    private suspend fun deleteUnsavedImages(newImages: List<String>) = onIO {
         val originalImages = originalPage.images
-        val imagesToDelete = page.images.filter { it !in originalImages }
+        val imagesToDelete = page.images.filter { it !in newImages && it !in originalImages }
         imagesToDelete.forEach { files.delete(it) }
     }
 

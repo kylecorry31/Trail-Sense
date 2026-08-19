@@ -28,10 +28,54 @@
             android:paddingEnd="16dp"
             android:paddingBottom="@dimen/default_bottom_margin">
 
-            <ImageView
-                android:id="@+id/image"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/photo_carousel"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="wrap_content">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/images"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/previous_photo_button"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/previous"
+                    android:rotation="180"
+                    app:icon="@drawable/ic_keyboard_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/images" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/next_photo_button"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/next"
+                    app:icon="@drawable/ic_keyboard_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@id/previous_photo_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/previous_photo_button" />
+
+                <TextView
+                    android:id="@+id/photo_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    app:layout_constraintBottom_toBottomOf="@id/previous_photo_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/previous_photo_button"
+                    tools:text="Image 1/2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/sightings_title"

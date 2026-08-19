@@ -6,7 +6,7 @@
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:backgroundTint="@android:color/transparent">
 
         <FrameLayout
@@ -22,14 +22,13 @@
                 android:layout_height="match_parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/photo_upload_delete_button"
+                android:id="@+id/photo_upload_menu_button"
                 style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
                 android:layout_margin="8dp"
-                android:contentDescription="@string/delete"
-                app:icon="@drawable/ic_cancel" />
+                app:icon="@drawable/ic_menu_dots" />
 
         </FrameLayout>
 
