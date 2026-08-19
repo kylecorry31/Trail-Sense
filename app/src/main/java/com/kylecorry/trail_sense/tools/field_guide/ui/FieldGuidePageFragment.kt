@@ -76,14 +76,15 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             }
         }
 
-        useEffect(page, imagesView, photoCarouselView) {
-            val images = page?.images ?: emptyList()
+        val images = page?.images ?: emptyList()
+
+        useEffect(images, imagesView, photoCarouselView) {
             photoCarouselView.isVisible = images.isNotEmpty()
+            setPhotoPosition(0)
             imagesView.adapter = PhotoPagerAdapter(images)
         }
 
-        useEffect(page, photoPosition, photoPositionView, previousPhotoButton, nextPhotoButton) {
-            val images = page?.images ?: emptyList()
+        useEffect(images, photoPosition, photoPositionView, previousPhotoButton, nextPhotoButton) {
             val hasMultiplePhotos = images.size > 1
             previousPhotoButton.isVisible = hasMultiplePhotos
             nextPhotoButton.isVisible = hasMultiplePhotos

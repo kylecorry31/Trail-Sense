@@ -40,8 +40,9 @@ class PhotoUploadPagerAdapter(
         RecyclerView.ViewHolder(view) {
 
         fun bind(position: Int) {
-            view.setPhoto(photos.getOrNull(position))
-            view.setMenu(menuItems(position))
+            val photo = photos.getOrNull(position)
+            view.setPhoto(photo)
+            view.setMenu(if (photo == null) emptyList() else menuItems(position))
             view.setOnPhotoAddedListener(onPhotoAdded)
         }
     }

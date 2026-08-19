@@ -77,7 +77,7 @@ class PhotoUploadView(context: Context, attrs: AttributeSet? = null) :
     fun setPhoto(path: String?) {
         imageHolder.isVisible = path != null
         emptyView.isVisible = path == null
-        image.setImageURI(path?.let { files.uri(it) })
+        image.setImageDrawable(path?.let { files.drawable(it) })
     }
 
     fun setMenu(items: List<ListMenuItem>) {

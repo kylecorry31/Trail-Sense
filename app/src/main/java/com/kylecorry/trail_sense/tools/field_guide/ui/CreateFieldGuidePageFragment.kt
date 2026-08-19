@@ -198,7 +198,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             ListMenuItem(getString(R.string.delete)) {
                 Alerts.dialog(
                     requireContext(),
-                    getString(R.string.delete)
+                    getString(R.string.delete_image_prompt)
                 ) { cancelled ->
                     if (!cancelled) {
                         onPhotosChanged(page.images.filterIndexed { index, _ -> index != position })
@@ -217,14 +217,17 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         pendingPhotoPosition = when {
             // Show the photo which was just added
             images.size > existing.size -> images.lastIndex
-            // Show the photo which took the place of the deleted one
-            images.size < existing.size -> binding.photoUploadPager.currentItem.coerceAtMost(images.size)
+            // Show the photo which took the place of the deleted one, or the last photo if the
+            // deleted one was at the end
+            images.size < existing.size -> binding.photoUploadPager.currentItem.coerceAtMost(
+                maxOf(images.lastIndex, 0)
+            )
             // Show the new default photo
             else -> 0
         }
 
         inBackground {
-            deleteUnsavedImages(images)
+            onIO { deleteUnusedPhotos(images) }
             page = page.copy(images = images)
         }
     }
@@ -247,7 +250,9 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
     private fun save() {
         inBackground {
+            val removedPhotos = originalPage.images.filter { it !in page.images }
             service.savePage(page)
+            onIO { removedPhotos.forEach { files.delete(it) } }
             onMain {
                 backCallback?.remove()
                 findNavController().navigateUp()
@@ -259,7 +264,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         return originalPage != page
     }
 
-    private suspend fun deleteUnsavedImages(newImages: List<String>) = onIO {
+    private fun deleteUnusedPhotos(newImages: List<String>) {
         val originalImages = originalPage.images
         val imagesToDelete = page.images.filter { it !in newImages && it !in originalImages }
         imagesToDelete.forEach { files.delete(it) }
