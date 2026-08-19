@@ -86,7 +86,7 @@ class PorterStemmer(private val additionalReplacements: Map<String, String> = em
         if (word.endsWith("ion") && measure(replaceEnd(word, "ion", "")) > 1 && getCharacter(
                 word,
                 -4
-            ) !in st
+            ) in st
         ) {
             return replaceEnd(word, "ion", "")
         }
@@ -166,7 +166,8 @@ class PorterStemmer(private val additionalReplacements: Map<String, String> = em
             "izer" to "ize", "bli" to "ble", "alli" to "al", "entli" to "ent",
             "eli" to "e", "ousli" to "ous", "ization" to "ize", "ation" to "ate",
             "ator" to "ate", "alism" to "al", "iveness" to "ive", "fulness" to "ful",
-            "ousness" to "ous", "aliti" to "al", "iviti" to "ive", "biliti" to "ble"
+            "ousness" to "ous", "aliti" to "al", "iviti" to "ive", "biliti" to "ble",
+            "logi" to "log"
         )
 
         private val replacements3 = mapOf(
@@ -203,7 +204,7 @@ class PorterStemmer(private val additionalReplacements: Map<String, String> = em
                 return false
             }
 
-            if (char == 'y' && actualIndex != 0 && !isConsonant(word, actualIndex - 1)) {
+            if (char == 'y' && actualIndex != 0 && isConsonant(word, actualIndex - 1)) {
                 return false
             }
 

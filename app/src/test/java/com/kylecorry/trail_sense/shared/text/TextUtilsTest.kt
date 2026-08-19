@@ -34,7 +34,7 @@ class TextUtilsTest {
             "return",
             "list",
             "exampl", // This is how the stemmer works
-            "contraction",
+            "contract",
             "here",
             "knife",
             "compass",
