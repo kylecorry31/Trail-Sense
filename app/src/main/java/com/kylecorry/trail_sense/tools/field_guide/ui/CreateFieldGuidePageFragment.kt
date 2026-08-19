@@ -1,19 +1,12 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
-import android.net.Uri
 import android.os.Bundle
-import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
-import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.concurrency.onIO
@@ -21,11 +14,8 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateFieldGuidePageBinding
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
@@ -33,7 +23,6 @@ import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
-import java.util.UUID
 
 class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageBinding>() {
 
@@ -41,7 +30,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
     private val service by lazy { getAppService<FieldGuideService>() }
     private val tagNameMapper by lazy { FieldGuideTagNameMapper(requireContext()) }
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
-    private val uriPicker by lazy { IntentUriPicker(this, requireContext()) }
 
     private var originalPage by state(FieldGuidePage(0))
     private var page by state(originalPage)
@@ -99,23 +87,11 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             page = page.copy(notes = it.toString())
         }
 
-        binding.deleteImageButton.setOnClickListener {
+        binding.photoUpload.folder = "field_guide"
+        binding.photoUpload.setOnPhotoChangeListener { path ->
             inBackground {
-                deleteImage()
-            }
-        }
-
-        binding.takePhotoButton.setOnClickListener {
-            inBackground {
-                val uri = CustomUiUtils.takePhoto(this@CreateFieldGuidePageFragment)
-                uploadPhoto(uri)
-            }
-        }
-
-        binding.selectPhotoButton.setOnClickListener {
-            inBackground(BackgroundMinimumState.Created) {
-                val uri = uriPicker.open(listOf("image/*")).getOrNull()
-                uploadPhoto(uri)
+                deleteUnsavedImages()
+                page = page.copy(images = listOfNotNull(path))
             }
         }
 
@@ -184,12 +160,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
         val image = page.images.firstOrNull()
         useEffect(image) {
-            binding.imageHolder.isVisible = image != null
-            if (image != null) {
-                binding.image.setImageURI(files.uri(image))
-            } else {
-                binding.image.setImageURI(null)
-            }
+            binding.photoUpload.setPhoto(image)
         }
     }
 
@@ -207,46 +178,10 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         return originalPage != page
     }
 
-    private suspend fun uploadPhoto(uri: Uri?) = onIO {
-        uri ?: return@onIO
-
-        // Delete unsaved images
+    private suspend fun deleteUnsavedImages() = onIO {
         val originalImages = originalPage.images
         val imagesToDelete = page.images.filter { it !in originalImages }
         imagesToDelete.forEach { files.delete(it) }
-
-        // Copy over the new image
-        val file = files.copyToLocal(uri, "field_guide", "${UUID.randomUUID()}.webp") ?: return@onIO
-        val path = files.getLocalPath(file)
-
-        // Reduce the resolution
-        var rotation = 0
-        tryOrLog {
-            val exif = ExifInterface(file)
-            rotation = exif.rotationDegrees
-        }
-        val bmp = files.bitmap(path, Size(500, 500)) ?: return@onIO
-        val rotated = if (rotation != 0) {
-            bmp.rotate(rotation.toFloat())
-        } else {
-            bmp
-        }
-
-        if (rotated != bmp) {
-            bmp.recycle()
-        }
-
-        files.save(path, rotated, 75, true)
-
-        // Update the page
-        page = page.copy(images = listOf(path))
-    }
-
-    private suspend fun deleteImage() = onIO {
-        val originalImages = originalPage.images
-        val imagesToDelete = page.images.filter { it !in originalImages }
-        imagesToDelete.forEach { files.delete(it) }
-        page = page.copy(images = emptyList())
     }
 
     private fun initializeTags(

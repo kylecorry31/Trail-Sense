@@ -190,7 +190,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Take photo")
         click(R.id.capture_button)
 
-        isVisible(R.id.image)
+        isVisible(R.id.photo_upload_image)
 
         click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
 
