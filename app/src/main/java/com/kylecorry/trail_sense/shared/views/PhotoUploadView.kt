@@ -7,7 +7,6 @@ import android.util.Size
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.findFragment
@@ -26,9 +25,10 @@ import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import java.util.UUID
 
 class PhotoUploadView(context: Context, attrs: AttributeSet? = null) :
-    LinearLayout(context, attrs) {
+    FrameLayout(context, attrs) {
 
     private val imageHolder: FrameLayout
+    private val emptyView: View
     private val image: ImageView
     private val deleteImageButton: View
     private val takePhotoButton: View
@@ -44,9 +44,9 @@ class PhotoUploadView(context: Context, attrs: AttributeSet? = null) :
     var quality: Int = 75
 
     init {
-        orientation = VERTICAL
         inflate(context, R.layout.view_photo_upload, this)
         imageHolder = findViewById(R.id.photo_upload_image_holder)
+        emptyView = findViewById(R.id.photo_upload_empty)
         image = findViewById(R.id.photo_upload_image)
         deleteImageButton = findViewById(R.id.photo_upload_delete_button)
         takePhotoButton = findViewById(R.id.photo_upload_take_photo_button)
@@ -73,6 +73,7 @@ class PhotoUploadView(context: Context, attrs: AttributeSet? = null) :
 
     fun setPhoto(path: String?) {
         imageHolder.isVisible = path != null
+        emptyView.isVisible = path == null
         image.setImageURI(path?.let { files.uri(it) })
     }
 

@@ -162,7 +162,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Bird")
         clickOk()
         hasText(R.id.tag_classifications, "Animal, Bird")
-        input(R.id.notes, "Notes")
+        scrollUntil { input(R.id.notes, "Notes") }
         scrollToEnd(R.id.scroll_view)
 
         click(R.id.tag_locations)
