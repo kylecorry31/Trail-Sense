@@ -2,13 +2,14 @@ package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.text.util.Linkify.WEB_URLS
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.text.toSpannable
 import androidx.core.text.util.LinkifyCompat
 import androidx.core.view.isVisible
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
@@ -24,7 +25,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useToolEventListener
 import com.kylecorry.trail_sense.shared.extensions.useTrigger
-import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.views.PhotoPagerAdapter
 import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.field_guide.FieldGuideToolRegistration
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
@@ -38,16 +39,20 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         // Views
         val titleView = useView<Toolbar>(R.id.field_guide_page_title)
         val notesView = useView<TextView>(R.id.notes)
-        val imageView = useView<ImageView>(R.id.image)
+        val imagesView = useView<ViewPager2>(R.id.images)
+        val photoCarouselView = useView<View>(R.id.photo_carousel)
+        val photoPositionView = useView<TextView>(R.id.photo_position)
+        val previousPhotoButton = useView<View>(R.id.previous_photo_button)
+        val nextPhotoButton = useView<View>(R.id.next_photo_button)
         val tagsView = useView<FlexboxLayout>(R.id.tags)
         val sightingsView = useView<TextView>(R.id.sightings_title)
         val navController = useNavController()
 
         // State
         val page = usePage()
+        val (photoPosition, setPhotoPosition) = useState(0)
 
         // Services
-        val files = useService<FileSubsystem>()
         val prefs = useService<UserPreferences>()
         val fieldGuideFormatter = useService<FieldGuideFormatService>()
 
@@ -55,7 +60,41 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             notesView.movementMethod = LinkMovementMethodCompat.getInstance()
         }
 
-        useEffect(page, titleView, notesView, imageView, tagsView, navController, fieldGuideFormatter) {
+        useEffect(imagesView, previousPhotoButton, nextPhotoButton) {
+            imagesView.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    setPhotoPosition(position)
+                }
+            })
+
+            previousPhotoButton.setOnClickListener {
+                imagesView.setCurrentItem(imagesView.currentItem - 1, true)
+            }
+
+            nextPhotoButton.setOnClickListener {
+                imagesView.setCurrentItem(imagesView.currentItem + 1, true)
+            }
+        }
+
+        val images = page?.images ?: emptyList()
+
+        useEffect(images, imagesView, photoCarouselView) {
+            photoCarouselView.isVisible = images.isNotEmpty()
+            setPhotoPosition(0)
+            imagesView.adapter = PhotoPagerAdapter(images)
+        }
+
+        useEffect(images, photoPosition, photoPositionView, previousPhotoButton, nextPhotoButton) {
+            val hasMultiplePhotos = images.size > 1
+            previousPhotoButton.isVisible = hasMultiplePhotos
+            nextPhotoButton.isVisible = hasMultiplePhotos
+            previousPhotoButton.isEnabled = photoPosition > 0
+            nextPhotoButton.isEnabled = photoPosition < images.size - 1
+            photoPositionView.isVisible = hasMultiplePhotos
+            photoPositionView.text = getString(R.string.image_index, photoPosition + 1, images.size)
+        }
+
+        useEffect(page, titleView, notesView, tagsView, navController, fieldGuideFormatter) {
             titleView.rightButton.isVisible = page?.isBuiltIn == false
             titleView.rightButton.setOnClickListener {
                 navController.navigate(
@@ -74,10 +113,6 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             val noteText = page?.notes?.toSpannable()
             noteText?.let { LinkifyCompat.addLinks(it, WEB_URLS) }
             notesView.text = noteText
-            val image = page?.images?.firstOrNull()
-            imageView.setImageDrawable(
-                image?.let { files.drawable(it) }
-            )
 
             displayTags(tagsView, page?.tags)
         }

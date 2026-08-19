@@ -47,52 +47,55 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
-            <FrameLayout
-                android:id="@+id/image_holder"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/photo_carousel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:layout_marginTop="16dp">
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/photo_upload_pager"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/delete_image_button"
+                    android:id="@+id/previous_photo_button"
                     style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:layout_margin="8dp"
-                    android:contentDescription="@string/delete"
-                    app:icon="@drawable/ic_cancel" />
+                    android:contentDescription="@string/previous"
+                    android:rotation="180"
+                    app:icon="@drawable/ic_keyboard_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/photo_upload_pager" />
 
-            </FrameLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/take_photo_button"
-                    android:layout_width="0dp"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/next_photo_button"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/take_photo" />
+                    android:contentDescription="@string/next"
+                    app:icon="@drawable/ic_keyboard_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@id/previous_photo_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/previous_photo_button" />
 
-                <Button
-                    android:id="@+id/select_photo_button"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/photo_position"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/select_from_gallery" />
-            </LinearLayout>
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    app:layout_constraintBottom_toBottomOf="@id/previous_photo_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/previous_photo_button"
+                    tools:text="Image 1/2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Outlined"

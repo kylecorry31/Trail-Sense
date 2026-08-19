@@ -2027,4 +2027,8 @@
     <string name="map_error_unable_to_copy">Unable to copy map file</string>
     <!--Whether field guide sightings should be colored based on the classification (ex. animal, plant) on the map-->
     <string name="color_by_classification">Color by classification</string>
+    <string name="set_as_default_photo">Set as default</string>
+    <string name="delete_image_prompt">Delete image?</string>
+    <!--The position of the photo being viewed, ex. Image 1/2-->
+    <string name="image_index">Image %1$d/%2$d</string>
 </resources>
