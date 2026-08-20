@@ -1222,9 +1222,9 @@
     <string name="tide_model_auto">Modello marea (auto)</string>
     <string name="nearby_beacons">Segnaposti vicini</string>
     <plurals name="page_group_summary">
-        <item quantity="one">pagina</item>
-        <item quantity="many">pagine</item>
-        <item quantity="other">pagine</item>
+        <item quantity="one">%d pagina</item>
+        <item quantity="many">%d pagine</item>
+        <item quantity="other">%d pagine</item>
     </plurals>
     <string name="pref_navigation_lock_screen_when_open_title">Mostra sulla schermata di blocco quando aperto</string>
     <string name="milligrams">Milligrammi</string>
@@ -1675,4 +1675,7 @@
     <string name="map_error_invalid_map_file">File di mappa non valido</string>
     <string name="color_by_classification">Colore per classificazione</string>
     <string name="sighting_label">%s visualizzata</string>
+    <string name="set_as_default_photo">Imposta come predefinito</string>
+    <string name="delete_image_prompt">Cancella l\'immagine?</string>
+    <string name="image_index">Immagine %1$d/%2$d</string>
 </resources>
