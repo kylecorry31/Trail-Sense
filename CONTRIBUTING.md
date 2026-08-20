@@ -56,12 +56,22 @@ All code/translation contributors will be credited in the Licenses section of Tr
 - Unit tests are not required for UI or infrastructure changes, but should be added if you are writing domain logic (most logic lives in the `kylecorry31/sol` repo). If you are unsure, comment on the issue.
 - Pull requests that have requested changes which haven't received activity (response / commit / etc) after 1 week will be closed due to inactivity. If you are planning on addressing the changes but they are taking a while, please reply to the review comments. If you make changes after the pull request is closed, tag me in a comment or re-open a pull request.
 - If you are new to Trail Sense developement, I recommend starting with small sized issues.
-- I don't care about commit messages, I squash merge with my own message when I complete your PR.
+- I don't care about commit messages, I squash merge with my own message when I complete your PR.\
+
+## Translations
+- Do not use machine translation unless you are proficient in both English and the language you are translating to.
+- If you use machine translation, you need to fully proofread it and confirm it is an accurate translation.
+- If you are suspected of using machine translations without proofreading, you will be banned from translations and need to reach out to me to discuss details about me unbanning you. It is a lot of work to accept translations, especially when there is a high volume of incorrect translations.
+- Do not use machine translation to translate the survival guide. That contains critical information that machines mess up on.
+
+Machine translation = translating using a computer, whether that is something like Google Translate or AI it falls into the same bucket.
 
 ## Survival Guide
 The survival guide is heavily curated and all information must be easy to follow and relevant to wilderness survival for the average person. I do not want to include advanced topics or bushcraft in the guide.
 
 I sell a physical copy of the survival guide, so I ask that all content is written by me. I'm open to suggestions for areas to improve or add.
+
+Do not translate this with machine translation.
 
 ## Generative AI
 I don't care what tools you use*. Review and understand the output, clean it up before sending it my way, and don't submit vibecoded code or AI generated discussions.
