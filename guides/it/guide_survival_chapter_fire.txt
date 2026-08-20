@@ -76,7 +76,7 @@ Trovare legna secca può essere difficile, ma cercate rami secchi sugli alberi, 
 ### Bastoncini "piuma"
 <!-- K: feather-stick -->
 
-Un bastoncino "piuma' può essere usato come esca e legna da ardere per accendere un fuoco quando è difficile trovare altro materiale infiammabile.
+TODO: Incomplete translation.
 
 Per realizzare un bastoncino "piuma":
 
@@ -104,7 +104,7 @@ Ecco i passaggi da seguire per accendere il fuoco:
 
 ![](file:///android_asset/survival_guide/fire_tepee.webp)
 
-### mantenere viva la brace.
+### Mantenere viva la brace
 <!-- K: ember, nurse, blow, oxygen, tinder -->
 
 Una brace è un piccolo pezzo di esca che sta covando ma non ha ancora formato una fiamma. Una volta ottenuta una brace, soffiateci delicatamente dentro e alimentatela con altra esca finché non compare una fiamma. A volte, è più facile tenere l'esca con la brace e avvicinare le mani per trovare il giusto equilibrio di ossigeno, combustibile e calore.
@@ -141,7 +141,7 @@ Alcuni acciarini sono dotati di un blocco di magnesio, TODO: Incomplete translat
 ### Fornello da campo
 <!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, propane -->
 
-La maggior parte dei fornellini da campeggio richiede un sistema di accensione separato, come un accendino, mentre alcuni possono avere un accenditore piezoelettrico integrato. Posiziona sempre il fornello su una superficie piana, stabile e non infiammabile (per esempio una roccia). Prima di utilizzarlo, leggi attentamente le istruzioni del produttore..
+La maggior parte dei fornellini da campeggio richiede un sistema di accensione separato, come un accendino, mentre alcuni possono avere un accenditore piezoelettrico integrato. Posiziona sempre il fornello su una superficie piana, stabile e non infiammabile (per esempio una roccia). Prima di utilizzarlo, leggi attentamente le istruzioni del produttore.
 
 **Per utilizzare un fornello a cartuccia di gas:**
 

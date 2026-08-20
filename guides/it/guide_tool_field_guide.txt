@@ -21,7 +21,7 @@ Per modificare una pagina, tocca il pulsante del menu sulla riga della pagina e 
 ## Avvistamenti
 È possibile visualizzare e registrare gli avvistamenti relativi a una voce della guida sul campo toccando il link "Avvistamenti" sotto l'immagine della pagina della guida. Si aprirà l'elenco degli avvistamenti, che mostra l'ora e le note. Il numero totale di avvistamenti viene visualizzato accanto al link degli avvistamenti nella pagina della voce.
 
-È possibile creare un nuovo avvistamento toccando il pulsante "+" in basso a destra nell'elenco degli avvistamenti. È possibile inserire l'ora, la posizione, l'altitudine, se l'animale è stato raccolto, se visualizzarlo sulla mappa e aggiungere note. Tutti i campi sono facoltativi. Toccare il pulsante con il segno di spunta in alto a destra per salvare l'avvistamento.
+È possibile creare un nuovo avvistamento toccando il pulsante "+" in basso a destra nell'elenco degli avvistamenti. È possibile inserire l'ora, la posizione, l'altitudine, TODO: Incomplete translation., se visualizzarlo sulla mappa e aggiungere note. Tutti i campi sono facoltativi. Toccare il pulsante con il segno di spunta in alto a destra per salvare l'avvistamento.
 
 È possibile modificare un avvistamento toccandolo nell'elenco degli avvistamenti oppure utilizzando il menu a destra e selezionando "Modifica".
 

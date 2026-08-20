@@ -49,38 +49,30 @@ Molte persone portano sempre con sé lo smartphone e, sebbene non si debba fare 
 - Corda (paracord)
 - Kit da cucito (ago e filo)
 - Nei climi più freddi:
-
-- Strati isolanti (giacca, pantaloni, cappello, guanti)
-
-- Impermeabile Strato esterno
-
-- Stivali impermeabili o isolanti
-- Intimo termico
-- Scaldamani
+  - Strati isolanti (giacca, pantaloni, cappello, guanti)
+  - Impermeabile Strato esterno
+  - Stivali impermeabili o isolanti
+  - Intimo termico
+  - Scaldamani
 - Per i pernottamenti:
-
-- Cambio di vestiti
-- Sacco a pelo
-- Materassino
-- Tenda
-- Telo protettivo
-- Sacca o contenitore anti-orso
+  - Cambio di vestiti
+  - Sacco a pelo
+  - Materassino
+  - Tenda
+  - Telo protettivo
+  - Sacca o contenitore anti-orso
 - Acqua (sufficiente per tutta la durata del viaggio, più un po' di scorta)
-
-Per i viaggi più lunghi, porta con te un sistema di purificazione dell'acqua e pianifica il percorso includendo fonti d'acqua.
-
+  - Per i viaggi più lunghi, porta con te un sistema di purificazione dell'acqua e pianifica il percorso includendo fonti d'acqua.
 - Contenitori per l'acqua (preferibilmente un contenitore in cui sia possibile far bollire l'acqua, come una bottiglia in acciaio inox a parete singola)
 - Accendifuoco (accendino, fiammiferi impermeabili o acciarino)
 - Cibo (sufficiente per tutta la durata del viaggio, più un po' di scorta). Non portare cibo che non hai mai mangiato prima. Alcune buone opzioni includono:
-
-- Noci
-- Semi
-- Frutta secca
-- Carne essiccata
-- Barrette energetiche
-- Pasti disidratati (con acqua extra)
-
-- Cibo in scatola (con un apriscatole se necessario)
+  - Noci
+  - Semi
+  - Frutta secca
+  - Carne essiccata
+  - Barrette energetiche
+  - Pasti disidratati (con acqua extra)
+  - Cibo in scatola (con un apriscatole se necessario)
 - Coltello o multiutensile con lama
 - Mappa
 - Bussola
@@ -113,8 +105,7 @@ Se ti trovi in una situazione di sopravvivenza, cerca di non farti prendere dal 
 ### Fermati
 <!-- K: fermati, prima cosa, importante -->
 
-La prima e più importante cosa da fare quando ci si perde è fermarsi.
-Se ti trovi in pericolo immediato nella tua posizione attuale, puoi muoverti, altrimenti resta dove sei. Usa questo tempo per calmarti con respiri profondi (inspira dal naso, espira dalla bocca o dal naso); arriverai a casa.
+La prima e più importante cosa da fare quando ci si perde è fermarsi. Se ti trovi in pericolo immediato nella tua posizione attuale, puoi muoverti, altrimenti resta dove sei. Usa questo tempo per calmarti con respiri profondi (inspira dal naso, espira dalla bocca o dal naso); arriverai a casa.
 
 ### Rifletti
 Prenditi un momento per riflettere sulla tua situazione. Rispondi (ma non agire) alle seguenti domande:
@@ -132,9 +123,7 @@ Successivamente, osserva l'ambiente circostante e valuta la tua situazione. La p
 Elaborate un piano per i prossimi passi. Ciò che farete dipenderà dalla vostra situazione attuale. Ecco alcuni consigli generali sulle azioni che potete intraprendere, in ordine di importanza:
 
 - Se siete gravemente feriti, curate le vostre ferite.
-
 - Se siete bagnati e avete abiti asciutti, togliete gli abiti bagnati e indossate quelli asciutti. Se avete solo una coperta asciutta o un sacco a pelo, togliete gli abiti bagnati e avvolgetevi in quello.
-
 - Se il tempo è brutto, cercate riparo.
 - Provate a chiamare o inviare un messaggio per chiedere aiuto.
 - Se fa freddo, riscaldatevi con l'isolamento, un riparo e poi un fuoco (se si accende facilmente).
@@ -146,11 +135,8 @@ Elaborate un piano per i prossimi passi. Ciò che farete dipenderà dalla vostra
 - Se siete senza acqua o state per finirla, trovate una fonte d'acqua e purificatela.
 - Segnalate la vostra posizione utilizzando le tecniche descritte più avanti in questo capitolo. Fatelo spesso per aumentare le probabilità di essere ritrovati.
 - Cercate di determinare la vostra posizione utilizzando una mappa.
-
-Controllate la presenza di tracce del sentiero nelle vicinanze, ma tenete sempre d'occhio la vostra posizione iniziale.
-
-Individuate punti di interesse nelle vicinanze che potreste trovare su una mappa o raggiungere a piedi in seguito, se necessario.
-
+- Controllate la presenza di tracce del sentiero nelle vicinanze, ma tenete sempre d'occhio la vostra posizione iniziale.
+- Individuate punti di interesse nelle vicinanze che potreste trovare su una mappa o raggiungere a piedi in seguito, se necessario.
 - Se siete senza cibo, iniziate a pensare a come procurarvi qualcosa da mangiare. Potete sopravvivere per settimane senza cibo, ma col tempo vi indebolirete.
 - Se siete fuori da diversi giorni o da una settimana, potrebbe essere necessario valutare la possibilità di tornare indietro a piedi. Lascia un segno che indichi la tua presenza e la direzione in cui ti sei diretto, ad esempio qualcosa legato a un albero e una freccia fatta con materiali naturali nelle vicinanze.
 
@@ -163,7 +149,9 @@ Una volta elaborato un piano, mettilo in pratica. Se in qualsiasi momento ti sen
 
 ## Pianifica un'escursione
 <!-- K: piano, escursione -->
-<!-- S: Prima di partire, informati sul terreno, le condizioni meteorologiche e la fauna selvatica. Pianifica un percorso su una mappa e porta con te le provviste necessarie. Condividi questo piano con una persona di fiducia. Prima di avventurarti nella natura selvaggia, elabora un piano che tu possa seguire alla lettera. Informati sul terreno, sulle condizioni meteorologiche, sulla fauna e sulla flora che potresti incontrare. Verifica i regolamenti locali e gli eventuali permessi necessari. Utilizza una mappa aggiornata per pianificare il tuo percorso e, se necessario, anche percorsi alternativi nel caso in cui i sentieri siano impraticabili. Controlla anche le condizioni dei sentieri e le previsioni del tempo per la tua escursione. Una combinazione errata di condizioni meteorologiche e terreno può rivelarsi fatale, quindi sii preparato.
+<!-- S: Prima di partire, informati sul terreno, le condizioni meteorologiche e la fauna selvatica. Pianifica un percorso su una mappa e porta con te le provviste necessarie. Condividi questo piano con una persona di fiducia. -->
+
+Prima di avventurarti nella natura selvaggia, elabora un piano che tu possa seguire alla lettera. Informati sul terreno, sulle condizioni meteorologiche, sulla fauna e sulla flora che potresti incontrare. Verifica i regolamenti locali e gli eventuali permessi necessari. Utilizza una mappa aggiornata per pianificare il tuo percorso e, se necessario, anche percorsi alternativi nel caso in cui i sentieri siano impraticabili. Controlla anche le condizioni dei sentieri e le previsioni del tempo per la tua escursione. Una combinazione errata di condizioni meteorologiche e terreno può rivelarsi fatale, quindi sii preparato.
 
 Una volta pianificata l'escursione, prepara l'attrezzatura e le provviste necessarie e controlla che tutto sia funzionante. Condividi il tuo piano con almeno un adulto responsabile, specificando i percorsi, chi ti accompagnerà, quando tornerai e quando lo contatterai. Se non hai nessuno a cui comunicare questi piani, lascia un biglietto con queste informazioni in un luogo ben visibile della tua casa. Durante l'escursione, attieniti al percorso ed evita rischi inutili.
 

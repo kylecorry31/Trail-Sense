@@ -8,7 +8,7 @@ Questo capitolo tratta le nozioni mediche di base e le tecniche per le ferite e 
 Se è necessario chiamare i servizi di emergenza, attiva il vivavoce o chiedi a qualcun altro di chiamare per evitare di ritardare il primo soccorso.
 
 ## Preparati
-<!-- K: prepararsi, attrezzatura, conoscenza, abilità, antidolorifico, benda, garza, cerotto, spillo, ago, pinzetta, antibiotico, unguento, crema, crema solare, repellente, spray, medicina, farmaco, ricetta, pillola, lenti a contatto, occhiali, antidolorifico, disinfettante, epinefrina, EpiPen, inalatore, cerotto per vesciche, schiuma per vesciche, laccio emostatico, stecca, aloe vera, gel, tampone, specchio, tampone, assorbente, mestruale, coppetta mestruale, filo interdentale, spazzolino da denti, dentifricio, carta igienica, bidet, sacchetto, cazzuola, sapone, asciugamano, balsamo per le labbra, elettroliti -->
+<!-- K: prepararsi, attrezzatura, conoscenza, abilità, antidolorifico, benda, garza, cerotto, spillo, ago, pinzetta, antibiotico, unguento, crema, crema solare, repellente, spray, medicina, farmaco, ricetta, pillola, lenti a contatto, occhiali, antidolorifico, disinfettante, epinefrina, EpiPen, inalatore, cerotto per vesciche, schiuma per vesciche, laccio emostatico, stecca, aloe vera, gel, tampone, specchio, tampone, assorbente, mestruale, coppetta mestruale, filo interdentale, spazzolino da denti, dentifricio, carta igienica, bidet, sacchetto, TODO: Incomplete translation., sapone, asciugamano, balsamo per le labbra, elettroliti -->
 <!-- S: Porta un kit di pronto soccorso. Impara le basi del pronto soccorso e della rianimazione cardiopolmonare (RCP). -->
 
 ### Attrezzatura
@@ -33,7 +33,7 @@ Se è necessario chiamare i servizi di emergenza, attiva il vivavoce o chiedi a 
 - Cerotti per vesciche
 - Gommapiuma per vesciche
 - Laccio emostatico
-- Stecca cervicale
+- TODO: Incomplete translation.
 - Gel di aloe vera
 - Salviette antisettiche
 - Crema all'idrocortisone
@@ -61,6 +61,7 @@ Se è necessario chiamare i servizi di emergenza, attiva il vivavoce o chiedi a 
 Inizia imparando a fare quanto segue:
 - Eseguire il primo soccorso di base e la rianimazione cardiopolmonare (RCP).
 - Calmare te stesso e gli altri.
+
 Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
 - Eseguire tecniche avanzate di primo soccorso/medicina d'emergenza in ambiente selvaggio.
 
@@ -71,23 +72,14 @@ Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
 Questo è un elenco di farmaci comuni che gli escursionisti potrebbero portare con sé. Non è un elenco completo. Usateli solo secondo le raccomandazioni del medico e seguite le istruzioni sulla confezione. Informatevi sugli effetti collaterali, sul dosaggio e sulla frequenza di assunzione prima della partenza.
 
 - **Aspirina**: Utilizzata per alleviare il dolore e l'infiammazione da lievi a moderati, ridurre la febbre, prevenire infarti e ictus e ridurre il rischio di morte in caso di infarto.
-
 - **Ibuprofene**: Utilizzato per alleviare il dolore e l'infiammazione da lievi a moderati e ridurre la febbre.
-
 - **Paracetamolo**: Utilizzato per alleviare il dolore lieve o moderato e ridurre la febbre.
-
 - **Difenidramina**: Utilizzata per trattare i sintomi di allergia e raffreddore come starnuti, naso che cola o prurito. Viene anche utilizzata per favorire l'addormentamento e il mantenimento del sonno.
-
 - **Loperamide**: Utilizzata per controllare la diarrea acuta.
-
 - **Simeticone**: Utilizzato per trattare i sintomi del meteorismo come dolore o gonfiore.
-
 - **Compresse antiacide**: Utilizzate per trattare bruciore di stomaco e indigestione.
-
 - **Crema all'idrocortisone**: Utilizzata per trattare arrossamento, prurito e fastidio cutaneo.
-
 - **Unguento antibiotico**: Utilizzato per aiutare a prevenire le infezioni in caso di piccoli tagli, abrasioni e ustioni.
-
 
 ## Reazioni allergiche
 <!-- K: allergia, allergico, reazione, eruzione cutanea, prurito, gonfiore, orticaria, starnuti, tosse, gola, respiro, epinefrina, epi-pen, epipen, iniezione, asma, anafilassi -->
@@ -159,7 +151,6 @@ Il mal di montagna è causato dalla bassa concentrazione di ossigeno ad alta quo
 
 - Salire lentamente.
 - Acclimatarsi prima di salire ulteriormente.
-
 - Presta attenzione ai sintomi al di sopra dei 2.500 metri (8.000 piedi).
 
 ## Morsi, punture e attacchi
@@ -188,17 +179,17 @@ Le seguenti indicazioni sono specifiche per gli orsi, ma possono essere valide a
 
 - Fate rumore per avvisare gli animali della vostra presenza.
 - Se vi avvicinano:
-- Non correte, perché potreste scatenare un inseguimento.
-- Cercate di sembrare più grandi.
-- Fate rumore (non urlate acute).
-- Prendete in braccio i bambini piccoli e gli animali domestici.
-- Allontanatevi lentamente.
-- Usate lo spray anti-orso, se disponibile.
-- Difendetevi se attaccati, tranne che dagli orsi grizzly.
-- Mirate al muso e al viso con pietre, bastoni o mani.
-- Se un **orso grizzly** attacca, fingete di essere morti a meno che non vi stia pedinando, non vi attacchi nella tenda o continui ad attaccare: in tal caso, difendetevi.
-- Tenete lo zaino in spalla; può offrire protezione.
-- Proteggete le zone vitali (collo, testa e addome).
+  - Non correte, perché potreste scatenare un inseguimento.
+  - Cercate di sembrare più grandi.
+  - Fate rumore (non urlate acute).
+  - Prendete in braccio i bambini piccoli e gli animali domestici.
+  - Allontanatevi lentamente.
+  - Usate lo spray anti-orso, se disponibile.
+  - Difendetevi se attaccati, tranne che dagli orsi grizzly.
+    - Mirate al muso e al viso con pietre, bastoni o mani.
+    - Se un **orso grizzly** attacca, fingete di essere morti a meno che non vi stia pedinando, non vi attacchi nella tenda o continui ad attaccare: in tal caso, difendetevi.
+  - Tenete lo zaino in spalla; può offrire protezione.
+  - Proteggete le zone vitali (collo, testa e addome).
 
 ### Sanguisughe
 <!-- K: sanguisuga, morso, succhiare, sangue, rimuovere -->
@@ -215,8 +206,10 @@ Le sanguisughe si attaccano alla pelle e succhiano il sangue. Si possono trovare
 
 1. Afferrare la parte posteriore della sanguisuga (l'estremità più spessa) e tirarla (ma non troppo forte). Se la parte posteriore è attaccata alla pelle tramite aspirazione, si può usare un'unghia per staccarla.
 2. Infilare un'unghia o un altro oggetto piatto tra la testa della sanguisuga (l'estremità più piccola) e la pelle per staccarla.
-3. Scacciare la sanguisuga prima che possa riattaccarsi. 4. Pulire la ferita e applicare una pomata antibiotica.
+3. Scacciare la sanguisuga prima che possa riattaccarsi.
+4. Pulire la ferita e applicare una pomata antibiotica.
 5. Applicare una benda per controllare il sanguinamento. È normale che la ferita sanguini per un po'.
+
 Non salare, bruciare o strappare la sanguisuga, poiché ciò potrebbe causarne il rigurgito nella ferita.
 
 ![](file:///android_asset/survival_guide/leech_removal.webp)
@@ -249,7 +242,7 @@ Non fare quanto segue:
 - Applicare un laccio emostatico.
 - Applicare ghiaccio.
 
-### Prevenzione
+#### Prevenzione
 - Fare attenzione a dove si mettono i piedi.
 - Indossare scarponi.
 - Non mettere mani o piedi in punti che non si possono vedere prima.
@@ -269,7 +262,7 @@ Molti insetti possono mordere o pungere, causando dolore, gonfiore e prurito. Al
 
 #### Trattamento
 
-**Punture**
+**TODO: Incomplete translation.**
 
 Per ridurre il prurito, applicare una lozione alla calamina o una crema all'idrocortisone. Per ridurre il gonfiore, utilizzare brevemente un panno imbevuto di acqua fredda.
 
@@ -291,11 +284,9 @@ Consulta la sezione relativa agli oggetti negli occhi.
 - Copri il viso con una bandana.
 - Indossa occhiali da vista/da sole (per tenere gli insetti lontani dagli occhi).
 - Usa una zanzariera.
-
 - Assicurati di essere in regola con le vaccinazioni contro le malattie trasmesse dagli insetti nella zona.
 
 Puoi creare un repellente per insetti improvvisato applicando del fango sulla pelle o usando il fumo di un fuoco.
-
 
 ### Zecche
 <!-- K: morso, respingere, spruzzare, zecca, prurito, gonfiore, rossore, rimuovere -->
@@ -320,9 +311,7 @@ Le zecche si attaccano alla pelle e si nutrono di sangue. Possono trasmettere ma
 
 #### Prevenzione
 - Utilizzare un repellente per insetti.
-
 - Indossare maniche lunghe e pantaloni lunghi.
-
 - Controllare frequentemente la presenza di zecche, soprattutto se si utilizzano foglie secche ed erba come isolante.
 
 ### Meduse
@@ -341,7 +330,7 @@ Molte meduse hanno piccole cellule urticanti velenose, in genere sui tentacoli. 
 
 #### Trattamento
 
-1. Utilizzare il bordo di una carta di credito o una pinzetta per rimuovere i tentacoli. Non utilizzare le dita per rimuovere i tentacoli.
+1. TODO: Incomplete translation.
 2. Sciacquare la zona con acqua di mare. Non sciacquare con acqua dolce, poiché ciò potrebbe indurre i pungiglioni a rilasciare più veleno.
 3. Immergere la zona in acqua calda per 30 minuti.
 4. Assumere antidolorifici se necessario.
@@ -355,7 +344,8 @@ Consultare un medico se la ferita è profonda, sanguina abbondantemente o mostra
 
 **Graffi e piccoli tagli**
 1. Pulire la ferita con acqua.
-2. Facoltativamente, applicare una pomata antibiotica. 3. Applicare una benda.
+2. Facoltativamente, applicare una pomata antibiotica.
+3. Applicare una benda.
 
 **Tagli più profondi**
 1. Applicare pressione sulla ferita con un panno pulito o una benda fino a quando il sanguinamento non si arresta.
@@ -373,9 +363,9 @@ Se l'emorragia è pericolosa per la vita e non è possibile controllarla con la 
 - Prestare attenzione a dove si mettono i piedi.
 - Essere consapevoli di ciò che ci circonda.
 - Per prevenire le infezioni:
-- Pulire le ferite.
-- Applicare una pomata antibiotica.
-- Cambiare frequentemente le bende.
+  - Pulire le ferite.
+  - Applicare una pomata antibiotica.
+  - Cambiare frequentemente le bende.
 
 ## Vesciche
 <!-- K: vescica, sfregamento, scarpa, calzino, cerotto per vesciche, rosso, dolorante -->
@@ -391,6 +381,7 @@ Le vesciche sono aree di pelle rialzate piene di liquido che possono essere dolo
 Se la vescica è piccola:
 1. Tagliare un pezzo di cerotto per vesciche a forma di ciambella.
 2. Posizionare il cerotto intorno alla vescica, con la vescica all'interno del foro.
+
 Se la vescica è grande o dolorosa:
 1. Sterilizzare un ago con un disinfettante per le mani o con il fuoco (questo potrebbe non sterilizzarlo completamente).
 2. Pulire e lavare l'area.
@@ -426,13 +417,14 @@ Si tratta di ustioni che formano vesciche e possono essere molto dolorose.
 2. Assumere antidolorifici.
 3. Asciugare la zona tamponando delicatamente.
 4. Applicare una benda non troppo stretta.
+
 Non forare le vesciche.
 
 **Ustioni di terzo grado**
 Si tratta di ustioni che interessano tutti gli strati della pelle e possono essere potenzialmente letali. Il dolore può essere minimo a causa del danno ai nervi. Possono essere presenti anche ustioni di primo e secondo grado.
 
 1. Chiamare i servizi di emergenza.
-2. Fare il bagno sotto acqua fresca e pulita per 5-20 minuti o applicare brevemente impacchi freddi e umidi sulla zona
+2. TODO: Incomplete translation.
 3. Rimuovere indumenti e gioielli dalla zona ustionata, a meno che non siano attaccati alla bruciatura stessa.
 4. Bere acqua con elettroliti se la persona è cosciente e in grado di farlo.
 5. Fasciare la zona ustionata senza stringere troppo.
@@ -459,14 +451,14 @@ Esegui la manovra di Heimlich su te stesso:
 3. Appoggia il lato del pollice del pugno sull'addome, sotto la gabbia toracica e sopra l'ombelico.
 4. Afferra il pugno con l'altra mano e premi sull'addome con una rapida spinta verso l'alto.
 
-Esegui la manovra di Heimlich su un'altra persona (eseguila solo se sai che sta soffocando, è in posizione eretta, ha segnalato di aver bisogno di aiuto e ha più di 1 anno):
+TODO: Incomplete translation.
 1. Posizionati di lato e dietro la persona.
 2. Inclinala in avanti e sostieni il suo torace con una mano.
 3. Usa il palmo dell'altra mano per colpire tra le scapole fino a 5 volte. Fai una pausa tra ogni colpo per verificare se l'oggetto è stato espulso.
 4. Se la persona continua a soffocare, mettetevi dietro di lei e afferratela per la vita.
 5. Chiudete il pugno e posizionate il lato del pollice contro l'addome della persona, sotto la gabbia toracica e sopra l'ombelico.
 6. Afferrate il pugno con l'altra mano e premete sull'addome della persona con una rapida spinta verso l'interno e verso l'alto. Ripetete fino a 5 volte.
-7. Ripetete i passaggi da 1 a 6 finché l'oggetto non viene espulso o non riprende conoscenza.Se non rispondono più agli stimoli, adagiateli in sicurezza su una superficie solida e iniziate la rianimazione cardiopolmonare (RCP) (vedere la sezione Problemi cardiaci
+7. TODO: Incomplete translation.
 
 ![](file:///android_asset/survival_guide/choking.webp)
 
@@ -486,7 +478,8 @@ I crampi possono essere causati da disidratazione, sforzo eccessivo o carenza di
 - Applicare calore o freddo al muscolo.
 - Bere acqua o una soluzione elettrolitica contenente sodio e potassio.
 - Mangiare cibi salati.
-- Mangiare cibi ricchi di potassio (come le banane). - Rallenta o interrompi l'attività fisica.
+- Mangiare cibi ricchi di potassio (come le banane).
+- Rallenta o interrompi l'attività fisica.
 - Riposa all'ombra.
 - Assumi un antidolorifico, come ibuprofene o paracetamolo.
 
@@ -539,6 +532,7 @@ Non tentare di rimuovere un amo da pesca se è conficcato nell'occhio.
 3. Esercitare una pressione verso il basso sull'occhiello dell'amo.
 4. Tirare rapidamente la lenza, facendo uscire l'amo nella stessa direzione in cui è entrato.
 5. Pulire la ferita e applicare una pomata antibiotica.
+
 In alcuni casi, è possibile utilizzare un paio di pinze al posto della lenza da pesca per eseguire la stessa operazione.
 
 ![](file:///android_asset/survival_guide/fish_hook_removal.webp)
@@ -586,16 +580,15 @@ Imbracatura:
 
 ### Prevenzione
 - Prestare attenzione quando si cammina su terreni irregolari.
-
 - Indossa calzature adeguate.
-Non sforzarti eccessivamenche
-Fai attenzione quando maneggi oggetti pesanti.
+- Non sforzarti eccessivamenche
+- Fai attenzione quando maneggi oggetti pesanti.
 
 ## Congelamento
-<!-- K: congelamento, gelo, freddo, gelo, congelato, intorpidimento, bianco, grigio, giallo, ceroso, dolore, disgelo, caldo, calore, rosso, gelo intenso -->
+<!-- K: congelamento, gelo, freddo, gelo, congelato, intorpidimento, bianco, grigio, giallo, ceroso, dolore, disgelo, caldo, calore, rosso, TODO: Incomplete translation. -->
 <!-- S: Tratta riscaldando la zona e consultando un medico. Previeni mantenendoti al caldo e all'asciutto. -->
 
-Il congelamento è causato dall'esposizione a basse temperature, che irrita la pelle e i tessuti sottostanti. Se non trattato, può causare danni permanenti.
+TODO: Incomplete translation. Se non trattato, può causare danni permanenti.
 
 ### Sintomi
 
@@ -623,7 +616,7 @@ Riscaldare la zona con il calore corporeo (ad esempio, mettendo una mano sotto l
 Scongelare la zona solo se è possibile mantenerla scongelata. Ricongelarla può causare ulteriori danni. Non utilizzare il fuoco per scongelare la zona. Non strofinare la zona. Consultare un medico il prima possibile.
 
 1. Assumere un antidolorifico prima dello scongelamento.
-2. Preparare acqua calda (37-39 °C).
+2. TODO: Incomplete translation.
 3. Scongelare la zona fino a quando non diventa rosa/rossa e morbida. Se l'acqua si raffredda, cambiarla - rimuovere la zona dall'acqua prima di cambiarla.
 4. Avvolgere la zona con una medicazione sterile e tenerla al caldo.
 
@@ -650,9 +643,7 @@ I problemi gastrointestinali possono essere causati da cibo o acqua contaminati.
 
 ### Trattamento
 - Reidratarsi con acqua pulita, una bevanda elettrolitica o una tisana.
-
 - In caso di ingestione di sostanze tossiche, consultare immediatamente un medico.
-
 - Assumere farmaci per alleviare i sintomi.
 
 ### Prevenzione
@@ -686,7 +677,7 @@ Il mal di testa può essere causato da diversi fattori, come disidratazione, str
 
 Per sicurezza, consultare un medico il prima possibile in caso di sintomi di problemi cardiaci.
 
-Sintomi
+### Sintomi
 - Dolore al petto
 - Difficoltà respiratorie
 - Dolore alle braccia, alla schiena, al collo, alla mascella o allo stomaco
@@ -694,10 +685,11 @@ Sintomi
 - Vertigini
 - Sudorazione fredda
 
-Trattamento
+### Trattamento
 1. Fermati e siediti comodamente.
 2. Chiama i servizi di emergenza e fatti raggiungere.
 3. Se hai farmaci per il cuore da assumere al bisogno, prendili come indicato. Se sei cosciente e in grado di assumere aspirina, usala come indicato.
+
 Se qualcun altro perde conoscenza e sospetti problemi cardiaci:
 
 **Rianimazione cardiopolmonare (RCP)**:
@@ -732,7 +724,7 @@ Se avete una formazione completa in RCP, eseguite la respirazione artificiale do
 
 ## Esaurimento da calore e colpo di calore
 <!-- K: calore, esaurimento, ictus, colpo di calore, pallido, caldo, sudore, affaticamento, battito cardiaco, vertigini, nausea, vomito, crampi, muscoli, mal di testa, brividi, confusione, convulsioni, incoscienza, elettroliti, ombra, pausa, sforzo eccessivo -->
-<!-- S: I sintomi includono pelle pallida, sudorazione, affaticamento, battito cardiaco accelerato, vertigini, nausea, crampi muscolari, mal di testa e brividi. Trattamento: spostarsi in un luogo fresco e bere acqua. Prevenzione: mantenersi idratati, indossare abiti adeguati e fare pause all'ombra.
+<!-- S: I sintomi includono pelle pallida, sudorazione, affaticamento, battito cardiaco accelerato, vertigini, nausea, crampi muscolari, mal di testa e brividi. Trattamento: spostarsi in un luogo fresco e bere acqua. Prevenzione: mantenersi idratati, indossare abiti adeguati e fare pause all'ombra. -->
 
 L'esaurimento da calore e il colpo di calore sono causati dall'esposizione ad alte temperature e dalla disidratazione.
 
@@ -780,7 +772,6 @@ L'esaurimento da calore e il colpo di calore sono causati dall'esposizione ad al
 - Stare all'ombra.
 - Fare delle pause all'ombra.
 - Evitare l'attività fisica durante le ore più calde della giornata.
-
 - Non sforzarsi eccessivamente.
 
 ## Igiene
@@ -796,6 +787,7 @@ Usare sapone e acqua pulita per lavarsi le mani:
 - Dopo aver urinato o defecato.
 - Prima di medicare una ferita.
 - Dopo aver toccato qualcosa che potrebbe contenere germi o essere velenoso.
+
 Se si dispone solo di un gel igienizzante per le mani, strofinarlo su tutta la superficie delle mani fino a completa asciugatura. Lavare prima le mani con acqua se sono visibilmente sporche o unte, quindi asciugarle e applicare il gel igienizzante.
 
 È possibile lavarsi le mani con acqua pulita se non si dispone di sapone o gel igienizzante, ma non sarà altrettanto efficace.
@@ -817,18 +809,15 @@ Per prevenire problemi ai piedi, segui questi consigli:
 
 Mantieni gli indumenti puliti e asciutti. Lava i vestiti con acqua e sapone. Per asciugarli, stendili al sole su delle rocce, oppure appendili al sole o vicino a un fuoco (non troppo vicino).
 
-## Evacuazione intestinale e minzione
-<!-- K: defecare, urinare, bagno, rifiuti, cazzuola, scavare, buca -->
+### Evacuazione intestinale e minzione
+<!-- K: defecare, urinare, bagno, rifiuti, TODO: Incomplete translation., scavare, buca -->
 
 - Scava una buca profonda dai 15 ai 20 centimetri per evacuare e ricoprila di terra.
-- Se non hai una cazzuola, usa un bastone per scavare la buca.
-- Le normative locali potrebbero richiedere di gettare la carta igienica in un sacchetto per i rifiuti anziché seppellirla.
-
-Se non si dispone di carta igienica o di un bidet, utilizzare foglie non velenose, muschio o pietre lisce per lavarsi.
-
-Lavarsi sempre le mani dopo aver usato il bagno.
-
-Non defecare o urinare vicino a fonti d'acqua, campeggi o sentieri (almeno 60 metri di distanza).
+  - Se non hai una cazzuola, usa un bastone per scavare la buca.
+  - Le normative locali potrebbero richiedere di gettare la carta igienica in un sacchetto per i rifiuti anziché seppellirla.
+- Se non si dispone di carta igienica o di un bidet, utilizzare foglie non velenose, muschio o pietre lisce per lavarsi.
+- Lavarsi sempre le mani dopo aver usato il bagno.
+- Non defecare o urinare vicino a fonti d'acqua, campeggi o sentieri (almeno 60 metri di distanza).
 
 ## Ipotermia
 <!-- K: ipotermia, freddo, congelamento, congelato, brividi, coordinazione, memoria, linguaggio, difficoltà di parola, parlare, sonnolenza, respiro, battito cardiaco, calore, caldo, fuoco -->
@@ -838,7 +827,6 @@ L'ipotermia si verifica quando il corpo perde calore più velocemente di quanto 
 
 ### Sintomi
 - Brividi. Se i brividi cessano e non vi siete riscaldati, è segno di grave ipotermia.
-
 - Sensazione di freddo
 - Difficoltà di coordinazione
 - Perdita di memoria
@@ -848,13 +836,13 @@ L'ipotermia si verifica quando il corpo perde calore più velocemente di quanto 
 
 ### Trattamento
 - Indossare abiti asciutti.
-Aumentare gli strati di indumenti asciutti.
-Aggiungere materiale isolante agli indumenti (come foglie secche o erba).
-Assumere liquidi caldi.
-Riscaldarsi vicino a un fuoco.
-Usare un sacco a pelo o una coperta.
-Sfruttare il calore corporeo di un'altra persona.
-Chiamare i servizi di emergenza se i sintomi persistono o peggiorano.
+- Aumentare gli strati di indumenti asciutti.
+- Aggiungere materiale isolante agli indumenti (come foglie secche o erba).
+- Assumere liquidi caldi.
+- Riscaldarsi vicino a un fuoco.
+- Usare un sacco a pelo o una coperta.
+- Sfruttare il calore corporeo di un'altra persona.
+- Chiamare i servizi di emergenza se i sintomi persistono o peggiorano.
 
 ### Prevenzione
 - Indossare abiti adeguati.
@@ -884,7 +872,6 @@ Chiamare i servizi di emergenza se i sintomi persistono o peggiorano.
 
 ### Prevenzione
 - Indossate occhiali da vista o da sole.
-
 - Non sollevate oggetti sporchi o con detriti sopra la testa senza proteggere gli occhi.
 
 ## Attacchi di panico e tecniche di rilassamento
@@ -907,16 +894,17 @@ Chiamare i servizi di emergenza se i sintomi persistono o peggiorano.
 1. Siediti.
 2. Chiudi gli occhi.
 3. Esegui una o più delle seguenti azioni:
-- Fai respiri lenti e profondi inspirando dal naso ed espirando dal naso o dalla bocca.
-- Conta fino a 10.
-- Ripeti una frase rilassante. - Visualizza un luogo rilassante.
-- Medita.
-- Contrai e rilassa ogni muscolo, partendo dalla testa e scendendo fino ai piedi.
-- Ascolta musica o rumore bianco.
-- Rassicurati che andrà tutto bene.
+   - Fai respiri lenti e profondi inspirando dal naso ed espirando dal naso o dalla bocca.
+   - Conta fino a 10.
+   - Ripeti una frase rilassante.
+   - Visualizza un luogo rilassante.
+   - Medita.
+   - Contrai e rilassa ogni muscolo, partendo dalla testa e scendendo fino ai piedi.
+   - Ascolta musica o rumore bianco.
+   - Rassicurati che andrà tutto bene.
 
-## Dermatite da contatto causata dall'edera velenosa
-<!-- K: veleno, edera, quercia velenosa, sommacco velenoso, tromba, rengas, pungente, ortica, eruzione cutanea, prurito, vesciche, rosso, gonfiore, dermatite, contatto -->
+## TODO: Incomplete translation.
+<!-- K: veleno, edera, quercia velenosa, sommacco velenoso, TODO: Incomplete translation., rengas, pungente, ortica, eruzione cutanea, prurito, vesciche, rosso, gonfiore, dermatite, contatto -->
 <!-- S: I sintomi includono eruzione cutanea, prurito e vesciche. Il trattamento consiste nel lavare la zona con acqua e sapone, applicare una lozione alla calamina e assumere antistaminici. La prevenzione consiste nell'imparare a identificare ed evitare le piante velenose. -->
 
 La dermatite da contatto può essere causata dal contatto con piante velenose, come l'edera velenosa/quercia velenosa, il sommacco velenoso, l'ortica e molte altre piante in tutto il mondo (verifica sempre quali sono le piante pericolose nella tua zona).
@@ -947,12 +935,12 @@ Consulta un medico se necessario, soprattutto se l'eruzione cutanea è grave, di
 
 ### Prevenzione
 Impara a identificare ed evitare il contatto con le seguenti piante:
-- Mucuna incarnata
+- TODO: Incomplete translation.
 - Edera velenosa
 - Quercia velenosa
 - Sommacco velenoso
 - Albero di Rengas
-- Tromba d'India
+- TODO: Incomplete translation.
 - Ortica
 - Gympie-gympie/albero urticante
 - Pastinaca selvatica
@@ -972,7 +960,7 @@ Addormentarsi in mezzo alla natura può essere difficile, ma un riposo adeguato 
 - Calmate la mente, magari con la meditazione.
 - Assumete un sonnifero.
 - Isolatevi dai rumori con i tappi per le orecchie.
-Ascoltate musica rilassante in sottofondo o rumore bianco.
+- Ascoltate musica rilassante in sottofondo o rumore bianco.
 
 ### Prevenzione
 - Evitate attività faticose, pasti abbondanti e caffeina prima di andare a letto.
@@ -1002,7 +990,7 @@ La cecità da neve è causata da una sovraesposizione alla luce solare riflessa 
 - Indossare occhiali da sole con protezione UV o occhiali da sci.
 - Indossare un cappello a tesa larga.
 
-Se non si dispone di questi, consultare la sezione "Lavoretti: Occhiali da sole" o applicare della fuliggine sotto gli occhi per ridurre il riverbero.
+TODO: Incomplete translation.
 
 ## Schegge, spine, aculei e aghi
 <!-- K: scheggia, spina, legno, ago, aculeo, spina, rimuovere, pinzette, mano, porcospino, riccio di mare, cactus -->
@@ -1060,6 +1048,7 @@ Le distorsioni sono lesioni a un legamento, mentre gli stiramenti sono lesioni a
 - Indossare calzature adeguate.
 - Non sforzarsi eccessivamente.
 - Fare attenzione a dove si mettono i piedi.
+
 ## Immersione in acqua
 <!-- K: acqua, annegare, galleggiare, immergersi, nuotare, corrente, risacca, marea, neve, ipotermia, caduta -->
 <!-- S: Se si viene trascinati da una corrente di risacca, nuotare parallelamente alla riva fino a quando non si è fuori. Se si cade nel ghiaccio, usare le gambe per risalire sul ghiaccio, quindi trattare l'ipotermia. -->
@@ -1097,13 +1086,14 @@ La scottatura solare è causata da una sovraesposizione alle radiazioni ultravio
 
 ### Trattamento
 1. Evitare l'esposizione al sole.
-2.1. Fai scorrere acqua fredda sulla bruciatura o applica un impacco freddo.
-2. Applica gel di aloe vera, lozione alla calamina o crema all'idrocortisone.
-3. Facoltativamente, assumi antidolorifici.
-4. Bevi molta acqua
+2. Fai scorrere acqua fredda sulla bruciatura o applica un impacco freddo.
+3. Applica gel di aloe vera, lozione alla calamina o crema all'idrocortisone.
+4. Facoltativamente, assumi antidolorifici.
+5. Bevi molta acqua.
+
 Non bucare le vesciche.
 
-## Prevenzione
+### Prevenzione
 - Usa una crema solare con un SPF di almeno 30.
 - Indossa un cappello.
 - Indossa maniche lunghe e pantaloni.

@@ -1416,7 +1416,7 @@
     <string name="freshwater">Acqua dolce</string>
     <string name="cave">Caverna</string>
     <string name="tundra">Tundra</string>
-    <string name="diurnal">Diurno</string>
+    <string name="diurnal">Diurno (giorno)</string>
     <string name="nocturnal">Notturno</string>
     <string name="crepuscular">Crepuscolare (alba/tramonto)</string>
     <string name="inedible">Non commestibile</string>
@@ -1504,7 +1504,6 @@
     <string name="pref_copy_trail_maps_summary">Durante l\'importazione, se disattivato, viene utilizzato il file originale, che deve essere conservato sul dispositivo.</string>
     <string name="stone">Stone</string>
     <string name="aspect">Aspetto</string>
-    <string name="show_dial_ticks_on_nearby_radar">Mostra i ticchettii del quadrante</string>
     <string name="sightings_count">Avvistamenti (%d)</string>
     <string name="pref_high_detail_mode_title">Modalità ad alta definizione</string>
     <string name="pref_high_detail_mode_summary">Carica più riquadri per una qualità superiore. Richiede più memoria.</string>
@@ -1522,7 +1521,6 @@
     <string name="digital_elevation_model_link">È possibile scaricare un modello digitale di elevazione in varie dimensioni da %s</string>
     <string name="notification_grouping">Raggruppamento delle notifiche</string>
     <string name="ungroup_all">Separa tutto</string>
-    <string name="contours">Contorni</string>
     <string name="planet_mars">Marte</string>
     <string name="planet_jupiter">Giove</string>
     <string name="map_layer_contours_description">Linee che indicano l\'altitudine e la pendenza del terreno</string>
@@ -1543,7 +1541,6 @@
     <string name="load_pdf_tiles">Carica i riquadri PDF</string>
     <string name="load_pdf_tiles_summary">Le mappe in formato PDF saranno più nitide, ma le prestazioni potrebbero risentirne</string>
     <string name="map_tool_disclaimer">Questo strumento non include mappe stradali, immagini satellitari o dati sui sentieri integrati. Non scarica mappe da Internet. Per visualizzare uno sfondo con una mappa, è necessario importare un\'immagine personalizzata utilizzando lo strumento Mappe offline. Se si necessitano mappe stradali, satellitari o dei sentieri in tempo reale o precaricate, è necessario utilizzare un\'applicazione di mappatura dedicata.</string>
-    <string name="open_settings">Impostazioni aperte</string>
     <string name="show_gps_accuracy">Mostra la precisione del GPS</string>
     <string name="large_location_indicator">Indicatore di posizione grande</string>
     <string name="increase_exposure_at_night">Aumentare l\'esposizione notturna</string>
@@ -1555,7 +1552,6 @@
     <string name="sleep_sound_pink_noise">Rumore rosa</string>
     <string name="sleep_sound_brown_noise">Rumore marrone</string>
     <string name="sleep_sound_crickets">Grilli</string>
-    <string name="sleep_sound_crickets_no_chirping">Grilli (non forniscono)</string>
     <string name="sleep_sound_ocean_waves">Onde del mare</string>
     <string name="sleep_sound_fan">Ventola</string>
     <string name="hillshade">Ombreggiatura del rilievo</string>
@@ -1572,7 +1568,6 @@
     <string name="color_brown">Marrone</string>
     <string name="color_gray">Grigio</string>
     <string name="color_white">Bianco</string>
-    <string name="background_color">Colori di background</string>
     <string name="add_to_homescreen">Aggiungi alla schermata iniziale</string>
     <string name="battery_tip_disable_services">Disattiva i servizi che non utilizzi.</string>
     <string name="battery_tip_airplane_mode">Attiva la modalità aereo per disattivare tutte le connessioni wireless.</string>
@@ -1612,7 +1607,6 @@
     <string name="mil_amount">%s mil</string>
     <string name="uses_g1_drag_model">Utilizza il modello di trascinamento G1</string>
     <string name="remember_map_state">Ricorda lo stato della mappa</string>
-    <string name="lock_bearing_to_location">Blocco di sicurezza per la posizione</string>
     <string name="lock_bearing_to_location_description">Fissa la linea di rilevamento al punto di partenza</string>
     <string name="bearing_length">lunghezza del rilevamento</string>
     <string name="bearing_length_description">Lunghezza della linea di rilevamento quando il rilevamento è attivo</string>
@@ -1620,7 +1614,6 @@
     <string name="pref_show_astronomy_bands_title">Mostra le fasce di alba/tramonto</string>
     <string name="settings_copied">Impostazioni copiate</string>
     <string name="copy_settings_to_other_maps">Copia le impostazioni su altre mappe</string>
-    <string name="ruggedness">Robustezza</string>
     <string name="my_elevation">La mia altitudine</string>
     <string name="draw_accurate_shadows">Traccia ombre realistiche</string>
     <string name="multi_direction_shading">Ombreggiatura multidirezionale</string>
@@ -1649,7 +1642,6 @@
     <string name="view_error_details">Visualizza i dettagli dell\'errore</string>
     <string name="reopen_tool">Riapri lo strumento</string>
     <string name="restart_app">Riavvia l\'app</string>
-    <string name="smooth">Tranquillo</string>
     <string name="hide_flat_ground">Nascondi il terreno pianeggiante</string>
     <string name="move_layer_up">Spostare il livello verso l\'alto</string>
     <string name="move_layer_down">Spostare il livello verso il basso</string>
@@ -1671,10 +1663,8 @@
     <string name="invalid_trail_map">Mappa del sentiero non valida</string>
     <string name="invalid_trail_map_message">Il file della mappa del sentiero non è valido o è mancante. Potresti voler eliminare questa mappa e importarne una nuova.</string>
     <string name="copy_to_trail_sense">Copia su Trail Sense</string>
-    <string name="recording_sighting_for_page">Registra la visualizzazione di \'%s\'</string>
     <string name="map_error_invalid_map_file">File di mappa non valido</string>
     <string name="color_by_classification">Colore per classificazione</string>
-    <string name="sighting_label">%s visualizzata</string>
     <string name="set_as_default_photo">Imposta come predefinito</string>
     <string name="delete_image_prompt">Cancella l\'immagine?</string>
     <string name="image_index">Immagine %1$d/%2$d</string>
