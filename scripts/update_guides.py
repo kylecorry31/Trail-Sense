@@ -95,6 +95,12 @@ def check_markdown_integrity(original_text: str, translated_text: str) -> bool:
 def check_no_todo(translated_text: str) -> bool:
     return "TODO:" not in translated_text
 
+# Translated survival guide chapters are held back from the app while they are reviewed.
+SKIP_TRANSLATION_PREFIXES = ("guide_survival_chapter",)
+
+def is_translation_on_hold(filename: str) -> bool:
+    return filename.startswith(SKIP_TRANSLATION_PREFIXES)
+
 
 def get_issues(original, translated):
     """Returns a list of issues found in the translated guide. If no issues are found, an empty list is returned."""
@@ -144,6 +150,9 @@ for language in os.listdir(root + "/guides"):
             language = new_name
         for filename in os.listdir(root + "/guides/" + language):
             if filename.endswith(".txt"):
+                if is_translation_on_hold(filename):
+                    print("[SKIP] " + language + "/" + filename + ": survival guide translations are on hold")
+                    continue
                 issues = get_issues(root + "/guides/en-US/" + filename, root + "/guides/" + language + "/" + filename)
                 if len(issues) == 0:
                     # Create the destination folder if it does not exist
