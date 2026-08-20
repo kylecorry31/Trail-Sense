@@ -146,7 +146,7 @@ Identificare il tipo di nuvola può migliorare la tua capacità di prevedere il 
 
 1. **Cirrocumuli**: Nuvole ad alta quota che formano uno strato ondulato. Lo strato è composto da piccoli punti che sembrano quasi bidimensionali. Possono indicare precipitazioni nelle prossime 8-12 ore.
 2. **Altocumuli**: Nuvole di media altitudine, soffici e simili a batuffoli di cotone. Sono tipicamente bianche con zone più scure nella parte inferiore e possono essere sparse o a forma di velo. Possono indicare precipitazioni o un temporale nelle prossime 12 ore.
-3. **Cumuloni**: Nuvole basse, soffici e simili a batuffoli di cotone. Sono sparse e tipicamente bianche con zone più scure nella parte inferiore. Di solito indicano bel tempo, ma se si stanno alzando, potrebbero verificarsi precipitazioni o un temporale nelle prossime ore.
+3. **TODO: Incomplete translation.**: Nuvole basse, soffici e simili a batuffoli di cotone. Sono sparse e tipicamente bianche con zone più scure nella parte inferiore. Di solito indicano bel tempo, ma se si stanno alzando, potrebbero verificarsi precipitazioni o un temporale nelle prossime ore.
 4. **Cumulonimbi**: Nuvole basse e soffici, molto alte. Hanno tipicamente una forma a incudine e sono scure. Possono indicare un temporale entro pochi minuti.
 5. **Cirrostrati**: Nuvole alte che coprono il cielo. Sono trasparenti e in genere causano la formazione di un alone intorno al sole. Possono indicare precipitazioni nelle prossime 10-15 ore.
 6. **Altostrati**: Nuvole di media altitudine che coprono il cielo. Il sole è appena visibile come una macchia luminosa. Potrebbe indicare precipitazioni nelle prossime 8 ore.

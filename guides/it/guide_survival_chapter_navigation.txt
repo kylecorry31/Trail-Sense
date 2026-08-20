@@ -234,7 +234,7 @@ Per triangolare la propria posizione:
 1. Orientare la mappa in modo che punti a nord utilizzando la bussola.
 2. Individuare e segnare sulla mappa due punti di riferimento principali intorno a sé.
 3. Misurare il rilevamento di ciascun punto di riferimento utilizzando la bussola.
-4. Traccia delle linee da ciascun punto di riferimento nella direzione indicata sulla mappa.
+4. TODO: Incomplete translation.
 5. Il punto di intersezione delle linee rappresenta la tua posizione.
 
 ![](file:///android_asset/survival_guide/triangulation.webp)
@@ -338,7 +338,7 @@ Al mattino presto, il sole sarà vicino a est, mentre nel tardo pomeriggio sarà
 ### Ombre
 <!-- K: sun, shadow -->
 
-Misurando la direzione del movimento delle ombre nel tempo, è possibile determinarne la direzione. Questo perché il sole si muove da est a ovest nel cielo e, di conseguenza, le ombre si muovono nella direzione opposta.
+TODO: Incomplete translation. Questo perché il sole si muove da est a ovest nel cielo e, di conseguenza, le ombre si muovono nella direzione opposta.
 
 1. Pianta un bastoncino verticalmente nel terreno e segna la punta dell'ombra.
 2. Dopo 15-30 minuti, segna la nuova posizione della punta dell'ombra.

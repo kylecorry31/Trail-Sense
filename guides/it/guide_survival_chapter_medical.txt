@@ -454,7 +454,7 @@ Esegui la manovra di Heimlich su te stesso:
 TODO: Incomplete translation.
 1. Posizionati di lato e dietro la persona.
 2. Inclinala in avanti e sostieni il suo torace con una mano.
-3. Usa il palmo dell'altra mano per colpire tra le scapole fino a 5 volte. Fai una pausa tra ogni colpo per verificare se l'oggetto è stato espulso.
+3. TODO: Incomplete translation. Fai una pausa tra ogni colpo per verificare se l'oggetto è stato espulso.
 4. Se la persona continua a soffocare, mettetevi dietro di lei e afferratela per la vita.
 5. Chiudete il pugno e posizionate il lato del pollice contro l'addome della persona, sotto la gabbia toracica e sopra l'ombelico.
 6. Afferrate il pugno con l'altra mano e premete sull'addome della persona con una rapida spinta verso l'interno e verso l'alto. Ripetete fino a 5 volte.
@@ -540,7 +540,7 @@ In alcuni casi, è possibile utilizzare un paio di pinze al posto della lenza da
 ### Prevenzione
 - Prestare attenzione quando si maneggiano gli ami da pesca, soprattutto le esche con più ami tripli.
 - Prestare particolare attenzione quando si rimuove un amo da un pesce che si dimena o che è scivoloso.
-- Gli ami senza ardiglione sono più facili da rimuovere in caso di abboccata, ma può essere più difficile recuperare il pesce.
+- TODO: Incomplete translation.
 
 ## Fratture
 <!-- K: frattura, rottura, rotto, osso, dolore, gonfiore, livido, deformazione, peso, stecca, fasciatura, braccio, gamba -->
@@ -626,7 +626,7 @@ Scongelare la zona solo se è possibile mantenerla scongelata. Ricongelarla può
 - Muoversi.
 - Tenersi al caldo.
 - Mantenersi idratati e ben nutriti.
-- Trattare ai primi segni di congelamento.
+- TODO: Incomplete translation.
 
 ## Problemi gastrointestinali
 <!-- K: gastrointestinale, stomaco, intestino, diarrea, vomito, nausea, crampi, gas, cibo, acqua, veleno, tè, parassita, stitichezza -->
@@ -697,8 +697,8 @@ Se qualcun altro perde conoscenza e sospetti problemi cardiaci:
 1. Verifica la presenza di incoscienza e di respirazione assente o anomala.
 2. Chiama i servizi di emergenza e inizia la RCP. Puoi mettere il telefono in vivavoce per fare entrambe le cose contemporaneamente.
 3. Assicurati che la persona sia supina su una superficie dura e stabile.
-4. Posiziona il palmo di una mano al centro del torace.
-5. Posiziona il palmo dell'altra mano sopra la prima.
+4. TODO: Incomplete translation.
+5. TODO: Incomplete translation.
 6. Intreccia le dita. 
 7. Tenete le braccia tese e le spalle allineate con le mani.
 8. Eseguite compressioni forti e rapide fino a una profondità di 5-6 cm (2-2,4 pollici) con una frequenza di 100-120 compressioni al minuto.

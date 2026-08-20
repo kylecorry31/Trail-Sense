@@ -140,7 +140,7 @@ Elaborate un piano per i prossimi passi. Ciò che farete dipenderà dalla vostra
 - Se siete senza cibo, iniziate a pensare a come procurarvi qualcosa da mangiare. Potete sopravvivere per settimane senza cibo, ma col tempo vi indebolirete.
 - Se siete fuori da diversi giorni o da una settimana, potrebbe essere necessario valutare la possibilità di tornare indietro a piedi. Lascia un segno che indichi la tua presenza e la direzione in cui ti sei diretto, ad esempio qualcosa legato a un albero e una freccia fatta con materiali naturali nelle vicinanze.
 
-In sintesi, la priorità è curare le ferite gravi, cercare riparo, segnalare la propria posizione, trovare acqua, accendere un fuoco (per riscaldarsi e far bollire l'acqua), determinare la propria posizione, cercare vie d'uscita, trovare cibo e, solo se si è rimasti a lungo in quella zona, proseguire il cammino.
+TODO: Incomplete translation.
 
 Il tuo piano dovrebbe adattarsi alla situazione man mano che cambia. Rivaluta spesso la situazione e mantieni la speranza di essere ritrovato.
 

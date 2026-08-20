@@ -54,7 +54,7 @@ Trovare legna secca può essere difficile, ma cercate rami secchi sugli alberi, 
   - Erba secca, foglie, aghi di pino giallo
   - Linfa secca in polvere proveniente dai pini
   - Fibre schiacciate provenienti da piante morte
-  - Semi (tifa, asclepiade, cardo)
+  - TODO: Incomplete translation.
   - Bastoncini di piume (trucioli di legno attaccati a un bastoncino)
   - Accendifuoco commerciali
   - Batuffoli di cotone (preferibilmente imbevuti di vaselina)
@@ -179,7 +179,7 @@ Potete creare attrito facendo ruotare un bastoncino come un trapano su una base 
 
 Per creare un archetto per trapano:
 
-1. Trova una piccola pietra piatta o un pezzo di legno duro con una piccola depressione vicino al centro per creare l'incavo.
+1. TODO: Incomplete translation.
 2. Crea il trapano trovando un bastoncino dritto e asciutto lungo circa 25-30 cm e con un diametro di 2 cm.
 3. Trova un pezzo di legno tenero piatto e asciutto per la base. Sono preferibili yucca, larice, pioppo tremulo, abete balsamico, tiglio, pioppo, cipresso, pioppo americano, ontano, cedro rosso e salice. Evita i legni resinosi come il pino.
 4. Intaglia una leggera depressione a circa 1-2 cm dal bordo della base.
@@ -188,10 +188,10 @@ Per creare un archetto per trapano:
 7. Fissare una corda o un laccio da scarpe a entrambe le estremità dell'arco.
 8. Trovare il braciere: un pezzo piatto di corteccia o legno per raccogliere la brace.
 9. Avvolgere la punta del trapano nella corda dell'arco in modo che possa rotolare mentre scorre lungo la corda.
-10. Posizionare la tavoletta di legno sopra il braciere in modo che l'incavo a V la tocchi.
-11. Inserire la punta del trapano (attaccata all'arco) nell'incavo della tavoletta di legno.
-12. Posizionare l'innesto sull'estremità superiore della punta del trapano e applicare una pressione verso il basso con la mano non dominante.
-13. Appoggiare il piede sulla tavoletta di legno (dallo stesso lato della mano non dominante) e appoggiare la mano che tiene l'innesto sul ginocchio.
+10. TODO: Incomplete translation.
+11. TODO: Incomplete translation.
+12. TODO: Incomplete translation.
+13. TODO: Incomplete translation.
 14. Con la mano dominante, muovere l'arco da un lato all'altro per far ruotare la punta del trapano. Assicurati di utilizzare tutta la lunghezza della corda dell'arco. Mantieni un ritmo costante e veloce.
 15. Dopo un po' inizierai a vedere del fumo. Continua finché non sei sicuro che si sia formata la brace.
 16. La brace va trasferita sul braciere (potrebbe essere già lì) e spostata su un fascio di esca, dove potrai alimentarla fino a farla diventare un fuoco. Se hai della tela carbonizzata, mettila nel braciere.
