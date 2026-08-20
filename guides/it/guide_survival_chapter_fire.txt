@@ -12,7 +12,7 @@ Saper accendere un fuoco può aiutarti a stare al caldo, purificare l'acqua e cu
 ### Attrezzatura
 **Necessario**:
 - Accendifuoco (accendino, fiammiferi impermeabili, acciarino dorato)
-  - Puoi portare con te una lente di Fresnel delle dimensioni di una carta di credito nel portafoglio o nella custodia del telefono. TODO: Incomplete translation.
+  - Puoi portare nel portafoglio o nella custodia del telefono una lente di Fresnel delle dimensioni di una carta di credito, da usare come sistema di emergenza per accendere il fuoco.
 
 **Facoltativo**:
 - Esca (panno carbonizzato, lanugine dell'asciugatrice, batuffoli di cotone imbevuti di vaselina o accendifuoco commerciali)
@@ -22,7 +22,7 @@ Inizia imparando a fare quanto segue:
 - Accendere un fuoco usando diversi accendifuoco (fiammiferi, accendini, acciarino)
 - Raccogliere e preparare esca, legna da ardere e combustibile
 - Mantenere il fuoco
-- TODO: Incomplete translation.
+- Spegnere il fuoco
 - Accendere un fuoco in condizioni di umidità
 
 Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
@@ -73,17 +73,17 @@ Trovare legna secca può essere difficile, ma cercate rami secchi sugli alberi, 
 
 ![](file:///android_asset/survival_guide/breaking_branches.webp)
 
-### Bastoncini di piuma
+### Bastoncini "piuma"
 <!-- K: feather-stick -->
 
-Un bastoncino di piuma può essere usato come esca e legna da ardere per accendere un fuoco quando è difficile trovare altro materiale infiammabile.
+Un bastoncino "piuma' può essere usato come esca e legna da ardere per accendere un fuoco quando è difficile trovare altro materiale infiammabile.
 
-Per realizzare un bastoncino di piuma:
+Per realizzare un bastoncino "piuma":
 
-1. Trovare un bastoncino dritto, spesso e asciutto.
-2. TODO: Incomplete translation.
-3. Ripetete questo processo, ma tagliando lungo la cresta creata dal taglio precedente. TODO: Incomplete translation.
-4. TODO: Incomplete translation.
+1. Trovare un bastoncino dritto, spesso e ben asciutto.
+2. Partendo dalla parte alta del bastoncino, usa un coltello per ricavare un ricciolo di legno lungo e sottile. Cerca di non staccarlo completamente dal bastoncino.
+3. Ripeti l’operazione, facendo il nuovo taglio lungo il bordo creato dal taglio precedente. Fai attenzione a non staccare i riccioli già formati.
+4. Raccogli i riccioli che eventualmente si sono staccati. Puoi usarli comunque come materiale per accendere il fuoco.
 5. Per accendere un fuoco, seguite la sezione successiva usando il bastoncino di legno come esca.
 
 ![](file:///android_asset/survival_guide/feather_stick.webp)
@@ -104,7 +104,7 @@ Ecco i passaggi da seguire per accendere il fuoco:
 
 ![](file:///android_asset/survival_guide/fire_tepee.webp)
 
-### TODO: Incomplete translation.
+### mantenere viva la brace.
 <!-- K: ember, nurse, blow, oxygen, tinder -->
 
 Una brace è un piccolo pezzo di esca che sta covando ma non ha ancora formato una fiamma. Una volta ottenuta una brace, soffiateci delicatamente dentro e alimentatela con altra esca finché non compare una fiamma. A volte, è più facile tenere l'esca con la brace e avvicinare le mani per trovare il giusto equilibrio di ossigeno, combustibile e calore.
@@ -141,7 +141,7 @@ Alcuni acciarini sono dotati di un blocco di magnesio, TODO: Incomplete translat
 ### Fornello da campo
 <!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, propane -->
 
-TODO: Incomplete translation. Posizionare sempre il fornello su una superficie piana e stabile che non prenda fuoco (come una pietra). Assicurarsi di leggere le istruzioni del produttore prima dell'uso.
+La maggior parte dei fornellini da campeggio richiede un sistema di accensione separato, come un accendino, mentre alcuni possono avere un accenditore piezoelettrico integrato. Posiziona sempre il fornello su una superficie piana, stabile e non infiammabile (per esempio una roccia). Prima di utilizzarlo, leggi attentamente le istruzioni del produttore..
 
 **Per utilizzare un fornello a cartuccia di gas:**
 
@@ -159,7 +159,6 @@ TODO: Incomplete translation. Posizionare sempre il fornello su una superficie p
 2. Riempite il fornello con il combustibile.
 3. Accendete il combustibile.
 4. Una volta terminato, appoggiate delicatamente il coperchio sul fornello (senza stringerlo). Aspettate che si raffreddi prima di stringere il coperchio e riporre il fornello. Se utilizzate un fornello a combustibile solido, potrebbe essere necessario attendere che si consumi completamente.
-
 
 ### Lente d'ingrandimento
 <!-- K: lente d'ingrandimento, lente -->
