@@ -1,0 +1,14 @@
+Mappe fotografiche
+- Aggiunta impostazione per mantenere i PDF a piena risoluzione
+- Visualizzazione dell'altitudine attuale
+
+Astronomia
+- Regolazione dell'orientamento lunare in base alla posizione
+
+Conversione
+- Aggiunta di millimetri, cucchiaini e cucchiai
+
+Varie
+- Possibilità di visualizzare fino a 7 strumenti nella barra di navigazione inferiore
+- Aggiunta del tema nero di sistema
+- Correzione di bug
