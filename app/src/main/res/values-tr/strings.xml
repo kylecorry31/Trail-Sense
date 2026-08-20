@@ -1448,4 +1448,9 @@
     <string name="available_plugins">Mevcut eklentiler</string>
     <string name="plugin_name">Eklenti: %s</string>
     <string name="plugin_connect_title">Eklenti bağlansın mı?</string>
+    <string name="disconnect">Bağlantıyı Kes</string>
+    <string name="plugin_unavailable">Bu eklenti kullanılamıyor veya artık bağlı değil.</string>
+    <string name="clear_plugin_cache">Eklenti önbelliğini temizle</string>
+    <string name="plugin_connect_message">Yalnızca güveniyorsanız %s adresine bağlanın.</string>
+    <string name="plugin_disconnect_title">Eklentinin bağlantısı kesilsin mi?</string>
 </resources>
