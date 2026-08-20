@@ -61,10 +61,12 @@ All code/translation contributors will be credited in the Licenses section of Tr
 ## Translations
 - Do not use machine translation unless you are proficient in both English and the language you are translating to.
 - If you use machine translation, you need to fully proofread it and confirm it is an accurate translation.
-- If you are suspected of using machine translations without proofreading, you will be banned from translations and need to reach out to me to discuss details about me unbanning you. It is a lot of work to accept translations, especially when there is a high volume of incorrect translations.
+- If you are suspected of using machine translations without proofreading or are submitting a large number of incorrect translations, you will be banned from translations and need to reach out to me to discuss details about me unbanning you. It is a lot of work to accept translations, especially when there is a high volume of incorrect translations.
 - Do not use machine translation to translate the survival guide. That contains critical information that machines mess up on.
 
 Machine translation = translating using a computer, whether that is something like Google Translate or AI it falls into the same bucket.
+
+I need to rely on machine translation to review the translations - I use multiple sources to verify the findings and only reset translations when they are clearly wrong. I wish I had another way, but as the maintainer of this project I need to verify somehow before letting the translations in.
 
 ## Survival Guide
 The survival guide is heavily curated and all information must be easy to follow and relevant to wilderness survival for the average person. I do not want to include advanced topics or bushcraft in the guide.
