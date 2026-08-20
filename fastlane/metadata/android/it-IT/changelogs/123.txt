@@ -1,0 +1,14 @@
+Astronomia
+- Avvisi sull'alba
+
+Maree
+- Aggiunto metodo di stima dell'intervallo lunidale
+
+Percorsi
+- Modificato l'intervallo di ritorno predefinito a 15 minuti
+
+Torcia
+- Controllo della luminosità della torcia dello schermo tramite i pulsanti del volume (attivabile nelle Impostazioni)
+
+Varie
+- Correzione di bug e miglioramenti delle prestazioni

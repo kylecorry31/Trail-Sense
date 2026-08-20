@@ -2,7 +2,7 @@
 
 <ul>
     <li>Progettato per l'escursionismo, il backpacking, il campeggio e il geocaching</li>
-    <li>Posiziona  segnalatori e naviga verso di essi</li>
+    <li>Posiziona punti di riferimento e dirigiti verso di essi</li>
     <li>Usa come una bussola (disponibile solo su dispositivi con sensore bussola))</li>
     <li>Segui percorsi</li>
     <li>Ripercorri i tuoi passi con il percorso di ritorno</li>
@@ -31,7 +31,6 @@ Utilizzala a tuo rischio e pericolo, munisciti sempre di strumenti di riserva (a
 <p>Hai trovato un problema o vuoi una nuova funzionalità? Contattami a trailsense@protonmail.com o create un nuova segnalazione su GitHub: github.com/kylecorry31/Trail-Sense</p>
 
 <p>Sono l'unico sviluppatore di Trail Sense, quindi farò del mio meglio per aiutare a risolvere i problemi, ma ho una selezione limitata di dispositivi su cui effettuare i test.</p>
-
 
 <h3>PERMESSI</h3>
 <ul>

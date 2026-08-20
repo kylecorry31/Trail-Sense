@@ -1,0 +1,15 @@
+Liste di preparazione
+- Importazione ed esportazione delle liste di preparazione
+
+Fischietto
+- Miglioramento del suono del fischietto
+
+Strumenti
+- Visualizzazione delle azioni rapide per lo strumento corrente tenendo premuto a lungo il pulsante inferiore
+
+Guida utente
+- Aggiunta azione rapida per visualizzare la guida per lo strumento corrente
+
+Impostazioni
+- Aggiunta azione rapida per visualizzare le impostazioni per lo strumento corrente
+- Calibrazione del barometro
