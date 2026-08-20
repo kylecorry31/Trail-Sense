@@ -1,0 +1,232 @@
+<!-- K: panoramica, sopravvivenza, situazione, soccorso, smarrimento -->
+<!-- S: Preparati, fermati se ti perdi e pensa prima di agire. -->
+
+Questa guida illustra le competenze essenziali di sopravvivenza necessarie per aumentare le probabilità di tornare sani e salvi da una situazione di emergenza. Non sostituisce la formazione professionale o l'esperienza e deve essere utilizzata solo come riferimento.
+
+Questa guida è pensata per essere pratica e concisa, con l'unico scopo di aiutarti a uscire da una situazione di sopravvivenza. Pertanto, la maggior parte delle tecniche di bushcraft e altre tecniche che un escursionista medio troverebbe impraticabili sono state omesse.
+
+Se ti trovi in una situazione di sopravvivenza, cerca di mantenere la calma e inizia dalla sezione "Cosa fare in una situazione di sopravvivenza" di questo capitolo.
+
+**Questo capitolo fornisce solo informazioni generali. Non sostituisce la formazione professionale, i servizi di emergenza, le indicazioni locali o le istruzioni del produttore/del prodotto. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; verifica le informazioni prima di agire, segui le leggi e le istruzioni locali e non esitare a chiedere aiuto in caso di emergenza. Non affidatevi esclusivamente a questa guida o al vostro telefono come unico piano di sicurezza o mezzo di comunicazione.**
+
+## Preparatevi
+<!-- K: preparazione, equipaggiamento, conoscenza, abilità -->
+<!-- S: Portate con voi un kit di sopravvivenza in ogni escursione e informate gli altri dei vostri piani. Imparate come comportarvi in una situazione di sopravvivenza e come segnalare la vostra posizione per chiedere aiuto. -->
+
+Prima di addentrarvi nella natura selvaggia, dovreste essere il più preparati possibile. Ciò significa che dovreste pianificare il vostro percorso e percorsi alternativi, preparare l'attrezzatura adeguata, apprendere le competenze necessarie e comunicare i vostri piani ad almeno un adulto responsabile.
+
+### Attrezzatura
+
+L'attrezzatura da portare dipenderà dal vostro livello di esperienza, dalla durata dell'escursione, dalla popolarità/isolamento del sentiero, dal terreno, dall'ora del giorno e dalle condizioni meteorologiche.
+
+Per brevi escursioni nella natura (meno di 2 ore) con condizioni meteorologiche ideali, un telefono con mappe offline, un coltello o un multiutensile, un accendino, occhiali da sole e una bottiglia d'acqua potrebbero essere sufficienti. Potete applicare un repellente per insetti o una crema solare prima di uscire.
+
+Molte persone portano sempre con sé lo smartphone e, sebbene non si debba fare affidamento esclusivamente su di esso, può essere molto utile. Per sfruttarlo al meglio, scaricate un'app di navigazione offline o delle mappe e mettete soldi, bende e una lente di Fresnel sotto la custodia per le emergenze.
+
+**Indispensabili**:
+- Cellulare (con mappe offline, se possibile)
+- Fischietto
+- Spray al peperoncino o spray anti-orso (verificare le leggi locali)
+- Batterie di ricambio (per la torcia) e un power bank per il telefono
+- Cerotti assortiti
+- Garze
+- Cerotto chirurgico
+- Spilla da balia o ago
+- Pinzette
+- Pomata antibiotica
+- Crema solare
+- Repellente per insetti
+- Farmaci con prescrizione (incluse dosi extra per diversi giorni), lenti a contatto e occhiali
+- Antidolorifici (aspirina, ibuprofene, paracetamolo)
+- Gel disinfettante per le mani
+- Autoiniettore di epinefrina (in caso di allergie gravi)
+- Inalatore per l'asma (in caso di asma)
+- Coperta termica di emergenza
+- Poncho
+- Calzini di ricambio
+- Stivali o scarpe robuste
+- Occhiali da sole
+- Corda (paracord)
+- Kit da cucito (ago e filo)
+- Nei climi più freddi:
+
+- Strati isolanti (giacca, pantaloni, cappello, guanti)
+
+- Impermeabile Strato esterno
+
+- Stivali impermeabili o isolanti
+- Intimo termico
+- Scaldamani
+- Per i pernottamenti:
+
+- Cambio di vestiti
+- Sacco a pelo
+- Materassino
+- Tenda
+- Telo protettivo
+- Sacca o contenitore anti-orso
+- Acqua (sufficiente per tutta la durata del viaggio, più un po' di scorta)
+
+Per i viaggi più lunghi, porta con te un sistema di purificazione dell'acqua e pianifica il percorso includendo fonti d'acqua.
+
+- Contenitori per l'acqua (preferibilmente un contenitore in cui sia possibile far bollire l'acqua, come una bottiglia in acciaio inox a parete singola)
+- Accendifuoco (accendino, fiammiferi impermeabili o acciarino)
+- Cibo (sufficiente per tutta la durata del viaggio, più un po' di scorta). Non portare cibo che non hai mai mangiato prima. Alcune buone opzioni includono:
+
+- Noci
+- Semi
+- Frutta secca
+- Carne essiccata
+- Barrette energetiche
+- Pasti disidratati (con acqua extra)
+
+- Cibo in scatola (con un apriscatole se necessario)
+- Coltello o multiutensile con lama
+- Mappa
+- Bussola
+- Torcia o lampada frontale
+- Previsioni meteo a 7 giorni
+
+**Opzionale**:
+- Specchietto segnaletico
+
+Consulta ogni capitolo per ulteriori consigli sull'attrezzatura.
+
+### Conoscenze e abilità
+Inizia imparando a fare quanto segue:
+- Rispettare le leggi e i regolamenti locali
+- Agire in una situazione di sopravvivenza
+- Segnalare aiuto
+- Pianificare un'escursione
+
+Consulta ogni capitolo per ulteriori consigli su conoscenze e abilità.
+
+### Letture aggiuntive
+Questa guida copre solo una piccola parte della vasta conoscenza sulla sopravvivenza e il bushcraft. Se desideri approfondire altre abilità, ti consiglio i materiali presenti nel capitolo Riferimenti.
+
+## Cosa fare in una situazione di sopravvivenza
+<!-- K: pensare, osservare, agire -->
+<!-- S: Fermati, pensa, osserva, pianifica e agisci. Il piano spesso consiste nel rimanere dove ti trovi e aspettare i soccorsi. -->
+
+Se ti trovi in una situazione di sopravvivenza, cerca di non farti prendere dal panico e usa i seguenti passaggi come guida.
+
+### Fermati
+<!-- K: fermati, prima cosa, importante -->
+
+La prima e più importante cosa da fare quando ci si perde è fermarsi.
+Se ti trovi in pericolo immediato nella tua posizione attuale, puoi muoverti, altrimenti resta dove sei. Usa questo tempo per calmarti con respiri profondi (inspira dal naso, espira dalla bocca o dal naso); arriverai a casa.
+
+### Rifletti
+Prenditi un momento per riflettere sulla tua situazione. Rispondi (ma non agire) alle seguenti domande:
+- Quali sono i tuoi bisogni immediati?
+- Quali risorse hai a disposizione?
+- Hai comunicato i tuoi piani a qualcuno prima di partire? Se sì, quando è previsto il tuo ritorno?
+- Da dove sei venuto?
+
+### Osserva
+Successivamente, osserva l'ambiente circostante e valuta la tua situazione. La prima cosa da fare è controllare la tua posizione sullo smartphone o sul ricevitore GPS. Se hai un'app di mappe, aprila e verifica se è disponibile una mappa. Puoi anche controllare se c'è un segnale per chiedere aiuto. Se non riesci a trovare nulla, guardati intorno e ascolta attentamente per individuare eventuali persone, veicoli o sentieri. Puoi aumentare il raggio d'azione dell'udito mettendo le mani dietro le orecchie. Infine, osservate dove vi trovate e cercate potenziali pericoli (condizioni meteorologiche/terreno/animali pericolosi) o risorse (acqua/materiali per costruire un riparo/legna da ardere).
+
+### Pianificazione
+<!-- K: plan, next, steps, help -->
+
+Elaborate un piano per i prossimi passi. Ciò che farete dipenderà dalla vostra situazione attuale. Ecco alcuni consigli generali sulle azioni che potete intraprendere, in ordine di importanza:
+
+- Se siete gravemente feriti, curate le vostre ferite.
+
+- Se siete bagnati e avete abiti asciutti, togliete gli abiti bagnati e indossate quelli asciutti. Se avete solo una coperta asciutta o un sacco a pelo, togliete gli abiti bagnati e avvolgetevi in quello.
+
+- Se il tempo è brutto, cercate riparo.
+- Provate a chiamare o inviare un messaggio per chiedere aiuto.
+- Se fa freddo, riscaldatevi con l'isolamento, un riparo e poi un fuoco (se si accende facilmente).
+- Se fa caldo, cercate l'ombra e bevete acqua lentamente.
+- Se sta per fare buio, costruite un riparo e magari accendete un fuoco.
+- Iniziate a risparmiare cibo e acqua, ma non lasciatevi sete.
+- Se avete una ferita lieve, curatela.
+- Registrate la vostra posizione attuale sul telefono o sul GPS; se avete un indumento di colore acceso, legatelo a un albero ben visibile. Questo vi aiuterà a non perdervi ulteriormente.
+- Se siete senza acqua o state per finirla, trovate una fonte d'acqua e purificatela.
+- Segnalate la vostra posizione utilizzando le tecniche descritte più avanti in questo capitolo. Fatelo spesso per aumentare le probabilità di essere ritrovati.
+- Cercate di determinare la vostra posizione utilizzando una mappa.
+
+Controllate la presenza di tracce del sentiero nelle vicinanze, ma tenete sempre d'occhio la vostra posizione iniziale.
+
+Individuate punti di interesse nelle vicinanze che potreste trovare su una mappa o raggiungere a piedi in seguito, se necessario.
+
+- Se siete senza cibo, iniziate a pensare a come procurarvi qualcosa da mangiare. Potete sopravvivere per settimane senza cibo, ma col tempo vi indebolirete.
+- Se siete fuori da diversi giorni o da una settimana, potrebbe essere necessario valutare la possibilità di tornare indietro a piedi. Lascia un segno che indichi la tua presenza e la direzione in cui ti sei diretto, ad esempio qualcosa legato a un albero e una freccia fatta con materiali naturali nelle vicinanze.
+
+In sintesi, la priorità è curare le ferite gravi, cercare riparo, segnalare la propria posizione, trovare acqua, accendere un fuoco (per riscaldarsi e far bollire l'acqua), determinare la propria posizione, cercare vie d'uscita, trovare cibo e, solo se si è rimasti a lungo in quella zona, proseguire il cammino.
+
+Il tuo piano dovrebbe adattarsi alla situazione man mano che cambia. Rivaluta spesso la situazione e mantieni la speranza di essere ritrovato.
+
+### Agisci
+Una volta elaborato un piano, mettilo in pratica. Se in qualsiasi momento ti senti insicuro, nervoso, incerto o se la situazione cambia, fermati e rivaluta la situazione.
+
+## Pianifica un'escursione
+<!-- K: piano, escursione -->
+<!-- S: Prima di partire, informati sul terreno, le condizioni meteorologiche e la fauna selvatica. Pianifica un percorso su una mappa e porta con te le provviste necessarie. Condividi questo piano con una persona di fiducia. Prima di avventurarti nella natura selvaggia, elabora un piano che tu possa seguire alla lettera. Informati sul terreno, sulle condizioni meteorologiche, sulla fauna e sulla flora che potresti incontrare. Verifica i regolamenti locali e gli eventuali permessi necessari. Utilizza una mappa aggiornata per pianificare il tuo percorso e, se necessario, anche percorsi alternativi nel caso in cui i sentieri siano impraticabili. Controlla anche le condizioni dei sentieri e le previsioni del tempo per la tua escursione. Una combinazione errata di condizioni meteorologiche e terreno può rivelarsi fatale, quindi sii preparato.
+
+Una volta pianificata l'escursione, prepara l'attrezzatura e le provviste necessarie e controlla che tutto sia funzionante. Condividi il tuo piano con almeno un adulto responsabile, specificando i percorsi, chi ti accompagnerà, quando tornerai e quando lo contatterai. Se non hai nessuno a cui comunicare questi piani, lascia un biglietto con queste informazioni in un luogo ben visibile della tua casa. Durante l'escursione, attieniti al percorso ed evita rischi inutili.
+
+## Segnalazione di aiuto
+<!-- K: segnalare, chiedere aiuto, contattare, trovare -->
+<!-- S: Prova con il cellulare; Potrebbe essere in grado di effettuare chiamate di emergenza. In caso contrario, usa un fischietto, uno specchietto segnaletico, del fumo, dei razzi, una torcia elettrica o dei segnali terra-aria per attirare l'attenzione. -->
+
+Segnalazioni di richieste di aiuto aumenteranno le tue probabilità di essere trovato. Dovresti farlo pesso, anche se pensi che non ci sia nessuno nelle vicinanze o che possa sentirti.
+
+### Telefono cellulare
+<!-- K: cellulare, telefono, chiamata, SMS, smartphone -->
+
+Molti telefoni possono chiamare i servizi di emergenza anche senza segnale del tuo operatore. Se non riesci a effettuare una chiamata, prova a inviare un SMS. Controlla periodicamente il telefono per verificare se hai segnale, altrimenti tienilo spento o in modalità aereo per risparmiare batteria. Potresti ottenere un segnale migliore spostandoti in un luogo più elevato o in un'area aperta.
+
+### Messaggeri satellitari e PLB
+<!-- K: satellite, messaggero, PLB, segnalatore, localizzatore personale -->
+
+Un messaggero satellitare o un localizzatore personale (PLB) può essere utilizzato per inviare un segnale SOS in caso di emergenza. Sono generalmente utilizzati in aree in cui il telefono cellulare non ha segnale. I PLB possono inviare solo un segnale SOS e devono essere registrati, ma non prevedono un costo di abbonamento. I servizi di messaggistica satellitare richiedono un abbonamento, ma di solito consentono di inviare più tipi di messaggi.
+
+Su alcuni smartphone potrebbe essere disponibile una funzione satellitare utilizzabile a questo scopo. Visita il sito web del produttore del tuo telefono o consulta il manuale d'uso per verificare se questa funzione è disponibile sul tuo dispositivo.
+
+### Fischietto
+<!-- K: whistle, sound, acorn -->
+
+Tre brevi fischi sono un segnale comune per chiedere aiuto. Potresti voler coprire le orecchie quando usi il fischietto a volume massimo.
+
+In caso di necessità, puoi usare una ghianda o un tappo di bottiglia come fischietto. Tienilo tra i pollici come mostrato nell'immagine sottostante, poi appoggia le labbra sulle nocche dei pollici e soffia. Non sarà forte come un fischietto normale, ma è comunque utilizzabile.
+
+![](file:///android_asset/survival_guide/acorn_whistle.webp)
+
+### Specchio segnaletico
+<!-- K: specchio, luce solare, riflettere -->
+
+Tieni lo specchio con una mano ed estendi l'altro braccio davanti a te con le dita a V e il bersaglio tra le dita. Rifletti la luce del sole sulle dita e muovi lentamente lo specchio su e giù per illuminare i potenziali soccorritori. Puoi usare lo schermo di un telefono come specchio segnaletico, ma non sarà efficace quanto un vero specchio e dovrebbe essere combinato con un altro segnale, come il fumo o un segnale terra-aria.
+
+![](file:///android_asset/survival_guide/signal_mirror.webp)
+
+### Fumo
+<!-- K: fumo, fuoco, bruciare, segnale -->
+
+Il fumo può attirare l'attenzione durante il giorno. Aggiungere vegetazione verde a un fuoco già acceso può creare molto fumo, ma assicurati di farlo in sicurezza. Un fuoco di notte può essere usato anche per attirare l'attenzione.
+
+### Razzi di segnalazione
+<!-- K: flare -->
+
+I razzi di segnalazione sono più visibili di notte o in condizioni di scarsa visibilità. Segui le istruzioni sulla confezione e fai attenzione a eventuali restrizioni legali sul loro utilizzo.
+
+### Torcia elettrica
+<!-- K: flashlight, light, SOS -->
+
+Di notte, una torcia elettrica o una lampada frontale possono essere utilizzate per segnalare la propria posizione e chiedere aiuto. Usa il segnale di soccorso internazionale SOS, che consiste in tre lampeggi brevi, tre lampeggi lunghi e tre lampeggi brevi. Se la tua torcia cambia modalità quando viene accesa e spenta, puoi coprire la luce con la mano invece di spegnerla. Puntala in direzione di un aereo o di altri potenziali soccorritori.
+
+### Segnali terra-aria
+<!-- K: ground-to-air -->
+
+I segnali terra-aria sono grandi marcatori che si creano a terra per comunicare con gli aeromobili. Utilizza pietre, tronchi o altri materiali per creare una grande "V" (che indica la necessità di assistenza) o una "X" (che indica la necessità di assistenza medica). Usa colori contrastanti o artificiali per rendere il segnale più visibile.
+
+![](file:///android_asset/survival_guide/ground_to_air.webp)
+
+### Dispositivi di segnalazione per valanghe
+<!-- K: valanga, segnalatore, ricetrasmettitore -->
+
+Un dispositivo di segnalazione per valanghe è un apparecchio che emette un segnale che può essere captato da altri ricetrasmettitori nelle vicinanze. Può aiutare i soccorritori a localizzarti se rimani sepolto dalla neve in una valanga.
+
+## Avvertenza
+Questa guida è fornita a solo scopo informativo generale. Non costituisce formazione professionale, consulenza medica, diagnosi o trattamento e non sostituisce i servizi di emergenza, il personale sanitario qualificato, le indicazioni locali o le istruzioni del produttore/del prodotto. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; Verificate le informazioni prima di agire, rispettate le leggi e le istruzioni locali e non esitate a chiedere aiuto in caso di emergenza. Non affidatevi esclusivamente a questa guida, a Trail Sense o al vostro telefono come unico piano di sicurezza o mezzo di comunicazione. Agisci usando il buon senso e assumendoti la responsabilità dei rischi.

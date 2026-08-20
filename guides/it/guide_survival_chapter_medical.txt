@@ -1,9 +1,9 @@
 <!-- K: medicina, medico, guarire, salute, infortunio, malato, malessere, primo soccorso, sintomo, trattare, prevenire, aiutare -->
 <!-- S: Calmati e presta il primo soccorso. -->
 
-Questo capitolo tratta le nozioni mediche di base e le tecniche per le lesioni e le malattie più comuni in ambienti selvaggi.
+Questo capitolo tratta le nozioni mediche di base e le tecniche per le ferite e le malattie più comuni in ambienti selvaggi.
 
-**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non costituisce consulenza medica, diagnosi o trattamento e non sostituisce la formazione professionale, i servizi di emergenza, il personale sanitario qualificato, le indicazioni locali o le istruzioni del produttore/del prodotto. Le condizioni mediche e le raccomandazioni terapeutiche variano; se chiami i servizi di emergenza, segui le loro istruzioni e non ritardare la consultazione di questo capitolo per ricevere assistenza medica.**
+**Questo capitolo fornisce solo informazioni generali a scopo didattico. Non costituisce consulenza medica, diagnosi o trattamento e non sostituisce la formazione professionale, i servizi di emergenza, il personale sanitario qualificato, le indicazioni locali o le istruzioni del produttore/del prodotto. Le condizioni mediche e le raccomandazioni terapeutiche variano; se chiami i servizi di emergenza, segui le loro istruzioni e non ritardare la richiesta di soccorso medico per consultare questo capitolo**
 
 Se è necessario chiamare i servizi di emergenza, attiva il vivavoce o chiedi a qualcun altro di chiamare per evitare di ritardare il primo soccorso.
 
@@ -41,7 +41,7 @@ Se è necessario chiamare i servizi di emergenza, attiva il vivavoce o chiedi a 
 - Colla super forte
 - Tamponi di cotone
 - Farmaco antidiarroico (loperamide)
-- Gas Farmaci antiacidi (simeticone)
+- Farmaci antigonfiore addominale (simeticone)
 - Compresse antiacide
 - Specchio
 - Tamponi/assorbenti/coppetta mestruale
@@ -60,9 +60,7 @@ Se è necessario chiamare i servizi di emergenza, attiva il vivavoce o chiedi a 
 
 Inizia imparando a fare quanto segue:
 - Eseguire il primo soccorso di base e la rianimazione cardiopolmonare (RCP).
-
 - Calmare te stesso e gli altri.
-
 Una volta acquisite queste competenze, dovresti imparare a fare quanto segue:
 - Eseguire tecniche avanzate di primo soccorso/medicina d'emergenza in ambiente selvaggio.
 
@@ -95,7 +93,7 @@ Questo è un elenco di farmaci comuni che gli escursionisti potrebbero portare c
 <!-- K: allergia, allergico, reazione, eruzione cutanea, prurito, gonfiore, orticaria, starnuti, tosse, gola, respiro, epinefrina, epi-pen, epipen, iniezione, asma, anafilassi -->
 <!-- S: I sintomi includono eruzione cutanea, prurito, gonfiore, orticaria e difficoltà respiratorie. Il trattamento consiste nell'eliminare l'allergene, utilizzare antistaminici o un autoiniettore di epinefrina. La prevenzione consiste nell'evitare gli allergeni noti. -->
 
-Le reazioni allergiche possono variare dalla dermatite da contatto (come quella da edera velenosa) o dalle punture di insetti all'anafilassi, una reazione grave che può essere potenzialmente letale.
+Le reazioni allergiche possono variare dalla dermatite da contatto (come quella da edera velenosa) o con le punture di insetti all'anafilassi, una reazione grave che può essere potenzialmente letale.
 
 ### Sintomi
 
@@ -184,7 +182,6 @@ In caso di sanguinamento grave, consultare la sezione "Sanguinamento".
 #### Prevenzione
 
 - Non avvicinarsi, non mettere alle strette e non dare da mangiare agli animali selvatici.
-
 - Evitare gli animali con cuccioli nelle vicinanze.
 
 Le seguenti indicazioni sono specifiche per gli orsi, ma possono essere valide anche per altri animali di grossa taglia:
@@ -230,7 +227,7 @@ Non salare, bruciare o strappare la sanguisuga, poiché ciò potrebbe causarne i
 - Controllare frequentemente la presenza di sanguisughe.
 
 ### Serpenti
-<!-- K: serpente, morso, veleno, veleno, antidoto, morso di serpente -->
+<!-- K: serpente, morso, veleno, antidoto, morso di serpente -->
 <!-- S: Trattare pulendo la ferita, applicando una benda, immobilizzando l'arto e consultando un medico. Prevenire questo problema facendo attenzione a dove si mettono i piedi e indossando stivali alti. -->
 
 Controllare sempre il percorso per la presenza di serpenti, soprattutto in zone con erba alta, rocce instabili o tronchi. Nelle regioni calde e aride, i serpenti possono nascondersi in zone ombreggiate, sotto cespugli o detriti, oppure in tane. Nelle zone temperate, i serpenti possono trovarsi in aree esposte al sole. La maggior parte dei serpenti non è velenosa, ma se non si conosce la specie, è necessario trattare il morso come se fosse velenoso.
@@ -290,7 +287,7 @@ Consulta la sezione relativa agli oggetti negli occhi.
 
 #### Prevenzione
 - Usa un repellente per insetti.
-- Indossa maniche lunghe e pantaloni.
+- Indossa maniche lunghe e pantaloni lunghi.
 - Copri il viso con una bandana.
 - Indossa occhiali da vista/da sole (per tenere gli insetti lontani dagli occhi).
 - Usa una zanzariera.
@@ -324,7 +321,7 @@ Le zecche si attaccano alla pelle e si nutrono di sangue. Possono trasmettere ma
 #### Prevenzione
 - Utilizzare un repellente per insetti.
 
-- Indossare maniche lunghe e pantaloni.
+- Indossare maniche lunghe e pantaloni lunghi.
 
 - Controllare frequentemente la presenza di zecche, soprattutto se si utilizzano foglie secche ed erba come isolante.
 
@@ -442,9 +439,7 @@ Si tratta di ustioni che interessano tutti gli strati della pelle e possono esse
 
 ### Prevenzione
 - Prestare attenzione in prossimità di fiamme, soprattutto se si indossano indumenti sintetici.
-
 - Non toccare oggetti caldi.
-
 - Se i vestiti prendono fuoco, fermarsi, gettarsi a terra e rotolare per spegnere le fiamme.
 
 ## Soffocamento
@@ -522,7 +517,7 @@ Reidratati bevendo lentamente acqua, una soluzione elettrolitica o un'altra beva
 - Bevi acqua frequentemente, aumentando l'assunzione durante l'attività fisica.
 
 ## Ami da pesca conficcati
-<!-- K: amo, amo, rimuovere -->
+<!-- K: amo, rimuovere -->
 <!-- S: Gli ami possono essere rimossi facendo passare una lenza attraverso la curvatura e tirando rapidamente mentre si spinge verso il basso l'amo. Per evitare che si conficchino, maneggia gli ami con cura. -->
 
 Gli ami da pesca sono progettati per penetrare la carne e sono difficili da rimuovere senza causare ulteriori lesioni. A meno che non sia necessario rimuovere l'amo per prevenire ulteriori lesioni, è meglio lasciarlo in sede e consultare un medico.
@@ -550,9 +545,7 @@ In alcuni casi, è possibile utilizzare un paio di pinze al posto della lenza da
 
 ### Prevenzione
 - Prestare attenzione quando si maneggiano gli ami da pesca, soprattutto le esche con più ami tripli.
-
 - Prestare particolare attenzione quando si rimuove un amo da un pesce che si dimena o che è scivoloso.
-
 - Gli ami senza ardiglione sono più facili da rimuovere in caso di abboccata, ma può essere più difficile recuperare il pesce.
 
 ## Fratture
@@ -627,7 +620,7 @@ Riscaldare la zona con il calore corporeo (ad esempio, mettendo una mano sotto l
 
 **Congelamento profondo**:
 
-Scongelare la zona solo se è possibile mantenerla scongelata. Ricongelare può causare ulteriori danni. Non utilizzare il fuoco per scongelare la zona. Non strofinare la zona. Consultare un medico il prima possibile.
+Scongelare la zona solo se è possibile mantenerla scongelata. Ricongelarla può causare ulteriori danni. Non utilizzare il fuoco per scongelare la zona. Non strofinare la zona. Consultare un medico il prima possibile.
 
 1. Assumere un antidolorifico prima dello scongelamento.
 2. Preparare acqua calda (37-39 °C).
@@ -828,9 +821,7 @@ Mantieni gli indumenti puliti e asciutti. Lava i vestiti con acqua e sapone. Per
 <!-- K: defecare, urinare, bagno, rifiuti, cazzuola, scavare, buca -->
 
 - Scava una buca profonda dai 15 ai 20 centimetri per evacuare e ricoprila di terra.
-
 - Se non hai una cazzuola, usa un bastone per scavare la buca.
-
 - Le normative locali potrebbero richiedere di gettare la carta igienica in un sacchetto per i rifiuti anziché seppellirla.
 
 Se non si dispone di carta igienica o di un bidet, utilizzare foglie non velenose, muschio o pietre lisce per lavarsi.
