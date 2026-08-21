@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.offline_maps.map_layers
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
+import com.kylecorry.luna.cache.MemoryCachedValue
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.andromeda_temp.MemoryCachedValue
 import com.kylecorry.trail_sense.shared.concurrency.CustomDispatchers
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
