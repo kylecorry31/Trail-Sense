@@ -84,6 +84,7 @@ class MainActivity : AndromedaActivity() {
     )
 
     private var appInitialized = false
+    private var isOnboarding = false
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -114,7 +115,8 @@ class MainActivity : AndromedaActivity() {
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
-            finish()
+            // Calling finish() here can crash some devices, so we need to set the flag and finish in onStart()
+            isOnboarding = true
             return
         }
 
@@ -228,6 +230,12 @@ class MainActivity : AndromedaActivity() {
 
     override fun onStart() {
         super.onStart()
+
+        if (isOnboarding) {
+            finish()
+            return
+        }
+
         if (!appInitialized && _binding != null) {
             appInitialized = true
             updateBottomNavigation()
