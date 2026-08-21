@@ -1670,4 +1670,7 @@
     <string name="location_permission">Autorisation d\'accès à la localisation</string>
     <string name="location_required_for_cell_signals">L\'autorisation de localisation est requise pour afficher les signaux de réseau mobile à proximité</string>
     <string name="bearing_length">Longueur du relèvement</string>
+    <string name="set_as_default_photo">Définir comme valeur par défaut</string>
+    <string name="delete_image_prompt">Supprimer l\'image ?</string>
+    <string name="image_index">Image %1$d/%2$d</string>
 </resources>
