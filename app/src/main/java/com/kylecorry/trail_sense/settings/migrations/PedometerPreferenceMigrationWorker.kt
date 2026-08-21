@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.migrations
 
 import android.content.Context
+import android.os.Build
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
@@ -43,7 +44,9 @@ class PedometerPreferenceMigrationWorker(
                 context.applicationContext,
                 PedometerPreferenceMigrationWorker::class.java,
                 WorkTaskScheduler.createStringId(context, UNIQUE_ID),
-                expedited = true
+                // Below Android 12, expedited work runs as a foreground service and requires the
+                // worker to provide a notification, which isn't worth it for this migration
+                expedited = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
             )
         }
 
