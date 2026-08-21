@@ -36,6 +36,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         canOpenPage()
         canCreatePage()
         canRecordSightingWithQuickAction()
+        canManageMultipleImages()
         canEditPage()
         canDeletePage()
         canSearch()
@@ -95,6 +96,49 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         clickListItemMenu("Delete")
         clickOk()
         not { hasText("A Test 3") }
+    }
+
+    private fun canManageMultipleImages() {
+        clickListItemMenu("Edit")
+
+        // A single image was added when the page was created
+        scrollUntil(R.id.scroll_view) { hasText(R.id.photo_position, "Image 1/1") }
+
+        // The slot after the last image is used to add another one
+        click(R.id.next_photo_button)
+        scrollUntil(R.id.scroll_view) { click("Take photo") }
+        click(R.id.capture_button)
+        hasText(R.id.photo_position, "Image 2/2")
+
+        // The arrows page through the images
+        click(R.id.previous_photo_button)
+        hasText(R.id.photo_position, "Image 1/2")
+        click(R.id.next_photo_button)
+        hasText(R.id.photo_position, "Image 2/2")
+
+        // Setting an image as the default moves it to the first slot
+        click(R.id.photo_upload_menu_button)
+        click("Set as default")
+        hasText(R.id.photo_position, "Image 1/2")
+
+        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+
+        // The page displays all the images
+        click("A Test")
+        hasText(R.id.photo_position, "Image 1/2")
+        click(R.id.next_photo_button)
+        hasText(R.id.photo_position, "Image 2/2")
+        back()
+
+        // An image can be deleted
+        clickListItemMenu("Edit")
+        scrollUntil(R.id.scroll_view) { hasText(R.id.photo_position, "Image 1/2") }
+        click(R.id.photo_upload_menu_button)
+        click("Delete")
+        clickOk()
+        hasText(R.id.photo_position, "Image 1/1")
+
+        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
     }
 
     private fun canEditPage() {
