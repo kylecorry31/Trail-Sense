@@ -1,0 +1,18 @@
+Field Guide
+- Attach multiple images to a page
+- Color sighting map markers by classification
+- Add scientific names
+- Option to hide built-in pages
+
+Offline Maps
+- Option to export trail maps
+- Show country and state/province boundaries (if available)
+- Improve map tile memory usage
+
+Misc
+- Show clock offset from system time
+- Add notification channel groups
+- Export logs from the Diagnostics tool
+- Add setting for navigation bearing length
+- Show center bubble level angle
+- Bug fixes
