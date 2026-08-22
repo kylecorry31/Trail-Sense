@@ -24,6 +24,7 @@
     <!--Dialogs-->
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
     <string name="plugin_connect_title">Connect plugin?</string>
+    <!--%s is the plugin name-->
     <string name="plugin_connect_message">Only connect to %s if you trust it.</string>
     <string name="plugin_disconnect_title">Disconnect plugin?</string>
     <string name="plugin_disconnect_message">Disconnect %s?</string>

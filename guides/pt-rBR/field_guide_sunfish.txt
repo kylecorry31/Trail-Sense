@@ -3,4 +3,4 @@ Um pequeno peixe de água doce com corpo alto e achatado e espinhos dorsais afia
 
 Espécies comuns incluem: bluegill, pumpkinseed e redear.
 
-https://pt.m.wikipedia.org/wiki/Perca-sol
+https://en.m.wikipedia.org/wiki/Lepomis

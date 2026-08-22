@@ -3,4 +3,4 @@ Roche sédimentaire qui forme des arêtes vives lorsqu'elle est fracturée, souv
 
 Également connu sous le nom de silex ou jaspe.
 
-https://fr.m.wikipedia.org/wiki/Chert
+https://en.m.wikipedia.org/wiki/Chert

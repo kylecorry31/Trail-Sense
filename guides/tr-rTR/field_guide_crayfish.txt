@@ -1,6 +1,6 @@
 Kerevit
-Küçük bir ıstakozu andıran tatlı su kabuklusu. Genellikle akıntıların sonunda, nehirlerde ve göllerde bulunurlar. Kerevitler hepçildir,bitki,böcek ve küçük balıkları yerler ve en aktif oldukları zaman gecedir.
+Küçük bir ıstakozu andıran tatlı su kabuklusu. TODO: Incomplete translation. Kerevitler hepçildir,bitki,böcek ve küçük balıkları yerler ve en aktif oldukları zaman gecedir.
 
-Ayrıca tatlı su ıstakozu olarak da bilinirler.
+TODO: Incomplete translation.
 
 https://tr.wikipedia.org/wiki/Kerevit

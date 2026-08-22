@@ -78,6 +78,7 @@ When the code is ready for a pull request:
 - If you use machine translation, you need to fully proofread it and confirm it is an accurate translation.
 - If you are suspected of using machine translations without proofreading or are submitting a large number of incorrect translations, you will be banned from translations and need to reach out to me to discuss details about me unbanning you. It is a lot of work to accept translations, especially when there is a high volume of incorrect translations.
 - Do not use machine translation to translate the survival guide. That contains critical information that machines mess up on.
+- For the field guides, it is fine to swap it for the equivalent article in the language you are translating to, as long as that article is about the same subject as the English one and is at the same taxonomic rank (ex. if the English link is for a genus, don't link to a single species or to the whole family). If there is no equivalent article at the same rank, keep the English link.
 
 Machine translation = translating using a computer, whether that is something like Google Translate or AI it falls into the same bucket.
 

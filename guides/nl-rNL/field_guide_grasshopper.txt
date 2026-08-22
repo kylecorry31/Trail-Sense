@@ -3,4 +3,4 @@ Een klein tot middelgroot insect dat bekendstaat om zijn krachtige achterpoten e
 
 Bekende soorten zijn: sabelsprinkhaan, veldsprinkhaan en krekels.
 
-https://nl.wikipedia.org/wiki/Rechtvleugeligen
+https://en.m.wikipedia.org/wiki/Grasshopper

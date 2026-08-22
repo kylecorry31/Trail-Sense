@@ -3,4 +3,4 @@ Ein Süßwasserfisch mit einem länglichen Körper und scharfen Rückenstacheln.
 
 Häufige Arten sind: Schwarzbarsch (Largemouth Bass), Kleiner Schwarzbarsch (Smallmouth Bass) und Gefleckter Schwarzbarsch (Spotted Bass).
 
-https://de.wikipedia.org/wiki/Schwarzbarsch
+https://en.m.wikipedia.org/wiki/Micropterus

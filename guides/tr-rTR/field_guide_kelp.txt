@@ -1,4 +1,4 @@
 Esmer su yosunu
-Kıyı bölgelerindeki tuzlu sularda bulunan ve genellikle yoğun su altı ormanları oluşturan büyük, kahverengi bir deniz yosunudur. Yenilebilir niteliktedir ve kıyıya vurduktan sonra toplanabilir.
+Kıyı bölgelerindeki tuzlu sularda bulunan ve genellikle yoğun su altı ormanları oluşturan büyük, kahverengi bir deniz yosunudur. Yenilebilir niteliktedir ve kıyıya vurduktan sonra toplanabilir. TODO: Incomplete translation.
 
-https://tr.wikipedia.org/wiki/Su_yosunlar%C4%B1
+https://en.m.wikipedia.org/wiki/Kelp
