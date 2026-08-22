@@ -38,7 +38,7 @@ Common reasons for not being included:
 All code/translation contributors will be credited in the Licenses section of Trail Sense setting (updated weekly).
 
 ## Pull Requests
-- All sections of the pull request description template must be filled out.
+- All sections of the pull request description template must be filled out. A pull request that replaces the template will not receive a code review until all sections have been restored and filled out.
 - Use the PR description to describe what this change does and why (not how). Please don't generate it with an LLM - it doesn't know why you made the decisions you did.
 - There must be a related issue and your code must implement it as specified. Raise in discussions or the issue if you believe something different is needed before submitting the pull request for review.
 - If your change involves modifications to the app code (ex. not just tests/docs/etc), a screenshot is required.
@@ -56,7 +56,8 @@ All code/translation contributors will be credited in the Licenses section of Tr
 - Unit tests are not required for UI or infrastructure changes, but should be added if you are writing domain logic (most logic lives in the `kylecorry31/sol` repo). If you are unsure, comment on the issue.
 - Pull requests that have requested changes which haven't received activity (response / commit / etc) after 1 week will be closed due to inactivity. If you are planning on addressing the changes but they are taking a while, please reply to the review comments. If you make changes after the pull request is closed, tag me in a comment or re-open a pull request.
 - If you are new to Trail Sense developement, I recommend starting with small sized issues.
-- I don't care about commit messages, I squash merge with my own message when I complete your PR.\
+- I don't care about commit messages, I squash merge with my own message when I complete your PR.
+- Repeated pull requests that are not following this contribution policy will result in losing pull request privileges. 
 
 ## Translations
 - Do not use machine translation unless you are proficient in both English and the language you are translating to.
