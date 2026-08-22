@@ -14,8 +14,7 @@
             android:id="@+id/text_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNone"
-            android:inputType="text" />
+            android:inputType="text|textCapSentences" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

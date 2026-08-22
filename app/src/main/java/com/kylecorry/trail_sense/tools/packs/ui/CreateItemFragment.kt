@@ -131,7 +131,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                         return@let
                     }
                     binding.createItemTitle.title.text = getString(R.string.edit_item_title)
-                    binding.nameEdit.setText(it.name)
+                    binding.nameEdit.text = it.name
                     binding.countEdit.setText(DecimalFormatter.format(it.amount, 4, false))
                     binding.desiredAmountEdit.setText(
                         DecimalFormatter.format(

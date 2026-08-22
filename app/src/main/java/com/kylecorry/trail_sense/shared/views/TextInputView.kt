@@ -47,6 +47,12 @@ class TextInputView(context: Context, attrs: AttributeSet?) :
         }
     }
 
+    fun setOnTextFocusChangeListener(callback: (hasFocus: Boolean) -> Unit) {
+        edittext.setOnFocusChangeListener { _, hasFocus ->
+            callback(hasFocus)
+        }
+    }
+
     var text: CharSequence?
         get() = edittext.text
         set(value) {

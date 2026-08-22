@@ -300,7 +300,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
 
     private fun fillExistingTideValues(tide: TideTable) {
-        binding.tideName.setText(tide.name)
+        binding.tideName.text = tide.name
         binding.tideLocation.coordinate = tide.location
         binding.tideFrequency.check(if (tide.isSemidiurnal) R.id.tide_frequency_semidiurnal else R.id.tide_frequency_diurnal)
         tides.addAll(tide.tides.map {

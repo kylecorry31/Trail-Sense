@@ -86,7 +86,7 @@ class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() 
             withContext(Dispatchers.Main) {
                 if (isBound) {
                     editingNote?.let {
-                        binding.titleEdit.setText(it.title ?: "")
+                        binding.titleEdit.text = it.title ?: ""
                         binding.contentEdit.setText(it.contents ?: "")
                     }
                 }

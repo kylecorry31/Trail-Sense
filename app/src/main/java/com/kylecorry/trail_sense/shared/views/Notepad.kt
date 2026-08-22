@@ -20,7 +20,9 @@ class Notepad(context: Context, attrs: AttributeSet?) :
     private var offset: Float = 0f
 
     init {
-        inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+        inputType = InputType.TYPE_CLASS_TEXT or
+                InputType.TYPE_TEXT_FLAG_MULTI_LINE or
+                InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         background = null
         isSingleLine = false
         gravity = Gravity.START or Gravity.TOP

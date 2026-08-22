@@ -34,20 +34,11 @@
             android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tide_name_holder"
+            <com.kylecorry.trail_sense.shared.views.TextInputView
+                android:id="@+id/tide_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tide_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNone"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/name" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -123,11 +123,11 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
                 DoesBeaconFormDataHaveChanges(CreateBeaconData.empty.copy(color = defaultColor))
         }
 
-        binding.beaconName.setOnFocusChangeListener { _, hasFocus ->
+        binding.beaconName.setOnTextFocusChangeListener { hasFocus ->
             if (!hasFocus && !hasValidName()) {
-                binding.beaconName.error = getString(R.string.beacon_invalid_name)
+                binding.beaconName.setError(getString(R.string.beacon_invalid_name))
             } else if (!hasFocus) {
-                binding.beaconName.error = null
+                binding.beaconName.setError(null)
             }
         }
 
@@ -256,7 +256,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private fun fill(data: CreateBeaconData) {
         form.updateData(data)
-        binding.beaconName.setText(data.name)
+        binding.beaconName.text = data.name
         binding.beaconLocation.coordinate = data.coordinate
         binding.beaconElevation.elevation = data.elevation?.convertTo(units)
         binding.comment.setText(data.notes)
