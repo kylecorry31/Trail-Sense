@@ -1,6 +1,8 @@
 The Signal Finder tool helps you find a place where you will have cell signal.
 
 ## Signals
+Android requires Trail Sense to have location permission to view nearby cell signal details.
+
 Signals that your phone detects are displayed at the top of the list. You will see the following information:
 
 - Network type

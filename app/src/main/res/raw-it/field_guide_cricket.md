@@ -1,0 +1,4 @@
+Grillo
+Piccoli insetti notturni capaci di saltare ed emettere friniri. Si nutrono di piante, materia organica in decomposizione e piccoli insetti. I grilli sono commestibili.
+
+https://en.m.wikipedia.org/wiki/Grylloidea

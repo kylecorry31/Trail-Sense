@@ -3,4 +3,4 @@ Um inseto de pequeno a médio porte conhecido por suas poderosas patas traseiras
 
 Também conhecido como: locusta
 
-https://pt.m.wikipedia.org/wiki/Gafanhoto
+https://en.m.wikipedia.org/wiki/Grasshopper

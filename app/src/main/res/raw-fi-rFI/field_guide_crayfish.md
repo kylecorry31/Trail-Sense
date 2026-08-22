@@ -3,4 +3,4 @@ Makeanveden äyriäisiä, jotka muistuttavat pienikokoista hummeria. Usein löyd
 
 Tunnetaan myös nimellä jokirapu.
 
-https://fi.m.wikipedia.org/wiki/Pitk%C3%A4pyrst%C3%B6iset_ravut
+https://en.m.wikipedia.org/wiki/Crayfish

@@ -3,4 +3,4 @@ Pienestä keskisuureen kokoisia hyönteisiä, jotka ovat tunnettuja voimakkaista
 
 Tunnetaan myös nimellä kulkusirkka.
 
-https://fi.m.wikipedia.org/wiki/Hein%C3%A4sirkat
+https://en.m.wikipedia.org/wiki/Grasshopper

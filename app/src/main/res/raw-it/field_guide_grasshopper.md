@@ -1,0 +1,6 @@
+Cavalletta
+Un insetto di piccole o medie dimensioni, noto per le sue potenti zampe posteriori e la capacità di saltare a grandi distanze. È erbivoro, si nutre di erba e foglie e si trova comunemente nei campi aperti durante il giorno. Cavallette e locuste sono commestibili.
+
+Conosciuta anche come: locusta
+
+https://en.m.wikipedia.org/wiki/Grasshopper

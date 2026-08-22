@@ -3,4 +3,4 @@ Słodkowodna ryba o wydłużonym ciele oraz ostrych kolcach płetwy grzbietowej.
 
 Spokrewniony z; bassem wielkogębowym, małogębowym, cętkowanym.
 
-https://pl.wikipedia.org/wiki/Bassowate
+https://en.m.wikipedia.org/wiki/Micropterus

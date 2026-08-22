@@ -3,4 +3,4 @@ Toksyczna roślina z trzema błyszczącymi oraz spiczastymi liśćmi, powszechni
 
 Spokrewniony z; trującym dębem, sumakiem, które również powodują wysypkę oraz podrażnienie.
 
-https://pl.m.wikipedia.org/wiki/Oparzeniec
+https://en.m.wikipedia.org/wiki/Toxicodendron_radicans
