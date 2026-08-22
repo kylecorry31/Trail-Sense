@@ -52,6 +52,7 @@ import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureSystemWeatherFi
 import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureTendencyWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.TemperatureWeatherField
+import com.kylecorry.trail_sense.tools.weather.ui.fields.WeatherUpdateTimeField
 import java.time.Duration
 import java.time.Instant
 
@@ -204,6 +205,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             // System
             PressureSystemWeatherField(weather.observation?.pressure),
             FrontWeatherField(weather.prediction.front),
+            //Weather Update
+            WeatherUpdateTimeField(weather.observation?.time)
         )
 
         val items = fields.mapNotNull { it.getListItem(requireContext()) }
