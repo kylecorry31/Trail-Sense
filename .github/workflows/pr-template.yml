@@ -1,0 +1,63 @@
+name: PR Template
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions: {}
+
+jobs:
+  check:
+    name: Verify PR description
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v9.0.0
+        with:
+          script: |
+            const exemptAuthors = ['kylecorry31', 'weblate', 'weblate[bot]', 'github-actions[bot]'];
+            const author = context.payload.pull_request.user.login;
+            if (exemptAuthors.includes(author.toLowerCase())) {
+              core.info(`Skipping template check for ${author}.`);
+              return;
+            }
+
+            const body = context.payload.pull_request.body || '';
+            const problems = [];
+
+            if (!body.trim()) {
+              problems.push('The pull request description is empty. Fill out the template from .github/pull_request_template.md.');
+            } else {
+              if (!/^Issue:\s*#\d+/m.test(body)) {
+                problems.push('Missing the issue reference. Add a line like "Issue: #1234".');
+              }
+              if (!/^##\s*Checklist\s*$/m.test(body)) {
+                problems.push('Missing the "## Checklist" section from the template.');
+              }
+              // Match on stable fragments - the checklist text carries a date that changes.
+              const checklistItems = [
+                ['CONTRIBUTING.md', 'the CONTRIBUTING.md review item'],
+                ['tested these changes on an Android device', 'the device/emulator testing item'],
+              ];
+              for (const [fragment, description] of checklistItems) {
+                if (!body.includes(fragment)) {
+                  problems.push(`Checklist item was removed: ${description}.`);
+                }
+              }
+              if (/^\s*-\s*\[ \]/m.test(body)) {
+                problems.push('Every checklist item must be checked ("- [x]").');
+              }
+            }
+
+            if (problems.length === 0) {
+              return;
+            }
+
+            const message = [
+              'The pull request description does not follow the template:',
+              '',
+              ...problems.map(p => `- ${p}`),
+              '',
+              'See https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#pull-requests',
+            ].join('\n');
+            await core.summary.addRaw(message).write();
+            core.setFailed(message);
