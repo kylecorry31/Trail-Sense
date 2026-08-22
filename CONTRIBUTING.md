@@ -39,6 +39,7 @@ All code/translation contributors will be credited in the Licenses section of Tr
 
 ## Pull Requests
 - All sections of the pull request description template must be filled out. A pull request that replaces the template will not receive a code review until all sections have been restored and filled out.
+- When you create a pull request you are required to review it first and then leave a **comment on the pull request** stating something along the lines of "I have reviewed my pull request, it is ready for additional review". Pull requests without a similar comment will not be reviewed by a maintainer. This helps ensure pull requests are abiding by the human-in-the-loop requirement and saves on the review time. If the pull request was created and reviewed entirely by an LLM, the comment or PR description should state "This pull request was entirely AI generated with no human intervention.".
 - Use the PR description to describe what this change does and why (not how). Please don't generate it with an LLM - it doesn't know why you made the decisions you did.
 - There must be a related issue and your code must implement it as specified. Raise in discussions or the issue if you believe something different is needed before submitting the pull request for review.
 - If your change involves modifications to the app code (ex. not just tests/docs/etc), a screenshot is required.
@@ -58,6 +59,19 @@ All code/translation contributors will be credited in the Licenses section of Tr
 - If you are new to Trail Sense developement, I recommend starting with small sized issues.
 - I don't care about commit messages, I squash merge with my own message when I complete your PR.
 - Repeated pull requests that are not following this contribution policy will result in losing pull request privileges. 
+
+NOTE: For the screenshot requirement, you can use an emulator or disable auto-update location in Settings > Sensors > GPS to pick a fake location if the screenshot would include your location.
+
+### Quick Summary
+Before you start:
+- Ensure the issue has a `help-wanted` tag
+- Comment on the issue that you will be picking it up
+- Ask clarify questions on the issue
+- Optionally, post your plan on the issue for large work to get confirmation that you are on the right path
+
+When the code is ready for a pull request:
+- Fill out the entire PR description template exactly as-is
+- Review your code and leave a comment for additional
 
 ## Translations
 - Do not use machine translation unless you are proficient in both English and the language you are translating to.
