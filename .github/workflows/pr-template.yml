@@ -24,14 +24,39 @@ jobs:
             const body = context.payload.pull_request.body || '';
             const problems = [];
 
+            // The section ends at the next heading, and template comments don't count as content.
+            const sectionContent = (name) => {
+              const heading = new RegExp(`^##\\s*${name}\\b.*$`, 'im').exec(body);
+              if (!heading) {
+                return null;
+              }
+              const rest = body.slice(heading.index + heading[0].length);
+              const nextHeading = /^##\s/m.exec(rest);
+              const content = nextHeading ? rest.slice(0, nextHeading.index) : rest;
+              return content.replace(/<!--[\s\S]*?-->/g, '').trim();
+            };
+
             if (!body.trim()) {
               problems.push('The pull request description is empty. Fill out the template from .github/pull_request_template.md.');
             } else {
               if (!/^Issue:\s*#\d+/m.test(body)) {
                 problems.push('Missing the issue reference. Add a line like "Issue: #1234".');
               }
-              if (!/^##\s*Checklist\s*$/m.test(body)) {
-                problems.push('Missing the "## Checklist" section from the template.');
+              const requiredSections = ['Description', 'Testing', 'Screenshots', 'Checklist'];
+              for (const section of requiredSections) {
+                if (!new RegExp(`^##\\s*${section}\\b`, 'im').test(body)) {
+                  problems.push(`Missing the "## ${section}" section from the template.`);
+                }
+              }
+              const sectionsNeedingContent = [
+                ['Description', 'Describe what this change does and why.'],
+                ['Testing', 'Describe how you tested this change.'],
+                ['Screenshots', 'Add a screenshot or video, or state why one is not needed.'],
+              ];
+              for (const [section, hint] of sectionsNeedingContent) {
+                if (sectionContent(section) === '') {
+                  problems.push(`The "## ${section}" section is empty. ${hint}`);
+                }
               }
               // Match on stable fragments - the checklist text carries a date that changes.
               const checklistItems = [
@@ -57,7 +82,7 @@ jobs:
               '',
               ...problems.map(p => `- ${p}`),
               '',
-              'See https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#pull-requests',
+              'See https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#pull-request-policy',
             ].join('\n');
             await core.summary.addRaw(message).write();
             core.setFailed(message);
