@@ -35,8 +35,8 @@ jobs:
               }
               // Match on stable fragments - the checklist text carries a date that changes.
               const checklistItems = [
-                ['CONTRIBUTING.md', 'the CONTRIBUTING.md review item'],
-                ['tested these changes on an Android device', 'the device/emulator testing item'],
+                ['I have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide and confirm that I am following it', 'the CONTRIBUTING.md review item'],
+                ['I have tested these changes on an Android device or emulator', 'the device/emulator testing item'],
               ];
               for (const [fragment, description] of checklistItems) {
                 if (!body.includes(fragment)) {
