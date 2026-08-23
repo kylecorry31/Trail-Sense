@@ -3,4 +3,4 @@
 
  புல்ரச், ரீட், ராபோ, கும்புங்கி மற்றும் பங்க்ச் என்றும் அழைக்கப்படுகிறது.
 
- https://en.m.wikipedia.org/wiki/tyfa
+ https://en.m.wikipedia.org/wiki/Typha

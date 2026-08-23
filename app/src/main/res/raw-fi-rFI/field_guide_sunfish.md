@@ -3,4 +3,4 @@ Pieniä makeanveden kaloja, joiden on korkea ja litteä keho terävillä selkäp
 
 Yleisiä lajeja ovat mm. isoaurinkoahven ja aurinkoahven.
 
-https://fi.m.wikipedia.org/wiki/Aurinkoahvenet
+https://en.m.wikipedia.org/wiki/Lepomis

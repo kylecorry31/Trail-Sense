@@ -1,7 +1,7 @@
 Lo strumento Orologio può essere utilizzato per determinare l'ora corrente utilizzando i satelliti GPS.
 
 ## Visualizzazione dell'ora GPS
-Quando si apre per la prima volta lo strumento Orologio, viene visualizzata l'ora impostata del dispositivo. Una volta ottenuto un fix GPS, l'orologio si aggiorna automaticamente per mostrare l'ora GPS esatta. Per aggiornare l'ora GPS, toccare l'icona di aggiornamento in alto a sinistra.
+Quando si apre per la prima volta lo strumento Orologio, viene visualizzata l'ora impostata del dispositivo. Una volta ottenuto un fix GPS, l'orologio si aggiorna automaticamente per mostrare l'ora GPS esatta. Per aggiornare l'ora GPS, toccare l'icona di aggiornamento in alto a destra.
 
 ## Sincronizzazione dell'orologio
 Per sincronizzare l'orologio del dispositivo con l'ora del GPS:

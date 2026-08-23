@@ -3,4 +3,4 @@ Sedimenttikivilajeja, jotka muodostavat teräviä reunoja lohkeillessaan. Usein 
 
 Tunnetaan myös nimellä jaspis.
 
-https://fi.m.wikipedia.org/wiki/Piikivi
+https://en.m.wikipedia.org/wiki/Chert

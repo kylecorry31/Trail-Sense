@@ -10,5 +10,5 @@ Issue:
 ## Checklist
 <!-- Some of these may only apply to code, if you are performing a content update, I don't care how you fill out the code related checklist items -->
 
-- [ ] I have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide and confirm that I am following it (updated on 2026-08-22)
+- [ ] I have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide and confirm that I am following it (updated on 2026-08-23)
 - [ ] I have tested these changes on an Android device or emulator

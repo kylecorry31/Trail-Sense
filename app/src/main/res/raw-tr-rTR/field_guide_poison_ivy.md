@@ -1,0 +1,6 @@
+Zehirli Sarmaşık
+Ormanlarda, tarlalarda ve patika kenarlarında yaygın olarak bulunan, üç adet parlak ve sivri yaprakçığa sahip zehirli bir bitkidir. İçeriğindeki "urushiol" adlı yağ ile temas, kaşıntılı döküntülere ve cilt tahrişine yol açar. Temas halinde, etkilenen bölgeyi derhal su ve sabunla yıkayın.
+
+Yine ciltte tahrişe neden olan zehirli meşe ve zehirli sumak ile yakın akrabadır.
+
+https://en.m.wikipedia.org/wiki/Toxicodendron_radicans

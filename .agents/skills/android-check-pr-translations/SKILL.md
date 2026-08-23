@@ -20,6 +20,7 @@ Audit the translation accuracy of Android string resources and localized guide f
    - `files`: changed localized guide `.txt` files, including guide pages, field guides, and `tool_keywords.txt`, with the matching `guides/en-US/...` source text.
 
 2. Use the /translation-review skill to review each of the locales and files translations. Include the string key and locale name in your finding so I can identify which language has the inaccurate translation.
+3. If the field guide contains a localized or changed Wikipedia link, check that the link is valid and points to the same topic as the English source.
 
 ## Extraction Script: `scripts/extract_pr_strings.py` (skill-local)
 

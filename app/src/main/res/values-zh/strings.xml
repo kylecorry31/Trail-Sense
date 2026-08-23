@@ -1638,4 +1638,7 @@
     <string name="location_required_for_cell_signals">需要位置权限来查看附近的手机信号</string>
     <string name="bearing_length_description">方位角活跃时，方位角线段的长度</string>
     <string name="bearing_length">方位角线长</string>
+    <string name="set_as_default_photo">设为默认</string>
+    <string name="delete_image_prompt">删除图片？</string>
+    <string name="image_index">图片 %1$d/%2$d</string>
 </resources>

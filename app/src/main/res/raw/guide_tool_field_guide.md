@@ -1,7 +1,7 @@
 The Field Guide tool can be used to identify plants, animals, and other objects in the wild.
 
 ## Pages
-Pages are organized into categories, such as plants and animals. You can tap on a category to view the pages. The name, image, and the first sentence of the page's notes are displayed for each item. Tap on an item to view the full page. On pages that you created, you will see a menu button that allows you to edit or delete the page.
+Pages are organized into categories, such as plants and animals. You can tap on a category to view the pages. The name, default image, and the first sentence of the page's notes are displayed for each item. Tap on an item to view the full page. If a page has multiple images, you can swipe on the image or use the arrows below it to view the other images. On pages that you created, you will see a menu button that allows you to edit or delete the page.
 
 You can choose to display common names, scientific names, or both names in 'Settings > Field Guide > Name display'.
 
@@ -11,12 +11,14 @@ You can search for pages by name, notes, or tags. The search results will be dis
 Trail Sense includes a set of built-in pages that cover common plants, animals, mushrooms, and rocks that are beneficial for wilderness survival. You can not edit or delete these pages, but you can hide one using the menu on its row. To unhide a page or adjust which built-in pages are shown, use 'Settings > Field Guide > Built-in pages'.
 
 ## Create a page
-To create a new page, tap the add button in the bottom right corner of the screen. You can add a common name, scientific name, image, notes, and tags to the page. The image can be taken with the camera or selected from the gallery. You can tap the check button in the top right corner to save the page.
+To create a new page, tap the add button in the bottom right corner of the screen. You can add a common name, scientific name, images, notes, and tags to the page. You can tap the check button in the top right corner to save the page.
+
+You can add multiple images to a page with either the camera or by selecting from the gallery. Use the arrows below the image or swipe to move between images. Swipe all the way to the last image slot to add another image. The menu button on an image lets you delete it or set it as the default image. The default image is the first image of the page and is the one shown on the page list and the Sightings map layer.
 
 If you had a category selected when you created the page, the new page will be pre-filled with that category. Pages without a category will be displayed in the 'Other' category.
 
 ## Edit a page
-To edit a page, tap the menu button on a page row and select 'Edit'. You can change the common name, scientific name, image, notes, and tags of the page. You can tap the check button in the top right corner to save the changes.
+To edit a page, tap the menu button on a page row and select 'Edit'. You can change the common name, scientific name, images, notes, and tags of the page. You can tap the check button in the top right corner to save the changes.
 
 ## Sightings
 You can view and record sightings for a field guide entry by tapping the 'Sightings' link under the field guide page's image. This opens the list of sightings, which shows the time and notes. The total count of sightings is displayed next to the sighting link on the entry's page.
@@ -25,7 +27,7 @@ You can create a new sighting by tapping the plus button in the bottom right of 
 
 You can edit a sighting by tapping on it in the sightings list or using the menu on the right and selecting 'Edit'.
 
-You can delete a sighting by using the menu on the right and selecting 'Delete'.
+You can delete a sighting from the sightings list by using the menu on the right and selecting 'Delete'. You can also delete a sighting while editing it by tapping the menu button in the top left and selecting 'Delete'.
 
 You can navigate to a sighting by using the menu on the right and selecting 'Navigate'. This will open the Navigation tool with the sighting's location as the destination.
 

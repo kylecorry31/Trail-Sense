@@ -3,4 +3,4 @@ Uma rocha sedimentar que forma bordas afiadas quando fraturada, frequentemente u
 
 Também conhecido como cheste ou jaspe.
 
-https://pt.m.wikipedia.org/wiki/S%C3%ADlex
+https://en.m.wikipedia.org/wiki/Chert

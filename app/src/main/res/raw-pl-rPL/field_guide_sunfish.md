@@ -3,4 +3,4 @@ Mała słodkowodna ryba o długim, płaskim kształcie ciała oraz ostrych kolca
 
 Spokrewniona z; bassem niebieskoskrzelim, czerwonouchym.
 
-https://pl.m.wikipedia.org/wiki/Bass_słoneczny
+https://en.m.wikipedia.org/wiki/Lepomis

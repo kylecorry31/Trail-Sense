@@ -1,0 +1,10 @@
+Lo strumento "Altezza della parete rocciosa" può essere utilizzato per stimare l'altezza di una scogliera.
+
+## Stima dell'altezza
+1. Assicurarsi che l'area sottostante la parete rocciosa sia sicura (assenza di rischio di frane o presenza di persone/animali).
+2. Lasciare cadere un piccolo sasso o un oggetto simile lungo la parete rocciosa tenendo premuto il pulsante di misurazione.
+3. Rilasciare il pulsante quando l'oggetto tocca il fondo.
+4. L'altezza della parete rocciosa verrà visualizzata nella parte superiore dello schermo.
+
+## Avvertenza
+È responsabilità dell'utente utilizzare questo strumento in modo sicuro. Si prega di utilizzarlo solo quando è sicuro farlo e di non avvicinarsi troppo alla parete rocciosa.
