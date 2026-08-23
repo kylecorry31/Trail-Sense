@@ -8,7 +8,7 @@
 [![](https://hosted.weblate.org/widgets/trail-sense/-/trail-sense-android/svg-badge.svg)](https://hosted.weblate.org/projects/trail-sense/trail-sense-android)
 
 Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
-
+ 
 <table>
     <tr>
         <th>F-Droid</th>
