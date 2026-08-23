@@ -58,7 +58,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other features may be included based on what I feel like working on.
+This is the 2026 feature roadmap. It's not a guarantee and it may change. Other features may be included based on what I feel like working on.
 
 - Improvements to / additional map layers
 - Improvements to the following tools: Offline Maps, Map, Navigation, and Astronomy
@@ -155,7 +155,7 @@ See the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/C
 # Copying
 You are allowed to create copies of Trail Sense and rebrand to what you see fit. It is under the MIT license. 
 
-Please change the following if you are using this as the base for you app:
+Please change the following if you are using this as the base for your app:
 - App name
 - Package name
 - Support email

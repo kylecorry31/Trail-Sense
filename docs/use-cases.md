@@ -6,7 +6,7 @@
 - Know when the sun will set to avoid getting caught in the dark.
 - Know when the sun will rise and set to plan a trip around available daylight.
 - Know if the moon provides enough light for hiking at night.
-- Know when and where the next meteor shower, solar eclipse, or lunar eclipse will be
+- Know when and where the next meteor shower, solar eclipse, or lunar eclipse will be.
 - Navigate using the position of the sun, moon, or stars to save phone battery.
 
 ## Augmented Reality
