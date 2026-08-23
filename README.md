@@ -42,6 +42,8 @@ Trail Sense is a tool, and just like any other tool that you bring into the wild
 
 <img src="fastlane/metadata/android/en-US/images/featureGraphic.png">
 
+See the [User Guide](https://kylecorry.com/Trail-Sense/user-guide/) for a guide on how to use Trail Sense (also available in app, just search on the Tools tab for User Guide).
+
 See the [Technical Blog / Research](https://kylecorry.com/research/categories/trail-sense/)
 
 ## Table of Contents
