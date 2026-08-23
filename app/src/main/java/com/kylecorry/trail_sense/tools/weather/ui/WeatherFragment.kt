@@ -1,5 +1,4 @@
 package com.kylecorry.trail_sense.tools.weather.ui
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +51,8 @@ import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureSystemWeatherFi
 import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureTendencyWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.TemperatureWeatherField
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import java.time.Duration
 import java.time.Instant
 
@@ -206,7 +207,20 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             FrontWeatherField(weather.prediction.front),
         )
 
-        val items = fields.mapNotNull { it.getListItem(requireContext()) }
+
+        val items = fields.mapNotNull { it.getListItem(requireContext()) }.toMutableList()
+
+        weather.observation?.let { observation ->
+            items.add(
+                ListItem(
+                    0L,
+                    getString(R.string.last_reading),
+                    formatService.formatDateTime(
+                        observation.time.toZonedDateTime()
+                    )
+                )
+            )
+        }
 
         binding.weatherList.setItems(items)
     }
