@@ -51,8 +51,7 @@ import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureSystemWeatherFi
 import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureTendencyWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.TemperatureWeatherField
-import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.trail_sense.tools.weather.ui.fields.LastReadingWeatherField
 import java.time.Duration
 import java.time.Instant
 
@@ -205,23 +204,11 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             // System
             PressureSystemWeatherField(weather.observation?.pressure),
             FrontWeatherField(weather.prediction.front),
+            LastReadingWeatherField(weather.observation?.time),
         )
-
-
-        val items = fields.mapNotNull { it.getListItem(requireContext()) }.toMutableList()
-
-        weather.observation?.let { observation ->
-            items.add(
-                ListItem(
-                    0L,
-                    getString(R.string.last_reading),
-                    formatService.formatDateTime(
-                        observation.time.toZonedDateTime()
-                    )
-                )
-            )
+        val items = fields.mapNotNull {
+            it.getListItem(requireContext())
         }
-
         binding.weatherList.setItems(items)
     }
 
