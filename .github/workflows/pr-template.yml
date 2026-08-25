@@ -22,7 +22,7 @@ jobs:
             }
 
             const body = context.payload.pull_request.body || '';
-            const problems = [];
+            const lowercaseBody = body.toLowerCase();
 
             // The section ends at the next heading, and template comments don't count as content.
             const sectionContent = (name) => {
@@ -36,53 +36,26 @@ jobs:
               return content.replace(/<!--[\s\S]*?-->/g, '').trim();
             };
 
-            if (!body.trim()) {
-              problems.push('The pull request description is empty. Fill out the template from .github/pull_request_template.md.');
-            } else {
-              if (!/^Issue:\s*#\d+/m.test(body)) {
-                problems.push('Missing the issue reference. Add a line like "Issue: #1234".');
-              }
-              const requiredSections = ['Description', 'Testing', 'Screenshots', 'Checklist'];
-              for (const section of requiredSections) {
-                if (!new RegExp(`^##\\s*${section}\\b`, 'im').test(body)) {
-                  problems.push(`Missing the "## ${section}" section from the template.`);
-                }
-              }
-              const sectionsNeedingContent = [
-                ['Description', 'Describe what this change does and why.'],
-                ['Testing', 'Describe how you tested this change.'],
-                ['Screenshots', 'Add a screenshot or video, or state why one is not needed.'],
-              ];
-              for (const [section, hint] of sectionsNeedingContent) {
-                if (sectionContent(section) === '') {
-                  problems.push(`The "## ${section}" section is empty. ${hint}`);
-                }
-              }
-              // Match on stable fragments - the checklist text carries a date that changes.
-              const checklistItems = [
-                ['I have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide and confirm that I am following it', 'the CONTRIBUTING.md review item'],
-                ['I have tested these changes on an Android device or emulator', 'the device/emulator testing item'],
-              ];
-              for (const [fragment, description] of checklistItems) {
-                if (!body.includes(fragment)) {
-                  problems.push(`Checklist item was removed: ${description}.`);
-                }
-              }
-              if (/^\s*-\s*\[ \]/m.test(body)) {
-                problems.push('Every checklist item must be checked ("- [x]").');
-              }
-            }
+            const requiredSections = ['Description', 'Testing', 'Screenshots', 'Checklist'];
+            const sectionsNeedingContent = ['Description', 'Testing', 'Screenshots'];
+            const requiredChecklistItems = [
+              '- [x] I have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide and confirm that I am following it',
+              '- [x] I have tested these changes on an Android device or emulator',
+              '- [x] I have manually reviewed my code changes and will comment on the PR that it is ready for review',
+              '- [ ] This PR was authored and submitted by an AI agent without human review',
+            ];
 
-            if (problems.length === 0) {
+            const followsTemplate =
+              body.trim() !== '' &&
+              /^Issue:\s*#\d+/m.test(body) &&
+              requiredSections.every(section => new RegExp(`^##\\s*${section}\\b`, 'im').test(body)) &&
+              sectionsNeedingContent.every(section => sectionContent(section)) &&
+              requiredChecklistItems.every(item => lowercaseBody.includes(item.toLowerCase()));
+
+            if (followsTemplate) {
               return;
             }
 
-            const message = [
-              'The pull request description does not follow the template:',
-              '',
-              ...problems.map(p => `- ${p}`),
-              '',
-              'See https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#pull-request-policy',
-            ].join('\n');
+            const message = 'Please follow the PR template exactly and be sure you are abiding by the contributing policy: https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md';
             await core.summary.addRaw(message).write();
             core.setFailed(message);
