@@ -175,7 +175,7 @@ object Licenses {
             )
             "${
                 mit(
-                    "2020-2025",
+                    "2020",
                     "Kyle Corry"
                 )
             }\n\nThe following people contributed code or translations to Trail Sense under the MIT License: ${

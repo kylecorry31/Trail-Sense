@@ -42,6 +42,8 @@ Trail Sense is a tool, and just like any other tool that you bring into the wild
 
 <img src="fastlane/metadata/android/en-US/images/featureGraphic.png">
 
+See the [User Guide](https://kylecorry.com/Trail-Sense/user-guide/) for a guide on how to use Trail Sense (also available in app, just search on the Tools tab for User Guide).
+
 See the [Technical Blog / Research](https://kylecorry.com/research/categories/trail-sense/)
 
 ## Table of Contents
@@ -56,7 +58,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-This is the 2026 feature roadmap. It's not a gaurantee and it may change. Other features may be included based on what I feel like working on.
+This is the 2026 feature roadmap. It's not a guarantee and it may change. Other features may be included based on what I feel like working on.
 
 - Improvements to / additional map layers
 - Improvements to the following tools: Offline Maps, Map, Navigation, and Astronomy
@@ -153,7 +155,7 @@ See the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/C
 # Copying
 You are allowed to create copies of Trail Sense and rebrand to what you see fit. It is under the MIT license. 
 
-Please change the following if you are using this as the base for you app:
+Please change the following if you are using this as the base for your app:
 - App name
 - Package name
 - Support email

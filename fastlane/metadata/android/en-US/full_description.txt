@@ -16,7 +16,7 @@
 
 <p>Trail Sense is a tool, and just like any other tool that you bring into the wilderness,
 it's essential to have backup equipment and skills.
-This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc.
+This app is intended for information purposes only and the accuracy of the predictions and sensors is determined by a number of factors, including calibration, sensor quality, external sources, etc.
 Use at your own risk, always have backup tools (ex. compass), and stay safe.</p>
 
 <p>This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.</p>

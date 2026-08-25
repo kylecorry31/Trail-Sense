@@ -8,7 +8,7 @@ Register map layers in the plugin `/registration` response. See the [plugin regi
 
 Map layer plugins are required to be granted the `android.permission.ACCESS_FINE_LOCATION` permission and be connected within Trail Sense. If those conditions are not met, the plugin will not be invoked.
 
-Preferences are not currently supported for plugins. If you have user preferences, all users to change them within your plugin's activity.
+Preferences are not currently supported for plugins. If you have user preferences, allow users to change them within your plugin's activity.
 
 # GeoJSON features
 
@@ -58,7 +58,7 @@ Trail Sense calls the layer's registered `endpoint` and sends a JSON payload mat
 
 ## Response contract
 
-The body of the plugin response must be valid GeoJSON (https://geojson.org/). All geometry types are supported but GeometryCollection is not recommended since the feature properties vary by geometry type. Multi* geometry values are flattened into their base geometry type by Trail Sense, so use the property type of the base (ex. MultPoint -> Point).
+The body of the plugin response must be valid GeoJSON (https://geojson.org/). All geometry types are supported but GeometryCollection is not recommended since the feature properties vary by geometry type. Multi* geometry values are flattened into their base geometry type by Trail Sense, so use the property type of the base (ex. MultiPoint -> Point).
 
 GeoJSON response payloads must be no larger than 1 MiB and must parse within 2 seconds. The parsed response must contain no more than 1000 features, 10000 coordinates, and geometry collections may nest no deeper than 8 levels. Responses that exceed these limits are ignored. Feature names longer than 200 characters will be truncated.
 

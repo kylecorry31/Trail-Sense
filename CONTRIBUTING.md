@@ -1,7 +1,7 @@
 # Trail Sense Contributing Policy
 In general, please be civil and constructive. Do not use generative AI to communicate in this repo (ex. discussion posts, comments, etc.); it is fine to use AI to fix your grammar / translate (include your original text as well, I can translate to English on my end).
 
-Pull requests or discussions with unanswered questions/comments by a maintainer that haven't received a response (response / commit / etc) after 1 week will be closed due to inactivity. If you are planning on addressing the changes but they are taking a while, please reply so I know you are working on it.
+Issues, pull requests, or discussions with unanswered questions/comments by a maintainer that haven't received a response (response / commit / etc) after 1 week will be closed due to inactivity. If you claimed an issue and haven't given an update after 1 week, it will be unassigned so it is open to other contributors again. If you are planning on addressing the changes but they are taking a while, please reply so I know you are working on it.
 
 NOTE: Trail Sense is maintained by just me, so please make sure to follow this policy to make my job easier.
 
@@ -35,7 +35,7 @@ Before creating a new discussion, please search existing [issues](https://github
 If you submit a bug report or question, please be civil and constructive - I will consider all feedback. Please include all relevant details to help me understand and reproduce the issue. Do not use generative AI to write discussion posts; it is fine to use AI to fix your grammar / translate (include your original text as well, I can translate to English on my end).
 
 ## Contribute a Code Change
-Issues marked with the help-wanted label are open for community contribution at any time. Please leave a comment on the issue stating that you are working on it or ask for more details (I can write better requirements if needed). If possible, try to give me a timeline so I know which release it should be tagged as. Once you decide to work on one of the help-wanted issues, just submit a PR to main and I will conduct a code review. If you would like to work on an issue that isn't marked with help-wanted, please let me know because it does not have that tag for a reason and PRs for it will likely be closed. If you are new to Trail Sense development, I recommend starting with a `help-wanted` issue that is also tagged with `Size: Small`.
+Issues marked with the `Status: Community Available` label are open for community contribution at any time. Please leave a comment on the issue stating that you are working on it or ask for more details (I can write better requirements if needed). If possible, try to give me a timeline so I know which release it should be tagged as. Once you decide to work on one of the `Status: Community Available` issues, just submit a PR to main and I will conduct a code review. If you would like to work on an issue that isn't marked with `Status: Community Available`, please let me know because it does not have that tag for a reason and PRs for it will likely be closed. If you are new to Trail Sense development, I recommend starting with a `Status: Community Available` issue that is also tagged with `Size: Small`.
 
 If you spent time designing/planning the feature before implementing, feel free to post the design documents in the related issue before making changes if you want a maintainer to review.
 
@@ -44,7 +44,7 @@ All code/translation contributors will be credited in the Licenses section of Tr
 See the [Architectural Decision Record](docs/adr) for key decisions I've made for Trail Sense's code.
 
 ### Pull Request Policy
-- You are required to review your pull request first and then a **comment on the pull request** stating something along the lines of "I have reviewed my pull request, it is ready for additional review" before it will be reviewed by a maintainer. If the pull request was created and reviewed entirely by an LLM, the comment or PR description should state "This pull request was entirely AI generated with no human intervention."
+- You are required to review your pull request first and then leave a **comment on the pull request** stating something along the lines of "I have reviewed my pull request, it is ready for additional review" before it will be reviewed by a maintainer. If the pull request was created and reviewed entirely by an LLM, the comment or PR description should state "This pull request was entirely AI generated with no human intervention."
 - You must understand the code you are submitting for review and be able to answer questions about the code.
 - All sections of the pull request description template must be filled out before it will be reviewed.
 - Use the PR description to describe what this change does and why (not how). Do not generate it with AI.
