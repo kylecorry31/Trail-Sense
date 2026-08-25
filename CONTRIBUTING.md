@@ -37,14 +37,12 @@ If you submit a bug report or question, please be civil and constructive - I wil
 ## Contribute a Code Change
 Issues marked with the `Status: Community Available` label are open for community contribution at any time. Please leave a comment on the issue stating that you are working on it or ask for more details (I can write better requirements if needed). If possible, try to give me a timeline so I know which release it should be tagged as. Once you decide to work on one of the `Status: Community Available` issues, just submit a PR to main and I will conduct a code review. If you would like to work on an issue that isn't marked with `Status: Community Available`, please let me know because it does not have that tag for a reason and PRs for it will likely be closed. If you are new to Trail Sense development, I recommend starting with a `Status: Community Available` issue that is also tagged with `Size: Small`.
 
-If you spent time designing/planning the feature before implementing, feel free to post the design documents in the related issue before making changes if you want a maintainer to review.
-
 All code/translation contributors will be credited in the Licenses section of Trail Sense settings (updated weekly).
 
 See the [Architectural Decision Record](docs/adr) for key decisions I've made for Trail Sense's code.
 
 ### Pull Request Policy
-- You are required to review your pull request first and then leave a **comment on the pull request** stating something along the lines of "I have reviewed my pull request, it is ready for additional review" before it will be reviewed by a maintainer. If the pull request was created and reviewed entirely by an LLM, the comment or PR description should state "This pull request was entirely AI generated with no human intervention."
+- You are required to review your pull request first and then leave a **comment on the pull request** stating something along the lines of "I have reviewed my pull request, it is ready for additional review" before it will be reviewed by a maintainer.
 - You must understand the code you are submitting for review and be able to answer questions about the code.
 - All sections of the pull request description template must be filled out before it will be reviewed.
 - Use the PR description to describe what this change does and why (not how). Do not generate it with AI.
@@ -62,6 +60,8 @@ See the [Architectural Decision Record](docs/adr) for key decisions I've made fo
 - I don't care about commit messages, I squash merge with my own message when I complete your PR.
 - I don't care if you use generative AI, but you are required to review and understand its output and clean it up before raising a PR. Generating code without reviewing it ("vibecoding") and generating image assets are banned.
 
+Pull requests that appear to be unreviewed AI generated output will be closed without review.
+
 ## Translate
 Translations can be added on Weblate:
 
@@ -78,8 +78,6 @@ Translations can be added on Weblate:
 - For the field guides, it is fine to swap it for the equivalent article in the language you are translating to, as long as that article is about the same subject as the English one and is at the same taxonomic rank (ex. if the English link is for a genus, don't link to a single species or to the whole family). If there is no equivalent article at the same rank, keep the English link.
 
 Machine translation = translating using a computer, whether that is something like Google Translate or AI it falls into the same bucket.
-
-**Maintainer note**: I need to rely on machine translation to review the translations - I use multiple sources to verify the findings and only reset translations when they are clearly wrong. I wish I had another way, but as the maintainer of this project I need to verify somehow before letting the translations in. It is a lot of work to accept translations, especially when there is a high volume of incorrect translations.
 
 All translation contributors will be credited in the Licenses section of Trail Sense settings (updated weekly).
 
