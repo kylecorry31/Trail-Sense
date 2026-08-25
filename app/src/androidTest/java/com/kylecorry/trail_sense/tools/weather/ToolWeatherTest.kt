@@ -45,6 +45,9 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         hasText(string(R.string.pressure))
         hasText(Regex("\\d+(\\.\\d+)? in"))
 
+        // Last reading
+        hasText(string(R.string.last_reading))
+
         // Historic temperature
         optional {
             hasText(string(R.string.temperature))
