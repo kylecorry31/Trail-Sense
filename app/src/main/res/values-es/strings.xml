@@ -1621,4 +1621,7 @@
     <string name="external_storage_diagnostic_instructions">El selector de archivos del sistema no tiene permiso para acceder a los archivos de tu dispositivo. Esto puede impedir que Trail Sense abra o guarde los archivos que elijas. Activa “Permitir acceso para administrar todos los archivos” para el selector de archivos del sistema (podría llamarse Almacenamiento externo).</string>
     <string name="location_permission">Permiso de ubicación</string>
     <string name="location_required_for_cell_signals">El permiso de ubicación se requiere para ver la señal de las torres de telefonía</string>
+    <string name="set_as_default_photo">Establece por defecto</string>
+    <string name="delete_image_prompt">¿Eliminar imagen?</string>
+    <string name="image_index">Imagen %1$d/%2$d</string>
 </resources>
