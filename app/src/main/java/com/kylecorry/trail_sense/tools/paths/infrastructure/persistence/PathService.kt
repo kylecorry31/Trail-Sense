@@ -41,8 +41,11 @@ class PathService(
 ) : IPathService {
 
     private val backtrackLock = Mutex()
+
+    private val loaderWithoutCounts =
+        GroupLoader(this::getGroupWithoutCount, this::getChildrenWithoutCounts)
+    private val counter = GroupCounter(loaderWithoutCounts)
     private val loader = GroupLoader(this::getGroup, this::getChildren)
-    private val counter = GroupCounter(loader)
     val changeKey: Int
         get() = pathRepo.changeKey
     private val deleter = object : GroupDeleter<IPath>(loader) {
@@ -95,18 +98,22 @@ class PathService(
     }
 
     override suspend fun getGroup(id: Long?): PathGroup? {
-        id ?: return null
-        return pathRepo.getGroup(id)?.copy(count = counter.count(id))
+        return getGroupWithoutCount(id)?.copy(count = counter.count(id))
     }
 
-    private suspend fun getGroups(parent: Long?): List<PathGroup> {
-        return pathRepo.getGroupsWithParent(parent).map { it.copy(count = counter.count(it.id)) }
+    private suspend fun getGroupWithoutCount(id: Long?): PathGroup? {
+        id ?: return null
+        return pathRepo.getGroup(id)
     }
 
     private suspend fun getChildren(groupId: Long?): List<IPath> {
-        val paths = pathRepo.getPathsWithParent(groupId)
-        val groups = getGroups(groupId)
-        return paths + groups
+        return getChildrenWithoutCounts(groupId).map {
+            if (it is PathGroup) it.copy(count = counter.count(it.id)) else it
+        }
+    }
+
+    private suspend fun getChildrenWithoutCounts(groupId: Long?): List<IPath> {
+        return pathRepo.getPathsWithParent(groupId) + pathRepo.getGroupsWithParent(groupId)
     }
 
     override fun getLivePath(id: Long): LiveData<Path?> {

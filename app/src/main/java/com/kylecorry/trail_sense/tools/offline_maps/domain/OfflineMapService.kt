@@ -35,11 +35,13 @@ class OfflineMapService internal constructor(
     private val files: FileSubsystem,
     private val prefs: UserPreferences
 ) {
+    private val loaderWithoutCounts =
+        GroupLoader(this::getGroupWithoutCount, this::getChildrenWithoutCounts)
+    private val counter = GroupCounter(loaderWithoutCounts)
     val loader = GroupLoader(this::getGroup, this::getChildren)
 
     private val maintenance = OfflineMapMaintenance(files, repo)
     private val importer = OfflineMapImporter(context, files, prefs)
-    private val counter = GroupCounter(loader)
     private val rotationCalculator = MapRotationCalculator()
     private val activeMapSelector = ActiveMapSelector()
 
@@ -193,8 +195,12 @@ class OfflineMapService internal constructor(
     }
 
     suspend fun getGroup(id: Long?): MapGroup? {
+        return getGroupWithoutCount(id)?.copy(count = counter.count(id))
+    }
+
+    private suspend fun getGroupWithoutCount(id: Long?): MapGroup? {
         id ?: return null
-        return repo.getMapGroup(id)?.copy(count = counter.count(id))
+        return repo.getMapGroup(id)
     }
 
     suspend fun getActivePhotoMap(location: Coordinate, destination: Coordinate?): PhotoMap? {
@@ -238,14 +244,15 @@ class OfflineMapService internal constructor(
         return repo.getPhotoMap(id)
     }
 
-    private suspend fun getGroups(parent: Long?): List<MapGroup> {
-        return repo.getMapGroups(parent).map { it.copy(count = counter.count(it.id)) }
+    private suspend fun getChildren(parentId: Long?): List<OfflineMapCatalogItem> {
+        return getChildrenWithoutCounts(parentId).map {
+            if (it is MapGroup) it.copy(count = counter.count(it.id)) else it
+        }
     }
 
-    private suspend fun getChildren(parentId: Long?): List<OfflineMapCatalogItem> {
+    private suspend fun getChildrenWithoutCounts(parentId: Long?): List<OfflineMapCatalogItem> {
         val maps = repo.getPhotoMaps(parentId) + repo.getTrailMaps(parentId)
-        val groups = getGroups(parentId)
-        return maps + groups
+        return maps + repo.getMapGroups(parentId)
     }
 
     private suspend fun maybeReduce(map: OfflineMap): OfflineMap {

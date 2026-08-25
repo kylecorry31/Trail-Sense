@@ -16,8 +16,11 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 class BeaconService(context: Context) : IBeaconService {
 
     private val repo = BeaconRepo.getInstance(context)
+
+    private val loaderWithoutCounts =
+        GroupLoader(this::getGroupWithoutCount, this::getChildrenWithoutCounts)
+    private val counter = GroupCounter(loaderWithoutCounts)
     override val loader = GroupLoader(this::getGroup, this::getChildren)
-    private val counter = GroupCounter(loader)
     private val filter = GroupFilter(loader)
 
 
@@ -59,27 +62,27 @@ class BeaconService(context: Context) : IBeaconService {
     }
 
     private suspend fun getChildren(groupId: Long?): List<IBeacon> {
-        val beacons = getBeaconsWithParent(groupId)
-        val groups = getGroups(groupId)
-        return beacons + groups
+        return getChildrenWithoutCounts(groupId).map {
+            if (it is BeaconGroup) it.copy(count = counter.count(it.id)) else it
+        }
+    }
+
+    private suspend fun getChildrenWithoutCounts(groupId: Long?): List<IBeacon> {
+        return repo.getBeaconsInGroup(groupId).map { it.toBeacon() } +
+                repo.getGroupsWithParent(groupId).map { it.toBeaconGroup() }
     }
 
     override suspend fun getGroup(groupId: Long?): BeaconGroup? {
+        return getGroupWithoutCount(groupId)?.copy(count = counter.count(groupId))
+    }
+
+    private suspend fun getGroupWithoutCount(groupId: Long?): BeaconGroup? {
         groupId ?: return null
-        return repo.getGroup(groupId)?.toBeaconGroup()?.copy(count = counter.count(groupId))
+        return repo.getGroup(groupId)?.toBeaconGroup()
     }
 
     override suspend fun getBeacon(beaconId: Long): Beacon? {
         return repo.getBeacon(beaconId)?.toBeacon()
-    }
-
-    private suspend fun getBeaconsWithParent(groupId: Long?): List<Beacon> {
-        return repo.getBeaconsInGroup(groupId).map { it.toBeacon() }
-    }
-
-    private suspend fun getGroups(parent: Long?): List<BeaconGroup> {
-        return repo.getGroupsWithParent(parent)
-            .map { it.toBeaconGroup().copy(count = counter.count(it.id)) }
     }
 
     override suspend fun getTemporaryBeacon(owner: BeaconOwner): Beacon? {
