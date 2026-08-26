@@ -562,7 +562,7 @@ open class TileMapLayer<T : TileSource>(
     companion object {
         const val MAX_TILES = 150
         private const val TILE_BORDER_PIXELS = 2
-        private val maxConcurrentLoads = maxOf(4, Runtime.getRuntime().availableProcessors())
+        private val maxConcurrentLoads = minOf(4, Runtime.getRuntime().availableProcessors())
         private val tileLoadDispatcher = CustomDispatchers.newFixedThreadDispatcher(
             threads = maxConcurrentLoads,
             name = "TileMapLayer"
