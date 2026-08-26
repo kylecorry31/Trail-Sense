@@ -10,6 +10,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
@@ -45,9 +47,6 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         hasText(string(R.string.pressure))
         hasText(Regex("\\d+(\\.\\d+)? in"))
 
-        // Last reading
-        hasText(string(R.string.last_updated))
-
         // Historic temperature
         optional {
             hasText(string(R.string.temperature))
@@ -60,6 +59,10 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
             hasText(string(R.string.temperature_high_low))
             hasText(Regex("\\d+(\\.\\d+)? °F / \\d+(\\.\\d+)? °F"))
         }
+
+        // Last reading
+        scrollUntil { hasText(string(R.string.last_updated)) }
+        scrollToStart()
 
         // Pressure chart
         isVisible(R.id.chart)
