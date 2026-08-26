@@ -33,7 +33,15 @@ class ClockView : View {
     private val paddingSize = 60
 
     var time: LocalTime = LocalTime.now()
+        set(value) {
+            field = value
+            invalidate()
+        }
     var use24Hours = true
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -66,8 +74,6 @@ class ClockView : View {
         drawNumeral(canvas)
         drawHands(canvas)
         drawCenter(canvas)
-        postInvalidateDelayed(20)
-        invalidate()
     }
 
     private fun drawBackground(canvas: Canvas) {
