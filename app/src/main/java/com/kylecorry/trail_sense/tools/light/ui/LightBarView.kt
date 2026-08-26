@@ -60,18 +60,18 @@ class LightBarView : View {
         }
         canvas.drawColor(Color.BLACK)
         drawGradient(canvas)
-        postInvalidateDelayed(20)
-        invalidate()
     }
 
     fun setCandela(candela: Float) {
         this.candela = candela
         updateGradients()
+        invalidate()
     }
 
     fun setDistanceUnits(distanceUnits: DistanceUnits) {
         units = distanceUnits
         updateGradients()
+        invalidate()
     }
 
     private fun updateGradients() {
