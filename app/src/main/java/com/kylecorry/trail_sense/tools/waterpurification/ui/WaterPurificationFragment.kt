@@ -64,7 +64,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
         binding.chip1Min.text = formatService.formatDuration(Duration.ofMinutes(1), short = true)
         binding.chip3Min.text = formatService.formatDuration(Duration.ofMinutes(3), short = true)
 
-        scheduleUpdates(INTERVAL_30_FPS)
+        scheduleUpdates(Duration.ofMillis(500))
     }
 
     override fun onResume() {
@@ -97,6 +97,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
     private fun start() {
         stop(updateUI = false)
+        onUpdate()
         inBackground {
             val duration = duration ?: getSelectedDuration()
             onIO {
@@ -107,6 +108,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
             }
             onMain {
                 WaterPurificationTimerService.start(requireContext(), duration.seconds)
+                onUpdate()
             }
         }
     }
@@ -121,12 +123,14 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
     private fun updateSelectedDuration() {
         duration = null
+        onUpdate()
         inBackground {
             runner.replace {
                 val duration = getSelectedDuration()
 
                 onMain {
                     setBoilTime(duration)
+                    onUpdate()
                 }
             }
         }
