@@ -191,7 +191,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Register timers
 
         // TODO: This shouldn't be needed - layers can be updated when the data changes
-        interval(100) {
+        interval(200) {
             updateCompassLayers()
         }
 
