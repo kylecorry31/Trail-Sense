@@ -2,12 +2,12 @@ package com.kylecorry.trail_sense.tools.climate.domain
 
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.mergeIntersecting
 import com.kylecorry.sol.science.ecology.Ecology
 import com.kylecorry.sol.time.Time.daysUntil
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.shared.andromeda_temp.mergeIntersecting
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.IWeatherSubsystem
 import java.time.Duration
 import java.time.LocalDate
