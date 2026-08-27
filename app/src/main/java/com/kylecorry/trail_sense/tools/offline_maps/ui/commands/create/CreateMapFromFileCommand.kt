@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create
 
 import android.content.Context
 import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.trail_sense.shared.andromeda_temp.Result
-import com.kylecorry.trail_sense.shared.andromeda_temp.andThen
-import com.kylecorry.trail_sense.shared.andromeda_temp.mapError
+import com.kylecorry.luna.result.Result
+import com.kylecorry.luna.result.andThen
+import com.kylecorry.luna.result.mapError
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriPickerError
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapError

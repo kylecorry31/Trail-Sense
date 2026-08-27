@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui.commands.create
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.andromeda_temp.Result
+import com.kylecorry.luna.result.Result
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapError
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
 

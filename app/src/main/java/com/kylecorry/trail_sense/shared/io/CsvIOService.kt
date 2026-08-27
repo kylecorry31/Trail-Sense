@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.streams.readText
-import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
+import com.kylecorry.luna.result.getOrNull
 
 class CsvIOService(private val uriPicker: UriPicker, private val uriService: UriService) :
     IOService<List<List<String>>> {

@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.io
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.gpx.GPXParser
 import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.trail_sense.shared.andromeda_temp.getOrNull
+import com.kylecorry.luna.result.getOrNull
 
 class GpxIOService(private val uriPicker: UriPicker, private val uriService: UriService) :
     IOService<GPXData> {

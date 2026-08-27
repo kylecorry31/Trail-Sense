@@ -11,7 +11,7 @@ import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.text.capitalizeWords
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
-import com.kylecorry.trail_sense.shared.andromeda_temp.EventBus
+import com.kylecorry.luna.subscriptions.EventBus
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone

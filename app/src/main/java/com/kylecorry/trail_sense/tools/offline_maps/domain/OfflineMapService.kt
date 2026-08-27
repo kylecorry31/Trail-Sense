@@ -7,8 +7,8 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.Result
-import com.kylecorry.trail_sense.shared.andromeda_temp.map
+import com.kylecorry.luna.result.Result
+import com.kylecorry.luna.result.map
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader

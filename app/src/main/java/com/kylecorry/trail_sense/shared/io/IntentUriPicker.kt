@@ -10,7 +10,7 @@ import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.Result
+import com.kylecorry.luna.result.Result
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume

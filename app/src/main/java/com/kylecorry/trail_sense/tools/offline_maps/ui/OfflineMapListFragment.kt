@@ -24,9 +24,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentOfflineMapListBinding
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.map
-import com.kylecorry.trail_sense.shared.andromeda_temp.unwrap
-import com.kylecorry.trail_sense.shared.andromeda_temp.unwrapError
+import com.kylecorry.luna.result.map
+import com.kylecorry.luna.result.unwrap
+import com.kylecorry.luna.result.unwrapError
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
