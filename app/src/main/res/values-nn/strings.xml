@@ -241,10 +241,6 @@
     <string name="last_updated">Sist oppdatert</string>
     <string name="name">Namn</string>
     <string name="field_guide_name_display">Namnesynar</string>
-    <string name="waning_crescent">I ny</string>
-    <string name="waning_gibbous">I ny</string>
-    <string name="waxing_gibbous">I ne</string>
-    <string name="waxing_crescent">I ne</string>
     <string name="no_group">Inga gruppe</string>
     <string name="tap_sun_moon_hint">Trykk på sola eller månen for å sjå meir om stillinga</string>
     <string name="advanced">Innfløkt</string>
