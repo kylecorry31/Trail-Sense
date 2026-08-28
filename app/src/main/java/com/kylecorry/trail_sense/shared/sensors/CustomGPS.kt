@@ -4,11 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.luna.concurrency.BackgroundTask
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
+import com.kylecorry.luna.concurrency.BackgroundTask
+import com.kylecorry.luna.concurrency.CoroutineQueueRunner
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.time.Time.isInPast
@@ -22,7 +23,6 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
@@ -105,10 +105,13 @@ class CustomGPS(
         onTimeout()
     }
 
+    private val geoidRunner = CoroutineQueueRunner()
     private val geoidTask = BackgroundTask {
-        val currentLocation = location
-        geoidOffset = AltitudeCorrection.getGeoid(currentLocation)
-        geoidLocation = currentLocation
+        geoidRunner.enqueue {
+            val currentLocation = location
+            geoidOffset = AltitudeCorrection.getGeoid(currentLocation)
+            geoidLocation = currentLocation
+        }
     }
 
     private var _altitude = 0f
@@ -122,6 +125,7 @@ class CustomGPS(
     private var _mslAltitude: Float? = null
     private var _isTimedOut = false
     private var mslOffset = 0f
+
     @Volatile
     private var geoidOffset = 0f
 
@@ -271,6 +275,7 @@ class CustomGPS(
         baseGPS.stop(this::onLocationUpdate)
         timeout.stop()
         geoidTask.stop()
+        geoidRunner.cancel()
     }
 
     private fun onLocationUpdate(): Boolean {
