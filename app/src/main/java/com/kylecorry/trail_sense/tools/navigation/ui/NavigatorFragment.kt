@@ -72,10 +72,8 @@ import java.time.Instant
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
-    private val orientation by lazy { sensorService.getOrientation(SensorService.FAST_MOTION_SENSOR_DELAY) }
-    private val compass by lazy {
-        sensorService.getCompass(orientation, SensorService.FAST_MOTION_SENSOR_DELAY)
-    }
+    private val orientation by lazy { sensorService.getOrientation() }
+    private val compass by lazy { sensorService.getCompass(orientation) }
     private val gps by lazy { sensorService.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY) }
     private val clinometer by lazy { Clinometer(orientation, isAugmentedReality = true) }
     private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }

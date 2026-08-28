@@ -101,10 +101,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        val navigation = useNavigationSensors(
-            trueNorth = true,
-            compassDelay = SensorService.FAST_MOTION_SENSOR_DELAY
-        )
+        val navigation = useNavigationSensors(trueNorth = true)
 
         // This ref is used by listeners to avoid constantly re-registering
         val navigationRef = useRef(navigation)
