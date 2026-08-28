@@ -72,6 +72,11 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
         updateSelectedDuration()
     }
 
+    override fun onPause() {
+        super.onPause()
+        runner.cancel()
+    }
+
     override fun onUpdate() {
         super.onUpdate()
         val remaining = getRemainingTime() ?: duration
