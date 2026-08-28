@@ -52,6 +52,9 @@ The last logged cloud type appears in the weather list. Tapping on it provides a
 ### Weather front
 The current weather front is displayed in the weather list. Fronts typically indicate weather changes and are often associated with precipitation and wind. Tapping on it provides a description of the weather front.
 
+### Last updated
+The time of the last weather update is displayed in the weather list.
+
 ## Exporting weather data
 You can export the recorded weather data to a CSV file with Settings > Weather > Export weather readings.
 
