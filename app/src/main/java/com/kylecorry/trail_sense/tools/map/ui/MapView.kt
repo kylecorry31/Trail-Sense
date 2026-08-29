@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
+import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
@@ -43,6 +44,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var isPanEnabled = true
     var isZoomEnabled = true
     var isFlingEnabled = true
+    var azimuthChangeThreshold = 0.1f
+    var locationChangeThreshold = 0.1f
     var useDensityPixelsForZoom = true
     override val isHighDetailMode: Boolean
         get() = !useDensityPixelsForZoom
@@ -68,20 +71,30 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var userLocation: Coordinate = Coordinate.zero
         set(value) {
-            field = value
-            invalidate()
+            val isChanged = field.distanceTo(value) > locationChangeThreshold
+            if (isChanged) {
+                field = value
+                invalidate()
+            }
         }
 
     override var userLocationAccuracy: Distance? = null
         set(value) {
-            field = value
-            invalidate()
+            val isChanged =
+                abs((field?.meters()?.value ?: 0f) - (value?.meters()?.value ?: 0f)) > locationChangeThreshold
+            if (isChanged) {
+                field = value
+                invalidate()
+            }
         }
 
     override var userAzimuth: Bearing = Bearing.from(0f)
         set(value) {
-            field = value
-            invalidate()
+            val isChanged = abs(field.value - value.value) > azimuthChangeThreshold
+            if (isChanged) {
+                field = value
+                invalidate()
+            }
         }
 
     init {
@@ -154,9 +167,13 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var mapCenter: Coordinate = Coordinate.zero
         set(value) {
-            field = constrainToBounds(value)
-            onCenterChange?.invoke(field)
-            invalidate()
+            val newValue = constrainToBounds(value)
+            val isChanged = field.distanceTo(value) > locationChangeThreshold
+            if (isChanged) {
+                field = newValue
+                onCenterChange?.invoke(field)
+                invalidate()
+            }
         }
 
     private val mapCenterPixels: Vector2
@@ -166,8 +183,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override var mapAzimuth: Float = 0f
         set(value) {
-            field = value
-            invalidate()
+            val changed = abs(field - value) > azimuthChangeThreshold
+            if (changed) {
+                field = value
+                invalidate()
+            }
         }
     override val mapRotation: Float = 0f
 
