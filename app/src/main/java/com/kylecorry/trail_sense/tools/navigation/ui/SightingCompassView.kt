@@ -87,6 +87,10 @@ class SightingCompassView(
                 val compassWidth = compass.width
                 val cameraWidth = camera.width
 
+                if (compassWidth == 0 || cameraWidth == 0) {
+                    return@enqueue
+                }
+
                 val ratio = compassWidth / cameraWidth.toFloat()
 
                 val minimumFOV = 5f
