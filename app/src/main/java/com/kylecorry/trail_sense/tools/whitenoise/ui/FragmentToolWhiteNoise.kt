@@ -45,6 +45,7 @@ class FragmentToolWhiteNoise :
         }
 
         val (playbackJustFinished, setPlaybackJustFinished) = useState(false)
+        val (isTimerRunning, setIsTimerRunning) = useState(false)
 
         // Effects
         useEffect(whiteNoiseButtonView, WhiteNoiseService.isRunning) {
@@ -100,10 +101,15 @@ class FragmentToolWhiteNoise :
             }
         }
 
-        useEffect(sleepTimerPickerView, cache, runEveryCycle) {
+        useEffect(sleepTimerPickerView, cache, isTimerRunning, runEveryCycle) {
             val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
             if (stopTime != null && stopTime > Instant.now()) {
                 sleepTimerPickerView.updateDuration(Duration.between(Instant.now(), stopTime))
+                setIsTimerRunning(true)
+            } else if (isTimerRunning) {
+                // The timer ended while the tool was closed and the finished event was not caught
+                setIsTimerRunning(false)
+                setPlaybackJustFinished(true)
             }
         }
 
@@ -116,6 +122,7 @@ class FragmentToolWhiteNoise :
             if (playbackJustFinished) {
                 sleepTimerSwitchView.isChecked = false
                 sleepTimerPickerView.isVisible = false
+                sleepTimerPickerView.updateDuration(null)
                 setPlaybackJustFinished(false)
             }
         }
