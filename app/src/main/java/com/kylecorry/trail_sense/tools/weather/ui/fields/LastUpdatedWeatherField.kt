@@ -20,7 +20,7 @@ class LastUpdatedWeatherField(private val time: Instant?) : WeatherField {
         val color = Resources.androidTextColorSecondary(context)
 
         return ListItem(
-            1,
+            8,
             context.getString(R.string.last_updated),
             icon = ResourceListIcon(R.drawable.ic_update, color),
             trailingText = formatter.formatDateTime(
