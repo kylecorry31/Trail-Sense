@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
 import android.content.Context
+import com.kylecorry.luna.cache.MemoryCachedValue
 import com.kylecorry.luna.cache.MemoryLRUCache
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.interpolation.Interpolation
@@ -28,6 +29,7 @@ class TideService(private val context: Context) {
 
     private val locationSubsystem by lazy { LocationSubsystem.getInstance(context) }
 
+    private val locationKeyCache = MemoryCachedValue<Coordinate>(duration = Duration.ofSeconds(10))
     private val cache =
         MemoryLRUCache<Pair<TideTable, Coordinate?>, TideTableWaterLevelCalculator>(100)
 
@@ -185,7 +187,7 @@ class TideService(private val context: Context) {
     private suspend fun getTableCalculator(table: TideTable): TideTableWaterLevelCalculator {
         // Automatic nearby tides require on the fly locations rather than the location being part of the model
         val key = table to if (table.isAutomaticNearbyTide) {
-            TideLocationKey.of(locationSubsystem.location)
+            locationKeyCache.getOrPut { TideLocationKey.of(locationSubsystem.location) }
         } else {
             null
         }
