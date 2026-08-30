@@ -9,7 +9,7 @@ class LineInterpolator {
      * @param line The line to increase the resolution of (in the form [x1, y1, x2, y2, ...], where each 4 elements are a line segment).
      * @param lineOutput The output list to write the line to
      * @param minSpacing The minimum spacing between points to add. The actual spacing may be larger than this value to ensure the spacing is even.
-     * @param z The z values of the line. Each z value corresponds to a point in the line.
+     * @param z The z values of the line. There are two z values per segment, one for each endpoint.
      * @param zOutput The output list to write the z values to
      */
     fun increaseResolution(
@@ -20,7 +20,8 @@ class LineInterpolator {
         zOutput: MutableList<Float>? = null
     ) {
         // Not enough points to interpolate
-        if (line.size % 4 != 0) {
+        val hasValidZ = z == null || z.size == line.size / 2
+        if (line.size % 4 != 0 || !hasValidZ) {
             lineOutput.addAll(line)
             zOutput?.addAll(z ?: emptyList())
             return
@@ -34,8 +35,16 @@ class LineInterpolator {
             val y1 = line[i + 1]
             val x2 = line[i + 2]
             val y2 = line[i + 3]
+            val zIndex = 2 * (i / 4)
+            val z1 = z?.get(zIndex)
+            val z2 = z?.get(zIndex + 1)
             val dx = x2 - x1
             val dy = y2 - y1
+            val dz = if (z1 != null && z2 != null) {
+                z2 - z1
+            } else {
+                null
+            }
             val squareDistance = dx * dx + dy * dy
             val segments = if (squareDistance < squareMinSpacing) {
                 0
@@ -49,24 +58,22 @@ class LineInterpolator {
                 lineOutput.add(y1)
                 lineOutput.add(x2)
                 lineOutput.add(y2)
-                if (z != null) {
-                    zOutput?.add(z[i / 4])
-                    zOutput?.add(z[i / 4 + 1])
-                }
+                z1?.let { zOutput?.add(it) }
+                z2?.let { zOutput?.add(it) }
                 continue
             }
 
             val xStep = dx / segments
             val yStep = dy / segments
-            val zStep = if (z != null) (z[i / 4 + 1] - z[i / 4]) / segments else 0f
+            val zStep = (dz ?: 0f) / segments
             for (j in 0 until segments) {
                 lineOutput.add(x1 + j * xStep)
                 lineOutput.add(y1 + j * yStep)
                 lineOutput.add(x1 + (j + 1) * xStep)
                 lineOutput.add(y1 + (j + 1) * yStep)
-                if (z != null) {
-                    zOutput?.add(z[i / 4] + j * zStep)
-                    zOutput?.add(z[i / 4] + (j + 1) * zStep)
+                if (z1 != null) {
+                    zOutput?.add(z1 + j * zStep)
+                    zOutput?.add(z1 + (j + 1) * zStep)
                 }
             }
         }

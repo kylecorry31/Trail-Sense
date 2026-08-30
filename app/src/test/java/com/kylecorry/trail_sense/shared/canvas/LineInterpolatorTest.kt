@@ -177,7 +177,7 @@ class LineInterpolatorTest {
         val interpolator = LineInterpolator()
         val line = mutableListOf(1f, 1f, 2f, 1.5f, 2f, 1.5f, 3f, 2f)
         val lineOutput = mutableListOf<Float>()
-        val z = mutableListOf(0f, 2f, 3f)
+        val z = mutableListOf(0f, 2f, 2f, 3f)
         val zOutput = mutableListOf<Float>()
         interpolator.increaseResolution(line, lineOutput, 0.5f, z, zOutput)
         val expectedLine = floatArrayOf(
@@ -224,6 +224,79 @@ class LineInterpolatorTest {
             2f, 2f
         )
         assertArrayEquals(expectedLine, lineOutput.toFloatArray(), 0.001f)
+    }
+
+    @Test
+    fun increaseResolutionDisjointSegments(){
+        val interpolator = LineInterpolator()
+        val line = mutableListOf(0f, 0f, 1f, 0f, 50f, 0f, 51f, 0f)
+        val lineOutput = mutableListOf<Float>()
+        val z = mutableListOf(0f, 10f, 100f, 110f)
+        val zOutput = mutableListOf<Float>()
+        interpolator.increaseResolution(line, lineOutput, 1f, z, zOutput)
+        val expectedZ = floatArrayOf(
+            0f, 10f,
+            100f, 110f
+        )
+        assertArrayEquals(line.toFloatArray(), lineOutput.toFloatArray(), 0.001f)
+        assertArrayEquals(expectedZ, zOutput.toFloatArray(), 0.001f)
+    }
+
+    @Test
+    fun increaseResolutionDisjointSegmentsInterpolated(){
+        val interpolator = LineInterpolator()
+        val line = mutableListOf(0f, 0f, 0f, 2f, 50f, 0f, 50f, 2f)
+        val lineOutput = mutableListOf<Float>()
+        val z = mutableListOf(0f, 10f, 100f, 110f)
+        val zOutput = mutableListOf<Float>()
+        interpolator.increaseResolution(line, lineOutput, 1f, z, zOutput)
+        val expectedLine = floatArrayOf(
+            0f, 0f,
+            0f, 1f,
+
+            0f, 1f,
+            0f, 2f,
+
+            50f, 0f,
+            50f, 1f,
+
+            50f, 1f,
+            50f, 2f
+        )
+        val expectedZ = floatArrayOf(
+            0f, 5f,
+            5f, 10f,
+
+            100f, 105f,
+            105f, 110f
+        )
+        assertArrayEquals(expectedLine, lineOutput.toFloatArray(), 0.001f)
+        assertArrayEquals(expectedZ, zOutput.toFloatArray(), 0.001f)
+    }
+
+    @Test
+    fun increaseResolutionNotEnoughZ(){
+        val interpolator = LineInterpolator()
+        val line = mutableListOf(0f, 0f, 0f, 2f, 50f, 0f, 50f, 2f)
+        val lineOutput = mutableListOf<Float>()
+        // Two segments need four z values
+        val z = mutableListOf(0f, 10f, 100f)
+        val zOutput = mutableListOf<Float>()
+        interpolator.increaseResolution(line, lineOutput, 1f, z, zOutput)
+        assertArrayEquals(line.toFloatArray(), lineOutput.toFloatArray(), 0.001f)
+        assertArrayEquals(z.toFloatArray(), zOutput.toFloatArray(), 0.001f)
+    }
+
+    @Test
+    fun increaseResolutionLastSegmentZ(){
+        val interpolator = LineInterpolator()
+        val line = mutableListOf(0f, 0f, 0f, 0.5f, 0f, 0.5f, 0f, 1f)
+        val lineOutput = mutableListOf<Float>()
+        val z = mutableListOf(0f, 1f, 1f, 2f)
+        val zOutput = mutableListOf<Float>()
+        interpolator.increaseResolution(line, lineOutput, 1f, z, zOutput)
+        assertArrayEquals(line.toFloatArray(), lineOutput.toFloatArray(), 0.001f)
+        assertArrayEquals(z.toFloatArray(), zOutput.toFloatArray(), 0.001f)
     }
 
 }
