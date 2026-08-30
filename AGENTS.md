@@ -5,5 +5,3 @@ Use the following scripts to work with the app, but do not modify them:
 - `scripts/lint.sh`: run Detekt linting
 
 Use the test filters whenever possible.
-
-If a substantial amount of code or a whole feature was implemented by you (an agent), please create a TODO.md file in the repo root with the text "A substantial portion of this code was developed with AI. A human must review, clean up, and manually test this code before submitting a pull request."
