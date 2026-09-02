@@ -1288,7 +1288,7 @@
     <string name="grains">格林</string>
     <string name="cell_tower_disclaimer">訊號塔的位置是根據 OpenCelliD、Mozilla 定位服務和 FCC 天線註冊的資訊估算的。\n\n[OpenCelliD 專案](https://opencellid.org/)使用 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/) 授權</string>
     <string name="climate_temperature_amount">溫度：%s</string>
-    <string name="survival_guide_disclaimer">本指南僅提供一般教育資訊，它並非專業培訓、醫療建議、診斷或治療，也不能取代緊急服務、合格的醫療服務提供者、當地指引，或產品／製造商的使用說明。如遇緊急情況，請儘快聯絡緊急服務，並遵循其指示；請勿為查閱本指南而延誤求助。請勿將本指南、Trail Sense 或您的手機視為唯一的安全計畫或通訊方式。不同地點與情況的條件、風險、法律及建議做法可能有所不同；採取行動前請先確認相關資訊，並自行判斷。</string>
+    <string name="survival_guide_disclaimer">本指南僅提供一般教育資訊，它並非專業培訓、醫療建議、診斷或治療，也不能取代緊急服務、合格的醫療服務提供者、在地導覽，或產品／製造商的使用說明。如遇緊急情況，請儘快聯絡緊急服務，並遵循其指示；請勿為查閱本指南而延誤求助。請勿將本指南、Trail Sense 或您的手機視為唯一的安全計畫或通訊方式。不同地點與情況的條件、風險、法律及建議做法可能有所不同；採取行動前請先確認相關資訊，並自行判斷。</string>
     <string name="scope">瞄準鏡</string>
     <string name="muzzle_velocity">槍口速度</string>
     <string name="speed">速度</string>
@@ -1448,7 +1448,7 @@
     <string name="battery_tip_other">關閉你的裝置、強制停止應用程式、停用或解除安裝應用程式，或停用自動更新／備份。</string>
     <string name="pref_night_mode_fullscreen_title">夜間模式下的全螢幕模式</string>
     <string name="pref_night_mode_fullscreen_summary">隱藏系統介面以更好地保護夜視能力</string>
-    <string name="pref_bubble_level_threshold_title">等級閾值</string>
+    <string name="pref_bubble_level_threshold_title">水平度閾值</string>
     <string name="guide_map_layers">地圖圖層</string>
     <string name="show_below_horizon">顯示在地平線下方</string>
     <string name="my_elevation">我的海拔</string>
@@ -1589,7 +1589,7 @@
     <plurals name="clock_device_time_fast">
         <item quantity="other">裝置時鐘快了 %d 秒</item>
     </plurals>
-    <string name="bubble_level_angles">X：%1$s\nY：%2$s\n角度：%3$s</string>
+    <string name="bubble_level_angles">Ｘ：%1$s\nＹ：%2$s\n角度：%3$s</string>
     <string name="pref_large_tile_cache_title">使用大型地圖圖塊快取</string>
     <string name="pref_copy_trail_maps_title">複製地圖至 Trail Sense</string>
     <string name="pref_copy_trail_maps_summary">匯入時。如果關閉，則會使用原始檔案，並且必須將其保留在你的裝置上。</string>
