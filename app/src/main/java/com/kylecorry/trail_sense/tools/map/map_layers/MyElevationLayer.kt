@@ -30,10 +30,6 @@ class MyElevationLayer : OverlayLayer() {
     private val prefs = DependencyRegistry.get<UserPreferences>()
     private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
 
-    private val onElevationChange = { _: Bundle ->
-        elevation = locationSubsystem.elevation.convertTo(prefs.baseDistanceUnits)
-    }
-
     override val layerId: String = LAYER_ID
 
     var elevation = Distance.meters(0f)
@@ -44,10 +40,10 @@ class MyElevationLayer : OverlayLayer() {
 
     private var elevationString = ""
 
-    private lateinit var bitmapLoader: DrawerBitmapLoader
+    private var bitmapLoader: DrawerBitmapLoader? = null
 
     override fun start() {
-        Tools.subscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
+        Tools.subscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, this::onElevationChange)
     }
 
     override fun drawOverlay(
@@ -55,11 +51,8 @@ class MyElevationLayer : OverlayLayer() {
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        if (!::bitmapLoader.isInitialized) {
-            bitmapLoader = DrawerBitmapLoader(drawer)
-        }
-
-        val elevationIcon = bitmapLoader.load(R.drawable.ic_altitude, drawer.sp(20f).toInt())
+        val loader = bitmapLoader ?: DrawerBitmapLoader(drawer).also { bitmapLoader = it }
+        val elevationIcon = loader.load(R.drawable.ic_altitude, drawer.sp(20f).toInt())
 
         drawer.push()
         drawer.translate(drawer.dp(bottomLeft.x), drawer.canvas.height + drawer.dp(bottomLeft.y))
@@ -91,11 +84,15 @@ class MyElevationLayer : OverlayLayer() {
     }
 
     override fun stop() {
-        Tools.unsubscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, onElevationChange)
-        if (::bitmapLoader.isInitialized) {
-            bitmapLoader.clear()
-        }
+        Tools.unsubscribe(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED, this::onElevationChange)
+        bitmapLoader?.clear()
+        bitmapLoader = null
     }
+
+    private suspend fun onElevationChange(ignored: Bundle) {
+        elevation = locationSubsystem.elevation.convertTo(prefs.baseDistanceUnits)
+    }
+
 
     companion object {
         const val LAYER_ID = "my_elevation"

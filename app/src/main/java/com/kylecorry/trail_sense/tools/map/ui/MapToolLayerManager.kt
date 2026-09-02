@@ -86,6 +86,7 @@ class MapToolLayerManager {
         synchronized(runningLock) {
             isRunning = false
             view.stop()
+            view.layerManager.setOnGeoJsonFeatureClickListener(null)
         }
     }
 
