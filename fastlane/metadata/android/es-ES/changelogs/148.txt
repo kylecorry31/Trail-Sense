@@ -1,0 +1,18 @@
+Guía de campo
+- Adjuntar varias imágenes
+- Colorear marcadores del mapa de avistamientos
+- Añadir nombres científicos
+- Ocultar las páginas integradas
+
+Mapas sin conexión
+- Exportar mapas de senderos
+- Mostrar límites de país y estado/provincia (si disponible)
+- Mejorar uso de memoria y de mosaicos
+
+Varios
+- Desfase del reloj respecto al sistema
+- Grupos de canales de notificaciones
+- Exportar registros
+- Ajuste para la longitud del rumbo de navegación
+- Angulo burbuja de nivel
+- Errores

@@ -16,7 +16,7 @@
 
 <p>Trail Sense es una herramienta, y al igual que cualquier otra herramienta que lleves a la naturaleza,
 es esencial tener habilidades y equipo de respaldo.
-Esta aplicación tiene únicamente fines informativos y la precisión de las predicciones y sensores están determinados por varios factores, incluyendo la calibración, la calidad del sensor, fuentes externas, etc.
+Esta aplicación tiene únicamente fines informativos y la precisión de las predicciones y sensores está determinada por varios factores, incluyendo la calibración, la calidad del sensor, fuentes externas, etc.
 Úsala bajo tu responsabilidad, lleva siempre herramientas de respaldo (como mapa y brújula), y vela por tu seguridad.</p>
 
 <p>Esta aplicación tampoco usa ni usará Internet. Toda la información en Trail Sense proviene directamente de los sensores del teléfono y ningún dato sale de Trail Sense.</p>
