@@ -404,7 +404,7 @@
     <string name="backtrack_disabled_low_power_toast">省電模式下已停用足跡回溯</string>
     <string name="nimbostratus">雨層雲</string>
     <string name="none">沒有</string>
-    <string name="left_quick_action">左則快速動作</string>
+    <string name="left_quick_action">左側快捷操作</string>
     <string name="move_to">移動至</string>
     <string name="precipitation_small_hail">小冰雹</string>
     <string name="precipitation_chance">降雨機率：%s</string>
@@ -657,7 +657,7 @@
     <string name="open_beacon_in_maps">在地圖上檢視</string>
     <string name="battery_power_ac">交流電</string>
     <string name="compass_calibrate_toast">指南針精確度 %s，建議校正</string>
-    <string name="altostratus_desc">中層雲遮蔽了天空。太陽幾乎看不到的一個明亮的斑塊。</string>
+    <string name="altostratus_desc">天空被一層中層族遮蔽，太陽只能勉強看到一小片明亮的光斑。</string>
     <string name="export">匯出</string>
     <string name="distance_from_flashlight">從手機到手電筒的距離</string>
     <string name="pref_backtrack_save_cell_title">記錄手機訊號</string>
@@ -801,7 +801,7 @@
     <string name="how">如何</string>
     <string name="clouds">雲</string>
     <string name="pref_require_satellites_title">需要衛星定位</string>
-    <string name="cirrocumulus">捲積雲</string>
+    <string name="cirrocumulus">卷積雲</string>
     <string name="cirrostratus">卷層雲</string>
     <string name="altocumulus">高積雲</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">可能預示未來 %1$d 至 %2$d 小時內將會有降雨。</string>
@@ -821,7 +821,7 @@
 \n
 \nOSGB（例如：TG 51409 13177）</string>
     <string name="cumulus">積雲</string>
-    <string name="cirrostratus_desc">高高的雲遮蓋了天空。它是透明的，通常會在太陽周圍形成光暈。</string>
+    <string name="cirrostratus_desc">覆蓋天空的高雲族。它是透明的，通常會在太陽周圍形成光暈。</string>
     <string name="altocumulus_desc">中層蓬鬆的雲看起來像棉花球。它們通常是白色的，下面有深色斑塊，可以是間隔的或片狀的。</string>
     <string name="privacy_and_location">隱私和位置</string>
     <string name="gps_stale">過時</string>
@@ -841,7 +841,7 @@
     <string name="location_disabled">位置已停用</string>
     <string name="guide_light_meter_description">如何判斷手電筒的光束距離</string>
     <string name="always_on">總是開啟</string>
-    <string name="right_quick_action">右則快速動作</string>
+    <string name="right_quick_action">右側快捷操作</string>
     <string name="high_tide">漲潮</string>
     <string name="half_tide">半潮</string>
     <string name="time_not_set">時間未設定</string>
@@ -954,7 +954,7 @@
     <string name="time_until_full">直至充滿</string>
     <string name="path_slope_moderate">中等</string>
     <string name="cirrocumulus_desc">高空雲層由小點組成波浪狀，看起來幾乎是扁平的。</string>
-    <string name="nimbostratus_desc">深灰色的中層雲覆蓋了天空。如果不下雨，可能是層雲。</string>
+    <string name="nimbostratus_desc">中層雲、呈深灰色、覆蓋天空。如果沒有下雨，它可能是層雲。</string>
     <string name="onboarding_user_guide">請參閱使用者指南，了解如何使用 Trail Sense 的各項功能。使用者指南位於「工具」分頁中。</string>
     <string name="autofill">自動填寫</string>
     <string name="point">點</string>
@@ -966,10 +966,10 @@
     <string name="historic">歷史性</string>
     <string name="fast_path_rendering">快速路線渲染</string>
     <string name="use_path_elevation">使用路線海拔</string>
-    <string name="stratus_desc">一片低矮的雲覆蓋了天空。物體不會投射陰影，並且可能有霧。</string>
+    <string name="stratus_desc">天空被低雲籠罩。物體無法投下陰影，而且可能出現霧氣。</string>
     <string name="mirror_camera">鏡子相機</string>
     <string name="pref_start_camera_in_3d_view_summary">點擊「以 3D 方式檢視」按鈕時開啟相機</string>
-    <string name="stratocumulus_desc">看起來像有小縫隙的棉球的低雲。顏色範圍從白色到深灰色。</string>
+    <string name="stratocumulus_desc">看起來像有小縫隙的棉球低雲族。顏色範圍從白色到深灰色。</string>
     <string name="cumulus_desc">低矮的浮雲，看起來像棉球。它們間隔開，通常是白色的，下面有深色斑點。</string>
     <string name="turn_back_alert_set">折返警報已設定</string>
     <string name="high_sensitivity">高靈敏度</string>
@@ -1094,7 +1094,7 @@
     <string name="delete_pack">刪除打包？</string>
     <string name="magnitude">規模</string>
     <string name="magnetic_north_description">指向地磁北極。這將與大多數指南針對齊。</string>
-    <string name="quick_actions">快速動作</string>
+    <string name="quick_actions">快捷動作</string>
     <string name="pref_backfill_temperatures_description">所有已記錄的溫度將會替換為已校正的歷史溫度。</string>
     <string name="disclaimer_estimated_tide">估計的潮汐可能不準確。請使用官方潮汐表以瞭解確切時間。</string>
     <string name="pref_tiles_enabled_title">系統排列</string>
@@ -1123,7 +1123,7 @@
 \n2. 點擊螢幕並按住
 \n3. 再將傾斜儀與目標頂部對齊
 \n4. 放開鎖定並查看到目標的距離</string>
-    <string name="cumulonimbus_desc">非常高的低矮蓬鬆雲。它們通常是砧形並且是深色的。</string>
+    <string name="cumulonimbus_desc">低矮蓬鬆的高聳雲朵。它們通常呈砧狀，顏色較深。</string>
     <string name="clinometer_measure_height_instructions">如何測量距離 %s 遠的目標高度：
 \n
 \n1. 將傾斜儀與目標底部對齊
@@ -1135,7 +1135,7 @@
     <string name="arrow">箭</string>
     <string name="tool_quick_action_summary">長按底部導航或於工具分頁上檢視。</string>
     <string name="bottom_navigation_slot">底部導航欄 %d</string>
-    <string name="quick_actions_are_unavailable">快速動作不能使用</string>
+    <string name="quick_actions_are_unavailable">快捷動作不能使用</string>
     <string name="forecast_algorithm">預報演算法</string>
     <string name="sunrise_alert_notification_title">太陽很快就要升起</string>
     <string name="sunrise_alerts">日出警報</string>
@@ -1176,7 +1176,7 @@
         <item quantity="other">%d 步</item>
     </plurals>
     <string name="imperial_teaspoons">英制茶匙</string>
-    <string name="widget_bottom_sheet_instructions">長按底部導航或使用小工具快速動作。</string>
+    <string name="widget_bottom_sheet_instructions">長按底部的導航欄，或使用「小工具」快捷操作。</string>
     <string name="widget_pref_title">應用程式內小工具</string>
     <string name="us_teaspoons">美制茶匙</string>
     <string name="us_tablespoons">美制湯匙</string>
@@ -1413,7 +1413,7 @@
     <string name="use_alarm_for_distance_alert">使用鬧鐘進行距離警報</string>
     <string name="use_alarm_for_sunset_alert">使用鬧鐘進行日落警報</string>
     <string name="use_alarm_for_sunrise_alert">使用鬧鐘進行日出警報</string>
-    <string name="use_alarm_for_turn_back_alert">使用鬧鐘進行折返警報</string>
+    <string name="use_alarm_for_turn_back_alert">使用鬧鐘作為折返警報</string>
     <string name="use_alarm_for_water_boil_timer">使用鬧鐘進行水沸騰計時器</string>
     <string name="ticks">蜱蟲</string>
     <string name="hillshade">山體陰影</string>
