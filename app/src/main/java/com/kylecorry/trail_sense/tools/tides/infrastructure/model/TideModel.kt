@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.infrastructure.model
 
 import android.content.Context
-import android.util.Log
 import android.util.Size
 import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
@@ -190,7 +189,6 @@ object TideModel {
             }
         }
 
-        Log.d("TideModel", loaded.toString())
         loaded
     }
 

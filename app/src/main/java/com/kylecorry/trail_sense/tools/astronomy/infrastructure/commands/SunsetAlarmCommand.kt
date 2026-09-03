@@ -131,8 +131,9 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
     private fun setAlarm(time: ZonedDateTime) {
         val scheduler = SunsetAlarmReceiver.scheduler(context)
         scheduler.cancel()
-        scheduler.once(time.toInstant())
-        Log.i(TAG, "Scheduled next run at $time")
+        val instant = time.toInstant()
+        scheduler.once(instant)
+        Log.i(TAG, "Scheduled next run at $instant")
     }
 
     companion object {
