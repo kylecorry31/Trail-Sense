@@ -376,6 +376,10 @@ class CustomGPS(
     }
 
     private fun shouldUpdateReading(): Boolean {
+        if (!userPrefs.filterLocationReadings) {
+            return true
+        }
+
         if (location == Coordinate.zero) {
             return true
         }
@@ -394,7 +398,7 @@ class CustomGPS(
         }
 
         // A reading hasn't been accepted in a while, so accept this one even if it's an "outlier"
-        if (timeDelta > TIMEOUT_DURATION) {
+        if (timeDelta > NEW_READING_DURATION) {
             return true
         }
 
@@ -443,12 +447,14 @@ class CustomGPS(
         const val LAST_UPDATE = "last_update"
         const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
-        private val TIMEOUT_DURATION = Duration.ofSeconds(10)
 
         // How fast the current reading loses confidence (m/s)
         private const val MIN_UNCERTAINTY_GROWTH_RATE = 4f
         private const val MAX_UNCERTAINTY_GROWTH_RATE = 20f
         private const val DEFAULT_ACCURACY = 30f
+        private val TIMEOUT_DURATION = Duration.ofSeconds(10)
+        // How often to force a new reading even if the accuracy is worse
+        private val NEW_READING_DURATION = Duration.ofSeconds(10)
         private val RECENT_READING_THRESHOLD: Duration = Duration.ofMinutes(2)
         private const val TAG = "CustomGPS"
 
