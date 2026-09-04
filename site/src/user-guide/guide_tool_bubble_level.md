@@ -13,6 +13,6 @@ To determine if a surface is flat:
 
 When the surface is flat, the background color of the level will change. You can adjust the threshold in 'Settings > Bubble Level > Level threshold'.
 
-The exact angle of the surface in degrees on the X (left/right) and Y (top/bottom) axis is displayed at the top.
+The exact angle of the surface in degrees on the X (left/right), Y (top/bottom) axis, and angle (combined) is displayed at the top.
 
 It is also possible to hold the device on its side to measure an angle and use the Y axis to measure the angle.

@@ -153,7 +153,9 @@ If your photo map points are not aligning correctly while calibrating, try calib
 Changing the projection while calibrating will clear any unsaved changes.
 
 ## Exporting a photo map
-To export a photo map, tap the menu button on the map row you want to export, then select 'Export'. You can also open the map, tap the menu button in the top-right, and choose 'Export'. This action exports the map as a PDF, and if calibrated, it will convert it into a geospatial PDF.
+To export a map, tap the menu button on the map row you want to export, then select 'Export'. You can also open the map, tap the menu button in the top-right, and choose 'Export'. For photo maps, this action exports the map as a PDF, and if calibrated, it will convert it into a geospatial PDF.
+
+You can not export an external trail map.
 
 ## Printing a photo map
 To print a photo map, tap the menu button on the map row you want to print, then select 'Print'. You can also open the map, tap the menu button in the top-right, and choose 'Print'. This opens the system print dialog, enabling you to print the map.

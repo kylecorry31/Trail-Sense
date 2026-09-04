@@ -7,7 +7,7 @@ The Pedometer tool can be used to track the distance traveled by counting your s
 ## Track distance, speed, and pace
 To track the distance traveled, tap the start button in the bottom-right corner of the screen. You may be asked to grant the 'Physical Activity' permission, which allows Trail Sense to access your phone's pedometer. You can then put your phone away and begin your hike.
 
-The distance traveled and number of steps taken are shown at the top of the screen. The distance is calculated based on your steps and stride length.
+The distance traveled and number of steps taken are shown at the top of the screen. The distance is calculated based on your steps and step length.
 
 Your current and average speed and pace are also shown. Pace is displayed as time per kilometer or mile, depending on your distance units. The current speed and pace are calculated over the last 10 seconds. By default, the average speed and pace use active time since the last reset, which does not include breaks. You can include breaks by selecting elapsed time under Settings > Pedometer > Average pace time.
 
@@ -33,14 +33,14 @@ If the pedometer is on, you can choose to receive a notification when you've rea
 You can choose to use the alarm audio channel for this alert by enabling Settings > Pedometer > Use alarm for distance alert. This will play a sound as an alarm even if media and notifications are muted. 
 
 ## Calibration
-Before using the pedometer in Trail Sense, you should calibrate it based on your stride length. Your stride length is measured as the distance traveled with a single step. To set your stride length, you can open Settings > Pedometer and enter a value for stride length. You can use Trail Sense to estimate this value by doing the following:
+Before using the pedometer in Trail Sense, you should calibrate it based on your step length. Your step length is measured as the distance traveled with a single step. To set your step length, you can open Settings > Pedometer and enter a value for step length. You can use Trail Sense to estimate this value by doing the following:
 
-1. From the Pedometer settings, tap  'Estimate stride length.'
+1. From the Pedometer settings, tap  'Estimate step length.'
 2. Ensure you are outside, have a clear view of the sky, have a straight path where you can walk at least 50 steps, and are wearing your hiking gear.
 3. Tap start and stand still until Trail Sense tells you to walk.
 4. Start walking in a straight line - you can put your phone in your pocket or by your side as you walk.
 5. When you are done, stand still for a little (for best results), then tap stop.
-6. You can then choose to save the stride length.
+6. You can then choose to save the step length.
 
 ## Quick action
 You can enable the Pedometer quick action in the settings for the tab you want it on.

@@ -19,3 +19,6 @@ The diagnostics tool can detect:
 - Restricted background access
 - Disabled services
 
+## Export logs
+Tap 'Export logs' to save a ZIP file containing recent crash stack traces, historical process exit reasons, and recent log output from Trail Sense (last hour).
+

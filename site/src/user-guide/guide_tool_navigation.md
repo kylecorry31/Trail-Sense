@@ -90,6 +90,8 @@ You can navigate using a bearing by tapping the compass to set a bearing. The se
 
 By default, bearings don't change when you move to a different location. If you would like to keep the bearing fixed to your initial location, you can enable Settings > Navigation > 'Lock bearing to location'. This is similar to creating a beacon at a distance and navigating to it.
 
+You can change the length of the bearing line under Settings > Navigation > 'Bearing length'.
+
 ## Path navigation
 
 If you have the Paths map layer enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass to see where the path is relative to you. If you have Backtrack running, you can see your current position on the path. For more information, see the Paths guide.
