@@ -307,6 +307,9 @@ class CustomGPS(
             return false
         }
 
+        // This can happen when the cache is restored with the same reading as the base GPS or a secondary field updates
+        val isSameReading = baseGPS.time == _time
+
         // Reset the timeout, there's a valid reading
         if (isStarted) {
             timeout.once(TIMEOUT_DURATION)
@@ -317,7 +320,7 @@ class CustomGPS(
 
         return if (location != Coordinate.zero) {
             hadValidReading = true
-            true
+            !isSameReading
         } else {
             false
         }
@@ -390,10 +393,10 @@ class CustomGPS(
             return true
         }
 
-        // The new reading isn't newer, so reject it
+        // The new reading is older than the current one, so reject it
         val timeDelta = Duration.between(_time, baseGPS.time)
-        if (timeDelta <= Duration.ZERO) {
-            logRejectedReading("not newer")
+        if (timeDelta < Duration.ZERO) {
+            logRejectedReading("older")
             return false
         }
 
