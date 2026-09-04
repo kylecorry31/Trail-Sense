@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.location.GPS
@@ -25,7 +24,9 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
@@ -39,6 +40,8 @@ class CustomGPS(
     private val gpsFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
     private val updateFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
 ) : AbstractSensor(), ISatelliteGPS {
+
+    private val logger = getAppService<Logger>()
 
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
@@ -312,9 +315,13 @@ class CustomGPS(
         val satelliteCount = baseGPS.satellites
         val hasFix = satelliteCount == null || !userPrefs.requiresSatellites || satelliteCount >= 4
         if (!hasFix) {
-            Log.d(
+            logger.debug(
                 TAG,
-                "[$diagnosticId] Bad Location Fix: $satelliteCount satellites, ${baseGPS.horizontalAccuracy}m accuracy"
+                "[$diagnosticId] Bad Location Fix: $satelliteCount satellites, ${
+                    baseGPS.horizontalAccuracy?.safeRoundPlaces(
+                        1
+                    )
+                }m accuracy"
             )
             shouldNotify = false
         } else {
@@ -359,7 +366,7 @@ class CustomGPS(
         }
 
         _isTimedOut = true
-        Log.d(
+        logger.debug(
             TAG,
             "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s, keeping a reading from " +
                     "${Duration.between(_time, Instant.now()).toMillis()}ms ago"
@@ -423,7 +430,7 @@ class CustomGPS(
 
         val maxDistance = (estimatedSpeed * seconds + currentAccuracy + newAccuracy) * MAX_DISTANCE_FACTOR
         if (distance > maxDistance) {
-            logRejectedReading("implausible movement (max allowed: ${maxDistance}m)")
+            logRejectedReading("implausible movement (max allowed: ${maxDistance.safeRoundPlaces(1)}m)")
             return false
         }
 
@@ -431,10 +438,12 @@ class CustomGPS(
     }
 
     private fun logRejectedReading(reason: String) {
-        Log.d(
+        logger.debug(
             TAG, "[$diagnosticId] Location Rejected: $reason, Time Delta: ${
                 Duration.between(time, baseGPS.time).toMillis()
-            }ms, Distance: ${_location.distanceTo(baseGPS.location)}, Accuracy: ${_horizontalAccuracy}m -> ${baseGPS.horizontalAccuracy}m, Age: ${
+            }ms, Distance: ${
+                _location.distanceTo(baseGPS.location).safeRoundPlaces(1)
+            }m, Accuracy: ${_horizontalAccuracy?.safeRoundPlaces(1)}m -> ${baseGPS.horizontalAccuracy?.safeRoundPlaces(1)}m, Age: ${
                 Duration.between(
                     _time,
                     Instant.now()
@@ -455,6 +464,7 @@ class CustomGPS(
         // The min and max speed for location filtering (m/s)
         private const val MIN_SPEED_ALLOWANCE = 1f
         private const val MAX_SPEED_ALLOWANCE = 50f
+
         // A factor to scale the max distance of new readings
         private const val MAX_DISTANCE_FACTOR = 1.1f
         private const val DEFAULT_ACCURACY = 30f

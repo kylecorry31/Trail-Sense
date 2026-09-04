@@ -8,7 +8,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
 import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.logging.Logger
 import java.io.File
 import java.time.Instant
 import java.time.ZoneId
@@ -27,6 +29,7 @@ class DiagnosticsLogExportService(
             ZipOutputStream(output).use { zip ->
                 addStackTraces(zip)
                 addExitReasons(zip)
+                addAppLogs(zip)
                 addLogcat(zip)
             }
         } ?: throw IllegalStateException("Unable to open diagnostics log destination")
@@ -118,6 +121,17 @@ class DiagnosticsLogExportService(
             ApplicationExitInfo.REASON_USER_REQUESTED -> "User requested"
             else -> "Unknown"
         }
+    }
+
+    private fun addAppLogs(zip: ZipOutputStream) {
+        val log = getAppService<Logger>().getLogFile()
+        if (!log.isFile) {
+            return
+        }
+
+        zip.putNextEntry(ZipEntry("logs/log.txt"))
+        log.inputStream().use { it.copyTo(zip) }
+        zip.closeEntry()
     }
 
     private fun addLogcat(zip: ZipOutputStream) {

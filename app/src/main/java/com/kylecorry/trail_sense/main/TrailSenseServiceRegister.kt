@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
@@ -22,7 +23,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.text.HiddenSpan
 import com.kylecorry.trail_sense.shared.text.StringLoader
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object TrailSenseServiceRegister {
     fun setup(context: Context) {
@@ -30,6 +30,7 @@ object TrailSenseServiceRegister {
 
         // Shared services
         DependencyRegistry.addSingleton(appContext)
+        DependencyRegistry.addSingleton(Logger(appContext))
         DependencyRegistry.addSingleton(StringLoader(appContext))
         DependencyRegistry.addSingleton(FormatService.getInstance(appContext))
         DependencyRegistry.addSingleton(PreferencesSubsystem.getInstance(appContext))
