@@ -406,6 +406,7 @@ class CustomGPS(
 
         // A reading hasn't been accepted in a while, so accept this one even if it's an "outlier"
         if (timeDelta > NEW_READING_DURATION) {
+            logger.debug(TAG, "[$diagnosticId] Location accepted unfiltered due to time delta, ${describeNewReading()}")
             return true
         }
 
@@ -438,18 +439,19 @@ class CustomGPS(
     }
 
     private fun logRejectedReading(reason: String) {
-        logger.debug(
-            TAG, "[$diagnosticId] Location Rejected: $reason, Time Delta: ${
-                Duration.between(time, baseGPS.time).toMillis()
-            }ms, Distance: ${
-                _location.distanceTo(baseGPS.location).safeRoundPlaces(1)
-            }m, Accuracy: ${_horizontalAccuracy?.safeRoundPlaces(1)}m -> ${baseGPS.horizontalAccuracy?.safeRoundPlaces(1)}m, Age: ${
-                Duration.between(
-                    _time,
-                    Instant.now()
-                ).toMillis()
-            }ms"
-        )
+        logger.debug(TAG, "[$diagnosticId] Location Rejected: $reason, ${describeNewReading()}")
+    }
+
+    private fun describeNewReading(): String {
+        return "Time Delta: ${
+            Duration.between(_time, baseGPS.time).toMillis()
+        }ms, Distance: ${
+            _location.distanceTo(baseGPS.location).safeRoundPlaces(1)
+        }m, Accuracy: ${_horizontalAccuracy?.safeRoundPlaces(1)}m -> ${
+            baseGPS.horizontalAccuracy?.safeRoundPlaces(1)
+        }m, Age: ${
+            Duration.between(_time, Instant.now()).toMillis()
+        }ms"
     }
 
     companion object {
