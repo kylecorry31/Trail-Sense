@@ -1642,4 +1642,6 @@
     <string name="delete_image_prompt">删除图片？</string>
     <string name="image_index">图片 %1$d/%2$d</string>
     <string name="last_updated">上次更新</string>
+    <string name="pref_filter_location_readings_title">筛选位置读数</string>
+    <string name="pref_filter_location_readings_description">忽略看起来比当前读数差的读数</string>
 </resources>
