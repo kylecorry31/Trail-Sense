@@ -152,10 +152,10 @@ class CustomGPS(
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
 
     init {
+        updateFromCache()
+
         if (baseGPS.hasValidReading) {
-            updateFromBase()
-        } else {
-            updateFromCache()
+            tryUpdateLocation()
         }
     }
 
@@ -293,19 +293,28 @@ class CustomGPS(
     }
 
     private fun onLocationUpdate(): Boolean {
+        val shouldNotify = tryUpdateLocation()
+        if (shouldNotify) {
+            notifyListeners()
+        }
+        return true
+    }
+
+    private fun tryUpdateLocation(): Boolean {
         if (!baseGPS.hasValidReading) {
-            return true
+            return false
         }
 
         // Determine if the new location should be used, if not, return the old location
         if (!shouldAcceptNewReading()) {
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
-            if (_isTimedOut) {
+            return if (_isTimedOut) {
                 _isTimedOut = false
-                notifyListeners()
+                true
+            } else {
+                false
             }
-            return true
         }
 
         var shouldNotify = true
@@ -332,12 +341,13 @@ class CustomGPS(
 
         updateFromBase()
 
-        if (shouldNotify && location != Coordinate.zero) {
+        return if (shouldNotify && location != Coordinate.zero) {
             hadValidReading = true
-            notifyListeners()
+            true
+        } else {
+            false
         }
 
-        return true
     }
 
     private fun updateCache() {
