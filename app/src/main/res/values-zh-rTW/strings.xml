@@ -23,8 +23,8 @@
     <string name="pref_compass_sensor_title">指南針</string>
     <string name="pref_ruler_calibration_title">尺比例</string>
     <string name="temperature">溫度</string>
-    <string name="celsius">攝氏溫標</string>
-    <string name="fahrenheit">華氏溫標</string>
+    <string name="celsius">攝氏溫標（℃）</string>
+    <string name="fahrenheit">華氏溫標（℉）</string>
     <string name="pref_coordinate_format_title">座標格式</string>
     <string name="coordinate_format_decimal_degrees">小數點度數</string>
     <string name="theme_system">系統</string>
@@ -165,7 +165,7 @@
     <string name="always">總是</string>
     <string name="location">位置</string>
     <string name="gps">GPS</string>
-    <string name="notification_monitoring_weather">在背景監視天氣</string>
+    <string name="notification_monitoring_weather">於背景監測天氣</string>
     <string name="sun_does_not_rise">未升起</string>
     <string name="sun_does_not_set">未落下</string>
     <string name="compass_azimuth">方位角</string>
@@ -183,10 +183,10 @@
     <string name="tool_white_noise_title">白噪聲</string>
     <string name="delete_note_title">刪除筆記？</string>
     <string name="notes_empty_text">沒有筆記</string>
-    <string name="metal_detector_disclaimer">只探測可磁化金屬（例如：鐵）</string>
+    <string name="metal_detector_disclaimer">只能偵測有磁性的金屬（例如鐵）</string>
     <string name="tool_metal_detector_title">金屬探測器</string>
     <string name="clock_sync_time_settings">開啟時間設定？</string>
-    <string name="clock_sync_notification">時鐘同步—%s</string>
+    <string name="clock_sync_notification">時鐘同步 - %s</string>
     <string name="pip_button">更新系統時間</string>
     <string name="clock_waiting_for_gps">正在從 GPS 更新時間…</string>
     <string name="water_purification_step_3">開始計時器</string>
@@ -194,7 +194,7 @@
     <string name="pref_sensor_details_title">感測器細節</string>
     <string name="start">開始</string>
     <string name="navigation_nearby_category">鄰近</string>
-    <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
+    <string name="tap_sun_moon_hint">輕觸太陽或月亮可知悉詳細位置</string>
     <string name="error_occurred_message">Trail Sense 遇到錯誤。請向開發人員發送電子郵件以解決此問題。</string>
     <string name="error_occurred">發生錯誤</string>
     <string name="pref_open_source_licenses_title">許可證</string>
@@ -312,10 +312,10 @@
     <string name="tool_bubble_level_summary">判斷表面是否平坦</string>
     <string name="category_shelter">庇護所</string>
     <string name="tool_cliff_height_description">測量懸崖或峭壁的高度</string>
-    <string name="tool_cliff_height_disclaimer">請確保在安全的情況下使用此工具，並且務必檢查懸崖下方的情況以避免受傷。請參閱使用者指南以取得說明。</string>
+    <string name="tool_cliff_height_disclaimer">僅在確保安全的情況下使用此工具，並務必檢查懸崖下方情況，以免受傷。請參閱使用者指南以了解具體操作說明。</string>
     <string name="water_boil_timer_channel_description">水在沸騰了</string>
     <string name="water_boil_timer_done_title">水已煮沸</string>
-    <string name="access_background_location_rationale">Trail Sense 會在背景使用位置資料以進行天氣監測中的海平面氣壓校正，並提供更準確的日落警報。[查看隱私權政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense 會在背景使用位置資料，即使 app 已關閉或未使用亦然。此背景存取用於天氣監測器的海平面氣壓校準、足跡回溯、小工具更新，以及提供更準確的日出／日落警報。[檢視隱私權政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="no_gps_signal">沒有 GPS 訊號</string>
     <string name="navigate_to_nearest_cell_signal">導航至最近的手機訊號</string>
     <string name="tool_quick_action_name">工具：%s</string>
@@ -404,7 +404,7 @@
     <string name="backtrack_disabled_low_power_toast">省電模式下已停用足跡回溯</string>
     <string name="nimbostratus">雨層雲</string>
     <string name="none">沒有</string>
-    <string name="left_quick_action">左則快速動作</string>
+    <string name="left_quick_action">左側快捷操作</string>
     <string name="move_to">移動至</string>
     <string name="precipitation_small_hail">小冰雹</string>
     <string name="precipitation_chance">降雨機率：%s</string>
@@ -657,7 +657,7 @@
     <string name="open_beacon_in_maps">在地圖上檢視</string>
     <string name="battery_power_ac">交流電</string>
     <string name="compass_calibrate_toast">指南針精確度 %s，建議校正</string>
-    <string name="altostratus_desc">中層雲遮蔽了天空。太陽幾乎看不到的一個明亮的斑塊。</string>
+    <string name="altostratus_desc">天空被一層中層族遮蔽，太陽只能勉強看到一小片明亮的光斑。</string>
     <string name="export">匯出</string>
     <string name="distance_from_flashlight">從手機到手電筒的距離</string>
     <string name="pref_backtrack_save_cell_title">記錄手機訊號</string>
@@ -779,9 +779,9 @@
     <string name="battery_health_dead">死亡</string>
     <string name="tool_triangulate_title">三角測量位置</string>
     <string name="notification_channel_clock_sync_description">將你的時鐘與 GPS 時間同步的通知</string>
-    <string name="clock_sync_instructions">當收到通知時，將時間設定為 %s</string>
+    <string name="clock_sync_instructions">當通知傳來，時間設為 %s</string>
     <string name="location_override_updated">位置覆寫已更新</string>
-    <string name="pip_notification_scheduled">已為 %s 安排通知</string>
+    <string name="pip_notification_scheduled">通知排定於 %s</string>
     <string name="map_distance">地圖：%s</string>
     <string name="max_temp_uncalibrated">最高手機溫度（未校正）</string>
     <string name="min_temp_calibrated">最低環境溫度（已校正）</string>
@@ -801,7 +801,7 @@
     <string name="how">如何</string>
     <string name="clouds">雲</string>
     <string name="pref_require_satellites_title">需要衛星定位</string>
-    <string name="cirrocumulus">捲積雲</string>
+    <string name="cirrocumulus">卷積雲</string>
     <string name="cirrostratus">卷層雲</string>
     <string name="altocumulus">高積雲</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">可能預示未來 %1$d 至 %2$d 小時內將會有降雨。</string>
@@ -821,7 +821,7 @@
 \n
 \nOSGB（例如：TG 51409 13177）</string>
     <string name="cumulus">積雲</string>
-    <string name="cirrostratus_desc">高高的雲遮蓋了天空。它是透明的，通常會在太陽周圍形成光暈。</string>
+    <string name="cirrostratus_desc">覆蓋天空的高雲族。它是透明的，通常會在太陽周圍形成光暈。</string>
     <string name="altocumulus_desc">中層蓬鬆的雲看起來像棉花球。它們通常是白色的，下面有深色斑塊，可以是間隔的或片狀的。</string>
     <string name="privacy_and_location">隱私和位置</string>
     <string name="gps_stale">過時</string>
@@ -841,7 +841,7 @@
     <string name="location_disabled">位置已停用</string>
     <string name="guide_light_meter_description">如何判斷手電筒的光束距離</string>
     <string name="always_on">總是開啟</string>
-    <string name="right_quick_action">右則快速動作</string>
+    <string name="right_quick_action">右側快捷操作</string>
     <string name="high_tide">漲潮</string>
     <string name="half_tide">半潮</string>
     <string name="time_not_set">時間未設定</string>
@@ -954,22 +954,22 @@
     <string name="time_until_full">直至充滿</string>
     <string name="path_slope_moderate">中等</string>
     <string name="cirrocumulus_desc">高空雲層由小點組成波浪狀，看起來幾乎是扁平的。</string>
-    <string name="nimbostratus_desc">深灰色的中層雲覆蓋了天空。如果不下雨，可能是層雲。</string>
-    <string name="onboarding_user_guide">透過使用者指南瞭解如何使用 Trail Sense 的各項功能。使用者指南位於「工具」分頁。</string>
+    <string name="nimbostratus_desc">中層雲、呈深灰色、覆蓋天空。如果沒有下雨，它可能是層雲。</string>
+    <string name="onboarding_user_guide">請參閱使用者指南，了解如何使用 Trail Sense 的各項功能。使用者指南位於「工具」分頁中。</string>
     <string name="autofill">自動填寫</string>
     <string name="point">點</string>
     <string name="tide_instructions">使用官方潮汐表輸入你行程期間的參考潮汐。</string>
-    <string name="tide_user_guide_recommendation">官方潮汐表網站可以在使用者指南中找到。</string>
+    <string name="tide_user_guide_recommendation">可在使用者指南中找到官方潮汐表網站。</string>
     <string name="calibrate_map_point">使用已知位置進行校正（%1$d／%2$d）</string>
     <string name="path_slope_steep">陡峭</string>
     <string name="weather_warm_front">溫暖</string>
     <string name="historic">歷史性</string>
     <string name="fast_path_rendering">快速路線渲染</string>
     <string name="use_path_elevation">使用路線海拔</string>
-    <string name="stratus_desc">一片低矮的雲覆蓋了天空。物體不會投射陰影，並且可能有霧。</string>
+    <string name="stratus_desc">天空被低雲籠罩。物體無法投下陰影，而且可能出現霧氣。</string>
     <string name="mirror_camera">鏡子相機</string>
     <string name="pref_start_camera_in_3d_view_summary">點擊「以 3D 方式檢視」按鈕時開啟相機</string>
-    <string name="stratocumulus_desc">看起來像有小縫隙的棉球的低雲。顏色範圍從白色到深灰色。</string>
+    <string name="stratocumulus_desc">看起來像有小縫隙的棉球低雲族。顏色範圍從白色到深灰色。</string>
     <string name="cumulus_desc">低矮的浮雲，看起來像棉球。它們間隔開，通常是白色的，下面有深色斑點。</string>
     <string name="turn_back_alert_set">折返警報已設定</string>
     <string name="high_sensitivity">高靈敏度</string>
@@ -1086,7 +1086,7 @@
 \n%4$s</string>
     <string name="pack_sort_percent_high_to_low">已打包百分比（從高至低）</string>
     <string name="weather_alert_cold_description">為應對寒冷天氣做好準備。採取額外的預防措施以防止體溫過低和凍傷。</string>
-    <string name="map_calibration_instructions">在地圖上點擊已知的位置，然後輸入現實世界的座標。你可以透過點擊「完成」按鈕以儲存校正。 \n \n良好校正點的範例包括停車場、標誌點、地標或路的交會處。</string>
+    <string name="map_calibration_instructions">選取兩個在地圖上及現實世界中都能辨認的地點。對於每個地點，請在地圖上點擊其確切位置，然後輸入其現實世界座標。\n\n最佳地點應該為相距較遠且易於辨認，例如步道入口、停車場、路標、地標、地圖網格交叉點或步道交會處。\n\n若兩地點皆有效，請點擊完成校正。若您目前僅有一個地點，或想稍後再完成，請點擊儲存「草稿」。</string>
     <string name="battery_usage">%s 電池使用情況</string>
     <string name="estimate_step_length">估計步幅</string>
     <string name="pack_sort_percent_low_to_high">已打包百分比（從低至高）</string>
@@ -1094,7 +1094,7 @@
     <string name="delete_pack">刪除打包？</string>
     <string name="magnitude">規模</string>
     <string name="magnetic_north_description">指向地磁北極。這將與大多數指南針對齊。</string>
-    <string name="quick_actions">快速動作</string>
+    <string name="quick_actions">快捷動作</string>
     <string name="pref_backfill_temperatures_description">所有已記錄的溫度將會替換為已校正的歷史溫度。</string>
     <string name="disclaimer_estimated_tide">估計的潮汐可能不準確。請使用官方潮汐表以瞭解確切時間。</string>
     <string name="pref_tiles_enabled_title">系統排列</string>
@@ -1123,7 +1123,7 @@
 \n2. 點擊螢幕並按住
 \n3. 再將傾斜儀與目標頂部對齊
 \n4. 放開鎖定並查看到目標的距離</string>
-    <string name="cumulonimbus_desc">非常高的低矮蓬鬆雲。它們通常是砧形並且是深色的。</string>
+    <string name="cumulonimbus_desc">低矮蓬鬆的高聳雲朵。它們通常呈砧狀，顏色較深。</string>
     <string name="clinometer_measure_height_instructions">如何測量距離 %s 遠的目標高度：
 \n
 \n1. 將傾斜儀與目標底部對齊
@@ -1135,7 +1135,7 @@
     <string name="arrow">箭</string>
     <string name="tool_quick_action_summary">長按底部導航或於工具分頁上檢視。</string>
     <string name="bottom_navigation_slot">底部導航欄 %d</string>
-    <string name="quick_actions_are_unavailable">快速動作不能使用</string>
+    <string name="quick_actions_are_unavailable">快捷動作不能使用</string>
     <string name="forecast_algorithm">預報演算法</string>
     <string name="sunrise_alert_notification_title">太陽很快就要升起</string>
     <string name="sunrise_alerts">日出警報</string>
@@ -1176,7 +1176,7 @@
         <item quantity="other">%d 步</item>
     </plurals>
     <string name="imperial_teaspoons">英制茶匙</string>
-    <string name="widget_bottom_sheet_instructions">長按底部導航或使用小工具快速動作。</string>
+    <string name="widget_bottom_sheet_instructions">長按底部的導航欄，或使用「小工具」快捷操作。</string>
     <string name="widget_pref_title">應用程式內小工具</string>
     <string name="us_teaspoons">美制茶匙</string>
     <string name="us_tablespoons">美制湯匙</string>
@@ -1288,7 +1288,7 @@
     <string name="grains">格林</string>
     <string name="cell_tower_disclaimer">訊號塔的位置是根據 OpenCelliD、Mozilla 定位服務和 FCC 天線註冊的資訊估算的。\n\n[OpenCelliD 專案](https://opencellid.org/)使用 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/) 授權</string>
     <string name="climate_temperature_amount">溫度：%s</string>
-    <string name="survival_guide_disclaimer">本指南僅供參考，作者、發佈者或任何貢獻者均不保證其準確性或適用於任何目的。透過使用本指南，你承認戶外活動涉及風險，並且你自行承擔風險，並同意免除作者、發佈者和任何貢獻者因你使用本指南而產生的任何索賠或損害的賠償。請務必諮詢專業人士以獲取針對你情況的建議，因為本指南不能取代專業指導。此外，請注意當地法律法規可能會影響此處所述技術的合法使用，遵守法律法規是你的責任。</string>
+    <string name="survival_guide_disclaimer">本指南僅提供一般教育資訊，它並非專業培訓、醫療建議、診斷或治療，也不能取代緊急服務、合格的醫療服務提供者、在地導覽，或產品／製造商的使用說明。如遇緊急情況，請儘快聯絡緊急服務，並遵循其指示；請勿為查閱本指南而延誤求助。請勿將本指南、Trail Sense 或您的手機視為唯一的安全計畫或通訊方式。不同地點與情況的條件、風險、法律及建議做法可能有所不同；採取行動前請先確認相關資訊，並自行判斷。</string>
     <string name="scope">瞄準鏡</string>
     <string name="muzzle_velocity">槍口速度</string>
     <string name="speed">速度</string>
@@ -1377,7 +1377,7 @@
     <string name="show_labels">顯示標籤</string>
     <string name="open_settings">開啟設定</string>
     <string name="show_constellations">顯示星座</string>
-    <string name="no_sightings">沒有目擊</string>
+    <string name="no_sightings">未目擊</string>
     <string name="sleep_sound_white_noise">白噪音</string>
     <string name="sleep_sound_pink_noise">粉紅噪音</string>
     <string name="sleep_sound_brown_noise">棕色噪音</string>
@@ -1413,7 +1413,7 @@
     <string name="use_alarm_for_distance_alert">使用鬧鐘進行距離警報</string>
     <string name="use_alarm_for_sunset_alert">使用鬧鐘進行日落警報</string>
     <string name="use_alarm_for_sunrise_alert">使用鬧鐘進行日出警報</string>
-    <string name="use_alarm_for_turn_back_alert">使用鬧鐘進行折返警報</string>
+    <string name="use_alarm_for_turn_back_alert">使用鬧鐘作為折返警報</string>
     <string name="use_alarm_for_water_boil_timer">使用鬧鐘進行水沸騰計時器</string>
     <string name="ticks">蜱蟲</string>
     <string name="hillshade">山體陰影</string>
@@ -1448,7 +1448,7 @@
     <string name="battery_tip_other">關閉你的裝置、強制停止應用程式、停用或解除安裝應用程式，或停用自動更新／備份。</string>
     <string name="pref_night_mode_fullscreen_title">夜間模式下的全螢幕模式</string>
     <string name="pref_night_mode_fullscreen_summary">隱藏系統介面以更好地保護夜視能力</string>
-    <string name="pref_bubble_level_threshold_title">等級閾值</string>
+    <string name="pref_bubble_level_threshold_title">水平度閾值</string>
     <string name="guide_map_layers">地圖圖層</string>
     <string name="show_below_horizon">顯示在地平線下方</string>
     <string name="my_elevation">我的海拔</string>
@@ -1572,7 +1572,7 @@
     <string name="plugin_disconnect_message">斷開連接 %s？</string>
     <string name="delete_offline_map_group_message">%s 及其所有地圖將被刪除。</string>
     <string name="map_calibration_error_implausible_scale">校準比例看起來不太合理。請檢查地圖點和座標。</string>
-    <string name="photo_map_disclaimer">總是攜帶一份紙質地圖作為備用，並驗證 Trail Sense 的準確性。\n\nTrail Sense 不包含地圖檔案，必須下載或透過照片校準。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 下載地圖。</string>
+    <string name="photo_map_disclaimer">總是攜帶一份紙質地圖作為備用，並驗證 Trail Sense 的準確性。\n\nTrail Sense 不包含地圖檔案，必須以下載地圖或從照片進行校正。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 找到可下載的地圖</string>
     <string name="map_layer_elevation_description">根據數位海拔模型而為海拔著色</string>
     <string name="map_layer_ruggedness_description">根據海拔變化而為地形崎嶇度著色</string>
     <string name="map_layer_hillshade_description">地形陰影以視覺化海拔變化</string>
@@ -1589,7 +1589,7 @@
     <plurals name="clock_device_time_fast">
         <item quantity="other">裝置時鐘快了 %d 秒</item>
     </plurals>
-    <string name="bubble_level_angles">X：%1$s\nY：%2$s\n角度：%3$s</string>
+    <string name="bubble_level_angles">Ｘ：%1$s\nＹ：%2$s\n角度：%3$s</string>
     <string name="pref_large_tile_cache_title">使用大型地圖圖塊快取</string>
     <string name="pref_copy_trail_maps_title">複製地圖至 Trail Sense</string>
     <string name="pref_copy_trail_maps_summary">匯入時。如果關閉，則會使用原始檔案，並且必須將其保留在你的裝置上。</string>
@@ -1630,4 +1630,22 @@
     <string name="map_error_invalid_map_file">無效的地圖檔案</string>
     <string name="map_error_access_denied">被拒絕存取地圖檔案</string>
     <string name="map_error_unable_to_copy">無法複製地圖檔案</string>
+    <string name="overlay_layer">疊加層</string>
+    <string name="export_logs">匯出日誌</string>
+    <string name="pref_pedometer_history_days_title">步數紀錄</string>
+    <string name="active_time">活動時間</string>
+    <string name="active_duration">活動中：%s</string>
+    <string name="turn_back_alarm_channel">折返（警報）</string>
+    <string name="bearing_length">方位角線長</string>
+    <string name="bearing_length_description">啟用方位角時，方位角的線段長度</string>
+    <string name="attribution">署名</string>
+    <string name="map_layer_field_guide_sightings_description">您的野外圖鑑目擊紀錄</string>
+    <string name="map_layer_night_description">夜間暗度覆蓋層</string>
+    <string name="sighting_label">%s 目擊紀錄</string>
+    <string name="last_updated">最後更新時間</string>
+    <string name="recording_sighting_for_page">正記錄「%s」的目擊</string>
+    <string name="color_by_classification">依分類著色</string>
+    <string name="set_as_default_photo">設為預設</string>
+    <string name="delete_image_prompt">刪除圖片？</string>
+    <string name="image_index">圖片 %1$d/%2$d</string>
 </resources>

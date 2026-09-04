@@ -1624,4 +1624,5 @@
     <string name="set_as_default_photo">Establece por defecto</string>
     <string name="delete_image_prompt">¿Eliminar imagen?</string>
     <string name="image_index">Imagen %1$d/%2$d</string>
+    <string name="last_updated">Actualizado por última vez</string>
 </resources>
