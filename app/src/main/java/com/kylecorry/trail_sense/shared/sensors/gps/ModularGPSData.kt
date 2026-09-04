@@ -6,29 +6,35 @@ import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.luna.topics.Subscriber
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import java.time.Instant
 
 class ModularGPSData(
-    override var satellites: Int?,
-    override var satelliteDetails: List<Satellite>?,
-    override var location: Coordinate,
-    override var verticalAccuracy: Float?,
-    override var horizontalAccuracy: Float?,
-    override var mslAltitude: Float?,
-    override var bearing: Bearing?,
-    override var rawBearing: Float?,
-    override var bearingAccuracy: Float?,
-    override var speedAccuracy: Float?,
-    override var fixTimeElapsedNanos: Long?,
-    override var quality: Quality,
-    override var hasValidReading: Boolean,
-    override var flow: Flow<Unit>,
-    override var altitude: Float,
-    override var time: Instant,
-    override var speed: Speed
+    override var satellites: Int? = null,
+    override var satelliteDetails: List<Satellite>? = null,
+    override var location: Coordinate = Coordinate.zero,
+    override var verticalAccuracy: Float? = null,
+    override var horizontalAccuracy: Float? = null,
+    override var mslAltitude: Float? = null,
+    override var bearing: Bearing? = null,
+    override var rawBearing: Float? = null,
+    override var bearingAccuracy: Float? = null,
+    override var speedAccuracy: Float? = null,
+    override var fixTimeElapsedNanos: Long? = null,
+    override var quality: Quality = Quality.Unknown,
+    override var hasValidReading: Boolean = false,
+    override var altitude: Float = 0f,
+    override var time: Instant = Instant.now(),
+    override var speed: Speed = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
 ) : ISatelliteGPS {
+
+    // This is a data holder, so it never emits
+    override val flow: Flow<Unit> = emptyFlow()
+
     override fun start(subscriber: Subscriber) {
         // Do nothing
     }

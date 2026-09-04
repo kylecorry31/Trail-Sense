@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
@@ -12,23 +11,17 @@ import java.time.Instant
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.hypot
 
-class BadReadingRejectionGPS(baseGPS: ISatelliteGPS) : BaseGPS(baseGPS) {
+/**
+ * Rejects readings which are clearly erroneous.
+ */
+class BadReadingRejectionGPSModule : GPSModule {
 
     private val userPrefs = getAppService<UserPreferences>()
     private val logger = getAppService<Logger>()
     private val diagnosticId = nextDiagnosticId.getAndIncrement()
 
-    override fun onLocationUpdate() {
-        if (shouldAcceptNewReading()) {
-            super.onLocationUpdate()
-        }
-    }
-
-    /**
-     * This should only reject clearly erroneous readings.
-     */
-    private fun shouldAcceptNewReading(): Boolean {
-        if (!baseGPS.hasValidReading) {
+    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+        if (!newData.hasValidReading) {
             return false
         }
 
@@ -37,73 +30,95 @@ class BadReadingRejectionGPS(baseGPS: ISatelliteGPS) : BaseGPS(baseGPS) {
         }
 
         // The new reading is so inaccurate that it can't be useful
-        val newAccuracy = baseGPS.horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
+        val newAccuracy = newData.horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
         if (newAccuracy > MAX_ACCEPTABLE_ACCURACY) {
-            logRejectedReading("poor accuracy")
+            logRejectedReading("poor accuracy", previousData, newData)
             return false
         }
 
         // If satellite count is null, then the phone doesn't support satellite count
-        val satelliteCount = baseGPS.satellites
+        val satelliteCount = newData.satellites
         val hasFix = satelliteCount == null || !userPrefs.requiresSatellites || satelliteCount >= 4
         if (!hasFix) {
-            logRejectedReading("not enough satellites ($satelliteCount)")
+            logRejectedReading("not enough satellites ($satelliteCount)", previousData, newData)
             return false
         }
 
-        if (_location == Coordinate.zero) {
-            logAcceptedReading("no previous reading")
+        if (previousData.location == Coordinate.zero) {
+            logAcceptedReading("no previous reading", previousData, newData)
             return true
         }
 
         // The current reading is somehow in the future, so just accept a new reading (prevents stuck readings)
-        val isLastTimeInFuture = _time.isAfter(Instant.now().plusMillis(500))
+        val isLastTimeInFuture = previousData.time.isAfter(Instant.now().plusMillis(500))
         if (isLastTimeInFuture) {
-            logAcceptedReading("last reading is in the future")
+            logAcceptedReading("last reading is in the future", previousData, newData)
             return true
         }
 
         // The new reading is older than the current one, so reject it
-        val timeDelta = Duration.between(_time, baseGPS.time)
+        val timeDelta = Duration.between(previousData.time, newData.time)
         if (timeDelta < Duration.ZERO) {
-            logRejectedReading("older")
+            logRejectedReading("older", previousData, newData)
             return false
         }
 
         // The new reading is farther away than the user could have possibly traveled since the last one
         val seconds = timeDelta.toMillis() / 1000f
-        val distance = _location.distanceTo(baseGPS.location)
-        val speedLimit = _speed.value.real(0f)
+        val distance = previousData.location.distanceTo(newData.location)
+        val speedLimit = previousData.speed.value.real(0f)
             .times(1.5f)
             .plus(0.5f)
             .coerceIn(MIN_SPEED_ALLOWANCE, MAX_SPEED_ALLOWANCE)
-        val currentAccuracy = _horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
-        val maxDistance = speedLimit * seconds + DISTANCE_UNCERTAINTY_FACTOR * hypot(currentAccuracy, newAccuracy)
+        val currentAccuracy = previousData.horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
+        val maxDistance =
+            speedLimit * seconds + DISTANCE_UNCERTAINTY_FACTOR * hypot(currentAccuracy, newAccuracy)
         if (distance > maxDistance) {
-            logRejectedReading("implausible movement (max allowed: ${maxDistance.safeRoundPlaces(1)}m)")
+            logRejectedReading(
+                "implausible movement (max allowed: ${maxDistance.safeRoundPlaces(1)}m)",
+                previousData,
+                newData
+            )
             return false
         }
 
         return true
     }
 
-    private fun logRejectedReading(reason: String) {
-        logger.debug(TAG, "[$diagnosticId] Location Rejected: $reason, ${describeNewReading()}")
+    private fun logRejectedReading(
+        reason: String,
+        previousData: ModularGPSData,
+        newData: ModularGPSData
+    ) {
+        logger.debug(
+            TAG,
+            "[$diagnosticId] Location Rejected: $reason, ${describeNewReading(previousData, newData)}"
+        )
     }
 
-    private fun logAcceptedReading(reason: String) {
-        logger.debug(TAG, "[$diagnosticId] Location Accepted: $reason, ${describeNewReading()}")
+    private fun logAcceptedReading(
+        reason: String,
+        previousData: ModularGPSData,
+        newData: ModularGPSData
+    ) {
+        logger.debug(
+            TAG,
+            "[$diagnosticId] Location Accepted: $reason, ${describeNewReading(previousData, newData)}"
+        )
     }
 
-    private fun describeNewReading(): String {
+    private fun describeNewReading(
+        previousData: ModularGPSData,
+        newData: ModularGPSData
+    ): String {
         return "Time Delta: ${
-            Duration.between(_time, baseGPS.time).toMillis()
+            Duration.between(previousData.time, newData.time).toMillis()
         }ms, Distance: ${
-            _location.distanceTo(baseGPS.location).safeRoundPlaces(1)
-        }m, Accuracy: ${_horizontalAccuracy?.safeRoundPlaces(1)}m -> ${
-            baseGPS.horizontalAccuracy?.safeRoundPlaces(1)
+            previousData.location.distanceTo(newData.location).safeRoundPlaces(1)
+        }m, Accuracy: ${previousData.horizontalAccuracy?.safeRoundPlaces(1)}m -> ${
+            newData.horizontalAccuracy?.safeRoundPlaces(1)
         }m, Age: ${
-            Duration.between(_time, Instant.now()).toMillis()
+            Duration.between(previousData.time, Instant.now()).toMillis()
         }ms"
     }
 
@@ -122,6 +137,5 @@ class BadReadingRejectionGPS(baseGPS: ISatelliteGPS) : BaseGPS(baseGPS) {
 
         // This is used to distinguish instances of this class in the logs, since there can be multiple instances of this class at once
         private val nextDiagnosticId = AtomicInteger(1)
-
     }
 }

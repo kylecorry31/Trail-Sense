@@ -14,34 +14,31 @@ class SpeedGPSModule : GPSModule {
     override fun update(
         previousData: ModularGPSData,
         newData: ModularGPSData
-    ) {
+    ): Boolean {
         val locations = locationHistory.toList()
+
+        val currentLocation = ApproximateCoordinate.from(
+            newData.location,
+            Distance.meters(newData.horizontalAccuracy?.real(10f) ?: 10f)
+        )
 
         val oldestLocation = locations.firstOrNull()
 
         // If the speed is zero, estimate the speed
-        if (previousData.speed.value == 0f && oldestLocation != null) {
-            val currentLocation = ApproximateCoordinate.from(
-                previousData.location,
-                Distance.meters(previousData.horizontalAccuracy?.real(10f) ?: 10f)
-            )
-
-            previousData.speed = SpeedEstimator.calculate(
+        if (newData.speed.value == 0f && oldestLocation != null) {
+            newData.speed = SpeedEstimator.calculate(
                 oldestLocation.first,
                 currentLocation,
                 oldestLocation.second,
-                previousData.time
+                newData.time
             )
         }
 
         // Add to location history every second
-        if (locations.isEmpty() || Duration.between(locations.last().second, previousData.time).seconds >= 1) {
-            locationHistory.add(
-                ApproximateCoordinate.from(
-                    previousData.location,
-                    Distance.meters(previousData.horizontalAccuracy?.real(10f) ?: 10f)
-                ) to previousData.time
-            )
+        if (locations.isEmpty() || Duration.between(locations.last().second, newData.time).seconds >= 1) {
+            locationHistory.add(currentLocation to newData.time)
         }
+
+        return true
     }
 }

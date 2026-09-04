@@ -32,7 +32,7 @@ class MeanSeaLevelGPSModule : GPSModule {
     override fun update(
         previousData: ModularGPSData,
         newData: ModularGPSData
-    ) {
+    ): Boolean {
         lastData = newData
         val newMSLOffset = newData.altitude - (newData.mslAltitude ?: newData.altitude)
         if (newMSLOffset != 0f) {
@@ -40,6 +40,8 @@ class MeanSeaLevelGPSModule : GPSModule {
         }
 
         newData.altitude -= getGeoidOffset(newData.location)
+
+        return true
     }
 
     private fun getGeoidOffset(location: Coordinate): Float {
