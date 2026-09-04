@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
@@ -29,7 +30,7 @@ class LocationSubsystem private constructor(private val context: Context) {
                 return Duration.ZERO
             }
 
-            val lastUpdate = Instant.ofEpochMilli(prefs.getLong(CustomGPS.LAST_UPDATE) ?: 0)
+            val lastUpdate = Instant.ofEpochMilli(prefs.getLong(CacheGPSModule.LAST_UPDATE) ?: 0)
             return Duration.between(lastUpdate, Instant.now())
         }
 
@@ -49,8 +50,8 @@ class LocationSubsystem private constructor(private val context: Context) {
 
     init {
         val locationChangedPrefs = listOf(
-            CustomGPS.LAST_LATITUDE,
-            CustomGPS.LAST_LONGITUDE,
+            CacheGPSModule.LAST_LATITUDE,
+            CacheGPSModule.LAST_LONGITUDE,
             context.getString(R.string.pref_latitude_override),
             context.getString(R.string.pref_longitude_override),
             context.getString(R.string.pref_auto_location),

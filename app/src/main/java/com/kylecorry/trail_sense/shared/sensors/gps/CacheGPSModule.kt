@@ -1,0 +1,94 @@
+package com.kylecorry.trail_sense.shared.sensors.gps
+
+import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.sol.time.Time.isInPast
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import java.time.Instant
+
+/**
+ * Persists accepted readings so the last known location survives a restart.
+ */
+class CacheGPSModule : GPSModule {
+
+    private val cache = getAppService<PreferencesSubsystem>().preferences
+
+    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+        cache.putFloat(LAST_ALTITUDE, newData.altitude)
+        cache.putLong(LAST_UPDATE, newData.time.toEpochMilli())
+        cache.putFloat(LAST_SPEED, newData.speed.value)
+        cache.putDouble(LAST_LONGITUDE, newData.location.longitude)
+        cache.putDouble(LAST_LATITUDE, newData.location.latitude)
+        val horizontalAccuracy = newData.horizontalAccuracy
+        if (horizontalAccuracy != null) {
+            cache.putFloat(LAST_HORIZONTAL_ACCURACY, horizontalAccuracy)
+        } else {
+            cache.remove(LAST_HORIZONTAL_ACCURACY)
+        }
+        val verticalAccuracy = newData.verticalAccuracy
+        if (verticalAccuracy != null) {
+            cache.putFloat(LAST_VERTICAL_ACCURACY, verticalAccuracy)
+        } else {
+            cache.remove(LAST_VERTICAL_ACCURACY)
+        }
+        return true
+    }
+
+    /**
+     * The cache is written by every instance of this module, so another one may have recorded a
+     * newer reading than the given data.
+     */
+    fun hasNewerReading(data: ModularGPSData): Boolean {
+        val cacheTime = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
+        return cacheTime > data.time && cacheTime.isInPast()
+    }
+
+    fun restore(data: ModularGPSData) {
+        data.location = Coordinate(
+            cache.getDouble(LAST_LATITUDE) ?: 0.0,
+            cache.getDouble(LAST_LONGITUDE) ?: 0.0
+        )
+        data.altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
+        data.speed =
+            Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
+        data.time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
+        data.horizontalAccuracy = cache.getFloat(LAST_HORIZONTAL_ACCURACY)
+        data.verticalAccuracy = cache.getFloat(LAST_VERTICAL_ACCURACY)
+
+        // The cache doesn't record these
+        data.quality = Quality.Unknown
+        data.satellites = null
+        data.satelliteDetails = null
+        data.mslAltitude = null
+        data.rawBearing = null
+        data.bearing = null
+        data.bearingAccuracy = null
+        data.speedAccuracy = null
+        data.fixTimeElapsedNanos = null
+    }
+
+    companion object {
+        const val LAST_LATITUDE = "last_latitude_double"
+        const val LAST_LONGITUDE = "last_longitude_double"
+        const val LAST_ALTITUDE = "last_altitude"
+        const val LAST_SPEED = "last_speed"
+        const val LAST_UPDATE = "last_update"
+        const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
+        const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
+
+        fun clearCache() {
+            val cache = getAppService<PreferencesSubsystem>().preferences
+            cache.remove(LAST_ALTITUDE)
+            cache.remove(LAST_UPDATE)
+            cache.remove(LAST_SPEED)
+            cache.remove(LAST_LONGITUDE)
+            cache.remove(LAST_LATITUDE)
+            cache.remove(LAST_HORIZONTAL_ACCURACY)
+            cache.remove(LAST_VERTICAL_ACCURACY)
+        }
+    }
+}

@@ -17,12 +17,14 @@ class MeanSeaLevelGPSModule : GPSModule {
 
     @Volatile
     private var geoidLocation: Coordinate? = null
-    private var lastData: ModularGPSData? = null
+
+    @Volatile
+    private var lastLocation: Coordinate? = null
 
     private val geoidRunner = CoroutineQueueRunner()
     private val geoidTask = BackgroundTask {
         geoidRunner.enqueue {
-            val currentLocation = lastData?.location ?: return@enqueue
+            val currentLocation = lastLocation ?: return@enqueue
             geoidOffset = AltitudeCorrection.getGeoid(currentLocation)
             geoidLocation = currentLocation
         }
@@ -33,7 +35,7 @@ class MeanSeaLevelGPSModule : GPSModule {
         previousData: ModularGPSData,
         newData: ModularGPSData
     ): Boolean {
-        lastData = newData
+        lastLocation = newData.location
         val newMSLOffset = newData.altitude - (newData.mslAltitude ?: newData.altitude)
         if (newMSLOffset != 0f) {
             mslOffset = newMSLOffset
@@ -49,13 +51,13 @@ class MeanSeaLevelGPSModule : GPSModule {
             return mslOffset
         }
 
-        val lastLocation = geoidLocation
+        val lastGeoidLocation = geoidLocation
 
-        if (lastLocation == null) {
+        if (lastGeoidLocation == null) {
             // This is not ideal, but an offset is needed (and this service caches it)
             geoidOffset = runBlocking { AltitudeCorrection.getGeoid(location) }
             geoidLocation = location
-        } else if (!AltitudeCorrection.isSameGeoid(lastLocation, location)) {
+        } else if (!AltitudeCorrection.isSameGeoid(lastGeoidLocation, location)) {
             geoidTask.start()
         }
 
@@ -63,7 +65,7 @@ class MeanSeaLevelGPSModule : GPSModule {
     }
 
     override fun start(data: ModularGPSData) {
-        lastData = data
+        lastLocation = data.location
         // Load the offset for the last known location so the first fix doesn't have to wait on it
         geoidTask.start()
     }

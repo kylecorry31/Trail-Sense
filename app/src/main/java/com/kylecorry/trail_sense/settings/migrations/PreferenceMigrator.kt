@@ -19,9 +19,9 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
+import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
@@ -166,7 +166,7 @@ class PreferenceMigrator private constructor() {
                 prefs.remove("pref_astronomy_alerts_last_run_date")
             },
             PreferenceMigration(11, 12) { _, prefs ->
-                val elevation = prefs.getFloat(CustomGPS.LAST_ALTITUDE)
+                val elevation = prefs.getFloat(CacheGPSModule.LAST_ALTITUDE)
                 if (elevation != null) {
                     prefs.putFloat(CachingAltimeterWrapper.LAST_ALTITUDE_KEY, elevation)
                 }

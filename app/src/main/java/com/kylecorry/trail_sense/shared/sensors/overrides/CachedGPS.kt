@@ -12,7 +12,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.CustomGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.MockedGPS
 import java.time.Instant
@@ -22,14 +22,14 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
     override val location: Coordinate
         get() {
             val lat =
-                cache.getDouble(CustomGPS.LAST_LATITUDE) ?: userPrefs.locationOverride.latitude
+                cache.getDouble(CacheGPSModule.LAST_LATITUDE) ?: userPrefs.locationOverride.latitude
             val lng =
-                cache.getDouble(CustomGPS.LAST_LONGITUDE) ?: userPrefs.locationOverride.longitude
+                cache.getDouble(CacheGPSModule.LAST_LONGITUDE) ?: userPrefs.locationOverride.longitude
             return Coordinate(lat, lng)
         }
     override val speed: Speed
         get() = Speed.from(
-            cache.getFloat(CustomGPS.LAST_SPEED) ?: 0.0f,
+            cache.getFloat(CacheGPSModule.LAST_SPEED) ?: 0.0f,
             DistanceUnits.Meters,
             TimeUnits.Seconds
         )
@@ -38,15 +38,15 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
     override val time: Instant
         get() = Instant.now()
     override val verticalAccuracy: Float?
-        get() = cache.getFloat(CustomGPS.LAST_VERTICAL_ACCURACY)
+        get() = cache.getFloat(CacheGPSModule.LAST_VERTICAL_ACCURACY)
     override val horizontalAccuracy: Float?
-        get() = cache.getFloat(CustomGPS.LAST_HORIZONTAL_ACCURACY)
+        get() = cache.getFloat(CacheGPSModule.LAST_HORIZONTAL_ACCURACY)
     override val satellites: Int
         get() = 0
     override val hasValidReading: Boolean
         get() = true
     override val altitude: Float
-        get() = cache.getFloat(CustomGPS.LAST_ALTITUDE) ?: userPrefs.altitudeOverride
+        get() = cache.getFloat(CacheGPSModule.LAST_ALTITUDE) ?: userPrefs.altitudeOverride
     override val bearing: Bearing?
         get() = null
     override val bearingAccuracy: Float?

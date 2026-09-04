@@ -8,17 +8,14 @@ import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.luna.time.CoroutineTimer
-import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.logging.Logger
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.BadReadingRejectionGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.MeanSeaLevelGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
@@ -57,8 +54,8 @@ class CustomGPS(
 
     override val location: Coordinate
         get() {
-            if (cacheHasNewerReading()) {
-                updateFromCache()
+            if (cacheModule.hasNewerReading(data)) {
+                cacheModule.restore(data)
             }
             return data.location
         }
@@ -97,7 +94,6 @@ class CustomGPS(
             GPS(context.applicationContext, frequency = gpsFrequency)
         }
     }
-    private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
 
     private val timeout = CoroutineTimer {
@@ -108,10 +104,14 @@ class CustomGPS(
     private val data = ModularGPSData()
     private val candidate = ModularGPSData()
 
+    private val cacheModule = CacheGPSModule()
+
+    // The cache runs last so it records the reading as the other modules leave it
     private val modules = listOf(
         BadReadingRejectionGPSModule(),
         MeanSeaLevelGPSModule(),
-        SpeedGPSModule()
+        SpeedGPSModule(),
+        cacheModule
     )
 
     private var _isTimedOut = false
@@ -124,38 +124,11 @@ class CustomGPS(
     private var isStarted = false
 
     init {
-        updateFromCache()
+        cacheModule.restore(data)
 
         if (baseGPS.hasValidReading) {
             tryUpdateLocation()
         }
-    }
-
-    private fun cacheHasNewerReading(): Boolean {
-        val cacheTime = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
-        return cacheTime > data.time && cacheTime.isInPast()
-    }
-
-    private fun updateFromCache() {
-        data.location = Coordinate(
-            cache.getDouble(LAST_LATITUDE) ?: 0.0,
-            cache.getDouble(LAST_LONGITUDE) ?: 0.0
-        )
-        data.altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
-        data.speed =
-            Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
-        data.time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
-        data.horizontalAccuracy = cache.getFloat(LAST_HORIZONTAL_ACCURACY)
-        data.verticalAccuracy = cache.getFloat(LAST_VERTICAL_ACCURACY)
-        data.quality = Quality.Unknown
-        data.satellites = null
-        data.satelliteDetails = null
-        data.mslAltitude = null
-        data.rawBearing = null
-        data.bearing = null
-        data.bearingAccuracy = null
-        data.speedAccuracy = null
-        data.fixTimeElapsedNanos = null
     }
 
     @SuppressLint("MissingPermission")
@@ -167,8 +140,8 @@ class CustomGPS(
         isStarted = true
 
         // If this is being restarted, reload the value from cache if there's a newer reading there
-        if (hadValidReading && cacheHasNewerReading()) {
-            updateFromCache()
+        if (hadValidReading && cacheModule.hasNewerReading(data)) {
+            cacheModule.restore(data)
             notifyListeners()
         }
 
@@ -211,33 +184,12 @@ class CustomGPS(
         _isTimedOut = false
 
         candidate.copyInto(data)
-        updateCache()
 
         return if (data.location != Coordinate.zero) {
             hadValidReading = true
             !isSameReading
         } else {
             false
-        }
-    }
-
-    private fun updateCache() {
-        cache.putFloat(LAST_ALTITUDE, altitude)
-        cache.putLong(LAST_UPDATE, time.toEpochMilli())
-        cache.putFloat(LAST_SPEED, speed.value)
-        cache.putDouble(LAST_LONGITUDE, location.longitude)
-        cache.putDouble(LAST_LATITUDE, location.latitude)
-        val currentHorizontalAccuracy = horizontalAccuracy
-        if (currentHorizontalAccuracy != null) {
-            cache.putFloat(LAST_HORIZONTAL_ACCURACY, currentHorizontalAccuracy)
-        } else {
-            cache.remove(LAST_HORIZONTAL_ACCURACY)
-        }
-        val currentVerticalAccuracy = verticalAccuracy
-        if (currentVerticalAccuracy != null) {
-            cache.putFloat(LAST_VERTICAL_ACCURACY, currentVerticalAccuracy)
-        } else {
-            cache.remove(LAST_VERTICAL_ACCURACY)
         }
     }
 
@@ -269,31 +221,11 @@ class CustomGPS(
     }
 
     companion object {
-        const val LAST_LATITUDE = "last_latitude_double"
-        const val LAST_LONGITUDE = "last_longitude_double"
-        const val LAST_ALTITUDE = "last_altitude"
-        const val LAST_SPEED = "last_speed"
-        const val LAST_UPDATE = "last_update"
-        const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
-        const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
-
         private val TIMEOUT_DURATION = Duration.ofSeconds(10)
         private val RECENT_READING_THRESHOLD: Duration = Duration.ofMinutes(2)
         private const val TAG = "CustomGPS"
 
         // This is used to distinguish instances of this class in the logs, since there can be multiple instances of this class at once
         private val nextDiagnosticId = AtomicInteger(1)
-
-        fun clearCache() {
-            val cache = getAppService<PreferencesSubsystem>().preferences
-            cache.remove(LAST_ALTITUDE)
-            cache.remove(LAST_UPDATE)
-            cache.remove(LAST_SPEED)
-            cache.remove(LAST_LONGITUDE)
-            cache.remove(LAST_LATITUDE)
-            cache.remove(LAST_HORIZONTAL_ACCURACY)
-            cache.remove(LAST_VERTICAL_ACCURACY)
-        }
-
     }
 }
