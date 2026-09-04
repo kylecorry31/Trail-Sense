@@ -1065,7 +1065,7 @@
     <string name="magnetic_north_description">Wijst naar de magnetische Noordpool. Dit werkt met de meeste kompassen.</string>
     <string name="missing_sensor_explanation">Sommige telefoonfabrikanten kiezen ervoor om deze sensor niet in te bouwen, zelfs in nieuwe of prijzige apparaten. Je kunt meer te weten komen door de website van de telefoonfabrikant te bezoeken, of hen te contacteren.</string>
     <string name="no_sensor_unable_to_fix">Nee, dit is helaas een hardware-functie, er is dus niks aan te doen om dit toe te voegen.</string>
-    <string name="true_north_description">Wijst naar de geografische Noordpool door de declinatie voor jouw locatie te gebruiken. Dit werkt met de meeste kaarten.</string>
+    <string name="true_north_description">Wijst naar de geografische Noordpool door de declinatie voor je locatie te gebruiken. Dit werkt met de meeste kaarten.</string>
     <string name="is_there_a_way_to_fix_this">Is er een manier om dit op te lossen?</string>
     <string name="high_sensitivity">Hoge gevoeligheid</string>
     <string name="restart_services_message">Achtergrondactiviteiten konden niet opnieuw opgestart worden. Tik om te herstarten.</string>
@@ -1209,7 +1209,7 @@
     <string name="tide_estimation_description_tide_clock">Gebruikt de klok om getijden te schatten. Vereist tenminste één bekend getijde.</string>
     <string name="tide_estimation_description_lunitidal_interval_auto">Gebruikt de positie van de maan om getijden te schatten. Vereist tenminste één bekend getijde.</string>
     <string name="tide_estimation_description_lunitidal_interval_local">Gebruikt de positie van de maan om getijden te schatten. Vereist de lokale maangetijdeninterval en locatie.</string>
-    <string name="tide_estimation_description_tide_model">Gebruikt een ingebouwd getijdenmodel om getijden te schatten voor de ingevoerde locatie, of jouw locatie als geen is ingevoerd.</string>
+    <string name="tide_estimation_description_tide_model">Gebruikt een ingebouwd getijdenmodel om getijden te schatten voor de ingevoerde locatie, of je locatie als geen is ingevoerd.</string>
     <string name="star">Ster</string>
     <string name="show_stars">Sterren en planeten weergeven</string>
     <string name="tide">Getij</string>
@@ -1247,7 +1247,7 @@
     <string name="invertebrate">Ongewervelden</string>
     <string name="rock">Stenen</string>
     <string name="insect">Insecten</string>
-    <string name="arachnid">Arachnida</string>
+    <string name="arachnid">Spinachtigen</string>
     <string name="crustacean">Schaaldieren</string>
     <string name="mollusk">Weekdieren</string>
     <string name="sponge">Sponsdieren</string>
@@ -1265,7 +1265,7 @@
     <string name="cave">Grotten</string>
     <string name="tundra">Toendra</string>
     <string name="diurnal">Overdag</string>
-    <string name="nocturnal">\'s nachts</string>
+    <string name="nocturnal">Nachtelijk</string>
     <string name="crepuscular">Schemer</string>
     <string name="edible">Eetbaar</string>
     <string name="inedible">Oneetbaar</string>
@@ -1435,7 +1435,7 @@
     <string name="battery_tip_battery_saver">Schakel batterijbesparing in om bepaalde functies te beperken.</string>
     <string name="battery_tip_data_saver">Schakel databesparing in om te voorkomen dat apps op de achtergrond mobiele data gebruiken.</string>
     <string name="battery_tip_adaptive_brightness">Schakel aanpasbare helderheid in om je scherm te dimmen.</string>
-    <string name="battery_tip_display_timeout">Verminder scherm time-out voor als je vergeet het scherm uit te zetten. Schakel \"scherm altijd aan\" (AOD) uit.</string>
+    <string name="battery_tip_display_timeout">Verminder scherm time-out voor als je vergeet het scherm uit te zetten. Schakel \"scherm altijd actief\" uit.</string>
     <string name="battery_tip_dark_theme">Schakel donker thema in als je apparaat een OLED-scherm heeft.</string>
     <string name="battery_tip_background_apps">Beperk achtergrondactiviteiten voor apps die niet op de achtergrond hoeven te draaien.</string>
     <string name="airplane_mode">Vliegtuigmodus</string>
@@ -1507,7 +1507,7 @@
     <string name="smooth">Vlak</string>
     <string name="ruggedness">Ruwheid</string>
     <string name="map_layer_ruggedness_description">Kleurgecodeerde terreinruwheid op basis van hoogteverschil</string>
-    <string name="map_layer_field_guide_sightings_description">Jouw veldgidswaarnemingen</string>
+    <string name="map_layer_field_guide_sightings_description">Je veldgidswaarnemingen</string>
     <string name="sighting_label">Waarneming %s</string>
     <string name="show_on_map">Bekijk op kaart</string>
     <string name="show_images">Afbeeldingen tonen</string>
@@ -1661,4 +1661,6 @@
     <string name="delete_image_prompt">Afbeelding verwijderen?</string>
     <string name="image_index">Afbeelding %1$d/%2$d</string>
     <string name="last_updated">Laatst bijgewerkt</string>
+    <string name="pref_filter_location_readings_title">Locatiemetingen filteren</string>
+    <string name="pref_filter_location_readings_description">Negeert metingen die er slechter uitzien dan de huidige</string>
 </resources>
