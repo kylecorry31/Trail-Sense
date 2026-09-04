@@ -380,18 +380,18 @@ class CustomGPS(
             return true
         }
 
-        if (location == Coordinate.zero) {
+        if (_location == Coordinate.zero) {
             return true
         }
 
-        // The current reading is somehow in the future, so just accept a new reading
-        val isLastTimeInFuture = time.isAfter(Instant.now().plusMillis(500))
+        // The current reading is somehow in the future, so just accept a new reading (prevents stuck readings)
+        val isLastTimeInFuture = _time.isAfter(Instant.now().plusMillis(500))
         if (isLastTimeInFuture) {
             return true
         }
 
         // The new reading isn't newer, so reject it
-        val timeDelta = Duration.between(time, baseGPS.time)
+        val timeDelta = Duration.between(_time, baseGPS.time)
         if (timeDelta <= Duration.ZERO) {
             logRejectedReading("not newer")
             return false
@@ -408,11 +408,22 @@ class CustomGPS(
             return true
         }
 
-        // The new reading is less accurate than the previous one (time adjusted)
-        val newError = newAccuracy.takeIf { it > 0f } ?: DEFAULT_ACCURACY
-        val currentError = currentErrorAfter(timeDelta)
-        if (newError >= currentError) {
-            logRejectedReading("less accurate")
+        // The new reading is too inaccurate to be useful, unless it still improves on the current one
+        val currentAccuracy = _horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
+        if (newAccuracy > maxOf(MAX_ACCEPTABLE_ACCURACY, currentAccuracy)) {
+            logRejectedReading("poor accuracy")
+            return false
+        }
+
+        // The new reading is farther away than the user could have traveled since the last one
+        val seconds = timeDelta.toMillis() / 1000f
+        val distance = _location.distanceTo(baseGPS.location)
+        val estimatedSpeed = _speed.value.real(0f)
+            .coerceIn(MIN_SPEED_ALLOWANCE, MAX_SPEED_ALLOWANCE)
+
+        val maxDistance = estimatedSpeed * seconds + currentAccuracy + newAccuracy
+        if (distance > maxDistance) {
+            logRejectedReading("implausible movement (max allowed: ${maxDistance}m)")
             return false
         }
 
@@ -425,18 +436,11 @@ class CustomGPS(
                 Duration.between(time, baseGPS.time).toMillis()
             }ms, Distance: ${_location.distanceTo(baseGPS.location)}, Accuracy: ${_horizontalAccuracy}m -> ${baseGPS.horizontalAccuracy}m, Age: ${
                 Duration.between(
-                    time,
+                    _time,
                     Instant.now()
                 ).toMillis()
             }ms"
         )
-    }
-
-    private fun currentErrorAfter(timeDelta: Duration): Float {
-        val accuracy = horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
-        val growth = speed.value.real(0f)
-            .coerceIn(MIN_UNCERTAINTY_GROWTH_RATE, MAX_UNCERTAINTY_GROWTH_RATE)
-        return accuracy + growth * (timeDelta.toMillis() / 1000f)
     }
 
     companion object {
@@ -448,11 +452,15 @@ class CustomGPS(
         const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
-        // How fast the current reading loses confidence (m/s)
-        private const val MIN_UNCERTAINTY_GROWTH_RATE = 4f
-        private const val MAX_UNCERTAINTY_GROWTH_RATE = 20f
+        // The min and max speed for location filtering (m/s)
+        private const val MIN_SPEED_ALLOWANCE = 1f
+        private const val MAX_SPEED_ALLOWANCE = 50f
         private const val DEFAULT_ACCURACY = 30f
+
+        // Readings with this accuracy are too poor to accept, wait for another reading
+        private const val MAX_ACCEPTABLE_ACCURACY = 50f
         private val TIMEOUT_DURATION = Duration.ofSeconds(10)
+
         // How often to force a new reading even if the accuracy is worse
         private val NEW_READING_DURATION = Duration.ofSeconds(10)
         private val RECENT_READING_THRESHOLD: Duration = Duration.ofMinutes(2)
