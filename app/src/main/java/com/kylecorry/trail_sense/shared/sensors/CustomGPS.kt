@@ -295,7 +295,7 @@ class CustomGPS(
         }
 
         // Determine if the new location should be used, if not, return the old location
-        if (!shouldUpdateReading()) {
+        if (!shouldAcceptNewReading()) {
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
             if (_isTimedOut) {
@@ -375,7 +375,7 @@ class CustomGPS(
                 location != Coordinate.zero
     }
 
-    private fun shouldUpdateReading(): Boolean {
+    private fun shouldAcceptNewReading(): Boolean {
         if (!userPrefs.filterLocationReadings) {
             return true
         }
@@ -421,7 +421,7 @@ class CustomGPS(
         val estimatedSpeed = _speed.value.real(0f)
             .coerceIn(MIN_SPEED_ALLOWANCE, MAX_SPEED_ALLOWANCE)
 
-        val maxDistance = estimatedSpeed * seconds + currentAccuracy + newAccuracy
+        val maxDistance = (estimatedSpeed * seconds + currentAccuracy + newAccuracy) * MAX_DISTANCE_FACTOR
         if (distance > maxDistance) {
             logRejectedReading("implausible movement (max allowed: ${maxDistance}m)")
             return false
@@ -455,6 +455,8 @@ class CustomGPS(
         // The min and max speed for location filtering (m/s)
         private const val MIN_SPEED_ALLOWANCE = 1f
         private const val MAX_SPEED_ALLOWANCE = 50f
+        // A factor to scale the max distance of new readings
+        private const val MAX_DISTANCE_FACTOR = 1.1f
         private const val DEFAULT_ACCURACY = 30f
 
         // Readings with this accuracy are too poor to accept, wait for another reading
