@@ -308,7 +308,9 @@ class CustomGPS(
         // Determine if the new location should be used, if not, return the old location
         if (!shouldAcceptNewReading()) {
             // Reset the timeout, there's a valid reading
-            timeout.once(TIMEOUT_DURATION)
+            if (isStarted) {
+                timeout.once(TIMEOUT_DURATION)
+            }
             return if (_isTimedOut) {
                 _isTimedOut = false
                 true
@@ -317,31 +319,15 @@ class CustomGPS(
             }
         }
 
-        var shouldNotify = true
-
-        // Verify satellite requirement for notification
-        // If satellite count is null, then the phone doesn't support satellite count
-        val satelliteCount = baseGPS.satellites
-        val hasFix = satelliteCount == null || !userPrefs.requiresSatellites || satelliteCount >= 4
-        if (!hasFix) {
-            logger.debug(
-                TAG,
-                "[$diagnosticId] Bad Location Fix: $satelliteCount satellites, ${
-                    baseGPS.horizontalAccuracy?.safeRoundPlaces(
-                        1
-                    )
-                }m accuracy"
-            )
-            shouldNotify = false
-        } else {
-            // Reset the timeout, there's a valid reading
+        // Reset the timeout, there's a valid reading
+        if (isStarted) {
             timeout.once(TIMEOUT_DURATION)
-            _isTimedOut = false
         }
+        _isTimedOut = false
 
         updateFromBase()
 
-        return if (shouldNotify && location != Coordinate.zero) {
+        return if (location != Coordinate.zero) {
             hadValidReading = true
             true
         } else {
@@ -418,6 +404,14 @@ class CustomGPS(
         if (timeDelta > NEW_READING_DURATION) {
             logger.debug(TAG, "[$diagnosticId] Location accepted unfiltered due to time delta, ${describeNewReading()}")
             return true
+        }
+
+        // If satellite count is null, then the phone doesn't support satellite count
+        val satelliteCount = baseGPS.satellites
+        val hasFix = satelliteCount == null || !userPrefs.requiresSatellites || satelliteCount >= 4
+        if (!hasFix) {
+            logRejectedReading("not enough satellites ($satelliteCount)")
+            return false
         }
 
         // If the GPS doesn't report accuracy, just take the new reading
