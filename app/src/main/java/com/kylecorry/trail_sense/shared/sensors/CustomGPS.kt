@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.location.GPS
@@ -12,6 +13,7 @@ import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.math.RingBuffer
+import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -29,6 +31,7 @@ import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import java.time.Instant
+import java.util.concurrent.atomic.AtomicInteger
 
 
 class CustomGPS(
@@ -137,6 +140,11 @@ class CustomGPS(
     private var _speedAccuracy: Float? = null
 
     private var hadValidReading = false
+
+    private val diagnosticId = nextDiagnosticId.getAndIncrement()
+
+    @Volatile
+    private var isStarted = false
 
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
 
@@ -259,6 +267,8 @@ class CustomGPS(
             return
         }
 
+        isStarted = true
+
         // If this is being restarted, reload the value from cache if there's a newer reading there
         if (hadValidReading && cacheHasNewerReading()) {
             updateFromCache()
@@ -272,6 +282,7 @@ class CustomGPS(
     }
 
     override fun stopImpl() {
+        isStarted = false
         baseGPS.stop(this::onLocationUpdate)
         timeout.stop()
         geoidTask.stop()
@@ -284,11 +295,13 @@ class CustomGPS(
         }
 
         // Determine if the new location should be used, if not, return the old location
-        if (!shouldUpdateReading()) {
+        if (!shouldAcceptNewReading()) {
             // Reset the timeout, there's a valid reading
             timeout.once(TIMEOUT_DURATION)
-            _isTimedOut = false
-            notifyListeners()
+            if (_isTimedOut) {
+                _isTimedOut = false
+                notifyListeners()
+            }
             return true
         }
 
@@ -299,6 +312,10 @@ class CustomGPS(
         val satelliteCount = baseGPS.satellites
         val hasFix = satelliteCount == null || !userPrefs.requiresSatellites || satelliteCount >= 4
         if (!hasFix) {
+            Log.d(
+                TAG,
+                "[$diagnosticId] Bad Location Fix: $satelliteCount satellites, ${baseGPS.horizontalAccuracy}m accuracy"
+            )
             shouldNotify = false
         } else {
             // Reset the timeout, there's a valid reading
@@ -337,7 +354,16 @@ class CustomGPS(
     }
 
     private fun onTimeout() {
+        if (!isStarted) {
+            return
+        }
+
         _isTimedOut = true
+        Log.d(
+            TAG,
+            "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s, keeping a reading from " +
+                    "${Duration.between(_time, Instant.now()).toMillis()}ms ago"
+        )
         notifyListeners()
         timeout.once(TIMEOUT_DURATION)
     }
@@ -345,45 +371,76 @@ class CustomGPS(
     private fun hadRecentValidReading(): Boolean {
         val last = time
         val now = Instant.now()
-        val recentThreshold = Duration.ofMinutes(2)
-        return Duration.between(last, now) <= recentThreshold && location != Coordinate.zero
+        return Duration.between(last, now) <= RECENT_READING_THRESHOLD &&
+                location != Coordinate.zero
     }
 
-    private fun shouldUpdateReading(): Boolean {
-        // Modified from https://stackoverflow.com/questions/10588982/retrieving-of-satellites-used-in-gps-fix-from-android
-        if (location == Coordinate.zero) {
+    private fun shouldAcceptNewReading(): Boolean {
+        if (!userPrefs.filterLocationReadings) {
             return true
         }
 
-        val timeDelta = Duration.between(time, baseGPS.time)
-        val isSignificantlyNewer: Boolean = timeDelta > Duration.ofMinutes(2)
-        val isSignificantlyOlder: Boolean = timeDelta < Duration.ofMinutes(-2)
-        val isNewer = timeDelta > Duration.ZERO
+        if (_location == Coordinate.zero) {
+            return true
+        }
 
-        val isLastTimeInFuture = time.isAfter(Instant.now().plusMillis(500))
+        // The current reading is somehow in the future, so just accept a new reading (prevents stuck readings)
+        val isLastTimeInFuture = _time.isAfter(Instant.now().plusMillis(500))
         if (isLastTimeInFuture) {
             return true
         }
 
-        if (isSignificantlyNewer) {
-            return true
-        } else if (isSignificantlyOlder) {
+        // The new reading isn't newer, so reject it
+        val timeDelta = Duration.between(_time, baseGPS.time)
+        if (timeDelta <= Duration.ZERO) {
+            logRejectedReading("not newer")
             return false
         }
 
-        val currentAccuracy = horizontalAccuracy?.takeIf { it > 0f }
-        val newAccuracy = baseGPS.horizontalAccuracy?.takeIf { it > 0f }
-        val accuracyDelta =
-            if (newAccuracy != null && currentAccuracy != null) newAccuracy - currentAccuracy else null
-        val isMoreAccurate =
-            newAccuracy != null && (currentAccuracy == null || newAccuracy < currentAccuracy)
-        val isSignificantlyLessAccurate = accuracyDelta != null && accuracyDelta > 30
-
-        if (isMoreAccurate) {
+        // A reading hasn't been accepted in a while, so accept this one even if it's an "outlier"
+        if (timeDelta > NEW_READING_DURATION) {
             return true
         }
 
-        return isNewer && !isSignificantlyLessAccurate
+        // If the GPS doesn't report accuracy, just take the new reading
+        val newAccuracy = baseGPS.horizontalAccuracy
+        if (newAccuracy == null || Arithmetic.isZero(newAccuracy)) {
+            return true
+        }
+
+        // The new reading is too inaccurate to be useful, unless it still improves on the current one
+        val currentAccuracy = _horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
+        if (newAccuracy > maxOf(MAX_ACCEPTABLE_ACCURACY, currentAccuracy)) {
+            logRejectedReading("poor accuracy")
+            return false
+        }
+
+        // The new reading is farther away than the user could have traveled since the last one
+        val seconds = timeDelta.toMillis() / 1000f
+        val distance = _location.distanceTo(baseGPS.location)
+        val estimatedSpeed = _speed.value.real(0f)
+            .coerceIn(MIN_SPEED_ALLOWANCE, MAX_SPEED_ALLOWANCE)
+
+        val maxDistance = (estimatedSpeed * seconds + currentAccuracy + newAccuracy) * MAX_DISTANCE_FACTOR
+        if (distance > maxDistance) {
+            logRejectedReading("implausible movement (max allowed: ${maxDistance}m)")
+            return false
+        }
+
+        return true
+    }
+
+    private fun logRejectedReading(reason: String) {
+        Log.d(
+            TAG, "[$diagnosticId] Location Rejected: $reason, Time Delta: ${
+                Duration.between(time, baseGPS.time).toMillis()
+            }ms, Distance: ${_location.distanceTo(baseGPS.location)}, Accuracy: ${_horizontalAccuracy}m -> ${baseGPS.horizontalAccuracy}m, Age: ${
+                Duration.between(
+                    _time,
+                    Instant.now()
+                ).toMillis()
+            }ms"
+        )
     }
 
     companion object {
@@ -394,7 +451,25 @@ class CustomGPS(
         const val LAST_UPDATE = "last_update"
         const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
+
+        // The min and max speed for location filtering (m/s)
+        private const val MIN_SPEED_ALLOWANCE = 1f
+        private const val MAX_SPEED_ALLOWANCE = 50f
+        // A factor to scale the max distance of new readings
+        private const val MAX_DISTANCE_FACTOR = 1.1f
+        private const val DEFAULT_ACCURACY = 30f
+
+        // Readings with this accuracy are too poor to accept, wait for another reading
+        private const val MAX_ACCEPTABLE_ACCURACY = 50f
         private val TIMEOUT_DURATION = Duration.ofSeconds(10)
+
+        // How often to force a new reading even if the accuracy is worse
+        private val NEW_READING_DURATION = Duration.ofSeconds(10)
+        private val RECENT_READING_THRESHOLD: Duration = Duration.ofMinutes(2)
+        private const val TAG = "CustomGPS"
+
+        // This is used to distinguish instances of this class in the logs, since there can be multiple instances of this class at once
+        private val nextDiagnosticId = AtomicInteger(1)
 
         fun clearCache() {
             val cache = getAppService<PreferencesSubsystem>().preferences

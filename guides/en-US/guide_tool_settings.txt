@@ -52,6 +52,9 @@ When 'Auto adjust location' is enabled, the location will be determined by your 
 ### Require satellite fix
 To get a more accurate location, Trail Sense requires at least 4 satellites to have a fix. If you are having trouble getting a location, you can disable this setting to allow for a location with fewer satellites (or if your phone does not support satellite counts).
 
+### Filter location readings
+Trail Sense compares each new location reading against the one it already has and ignores readings that look worse. This reduces noise while you are standing still, but can cause missing readings if you are moving quickly.
+
 ### Cache
 Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using the 'Clear cache' option in the GPS settings.
 

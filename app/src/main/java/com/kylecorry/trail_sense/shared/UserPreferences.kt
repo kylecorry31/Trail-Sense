@@ -299,6 +299,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val requiresSatellites: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_require_satellites)) ?: true
 
+    val filterLocationReadings by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_filter_location_readings),
+        true
+    )
+
     var locationOverride: Coordinate
         get() {
             val latStr = cache.getString(getString(R.string.pref_latitude_override)) ?: "0.0"
