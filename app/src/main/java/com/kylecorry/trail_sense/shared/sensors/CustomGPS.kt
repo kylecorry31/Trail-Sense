@@ -155,7 +155,7 @@ class CustomGPS(
         updateFromCache()
 
         if (baseGPS.hasValidReading) {
-            tryUpdateLocation()
+            tryUpdateLocation(false)
         }
     }
 
@@ -293,30 +293,18 @@ class CustomGPS(
     }
 
     private fun onLocationUpdate(): Boolean {
-        val shouldNotify = tryUpdateLocation()
+        val shouldNotify = tryUpdateLocation(false)
         if (shouldNotify) {
             notifyListeners()
         }
         return true
     }
 
-    private fun tryUpdateLocation(): Boolean {
-        if (!baseGPS.hasValidReading) {
-            return false
-        }
-
+    @Synchronized
+    private fun tryUpdateLocation(relaxAcceptanceCriteria: Boolean): Boolean {
         // Determine if the new location should be used, if not, return the old location
-        if (!shouldAcceptNewReading()) {
-            // Reset the timeout, there's a valid reading
-            if (isStarted) {
-                timeout.once(TIMEOUT_DURATION)
-            }
-            return if (_isTimedOut) {
-                _isTimedOut = false
-                true
-            } else {
-                false
-            }
+        if (!shouldAcceptNewReading(relaxAcceptanceCriteria)) {
+            return false
         }
 
         // Reset the timeout, there's a valid reading
@@ -361,14 +349,19 @@ class CustomGPS(
             return
         }
 
-        _isTimedOut = true
-        logger.debug(
-            TAG,
-            "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s, keeping a reading from " +
-                    "${Duration.between(_time, Instant.now()).toMillis()}ms ago"
-        )
+        logger.debug(TAG, "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s")
+
+        if (!tryUpdateLocation(true)) {
+            logger.debug(
+                TAG,
+                "[$diagnosticId] No valid reading to update to, keeping a reading from " +
+                        "${Duration.between(_time, Instant.now()).toMillis()}ms ago"
+            )
+            _isTimedOut = true
+            timeout.once(TIMEOUT_DURATION)
+        }
+
         notifyListeners()
-        timeout.once(TIMEOUT_DURATION)
     }
 
     private fun hadRecentValidReading(): Boolean {
@@ -378,7 +371,11 @@ class CustomGPS(
                 location != Coordinate.zero
     }
 
-    private fun shouldAcceptNewReading(): Boolean {
+    private fun shouldAcceptNewReading(timedOutOverride: Boolean): Boolean {
+        if (!baseGPS.hasValidReading) {
+            return false
+        }
+
         if (!userPrefs.filterLocationReadings) {
             return true
         }
@@ -401,8 +398,12 @@ class CustomGPS(
         }
 
         // A reading hasn't been accepted in a while, so accept this one even if it's an "outlier"
-        if (timeDelta > NEW_READING_DURATION) {
-            logger.debug(TAG, "[$diagnosticId] Location accepted unfiltered due to time delta, ${describeNewReading()}")
+        if (timedOutOverride || timeDelta > NEW_READING_DURATION) {
+            val reason = if (timedOutOverride) "timed out" else "stale reading"
+            logger.debug(
+                TAG,
+                "[$diagnosticId] Unfiltered Location Accepted: $reason, ${describeNewReading()}"
+            )
             return true
         }
 
@@ -480,7 +481,7 @@ class CustomGPS(
         private val TIMEOUT_DURATION = Duration.ofSeconds(10)
 
         // How often to force a new reading even if the accuracy is worse
-        private val NEW_READING_DURATION = Duration.ofSeconds(10)
+        private val NEW_READING_DURATION = Duration.ofMinutes(1)
         private val RECENT_READING_THRESHOLD: Duration = Duration.ofMinutes(2)
         private const val TAG = "CustomGPS"
 
