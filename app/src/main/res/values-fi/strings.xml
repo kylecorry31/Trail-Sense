@@ -1556,4 +1556,11 @@
     <string name="invalid_trail_map">Epäkelpo reittikartta</string>
     <string name="invalid_trail_map_message">Reittikarttatiedosto on epäkelpo tai se puuttuu. Saatat haluta poistaa tämän kartan ja tuoda uuden sen tilalle.</string>
     <string name="recording_sighting_for_page">Tallennetaan \'%s\' havainto</string>
+    <string name="scientific_name">Tieteellinen nimi</string>
+    <string name="field_guide_name_display">Nimen näyttö</string>
+    <string name="built_in_pages">Sisäänrakennetut sivut</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nVoit piilottaa tämän sivun Kenttäoppaan asetuksissa.</string>
+    <string name="common_name">Yleinen nimi</string>
+    <string name="both_names">Molemmat nimet</string>
+    <string name="clock_device_time_accurate">Laitteen kello on ajassa</string>
 </resources>
