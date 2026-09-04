@@ -63,12 +63,17 @@ class BadReadingRejectionGPSModule : GPSModule {
             return false
         }
 
+        // The reading is stale, a new one is needed so accept it even if it is not great
+        if (timeDelta > STALE_READING_DURATION) {
+            logAcceptedReading("stale reading", previousData, newData)
+            return true
+        }
+
         // The new reading is farther away than the user could have possibly traveled since the last one
         val seconds = timeDelta.toMillis() / 1000f
         val distance = previousData.location.distanceTo(newData.location)
         val speedLimit = previousData.speed.value.real(0f)
-            .times(1.5f)
-            .plus(0.5f)
+            .coerceAtLeast(newData.speed.value.real(0f))
             .coerceIn(MIN_SPEED_ALLOWANCE, MAX_SPEED_ALLOWANCE)
         val currentAccuracy = previousData.horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
         val maxDistance =
@@ -124,8 +129,8 @@ class BadReadingRejectionGPSModule : GPSModule {
 
     companion object {
         // The min and max speed for location filtering (m/s)
-        private const val MIN_SPEED_ALLOWANCE = 5f
-        private const val MAX_SPEED_ALLOWANCE = 55f
+        private const val MIN_SPEED_ALLOWANCE = 2f
+        private const val MAX_SPEED_ALLOWANCE = 40f
 
         // A factor to scale the max distance error of new readings
         private const val DISTANCE_UNCERTAINTY_FACTOR = 2.5f
@@ -133,6 +138,7 @@ class BadReadingRejectionGPSModule : GPSModule {
 
         // Readings with this accuracy are too poor to accept, wait for another reading
         private const val MAX_ACCEPTABLE_ACCURACY = 150f
+        private val STALE_READING_DURATION = Duration.ofMinutes(2)
         private const val TAG = "FilteredGPS"
 
         // This is used to distinguish instances of this class in the logs, since there can be multiple instances of this class at once
