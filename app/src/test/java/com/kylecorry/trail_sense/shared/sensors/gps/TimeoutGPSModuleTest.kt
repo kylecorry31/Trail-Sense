@@ -16,7 +16,7 @@ class TimeoutGPSModuleTest {
     private val data = ModularGPSData(time = Instant.EPOCH)
     private var retries = 0
     private val notifications = mutableListOf<Boolean>()
-    private var retry: () -> Boolean = { false }
+    private var retry: () -> GPSUpdateResult = { GPSUpdateResult.Rejected }
     private val module: TimeoutGPSModule = TimeoutGPSModule(
         tryUpdateLocation = { retries++; retry() },
         notifyListeners = { notifications.add(timedOut()) },
@@ -69,7 +69,7 @@ class TimeoutGPSModuleTest {
 
     @Test
     fun successfulRetryUsesAcceptedUpdateToResetTimer() {
-        retry = { module.update(data, ModularGPSData()); true }
+        retry = { module.update(data, ModularGPSData()); GPSUpdateResult.NewFixAccepted }
         module.start(data)
         fireTimeout()
         assertFalse(module.isTimedOut)
@@ -79,7 +79,7 @@ class TimeoutGPSModuleTest {
 
     @Test
     fun acceptedReadingWithUnchangedTimestampStillTimesOut() {
-        retry = { module.update(data, data); false }
+        retry = { module.update(data, data); GPSUpdateResult.SameFixUpdated }
         module.start(data)
         fireTimeout()
         assertTrue(module.isTimedOut)

@@ -13,6 +13,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.BadReadingRejectionGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSUpdateResult
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.MeanSeaLevelGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
@@ -132,20 +133,20 @@ class CustomGPS(
     }
 
     private fun onLocationUpdate(): Boolean {
-        val shouldNotify = tryUpdateLocation()
-        if (shouldNotify) {
+        val result = tryUpdateLocation()
+        if (result == GPSUpdateResult.NewFixAccepted) {
             notifyListeners()
         }
         return true
     }
 
     @Synchronized
-    private fun tryUpdateLocation(): Boolean {
+    private fun tryUpdateLocation(): GPSUpdateResult {
         candidate.populateFromGPS(baseGPS)
 
         // Determine if the new location should be used, if not, keep the old location
         if (modules.any { !it.update(data, candidate) }) {
-            return false
+            return GPSUpdateResult.Rejected
         }
 
         // This can happen when the cache is restored with the same reading as the base GPS or a secondary field updates
@@ -155,9 +156,9 @@ class CustomGPS(
 
         return if (data.location != Coordinate.zero) {
             hadValidReading = true
-            !isSameReading
+            if (isSameReading) GPSUpdateResult.SameFixUpdated else GPSUpdateResult.NewFixAccepted
         } else {
-            false
+            GPSUpdateResult.Rejected
         }
     }
 
