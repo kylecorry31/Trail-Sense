@@ -67,7 +67,7 @@ class BadReadingRejectionGPSModuleTest {
 
     @Test
     fun usesCandidateSpeedToAllowMovement() {
-        val candidate = reading(1, 1.0002)
+        val candidate = reading(1, 1.0003)
         assertFalse(module.update(reading(), candidate))
         candidate.speed = Speed.from(30f, DistanceUnits.Meters, TimeUnits.Seconds)
         assertTrue(module.update(reading(), candidate))

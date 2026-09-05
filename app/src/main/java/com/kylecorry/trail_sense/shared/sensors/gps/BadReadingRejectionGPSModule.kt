@@ -129,7 +129,7 @@ class BadReadingRejectionGPSModule(
 
     companion object {
         // The min and max speed for location filtering (m/s)
-        private const val MIN_SPEED_ALLOWANCE = 2f
+        private const val MIN_SPEED_ALLOWANCE = 5f
         private const val MAX_SPEED_ALLOWANCE = 40f
 
         // A factor to scale the max distance error of new readings
