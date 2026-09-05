@@ -2,13 +2,12 @@ package com.kylecorry.trail_sense.shared.sensors.gps
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import java.time.Duration
 import java.time.Instant
-import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.hypot
 
 /**
@@ -18,7 +17,6 @@ class BadReadingRejectionGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
     private val logger: Logger = getAppService()
 ) : GPSModule {
-    private val diagnosticId = nextDiagnosticId.getAndIncrement()
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (!newData.hasValidReading) {
@@ -94,7 +92,7 @@ class BadReadingRejectionGPSModule(
     ) {
         logger.debug(
             TAG,
-            "[$diagnosticId] Location Rejected: $reason, ${describeNewReading(previousData, newData)}"
+            "Location Rejected: $reason, ${describeNewReading(previousData, newData)}"
         )
     }
 
@@ -105,7 +103,7 @@ class BadReadingRejectionGPSModule(
     ) {
         logger.debug(
             TAG,
-            "[$diagnosticId] Location Accepted: $reason, ${describeNewReading(previousData, newData)}"
+            "Location Accepted: $reason, ${describeNewReading(previousData, newData)}"
         )
     }
 
@@ -136,8 +134,5 @@ class BadReadingRejectionGPSModule(
         private const val MAX_ACCEPTABLE_ACCURACY = 150f
         private val STALE_READING_DURATION = Duration.ofMinutes(2)
         private const val TAG = "FilteredGPS"
-
-        // This is used to distinguish instances of this class in the logs, since there can be multiple instances of this class at once
-        private val nextDiagnosticId = AtomicInteger(1)
     }
 }
