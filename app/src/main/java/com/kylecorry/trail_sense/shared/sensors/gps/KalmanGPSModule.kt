@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.logging.Logger
 import java.time.Duration
@@ -9,6 +13,8 @@ import kotlin.math.sqrt
 
 class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule {
     private var location: Coordinate? = null
+    private var speed = 0f
+    private var bearing: Bearing? = null
     private var variance = 0.0
     private var time: Instant? = null
 
@@ -24,6 +30,7 @@ class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule 
                 ?.takeIf { it.isFinite() && it > 0f }?.toDouble() ?: DEFAULT_ACCURACY
             variance = accuracy * accuracy
             time = previousData.time
+            updateVelocity(previousData)
         }
 
         if (newData.time < previousData.time || time?.let { newData.time < it } == true) {
@@ -35,6 +42,8 @@ class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule 
             location = null
             variance = 0.0
             time = null
+            speed = 0f
+            bearing = null
         }
 
         val lastTime = time
@@ -57,23 +66,39 @@ class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule 
                 location = newData.location
                 variance = measurementVariance
             } else {
-                // A random-walk model: uncertainty grows while GPS is stopped as well.
+                // Predict from the previous fix's velocity before correcting with the new position.
+                val direction = bearing
+                val predictedLocation = if (direction != null && speed > 0f) {
+                    lastLocation.plus(Distance.meters((speed * seconds).toFloat()), direction)
+                } else {
+                    lastLocation
+                }
+                // Uncertainty grows while GPS is stopped as well.
                 val predictedVariance = variance + PROCESS_VARIANCE_PER_SECOND * seconds
                 val gain = predictedVariance / (predictedVariance + measurementVariance)
                 val longitudeDelta =
-                    (newData.location.longitude - lastLocation.longitude + 540.0) % 360.0 - 180.0
+                    (newData.location.longitude - predictedLocation.longitude + 540.0) % 360.0 - 180.0
                 location = Coordinate(
-                    lastLocation.latitude + gain * (newData.location.latitude - lastLocation.latitude),
-                    (lastLocation.longitude + gain * longitudeDelta + 540.0) % 360.0 - 180.0
+                    predictedLocation.latitude +
+                        gain * (newData.location.latitude - predictedLocation.latitude),
+                    (predictedLocation.longitude + gain * longitudeDelta + 540.0) % 360.0 - 180.0
                 )
                 variance = (1 - gain) * predictedVariance
             }
             time = newData.time
+            updateVelocity(newData)
         }
 
         newData.location = location ?: newData.location
         newData.horizontalAccuracy = sqrt(variance).toFloat()
         return true
+    }
+
+    private fun updateVelocity(data: ModularGPSData) {
+        speed = data.speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value
+            .takeIf { it.isFinite() && it >= 0f } ?: 0f
+        bearing = data.rawBearing?.takeIf { it.isFinite() }?.let { Bearing.from(it) }
+            ?: data.bearing?.takeIf { it.value.isFinite() }
     }
 
     companion object {

@@ -1,6 +1,11 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
@@ -16,6 +21,48 @@ class KalmanGPSModuleTest {
         horizontalAccuracy = 10f,
         fixTimeElapsedNanos = seconds * 1_000_000_000
     )
+
+    @Test
+    fun predictsUsingCachedVelocityInEachDirection() {
+        for (direction in listOf(0f, 90f, 180f, 270f)) {
+            val filter = KalmanGPSModule(mock())
+            val cached = reading(1).apply {
+                rawBearing = direction
+                speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
+            }
+            val expected = cached.location.plus(Distance.meters(20f), Bearing.from(direction))
+            val next = reading(3).apply { location = expected }
+            filter.update(cached, next)
+            assertEquals(expected.latitude, next.location.latitude, 0.0000001)
+            assertEquals(expected.longitude, next.location.longitude, 0.0000001)
+        }
+    }
+
+    @Test
+    fun missingBearingDoesNotAssumeNorthwardMotion() {
+        val cached = reading(1).apply {
+            speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
+        }
+        val next = reading(2)
+        module.update(cached, next)
+        assertEquals(cached.location, next.location)
+    }
+
+    @Test
+    fun newVelocityIsUsedForFollowingFix() {
+        val first = reading(1).apply {
+            bearing = Bearing.from(90f)
+            speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
+        }
+        module.update(previous, first)
+        val second = reading(2).apply {
+            location = first.location.plus(Distance.meters(10f), Bearing.from(90f))
+        }
+        module.update(first, second)
+        val third = reading(3).apply { location = second.location }
+        module.update(second, third)
+        assertEquals(second.location, third.location)
+    }
 
     @Test
     fun initializesFromCachedPreviousReading() {

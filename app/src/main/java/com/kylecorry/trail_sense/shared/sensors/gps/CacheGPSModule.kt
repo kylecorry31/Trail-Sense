@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.gps
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.sol.time.Time.isInPast
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -32,6 +33,12 @@ class CacheGPSModule(
         cache.putFloat(LAST_SPEED, newData.speed.value)
         cache.putDouble(LAST_LONGITUDE, newData.location.longitude)
         cache.putDouble(LAST_LATITUDE, newData.location.latitude)
+        val bearing = newData.rawBearing ?: newData.bearing?.value
+        if (bearing != null && bearing.isFinite()) {
+            cache.putFloat(LAST_BEARING, bearing)
+        } else {
+            cache.remove(LAST_BEARING)
+        }
         val horizontalAccuracy = newData.horizontalAccuracy
         if (horizontalAccuracy != null) {
             cache.putFloat(LAST_HORIZONTAL_ACCURACY, horizontalAccuracy)
@@ -68,13 +75,14 @@ class CacheGPSModule(
         data.horizontalAccuracy = cache.getFloat(LAST_HORIZONTAL_ACCURACY)
         data.verticalAccuracy = cache.getFloat(LAST_VERTICAL_ACCURACY)
 
+        data.rawBearing = cache.getFloat(LAST_BEARING)?.takeIf { it.isFinite() }
+        data.bearing = data.rawBearing?.let { Bearing.from(it) }
+
         // The cache doesn't record these
         data.quality = Quality.Unknown
         data.satellites = null
         data.satelliteDetails = null
         data.mslAltitude = null
-        data.rawBearing = null
-        data.bearing = null
         data.bearingAccuracy = null
         data.speedAccuracy = null
         data.fixTimeElapsedNanos = null
@@ -84,6 +92,7 @@ class CacheGPSModule(
         const val LAST_LATITUDE = "last_latitude_double"
         const val LAST_LONGITUDE = "last_longitude_double"
         const val LAST_ALTITUDE = "last_altitude"
+        const val LAST_BEARING = "last_bearing"
         const val LAST_SPEED = "last_speed"
         const val LAST_UPDATE = "last_update"
         const val LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
@@ -94,6 +103,7 @@ class CacheGPSModule(
             cache.remove(LAST_ALTITUDE)
             cache.remove(LAST_UPDATE)
             cache.remove(LAST_SPEED)
+            cache.remove(LAST_BEARING)
             cache.remove(LAST_LONGITUDE)
             cache.remove(LAST_LATITUDE)
             cache.remove(LAST_HORIZONTAL_ACCURACY)

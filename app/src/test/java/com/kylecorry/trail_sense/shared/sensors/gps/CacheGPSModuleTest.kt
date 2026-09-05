@@ -24,6 +24,30 @@ class CacheGPSModuleTest {
     )
 
     @Test
+    fun cachesBearingAndRemovesItWhenUnavailable() {
+        val candidate = reading().apply { rawBearing = 123f }
+        module.update(previous, candidate)
+        val restored = ModularGPSData()
+        CacheGPSModule(preferences).restore(restored)
+        assertEquals(123f, restored.rawBearing)
+        assertEquals(Bearing.from(123f), restored.bearing)
+
+        module.update(previous, reading())
+        module.restore(restored)
+        assertNull(restored.rawBearing)
+        assertNull(restored.bearing)
+    }
+
+    @Test
+    fun cachesBearingWhenRawBearingIsUnavailable() {
+        module.update(previous, reading().apply { bearing = Bearing.from(90f) })
+        val restored = ModularGPSData()
+        module.restore(restored)
+        assertEquals(90f, restored.rawBearing)
+        assertEquals(Bearing.from(90f), restored.bearing)
+    }
+
+    @Test
     fun restoresPersistedFieldsAcrossModuleInstances() {
         val candidate = reading()
         assertTrue(module.update(previous, candidate))
