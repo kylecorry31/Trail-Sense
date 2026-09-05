@@ -4,12 +4,14 @@ import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.AltitudeCorrection
+import com.kylecorry.trail_sense.shared.GeoidService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import kotlinx.coroutines.runBlocking
 
-class MeanSeaLevelGPSModule : GPSModule {
-    private val userPrefs = getAppService<UserPreferences>()
+class MeanSeaLevelGPSModule(
+    private val userPrefs: UserPreferences = getAppService(),
+    private val geoidService: GeoidService = getAppService()
+) : GPSModule {
     private var mslOffset = 0f
 
     @Volatile
@@ -25,7 +27,7 @@ class MeanSeaLevelGPSModule : GPSModule {
     private val geoidTask = BackgroundTask {
         geoidRunner.enqueue {
             val currentLocation = lastLocation ?: return@enqueue
-            geoidOffset = AltitudeCorrection.getGeoid(currentLocation)
+            geoidOffset = geoidService.getGeoid(currentLocation)
             geoidLocation = currentLocation
         }
     }
@@ -55,9 +57,9 @@ class MeanSeaLevelGPSModule : GPSModule {
 
         if (lastGeoidLocation == null) {
             // This is not ideal, but an offset is needed (and this service caches it)
-            geoidOffset = runBlocking { AltitudeCorrection.getGeoid(location) }
+            geoidOffset = runBlocking { geoidService.getGeoid(location) }
             geoidLocation = location
-        } else if (!AltitudeCorrection.isSameGeoid(lastGeoidLocation, location)) {
+        } else if (!geoidService.isSameGeoid(lastGeoidLocation, location)) {
             geoidTask.start()
         }
 

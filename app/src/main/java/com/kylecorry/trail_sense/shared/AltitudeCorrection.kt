@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.data.SingleImageReader
 
-object AltitudeCorrection {
+object AltitudeCorrection : GeoidService {
 
     // Cache
     private var cache = MemoryLRUCache<PixelCoordinate, Float>(size = 5)
@@ -29,14 +29,14 @@ object AltitudeCorrection {
         valuePixelOffset = 0.5f
     )
 
-    suspend fun getGeoid(location: Coordinate): Float = onIO {
+    override suspend fun getGeoid(location: Coordinate): Float = onIO {
         val pixel = source.getPixel(location)
         cache.getOrPut(pixel) {
             source.read(location).first()
         }
     }
 
-    fun isSameGeoid(location1: Coordinate, location2: Coordinate): Boolean {
+    override fun isSameGeoid(location1: Coordinate, location2: Coordinate): Boolean {
         return source.getPixel(location1) == source.getPixel(location2)
     }
 }

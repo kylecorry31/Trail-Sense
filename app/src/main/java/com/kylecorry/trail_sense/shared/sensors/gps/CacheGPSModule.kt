@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Coordinate
@@ -13,9 +14,9 @@ import java.time.Instant
 /**
  * Persists accepted readings so the last known location survives a restart.
  */
-class CacheGPSModule : GPSModule {
-
-    private val cache = getAppService<PreferencesSubsystem>().preferences
+class CacheGPSModule(
+    private val cache: IPreferences = getAppService<PreferencesSubsystem>().preferences
+) : GPSModule {
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         cache.putFloat(LAST_ALTITUDE, newData.altitude)

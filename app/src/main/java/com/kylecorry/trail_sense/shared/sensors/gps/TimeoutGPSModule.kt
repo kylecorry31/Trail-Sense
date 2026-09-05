@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.luna.time.ITimer
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.logging.Logger
@@ -13,12 +14,13 @@ import java.util.concurrent.atomic.AtomicInteger
  */
 class TimeoutGPSModule(
     private val tryUpdateLocation: () -> Boolean,
-    private val notifyListeners: () -> Unit
+    private val notifyListeners: () -> Unit,
+    private val logger: Logger = getAppService(),
+    timerFactory: (() -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
 ) : GPSModule {
 
-    private val logger = getAppService<Logger>()
     private val diagnosticId = nextDiagnosticId.getAndIncrement()
-    private val timeout = CoroutineTimer { onTimeout() }
+    private val timeout = timerFactory { onTimeout() }
     private lateinit var data: ModularGPSData
 
     @Volatile

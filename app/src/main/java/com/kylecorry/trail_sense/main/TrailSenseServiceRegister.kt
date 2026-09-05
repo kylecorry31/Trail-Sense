@@ -8,7 +8,9 @@ import com.kylecorry.andromeda.markdown.MarkdownExtension
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.GeoidService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
@@ -35,6 +37,7 @@ object TrailSenseServiceRegister {
         DependencyRegistry.addSingleton(FormatService.getInstance(appContext))
         DependencyRegistry.addSingleton(PreferencesSubsystem.getInstance(appContext))
         DependencyRegistry.addSingleton(UserPreferences(appContext))
+        DependencyRegistry.addSingleton<GeoidService>(AltitudeCorrection)
         DependencyRegistry.addSingleton(NotificationSubsystem(appContext))
         DependencyRegistry.addSingleton(
             MarkdownService(

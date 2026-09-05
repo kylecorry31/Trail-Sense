@@ -14,10 +14,10 @@ import kotlin.math.hypot
 /**
  * Rejects readings which are clearly erroneous.
  */
-class BadReadingRejectionGPSModule : GPSModule {
-
-    private val userPrefs = getAppService<UserPreferences>()
-    private val logger = getAppService<Logger>()
+class BadReadingRejectionGPSModule(
+    private val userPrefs: UserPreferences = getAppService(),
+    private val logger: Logger = getAppService()
+) : GPSModule {
     private val diagnosticId = nextDiagnosticId.getAndIncrement()
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
