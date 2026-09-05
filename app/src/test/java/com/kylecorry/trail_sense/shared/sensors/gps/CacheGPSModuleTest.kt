@@ -24,6 +24,26 @@ class CacheGPSModuleTest {
     )
 
     @Test
+    fun persistsFilterUncertaintySeparatelyFromReportedAccuracy() {
+        val candidate = reading().apply {
+            kalmanVariance = 3.123456789
+            kalmanVelocityVariance = 0.25
+        }
+        module.update(previous, candidate)
+        val restored = ModularGPSData()
+        CacheGPSModule(preferences).restore(restored)
+        assertEquals(candidate.kalmanVariance, restored.kalmanVariance)
+        assertEquals(candidate.kalmanVelocityVariance, restored.kalmanVelocityVariance)
+        assertEquals(candidate.horizontalAccuracy, restored.horizontalAccuracy)
+
+        // A reading accepted with smoothing disabled must clear old filter state.
+        module.update(restored, reading())
+        module.restore(restored)
+        assertNull(restored.kalmanVariance)
+        assertNull(restored.kalmanVelocityVariance)
+    }
+
+    @Test
     fun cachesBearingAndRemovesItWhenUnavailable() {
         val candidate = reading().apply { rawBearing = 123f }
         module.update(previous, candidate)

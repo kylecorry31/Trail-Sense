@@ -28,13 +28,7 @@ class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule 
         if (shouldSeedFromPrevious && previousData.location != Coordinate.zero &&
             previousData.time <= newData.time
         ) {
-            location = previousData.location
-            val accuracy = previousData.horizontalAccuracy
-                ?.takeIf { it.isFinite() && it > 0f }?.toDouble() ?: DEFAULT_ACCURACY
-            variance = accuracy * accuracy
-            reportedAccuracy = accuracy.toFloat()
-            time = previousData.time
-            updateVelocity(previousData)
+            restore(previousData)
         }
 
         if (needsReset(previousData, newData)) {
@@ -102,10 +96,25 @@ class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule 
             updateVelocity(newData)
         }
 
+        newData.kalmanVariance = variance
+        newData.kalmanVelocityVariance = velocityVariance
         newData.location = location ?: newData.location
         newData.horizontalAccuracy = reportedAccuracy
         return true
     }
+
+    private fun restore(data: ModularGPSData) {
+        location = data.location
+        val accuracy = data.horizontalAccuracy
+            ?.takeIf { it.isFinite() && it > 0f }?.toDouble() ?: DEFAULT_ACCURACY
+        variance = data.kalmanVariance.validVariance() ?: (accuracy * accuracy)
+        reportedAccuracy = accuracy.toFloat()
+        time = data.time
+        updateVelocity(data)
+        velocityVariance = data.kalmanVelocityVariance.validVariance() ?: velocityVariance
+    }
+
+    private fun Double?.validVariance(): Double? = this?.takeIf { it.isFinite() && it >= 0.0 }
 
     private fun needsReset(previous: ModularGPSData, next: ModularGPSData): Boolean {
         if (next.time < previous.time) return true

@@ -28,6 +28,8 @@ class CacheGPSModule(
     }
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+        cacheVariance(LAST_KALMAN_VARIANCE, newData.kalmanVariance)
+        cacheVariance(LAST_KALMAN_VELOCITY_VARIANCE, newData.kalmanVelocityVariance)
         cache.putFloat(LAST_ALTITUDE, newData.altitude)
         cache.putLong(LAST_UPDATE, newData.time.toEpochMilli())
         cache.putFloat(LAST_SPEED, newData.speed.value)
@@ -54,6 +56,14 @@ class CacheGPSModule(
         return true
     }
 
+    private fun cacheVariance(key: String, variance: Double?) {
+        if (variance != null && variance.isFinite() && variance >= 0.0) {
+            cache.putDouble(key, variance)
+        } else {
+            cache.remove(key)
+        }
+    }
+
     /**
      * The cache is written by every instance of this module, so another one may have recorded a
      * newer reading than the given data.
@@ -64,6 +74,8 @@ class CacheGPSModule(
     }
 
     fun restore(data: ModularGPSData) {
+        data.kalmanVariance = cache.getDouble(LAST_KALMAN_VARIANCE)
+        data.kalmanVelocityVariance = cache.getDouble(LAST_KALMAN_VELOCITY_VARIANCE)
         data.location = Coordinate(
             cache.getDouble(LAST_LATITUDE) ?: 0.0,
             cache.getDouble(LAST_LONGITUDE) ?: 0.0
@@ -89,6 +101,8 @@ class CacheGPSModule(
     }
 
     companion object {
+        const val LAST_KALMAN_VARIANCE = "last_kalman_variance"
+        const val LAST_KALMAN_VELOCITY_VARIANCE = "last_kalman_velocity_variance"
         const val LAST_LATITUDE = "last_latitude_double"
         const val LAST_LONGITUDE = "last_longitude_double"
         const val LAST_ALTITUDE = "last_altitude"
@@ -100,6 +114,8 @@ class CacheGPSModule(
 
         fun clearCache() {
             val cache = getAppService<PreferencesSubsystem>().preferences
+            cache.remove(LAST_KALMAN_VARIANCE)
+            cache.remove(LAST_KALMAN_VELOCITY_VARIANCE)
             cache.remove(LAST_ALTITUDE)
             cache.remove(LAST_UPDATE)
             cache.remove(LAST_SPEED)

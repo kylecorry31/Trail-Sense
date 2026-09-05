@@ -103,7 +103,7 @@ class KalmanGPSModuleTest {
         KalmanGPSModule(mock()).update(newerCached, expected)
         module.update(newerCached, next)
 
-        // The cache deliberately retains raw accuracy, so restoring is more conservative.
+        // Restore the internal covariance independently of the reported accuracy.
         assertEquals(expected.location, next.location)
         // Both instances preserve the reported measurement accuracy.
         assertEquals(expected.horizontalAccuracy!!, next.horizontalAccuracy!!, 0.00001f)

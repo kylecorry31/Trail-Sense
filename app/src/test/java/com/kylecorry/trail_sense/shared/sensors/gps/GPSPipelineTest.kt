@@ -1,6 +1,9 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
 import org.junit.jupiter.api.Assertions.*
@@ -93,13 +96,36 @@ class GPSPipelineTest {
         first.start()
         assertEquals(GPSUpdateResult.SameFixUpdated, first.update(reading(3, 1.002)))
         assertEquals(second.reading.location, first.reading.location)
-        // A restored filter uses the conservative cached accuracy as its prior covariance.
+        // Restoring includes the internal covariance, so both filters continue identically.
         val expected = reading(4, 1.003)
         KalmanGPSModule(mock()).update(first.reading, expected)
         first.update(reading(4, 1.003))
         second.update(reading(4, 1.003))
         assertEquals(expected.location, first.reading.location)
+        assertEquals(second.reading.location, first.reading.location)
+        assertEquals(second.reading.kalmanVariance, first.reading.kalmanVariance)
         assertEquals(second.reading.horizontalAccuracy!!, first.reading.horizontalAccuracy!!, 0.00001f)
+    }
+
+    @Test
+    fun recreatingPipelineForEveryFixMatchesContinuousFiltering() {
+        val continuous = GPSPipeline(listOf(KalmanGPSModule(mock())))
+        var seconds = 1L
+        for ((index, interval) in listOf(1L, 1L, 1L, 15L, 1L, 900L, 1800L, 1L).withIndex()) {
+            seconds += interval
+            fun source() = reading(seconds, 1.0 + index * 0.0001).apply {
+                rawBearing = 90f
+                speed = Speed.from(5f, DistanceUnits.Meters, TimeUnits.Seconds)
+                speedAccuracy = 0.3f
+                bearingAccuracy = 2f
+            }
+            val recreated = pipeline(KalmanGPSModule(mock()))
+            continuous.update(source())
+            recreated.update(source())
+            assertEquals(continuous.reading.location, recreated.reading.location)
+            assertEquals(continuous.reading.kalmanVariance, recreated.reading.kalmanVariance)
+            assertEquals(continuous.reading.kalmanVelocityVariance, recreated.reading.kalmanVelocityVariance)
+        }
     }
 
     @Test
