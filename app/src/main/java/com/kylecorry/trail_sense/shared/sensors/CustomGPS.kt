@@ -13,7 +13,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.BadReadingRejectionGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
-import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.MeanSeaLevelGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SpeedGPSModule
@@ -25,7 +25,6 @@ import java.time.Instant
 class CustomGPS(
     private val context: Context,
     private val gpsFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
-    private val updateFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
 ) : AbstractSensor(), ISatelliteGPS {
 
     override val hasValidReading: Boolean
@@ -80,14 +79,7 @@ class CustomGPS(
         get() = timeoutModule.isTimedOut
 
     private val baseGPS: ISatelliteGPS by lazy {
-        if (userPrefs.useFilteredGPS) {
-            FusedGPS(
-                GPS(context.applicationContext, frequency = gpsFrequency),
-                updateFrequency
-            )
-        } else {
-            GPS(context.applicationContext, frequency = gpsFrequency)
-        }
+        GPS(context.applicationContext, frequency = gpsFrequency)
     }
     private val userPrefs by lazy { UserPreferences(context) }
 
@@ -99,11 +91,12 @@ class CustomGPS(
     private val timeoutModule = TimeoutGPSModule(this::tryUpdateLocation, this::notifyListeners)
 
     // The cache runs last so it records the reading as the other modules leave it
-    private val modules = listOf(
+    private val modules = listOfNotNull(
         BadReadingRejectionGPSModule(),
         MeanSeaLevelGPSModule(),
         SpeedGPSModule(),
         timeoutModule,
+        if (userPrefs.useFilteredGPS) KalmanGPSModule() else null,
         cacheModule
     )
 

@@ -93,11 +93,7 @@ class SensorService(ctx: Context) {
         }
 
         if (GPS.isAvailable(context)) {
-            return CustomGPS(
-                context,
-                frequency,
-                frequency
-            )
+            return CustomGPS(context, frequency)
         }
 
         return CachedGPS(context, frequency.toMillis())

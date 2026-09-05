@@ -1,0 +1,150 @@
+package com.kylecorry.trail_sense.shared.sensors.gps
+
+import com.kylecorry.sol.units.Coordinate
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
+import org.mockito.kotlin.mock
+import java.time.Instant
+
+class KalmanGPSModuleTest {
+    private val module = KalmanGPSModule(mock())
+    private val previous = ModularGPSData(time = Instant.EPOCH)
+
+    private fun reading(seconds: Long, longitude: Double = 1.0) = ModularGPSData(
+        location = Coordinate(1.0, longitude),
+        time = Instant.EPOCH.plusSeconds(seconds),
+        horizontalAccuracy = 10f,
+        fixTimeElapsedNanos = seconds * 1_000_000_000
+    )
+
+    @Test
+    fun initializesFromCachedPreviousReading() {
+        val cached = reading(1).apply { fixTimeElapsedNanos = null }
+        val next = reading(2, 1.001)
+        module.update(cached, next)
+
+        val continuous = KalmanGPSModule(mock())
+        continuous.update(previous, reading(1))
+        val expected = reading(2, 1.001)
+        continuous.update(previous, expected)
+        assertEquals(expected.location, next.location)
+        assertEquals(expected.horizontalAccuracy, next.horizontalAccuracy)
+        assertEquals(Coordinate(1.0, 1.0), cached.location)
+        assertEquals(10f, cached.horizontalAccuracy)
+    }
+
+    @Test
+    fun cachedFixIsNotFilteredAgain() {
+        val cached = reading(1).apply { fixTimeElapsedNanos = null }
+        val duplicate = reading(1, 1.001).apply { time = time.plusNanos(123456) }
+        module.update(cached, duplicate)
+        assertEquals(cached.location, duplicate.location)
+        assertEquals(cached.horizontalAccuracy, duplicate.horizontalAccuracy)
+    }
+
+    @Test
+    fun ignoresPreviousReadingFromTheFuture() {
+        val next = reading(1)
+        assertTrue(module.update(reading(2, 1.001), next))
+        assertEquals(Coordinate(1.0, 1.0), next.location)
+        assertEquals(10f, next.horizontalAccuracy)
+    }
+
+    @Test
+    fun smoothsPositionAndRetainsStateAcrossRestarts() {
+        module.update(previous, reading(1))
+        module.stop(previous)
+        module.start(previous)
+        val next = reading(2, 1.001)
+        assertTrue(module.update(previous, next))
+        assertTrue(next.location.longitude > 1.0 && next.location.longitude < 1.001)
+        assertTrue(next.horizontalAccuracy!! < 10f)
+        assertEquals(Coordinate.zero, previous.location)
+    }
+
+    @Test
+    fun duplicateFixReusesEstimateWithoutReducingUncertainty() {
+        module.update(previous, reading(1))
+        val next = reading(2, 1.001)
+        module.update(previous, next)
+        repeat(10) {
+            val duplicate = reading(2, 1.001)
+            module.update(previous, duplicate)
+            assertEquals(next.location, duplicate.location)
+            assertEquals(next.horizontalAccuracy, duplicate.horizontalAccuracy)
+        }
+    }
+
+    @Test
+    fun deduplicatesByTimeWhenElapsedTimeIsUnavailable() {
+        module.update(previous, reading(1).apply { fixTimeElapsedNanos = null })
+        val duplicate = reading(1).apply { fixTimeElapsedNanos = null }
+        module.update(previous, duplicate)
+        assertEquals(10f, duplicate.horizontalAccuracy)
+    }
+
+    @Test
+    fun identicalCoordinatesWithNewFixTimeAreNewMeasurements() {
+        module.update(previous, reading(1))
+        val next = reading(2)
+        module.update(previous, next)
+        assertTrue(next.horizontalAccuracy!! < 10f)
+    }
+
+    @Test
+    fun resetsForOlderFixes() {
+        module.update(previous, reading(2))
+        val next = reading(1, 1.001)
+        assertTrue(module.update(previous, next))
+        assertEquals(Coordinate(1.0, 1.001), next.location)
+        assertEquals(10f, next.horizontalAccuracy)
+        val duplicate = reading(1, 1.001)
+        module.update(previous, duplicate)
+        assertEquals(next.location, duplicate.location)
+        assertEquals(next.horizontalAccuracy, duplicate.horizontalAccuracy)
+    }
+
+    @Test
+    fun resetsWhenNewTimePrecedesPreviousData() {
+        module.update(previous, reading(1))
+        val next = reading(2, 1.001)
+        module.update(reading(3), next)
+        assertEquals(Coordinate(1.0, 1.001), next.location)
+        assertEquals(10f, next.horizontalAccuracy)
+    }
+
+    @Test
+    fun usesTimeEvenWhenElapsedTimeMovesBackward() {
+        module.update(previous, reading(1))
+        val next = reading(2, 1.001).apply { fixTimeElapsedNanos = 0 }
+        module.update(previous, next)
+        assertTrue(next.location.longitude > 1.0 && next.location.longitude < 1.001)
+        assertTrue(next.horizontalAccuracy!! < 10f)
+    }
+
+    @Test
+    fun deduplicatesTimeEvenWhenElapsedTimeChanges() {
+        module.update(previous, reading(1))
+        val next = reading(1, 1.001).apply { fixTimeElapsedNanos = 2_000_000_000 }
+        module.update(previous, next)
+        assertEquals(Coordinate(1.0, 1.0), next.location)
+        assertEquals(10f, next.horizontalAccuracy)
+    }
+
+    @Test
+    fun uncertaintyGrowsDuringLongPause() {
+        module.update(previous, reading(1))
+        val next = reading(3601, 1.001)
+        module.update(previous, next)
+        assertEquals(1.001, next.location.longitude, 0.00001)
+    }
+
+    @Test
+    fun handlesAntimeridianAndInvalidAccuracy() {
+        module.update(previous, reading(1, 179.999))
+        val next = reading(2, -179.999).apply { horizontalAccuracy = Float.NaN }
+        module.update(previous, next)
+        assertTrue(kotlin.math.abs(next.location.longitude) > 179.99)
+        assertTrue(next.horizontalAccuracy!!.isFinite())
+    }
+}
