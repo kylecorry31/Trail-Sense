@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSUpdateResult
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.MeanSeaLevelGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipeline
 import com.kylecorry.trail_sense.shared.sensors.gps.SpeedGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.TimeoutGPSModule
@@ -75,25 +76,24 @@ class CustomGPS(
         get() = data.mslAltitude
 
     val isTimedOut: Boolean
-        get() = timeoutModule.isTimedOut
+        get() = data.isTimedOut
 
     private val baseGPS: ISatelliteGPS by lazy {
         GPS(context.applicationContext, frequency = gpsFrequency)
     }
     private val userPrefs by lazy { UserPreferences(context) }
 
-    private val timeoutModule = TimeoutGPSModule(this::tryUpdateLocation, this::notifyListeners)
     private val pipeline = GPSPipeline(
         listOfNotNull(
             BadReadingRejectionGPSModule(),
             MeanSeaLevelGPSModule(),
             SpeedGPSModule(),
-            timeoutModule,
+            TimeoutGPSModule(this::tryUpdateLocation, this::notifyListeners),
             if (userPrefs.useFilteredGPS) KalmanGPSModule() else null
         ),
         CacheGPSModule()
     )
-    private val data: ISatelliteGPS
+    private val data: ModularGPSData
         get() = pipeline.reading
 
     init {

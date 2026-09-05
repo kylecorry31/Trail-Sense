@@ -100,6 +100,40 @@ class GPSPipelineTest {
     }
 
     @Test
+    fun timeoutStateSurvivesDuplicateAndRejectedReadingsAndClearsOnNewFix() {
+        lateinit var pipeline: GPSPipeline
+        lateinit var fireTimeout: () -> Unit
+        var source = reading(1)
+        val notifications = mutableListOf<Boolean>()
+        val timeout = TimeoutGPSModule(
+            tryUpdateLocation = { pipeline.update(source) },
+            notifyListeners = { notifications.add(pipeline.reading.isTimedOut) },
+            logger = mock(),
+            timerFactory = { fireTimeout = it; mock() }
+        )
+        pipeline = pipeline(module { _, next -> next.hasValidReading }, timeout)
+        pipeline.start()
+        pipeline.update(source)
+        fireTimeout()
+        assertTrue(pipeline.reading.isTimedOut)
+        assertEquals(listOf(true), notifications)
+
+        source = reading(1).apply { satellites = 8 }
+        assertEquals(GPSUpdateResult.SameFixUpdated, pipeline.update(source))
+        assertTrue(pipeline.reading.isTimedOut)
+        assertEquals(8, pipeline.reading.satellites)
+
+        source = reading(2).apply { hasValidReading = false }
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(source))
+        assertTrue(pipeline.reading.isTimedOut)
+
+        source = reading(3)
+        assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(source))
+        assertFalse(pipeline.reading.isTimedOut)
+        pipeline.stop()
+    }
+
+    @Test
     fun forwardsLifecycleWithAcceptedReading() {
         val events = mutableListOf<String>()
         val pipeline = pipeline(object : GPSModule {

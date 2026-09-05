@@ -24,7 +24,15 @@ class TimeoutGPSModuleTest {
         timerFactory = { fireTimeout = it; timer }
     )
 
-    private fun timedOut() = module.isTimedOut
+    private fun timedOut() = data.isTimedOut
+
+    private fun accept(candidate: ModularGPSData): Boolean {
+        val accepted = module.update(data, candidate)
+        if (accepted) {
+            candidate.copyInto(data)
+        }
+        return accepted
+    }
 
     @Test
     fun startSchedulesTimeoutAndStopIgnoresPendingCallback() {
@@ -41,7 +49,7 @@ class TimeoutGPSModuleTest {
     fun failedRetryMarksTimedOutBeforeNotifyingAndSchedulesAnotherAttempt() {
         module.start(data)
         fireTimeout()
-        assertTrue(module.isTimedOut)
+        assertTrue(data.isTimedOut)
         assertEquals(listOf(true), notifications)
         verify(timer, times(2)).once(Duration.ofSeconds(10))
         fireTimeout()
@@ -54,35 +62,35 @@ class TimeoutGPSModuleTest {
     fun acceptedUpdateClearsTimeoutAndReschedulesWhileStarted() {
         module.start(data)
         fireTimeout()
-        assertTrue(module.update(data, ModularGPSData()))
-        assertFalse(module.isTimedOut)
+        assertTrue(accept(ModularGPSData()))
+        assertFalse(data.isTimedOut)
         verify(timer, times(3)).once(Duration.ofSeconds(10))
         assertEquals(1, notifications.size)
     }
 
     @Test
     fun updatesWhileStoppedDoNotScheduleTimer() {
-        assertTrue(module.update(data, ModularGPSData()))
-        assertFalse(module.isTimedOut)
+        assertTrue(accept(ModularGPSData()))
+        assertFalse(data.isTimedOut)
         verify(timer, never()).once(Duration.ofSeconds(10))
     }
 
     @Test
     fun successfulRetryUsesAcceptedUpdateToResetTimer() {
-        retry = { module.update(data, ModularGPSData()); GPSUpdateResult.NewFixAccepted }
+        retry = { accept(ModularGPSData()); GPSUpdateResult.NewFixAccepted }
         module.start(data)
         fireTimeout()
-        assertFalse(module.isTimedOut)
+        assertFalse(data.isTimedOut)
         assertEquals(listOf(false), notifications)
         verify(timer, times(2)).once(Duration.ofSeconds(10))
     }
 
     @Test
     fun acceptedReadingWithUnchangedTimestampStillTimesOut() {
-        retry = { module.update(data, data); GPSUpdateResult.SameFixUpdated }
+        retry = { accept(data); GPSUpdateResult.SameFixUpdated }
         module.start(data)
         fireTimeout()
-        assertTrue(module.isTimedOut)
+        assertTrue(data.isTimedOut)
         assertEquals(listOf(true), notifications)
         verify(timer, times(2)).once(Duration.ofSeconds(10))
     }
@@ -92,18 +100,18 @@ class TimeoutGPSModuleTest {
         module.start(data)
         val duplicate = ModularGPSData(time = data.time.plusNanos(123456), satellites = 6)
         repeat(20) {
-            assertTrue(module.update(data, duplicate))
+            assertTrue(accept(duplicate))
         }
         verify(timer).once(Duration.ofSeconds(10))
 
         fireTimeout()
-        assertTrue(module.isTimedOut)
-        assertTrue(module.update(data, duplicate))
-        assertTrue(module.isTimedOut)
+        assertTrue(data.isTimedOut)
+        assertTrue(accept(duplicate))
+        assertTrue(data.isTimedOut)
         verify(timer, times(2)).once(Duration.ofSeconds(10))
 
-        module.update(data, ModularGPSData(time = data.time.plusSeconds(1)))
-        assertFalse(module.isTimedOut)
+        accept(ModularGPSData(time = data.time.plusSeconds(1)))
+        assertFalse(data.isTimedOut)
         verify(timer, times(3)).once(Duration.ofSeconds(10))
     }
 

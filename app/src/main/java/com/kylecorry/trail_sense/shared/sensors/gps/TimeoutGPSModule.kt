@@ -26,9 +26,6 @@ class TimeoutGPSModule(
     @Volatile
     private var isStarted = false
 
-    var isTimedOut = false
-        private set
-
     override fun start(data: ModularGPSData) {
         this.data = data
         isStarted = true
@@ -43,12 +40,13 @@ class TimeoutGPSModule(
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         // Secondary-field updates are not new fixes and must not postpone the timeout.
         if (newData.time.toEpochMilli() == previousData.time.toEpochMilli()) {
+            newData.isTimedOut = previousData.isTimedOut
             return true
         }
         if (isStarted) {
             timeout.once(TIMEOUT_DURATION)
         }
-        isTimedOut = false
+        newData.isTimedOut = false
         return true
     }
 
@@ -66,7 +64,7 @@ class TimeoutGPSModule(
                 "[$diagnosticId] No valid reading to update to, keeping a reading from " +
                         "${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
             )
-            isTimedOut = true
+            data.isTimedOut = true
             timeout.once(TIMEOUT_DURATION)
         }
 

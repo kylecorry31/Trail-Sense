@@ -11,7 +11,7 @@ class GPSPipeline(
     private val candidate = ModularGPSData()
     private val modules = modules + cache
 
-    val reading: ISatelliteGPS
+    val reading: ModularGPSData
         get() = data
 
     var hadValidReading = false

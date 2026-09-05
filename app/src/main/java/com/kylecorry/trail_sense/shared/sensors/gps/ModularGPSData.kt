@@ -29,7 +29,8 @@ class ModularGPSData(
     override var hasValidReading: Boolean = false,
     override var altitude: Float = 0f,
     override var time: Instant = Instant.now(),
-    override var speed: Speed = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
+    override var speed: Speed = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds),
+    @Volatile var isTimedOut: Boolean = false
 ) : ISatelliteGPS {
 
     // This is a data holder, so it never emits
@@ -76,6 +77,7 @@ class ModularGPSData(
         other.altitude = altitude
         other.time = time
         other.speed = speed
+        other.isTimedOut = isTimedOut
     }
 
     fun populateFromGPS(gps: ISatelliteGPS) {
