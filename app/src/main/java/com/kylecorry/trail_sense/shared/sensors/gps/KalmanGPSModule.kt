@@ -12,7 +12,10 @@ import java.time.Instant
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule {
+class KalmanGPSModule(
+    private val logger: Logger = getAppService(),
+    private val enabled: () -> Boolean = { true }
+) : GPSModule {
     private var location: Coordinate? = null
     private var speed = 0f
     private var bearing: Bearing? = null
@@ -22,6 +25,11 @@ class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule 
     private var time: Instant? = null
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+        if (!enabled()) {
+            location = null
+            time = null
+            return true
+        }
         // Another GPS instance may have advanced the shared cache since our last update.
         val hasNewerPreviousReading = time?.let { previousData.time > it } == true
         val shouldSeedFromPrevious = location == null || hasNewerPreviousReading

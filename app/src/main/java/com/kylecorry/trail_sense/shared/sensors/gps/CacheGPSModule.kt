@@ -113,17 +113,19 @@ class CacheGPSModule(
         const val LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
         fun clearCache() {
-            val cache = getAppService<PreferencesSubsystem>().preferences
-            cache.remove(LAST_KALMAN_VARIANCE)
-            cache.remove(LAST_KALMAN_VELOCITY_VARIANCE)
-            cache.remove(LAST_ALTITUDE)
-            cache.remove(LAST_UPDATE)
-            cache.remove(LAST_SPEED)
-            cache.remove(LAST_BEARING)
-            cache.remove(LAST_LONGITUDE)
-            cache.remove(LAST_LATITUDE)
-            cache.remove(LAST_HORIZONTAL_ACCURACY)
-            cache.remove(LAST_VERTICAL_ACCURACY)
+            SharedGPSPipeline.clearSharedCache {
+                val cache = getAppService<PreferencesSubsystem>().preferences
+                cache.remove(LAST_KALMAN_VARIANCE)
+                cache.remove(LAST_KALMAN_VELOCITY_VARIANCE)
+                cache.remove(LAST_ALTITUDE)
+                cache.remove(LAST_UPDATE)
+                cache.remove(LAST_SPEED)
+                cache.remove(LAST_BEARING)
+                cache.remove(LAST_LONGITUDE)
+                cache.remove(LAST_LATITUDE)
+                cache.remove(LAST_HORIZONTAL_ACCURACY)
+                cache.remove(LAST_VERTICAL_ACCURACY)
+            }
         }
     }
 }
