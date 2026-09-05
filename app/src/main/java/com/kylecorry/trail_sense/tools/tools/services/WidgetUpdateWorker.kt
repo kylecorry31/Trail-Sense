@@ -22,7 +22,7 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
 
     override suspend fun doWork(): Result {
         val wakelock = Wakelocks.get(applicationContext, "WidgetUpdateWorker")
-        wakelock?.acquire(Duration.ofSeconds(30).toMillis())
+        wakelock?.acquire(Duration.ofSeconds(60).toMillis())
         try {
             Log.d("WidgetUpdateWorker", "Updating widgets")
             // Update stale location/elevation data if needed

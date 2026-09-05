@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherS
 import java.time.Duration
 
 class WeatherMonitorService :
-    IntervalService(wakelockDuration = Duration.ofSeconds(30), useOneTimeWorkers = true) {
+    IntervalService(wakelockDuration = Duration.ofSeconds(60), useOneTimeWorkers = true) {
 
     private val prefs by lazy { UserPreferences(applicationContext) }
 

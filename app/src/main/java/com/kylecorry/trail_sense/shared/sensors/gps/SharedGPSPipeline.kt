@@ -71,6 +71,7 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipelin
                 GPSPipeline(
                     listOf(
                         BadReadingRejectionGPSModule(),
+                        AccuracyRequirementGPSModule(),
                         MeanSeaLevelGPSModule(),
                         SpeedGPSModule(),
                         TimeoutGPSModule(notifyTimeout),

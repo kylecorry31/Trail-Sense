@@ -29,6 +29,15 @@
             app:title="@string/pref_filter_location_readings_title"
             android:summary="@string/pref_filter_location_readings_description"/>
 
+        <ListPreference
+            app:defaultValue="1"
+            app:iconSpaceReserved="false"
+            android:dependency="@string/pref_auto_location"
+            app:key="@string/pref_gps_accuracy_requirement"
+            app:singleLineTitle="false"
+            app:title="@string/pref_gps_accuracy_requirement_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"

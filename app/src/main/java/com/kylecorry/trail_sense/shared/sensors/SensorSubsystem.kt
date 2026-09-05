@@ -54,7 +54,7 @@ class SensorSubsystem private constructor(private val context: Context) {
      */
     suspend fun getLocation(
         preferredPolicy: SensorRefreshPolicy = SensorRefreshPolicy.RefreshIfInvalid,
-        timeout: Duration = Duration.ofSeconds(15)
+        timeout: Duration = SensorService.GPS_READ_TIMEOUT
     ): Coordinate {
         if (preferredPolicy == SensorRefreshPolicy.Cache) {
             return lastKnownLocation
@@ -79,7 +79,7 @@ class SensorSubsystem private constructor(private val context: Context) {
      */
     suspend fun getElevation(
         preferredPolicy: SensorRefreshPolicy = SensorRefreshPolicy.RefreshIfInvalid,
-        timeout: Duration = Duration.ofSeconds(15)
+        timeout: Duration = SensorService.GPS_READ_TIMEOUT
     ): Distance {
         if (preferredPolicy == SensorRefreshPolicy.Cache) {
             return lastKnownElevation
@@ -105,7 +105,7 @@ class SensorSubsystem private constructor(private val context: Context) {
      */
     suspend fun getLocationAndElevation(
         preferredPolicy: SensorRefreshPolicy = SensorRefreshPolicy.RefreshIfInvalid,
-        timeout: Duration = Duration.ofSeconds(15)
+        timeout: Duration = SensorService.GPS_READ_TIMEOUT
     ): Pair<Coordinate, Distance> {
         if (preferredPolicy == SensorRefreshPolicy.Cache) {
             return lastKnownLocation to lastKnownElevation

@@ -4,13 +4,13 @@ import com.kylecorry.luna.time.ITimer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
-import java.time.Duration
 import java.time.Instant
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
@@ -94,10 +94,10 @@ class SharedGPSPipelineTest {
         val slow = Consumer(pipeline)
         fast.consumer.start()
         slow.consumer.start()
-        verify(timer).once(Duration.ofSeconds(10))
+        verify(timer).once(SensorService.GPS_READ_TIMEOUT)
         fast.consumer.update(reading(1))
         fast.consumer.update(reading(2))
-        verify(timer, times(3)).once(Duration.ofSeconds(10))
+        verify(timer, times(3)).once(SensorService.GPS_READ_TIMEOUT)
         assertFalse(slow.consumer.reading.isTimedOut)
 
         fireTimeout()
@@ -107,12 +107,12 @@ class SharedGPSPipelineTest {
         assertEquals(1, slow.notifications)
         slow.consumer.update(reading(2))
         assertTrue(slow.consumer.reading.isTimedOut)
-        verify(timer, times(3)).once(Duration.ofSeconds(10))
+        verify(timer, times(3)).once(SensorService.GPS_READ_TIMEOUT)
 
         fast.consumer.update(reading(3))
         assertFalse(fast.consumer.reading.isTimedOut)
         assertFalse(slow.consumer.reading.isTimedOut)
-        verify(timer, times(4)).once(Duration.ofSeconds(10))
+        verify(timer, times(4)).once(SensorService.GPS_READ_TIMEOUT)
         slow.consumer.stop()
         fireTimeout()
         assertEquals(2, fast.notifications)

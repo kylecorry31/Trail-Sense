@@ -15,7 +15,7 @@ import java.time.Instant
 
 internal class WeatherObserver(
     private val context: Context,
-    private val timeout: Duration = Duration.ofSeconds(10)
+    private val timeout: Duration = SensorService.GPS_READ_TIMEOUT
 ) : IWeatherObserver {
 
     private val sensorService by lazy { SensorService(context) }

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.system.Intents
@@ -16,6 +17,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyRequirement
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
@@ -31,6 +33,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private lateinit var autoLocationSwitch: SwitchPreferenceCompat
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
+    private lateinit var accuracyRequirementList: ListPreference
     private var clearCacheBtn: Preference? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
@@ -56,6 +59,8 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         permissionBtn = findPreference(getString(R.string.pref_gps_request_permission))!!
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
         clearCacheBtn = preference(R.string.pref_gps_clear_cache)
+        accuracyRequirementList = list(R.string.pref_gps_accuracy_requirement)!!
+        setAccuracyRequirementEntries()
         locationOverridePref.setGPS(realGps)
         locationOverridePref.setLocation(prefs.gps.locationOverride)
         locationOverridePref.setTitle(getString(R.string.pref_gps_override_title))
@@ -86,6 +91,16 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         }
 
         update()
+    }
+
+    private fun setAccuracyRequirementEntries() {
+        val names = mapOf(
+            GPSAccuracyRequirement.Low to getString(R.string.low),
+            GPSAccuracyRequirement.Medium to getString(R.string.medium),
+            GPSAccuracyRequirement.High to getString(R.string.high)
+        )
+        accuracyRequirementList.entries = names.values.toTypedArray()
+        accuracyRequirementList.entryValues = names.keys.map { it.id.toString() }.toTypedArray()
     }
 
     override fun onResume() {

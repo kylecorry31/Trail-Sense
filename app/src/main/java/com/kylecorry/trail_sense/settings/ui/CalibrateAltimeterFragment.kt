@@ -311,7 +311,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         inBackground {
             onDefault {
                 overridePopulationRunner.replace {
-                    readAll(listOf(gps, barometer))
+                    readAll(listOf(gps, barometer), SensorService.GPS_READ_TIMEOUT)
                     val elevation = gps.altitude
                     val seaLevelPressure = Meteorology.getSeaLevelPressure(
                         Pressure.hpa(barometer.pressure),

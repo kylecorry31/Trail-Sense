@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
@@ -23,7 +24,6 @@ import com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFormatService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.time.Duration
 import java.time.Instant
 
 class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) :
@@ -55,7 +55,7 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
         val job = scope.launch {
             val (location, elevation) = sensors.getLocationAndElevation(
                 SensorSubsystem.SensorRefreshPolicy.Refresh,
-                timeout = Duration.ofMinutes(1)
+                timeout = SensorService.EXTENDED_GPS_READ_TIMEOUT
             )
 
             if (location == Coordinate.zero) {

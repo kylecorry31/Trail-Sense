@@ -4,6 +4,7 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.logging.Logger
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.Instant
 import java.util.concurrent.atomic.AtomicInteger
@@ -67,7 +68,7 @@ class TimeoutGPSModule(
     }
 
     companion object {
-        private val TIMEOUT_DURATION = Duration.ofSeconds(10)
+        private val TIMEOUT_DURATION = SensorService.GPS_READ_TIMEOUT
         private const val TAG = "TimeoutGPSModule"
 
         // Distinguishes concurrent GPS instances in the logs.

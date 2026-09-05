@@ -14,11 +14,11 @@ import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment
-import java.time.Duration
 import java.time.ZonedDateTime
 import kotlinx.coroutines.launch
 
@@ -40,7 +40,7 @@ class QuickActionPlaceBeacon(btn: QuickActionButtonView, fragment: Fragment) :
                 val (location, elevation) = SensorSubsystem.getInstance(fragment.requireContext())
                     .getLocationAndElevation(
                         SensorSubsystem.SensorRefreshPolicy.Refresh,
-                        timeout = Duration.ofMinutes(1)
+                        timeout = SensorService.EXTENDED_GPS_READ_TIMEOUT
                     )
 
                 // Create a beacon
