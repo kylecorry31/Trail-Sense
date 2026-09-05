@@ -12,7 +12,8 @@ class AccuracyRequirementGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
         on { accuracyRequirement }.thenReturn(GPSAccuracyRequirement.Medium)
     }
-    private val module = AccuracyRequirementGPSModule(prefs, mock())
+    private var nowMillis = 0L
+    private val module = AccuracyRequirementGPSModule(prefs, mock()) { nowMillis }
     private val previous = ModularGPSData()
 
     private fun reading(accuracy: Float?) = ModularGPSData(
@@ -41,45 +42,97 @@ class AccuracyRequirementGPSModuleTest {
     }
 
     @Test
-    fun acceptsAnInaccurateReadingOnceTheRejectionLimitIsHit() {
-        repeat(3) {
-            assertFalse(module.update(previous, reading(17f)))
+    fun mediumAcceptsAfterFiveSecondsRegardlessOfCallbackCount() {
+        val candidate = reading(17f)
+        assertFalse(module.update(previous, candidate))
+        nowMillis = 4_999L
+        repeat(100) {
+            assertFalse(module.update(previous, candidate))
         }
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, candidate))
+
+        // Accepting a fallback starts a fresh wait for the next inaccurate reading.
+        assertFalse(module.update(previous, reading(17f)))
+        nowMillis = 9_999L
+        assertFalse(module.update(previous, reading(17f)))
+        nowMillis = 10_000L
         assertTrue(module.update(previous, reading(17f)))
     }
 
     @Test
-    fun countsRejectionsOnlyWhenConsecutive() {
+    fun accurateReadingResetsTheWait() {
         assertFalse(module.update(previous, reading(17f)))
-        assertFalse(module.update(previous, reading(17f)))
+        nowMillis = 4_000L
         assertTrue(module.update(previous, reading(5f)))
-        repeat(3) {
-            assertFalse(module.update(previous, reading(17f)))
-        }
+        assertFalse(module.update(previous, reading(17f)))
+        nowMillis = 5_000L
+        assertFalse(module.update(previous, reading(17f)))
+        nowMillis = 9_000L
         assertTrue(module.update(previous, reading(17f)))
     }
 
     @Test
-    fun usesTheHighRequirementThresholdAndLimit() {
+    fun highAcceptsAfterTenSecondsEvenWithSparseCallbacks() {
         whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.High)
         assertTrue(module.update(previous, reading(8f)))
-        repeat(4) {
-            assertFalse(module.update(previous, reading(9f)))
-        }
+        assertFalse(module.update(previous, reading(9f)))
+        nowMillis = 9_999L
+        assertFalse(module.update(previous, reading(9f)))
+        nowMillis = 10_000L
         assertTrue(module.update(previous, reading(9f)))
     }
 
     @Test
-    fun bypassesAccuracyWhenTimedOutAndResetsRejections() {
-        repeat(2) {
-            assertFalse(module.update(previous, reading(100f)))
-        }
+    fun bypassesAccuracyWhenTimedOutAndResetsTheWait() {
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 4_000L
         previous.isTimedOut = true
         assertTrue(module.update(previous, reading(100f)))
         previous.isTimedOut = false
-        repeat(3) {
-            assertFalse(module.update(previous, reading(100f)))
-        }
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 5_000L
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 9_000L
+        assertTrue(module.update(previous, reading(100f)))
+    }
+
+    @Test
+    fun restartingResetsTheWait() {
+        module.start(previous)
+        assertFalse(module.update(previous, reading(100f)))
+        module.stop(previous)
+        nowMillis = 60_000L
+        module.start(previous)
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 65_000L
+        assertTrue(module.update(previous, reading(100f)))
+    }
+
+    @Test
+    fun unknownAccuracyResetsTheWait() {
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 4_000L
+        assertTrue(module.update(previous, reading(null)))
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 5_000L
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 9_000L
+        assertTrue(module.update(previous, reading(100f)))
+    }
+
+    @Test
+    fun disablingAccuracyRequirementResetsTheWait() {
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 4_000L
+        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.Low)
+        assertTrue(module.update(previous, reading(100f)))
+        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.Medium)
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 5_000L
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 9_000L
+        assertTrue(module.update(previous, reading(100f)))
     }
 
     @Test

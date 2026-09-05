@@ -130,7 +130,7 @@ class SharedGPSPipelineTest {
         val pipeline = SharedGPSPipeline { notifyTimeout, retryUpdate ->
             GPSPipeline(listOf(
                 BadReadingRejectionGPSModule(prefs, mock()),
-                AccuracyRequirementGPSModule(prefs, mock()),
+                AccuracyRequirementGPSModule(prefs, mock()) { 0L },
                 TimeoutGPSModule(
                     notifyTimeout, retryUpdate, logger = mock(),
                     timerFactory = { fireTimeout = it; mock() }

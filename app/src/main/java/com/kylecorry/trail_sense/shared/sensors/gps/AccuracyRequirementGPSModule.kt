@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import android.os.SystemClock
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -7,49 +8,60 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
 
 /**
- * Rejects readings which do not meet the user's accuracy requirement. Consecutive rejections are
- * capped so the location can still update when the GPS never reaches the requested accuracy.
+ * Rejects readings which do not meet the user's accuracy requirement for a bounded time.
+ * After the wait, the next reading can update the location even if its accuracy is still poor.
  */
 class AccuracyRequirementGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
-    private val logger: Logger = getAppService()
+    private val logger: Logger = getAppService(),
+    private val elapsedRealtime: () -> Long = SystemClock::elapsedRealtime
 ) : GPSModule {
-    private var rejectionCount = 0
+    private var rejectionStartMillis: Long? = null
+
+    override fun start(data: ModularGPSData) {
+        rejectionStartMillis = null
+    }
+
+    override fun stop(data: ModularGPSData) {
+        rejectionStartMillis = null
+    }
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (previousData.isTimedOut) {
-            rejectionCount = 0
+            rejectionStartMillis = null
             return true
         }
 
         val requirement = prefs.accuracyRequirement
-        val minAccuracy = requirement.minAccuracy ?: return true
+        val minAccuracy = requirement.minAccuracy
 
         // An unknown accuracy can't be judged against the requirement
-        val accuracy = newData.horizontalAccuracy?.takeIf { it > 0f } ?: return true
+        val accuracy = newData.horizontalAccuracy?.takeIf { it > 0f }
 
-        if (accuracy <= minAccuracy) {
-            rejectionCount = 0
+        if (minAccuracy == null || accuracy == null || accuracy <= minAccuracy) {
+            rejectionStartMillis = null
             return true
         }
 
-        val maxRejectionCount = requirement.maxRejectionCount
-        if (maxRejectionCount != null && rejectionCount >= maxRejectionCount) {
+        val now = elapsedRealtime()
+        val start = rejectionStartMillis ?: now.also { rejectionStartMillis = it }
+        val elapsedMillis = now - start
+        val maxAccuracyWait = requirement.maxAccuracyWait
+        if (maxAccuracyWait != null && elapsedMillis >= maxAccuracyWait.toMillis()) {
             logger.debug(
                 TAG,
-                "Location Accepted: $rejectionCount readings already rejected, " +
+                "Location Accepted: accuracy wait of ${maxAccuracyWait.seconds}s reached, " +
                         "Accuracy: ${accuracy.safeRoundPlaces(1)}m"
             )
-            rejectionCount = 0
+            rejectionStartMillis = null
             return true
         }
 
-        rejectionCount++
         logger.debug(
             TAG,
             "Location Rejected: accuracy requirement (${requirement.name}) not met, " +
                     "Accuracy: ${accuracy.safeRoundPlaces(1)}m > ${minAccuracy.safeRoundPlaces(1)}m, " +
-                    "Rejections: $rejectionCount"
+                    "Waiting: ${elapsedMillis}ms"
         )
         return false
     }
