@@ -7,22 +7,19 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
-import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.gps.BadReadingRejectionGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.MeanSeaLevelGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SpeedGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.TimeoutGPSModule
 import java.time.Duration
 import java.time.Instant
-import java.util.concurrent.atomic.AtomicInteger
 
 
 class CustomGPS(
@@ -30,8 +27,6 @@ class CustomGPS(
     private val gpsFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
     private val updateFrequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
 ) : AbstractSensor(), ISatelliteGPS {
-
-    private val logger = getAppService<Logger>()
 
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
@@ -82,7 +77,7 @@ class CustomGPS(
         get() = data.mslAltitude
 
     val isTimedOut: Boolean
-        get() = _isTimedOut
+        get() = timeoutModule.isTimedOut
 
     private val baseGPS: ISatelliteGPS by lazy {
         if (userPrefs.useFilteredGPS) {
@@ -96,32 +91,23 @@ class CustomGPS(
     }
     private val userPrefs by lazy { UserPreferences(context) }
 
-    private val timeout = CoroutineTimer {
-        onTimeout()
-    }
-
     // The last accepted reading and the reading being evaluated
     private val data = ModularGPSData()
     private val candidate = ModularGPSData()
 
     private val cacheModule = CacheGPSModule()
+    private val timeoutModule = TimeoutGPSModule(this::tryUpdateLocation, this::notifyListeners)
 
     // The cache runs last so it records the reading as the other modules leave it
     private val modules = listOf(
         BadReadingRejectionGPSModule(),
         MeanSeaLevelGPSModule(),
         SpeedGPSModule(),
+        timeoutModule,
         cacheModule
     )
 
-    private var _isTimedOut = false
-
     private var hadValidReading = false
-
-    private val diagnosticId = nextDiagnosticId.getAndIncrement()
-
-    @Volatile
-    private var isStarted = false
 
     init {
         cacheModule.restore(data)
@@ -137,8 +123,6 @@ class CustomGPS(
             return
         }
 
-        isStarted = true
-
         // If this is being restarted, reload the value from cache if there's a newer reading there
         if (hadValidReading && cacheModule.hasNewerReading(data)) {
             cacheModule.restore(data)
@@ -146,14 +130,11 @@ class CustomGPS(
         }
 
         baseGPS.start(this::onLocationUpdate)
-        timeout.once(TIMEOUT_DURATION)
         modules.forEach { it.start(data) }
     }
 
     override fun stopImpl() {
-        isStarted = false
         baseGPS.stop(this::onLocationUpdate)
-        timeout.stop()
         modules.forEach { it.stop(data) }
     }
 
@@ -177,12 +158,6 @@ class CustomGPS(
         // This can happen when the cache is restored with the same reading as the base GPS or a secondary field updates
         val isSameReading = candidate.time == data.time
 
-        // Reset the timeout, there's a valid reading
-        if (isStarted) {
-            timeout.once(TIMEOUT_DURATION)
-        }
-        _isTimedOut = false
-
         candidate.copyInto(data)
 
         return if (data.location != Coordinate.zero) {
@@ -193,26 +168,6 @@ class CustomGPS(
         }
     }
 
-    private fun onTimeout() {
-        if (!isStarted) {
-            return
-        }
-
-        logger.debug(TAG, "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s")
-
-        if (!tryUpdateLocation()) {
-            logger.debug(
-                TAG,
-                "[$diagnosticId] No valid reading to update to, keeping a reading from " +
-                        "${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
-            )
-            _isTimedOut = true
-            timeout.once(TIMEOUT_DURATION)
-        }
-
-        notifyListeners()
-    }
-
     private fun hadRecentValidReading(): Boolean {
         val last = time
         val now = Instant.now()
@@ -221,11 +176,6 @@ class CustomGPS(
     }
 
     companion object {
-        private val TIMEOUT_DURATION = Duration.ofSeconds(10)
         private val RECENT_READING_THRESHOLD: Duration = Duration.ofMinutes(2)
-        private const val TAG = "CustomGPS"
-
-        // This is used to distinguish instances of this class in the logs, since there can be multiple instances of this class at once
-        private val nextDiagnosticId = AtomicInteger(1)
     }
 }
