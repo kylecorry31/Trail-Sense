@@ -18,6 +18,14 @@ class CacheGPSModule(
     private val cache: IPreferences = getAppService<PreferencesSubsystem>().preferences
 ) : GPSModule {
 
+    override fun initialize(data: ModularGPSData): Boolean {
+        if (!hasNewerReading(data)) {
+            return false
+        }
+        restore(data)
+        return true
+    }
+
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         cache.putFloat(LAST_ALTITUDE, newData.altitude)
         cache.putLong(LAST_UPDATE, newData.time.toEpochMilli())

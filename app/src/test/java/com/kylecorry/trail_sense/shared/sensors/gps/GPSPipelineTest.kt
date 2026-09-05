@@ -11,7 +11,7 @@ class GPSPipelineTest {
     private val preferences = InMemoryPreferences()
 
     private fun pipeline(vararg modules: GPSModule) =
-        GPSPipeline(modules.toList(), CacheGPSModule(preferences))
+        GPSPipeline(modules.toList() + CacheGPSModule(preferences))
 
     private fun reading(seconds: Long, longitude: Double = 1.0) = ModularGPSData(
         location = Coordinate(1.0, longitude),
@@ -85,9 +85,9 @@ class GPSPipelineTest {
         val second = pipeline(KalmanGPSModule(mock()))
         second.update(reading(2, 1.001))
         second.update(reading(3, 1.002))
-        assertTrue(first.restoreNewerCachedReading())
+        assertTrue(first.reinitialize())
         assertEquals(second.reading.location, first.reading.location)
-        assertFalse(first.restoreNewerCachedReading())
+        assertFalse(first.reinitialize())
 
         first.start()
         assertEquals(GPSUpdateResult.SameFixUpdated, first.update(reading(3, 1.002)))
@@ -106,7 +106,7 @@ class GPSPipelineTest {
         var source = reading(1)
         val notifications = mutableListOf<Boolean>()
         val timeout = TimeoutGPSModule(
-            tryUpdateLocation = { pipeline.update(source) },
+            updateGPSData = { pipeline.update(source) },
             notifyListeners = { notifications.add(pipeline.reading.isTimedOut) },
             logger = mock(),
             timerFactory = { fireTimeout = it; mock() }
@@ -131,6 +131,46 @@ class GPSPipelineTest {
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(source))
         assertFalse(pipeline.reading.isTimedOut)
         pipeline.stop()
+    }
+
+    @Test
+    fun initializesFromCacheAndReportsOnlyNewerReadingsAsChanges() {
+        val writer = pipeline()
+        writer.update(reading(1))
+        val reader = pipeline()
+        assertEquals(reading(1).time, reader.reading.time)
+        assertEquals(reading(1).location, reader.reading.location)
+        assertFalse(reader.reinitialize())
+
+        writer.update(reading(2, 2.0))
+        assertTrue(reader.reinitialize())
+        assertEquals(reading(2, 2.0).location, reader.reading.location)
+        assertFalse(reader.reinitialize())
+    }
+
+    @Test
+    fun emptyCacheDoesNotChangeEmptyReading() {
+        val pipeline = pipeline()
+        assertEquals(Instant.EPOCH, pipeline.reading.time)
+        assertEquals(Coordinate.zero, pipeline.reading.location)
+        assertFalse(pipeline.reinitialize())
+    }
+
+    @Test
+    fun initializationRunsEveryModuleEvenAfterAChange() {
+        val calls = mutableListOf<Int>()
+        fun initializer(id: Int) = object : GPSModule {
+            override fun update(previousData: ModularGPSData, newData: ModularGPSData) = true
+            override fun initialize(data: ModularGPSData): Boolean {
+                calls.add(id)
+                return true
+            }
+        }
+        val pipeline = pipeline(initializer(1), initializer(2))
+        assertEquals(listOf(1, 2), calls)
+        calls.clear()
+        assertTrue(pipeline.reinitialize())
+        assertEquals(listOf(1, 2), calls)
     }
 
     @Test

@@ -13,11 +13,11 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.BadReadingRejectionGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipeline
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSUpdateResult
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.MeanSeaLevelGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
-import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipeline
 import com.kylecorry.trail_sense.shared.sensors.gps.SpeedGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.TimeoutGPSModule
 import java.time.Duration
@@ -50,7 +50,9 @@ class CustomGPS(
 
     override val location: Coordinate
         get() {
-            pipeline.restoreNewerCachedReading()
+            // We always want to get the latest location. This is not the best pattern, but it works for now.
+            // In the future the consumers should instruct it to pull from latest or this should listen to the cache key and update when it changes.
+            pipeline.reinitialize()
             return data.location
         }
 
@@ -88,17 +90,17 @@ class CustomGPS(
             BadReadingRejectionGPSModule(),
             MeanSeaLevelGPSModule(),
             SpeedGPSModule(),
-            TimeoutGPSModule(this::tryUpdateLocation, this::notifyListeners),
-            if (userPrefs.useFilteredGPS) KalmanGPSModule() else null
-        ),
-        CacheGPSModule()
+            TimeoutGPSModule(this::updateGPSData, this::notifyListeners),
+            if (userPrefs.useFilteredGPS) KalmanGPSModule() else null,
+            CacheGPSModule()
+        )
     )
     private val data: ModularGPSData
         get() = pipeline.reading
 
     init {
         if (baseGPS.hasValidReading) {
-            tryUpdateLocation()
+            updateGPSData()
         }
     }
 
@@ -109,7 +111,7 @@ class CustomGPS(
         }
 
         // If this is being restarted, reload the value from cache if there's a newer reading there
-        if (pipeline.hadValidReading && pipeline.restoreNewerCachedReading()) {
+        if (pipeline.hadValidReading && pipeline.reinitialize()) {
             notifyListeners()
         }
 
@@ -123,14 +125,14 @@ class CustomGPS(
     }
 
     private fun onLocationUpdate(): Boolean {
-        val result = tryUpdateLocation()
+        val result = updateGPSData()
         if (result == GPSUpdateResult.NewFixAccepted) {
             notifyListeners()
         }
         return true
     }
 
-    private fun tryUpdateLocation(): GPSUpdateResult {
+    private fun updateGPSData(): GPSUpdateResult {
         return pipeline.update(baseGPS)
     }
 

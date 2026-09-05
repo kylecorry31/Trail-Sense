@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.luna.time.ITimer
 import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.ITimer
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.logging.Logger
 import java.time.Duration
@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * Run after modules which can reject a reading so rejected readings do not reset the timeout.
  */
 class TimeoutGPSModule(
-    private val tryUpdateLocation: () -> GPSUpdateResult,
+    private val updateGPSData: () -> GPSUpdateResult,
     private val notifyListeners: () -> Unit,
     private val logger: Logger = getAppService(),
     timerFactory: (() -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
@@ -58,7 +58,7 @@ class TimeoutGPSModule(
         logger.debug(TAG, "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s")
 
         // Rejected readings and secondary-field updates both leave us without a new fix.
-        if (tryUpdateLocation() != GPSUpdateResult.NewFixAccepted) {
+        if (updateGPSData() != GPSUpdateResult.NewFixAccepted) {
             logger.debug(
                 TAG,
                 "[$diagnosticId] No valid reading to update to, keeping a reading from " +

@@ -9,4 +9,5 @@ interface GPSModule {
     fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean
     fun start(data: ModularGPSData) {}
     fun stop(data: ModularGPSData) {}
+    fun initialize(data: ModularGPSData): Boolean = false
 }

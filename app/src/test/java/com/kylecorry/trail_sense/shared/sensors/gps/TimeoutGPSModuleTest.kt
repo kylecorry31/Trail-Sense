@@ -18,7 +18,7 @@ class TimeoutGPSModuleTest {
     private val notifications = mutableListOf<Boolean>()
     private var retry: () -> GPSUpdateResult = { GPSUpdateResult.Rejected }
     private val module: TimeoutGPSModule = TimeoutGPSModule(
-        tryUpdateLocation = { retries++; retry() },
+        updateGPSData = { retries++; retry() },
         notifyListeners = { notifications.add(timedOut()) },
         logger = mock(),
         timerFactory = { fireTimeout = it; timer }

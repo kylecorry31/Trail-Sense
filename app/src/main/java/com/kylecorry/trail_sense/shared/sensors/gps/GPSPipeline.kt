@@ -2,15 +2,13 @@ package com.kylecorry.trail_sense.shared.sensors.gps
 
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.sol.units.Coordinate
+import java.time.Instant
 
 class GPSPipeline(
-    modules: List<GPSModule>,
-    private val cache: CacheGPSModule
+    private val modules: List<GPSModule>,
 ) {
-    private val data = ModularGPSData()
+    private val data = ModularGPSData(time = Instant.EPOCH)
     private val candidate = ModularGPSData()
-    private val modules = modules + cache
-
     val reading: ModularGPSData
         get() = data
 
@@ -18,16 +16,18 @@ class GPSPipeline(
         private set
 
     init {
-        cache.restore(data)
+        reinitialize()
     }
 
     @Synchronized
-    fun restoreNewerCachedReading(): Boolean {
-        if (!cache.hasNewerReading(data)) {
-            return false
+    fun reinitialize(): Boolean {
+        var changed = false
+        modules.forEach {
+            if (it.initialize(data)) {
+                changed = true
+            }
         }
-        cache.restore(data)
-        return true
+        return changed
     }
 
     fun start() {
