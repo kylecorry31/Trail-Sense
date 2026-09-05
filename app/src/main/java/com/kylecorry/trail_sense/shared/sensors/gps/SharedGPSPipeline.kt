@@ -36,7 +36,6 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipelin
     fun update(gps: ISatelliteGPS): ModularGPSData {
         // A slower subscription may deliver a fix already superseded by another consumer.
         // Do not rewind shared state, even when optional rejection is disabled.
-        println("SharedGPSPipeline.update: gps.time=${gps.time}, previousTime=${pipeline.reading.time}, now=${Instant.now()}")
         val previousTime = pipeline.reading.time
         if (gps.time >= previousTime || previousTime > Instant.now().plusMillis(500)) {
             if (pipeline.update(gps) != GPSUpdateResult.Rejected) {
