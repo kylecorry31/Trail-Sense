@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSUpdateResult
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.MeanSeaLevelGPSModule
-import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipeline
 import com.kylecorry.trail_sense.shared.sensors.gps.SpeedGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.TimeoutGPSModule
 import java.time.Duration
@@ -49,9 +49,7 @@ class CustomGPS(
 
     override val location: Coordinate
         get() {
-            if (cacheModule.hasNewerReading(data)) {
-                cacheModule.restore(data)
-            }
+            pipeline.restoreNewerCachedReading()
             return data.location
         }
 
@@ -84,28 +82,21 @@ class CustomGPS(
     }
     private val userPrefs by lazy { UserPreferences(context) }
 
-    // The last accepted reading and the reading being evaluated
-    private val data = ModularGPSData()
-    private val candidate = ModularGPSData()
-
-    private val cacheModule = CacheGPSModule()
     private val timeoutModule = TimeoutGPSModule(this::tryUpdateLocation, this::notifyListeners)
-
-    // The cache runs last so it records the reading as the other modules leave it
-    private val modules = listOfNotNull(
-        BadReadingRejectionGPSModule(),
-        MeanSeaLevelGPSModule(),
-        SpeedGPSModule(),
-        timeoutModule,
-        if (userPrefs.useFilteredGPS) KalmanGPSModule() else null,
-        cacheModule
+    private val pipeline = GPSPipeline(
+        listOfNotNull(
+            BadReadingRejectionGPSModule(),
+            MeanSeaLevelGPSModule(),
+            SpeedGPSModule(),
+            timeoutModule,
+            if (userPrefs.useFilteredGPS) KalmanGPSModule() else null
+        ),
+        CacheGPSModule()
     )
-
-    private var hadValidReading = false
+    private val data: ISatelliteGPS
+        get() = pipeline.reading
 
     init {
-        cacheModule.restore(data)
-
         if (baseGPS.hasValidReading) {
             tryUpdateLocation()
         }
@@ -118,18 +109,17 @@ class CustomGPS(
         }
 
         // If this is being restarted, reload the value from cache if there's a newer reading there
-        if (hadValidReading && cacheModule.hasNewerReading(data)) {
-            cacheModule.restore(data)
+        if (pipeline.hadValidReading && pipeline.restoreNewerCachedReading()) {
             notifyListeners()
         }
 
         baseGPS.start(this::onLocationUpdate)
-        modules.forEach { it.start(data) }
+        pipeline.start()
     }
 
     override fun stopImpl() {
         baseGPS.stop(this::onLocationUpdate)
-        modules.forEach { it.stop(data) }
+        pipeline.stop()
     }
 
     private fun onLocationUpdate(): Boolean {
@@ -140,26 +130,8 @@ class CustomGPS(
         return true
     }
 
-    @Synchronized
     private fun tryUpdateLocation(): GPSUpdateResult {
-        candidate.populateFromGPS(baseGPS)
-
-        // Determine if the new location should be used, if not, keep the old location
-        if (modules.any { !it.update(data, candidate) }) {
-            return GPSUpdateResult.Rejected
-        }
-
-        // This can happen when the cache is restored with the same reading as the base GPS or a secondary field updates
-        val isSameReading = candidate.time == data.time
-
-        candidate.copyInto(data)
-
-        return if (data.location != Coordinate.zero) {
-            hadValidReading = true
-            if (isSameReading) GPSUpdateResult.SameFixUpdated else GPSUpdateResult.NewFixAccepted
-        } else {
-            GPSUpdateResult.Rejected
-        }
+        return pipeline.update(baseGPS)
     }
 
     private fun hadRecentValidReading(): Boolean {
