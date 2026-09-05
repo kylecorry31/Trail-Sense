@@ -21,7 +21,7 @@ class SharedGPSPipelineTest {
     private val prefs = mock<IGPSPreferences> {
         on { useFilteredGPS }.thenReturn(true)
     }
-    private val shared = SharedGPSPipeline {
+    private val shared = SharedGPSPipeline { _, _ ->
         GPSPipeline(listOf(KalmanGPSModule(prefs, mock()), CacheGPSModule(cache)))
     }
 
@@ -84,9 +84,9 @@ class SharedGPSPipelineTest {
     fun anyConsumerPostponesSharedTimeoutAndAllActiveConsumersAreNotified() {
         val timer = mock<ITimer>()
         lateinit var fireTimeout: () -> Unit
-        val pipeline = SharedGPSPipeline { notifyTimeout ->
+        val pipeline = SharedGPSPipeline { notifyTimeout, retryUpdate ->
             GPSPipeline(listOf(TimeoutGPSModule(
-                notifyTimeout, logger = mock(),
+                notifyTimeout, retryUpdate, logger = mock(),
                 timerFactory = { fireTimeout = it; timer }
             )))
         }
@@ -124,6 +124,53 @@ class SharedGPSPipelineTest {
     }
 
     @Test
+    fun timeoutRetriesInaccurateFixAndNotifiesConsumersWithoutDeclaringTimeout() {
+        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.High)
+        lateinit var fireTimeout: () -> Unit
+        val pipeline = SharedGPSPipeline { notifyTimeout, retryUpdate ->
+            GPSPipeline(listOf(
+                BadReadingRejectionGPSModule(prefs, mock()),
+                AccuracyRequirementGPSModule(prefs, mock()),
+                TimeoutGPSModule(
+                    notifyTimeout, retryUpdate, logger = mock(),
+                    timerFactory = { fireTimeout = it; mock() }
+                )
+            ))
+        }
+        val consumer = Consumer(pipeline)
+        consumer.consumer.start()
+        consumer.consumer.update(reading(1).also { it.horizontalAccuracy = 5f })
+        consumer.consumer.update(reading(2).also { it.horizontalAccuracy = 50f })
+        assertEquals(reading(1).time, pipeline.reading.time)
+
+        // A slower consumer must not replace the newer rejected fix used for recovery.
+        val slowConsumer = Consumer(pipeline)
+        slowConsumer.consumer.start()
+        slowConsumer.consumer.update(reading(1).also { it.horizontalAccuracy = 5f })
+
+        fireTimeout()
+
+        assertEquals(reading(2).time, pipeline.reading.time)
+        assertFalse(pipeline.isTimedOut)
+        assertEquals(1, consumer.notifications)
+        assertEquals(1, slowConsumer.notifications)
+        slowConsumer.consumer.stop()
+
+        // Retrying the same fix does not count as recovery.
+        fireTimeout()
+        assertTrue(pipeline.isTimedOut)
+        assertEquals(2, consumer.notifications)
+
+        // Invalid fixes still cannot recover the GPS, even with accuracy bypassed.
+        consumer.consumer.update(reading(3).also { it.hasValidReading = false })
+        fireTimeout()
+        assertTrue(pipeline.isTimedOut)
+        assertEquals(reading(2).time, pipeline.reading.time)
+        assertEquals(3, consumer.notifications)
+        consumer.consumer.stop()
+    }
+
+    @Test
     fun modulesRunUntilLastConsumerStopsAndStateSurvivesRestart() {
         var starts = 0
         var stops = 0
@@ -132,7 +179,7 @@ class SharedGPSPipelineTest {
             override fun start(data: ModularGPSData) { starts++ }
             override fun stop(data: ModularGPSData) { stops++ }
         }
-        val pipeline = SharedGPSPipeline { GPSPipeline(listOf(lifecycle)) }
+        val pipeline = SharedGPSPipeline { _, _ -> GPSPipeline(listOf(lifecycle)) }
         val first = Any()
         val second = Any()
         pipeline.start(first)
@@ -166,7 +213,7 @@ class SharedGPSPipelineTest {
 
     @Test
     fun smoothingPreferenceChangesApplyToExistingPipeline() {
-        val pipeline = SharedGPSPipeline {
+        val pipeline = SharedGPSPipeline { _, _ ->
             GPSPipeline(listOf(KalmanGPSModule(prefs, mock()), CacheGPSModule(cache)))
         }
         pipeline.update(reading(1))

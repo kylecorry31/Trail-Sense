@@ -70,6 +70,19 @@ class AccuracyRequirementGPSModuleTest {
     }
 
     @Test
+    fun bypassesAccuracyWhenTimedOutAndResetsRejections() {
+        repeat(2) {
+            assertFalse(module.update(previous, reading(100f)))
+        }
+        previous.isTimedOut = true
+        assertTrue(module.update(previous, reading(100f)))
+        previous.isTimedOut = false
+        repeat(3) {
+            assertFalse(module.update(previous, reading(100f)))
+        }
+    }
+
+    @Test
     fun doesNotModifyEitherReading() {
         val candidate = reading(17f)
         assertFalse(module.update(previous, candidate))

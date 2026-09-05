@@ -10,16 +10,17 @@ import java.time.Instant
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
- * Marks the GPS as timed out and notifies listeners when accepted updates stop arriving.
+ * Retries the latest reading when accepted updates stop arriving, then notifies listeners.
+ * Marks the GPS as timed out only if the retry does not accept a new fix.
  * Run after modules which can reject a reading so rejected readings do not reset the timeout.
  */
 class TimeoutGPSModule(
     private val notifyListeners: () -> Unit,
+    private val retryUpdate: () -> Boolean = { false },
     private val logger: Logger = getAppService(),
     timerFactory: (() -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
 ) : GPSModule {
 
-    private val diagnosticId = nextDiagnosticId.getAndIncrement()
     private val timeout = timerFactory { onTimeout() }
     private lateinit var data: ModularGPSData
 
@@ -55,12 +56,21 @@ class TimeoutGPSModule(
             return
         }
 
-        logger.debug(TAG, "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s")
+        logger.debug(TAG, "Timed out after ${TIMEOUT_DURATION.seconds}s")
+
+
+        // Allow a retry with the isTimedOut flag set in case requirements can be relaxed to accept a new reading
+        // A successful retry will reset the timeout
+        data.isTimedOut = true
+        if (retryUpdate()) {
+            logger.debug(TAG, "Resetting timeout after successful retry")
+            notifyListeners()
+            return
+        }
 
         logger.debug(
             TAG,
-            "[$diagnosticId] Keeping a reading from " +
-                "${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
+            "Keeping a reading from ${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
         )
         data.isTimedOut = true
 
@@ -70,8 +80,5 @@ class TimeoutGPSModule(
     companion object {
         private val TIMEOUT_DURATION = SensorService.GPS_READ_TIMEOUT
         private const val TAG = "TimeoutGPSModule"
-
-        // Distinguishes concurrent GPS instances in the logs.
-        private val nextDiagnosticId = AtomicInteger(1)
     }
 }
