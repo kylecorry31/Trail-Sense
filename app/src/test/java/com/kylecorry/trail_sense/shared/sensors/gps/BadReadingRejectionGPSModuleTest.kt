@@ -66,11 +66,25 @@ class BadReadingRejectionGPSModuleTest {
     }
 
     @Test
-    fun usesCandidateSpeedToAllowMovement() {
+    fun allowsPlausibleMovementWithoutTrustingReportedSpeed() {
         val candidate = reading(1, 1.0003)
-        assertFalse(module.update(reading(), candidate))
+        assertTrue(module.update(reading(), candidate))
         candidate.speed = Speed.from(30f, DistanceUnits.Meters, TimeUnits.Seconds)
         assertTrue(module.update(reading(), candidate))
+    }
+
+    @Test
+    fun allowsAircraftTravelAndGpsScatter() {
+        assertTrue(module.update(reading(), reading(1, 1.003)))
+        assertTrue(module.update(reading(), reading(1, 1.002)))
+    }
+
+    @Test
+    fun reportedSpeedCannotExcuseGrossJumps() {
+        val candidate = reading(1, 2.0).apply {
+            speed = Speed.from(100000f, DistanceUnits.Meters, TimeUnits.Seconds)
+        }
+        assertFalse(module.update(reading(), candidate))
     }
 
     @Test

@@ -100,11 +100,12 @@ class KalmanGPSModuleTest {
 
         val next = reading(4, 1.003)
         val expected = reading(4, 1.003)
-        other.update(newerCached, expected)
+        KalmanGPSModule(mock()).update(newerCached, expected)
         module.update(newerCached, next)
 
+        // The cache deliberately retains raw accuracy, so restoring is more conservative.
         assertEquals(expected.location, next.location)
-        // Restoring the Float accuracy loses precision compared with the internal Double variance.
+        // Both instances preserve the reported measurement accuracy.
         assertEquals(expected.horizontalAccuracy!!, next.horizontalAccuracy!!, 0.00001f)
     }
 
@@ -134,7 +135,7 @@ class KalmanGPSModuleTest {
         val next = reading(2, 1.001)
         assertTrue(module.update(previous, next))
         assertTrue(next.location.longitude > 1.0 && next.location.longitude < 1.001)
-        assertTrue(next.horizontalAccuracy!! < 10f)
+        assertEquals(10f, next.horizontalAccuracy)
         assertEquals(Coordinate.zero, previous.location)
     }
 
@@ -164,7 +165,7 @@ class KalmanGPSModuleTest {
         module.update(previous, reading(1))
         val next = reading(2)
         module.update(previous, next)
-        assertTrue(next.horizontalAccuracy!! < 10f)
+        assertEquals(10f, next.horizontalAccuracy)
     }
 
     @Test
@@ -195,7 +196,7 @@ class KalmanGPSModuleTest {
         val next = reading(2, 1.001).apply { fixTimeElapsedNanos = 0 }
         module.update(previous, next)
         assertTrue(next.location.longitude > 1.0 && next.location.longitude < 1.001)
-        assertTrue(next.horizontalAccuracy!! < 10f)
+        assertEquals(10f, next.horizontalAccuracy)
     }
 
     @Test
@@ -213,6 +214,118 @@ class KalmanGPSModuleTest {
         val next = reading(3601, 1.001)
         module.update(previous, next)
         assertEquals(1.001, next.location.longitude, 0.00001)
+    }
+
+    @Test
+    fun fifteenSecondIntervalStillUsesThePreviousEstimate() {
+        val first = reading(1)
+        module.update(previous, first)
+        val next = reading(16, 1.001)
+        module.update(first, next)
+        assertTrue(next.location.longitude > first.location.longitude)
+        assertTrue(next.location.longitude < 1.001)
+    }
+
+    @Test
+    fun supportsVariableBacktrackIntervalsAcrossStopsAndRestarts() {
+        val last = reading(1).apply {
+            speed = Speed.from(30f, DistanceUnits.Meters, TimeUnits.Seconds)
+            rawBearing = 90f
+        }
+        module.update(previous, last)
+        for (interval in listOf(15L, 900L, 1800L, 3600L, 86400L, 1L)) {
+            module.stop(last)
+            module.start(last)
+            val next = reading(last.time.epochSecond + interval, 1.001).apply {
+                speed = last.speed
+                rawBearing = last.rawBearing
+            }
+            val measurement = next.location
+            module.update(last, next)
+            // The old velocity must not drag a sparse fix far from the new measurement.
+            assertTrue(next.location.distanceTo(measurement) < 20f, "interval: $interval")
+            assertTrue(next.horizontalAccuracy!!.isFinite())
+            val duplicate = reading(next.time.epochSecond, 1.001)
+            module.update(last, duplicate)
+            assertEquals(next.location, duplicate.location)
+            next.copyInto(last)
+        }
+    }
+
+    @Test
+    fun longGapRetainsMeasurementUncertaintyForFollowingFix() {
+        module.update(previous, reading(1))
+        val sparse = reading(1 + 365L * 86400, 1.001)
+        module.update(previous, sparse)
+        val next = reading(sparse.time.epochSecond + 1, 1.002)
+        module.update(sparse, next)
+
+        val fresh = KalmanGPSModule(mock())
+        val expected = reading(next.time.epochSecond, 1.002)
+        fresh.update(sparse, expected)
+        assertTrue(expected.location.distanceTo(next.location) < 0.01f)
+    }
+
+    @Test
+    fun reducesStationaryNoiseAtOneHertz() {
+        val truth = Coordinate(1.0, 1.0)
+        val random = java.util.Random(42)
+        var rawSquaredError = 0.0
+        var filteredSquaredError = 0.0
+        val last = ModularGPSData(time = Instant.EPOCH)
+        repeat(300) { index ->
+            val next = reading(index.toLong() + 1).apply {
+                location = truth.plus(
+                    Distance.meters((random.nextGaussian() * 10).toFloat()),
+                    Bearing.from(random.nextFloat() * 360)
+                )
+            }
+            val rawError = truth.distanceTo(next.location).toDouble()
+            module.update(last, next)
+            if (index > 30) {
+                rawSquaredError += rawError * rawError
+                val filteredError = truth.distanceTo(next.location).toDouble()
+                filteredSquaredError += filteredError * filteredError
+            }
+            next.copyInto(last)
+        }
+        assertTrue(filteredSquaredError < rawSquaredError * 0.6)
+    }
+
+    @Test
+    fun tracksDrivingAtOneHertzWithoutAccumulatingLag() {
+        val origin = Coordinate(1.0, 1.0)
+        val last = ModularGPSData(time = Instant.EPOCH)
+        repeat(120) { index ->
+            val truth = origin.plus(Distance.meters(index * 25f), Bearing.from(90f))
+            val next = reading(index.toLong() + 1).apply {
+                location = truth
+                speed = Speed.from(25f, DistanceUnits.Meters, TimeUnits.Seconds)
+                rawBearing = 90f
+                speedAccuracy = 1f
+                bearingAccuracy = 3f
+            }
+            module.update(last, next)
+            assertTrue(truth.distanceTo(next.location) < 1f)
+            next.copyInto(last)
+        }
+    }
+
+    @Test
+    fun uncertainVelocityTrustsPositionMoreThanPreciseVelocity() {
+        fun filtered(error: Float): ModularGPSData {
+            val filter = KalmanGPSModule(mock())
+            val first = reading(1).apply {
+                speed = Speed.from(20f, DistanceUnits.Meters, TimeUnits.Seconds)
+                rawBearing = 90f
+                speedAccuracy = error
+                bearingAccuracy = 1f
+            }
+            filter.update(previous, first)
+            return reading(2).also { filter.update(first, it) }
+        }
+        assertTrue(filtered(20f).location.distanceTo(reading(2).location) <
+            filtered(1f).location.distanceTo(reading(2).location))
     }
 
     @Test

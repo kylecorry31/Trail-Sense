@@ -90,7 +90,7 @@ class CustomGPS(
             BadReadingRejectionGPSModule(),
             MeanSeaLevelGPSModule(),
             SpeedGPSModule(),
-            TimeoutGPSModule(this::updateGPSData, this::notifyListeners),
+            TimeoutGPSModule(this::notifyListeners),
             if (userPrefs.useFilteredGPS) KalmanGPSModule() else null,
             CacheGPSModule()
         )

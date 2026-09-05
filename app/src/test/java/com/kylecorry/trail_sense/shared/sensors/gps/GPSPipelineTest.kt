@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -92,10 +93,12 @@ class GPSPipelineTest {
         first.start()
         assertEquals(GPSUpdateResult.SameFixUpdated, first.update(reading(3, 1.002)))
         assertEquals(second.reading.location, first.reading.location)
+        // A restored filter uses the conservative cached accuracy as its prior covariance.
+        val expected = reading(4, 1.003)
+        KalmanGPSModule(mock()).update(first.reading, expected)
         first.update(reading(4, 1.003))
         second.update(reading(4, 1.003))
-        assertEquals(second.reading.location.latitude, first.reading.location.latitude, 0.0000001)
-        assertEquals(second.reading.location.longitude, first.reading.location.longitude, 0.0000001)
+        assertEquals(expected.location, first.reading.location)
         assertEquals(second.reading.horizontalAccuracy!!, first.reading.horizontalAccuracy!!, 0.00001f)
     }
 
@@ -106,7 +109,6 @@ class GPSPipelineTest {
         var source = reading(1)
         val notifications = mutableListOf<Boolean>()
         val timeout = TimeoutGPSModule(
-            updateGPSData = { pipeline.update(source) },
             notifyListeners = { notifications.add(pipeline.reading.isTimedOut) },
             logger = mock(),
             timerFactory = { fireTimeout = it; mock() }
@@ -131,6 +133,20 @@ class GPSPipelineTest {
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(source))
         assertFalse(pipeline.reading.isTimedOut)
         pipeline.stop()
+    }
+
+    @Test
+    fun grossJumpDoesNotChangeSmoothingOrCache() {
+        val prefs = mock<UserPreferences> {
+            on { filterLocationReadings }.thenReturn(true)
+        }
+        val pipeline = pipeline(BadReadingRejectionGPSModule(prefs, mock()), KalmanGPSModule(mock()))
+        pipeline.update(reading(1))
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(reading(2, 2.0)))
+        assertEquals(reading(1).location, pipeline.reading.location)
+        assertEquals(reading(1).location, pipeline().reading.location)
+        assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(3, 1.0001)))
+        assertTrue(pipeline.reading.location.longitude < 1.0001)
     }
 
     @Test

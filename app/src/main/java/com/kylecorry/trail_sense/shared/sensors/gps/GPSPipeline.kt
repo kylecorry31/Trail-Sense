@@ -47,7 +47,7 @@ class GPSPipeline(
         }
 
         // A cached fix or secondary-field update can have the same timestamp.
-        val isSameReading = candidate.time == data.time
+        val isSameReading = candidate.time.toEpochMilli() == data.time.toEpochMilli()
         candidate.copyInto(data)
 
         return if (data.location != Coordinate.zero) {

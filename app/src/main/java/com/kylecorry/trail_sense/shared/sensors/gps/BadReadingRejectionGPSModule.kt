@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -72,12 +71,9 @@ class BadReadingRejectionGPSModule(
         // The new reading is farther away than the user could have possibly traveled since the last one
         val seconds = timeDelta.toMillis() / 1000f
         val distance = previousData.location.distanceTo(newData.location)
-        val speedLimit = previousData.speed.value.real(0f)
-            .coerceAtLeast(newData.speed.value.real(0f))
-            .coerceIn(MIN_SPEED_ALLOWANCE, MAX_SPEED_ALLOWANCE)
         val currentAccuracy = previousData.horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
         val maxDistance =
-            speedLimit * seconds + DISTANCE_UNCERTAINTY_FACTOR * hypot(currentAccuracy, newAccuracy)
+            MAX_SPEED_ALLOWANCE * seconds + DISTANCE_UNCERTAINTY_FACTOR * hypot(currentAccuracy, newAccuracy)
         if (distance > maxDistance) {
             logRejectedReading(
                 "implausible movement (max allowed: ${maxDistance.safeRoundPlaces(1)}m)",
@@ -128,9 +124,8 @@ class BadReadingRejectionGPSModule(
     }
 
     companion object {
-        // The min and max speed for location filtering (m/s)
-        private const val MIN_SPEED_ALLOWANCE = 5f
-        private const val MAX_SPEED_ALLOWANCE = 40f
+        // The max possible speed a user can travel, including aircraft travel (m/s).
+        private const val MAX_SPEED_ALLOWANCE = 350f
 
         // A factor to scale the max distance error of new readings
         private const val DISTANCE_UNCERTAINTY_FACTOR = 2.5f

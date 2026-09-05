@@ -9,11 +9,10 @@ import java.time.Instant
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
- * Retries the current GPS reading and notifies listeners when accepted updates stop arriving.
+ * Marks the GPS as timed out and notifies listeners when accepted updates stop arriving.
  * Run after modules which can reject a reading so rejected readings do not reset the timeout.
  */
 class TimeoutGPSModule(
-    private val updateGPSData: () -> GPSUpdateResult,
     private val notifyListeners: () -> Unit,
     private val logger: Logger = getAppService(),
     timerFactory: (() -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
@@ -57,16 +56,12 @@ class TimeoutGPSModule(
 
         logger.debug(TAG, "[$diagnosticId] Timed out after ${TIMEOUT_DURATION.seconds}s")
 
-        // Rejected readings and secondary-field updates both leave us without a new fix.
-        if (updateGPSData() != GPSUpdateResult.NewFixAccepted) {
-            logger.debug(
-                TAG,
-                "[$diagnosticId] No valid reading to update to, keeping a reading from " +
-                        "${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
-            )
-            data.isTimedOut = true
-            timeout.once(TIMEOUT_DURATION)
-        }
+        logger.debug(
+            TAG,
+            "[$diagnosticId] Keeping a reading from " +
+                "${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
+        )
+        data.isTimedOut = true
 
         notifyListeners()
     }
