@@ -13,7 +13,10 @@ class KalmanGPSModule(private val logger: Logger = getAppService()) : GPSModule 
     private var time: Instant? = null
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
-        if (location == null && previousData.location != Coordinate.zero &&
+        // Another GPS instance may have advanced the shared cache since our last update.
+        val hasNewerPreviousReading = time?.let { previousData.time > it } == true
+        val shouldSeedFromPrevious = location == null || hasNewerPreviousReading
+        if (shouldSeedFromPrevious && previousData.location != Coordinate.zero &&
             previousData.time <= newData.time
         ) {
             location = previousData.location

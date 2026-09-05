@@ -43,6 +43,35 @@ class KalmanGPSModuleTest {
     }
 
     @Test
+    fun resynchronizesWithNewerReadingFromAnotherInstance() {
+        module.update(previous, reading(1))
+        val other = KalmanGPSModule(mock())
+        val cached = reading(2, 1.001)
+        other.update(previous, cached)
+        val newerCached = reading(3, 1.002)
+        other.update(cached, newerCached)
+
+        val next = reading(4, 1.003)
+        val expected = reading(4, 1.003)
+        other.update(newerCached, expected)
+        module.update(newerCached, next)
+
+        assertEquals(expected.location, next.location)
+        // Restoring the Float accuracy loses precision compared with the internal Double variance.
+        assertEquals(expected.horizontalAccuracy!!, next.horizontalAccuracy!!, 0.00001f)
+    }
+
+    @Test
+    fun restoredNewerFixIsNotFilteredAgain() {
+        module.update(previous, reading(1))
+        val cached = reading(3, 1.002).apply { horizontalAccuracy = 4f }
+        val duplicate = reading(3, 1.003).apply { time = time.plusNanos(123456) }
+        module.update(cached, duplicate)
+        assertEquals(cached.location, duplicate.location)
+        assertEquals(cached.horizontalAccuracy, duplicate.horizontalAccuracy)
+    }
+
+    @Test
     fun ignoresPreviousReadingFromTheFuture() {
         val next = reading(1)
         assertTrue(module.update(reading(2, 1.001), next))

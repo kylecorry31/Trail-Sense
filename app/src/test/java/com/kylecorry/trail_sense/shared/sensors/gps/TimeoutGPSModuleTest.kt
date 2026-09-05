@@ -84,6 +84,26 @@ class TimeoutGPSModuleTest {
         fireTimeout()
         assertTrue(module.isTimedOut)
         assertEquals(listOf(true), notifications)
+        verify(timer, times(2)).once(Duration.ofSeconds(10))
+    }
+
+    @Test
+    fun secondaryUpdatesDoNotPostponeTimeoutOrClearTimedOutState() {
+        module.start(data)
+        val duplicate = ModularGPSData(time = data.time.plusNanos(123456), satellites = 6)
+        repeat(20) {
+            assertTrue(module.update(data, duplicate))
+        }
+        verify(timer).once(Duration.ofSeconds(10))
+
+        fireTimeout()
+        assertTrue(module.isTimedOut)
+        assertTrue(module.update(data, duplicate))
+        assertTrue(module.isTimedOut)
+        verify(timer, times(2)).once(Duration.ofSeconds(10))
+
+        module.update(data, ModularGPSData(time = data.time.plusSeconds(1)))
+        assertFalse(module.isTimedOut)
         verify(timer, times(3)).once(Duration.ofSeconds(10))
     }
 
