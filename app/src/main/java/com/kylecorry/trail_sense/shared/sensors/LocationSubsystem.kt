@@ -30,7 +30,9 @@ class LocationSubsystem private constructor(private val context: Context) {
                 return Duration.ZERO
             }
 
-            val lastUpdate = Instant.ofEpochMilli(prefs.getLong(CacheGPSModule.LAST_UPDATE) ?: 0)
+            val lastUpdate = Instant.ofEpochMilli(
+                CacheGPSModule.getCachedData(prefs)?.updateTimeMillis ?: 0
+            )
             return Duration.between(lastUpdate, Instant.now())
         }
 
@@ -50,8 +52,7 @@ class LocationSubsystem private constructor(private val context: Context) {
 
     init {
         val locationChangedPrefs = listOf(
-            CacheGPSModule.LAST_LATITUDE,
-            CacheGPSModule.LAST_LONGITUDE,
+            CacheGPSModule.LAST_GPS,
             context.getString(R.string.pref_latitude_override),
             context.getString(R.string.pref_longitude_override),
             context.getString(R.string.pref_auto_location),

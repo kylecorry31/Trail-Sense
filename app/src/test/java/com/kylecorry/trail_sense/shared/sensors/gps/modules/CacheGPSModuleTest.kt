@@ -84,6 +84,19 @@ class CacheGPSModuleTest {
     }
 
     @Test
+    fun persistsTheCacheAsOneJsonPreference() {
+        val candidate = reading().apply {
+            kalmanVariance = 3.123456789
+            kalmanVelocityVariance = 0.25
+            rawBearing = 123f
+        }
+
+        module.update(previous, candidate)
+
+        assertTrue(preferences.contains(CacheGPSModule.LAST_GPS))
+    }
+
+    @Test
     fun missingAccuraciesRemovePreviouslyCachedValues() {
         module.update(previous, reading())
         module.update(previous, reading().apply {
