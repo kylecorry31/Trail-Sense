@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
+import java.time.Instant
 
 class AccuracyFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
@@ -26,6 +27,39 @@ class AccuracyFilterGPSModuleTest {
     private fun reading(accuracy: Float?) = ModularGPSData(
         location = Coordinate(1.0, 1.0), hasValidReading = true, horizontalAccuracy = accuracy
     )
+
+    @Test
+    fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() {
+        previous.time = Instant.EPOCH
+        val first = reading(100f).apply { time = Instant.EPOCH.plusSeconds(1) }
+        assertFalse(module.update(previous, first))
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, first))
+        val newer = reading(100f).apply { time = Instant.EPOCH.plusSeconds(2) }
+        nowMillis = 6_000L
+        assertTrue(module.update(previous, newer))
+        previous.time = first.time
+        assertFalse(module.update(previous, newer))
+        nowMillis = 11_000L
+        assertTrue(module.update(previous, newer))
+        previous.time = newer.time.plusSeconds(1)
+        assertFalse(module.update(previous, newer))
+    }
+
+    @Test
+    fun lifecycleResetsPendingFallback() {
+        previous.time = Instant.EPOCH
+        val candidate = reading(100f).apply { time = Instant.EPOCH.plusSeconds(1) }
+        assertFalse(module.update(previous, candidate))
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, candidate))
+        module.stop(previous)
+        assertFalse(module.update(previous, candidate))
+        nowMillis = 10_000L
+        assertTrue(module.update(previous, candidate))
+        module.start(previous)
+        assertFalse(module.update(previous, candidate))
+    }
 
     @Test
     fun acceptsEveryReadingWhenNoAccuracyIsRequired() {
@@ -59,7 +93,8 @@ class AccuracyFilterGPSModuleTest {
         nowMillis = 5_000L
         assertTrue(module.update(previous, candidate))
 
-        // Accepting a fallback starts a fresh wait for the next inaccurate reading.
+        // Only pipeline acceptance starts a fresh wait.
+        candidate.copyInto(previous)
         assertFalse(module.update(previous, reading(17f)))
         nowMillis = 9_999L
         assertFalse(module.update(previous, reading(17f)))

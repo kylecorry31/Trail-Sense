@@ -5,7 +5,6 @@ import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.SystemTimeProvider
 import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
-import com.kylecorry.trail_sense.shared.andromeda_temp.TimeoutTracker
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
@@ -17,28 +16,33 @@ class SatelliteFixFilterGPSModule(
     timeProvider: TimeProvider = SystemTimeProvider()
 ) : GPSModule {
 
-    private val rejectionTimeout = TimeoutTracker(timeProvider)
+    private val rejectionTracker = GPSRejectionTracker(timeProvider)
 
     override fun start(data: ModularGPSData) {
-        rejectionTimeout.reset()
+        rejectionTracker.reset()
     }
 
     override fun stop(data: ModularGPSData) {
-        rejectionTimeout.reset()
+        rejectionTracker.reset()
     }
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+        if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
+            logger.debug(TAG, "Location Accepted: awaiting pipeline acceptance for fallback")
+            return true
+        }
+
         val satelliteCount = newData.satellites
 
         // If satellite count is null, then the phone doesn't support satellite count
         if (satelliteCount == null || !prefs.requiresSatellites || satelliteCount >= 4) {
-            rejectionTimeout.reset()
+            rejectionTracker.reset()
             return true
         }
 
-        if (rejectionTimeout.isTimedOut(
+        if (rejectionTracker.isTimedOut(
                 maxSatelliteWait.toMillis(),
-                startIfNotStarted = true
+                newFixTime = newData.time
             )
         ) {
             logger.debug(
@@ -46,7 +50,6 @@ class SatelliteFixFilterGPSModule(
                 "Location Accepted: satellite wait of ${maxSatelliteWait.seconds}s reached, " +
                         "Satellites: $satelliteCount"
             )
-            rejectionTimeout.reset()
             return true
         }
 

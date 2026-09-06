@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
+import java.time.Instant
 
 class SatelliteFixFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
@@ -22,6 +23,39 @@ class SatelliteFixFilterGPSModuleTest {
     private val previous = ModularGPSData()
 
     private fun reading(satellites: Int?) = ModularGPSData(satellites = satellites)
+
+    @Test
+    fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() {
+        previous.time = Instant.EPOCH
+        val first = reading(3).apply { time = Instant.EPOCH.plusSeconds(1) }
+        assertFalse(module.update(previous, first))
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, first))
+        val newer = reading(3).apply { time = Instant.EPOCH.plusSeconds(2) }
+        nowMillis = 6_000L
+        assertTrue(module.update(previous, newer))
+        previous.time = first.time
+        assertFalse(module.update(previous, newer))
+        nowMillis = 11_000L
+        assertTrue(module.update(previous, newer))
+        previous.time = newer.time.plusSeconds(1)
+        assertFalse(module.update(previous, newer))
+    }
+
+    @Test
+    fun lifecycleResetsPendingFallback() {
+        previous.time = Instant.EPOCH
+        val candidate = reading(3).apply { time = Instant.EPOCH.plusSeconds(1) }
+        assertFalse(module.update(previous, candidate))
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, candidate))
+        module.stop(previous)
+        assertFalse(module.update(previous, candidate))
+        nowMillis = 10_000L
+        assertTrue(module.update(previous, candidate))
+        module.start(previous)
+        assertFalse(module.update(previous, candidate))
+    }
 
     @Test
     fun rejectsInsufficientSatellitesUntilTheWaitExpires() {

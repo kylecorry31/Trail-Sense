@@ -10,9 +10,13 @@ import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSM
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.AccuracyFilterGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.SatelliteFixFilterGPSModule
+import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import java.time.Instant
 
 class GPSPipelineTest {
@@ -36,6 +40,36 @@ class GPSPipelineTest {
         override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
             return action(previousData, newData)
         }
+    }
+
+    @Test
+    fun satelliteFallbackStaysOpenWhileAccuracyWaitsForItsTimeout() {
+        whenever(prefs.requiresSatellites).thenReturn(true)
+        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.High)
+        var now = 0L
+        val clock = object : TimeProvider {
+            override fun elapsedRealtime() = now
+            override fun currentTimeMillis() = now
+        }
+        val pipeline = pipeline(
+            SatelliteFixFilterGPSModule(prefs, mock(), clock),
+            AccuracyFilterGPSModule(prefs, mock(), clock)
+        )
+        fun candidate(seconds: Long) = reading(seconds).apply {
+            satellites = 3
+            horizontalAccuracy = 100f
+        }
+        pipeline.start()
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(1)))
+        now = 5_000L
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(2)))
+        now = 14_999L
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(3)))
+        now = 15_000L
+        assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(candidate(4)))
+        assertEquals(candidate(4).time, pipeline.reading.time)
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(5)))
+        pipeline.stop()
     }
 
     @Test

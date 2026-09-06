@@ -5,7 +5,6 @@ import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.SystemTimeProvider
 import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
-import com.kylecorry.trail_sense.shared.andromeda_temp.TimeoutTracker
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
@@ -21,17 +20,22 @@ class AccuracyFilterGPSModule(
     timeProvider: TimeProvider = SystemTimeProvider()
 ) : GPSModule {
 
-    private val rejectionTimeout = TimeoutTracker(timeProvider)
+    private val rejectionTracker = GPSRejectionTracker(timeProvider)
 
     override fun start(data: ModularGPSData) {
-        rejectionTimeout.reset()
+        rejectionTracker.reset()
     }
 
     override fun stop(data: ModularGPSData) {
-        rejectionTimeout.reset()
+        rejectionTracker.reset()
     }
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+        if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
+            logger.debug(TAG, "Location Accepted: awaiting pipeline acceptance for fallback")
+            return true
+        }
+
         val requirement = prefs.accuracyRequirement
         val minAccuracy = requirement.minAccuracy
 
@@ -39,14 +43,14 @@ class AccuracyFilterGPSModule(
         val accuracy = newData.horizontalAccuracy?.takeIf { it > 0f }
 
         if (minAccuracy == null || accuracy == null || accuracy <= minAccuracy) {
-            rejectionTimeout.reset()
+            rejectionTracker.reset()
             return true
         }
 
         val maxAccuracyWait = requirement.maxAccuracyWait
-        if (maxAccuracyWait != null && rejectionTimeout.isTimedOut(
+        if (maxAccuracyWait != null && rejectionTracker.isTimedOut(
                 maxAccuracyWait.toMillis(),
-                startIfNotStarted = true
+                newFixTime = newData.time
             )
         ) {
             logger.debug(
@@ -54,7 +58,6 @@ class AccuracyFilterGPSModule(
                 "Location Accepted: accuracy wait of ${maxAccuracyWait.seconds}s reached, " +
                         "Accuracy: ${accuracy.safeRoundPlaces(1)}m"
             )
-            rejectionTimeout.reset()
             return true
         }
 
