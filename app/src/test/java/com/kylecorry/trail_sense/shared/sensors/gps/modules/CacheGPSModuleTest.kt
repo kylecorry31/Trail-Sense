@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.sol.units.Bearing
@@ -7,6 +7,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.time.Instant

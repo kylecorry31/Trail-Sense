@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock

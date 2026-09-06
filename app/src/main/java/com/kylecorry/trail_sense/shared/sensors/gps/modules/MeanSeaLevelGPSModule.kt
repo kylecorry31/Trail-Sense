@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.luna.concurrency.CoroutineQueueRunner
@@ -7,6 +7,8 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.GeoidService
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import kotlinx.coroutines.runBlocking
 
 class MeanSeaLevelGPSModule(

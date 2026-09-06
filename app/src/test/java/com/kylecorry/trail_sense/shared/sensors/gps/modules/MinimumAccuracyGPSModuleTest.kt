@@ -1,7 +1,9 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyRequirement
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

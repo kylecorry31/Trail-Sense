@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration

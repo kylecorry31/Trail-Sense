@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
-import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration

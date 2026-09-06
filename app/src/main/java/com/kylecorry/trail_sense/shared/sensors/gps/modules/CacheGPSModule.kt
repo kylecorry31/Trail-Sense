@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.core.sensors.Quality
@@ -10,6 +10,9 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
 import java.time.Instant
 
 /**

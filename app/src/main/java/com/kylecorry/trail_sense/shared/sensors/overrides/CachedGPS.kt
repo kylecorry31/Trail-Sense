@@ -12,7 +12,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.MockedGPS
 import java.time.Instant

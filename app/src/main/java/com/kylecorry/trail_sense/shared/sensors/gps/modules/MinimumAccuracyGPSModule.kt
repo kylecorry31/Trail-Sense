@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import android.os.SystemClock
 import com.kylecorry.trail_sense.main.getAppService
@@ -6,6 +6,8 @@ import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 
 /**
  * Rejects readings which do not meet the user's accuracy requirement for a bounded time.

@@ -1,9 +1,11 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import java.time.Duration
 import java.time.Instant

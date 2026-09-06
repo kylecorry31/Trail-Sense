@@ -6,6 +6,10 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingRejectionGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
@@ -167,7 +171,10 @@ class GPSPipelineTest {
 
     @Test
     fun grossJumpDoesNotChangeSmoothingOrCache() {
-        val pipeline = pipeline(BadReadingRejectionGPSModule(prefs, mock()), KalmanGPSModule(prefs, mock()))
+        val pipeline = pipeline(
+            BadReadingRejectionGPSModule(prefs, mock()),
+            KalmanGPSModule(prefs, mock())
+        )
         pipeline.update(reading(1))
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(reading(2, 2.0)))
         assertEquals(reading(1).location, pipeline.reading.location)

@@ -5,6 +5,9 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
@@ -85,7 +88,8 @@ class SharedGPSPipelineTest {
         val timer = mock<ITimer>()
         lateinit var fireTimeout: () -> Unit
         val pipeline = SharedGPSPipeline { notifyTimeout ->
-            GPSPipeline(listOf(TimeoutGPSModule(
+            GPSPipeline(listOf(
+                TimeoutGPSModule(
                 notifyTimeout, logger = mock(),
                 timerFactory = { fireTimeout = it; timer }
             )))

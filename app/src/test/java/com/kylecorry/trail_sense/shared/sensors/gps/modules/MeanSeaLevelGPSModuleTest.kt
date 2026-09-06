@@ -1,8 +1,9 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.GeoidService
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
@@ -6,6 +6,8 @@ import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.hypot
