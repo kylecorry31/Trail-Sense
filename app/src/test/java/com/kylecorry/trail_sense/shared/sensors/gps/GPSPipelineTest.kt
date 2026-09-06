@@ -6,7 +6,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
-import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingRejectionGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
@@ -172,7 +172,7 @@ class GPSPipelineTest {
     @Test
     fun grossJumpDoesNotChangeSmoothingOrCache() {
         val pipeline = pipeline(
-            BadReadingRejectionGPSModule(prefs, mock()),
+            BadReadingFilterGPSModule(prefs, mock()),
             KalmanGPSModule(prefs, mock())
         )
         pipeline.update(reading(1))

@@ -12,12 +12,11 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.time.Instant
 
-class BadReadingRejectionGPSModuleTest {
+class BadReadingFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
         on { filterLocationReadings }.thenReturn(true)
-        on { requiresSatellites }.thenReturn(true)
     }
-    private val module = BadReadingRejectionGPSModule(prefs, mock())
+    private val module = BadReadingFilterGPSModule(prefs, mock())
     private val time = Instant.parse("2020-01-01T00:00:00Z")
 
     private fun reading(seconds: Long = 0, longitude: Double = 1.0) = ModularGPSData(
@@ -37,14 +36,6 @@ class BadReadingRejectionGPSModuleTest {
         assertFalse(module.update(ModularGPSData(), reading().apply { horizontalAccuracy = 151f }))
         assertFalse(module.update(reading(), reading(121).apply { horizontalAccuracy = 151f }))
         assertTrue(module.update(reading(), reading(1).apply { horizontalAccuracy = 150f }))
-    }
-
-    @Test
-    fun respectsSatelliteRequirementAndUnknownSatelliteCount() {
-        assertFalse(module.update(reading(), reading(1).apply { satellites = 3 }))
-        assertTrue(module.update(reading(), reading(1).apply { satellites = null }))
-        whenever(prefs.requiresSatellites).thenReturn(false)
-        assertTrue(module.update(reading(), reading(1).apply { satellites = 0 }))
     }
 
     @Test

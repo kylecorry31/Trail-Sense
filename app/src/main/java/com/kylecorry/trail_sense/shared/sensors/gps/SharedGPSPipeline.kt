@@ -1,11 +1,12 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
-import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingRejectionGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.MeanSeaLevelGPSModule
-import com.kylecorry.trail_sense.shared.sensors.gps.modules.MinimumAccuracyGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.AccuracyFilterGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.SatelliteFixFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.SpeedGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
 import java.time.Instant
@@ -77,8 +78,9 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipelin
             return instance ?: SharedGPSPipeline { notifyTimeout ->
                 GPSPipeline(
                     listOf(
-                        BadReadingRejectionGPSModule(),
-                        MinimumAccuracyGPSModule(),
+                        BadReadingFilterGPSModule(),
+                        SatelliteFixFilterGPSModule(),
+                        AccuracyFilterGPSModule(),
                         MeanSeaLevelGPSModule(),
                         SpeedGPSModule(),
                         TimeoutGPSModule(notifyTimeout),

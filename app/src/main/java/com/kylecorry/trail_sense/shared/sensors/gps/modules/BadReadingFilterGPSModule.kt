@@ -15,7 +15,7 @@ import kotlin.math.hypot
 /**
  * Rejects readings which are clearly erroneous.
  */
-class BadReadingRejectionGPSModule(
+class BadReadingFilterGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
     private val logger: Logger = getAppService()
 ) : GPSModule {
@@ -33,14 +33,6 @@ class BadReadingRejectionGPSModule(
         val newAccuracy = newData.horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
         if (newAccuracy > MAX_ACCEPTABLE_ACCURACY) {
             logRejectedReading("poor accuracy", previousData, newData)
-            return false
-        }
-
-        // If satellite count is null, then the phone doesn't support satellite count
-        val satelliteCount = newData.satellites
-        val hasFix = satelliteCount == null || !prefs.requiresSatellites || satelliteCount >= 4
-        if (!hasFix) {
-            logRejectedReading("not enough satellites ($satelliteCount)", previousData, newData)
             return false
         }
 
@@ -135,6 +127,6 @@ class BadReadingRejectionGPSModule(
         // Readings with this accuracy are too poor to accept, wait for another reading
         private const val MAX_ACCEPTABLE_ACCURACY = 150f
         private val STALE_READING_DURATION = Duration.ofMinutes(2)
-        private const val TAG = "FilteredGPS"
+        private const val TAG = "BadReadingFilterGPSModule"
     }
 }

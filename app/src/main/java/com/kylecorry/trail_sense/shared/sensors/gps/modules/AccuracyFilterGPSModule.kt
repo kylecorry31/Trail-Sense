@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
  * Rejects readings which do not meet the user's accuracy requirement for a bounded time.
  * After the wait, the next reading can update the location even if its accuracy is still poor.
  */
-class MinimumAccuracyGPSModule(
+class AccuracyFilterGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
     private val logger: Logger = getAppService(),
     timeProvider: TimeProvider = SystemTimeProvider()
@@ -67,6 +67,6 @@ class MinimumAccuracyGPSModule(
     }
 
     companion object {
-        private const val TAG = "MinimumAccuracyGPSModule"
+        private const val TAG = "AccuracyFilterGPSModule"
     }
 }
