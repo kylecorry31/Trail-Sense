@@ -1673,4 +1673,6 @@
     <string name="delete_image_prompt">Supprimer l\'image ?</string>
     <string name="image_index">Image %1$d/%2$d</string>
     <string name="last_updated">Dernière mise à jour</string>
+    <string name="pref_filter_location_readings_title">Filtrer les relevés de localisation</string>
+    <string name="pref_filter_location_readings_description">Ignore les mesures qui semblent moins bonnes que la mesure actuelle</string>
 </resources>
