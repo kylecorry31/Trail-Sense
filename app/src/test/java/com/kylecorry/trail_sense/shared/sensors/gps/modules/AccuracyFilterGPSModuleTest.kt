@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import java.time.Instant
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -29,6 +30,75 @@ class AccuracyFilterGPSModuleTest {
         location = Coordinate(1.0, 1.0), hasValidReading = true, horizontalAccuracy = accuracy,
         time = previous.time.plusSeconds(1)
     )
+
+    @Test
+    fun timeoutReturnsASnapshotOfTheMostAccurateFix() = runBlocking<Unit> {
+        val best = reading(20f).apply {
+            location = Coordinate(2.0, 3.0)
+            altitude = 123f
+        }
+        assertFalse(module.update(previous, best))
+        // The pipeline reuses its candidate, so retaining the reference is insufficient.
+        best.location = Coordinate(4.0, 5.0)
+        best.horizontalAccuracy = 100f
+        best.time = best.time.plusSeconds(1)
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, best))
+        assertEquals(Coordinate(2.0, 3.0), best.location)
+        assertEquals(20f, best.horizontalAccuracy)
+        assertEquals(123f, best.altitude)
+        assertEquals(Instant.EPOCH.plusSeconds(1), best.time)
+        assertEquals(Instant.EPOCH, previous.time)
+
+        // A downstream rejection must keep the selected fix available.
+        val retry = reading(80f).apply { time = Instant.EPOCH.plusSeconds(3) }
+        assertTrue(module.update(previous, retry))
+        assertEquals(best.time, retry.time)
+        assertEquals(best.location, retry.location)
+
+        best.copyInto(previous)
+        val next = reading(90f)
+        assertFalse(module.update(previous, next))
+        nowMillis = 10_000L
+        assertTrue(module.update(previous, next))
+        assertEquals(90f, next.horizontalAccuracy)
+    }
+
+    @Test
+    fun includesTheTimeoutArrivalAndPrefersTheLatestEquallyAccurateFix() = runBlocking<Unit> {
+        assertFalse(module.update(previous, reading(100f)))
+        nowMillis = 2_000L
+        assertFalse(module.update(previous, reading(30f)))
+        val latest = reading(30f).apply { time = Instant.EPOCH.plusSeconds(3) }
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, latest))
+        assertEquals(30f, latest.horizontalAccuracy)
+        assertEquals(Instant.EPOCH.plusSeconds(3), latest.time)
+    }
+
+    @Test
+    fun resetsDiscardTheRetainedCandidate() = runBlocking<Unit> {
+        val resets: List<suspend () -> Unit> = listOf(
+            { module.stop(previous); module.start(previous) },
+            { module.update(previous, reading(5f)) },
+            { module.update(previous, reading(null)) },
+            {
+                whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.None)
+                module.update(previous, reading(100f))
+                whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.Moderate)
+            }
+        )
+        for (reset in resets) {
+            module.start(previous)
+            assertFalse(module.update(previous, reading(20f)))
+            reset()
+            assertFalse(module.update(previous, reading(80f)))
+            nowMillis += 5_000L
+            val fallback = reading(100f)
+            assertTrue(module.update(previous, fallback))
+            assertEquals(80f, fallback.horizontalAccuracy)
+        }
+    }
 
     @Test
     fun cachedFixesDoNotStartTheAccuracyWait() = runBlocking<Unit> {
@@ -59,7 +129,9 @@ class AccuracyFilterGPSModuleTest {
         val newer = reading(100f).apply { time = Instant.EPOCH.plusSeconds(2) }
         nowMillis = 6_000L
         assertTrue(module.update(previous, newer))
+        assertEquals(first.time, newer.time)
         previous.time = first.time
+        newer.time = first.time.plusSeconds(1)
         assertFalse(module.update(previous, newer))
         nowMillis = 11_000L
         assertTrue(module.update(previous, newer))
