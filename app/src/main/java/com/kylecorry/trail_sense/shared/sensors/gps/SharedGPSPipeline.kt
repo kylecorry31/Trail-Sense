@@ -3,9 +3,8 @@ package com.kylecorry.trail_sense.shared.sensors.gps
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import java.time.Instant
 
-internal class SharedGPSPipeline(private val factory: (() -> Unit, () -> Boolean) -> GPSPipeline) {
-    private var pipeline = factory(::onTimeout, ::retryUpdate)
-    private var lastSource: ModularGPSData? = null
+internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipeline) {
+    private var pipeline = factory(::onTimeout)
     private val consumers = mutableMapOf<Any, () -> Unit>()
 
     @Volatile
@@ -36,13 +35,7 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit, () -> Boolean
         // A slower subscription may deliver a fix already superseded by another consumer.
         // Do not rewind shared state, even when optional rejection is disabled.
         val previousTime = pipeline.reading.time
-        val futureThreshold = Instant.now().plusMillis(500)
-        if (gps.time >= previousTime || previousTime > futureThreshold) {
-            val lastSourceTime = lastSource?.time
-            // Preserve newer rejected fixes for retry when an older subscription calls back.
-            if (lastSourceTime == null || gps.time >= lastSourceTime || lastSourceTime > futureThreshold) {
-                lastSource = ModularGPSData().also { it.populateFromGPS(gps) }
-            }
+        if (gps.time >= previousTime || previousTime > Instant.now().plusMillis(500)) {
             if (pipeline.update(gps) != GPSUpdateResult.Rejected) {
                 latest = snapshot()
             }
@@ -54,20 +47,9 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit, () -> Boolean
     fun clearCache(clear: () -> Unit) {
         if (consumers.isNotEmpty()) pipeline.stop()
         clear()
-        lastSource = null
-        pipeline = factory(::onTimeout, ::retryUpdate)
+        pipeline = factory(::onTimeout)
         latest = snapshot()
         if (consumers.isNotEmpty()) pipeline.start()
-    }
-
-    @Synchronized
-    private fun retryUpdate(): Boolean {
-        val source = lastSource ?: return false
-        val result = pipeline.update(source)
-        if (result != GPSUpdateResult.Rejected) {
-            latest = snapshot()
-        }
-        return result == GPSUpdateResult.NewFixAccepted
     }
 
     private fun onTimeout() {
@@ -85,14 +67,14 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit, () -> Boolean
 
         @Synchronized
         fun getInstance(): SharedGPSPipeline {
-            return instance ?: SharedGPSPipeline { notifyTimeout, retryUpdate ->
+            return instance ?: SharedGPSPipeline { notifyTimeout ->
                 GPSPipeline(
                     listOf(
                         BadReadingRejectionGPSModule(),
                         AccuracyRequirementGPSModule(),
                         MeanSeaLevelGPSModule(),
                         SpeedGPSModule(),
-                        TimeoutGPSModule(notifyTimeout, retryUpdate),
+                        TimeoutGPSModule(notifyTimeout),
                         KalmanGPSModule(),
                         CacheGPSModule()
                     )

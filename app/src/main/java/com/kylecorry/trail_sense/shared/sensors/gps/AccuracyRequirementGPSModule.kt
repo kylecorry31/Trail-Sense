@@ -27,11 +27,6 @@ class AccuracyRequirementGPSModule(
     }
 
     override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
-        if (previousData.isTimedOut) {
-            rejectionStartMillis = null
-            return true
-        }
-
         val requirement = prefs.accuracyRequirement
         val minAccuracy = requirement.minAccuracy
 

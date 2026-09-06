@@ -84,20 +84,6 @@ class AccuracyRequirementGPSModuleTest {
     }
 
     @Test
-    fun bypassesAccuracyWhenTimedOutAndResetsTheWait() {
-        assertFalse(module.update(previous, reading(100f)))
-        nowMillis = 4_000L
-        previous.isTimedOut = true
-        assertTrue(module.update(previous, reading(100f)))
-        previous.isTimedOut = false
-        assertFalse(module.update(previous, reading(100f)))
-        nowMillis = 5_000L
-        assertFalse(module.update(previous, reading(100f)))
-        nowMillis = 9_000L
-        assertTrue(module.update(previous, reading(100f)))
-    }
-
-    @Test
     fun restartingResetsTheWait() {
         module.start(previous)
         assertFalse(module.update(previous, reading(100f)))

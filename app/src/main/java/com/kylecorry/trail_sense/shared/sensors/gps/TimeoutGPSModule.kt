@@ -7,16 +7,13 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.Instant
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
- * Retries the latest reading when accepted updates stop arriving, then notifies listeners.
- * Marks the GPS as timed out only if the retry does not accept a new fix.
+ * Marks the GPS as timed out and notifies listeners when accepted updates stop arriving.
  * Run after modules which can reject a reading so rejected readings do not reset the timeout.
  */
 class TimeoutGPSModule(
     private val notifyListeners: () -> Unit,
-    private val retryUpdate: () -> Boolean = { false },
     private val logger: Logger = getAppService(),
     timerFactory: (() -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
 ) : GPSModule {
@@ -57,16 +54,6 @@ class TimeoutGPSModule(
         }
 
         logger.debug(TAG, "Timed out after ${TIMEOUT_DURATION.seconds}s")
-
-
-        // Allow a retry with the isTimedOut flag set in case requirements can be relaxed to accept a new reading
-        // A successful retry will reset the timeout
-        data.isTimedOut = true
-        if (retryUpdate()) {
-            logger.debug(TAG, "Resetting timeout after successful retry")
-            notifyListeners()
-            return
-        }
 
         logger.debug(
             TAG,
