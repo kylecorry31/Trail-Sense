@@ -21,9 +21,29 @@ class SatelliteFixFilterGPSModuleTest {
         override fun currentTimeMillis() = nowMillis
     }
     private val module = SatelliteFixFilterGPSModule(prefs, mock(), timeProvider)
-    private val previous = ModularGPSData()
+    private val previous = ModularGPSData(time = Instant.EPOCH)
 
-    private fun reading(satellites: Int?) = ModularGPSData(satellites = satellites)
+    private fun reading(satellites: Int?) = ModularGPSData(
+        satellites = satellites, time = previous.time.plusSeconds(1)
+    )
+
+    @Test
+    fun cachedFixesDoNotStartTheSatelliteWait() = runBlocking<Unit> {
+        val older = reading(0).apply { time = previous.time.minusSeconds(1) }
+        val cached = reading(0).apply { time = previous.time }
+        assertTrue(module.update(previous, older))
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, cached))
+        nowMillis = 60_000L
+        assertTrue(module.update(previous, cached))
+
+        val fresh = reading(0)
+        assertFalse(module.update(previous, fresh))
+        nowMillis = 64_999L
+        assertFalse(module.update(previous, fresh))
+        nowMillis = 65_000L
+        assertTrue(module.update(previous, fresh))
+    }
 
     @Test
     fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() = runBlocking<Unit> {
@@ -40,7 +60,7 @@ class SatelliteFixFilterGPSModuleTest {
         nowMillis = 11_000L
         assertTrue(module.update(previous, newer))
         previous.time = newer.time.plusSeconds(1)
-        assertFalse(module.update(previous, newer))
+        assertTrue(module.update(previous, newer))
     }
 
     @Test

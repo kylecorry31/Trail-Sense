@@ -23,11 +23,31 @@ class AccuracyFilterGPSModuleTest {
         override fun currentTimeMillis() = nowMillis
     }
     private val module = AccuracyFilterGPSModule(prefs, mock(), timeProvider)
-    private val previous = ModularGPSData()
+    private val previous = ModularGPSData(time = Instant.EPOCH)
 
     private fun reading(accuracy: Float?) = ModularGPSData(
-        location = Coordinate(1.0, 1.0), hasValidReading = true, horizontalAccuracy = accuracy
+        location = Coordinate(1.0, 1.0), hasValidReading = true, horizontalAccuracy = accuracy,
+        time = previous.time.plusSeconds(1)
     )
+
+    @Test
+    fun cachedFixesDoNotStartTheAccuracyWait() = runBlocking<Unit> {
+        previous.time = Instant.EPOCH.plusSeconds(10)
+        val older = reading(100f).apply { time = previous.time.minusSeconds(1) }
+        val cached = reading(100f).apply { time = previous.time }
+        assertTrue(module.update(previous, older))
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, cached))
+        nowMillis = 60_000L
+        assertTrue(module.update(previous, cached))
+
+        val fresh = reading(100f)
+        assertFalse(module.update(previous, fresh))
+        nowMillis = 64_999L
+        assertFalse(module.update(previous, fresh))
+        nowMillis = 65_000L
+        assertTrue(module.update(previous, fresh))
+    }
 
     @Test
     fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() = runBlocking<Unit> {
@@ -44,7 +64,7 @@ class AccuracyFilterGPSModuleTest {
         nowMillis = 11_000L
         assertTrue(module.update(previous, newer))
         previous.time = newer.time.plusSeconds(1)
-        assertFalse(module.update(previous, newer))
+        assertTrue(module.update(previous, newer))
     }
 
     @Test

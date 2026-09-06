@@ -31,6 +31,8 @@ class AccuracyFilterGPSModule(
     }
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+        if (newData.time <= previousData.time) return true
+
         if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
             logger.debug(TAG, "Location Accepted: awaiting pipeline acceptance for fallback")
             return true
