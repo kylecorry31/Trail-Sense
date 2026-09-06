@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyRequirement
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -15,7 +16,11 @@ class MinimumAccuracyGPSModuleTest {
         on { accuracyRequirement }.thenReturn(GPSAccuracyRequirement.Medium)
     }
     private var nowMillis = 0L
-    private val module = MinimumAccuracyGPSModule(prefs, mock()) { nowMillis }
+    private val timeProvider = object : TimeProvider {
+        override fun elapsedRealtime() = nowMillis
+        override fun currentTimeMillis() = nowMillis
+    }
+    private val module = MinimumAccuracyGPSModule(prefs, mock(), timeProvider)
     private val previous = ModularGPSData()
 
     private fun reading(accuracy: Float?) = ModularGPSData(
