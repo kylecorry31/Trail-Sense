@@ -90,6 +90,87 @@ class SharedGPSPipelineTest {
     }
 
     @Test
+    fun lateConsumerDeliversExistingFixOnlyOnce() = runBlocking<Unit> {
+        val first = Consumer(shared).consumer
+        first.start()
+        assertTrue(first.update(reading(1)))
+        val second = Consumer(shared).consumer
+        second.start()
+        assertTrue(second.update(reading(1)))
+        assertFalse(second.update(reading(1)))
+        second.stop()
+        first.stop()
+    }
+
+    @Test
+    fun timeoutQueuedDuringUpdateCannotExpireTheNewFix() = runBlocking<Unit> {
+        val entered = kotlinx.coroutines.CompletableDeferred<Unit>()
+        val resume = kotlinx.coroutines.CompletableDeferred<Unit>()
+        lateinit var fireTimeout: suspend () -> Unit
+        val pipeline = SharedGPSPipeline { notifyTimeout ->
+            GPSPipeline(listOf(
+                object : GPSModule {
+                    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+                        if (newData.time == reading(2).time) {
+                            entered.complete(Unit)
+                            resume.await()
+                        }
+                        return true
+                    }
+                },
+                TimeoutGPSModule(notifyTimeout, mock(), { fireTimeout = it; mock() })
+            ))
+        }
+        val first = Consumer(pipeline)
+        val second = Consumer(pipeline)
+        first.consumer.start()
+        second.consumer.start()
+        first.consumer.update(reading(1))
+        val oldTimeout = fireTimeout
+        val update = async { second.consumer.update(reading(2)) }
+        entered.await()
+        val timeout = async { oldTimeout() }
+        yield()
+        assertFalse(timeout.isCompleted)
+        assertFalse(pipeline.reading.isTimedOut)
+        resume.complete(Unit)
+        update.await()
+        timeout.await()
+        assertFalse(pipeline.reading.isTimedOut)
+        assertEquals(0, first.notifications)
+        assertEquals(0, second.notifications)
+        oldTimeout()
+        assertFalse(pipeline.reading.isTimedOut)
+        fireTimeout()
+        assertTrue(pipeline.reading.isTimedOut)
+        assertEquals(1, first.notifications)
+        assertEquals(1, second.notifications)
+        first.consumer.stop()
+        second.consumer.stop()
+    }
+
+    @Test
+    fun timeoutFromClearedPipelineCannotExpireItsReplacement() = runBlocking<Unit> {
+        lateinit var fireTimeout: suspend () -> Unit
+        val pipeline = SharedGPSPipeline { notifyTimeout ->
+            GPSPipeline(listOf(TimeoutGPSModule(notifyTimeout, mock(), { fireTimeout = it; mock() })))
+        }
+        val consumer = Consumer(pipeline)
+        consumer.consumer.start()
+        consumer.consumer.update(reading(1))
+        val oldTimeout = fireTimeout
+        pipeline.clearCache {}
+        consumer.consumer.update(reading(2))
+        oldTimeout()
+        assertFalse(pipeline.reading.isTimedOut)
+        assertEquals(0, consumer.notifications)
+        fireTimeout()
+        assertTrue(pipeline.reading.isTimedOut)
+        assertEquals(1, consumer.notifications)
+        consumer.consumer.stop()
+    }
+
+    @Test
     fun duplicateCallbacksDoNotApplyKalmanCorrectionTwice() = runBlocking<Unit> {
         val continuous = GPSPipeline(listOf(KalmanGPSModule(prefs, mock())))
         for (second in 1L..10L) {
@@ -154,7 +235,7 @@ class SharedGPSPipelineTest {
         assertEquals(2, fast.notifications)
         assertEquals(1, slow.notifications)
         fast.consumer.stop()
-        verify(timer).stop()
+        verify(timer, times(4)).stop()
         fireTimeout()
         assertEquals(2, fast.notifications)
     }

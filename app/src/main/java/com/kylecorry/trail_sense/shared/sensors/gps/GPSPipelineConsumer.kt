@@ -6,7 +6,7 @@ internal class GPSPipelineConsumer(
     private val pipeline: SharedGPSPipeline,
     private val notifyTimeout: () -> Unit
 ) {
-    private val delivered = ModularGPSData().also { pipeline.reading.copyInto(it) }
+    private var deliveredTimeMillis: Long? = null
 
     val reading: ModularGPSData
         get() = pipeline.reading
@@ -22,8 +22,9 @@ internal class GPSPipelineConsumer(
     suspend fun update(gps: ModularGPSData): Boolean {
         val latest = pipeline.update(gps)
         if (latest.location == Coordinate.zero) return false
-        val isNewToConsumer = latest.time.toEpochMilli() != delivered.time.toEpochMilli()
-        latest.copyInto(delivered)
+        val timeMillis = latest.time.toEpochMilli()
+        val isNewToConsumer = timeMillis != deliveredTimeMillis
+        deliveredTimeMillis = timeMillis
         return isNewToConsumer
     }
 }

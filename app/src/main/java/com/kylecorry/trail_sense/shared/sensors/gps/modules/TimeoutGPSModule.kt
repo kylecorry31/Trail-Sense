@@ -11,30 +11,32 @@ import java.time.Duration
 import java.time.Instant
 
 /**
- * Marks the GPS as timed out and notifies listeners when accepted updates stop arriving.
+ * Calls onTimeout when accepted updates stop arriving.
  * Run after modules which can reject a reading so rejected readings do not reset the timeout.
  */
 class TimeoutGPSModule(
-    private val notifyListeners: suspend () -> Unit,
+    private val onTimeout: suspend (() -> Boolean) -> Unit,
     private val logger: Logger = getAppService(),
-    timerFactory: (suspend () -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
+    private val timerFactory: (suspend () -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
 ) : GPSModule {
 
-    private val timeout = timerFactory { onTimeout() }
+    private var timeout: ITimer? = null
+    private var timeoutToken: Any? = null
     private lateinit var data: ModularGPSData
 
-    @Volatile
     private var isStarted = false
 
     override suspend fun start(data: ModularGPSData) {
         this.data = data
         isStarted = true
-        timeout.once(TIMEOUT_DURATION)
+        scheduleTimeout()
     }
 
     override suspend fun stop(data: ModularGPSData) {
         isStarted = false
-        timeout.stop()
+        timeoutToken = null
+        timeout?.stop()
+        timeout = null
     }
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
@@ -44,26 +46,34 @@ class TimeoutGPSModule(
             return true
         }
         if (isStarted) {
-            timeout.once(TIMEOUT_DURATION)
+            scheduleTimeout()
         }
         newData.isTimedOut = false
         return true
     }
 
-    private suspend fun onTimeout() {
-        if (!isStarted) {
-            return
+    private fun scheduleTimeout() {
+        val token = Any()
+        timeoutToken = token
+        timeout?.stop()
+        timeout = timerFactory {
+            onTimeout { acceptTimeout(token) }
+        }.also { it.once(TIMEOUT_DURATION) }
+    }
+
+    private fun acceptTimeout(token: Any): Boolean {
+        // A queued callback may belong to a superseded fix or a previous start/stop session.
+        if (!isStarted || token !== timeoutToken) {
+            return false
         }
+        timeoutToken = null
 
         logger.debug(TAG, "Timed out after ${TIMEOUT_DURATION.seconds}s")
-
         logger.debug(
             TAG,
             "Keeping a reading from ${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
         )
-        data.isTimedOut = true
-
-        notifyListeners()
+        return true
     }
 
     companion object {

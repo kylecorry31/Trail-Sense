@@ -178,7 +178,12 @@ class GPSPipelineTest {
         var source = reading(1)
         val notifications = mutableListOf<Boolean>()
         val timeout = TimeoutGPSModule(
-            notifyListeners = { notifications.add(pipeline.reading.isTimedOut) },
+            onTimeout = { acceptTimeout ->
+                if (acceptTimeout()) {
+                    pipeline.reading.isTimedOut = true
+                    notifications.add(pipeline.reading.isTimedOut)
+                }
+            },
             logger = mock(),
             timerFactory = { fireTimeout = it; mock() }
         )

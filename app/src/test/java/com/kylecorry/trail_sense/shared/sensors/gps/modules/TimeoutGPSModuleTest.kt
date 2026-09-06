@@ -18,7 +18,12 @@ class TimeoutGPSModuleTest {
     private val data = ModularGPSData(time = Instant.EPOCH)
     private val notifications = mutableListOf<Boolean>()
     private val module: TimeoutGPSModule = TimeoutGPSModule(
-        notifyListeners = { notifications.add(timedOut()) },
+        onTimeout = { acceptTimeout ->
+            if (acceptTimeout()) {
+                data.isTimedOut = true
+                notifications.add(timedOut())
+            }
+        },
         logger = mock(),
         timerFactory = { fireTimeout = it; timer }
     )
@@ -41,6 +46,21 @@ class TimeoutGPSModuleTest {
         verify(timer).stop()
         fireTimeout()
         assertTrue(notifications.isEmpty())
+    }
+
+    @Test
+    fun timeoutLeavesStateChangeToTheCallback() = runBlocking<Unit> {
+        var accepted = false
+        val timeoutModule = TimeoutGPSModule(
+            onTimeout = { acceptTimeout -> accepted = acceptTimeout() },
+            logger = mock(),
+            timerFactory = { fireTimeout = it; timer }
+        )
+        timeoutModule.start(data)
+        fireTimeout()
+        assertTrue(accepted)
+        assertFalse(data.isTimedOut)
+        timeoutModule.stop(data)
     }
 
     @Test
@@ -87,6 +107,19 @@ class TimeoutGPSModuleTest {
         accept(ModularGPSData(time = data.time.plusSeconds(1)))
         assertFalse(data.isTimedOut)
         verify(timer, times(2)).once(SensorService.GPS_READ_TIMEOUT)
+    }
+
+    @Test
+    fun callbacksFromBeforeRestartCannotTimeoutTheNewSession() = runBlocking<Unit> {
+        module.start(data)
+        val oldTimeout = fireTimeout
+        module.stop(data)
+        module.start(data)
+        oldTimeout()
+        assertFalse(data.isTimedOut)
+        assertTrue(notifications.isEmpty())
+        fireTimeout()
+        assertTrue(data.isTimedOut)
     }
 
     @Test

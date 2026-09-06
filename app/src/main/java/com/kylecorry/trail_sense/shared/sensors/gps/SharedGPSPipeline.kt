@@ -12,7 +12,7 @@ import java.time.Instant
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-internal class SharedGPSPipeline(private val factory: (suspend () -> Unit) -> GPSPipeline) {
+internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -> Unit) -> GPSPipeline) {
     private var pipeline = factory(::onTimeout)
     private val consumers = mutableMapOf<Any, () -> Unit>()
     private val mutex = Mutex()
@@ -61,8 +61,10 @@ internal class SharedGPSPipeline(private val factory: (suspend () -> Unit) -> GP
         if (consumers.isNotEmpty()) pipeline.start()
     }
 
-    private suspend fun onTimeout() {
+    private suspend fun onTimeout(acceptTimeout: () -> Boolean) {
         val listeners = mutex.withLock {
+            if (!acceptTimeout()) return@withLock emptyList()
+            pipeline.reading.isTimedOut = true
             latest = snapshot()
             consumers.values.toList()
         }
