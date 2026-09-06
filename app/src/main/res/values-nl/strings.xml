@@ -441,7 +441,7 @@
     <string name="max_temp_calibrated">Maximale omgevingstemperatuur (gekalibreerd)</string>
     <string name="pref_show_last_signal_beacon_title">Baken van het laatste signaal</string>
     <string name="coordinate_format_usng">USNG</string>
-    <string name="delete_pack">Pakket verwijderen\?</string>
+    <string name="delete_pack">Bepakking verwijderen?</string>
     <string name="new_packing_list">Nieuwe paklijst</string>
     <string name="no_packing_lists">Geen paklijsten</string>
     <string name="percent_packed">%s verpakt</string>
