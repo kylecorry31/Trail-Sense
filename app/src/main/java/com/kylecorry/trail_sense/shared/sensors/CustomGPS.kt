@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.location.GPS
@@ -74,9 +76,10 @@ class CustomGPS(
     private val baseGPS: ISatelliteGPS by lazy {
         GPS(context.applicationContext, frequency = gpsFrequency)
     }
+    private val mainHandler = Handler(Looper.getMainLooper())
     private val consumer = GPSPipelineConsumer(
         SharedGPSPipeline.getInstance(),
-        this::notifyListeners
+        this::notifyListenersOnMain
     )
     private val data: ModularGPSData
         get() = consumer.reading
@@ -109,7 +112,15 @@ class CustomGPS(
 
     private suspend fun updateGPSData(reading: ModularGPSData) {
         if (consumer.update(reading)) {
+            notifyListenersOnMain()
+        }
+    }
+
+    private fun notifyListenersOnMain() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
             notifyListeners()
+        } else {
+            mainHandler.post { notifyListeners() }
         }
     }
 
