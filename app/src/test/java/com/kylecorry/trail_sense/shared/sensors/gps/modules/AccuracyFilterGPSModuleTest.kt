@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.gps.modules
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
-import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyRequirement
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -14,7 +14,7 @@ import java.time.Instant
 
 class AccuracyFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
-        on { accuracyRequirement }.thenReturn(GPSAccuracyRequirement.Medium)
+        on { accuracyFilter }.thenReturn(GPSAccuracyFilter.Moderate)
     }
     private var nowMillis = 0L
     private val timeProvider = object : TimeProvider {
@@ -63,7 +63,7 @@ class AccuracyFilterGPSModuleTest {
 
     @Test
     fun acceptsEveryReadingWhenNoAccuracyIsRequired() {
-        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.Low)
+        whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.None)
         repeat(10) {
             assertTrue(module.update(previous, reading(1000f)))
         }
@@ -116,7 +116,7 @@ class AccuracyFilterGPSModuleTest {
 
     @Test
     fun highAcceptsAfterTenSecondsEvenWithSparseCallbacks() {
-        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.High)
+        whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.High)
         assertTrue(module.update(previous, reading(8f)))
         assertFalse(module.update(previous, reading(9f)))
         nowMillis = 9_999L
@@ -150,12 +150,12 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun disablingAccuracyRequirementResetsTheWait() {
+    fun disablingAccuracyFilterResetsTheWait() {
         assertFalse(module.update(previous, reading(100f)))
         nowMillis = 4_000L
-        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.Low)
+        whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.None)
         assertTrue(module.update(previous, reading(100f)))
-        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.Medium)
+        whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.Moderate)
         assertFalse(module.update(previous, reading(100f)))
         nowMillis = 5_000L
         assertFalse(module.update(previous, reading(100f)))

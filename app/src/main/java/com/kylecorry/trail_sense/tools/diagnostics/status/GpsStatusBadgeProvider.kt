@@ -39,7 +39,7 @@ class GpsStatusBadgeProvider(private val gps: ISatelliteGPS, private val context
             return AppColor.Yellow.color
         }
 
-        if (!gps.hasValidReading || (prefs.gps.requiresSatellites && (gps.satellites
+        if (!gps.hasValidReading || (prefs.gps.requiresSatelliteCount && (gps.satellites
                 ?: 0) < 4) || (gps is CustomGPS && gps.isTimedOut)
         ) {
             return AppColor.Yellow.color
@@ -61,7 +61,7 @@ class GpsStatusBadgeProvider(private val gps: ISatelliteGPS, private val context
             return context.getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (prefs.gps.requiresSatellites && (gps.satellites
+        if (!gps.hasValidReading || (prefs.gps.requiresSatelliteCount && (gps.satellites
                 ?: 0) < 4) || (gps is CustomGPS && gps.isTimedOut)
         ) {
             return context.getString(R.string.gps_searching)

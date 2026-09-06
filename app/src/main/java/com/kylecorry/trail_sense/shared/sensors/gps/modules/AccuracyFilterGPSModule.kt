@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 
 /**
- * Rejects readings which do not meet the user's accuracy requirement for a bounded time.
+ * Rejects readings which do not meet the user's accuracy filter for a bounded time.
  * After the wait, the next reading can update the location even if its accuracy is still poor.
  */
 class AccuracyFilterGPSModule(
@@ -36,10 +36,10 @@ class AccuracyFilterGPSModule(
             return true
         }
 
-        val requirement = prefs.accuracyRequirement
-        val minAccuracy = requirement.minAccuracy
+        val filter = prefs.accuracyFilter
+        val minAccuracy = filter.minAccuracy
 
-        // An unknown accuracy can't be judged against the requirement
+        // An unknown accuracy can't be judged against the filter
         val accuracy = newData.horizontalAccuracy?.takeIf { it > 0f }
 
         if (minAccuracy == null || accuracy == null || accuracy <= minAccuracy) {
@@ -47,7 +47,7 @@ class AccuracyFilterGPSModule(
             return true
         }
 
-        val maxAccuracyWait = requirement.maxAccuracyWait
+        val maxAccuracyWait = filter.maxAccuracyWait
         if (maxAccuracyWait != null && rejectionTracker.isTimedOut(
                 maxAccuracyWait.toMillis(),
                 newFixTime = newData.time
@@ -63,7 +63,7 @@ class AccuracyFilterGPSModule(
 
         logger.debug(
             TAG,
-            "Location Rejected: accuracy requirement (${requirement.name}) not met, " +
+            "Location Rejected: accuracy filter (${filter.name}) not met, " +
                     "Accuracy: ${accuracy.safeRoundPlaces(1)}m > ${minAccuracy.safeRoundPlaces(1)}m"
         )
         return false

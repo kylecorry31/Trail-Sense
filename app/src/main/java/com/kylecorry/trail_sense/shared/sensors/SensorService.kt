@@ -376,7 +376,7 @@ class SensorService(ctx: Context) {
         val DEFAULT_GPS_FREQUENCY: Duration = Duration.ofSeconds(1)
         val NAVIGATION_GPS_FREQUENCY: Duration = Duration.ofMillis(200)
         val SINGLE_FIX_GPS_FREQUENCY: Duration = Duration.ofMillis(20)
-        // Long enough for the GPS to get a fix which satisfies the user's accuracy requirement
+        // Long enough for the GPS to get a fix which satisfies the user's accuracy filter
         val GPS_READ_TIMEOUT: Duration = Duration.ofSeconds(30)
         // Used where the user is waiting on a reading they can cancel
         val EXTENDED_GPS_READ_TIMEOUT: Duration = Duration.ofMinutes(1)

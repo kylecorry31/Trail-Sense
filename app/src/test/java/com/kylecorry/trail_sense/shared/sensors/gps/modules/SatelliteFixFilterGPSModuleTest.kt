@@ -12,7 +12,7 @@ import java.time.Instant
 
 class SatelliteFixFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
-        on { requiresSatellites }.thenReturn(true)
+        on { requiresSatelliteCount }.thenReturn(true)
     }
     private var nowMillis = 0L
     private val timeProvider = object : TimeProvider {
@@ -84,10 +84,10 @@ class SatelliteFixFilterGPSModuleTest {
         assertTrue(module.update(previous, reading(null)))
         assertFalse(module.update(previous, reading(3)))
 
-        whenever(prefs.requiresSatellites).thenReturn(false)
+        whenever(prefs.requiresSatelliteCount).thenReturn(false)
         assertTrue(module.update(previous, reading(0)))
 
-        whenever(prefs.requiresSatellites).thenReturn(true)
+        whenever(prefs.requiresSatelliteCount).thenReturn(true)
         assertFalse(module.update(previous, reading(3)))
     }
 

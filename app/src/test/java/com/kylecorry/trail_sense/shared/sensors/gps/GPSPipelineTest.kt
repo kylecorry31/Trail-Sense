@@ -23,7 +23,7 @@ class GPSPipelineTest {
     private val preferences = InMemoryPreferences()
     private val prefs = mock<IGPSPreferences> {
         on { useFilteredGPS }.thenReturn(true)
-        on { filterLocationReadings }.thenReturn(true)
+        on { rejectInvalidReadings }.thenReturn(true)
     }
 
     private fun pipeline(vararg modules: GPSModule) =
@@ -44,8 +44,8 @@ class GPSPipelineTest {
 
     @Test
     fun satelliteFallbackStaysOpenWhileAccuracyWaitsForItsTimeout() {
-        whenever(prefs.requiresSatellites).thenReturn(true)
-        whenever(prefs.accuracyRequirement).thenReturn(GPSAccuracyRequirement.High)
+        whenever(prefs.requiresSatelliteCount).thenReturn(true)
+        whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.High)
         var now = 0L
         val clock = object : TimeProvider {
             override fun elapsedRealtime() = now

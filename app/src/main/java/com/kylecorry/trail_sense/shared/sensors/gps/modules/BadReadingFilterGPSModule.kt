@@ -25,7 +25,7 @@ class BadReadingFilterGPSModule(
             return false
         }
 
-        if (!prefs.filterLocationReadings) {
+        if (!prefs.rejectInvalidReadings) {
             return true
         }
 

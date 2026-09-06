@@ -35,7 +35,7 @@ class SatelliteFixFilterGPSModule(
         val satelliteCount = newData.satellites
 
         // If satellite count is null, then the phone doesn't support satellite count
-        if (satelliteCount == null || !prefs.requiresSatellites || satelliteCount >= 4) {
+        if (satelliteCount == null || !prefs.requiresSatelliteCount || satelliteCount >= 4) {
             rejectionTracker.reset()
             return true
         }

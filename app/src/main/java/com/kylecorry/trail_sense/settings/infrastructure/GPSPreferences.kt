@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyRequirement
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 
 class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreferences {
 
@@ -15,23 +15,23 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
         true
     )
 
-    override val requiresSatellites by BooleanPreference(
+    override val requiresSatelliteCount by BooleanPreference(
         cache,
         getString(R.string.pref_require_satellites),
         true
     )
 
-    override val filterLocationReadings by BooleanPreference(
+    override val rejectInvalidReadings by BooleanPreference(
         cache,
         getString(R.string.pref_filter_location_readings),
         true
     )
 
-    override val accuracyRequirement by StringEnumPreference(
+    override val accuracyFilter by StringEnumPreference(
         cache,
         getString(R.string.pref_gps_accuracy_requirement),
-        GPSAccuracyRequirement.entries.associateBy { it.id.toString() },
-        GPSAccuracyRequirement.Low
+        GPSAccuracyFilter.entries.associateBy { it.id.toString() },
+        GPSAccuracyFilter.None
     )
 
     override val useFilteredGPS by BooleanPreference(

@@ -11,7 +11,7 @@
     <ID>ComplexCondition:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$bulletSpeed != null &amp;&amp; bulletSpeed.value &gt; 0 &amp;&amp; zeroDistance != null &amp;&amp; scopeHeight != null</ID>
     <ID>ComplexCondition:FragmentToolTriangulate.kt:FragmentToolTriangulate$location1 == null || location2 == null || direction1 == null || direction2 == null</ID>
     <ID>ComplexCondition:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null &amp;&amp; iconRes == null &amp;&amp; bitmap == null)</ID>
-    <ID>ComplexCondition:GpsStatusBadgeProvider.kt:GpsStatusBadgeProvider$!gps.hasValidReading || (prefs.gps.requiresSatellites &amp;&amp; (gps.satellites ?: 0) &lt; 4) || (gps is CustomGPS &amp;&amp; gps.isTimedOut)</ID>
+    <ID>ComplexCondition:GpsStatusBadgeProvider.kt:GpsStatusBadgeProvider$!gps.hasValidReading || (prefs.gps.requiresSatelliteCount &amp;&amp; (gps.satellites ?: 0) &lt; 4) || (gps is CustomGPS &amp;&amp; gps.isTimedOut)</ID>
     <ID>ComplexCondition:LineClipper.kt:LineClipper$!(start.x &lt; bounds.left &amp;&amp; end.x &lt; bounds.left || start.x &gt; bounds.right &amp;&amp; end.x &gt; bounds.right || start.y &lt; bounds.bottom &amp;&amp; end.y &lt; bounds.bottom || start.y &gt; bounds.top &amp;&amp; end.y &gt; bounds.top)</ID>
     <ID>ComplexCondition:MapLayerBackgroundTask.kt:MapLayerBackgroundTask$!isDirty &amp;&amp; !isInvalid &amp;&amp; areBoundsEqual( newBounds, lastRunBounds ?: CoordinateBounds.empty ) &amp;&amp; zoom == lastRunZoom</ID>
     <ID>ComplexCondition:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$image == null &amp;&amp; imagePath != null &amp;&amp; width &gt; 0 &amp;&amp; height &gt; 0</ID>
@@ -19,7 +19,7 @@
     <ID>ComplexCondition:PhotoMapEntity.kt:PhotoMapEntity$percentX2 != null &amp;&amp; percentY2 != null &amp;&amp; longitude2 != null &amp;&amp; latitude2 != null</ID>
     <ID>ComplexCondition:PhotoMapTileSource.kt:PhotoMapTileSource$internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || featureId != lastFeatureId</ID>
     <ID>ComplexCondition:PixelInterpolators.kt:BilinearInterpolator$x1y1 == null || x1y2 == null || x2y1 == null || x2y2 == null || x1y1.isNaN() || x1y2.isNaN() || x2y1.isNaN() || x2y2.isNaN()</ID>
-    <ID>ComplexCondition:SensorDetailsFragment.kt:SensorDetailsFragment$!gps.hasValidReading || (prefs.gps.requiresSatellites &amp;&amp; (gps.satellites ?: 0) &lt; 4) || (gps is CustomGPS &amp;&amp; (gps as CustomGPS).isTimedOut)</ID>
+    <ID>ComplexCondition:SensorDetailsFragment.kt:SensorDetailsFragment$!gps.hasValidReading || (prefs.gps.requiresSatelliteCount &amp;&amp; (gps.satellites ?: 0) &lt; 4) || (gps is CustomGPS &amp;&amp; (gps as CustomGPS).isTimedOut)</ID>
     <ID>ComplexCondition:TideService.kt:TideService$(nextIsHigh &amp;&amp; closeToNextTide) || (nextIsLow &amp;&amp; farFromNextTide)</ID>
     <ID>ComplexCondition:TideService.kt:TideService$(nextIsLow &amp;&amp; closeToNextTide) || (nextIsHigh &amp;&amp; farFromNextTide)</ID>
     <ID>ConstructorParameterNaming:DEMElevation.kt:DEMElevation$private val _elevation: Float</ID>

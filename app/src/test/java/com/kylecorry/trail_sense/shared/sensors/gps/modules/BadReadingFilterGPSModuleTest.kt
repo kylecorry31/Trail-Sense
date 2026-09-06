@@ -14,7 +14,7 @@ import java.time.Instant
 
 class BadReadingFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
-        on { filterLocationReadings }.thenReturn(true)
+        on { rejectInvalidReadings }.thenReturn(true)
     }
     private val module = BadReadingFilterGPSModule(prefs, mock())
     private val time = Instant.parse("2020-01-01T00:00:00Z")
@@ -26,7 +26,7 @@ class BadReadingFilterGPSModuleTest {
 
     @Test
     fun rejectsInvalidReadingsEvenWithFilteringDisabled() {
-        whenever(prefs.filterLocationReadings).thenReturn(false)
+        whenever(prefs.rejectInvalidReadings).thenReturn(false)
         assertFalse(module.update(reading(), reading(1).apply { hasValidReading = false }))
         assertTrue(module.update(reading(), reading(-1, 50.0)))
     }
