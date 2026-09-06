@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.shared.safeRoundPlaces
  * Rejects readings which do not meet the user's accuracy requirement for a bounded time.
  * After the wait, the next reading can update the location even if its accuracy is still poor.
  */
-class AccuracyRequirementGPSModule(
+class MinimumAccuracyGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
     private val logger: Logger = getAppService(),
     private val elapsedRealtime: () -> Long = SystemClock::elapsedRealtime
@@ -62,6 +62,6 @@ class AccuracyRequirementGPSModule(
     }
 
     companion object {
-        private const val TAG = "FilteredGPS"
+        private const val TAG = "MinimumAccuracyGPSModule"
     }
 }

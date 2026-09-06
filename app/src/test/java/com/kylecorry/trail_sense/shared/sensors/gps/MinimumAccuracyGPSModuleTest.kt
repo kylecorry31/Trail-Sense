@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class AccuracyRequirementGPSModuleTest {
+class MinimumAccuracyGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
         on { accuracyRequirement }.thenReturn(GPSAccuracyRequirement.Medium)
     }
     private var nowMillis = 0L
-    private val module = AccuracyRequirementGPSModule(prefs, mock()) { nowMillis }
+    private val module = MinimumAccuracyGPSModule(prefs, mock()) { nowMillis }
     private val previous = ModularGPSData()
 
     private fun reading(accuracy: Float?) = ModularGPSData(
