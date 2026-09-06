@@ -29,12 +29,12 @@ class SatelliteFixFilterGPSModule(
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (newData.time <= previousData.time) return true
 
+        val satelliteCount = newData.satellites
+
         if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
-            logger.debug(TAG, "Location Accepted: awaiting pipeline acceptance for fallback")
+            logger.debug(TAG, "Accept (timeout fallback): $satelliteCount satellites")
             return true
         }
-
-        val satelliteCount = newData.satellites
 
         // If satellite count is null, then the phone doesn't support satellite count
         if (satelliteCount == null || !prefs.requiresSatelliteCount || satelliteCount >= 4) {
@@ -47,15 +47,11 @@ class SatelliteFixFilterGPSModule(
                 newFixTime = newData.time
             )
         ) {
-            logger.debug(
-                TAG,
-                "Location Accepted: satellite wait of ${maxSatelliteWait.seconds}s reached, " +
-                        "Satellites: $satelliteCount"
-            )
+            logger.debug(TAG, "Accept (timeout): $satelliteCount satellites")
             return true
         }
 
-        logger.debug(TAG, "Location Rejected: not enough satellites ($satelliteCount)")
+        logger.debug(TAG, "Reject: $satelliteCount satellites")
         return false
     }
 

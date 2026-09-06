@@ -48,7 +48,7 @@ class AccuracyFilterGPSModule(
 
         // It hit a timeout and the candidate wasn't accepted, so just take whatever is next
         if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
-            logger.debug(TAG, "Location Accepted: awaiting pipeline acceptance for fallback")
+            logger.debug(TAG, "Accept (timeout fallback): ${accuracy.safeRoundPlaces(1)}m")
             return true
         }
 
@@ -76,17 +76,17 @@ class AccuracyFilterGPSModule(
             candidate.copyInto(newData)
             logger.debug(
                 TAG,
-                "Location Accepted: accuracy wait of ${maxAccuracyWait.seconds}s reached, " +
-                        "Accuracy: ${candidate.horizontalAccuracy?.safeRoundPlaces(1)}m"
+                "Accept (timeout): ${candidate.horizontalAccuracy?.safeRoundPlaces(1)}m, ${
+                    Duration.between(
+                        candidate.time,
+                        newData.time
+                    ).toMillis()
+                }ms old"
             )
             return true
         }
 
-        logger.debug(
-            TAG,
-            "Location Rejected: accuracy filter (${filter.name}) not met, " +
-                    "Accuracy: ${accuracy.safeRoundPlaces(1)}m > ${minAccuracy.safeRoundPlaces(1)}m"
-        )
+        logger.debug(TAG, "Reject: ${accuracy.safeRoundPlaces(1)}m > ${minAccuracy.safeRoundPlaces(1)}m")
         return false
     }
 

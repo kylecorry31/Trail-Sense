@@ -86,7 +86,7 @@ class BadReadingFilterGPSModule(
     ) {
         logger.debug(
             TAG,
-            "Location Rejected: $reason, ${describeNewReading(previousData, newData)}"
+            "Rejected: $reason, ${describeNewReading(previousData, newData)}"
         )
     }
 
@@ -97,7 +97,7 @@ class BadReadingFilterGPSModule(
     ) {
         logger.debug(
             TAG,
-            "Location Accepted: $reason, ${describeNewReading(previousData, newData)}"
+            "Accepted: $reason, ${describeNewReading(previousData, newData)}"
         )
     }
 
