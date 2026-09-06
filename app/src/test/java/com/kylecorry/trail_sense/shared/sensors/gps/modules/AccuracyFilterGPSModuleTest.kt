@@ -50,11 +50,11 @@ class AccuracyFilterGPSModuleTest {
         assertEquals(Instant.EPOCH.plusSeconds(1), best.time)
         assertEquals(Instant.EPOCH, previous.time)
 
-        // A downstream rejection must keep the selected fix available.
+        // Until a fix lands the filter stands aside instead of re-offering the selected one.
         val retry = reading(80f).apply { time = Instant.EPOCH.plusSeconds(3) }
         assertTrue(module.update(previous, retry))
-        assertEquals(best.time, retry.time)
-        assertEquals(best.location, retry.location)
+        assertEquals(Instant.EPOCH.plusSeconds(3), retry.time)
+        assertEquals(Coordinate(1.0, 1.0), retry.location)
 
         best.copyInto(previous)
         val next = reading(90f)
@@ -62,6 +62,54 @@ class AccuracyFilterGPSModuleTest {
         nowMillis = 10_000L
         assertTrue(module.update(previous, next))
         assertEquals(90f, next.horizontalAccuracy)
+    }
+
+    @Test
+    fun theRetainedFixIsDroppedOnceItTrailsTheCurrentFix() = runBlocking<Unit> {
+        val best = { reading(20f).apply { location = Coordinate(2.0, 3.0) } }
+        val arrival = { seconds: Long ->
+            reading(80f).apply {
+                location = Coordinate(4.0, 5.0)
+                time = Instant.EPOCH.plusSeconds(seconds)
+            }
+        }
+
+        assertFalse(module.update(previous, best()))
+        val recent = arrival(3)
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, recent))
+        assertEquals(Coordinate(2.0, 3.0), recent.location)
+        assertEquals(20f, recent.horizontalAccuracy)
+
+        module.start(previous)
+        assertFalse(module.update(previous, best()))
+        val stale = arrival(4)
+        nowMillis = 10_000L
+        assertTrue(module.update(previous, stale))
+        assertEquals(Coordinate(4.0, 5.0), stale.location)
+        assertEquals(80f, stale.horizontalAccuracy)
+    }
+
+    @Test
+    fun awaitingAcceptanceLeavesLaterReadingsAlone() = runBlocking<Unit> {
+        assertFalse(module.update(previous, reading(20f).apply { location = Coordinate(2.0, 3.0) }))
+
+        val stale = reading(80f).apply {
+            location = Coordinate(4.0, 5.0)
+            time = Instant.EPOCH.plusSeconds(4)
+        }
+        nowMillis = 5_000L
+        assertTrue(module.update(previous, stale))
+        assertEquals(Coordinate(4.0, 5.0), stale.location)
+
+        // The chosen fix reaches the pipeline once; later readings pass through as themselves.
+        val retry = reading(90f).apply {
+            location = Coordinate(6.0, 7.0)
+            time = Instant.EPOCH.plusSeconds(5)
+        }
+        assertTrue(module.update(previous, retry))
+        assertEquals(Coordinate(6.0, 7.0), retry.location)
+        assertEquals(90f, retry.horizontalAccuracy)
     }
 
     @Test
@@ -129,7 +177,7 @@ class AccuracyFilterGPSModuleTest {
         val newer = reading(100f).apply { time = Instant.EPOCH.plusSeconds(2) }
         nowMillis = 6_000L
         assertTrue(module.update(previous, newer))
-        assertEquals(first.time, newer.time)
+        assertEquals(Instant.EPOCH.plusSeconds(2), newer.time)
         previous.time = first.time
         newer.time = first.time.plusSeconds(1)
         assertFalse(module.update(previous, newer))

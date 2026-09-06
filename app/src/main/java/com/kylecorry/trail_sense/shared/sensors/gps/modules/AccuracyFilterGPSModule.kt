@@ -9,10 +9,11 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Duration
 
 /**
  * Rejects readings which do not meet the user's accuracy filter for a bounded time.
- * After the wait, the most accurate reading seen during the wait can update the location.
+ * After the wait, the most accurate recent reading seen during the wait can update the location (if available, otherwise the next reading).
  */
 class AccuracyFilterGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
@@ -45,8 +46,8 @@ class AccuracyFilterGPSModule(
             return true
         }
 
+        // It hit a timeout and the candidate wasn't accepted, so just take whatever is next
         if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
-            bestReading?.copyInto(newData)
             logger.debug(TAG, "Location Accepted: awaiting pipeline acceptance for fallback")
             return true
         }
@@ -56,6 +57,10 @@ class AccuracyFilterGPSModule(
             bestReading = null
         }
 
+        // Only consider a recent best reading
+        bestReading = bestReading?.takeIf {
+            Duration.between(it.time, newData.time) <= MAX_RETAINED_FIX_AGE
+        }
         val best = bestReading
         if (best == null || accuracy <= (best.horizontalAccuracy ?: Float.POSITIVE_INFINITY)) {
             bestReading = ModularGPSData().also { newData.copyInto(it) }
@@ -92,5 +97,6 @@ class AccuracyFilterGPSModule(
 
     companion object {
         private const val TAG = "AccuracyFilterGPSModule"
+        private val MAX_RETAINED_FIX_AGE: Duration = Duration.ofSeconds(2)
     }
 }
