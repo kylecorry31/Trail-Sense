@@ -197,6 +197,44 @@ class KalmanGPSModuleTest {
     }
 
     @Test
+    fun republishedFixReportsTheEstimateWhileRunningAheadOfTheAcceptedReading() =
+        runBlocking<Unit> {
+            val accepted = acceptFirstFix(module)
+            val absorbed = reading(2, 1.001)
+            module.update(accepted, absorbed)
+
+            val republished = reading(1, 1.5)
+            assertTrue(module.update(accepted, republished))
+            assertEquals(absorbed.location, republished.location)
+        }
+
+    @Test
+    fun republishedFixLeavesTheFilterRunningAheadUnchanged() = runBlocking<Unit> {
+        suspend fun advance(module: KalmanGPSModule, republish: Boolean): ModularGPSData {
+            val accepted = acceptFirstFix(module)
+            // Absorbed, then rejected downstream, so the accepted reading stays behind the filter.
+            module.update(accepted, reading(2, 1.001))
+            if (republish) {
+                module.update(accepted, reading(1, 1.5))
+            }
+            return reading(3, 1.002).also { module.update(accepted, it) }
+        }
+
+        val withRepublish = advance(KalmanGPSModule(prefs, mock()), true)
+        val without = advance(KalmanGPSModule(prefs, mock()), false)
+        assertEquals(without.location, withRepublish.location)
+        assertEquals(without.horizontalAccuracy, withRepublish.horizontalAccuracy)
+    }
+
+    private suspend fun acceptFirstFix(module: KalmanGPSModule): ModularGPSData {
+        val accepted = ModularGPSData(time = Instant.EPOCH)
+        val published = reading(1)
+        module.update(accepted, published)
+        published.copyInto(accepted)
+        return accepted
+    }
+
+    @Test
     fun usesTimeEvenWhenElapsedTimeMovesBackward() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(2, 1.001).apply { fixTimeElapsedNanos = 0 }

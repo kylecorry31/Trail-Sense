@@ -58,9 +58,9 @@ class KalmanGPSModule(
 
         val lastTime = time
         val lastLocation = location
-        // The location cache stores timestamps with millisecond precision.
         val sameFix = lastTime != null &&
-            lastTime.toEpochMilli() == newData.time.toEpochMilli()
+            (newData.time <= previousData.time ||
+                lastTime.toEpochMilli() == newData.time.toEpochMilli())
 
         if (!sameFix) {
             val seconds = if (lastTime != null) {
@@ -131,7 +131,7 @@ class KalmanGPSModule(
     private fun needsReset(previous: ModularGPSData, next: ModularGPSData): Boolean {
         if (next.time < previous.time) return true
         val lastTime = time ?: return false
-        return next.time < lastTime
+        return next.time > previous.time && next.time < lastTime
     }
 
     private fun updateVelocity(data: ModularGPSData) {

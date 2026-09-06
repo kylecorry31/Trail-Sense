@@ -84,11 +84,11 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
                     listOf(
                         BadReadingFilterGPSModule(),
                         SatelliteFixFilterGPSModule(),
-                        AccuracyFilterGPSModule(),
                         MeanSeaLevelGPSModule(),
                         SpeedGPSModule(),
-                        TimeoutGPSModule(notifyTimeout),
                         KalmanGPSModule(),
+                        AccuracyFilterGPSModule(),
+                        TimeoutGPSModule(notifyTimeout),
                         CacheGPSModule()
                     )
                 )
