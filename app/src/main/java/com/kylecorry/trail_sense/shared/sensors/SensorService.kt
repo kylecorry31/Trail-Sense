@@ -80,8 +80,10 @@ class SensorService(ctx: Context) {
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
 
-    fun getGPS(frequency: Duration = DEFAULT_GPS_FREQUENCY): ISatelliteGPS {
-
+    fun getGPS(
+        frequency: Duration = DEFAULT_GPS_FREQUENCY,
+        useCache: Boolean = false
+    ): ISatelliteGPS {
         val hasPermission = hasLocationPermission()
 
         if (!userPrefs.gps.useAutoLocation || (!hasPermission && userPrefs.gps.hasLocationOverride)) {
@@ -92,7 +94,7 @@ class SensorService(ctx: Context) {
             return TimezoneGPS(frequency.toMillis())
         }
 
-        if (GPS.isAvailable(context)) {
+        if (!useCache && GPS.isAvailable(context)) {
             return CustomGPS(context, frequency)
         }
 

@@ -20,7 +20,7 @@ class BadReadingFilterGPSModule(
     private val logger: Logger = getAppService()
 ) : GPSModule {
 
-    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (!newData.hasValidReading) {
             return false
         }

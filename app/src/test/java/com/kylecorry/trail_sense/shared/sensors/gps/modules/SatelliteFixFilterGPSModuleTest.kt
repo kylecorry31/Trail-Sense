@@ -3,12 +3,13 @@ package com.kylecorry.trail_sense.shared.sensors.gps.modules
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Instant
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import java.time.Instant
 
 class SatelliteFixFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
@@ -25,7 +26,7 @@ class SatelliteFixFilterGPSModuleTest {
     private fun reading(satellites: Int?) = ModularGPSData(satellites = satellites)
 
     @Test
-    fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() {
+    fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() = runBlocking<Unit> {
         previous.time = Instant.EPOCH
         val first = reading(3).apply { time = Instant.EPOCH.plusSeconds(1) }
         assertFalse(module.update(previous, first))
@@ -43,7 +44,7 @@ class SatelliteFixFilterGPSModuleTest {
     }
 
     @Test
-    fun lifecycleResetsPendingFallback() {
+    fun lifecycleResetsPendingFallback() = runBlocking<Unit> {
         previous.time = Instant.EPOCH
         val candidate = reading(3).apply { time = Instant.EPOCH.plusSeconds(1) }
         assertFalse(module.update(previous, candidate))
@@ -58,7 +59,7 @@ class SatelliteFixFilterGPSModuleTest {
     }
 
     @Test
-    fun rejectsInsufficientSatellitesUntilTheWaitExpires() {
+    fun rejectsInsufficientSatellitesUntilTheWaitExpires() = runBlocking<Unit> {
         assertFalse(module.update(previous, reading(3)))
         nowMillis = 4_999L
         assertFalse(module.update(previous, reading(3)))
@@ -67,7 +68,7 @@ class SatelliteFixFilterGPSModuleTest {
     }
 
     @Test
-    fun acceptingAReadingResetsTheWait() {
+    fun acceptingAReadingResetsTheWait() = runBlocking<Unit> {
         assertFalse(module.update(previous, reading(3)))
         nowMillis = 4_000L
         assertTrue(module.update(previous, reading(4)))
@@ -80,7 +81,7 @@ class SatelliteFixFilterGPSModuleTest {
     }
 
     @Test
-    fun unknownSatelliteCountAndDisabledRequirementAreAccepted() {
+    fun unknownSatelliteCountAndDisabledRequirementAreAccepted() = runBlocking<Unit> {
         assertTrue(module.update(previous, reading(null)))
         assertFalse(module.update(previous, reading(3)))
 
@@ -92,7 +93,7 @@ class SatelliteFixFilterGPSModuleTest {
     }
 
     @Test
-    fun startingAndStoppingResetTheWait() {
+    fun startingAndStoppingResetTheWait() = runBlocking<Unit> {
         assertFalse(module.update(previous, reading(3)))
         nowMillis = 4_000L
         module.stop(previous)

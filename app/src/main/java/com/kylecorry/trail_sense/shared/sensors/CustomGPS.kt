@@ -7,12 +7,15 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
+import com.kylecorry.luna.subscriptions.generic.Subscription
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipelineConsumer
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
@@ -78,11 +81,11 @@ class CustomGPS(
     private val data: ModularGPSData
         get() = consumer.reading
 
-    init {
-        if (baseGPS.hasValidReading) {
-            updateGPSData()
-        }
-    }
+    private val updates = Subscription<ModularGPSData>(
+        replay = 1, // Replay is temporary until the luna onSubscription change is in place to avoid missed readings
+        onStart = { withContext(NonCancellable) { consumer.start() } },
+        onStop = { withContext(NonCancellable) { consumer.stop() } }
+    )
 
     @SuppressLint("MissingPermission")
     override fun startImpl() {
@@ -90,24 +93,24 @@ class CustomGPS(
             return
         }
 
-        consumer.start()
+        updates.subscribe(this::updateGPSData)
         baseGPS.start(this::onLocationUpdate)
     }
 
     override fun stopImpl() {
         baseGPS.stop(this::onLocationUpdate)
-        consumer.stop()
+        updates.unsubscribe(this::updateGPSData)
     }
 
     private fun onLocationUpdate(): Boolean {
-        if (updateGPSData()) {
-            notifyListeners()
-        }
+        updates.publish(ModularGPSData().also { it.populateFromGPS(baseGPS) })
         return true
     }
 
-    private fun updateGPSData(): Boolean {
-        return consumer.update(baseGPS)
+    private suspend fun updateGPSData(reading: ModularGPSData) {
+        if (consumer.update(reading)) {
+            notifyListeners()
+        }
     }
 
     private fun hadRecentValidReading(): Boolean {

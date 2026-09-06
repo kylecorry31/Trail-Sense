@@ -2,16 +2,16 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui.mappers
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 
 class IMapMapper(
-    gps: IGPS,
+    location: () -> Coordinate,
     context: Context,
     lifecycleOwner: LifecycleOwner,
     photoMapActionHandler: (PhotoMap, MapAction) -> Unit,
@@ -19,9 +19,9 @@ class IMapMapper(
     mapGroupActionHandler: (MapGroup, MapGroupAction) -> Unit,
 ) : ListItemMapper<OfflineMapCatalogItem> {
 
-    private val mapMapper = PhotoMapListItemMapper(gps, context, lifecycleOwner, photoMapActionHandler)
+    private val mapMapper = PhotoMapListItemMapper(location, context, lifecycleOwner, photoMapActionHandler)
     private val mapGroupMapper = MapGroupMapper(context, mapGroupActionHandler)
-    private val trailMapMapper = TrailMapListItemMapper(gps, context, trailMapActionHandler)
+    private val trailMapMapper = TrailMapListItemMapper(location, context, trailMapActionHandler)
 
     override fun map(value: OfflineMapCatalogItem): ListItem {
         return when (value) {

@@ -5,9 +5,10 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Instant
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.time.Instant
 
 class SpeedGPSModuleTest {
     private val module = SpeedGPSModule()
@@ -20,14 +21,14 @@ class SpeedGPSModuleTest {
     )
 
     @Test
-    fun keepsFirstReadingSpeedWithoutHistory() {
+    fun keepsFirstReadingSpeedWithoutHistory() = runBlocking<Unit> {
         val candidate = reading(0)
         assertTrue(module.update(previous, candidate))
         assertEquals(0f, candidate.speed.value)
     }
 
     @Test
-    fun preservesReportedNonzeroSpeed() {
+    fun preservesReportedNonzeroSpeed() = runBlocking<Unit> {
         module.update(previous, reading(0))
         val candidate = reading(1000, 1.001, 3f)
         module.update(previous, candidate)
@@ -35,7 +36,7 @@ class SpeedGPSModuleTest {
     }
 
     @Test
-    fun estimatesMissingSpeedFromMovementAndElapsedTime() {
+    fun estimatesMissingSpeedFromMovementAndElapsedTime() = runBlocking<Unit> {
         module.update(previous, reading(0))
         val candidate = reading(10000, 1.001)
         module.update(previous, candidate)
@@ -45,7 +46,7 @@ class SpeedGPSModuleTest {
     }
 
     @Test
-    fun keepsSpeedZeroWhenMovementIsWithinAccuracy() {
+    fun keepsSpeedZeroWhenMovementIsWithinAccuracy() = runBlocking<Unit> {
         module.update(previous, reading(0))
         val candidate = reading(1000, 1.000001)
         module.update(previous, candidate)
@@ -53,7 +54,7 @@ class SpeedGPSModuleTest {
     }
 
     @Test
-    fun frequentUpdatesDoNotEvictHistoryBeforeOneSecond() {
+    fun frequentUpdatesDoNotEvictHistoryBeforeOneSecond() = runBlocking<Unit> {
         module.update(previous, reading(0))
         for (millis in 1L..20L) {
             module.update(previous, reading(millis, 1.001, 1f))

@@ -28,7 +28,7 @@ class KalmanGPSModule(
     private var reportedAccuracy = 50f
     private var time: Instant? = null
 
-    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (!prefs.useFilteredGPS) {
             location = null
             time = null

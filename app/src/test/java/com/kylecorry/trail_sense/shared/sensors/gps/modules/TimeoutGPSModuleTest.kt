@@ -3,17 +3,18 @@ package com.kylecorry.trail_sense.shared.sensors.gps.modules
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Instant
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import java.time.Instant
 
 class TimeoutGPSModuleTest {
     private val timer = mock<ITimer>()
-    private lateinit var fireTimeout: () -> Unit
+    private lateinit var fireTimeout: suspend () -> Unit
     private val data = ModularGPSData(time = Instant.EPOCH)
     private val notifications = mutableListOf<Boolean>()
     private val module: TimeoutGPSModule = TimeoutGPSModule(
@@ -24,7 +25,7 @@ class TimeoutGPSModuleTest {
 
     private fun timedOut() = data.isTimedOut
 
-    private fun accept(candidate: ModularGPSData): Boolean {
+    private suspend fun accept(candidate: ModularGPSData): Boolean {
         val accepted = module.update(data, candidate)
         if (accepted) {
             candidate.copyInto(data)
@@ -33,7 +34,7 @@ class TimeoutGPSModuleTest {
     }
 
     @Test
-    fun startSchedulesTimeoutAndStopIgnoresPendingCallback() {
+    fun startSchedulesTimeoutAndStopIgnoresPendingCallback() = runBlocking<Unit> {
         module.start(data)
         verify(timer).once(SensorService.GPS_READ_TIMEOUT)
         module.stop(data)
@@ -43,7 +44,7 @@ class TimeoutGPSModuleTest {
     }
 
     @Test
-    fun marksTimedOutBeforeNotifyingWithoutRearming() {
+    fun marksTimedOutBeforeNotifyingWithoutRearming() = runBlocking<Unit> {
         module.start(data)
         fireTimeout()
         assertTrue(data.isTimedOut)
@@ -52,7 +53,7 @@ class TimeoutGPSModuleTest {
     }
 
     @Test
-    fun acceptedUpdateClearsTimeoutAndReschedulesWhileStarted() {
+    fun acceptedUpdateClearsTimeoutAndReschedulesWhileStarted() = runBlocking<Unit> {
         module.start(data)
         fireTimeout()
         assertTrue(accept(ModularGPSData()))
@@ -62,14 +63,14 @@ class TimeoutGPSModuleTest {
     }
 
     @Test
-    fun updatesWhileStoppedDoNotScheduleTimer() {
+    fun updatesWhileStoppedDoNotScheduleTimer() = runBlocking<Unit> {
         assertTrue(accept(ModularGPSData()))
         assertFalse(data.isTimedOut)
         verify(timer, never()).once(SensorService.GPS_READ_TIMEOUT)
     }
 
     @Test
-    fun secondaryUpdatesDoNotPostponeTimeoutOrClearTimedOutState() {
+    fun secondaryUpdatesDoNotPostponeTimeoutOrClearTimedOutState() = runBlocking<Unit> {
         module.start(data)
         val duplicate = ModularGPSData(time = data.time.plusNanos(123456), satellites = 6)
         repeat(20) {
@@ -89,7 +90,7 @@ class TimeoutGPSModuleTest {
     }
 
     @Test
-    fun restartSchedulesTimeoutAgain() {
+    fun restartSchedulesTimeoutAgain() = runBlocking<Unit> {
         module.start(data)
         module.stop(data)
         module.start(data)

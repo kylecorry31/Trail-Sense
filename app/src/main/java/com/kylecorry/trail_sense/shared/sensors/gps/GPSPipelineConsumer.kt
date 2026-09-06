@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.sol.units.Coordinate
 
 internal class GPSPipelineConsumer(
@@ -12,15 +11,15 @@ internal class GPSPipelineConsumer(
     val reading: ModularGPSData
         get() = pipeline.reading
 
-    fun start() {
+    suspend fun start() {
         pipeline.start(this, notifyTimeout)
     }
 
-    fun stop() {
+    suspend fun stop() {
         pipeline.stop(this)
     }
 
-    fun update(gps: ISatelliteGPS): Boolean {
+    suspend fun update(gps: ModularGPSData): Boolean {
         val latest = pipeline.update(gps)
         if (latest.location == Coordinate.zero) return false
         val isNewToConsumer = latest.time.toEpochMilli() != delivered.time.toEpochMilli()

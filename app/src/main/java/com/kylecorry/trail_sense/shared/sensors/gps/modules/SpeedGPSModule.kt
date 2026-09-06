@@ -13,7 +13,7 @@ import java.time.Instant
 class SpeedGPSModule : GPSModule {
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
 
-    override fun update(
+    override suspend fun update(
         previousData: ModularGPSData,
         newData: ModularGPSData
     ): Boolean {

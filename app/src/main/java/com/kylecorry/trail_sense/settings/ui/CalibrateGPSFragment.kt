@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -16,11 +17,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
+import kotlinx.coroutines.launch
 
 
 class CalibrateGPSFragment : AndromedaPreferenceFragment() {
@@ -180,7 +182,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     }
 
     private fun clearCache() {
-        CacheGPSModule.clearCache()
+        lifecycleScope.launch { CacheGPSModule.clearCache() }
     }
 
     private fun update() {

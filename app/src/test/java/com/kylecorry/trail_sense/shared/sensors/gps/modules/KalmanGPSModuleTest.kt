@@ -8,10 +8,11 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Instant
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
-import java.time.Instant
 
 class KalmanGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
@@ -28,7 +29,7 @@ class KalmanGPSModuleTest {
     )
 
     @Test
-    fun predictsUsingCachedVelocityInEachDirection() {
+    fun predictsUsingCachedVelocityInEachDirection() = runBlocking<Unit> {
         for (direction in listOf(0f, 90f, 180f, 270f)) {
             val filter = KalmanGPSModule(prefs, mock())
             val cached = reading(1).apply {
@@ -44,7 +45,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun missingBearingDoesNotAssumeNorthwardMotion() {
+    fun missingBearingDoesNotAssumeNorthwardMotion() = runBlocking<Unit> {
         val cached = reading(1).apply {
             speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
         }
@@ -54,7 +55,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun newVelocityIsUsedForFollowingFix() {
+    fun newVelocityIsUsedForFollowingFix() = runBlocking<Unit> {
         val first = reading(1).apply {
             bearing = Bearing.from(90f)
             speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
@@ -70,7 +71,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun initializesFromCachedPreviousReading() {
+    fun initializesFromCachedPreviousReading() = runBlocking<Unit> {
         val cached = reading(1).apply { fixTimeElapsedNanos = null }
         val next = reading(2, 1.001)
         module.update(cached, next)
@@ -86,7 +87,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun cachedFixIsNotFilteredAgain() {
+    fun cachedFixIsNotFilteredAgain() = runBlocking<Unit> {
         val cached = reading(1).apply { fixTimeElapsedNanos = null }
         val duplicate = reading(1, 1.001).apply { time = time.plusNanos(123456) }
         module.update(cached, duplicate)
@@ -95,7 +96,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun resynchronizesWithNewerReadingFromAnotherInstance() {
+    fun resynchronizesWithNewerReadingFromAnotherInstance() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val other = KalmanGPSModule(prefs, mock())
         val cached = reading(2, 1.001)
@@ -115,7 +116,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun restoredNewerFixIsNotFilteredAgain() {
+    fun restoredNewerFixIsNotFilteredAgain() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val cached = reading(3, 1.002).apply { horizontalAccuracy = 4f }
         val duplicate = reading(3, 1.003).apply { time = time.plusNanos(123456) }
@@ -125,7 +126,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun ignoresPreviousReadingFromTheFuture() {
+    fun ignoresPreviousReadingFromTheFuture() = runBlocking<Unit> {
         val next = reading(1)
         assertTrue(module.update(reading(2, 1.001), next))
         assertEquals(Coordinate(1.0, 1.0), next.location)
@@ -133,7 +134,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun smoothsPositionAndRetainsStateAcrossRestarts() {
+    fun smoothsPositionAndRetainsStateAcrossRestarts() = runBlocking<Unit> {
         module.update(previous, reading(1))
         module.stop(previous)
         module.start(previous)
@@ -145,7 +146,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun duplicateFixReusesEstimateWithoutReducingUncertainty() {
+    fun duplicateFixReusesEstimateWithoutReducingUncertainty() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(2, 1.001)
         module.update(previous, next)
@@ -158,7 +159,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun deduplicatesByTimeWhenElapsedTimeIsUnavailable() {
+    fun deduplicatesByTimeWhenElapsedTimeIsUnavailable() = runBlocking<Unit> {
         module.update(previous, reading(1).apply { fixTimeElapsedNanos = null })
         val duplicate = reading(1).apply { fixTimeElapsedNanos = null }
         module.update(previous, duplicate)
@@ -166,7 +167,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun identicalCoordinatesWithNewFixTimeAreNewMeasurements() {
+    fun identicalCoordinatesWithNewFixTimeAreNewMeasurements() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(2)
         module.update(previous, next)
@@ -174,7 +175,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun resetsForOlderFixes() {
+    fun resetsForOlderFixes() = runBlocking<Unit> {
         module.update(previous, reading(2))
         val next = reading(1, 1.001)
         assertTrue(module.update(previous, next))
@@ -187,7 +188,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun resetsWhenNewTimePrecedesPreviousData() {
+    fun resetsWhenNewTimePrecedesPreviousData() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(2, 1.001)
         module.update(reading(3), next)
@@ -196,7 +197,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun usesTimeEvenWhenElapsedTimeMovesBackward() {
+    fun usesTimeEvenWhenElapsedTimeMovesBackward() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(2, 1.001).apply { fixTimeElapsedNanos = 0 }
         module.update(previous, next)
@@ -205,7 +206,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun deduplicatesTimeEvenWhenElapsedTimeChanges() {
+    fun deduplicatesTimeEvenWhenElapsedTimeChanges() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(1, 1.001).apply { fixTimeElapsedNanos = 2_000_000_000 }
         module.update(previous, next)
@@ -214,7 +215,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun uncertaintyGrowsDuringLongPause() {
+    fun uncertaintyGrowsDuringLongPause() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(3601, 1.001)
         module.update(previous, next)
@@ -222,7 +223,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun fifteenSecondIntervalStillUsesThePreviousEstimate() {
+    fun fifteenSecondIntervalStillUsesThePreviousEstimate() = runBlocking<Unit> {
         val first = reading(1)
         module.update(previous, first)
         val next = reading(16, 1.001)
@@ -232,7 +233,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun supportsVariableBacktrackIntervalsAcrossStopsAndRestarts() {
+    fun supportsVariableBacktrackIntervalsAcrossStopsAndRestarts() = runBlocking<Unit> {
         val last = reading(1).apply {
             speed = Speed.from(30f, DistanceUnits.Meters, TimeUnits.Seconds)
             rawBearing = 90f
@@ -258,7 +259,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun longGapRetainsMeasurementUncertaintyForFollowingFix() {
+    fun longGapRetainsMeasurementUncertaintyForFollowingFix() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val sparse = reading(1 + 365L * 86400, 1.001)
         module.update(previous, sparse)
@@ -272,7 +273,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun reducesStationaryNoiseAtOneHertz() {
+    fun reducesStationaryNoiseAtOneHertz() = runBlocking<Unit> {
         val truth = Coordinate(1.0, 1.0)
         val random = java.util.Random(42)
         var rawSquaredError = 0.0
@@ -298,7 +299,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun tracksDrivingAtOneHertzWithoutAccumulatingLag() {
+    fun tracksDrivingAtOneHertzWithoutAccumulatingLag() = runBlocking<Unit> {
         val origin = Coordinate(1.0, 1.0)
         val last = ModularGPSData(time = Instant.EPOCH)
         repeat(120) { index ->
@@ -317,8 +318,8 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun uncertainVelocityTrustsPositionMoreThanPreciseVelocity() {
-        fun filtered(error: Float): ModularGPSData {
+    fun uncertainVelocityTrustsPositionMoreThanPreciseVelocity() = runBlocking<Unit> {
+        suspend fun filtered(error: Float): ModularGPSData {
             val filter = KalmanGPSModule(prefs, mock())
             val first = reading(1).apply {
                 speed = Speed.from(20f, DistanceUnits.Meters, TimeUnits.Seconds)
@@ -334,7 +335,7 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun handlesAntimeridianAndInvalidAccuracy() {
+    fun handlesAntimeridianAndInvalidAccuracy() = runBlocking<Unit> {
         module.update(previous, reading(1, 179.999))
         val next = reading(2, -179.999).apply { horizontalAccuracy = Float.NaN }
         module.update(previous, next)

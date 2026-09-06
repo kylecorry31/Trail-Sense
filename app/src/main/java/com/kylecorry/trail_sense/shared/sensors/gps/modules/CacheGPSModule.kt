@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
-import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.json.JsonConvert
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -10,8 +10,8 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.ProguardIgnore
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
@@ -37,7 +37,7 @@ class CacheGPSModule(
     private val cache: IPreferences = getAppService<PreferencesSubsystem>().preferences
 ) : GPSModule {
 
-    override fun initialize(data: ModularGPSData): Boolean {
+    override suspend fun initialize(data: ModularGPSData): Boolean {
         if (!hasNewerReading(data)) {
             return false
         }
@@ -45,7 +45,7 @@ class CacheGPSModule(
         return true
     }
 
-    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         val bearing = newData.rawBearing ?: newData.bearing?.value
         val data = GPSCacheData(
             kalmanVariance = newData.kalmanVariance?.takeIf { it.isFinite() && it >= 0.0 },
@@ -105,7 +105,7 @@ class CacheGPSModule(
     companion object {
         const val LAST_GPS = "last_gps"
 
-        fun clearCache() {
+        suspend fun clearCache() {
             SharedGPSPipeline.clearSharedCache {
                 val cache = getAppService<PreferencesSubsystem>().preferences
                 cache.remove(LAST_GPS)

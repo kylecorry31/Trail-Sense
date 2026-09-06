@@ -15,9 +15,9 @@ import java.time.Instant
  * Run after modules which can reject a reading so rejected readings do not reset the timeout.
  */
 class TimeoutGPSModule(
-    private val notifyListeners: () -> Unit,
+    private val notifyListeners: suspend () -> Unit,
     private val logger: Logger = getAppService(),
-    timerFactory: (() -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
+    timerFactory: (suspend () -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
 ) : GPSModule {
 
     private val timeout = timerFactory { onTimeout() }
@@ -26,18 +26,18 @@ class TimeoutGPSModule(
     @Volatile
     private var isStarted = false
 
-    override fun start(data: ModularGPSData) {
+    override suspend fun start(data: ModularGPSData) {
         this.data = data
         isStarted = true
         timeout.once(TIMEOUT_DURATION)
     }
 
-    override fun stop(data: ModularGPSData) {
+    override suspend fun stop(data: ModularGPSData) {
         isStarted = false
         timeout.stop()
     }
 
-    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         // Secondary-field updates are not new fixes and must not postpone the timeout.
         if (newData.time.toEpochMilli() == previousData.time.toEpochMilli()) {
             newData.isTimedOut = previousData.isTimedOut
@@ -50,7 +50,7 @@ class TimeoutGPSModule(
         return true
     }
 
-    private fun onTimeout() {
+    private suspend fun onTimeout() {
         if (!isStarted) {
             return
         }

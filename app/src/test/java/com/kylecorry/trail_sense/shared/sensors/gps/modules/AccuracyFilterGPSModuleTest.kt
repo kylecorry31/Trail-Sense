@@ -5,12 +5,13 @@ import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Instant
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import java.time.Instant
 
 class AccuracyFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
@@ -29,7 +30,7 @@ class AccuracyFilterGPSModuleTest {
     )
 
     @Test
-    fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() {
+    fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() = runBlocking<Unit> {
         previous.time = Instant.EPOCH
         val first = reading(100f).apply { time = Instant.EPOCH.plusSeconds(1) }
         assertFalse(module.update(previous, first))
@@ -47,7 +48,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun lifecycleResetsPendingFallback() {
+    fun lifecycleResetsPendingFallback() = runBlocking<Unit> {
         previous.time = Instant.EPOCH
         val candidate = reading(100f).apply { time = Instant.EPOCH.plusSeconds(1) }
         assertFalse(module.update(previous, candidate))
@@ -62,7 +63,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun acceptsEveryReadingWhenNoAccuracyIsRequired() {
+    fun acceptsEveryReadingWhenNoAccuracyIsRequired() = runBlocking<Unit> {
         whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.None)
         repeat(10) {
             assertTrue(module.update(previous, reading(1000f)))
@@ -70,20 +71,20 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun acceptsReadingsMeetingTheRequirement() {
+    fun acceptsReadingsMeetingTheRequirement() = runBlocking<Unit> {
         assertTrue(module.update(previous, reading(16f)))
         assertTrue(module.update(previous, reading(1f)))
     }
 
     @Test
-    fun acceptsReadingsWithAnUnusableAccuracy() {
+    fun acceptsReadingsWithAnUnusableAccuracy() = runBlocking<Unit> {
         assertTrue(module.update(previous, reading(null)))
         assertTrue(module.update(previous, reading(0f)))
         assertTrue(module.update(previous, reading(-1f)))
     }
 
     @Test
-    fun mediumAcceptsAfterFiveSecondsRegardlessOfCallbackCount() {
+    fun mediumAcceptsAfterFiveSecondsRegardlessOfCallbackCount() = runBlocking<Unit> {
         val candidate = reading(17f)
         assertFalse(module.update(previous, candidate))
         nowMillis = 4_999L
@@ -103,7 +104,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun accurateReadingResetsTheWait() {
+    fun accurateReadingResetsTheWait() = runBlocking<Unit> {
         assertFalse(module.update(previous, reading(17f)))
         nowMillis = 4_000L
         assertTrue(module.update(previous, reading(5f)))
@@ -115,7 +116,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun highAcceptsAfterTenSecondsEvenWithSparseCallbacks() {
+    fun highAcceptsAfterTenSecondsEvenWithSparseCallbacks() = runBlocking<Unit> {
         whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.High)
         assertTrue(module.update(previous, reading(8f)))
         assertFalse(module.update(previous, reading(9f)))
@@ -126,7 +127,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun restartingResetsTheWait() {
+    fun restartingResetsTheWait() = runBlocking<Unit> {
         module.start(previous)
         assertFalse(module.update(previous, reading(100f)))
         module.stop(previous)
@@ -138,7 +139,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun unknownAccuracyResetsTheWait() {
+    fun unknownAccuracyResetsTheWait() = runBlocking<Unit> {
         assertFalse(module.update(previous, reading(100f)))
         nowMillis = 4_000L
         assertTrue(module.update(previous, reading(null)))
@@ -150,7 +151,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun disablingAccuracyFilterResetsTheWait() {
+    fun disablingAccuracyFilterResetsTheWait() = runBlocking<Unit> {
         assertFalse(module.update(previous, reading(100f)))
         nowMillis = 4_000L
         whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.None)
@@ -164,7 +165,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun doesNotModifyEitherReading() {
+    fun doesNotModifyEitherReading() = runBlocking<Unit> {
         val candidate = reading(17f)
         assertFalse(module.update(previous, candidate))
         assertTrue(previous.horizontalAccuracy == null)

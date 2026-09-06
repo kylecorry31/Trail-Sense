@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.tools.offline_maps.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 
 class TrailMapListItemMapper(
-    private val gps: IGPS,
+    private val location: () -> Coordinate,
     private val context: Context,
     private val actionHandler: (TrailMap, TrailMapAction) -> Unit
 ) : ListItemMapper<TrailMap> {
@@ -56,7 +56,7 @@ class TrailMapListItemMapper(
     }
 
     private fun getTags(value: TrailMap): List<ListItemTag> {
-        val onMap = value.bounds?.contains(gps.location) ?: false
+        val onMap = value.bounds?.contains(location()) ?: false
         return listOfNotNull(
             if (onMap) {
                 ListItemTag(

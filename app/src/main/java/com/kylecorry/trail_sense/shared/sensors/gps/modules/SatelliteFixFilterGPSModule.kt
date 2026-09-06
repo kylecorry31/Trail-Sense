@@ -18,15 +18,15 @@ class SatelliteFixFilterGPSModule(
 
     private val rejectionTracker = GPSRejectionTracker(timeProvider)
 
-    override fun start(data: ModularGPSData) {
+    override suspend fun start(data: ModularGPSData) {
         rejectionTracker.reset()
     }
 
-    override fun stop(data: ModularGPSData) {
+    override suspend fun stop(data: ModularGPSData) {
         rejectionTracker.reset()
     }
 
-    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
             logger.debug(TAG, "Location Accepted: awaiting pipeline acceptance for fallback")
             return true

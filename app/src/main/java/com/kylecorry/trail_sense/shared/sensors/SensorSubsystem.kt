@@ -23,7 +23,7 @@ class SensorSubsystem private constructor(private val context: Context) {
      */
     val lastKnownLocation: Coordinate
         get() {
-            return sensorService.getGPS().location
+            return sensorService.getGPS(useCache = true).location
         }
 
     /**
