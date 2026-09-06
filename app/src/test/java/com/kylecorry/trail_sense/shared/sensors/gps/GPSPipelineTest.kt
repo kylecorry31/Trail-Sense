@@ -60,13 +60,17 @@ class GPSPipelineTest {
             satellites = 3
             horizontalAccuracy = 100f
         }
+        // The pipeline stops at the first rejection, so the accuracy wait only starts once the
+        // satellite fallback opens and lets a reading reach the accuracy module.
+        val satelliteWait = 5_000L
+        val accuracyWait = GPSAccuracyFilter.High.maxAccuracyWait!!.toMillis()
         pipeline.start()
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(1)))
-        now = 5_000L
+        now = satelliteWait
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(2)))
-        now = 14_999L
+        now = satelliteWait + accuracyWait - 1
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(3)))
-        now = 15_000L
+        now = satelliteWait + accuracyWait
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(candidate(4)))
         assertEquals(candidate(4).time, pipeline.reading.time)
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(5)))
