@@ -358,8 +358,8 @@
     <string name="cirrostratus">卷层云</string>
     <string name="cirrocumulus">卷积云</string>
     <string name="cirrus">卷云</string>
-    <string name="pref_require_satellites_description">至少需要四颗卫星来改善精度</string>
-    <string name="pref_require_satellites_title">需要卫星修复</string>
+    <string name="pref_require_satellites_description">忽略未报告卫星数的读数</string>
+    <string name="pref_require_satellites_title">需要卫星数</string>
     <string name="clouds">云</string>
     <string name="unit_inches_abbreviation">英寸</string>
     <string name="unit_centimeters_abbreviation">厘米</string>
@@ -1641,6 +1641,8 @@
     <string name="delete_image_prompt">删除图片？</string>
     <string name="image_index">图片 %1$d/%2$d</string>
     <string name="last_updated">上次更新</string>
-    <string name="pref_filter_location_readings_title">筛选位置读数</string>
-    <string name="pref_filter_location_readings_description">忽略看起来比当前读数差的读数</string>
+    <string name="pref_filter_location_readings_title">拒绝无效读数</string>
+    <string name="pref_filter_location_readings_description">拒绝太不精确的读数或与先前读数不一致的读数</string>
+    <string name="pref_gps_accuracy_requirement_title">精度筛选器</string>
+    <string name="smooth_gps_readings_summary">降低 GPS 噪音</string>
 </resources>
