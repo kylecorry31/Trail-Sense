@@ -29,6 +29,49 @@ class KalmanGPSModuleTest {
     )
 
     @Test
+    fun invalidSpeedInitializesLikeMissingVelocity() = runBlocking<Unit> {
+        for (speed in listOf(-1f, Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY)) {
+            val invalid = reading(1).apply {
+                this.speed = Speed.from(speed, DistanceUnits.Meters, TimeUnits.Seconds)
+                rawBearing = 90f
+                speedAccuracy = 0.1f
+            }
+            val expected = reading(1)
+            KalmanGPSModule(prefs, mock()).update(previous, expected)
+            KalmanGPSModule(prefs, mock()).update(previous, invalid)
+            assertEquals(expected.kalmanState, invalid.kalmanState, "speed: $speed")
+        }
+    }
+
+    @Test
+    fun invalidSpeedCorrectsLikeMissingVelocity() = runBlocking<Unit> {
+        suspend fun correct(speed: Float, bearing: Float?): ModularGPSData {
+            val filter = KalmanGPSModule(prefs, mock())
+            val first = reading(1).apply {
+                this.speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
+                rawBearing = 90f
+                speedAccuracy = 0.1f
+            }
+            filter.update(previous, first)
+            return reading(2).apply {
+                this.speed = Speed.from(speed, DistanceUnits.Meters, TimeUnits.Seconds)
+                rawBearing = bearing
+                speedAccuracy = 0.1f
+                filter.update(first, this)
+            }
+        }
+
+        val expected = correct(0f, null)
+        for (speed in listOf(-1f, Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY)) {
+            val invalid = correct(speed, 90f)
+            assertEquals(expected.location, invalid.location, "speed: $speed")
+            assertEquals(expected.kalmanState, invalid.kalmanState, "speed: $speed")
+        }
+        // A valid zero speed must still be assimilated as a stationary measurement.
+        assertNotEquals(expected.kalmanState, correct(0f, 90f).kalmanState)
+    }
+
+    @Test
     fun predictsUsingCachedVelocityInEachDirection() = runBlocking<Unit> {
         for (direction in listOf(0f, 90f, 180f, 270f)) {
             val filter = KalmanGPSModule(prefs, mock())

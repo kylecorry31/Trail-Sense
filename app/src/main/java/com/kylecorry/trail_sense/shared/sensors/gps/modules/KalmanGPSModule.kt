@@ -195,7 +195,7 @@ class KalmanGPSModule(
 
     private fun getVelocity(data: ModularGPSData): VelocityMeasurement? {
         val speed = data.speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value
-            .takeIf { it.isFinite() && it >= 0f } ?: 0f
+            .takeIf { it.isFinite() && it >= 0f } ?: return null
         val direction = data.rawBearing?.takeIf { it.isFinite() }
             ?: data.bearing?.value?.takeIf { it.isFinite() }
             ?: return null
