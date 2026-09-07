@@ -920,7 +920,6 @@
     <string name="points">點數</string>
     <string name="ar_calibration_instructions">將個%s擺正畫面正中央，然後撳一下「校正」</string>
     <string name="reset_calibration_question">係咪要重設校正？</string>
-    <string name="smooth_gps_readings">平滑化 GPS 讀數</string>
     <string name="use_path_elevation">用路徑海拔</string>
     <string name="duration">為時</string>
     <string name="elevation">海拔</string>

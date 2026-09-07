@@ -25,7 +25,7 @@ import org.mockito.kotlin.whenever
 class SharedGPSPipelineTest {
     private val cache = InMemoryPreferences()
     private val prefs = mock<IGPSPreferences> {
-        on { useFilteredGPS }.thenReturn(true)
+        on { smoothing }.thenReturn(100)
     }
     private val shared = SharedGPSPipeline {
         GPSPipeline(listOf(KalmanGPSModule(prefs, mock()), CacheGPSModule(cache)))
@@ -322,13 +322,13 @@ class SharedGPSPipelineTest {
         pipeline.update(reading(1))
         pipeline.update(reading(2, 1.001))
         assertTrue(pipeline.reading.location.longitude < 1.001)
-        whenever(prefs.useFilteredGPS).thenReturn(false)
+        whenever(prefs.smoothing).thenReturn(0)
         pipeline.update(reading(3, 1.002))
         assertEquals(reading(3, 1.002).location, pipeline.reading.location)
         val restored = ModularGPSData()
         CacheGPSModule(cache).restore(restored)
         assertNull(restored.kalmanState)
-        whenever(prefs.useFilteredGPS).thenReturn(true)
+        whenever(prefs.smoothing).thenReturn(100)
         pipeline.update(reading(4, 1.003))
         assertTrue(pipeline.reading.location.longitude > 1.002)
         assertTrue(pipeline.reading.location.longitude < 1.003)

@@ -1200,7 +1200,6 @@
     <string name="distance_to_target">Entfernung zum Ziel</string>
     <string name="creating_beacon">Wegpunkt wird erstellt</string>
     <string name="use_gyroscope_after_calibration">Nach der Kalibrierung Gyroskop benutzen</string>
-    <string name="smooth_gps_readings">GPS Messungen glätten</string>
     <string name="layers">Ebenen</string>
     <string name="quick_actions_are_unavailable">Schnellzugriff ist nicht verfügbar</string>
     <string name="augmented_reality_no_gyro_message">Augmented Reality lässt sich weiter verwenden, ist aber nicht mehr so genau.</string>

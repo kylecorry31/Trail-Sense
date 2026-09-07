@@ -29,14 +29,16 @@
             app:title="@string/pref_filter_location_readings_title"
             android:summary="@string/pref_filter_location_readings_description"/>
 
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
+        <SeekBarPreference
+            android:max="100"
             android:dependency="@string/pref_auto_location"
-            app:key="@string/pref_use_filtered_gps"
+            app:min="0"
+            app:defaultValue="50"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_smoothing"
+            app:seekBarIncrement="1"
             app:singleLineTitle="false"
-            app:title="@string/smooth_gps_readings"
-            android:summary="@string/smooth_gps_readings_summary"/>
+            app:title="@string/smoothing" />
 
         <ListPreference
             app:defaultValue="2"

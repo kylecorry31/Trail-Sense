@@ -20,6 +20,7 @@ import java.time.Instant
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -46,7 +47,9 @@ class KalmanGPSModule(
     )
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
-        if (!prefs.useFilteredGPS) {
+        val smoothing = prefs.smoothing.coerceIn(0, 100)
+        if (smoothing == 0) {
+            newData.kalmanState = null
             reset()
             return true
         }
@@ -80,7 +83,7 @@ class KalmanGPSModule(
             } else if (lastTime != null) {
                 val dt = Duration.between(lastTime, newData.time)
                     .let { it.seconds + it.nano / 1_000_000_000.0 }.toFloat()
-                predict(dt)
+                predict(dt, smoothing)
                 correct(newData)
                 rebaseIfNeeded()
                 time = newData.time
@@ -95,21 +98,22 @@ class KalmanGPSModule(
         return true
     }
 
-    private fun predict(dt: Float) {
+    private fun predict(dt: Float, smoothing: Int) {
         val kalman = filter ?: return
         transition[POSITION_EAST, VELOCITY_EAST] = dt
         transition[POSITION_NORTH, VELOCITY_NORTH] = dt
         kalman.F = transition
+        val accelerationNoise = 10f.pow(6f - 8f * smoothing / 100f)
         val dt2 = dt * dt
         val dt3 = dt2 * dt
-        processNoise[POSITION_EAST, POSITION_EAST] = ACCELERATION_NOISE_DENSITY * dt3 / 3f
-        processNoise[POSITION_NORTH, POSITION_NORTH] = ACCELERATION_NOISE_DENSITY * dt3 / 3f
-        processNoise[POSITION_EAST, VELOCITY_EAST] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
-        processNoise[POSITION_NORTH, VELOCITY_NORTH] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
-        processNoise[VELOCITY_EAST, POSITION_EAST] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
-        processNoise[VELOCITY_NORTH, POSITION_NORTH] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
-        processNoise[VELOCITY_EAST, VELOCITY_EAST] = ACCELERATION_NOISE_DENSITY * dt
-        processNoise[VELOCITY_NORTH, VELOCITY_NORTH] = ACCELERATION_NOISE_DENSITY * dt
+        processNoise[POSITION_EAST, POSITION_EAST] = accelerationNoise * dt3 / 3f
+        processNoise[POSITION_NORTH, POSITION_NORTH] = accelerationNoise * dt3 / 3f
+        processNoise[POSITION_EAST, VELOCITY_EAST] = accelerationNoise * dt2 / 2f
+        processNoise[POSITION_NORTH, VELOCITY_NORTH] = accelerationNoise * dt2 / 2f
+        processNoise[VELOCITY_EAST, POSITION_EAST] = accelerationNoise * dt2 / 2f
+        processNoise[VELOCITY_NORTH, POSITION_NORTH] = accelerationNoise * dt2 / 2f
+        processNoise[VELOCITY_EAST, VELOCITY_EAST] = accelerationNoise * dt
+        processNoise[VELOCITY_NORTH, VELOCITY_NORTH] = accelerationNoise * dt
         kalman.Q = processNoise
         kalman.predict()
     }
@@ -284,7 +288,6 @@ class KalmanGPSModule(
         private const val VELOCITY_NORTH = 3
         private const val DEFAULT_ACCURACY = 50f
         private const val DEFAULT_VELOCITY_VARIANCE = 9f
-        private const val ACCELERATION_NOISE_DENSITY = 0.01f
         private const val MAX_REFERENCE_DISTANCE = 200f
     }
 }

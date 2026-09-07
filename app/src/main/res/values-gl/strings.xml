@@ -1033,7 +1033,6 @@
     <string name="use_gyroscope_after_calibration_description">En lugar do compás (evita a deriva magnética)</string>
     <string name="reset_calibration_question">Restablecer a calibración?</string>
     <string name="use_path_elevation">Usar a elevación da ruta</string>
-    <string name="smooth_gps_readings">Lecturas de GPS suavizadas</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d mapa</item>
         <item quantity="other">%d mapas</item>

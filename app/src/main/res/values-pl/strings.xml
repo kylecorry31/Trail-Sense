@@ -1064,7 +1064,6 @@
     <string name="use_gyroscope_after_calibration_description">Zamiast Kompasu (zapobiega dryfowi magnetycznemu)</string>
     <string name="reset_calibration_question">Zresetować kalibrację?</string>
     <string name="use_path_elevation">Użyj wysokości ścieżki</string>
-    <string name="smooth_gps_readings">Zaokrąglij odczyty GPS</string>
     <plurals name="number_steps">
         <item quantity="one">%d krok</item>
         <item quantity="few">%d kroki</item>

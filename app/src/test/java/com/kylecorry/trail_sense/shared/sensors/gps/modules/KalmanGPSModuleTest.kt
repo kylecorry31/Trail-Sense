@@ -14,10 +14,11 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 class KalmanGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
-        on { useFilteredGPS }.thenReturn(true)
+        on { smoothing }.thenReturn(100)
     }
     private val module = KalmanGPSModule(prefs, mock())
     private val previous = ModularGPSData(time = Instant.EPOCH)
@@ -28,6 +29,44 @@ class KalmanGPSModuleTest {
         horizontalAccuracy = 10f,
         fixTimeElapsedNanos = seconds * 1_000_000_000
     ).apply { speedSource = SpeedSource.Provider }
+
+    @Test
+    fun zeroSmoothingBypassesAndClearsFilterState() = runBlocking<Unit> {
+        val first = reading(1)
+        module.update(previous, first)
+        whenever(prefs.smoothing).thenReturn(0)
+        val raw = reading(2, 1.001).apply { kalmanState = first.kalmanState }
+        module.update(first, raw)
+        assertEquals(Coordinate(1.0, 1.001), raw.location)
+        assertEquals(10f, raw.horizontalAccuracy)
+        assertNull(raw.kalmanState)
+
+        whenever(prefs.smoothing).thenReturn(100)
+        val next = reading(3, 1.002)
+        module.update(raw, next)
+        val expected = reading(3, 1.002)
+        KalmanGPSModule(prefs, mock()).update(raw, expected)
+        assertEquals(expected.kalmanState, next.kalmanState)
+    }
+
+    @Test
+    fun increasingSmoothingReducesResponseToPositionJump() = runBlocking<Unit> {
+        var previousError = -1f
+        for (smoothing in listOf(1, 25, 50, 75, 100)) {
+            whenever(prefs.smoothing).thenReturn(smoothing)
+            val filter = KalmanGPSModule(prefs, mock())
+            val first = reading(1)
+            filter.update(previous, first)
+            val next = reading(2, 1.001)
+            val measured = next.location
+            filter.update(first, next)
+            val error = measured.distanceTo(next.location)
+            assertTrue(error > previousError, "smoothing: $smoothing")
+            if (smoothing == 1) assertTrue(error < 0.1f)
+            if (smoothing == 100) assertTrue(error > 40f)
+            previousError = error
+        }
+    }
 
     @Test
     fun onlyProviderSpeedContributesVelocity() = runBlocking<Unit> {

@@ -1020,7 +1020,6 @@
     <string name="compass_dynamic_colors_summary">對基本方向使用動態顏色</string>
     <string name="pref_dialog_battery_log_summary">電池記錄已停用，歷史記錄和電量耗盡時間可能無法使用。你可以在設定中重新啟用此功能</string>
     <string name="continuous_calibration_description">只要有 GPS 定位就進行校正</string>
-    <string name="smooth_gps_readings">平滑化 GPS 讀數</string>
     <string name="cold">冷</string>
     <string name="last_lightning_strike_at">上一次雷擊在 %s</string>
     <string name="battery_settings_limit_accuracy">電池限制可能會降低準確性</string>

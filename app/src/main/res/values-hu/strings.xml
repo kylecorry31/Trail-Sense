@@ -1070,7 +1070,6 @@
     <string name="ar_calibration_instructions">Igazítsd a képernyő közepére a %s-*t és nyomd meg a \"Kalibrálás\"-t</string>
     <string name="use_gyroscope_after_calibration">Giroszkóp használata kalibrálás után</string>
     <string name="reset_calibration_question">Kalibráció visszaállítása?</string>
-    <string name="smooth_gps_readings">Simított GPS leolvasások</string>
     <string name="navigate_to_nearest_cell_signal">Navigálás a legközelebbi mobilhálózati jelhez</string>
     <string name="tool_quick_action_name">Eszköz: %s</string>
     <string name="mirror_camera">Kamera Tükör</string>

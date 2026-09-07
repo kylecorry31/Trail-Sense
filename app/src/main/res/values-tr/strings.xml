@@ -1075,7 +1075,6 @@
     <string name="no_qr_code_detected">QR kodu algılanmadı</string>
     <string name="select_from_gallery">Galeriden seç</string>
     <string name="scanning_image">Resim taranıyor</string>
-    <string name="smooth_gps_readings">Düzgün GPS okumaları</string>
     <string name="magnetometer_gyro_custom">Manyetometre + Gyro (Özel)</string>
     <string name="pref_tiles_enabled_battery_log_summary">Pilin bitmesine kadar geçecek süreyi tahmin etmek için her saat pil yüzdesini kaydeder</string>
     <string name="pref_tiles_battery_log">Pil günlüğü</string>

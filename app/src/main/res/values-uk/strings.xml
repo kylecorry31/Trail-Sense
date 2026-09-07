@@ -1137,7 +1137,6 @@
     <string name="show_dial_ticks_on_nearby_radar_summary">У вашому пристрої немає компаса, але ви можете бачити, в якому напрямку знаходяться маячки.</string>
     <string name="augmented_reality_no_gyro_message">Ви все ще можете використовувати інструмент доповненої реальності, але він не буде таким точним.</string>
     <string name="ar_calibration_instructions">Відцентруйте %s на екрані та натисніть \"Калібрувати\"</string>
-    <string name="smooth_gps_readings">Плавні показники GPS</string>
     <string name="cloud_scanner">Зчитувач хмар</string>
     <string name="projection_estimated_intrinsics">Орієнтовні інтринсики</string>
     <string name="ar_layer_override_message">Налаштування шарів можуть бути замінені вказівками, наприклад, вказівками з астрономії.</string>
