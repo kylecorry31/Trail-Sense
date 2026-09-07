@@ -37,7 +37,7 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
     override val useFilteredGPS by BooleanPreference(
         cache,
         getString(R.string.pref_use_filtered_gps),
-        false
+        true
     )
 
     override val useNMEA by BooleanPreference(

@@ -504,6 +504,25 @@ class PreferenceMigratorTest {
         ).forEach { assertFalse(prefs.contains(it)) }
     }
 
+    @Test
+    fun migration31To32EnablesGpsSmoothingByDefault() {
+        val key = context.getString(R.string.pref_use_filtered_gps)
+
+        migrate(31)
+
+        assertEquals(true, prefs.getBoolean(key))
+    }
+
+    @Test
+    fun migration31To32EnablesGpsSmoothingForExistingUsers() {
+        val key = context.getString(R.string.pref_use_filtered_gps)
+        prefs.putBoolean(key, false)
+
+        migrate(31)
+
+        assertEquals(true, prefs.getBoolean(key))
+    }
+
     private fun migrate(fromVersion: Int) {
         val migration = PreferenceMigrator.migrations.first { it.fromVersion == fromVersion }
         migration.action(context, prefs)

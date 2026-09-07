@@ -29,6 +29,15 @@
             app:title="@string/pref_filter_location_readings_title"
             android:summary="@string/pref_filter_location_readings_description"/>
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            android:dependency="@string/pref_auto_location"
+            app:key="@string/pref_use_filtered_gps"
+            app:singleLineTitle="false"
+            app:title="@string/smooth_gps_readings"
+            android:summary="@string/smooth_gps_readings_summary"/>
+
         <ListPreference
             app:defaultValue="1"
             app:iconSpaceReserved="false"
