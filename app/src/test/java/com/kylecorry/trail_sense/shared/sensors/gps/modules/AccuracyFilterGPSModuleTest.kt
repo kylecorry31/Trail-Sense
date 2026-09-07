@@ -67,7 +67,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun theRetainedFixIsDroppedOnceItTrailsTheCurrentFix() = runBlocking<Unit> {
+    fun retainsBestFixForTwoSecondsAndDropsOlderCandidates() = runBlocking<Unit> {
         val best = { reading(20f).apply { location = Coordinate(2.0, 3.0) } }
         val arrival = { seconds: Long ->
             reading(80f).apply {

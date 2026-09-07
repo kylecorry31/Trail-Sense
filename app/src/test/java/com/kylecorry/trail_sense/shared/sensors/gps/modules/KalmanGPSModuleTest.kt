@@ -221,6 +221,7 @@ class KalmanGPSModuleTest {
             module.update(previous, duplicate)
             assertEquals(next.location, duplicate.location)
             assertEquals(next.horizontalAccuracy, duplicate.horizontalAccuracy)
+            assertEquals(next.kalmanState, duplicate.kalmanState)
         }
     }
 
@@ -234,10 +235,14 @@ class KalmanGPSModuleTest {
 
     @Test
     fun identicalCoordinatesWithNewFixTimeAreNewMeasurements() = runBlocking<Unit> {
-        module.update(previous, reading(1))
+        val first = reading(1)
+        module.update(previous, first)
         val next = reading(2)
-        module.update(previous, next)
+        module.update(first, next)
+        assertEquals(first.location, next.location)
         assertEquals(10f, next.horizontalAccuracy)
+        assertTrue(next.kalmanState!!.covariance[0][0] < first.kalmanState!!.covariance[0][0])
+        assertTrue(next.kalmanState!!.covariance[1][1] < first.kalmanState!!.covariance[1][1])
     }
 
     @Test

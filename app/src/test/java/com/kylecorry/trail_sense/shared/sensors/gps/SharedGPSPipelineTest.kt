@@ -186,6 +186,35 @@ class SharedGPSPipelineTest {
     }
 
     @Test
+    fun rejectedUpdateStillPublishesLazilyRestoredCache() = runBlocking<Unit> {
+        CacheGPSModule(cache).update(ModularGPSData(), reading(10))
+        val pipeline = SharedGPSPipeline {
+            GPSPipeline(listOf(
+                object : GPSModule {
+                    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData) = false
+                },
+                CacheGPSModule(cache)
+            ))
+        }
+        assertEquals(Coordinate.zero, pipeline.reading.location)
+        val restored = pipeline.update(reading(11, 2.0))
+        assertEquals(reading(10).location, restored.location)
+        assertEquals(reading(10).time, restored.time)
+        assertSame(restored, pipeline.reading)
+        assertSame(restored, pipeline.update(reading(12, 3.0)))
+    }
+
+    @Test
+    fun recoversWhenPreviousFixTimeIsInTheFuture() = runBlocking<Unit> {
+        val pipeline = SharedGPSPipeline { GPSPipeline(emptyList()) }
+        val future = reading(1).apply { time = Instant.now().plusSeconds(3600) }
+        pipeline.update(future)
+        val recovered = pipeline.update(reading(2, 2.0))
+        assertEquals(reading(2).time, recovered.time)
+        assertEquals(reading(2, 2.0).location, recovered.location)
+    }
+
+    @Test
     fun olderCallbacksCannotRewindStateEvenWithoutRejectionModule() = runBlocking<Unit> {
         shared.update(reading(10))
         val snapshot = shared.reading

@@ -123,6 +123,27 @@ class TimeoutGPSModuleTest {
     }
 
     @Test
+    fun supersededCallbackCannotExpireANewFix() = runBlocking<Unit> {
+        module.start(data)
+        val oldTimeout = fireTimeout
+        assertTrue(accept(ModularGPSData(time = Instant.EPOCH.plusSeconds(1))))
+        oldTimeout()
+        assertFalse(data.isTimedOut)
+        assertTrue(notifications.isEmpty())
+        fireTimeout()
+        assertTrue(data.isTimedOut)
+        assertEquals(listOf(true), notifications)
+    }
+
+    @Test
+    fun timeoutCanOnlyBeAcceptedOnce() = runBlocking<Unit> {
+        module.start(data)
+        repeat(3) { fireTimeout() }
+        assertEquals(listOf(true), notifications)
+        verify(timer).once(SensorService.GPS_READ_TIMEOUT)
+    }
+
+    @Test
     fun restartSchedulesTimeoutAgain() = runBlocking<Unit> {
         module.start(data)
         module.stop(data)
