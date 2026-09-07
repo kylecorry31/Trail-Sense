@@ -510,11 +510,6 @@ class PreferenceMigrator private constructor() {
 
                 if (legacyKeys.any(prefs::contains)) {
                     val cached = GPSCacheData(
-                        kalmanVariance = prefs.getDouble(LEGACY_LAST_KALMAN_VARIANCE)
-                            ?.takeIf { it.isFinite() && it >= 0.0 },
-                        kalmanVelocityVariance = prefs.getDouble(
-                            LEGACY_LAST_KALMAN_VELOCITY_VARIANCE
-                        )?.takeIf { it.isFinite() && it >= 0.0 },
                         latitude = prefs.getDouble(LEGACY_LAST_LATITUDE) ?: 0.0,
                         longitude = prefs.getDouble(LEGACY_LAST_LONGITUDE) ?: 0.0,
                         altitude = prefs.getFloat(LEGACY_LAST_ALTITUDE) ?: 0f,

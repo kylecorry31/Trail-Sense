@@ -150,7 +150,7 @@ class GPSPipelineTest {
         second.update(reading(4, 1.003))
         assertEquals(expected.location, first.reading.location)
         assertEquals(second.reading.location, first.reading.location)
-        assertEquals(second.reading.kalmanVariance, first.reading.kalmanVariance)
+        assertEquals(second.reading.kalmanState, first.reading.kalmanState)
         assertEquals(second.reading.horizontalAccuracy!!, first.reading.horizontalAccuracy!!, 0.00001f)
     }
 
@@ -170,8 +170,7 @@ class GPSPipelineTest {
             continuous.update(source())
             recreated.update(source())
             assertEquals(continuous.reading.location, recreated.reading.location)
-            assertEquals(continuous.reading.kalmanVariance, recreated.reading.kalmanVariance)
-            assertEquals(continuous.reading.kalmanVelocityVariance, recreated.reading.kalmanVelocityVariance)
+            assertEquals(continuous.reading.kalmanState, recreated.reading.kalmanState)
         }
     }
 

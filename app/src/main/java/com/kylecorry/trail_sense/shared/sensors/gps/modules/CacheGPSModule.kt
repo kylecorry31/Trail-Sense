@@ -13,13 +13,12 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
 import java.time.Instant
 
 data class GPSCacheData(
-    val kalmanVariance: Double? = null,
-    val kalmanVelocityVariance: Double? = null,
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
     val altitude: Float = 0f,
@@ -27,7 +26,8 @@ data class GPSCacheData(
     val speed: Float = 0f,
     val updateTimeMillis: Long = 0L,
     val horizontalAccuracy: Float? = null,
-    val verticalAccuracy: Float? = null
+    val verticalAccuracy: Float? = null,
+    val kalmanState: GPSKalmanState? = null
 ) : ProguardIgnore
 
 /**
@@ -48,9 +48,6 @@ class CacheGPSModule(
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         val bearing = newData.rawBearing ?: newData.bearing?.value
         val data = GPSCacheData(
-            kalmanVariance = newData.kalmanVariance?.takeIf { it.isFinite() && it >= 0.0 },
-            kalmanVelocityVariance = newData.kalmanVelocityVariance
-                ?.takeIf { it.isFinite() && it >= 0.0 },
             latitude = newData.location.latitude,
             longitude = newData.location.longitude,
             altitude = newData.altitude,
@@ -58,7 +55,8 @@ class CacheGPSModule(
             speed = newData.speed.value,
             updateTimeMillis = newData.time.toEpochMilli(),
             horizontalAccuracy = newData.horizontalAccuracy,
-            verticalAccuracy = newData.verticalAccuracy
+            verticalAccuracy = newData.verticalAccuracy,
+            kalmanState = newData.kalmanState
         )
         cache.putString(LAST_GPS, JsonConvert.toJson(data))
         return true
@@ -75,9 +73,7 @@ class CacheGPSModule(
 
     fun restore(data: ModularGPSData) {
         val cached = getCachedData(cache)
-        data.kalmanVariance = cached?.kalmanVariance?.takeIf { it.isFinite() && it >= 0.0 }
-        data.kalmanVelocityVariance = cached?.kalmanVelocityVariance
-            ?.takeIf { it.isFinite() && it >= 0.0 }
+        data.kalmanState = cached?.kalmanState
         data.location = Coordinate(
             cached?.latitude ?: 0.0,
             cached?.longitude ?: 0.0

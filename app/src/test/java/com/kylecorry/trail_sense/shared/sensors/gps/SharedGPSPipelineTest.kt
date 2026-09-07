@@ -181,7 +181,7 @@ class SharedGPSPipelineTest {
             assertEquals(continuous.reading.location, shared.reading.location)
             val restored = ModularGPSData()
             CacheGPSModule(cache).restore(restored)
-            assertEquals(continuous.reading.kalmanVariance, restored.kalmanVariance)
+            assertEquals(continuous.reading.kalmanState, restored.kalmanState)
         }
     }
 
@@ -294,7 +294,7 @@ class SharedGPSPipelineTest {
         assertEquals(reading(3, 1.002).location, pipeline.reading.location)
         val restored = ModularGPSData()
         CacheGPSModule(cache).restore(restored)
-        assertNull(restored.kalmanVariance)
+        assertNull(restored.kalmanState)
         whenever(prefs.useFilteredGPS).thenReturn(true)
         pipeline.update(reading(4, 1.003))
         assertTrue(pipeline.reading.location.longitude > 1.002)
@@ -319,7 +319,8 @@ class SharedGPSPipelineTest {
             CacheGPSModule(cache).restore(restored)
             assertEquals(shared.reading.time, restored.time)
             assertEquals(shared.reading.location, restored.location)
-            assertTrue(restored.kalmanVariance!!.isFinite())
+            assertNotNull(restored.kalmanState)
+            assertTrue(restored.kalmanState!!.state.all { it.isFinite() })
         } finally {
             executor.shutdownNow()
         }

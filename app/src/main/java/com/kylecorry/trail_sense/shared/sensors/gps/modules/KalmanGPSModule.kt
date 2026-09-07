@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
+import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -10,9 +11,14 @@ import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
+import com.kylecorry.trail_sense.shared.sensors.gps.KalmanFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.max
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -20,113 +26,217 @@ class KalmanGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
     private val logger: Logger = getAppService()
 ) : GPSModule {
-    private var location: Coordinate? = null
-    private var speed = 0f
-    private var bearing: Bearing? = null
-    private var variance = 0.0
-    private var velocityVariance = 9.0
-    private var reportedAccuracy = 50f
+    private var filter: KalmanFilter? = null
+    private var reference = Coordinate.zero
+    private var reportedAccuracy = DEFAULT_ACCURACY
     private var time: Instant? = null
+    private val transition = Matrix.identity(STATE_SIZE)
+    private val processNoise = Matrix.zeros(STATE_SIZE, STATE_SIZE)
+    private val fullObservation = Matrix.identity(STATE_SIZE)
+    private val positionObservation = Matrix.create(POSITION_MEASUREMENT_SIZE, STATE_SIZE) { i, j ->
+        if (i == j) 1f else 0f
+    }
+    private val fullMeasurement = Matrix.zeros(STATE_SIZE, 1)
+    private val positionMeasurement = Matrix.zeros(POSITION_MEASUREMENT_SIZE, 1)
+    private val fullMeasurementNoise = Matrix.zeros(STATE_SIZE, STATE_SIZE)
+    private val positionMeasurementNoise = Matrix.zeros(
+        POSITION_MEASUREMENT_SIZE,
+        POSITION_MEASUREMENT_SIZE
+    )
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (!prefs.useFilteredGPS) {
-            location = null
-            time = null
+            reset()
             return true
         }
-        // Another GPS instance may have advanced the shared cache since our last update.
-        val hasNewerPreviousReading = time?.let { previousData.time > it } == true
-        val shouldSeedFromPrevious = location == null || hasNewerPreviousReading
-        if (shouldSeedFromPrevious && previousData.location != Coordinate.zero &&
-            previousData.time <= newData.time
-        ) {
+        val hasNewerPrevious = time?.let { previousData.time > it } == true
+        if (shouldRestore(previousData, newData, hasNewerPrevious)) {
             restore(previousData)
         }
-
         if (needsReset(previousData, newData)) {
             logger.debug(
                 TAG,
                 "Kalman filter reset: fix time moved backward " +
                     "(new: ${newData.time}, previous: ${previousData.time}, filter: $time)"
             )
-            location = null
-            variance = 0.0
-            time = null
-            speed = 0f
-            bearing = null
+            reset()
         }
 
         val lastTime = time
-        val lastLocation = location
         val sameFix = lastTime != null &&
-            (newData.time <= previousData.time ||
-                lastTime.toEpochMilli() == newData.time.toEpochMilli())
-
+            (newData.time <= previousData.time || lastTime.toEpochMilli() == newData.time.toEpochMilli())
         if (!sameFix) {
-            val seconds = if (lastTime != null) {
-                Duration.between(lastTime, newData.time).let { it.seconds + it.nano / 1_000_000_000.0 }
-            } else {
-                0.0
+            if (filter == null) {
+                restore(newData)
+            } else if (lastTime != null) {
+                val dt = Duration.between(lastTime, newData.time)
+                    .let { it.seconds + it.nano / 1_000_000_000.0 }.toFloat()
+                predict(dt)
+                correct(newData)
+                rebaseIfNeeded()
+                time = newData.time
             }
-
-            val accuracy = newData.horizontalAccuracy
-                ?.takeIf { it.isFinite() && it > 0f }?.toDouble() ?: DEFAULT_ACCURACY
-            val measurementVariance = accuracy * accuracy
-            if (lastLocation == null) {
-                location = newData.location
-                variance = measurementVariance
-            } else {
-                // Predict from the previous fix's velocity before correcting with the new position.
-                val direction = bearing
-                val predictedLocation = if (direction != null && speed > 0f) {
-                    lastLocation.plus(Distance.meters((speed * seconds).toFloat()), direction)
-                } else {
-                    lastLocation
-                }
-                val secondsSquared = seconds * seconds
-                val predictedVariance = variance + PROCESS_VARIANCE_PER_SECOND * seconds +
-                    velocityVariance * secondsSquared +
-                    ACCELERATION_VARIANCE * secondsSquared * secondsSquared / 4.0
-                val gain = predictedVariance / (predictedVariance + measurementVariance)
-                val residual = predictedLocation.distanceTo(newData.location)
-                location = if (residual > 0f) {
-                    newData.location.plus(
-                        Distance.meters(((1 - gain) * residual).toFloat()),
-                        newData.location.bearingTo(predictedLocation)
-                    )
-                } else {
-                    predictedLocation
-                }
-                // Equivalent to (1 - gain) * predictedVariance, without cancellation
-                // when the gain rounds to one after a long interval.
-                variance = gain * measurementVariance
-            }
-            // Android accuracy is a 68% horizontal radius, not a calibrated posterior
-            // covariance for this model.
-            reportedAccuracy = maxOf(accuracy.toFloat(), sqrt(variance).toFloat())
-            time = newData.time
-            updateVelocity(newData)
         }
 
-        newData.kalmanVariance = variance
-        newData.kalmanVelocityVariance = velocityVariance
-        newData.location = location ?: newData.location
-        newData.horizontalAccuracy = reportedAccuracy
+        filter?.let {
+            newData.location = fromLocal(it.Xk_k[POSITION_EAST, 0], it.Xk_k[POSITION_NORTH, 0])
+            newData.kalmanState = snapshot(it)
+            newData.horizontalAccuracy = reportedAccuracy
+        }
         return true
     }
 
-    private fun restore(data: ModularGPSData) {
-        location = data.location
-        val accuracy = data.horizontalAccuracy
-            ?.takeIf { it.isFinite() && it > 0f }?.toDouble() ?: DEFAULT_ACCURACY
-        variance = data.kalmanVariance.validVariance() ?: (accuracy * accuracy)
-        reportedAccuracy = accuracy.toFloat()
-        time = data.time
-        updateVelocity(data)
-        velocityVariance = data.kalmanVelocityVariance.validVariance() ?: velocityVariance
+    private fun predict(dt: Float) {
+        val kalman = filter ?: return
+        transition[POSITION_EAST, VELOCITY_EAST] = dt
+        transition[POSITION_NORTH, VELOCITY_NORTH] = dt
+        kalman.F = transition
+        val dt2 = dt * dt
+        val dt3 = dt2 * dt
+        processNoise[POSITION_EAST, POSITION_EAST] = ACCELERATION_NOISE_DENSITY * dt3 / 3f
+        processNoise[POSITION_NORTH, POSITION_NORTH] = ACCELERATION_NOISE_DENSITY * dt3 / 3f
+        processNoise[POSITION_EAST, VELOCITY_EAST] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
+        processNoise[POSITION_NORTH, VELOCITY_NORTH] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
+        processNoise[VELOCITY_EAST, POSITION_EAST] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
+        processNoise[VELOCITY_NORTH, POSITION_NORTH] = ACCELERATION_NOISE_DENSITY * dt2 / 2f
+        processNoise[VELOCITY_EAST, VELOCITY_EAST] = ACCELERATION_NOISE_DENSITY * dt
+        processNoise[VELOCITY_NORTH, VELOCITY_NORTH] = ACCELERATION_NOISE_DENSITY * dt
+        kalman.Q = processNoise
+        kalman.predict()
     }
 
-    private fun Double?.validVariance(): Double? = this?.takeIf { it.isFinite() && it >= 0.0 }
+    private fun correct(data: ModularGPSData) {
+        val kalman = filter ?: return
+        val accuracy = getAccuracy(data)
+        val positionVariance = accuracy * accuracy
+        val position = toLocal(data.location)
+        val velocity = getVelocity(data)
+        if (velocity != null) {
+            fullMeasurement[POSITION_EAST, 0] = position.first
+            fullMeasurement[POSITION_NORTH, 0] = position.second
+            fullMeasurement[VELOCITY_EAST, 0] = velocity.east
+            fullMeasurement[VELOCITY_NORTH, 0] = velocity.north
+            fullMeasurementNoise[POSITION_EAST, POSITION_EAST] = positionVariance
+            fullMeasurementNoise[POSITION_NORTH, POSITION_NORTH] = positionVariance
+            fullMeasurementNoise[VELOCITY_EAST, VELOCITY_EAST] = velocity.variance
+            fullMeasurementNoise[VELOCITY_NORTH, VELOCITY_NORTH] = velocity.variance
+            kalman.H = fullObservation
+            kalman.Zk = fullMeasurement
+            kalman.R = fullMeasurementNoise
+        } else {
+            positionMeasurement[POSITION_EAST, 0] = position.first
+            positionMeasurement[POSITION_NORTH, 0] = position.second
+            positionMeasurementNoise[POSITION_EAST, POSITION_EAST] = positionVariance
+            positionMeasurementNoise[POSITION_NORTH, POSITION_NORTH] = positionVariance
+            kalman.H = positionObservation
+            kalman.Zk = positionMeasurement
+            kalman.R = positionMeasurementNoise
+        }
+        kalman.update()
+        val posteriorAccuracy = sqrt(
+            max(
+                kalman.Pk_k[POSITION_EAST, POSITION_EAST],
+                kalman.Pk_k[POSITION_NORTH, POSITION_NORTH]
+            ).coerceAtLeast(0f)
+        )
+        reportedAccuracy = max(accuracy, posteriorAccuracy)
+    }
+
+    private fun restore(data: ModularGPSData) {
+        val saved = data.kalmanState?.takeIf { isValid(it) }
+        if (saved != null) {
+            reference = Coordinate(saved.referenceLatitude, saved.referenceLongitude)
+            filter = KalmanFilter(STATE_SIZE, STATE_SIZE, CONTROL_SIZE).apply {
+                Xk_k = Matrix.column(*saved.state.toFloatArray())
+                Pk_k = Matrix.create(STATE_SIZE, STATE_SIZE) { row, column ->
+                    saved.covariance[row][column]
+                }
+            }
+            reportedAccuracy = getAccuracy(data)
+            time = data.time
+            return
+        }
+        reference = data.location
+        val accuracy = getAccuracy(data)
+        val positionVariance = accuracy * accuracy
+        val velocity = getVelocity(data)
+        val velocityVariance = velocity?.variance ?: DEFAULT_VELOCITY_VARIANCE
+        filter = KalmanFilter(STATE_SIZE, STATE_SIZE, CONTROL_SIZE).apply {
+            Xk_k = Matrix.column(0f, 0f, velocity?.east ?: 0f, velocity?.north ?: 0f)
+            Pk_k = Matrix.zeros(STATE_SIZE, STATE_SIZE).apply {
+                this[POSITION_EAST, POSITION_EAST] = positionVariance
+                this[POSITION_NORTH, POSITION_NORTH] = positionVariance
+                this[VELOCITY_EAST, VELOCITY_EAST] = velocityVariance
+                this[VELOCITY_NORTH, VELOCITY_NORTH] = velocityVariance
+            }
+        }
+        reportedAccuracy = accuracy
+        time = data.time
+    }
+
+    private fun snapshot(kalman: KalmanFilter): GPSKalmanState {
+        return GPSKalmanState(
+            state = List(STATE_SIZE) { kalman.Xk_k[it, 0] },
+            covariance = List(STATE_SIZE) { row ->
+                List(STATE_SIZE) { column -> kalman.Pk_k[row, column] }
+            },
+            referenceLatitude = reference.latitude,
+            referenceLongitude = reference.longitude
+        )
+    }
+
+    private fun isValid(state: GPSKalmanState): Boolean {
+        return state.referenceLatitude.isFinite() && state.referenceLongitude.isFinite() &&
+            state.state.size == STATE_SIZE && state.state.all { it.isFinite() } &&
+            state.covariance.size == STATE_SIZE && state.covariance.all { row ->
+                row.size == STATE_SIZE && row.all { it.isFinite() }
+            }
+    }
+
+    private fun getVelocity(data: ModularGPSData): VelocityMeasurement? {
+        val speed = data.speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value
+            .takeIf { it.isFinite() && it >= 0f } ?: 0f
+        val direction = data.rawBearing?.takeIf { it.isFinite() }
+            ?: data.bearing?.value?.takeIf { it.isFinite() }
+            ?: return null
+        val speedError = data.speedAccuracy?.takeIf { it.isFinite() && it > 0f }
+            ?: max(3f, speed * 0.25f)
+        val directionError = data.bearingAccuracy?.takeIf { it.isFinite() && it >= 0f }
+            ?.coerceAtMost(90f) ?: 30f
+        val radians = Math.toRadians(direction.toDouble())
+        val lateralError = speed * sin(Math.toRadians(directionError.toDouble())).toFloat()
+        return VelocityMeasurement(
+            speed * sin(radians).toFloat(),
+            speed * cos(radians).toFloat(),
+            (speedError * speedError + lateralError * lateralError).coerceAtLeast(0.01f)
+        )
+    }
+
+    private fun getAccuracy(data: ModularGPSData): Float =
+        data.horizontalAccuracy?.takeIf { it.isFinite() && it > 0f } ?: DEFAULT_ACCURACY
+
+    private fun toLocal(location: Coordinate): Pair<Float, Float> {
+        val distance = reference.distanceTo(location)
+        val bearing = Math.toRadians(reference.bearingTo(location).value.toDouble())
+        return Pair(distance * sin(bearing).toFloat(), distance * cos(bearing).toFloat())
+    }
+
+    private fun fromLocal(east: Float, north: Float): Coordinate {
+        val distance = sqrt(east * east + north * north)
+        if (distance == 0f) return reference
+        val bearing = Bearing.from(Math.toDegrees(atan2(east, north).toDouble()).toFloat())
+        return reference.plus(Distance.meters(distance), bearing)
+    }
+
+    private fun rebaseIfNeeded() {
+        val kalman = filter ?: return
+        val east = kalman.Xk_k[POSITION_EAST, 0]
+        val north = kalman.Xk_k[POSITION_NORTH, 0]
+        if (sqrt(east * east + north * north) <= MAX_REFERENCE_DISTANCE) return
+        reference = fromLocal(east, north)
+        kalman.Xk_k[POSITION_EAST, 0] = 0f
+        kalman.Xk_k[POSITION_NORTH, 0] = 0f
+    }
 
     private fun needsReset(previous: ModularGPSData, next: ModularGPSData): Boolean {
         if (next.time < previous.time) return true
@@ -134,27 +244,37 @@ class KalmanGPSModule(
         return next.time > previous.time && next.time < lastTime
     }
 
-    private fun updateVelocity(data: ModularGPSData) {
-        speed = data.speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value
-            .takeIf { it.isFinite() && it >= 0f } ?: 0f
-        bearing = data.rawBearing?.takeIf { it.isFinite() }?.let { Bearing.from(it) }
-            ?: data.bearing?.takeIf { it.value.isFinite() }
-        val speedError = data.speedAccuracy?.takeIf { it.isFinite() && it > 0f }
-            ?.toDouble() ?: maxOf(3.0, speed * 0.25)
-        val directionError = data.bearingAccuracy?.takeIf { it.isFinite() && it >= 0f }
-            ?.toDouble()?.coerceAtMost(90.0) ?: 30.0
-        val lateralError = speed * sin(Math.toRadians(directionError))
-        velocityVariance = if (bearing == null) {
-            maxOf(9.0, speed.toDouble() * speed)
-        } else {
-            speedError * speedError + lateralError * lateralError
-        }
+    private fun shouldRestore(
+        previous: ModularGPSData,
+        next: ModularGPSData,
+        hasNewerPrevious: Boolean
+    ): Boolean {
+        val needsState = filter == null || hasNewerPrevious
+        val hasPreviousFix = previous.location != Coordinate.zero
+        return needsState && hasPreviousFix && previous.time <= next.time
     }
+
+    private fun reset() {
+        filter = null
+        reference = Coordinate.zero
+        reportedAccuracy = DEFAULT_ACCURACY
+        time = null
+    }
+
+    private data class VelocityMeasurement(val east: Float, val north: Float, val variance: Float)
 
     companion object {
         private const val TAG = "KalmanGPSModule"
-        private const val DEFAULT_ACCURACY = 50.0
-        private const val PROCESS_VARIANCE_PER_SECOND = 9.0
-        private const val ACCELERATION_VARIANCE = 4.0
+        private const val STATE_SIZE = 4
+        private const val POSITION_MEASUREMENT_SIZE = 2
+        private const val CONTROL_SIZE = 2
+        private const val POSITION_EAST = 0
+        private const val POSITION_NORTH = 1
+        private const val VELOCITY_EAST = 2
+        private const val VELOCITY_NORTH = 3
+        private const val DEFAULT_ACCURACY = 50f
+        private const val DEFAULT_VELOCITY_VARIANCE = 9f
+        private const val ACCELERATION_NOISE_DENSITY = 0.01f
+        private const val MAX_REFERENCE_DISTANCE = 200f
     }
 }

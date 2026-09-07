@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
 import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
@@ -26,23 +27,25 @@ class CacheGPSModuleTest {
     )
 
     @Test
-    fun persistsFilterUncertaintySeparatelyFromReportedAccuracy() = runBlocking<Unit> {
+    fun persistsFilterStateSeparatelyFromReportedAccuracy() = runBlocking<Unit> {
         val candidate = reading().apply {
-            kalmanVariance = 3.123456789
-            kalmanVelocityVariance = 0.25
+            kalmanState = GPSKalmanState(
+                listOf(1f, 2f, 3f, 4f),
+                List(4) { row -> List(4) { column -> if (row == column) 2f else 0f } },
+                42.1,
+                -72.1
+            )
         }
         module.update(previous, candidate)
         val restored = ModularGPSData()
         CacheGPSModule(preferences).restore(restored)
-        assertEquals(candidate.kalmanVariance, restored.kalmanVariance)
-        assertEquals(candidate.kalmanVelocityVariance, restored.kalmanVelocityVariance)
+        assertEquals(candidate.kalmanState, restored.kalmanState)
         assertEquals(candidate.horizontalAccuracy, restored.horizontalAccuracy)
 
         // A reading accepted with smoothing disabled must clear old filter state.
         module.update(restored, reading())
         module.restore(restored)
-        assertNull(restored.kalmanVariance)
-        assertNull(restored.kalmanVelocityVariance)
+        assertNull(restored.kalmanState)
     }
 
     @Test
@@ -87,9 +90,13 @@ class CacheGPSModuleTest {
     @Test
     fun persistsTheCacheAsOneJsonPreference() = runBlocking<Unit> {
         val candidate = reading().apply {
-            kalmanVariance = 3.123456789
-            kalmanVelocityVariance = 0.25
             rawBearing = 123f
+            kalmanState = GPSKalmanState(
+                listOf(1f, 2f, 3f, 4f),
+                List(4) { List(4) { 0f } },
+                42.0,
+                -72.0
+            )
         }
 
         module.update(previous, candidate)

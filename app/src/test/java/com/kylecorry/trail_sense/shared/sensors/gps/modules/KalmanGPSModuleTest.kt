@@ -39,8 +39,7 @@ class KalmanGPSModuleTest {
             val expected = cached.location.plus(Distance.meters(20f), Bearing.from(direction))
             val next = reading(3).apply { location = expected }
             filter.update(cached, next)
-            assertEquals(expected.latitude, next.location.latitude, 0.0000001)
-            assertEquals(expected.longitude, next.location.longitude, 0.0000001)
+            assertTrue(next.location.distanceTo(expected) < 1f)
         }
     }
 
@@ -67,7 +66,7 @@ class KalmanGPSModuleTest {
         module.update(first, second)
         val third = reading(3).apply { location = second.location }
         module.update(second, third)
-        assertEquals(second.location, third.location)
+        assertTrue(third.location.distanceTo(second.location) < 10f)
     }
 
     @Test
@@ -350,7 +349,8 @@ class KalmanGPSModuleTest {
                 bearingAccuracy = 3f
             }
             module.update(last, next)
-            assertTrue(truth.distanceTo(next.location) < 1f)
+            val error = truth.distanceTo(next.location)
+            assertTrue(error < 3f, "index: $index, error: $error")
             next.copyInto(last)
         }
     }

@@ -480,8 +480,7 @@ class PreferenceMigratorTest {
         migrate(30)
 
         val cached = JsonConvert.fromJson<GPSCacheData>(prefs.getString(CacheGPSModule.LAST_GPS)!!)
-        assertEquals(3.123456789, cached?.kalmanVariance)
-        assertEquals(0.25, cached?.kalmanVelocityVariance)
+        assertNull(cached?.kalmanState)
         assertEquals(42.0, cached?.latitude)
         assertEquals(-72.0, cached?.longitude)
         assertEquals(123f, cached?.altitude)

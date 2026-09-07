@@ -8,11 +8,12 @@ import com.kylecorry.sol.math.algebra.subtract
 import com.kylecorry.sol.math.algebra.transpose
 
 internal class KalmanFilter(
-    stateSize: Int,
+    private val stateSize: Int,
     measurementSize: Int,
     controlSize: Int,
     private val updateStateWithPrediction: Boolean = false
 ) {
+    private val identity = Matrix.identity(stateSize)
     // State transition model
     var F = Matrix.zeros(stateSize, stateSize)
 
@@ -87,8 +88,10 @@ internal class KalmanFilter(
         //xk|k = xk|k-1 + Kk*Yk
         Xk_k = Xk_km1.add(K.dot(Yk))
 
-        //Pk|k = Pk|k-1 - Kk*Hk*Pk|k-1
-        Pk_k = Pk_km1.subtract(K.dot(H.dot(Pk_km1)))
+        // Joseph form: Pk|k = (I-KH)Pk|k-1(I-KH)t + KRKt
+        val correction = identity.subtract(K.dot(H))
+        Pk_k = correction.dot(Pk_km1).dot(correction.transpose())
+            .add(K.dot(R).dot(K.transpose()))
 
         // This is not used yet
         //Yk|k = Zk - Hk*Xk|k
