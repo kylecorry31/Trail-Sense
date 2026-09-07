@@ -52,6 +52,7 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
+            android:dependency="@string/pref_auto_location"
             app:key="@string/pref_require_satellites"
             app:singleLineTitle="false"
             app:title="@string/pref_require_satellites_title"
