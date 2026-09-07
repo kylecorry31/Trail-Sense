@@ -70,6 +70,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     private var changeListener: ((coordinate: Coordinate?) -> Unit)? = null
     private var beaconListener: ((beacon: Beacon) -> Unit)? = null
     private var autofillListener: (() -> Unit)? = null
+    private val autofillTimeout = CoroutineTimer { pause() }
 
     private val mapPicker = MapLocationPicker()
     private lateinit var locationEdit: EditText
@@ -167,6 +168,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     }
 
     private fun onGPSUpdate(): Boolean {
+        autofillTimeout.stop()
         coordinate = gps.location
         gpsBtn.visibility = View.VISIBLE
         gpsLoadingIndicator.visibility = View.GONE
@@ -187,6 +189,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     }
 
     fun pause() {
+        autofillTimeout.stop()
         gps.stop(this::onGPSUpdate)
         gpsBtn.visibility = View.VISIBLE
         gpsLoadingIndicator.visibility = View.GONE
@@ -199,6 +202,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
         gpsBtn.visibility = View.GONE
         gpsLoadingIndicator.visibility = View.VISIBLE
         locationEdit.isEnabled = false
+        autofillTimeout.once(SensorService.GPS_READ_TIMEOUT)
         gps.start(this::onGPSUpdate)
     }
 

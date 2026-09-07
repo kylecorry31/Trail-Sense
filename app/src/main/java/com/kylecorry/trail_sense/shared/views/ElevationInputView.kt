@@ -8,6 +8,7 @@ import com.google.android.material.button.MaterialButton
 import androidx.core.view.isVisible
 import com.google.android.material.loadingindicator.LoadingIndicator
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -57,6 +58,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
 
     private var changeListener: ((elevation: Distance?) -> Unit)? = null
     private var autofillListener: (() -> Unit)? = null
+    private val autofillTimeout = CoroutineTimer { pause() }
 
     private lateinit var elevationInput: DistanceInputView
     private lateinit var gpsBtn: MaterialButton
@@ -138,6 +140,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
     }
 
     private fun onAltimeterUpdate(): Boolean {
+        autofillTimeout.stop()
         changeElevation(Distance.meters(altimeter.altitude))
         gpsBtn.visibility = View.VISIBLE
         gpsLoadingIndicator.visibility = View.GONE
@@ -153,6 +156,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
         gpsBtn.isVisible = false
         gpsLoadingIndicator.isVisible = true
         elevationInput.isEnabled = false
+        autofillTimeout.once(SensorService.GPS_READ_TIMEOUT)
         altimeter.start(this::onAltimeterUpdate)
     }
 
@@ -160,6 +164,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
      * Pause the altimeter if it is running
      */
     fun pause() {
+        autofillTimeout.stop()
         altimeter.stop(this::onAltimeterUpdate)
         gpsBtn.isVisible = true
         gpsLoadingIndicator.isVisible = false
