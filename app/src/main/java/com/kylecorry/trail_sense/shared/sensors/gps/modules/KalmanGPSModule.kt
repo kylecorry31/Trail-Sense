@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.atan2
@@ -194,6 +195,7 @@ class KalmanGPSModule(
     }
 
     private fun getVelocity(data: ModularGPSData): VelocityMeasurement? {
+        if (data.speedSource != SpeedSource.Provider) return null
         val speed = data.speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value
             .takeIf { it.isFinite() && it >= 0f } ?: return null
         val direction = data.rawBearing?.takeIf { it.isFinite() }

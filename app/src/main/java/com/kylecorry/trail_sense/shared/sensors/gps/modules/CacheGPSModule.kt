@@ -11,11 +11,13 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.ProguardIgnore
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
+import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
 import java.time.Instant
 
 data class GPSCacheData(
@@ -27,7 +29,8 @@ data class GPSCacheData(
     val updateTimeMillis: Long = 0L,
     val horizontalAccuracy: Float? = null,
     val verticalAccuracy: Float? = null,
-    val kalmanState: GPSKalmanState? = null
+    val kalmanState: GPSKalmanState? = null,
+    val speedSource: Long? = null
 ) : ProguardIgnore
 
 /**
@@ -56,7 +59,8 @@ class CacheGPSModule(
             updateTimeMillis = newData.time.toEpochMilli(),
             horizontalAccuracy = newData.horizontalAccuracy,
             verticalAccuracy = newData.verticalAccuracy,
-            kalmanState = newData.kalmanState
+            kalmanState = newData.kalmanState,
+            speedSource = newData.speedSource.id
         )
         cache.putString(LAST_GPS, JsonConvert.toJson(data))
         return true
@@ -82,6 +86,8 @@ class CacheGPSModule(
         data.speed =
             Speed.from(cached?.speed ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         data.time = Instant.ofEpochMilli(cached?.updateTimeMillis ?: 0L)
+        data.speedSource = cached?.speedSource?.let { SpeedSource.entries.withId(it) }
+            ?: SpeedSource.Unknown
         data.horizontalAccuracy = cached?.horizontalAccuracy
         data.verticalAccuracy = cached?.verticalAccuracy
 

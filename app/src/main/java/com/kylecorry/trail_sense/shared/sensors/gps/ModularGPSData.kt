@@ -35,6 +35,7 @@ class ModularGPSData(
 
     // Internal filter uncertainty - replace this with a custom data property (map) later
     var kalmanState: GPSKalmanState? = null
+    var speedSource: SpeedSource = SpeedSource.Unknown
 
     // This is a data holder, so it never emits
     override val flow: Flow<Unit> = emptyFlow()
@@ -81,6 +82,7 @@ class ModularGPSData(
         other.altitude = altitude
         other.time = time
         other.speed = speed
+        other.speedSource = speedSource
         other.isTimedOut = isTimedOut
     }
 
@@ -102,5 +104,6 @@ class ModularGPSData(
         altitude = gps.altitude
         time = gps.time
         speed = gps.speed
+        speedSource = (gps as? ModularGPSData)?.speedSource ?: SpeedSource.Provider
     }
 }

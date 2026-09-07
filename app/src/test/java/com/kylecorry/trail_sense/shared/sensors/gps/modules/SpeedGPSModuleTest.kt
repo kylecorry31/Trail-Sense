@@ -5,6 +5,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
 import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
@@ -30,17 +31,27 @@ class SpeedGPSModuleTest {
     @Test
     fun preservesReportedNonzeroSpeed() = runBlocking<Unit> {
         module.update(previous, reading(0))
-        val candidate = reading(1000, 1.001, 3f)
+        val candidate = reading(1000, 1.001, 3f).apply {
+            speedSource = SpeedSource.Provider
+            speedAccuracy = 0.2f
+        }
         module.update(previous, candidate)
         assertEquals(3f, candidate.speed.value)
+        assertEquals(SpeedSource.Provider, candidate.speedSource)
+        assertEquals(0.2f, candidate.speedAccuracy)
     }
 
     @Test
     fun estimatesMissingSpeedFromMovementAndElapsedTime() = runBlocking<Unit> {
         module.update(previous, reading(0))
-        val candidate = reading(10000, 1.001)
+        val candidate = reading(10000, 1.001).apply {
+            speedSource = SpeedSource.Provider
+            speedAccuracy = 0.2f
+        }
         module.update(previous, candidate)
         assertTrue(candidate.speed.value in 10f..12f)
+        assertEquals(SpeedSource.PositionDerived, candidate.speedSource)
+        assertNull(candidate.speedAccuracy)
         assertEquals(0f, previous.speed.value)
         assertEquals(Coordinate.zero, previous.location)
     }

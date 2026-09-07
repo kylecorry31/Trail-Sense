@@ -6,6 +6,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import java.time.Duration
 import java.time.Instant
@@ -34,6 +35,8 @@ class SpeedGPSModule : GPSModule {
                 oldestLocation.second,
                 newData.time
             )
+            newData.speedSource = SpeedSource.PositionDerived
+            newData.speedAccuracy = null
         }
 
         // Add to location history every second

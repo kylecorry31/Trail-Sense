@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
 import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
@@ -26,7 +27,30 @@ class KalmanGPSModuleTest {
         time = Instant.EPOCH.plusSeconds(seconds),
         horizontalAccuracy = 10f,
         fixTimeElapsedNanos = seconds * 1_000_000_000
-    )
+    ).apply { speedSource = SpeedSource.Provider }
+
+    @Test
+    fun onlyProviderSpeedContributesVelocity() = runBlocking<Unit> {
+        suspend fun run(source: SpeedSource, withBearing: Boolean): ModularGPSData {
+            val filter = KalmanGPSModule(prefs, mock())
+            val first = reading(1).apply { speedSource = SpeedSource.Unknown }
+            filter.update(previous, first)
+            return reading(2).apply {
+                speed = Speed.from(20f, DistanceUnits.Meters, TimeUnits.Seconds)
+                speedSource = source
+                rawBearing = if (withBearing) 90f else null
+                speedAccuracy = 0.1f
+                filter.update(first, this)
+            }
+        }
+        val positionOnly = run(SpeedSource.Provider, false)
+        for (source in listOf(SpeedSource.Unknown, SpeedSource.PositionDerived)) {
+            val result = run(source, true)
+            assertEquals(positionOnly.kalmanState, result.kalmanState)
+            assertEquals(20f, result.speed.value)
+        }
+        assertNotEquals(positionOnly.kalmanState, run(SpeedSource.Provider, true).kalmanState)
+    }
 
     @Test
     fun invalidSpeedInitializesLikeMissingVelocity() = runBlocking<Unit> {

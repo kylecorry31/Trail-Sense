@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
 import java.time.Instant
 import kotlinx.coroutines.runBlocking
@@ -25,6 +26,20 @@ class CacheGPSModuleTest {
         speed = Speed.from(3f, DistanceUnits.Meters, TimeUnits.Seconds),
         horizontalAccuracy = 5f, verticalAccuracy = 8f
     )
+
+    @Test
+    fun preservesSpeedSourceAndTreatsLegacyCacheAsUnknown() = runBlocking<Unit> {
+        val restored = ModularGPSData()
+        for (source in SpeedSource.entries) {
+            module.update(previous, reading().apply { speedSource = source })
+            module.restore(restored)
+            assertEquals(source, restored.speedSource)
+        }
+        preferences.putString(CacheGPSModule.LAST_GPS, """{"speed":3,"bearing":90}""")
+        module.restore(restored)
+        assertEquals(SpeedSource.Unknown, restored.speedSource)
+        assertEquals(3f, restored.speed.value)
+    }
 
     @Test
     fun persistsFilterStateSeparatelyFromReportedAccuracy() = runBlocking<Unit> {
