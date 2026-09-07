@@ -1112,7 +1112,6 @@
     <string name="use_gyroscope_after_calibration_description">Sebagai pengganti kompas (menghindari penyimpangan magnetis)</string>
     <string name="reset_calibration_question">Setel ulang kalibrasi?</string>
     <string name="use_path_elevation">Gunakan elevasi jalur</string>
-    <string name="smooth_gps_readings">Haluskan pembacaan GPS</string>
     <plurals name="map_group_summary">
         <item quantity="other">%d peta</item>
     </plurals>

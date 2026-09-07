@@ -1491,8 +1491,6 @@
     <string name="pref_use_legacy_file_picker" translatable="false">pref_use_legacy_file_picker</string>
     <string name="pref_use_metal_audio" translatable="false">pref_use_metal_audio</string>
     <string name="pref_no_use_metal_vibration" translatable="false">pref_no_use_metal_vibration</string>
-    <string name="smooth_gps_readings">Smooth location</string>
-    <string name="smooth_gps_readings_summary">Reduces GPS noise</string>
     <string name="use_legacy_file_picker">Use legacy file picker</string>
     <string name="pref_widget_icon_compatibility" translatable="false">pref_widget_icon_compatibility</string>
     <string name="widget_icon_compatibility_mode">Widget icon compatibility mode</string>
@@ -2041,4 +2039,5 @@
     <string name="image_index">Image %1$d/%2$d</string>
     <!--The last updated time for weather readings-->
     <string name="last_updated">Last updated</string>
+    <string name="pref_gps_smoothing" translatable="false">pref_gps_smoothing</string>
 </resources>

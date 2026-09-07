@@ -1208,7 +1208,6 @@
     <string name="pref_tiles_battery_log">יומן סוללה</string>
     <string name="pref_dialog_battery_log_summary">יומן הסוללה מושבת, ייתכן שההיסטוריה והזמן עד להתרוקנות אינם זמינים. ניתן להפעיל זאת מחדש בהגדרות</string>
     <string name="muzzle_velocity">מהירות לוע</string>
-    <string name="smooth_gps_readings">החלקת נתוני GPS</string>
     <string name="speed_format_feet_per_second">%s ר\"ש</string>
     <string name="speed_format_meters_per_second">%s מ\"ש</string>
     <string name="feet_per_second">רגל לשנייה</string>

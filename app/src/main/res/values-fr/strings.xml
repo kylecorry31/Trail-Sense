@@ -1155,7 +1155,6 @@
     <string name="tool_turn_back">Rentrer à temps</string>
     <string name="mirror_camera">Miroir</string>
     <string name="magnetometer_gyro_custom">Magnétomètre + gyroscope (Personnalisé)</string>
-    <string name="smooth_gps_readings">Lecture GPS fluide</string>
     <string name="projection_perspective">Perspective</string>
     <string name="ar_calibration_instructions_hint">Pour calibrer l\'outil de Réalité Augmentée, cliquez sur l\'icône en haut à gauche de l\'écran et suivez les instructions.</string>
     <string name="local_messaging">Messagerie locale</string>

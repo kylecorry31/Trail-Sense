@@ -1125,7 +1125,6 @@
     <string name="use_gyroscope_after_calibration">Use o giroscópio após a calibração</string>
     <string name="use_gyroscope_after_calibration_description">Em vez da bússola (evita o desvio magnético)</string>
     <string name="reset_calibration_question">Redefinir a calibração?</string>
-    <string name="smooth_gps_readings">Leituras de GPS suaves</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Controlar o brilho da tela com botões de volume</string>
     <string name="estimate_method">Método de estimativa</string>
     <string name="lunitidal_interval">Intervalo lunar</string>

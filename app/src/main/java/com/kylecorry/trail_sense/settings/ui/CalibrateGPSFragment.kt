@@ -62,6 +62,13 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
         clearCacheBtn = preference(R.string.pref_gps_clear_cache)
         accuracyFilterList = list(R.string.pref_gps_accuracy_requirement)!!
+        seekBar(R.string.pref_gps_smoothing)?.apply {
+            summary = formatService.formatPercentage(prefs.gps.smoothing.toFloat())
+            setOnPreferenceChangeListener { _, newValue ->
+                summary = formatService.formatPercentage((newValue as Int).toFloat())
+                true
+            }
+        }
         setAccuracyFilterEntries()
         locationOverridePref.setGPS(realGps)
         locationOverridePref.setLocation(prefs.gps.locationOverride)

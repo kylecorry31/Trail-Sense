@@ -950,7 +950,6 @@
     <string name="magnetometer">Magnetometri</string>
     <string name="pref_meteor_showers_title">Meteoriparvet</string>
     <string name="use_path_elevation">Käytä reitin korkeutta</string>
-    <string name="smooth_gps_readings">Tasaiset GPS-lukemat</string>
     <string name="no_sensor_message">Laitteessa ei ole %s anturia</string>
     <string name="enter_manually">Määritä manuaalisesti</string>
     <string name="direction_not_set">Suuntaa ei ole asetettu</string>

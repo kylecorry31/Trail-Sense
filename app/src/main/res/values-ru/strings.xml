@@ -1110,7 +1110,6 @@
     <string name="fast_path_rendering">Отрисовка быстрого пути</string>
     <string name="ar_calibration_instructions">Отцентрируйте %s на экране и нажмите «Калибрация»</string>
     <string name="reset_calibration_question">Сбросить калибровку?</string>
-    <string name="smooth_gps_readings">Гладкие показания GPS</string>
     <string name="projection_type">Проекция Дополненной Реальности</string>
     <string name="projection_estimated_intrinsics">Примерные интрисики</string>
     <string name="projection_manufacturer_intrinsics">Интрисики производителя</string>

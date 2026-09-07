@@ -88,7 +88,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
-        internal const val version = 32
+        internal const val version = 33
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -528,6 +528,15 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(31, 32) { context, prefs ->
                 val key = context.getString(R.string.pref_use_filtered_gps)
                 prefs.putBoolean(key, true)
+            },
+            PreferenceMigration(32, 33) { _, prefs ->
+                val smoothingKey = "pref_gps_smoothing"
+                val legacyKey = "pref_use_filtered_gps"
+                if (!prefs.contains(smoothingKey)) {
+                    val smoothing = if (prefs.getBoolean(legacyKey) == false) 0 else 50
+                    prefs.putInt(smoothingKey, smoothing)
+                }
+                prefs.remove(legacyKey)
             }
         )
 

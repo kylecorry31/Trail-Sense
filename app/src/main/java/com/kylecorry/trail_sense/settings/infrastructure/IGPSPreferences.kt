@@ -8,7 +8,7 @@ interface IGPSPreferences {
     val requiresSatelliteCount: Boolean
     val rejectInvalidReadings: Boolean
     val accuracyFilter: GPSAccuracyFilter
-    val useFilteredGPS: Boolean
+    val smoothing: Int
     val useNMEA: Boolean
     var locationOverride: Coordinate
     val hasLocationOverride: Boolean

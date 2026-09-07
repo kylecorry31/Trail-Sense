@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.mock
 
 class PreferenceMigratorTest {
 
@@ -16,6 +17,27 @@ class PreferenceMigratorTest {
     @AfterEach
     fun tearDown() {
         AppState.isReturningUser = false
+    }
+
+    @Test
+    fun migratesGpsSmoothingSwitchToPercentage() {
+        val migration = PreferenceMigrator.migrations.first { it.fromVersion == 32 }
+        for (enabled in listOf(null, false, true)) {
+            val settings = InMemoryPreferences()
+            enabled?.let { settings.putBoolean("pref_use_filtered_gps", it) }
+            migration.action(mock(), settings)
+            assertEquals(if (enabled == false) 0 else 50, settings.getInt("pref_gps_smoothing"))
+            assertFalse(settings.contains("pref_use_filtered_gps"))
+        }
+    }
+
+    @Test
+    fun migrationPreservesExistingGpsSmoothingPercentage() {
+        prefs.putInt("pref_gps_smoothing", 45)
+        prefs.putBoolean("pref_use_filtered_gps", false)
+        PreferenceMigrator.migrations.first { it.fromVersion == 32 }.action(mock(), prefs)
+        assertEquals(45, prefs.getInt("pref_gps_smoothing"))
+        assertFalse(prefs.contains("pref_use_filtered_gps"))
     }
 
     @Test

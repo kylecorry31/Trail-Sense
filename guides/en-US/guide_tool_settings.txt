@@ -52,8 +52,8 @@ When 'Auto adjust location' is enabled, the location will be determined by your 
 ### Reject invalid readings
 Rejects readings that are too inaccurate or inconsistent with the previous reading. This reduces noise but may discard readings while moving quickly.
 
-### Smooth location
-Smooths GPS location updates to reduce noise. This is enabled by default, but disabling it may make location updates more responsive while moving.
+### Smoothing
+Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. The default is 50%. Higher values can delay responses to changes in movement.
 
 ### Accuracy filter
 Controls how much reported GPS accuracy is preferred before a reading is accepted. None does not filter based on accuracy, Low (the default) prefers accuracy of 30 meters or better, Moderate prefers accuracy of 16 meters or better, and High prefers accuracy of 8 meters or better. If the preferred accuracy is not available, Trail Sense accepts the best available reading after a short wait.

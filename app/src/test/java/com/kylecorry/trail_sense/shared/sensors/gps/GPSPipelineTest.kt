@@ -23,7 +23,7 @@ import org.mockito.kotlin.whenever
 class GPSPipelineTest {
     private val preferences = InMemoryPreferences()
     private val prefs = mock<IGPSPreferences> {
-        on { useFilteredGPS }.thenReturn(true)
+        on { smoothing }.thenReturn(100)
         on { rejectInvalidReadings }.thenReturn(true)
     }
 

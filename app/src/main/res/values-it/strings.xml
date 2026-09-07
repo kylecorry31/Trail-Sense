@@ -1107,7 +1107,6 @@
     <string name="date">Data</string>
     <string name="use_gyroscope_after_calibration_description">Invece della bussola (evita la deriva magnetica)</string>
     <string name="reset_calibration_question">Azzerare la calibrazione?</string>
-    <string name="smooth_gps_readings">Smussa le letture GPS</string>
     <string name="use_path_elevation">Usa l\'altitudine del percorso</string>
     <string name="select_from_gallery">Seleziona dalla galleria</string>
     <string name="projection_perspective">Prospettiva</string>

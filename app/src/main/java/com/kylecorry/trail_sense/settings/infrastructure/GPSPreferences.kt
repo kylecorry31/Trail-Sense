@@ -34,11 +34,8 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
         GPSAccuracyFilter.Low
     )
 
-    override val useFilteredGPS by BooleanPreference(
-        cache,
-        getString(R.string.pref_use_filtered_gps),
-        true
-    )
+    override val smoothing: Int
+        get() = (cache.getInt(getString(R.string.pref_gps_smoothing)) ?: 50).coerceIn(0, 100)
 
     override val useNMEA by BooleanPreference(
         cache,

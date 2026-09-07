@@ -517,7 +517,6 @@
     <string name="creating_beacon">பெக்கனை உருவாக்குதல்</string>
     <string name="reset_calibration_question">அளவுத்திருத்தத்தை மீட்டமைக்கவா?</string>
     <string name="use_path_elevation">பாதை உயரத்தைப் பயன்படுத்தவும்</string>
-    <string name="smooth_gps_readings">மென்மையான சி.பி.எச் அளவீடுகள்</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d வரைபடம்</item>
         <item quantity="other">%d வரைபடங்கள்</item>
