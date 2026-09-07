@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.system.Intents
@@ -15,10 +17,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
+import kotlinx.coroutines.launch
 
 
 class CalibrateGPSFragment : AndromedaPreferenceFragment() {
@@ -31,6 +35,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private lateinit var autoLocationSwitch: SwitchPreferenceCompat
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
+    private lateinit var accuracyFilterList: ListPreference
     private var clearCacheBtn: Preference? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
@@ -56,6 +61,8 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         permissionBtn = findPreference(getString(R.string.pref_gps_request_permission))!!
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
         clearCacheBtn = preference(R.string.pref_gps_clear_cache)
+        accuracyFilterList = list(R.string.pref_gps_accuracy_requirement)!!
+        setAccuracyFilterEntries()
         locationOverridePref.setGPS(realGps)
         locationOverridePref.setLocation(prefs.gps.locationOverride)
         locationOverridePref.setTitle(getString(R.string.pref_gps_override_title))
@@ -86,6 +93,17 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         }
 
         update()
+    }
+
+    private fun setAccuracyFilterEntries() {
+        val names = mapOf(
+            GPSAccuracyFilter.None to getString(R.string.none),
+            GPSAccuracyFilter.Low to getString(R.string.low),
+            GPSAccuracyFilter.Moderate to getString(R.string.moderate),
+            GPSAccuracyFilter.High to getString(R.string.high)
+        )
+        accuracyFilterList.entries = names.values.toTypedArray()
+        accuracyFilterList.entryValues = names.keys.map { it.id.toString() }.toTypedArray()
     }
 
     override fun onResume() {
@@ -165,7 +183,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     }
 
     private fun clearCache() {
-        CacheGPSModule.clearCache()
+        lifecycleScope.launch { CacheGPSModule.clearCache() }
     }
 
     private fun update() {

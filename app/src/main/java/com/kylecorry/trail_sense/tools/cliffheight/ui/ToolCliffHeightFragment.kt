@@ -12,11 +12,12 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.cliffheight.domain.CliffHeightService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import java.time.Duration
@@ -30,7 +31,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val gps by lazy { SensorService(requireContext()).getGPS() }
+    private val sensors by lazy { getAppService<SensorSubsystem>() }
 
     private lateinit var units: DistanceUnits
     private var startTime: Instant? = null
@@ -109,7 +110,7 @@ class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() 
     override fun onResume() {
         super.onResume()
         units = userPrefs.baseDistanceUnits
-        location = gps.location
+        location = sensors.lastKnownLocation
     }
 
     override fun onPause() {

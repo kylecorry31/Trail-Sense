@@ -18,11 +18,12 @@ import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPathsBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -66,9 +67,7 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
         PathService.getInstance(requireContext())
     }
 
-    private val gps by lazy {
-        SensorService(requireContext()).getGPS()
-    }
+    private val sensors by lazy { getAppService<SensorSubsystem>() }
 
     private val gpxService by lazy {
         IOFactory().createGpxService(this)
@@ -294,7 +293,7 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
             PathSortMethod.MostRecent -> MostRecentPathSortStrategy(pathService)
             PathSortMethod.Longest -> LongestPathSortStrategy(pathService)
             PathSortMethod.Shortest -> ShortestPathSortStrategy(pathService)
-            PathSortMethod.Closest -> ClosestPathSortStrategy(gps.location, pathService)
+            PathSortMethod.Closest -> ClosestPathSortStrategy(sensors.lastKnownLocation, pathService)
             PathSortMethod.Name -> NamePathSortStrategy()
         }
         return strategy.sort(paths)

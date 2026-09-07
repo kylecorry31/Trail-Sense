@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.print.Printer
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
@@ -17,6 +16,7 @@ import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.getFileSize
 
 class PhotoMapListItemMapper(
-    private val gps: IGPS,
+    private val location: () -> Coordinate,
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner,
     private val actionHandler: (PhotoMap, MapAction) -> Unit
@@ -39,7 +39,7 @@ class PhotoMapListItemMapper(
     private val files = FileSubsystem.getInstance(context)
 
     override fun map(value: PhotoMap): ListItem {
-        val onMap = value.bounds?.contains(gps.location) ?: false
+        val onMap = value.bounds?.contains(location()) ?: false
         val icon = if (prefs.photoMaps.showMapPreviews) {
             AsyncListIcon(
                 lifecycleOwner,

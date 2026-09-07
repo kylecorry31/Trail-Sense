@@ -1,30 +1,30 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.sol.units.Coordinate
 
 internal class GPSPipelineConsumer(
     private val pipeline: SharedGPSPipeline,
     private val notifyTimeout: () -> Unit
 ) {
-    private val delivered = ModularGPSData().also { pipeline.reading.copyInto(it) }
+    private var deliveredTimeMillis: Long? = null
 
     val reading: ModularGPSData
         get() = pipeline.reading
 
-    fun start() {
+    suspend fun start() {
         pipeline.start(this, notifyTimeout)
     }
 
-    fun stop() {
+    suspend fun stop() {
         pipeline.stop(this)
     }
 
-    fun update(gps: ISatelliteGPS): Boolean {
-        val latest = pipeline.update(gps)
+    suspend fun update(gps: ModularGPSData): Boolean {
+        val latest = pipeline.update(gps) ?: return false
         if (latest.location == Coordinate.zero) return false
-        val isNewToConsumer = latest.time.toEpochMilli() != delivered.time.toEpochMilli()
-        latest.copyInto(delivered)
+        val timeMillis = latest.time.toEpochMilli()
+        val isNewToConsumer = timeMillis != deliveredTimeMillis
+        deliveredTimeMillis = timeMillis
         return isNewToConsumer
     }
 }

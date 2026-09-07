@@ -12,7 +12,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.MockedGPS
 import java.time.Instant
@@ -21,15 +21,13 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
     ISatelliteGPS, InactiveGPS, MockedGPS {
     override val location: Coordinate
         get() {
-            val lat =
-                cache.getDouble(CacheGPSModule.LAST_LATITUDE) ?: userPrefs.gps.locationOverride.latitude
-            val lng =
-                cache.getDouble(CacheGPSModule.LAST_LONGITUDE) ?: userPrefs.gps.locationOverride.longitude
+            val lat = cached?.latitude ?: userPrefs.gps.locationOverride.latitude
+            val lng = cached?.longitude ?: userPrefs.gps.locationOverride.longitude
             return Coordinate(lat, lng)
         }
     override val speed: Speed
         get() = Speed.from(
-            cache.getFloat(CacheGPSModule.LAST_SPEED) ?: 0.0f,
+            cached?.speed ?: 0.0f,
             DistanceUnits.Meters,
             TimeUnits.Seconds
         )
@@ -38,15 +36,15 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
     override val time: Instant
         get() = Instant.now()
     override val verticalAccuracy: Float?
-        get() = cache.getFloat(CacheGPSModule.LAST_VERTICAL_ACCURACY)
+        get() = cached?.verticalAccuracy
     override val horizontalAccuracy: Float?
-        get() = cache.getFloat(CacheGPSModule.LAST_HORIZONTAL_ACCURACY)
+        get() = cached?.horizontalAccuracy
     override val satellites: Int
         get() = 0
     override val hasValidReading: Boolean
         get() = true
     override val altitude: Float
-        get() = cache.getFloat(CacheGPSModule.LAST_ALTITUDE) ?: userPrefs.altitudeOverride
+        get() = cached?.altitude ?: userPrefs.altitudeOverride
     override val bearing: Bearing?
         get() = null
     override val bearingAccuracy: Float?
@@ -62,6 +60,8 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
+    private val cached
+        get() = CacheGPSModule.getCachedData(cache)
     private val intervalometer = CoroutineTimer { notifyListeners() }
 
     override fun startImpl() {

@@ -1,11 +1,21 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.AccuracyFilterGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.MeanSeaLevelGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.SatelliteFixFilterGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.SpeedGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
 import java.time.Instant
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
-internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipeline) {
+internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -> Unit) -> GPSPipeline) {
     private var pipeline = factory(::onTimeout)
     private val consumers = mutableMapOf<Any, () -> Unit>()
+    private val mutex = Mutex()
 
     @Volatile
     private var latest = snapshot()
@@ -16,44 +26,44 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipelin
     val isTimedOut: Boolean
         get() = latest.isTimedOut
 
-    @Synchronized
-    fun start(consumer: Any, notifyTimeout: () -> Unit = {}) {
+    suspend fun start(consumer: Any, notifyTimeout: () -> Unit = {}) = mutex.withLock {
         if (consumers.putIfAbsent(consumer, notifyTimeout) == null && consumers.size == 1) {
             pipeline.start()
+            latest = snapshot()
         }
     }
 
-    @Synchronized
-    fun stop(consumer: Any) {
+    suspend fun stop(consumer: Any) = mutex.withLock {
         if (consumers.remove(consumer) != null && consumers.isEmpty()) {
             pipeline.stop()
         }
     }
 
-    @Synchronized
-    fun update(gps: ISatelliteGPS): ModularGPSData {
+    suspend fun update(gps: ModularGPSData): ModularGPSData? = mutex.withLock {
+        if (pipeline.ensureInitialized()) latest = snapshot()
         // A slower subscription may deliver a fix already superseded by another consumer.
         // Do not rewind shared state, even when optional rejection is disabled.
         val previousTime = pipeline.reading.time
         if (gps.time >= previousTime || previousTime > Instant.now().plusMillis(500)) {
-            if (pipeline.update(gps) != GPSUpdateResult.Rejected) {
-                latest = snapshot()
-            }
+            if (pipeline.update(gps) == GPSUpdateResult.Rejected) return@withLock null
+            latest = snapshot()
         }
-        return latest
+        latest
     }
 
-    @Synchronized
-    fun clearCache(clear: () -> Unit) {
+    suspend fun clearCache(clear: () -> Unit) = mutex.withLock {
         if (consumers.isNotEmpty()) pipeline.stop()
         clear()
         pipeline = factory(::onTimeout)
+        pipeline.reinitialize()
         latest = snapshot()
         if (consumers.isNotEmpty()) pipeline.start()
     }
 
-    private fun onTimeout() {
-        val listeners = synchronized(this) {
+    private suspend fun onTimeout(acceptTimeout: () -> Boolean) {
+        val listeners = mutex.withLock {
+            if (!acceptTimeout()) return@withLock emptyList()
+            pipeline.reading.isTimedOut = true
             latest = snapshot()
             consumers.values.toList()
         }
@@ -63,6 +73,7 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipelin
     private fun snapshot() = ModularGPSData().also { pipeline.reading.copyInto(it) }
 
     companion object {
+        @Volatile
         private var instance: SharedGPSPipeline? = null
 
         @Synchronized
@@ -70,19 +81,20 @@ internal class SharedGPSPipeline(private val factory: (() -> Unit) -> GPSPipelin
             return instance ?: SharedGPSPipeline { notifyTimeout ->
                 GPSPipeline(
                     listOf(
-                        BadReadingRejectionGPSModule(),
+                        BadReadingFilterGPSModule(),
+                        SatelliteFixFilterGPSModule(),
                         MeanSeaLevelGPSModule(),
+                        KalmanGPSModule(),
+                        AccuracyFilterGPSModule(),
                         SpeedGPSModule(),
                         TimeoutGPSModule(notifyTimeout),
-                        KalmanGPSModule(),
                         CacheGPSModule()
                     )
                 )
             }.also { instance = it }
         }
 
-        @Synchronized
-        fun clearSharedCache(clear: () -> Unit) {
+        suspend fun clearSharedCache(clear: () -> Unit) {
             val current = instance
             if (current == null) clear() else current.clearCache(clear)
         }

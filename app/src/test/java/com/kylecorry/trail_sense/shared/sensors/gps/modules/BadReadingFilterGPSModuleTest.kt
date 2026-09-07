@@ -1,22 +1,23 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Instant
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import java.time.Instant
 
-class BadReadingRejectionGPSModuleTest {
+class BadReadingFilterGPSModuleTest {
     private val prefs = mock<IGPSPreferences> {
-        on { filterLocationReadings }.thenReturn(true)
-        on { requiresSatellites }.thenReturn(true)
+        on { rejectInvalidReadings }.thenReturn(true)
     }
-    private val module = BadReadingRejectionGPSModule(prefs, mock())
+    private val module = BadReadingFilterGPSModule(prefs, mock())
     private val time = Instant.parse("2020-01-01T00:00:00Z")
 
     private fun reading(seconds: Long = 0, longitude: Double = 1.0) = ModularGPSData(
@@ -25,48 +26,40 @@ class BadReadingRejectionGPSModuleTest {
     )
 
     @Test
-    fun rejectsInvalidReadingsEvenWithFilteringDisabled() {
-        whenever(prefs.filterLocationReadings).thenReturn(false)
+    fun rejectsInvalidReadingsEvenWithFilteringDisabled() = runBlocking<Unit> {
+        whenever(prefs.rejectInvalidReadings).thenReturn(false)
         assertFalse(module.update(reading(), reading(1).apply { hasValidReading = false }))
         assertTrue(module.update(reading(), reading(-1, 50.0)))
     }
 
     @Test
-    fun enforcesAccuracyLimitBeforeAcceptingFirstOrStaleReadings() {
+    fun enforcesAccuracyLimitBeforeAcceptingFirstOrStaleReadings() = runBlocking<Unit> {
         assertFalse(module.update(ModularGPSData(), reading().apply { horizontalAccuracy = 151f }))
         assertFalse(module.update(reading(), reading(121).apply { horizontalAccuracy = 151f }))
         assertTrue(module.update(reading(), reading(1).apply { horizontalAccuracy = 150f }))
     }
 
     @Test
-    fun respectsSatelliteRequirementAndUnknownSatelliteCount() {
-        assertFalse(module.update(reading(), reading(1).apply { satellites = 3 }))
-        assertTrue(module.update(reading(), reading(1).apply { satellites = null }))
-        whenever(prefs.requiresSatellites).thenReturn(false)
-        assertTrue(module.update(reading(), reading(1).apply { satellites = 0 }))
-    }
-
-    @Test
-    fun acceptsFirstReadingAndRecoversFromFuturePreviousTime() {
+    fun acceptsFirstReadingAndRecoversFromFuturePreviousTime() = runBlocking<Unit> {
         assertTrue(module.update(ModularGPSData(), reading()))
         assertTrue(module.update(reading().apply { time = Instant.now().plusSeconds(60) }, reading()))
     }
 
     @Test
-    fun rejectsOlderReadingsButAllowsSameTimestamp() {
+    fun rejectsOlderReadingsButAllowsSameTimestamp() = runBlocking<Unit> {
         assertFalse(module.update(reading(), reading(-1)))
         assertTrue(module.update(reading(), reading()))
     }
 
     @Test
-    fun rejectsImplausibleMovementUntilReadingIsStale() {
+    fun rejectsImplausibleMovementUntilReadingIsStale() = runBlocking<Unit> {
         assertFalse(module.update(reading(), reading(1, 2.0)))
         assertFalse(module.update(reading(), reading(120, 2.0)))
         assertTrue(module.update(reading(), reading(121, 2.0)))
     }
 
     @Test
-    fun allowsPlausibleMovementWithoutTrustingReportedSpeed() {
+    fun allowsPlausibleMovementWithoutTrustingReportedSpeed() = runBlocking<Unit> {
         val candidate = reading(1, 1.0003)
         assertTrue(module.update(reading(), candidate))
         candidate.speed = Speed.from(30f, DistanceUnits.Meters, TimeUnits.Seconds)
@@ -74,13 +67,13 @@ class BadReadingRejectionGPSModuleTest {
     }
 
     @Test
-    fun allowsAircraftTravelAndGpsScatter() {
+    fun allowsAircraftTravelAndGpsScatter() = runBlocking<Unit> {
         assertTrue(module.update(reading(), reading(1, 1.003)))
         assertTrue(module.update(reading(), reading(1, 1.002)))
     }
 
     @Test
-    fun reportedSpeedCannotExcuseGrossJumps() {
+    fun reportedSpeedCannotExcuseGrossJumps() = runBlocking<Unit> {
         val candidate = reading(1, 2.0).apply {
             speed = Speed.from(100000f, DistanceUnits.Meters, TimeUnits.Seconds)
         }
@@ -88,7 +81,7 @@ class BadReadingRejectionGPSModuleTest {
     }
 
     @Test
-    fun doesNotModifyEitherReading() {
+    fun doesNotModifyEitherReading() = runBlocking<Unit> {
         val previous = reading()
         val candidate = reading(1, 2.0)
         assertFalse(module.update(previous, candidate))

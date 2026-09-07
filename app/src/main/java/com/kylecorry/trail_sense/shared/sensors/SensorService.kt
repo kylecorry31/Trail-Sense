@@ -80,8 +80,10 @@ class SensorService(ctx: Context) {
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
 
-    fun getGPS(frequency: Duration = DEFAULT_GPS_FREQUENCY): ISatelliteGPS {
-
+    fun getGPS(
+        frequency: Duration = DEFAULT_GPS_FREQUENCY,
+        useCache: Boolean = false
+    ): ISatelliteGPS {
         val hasPermission = hasLocationPermission()
 
         if (!userPrefs.gps.useAutoLocation || (!hasPermission && userPrefs.gps.hasLocationOverride)) {
@@ -92,7 +94,7 @@ class SensorService(ctx: Context) {
             return TimezoneGPS(frequency.toMillis())
         }
 
-        if (GPS.isAvailable(context)) {
+        if (!useCache && GPS.isAvailable(context)) {
             return CustomGPS(context, frequency)
         }
 
@@ -376,6 +378,10 @@ class SensorService(ctx: Context) {
         val DEFAULT_GPS_FREQUENCY: Duration = Duration.ofSeconds(1)
         val NAVIGATION_GPS_FREQUENCY: Duration = Duration.ofMillis(200)
         val SINGLE_FIX_GPS_FREQUENCY: Duration = Duration.ofMillis(20)
+        // Long enough for the GPS to get a fix which satisfies the user's accuracy filter
+        val GPS_READ_TIMEOUT: Duration = Duration.ofSeconds(30)
+        // Used where the user is waiting on a reading they can cancel
+        val EXTENDED_GPS_READ_TIMEOUT: Duration = Duration.ofMinutes(1)
     }
 
 }

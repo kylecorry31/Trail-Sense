@@ -2,10 +2,11 @@ package com.kylecorry.trail_sense.tools.beacons.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
@@ -38,7 +39,7 @@ object BeaconPickers {
         )
         val mapper = IBeaconListItemMapper(
             context,
-            SensorService(context).getGPS(),
+            getAppService<SensorSubsystem>()::lastKnownLocation,
             { _, _ -> },
             { _, _ -> })
         val titleProvider = { beacon: IBeacon? ->
@@ -76,7 +77,7 @@ object BeaconPickers {
         )
         val mapper = IBeaconListItemMapper(
             context,
-            SensorService(context).getGPS(),
+            getAppService<SensorSubsystem>()::lastKnownLocation,
             { _, _ -> },
             { _, _ -> })
         val titleProvider = { beacon: IBeacon? ->

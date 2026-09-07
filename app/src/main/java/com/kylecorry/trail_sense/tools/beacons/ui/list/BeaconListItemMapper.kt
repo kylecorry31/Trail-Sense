@@ -6,7 +6,6 @@ import android.widget.ImageView
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.views.list.ListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
@@ -27,7 +26,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 
 class BeaconListItemMapper(
     private val context: Context,
-    private val gps: IGPS,
+    private val location: () -> Coordinate,
     private val actionHandler: (Beacon, BeaconAction) -> Unit
 ) : ListItemMapper<Beacon> {
 
@@ -37,7 +36,7 @@ class BeaconListItemMapper(
         return value.toListItem(
             context,
             prefs.baseDistanceUnits,
-            gps.location,
+            location(),
             true
         ) {
             actionHandler(value, it)

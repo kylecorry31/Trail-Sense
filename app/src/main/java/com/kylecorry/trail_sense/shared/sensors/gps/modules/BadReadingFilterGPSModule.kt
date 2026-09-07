@@ -1,31 +1,31 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import java.time.Duration
 import java.time.Instant
-import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.hypot
 
 /**
  * Rejects readings which are clearly erroneous.
  */
-class BadReadingRejectionGPSModule(
+class BadReadingFilterGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
     private val logger: Logger = getAppService()
 ) : GPSModule {
-    private val diagnosticId = nextDiagnosticId.getAndIncrement()
 
-    override fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (!newData.hasValidReading) {
             return false
         }
 
-        if (!prefs.filterLocationReadings) {
+        if (!prefs.rejectInvalidReadings) {
             return true
         }
 
@@ -33,14 +33,6 @@ class BadReadingRejectionGPSModule(
         val newAccuracy = newData.horizontalAccuracy?.takeIf { it > 0f } ?: DEFAULT_ACCURACY
         if (newAccuracy > MAX_ACCEPTABLE_ACCURACY) {
             logRejectedReading("poor accuracy", previousData, newData)
-            return false
-        }
-
-        // If satellite count is null, then the phone doesn't support satellite count
-        val satelliteCount = newData.satellites
-        val hasFix = satelliteCount == null || !prefs.requiresSatellites || satelliteCount >= 4
-        if (!hasFix) {
-            logRejectedReading("not enough satellites ($satelliteCount)", previousData, newData)
             return false
         }
 
@@ -94,7 +86,7 @@ class BadReadingRejectionGPSModule(
     ) {
         logger.debug(
             TAG,
-            "[$diagnosticId] Location Rejected: $reason, ${describeNewReading(previousData, newData)}"
+            "Rejected: $reason, ${describeNewReading(previousData, newData)}"
         )
     }
 
@@ -105,7 +97,7 @@ class BadReadingRejectionGPSModule(
     ) {
         logger.debug(
             TAG,
-            "[$diagnosticId] Location Accepted: $reason, ${describeNewReading(previousData, newData)}"
+            "Accepted: $reason, ${describeNewReading(previousData, newData)}"
         )
     }
 
@@ -135,9 +127,6 @@ class BadReadingRejectionGPSModule(
         // Readings with this accuracy are too poor to accept, wait for another reading
         private const val MAX_ACCEPTABLE_ACCURACY = 150f
         private val STALE_READING_DURATION = Duration.ofMinutes(2)
-        private const val TAG = "FilteredGPS"
-
-        // This is used to distinguish instances of this class in the logs, since there can be multiple instances of this class at once
-        private val nextDiagnosticId = AtomicInteger(1)
+        private const val TAG = "BadReadingFilterGPSModule"
     }
 }

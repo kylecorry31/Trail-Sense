@@ -18,9 +18,11 @@ import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.maps.picker.MapLocationPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
@@ -125,7 +127,10 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                             CoroutineScope(Dispatchers.Main).launch {
                                 val beacon = BeaconPickers.pickBeacon(
                                     context,
-                                    sort = ClosestBeaconSort(BeaconService(context), gps::location)
+                                    sort = ClosestBeaconSort(
+                                        BeaconService(context),
+                                        getAppService<SensorSubsystem>()::lastKnownLocation
+                                    )
                                 ) ?: return@launch
                                 coordinate = beacon.coordinate
                                 beaconListener?.invoke(beacon)
@@ -134,11 +139,13 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
 
                         2 -> {
                             if (owner == null) return@item
+                            val lastKnownLocation =
+                                getAppService<SensorSubsystem>().lastKnownLocation
                             mapPicker.pickLocation(
                                 context,
                                 owner,
-                                coordinate ?: gps.location,
-                                userLocation = gps.location,
+                                coordinate ?: lastKnownLocation,
+                                userLocation = lastKnownLocation,
                                 onLocationPicked = { newLocation ->
                                     if (newLocation != null) {
                                         coordinate = newLocation

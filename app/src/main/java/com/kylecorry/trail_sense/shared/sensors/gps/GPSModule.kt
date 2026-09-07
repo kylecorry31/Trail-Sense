@@ -6,8 +6,8 @@ interface GPSModule {
      * updated with any changes.
      * @return false to reject the reading, which stops any remaining modules from running
      */
-    fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean
-    fun start(data: ModularGPSData) {}
-    fun stop(data: ModularGPSData) {}
-    fun initialize(data: ModularGPSData): Boolean = false
+    suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean
+    suspend fun start(data: ModularGPSData) {}
+    suspend fun stop(data: ModularGPSData) {}
+    suspend fun initialize(data: ModularGPSData): Boolean = false
 }

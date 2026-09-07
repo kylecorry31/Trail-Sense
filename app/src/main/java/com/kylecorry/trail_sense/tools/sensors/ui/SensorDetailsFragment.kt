@@ -425,7 +425,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
-        if (!gps.hasValidReading || (prefs.gps.requiresSatellites && (gps.satellites
+        if (!gps.hasValidReading || (prefs.gps.requiresSatelliteCount && (gps.satellites
                 ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)
         ) {
             return Resources.color(requireContext(), R.color.yellow)
@@ -479,7 +479,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (prefs.gps.requiresSatellites && (gps.satellites
+        if (!gps.hasValidReading || (prefs.gps.requiresSatelliteCount && (gps.satellites
                 ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)
         ) {
             return getString(R.string.gps_searching)

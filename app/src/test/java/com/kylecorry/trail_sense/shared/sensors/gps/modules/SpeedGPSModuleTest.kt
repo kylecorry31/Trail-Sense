@@ -1,12 +1,15 @@
-package com.kylecorry.trail_sense.shared.sensors.gps
+package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
+import java.time.Instant
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.time.Instant
 
 class SpeedGPSModuleTest {
     private val module = SpeedGPSModule()
@@ -19,32 +22,42 @@ class SpeedGPSModuleTest {
     )
 
     @Test
-    fun keepsFirstReadingSpeedWithoutHistory() {
+    fun keepsFirstReadingSpeedWithoutHistory() = runBlocking<Unit> {
         val candidate = reading(0)
         assertTrue(module.update(previous, candidate))
         assertEquals(0f, candidate.speed.value)
     }
 
     @Test
-    fun preservesReportedNonzeroSpeed() {
+    fun preservesReportedNonzeroSpeed() = runBlocking<Unit> {
         module.update(previous, reading(0))
-        val candidate = reading(1000, 1.001, 3f)
+        val candidate = reading(1000, 1.001, 3f).apply {
+            speedSource = SpeedSource.Provider
+            speedAccuracy = 0.2f
+        }
         module.update(previous, candidate)
         assertEquals(3f, candidate.speed.value)
+        assertEquals(SpeedSource.Provider, candidate.speedSource)
+        assertEquals(0.2f, candidate.speedAccuracy)
     }
 
     @Test
-    fun estimatesMissingSpeedFromMovementAndElapsedTime() {
+    fun estimatesMissingSpeedFromMovementAndElapsedTime() = runBlocking<Unit> {
         module.update(previous, reading(0))
-        val candidate = reading(10000, 1.001)
+        val candidate = reading(10000, 1.001).apply {
+            speedSource = SpeedSource.Provider
+            speedAccuracy = 0.2f
+        }
         module.update(previous, candidate)
         assertTrue(candidate.speed.value in 10f..12f)
+        assertEquals(SpeedSource.PositionDerived, candidate.speedSource)
+        assertNull(candidate.speedAccuracy)
         assertEquals(0f, previous.speed.value)
         assertEquals(Coordinate.zero, previous.location)
     }
 
     @Test
-    fun keepsSpeedZeroWhenMovementIsWithinAccuracy() {
+    fun keepsSpeedZeroWhenMovementIsWithinAccuracy() = runBlocking<Unit> {
         module.update(previous, reading(0))
         val candidate = reading(1000, 1.000001)
         module.update(previous, candidate)
@@ -52,7 +65,7 @@ class SpeedGPSModuleTest {
     }
 
     @Test
-    fun frequentUpdatesDoNotEvictHistoryBeforeOneSecond() {
+    fun frequentUpdatesDoNotEvictHistoryBeforeOneSecond() = runBlocking<Unit> {
         module.update(previous, reading(0))
         for (millis in 1L..20L) {
             module.update(previous, reading(millis, 1.001, 1f))

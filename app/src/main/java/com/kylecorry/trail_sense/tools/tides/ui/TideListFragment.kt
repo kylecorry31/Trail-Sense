@@ -13,9 +13,10 @@ import com.kylecorry.luna.concurrency.ParallelCoroutineRunner
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
@@ -29,8 +30,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val tideRepo by lazy { TideTableRepo.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS() }
+    private val sensors by lazy { getAppService<SensorSubsystem>() }
     private val mapper by lazy {
         TideTableListItemMapper(
             requireContext(),
@@ -125,7 +125,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
     private fun refreshTides() {
         inBackground {
             tides = tideRepo.getTideTables().sortedWith(compareBy({ it.isEditable }, { tide ->
-                tide.location?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
+                tide.location?.distanceTo(sensors.lastKnownLocation) ?: Float.POSITIVE_INFINITY
             })).map { it to (null as TideType?) }
 
             // Update the tide types in parallel and update each time one is done

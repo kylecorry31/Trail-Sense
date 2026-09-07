@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.settings.migrations
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.preferences.getIntArray
 import com.kylecorry.andromeda.preferences.putIntArray
@@ -21,7 +22,8 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
-import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.GPSCacheData
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
@@ -75,7 +77,18 @@ class PreferenceMigrator private constructor() {
 
         internal const val VERSION_KEY = "pref_version"
 
-        internal const val version = 30
+        internal const val LEGACY_LAST_KALMAN_VARIANCE = "last_kalman_variance"
+        internal const val LEGACY_LAST_KALMAN_VELOCITY_VARIANCE = "last_kalman_velocity_variance"
+        internal const val LEGACY_LAST_LATITUDE = "last_latitude_double"
+        internal const val LEGACY_LAST_LONGITUDE = "last_longitude_double"
+        internal const val LEGACY_LAST_ALTITUDE = "last_altitude"
+        internal const val LEGACY_LAST_BEARING = "last_bearing"
+        internal const val LEGACY_LAST_SPEED = "last_speed"
+        internal const val LEGACY_LAST_UPDATE = "last_update"
+        internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
+        internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
+
+        internal const val version = 32
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -166,7 +179,7 @@ class PreferenceMigrator private constructor() {
                 prefs.remove("pref_astronomy_alerts_last_run_date")
             },
             PreferenceMigration(11, 12) { _, prefs ->
-                val elevation = prefs.getFloat(CacheGPSModule.LAST_ALTITUDE)
+                val elevation = prefs.getFloat(LEGACY_LAST_ALTITUDE)
                 if (elevation != null) {
                     prefs.putFloat(CachingAltimeterWrapper.LAST_ALTITUDE_KEY, elevation)
                 }
@@ -480,6 +493,41 @@ class PreferenceMigrator private constructor() {
                 if (AppState.isReturningUser && !prefs.contains(key)) {
                     prefs.putBoolean(key, false)
                 }
+            },
+            PreferenceMigration(30, 31) { _, prefs ->
+                val legacyKeys = listOf(
+                    LEGACY_LAST_KALMAN_VARIANCE,
+                    LEGACY_LAST_KALMAN_VELOCITY_VARIANCE,
+                    LEGACY_LAST_LATITUDE,
+                    LEGACY_LAST_LONGITUDE,
+                    LEGACY_LAST_ALTITUDE,
+                    LEGACY_LAST_BEARING,
+                    LEGACY_LAST_SPEED,
+                    LEGACY_LAST_UPDATE,
+                    LEGACY_LAST_HORIZONTAL_ACCURACY,
+                    LEGACY_LAST_VERTICAL_ACCURACY
+                )
+
+                if (legacyKeys.any(prefs::contains)) {
+                    val cached = GPSCacheData(
+                        latitude = prefs.getDouble(LEGACY_LAST_LATITUDE) ?: 0.0,
+                        longitude = prefs.getDouble(LEGACY_LAST_LONGITUDE) ?: 0.0,
+                        altitude = prefs.getFloat(LEGACY_LAST_ALTITUDE) ?: 0f,
+                        bearing = prefs.getFloat(LEGACY_LAST_BEARING)
+                            ?.takeIf { it.isFinite() },
+                        speed = prefs.getFloat(LEGACY_LAST_SPEED) ?: 0f,
+                        updateTimeMillis = prefs.getLong(LEGACY_LAST_UPDATE) ?: 0L,
+                        horizontalAccuracy = prefs.getFloat(LEGACY_LAST_HORIZONTAL_ACCURACY),
+                        verticalAccuracy = prefs.getFloat(LEGACY_LAST_VERTICAL_ACCURACY)
+                    )
+                    prefs.putString(CacheGPSModule.LAST_GPS, JsonConvert.toJson(cached))
+                }
+
+                legacyKeys.forEach(prefs::remove)
+            },
+            PreferenceMigration(31, 32) { context, prefs ->
+                val key = context.getString(R.string.pref_use_filtered_gps)
+                prefs.putBoolean(key, true)
             }
         )
 

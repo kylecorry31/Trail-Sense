@@ -75,7 +75,7 @@ class QuickActionRecalibrateAltimeter(btn: QuickActionButtonView, fragment: Frag
                         FusedAltimeter.clearCachedCalibration(
                             getAppService<PreferencesSubsystem>().preferences
                         )
-                        readAll(listOf(altimeter))
+                        readAll(listOf(altimeter), SensorService.EXTENDED_GPS_READ_TIMEOUT)
                     }
 
                     Alerts.withCancelableLoading(

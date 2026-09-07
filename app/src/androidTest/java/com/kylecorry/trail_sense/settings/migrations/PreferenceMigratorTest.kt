@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.migrations
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.preferences.Preference
 import com.kylecorry.andromeda.preferences.getIntArray
@@ -14,7 +15,8 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.gps.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.GPSCacheData
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
@@ -199,7 +201,7 @@ class PreferenceMigratorTest {
 
     @Test
     fun migration11To12MovesTheLastAltitudeToTheAltimeterCache() {
-        prefs.putFloat(CacheGPSModule.LAST_ALTITUDE, 123f)
+        prefs.putFloat(PreferenceMigrator.LEGACY_LAST_ALTITUDE, 123f)
 
         migrate(11)
 
@@ -458,6 +460,65 @@ class PreferenceMigratorTest {
         prefs.putBoolean(key, true)
 
         migrate(29)
+
+        assertEquals(true, prefs.getBoolean(key))
+    }
+
+    @Test
+    fun migration30To31CombinesTheGpsCacheIntoOneJsonPreference() {
+        prefs.putDouble(PreferenceMigrator.LEGACY_LAST_KALMAN_VARIANCE, 3.123456789)
+        prefs.putDouble(PreferenceMigrator.LEGACY_LAST_KALMAN_VELOCITY_VARIANCE, 0.25)
+        prefs.putDouble(PreferenceMigrator.LEGACY_LAST_LATITUDE, 42.0)
+        prefs.putDouble(PreferenceMigrator.LEGACY_LAST_LONGITUDE, -72.0)
+        prefs.putFloat(PreferenceMigrator.LEGACY_LAST_ALTITUDE, 123f)
+        prefs.putFloat(PreferenceMigrator.LEGACY_LAST_BEARING, 90f)
+        prefs.putFloat(PreferenceMigrator.LEGACY_LAST_SPEED, 3f)
+        prefs.putLong(PreferenceMigrator.LEGACY_LAST_UPDATE, 123456789L)
+        prefs.putFloat(PreferenceMigrator.LEGACY_LAST_HORIZONTAL_ACCURACY, 5f)
+        prefs.putFloat(PreferenceMigrator.LEGACY_LAST_VERTICAL_ACCURACY, 8f)
+
+        migrate(30)
+
+        val cached = JsonConvert.fromJson<GPSCacheData>(prefs.getString(CacheGPSModule.LAST_GPS)!!)
+        assertNull(cached?.kalmanState)
+        assertEquals(42.0, cached?.latitude)
+        assertEquals(-72.0, cached?.longitude)
+        assertEquals(123f, cached?.altitude)
+        assertEquals(90f, cached?.bearing)
+        assertEquals(3f, cached?.speed)
+        assertEquals(123456789L, cached?.updateTimeMillis)
+        assertEquals(5f, cached?.horizontalAccuracy)
+        assertEquals(8f, cached?.verticalAccuracy)
+
+        listOf(
+            PreferenceMigrator.LEGACY_LAST_KALMAN_VARIANCE,
+            PreferenceMigrator.LEGACY_LAST_KALMAN_VELOCITY_VARIANCE,
+            PreferenceMigrator.LEGACY_LAST_LATITUDE,
+            PreferenceMigrator.LEGACY_LAST_LONGITUDE,
+            PreferenceMigrator.LEGACY_LAST_ALTITUDE,
+            PreferenceMigrator.LEGACY_LAST_BEARING,
+            PreferenceMigrator.LEGACY_LAST_SPEED,
+            PreferenceMigrator.LEGACY_LAST_UPDATE,
+            PreferenceMigrator.LEGACY_LAST_HORIZONTAL_ACCURACY,
+            PreferenceMigrator.LEGACY_LAST_VERTICAL_ACCURACY
+        ).forEach { assertFalse(prefs.contains(it)) }
+    }
+
+    @Test
+    fun migration31To32EnablesGpsSmoothingByDefault() {
+        val key = context.getString(R.string.pref_use_filtered_gps)
+
+        migrate(31)
+
+        assertEquals(true, prefs.getBoolean(key))
+    }
+
+    @Test
+    fun migration31To32EnablesGpsSmoothingForExistingUsers() {
+        val key = context.getString(R.string.pref_use_filtered_gps)
+        prefs.putBoolean(key, false)
+
+        migrate(31)
 
         assertEquals(true, prefs.getBoolean(key))
     }

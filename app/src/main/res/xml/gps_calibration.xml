@@ -32,7 +32,24 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
-            android:dependency="@string/pref_filter_location_readings"
+            android:dependency="@string/pref_auto_location"
+            app:key="@string/pref_use_filtered_gps"
+            app:singleLineTitle="false"
+            app:title="@string/smooth_gps_readings"
+            android:summary="@string/smooth_gps_readings_summary"/>
+
+        <ListPreference
+            app:defaultValue="2"
+            app:iconSpaceReserved="false"
+            android:dependency="@string/pref_auto_location"
+            app:key="@string/pref_gps_accuracy_requirement"
+            app:singleLineTitle="false"
+            app:title="@string/pref_gps_accuracy_requirement_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_require_satellites"
             app:singleLineTitle="false"
             app:title="@string/pref_require_satellites_title"

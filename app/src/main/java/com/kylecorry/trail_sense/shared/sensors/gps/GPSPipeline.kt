@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.sol.units.Coordinate
 import java.time.Instant
 
+/** Callers must serialize lifecycle and update calls, including across suspension points. */
 class GPSPipeline(
     private val modules: List<GPSModule>,
 ) {
@@ -15,31 +15,34 @@ class GPSPipeline(
     var hadValidReading = false
         private set
 
-    init {
-        reinitialize()
+    private var initialized = false
+
+    internal suspend fun ensureInitialized(): Boolean {
+        return if (!initialized) reinitialize() else false
     }
 
-    @Synchronized
-    fun reinitialize(): Boolean {
+    suspend fun reinitialize(): Boolean {
         var changed = false
         modules.forEach {
             if (it.initialize(data)) {
                 changed = true
             }
         }
+        initialized = true
         return changed
     }
 
-    fun start() {
+    suspend fun start() {
+        ensureInitialized()
         modules.forEach { it.start(data) }
     }
 
-    fun stop() {
+    suspend fun stop() {
         modules.forEach { it.stop(data) }
     }
 
-    @Synchronized
-    fun update(gps: ISatelliteGPS): GPSUpdateResult {
+    suspend fun update(gps: ModularGPSData): GPSUpdateResult {
+        ensureInitialized()
         candidate.populateFromGPS(gps)
 
         if (modules.any { !it.update(data, candidate) }) {

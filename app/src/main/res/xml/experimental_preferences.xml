@@ -50,14 +50,6 @@
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
-            app:disableDependentsState="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_use_filtered_gps"
-            app:singleLineTitle="false"
-            app:title="@string/smooth_gps_readings" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_widget_icon_compatibility"
             app:singleLineTitle="false"

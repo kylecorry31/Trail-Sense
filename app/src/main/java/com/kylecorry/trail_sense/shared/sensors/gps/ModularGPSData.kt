@@ -34,8 +34,8 @@ class ModularGPSData(
 ) : ISatelliteGPS {
 
     // Internal filter uncertainty - replace this with a custom data property (map) later
-    var kalmanVariance: Double? = null
-    var kalmanVelocityVariance: Double? = null
+    var kalmanState: GPSKalmanState? = null
+    var speedSource: SpeedSource = SpeedSource.Unknown
 
     // This is a data holder, so it never emits
     override val flow: Flow<Unit> = emptyFlow()
@@ -65,8 +65,7 @@ class ModularGPSData(
     }
 
     fun copyInto(other: ModularGPSData) {
-        other.kalmanVariance = kalmanVariance
-        other.kalmanVelocityVariance = kalmanVelocityVariance
+        other.kalmanState = kalmanState
         other.satellites = satellites
         other.satelliteDetails = satelliteDetails
         other.location = location
@@ -83,12 +82,12 @@ class ModularGPSData(
         other.altitude = altitude
         other.time = time
         other.speed = speed
+        other.speedSource = speedSource
         other.isTimedOut = isTimedOut
     }
 
     fun populateFromGPS(gps: ISatelliteGPS) {
-        kalmanVariance = null
-        kalmanVelocityVariance = null
+        kalmanState = null
         satellites = gps.satellites
         satelliteDetails = gps.satelliteDetails
         location = gps.location
@@ -105,5 +104,6 @@ class ModularGPSData(
         altitude = gps.altitude
         time = gps.time
         speed = gps.speed
+        speedSource = (gps as? ModularGPSData)?.speedSource ?: SpeedSource.Provider
     }
 }

@@ -71,7 +71,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private val listMapper by lazy {
         IBeaconListItemMapper(
             requireContext(),
-            gps,
+            gps::location,
             this::handleBeaconAction,
             this::handleBeaconGroupAction
         )

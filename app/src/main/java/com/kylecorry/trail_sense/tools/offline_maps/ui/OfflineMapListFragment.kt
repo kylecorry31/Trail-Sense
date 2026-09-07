@@ -32,7 +32,7 @@ import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
-import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapError
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapCatalogItem
@@ -68,8 +68,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.FragmentMapExp
 
 class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
-    private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS() }
+    private val sensors by lazy { getAppService<SensorSubsystem>() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val mapService by lazy { getAppService<OfflineMapService>() }
     private val mapLoader by lazy { MapGroupLoader(mapService.loader) }
@@ -108,7 +107,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         )
 
         mapper = IMapMapper(
-            gps,
+            sensors::lastKnownLocation,
             requireContext(),
             this,
             this::onPhotoMapAction,
@@ -213,7 +212,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
 
     private suspend fun sortMaps(maps: List<OfflineMapCatalogItem>): List<OfflineMapCatalogItem> = onDefault {
         val strategy = when (sort) {
-            MapSortMethod.Closest -> ClosestMapSortStrategy(gps.location, mapService.loader)
+            MapSortMethod.Closest -> ClosestMapSortStrategy(sensors.lastKnownLocation, mapService.loader)
             MapSortMethod.MostRecent -> MostRecentMapSortStrategy(mapService.loader)
             MapSortMethod.Name -> NameMapSortStrategy()
         }

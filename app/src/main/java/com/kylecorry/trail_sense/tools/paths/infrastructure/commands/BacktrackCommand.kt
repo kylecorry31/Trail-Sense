@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import java.time.Duration
 import java.time.Instant
 
 class BacktrackCommand(
@@ -56,7 +55,7 @@ class BacktrackCommand(
     private suspend fun updateSensors() {
         readAll(
             listOf(gps, altimeter, cellSignalSensor),
-            timeout = Duration.ofSeconds(10),
+            timeout = SensorService.GPS_READ_TIMEOUT,
             forceStopOnCompletion = true
         )
 
