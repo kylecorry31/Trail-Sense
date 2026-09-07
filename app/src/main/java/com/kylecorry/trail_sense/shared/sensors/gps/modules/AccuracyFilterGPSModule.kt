@@ -97,6 +97,6 @@ class AccuracyFilterGPSModule(
 
     companion object {
         private const val TAG = "AccuracyFilterGPSModule"
-        private val MAX_RETAINED_FIX_AGE: Duration = Duration.ofSeconds(2)
+        private val MAX_RETAINED_FIX_AGE: Duration = Duration.ofSeconds(5)
     }
 }

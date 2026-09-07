@@ -67,7 +67,7 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
-    fun retainsBestFixForTwoSecondsAndDropsOlderCandidates() = runBlocking<Unit> {
+    fun retainsBestFixForFiveSecondsAndDropsOlderCandidates() = runBlocking<Unit> {
         val best = { reading(20f).apply { location = Coordinate(2.0, 3.0) } }
         val arrival = { seconds: Long ->
             reading(80f).apply {
@@ -77,7 +77,7 @@ class AccuracyFilterGPSModuleTest {
         }
 
         assertFalse(module.update(previous, best()))
-        val recent = arrival(3)
+        val recent = arrival(6)
         nowMillis = moderateWait
         assertTrue(module.update(previous, recent))
         assertEquals(Coordinate(2.0, 3.0), recent.location)
@@ -85,7 +85,7 @@ class AccuracyFilterGPSModuleTest {
 
         module.start(previous)
         assertFalse(module.update(previous, best()))
-        val stale = arrival(4)
+        val stale = arrival(7)
         nowMillis += moderateWait
         assertTrue(module.update(previous, stale))
         assertEquals(Coordinate(4.0, 5.0), stale.location)
@@ -98,7 +98,7 @@ class AccuracyFilterGPSModuleTest {
 
         val stale = reading(80f).apply {
             location = Coordinate(4.0, 5.0)
-            time = Instant.EPOCH.plusSeconds(4)
+            time = Instant.EPOCH.plusSeconds(7)
         }
         nowMillis = moderateWait
         assertTrue(module.update(previous, stale))
@@ -107,7 +107,7 @@ class AccuracyFilterGPSModuleTest {
         // The chosen fix reaches the pipeline once; later readings pass through as themselves.
         val retry = reading(90f).apply {
             location = Coordinate(6.0, 7.0)
-            time = Instant.EPOCH.plusSeconds(5)
+            time = Instant.EPOCH.plusSeconds(8)
         }
         assertTrue(module.update(previous, retry))
         assertEquals(Coordinate(6.0, 7.0), retry.location)

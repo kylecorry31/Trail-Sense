@@ -31,7 +31,7 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
         cache,
         getString(R.string.pref_gps_accuracy_requirement),
         GPSAccuracyFilter.entries.associateBy { it.id.toString() },
-        GPSAccuracyFilter.None
+        GPSAccuracyFilter.Low
     )
 
     override val useFilteredGPS by BooleanPreference(

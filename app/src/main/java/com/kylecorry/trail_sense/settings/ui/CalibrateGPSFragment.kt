@@ -98,6 +98,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private fun setAccuracyFilterEntries() {
         val names = mapOf(
             GPSAccuracyFilter.None to getString(R.string.none),
+            GPSAccuracyFilter.Low to getString(R.string.low),
             GPSAccuracyFilter.Moderate to getString(R.string.moderate),
             GPSAccuracyFilter.High to getString(R.string.high)
         )

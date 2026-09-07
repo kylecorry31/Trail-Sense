@@ -39,7 +39,7 @@
             android:summary="@string/smooth_gps_readings_summary"/>
 
         <ListPreference
-            app:defaultValue="1"
+            app:defaultValue="2"
             app:iconSpaceReserved="false"
             android:dependency="@string/pref_auto_location"
             app:key="@string/pref_gps_accuracy_requirement"
