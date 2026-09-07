@@ -365,8 +365,8 @@
     <string name="export">Exporter</string>
     <string name="altocumulus_desc">Nuages cotonneux de moyenne altitude, ressemblant à des boules de coton. Ils sont généralement blancs avec des zones plus foncées en dessous et peuvent être espacés ou former une nappe.</string>
     <string name="cirrus">Cirrus</string>
-    <string name="pref_require_satellites_description">Nécessite au moins 4 satellites, améliore la précision</string>
-    <string name="pref_require_satellites_title">Nécessite une correction satellite</string>
+    <string name="pref_require_satellites_description">Ignore les relevés pour lesquels le nombre de satellites n\'est pas indiqué</string>
+    <string name="pref_require_satellites_title">Exiger le comptage des satellites</string>
     <string name="clouds">Nuages</string>
     <string name="how">Comment</string>
     <string name="compass_calibrate_toast">Précision de la boussole %s, un étalonnage est conseillé</string>
@@ -1673,6 +1673,7 @@
     <string name="delete_image_prompt">Supprimer l\'image ?</string>
     <string name="image_index">Image %1$d/%2$d</string>
     <string name="last_updated">Dernière mise à jour</string>
-    <string name="pref_filter_location_readings_title">Filtrer les relevés de localisation</string>
-    <string name="pref_filter_location_readings_description">Ignore les mesures qui semblent moins bonnes que la mesure actuelle</string>
+    <string name="pref_filter_location_readings_title">Rejeter les mesures non valides</string>
+    <string name="pref_filter_location_readings_description">Élimine les mesures trop imprécises ou incompatibles avec la mesure précédente</string>
+    <string name="pref_gps_accuracy_requirement_title">Filtre de précision</string>
 </resources>
