@@ -103,7 +103,13 @@ class KalmanGPSModule(
         transition[POSITION_EAST, VELOCITY_EAST] = dt
         transition[POSITION_NORTH, VELOCITY_NORTH] = dt
         kalman.F = transition
-        val accelerationNoise = 10f.pow(6f - 8f * smoothing / 100f)
+        val accelerationNoise = if (smoothing <= 50) {
+            MIN_SMOOTHING_NOISE * (BALANCED_SMOOTHING_NOISE / MIN_SMOOTHING_NOISE)
+                .pow(smoothing / 50f)
+        } else {
+            BALANCED_SMOOTHING_NOISE * (MAX_SMOOTHING_NOISE / BALANCED_SMOOTHING_NOISE)
+                .pow((smoothing - 50) / 50f)
+        }
         val dt2 = dt * dt
         val dt3 = dt2 * dt
         processNoise[POSITION_EAST, POSITION_EAST] = accelerationNoise * dt3 / 3f
@@ -288,6 +294,9 @@ class KalmanGPSModule(
         private const val VELOCITY_NORTH = 3
         private const val DEFAULT_ACCURACY = 50f
         private const val DEFAULT_VELOCITY_VARIANCE = 9f
+        private const val MIN_SMOOTHING_NOISE = 10_000f
+        private const val BALANCED_SMOOTHING_NOISE = 0.1f
+        private const val MAX_SMOOTHING_NOISE = 0.01f
         private const val MAX_REFERENCE_DISTANCE = 200f
     }
 }

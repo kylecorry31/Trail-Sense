@@ -51,18 +51,27 @@ class KalmanGPSModuleTest {
 
     @Test
     fun increasingSmoothingReducesResponseToPositionJump() = runBlocking<Unit> {
-        var previousError = -1f
-        for (smoothing in listOf(1, 25, 50, 75, 100)) {
+        var previousError = 0f
+        for (smoothing in listOf(1, 5, 10, 20, 25, 50, 75, 100)) {
             whenever(prefs.smoothing).thenReturn(smoothing)
             val filter = KalmanGPSModule(prefs, mock())
-            val first = reading(1)
+            var first = reading(1)
             filter.update(previous, first)
-            val next = reading(2, 1.001)
+            // Let covariance settle so differences between high smoothing levels
+            // are distinguishable from the initial measurement uncertainty.
+            repeat(60) { index ->
+                val stationary = reading(index + 2L)
+                filter.update(first, stationary)
+                first = stationary
+            }
+            val next = reading(62, 1.001)
             val measured = next.location
             filter.update(first, next)
             val error = measured.distanceTo(next.location)
             assertTrue(error > previousError, "smoothing: $smoothing")
-            if (smoothing == 1) assertTrue(error < 0.1f)
+            if (smoothing == 1) {
+                assertTrue(error < measured.distanceTo(first.location) * 0.1f, "Near-zero error: $error")
+            }
             if (smoothing == 100) assertTrue(error > 40f)
             previousError = error
         }
