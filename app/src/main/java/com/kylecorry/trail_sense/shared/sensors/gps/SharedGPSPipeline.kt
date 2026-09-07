@@ -39,15 +39,14 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
         }
     }
 
-    suspend fun update(gps: ModularGPSData): ModularGPSData = mutex.withLock {
+    suspend fun update(gps: ModularGPSData): ModularGPSData? = mutex.withLock {
         if (pipeline.ensureInitialized()) latest = snapshot()
         // A slower subscription may deliver a fix already superseded by another consumer.
         // Do not rewind shared state, even when optional rejection is disabled.
         val previousTime = pipeline.reading.time
         if (gps.time >= previousTime || previousTime > Instant.now().plusMillis(500)) {
-            if (pipeline.update(gps) != GPSUpdateResult.Rejected) {
-                latest = snapshot()
-            }
+            if (pipeline.update(gps) == GPSUpdateResult.Rejected) return@withLock null
+            latest = snapshot()
         }
         latest
     }

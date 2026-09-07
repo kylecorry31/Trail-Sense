@@ -20,7 +20,7 @@ internal class GPSPipelineConsumer(
     }
 
     suspend fun update(gps: ModularGPSData): Boolean {
-        val latest = pipeline.update(gps)
+        val latest = pipeline.update(gps) ?: return false
         if (latest.location == Coordinate.zero) return false
         val timeMillis = latest.time.toEpochMilli()
         val isNewToConsumer = timeMillis != deliveredTimeMillis

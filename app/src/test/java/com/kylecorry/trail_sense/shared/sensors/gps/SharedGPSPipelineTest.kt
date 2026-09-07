@@ -186,7 +186,7 @@ class SharedGPSPipelineTest {
     }
 
     @Test
-    fun rejectedUpdateStillPublishesLazilyRestoredCache() = runBlocking<Unit> {
+    fun rejectedUpdatePublishesLazilyRestoredCacheWithoutDelivering() = runBlocking<Unit> {
         CacheGPSModule(cache).update(ModularGPSData(), reading(10))
         val pipeline = SharedGPSPipeline {
             GPSPipeline(listOf(
@@ -197,11 +197,15 @@ class SharedGPSPipelineTest {
             ))
         }
         assertEquals(Coordinate.zero, pipeline.reading.location)
-        val restored = pipeline.update(reading(11, 2.0))
+        // A one-shot read must keep waiting for a fix instead of finishing with the cache.
+        val consumer = Consumer(pipeline).consumer
+        assertFalse(consumer.update(reading(11, 2.0)))
+        val restored = pipeline.reading
         assertEquals(reading(10).location, restored.location)
         assertEquals(reading(10).time, restored.time)
+        assertNull(pipeline.update(reading(12, 3.0)))
+        assertFalse(consumer.update(reading(12, 3.0)))
         assertSame(restored, pipeline.reading)
-        assertSame(restored, pipeline.update(reading(12, 3.0)))
     }
 
     @Test
@@ -209,7 +213,7 @@ class SharedGPSPipelineTest {
         val pipeline = SharedGPSPipeline { GPSPipeline(emptyList()) }
         val future = reading(1).apply { time = Instant.now().plusSeconds(3600) }
         pipeline.update(future)
-        val recovered = pipeline.update(reading(2, 2.0))
+        val recovered = pipeline.update(reading(2, 2.0))!!
         assertEquals(reading(2).time, recovered.time)
         assertEquals(reading(2, 2.0).location, recovered.location)
     }

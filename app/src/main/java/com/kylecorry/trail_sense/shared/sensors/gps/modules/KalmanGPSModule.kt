@@ -50,6 +50,14 @@ class KalmanGPSModule(
             reset()
             return true
         }
+        // Another consumer can repeat the accepted fix after the filter has advanced
+        // through candidates rejected by a later module.
+        if (newData.time == previousData.time && previousData.location != Coordinate.zero) {
+            newData.location = previousData.location
+            newData.kalmanState = previousData.kalmanState
+            newData.horizontalAccuracy = previousData.horizontalAccuracy
+            return true
+        }
         val hasNewerPrevious = time?.let { previousData.time > it } == true
         if (shouldRestore(previousData, newData, hasNewerPrevious)) {
             restore(previousData)

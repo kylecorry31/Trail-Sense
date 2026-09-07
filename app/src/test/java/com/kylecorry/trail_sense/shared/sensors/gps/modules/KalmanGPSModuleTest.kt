@@ -268,15 +268,19 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun republishedFixReportsTheEstimateWhileRunningAheadOfTheAcceptedReading() =
+    fun republishedFixReportsTheAcceptedReadingWhileRunningAheadOfIt() =
         runBlocking<Unit> {
             val accepted = acceptFirstFix(module)
+            // Absorbed, then rejected downstream, so the accepted reading stays behind the filter.
             val absorbed = reading(2, 1.001)
             module.update(accepted, absorbed)
 
             val republished = reading(1, 1.5)
             assertTrue(module.update(accepted, republished))
-            assertEquals(absorbed.location, republished.location)
+            assertEquals(accepted.location, republished.location)
+            assertEquals(accepted.horizontalAccuracy, republished.horizontalAccuracy)
+            assertEquals(accepted.kalmanState, republished.kalmanState)
+            assertNotEquals(absorbed.location, republished.location)
         }
 
     @Test
