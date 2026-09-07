@@ -671,7 +671,6 @@
     <string name="battery_usage">%s battery usage</string>
     <string name="high">High</string>
     <string name="moderate">Moderate</string>
-    <string name="medium">Medium</string>
     <string name="low">Low</string>
     <string name="no_gps_signal">No GPS Signal</string>
     <string name="pref_navigation_quick_action_left" translatable="false">pref_navigation_quick_action_left</string>

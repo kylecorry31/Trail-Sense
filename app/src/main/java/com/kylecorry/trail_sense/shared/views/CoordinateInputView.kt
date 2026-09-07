@@ -139,11 +139,13 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
 
                         2 -> {
                             if (owner == null) return@item
+                            val lastKnownLocation =
+                                getAppService<SensorSubsystem>().lastKnownLocation
                             mapPicker.pickLocation(
                                 context,
                                 owner,
-                                coordinate ?: getAppService<SensorSubsystem>().lastKnownLocation,
-                                userLocation = getAppService<SensorSubsystem>().lastKnownLocation,
+                                coordinate ?: lastKnownLocation,
+                                userLocation = lastKnownLocation,
                                 onLocationPicked = { newLocation ->
                                     if (newLocation != null) {
                                         coordinate = newLocation
