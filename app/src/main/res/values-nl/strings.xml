@@ -240,7 +240,6 @@
     <string name="cirrostratus">Cirrostratus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="cirrus">Cirrus</string>
-    <string name="pref_require_satellites_description">Straalt minimaal 4 satellieten aan, verbetert de nauwkeurigheid</string>
     <string name="clouds">Wolken</string>
     <string name="how">Hoe</string>
     <string name="compass_calibrate_toast">Kompasjuistheid %s, kalibreren wordt geadviseerd</string>
@@ -569,7 +568,6 @@
     <string name="pref_step_length_title">Paslengte</string>
     <string name="pedometer">Stappenteller</string>
     <string name="speedometer">Snelheidsmeter</string>
-    <string name="pref_require_satellites_title">Geolocatie bepalen</string>
     <string name="screen_flashlight">Scherm oplichten</string>
     <string name="pref_daily_weather_time_title">Dagelijkse weertijd</string>
     <string name="time_not_set">Tijd niet ingesteld</string>
@@ -1660,6 +1658,4 @@
     <string name="delete_image_prompt">Afbeelding verwijderen?</string>
     <string name="image_index">Afbeelding %1$d/%2$d</string>
     <string name="last_updated">Laatst bijgewerkt</string>
-    <string name="pref_filter_location_readings_title">Locatiemetingen filteren</string>
-    <string name="pref_filter_location_readings_description">Negeert metingen die er slechter uitzien dan de huidige</string>
 </resources>

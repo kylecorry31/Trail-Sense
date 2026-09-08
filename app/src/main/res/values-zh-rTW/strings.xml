@@ -598,7 +598,6 @@
     <string name="pref_enable_analog_title">指針時鐘</string>
     <string name="gps_cache">GPS 快取</string>
     <string name="max_temp_calibrated">最高環境溫度（已校正）</string>
-    <string name="pref_require_satellites_description">需要至少 4 顆衛星以提高精確度</string>
     <string name="cirrus">卷雲</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">可能預示天氣晴朗。如果長得更厚，可能預示未來 %d 小時內將會有降雨或雷雨。</string>
     <string name="cumulonimbus_forecast">可能預示幾分鐘內將會有雷雨。</string>
@@ -800,7 +799,6 @@
     <string name="pref_low_power_mode_summary">停用某些功能以節省電量</string>
     <string name="how">如何</string>
     <string name="clouds">雲</string>
-    <string name="pref_require_satellites_title">需要衛星定位</string>
     <string name="cirrocumulus">卷積雲</string>
     <string name="cirrostratus">卷層雲</string>
     <string name="altocumulus">高積雲</string>

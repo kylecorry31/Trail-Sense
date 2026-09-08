@@ -306,7 +306,6 @@
     <string name="pref_low_power_mode_summary">Deaktiverer noen funksjoner for å spare strøm</string>
     <string name="unsaved_changes_message">Endringer du har gjort blir ikke lagret.</string>
     <string name="unsaved_changes">Ikke-lagrede endringer</string>
-    <string name="pref_require_satellites_description">Krever minst 4 satellitter for posisjonsbestemmelse, forbedrer nøyaktigheten</string>
     <string name="clouds">Skyer</string>
     <string name="cumulonimbus">Cumulonimbus (Bygeskyer)</string>
     <string name="cumulus">Cumulus (Haugskyer)</string>
@@ -349,7 +348,6 @@
     <string name="gps_searching">Søker</string>
     <string name="gps_stale">Foreldet</string>
     <string name="gps_user">Bruker</string>
-    <string name="pref_require_satellites_title">Satellittkrav</string>
     <string name="magnetometer">Magnetometer</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="gravity">Tyngdekraft</string>

@@ -67,8 +67,6 @@
     <string name="waxing_crescent">هلال افزاینده</string>
     <string name="always">همیشه</string>
     <string name="sun_moon_compass_when_up">وقتی بالا هست</string>
-    <string name="pref_require_satellites_title">نیاز به تعمیر ماهواره</string>
-    <string name="pref_require_satellites_description">به حداقل 4 ماهواره نیاز دارد، دقت را بهبود می بخشد</string>
     <string name="high_amount">بالا (%s)</string>
     <string name="dash">-</string>
     <plurals name="water_boil_timer_content">

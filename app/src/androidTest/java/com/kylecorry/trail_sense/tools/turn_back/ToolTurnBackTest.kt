@@ -43,7 +43,11 @@ class ToolTurnBackTest : ToolTestBase(Tools.TURN_BACK) {
         }
 
         handleExactAlarmsDialog()
-        hasText(R.id.edittext, Regex("\\d+:\\d+ (AM|PM).*"))
+        hasText(
+            R.id.edittext,
+            Regex("\\d+:\\d+ (AM|PM).*"),
+            waitForTime = GPS_WAIT_FOR_TIMEOUT
+        )
     }
 
 }

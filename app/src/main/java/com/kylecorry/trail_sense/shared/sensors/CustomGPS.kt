@@ -86,7 +86,7 @@ class CustomGPS(
 
     private val updates = Subscription<ModularGPSData>(
         replay = 1, // Replay is temporary until the luna onSubscription change is in place to avoid missed readings
-        onStart = { withContext(NonCancellable) { consumer.start() } },
+        onStart = { withContext(NonCancellable) { if (consumer.start()) notifyListenersOnMain() } },
         onStop = { withContext(NonCancellable) { consumer.stop() } }
     )
 

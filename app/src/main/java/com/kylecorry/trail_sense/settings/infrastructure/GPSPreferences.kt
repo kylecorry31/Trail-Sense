@@ -15,18 +15,6 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
         true
     )
 
-    override val requiresSatelliteCount by BooleanPreference(
-        cache,
-        getString(R.string.pref_require_satellites),
-        true
-    )
-
-    override val rejectInvalidReadings by BooleanPreference(
-        cache,
-        getString(R.string.pref_filter_location_readings),
-        true
-    )
-
     override val accuracyFilter by StringEnumPreference(
         cache,
         getString(R.string.pref_gps_accuracy_requirement),

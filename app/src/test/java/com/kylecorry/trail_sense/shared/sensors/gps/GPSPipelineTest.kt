@@ -6,25 +6,21 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
-import com.kylecorry.trail_sense.shared.sensors.gps.modules.AccuracyFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
-import com.kylecorry.trail_sense.shared.sensors.gps.modules.SatelliteFixFilterGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.SameFixGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
 import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
 class GPSPipelineTest {
     private val preferences = InMemoryPreferences()
     private val prefs = mock<IGPSPreferences> {
         on { smoothing }.thenReturn(100)
-        on { rejectInvalidReadings }.thenReturn(true)
     }
 
     private suspend fun pipeline(vararg modules: GPSModule) =
@@ -80,6 +76,18 @@ class GPSPipelineTest {
     }
 
     @Test
+    fun rejectedZeroLocationDoesNotOverwriteTheLastFix() = runBlocking<Unit> {
+        val pipeline = GPSPipeline(listOf(BadReadingFilterGPSModule(mock())))
+        assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(1)))
+        val zeroed = reading(2).also { it.location = Coordinate.zero }
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(zeroed))
+        assertEquals(reading(1).location, pipeline.reading.location)
+        assertEquals(reading(1).time, pipeline.reading.time)
+        // The filter still has the accepted fix to compare against, so older readings stay rejected
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(reading(0, 2.0)))
+    }
+
+    @Test
     fun rejectedCandidateFieldsDoNotLeakIntoTheNextFix() = runBlocking<Unit> {
         val pipeline = GPSPipeline(listOf(module { _, next ->
             if (next.time == reading(1).time) {
@@ -93,48 +101,12 @@ class GPSPipelineTest {
             }
         }))
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(reading(1)))
-        assertFalse(pipeline.hadValidReading)
         assertEquals(Instant.EPOCH, pipeline.reading.time)
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(2)))
         assertEquals(0f, pipeline.reading.altitude)
         assertNull(pipeline.reading.satellites)
         assertNull(pipeline.reading.rawBearing)
         assertEquals(SpeedSource.Unknown, pipeline.reading.speedSource)
-        assertTrue(pipeline.hadValidReading)
-    }
-
-    @Test
-    fun satelliteFallbackStaysOpenWhileAccuracyWaitsForItsTimeout() = runBlocking<Unit> {
-        whenever(prefs.requiresSatelliteCount).thenReturn(true)
-        whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.High)
-        var now = 0L
-        val clock = object : TimeProvider {
-            override fun elapsedRealtime() = now
-            override fun currentTimeMillis() = now
-        }
-        val pipeline = pipeline(
-            SatelliteFixFilterGPSModule(prefs, mock(), clock),
-            AccuracyFilterGPSModule(prefs, mock(), clock)
-        )
-        fun candidate(seconds: Long) = reading(seconds).apply {
-            satellites = 3
-            horizontalAccuracy = 100f
-        }
-        // The pipeline stops at the first rejection, so the accuracy wait only starts once the
-        // satellite fallback opens and lets a reading reach the accuracy module.
-        val satelliteWait = 5_000L
-        val accuracyWait = GPSAccuracyFilter.High.maxAccuracyWait!!.toMillis()
-        pipeline.start()
-        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(1)))
-        now = satelliteWait
-        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(2)))
-        now = satelliteWait + accuracyWait - 1
-        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(3)))
-        now = satelliteWait + accuracyWait
-        assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(candidate(4)))
-        assertEquals(candidate(4).time, pipeline.reading.time)
-        assertEquals(GPSUpdateResult.Rejected, pipeline.update(candidate(5)))
-        pipeline.stop()
     }
 
     @Test
@@ -152,7 +124,6 @@ class GPSPipelineTest {
         assertEquals(30f, pipeline.reading.altitude)
         assertEquals(5f, source.altitude)
         assertEquals(30f, pipeline().reading.altitude)
-        assertTrue(pipeline.hadValidReading)
     }
 
     @Test
@@ -170,7 +141,6 @@ class GPSPipelineTest {
         assertEquals(reading(1).location, pipeline.reading.location)
         assertEquals(reading(1).time, pipeline.reading.time)
         assertEquals(reading(1).time, pipeline().reading.time)
-        assertTrue(pipeline.hadValidReading)
 
         reject = false
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(3)))
@@ -189,6 +159,20 @@ class GPSPipelineTest {
         assertEquals(8, pipeline.reading.satellites)
         assertEquals(20f, pipeline.reading.altitude)
         assertEquals(20f, pipeline().reading.altitude)
+    }
+
+    @Test
+    fun sameFixOnlyUpdatesSatelliteFieldsWhenRestoringRepeatedFixes() = runBlocking<Unit> {
+        val pipeline = pipeline(SameFixGPSModule())
+        pipeline.update(reading(1))
+        val duplicate = reading(1, 2.0).apply {
+            satellites = 8
+            altitude = 20f
+        }
+        assertEquals(GPSUpdateResult.SameFixUpdated, pipeline.update(duplicate))
+        assertEquals(8, pipeline.reading.satellites)
+        assertEquals(reading(1).location, pipeline.reading.location)
+        assertEquals(0f, pipeline.reading.altitude)
     }
 
     @Test
@@ -278,13 +262,13 @@ class GPSPipelineTest {
     }
 
     @Test
-    fun grossJumpDoesNotChangeSmoothingOrCache() = runBlocking<Unit> {
+    fun rejectedReadingDoesNotChangeSmoothingOrCache() = runBlocking<Unit> {
         val pipeline = pipeline(
-            BadReadingFilterGPSModule(prefs, mock()),
+            BadReadingFilterGPSModule(mock()),
             KalmanGPSModule(prefs, mock())
         )
         pipeline.update(reading(1))
-        assertEquals(GPSUpdateResult.Rejected, pipeline.update(reading(2, 2.0)))
+        assertEquals(GPSUpdateResult.Rejected, pipeline.update(reading(0, 2.0)))
         assertEquals(reading(1).location, pipeline.reading.location)
         assertEquals(reading(1).location, pipeline().reading.location)
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(3, 1.0001)))

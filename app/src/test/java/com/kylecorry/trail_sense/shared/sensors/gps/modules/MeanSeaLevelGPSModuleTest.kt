@@ -4,6 +4,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.GeoidService
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import java.time.Instant
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
@@ -27,10 +28,13 @@ class MeanSeaLevelGPSModuleTest {
             }
         }
     )
-    private val previous = ModularGPSData(altitude = 50f)
+    private val previous = ModularGPSData(altitude = 50f, time = Instant.EPOCH)
 
     private fun reading(msl: Float? = null) = ModularGPSData(
-        location = Coordinate(42.0, -72.0), altitude = 100f, mslAltitude = msl
+        location = Coordinate(42.0, -72.0),
+        altitude = 100f,
+        mslAltitude = msl,
+        time = Instant.EPOCH.plusSeconds(1)
     )
 
     @Test
@@ -105,6 +109,14 @@ class MeanSeaLevelGPSModuleTest {
         module.update(previous, candidate)
         assertEquals(75f, candidate.altitude)
         assertEquals(1, lookups.size)
+    }
+
+    @Test
+    fun doesNotCorrectTheAltitudeOfARepeatedFix() = runBlocking<Unit> {
+        val candidate = reading().apply { time = previous.time }
+        assertTrue(module.update(previous, candidate))
+        assertEquals(100f, candidate.altitude)
+        assertTrue(lookups.isEmpty())
     }
 
     @Test

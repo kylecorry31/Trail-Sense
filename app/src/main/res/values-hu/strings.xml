@@ -142,8 +142,6 @@
     <string name="open_beacon_in_maps">Megtekintés Térképen</string>
     <string name="backtrack_disabled_low_power_toast">A Visszakövetés nem elérhető energiatakarékos módban</string>
     <string name="dialog_leave">Kilépés</string>
-    <string name="pref_require_satellites_title">Műhold fixálás szükséges</string>
-    <string name="pref_require_satellites_description">Legalább 4 műhold vétele szükséges, javítja a pontosságot</string>
     <string name="cirrus">Cirrus (pehelyfelhő)</string>
     <string name="cirrocumulus">Cirrocumulus (bárányfelhő)</string>
     <string name="cirrostratus">Cirrostratus (fátyolfelhő)</string>

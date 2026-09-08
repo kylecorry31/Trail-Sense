@@ -470,8 +470,6 @@
     <string name="tool_notes_title">Noter</string>
     <string name="battery_power_usb">USB</string>
     <string name="charging_wireless">Lader (%s)</string>
-    <string name="pref_require_satellites_description">Kræver mindst 4 satellitter, forbedrer nøjagtigheden</string>
-    <string name="pref_require_satellites_title">Kræv satellitfiksering</string>
     <string name="stratus">Stratus</string>
     <string name="cumulonimbus">Cumulonimbus</string>
     <string name="stratocumulus">Stratocumulus</string>

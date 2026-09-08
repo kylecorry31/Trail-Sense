@@ -413,8 +413,6 @@
     <string name="network_5g">5G</string>
     <string name="time_ago">%s önce</string>
     <string name="privacy_and_location">Gizlilik ve konum</string>
-    <string name="pref_require_satellites_description">En az 4 uydu gerektirir, doğruluğu arttırır</string>
-    <string name="pref_require_satellites_title">Uydu düzeltmesi gerektir</string>
     <string name="clouds">Bulutlar</string>
     <string name="how">Nasıl</string>
     <string name="compass_calibrate_toast">Pusula doğruluğu %s, kalibrasyon önerilir</string>

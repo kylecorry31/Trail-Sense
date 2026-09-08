@@ -272,7 +272,6 @@
     <string name="move">Μετακίνηση</string>
     <string name="water_boil_timer_title">Βρασμός νερού</string>
     <string name="noon">Μεσημβρινή διάβαση</string>
-    <string name="pref_require_satellites_description">Απαιτεί τουλάχιστον 4 δορυφόρους, βελτιώνει την ακρίβεια</string>
     <string name="hygrometer">Υγρασιόμετρο</string>
     <string name="shortest">Μικρότερη διάρκεια</string>
     <string name="satellites">δορυφόροι</string>
@@ -601,7 +600,6 @@
     <string name="high">Υψηλή</string>
     <string name="pressure_12_hours">12 ώρες</string>
     <string name="map_distance">Χάρτης: %s</string>
-    <string name="pref_require_satellites_title">Απαιτείται εστίαση δορυφόρων</string>
     <string name="map_projection_mercator">Μερκατορική</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Ίσως υποδεικνύει αίθριο καιρό για τις επόμενες %d ώρες.</string>
     <string name="pref_default_path_color_title">Προεπιλεγμένο χρώμα διαδρομής</string>

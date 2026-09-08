@@ -487,8 +487,6 @@
     <string name="pref_low_power_mode_summary">Inaktiverar vissa funktioner för att spara energi</string>
     <string name="open_beacon_in_maps">Visa på kartan</string>
     <string name="compass_calibrate_toast">Kompassens noggrannhet är %s. Kalibrering rekommenderas</string>
-    <string name="pref_require_satellites_title">Kräv satellitfix</string>
-    <string name="pref_require_satellites_description">Kräver minst fyra satelliter och förbättrar noggrannheten</string>
     <string name="cirrus">Cirrus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="cirrostratus">Cirrostratus</string>

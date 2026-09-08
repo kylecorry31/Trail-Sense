@@ -293,8 +293,6 @@
     <string name="cirrostratus">Cirrostratus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="cirrus">Cirrus</string>
-    <string name="pref_require_satellites_description">Potrebna su najmanje 4 satelita, što poboljšava preciznost</string>
-    <string name="pref_require_satellites_title">Zahtjev za satelitsku popravku</string>
     <string name="clouds">Oblaci</string>
     <string name="how">Kako</string>
     <string name="compass_calibrate_toast">Preciznost kompasa %s, preporučuje se kalibracija</string>

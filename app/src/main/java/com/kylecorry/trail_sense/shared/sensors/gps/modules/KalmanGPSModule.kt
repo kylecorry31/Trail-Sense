@@ -55,7 +55,7 @@ class KalmanGPSModule(
         }
         // Another consumer can repeat the accepted fix after the filter has advanced
         // through candidates rejected by a later module.
-        if (newData.time == previousData.time && previousData.location != Coordinate.zero) {
+        if (newData.id == previousData.id && previousData.location != Coordinate.zero) {
             newData.location = previousData.location
             newData.kalmanState = previousData.kalmanState
             newData.horizontalAccuracy = previousData.horizontalAccuracy
@@ -76,7 +76,7 @@ class KalmanGPSModule(
 
         val lastTime = time
         val sameFix = lastTime != null &&
-            (newData.time <= previousData.time || lastTime.toEpochMilli() == newData.time.toEpochMilli())
+            (newData.time <= previousData.time || lastTime.toEpochMilli() == newData.id)
         if (!sameFix) {
             if (filter == null) {
                 restore(newData)
@@ -104,10 +104,10 @@ class KalmanGPSModule(
         transition[POSITION_NORTH, VELOCITY_NORTH] = dt
         kalman.F = transition
         val accelerationNoise = if (smoothing <= 50) {
-            MIN_SMOOTHING_NOISE * (BALANCED_SMOOTHING_NOISE / MIN_SMOOTHING_NOISE)
+            NOISE_AT_NO_SMOOTHING * (NOISE_AT_BALANCED_SMOOTHING / NOISE_AT_NO_SMOOTHING)
                 .pow(smoothing / 50f)
         } else {
-            BALANCED_SMOOTHING_NOISE * (MAX_SMOOTHING_NOISE / BALANCED_SMOOTHING_NOISE)
+            NOISE_AT_BALANCED_SMOOTHING * (NOISE_AT_FULL_SMOOTHING / NOISE_AT_BALANCED_SMOOTHING)
                 .pow((smoothing - 50) / 50f)
         }
         val dt2 = dt * dt
@@ -294,9 +294,9 @@ class KalmanGPSModule(
         private const val VELOCITY_NORTH = 3
         private const val DEFAULT_ACCURACY = 50f
         private const val DEFAULT_VELOCITY_VARIANCE = 9f
-        private const val MIN_SMOOTHING_NOISE = 10_000f
-        private const val BALANCED_SMOOTHING_NOISE = 0.1f
-        private const val MAX_SMOOTHING_NOISE = 0.01f
+        private const val NOISE_AT_NO_SMOOTHING = 10_000f
+        private const val NOISE_AT_BALANCED_SMOOTHING = 0.1f
+        private const val NOISE_AT_FULL_SMOOTHING = 0.01f
         private const val MAX_REFERENCE_DISTANCE = 200f
     }
 }

@@ -345,8 +345,6 @@
     <string name="cirrostratus">Cirrostratus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="cirrus">Cirro</string>
-    <string name="pref_require_satellites_description">Requer pelo menos 4 satélites, melhora a precisão</string>
-    <string name="pref_require_satellites_title">Requer estabilização de sinais de satélites</string>
     <string name="clouds">Nuvens</string>
     <string name="how">Como</string>
     <string name="compass_calibrate_toast">Precisão da bússola %s, recomenda-se a calibração</string>

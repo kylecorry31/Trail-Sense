@@ -657,8 +657,6 @@
     <string name="compass_calibrate_toast">திசைகாட்டி துல்லியம் %s, அளவுத்திருத்தம் அறிவுறுத்தப்படுகிறது</string>
     <string name="how">எப்படி</string>
     <string name="clouds">மேகங்கள்</string>
-    <string name="pref_require_satellites_title">செயற்கைக்கோள் பிழைத்திருத்தம் தேவை</string>
-    <string name="pref_require_satellites_description">குறைந்தது 4 செயற்கைக்கோள்கள் தேவை, துல்லியத்தை மேம்படுத்துகிறது</string>
     <string name="cirrus">சிரச்</string>
     <string name="cirrocumulus">சிரோகுமுலச்</string>
     <string name="cirrostratus">சிரோச்ட்ரேட்டச்</string>

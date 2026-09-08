@@ -21,17 +21,17 @@ class AccuracyFilterGPSModule(
     timeProvider: TimeProvider = SystemTimeProvider()
 ) : GPSModule {
 
-    private val rejectionTracker = GPSRejectionTracker(timeProvider)
+    private val breaker = AccuracyCircuitBreaker(timeProvider)
     private var bestReading: ModularGPSData? = null
 
     override suspend fun start(data: ModularGPSData) {
-        rejectionTracker.isAwaitingAcceptance(data.time)
+        breaker.resetIfAccepted(data.id)
         bestReading = null
     }
 
     override suspend fun stop(data: ModularGPSData) {
-        rejectionTracker.isAwaitingAcceptance(data.time)
-        rejectionTracker.pause()
+        breaker.resetIfAccepted(data.id)
+        breaker.pause()
         bestReading = null
     }
 
@@ -49,9 +49,11 @@ class AccuracyFilterGPSModule(
             return true
         }
 
-        // It hit a timeout and the candidate wasn't accepted, so just take whatever is next
-        if (rejectionTracker.isAwaitingAcceptance(previousData.time)) {
-            logger.debug(TAG, "Accept (timeout fallback): ${accuracy.safeRoundPlaces(1)}m")
+        breaker.resetIfAccepted(previousData.id)
+
+        // The breaker tripped without the candidate being accepted, so just take whatever is next
+        if (breaker.isOpen) {
+            logger.debug(TAG, "Accept (breaker open): ${accuracy.safeRoundPlaces(1)}m")
             return true
         }
 
@@ -71,16 +73,16 @@ class AccuracyFilterGPSModule(
         val candidate = bestReading ?: return false
 
         val maxAccuracyWait = filter.maxAccuracyWait
-        if (maxAccuracyWait != null && rejectionTracker.isTimedOut(
+        if (maxAccuracyWait != null && breaker.tripIfTimedOut(
                 maxAccuracyWait.toMillis(),
-                newFixTime = candidate.time
+                previousId = previousData.id
             )
         ) {
             val ageMillis = Duration.between(candidate.time, newData.time).toMillis()
             candidate.copyInto(newData)
             logger.debug(
                 TAG,
-                "Accept (timeout): ${candidate.horizontalAccuracy?.safeRoundPlaces(1)}m, ${ageMillis}ms old"
+                "Accept (breaker tripped): ${candidate.horizontalAccuracy?.safeRoundPlaces(1)}m, ${ageMillis}ms old"
             )
             return true
         }
@@ -90,7 +92,7 @@ class AccuracyFilterGPSModule(
     }
 
     private fun reset() {
-        rejectionTracker.reset()
+        breaker.reset()
         bestReading = null
     }
 

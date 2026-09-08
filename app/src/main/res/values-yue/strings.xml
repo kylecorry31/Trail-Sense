@@ -551,8 +551,6 @@
     <string name="charging_wireless">叉緊電 (%s)</string>
     <string name="low_power_mode_on_message">為維護電池安全，部份功能或已被完善。</string>
     <string name="clouds">雲</string>
-    <string name="pref_require_satellites_title">事必要衛星定位</string>
-    <string name="pref_require_satellites_description">事必要至少 4 枚衛星，好提昇準繩</string>
     <string name="cirrus">卷雲</string>
     <string name="altocumulus">高積雲</string>
     <string name="nimbostratus">雨層雲</string>

@@ -52,7 +52,7 @@ class ToolClockTest : ToolTestBase(Tools.CLOCK) {
         click(toolbarButton(R.id.clock_title, Side.Right))
 
         // Click on the PIP button
-        click(R.id.pip_button)
+        click(R.id.pip_button, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         handleExactAlarmsDialog()
 

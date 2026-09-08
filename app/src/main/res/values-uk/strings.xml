@@ -143,8 +143,6 @@
     <string name="cirrostratus">Перисто-шаруваті</string>
     <string name="cirrocumulus">Перисто-купчасті</string>
     <string name="cirrus">Перисті</string>
-    <string name="pref_require_satellites_description">Потрібно щонайменше 4 супутники, поліпшує точність</string>
-    <string name="pref_require_satellites_title">Потрібне виправлення супутникового зв\'язку</string>
     <string name="clouds">Хмари</string>
     <string name="how">Як</string>
     <string name="compass_calibrate_toast">Точність компаса %s, пораджено калібрування</string>

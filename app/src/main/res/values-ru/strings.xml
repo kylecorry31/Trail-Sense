@@ -369,7 +369,6 @@
     <string name="altocumulus">Высококучевые</string>
     <string name="cirrostratus">Перисто-слоистые</string>
     <string name="cirrus">Перистые</string>
-    <string name="pref_require_satellites_title">Требуется исправление спутниковой связи</string>
     <string name="unavailable">Недоступен</string>
     <string name="gps_searching">Поиск</string>
     <string name="gps_stale">Устаревший</string>
@@ -400,7 +399,6 @@
     <string name="onboarding_user_guide">Научитесь как использовать функции Trail Sense с помощью руководства пользователя. Доступно в нижней части вкладки Инструменты. \n \nСкоро появятся другие руководства.</string>
     <string name="privacy_and_location">Конфиденциальность и местоположение</string>
     <string name="cirrocumulus">Перисто-кучевые</string>
-    <string name="pref_require_satellites_description">Требуется как минимум 4 спутника, повышает точность</string>
     <string name="unit_inches_abbreviation">д</string>
     <string name="unit_centimeters_abbreviation">см</string>
     <string name="magnetometer">Магнитометр</string>

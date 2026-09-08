@@ -189,7 +189,6 @@
     <string name="gps_searching">Ricerca</string>
     <string name="gps_stale">Non aggiornato</string>
     <string name="gps_user">Utente</string>
-    <string name="pref_require_satellites_description">Richiedere almeno 4 satelliti, aumenta la precisione</string>
     <string name="clouds">Nuvole</string>
     <string name="how">Come</string>
     <string name="tool_thermometer_title">Termometro</string>
@@ -339,7 +338,6 @@
     <string name="pref_low_power_mode_title">Modalità risparmio energetico</string>
     <string name="low_power_mode_on_message">Risparmio energetico attivo, alcune funzionalità potrebbero essere disabilitate.</string>
     <string name="unsaved_changes">Modifiche non salvate</string>
-    <string name="pref_require_satellites_title">Richiedi aggancio satelliti</string>
     <string name="cirrostratus">Cirrostrato</string>
     <string name="altocumulus">Altocumulo</string>
     <string name="altostratus">Altostrato</string>

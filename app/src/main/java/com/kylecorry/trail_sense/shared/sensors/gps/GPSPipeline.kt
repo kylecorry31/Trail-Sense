@@ -12,9 +12,6 @@ class GPSPipeline(
     val reading: ModularGPSData
         get() = data
 
-    var hadValidReading = false
-        private set
-
     private var initialized = false
 
     internal suspend fun ensureInitialized(): Boolean {
@@ -49,15 +46,12 @@ class GPSPipeline(
             return GPSUpdateResult.Rejected
         }
 
-        // A cached fix or secondary-field update can have the same timestamp.
-        val isSameReading = candidate.time.toEpochMilli() == data.time.toEpochMilli()
-        candidate.copyInto(data)
-
-        return if (data.location != Coordinate.zero) {
-            hadValidReading = true
-            if (isSameReading) GPSUpdateResult.SameFixUpdated else GPSUpdateResult.NewFixAccepted
-        } else {
-            GPSUpdateResult.Rejected
+        if (candidate.location == Coordinate.zero) {
+            return GPSUpdateResult.Rejected
         }
+
+        val isSameReading = candidate.id == data.id
+        candidate.copyInto(data)
+        return if (isSameReading) GPSUpdateResult.SameFixUpdated else GPSUpdateResult.NewFixAccepted
     }
 }

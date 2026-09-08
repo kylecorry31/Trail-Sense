@@ -570,14 +570,8 @@
     <string name="compass_calibrate_toast">Compass accuracy %s, calibration is advised</string>
     <string name="how">How</string>
     <string name="clouds">Clouds</string>
-    <string name="pref_require_satellites" translatable="false">pref_require_satellites</string>
-    <string name="pref_require_satellites_title">Require satellite count</string>
-    <string name="pref_require_satellites_description">Ignores readings without a satellite count reported</string>
-    <string name="pref_filter_location_readings" translatable="false">pref_filter_location_readings</string>
     <string name="pref_gps_accuracy_requirement" translatable="false">pref_gps_accuracy_requirement</string>
     <string name="pref_gps_accuracy_requirement_title">Accuracy filter</string>
-    <string name="pref_filter_location_readings_title">Reject invalid readings</string>
-    <string name="pref_filter_location_readings_description">Rejects readings that are too inaccurate or inconsistent with the previous reading</string>
     <string name="cirrus">Cirrus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="cirrostratus">Cirrostratus</string>

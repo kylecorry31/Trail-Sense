@@ -225,8 +225,6 @@
     <string name="pref_auto_declination_summary">อิงจากตำแหน่งปัจจุบันของคุณ</string>
     <string name="location">ตำแหน่ง</string>
     <string name="pref_auto_location_title">ปรับตำแหน่งอัตโนมัติ</string>
-    <string name="pref_require_satellites_title">จำเป็นต้องจับตำแหน่งดาวเทียม</string>
-    <string name="pref_require_satellites_description">ต้องการดาวเทียมอย่างน้อย 4 ดวง เพื่อเพื่มความแม่นยำ</string>
     <string name="satellites">ดาวเทียม</string>
     <string name="pref_nmea_elevation_summary">ใช้ NMEA (ดาวเทียม) เพื่อแก้ไขค่าความสูง แทนที่จะใช้โมเดลในตัว</string>
     <string name="num_satellites">%d ดวง</string>

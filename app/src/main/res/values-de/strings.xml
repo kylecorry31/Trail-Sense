@@ -354,7 +354,6 @@
     <string name="cirrus">Cirrus</string>
     <string name="cirrostratus">Cirrostratus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
-    <string name="pref_require_satellites_description">Signal von mindestens 4 Satelliten benötigt, verbessert die Genauigkeit</string>
     <string name="clouds">Wolken</string>
     <string name="dialog_leave">Verlassen</string>
     <string name="unsaved_changes_message">Änderungen werden nicht gespeichert.</string>
@@ -431,7 +430,6 @@
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="turn_off">Ausschalten</string>
     <string name="cirrocumulus_desc">Hohe Wolken, die eine gewellte Schicht bilden. Die Schicht besteht aus kleinen Punkten, die fast zweidimensional aussehen.</string>
-    <string name="pref_require_satellites_title">Mehr Satelliten erforderlich</string>
     <string name="delete_tide_prompt">Gezeiten löschen\?</string>
     <string name="right_quick_action">Rechter Schnellzugriff</string>
     <string name="left_quick_action">Linker Schnellzugriff</string>

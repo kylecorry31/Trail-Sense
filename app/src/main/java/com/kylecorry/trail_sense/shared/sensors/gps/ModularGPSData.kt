@@ -37,6 +37,9 @@ class ModularGPSData(
     var kalmanState: GPSKalmanState? = null
     var speedSource: SpeedSource = SpeedSource.Unknown
 
+    val id: Long
+        get() = time.toEpochMilli()
+
     // This is a data holder, so it never emits
     override val flow: Flow<Unit> = emptyFlow()
 

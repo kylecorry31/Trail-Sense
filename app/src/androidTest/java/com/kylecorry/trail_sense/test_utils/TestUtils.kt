@@ -272,7 +272,6 @@ object TestUtils {
         prefs.putBoolean(context.getString(R.string.pref_use_24_hour), false)
         prefs.putBoolean(context.getString(R.string.pref_onboarding_completed), true)
         prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)
-        prefs.putBoolean(context.getString(R.string.pref_require_satellites), false)
         prefs.putBoolean(context.getString(R.string.pref_cliff_height_enabled), true)
         prefs.putString(context.getString(R.string.pref_altimeter_calibration_mode), "gps")
         prefs.putInt(context.getString(R.string.pref_altimeter_accuracy), 1)

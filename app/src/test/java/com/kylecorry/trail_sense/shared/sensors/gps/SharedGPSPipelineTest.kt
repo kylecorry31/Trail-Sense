@@ -5,6 +5,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
@@ -28,7 +29,13 @@ class SharedGPSPipelineTest {
         on { smoothing }.thenReturn(100)
     }
     private val shared = SharedGPSPipeline {
-        GPSPipeline(listOf(KalmanGPSModule(prefs, mock()), CacheGPSModule(cache)))
+        GPSPipeline(
+            listOf(
+                BadReadingFilterGPSModule(mock()),
+                KalmanGPSModule(prefs, mock()),
+                CacheGPSModule(cache)
+            )
+        )
     }
 
     private fun reading(seconds: Long, longitude: Double = 1.0) = ModularGPSData(
@@ -82,21 +89,21 @@ class SharedGPSPipelineTest {
         fast.update(reading(2, 1.001))
         fast.update(reading(3, 1.002))
         assertEquals(fast.reading.location, slow.reading.location)
-        // The slower subscription sees the latest result even if its callback is delayed.
-        assertTrue(slow.update(reading(2, 1.001)))
+        // A delayed callback is rejected rather than rewinding the shared state.
+        assertFalse(slow.update(reading(2, 1.001)))
         assertEquals(Instant.EPOCH.plusSeconds(3), slow.reading.time)
         assertEquals(fast.reading.location, slow.reading.location)
-        assertFalse(slow.update(reading(3, 1.002)))
+        // The slower subscription still delivers the shared fix once it catches up.
+        assertTrue(slow.update(reading(3, 1.002)))
     }
 
     @Test
-    fun lateConsumerDeliversExistingFixOnlyOnce() = runBlocking<Unit> {
+    fun lateConsumerIsNotDeliveredTheFixItStartedWith() = runBlocking<Unit> {
         val first = Consumer(shared).consumer
         first.start()
         assertTrue(first.update(reading(1)))
         val second = Consumer(shared).consumer
-        second.start()
-        assertTrue(second.update(reading(1)))
+        assertFalse(second.start())
         assertFalse(second.update(reading(1)))
         second.stop()
         first.stop()
@@ -186,7 +193,44 @@ class SharedGPSPipelineTest {
     }
 
     @Test
-    fun rejectedUpdatePublishesLazilyRestoredCacheWithoutDelivering() = runBlocking<Unit> {
+    fun startingDoesNotDeliverTheRestoredCache() = runBlocking<Unit> {
+        CacheGPSModule(cache).update(ModularGPSData(), reading(10))
+        val pipeline = SharedGPSPipeline { GPSPipeline(listOf(CacheGPSModule(cache))) }
+        val consumer = Consumer(pipeline).consumer
+        // The cache is available to the consumer, it just isn't delivered as if it were a new fix
+        assertFalse(consumer.start())
+        assertEquals(reading(10).location, consumer.reading.location)
+        assertFalse(consumer.update(reading(10)))
+        consumer.stop()
+        assertFalse(consumer.start())
+        consumer.stop()
+    }
+
+    @Test
+    fun restartedConsumerIsDeliveredTheFixItMissed() = runBlocking<Unit> {
+        val first = Consumer(shared).consumer
+        val second = Consumer(shared).consumer
+        assertFalse(first.start())
+        second.start()
+        assertTrue(second.update(reading(1)))
+        second.stop()
+        assertTrue(first.update(reading(2, 1.001)))
+        assertTrue(second.start())
+        assertFalse(second.update(reading(2, 1.001)))
+        second.stop()
+        first.stop()
+    }
+
+    @Test
+    fun cachedFixIsRestoredBeforeAnyConsumerStarts() = runBlocking<Unit> {
+        CacheGPSModule(cache).update(ModularGPSData(), reading(10))
+        val pipeline = SharedGPSPipeline { GPSPipeline(listOf(CacheGPSModule(cache))) }
+        assertEquals(reading(10).location, pipeline.reading.location)
+        assertEquals(reading(10).time, pipeline.reading.time)
+    }
+
+    @Test
+    fun rejectedUpdateKeepsRestoredCacheWithoutDelivering() = runBlocking<Unit> {
         CacheGPSModule(cache).update(ModularGPSData(), reading(10))
         val pipeline = SharedGPSPipeline {
             GPSPipeline(listOf(
@@ -196,30 +240,19 @@ class SharedGPSPipelineTest {
                 CacheGPSModule(cache)
             ))
         }
-        assertEquals(Coordinate.zero, pipeline.reading.location)
-        // A one-shot read must keep waiting for a fix instead of finishing with the cache.
-        val consumer = Consumer(pipeline).consumer
-        assertFalse(consumer.update(reading(11, 2.0)))
         val restored = pipeline.reading
         assertEquals(reading(10).location, restored.location)
         assertEquals(reading(10).time, restored.time)
+        // A one-shot read must keep waiting for a fix instead of finishing with the cache.
+        val consumer = Consumer(pipeline).consumer
+        assertFalse(consumer.update(reading(11, 2.0)))
         assertNull(pipeline.update(reading(12, 3.0)))
         assertFalse(consumer.update(reading(12, 3.0)))
         assertSame(restored, pipeline.reading)
     }
 
     @Test
-    fun recoversWhenPreviousFixTimeIsInTheFuture() = runBlocking<Unit> {
-        val pipeline = SharedGPSPipeline { GPSPipeline(emptyList()) }
-        val future = reading(1).apply { time = Instant.now().plusSeconds(3600) }
-        pipeline.update(future)
-        val recovered = pipeline.update(reading(2, 2.0))!!
-        assertEquals(reading(2).time, recovered.time)
-        assertEquals(reading(2, 2.0).location, recovered.location)
-    }
-
-    @Test
-    fun olderCallbacksCannotRewindStateEvenWithoutRejectionModule() = runBlocking<Unit> {
+    fun olderCallbacksCannotRewindState() = runBlocking<Unit> {
         shared.update(reading(10))
         val snapshot = shared.reading
         shared.update(reading(9, 2.0))

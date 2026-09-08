@@ -380,8 +380,6 @@
     <string name="backtrack_disabled_low_power_toast">Backtrack dinonaktifkan dalam mode hemat daya</string>
     <string name="cirrostratus">Cirrostratus</string>
     <string name="altostratus">Altostratus</string>
-    <string name="pref_require_satellites_title">Memerlukan perbaikan satelit</string>
-    <string name="pref_require_satellites_description">Memerlukan setidaknya 4 satelit, meningkatkan akurasi</string>
     <string name="cirrus">Cirrus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="altocumulus">Altocumulus</string>

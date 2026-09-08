@@ -20,15 +20,6 @@
             app:singleLineTitle="false"
             app:title="@string/pref_auto_location_title" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            android:dependency="@string/pref_auto_location"
-            app:key="@string/pref_filter_location_readings"
-            app:singleLineTitle="false"
-            app:title="@string/pref_filter_location_readings_title"
-            android:summary="@string/pref_filter_location_readings_description"/>
-
         <SeekBarPreference
             android:max="100"
             android:dependency="@string/pref_auto_location"
@@ -48,15 +39,6 @@
             app:singleLineTitle="false"
             app:title="@string/pref_gps_accuracy_requirement_title"
             app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            android:dependency="@string/pref_auto_location"
-            app:key="@string/pref_require_satellites"
-            app:singleLineTitle="false"
-            app:title="@string/pref_require_satellites_title"
-            android:summary="@string/pref_require_satellites_description"/>
 
         <Preference
             android:title="@string/request_permission"

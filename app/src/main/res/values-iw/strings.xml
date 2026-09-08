@@ -480,7 +480,6 @@
     <string name="unsaved_changes">שינויים שלא נשמרו</string>
     <string name="location_input_help">מעלות עשרוניות (לדוגמה 1.00, -2.00)\n\nמעלות עשרוניות דקות (לדוגמה: 1°23.12\'N, 3°12.1\'W)\n\nמעלות דקות שניות (לדוגמה 1° 23\'12.1\"N, 3° 12\'1.2\"W)\n\nUTM (לדוגמה: 03T 12345E 67890N)\n\nMGRS (לדוגמה: 27PXM 09601 05579)\n\nUSNG (לדוגמה: 14S NJ 39521 41744)\n\nOSGB (לדוגמה TG 51409 13177)</string>
     <string name="coordinate_input_invalid_location">מיקום לא חוקי</string>
-    <string name="pref_require_satellites_title">דורש תיקון לוויין</string>
     <string name="stratus_desc">ענן נמוך שמכסה את השמים. חפצים אינם מטילים צללים וייתכן שיהיה ערפילי.</string>
     <string name="gps_searching">מחפש</string>
     <string name="delete_waypoint_prompt">למחוק נקודת ציון\?</string>
@@ -772,7 +771,6 @@
         <item quantity="other">%d גאויות ושפל</item>
     </plurals>
     <string name="elevation_from_pressure">הגדרת עקיפה מברומטר</string>
-    <string name="pref_require_satellites_description">דורש לפחות 4 לוויינים, משפר את הדיוק</string>
     <string name="cirrus">ענן נוצות</string>
     <string name="pref_show_linear_compass_summary">כאשר הטלפון אנכי</string>
     <string name="pref_sunset_alert_time_title">זמן התראת שקיעה</string>

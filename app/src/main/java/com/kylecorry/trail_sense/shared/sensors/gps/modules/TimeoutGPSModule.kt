@@ -41,7 +41,7 @@ class TimeoutGPSModule(
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         // Secondary-field updates are not new fixes and must not postpone the timeout.
-        if (newData.time.toEpochMilli() == previousData.time.toEpochMilli()) {
+        if (newData.id == previousData.id) {
             newData.isTimedOut = previousData.isTimedOut
             return true
         }

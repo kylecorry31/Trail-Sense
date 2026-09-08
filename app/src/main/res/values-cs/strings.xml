@@ -291,7 +291,6 @@
     <string name="battery_power_ac">AC</string>
     <string name="open_beacon_in_maps">Zobrazit na mapě</string>
     <string name="compass_calibrate_toast">Přesnost kompasu %s, doporučuje se kalibrace</string>
-    <string name="pref_require_satellites_title">Vyžadovat fixaci satelitů</string>
     <string name="gps_searching">Vyhledávání</string>
     <string name="unavailable">Nedostupný</string>
     <string name="always_on">Vždy zapnuto</string>
@@ -353,7 +352,6 @@
     <string name="backtrack_disabled_low_power_toast">Zpětná navigace je v úsporném režimu deaktivována</string>
     <string name="pref_low_power_mode_summary">Deaktivuje některé funkce za účelem úspory energie</string>
     <string name="low_power_mode_on_message">Úsporný režim je zapnutý, některé funkce mohou být deaktivovány.</string>
-    <string name="pref_require_satellites_description">Vyžaduje alespoň 4 satelity, zlepšuje přesnost</string>
     <string name="cirrostratus">Řasová sloha</string>
     <string name="altocumulus">Vyvýšená kupa</string>
     <string name="altostratus">Vyvýšená sloha</string>

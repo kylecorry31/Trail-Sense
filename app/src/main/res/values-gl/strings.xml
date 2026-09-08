@@ -375,8 +375,6 @@
     <string name="compass_calibrate_toast">Precisión do compás %s, recoméndase a calibración</string>
     <string name="how">Como</string>
     <string name="clouds">Nubes</string>
-    <string name="pref_require_satellites_title">Precisa sinal de satélite</string>
-    <string name="pref_require_satellites_description">Require polo menos 4 satélites, mellora a precisión</string>
     <string name="cirrus">Cirros</string>
     <string name="cirrocumulus">Cirrocúmulos</string>
     <string name="cirrostratus">Cirrostratos</string>

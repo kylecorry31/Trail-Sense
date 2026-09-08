@@ -21,6 +21,11 @@ class MeanSeaLevelGPSModule(
         previousData: ModularGPSData,
         newData: ModularGPSData
     ): Boolean {
+        // The altitude of a repeated fix was already corrected
+        if (newData.id == previousData.id) {
+            return true
+        }
+
         val newMSLOffset = newData.altitude - (newData.mslAltitude ?: newData.altitude)
         if (newMSLOffset != 0f) {
             mslOffset = newMSLOffset

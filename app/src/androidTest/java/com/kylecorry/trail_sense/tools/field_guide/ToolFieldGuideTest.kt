@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -187,7 +188,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input(R.id.search, "A Test")
         click("A Test")
 
-        hasText("Created")
+        hasText("Created", waitForTime = GPS_WAIT_FOR_TIMEOUT)
         click("View")
         input("Notes", "Quick action sighting")
         click(toolbarButton(R.id.title, Side.Right))
