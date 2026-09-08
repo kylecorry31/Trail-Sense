@@ -459,17 +459,13 @@
     <string name="sunrise">Sola renn</string>
     <string name="use_alarm_for_sunrise_alert">Nytt alarm til solrenningsvarsling</string>
     <string name="pref_show_astronomy_bands_title">Syn band for solrenning og soleglad</string>
-    <string name="hide_field_guide_page_message">%$s\n\nDu kan henta fram att sida under innstillingane for Feltvegvisaren.</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nDu kan henta fram att sida under innstillingane for Feltvegvisaren.</string>
     <string name="plugin_unavailable">Tillegget er utilgjengeleg eller ikkje tilkopla lenger.</string>
     <string name="connected_plugins">Tilkopla tillegg</string>
     <string name="available_plugins">Tilgjengelege tillegg</string>
     <string name="precise_miles_format">%s mil</string>
     <string name="discharging_slow">Tømer seint (%s)</string>
     <string name="discharging_fast">Tømer snøgt (%s)</string>
-    <string name="waning_crescent">I ny</string>
-    <string name="waning_gibbous">I ny</string>
-    <string name="waxing_gibbous">I ne</string>
-    <string name="waxing_crescent">I ne</string>
     <string name="set_inclination_instructions">Rør kvar som helst for å låsa opp eller igjen</string>
     <string name="create_item_title">Skip gjenstand</string>
     <string name="feet_miles">Fot / mil</string>
@@ -517,7 +513,6 @@
     <string name="cold">Kaldt</string>
     <string name="weather_alert_storm_description">Bu deg på sterk vind og mykje nedbør.</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Kan tyde på nedbør dei neste %1$d til %2$d timane.</string>
-    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Kan tyde på torestorm dei neste %d timane.</string>
     <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Kan tyde på nedbør i %d timar.</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Kan tyda på fint vêr i %d timar.</string>
 </resources>
