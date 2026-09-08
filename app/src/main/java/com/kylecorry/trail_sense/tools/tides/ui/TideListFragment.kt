@@ -124,8 +124,9 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     private fun refreshTides() {
         inBackground {
+            val location = sensors.lastKnownLocation
             tides = tideRepo.getTideTables().sortedWith(compareBy({ it.isEditable }, { tide ->
-                tide.location?.distanceTo(sensors.lastKnownLocation) ?: Float.POSITIVE_INFINITY
+                tide.location?.distanceTo(location) ?: Float.POSITIVE_INFINITY
             })).map { it to (null as TideType?) }
 
             // Update the tide types in parallel and update each time one is done

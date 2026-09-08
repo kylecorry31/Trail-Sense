@@ -22,8 +22,11 @@ class TimezoneGPS(updateFrequency: Long = 1000L) :
     private val hooks = Hooks()
 
     override val location: Coordinate
-        get() = hooks.memo("location") {
-            Time.getLocationFromTimeZone(ZoneId.systemDefault())
+        get() {
+            val zone = ZoneId.systemDefault()
+            return hooks.memo("location", zone) {
+                Time.getLocationFromTimeZone(zone)
+            }
         }
     override val speed: Speed
         get() = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)

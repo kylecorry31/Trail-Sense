@@ -21,9 +21,12 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
     ISatelliteGPS, InactiveGPS, MockedGPS {
     override val location: Coordinate
         get() {
-            val lat = cached?.latitude ?: userPrefs.gps.locationOverride.latitude
-            val lng = cached?.longitude ?: userPrefs.gps.locationOverride.longitude
-            return Coordinate(lat, lng)
+            val cached = cached
+            val override = userPrefs.gps.locationOverride
+            return Coordinate(
+                cached?.latitude ?: override.latitude,
+                cached?.longitude ?: override.longitude
+            )
         }
     override val speed: Speed
         get() = Speed.from(

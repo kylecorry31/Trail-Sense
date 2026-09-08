@@ -9,13 +9,21 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSSource
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSSourceSelector
+import com.kylecorry.trail_sense.shared.sensors.gps.TimezoneGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import java.time.Duration
 
 class SensorSubsystem private constructor(private val context: Context) {
     private val sensorService by lazy { SensorService(context) }
     private val userPrefs by lazy { UserPreferences(context) }
+    private val prefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
+    private val gpsSourceSelector by lazy { GPSSourceSelector(context) }
+    private val timezoneGPS by lazy { TimezoneGPS() }
 
     /**
      * Get the last known location without starting the GPS. May be stale.
@@ -23,7 +31,19 @@ class SensorSubsystem private constructor(private val context: Context) {
      */
     val lastKnownLocation: Coordinate
         get() {
-            return sensorService.getGPS(useCache = true).location
+            return when (gpsSourceSelector.getSource(useCache = true)) {
+                GPSSource.Override -> userPrefs.gps.locationOverride
+                GPSSource.Timezone -> timezoneGPS.location
+                // The device GPS is never selected when using the cache
+                else -> {
+                    val cached = CacheGPSModule.getCachedData(prefs)
+                    val override = userPrefs.gps.locationOverride
+                    Coordinate(
+                        cached?.latitude ?: override.latitude,
+                        cached?.longitude ?: override.longitude
+                    )
+                }
+            }
         }
 
     /**

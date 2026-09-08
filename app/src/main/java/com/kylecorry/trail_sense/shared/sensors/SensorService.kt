@@ -55,6 +55,8 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.DigitalElevationModel
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.barometer.CalibratedBarometer
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSSource
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSSourceSelector
 import com.kylecorry.trail_sense.shared.sensors.gps.TimezoneGPS
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.MockHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -79,26 +81,18 @@ class SensorService(ctx: Context) {
 
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
+    private val gpsSourceSelector by lazy { GPSSourceSelector(context) }
 
     fun getGPS(
         frequency: Duration = DEFAULT_GPS_FREQUENCY,
         useCache: Boolean = false
     ): ISatelliteGPS {
-        val hasPermission = hasLocationPermission()
-
-        if (!userPrefs.gps.useAutoLocation || (!hasPermission && userPrefs.gps.hasLocationOverride)) {
-            return OverrideGPS(context, frequency.toMillis())
+        return when (gpsSourceSelector.getSource(useCache)) {
+            GPSSource.Override -> OverrideGPS(context, frequency.toMillis())
+            GPSSource.Timezone -> TimezoneGPS(frequency.toMillis())
+            GPSSource.Device -> CustomGPS(context, frequency)
+            GPSSource.Cache -> CachedGPS(context, frequency.toMillis())
         }
-
-        if (!hasPermission) {
-            return TimezoneGPS(frequency.toMillis())
-        }
-
-        if (!useCache && GPS.isAvailable(context)) {
-            return CustomGPS(context, frequency)
-        }
-
-        return CachedGPS(context, frequency.toMillis())
     }
 
     fun getGPSFromAltimeter(altimeter: IAltimeter): IGPS? {

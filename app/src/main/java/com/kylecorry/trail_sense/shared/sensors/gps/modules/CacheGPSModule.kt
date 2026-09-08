@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.gps.modules
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.andromeda.preferences.IPreferences
+import com.kylecorry.luna.hooks.MemoizedValue
 import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -107,6 +108,8 @@ class CacheGPSModule(
     companion object {
         const val LAST_GPS = "last_gps"
 
+        private val cacheParser = MemoizedValue<GPSCacheData?>()
+
         suspend fun clearCache() {
             SharedGPSPipeline.clearSharedCache {
                 val cache = getAppService<PreferencesSubsystem>().preferences
@@ -115,7 +118,10 @@ class CacheGPSModule(
         }
 
         fun getCachedData(cache: IPreferences): GPSCacheData? {
-            return cache.getString(LAST_GPS)?.let { JsonConvert.fromJson(it) }
+            val json = cache.getString(LAST_GPS)
+            return cacheParser.getOrPut(json) {
+                json?.let { JsonConvert.fromJson(it) }
+            }
         }
     }
 }
