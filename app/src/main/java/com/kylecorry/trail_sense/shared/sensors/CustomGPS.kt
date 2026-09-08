@@ -34,7 +34,15 @@ class CustomGPS(
         get() = data.satellites
 
     override val quality: Quality
-        get() = data.quality
+        get() {
+            val accuracy = horizontalAccuracy
+            return when {
+                accuracy != null && accuracy < 8 -> Quality.Good
+                accuracy != null && accuracy < 16 -> Quality.Moderate
+                accuracy != null -> Quality.Poor
+                else -> Quality.Unknown
+            }
+        }
     override val rawBearing: Float?
         get() = data.rawBearing
     override val satelliteDetails: List<Satellite>?
