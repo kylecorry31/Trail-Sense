@@ -1560,4 +1560,35 @@
     <string name="common_name">Yleinen nimi</string>
     <string name="both_names">Molemmat nimet</string>
     <string name="clock_device_time_accurate">Laitteen kello on ajassa</string>
+    <string name="pref_filter_location_readings_title">Suodata sijaintilukemia</string>
+    <string name="pref_filter_location_readings_description">Jättää nykyistä lukemaa huonommilta näyttävät lukemat huomiotta</string>
+    <string name="pref_large_tile_cache_title">Käytä suurikokoista karttalaattojen välimuistia</string>
+    <string name="export_logs">Vie lokit</string>
+    <string name="external_storage">Ulkoinen tallennustila</string>
+    <string name="external_storage_diagnostic_instructions">Järjestelmän tiedostovalitsimella ei ole pääsyä laitteesi tiedostoihin. Tämä voi estää Trail Senseä avaamasta tai tallentamasta valitsemiasi tiedostoja. Salli \"Pääsy kaikkiin tiedostoihin\" järjestelmän tiedostovalitsimelle (sen nimi saattaa olla esim. \"Ulkoinen tallennustila\").</string>
+    <string name="location_permission">Sijaintiluvat</string>
+    <string name="exporting">Vienti</string>
+    <string name="export_failed">Vientiä ei voitu suorittaa</string>
+    <string name="use_legacy_file_picker">Käytä vanhaa tiedostovalitsinta</string>
+    <string name="location_required_for_cell_signals">Sijaintilupa tarvitaan lähellä olevien puhelinverkon signaalien tarkasteluun</string>
+    <string name="bearing_length">Kompassisuunnan pituus</string>
+    <string name="bearing_length_description">Kompassisuunnan pituus kun kompassisuunta on aktiivinen</string>
+    <string name="bearing_length_max">Max: %s</string>
+    <string name="map_error_invalid_map_file">Epäkelpo karttatiedosto</string>
+    <string name="map_error_access_denied">Pääsy karttatiedostoon evättiin</string>
+    <string name="map_error_unable_to_copy">Karttatiedostoa ei pysty kopiomaan</string>
+    <string name="color_by_classification">Väritys luokituksen mukaan</string>
+    <string name="set_as_default_photo">Aseta oletukseksi</string>
+    <string name="delete_image_prompt">Poistetaanko kuva?</string>
+    <string name="image_index">Kuva %1$d/%2$d</string>
+    <string name="last_updated">Viimeksi päivitetty</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="one">Laitteen kello on %d sekunti jäljessä</item>
+        <item quantity="other">Laitteen kello on %d sekuntia jäljessä</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="one">Laitteen kello on %d sekunti edellä</item>
+        <item quantity="other">Laitteen kello on %d sekuntia edellä</item>
+    </plurals>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nKulma: %3$s</string>
 </resources>

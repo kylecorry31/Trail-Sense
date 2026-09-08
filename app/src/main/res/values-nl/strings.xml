@@ -440,7 +440,7 @@
     <string name="max_temp_calibrated">Maximale omgevingstemperatuur (gekalibreerd)</string>
     <string name="pref_show_last_signal_beacon_title">Baken van het laatste signaal</string>
     <string name="coordinate_format_usng">USNG</string>
-    <string name="delete_pack">Pakket verwijderen\?</string>
+    <string name="delete_pack">Bepakking verwijderen?</string>
     <string name="new_packing_list">Nieuwe paklijst</string>
     <string name="no_packing_lists">Geen paklijsten</string>
     <string name="percent_packed">%s verpakt</string>
@@ -895,7 +895,7 @@
     <string name="path_slope_moderate">Gematigd</string>
     <string name="weather_clear">Helder</string>
     <string name="clouds_clear">Helder</string>
-    <string name="manual">Manueel</string>
+    <string name="manual">Handmatig</string>
     <string name="low_pressure">Lage</string>
     <string name="high_pressure">Hoge</string>
     <string name="pressure_system">Druksysteem</string>
@@ -1099,7 +1099,7 @@
     <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Aangepast)</string>
     <string name="pref_tiles_battery_log">Batterijlogboek</string>
     <string name="pref_dialog_battery_log_summary">Het batterijlogboek is uitgeschakeld, geschiedenis en tijd tot ontlading zijn mogelijk niet beschikbaar. Deze functie kan opnieuw worden ingeschakeld in de instellingen</string>
-    <string name="pref_tiles_enabled_battery_log_summary">Registreert elk uur het batterijpercentage om de tijd te schatten totdat de batterij leeg is</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Registreert elk uur het batterijpercentage om de tijd totdat de batterij leeg is te schatten</string>
     <string name="feature_unavailable">%s onbeschikbaar</string>
     <string name="audio_error_messsage">Er is een fout opgetreden tijdens het afspelen van audio.</string>
     <string name="ar_calibration_instructions_hint">Om het Aangevulde Realiteit-hulpmiddel te kalibreren, klik op het pictogram in de linkerbovenhoek van het scherm en volg de instructies die verschijnen.</string>
@@ -1124,7 +1124,7 @@
     <string name="pref_start_camera_in_3d_view_summary">Opent de camera als je op de knop Bekijk in 3D klikt</string>
     <string name="pref_start_camera_in_3d_view_title">Camera gebruiken voor 3D-weergave</string>
     <string name="open_photo_map">Fotokaart openen</string>
-    <string name="mirror_camera">Spiegelcamera</string>
+    <string name="mirror_camera">Spiegel</string>
     <string name="tool_turn_back">Teruggaan</string>
     <string name="return_time">Tijd van terugkomst</string>
     <string name="turn_back_alert_set">Retourwaarschuwing ingesteld</string>
@@ -1155,7 +1155,7 @@
     <string name="sunrise_alert_notification_text">De zon zal om %s opkomen</string>
     <string name="sunrise_alert_channel_title">Zonsopkomstwekker</string>
     <string name="sunset">Zonsondergang</string>
-    <string name="pref_flashlight_control_screen_with_volume_title">Helderheid van schermzaklamp met de volumeknoppen regelen</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Helderheid van schermzaklamp regelen met volumeknoppen</string>
     <string name="estimate_method">Schattingsmethode</string>
     <string name="tide_clock">Getijdenklok</string>
     <string name="lunitidal_interval">Maangetijdeninterval</string>
@@ -1658,4 +1658,5 @@
     <string name="delete_image_prompt">Afbeelding verwijderen?</string>
     <string name="image_index">Afbeelding %1$d/%2$d</string>
     <string name="last_updated">Laatst bijgewerkt</string>
+    <string name="pref_gps_accuracy_requirement_title">Nauwkeurigheidsfilter</string>
 </resources>

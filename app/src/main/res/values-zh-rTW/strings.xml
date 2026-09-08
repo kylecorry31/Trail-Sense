@@ -321,7 +321,7 @@
     <string name="tool_quick_action_name">工具：%s</string>
     <string name="quality_poor">差</string>
     <string name="quality_good">好</string>
-    <string name="pref_start_camera_in_3d_view_title">使用相機進行 3D 檢視</string>
+    <string name="pref_start_camera_in_3d_view_title">使用相機進行３Ｄ查看</string>
     <string name="projection_linear">線性</string>
     <string name="default_string">預設</string>
     <plurals name="paths_imported">
@@ -392,7 +392,7 @@
     <string name="imperial_pints">英制品脫</string>
     <string name="take_photo">拍照</string>
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">如果有霧，可能預示未來 %d 小時內天氣晴朗，否則可能預示很快就會有降雨。</string>
-    <string name="pedometer_disclaimer">計步器的準確性和電池使用情況取決於你的裝置製造商和輸入的步幅。在外出使用之前，先在家嘗試一下，以驗證電池電量消耗和準確性。</string>
+    <string name="pedometer_disclaimer">計步器的準確度和電池使用情況取決於你的裝置製造商和輸入的步幅。在步道上使用前，請先在家測試片刻，以驗證電池電量消耗和準確度。</string>
     <string name="manual">手動</string>
     <string name="unable_to_find_next_astronomy">無法找到下一個 %s</string>
     <string name="season_spring">春天</string>
@@ -464,7 +464,7 @@
     <string name="partial">偏食（%s）</string>
     <string name="delete_tide_prompt">刪除潮汐？</string>
     <string name="avalanche_risk">雪崩風險</string>
-    <string name="compass_accuracy">指南針精確度</string>
+    <string name="compass_accuracy">指南針準確度</string>
     <string name="reset_distance_title">重置距離？</string>
     <string name="pounds">磅</string>
     <string name="kilograms_format">%s 公斤</string>
@@ -655,7 +655,7 @@
     <string name="season_winter">冬天</string>
     <string name="open_beacon_in_maps">在地圖上檢視</string>
     <string name="battery_power_ac">交流電</string>
-    <string name="compass_calibrate_toast">指南針精確度 %s，建議校正</string>
+    <string name="compass_calibrate_toast">指南針準確度 %s，建議進行校正</string>
     <string name="altostratus_desc">天空被一層中層族遮蔽，太陽只能勉強看到一小片明亮的光斑。</string>
     <string name="export">匯出</string>
     <string name="distance_from_flashlight">從手機到手電筒的距離</string>
@@ -665,7 +665,7 @@
     <string name="low">低</string>
     <string name="pref_step_length_title">步幅</string>
     <string name="meteor_shower">流星雨</string>
-    <string name="map_auto_calibrated">地圖已自動校正，請驗證其準確性</string>
+    <string name="map_auto_calibrated">地圖已自動校正，請驗證其準確度</string>
     <string name="solid">實線</string>
     <string name="dotted">點線</string>
     <string name="preview">預覽</string>
@@ -927,14 +927,10 @@
     <string name="use_gyroscope_after_calibration">校正後使用陀螺儀</string>
     <string name="reset_calibration_question">重置校正？</string>
     <string name="ar_layer_override_message">圖層設定可能會被指南覆寫，例如天文學指南。</string>
-    <string name="view_in_3d">以 3D 方式檢視</string>
+    <string name="view_in_3d">以３Ｄ檢視</string>
     <string name="locate">定位</string>
     <string name="tool_turn_back">折返</string>
-    <string name="allow_ignore_battery_restrictions_instructions">移除 Trail Sense 的電池限制可能會提高準確性。
-\n
-\n在大多數裝置上，按一下「%s」，然後切換到所有應用程式，並關閉 Trail Sense 的電池優化。
-\n
-\n請瀏覽[不要終止我的應用程式（英文）](https://dontkillmyapp.com/) 以取得特定裝置的說明。</string>
+    <string name="allow_ignore_battery_restrictions_instructions">移除 Trail Sense 的電池限制可能會提高準確度。 \n \n在大多數裝置上，按一下「%s」，然後切換到所有應用程式，並關閉 Trail Sense 的電池優化。 \n \n請瀏覽[不要終止我的應用程式（英文）](https://dontkillmyapp.com/) 以取得特定裝置的說明。</string>
     <string name="weather_clear">天晴</string>
     <string name="step_length_walk">沿直線行走，當你完成後按下停止</string>
     <string name="point_added">點已增加至路線</string>
@@ -966,7 +962,7 @@
     <string name="use_path_elevation">使用路線海拔</string>
     <string name="stratus_desc">天空被低雲籠罩。物體無法投下陰影，而且可能出現霧氣。</string>
     <string name="mirror_camera">鏡子相機</string>
-    <string name="pref_start_camera_in_3d_view_summary">點擊「以 3D 方式檢視」按鈕時開啟相機</string>
+    <string name="pref_start_camera_in_3d_view_summary">點擊「以３Ｄ檢視」按鈕時開啟相機</string>
     <string name="stratocumulus_desc">看起來像有小縫隙的棉球低雲族。顏色範圍從白色到深灰色。</string>
     <string name="cumulus_desc">低矮的浮雲，看起來像棉球。它們間隔開，通常是白色的，下面有深色斑點。</string>
     <string name="turn_back_alert_set">折返警報已設定</string>
@@ -1020,7 +1016,7 @@
     <string name="continuous_calibration_description">只要有 GPS 定位就進行校正</string>
     <string name="cold">冷</string>
     <string name="last_lightning_strike_at">上一次雷擊在 %s</string>
-    <string name="battery_settings_limit_accuracy">電池限制可能會降低準確性</string>
+    <string name="battery_settings_limit_accuracy">電池限制可能會降低準確度</string>
     <string name="battery_usage_allowed">已允許使用電池</string>
     <string name="allow_schedule_exact_alarms">允許 %s 設置鬧鐘和提醒</string>
     <string name="dynamic_colors">動態顏色</string>
@@ -1330,7 +1326,7 @@
     <string name="pref_navigation_lock_screen_when_open_title">開啟時顯示在鎖定畫面上</string>
     <string name="safe_mode_toast">偵測到崩潰，某些功能停用幾秒鐘。</string>
     <string name="alarm_description">即使媒體和通知已靜音也會播放聲音</string>
-    <string name="built_in_dem">內置（低準確性）</string>
+    <string name="built_in_dem">內置（\t低準確度）</string>
     <string name="survival_guide_empty_desc">請搜尋有關生存主題的內容，例如水源、醫療、食物、天氣、庇護所或導航技巧。</string>
     <string name="range_header_units">射程（%s）</string>
     <string name="drop_header_units">彈落距 (%s)</string>
@@ -1381,7 +1377,7 @@
     <string name="sleep_sound_ocean_waves">海浪</string>
     <string name="background_color">背景顏色</string>
     <string name="load_pdf_tiles">載入 PDF 圖塊</string>
-    <string name="show_gps_accuracy">顯示 GPS 準確性</string>
+    <string name="show_gps_accuracy">顯示 GPS 準確度</string>
     <string name="sleep_sound_crickets_no_chirping">蟋蟀（無鳴叫）</string>
     <string name="add_to_homescreen">新增至主螢幕</string>
     <string name="mute_alarm_at_night">在夜間靜音警報</string>
@@ -1569,7 +1565,7 @@
     <string name="plugin_disconnect_message">斷開連接 %s？</string>
     <string name="delete_offline_map_group_message">%s 及其所有地圖將被刪除。</string>
     <string name="map_calibration_error_implausible_scale">校準比例看起來不太合理。請檢查地圖點和座標。</string>
-    <string name="photo_map_disclaimer">總是攜帶一份紙質地圖作為備用，並驗證 Trail Sense 的準確性。\n\nTrail Sense 不包含地圖檔案，必須以下載地圖或從照片進行校正。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 找到可下載的地圖</string>
+    <string name="photo_map_disclaimer">總是攜帶一份紙質地圖作為備用，並驗證 Trail Sense 的準確度。\n\nTrail Sense 不包含地圖檔案，必須以下載地圖或從照片進行校正。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 找到可下載的地圖</string>
     <string name="map_layer_elevation_description">根據數位海拔模型而為海拔著色</string>
     <string name="map_layer_ruggedness_description">根據海拔變化而為地形崎嶇度著色</string>
     <string name="map_layer_hillshade_description">地形陰影以視覺化海拔變化</string>
@@ -1645,4 +1641,7 @@
     <string name="set_as_default_photo">設為預設</string>
     <string name="delete_image_prompt">刪除圖片？</string>
     <string name="image_index">圖片 %1$d/%2$d</string>
+    <string name="pref_gps_accuracy_requirement_title">準確度篩選器</string>
+    <string name="pref_filter_location_readings_title">剔除無效讀數</string>
+    <string name="pref_filter_location_readings_description">剔除過於不精準或與前次讀數不一致的讀數</string>
 </resources>

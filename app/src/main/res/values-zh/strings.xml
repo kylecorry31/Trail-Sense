@@ -1639,4 +1639,6 @@
     <string name="delete_image_prompt">删除图片？</string>
     <string name="image_index">图片 %1$d/%2$d</string>
     <string name="last_updated">上次更新</string>
+    <string name="pref_gps_accuracy_requirement_title">精度筛选器</string>
+    <string name="smooth_gps_readings_summary">降低 GPS 噪音</string>
 </resources>

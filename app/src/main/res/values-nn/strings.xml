@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Finn fram</string>
     <string name="weather">Vêr</string>
     <string name="settings">Innstillingar</string>
@@ -208,7 +208,7 @@
     <string name="pref_show_pressure_in_notification_title">Syn lufttrykket i varselet</string>
     <string name="pref_show_temperature_in_notification_title">Syn temperaturen i varselet</string>
     <string name="pref_weather_update_frequency_title">Tid mellom vêroppdateringar</string>
-    <string name="pref_sun_time_mode_title">Solrennings- og solegladsklokkeslett</string>
+    <string name="pref_sun_time_mode_title">Kva tid sola renn / gladar</string>
     <string name="pref_show_sun_moon_compass_title">Syn sol/måne på kompasset</string>
     <string name="sun_actual">Rette</string>
     <string name="sun_civil">Borgarleg</string>
@@ -447,4 +447,77 @@
     <string name="last_duration">Siste %s</string>
     <string name="elevation_history_length">Lengd på høgdesoge</string>
     <string name="gps_signal_lost">Miste GPS-samband</string>
+    <string name="pref_sunset_alert_time_title">Klokkeslett for solegladvarsling</string>
+    <string name="until_sunset">Til sola gladar</string>
+    <string name="sunset_alerts_background_location_disclaimer">Solegladvarsel kan vera galne når du er på ferd</string>
+    <string name="sunset_alert_scheduled">Varsling %s før sola gladar</string>
+    <string name="sunset">Sola gladar</string>
+    <string name="use_alarm_for_sunset_alert">Nytt alarm til solegladvarsling</string>
+    <string name="pref_sunrise_alert_time_title">Klokkeslett for solrenningsvarsel</string>
+    <string name="until_sunrise">Til sola renn</string>
+    <string name="sunrise_alert_scheduled">Varsling %s før sola renn</string>
+    <string name="sunrise">Sola renn</string>
+    <string name="use_alarm_for_sunrise_alert">Nytt alarm til solrenningsvarsling</string>
+    <string name="pref_show_astronomy_bands_title">Syn band for solrenning og soleglad</string>
+    <string name="hide_field_guide_page_message">%$s\n\nDu kan henta fram att sida under innstillingane for Feltvegvisaren.</string>
+    <string name="plugin_unavailable">Tillegget er utilgjengeleg eller ikkje tilkopla lenger.</string>
+    <string name="connected_plugins">Tilkopla tillegg</string>
+    <string name="available_plugins">Tilgjengelege tillegg</string>
+    <string name="precise_miles_format">%s mil</string>
+    <string name="discharging_slow">Tømer seint (%s)</string>
+    <string name="discharging_fast">Tømer snøgt (%s)</string>
+    <string name="waning_crescent">I ny</string>
+    <string name="waning_gibbous">I ny</string>
+    <string name="waxing_gibbous">I ne</string>
+    <string name="waxing_crescent">I ne</string>
+    <string name="set_inclination_instructions">Rør kvar som helst for å låsa opp eller igjen</string>
+    <string name="create_item_title">Skip gjenstand</string>
+    <string name="feet_miles">Fot / mil</string>
+    <string name="highest_point_elevation">Høgste stad</string>
+    <string name="updating_weather">Oppdaterer vêret</string>
+    <string name="path_slope_flat">Flat</string>
+    <string name="path_slope_moderate">Medels</string>
+    <string name="path_slope_steep">Bratt</string>
+    <string name="path_slope">Bakke</string>
+    <string name="camera_unavailable">Kameraet er utilgjengeleg</string>
+    <string name="clouds_clear">Klår</string>
+    <string name="manual">Manuell</string>
+    <string name="high_pressure">Høgt</string>
+    <string name="low_pressure">Lågt</string>
+    <string name="pressure_system">Lufttrykksystem</string>
+    <string name="high_pressure_system_description">Gjev gjerne fint og kjøligare vêr med klår himmel.</string>
+    <string name="low_pressure_system_description">Gjev gjerne dåleg og varmare vêr med skya himmel.</string>
+    <string name="weather_front">Vêrfront</string>
+    <string name="weather_warm_front">Varm</string>
+    <string name="weather_cold_front">Kald</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Kan gje klår himmel i dei neste %d timane om det er skodde, elles kan det tyde på at det snart vert nedbør.</string>
+    <string name="then_weather">so %s</string>
+    <string name="weather_clear">Klår himmel</string>
+    <string name="weather_overcast">Skya</string>
+    <string name="weather_precipitation">Nedbør</string>
+    <string name="weather_wind">Vind</string>
+    <string name="wind_speed">Vindsnøggleik</string>
+    <string name="later">Seinare</string>
+    <string name="now">No</string>
+    <string name="pref_show_map_previews_title">Syn føresyning av kartet</string>
+    <string name="smoothing">Utjamning</string>
+    <string name="samples">Prøver</string>
+    <string name="sensor_summary">Kompass, GPS, høgdemålar, trykkmålar, osb.</string>
+    <string name="historic">Sogeleg</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Sogeleg (%d år)</string>
+    <string name="sensor">Sensor</string>
+    <string name="temperature_high_low">Høg / Låg</string>
+    <string name="next_24_hours">Neste døgeret</string>
+    <string name="tool_climate">Klima</string>
+    <string name="tool_climate_summary">Sjå sogelege tempetaturar</string>
+    <string name="source">Kjelde</string>
+    <string name="now_value">No: %s</string>
+    <string name="for_historic_temperatures">For sogelege tempetaturar</string>
+    <string name="hot">Varmt</string>
+    <string name="cold">Kaldt</string>
+    <string name="weather_alert_storm_description">Bu deg på sterk vind og mykje nedbør.</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Kan tyde på nedbør dei neste %1$d til %2$d timane.</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Kan tyde på torestorm dei neste %d timane.</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Kan tyde på nedbør i %d timar.</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Kan tyda på fint vêr i %d timar.</string>
 </resources>
