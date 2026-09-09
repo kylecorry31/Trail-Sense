@@ -48,10 +48,11 @@ class BacktrackService :
             GPS(
                 this,
                 frequency = Duration.ofMillis(periodMillis),
+                minimumFrequency = Duration.ofMillis(periodMillis),
                 listenToNmea = false,
                 listenToGnssStatusChanges = false
             )
-        }, action = action)
+        }, action = action, toleranceMillis = 1000)
     }
 
     override fun getForegroundInfo(): ForegroundInfo {
