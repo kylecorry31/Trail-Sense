@@ -27,8 +27,11 @@ class SpeedGPSModule : GPSModule {
 
         val oldestLocation = locations.firstOrNull()
 
+        val currentSpeedAccuracy = newData.speedAccuracy
+        val shouldReplaceSpeed = currentSpeedAccuracy != null && newData.speed.value < currentSpeedAccuracy * 0.68
+
         // If the speed is zero, estimate the speed
-        if (newData.speed.value == 0f && oldestLocation != null) {
+        if (shouldReplaceSpeed && oldestLocation != null) {
             newData.speed = SpeedEstimator.calculate(
                 oldestLocation.first,
                 currentLocation,
