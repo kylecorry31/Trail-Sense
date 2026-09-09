@@ -69,7 +69,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, TrailMapEntity::class, StepTrackingPeriodEntity::class, StepCountBucketEntity::class],
-    version = 60,
+    version = 61,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -583,6 +583,13 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_60_61 = object : Migration(60, 61) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE `battery` ADD COLUMN `uptime` INTEGER DEFAULT NULL")
+                    db.execSQL("ALTER TABLE `battery` ADD COLUMN `elapsed_realtime` INTEGER DEFAULT NULL")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -643,7 +650,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_56_57,
                     MIGRATION_57_58,
                     MIGRATION_58_59,
-                    MIGRATION_59_60
+                    MIGRATION_59_60,
+                    MIGRATION_60_61
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

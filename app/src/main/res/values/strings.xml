@@ -488,6 +488,7 @@
     <string name="battery_health_overheat">Overheat</string>
     <string name="battery_health_over_voltage">Over voltage</string>
     <string name="battery_health">Health: %s</string>
+    <string name="battery_deep_sleep">Deep sleep: %1$s (last %2$s)</string>
     <string name="power">Power</string>
     <string name="tool_category_angles">Angles</string>
     <string name="tool_category_signaling">Signaling</string>

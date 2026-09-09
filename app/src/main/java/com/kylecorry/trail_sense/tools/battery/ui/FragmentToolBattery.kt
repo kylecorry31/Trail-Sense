@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
 import android.content.Intent
+import android.os.SystemClock
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
@@ -42,6 +43,7 @@ import kotlin.math.roundToInt
 class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_battery) {
     private val currentFilterSize = 20
     private val currentSampleInterval = 200L
+    private val deepSleepWindow = Duration.ofHours(6)
 
     override fun update() {
         // Views
@@ -49,6 +51,7 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         val capacityTextView = useView<TextView>(R.id.battery_capacity)
         val healthTextView = useView<TextView>(R.id.battery_health)
         val currentTextView = useView<TextView>(R.id.battery_current)
+        val deepSleepTextView = useView<TextView>(R.id.battery_deep_sleep)
         val titleView = useView<Toolbar>(R.id.battery_title)
         val lowPowerSwitchView = useView<SwitchCompat>(R.id.low_power_mode_switch)
         val progressView = useView<ProgressBar>(R.id.battery_level_progress)
@@ -83,10 +86,15 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
                         Instant.now(),
                         percent,
                         capacity,
-                        isCharging
+                        isCharging,
+                        Duration.ofMillis(SystemClock.uptimeMillis()),
+                        Duration.ofMillis(SystemClock.elapsedRealtime())
                     )
                 else null
             )
+        }
+        val deepSleep = useMemo(readings) {
+            batteryService.getDeepSleep(readings, deepSleepWindow)
         }
         val (services, triggerServicesUpdate) = useRunningServices(batteryService)
         val tips = useSystemBatteryTips(batteryService)
@@ -248,6 +256,18 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             chargeMethod,
             formatter
         )
+
+        // View - Deep sleep
+        useEffect(deepSleepTextView, deepSleep) {
+            deepSleepTextView.isVisible = deepSleep != null
+            if (deepSleep != null) {
+                deepSleepTextView.text = getString(
+                    R.string.battery_deep_sleep,
+                    formatter.formatPercentage(deepSleep.percent),
+                    formatter.formatDuration(deepSleep.duration, true)
+                )
+            }
+        }
 
         // View - Low power toggle
         useLowPowerToggle(lowPowerSwitchView, lowPowerMode, prefs, triggerServicesUpdate)

@@ -11,11 +11,13 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryUsage
+import com.kylecorry.trail_sense.tools.battery.domain.DeepSleep
 import com.kylecorry.trail_sense.tools.battery.domain.PowerService
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.domain.SystemBatteryTip
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
+import java.time.Instant
 
 class BatteryService {
 
@@ -49,6 +51,11 @@ class BatteryService {
         val lastChargeRate = rates.lastOrNull { it > 0f } ?: return null
         val maxCapacity = 100f
         return powerService.getTimeUntilFull(capacity, maxCapacity, lastChargeRate)
+    }
+
+    fun getDeepSleep(readings: List<BatteryReading>, window: Duration): DeepSleep? {
+        val start = Instant.now().minus(window)
+        return powerService.getDeepSleep(readings.filter { it.time >= start })
     }
 
     @Suppress("LongMethod", "CyclomaticComplexMethod")

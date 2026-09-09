@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.battery.infrastructure.commands
 
 import android.content.Context
+import android.os.SystemClock
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
@@ -29,7 +30,14 @@ class BatteryLogCommand(private val context: Context) : CoroutineCommand {
         val charging = battery.chargingStatus == BatteryChargingStatus.Charging
         val time = Instant.now()
         val capacity = battery.capacity
-        val reading = BatteryReading(time, pct, capacity, charging)
+        val reading = BatteryReading(
+            time,
+            pct,
+            capacity,
+            charging,
+            Duration.ofMillis(SystemClock.uptimeMillis()),
+            Duration.ofMillis(SystemClock.elapsedRealtime())
+        )
         if (battery.hasValidReading) {
             batteryRepo.add(reading)
         }

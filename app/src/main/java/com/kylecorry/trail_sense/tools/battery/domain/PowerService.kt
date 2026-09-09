@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.battery.domain
 
 import com.kylecorry.sol.time.Time.hours
 import java.time.Duration
+import kotlin.math.absoluteValue
 
 class PowerService {
 
@@ -16,6 +17,37 @@ class PowerService {
         val hours = -(capacity / capacityDrainPerHour)
 
         return hours(hours.toDouble())
+    }
+
+    fun getDeepSleep(readings: List<BatteryReading>): DeepSleep? {
+        val sorted = readings
+            .filter { it.uptime != null && it.elapsedRealtime != null }
+            .sortedBy { it.time }
+
+        var totalElapsed = 0L
+        var totalSleep = 0L
+
+        for (i in 1 until sorted.size) {
+            val previous = sorted[i - 1]
+            val current = sorted[i]
+            val elapsed = current.elapsedRealtime!!.toMillis() - previous.elapsedRealtime!!.toMillis()
+            val awake = current.uptime!!.toMillis() - previous.uptime!!.toMillis()
+
+            // The clocks reset on reboot, so only trust intervals where they still track wall time
+            val wallClock = Duration.between(previous.time, current.time).toMillis()
+            if (elapsed <= 0 || awake < 0 || (elapsed - wallClock).absoluteValue > REBOOT_TOLERANCE_MILLIS) {
+                continue
+            }
+
+            totalElapsed += elapsed
+            totalSleep += (elapsed - awake).coerceIn(0, elapsed)
+        }
+
+        if (totalElapsed == 0L) {
+            return null
+        }
+
+        return DeepSleep(100f * totalSleep / totalElapsed, Duration.ofMillis(totalElapsed))
     }
 
     fun getRates(
@@ -101,6 +133,10 @@ class PowerService {
         }
 
         return hours(hours.toDouble())
+    }
+
+    companion object {
+        private const val REBOOT_TOLERANCE_MILLIS = 5 * 60 * 1000L
     }
 
 }
