@@ -19,6 +19,14 @@
             app:singleLineTitle="false"
             app:title="@string/pref_backtrack_frequency_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_keep_awake"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_backtrack_keep_awake_summary"
+            app:title="@string/pref_backtrack_keep_awake_title" />
+
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_history_days"

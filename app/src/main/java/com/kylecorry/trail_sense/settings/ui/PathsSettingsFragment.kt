@@ -12,10 +12,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
+import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ToggleBacktrackCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.launch
 import java.time.Duration
 
 class PathsSettingsFragment : AndromedaPreferenceFragment() {
@@ -64,6 +66,13 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
                 prefBacktrack?.isChecked = false
             }
             command.execute()
+            true
+        }
+
+        switch(R.string.pref_backtrack_keep_awake)?.setOnPreferenceChangeListener { _, _ ->
+            lifecycleScope.launch {
+                BacktrackScheduler.restart(requireContext())
+            }
             true
         }
 

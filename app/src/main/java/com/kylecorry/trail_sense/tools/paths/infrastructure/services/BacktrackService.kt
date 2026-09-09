@@ -6,10 +6,16 @@ import com.kylecorry.andromeda.background.IAlwaysOnTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.background.services.IntervalService
+import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.luna.concurrency.CoroutineQueueRunner
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.ITimer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.background.TopicTimer
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSSource
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSSourceSelector
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
@@ -26,6 +32,27 @@ class BacktrackService :
 
     override val uniqueId: Int
         get() = 7238542
+
+    override val holdWakelockWhenBelowThreshold: Boolean
+        get() = prefs.backtrackKeepDeviceAwake
+
+    override fun getNonWorkerTimer(action: suspend () -> Unit): ITimer {
+        val canWakeWithLocationUpdates = !prefs.backtrackKeepDeviceAwake &&
+                GPSSourceSelector(this).getSource(useCache = false) == GPSSource.Device
+
+        if (!canWakeWithLocationUpdates) {
+            return CoroutineTimer { action() }
+        }
+
+        return TopicTimer({ periodMillis ->
+            GPS(
+                this,
+                frequency = Duration.ofMillis(periodMillis),
+                listenToNmea = false,
+                listenToGnssStatusChanges = false
+            )
+        }, action = action)
+    }
 
     override fun getForegroundInfo(): ForegroundInfo {
         val units = prefs.baseDistanceUnits

@@ -627,6 +627,7 @@
     <string name="quality_poor">Poor</string>
     <string name="quality_good">Good</string>
     <string name="pref_backtrack_save_cell" translatable="false">pref_backtrack_save_cell</string>
+    <string name="pref_backtrack_keep_awake" translatable="false">pref_backtrack_keep_awake</string>
     <string name="time_ago">%s ago</string>
     <string name="network_5g">5G</string>
     <string name="network_4g">4G</string>
@@ -650,6 +651,8 @@
     <string name="tool_light_meter_title">Light Meter</string>
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
     <string name="pref_backtrack_save_cell_title">Record cell signal</string>
+    <string name="pref_backtrack_keep_awake_summary">When below 15 minute frequency</string>
+    <string name="pref_backtrack_keep_awake_title">Keep device awake</string>
     <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
     <string name="location_not_set">Location not set</string>
     <string name="set">Set</string>

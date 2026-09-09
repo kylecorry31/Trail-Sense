@@ -352,6 +352,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         true
     )
 
+    val backtrackKeepDeviceAwake by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_backtrack_keep_awake),
+        false
+    )
+
     var backtrackRecordFrequency: Duration
         get() {
             return cache.getDuration(getString(R.string.pref_backtrack_frequency))
