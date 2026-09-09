@@ -70,7 +70,9 @@ class SpeedGPSModuleTest {
         for (millis in 1L..20L) {
             module.update(previous, reading(millis, 1.001, 1f))
         }
-        val candidate = reading(10000, 1.001)
+        val candidate = reading(10000, 1.001).apply {
+            speedAccuracy = 0.2f
+        }
         module.update(previous, candidate)
         assertTrue(candidate.speed.value in 10f..12f)
     }
