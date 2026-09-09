@@ -85,22 +85,27 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
 
             mapView.layerManager.start()
 
-            // Render the map (it needs time to load)
-            val bitmap = createBitmap(size, size)
-            val canvas = Canvas(bitmap)
-            var totalDelay = 0
-            val maxDelay = 2000
-            while (totalDelay < maxDelay && mapView.layerManager.getLayers().any { !it.isLoaded }) {
-                mapView.draw(canvas)
-                delay(100)
-                totalDelay += 100
+            try {
+                // Render the map (it needs time to load)
+                val bitmap = createBitmap(size, size)
+                val canvas = Canvas(bitmap)
+                var totalDelay = 0
+                val maxDelay = 2000
+                while (totalDelay < maxDelay &&
+                    mapView.layerManager.getLayers().any { !it.isLoaded }
+                ) {
+                    mapView.draw(canvas)
+                    delay(100)
+                    totalDelay += 100
+                }
+                // A few more draws just in case
+                repeat(3) {
+                    mapView.draw(canvas)
+                }
+                views.setImageViewBitmap(CHART, bitmap)
+            } finally {
+                mapView.layerManager.stop()
             }
-            // A few more draws just in case
-            repeat(3) {
-                mapView.draw(canvas)
-            }
-            views.setImageViewBitmap(CHART, bitmap)
-            mapView.layerManager.stop()
         }
 
         views.setViewVisibility(TITLE_TEXTVIEW, View.GONE)
