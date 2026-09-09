@@ -331,6 +331,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
         gpsErrorShown = false
+        moonUpdaterQueue.cancel()
     }
 
     private fun requestLocationUpdate() {
@@ -368,6 +369,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         val tilt = onDefault { astronomyService.getMoonTilt(location, time) }
 
         withContext(Dispatchers.Main) {
+            if (!isBound) {
+                return@withContext
+            }
             val size = Resources.dp(requireContext(), 24f).toInt()
             chart.setMoonImage(
                 MoonPhaseImageMapper(requireContext()).getPhaseImage(
