@@ -96,6 +96,14 @@ object TestUtils {
         }
     }
 
+    fun closeKeyboard() {
+        val isKeyboardOpen = device.executeShellCommand("dumpsys input_method")
+            .contains("mInputShown=true")
+        if (isKeyboardOpen) {
+            back(false)
+        }
+    }
+
     fun getString(@StringRes id: Int, vararg args: Any): String {
         return context.getString(id, *args)
     }

@@ -4,7 +4,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
@@ -82,7 +81,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         // Navigate to it
         isVisible(R.id.beacon_recycler)
         click("Test Beacon")
-        delay(200)
+        hasText(R.id.beacon_title, "Test Beacon")
         click(string(R.string.navigate))
 
         hasText(string(R.string.calibrate_compass_dialog_title))

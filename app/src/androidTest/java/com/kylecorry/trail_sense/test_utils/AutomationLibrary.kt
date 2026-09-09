@@ -376,7 +376,7 @@ object AutomationLibrary {
             view(id, packageName = packageName).input(text, checkDescendants)
         }
         if (closeKeyboardOnCompletion) {
-            TestUtils.back(false)
+            TestUtils.closeKeyboard()
         }
     }
 
