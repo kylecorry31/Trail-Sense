@@ -1,29 +1,26 @@
 package com.kylecorry.trail_sense.shared.background
 
+import com.kylecorry.luna.subscriptions.Subscription
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.luna.topics.ITopic
-import com.kylecorry.trail_sense.shared.andromeda_temp.SystemTimeProvider
-import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * A timer driven by a topic publish event. Assuming the topic fires at a regular interval, the gap between the end of one action
- * and the start of the next will be roughly the period of the topic.
+ * A timer driven by topic publishes after an optional initial delay.
  *
  * @param topicProvider a factory function for the topic
- * @param timeProvider a provider for the current time
- * @param toleranceMillis how much earlier a publish can arrive and still trigger the action.
  * @param action the action to perform on each timer tick
  */
 class TopicTimer(
     private val topicProvider: (periodMillis: Long) -> ITopic,
-    private val timeProvider: TimeProvider = SystemTimeProvider(),
-    private val toleranceMillis: Long = Long.MAX_VALUE,
     private val action: suspend () -> Unit
 ) : ITimer {
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
@@ -34,10 +31,8 @@ class TopicTimer(
 
     constructor(
         topic: ITopic,
-        timeProvider: TimeProvider = SystemTimeProvider(),
-        toleranceMillis: Long = Long.MAX_VALUE,
         action: suspend () -> Unit
-    ) : this({ topic }, timeProvider, toleranceMillis, action)
+    ) : this({ topic }, action)
 
     override fun interval(period: Duration, initialDelay: Duration) {
         interval(period.toMillis(), initialDelay.toMillis())
@@ -72,15 +67,21 @@ class TopicTimer(
     ) = synchronized(lock) {
         job?.cancel()
         job = scope.launch {
-            val topic = lazy { topicProvider(periodMillis) }
-            var nextRunAt = timeProvider.elapsedRealtime() + delayMillis
-            do {
-                if (timeProvider.elapsedRealtime() < nextRunAt) {
-                    topic.value.read { nextRunAt - timeProvider.elapsedRealtime() <= toleranceMillis }
+            val topic = topicProvider(periodMillis)
+            val bus = Subscription()
+            bus.subscribe(action)
+            try {
+                if (delayMillis > 0) {
+                    delay(delayMillis.milliseconds)
                 }
-                action()
-                nextRunAt = timeProvider.elapsedRealtime() + periodMillis
-            } while (!isOneTime)
+                topic.read {
+                    bus.publish()
+                    isOneTime || !isActive
+                }
+            } finally {
+                bus.unsubscribe(action)
+                topic.unsubscribeAll()
+            }
         }
     }
 }
