@@ -1643,4 +1643,5 @@
     <string name="smooth_gps_readings_summary">降低 GPS 噪音</string>
     <string name="battery_deep_sleep">深度睡眠： %1$s (持续 %2$s)</string>
     <string name="pref_backtrack_keep_awake_title">保持屏幕亮起</string>
+    <string name="pref_backtrack_keep_awake_summary">低于 15 分钟频率时</string>
 </resources>
