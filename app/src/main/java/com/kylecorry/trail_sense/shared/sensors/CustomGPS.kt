@@ -79,7 +79,7 @@ class CustomGPS(
         get() = data.mslAltitude
 
     val isTimedOut: Boolean
-        get() = data.isTimedOut
+        get() = consumer.reading.isTimedOut
 
     private val baseGPS: ISatelliteGPS by lazy {
         GPS(context.applicationContext, frequency = gpsFrequency)
@@ -89,8 +89,12 @@ class CustomGPS(
         SharedGPSPipeline.getInstance(),
         this::notifyListenersOnMain
     )
-    private val data: ModularGPSData
-        get() = consumer.reading
+
+    private val data: ISatelliteGPS
+        get() {
+            val reading = consumer.reading
+            return if (reading.isTimedOut && baseGPS.hasValidReading) baseGPS else reading
+        }
 
     private val updates = Subscription<ModularGPSData>(
         replay = 1, // Replay is temporary until the luna onSubscription change is in place to avoid missed readings
