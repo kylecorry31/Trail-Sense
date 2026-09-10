@@ -88,7 +88,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
-        internal const val version = 34
+        internal const val version = 35
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -541,6 +541,14 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(33, 34) { _, prefs ->
                 prefs.remove("pref_filter_location_readings")
                 prefs.remove("pref_require_satellites")
+            },
+            PreferenceMigration(34, 35) { context, prefs ->
+                val backtrackEnabledKey = context.getString(R.string.pref_backtrack_enabled)
+                val backtrackFrequencyKey = context.getString(R.string.pref_backtrack_frequency)
+                // If the user enabled backtrack in the past but didn't change the frequency, default to the original 15 minutes so they aren't surprised
+                if (prefs.contains(backtrackEnabledKey) && !prefs.contains(backtrackFrequencyKey)) {
+                    prefs.putDuration(backtrackFrequencyKey, Duration.ofMinutes(15))
+                }
             }
         )
 

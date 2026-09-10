@@ -361,7 +361,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     var backtrackRecordFrequency: Duration
         get() {
             return cache.getDuration(getString(R.string.pref_backtrack_frequency))
-                ?: Duration.ofMinutes(15)
+                ?: Duration.ofMinutes(1)
         }
         set(value) {
             cache.putDuration(getString(R.string.pref_backtrack_frequency), value)

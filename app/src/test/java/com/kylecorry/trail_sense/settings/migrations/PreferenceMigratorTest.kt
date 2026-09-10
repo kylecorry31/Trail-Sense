@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.settings.migrations
 
+import android.content.Context
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.AppState
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -8,6 +10,8 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
+import java.time.Duration
 
 class PreferenceMigratorTest {
 
@@ -38,6 +42,37 @@ class PreferenceMigratorTest {
         PreferenceMigrator.migrations.first { it.fromVersion == 32 }.action(mock(), prefs)
         assertEquals(45, prefs.getInt("pref_gps_smoothing"))
         assertFalse(prefs.contains("pref_use_filtered_gps"))
+    }
+
+    @Test
+    fun migratesBacktrackFrequencyForExistingUsers() {
+        val settings = InMemoryPreferences()
+        val context = backtrackContext()
+        settings.putBoolean("backtrack_enabled", false)
+
+        PreferenceMigrator.migrations.first { it.fromVersion == 34 }.action(context, settings)
+
+        assertEquals(Duration.ofMinutes(15), settings.getDuration("backtrack_frequency"))
+    }
+
+    @Test
+    fun doesNotMigrateBacktrackFrequencyForNewUsers() {
+        val settings = InMemoryPreferences()
+
+        PreferenceMigrator.migrations.first { it.fromVersion == 34 }.action(backtrackContext(), settings)
+
+        assertFalse(settings.contains("backtrack_frequency"))
+    }
+
+    @Test
+    fun migrationPreservesExistingBacktrackFrequency() {
+        val settings = InMemoryPreferences()
+        settings.putBoolean("backtrack_enabled", true)
+        settings.putDuration("backtrack_frequency", Duration.ofMinutes(5))
+
+        PreferenceMigrator.migrations.first { it.fromVersion == 34 }.action(backtrackContext(), settings)
+
+        assertEquals(Duration.ofMinutes(5), settings.getDuration("backtrack_frequency"))
     }
 
     @Test
@@ -174,5 +209,12 @@ class PreferenceMigratorTest {
     private fun assertVersion(expected: Int) {
         // An unset version means the install has not been migrated yet
         assertEquals(expected, prefs.getInt(PreferenceMigrator.VERSION_KEY) ?: 0)
+    }
+
+    private fun backtrackContext(): Context {
+        return mock<Context>().also {
+            whenever(it.getString(R.string.pref_backtrack_enabled)).thenReturn("backtrack_enabled")
+            whenever(it.getString(R.string.pref_backtrack_frequency)).thenReturn("backtrack_frequency")
+        }
     }
 }
