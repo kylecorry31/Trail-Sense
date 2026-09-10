@@ -12,7 +12,7 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.background.TopicTimer
+import com.kylecorry.trail_sense.shared.andromeda_temp.FlowableTimer
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSSourceSelector
@@ -44,7 +44,7 @@ class BacktrackService :
             return CoroutineTimer { action() }
         }
 
-        return TopicTimer({ periodMillis ->
+        return FlowableTimer({ periodMillis ->
             // This intentionally does not use the CustomGPS because it only needs to use the GPS as a wakeup source
             // This has the side effect of warming up the GPS for backtrack
             GPS(

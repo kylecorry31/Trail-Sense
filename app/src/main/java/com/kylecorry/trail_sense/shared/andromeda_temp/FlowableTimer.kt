@@ -1,7 +1,7 @@
-package com.kylecorry.trail_sense.shared.background
+package com.kylecorry.trail_sense.shared.andromeda_temp
 
+import com.kylecorry.luna.concurrency.IFlowable
 import com.kylecorry.luna.time.ITimer
-import com.kylecorry.luna.topics.ITopic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 
 /**
- * A timer driven by topic publishes after an optional initial delay.
+ * A timer driven by flowable emissions after an optional initial delay.
  *
- * @param topicProvider a factory function for the topic
+ * @param flowableProvider a factory function for the flowable
  * @param action the action to perform on each timer tick
  */
-class TopicTimer(
-    private val topicProvider: (periodMillis: Long) -> ITopic,
+class FlowableTimer(
+    private val flowableProvider: (periodMillis: Long) -> IFlowable<*>,
     private val action: suspend () -> Unit
 ) : ITimer {
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
@@ -28,9 +28,9 @@ class TopicTimer(
     private var job: Job? = null
 
     constructor(
-        topic: ITopic,
+        flowable: IFlowable<*>,
         action: suspend () -> Unit
-    ) : this({ topic }, action)
+    ) : this({ flowable }, action)
 
     override fun interval(period: Duration, initialDelay: Duration) {
         interval(period.toMillis(), initialDelay.toMillis())
@@ -46,7 +46,7 @@ class TopicTimer(
         once(delay.toMillis())
     }
 
-    /** The delay doubles as the rate of the topic, since a one time timer has no period. */
+    /** The delay doubles as the rate of the flowable, since a one time timer has no period. */
     override fun once(delayMillis: Long) {
         require(delayMillis >= 0)
         start(delayMillis, delayMillis, isOneTime = true)
@@ -81,8 +81,8 @@ class TopicTimer(
     }
 
     private suspend fun listen(rateMillis: Long, skipFirst: Boolean, stopAfterTick: Boolean) {
-        val topic = topicProvider(rateMillis)
-        var ticks = topic.flow
+        val flowable = flowableProvider(rateMillis)
+        var ticks = flowable.flow
         if (skipFirst) {
             ticks = ticks.drop(1)
         }

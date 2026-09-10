@@ -1,7 +1,7 @@
-package com.kylecorry.trail_sense.shared.background
+package com.kylecorry.trail_sense.shared.andromeda_temp
 
+import com.kylecorry.luna.concurrency.IFlowable
 import com.kylecorry.luna.topics.BaseTopic
-import com.kylecorry.luna.topics.ITopic
 import com.kylecorry.luna.topics.Topic
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.delay
@@ -15,13 +15,13 @@ import org.junit.jupiter.api.fail
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.atomic.AtomicInteger
 
-class TopicTimerTest {
+class FlowableTimerTest {
 
     private val topics = TestTopicProvider()
     private val runs = AtomicInteger()
 
-    private fun timer(action: suspend () -> Unit = { runs.incrementAndGet() }): TopicTimer {
-        return TopicTimer(topics, action = action)
+    private fun timer(action: suspend () -> Unit = { runs.incrementAndGet() }): FlowableTimer {
+        return FlowableTimer(topics, action = action)
     }
 
     @Test
@@ -262,7 +262,7 @@ class TopicTimerTest {
     @Test
     fun acceptsATopicDirectly() = runBlocking {
         val topic = TestTopic()
-        val timer = TopicTimer(topic) { runs.incrementAndGet() }
+        val timer = FlowableTimer(topic) { runs.incrementAndGet() }
         try {
             timer.interval(1000)
             awaitRuns(1)
@@ -306,14 +306,14 @@ class TopicTimerTest {
         fun publish() = topic.publish()
     }
 
-    private class TestTopicProvider : (Long) -> ITopic {
+    private class TestTopicProvider : (Long) -> IFlowable<*> {
         val periods = CopyOnWriteArrayList<Long>()
 
         @Volatile
         var current: TestTopic? = null
             private set
 
-        override fun invoke(periodMillis: Long): ITopic {
+        override fun invoke(periodMillis: Long): IFlowable<*> {
             periods.add(periodMillis)
             return TestTopic().also { current = it }
         }
