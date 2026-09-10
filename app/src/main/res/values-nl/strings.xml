@@ -1659,4 +1659,7 @@
     <string name="image_index">Afbeelding %1$d/%2$d</string>
     <string name="last_updated">Laatst bijgewerkt</string>
     <string name="pref_gps_accuracy_requirement_title">Nauwkeurigheidsfilter</string>
+    <string name="pref_backtrack_keep_awake_title">Apparaat wakker houden</string>
+    <string name="pref_backtrack_keep_awake_summary">Bij een frequentie van minder dan 15 minuten</string>
+    <string name="battery_deep_sleep">Diepe slaap: %1$s (duur: %2$s)</string>
 </resources>
