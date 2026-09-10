@@ -25,19 +25,22 @@ class TopicTimerTest {
     }
 
     @Test
-    fun waitsForAPublishAndKeepsOneSubscriptionBetweenActions() = runBlocking {
+    fun runsImmediatelyThenKeepsOneSubscriptionBetweenActions() = runBlocking {
         val timer = timer()
         try {
             timer.interval(15000)
+            awaitRuns(1)
             val topic = topics.awaitTopic()
             assertTrue(timer.isRunning())
             assertEquals(listOf(15000L), topics.periods)
-            assertNoMoreRuns(0)
+            assertNoMoreRuns(1)
 
             // The topic controls the cadence, even when publishes are less than a period apart.
+            topic.publish()
+            assertNoMoreRuns(1)
             repeat(3) { index ->
                 topic.publish()
-                awaitRuns(index + 1)
+                awaitRuns(index + 2)
                 assertTrue(topic.isSubscribed)
                 assertEquals(1, topic.subscriptions.get())
             }
@@ -57,8 +60,10 @@ class TopicTimerTest {
             runs.incrementAndGet()
         }
         try {
-            timer.interval(1000)
+            timer.interval(1000, 1000)
             val topic = topics.awaitTopic()
+            topic.publish()
+            assertNoMoreRuns(0)
             topic.publish()
             waitFor("action did not start") { started.isCompleted }
             assertTrue(topic.isSubscribed)
@@ -74,54 +79,101 @@ class TopicTimerTest {
     }
 
     @Test
-    fun delaysSubscriptionAndThenWaitsForAPublish() = runBlocking {
+    fun theInitialDelayIsDrivenByItsOwnTopic() = runBlocking {
         val timer = timer()
         try {
             timer.interval(1000, 200)
-            val topic = topics.awaitCreatedTopic()
-            assertFalse(topic.isSubscribed)
-            topic.publish()
-            assertNoMoreRuns(0)
+            val delayTopic = topics.awaitTopic()
+            assertEquals(listOf(200L), topics.periods)
 
-            topics.awaitTopic()
+            // The publish which arrives on subscribe starts the delay rather than ending it
+            delayTopic.publish()
             assertNoMoreRuns(0)
-            topic.publish()
+            delayTopic.publish()
             awaitRuns(1)
+            waitFor("delay topic was left subscribed") { !delayTopic.isSubscribed }
+
+            val periodTopic = topics.awaitTopic()
+            assertEquals(listOf(200L, 1000L), topics.periods)
+            periodTopic.publish()
+            assertNoMoreRuns(1)
+            periodTopic.publish()
+            awaitRuns(2)
         } finally {
             timer.stop()
         }
     }
 
     @Test
-    fun onceStopsListeningAfterTheFirstPublish() = runBlocking {
+    fun theInitialDelayReusesTheTopicWhenItMatchesThePeriod() = runBlocking {
+        val timer = timer()
+        try {
+            timer.interval(1000, 1000)
+            val topic = topics.awaitTopic()
+            assertEquals(listOf(1000L), topics.periods)
+
+            topic.publish()
+            assertNoMoreRuns(0)
+            repeat(2) { index ->
+                topic.publish()
+                awaitRuns(index + 1)
+            }
+            assertEquals(listOf(1000L), topics.periods)
+            assertEquals(1, topic.subscriptions.get())
+        } finally {
+            timer.stop()
+        }
+    }
+
+    @Test
+    fun onceStopsListeningAfterTheFirstPublishFollowingTheDelay() = runBlocking {
         val timer = timer()
         try {
             timer.once(50)
             val topic = topics.awaitTopic()
             assertEquals(listOf(50L), topics.periods)
             topic.publish()
+            assertNoMoreRuns(0)
+            assertTrue(timer.isRunning())
+
+            topic.publish()
             waitFor("one-shot timer kept running") { !timer.isRunning() }
+            awaitRuns(1)
             assertFalse(topic.isSubscribed)
 
-            val completed = runs.get()
             repeat(3) { topic.publish() }
-            assertNoMoreRuns(completed)
+            assertNoMoreRuns(1)
         } finally {
             timer.stop()
         }
     }
 
     @Test
-    fun onceWithZeroDelayStillWaitsForAPublish() = runBlocking {
+    fun onceWithZeroDelayRunsImmediatelyWithoutCreatingATopic() = runBlocking {
         val timer = timer()
         try {
             timer.once(0)
+            awaitRuns(1)
+            assertEquals(emptyList<Long>(), topics.periods)
+            assertFalse(timer.isRunning())
+        } finally {
+            timer.stop()
+        }
+    }
+
+    @Test
+    fun intervalWithZeroInitialDelayRunsImmediatelyThenListensForThePeriod() = runBlocking {
+        val timer = timer()
+        try {
+            timer.interval(1000, 0)
+            awaitRuns(1)
+
             val topic = topics.awaitTopic()
-            assertEquals(listOf(0L), topics.periods)
-            assertTrue(timer.isRunning())
-            assertNoMoreRuns(0)
+            assertEquals(listOf(1000L), topics.periods)
             topic.publish()
-            waitFor("one-shot timer kept running") { !timer.isRunning() }
+            assertNoMoreRuns(1)
+            topic.publish()
+            awaitRuns(2)
         } finally {
             timer.stop()
         }
@@ -132,16 +184,20 @@ class TopicTimerTest {
         val timer = timer()
         try {
             timer.interval(1000)
+            awaitRuns(1)
             val oldTopic = topics.awaitTopic()
             timer.interval(2000)
+            awaitRuns(2)
             waitFor("old topic was left subscribed") { !oldTopic.isSubscribed }
             val topic = topics.awaitTopic()
             assertEquals(listOf(1000L, 2000L), topics.periods)
 
             oldTopic.publish()
-            assertNoMoreRuns(0)
+            assertNoMoreRuns(2)
             topic.publish()
-            awaitRuns(1)
+            assertNoMoreRuns(2)
+            topic.publish()
+            awaitRuns(3)
         } finally {
             timer.stop()
         }
@@ -151,25 +207,26 @@ class TopicTimerTest {
     fun publishesAfterStopAreIgnored() = runBlocking {
         val timer = timer()
         timer.interval(1000)
+        awaitRuns(1)
         val topic = topics.awaitTopic()
         timer.stop()
         waitFor("timer did not unsubscribe") { !topic.isSubscribed }
         assertFalse(timer.isRunning())
         topic.publish()
-        assertNoMoreRuns(0)
+        assertNoMoreRuns(1)
     }
 
     @Test
-    fun stoppingDuringTheInitialDelayPreventsSubscription() = runBlocking {
+    fun stoppingDuringTheInitialDelayUnsubscribes() = runBlocking {
         val timer = timer()
         timer.interval(1000, 200)
-        val topic = topics.awaitCreatedTopic()
+        val topic = topics.awaitTopic()
         timer.stop()
-        delay(250)
-        assertEquals(0, topic.subscriptions.get())
+        waitFor("timer did not unsubscribe") { !topic.isSubscribed }
         assertFalse(timer.isRunning())
-        topic.publish()
+        repeat(2) { topic.publish() }
         assertNoMoreRuns(0)
+        assertEquals(listOf(200L), topics.periods)
     }
 
     @Test
@@ -186,8 +243,10 @@ class TopicTimerTest {
             }
         }
         try {
-            timer.interval(1000)
+            timer.interval(1000, 1000)
             val topic = topics.awaitTopic()
+            topic.publish()
+            assertNoMoreRuns(0)
             topic.publish()
             waitFor("action did not start") { started.isCompleted }
             topic.publish()
@@ -206,9 +265,12 @@ class TopicTimerTest {
         val timer = TopicTimer(topic) { runs.incrementAndGet() }
         try {
             timer.interval(1000)
+            awaitRuns(1)
             waitFor("timer did not subscribe") { topic.isSubscribed }
             topic.publish()
-            awaitRuns(1)
+            assertNoMoreRuns(1)
+            topic.publish()
+            awaitRuns(2)
         } finally {
             timer.stop()
         }
@@ -254,11 +316,6 @@ class TopicTimerTest {
         override fun invoke(periodMillis: Long): ITopic {
             periods.add(periodMillis)
             return TestTopic().also { current = it }
-        }
-
-        suspend fun awaitCreatedTopic(): TestTopic {
-            waitFor("timer did not create a topic") { current != null }
-            return current!!
         }
 
         suspend fun awaitTopic(): TestTopic {

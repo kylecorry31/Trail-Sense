@@ -45,10 +45,11 @@ class BacktrackService :
         }
 
         return TopicTimer({ periodMillis ->
+            // This intentionally does not use the CustomGPS because it only needs to use the GPS as a wakeup source
+            // This has the side effect of warming up the GPS for backtrack
             GPS(
                 this,
                 frequency = Duration.ofMillis(periodMillis),
-                minimumFrequency = Duration.ofMillis(periodMillis),
                 listenToNmea = false,
                 listenToGnssStatusChanges = false
             )

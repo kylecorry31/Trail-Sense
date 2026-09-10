@@ -1,17 +1,15 @@
 package com.kylecorry.trail_sense.shared.background
 
-import com.kylecorry.luna.subscriptions.Subscription
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.luna.topics.ITopic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * A timer driven by topic publishes after an optional initial delay.
@@ -67,21 +65,32 @@ class TopicTimer(
     ) = synchronized(lock) {
         job?.cancel()
         job = scope.launch {
-            val topic = topicProvider(periodMillis)
-            val bus = Subscription()
-            bus.subscribe(action)
-            try {
-                if (delayMillis > 0) {
-                    delay(delayMillis.milliseconds)
+            if (delayMillis == 0L) {
+                action()
+                if (isOneTime) {
+                    return@launch
                 }
-                topic.read {
-                    bus.publish()
-                    isOneTime || !isActive
-                }
-            } finally {
-                bus.unsubscribe(action)
-                topic.unsubscribeAll()
             }
+            // If the delayMillis is not the period, then a new listener is needed since a listener can't change periods
+            if (!isOneTime && delayMillis != 0L && delayMillis != periodMillis) {
+                listen(delayMillis, skipFirst = true, stopAfterTick = true)
+            }
+            // Always skip the first tick since it is either the immediate action or the initial delay action above
+            listen(periodMillis, skipFirst = true, stopAfterTick = isOneTime)
+        }
+    }
+
+    private suspend fun listen(rateMillis: Long, skipFirst: Boolean, stopAfterTick: Boolean) {
+        val topic = topicProvider(rateMillis)
+        var ticks = topic.flow
+        if (skipFirst) {
+            ticks = ticks.drop(1)
+        }
+        if (stopAfterTick) {
+            ticks.first()
+            action()
+        } else {
+            ticks.collect { action() }
         }
     }
 }
