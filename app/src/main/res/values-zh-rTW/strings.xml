@@ -1642,4 +1642,7 @@
     <string name="pref_gps_accuracy_requirement_title">準確度篩選器</string>
     <string name="pref_filter_location_readings_title">剔除無效讀數</string>
     <string name="pref_filter_location_readings_description">剔除過於不精準或與前次讀數不一致的讀數</string>
+    <string name="battery_deep_sleep">深度睡眠：%1$s（持續：%2$s）</string>
+    <string name="pref_backtrack_keep_awake_summary">頻率低於 15 分鐘時</string>
+    <string name="pref_backtrack_keep_awake_title">保持裝置喚醒</string>
 </resources>
