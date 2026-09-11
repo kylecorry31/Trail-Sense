@@ -93,7 +93,15 @@ class CustomGPS(
     private val data: ISatelliteGPS
         get() {
             val reading = consumer.reading
-            return if (reading.isTimedOut && baseGPS.hasValidReading) baseGPS else reading
+            return if (
+                reading.isTimedOut &&
+                baseGPS.hasValidReading &&
+                !baseGPS.time.isBefore(reading.time)
+            ) {
+                baseGPS
+            } else {
+                reading
+            }
         }
 
     private val updates = Subscription<ModularGPSData>(
