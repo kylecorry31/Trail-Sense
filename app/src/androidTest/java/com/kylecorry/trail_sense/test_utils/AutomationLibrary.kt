@@ -568,5 +568,5 @@ object AutomationLibrary {
     const val BACK_WAIT_FOR_TIMEOUT = 2000L
     const val SCROLL_WAIT_FOR_TIMEOUT = 1000L
     const val DEFAULT_WAIT_FOR_TIMEOUT = 7000L
-    const val GPS_WAIT_FOR_TIMEOUT = 15000L
+    const val GPS_WAIT_FOR_TIMEOUT = 35000L
 }

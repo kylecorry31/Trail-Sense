@@ -347,8 +347,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
     }
 
     private fun canUseBacktrack() {
-        // Verify it will run every 15 minutes by default
-        hasText(R.id.play_bar_title, "Off - 15m")
+        // Verify it will run every minute by default
+        hasText(R.id.play_bar_title, "Off - 1m")
 
         // Click the start button
         click(R.id.play_btn)
@@ -367,7 +367,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
             not { hasText(string(R.string.battery_settings_limit_accuracy)) }
         }
 
-        hasText(R.id.play_bar_title, "On - 15m")
+        hasText(R.id.play_bar_title, "On - 1m")
 
         // Wait for the path to be created
         isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
