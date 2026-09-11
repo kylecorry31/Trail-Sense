@@ -1674,4 +1674,7 @@
     <string name="pref_filter_location_readings_title">Rejeter les mesures non valides</string>
     <string name="pref_filter_location_readings_description">Élimine les mesures trop imprécises ou incompatibles avec la mesure précédente</string>
     <string name="pref_gps_accuracy_requirement_title">Filtre de précision</string>
+    <string name="pref_backtrack_keep_awake_summary">Lorsque la fréquence est inférieure à 15 minutes</string>
+    <string name="pref_backtrack_keep_awake_title">Maintenir l\'appareil actif</string>
+    <string name="battery_deep_sleep">Veille profonde : %1$s (last %2$s)</string>
 </resources>
