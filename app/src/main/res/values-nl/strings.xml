@@ -1248,14 +1248,14 @@
     <string name="crustacean">Schaaldieren</string>
     <string name="mollusk">Weekdieren</string>
     <string name="sponge">Sponsdieren</string>
-    <string name="coral">Koraal</string>
+    <string name="coral">Koralen</string>
     <string name="jellyfish">Kwallen</string>
     <string name="worm">Wormen</string>
     <string name="echinoderm">Stekelhuidigen</string>
     <string name="forest">Bossen</string>
     <string name="desert">Woestijnen</string>
     <string name="grassland">Graslanden</string>
-    <string name="wetland">Moeras</string>
+    <string name="wetland">Moerassen</string>
     <string name="urban">Stedelijk</string>
     <string name="marine">Maritiem</string>
     <string name="freshwater">Zoetwater</string>
