@@ -1642,6 +1642,4 @@
     <string name="delete_image_prompt">刪除圖片？</string>
     <string name="image_index">圖片 %1$d/%2$d</string>
     <string name="pref_gps_accuracy_requirement_title">準確度篩選器</string>
-    <string name="pref_filter_location_readings_title">剔除無效讀數</string>
-    <string name="pref_filter_location_readings_description">剔除過於不精準或與前次讀數不一致的讀數</string>
-</resources>
+    </resources>

@@ -1560,8 +1560,6 @@
     <string name="common_name">Yleinen nimi</string>
     <string name="both_names">Molemmat nimet</string>
     <string name="clock_device_time_accurate">Laitteen kello on ajassa</string>
-    <string name="pref_filter_location_readings_title">Suodata sijaintilukemia</string>
-    <string name="pref_filter_location_readings_description">Jättää nykyistä lukemaa huonommilta näyttävät lukemat huomiotta</string>
     <string name="pref_large_tile_cache_title">Käytä suurikokoista karttalaattojen välimuistia</string>
     <string name="export_logs">Vie lokit</string>
     <string name="external_storage">Ulkoinen tallennustila</string>

@@ -6,6 +6,8 @@ The Battery tool will provide an estimate (based on the last day's history) of h
 ## Battery statistics
 The battery indicator shows the current battery percentage and, if supported, the remaining capacity (in mAh). Below that, you can see how fast your device is currently charging or discharging. Additionally, if your battery health is poor, you will see a warning.
 
+You will also see the percent of time your device spent in deep sleep over up to the last 6 hours. Deep sleep is when the device is in a low-power state and can be disrupted by background services.
+
 ## Battery history
 You can view the history of battery percentage by tapping the chart icon in the top-right corner. This displays the last day's history, as recorded by Trail Sense.
 

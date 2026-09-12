@@ -49,8 +49,11 @@ You can choose to mock your location by disabling the 'Auto adjust location' set
 
 When 'Auto adjust location' is enabled, the location will be determined by your device's GPS.
 
-### Require satellite fix
-To get a more accurate location, Trail Sense requires at least 4 satellites to have a fix. If you are having trouble getting a location, you can disable this setting to allow for a location with fewer satellites (or if your phone does not support satellite counts).
+### Smoothing
+Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. The default is 50%. Higher values can delay responses to changes in movement.
+
+### Accuracy filter
+Controls how much reported GPS accuracy is preferred before a reading is accepted. None does not filter based on accuracy, Low (the default) prefers accuracy of 30 meters or better, Moderate prefers accuracy of 16 meters or better, and High prefers accuracy of 8 meters or better. If the preferred accuracy is not available, Trail Sense accepts the best available reading after a short wait.
 
 ### Cache
 Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using the 'Clear cache' option in the GPS settings.

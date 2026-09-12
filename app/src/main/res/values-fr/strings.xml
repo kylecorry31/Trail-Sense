@@ -1671,7 +1671,5 @@
     <string name="delete_image_prompt">Supprimer l\'image ?</string>
     <string name="image_index">Image %1$d/%2$d</string>
     <string name="last_updated">Dernière mise à jour</string>
-    <string name="pref_filter_location_readings_title">Rejeter les mesures non valides</string>
-    <string name="pref_filter_location_readings_description">Élimine les mesures trop imprécises ou incompatibles avec la mesure précédente</string>
     <string name="pref_gps_accuracy_requirement_title">Filtre de précision</string>
 </resources>
