@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.settings.ui
 
-import android.os.Build
 import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
@@ -37,8 +36,6 @@ class PowerSettingsFragment : AndromedaPreferenceFragment() {
             }
         }
 
-        switch(R.string.pref_tiles_enabled)?.isVisible =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
         onClick(switch(R.string.pref_tiles_enabled)) {
             TileManager().setTilesEnabled(requireContext(), prefs.power.areTilesEnabled)
         }

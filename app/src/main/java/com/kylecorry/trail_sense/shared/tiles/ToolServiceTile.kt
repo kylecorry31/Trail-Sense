@@ -1,9 +1,7 @@
 package com.kylecorry.trail_sense.shared.tiles
 
-import android.os.Build
 import android.os.Bundle
 import android.service.quicksettings.Tile
-import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.widgets.tiles.AndromedaTileService
 import com.kylecorry.trail_sense.shared.FeatureState
@@ -15,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 abstract class ToolServiceTile(
     private val serviceId: String,
     private val stateChangeBroadcastId: String,

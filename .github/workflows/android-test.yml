@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        api-level: [23]
+        api-level: [24]
     steps:
       - uses: actions/checkout@v7.0.0
         with:
@@ -42,7 +42,7 @@ jobs:
         continue-on-error: true
         with:
           api-level: ${{ matrix.api-level }}
-          arch: ${{ matrix.api-level == 23 && 'x86' || 'x86_64' }}
+          arch: ${{ matrix.api-level == 24 && 'x86' || 'x86_64' }}
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
           script: |
             adb logcat -c

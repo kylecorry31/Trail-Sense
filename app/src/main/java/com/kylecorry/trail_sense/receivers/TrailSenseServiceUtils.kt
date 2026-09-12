@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.receivers
 
 import android.content.Context
-import android.os.Build
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.tiles.TileManager
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -33,7 +32,7 @@ object TrailSenseServiceUtils {
 
                 TileManager().setTilesEnabled(
                     appContext,
-                    UserPreferences(appContext).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                    UserPreferences(appContext).power.areTilesEnabled
                 )
 
                 WidgetManager().registerWidgets(appContext)
