@@ -23,7 +23,7 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
     )
 
     override val smoothing: Int
-        get() = (cache.getInt(getString(R.string.pref_gps_smoothing)) ?: 50).coerceIn(0, 100)
+        get() = (cache.getInt(getString(R.string.pref_gps_smoothing)) ?: 0).coerceIn(0, 100)
 
     override val useNMEA by BooleanPreference(
         cache,

@@ -24,7 +24,7 @@
             android:max="100"
             android:dependency="@string/pref_auto_location"
             app:min="0"
-            app:defaultValue="50"
+            app:defaultValue="0"
             app:iconSpaceReserved="false"
             app:key="@string/pref_gps_smoothing"
             app:seekBarIncrement="1"
