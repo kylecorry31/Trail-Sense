@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.main
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.get
@@ -25,6 +27,19 @@ class CustomBottomNavigationView @JvmOverloads constructor(
             }
         }
 
+    var itemLongClickListener: OnLongClickListener? = null
+        set(value) {
+            field = value
+            bindItemLongClickListeners()
+        }
+
+    // Item views are recreated when the menu changes, and below API 26 Material overrides
+    // long-click listeners with a tooltip
+    private val preDrawListener = ViewTreeObserver.OnPreDrawListener {
+        bindItemLongClickListeners()
+        true
+    }
+
     init {
         val initialPaddingBottom = paddingBottom
         // This replaces the listener added by Material, which also insets by the IME
@@ -34,6 +49,16 @@ class CustomBottomNavigationView @JvmOverloads constructor(
             view.updatePadding(bottom = initialPaddingBottom + systemBars.bottom)
             windowInsets
         }
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        viewTreeObserver.addOnPreDrawListener(preDrawListener)
+    }
+
+    override fun onDetachedFromWindow() {
+        viewTreeObserver.removeOnPreDrawListener(preDrawListener)
+        super.onDetachedFromWindow()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -54,6 +79,13 @@ class CustomBottomNavigationView @JvmOverloads constructor(
 
     override fun getMaxItemCount(): Int {
         return MAX_ITEM_COUNT
+    }
+
+    private fun bindItemLongClickListeners() {
+        val listener = itemLongClickListener ?: return
+        for (i in 0 until menu.size) {
+            findViewById<View>(menu[i].itemId)?.setOnLongClickListener(listener)
+        }
     }
 
     fun disable() {

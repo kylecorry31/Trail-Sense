@@ -142,6 +142,11 @@ class MainActivity : AndromedaActivity() {
 
         updateFullscreenMode()
         bindLayoutInsets()
+
+        binding.bottomNavigation.itemLongClickListener = View.OnLongClickListener {
+            binding.quickActionsSheet.show(this)
+            true
+        }
     }
 
     override fun onDestroy() {
@@ -507,16 +512,6 @@ class MainActivity : AndromedaActivity() {
                 }
                 false
             }
-
-        // Loop through each item of the bottom navigation and override the long press behavior
-        for (i in 0 until binding.bottomNavigation.menu.size) {
-            val item = binding.bottomNavigation.menu[i]
-            val view = binding.bottomNavigation.findViewById<View>(item.itemId)
-            view.setOnLongClickListener {
-                binding.quickActionsSheet.show(this)
-                true
-            }
-        }
 
         // Open the left most item by default (and clear the back stack)
         val initialItem = if (SafeMode.isEnabled()) {
