@@ -488,6 +488,7 @@
     <string name="battery_health_overheat">Overheat</string>
     <string name="battery_health_over_voltage">Over voltage</string>
     <string name="battery_health">Health: %s</string>
+    <!--%1$s is the percent of time spent in deep sleep over the last %2$s (e.g. "last 6h"), not how long deep sleep lasted-->
     <string name="battery_deep_sleep">Deep sleep: %1$s (last %2$s)</string>
     <string name="power">Power</string>
     <string name="tool_category_angles">Angles</string>
@@ -653,6 +654,7 @@
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
     <string name="pref_backtrack_save_cell_title">Record cell signal</string>
     <string name="pref_backtrack_keep_awake_summary">When below 15 minute frequency</string>
+    <!--Keeps the CPU running in the background, not the screen on-->
     <string name="pref_backtrack_keep_awake_title">Keep device awake</string>
     <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
     <string name="location_not_set">Location not set</string>
