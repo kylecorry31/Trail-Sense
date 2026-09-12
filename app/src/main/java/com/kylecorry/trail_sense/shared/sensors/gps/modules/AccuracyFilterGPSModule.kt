@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.SystemTimeProvider
-import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule

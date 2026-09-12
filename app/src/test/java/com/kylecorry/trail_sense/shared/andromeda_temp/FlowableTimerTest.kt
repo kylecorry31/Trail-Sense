@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import com.kylecorry.luna.concurrency.IFlowable
+import com.kylecorry.luna.time.FlowableTimer
 import com.kylecorry.luna.topics.BaseTopic
 import com.kylecorry.luna.topics.Topic
 import kotlinx.coroutines.CompletableDeferred
@@ -51,10 +52,10 @@ class FlowableTimerTest {
     }
 
     @Test
-    fun retainsOnePendingUpdateWhileTheActionRuns() = runBlocking {
+    fun unregistersWhileTheActionRuns() = runBlocking {
         val started = CompletableDeferred<Unit>()
         val canFinish = CompletableDeferred<Unit>()
-        val timer = timer {
+        val timer = FlowableTimer(topics, unregisterWhileRunning = true) {
             started.complete(Unit)
             canFinish.await()
             runs.incrementAndGet()
@@ -66,13 +67,13 @@ class FlowableTimerTest {
             assertNoMoreRuns(0)
             topic.publish()
             waitFor("action did not start") { started.isCompleted }
-            assertTrue(topic.isSubscribed)
+            waitFor("timer did not unsubscribe while action was running") { !topic.isSubscribed }
 
             repeat(10) { topic.publish() }
             assertEquals(0, runs.get())
             canFinish.complete(Unit)
-            awaitRuns(2)
-            assertNoMoreRuns(2)
+            awaitRuns(1)
+            assertNoMoreRuns(1)
         } finally {
             timer.stop()
         }
@@ -139,7 +140,7 @@ class FlowableTimerTest {
             topic.publish()
             waitFor("one-shot timer kept running") { !timer.isRunning() }
             awaitRuns(1)
-            assertFalse(topic.isSubscribed)
+            waitFor("one-shot timer did not unsubscribe") { !topic.isSubscribed }
 
             repeat(3) { topic.publish() }
             assertNoMoreRuns(1)

@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.tools.tides.domain.commands
 
 import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.andromeda.core.time.ITimeProvider
-import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
+import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.ui.CurrentTideData
 
 class CurrentTideCommand(
     private val tideService: TideService,
-    private val timeProvider: ITimeProvider = SystemTimeProvider()
+    private val timeProvider: IZonedDateTimeProvider = SystemZonedDateTimeProvider()
 ) {
 
     suspend fun execute(table: TideTable): CurrentTideData = onDefault {

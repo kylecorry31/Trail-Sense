@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import androidx.core.graphics.scale
 import com.kylecorry.andromeda.bitmaps.operations.getPixels
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.collections.combinations
 import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.Range
@@ -15,7 +16,6 @@ import com.kylecorry.sol.math.geometry.Gradients
 import com.kylecorry.sol.math.geometry.HoughTransform
 import com.kylecorry.sol.math.geometry.LineCandidate
 import com.kylecorry.sol.math.geometry.Polygon
-import com.kylecorry.trail_sense.shared.andromeda_temp.combinations
 import com.kylecorry.andromeda.core.units.PixelBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.GradientCalculator
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.calibration.scoring.AggregateQuadrilateralScoringStrategy

@@ -1,5 +1,8 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.TimeProvider
+
 class TimeoutTracker(private val timeProvider: TimeProvider = SystemTimeProvider()) {
 
     private var startMillis: Long? = null

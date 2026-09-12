@@ -9,10 +9,10 @@ import com.kylecorry.andromeda.background.services.IntervalService
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.FlowableTimer
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.FlowableTimer
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSSourceSelector
@@ -53,7 +53,7 @@ class BacktrackService :
                 listenToNmea = false,
                 listenToGnssStatusChanges = false
             )
-        }, action = action)
+        }, unregisterWhileRunning = true, action = action)
     }
 
     override fun getForegroundInfo(): ForegroundInfo {

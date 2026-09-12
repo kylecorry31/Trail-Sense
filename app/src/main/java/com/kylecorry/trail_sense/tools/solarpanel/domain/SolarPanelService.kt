@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.solarpanel.domain
 
-import com.kylecorry.andromeda.core.time.ITimeProvider
-import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
+import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.calculus.Calculus
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
@@ -15,7 +15,7 @@ import java.time.Duration
 import java.time.ZonedDateTime
 
 class SolarPanelService(
-    private val timeProvider: ITimeProvider = SystemTimeProvider()
+    private val timeProvider: IZonedDateTimeProvider = SystemZonedDateTimeProvider()
 ) {
 
     /**

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.commands
 
-import com.kylecorry.andromeda.core.time.ITimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
@@ -27,7 +27,7 @@ internal class DailyWeatherAlertCommandTest {
     private lateinit var command: DailyWeatherAlertCommand
     private lateinit var prefs: IWeatherPreferences
     private lateinit var alerter: IValueAlerter<WeatherPrediction>
-    private lateinit var timeProvider: ITimeProvider
+    private lateinit var timeProvider: IZonedDateTimeProvider
     private lateinit var weather: CurrentWeather
 
     @BeforeEach

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.andromeda.core.time.ITimeProvider
-import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
+import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
@@ -37,7 +37,7 @@ class PathService(
     private val waypointRepo: IWaypointRepo,
     private val pathPreferences: IPathPreferences,
     private val cache: IPreferences,
-    private val time: ITimeProvider = SystemTimeProvider()
+    private val time: IZonedDateTimeProvider = SystemZonedDateTimeProvider()
 ) : IPathService {
 
     private val backtrackLock = Mutex()

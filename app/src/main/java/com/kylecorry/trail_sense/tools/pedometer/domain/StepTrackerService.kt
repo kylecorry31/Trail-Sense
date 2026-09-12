@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
-import com.kylecorry.andromeda.core.time.ITimeProvider
-import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
+import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.events.EventData
@@ -23,7 +23,7 @@ class StepTrackerService(
     private val repository: IStepTrackerRepository,
     private val eventBus: IEventEmitter,
     private val preferences: IPedometerPreferences,
-    private val timeProvider: ITimeProvider = SystemTimeProvider()
+    private val timeProvider: IZonedDateTimeProvider = SystemZonedDateTimeProvider()
 ) :
     IStepTrackerService {
 

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.solarpanel.domain
 
-import com.kylecorry.andromeda.core.time.ITimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -48,7 +48,7 @@ class SolarPanelServiceTest {
         expectedTilt: Float,
         expectedAzimuth: Float
     ) {
-        val timeProvider = mock<ITimeProvider>()
+        val timeProvider = mock<IZonedDateTimeProvider>()
         val service = SolarPanelService(timeProvider)
         val time = ZonedDateTime.parse(timeString)
         whenever(timeProvider.getTime()).thenReturn(time)
@@ -95,7 +95,7 @@ class SolarPanelServiceTest {
         azimuth: Float,
         expectedEnergy: Float
     ) {
-        val timeProvider = mock<ITimeProvider>()
+        val timeProvider = mock<IZonedDateTimeProvider>()
         val service = SolarPanelService(timeProvider)
         val time = ZonedDateTime.parse(timeString)
         whenever(timeProvider.getTime()).thenReturn(time)

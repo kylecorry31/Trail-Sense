@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import java.time.Instant

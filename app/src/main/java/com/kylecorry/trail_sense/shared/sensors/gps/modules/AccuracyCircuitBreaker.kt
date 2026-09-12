@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
-import com.kylecorry.trail_sense.shared.andromeda_temp.TimeProvider
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.trail_sense.shared.andromeda_temp.TimeoutTracker
 
 /**

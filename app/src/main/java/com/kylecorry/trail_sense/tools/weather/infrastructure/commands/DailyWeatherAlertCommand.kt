@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.core.time.ITimeProvider
-import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
+import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeathe
 class DailyWeatherAlertCommand(
     private val prefs: IWeatherPreferences,
     private val alerter: IValueAlerter<WeatherPrediction>,
-    private val timeProvider: ITimeProvider
+    private val timeProvider: IZonedDateTimeProvider
 ) : Command<CurrentWeather> {
 
     override fun execute(value: CurrentWeather) {
@@ -45,7 +45,7 @@ class DailyWeatherAlertCommand(
             return DailyWeatherAlertCommand(
                 prefs,
                 DailyWeatherAlerter(context, FormatService.getInstance(context), prefs),
-                SystemTimeProvider()
+                SystemZonedDateTimeProvider()
             )
         }
     }

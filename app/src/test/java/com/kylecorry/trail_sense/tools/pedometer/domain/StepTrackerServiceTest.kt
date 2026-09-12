@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
-import com.kylecorry.andromeda.core.time.ITimeProvider
+import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -27,7 +27,7 @@ internal class StepTrackerServiceTest {
     private lateinit var repository: FakeStepTrackerRepository
     private lateinit var eventBus: IEventEmitter
     private lateinit var preferences: IPedometerPreferences
-    private lateinit var timeProvider: ITimeProvider
+    private lateinit var timeProvider: IZonedDateTimeProvider
     private lateinit var service: StepTrackerService
 
     @BeforeEach
