@@ -173,7 +173,7 @@
     <string name="coordinate_format_degrees_minutes_seconds">角度、角分和角秒</string>
     <string name="coordinate_format_degrees_decimal_minutes">度數和小數點角分</string>
     <string name="edit">編輯</string>
-    <string name="set_inclination_instructions">點擊或按住任意位置即可鎖定或解鎖</string>
+    <string name="set_inclination_instructions">輕觸或按住任意位置即可鎖定或解鎖</string>
     <string name="clinometer_rotate_device">垂直握住你的手機</string>
     <string name="clinometer_title">傾斜儀</string>
     <string name="navigation">導航</string>
@@ -208,8 +208,8 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">導航前校正</string>
     <string name="pref_show_linear_compass_title">顯示線性指南針</string>
     <string name="pref_display_multi_beacons_title">顯示鄰近信標</string>
-    <string name="compass_reported_accuracy">回報的準確度：%s</string>
-    <string name="calibrate_compass_dialog_content">將你的手機以 8 字形或向各個方向旋轉數次，完成後按 %s。</string>
+    <string name="compass_reported_accuracy">通報的準確度：%s</string>
+    <string name="calibrate_compass_dialog_content">將您的手機以 8 字型軌跡或向各個方向旋轉數次，完成後點擊 %s。</string>
     <string name="pref_auto_declination_summary">根據你目前的位置</string>
     <string name="override_from_gps">按照 GPS 設定覆寫</string>
     <string name="sensors">感測器</string>
@@ -769,9 +769,7 @@
     <string name="pref_adjust_for_temperature_title">納入溫度作計算</string>
     <string name="compass_declination_override">赤緯覆寫</string>
     <string name="declination_override_updated_toast">赤緯覆寫已更新</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">將你的手機以 8 字形或向各個方向旋轉數次，完成後按 %s。
-\n
-\n可以在應用程式設定中停用此警報。</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">將您的手機以 8 字型軌跡或向各個方向旋轉數次，完成後點擊 %s。\n \n可在應用程式設定中停用此警報。</string>
     <string name="water_purification_step_2">將水煮沸</string>
     <string name="strobe_warning_title">閃光燈</string>
     <string name="strobe_warning_content">頻閃功能包含閃爍的燈光，可能對某些使用者構成危險。</string>
@@ -1642,4 +1640,7 @@
     <string name="delete_image_prompt">刪除圖片？</string>
     <string name="image_index">圖片 %1$d/%2$d</string>
     <string name="pref_gps_accuracy_requirement_title">準確度篩選器</string>
-    </resources>
+    <string name="battery_deep_sleep">深度睡眠：%1$s（持續：%2$s）</string>
+    <string name="pref_backtrack_keep_awake_summary">頻率低於 15 分鐘時</string>
+    <string name="pref_backtrack_keep_awake_title">保持裝置喚醒</string>
+</resources>

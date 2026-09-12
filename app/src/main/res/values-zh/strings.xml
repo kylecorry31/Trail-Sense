@@ -1640,4 +1640,7 @@
     <string name="image_index">图片 %1$d/%2$d</string>
     <string name="last_updated">上次更新</string>
     <string name="pref_gps_accuracy_requirement_title">精度筛选器</string>
-    </resources>
+    <string name="battery_deep_sleep">深度睡眠： %1$s (持续 %2$s)</string>
+    <string name="pref_backtrack_keep_awake_title">保持屏幕亮起</string>
+    <string name="pref_backtrack_keep_awake_summary">低于 15 分钟频率时</string>
+</resources>

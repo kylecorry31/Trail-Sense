@@ -1248,14 +1248,14 @@
     <string name="crustacean">Schaaldieren</string>
     <string name="mollusk">Weekdieren</string>
     <string name="sponge">Sponsdieren</string>
-    <string name="coral">Koraal</string>
+    <string name="coral">Koralen</string>
     <string name="jellyfish">Kwallen</string>
     <string name="worm">Wormen</string>
     <string name="echinoderm">Stekelhuidigen</string>
     <string name="forest">Bossen</string>
     <string name="desert">Woestijnen</string>
     <string name="grassland">Graslanden</string>
-    <string name="wetland">Moeras</string>
+    <string name="wetland">Moerassen</string>
     <string name="urban">Stedelijk</string>
     <string name="marine">Maritiem</string>
     <string name="freshwater">Zoetwater</string>
@@ -1659,4 +1659,7 @@
     <string name="image_index">Afbeelding %1$d/%2$d</string>
     <string name="last_updated">Laatst bijgewerkt</string>
     <string name="pref_gps_accuracy_requirement_title">Nauwkeurigheidsfilter</string>
+    <string name="pref_backtrack_keep_awake_title">Apparaat wakker houden</string>
+    <string name="pref_backtrack_keep_awake_summary">Bij een frequentie van minder dan 15 minuten</string>
+    <string name="battery_deep_sleep">Diepe slaap: %1$s (duur: %2$s)</string>
 </resources>
