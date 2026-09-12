@@ -9,7 +9,7 @@ enum class GPSAccuracyFilter(
     val maxAccuracyWait: Duration?
 ) : Identifiable {
     None(1, null, null),
-    Low(2, 30f, Duration.ofSeconds(3)),
+    Low(2, 32f, Duration.ofSeconds(3)),
     // Corresponds to "Moderate" quality
     Moderate(3, 16f, Duration.ofSeconds(8)),
     // Corresponds to "Good" quality
