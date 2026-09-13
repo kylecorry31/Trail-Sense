@@ -20,7 +20,11 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
             try {
                 val location = gps.location
                 val gpsIsValid = gps.hasValidReading
+                val fixTimeElapsedNanos = gps.eventTimeElapsedNanos
+                val fixTime = gps.eventTime
                 demAltitude = DEM.getElevation(location).elevation
+                demEventTimeElapsedNanos = fixTimeElapsedNanos
+                demEventTime = fixTime
                 onMain {
                     if (gpsIsValid) {
                         notifyListeners()
@@ -33,6 +37,8 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
     }
     private val queue = CoroutineQueueRunner(2)
     private var demAltitude: Float? = null
+    private var demEventTimeElapsedNanos: Long? = null
+    private var demEventTime: Instant? = null
 
     private fun onUpdate(): Boolean {
         updateTask.start()
@@ -73,10 +79,10 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
     override val speedAccuracy: Float?
         get() = gps.speedAccuracy
     override var eventTimeElapsedNanos: Long
-        get() = gps.eventTimeElapsedNanos
+        get() = demEventTimeElapsedNanos ?: gps.eventTimeElapsedNanos
         set(_) {}
     override var eventTime: Instant
-        get() = gps.eventTime
+        get() = demEventTime ?: gps.eventTime
         set(_) {}
     override val speed: Speed
         get() = gps.speed

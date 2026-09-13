@@ -32,6 +32,15 @@ interface WaypointDao {
     @Query("SELECT * FROM waypoints WHERE pathId = :pathId")
     suspend fun getAllInPathSync(pathId: Long): List<WaypointEntity>
 
+    @Query("SELECT * FROM waypoints WHERE pathId = :pathId ORDER BY _id ASC LIMIT 1")
+    suspend fun getFirstInPath(pathId: Long): WaypointEntity?
+
+    @Query("SELECT * FROM waypoints WHERE pathId = :pathId ORDER BY _id DESC LIMIT 1")
+    suspend fun getLastInPath(pathId: Long): WaypointEntity?
+
+    @Query("SELECT COUNT(*) FROM waypoints WHERE pathId = :pathId")
+    suspend fun getCountInPath(pathId: Long): Int
+
     @Query("SELECT * FROM waypoints WHERE cellQuality IS NOT NULL")
     suspend fun getAllWithCellSignal(): List<WaypointEntity>
 

@@ -39,6 +39,11 @@ class AccuracyFilterGPSModule(
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (newData.durationSince(previousData) <= Duration.ZERO) return true
 
+        if (previousData.isTimedOut) {
+            logger.debug(TAG, "Accept (timed out): ${newData.horizontalAccuracy?.safeRoundPlaces(1)}m")
+            return true
+        }
+
         val filter = prefs.accuracyFilter
         val minAccuracy = filter.minAccuracy
 

@@ -11,6 +11,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
@@ -41,6 +42,7 @@ class PathService(
 ) : IPathService {
 
     private val backtrackLock = Mutex()
+    private val waypointLock = Mutex()
 
     private val loaderWithoutCounts =
         GroupLoader(this::getGroupWithoutCount, this::getChildrenWithoutCounts)
@@ -232,9 +234,25 @@ class PathService(
     }
 
     override suspend fun addWaypoint(point: PathPoint): Long {
-        val ret = waypointRepo.add(point)
-        updatePathMetadata(point.pathId)
-        return ret
+        waypointLock.withLock {
+            if (point.id != 0L) {
+                val ret = waypointRepo.add(point)
+                updatePathMetadata(point.pathId)
+                return ret
+            }
+
+            val path = getPath(point.pathId)
+            val previous = path?.let { waypointRepo.getLastInPath(it.id) }
+            val canAppend =
+                path != null && waypointRepo.getCountInPath(path.id) == path.metadata.waypoints
+            val ret = waypointRepo.add(point)
+            if (path != null && canAppend) {
+                appendToPathMetadata(path, previous, point)
+            } else if (path != null) {
+                updatePathMetadata(path.id)
+            }
+            return ret
+        }
     }
 
     override suspend fun deleteWaypoint(point: PathPoint) {
@@ -302,6 +320,48 @@ class PathService(
         )
 
         addPath(path.copy(metadata = metadata))
+    }
+
+    private suspend fun appendToPathMetadata(path: Path, previous: PathPoint?, point: PathPoint) {
+        val metadata = path.metadata
+        if (previous == null || metadata.waypoints == 0) {
+            updatePathMetadata(path.id)
+            return
+        }
+
+        if (metadata.duration == null && previous.time == null && point.time != null) {
+            updatePathMetadata(path.id)
+            return
+        }
+
+        val distance = metadata.distance.meters().value +
+                previous.coordinate.distanceTo(point.coordinate)
+        val duration = if (metadata.duration != null && point.time != null) {
+            Range(metadata.duration.start, point.time)
+        } else {
+            null
+        }
+        // Using the first point keeps the bounds calculation consistent when at the anti-meridian
+        val first = waypointRepo.getFirstInPath(path.id) ?: previous
+        val bounds = Geography.getBounds(
+            listOf(
+                first.coordinate,
+                metadata.bounds.northWest,
+                metadata.bounds.southEast,
+                point.coordinate
+            )
+        )
+
+        addPath(
+            path.copy(
+                metadata = PathMetadata(
+                    Distance.meters(distance),
+                    metadata.waypoints + 1,
+                    duration,
+                    bounds
+                )
+            )
+        )
     }
 
     private suspend fun createBacktrackPath(): Long {

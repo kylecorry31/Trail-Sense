@@ -151,10 +151,13 @@ class TimeoutGPSModuleTest {
     }
 
     @Test
-    fun restartSchedulesTimeoutAgain() = runBlocking<Unit> {
+    fun restartSchedulesTimeoutAgainAndClearsTimedOutState() = runBlocking<Unit> {
         module.start(data)
+        fireTimeout()
         module.stop(data)
+        assertTrue(data.isTimedOut)
         module.start(data)
+        assertFalse(data.isTimedOut)
         verify(timer, times(2)).once(SensorService.GPS_READ_TIMEOUT)
         fireTimeout()
         assertTrue(data.isTimedOut)

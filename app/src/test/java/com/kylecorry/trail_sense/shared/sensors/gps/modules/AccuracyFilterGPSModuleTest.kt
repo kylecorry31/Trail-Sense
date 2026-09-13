@@ -209,6 +209,13 @@ class AccuracyFilterGPSModuleTest {
     }
 
     @Test
+    fun acceptsInaccurateReadingsWhileTimedOut() = runBlocking<Unit> {
+        val timedOut = ModularGPSData(eventTimeElapsedNanos = 0L, isTimedOut = true)
+        assertTrue(module.update(timedOut, reading(100f)))
+        assertFalse(module.update(previous, reading(100f)))
+    }
+
+    @Test
     fun acceptsEveryReadingWhenNoAccuracyIsRequired() = runBlocking<Unit> {
         whenever(prefs.accuracyFilter).thenReturn(GPSAccuracyFilter.None)
         repeat(10) {

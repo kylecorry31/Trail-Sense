@@ -27,10 +27,6 @@ class BacktrackService :
     IntervalService(wakelockDuration = Duration.ofSeconds(60), useOneTimeWorkers = true) {
     private val prefs by lazy { UserPreferences(applicationContext) }
 
-    private val backtrackCommand by lazy {
-        BacktrackCommand(this)
-    }
-
     override val uniqueId: Int
         get() = 7238542
 
@@ -77,7 +73,7 @@ class BacktrackService :
         }
 
         try {
-            backtrackCommand.execute()
+            BacktrackCommand(this).execute()
         } finally {
             recordLock.unlock()
         }

@@ -20,6 +20,8 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
     @Volatile
     private var latest: ModularGPSData
 
+    private var lastInput: ModularGPSData? = null
+
     init {
         // Some consumers rely on the hasValidReading property being correct, which depends on the pipeline being initialized
         // This is fine for now since reinitializing the pipeline is just a cache read right now
@@ -35,6 +37,7 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
 
     suspend fun start(consumer: Any, notifyTimeout: () -> Unit = {}) = mutex.withLock {
         if (consumers.putIfAbsent(consumer, notifyTimeout) == null && consumers.size == 1) {
+            lastInput = null
             pipeline.start()
             latest = snapshot()
         }
@@ -47,6 +50,7 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
     }
 
     suspend fun update(gps: ModularGPSData): ModularGPSData? = mutex.withLock {
+        lastInput = ModularGPSData().also { gps.copyInto(it) }
         if (pipeline.update(gps) == GPSUpdateResult.Rejected) return@withLock null
         latest = snapshot()
         latest
@@ -55,6 +59,7 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
     suspend fun clearCache(clear: () -> Unit) = mutex.withLock {
         if (consumers.isNotEmpty()) pipeline.stop()
         clear()
+        lastInput = null
         pipeline = factory(::onTimeout)
         pipeline.reinitialize()
         latest = snapshot()
@@ -65,6 +70,8 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
         val listeners = mutex.withLock {
             if (!acceptTimeout()) return@withLock emptyList()
             pipeline.reading.isTimedOut = true
+            // The last input may have been rejected, so give it another chance to become the fix
+            lastInput?.let { pipeline.update(it) }
             latest = snapshot()
             consumers.values.toList()
         }

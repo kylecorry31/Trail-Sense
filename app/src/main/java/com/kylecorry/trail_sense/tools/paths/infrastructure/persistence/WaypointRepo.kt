@@ -86,6 +86,18 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         }
     }
 
+    override suspend fun getFirstInPath(pathId: Long): PathPoint? = onIO {
+        waypointDao.getFirstInPath(pathId)?.toPathPoint()
+    }
+
+    override suspend fun getLastInPath(pathId: Long): PathPoint? = onIO {
+        waypointDao.getLastInPath(pathId)?.toPathPoint()
+    }
+
+    override suspend fun getCountInPath(pathId: Long): Int = onIO {
+        waypointDao.getCountInPath(pathId)
+    }
+
     override suspend fun getAllWithCellSignal(): List<PathPoint> = onIO {
         waypointDao.getAllWithCellSignal().map { it.toPathPoint() }
     }

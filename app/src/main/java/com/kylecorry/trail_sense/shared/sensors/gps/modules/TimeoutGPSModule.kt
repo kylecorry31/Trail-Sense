@@ -30,6 +30,7 @@ class TimeoutGPSModule(
 
     override suspend fun start(data: ModularGPSData) {
         this.data = data
+        data.isTimedOut = false
         isStarted = true
         scheduleTimeout()
     }
@@ -69,6 +70,7 @@ class TimeoutGPSModule(
             return false
         }
         timeoutToken = null
+        timeout = null
 
         logger.debug(TAG, "Timed out after ${TIMEOUT_DURATION.seconds}s")
         logger.debug(

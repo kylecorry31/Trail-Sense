@@ -19,7 +19,6 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipelineConsumer
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
 import com.kylecorry.trail_sense.shared.sensors.gps.age
-import com.kylecorry.trail_sense.shared.sensors.gps.durationSince
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -101,18 +100,7 @@ class CustomGPS(
     )
 
     private val data: ISatelliteGPS
-        get() {
-            val reading = consumer.reading
-            return if (
-                reading.isTimedOut &&
-                baseGPS.hasValidReading &&
-                !baseGPS.durationSince(reading).isNegative
-            ) {
-                baseGPS
-            } else {
-                reading
-            }
-        }
+        get() = consumer.reading
 
     private val updates = Subscription<ModularGPSData>(
         replay = 1, // Replay is temporary until the luna onSubscription change is in place to avoid missed readings
