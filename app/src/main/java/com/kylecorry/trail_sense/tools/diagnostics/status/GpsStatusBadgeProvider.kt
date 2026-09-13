@@ -35,7 +35,7 @@ class GpsStatusBadgeProvider(private val gps: ISatelliteGPS, private val context
             return AppColor.Red.color
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
+        if (Duration.between(gps.eventTime, Instant.now()) > Duration.ofMinutes(2)) {
             return AppColor.Yellow.color
         }
 
@@ -55,7 +55,7 @@ class GpsStatusBadgeProvider(private val gps: ISatelliteGPS, private val context
             return context.getString(R.string.unavailable)
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
+        if (Duration.between(gps.eventTime, Instant.now()) > Duration.ofMinutes(2)) {
             return context.getString(R.string.gps_stale)
         }
 

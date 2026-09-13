@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.background.services.IntervalService
 import com.kylecorry.andromeda.sense.location.GPS
+import com.kylecorry.andromeda.sense.location.LocationRequestConfig
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.time.FlowableTimer
 import com.kylecorry.luna.time.ITimer
@@ -49,7 +50,7 @@ class BacktrackService :
             // This has the side effect of warming up the GPS for backtrack
             GPS(
                 this,
-                frequency = Duration.ofMillis(periodMillis),
+                LocationRequestConfig(frequency = Duration.ofMillis(periodMillis)),
                 listenToNmea = false,
                 listenToGnssStatusChanges = false
             )

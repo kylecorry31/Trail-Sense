@@ -57,7 +57,7 @@ class CacheGPSModule(
             altitude = newData.altitude,
             bearing = bearing?.takeIf { it.isFinite() },
             speed = newData.speed.value,
-            updateTimeMillis = newData.time.toEpochMilli(),
+            updateTimeMillis = newData.eventTime.toEpochMilli(),
             horizontalAccuracy = newData.horizontalAccuracy,
             verticalAccuracy = newData.verticalAccuracy,
             kalmanState = newData.kalmanState,
@@ -73,7 +73,7 @@ class CacheGPSModule(
      */
     fun hasNewerReading(data: ModularGPSData): Boolean {
         val cacheTime = Instant.ofEpochMilli(getCachedData(cache)?.updateTimeMillis ?: 0L)
-        return cacheTime > data.time && cacheTime.isInPast()
+        return cacheTime > data.eventTime && cacheTime.isInPast()
     }
 
     fun restore(data: ModularGPSData) {
@@ -86,7 +86,7 @@ class CacheGPSModule(
         data.altitude = cached?.altitude ?: 0f
         data.speed =
             Speed.from(cached?.speed ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
-        data.time = Instant.ofEpochMilli(cached?.updateTimeMillis ?: 0L)
+        data.eventTime = Instant.ofEpochMilli(cached?.updateTimeMillis ?: 0L)
         data.speedSource = cached?.speedSource?.let { SpeedSource.entries.withId(it) }
             ?: SpeedSource.Unknown
         data.horizontalAccuracy = cached?.horizontalAccuracy
@@ -102,7 +102,7 @@ class CacheGPSModule(
         data.mslAltitude = null
         data.bearingAccuracy = null
         data.speedAccuracy = null
-        data.fixTimeElapsedNanos = null
+        data.eventTimeElapsedNanos = 0L
     }
 
     companion object {

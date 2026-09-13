@@ -32,8 +32,9 @@ class TimezoneGPS(updateFrequency: Long = 1000L) :
         get() = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
     override val speedAccuracy: Float?
         get() = null
-    override val time: Instant
+    override var eventTime: Instant
         get() = Instant.now()
+        set(_) {}
     override val verticalAccuracy: Float?
         get() = null
     override val horizontalAccuracy: Float?
@@ -48,8 +49,9 @@ class TimezoneGPS(updateFrequency: Long = 1000L) :
         get() = null
     override val bearingAccuracy: Float?
         get() = null
-    override val fixTimeElapsedNanos: Long
+    override var eventTimeElapsedNanos: Long
         get() = SystemClock.elapsedRealtimeNanos()
+        set(_) {}
     override val mslAltitude: Float
         get() = altitude
     override val rawBearing: Float?

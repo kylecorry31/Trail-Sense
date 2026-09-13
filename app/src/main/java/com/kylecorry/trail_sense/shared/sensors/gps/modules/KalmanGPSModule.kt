@@ -61,7 +61,7 @@ class KalmanGPSModule(
             newData.horizontalAccuracy = previousData.horizontalAccuracy
             return true
         }
-        val hasNewerPrevious = time?.let { previousData.time > it } == true
+        val hasNewerPrevious = time?.let { previousData.eventTime > it } == true
         if (shouldRestore(previousData, newData, hasNewerPrevious)) {
             restore(previousData)
         }
@@ -69,24 +69,24 @@ class KalmanGPSModule(
             logger.debug(
                 TAG,
                 "Kalman filter reset: fix time moved backward " +
-                    "(new: ${newData.time}, previous: ${previousData.time}, filter: $time)"
+                    "(new: ${newData.eventTime}, previous: ${previousData.eventTime}, filter: $time)"
             )
             reset()
         }
 
         val lastTime = time
         val sameFix = lastTime != null &&
-            (newData.time <= previousData.time || lastTime.toEpochMilli() == newData.id)
+            (newData.eventTime <= previousData.eventTime || lastTime.toEpochMilli() == newData.id)
         if (!sameFix) {
             if (filter == null) {
                 restore(newData)
             } else if (lastTime != null) {
-                val dt = Duration.between(lastTime, newData.time)
+                val dt = Duration.between(lastTime, newData.eventTime)
                     .let { it.seconds + it.nano / 1_000_000_000.0 }.toFloat()
                 predict(dt, smoothing)
                 correct(newData)
                 rebaseIfNeeded()
-                time = newData.time
+                time = newData.eventTime
             }
         }
 
@@ -172,7 +172,7 @@ class KalmanGPSModule(
                 }
             }
             reportedAccuracy = getAccuracy(data)
-            time = data.time
+            time = data.eventTime
             return
         }
         reference = data.location
@@ -190,7 +190,7 @@ class KalmanGPSModule(
             }
         }
         reportedAccuracy = accuracy
-        time = data.time
+        time = data.eventTime
     }
 
     private fun snapshot(kalman: KalmanFilter): GPSKalmanState {
@@ -259,9 +259,9 @@ class KalmanGPSModule(
     }
 
     private fun needsReset(previous: ModularGPSData, next: ModularGPSData): Boolean {
-        if (next.time < previous.time) return true
+        if (next.eventTime < previous.eventTime) return true
         val lastTime = time ?: return false
-        return next.time > previous.time && next.time < lastTime
+        return next.eventTime > previous.eventTime && next.eventTime < lastTime
     }
 
     private fun shouldRestore(
@@ -271,7 +271,7 @@ class KalmanGPSModule(
     ): Boolean {
         val needsState = filter == null || hasNewerPrevious
         val hasPreviousFix = previous.location != Coordinate.zero
-        return needsState && hasPreviousFix && previous.time <= next.time
+        return needsState && hasPreviousFix && previous.eventTime <= next.eventTime
     }
 
     private fun reset() {

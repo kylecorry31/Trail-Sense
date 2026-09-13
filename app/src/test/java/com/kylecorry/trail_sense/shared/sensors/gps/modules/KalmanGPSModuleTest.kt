@@ -21,13 +21,13 @@ class KalmanGPSModuleTest {
         on { smoothing }.thenReturn(100)
     }
     private val module = KalmanGPSModule(prefs, mock())
-    private val previous = ModularGPSData(time = Instant.EPOCH)
+    private val previous = ModularGPSData(eventTime = Instant.EPOCH)
 
     private fun reading(seconds: Long, longitude: Double = 1.0) = ModularGPSData(
         location = Coordinate(1.0, longitude),
-        time = Instant.EPOCH.plusSeconds(seconds),
+        eventTime = Instant.EPOCH.plusSeconds(seconds),
         horizontalAccuracy = 10f,
-        fixTimeElapsedNanos = seconds * 1_000_000_000
+        eventTimeElapsedNanos = seconds * 1_000_000_000
     ).apply { speedSource = SpeedSource.Provider }
 
     @Test
@@ -186,7 +186,7 @@ class KalmanGPSModuleTest {
 
     @Test
     fun initializesFromCachedPreviousReading() = runBlocking<Unit> {
-        val cached = reading(1).apply { fixTimeElapsedNanos = null }
+        val cached = reading(1).apply { eventTimeElapsedNanos = 0L }
         val next = reading(2, 1.001)
         module.update(cached, next)
 
@@ -202,8 +202,8 @@ class KalmanGPSModuleTest {
 
     @Test
     fun cachedFixIsNotFilteredAgain() = runBlocking<Unit> {
-        val cached = reading(1).apply { fixTimeElapsedNanos = null }
-        val duplicate = reading(1, 1.001).apply { time = time.plusNanos(123456) }
+        val cached = reading(1).apply { eventTimeElapsedNanos = 0L }
+        val duplicate = reading(1, 1.001).apply { eventTime = eventTime.plusNanos(123456) }
         module.update(cached, duplicate)
         assertEquals(cached.location, duplicate.location)
         assertEquals(cached.horizontalAccuracy, duplicate.horizontalAccuracy)
@@ -233,7 +233,7 @@ class KalmanGPSModuleTest {
     fun restoredNewerFixIsNotFilteredAgain() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val cached = reading(3, 1.002).apply { horizontalAccuracy = 4f }
-        val duplicate = reading(3, 1.003).apply { time = time.plusNanos(123456) }
+        val duplicate = reading(3, 1.003).apply { eventTime = eventTime.plusNanos(123456) }
         module.update(cached, duplicate)
         assertEquals(cached.location, duplicate.location)
         assertEquals(cached.horizontalAccuracy, duplicate.horizontalAccuracy)
@@ -275,8 +275,8 @@ class KalmanGPSModuleTest {
 
     @Test
     fun deduplicatesByTimeWhenElapsedTimeIsUnavailable() = runBlocking<Unit> {
-        module.update(previous, reading(1).apply { fixTimeElapsedNanos = null })
-        val duplicate = reading(1).apply { fixTimeElapsedNanos = null }
+        module.update(previous, reading(1).apply { eventTimeElapsedNanos = 0L })
+        val duplicate = reading(1).apply { eventTimeElapsedNanos = 0L }
         module.update(previous, duplicate)
         assertEquals(10f, duplicate.horizontalAccuracy)
     }
@@ -350,7 +350,7 @@ class KalmanGPSModuleTest {
     }
 
     private suspend fun acceptFirstFix(module: KalmanGPSModule): ModularGPSData {
-        val accepted = ModularGPSData(time = Instant.EPOCH)
+        val accepted = ModularGPSData(eventTime = Instant.EPOCH)
         val published = reading(1)
         module.update(accepted, published)
         published.copyInto(accepted)
@@ -360,7 +360,7 @@ class KalmanGPSModuleTest {
     @Test
     fun usesTimeEvenWhenElapsedTimeMovesBackward() = runBlocking<Unit> {
         module.update(previous, reading(1))
-        val next = reading(2, 1.001).apply { fixTimeElapsedNanos = 0 }
+        val next = reading(2, 1.001).apply { eventTimeElapsedNanos = 0 }
         module.update(previous, next)
         assertTrue(next.location.longitude > 1.0 && next.location.longitude < 1.001)
         assertEquals(10f, next.horizontalAccuracy)
@@ -369,7 +369,7 @@ class KalmanGPSModuleTest {
     @Test
     fun deduplicatesTimeEvenWhenElapsedTimeChanges() = runBlocking<Unit> {
         module.update(previous, reading(1))
-        val next = reading(1, 1.001).apply { fixTimeElapsedNanos = 2_000_000_000 }
+        val next = reading(1, 1.001).apply { eventTimeElapsedNanos = 2_000_000_000 }
         module.update(previous, next)
         assertEquals(Coordinate(1.0, 1.0), next.location)
         assertEquals(10f, next.horizontalAccuracy)
@@ -403,7 +403,7 @@ class KalmanGPSModuleTest {
         for (interval in listOf(15L, 900L, 1800L, 3600L, 86400L, 1L)) {
             module.stop(last)
             module.start(last)
-            val next = reading(last.time.epochSecond + interval, 1.001).apply {
+            val next = reading(last.eventTime.epochSecond + interval, 1.001).apply {
                 speed = last.speed
                 rawBearing = last.rawBearing
             }
@@ -412,7 +412,7 @@ class KalmanGPSModuleTest {
             // The old velocity must not drag a sparse fix far from the new measurement.
             assertTrue(next.location.distanceTo(measurement) < 20f, "interval: $interval")
             assertTrue(next.horizontalAccuracy!!.isFinite())
-            val duplicate = reading(next.time.epochSecond, 1.001)
+            val duplicate = reading(next.eventTime.epochSecond, 1.001)
             module.update(last, duplicate)
             assertEquals(next.location, duplicate.location)
             next.copyInto(last)
@@ -424,11 +424,11 @@ class KalmanGPSModuleTest {
         module.update(previous, reading(1))
         val sparse = reading(1 + 365L * 86400, 1.001)
         module.update(previous, sparse)
-        val next = reading(sparse.time.epochSecond + 1, 1.002)
+        val next = reading(sparse.eventTime.epochSecond + 1, 1.002)
         module.update(sparse, next)
 
         val fresh = KalmanGPSModule(prefs, mock())
-        val expected = reading(next.time.epochSecond, 1.002)
+        val expected = reading(next.eventTime.epochSecond, 1.002)
         fresh.update(sparse, expected)
         assertTrue(expected.location.distanceTo(next.location) < 0.01f)
     }
@@ -439,7 +439,7 @@ class KalmanGPSModuleTest {
         val random = java.util.Random(42)
         var rawSquaredError = 0.0
         var filteredSquaredError = 0.0
-        val last = ModularGPSData(time = Instant.EPOCH)
+        val last = ModularGPSData(eventTime = Instant.EPOCH)
         repeat(300) { index ->
             val next = reading(index.toLong() + 1).apply {
                 location = truth.plus(
@@ -462,7 +462,7 @@ class KalmanGPSModuleTest {
     @Test
     fun tracksDrivingAtOneHertzWithoutAccumulatingLag() = runBlocking<Unit> {
         val origin = Coordinate(1.0, 1.0)
-        val last = ModularGPSData(time = Instant.EPOCH)
+        val last = ModularGPSData(eventTime = Instant.EPOCH)
         repeat(120) { index ->
             val truth = origin.plus(Distance.meters(index * 25f), Bearing.from(90f))
             val next = reading(index.toLong() + 1).apply {

@@ -71,7 +71,7 @@ class TimeoutGPSModule(
         logger.debug(TAG, "Timed out after ${TIMEOUT_DURATION.seconds}s")
         logger.debug(
             TAG,
-            "Keeping a reading from ${Duration.between(data.time, Instant.now()).toMillis()}ms ago"
+            "Keeping a reading from ${Duration.between(data.eventTime, Instant.now()).toMillis()}ms ago"
         )
         return true
     }

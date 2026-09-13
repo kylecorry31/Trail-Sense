@@ -105,7 +105,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
             binding.accuracy.text = getString(R.string.accuracy_distance_format, accuracyStr)
         }
 
-        val timeAgo = Duration.between(gps.time, Instant.now())
+        val timeAgo = Duration.between(gps.eventTime, Instant.now())
         binding.time.text = getString(R.string.time_ago, formatService.formatDuration(timeAgo))
     }
 

@@ -35,7 +35,11 @@ class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int 
         get() = altimeter.quality
 
     private fun onReading(): Boolean {
-        filter.update(altimeter.altitude, (altimeter as? IGPS)?.verticalAccuracy)
+        filter.update(
+            altimeter.altitude,
+            (altimeter as? IGPS)?.verticalAccuracy,
+            altimeter.eventTimeElapsedNanos
+        )
         altitude = filter.altitude
         if (hasValidReading) {
             notifyListeners()

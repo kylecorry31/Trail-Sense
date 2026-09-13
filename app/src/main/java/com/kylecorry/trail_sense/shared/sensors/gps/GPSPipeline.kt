@@ -7,7 +7,7 @@ import java.time.Instant
 class GPSPipeline(
     private val modules: List<GPSModule>,
 ) {
-    private val data = ModularGPSData(time = Instant.EPOCH)
+    private val data = ModularGPSData(eventTime = Instant.EPOCH)
     private val candidate = ModularGPSData()
     val reading: ModularGPSData
         get() = data

@@ -36,15 +36,15 @@ class SpeedGPSModule : GPSModule {
                 oldestLocation.first,
                 currentLocation,
                 oldestLocation.second,
-                newData.time
+                newData.eventTime
             )
             newData.speedSource = SpeedSource.PositionDerived
             newData.speedAccuracy = null
         }
 
         // Add to location history every second
-        if (locations.isEmpty() || Duration.between(locations.last().second, newData.time).seconds >= 1) {
-            locationHistory.add(currentLocation to newData.time)
+        if (locations.isEmpty() || Duration.between(locations.last().second, newData.eventTime).seconds >= 1) {
+            locationHistory.add(currentLocation to newData.eventTime)
         }
 
         return true

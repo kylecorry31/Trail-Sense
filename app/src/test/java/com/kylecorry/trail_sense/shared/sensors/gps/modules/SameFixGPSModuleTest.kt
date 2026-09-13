@@ -34,11 +34,11 @@ class SameFixGPSModuleTest {
         rawBearing = 10f,
         bearingAccuracy = 6f,
         speedAccuracy = 7f,
-        fixTimeElapsedNanos = 8L,
+        eventTimeElapsedNanos = 8L,
         quality = Quality.Good,
         hasValidReading = true,
         altitude = 9f,
-        time = Instant.EPOCH.plusSeconds(1),
+        eventTime = Instant.EPOCH.plusSeconds(1),
         speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds),
         isTimedOut = true
     ).apply {
@@ -56,11 +56,11 @@ class SameFixGPSModuleTest {
         rawBearing = 20f,
         bearingAccuracy = 15f,
         speedAccuracy = 16f,
-        fixTimeElapsedNanos = 17L,
+        eventTimeElapsedNanos = 17L,
         quality = Quality.Poor,
         hasValidReading = true,
         altitude = 18f,
-        time = Instant.EPOCH.plusSeconds(seconds),
+        eventTime = Instant.EPOCH.plusSeconds(seconds),
         speed = Speed.from(19f, DistanceUnits.Meters, TimeUnits.Seconds)
     ).apply { speedSource = SpeedSource.Provider }
 
@@ -86,9 +86,9 @@ class SameFixGPSModuleTest {
         assertEquals(previous.rawBearing, candidate.rawBearing)
         assertEquals(previous.bearingAccuracy, candidate.bearingAccuracy)
         assertEquals(previous.speedAccuracy, candidate.speedAccuracy)
-        assertEquals(previous.fixTimeElapsedNanos, candidate.fixTimeElapsedNanos)
+        assertEquals(previous.eventTimeElapsedNanos, candidate.eventTimeElapsedNanos)
         assertEquals(previous.quality, candidate.quality)
-        assertEquals(previous.time, candidate.time)
+        assertEquals(previous.eventTime, candidate.eventTime)
         assertEquals(kalmanState, candidate.kalmanState)
         assertTrue(candidate.isTimedOut)
     }
@@ -104,7 +104,7 @@ class SameFixGPSModuleTest {
 
     @Test
     fun leavesTheFirstFixAlone() = runBlocking<Unit> {
-        val previous = ModularGPSData(time = Instant.EPOCH.plusSeconds(1))
+        val previous = ModularGPSData(eventTime = Instant.EPOCH.plusSeconds(1))
         val candidate = reading(1)
         assertTrue(module.update(previous, candidate))
         assertEquals(Coordinate(3.0, 4.0), candidate.location)

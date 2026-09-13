@@ -27,14 +27,14 @@ class BadReadingFilterGPSModule(
         }
 
         // The current reading is somehow in the future, so just accept a new reading (prevents stuck readings)
-        val isLastTimeInFuture = previousData.time.isAfter(Instant.now().plusMillis(500))
+        val isLastTimeInFuture = previousData.eventTime.isAfter(Instant.now().plusMillis(500))
         if (isLastTimeInFuture) {
             logAcceptedReading("last reading is in the future", previousData, newData)
             return true
         }
 
         // The new reading is older than the current one, so reject it
-        if (newData.time.isBefore(previousData.time)) {
+        if (newData.eventTime.isBefore(previousData.eventTime)) {
             logRejectedReading("older", previousData, newData)
             return false
         }
@@ -69,13 +69,13 @@ class BadReadingFilterGPSModule(
         newData: ModularGPSData
     ): String {
         return "Time Delta: ${
-            Duration.between(previousData.time, newData.time).toMillis()
+            Duration.between(previousData.eventTime, newData.eventTime).toMillis()
         }ms, Distance: ${
             previousData.location.distanceTo(newData.location).safeRoundPlaces(1)
         }m, Accuracy: ${previousData.horizontalAccuracy?.safeRoundPlaces(1)}m -> ${
             newData.horizontalAccuracy?.safeRoundPlaces(1)
         }m, Age: ${
-            Duration.between(previousData.time, Instant.now()).toMillis()
+            Duration.between(previousData.eventTime, Instant.now()).toMillis()
         }ms"
     }
 

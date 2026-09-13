@@ -421,7 +421,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return Resources.color(requireContext(), R.color.red)
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
+        if (Duration.between(gps.eventTime, Instant.now()) > Duration.ofMinutes(2)) {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
@@ -473,7 +473,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return getString(R.string.unavailable)
         }
 
-        if (Duration.between(gps.time, Instant.now()) > Duration.ofMinutes(2)) {
+        if (Duration.between(gps.eventTime, Instant.now()) > Duration.ofMinutes(2)) {
             return getString(R.string.gps_stale)
         }
 

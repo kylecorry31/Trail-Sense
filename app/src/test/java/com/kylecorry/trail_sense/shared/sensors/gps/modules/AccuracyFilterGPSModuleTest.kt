@@ -24,13 +24,13 @@ class AccuracyFilterGPSModuleTest {
         override fun currentTimeMillis() = nowMillis
     }
     private val module = AccuracyFilterGPSModule(prefs, mock(), timeProvider)
-    private val previous = ModularGPSData(time = Instant.EPOCH)
+    private val previous = ModularGPSData(eventTime = Instant.EPOCH)
     private val moderateWait = GPSAccuracyFilter.Moderate.maxAccuracyWait!!.toMillis()
     private val highWait = GPSAccuracyFilter.High.maxAccuracyWait!!.toMillis()
 
     private fun reading(accuracy: Float?) = ModularGPSData(
         location = Coordinate(1.0, 1.0), hasValidReading = true, horizontalAccuracy = accuracy,
-        time = previous.time.plusSeconds(1)
+        eventTime = previous.eventTime.plusSeconds(1)
     )
 
     @Test
@@ -43,19 +43,19 @@ class AccuracyFilterGPSModuleTest {
         // The pipeline reuses its candidate, so retaining the reference is insufficient.
         best.location = Coordinate(4.0, 5.0)
         best.horizontalAccuracy = 100f
-        best.time = best.time.plusSeconds(1)
+        best.eventTime = best.eventTime.plusSeconds(1)
         nowMillis = moderateWait
         assertTrue(module.update(previous, best))
         assertEquals(Coordinate(2.0, 3.0), best.location)
         assertEquals(20f, best.horizontalAccuracy)
         assertEquals(123f, best.altitude)
-        assertEquals(Instant.EPOCH.plusSeconds(1), best.time)
-        assertEquals(Instant.EPOCH, previous.time)
+        assertEquals(Instant.EPOCH.plusSeconds(1), best.eventTime)
+        assertEquals(Instant.EPOCH, previous.eventTime)
 
         // Until a fix lands the filter stands aside instead of re-offering the selected one.
-        val retry = reading(80f).apply { time = Instant.EPOCH.plusSeconds(3) }
+        val retry = reading(80f).apply { eventTime = Instant.EPOCH.plusSeconds(3) }
         assertTrue(module.update(previous, retry))
-        assertEquals(Instant.EPOCH.plusSeconds(3), retry.time)
+        assertEquals(Instant.EPOCH.plusSeconds(3), retry.eventTime)
         assertEquals(Coordinate(1.0, 1.0), retry.location)
 
         best.copyInto(previous)
@@ -72,7 +72,7 @@ class AccuracyFilterGPSModuleTest {
         val arrival = { seconds: Long ->
             reading(80f).apply {
                 location = Coordinate(4.0, 5.0)
-                time = Instant.EPOCH.plusSeconds(seconds)
+                eventTime = Instant.EPOCH.plusSeconds(seconds)
             }
         }
 
@@ -98,7 +98,7 @@ class AccuracyFilterGPSModuleTest {
 
         val stale = reading(80f).apply {
             location = Coordinate(4.0, 5.0)
-            time = Instant.EPOCH.plusSeconds(7)
+            eventTime = Instant.EPOCH.plusSeconds(7)
         }
         nowMillis = moderateWait
         assertTrue(module.update(previous, stale))
@@ -107,7 +107,7 @@ class AccuracyFilterGPSModuleTest {
         // The chosen fix reaches the pipeline once; later readings pass through as themselves.
         val retry = reading(90f).apply {
             location = Coordinate(6.0, 7.0)
-            time = Instant.EPOCH.plusSeconds(8)
+            eventTime = Instant.EPOCH.plusSeconds(8)
         }
         assertTrue(module.update(previous, retry))
         assertEquals(Coordinate(6.0, 7.0), retry.location)
@@ -119,11 +119,11 @@ class AccuracyFilterGPSModuleTest {
         assertFalse(module.update(previous, reading(100f)))
         nowMillis = 2_000L
         assertFalse(module.update(previous, reading(30f)))
-        val latest = reading(30f).apply { time = Instant.EPOCH.plusSeconds(3) }
+        val latest = reading(30f).apply { eventTime = Instant.EPOCH.plusSeconds(3) }
         nowMillis = moderateWait
         assertTrue(module.update(previous, latest))
         assertEquals(30f, latest.horizontalAccuracy)
-        assertEquals(Instant.EPOCH.plusSeconds(3), latest.time)
+        assertEquals(Instant.EPOCH.plusSeconds(3), latest.eventTime)
     }
 
     @Test
@@ -153,9 +153,9 @@ class AccuracyFilterGPSModuleTest {
 
     @Test
     fun cachedFixesDoNotStartTheAccuracyWait() = runBlocking<Unit> {
-        previous.time = Instant.EPOCH.plusSeconds(10)
-        val older = reading(100f).apply { time = previous.time.minusSeconds(1) }
-        val cached = reading(100f).apply { time = previous.time }
+        previous.eventTime = Instant.EPOCH.plusSeconds(10)
+        val older = reading(100f).apply { eventTime = previous.eventTime.minusSeconds(1) }
+        val cached = reading(100f).apply { eventTime = previous.eventTime }
         assertTrue(module.update(previous, older))
         nowMillis = 5_000L
         assertTrue(module.update(previous, cached))
@@ -172,28 +172,28 @@ class AccuracyFilterGPSModuleTest {
 
     @Test
     fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() = runBlocking<Unit> {
-        previous.time = Instant.EPOCH
-        val first = reading(100f).apply { time = Instant.EPOCH.plusSeconds(1) }
+        previous.eventTime = Instant.EPOCH
+        val first = reading(100f).apply { eventTime = Instant.EPOCH.plusSeconds(1) }
         assertFalse(module.update(previous, first))
         nowMillis = moderateWait
         assertTrue(module.update(previous, first))
-        val newer = reading(100f).apply { time = Instant.EPOCH.plusSeconds(2) }
+        val newer = reading(100f).apply { eventTime = Instant.EPOCH.plusSeconds(2) }
         nowMillis += 1_000L
         assertTrue(module.update(previous, newer))
-        assertEquals(Instant.EPOCH.plusSeconds(2), newer.time)
-        previous.time = first.time
-        newer.time = first.time.plusSeconds(1)
+        assertEquals(Instant.EPOCH.plusSeconds(2), newer.eventTime)
+        previous.eventTime = first.eventTime
+        newer.eventTime = first.eventTime.plusSeconds(1)
         assertFalse(module.update(previous, newer))
         nowMillis += moderateWait
         assertTrue(module.update(previous, newer))
-        previous.time = newer.time.plusSeconds(1)
+        previous.eventTime = newer.eventTime.plusSeconds(1)
         assertTrue(module.update(previous, newer))
     }
 
     @Test
     fun lifecyclePreservesPendingFallbackUntilAccepted() = runBlocking<Unit> {
-        previous.time = Instant.EPOCH
-        val candidate = reading(100f).apply { time = Instant.EPOCH.plusSeconds(1) }
+        previous.eventTime = Instant.EPOCH
+        val candidate = reading(100f).apply { eventTime = Instant.EPOCH.plusSeconds(1) }
         assertFalse(module.update(previous, candidate))
         nowMillis = moderateWait
         assertTrue(module.update(previous, candidate))

@@ -106,10 +106,13 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         }
 
         // That didn't work, so get the time from the GPS
-        val fixTime = gps.fixTimeElapsedNanos ?: return gps.time
+        val fixTime = gps.eventTimeElapsedNanos
+        if (fixTime == 0L) {
+            return gps.eventTime
+        }
         val systemTime = SystemClock.elapsedRealtimeNanos()
         val timeDiff = fixTime - systemTime
-        return gps.time.plusNanos(timeDiff)
+        return gps.eventTime.plusNanos(timeDiff)
     }
 
     private fun update() {

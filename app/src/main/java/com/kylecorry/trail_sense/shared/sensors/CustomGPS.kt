@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.andromeda.sense.location.LocationRequestConfig
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.luna.subscriptions.generic.Subscription
 import com.kylecorry.sol.units.Bearing
@@ -62,8 +63,9 @@ class CustomGPS(
     override val speedAccuracy: Float?
         get() = data.speedAccuracy
 
-    override val time: Instant
-        get() = data.time
+    override var eventTime: Instant
+        get() = data.eventTime
+        set(_) {}
 
     override val altitude: Float
         get() = data.altitude
@@ -72,8 +74,9 @@ class CustomGPS(
     override val bearingAccuracy: Float?
         get() = data.bearingAccuracy
 
-    override val fixTimeElapsedNanos: Long?
-        get() = data.fixTimeElapsedNanos
+    override var eventTimeElapsedNanos: Long
+        get() = data.eventTimeElapsedNanos
+        set(_) {}
 
     override val mslAltitude: Float?
         get() = data.mslAltitude
@@ -82,7 +85,7 @@ class CustomGPS(
         get() = consumer.reading.isTimedOut
 
     private val baseGPS: ISatelliteGPS by lazy {
-        GPS(context.applicationContext, frequency = gpsFrequency)
+        GPS(context.applicationContext, LocationRequestConfig(frequency = gpsFrequency))
     }
     private val mainHandler = Handler(Looper.getMainLooper())
     private val consumer = GPSPipelineConsumer(
@@ -96,7 +99,7 @@ class CustomGPS(
             return if (
                 reading.isTimedOut &&
                 baseGPS.hasValidReading &&
-                !baseGPS.time.isBefore(reading.time)
+                !baseGPS.eventTime.isBefore(reading.eventTime)
             ) {
                 baseGPS
             } else {
@@ -145,7 +148,7 @@ class CustomGPS(
     }
 
     private fun hadRecentValidReading(): Boolean {
-        val last = time
+        val last = eventTime
         val now = Instant.now()
         return Duration.between(last, now) <= RECENT_READING_THRESHOLD &&
                 location != Coordinate.zero

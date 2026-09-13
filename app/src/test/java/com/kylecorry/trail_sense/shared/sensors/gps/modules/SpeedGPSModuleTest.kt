@@ -16,7 +16,7 @@ class SpeedGPSModuleTest {
     private val previous = ModularGPSData()
 
     private fun reading(millis: Long, longitude: Double = 1.0, speed: Float = 0f) = ModularGPSData(
-        location = Coordinate(1.0, longitude), time = Instant.EPOCH.plusMillis(millis),
+        location = Coordinate(1.0, longitude), eventTime = Instant.EPOCH.plusMillis(millis),
         horizontalAccuracy = 1f,
         speed = Speed.from(speed, DistanceUnits.Meters, TimeUnits.Seconds)
     )

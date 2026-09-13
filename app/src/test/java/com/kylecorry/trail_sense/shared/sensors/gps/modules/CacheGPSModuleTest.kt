@@ -22,7 +22,7 @@ class CacheGPSModuleTest {
 
     private fun reading() = ModularGPSData(
         location = Coordinate(42.0, -72.0), altitude = 123f,
-        time = Instant.parse("2020-01-01T00:00:00Z"),
+        eventTime = Instant.parse("2020-01-01T00:00:00Z"),
         speed = Speed.from(3f, DistanceUnits.Meters, TimeUnits.Seconds),
         horizontalAccuracy = 5f, verticalAccuracy = 8f
     )
@@ -95,7 +95,7 @@ class CacheGPSModuleTest {
         CacheGPSModule(preferences).restore(restored)
         assertEquals(candidate.location, restored.location)
         assertEquals(candidate.altitude, restored.altitude)
-        assertEquals(candidate.time, restored.time)
+        assertEquals(candidate.eventTime, restored.eventTime)
         assertEquals(candidate.speed, restored.speed)
         assertEquals(candidate.horizontalAccuracy, restored.horizontalAccuracy)
         assertEquals(candidate.verticalAccuracy, restored.verticalAccuracy)
@@ -138,7 +138,7 @@ class CacheGPSModuleTest {
         val restored = ModularGPSData(
             satellites = 8, satelliteDetails = emptyList(), mslAltitude = 10f,
             rawBearing = 20f, bearing = Bearing.from(20f), bearingAccuracy = 1f,
-            speedAccuracy = 2f, fixTimeElapsedNanos = 123L
+            speedAccuracy = 2f, eventTimeElapsedNanos = 123L
         )
         module.restore(restored)
         assertEquals(Quality.Unknown, restored.quality)
@@ -149,7 +149,7 @@ class CacheGPSModuleTest {
         assertNull(restored.bearing)
         assertNull(restored.bearingAccuracy)
         assertNull(restored.speedAccuracy)
-        assertNull(restored.fixTimeElapsedNanos)
+        assertEquals(0L, restored.eventTimeElapsedNanos)
     }
 
     @Test
@@ -157,7 +157,7 @@ class CacheGPSModuleTest {
         val restored = reading()
         module.restore(restored)
         assertEquals(Coordinate.zero, restored.location)
-        assertEquals(Instant.EPOCH, restored.time)
+        assertEquals(Instant.EPOCH, restored.eventTime)
         assertEquals(0f, restored.altitude)
         assertEquals(0f, restored.speed.value)
         assertNull(restored.horizontalAccuracy)
@@ -168,10 +168,10 @@ class CacheGPSModuleTest {
     fun onlyPastReadingsNewerThanCurrentDataAreRestorable() = runBlocking<Unit> {
         val candidate = reading()
         module.update(previous, candidate)
-        assertTrue(module.hasNewerReading(ModularGPSData(time = Instant.EPOCH)))
+        assertTrue(module.hasNewerReading(ModularGPSData(eventTime = Instant.EPOCH)))
         assertFalse(module.hasNewerReading(candidate))
-        assertFalse(module.hasNewerReading(ModularGPSData(time = candidate.time.plusSeconds(1))))
-        module.update(previous, candidate.apply { time = Instant.now().plusSeconds(3600) })
-        assertFalse(module.hasNewerReading(ModularGPSData(time = Instant.EPOCH)))
+        assertFalse(module.hasNewerReading(ModularGPSData(eventTime = candidate.eventTime.plusSeconds(1))))
+        module.update(previous, candidate.apply { eventTime = Instant.now().plusSeconds(3600) })
+        assertFalse(module.hasNewerReading(ModularGPSData(eventTime = Instant.EPOCH)))
     }
 }

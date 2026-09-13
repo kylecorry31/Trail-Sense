@@ -36,8 +36,9 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
         )
     override val speedAccuracy: Float?
         get() = null
-    override val time: Instant
+    override var eventTime: Instant
         get() = Instant.now()
+        set(_) {}
     override val verticalAccuracy: Float?
         get() = cached?.verticalAccuracy
     override val horizontalAccuracy: Float?
@@ -51,8 +52,6 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
     override val bearing: Bearing?
         get() = null
     override val bearingAccuracy: Float?
-        get() = null
-    override val fixTimeElapsedNanos: Long?
         get() = null
     override val mslAltitude: Float
         get() = altitude

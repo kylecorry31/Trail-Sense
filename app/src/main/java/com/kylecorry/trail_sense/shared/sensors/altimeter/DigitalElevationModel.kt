@@ -72,10 +72,12 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
         get() = gps.bearingAccuracy
     override val speedAccuracy: Float?
         get() = gps.speedAccuracy
-    override val fixTimeElapsedNanos: Long?
-        get() = gps.fixTimeElapsedNanos
-    override val time: Instant
-        get() = gps.time
+    override var eventTimeElapsedNanos: Long
+        get() = gps.eventTimeElapsedNanos
+        set(_) {}
+    override var eventTime: Instant
+        get() = gps.eventTime
+        set(_) {}
     override val speed: Speed
         get() = gps.speed
 }

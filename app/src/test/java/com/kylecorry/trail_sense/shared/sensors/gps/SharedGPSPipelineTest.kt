@@ -39,7 +39,7 @@ class SharedGPSPipelineTest {
     }
 
     private fun reading(seconds: Long, longitude: Double = 1.0) = ModularGPSData(
-        location = Coordinate(1.0, longitude), time = Instant.EPOCH.plusSeconds(seconds),
+        location = Coordinate(1.0, longitude), eventTime = Instant.EPOCH.plusSeconds(seconds),
         horizontalAccuracy = 10f, hasValidReading = true
     )
 
@@ -56,8 +56,8 @@ class SharedGPSPipelineTest {
         val pipeline = SharedGPSPipeline {
             GPSPipeline(listOf(object : GPSModule {
                 override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
-                    previousTimes.add(previousData.time)
-                    if (newData.time == reading(1).time) {
+                    previousTimes.add(previousData.eventTime)
+                    if (newData.eventTime == reading(1).eventTime) {
                         entered.complete(Unit)
                         resume.await()
                     }
@@ -73,8 +73,8 @@ class SharedGPSPipelineTest {
         resume.complete(Unit)
         first.await()
         second.await()
-        assertEquals(listOf(Instant.EPOCH, reading(1).time), previousTimes)
-        assertEquals(reading(2).time, pipeline.reading.time)
+        assertEquals(listOf(Instant.EPOCH, reading(1).eventTime), previousTimes)
+        assertEquals(reading(2).eventTime, pipeline.reading.eventTime)
     }
 
     @Test
@@ -91,7 +91,7 @@ class SharedGPSPipelineTest {
         assertEquals(fast.reading.location, slow.reading.location)
         // A delayed callback is rejected rather than rewinding the shared state.
         assertFalse(slow.update(reading(2, 1.001)))
-        assertEquals(Instant.EPOCH.plusSeconds(3), slow.reading.time)
+        assertEquals(Instant.EPOCH.plusSeconds(3), slow.reading.eventTime)
         assertEquals(fast.reading.location, slow.reading.location)
         // The slower subscription still delivers the shared fix once it catches up.
         assertTrue(slow.update(reading(3, 1.002)))
@@ -118,7 +118,7 @@ class SharedGPSPipelineTest {
             GPSPipeline(listOf(
                 object : GPSModule {
                     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
-                        if (newData.time == reading(2).time) {
+                        if (newData.eventTime == reading(2).eventTime) {
                             entered.complete(Unit)
                             resume.await()
                         }
@@ -226,7 +226,7 @@ class SharedGPSPipelineTest {
         CacheGPSModule(cache).update(ModularGPSData(), reading(10))
         val pipeline = SharedGPSPipeline { GPSPipeline(listOf(CacheGPSModule(cache))) }
         assertEquals(reading(10).location, pipeline.reading.location)
-        assertEquals(reading(10).time, pipeline.reading.time)
+        assertEquals(reading(10).eventTime, pipeline.reading.eventTime)
     }
 
     @Test
@@ -242,7 +242,7 @@ class SharedGPSPipelineTest {
         }
         val restored = pipeline.reading
         assertEquals(reading(10).location, restored.location)
-        assertEquals(reading(10).time, restored.time)
+        assertEquals(reading(10).eventTime, restored.eventTime)
         // A one-shot read must keep waiting for a fix instead of finishing with the cache.
         val consumer = Consumer(pipeline).consumer
         assertFalse(consumer.update(reading(11, 2.0)))
@@ -259,7 +259,7 @@ class SharedGPSPipelineTest {
         assertSame(snapshot, shared.reading)
         shared.update(reading(11, 1.001))
         assertEquals(reading(10).location, snapshot.location)
-        assertEquals(reading(10).time, snapshot.time)
+        assertEquals(reading(10).eventTime, snapshot.eventTime)
     }
 
     @Test
@@ -380,10 +380,10 @@ class SharedGPSPipelineTest {
             }
             ready.countDown()
             tasks.forEach { it.get(5, TimeUnit.SECONDS) }
-            assertEquals(reading(40).time, shared.reading.time)
+            assertEquals(reading(40).eventTime, shared.reading.eventTime)
             val restored = ModularGPSData()
             CacheGPSModule(cache).restore(restored)
-            assertEquals(shared.reading.time, restored.time)
+            assertEquals(shared.reading.eventTime, restored.eventTime)
             assertEquals(shared.reading.location, restored.location)
             assertNotNull(restored.kalmanState)
             assertTrue(restored.kalmanState!!.state.all { it.isFinite() })

@@ -15,7 +15,7 @@ import org.mockito.kotlin.verify
 class TimeoutGPSModuleTest {
     private val timer = mock<ITimer>()
     private lateinit var fireTimeout: suspend () -> Unit
-    private val data = ModularGPSData(time = Instant.EPOCH)
+    private val data = ModularGPSData(eventTime = Instant.EPOCH)
     private val notifications = mutableListOf<Boolean>()
     private val module: TimeoutGPSModule = TimeoutGPSModule(
         onTimeout = { acceptTimeout ->
@@ -92,7 +92,7 @@ class TimeoutGPSModuleTest {
     @Test
     fun secondaryUpdatesDoNotPostponeTimeoutOrClearTimedOutState() = runBlocking<Unit> {
         module.start(data)
-        val duplicate = ModularGPSData(time = data.time.plusNanos(123456), satellites = 6)
+        val duplicate = ModularGPSData(eventTime = data.eventTime.plusNanos(123456), satellites = 6)
         repeat(20) {
             assertTrue(accept(duplicate))
         }
@@ -104,7 +104,7 @@ class TimeoutGPSModuleTest {
         assertTrue(data.isTimedOut)
         verify(timer).once(SensorService.GPS_READ_TIMEOUT)
 
-        accept(ModularGPSData(time = data.time.plusSeconds(1)))
+        accept(ModularGPSData(eventTime = data.eventTime.plusSeconds(1)))
         assertFalse(data.isTimedOut)
         verify(timer, times(2)).once(SensorService.GPS_READ_TIMEOUT)
     }
@@ -126,7 +126,7 @@ class TimeoutGPSModuleTest {
     fun supersededCallbackCannotExpireANewFix() = runBlocking<Unit> {
         module.start(data)
         val oldTimeout = fireTimeout
-        assertTrue(accept(ModularGPSData(time = Instant.EPOCH.plusSeconds(1))))
+        assertTrue(accept(ModularGPSData(eventTime = Instant.EPOCH.plusSeconds(1))))
         oldTimeout()
         assertFalse(data.isTimedOut)
         assertTrue(notifications.isEmpty())
