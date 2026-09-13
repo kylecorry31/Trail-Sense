@@ -30,6 +30,7 @@ import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.packageName
 import com.kylecorry.trail_sense.test_utils.views.childWithIndex
@@ -283,6 +284,10 @@ object TestUtils {
         prefs.putBoolean(context.getString(R.string.pref_cliff_height_enabled), true)
         prefs.putString(context.getString(R.string.pref_altimeter_calibration_mode), "gps")
         prefs.putInt(context.getString(R.string.pref_altimeter_accuracy), 1)
+        prefs.putString(
+            context.getString(R.string.pref_gps_accuracy_requirement),
+            GPSAccuracyFilter.None.id.toString()
+        )
 
         val userPrefs = UserPreferences(context)
         // The settings tool is the fastest to get to idle, which allows the tests to run faster
