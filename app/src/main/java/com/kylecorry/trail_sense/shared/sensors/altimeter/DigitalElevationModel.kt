@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.sensors.altimeter
 
-import android.util.Log
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.luna.concurrency.BackgroundTask
@@ -9,7 +8,9 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.logging.Logger
 import java.time.Instant
 
 class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
@@ -31,7 +32,7 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
                     }
                 }
             } catch (e: Exception) {
-                Log.e("DigitalElevationModel", "Unable to get DEM elevation", e)
+                getAppService<Logger>().error("DigitalElevationModel", "Unable to get DEM elevation", e)
             }
         }
     }

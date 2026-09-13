@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.ParcelFileDescriptor
-import android.util.Log
 import android.util.Size
 import android.webkit.MimeTypeMap
 import androidx.core.net.toUri
@@ -21,8 +20,10 @@ import com.kylecorry.andromeda.files.ExternalFileSystem
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageSaver
 import com.kylecorry.trail_sense.shared.debugging.ifDebug
+import com.kylecorry.trail_sense.shared.logging.Logger
 import kotlinx.coroutines.CancellationException
 import java.io.File
 import java.io.FileInputStream
@@ -212,7 +213,7 @@ class FileSubsystem private constructor(private val context: Context) {
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            Log.e("FileSubsystem", "Error thrown while checking if file can be read", e)
+            getAppService<Logger>().error("FileSubsystem", "Error thrown while checking if file can be read", e)
             val packageName = if (e is SecurityException) {
                 // Format: com.android.externalstorage has no access
                 val regex = Regex("""([\w.]+) has no access""")

@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.tools.weather.domain
 
-import android.util.Log
 import com.kylecorry.sol.units.Temperature
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.ITemperatureService
 import java.time.ZonedDateTime
 
@@ -19,7 +20,7 @@ internal suspend fun ITemperatureService.getTemperaturePrediction(time: ZonedDat
             current
         )
     } catch (e: Exception) {
-        Log.e(javaClass.simpleName, "Unable to lookup temperature", e)
+        getAppService<Logger>().error(javaClass.simpleName, "Unable to lookup temperature", e)
         null
     }
 }

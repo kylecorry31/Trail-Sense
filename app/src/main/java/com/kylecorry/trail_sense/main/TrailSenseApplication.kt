@@ -10,7 +10,6 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("TrailSenseApplication", "onCreate")
         TrailSenseApplicationInitializer.initialize(this)
     }
 

@@ -1,14 +1,15 @@
 package com.kylecorry.trail_sense.tools.paths.infrastructure.commands
 
 import android.content.Context
-import android.util.Log
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.MockCellSignalSensor
@@ -60,7 +61,7 @@ class BacktrackCommand(
         )
 
         if (!gps.hasValidReading || (gps as? CustomGPS)?.isTimedOut == true) {
-            Log.d(TAG, "GPS did not receive a fix")
+            getAppService<Logger>().warn(TAG, "GPS did not receive a fix")
         }
     }
 

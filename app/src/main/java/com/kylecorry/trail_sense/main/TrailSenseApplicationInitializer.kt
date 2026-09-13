@@ -12,8 +12,8 @@ import java.time.Duration
 object TrailSenseApplicationInitializer {
 
     fun initialize(context: Context) {
-        SafeMode.initialize(context)
         TrailSenseServiceRegister.setup(context)
+        SafeMode.initialize(context)
 
         // Initialize all tools
         val tools = Tools.getTools(context, false)

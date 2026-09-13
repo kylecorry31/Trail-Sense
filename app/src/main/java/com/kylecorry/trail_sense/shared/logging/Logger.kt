@@ -67,14 +67,18 @@ class Logger(context: Context) {
         return files.getFile(LOG_FILE_NAME, false)
     }
 
-    fun debug(tag: String?, message: String) {
+    fun debug(tag: String?, message: String, writeToFile: Boolean = true) {
         Log.d(tag, message)
-        report(formatLog("D", tag, message, null))
+        if (writeToFile) {
+            report(formatLog("D", tag, message, null))
+        }
     }
 
-    fun debug(tag: String?, message: String, throwable: Throwable?) {
+    fun debug(tag: String?, message: String, throwable: Throwable?, writeToFile: Boolean = true) {
         Log.d(tag, message, throwable)
-        report(formatLog("D", tag, message, throwable))
+        if (writeToFile) {
+            report(formatLog("D", tag, message, throwable))
+        }
     }
 
     fun info(tag: String?, message: String) {

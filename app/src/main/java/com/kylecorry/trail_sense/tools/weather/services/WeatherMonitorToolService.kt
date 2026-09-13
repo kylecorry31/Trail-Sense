@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.tools.weather.services
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.permissions.canStartLocationForegroundService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
@@ -92,7 +93,7 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
 
         if (!hasPermissions(context)) {
             ServiceRestartAlerter(context).alert()
-            Log.d("WeatherUpdateScheduler", "Cannot start weather monitoring")
+            getAppService<Logger>().warn("WeatherUpdateScheduler", "Cannot start weather monitoring")
             return
         }
 

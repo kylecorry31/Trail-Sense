@@ -9,7 +9,6 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Pad
 import com.kylecorry.andromeda.bitmaps.operations.Resize
@@ -19,6 +18,7 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
@@ -66,10 +66,11 @@ class TileLoader(
             }
             if (debugLogs) {
                 val formatter = getAppService<FormatService>()
-                Log.d(
+                getAppService<Logger>().debug(
                     "TileCache",
                     "Layer cache ($owner): ${formatter.formatFileSize(tileCache.sizeBytes())}, " +
-                            "shared cache: ${formatter.formatFileSize(tileCache.sharedSizeBytes())}"
+                            "shared cache: ${formatter.formatFileSize(tileCache.sharedSizeBytes())}",
+                    writeToFile = false
                 )
             }
             updateListener()

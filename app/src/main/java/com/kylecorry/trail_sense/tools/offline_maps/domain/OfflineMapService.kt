@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.tools.offline_maps.domain
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import com.kylecorry.andromeda.core.units.PercentBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.luna.result.Result
 import com.kylecorry.luna.result.map
@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.tools.offline_maps.domain.groups.MapGroup
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMapResolution
@@ -144,7 +145,7 @@ class OfflineMapService internal constructor(
             try {
                 files.save(map.imageFile.path, warped, recycleOnSave = true)
             } catch (e: IOException) {
-                Log.e("MapService", "Failed to save warped map", e)
+                getAppService<Logger>().error("MapService", "Failed to save warped map", e)
                 return null
             }
 

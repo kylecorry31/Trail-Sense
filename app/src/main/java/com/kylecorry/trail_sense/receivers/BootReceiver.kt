@@ -3,12 +3,13 @@ package com.kylecorry.trail_sense.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.logging.Logger
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action == Intent.ACTION_BOOT_COMPLETED && context != null) {
-            Log.d("BootReceiver", "Boot completed")
+            getAppService<Logger>().debug("BootReceiver", "Boot completed")
             val pendingResult = goAsync()
             TrailSenseServiceUtils.restartServices(
                 context,

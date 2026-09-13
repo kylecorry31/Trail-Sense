@@ -1,11 +1,12 @@
 package com.kylecorry.trail_sense.tools.paths.domain.hiking
 
-import android.util.Log
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.debugging.ifDebug
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import kotlin.math.absoluteValue
@@ -61,9 +62,10 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
         slope: Float?
     ) {
         ifDebug {
-            Log.d(
+            getAppService<Logger>().debug(
                 "HikingDifficulty",
-                "Dist: ${distance?.roundPlaces(2)}, Ele: ${elevationChange?.safeRoundToInt()}, Slope: ${slope?.safeRoundToInt()} ($rating)"
+                "Dist: ${distance?.roundPlaces(2)}, Ele: ${elevationChange?.safeRoundToInt()}, Slope: ${slope?.safeRoundToInt()} ($rating)",
+                writeToFile = false
             )
         }
     }

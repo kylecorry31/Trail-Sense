@@ -5,7 +5,6 @@ import android.app.Service
 import android.content.Context
 import android.graphics.Path
 import android.os.Build
-import android.util.Log
 import android.view.Gravity
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
@@ -13,7 +12,9 @@ import com.google.android.material.loadingindicator.LoadingIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 inline fun Alerts.withCancelableLoading(
@@ -122,7 +123,7 @@ inline fun tryStartForegroundOrNotify(context: Context, action: () -> Unit) {
     } catch (e: Exception) {
         if (isForegroundServiceStartError(e)) {
             ServiceRestartAlerter(context.applicationContext).alert()
-            Log.w("tryStartForegroundOrNotify", "Cannot start service", e)
+            getAppService<Logger>().warn("tryStartForegroundOrNotify", "Cannot start service", e)
         } else {
             throw e
         }
@@ -137,7 +138,7 @@ inline fun Service.tryStartForegroundOrNotify(action: () -> Int): Int {
         if (!isForegroundServiceStartError(e)) {
             throw e
         }
-        Log.w("tryStartForegroundOrNotify", "Cannot start service", e)
+        getAppService<Logger>().warn("tryStartForegroundOrNotify", "Cannot start service", e)
         ServiceRestartAlerter(this).alert()
         stopSelf()
         Service.START_NOT_STICKY

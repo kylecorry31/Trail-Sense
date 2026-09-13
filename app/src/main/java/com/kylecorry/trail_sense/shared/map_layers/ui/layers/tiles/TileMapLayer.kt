@@ -9,7 +9,6 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import androidx.core.graphics.withMatrix
@@ -23,8 +22,10 @@ import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.concurrency.CustomDispatchers
 import com.kylecorry.trail_sense.shared.getBounds
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ImageTile
@@ -212,7 +213,7 @@ open class TileMapLayer<T : TileSource>(
                 context = context
             )
         } else if (desiredTiles.size > MAX_TILES) {
-            Log.d("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
+            getAppService<Logger>().warn("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
 
         getTilesToRender(desiredTiles).forEach { renderTile ->

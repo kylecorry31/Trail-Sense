@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrLog
@@ -14,9 +13,11 @@ import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.luna.result.Result
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapError
 import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
@@ -115,7 +116,7 @@ internal class OfflineMapImporter(
         try {
             files.save(filename, bp, recycleOnSave = true)
         } catch (e: IOException) {
-            Log.e(TAG, "Failed to save image", e)
+            getAppService<Logger>().error(TAG, "Failed to save image", e)
             return Result.Err(CreateOfflineMapError.UnableToCopy)
         }
 
@@ -157,7 +158,7 @@ internal class OfflineMapImporter(
 
     private suspend fun importTrailMap(request: CreateOfflineMapRequest): Result<TrailMap, CreateOfflineMapError> {
         if (!MapsforgeAdapter.isMapsforgeMap(request.uri)) {
-            Log.e(TAG, "Invalid extension")
+            getAppService<Logger>().error(TAG, "Invalid extension")
             return Result.Err(CreateOfflineMapError.InvalidMapFile)
         }
         var hasPersistentAccess = false
@@ -173,14 +174,14 @@ internal class OfflineMapImporter(
             if (hasPersistentAccess) {
                 request.uri.toString()
             } else {
-                Log.e(TAG, "Unable to obtain persistent access")
+                getAppService<Logger>().error(TAG, "Unable to obtain persistent access")
                 return Result.Err(CreateOfflineMapError.AccessDenied)
             }
         }
 
         val info = MapsforgeAdapter.getMapInfo(path)
         if (info == null) {
-            Log.e(TAG, "Map file is invalid")
+            getAppService<Logger>().error(TAG, "Map file is invalid")
             if (hasPersistentAccess) {
                 files.releasePersistentAccess(request.uri)
             }

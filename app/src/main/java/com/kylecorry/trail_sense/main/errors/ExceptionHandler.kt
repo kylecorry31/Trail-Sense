@@ -1,12 +1,13 @@
 package com.kylecorry.trail_sense.main.errors
 
-import android.util.Log
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.exceptions.BugReportEmailMessage
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.debugging.isDebug
+import com.kylecorry.trail_sense.shared.logging.Logger
 
 object ExceptionHandler {
 
@@ -15,7 +16,7 @@ object ExceptionHandler {
         handler.bind()
 
         TrailSenseExceptionHandler.error?.let {
-            Log.e("Trail Sense", it)
+            getAppService<Logger>().error("Trail Sense", it)
             val message = BugReportEmailMessage(
                 activity.getString(R.string.error_occurred),
                 activity.getString(R.string.error_occurred_message) + if (isDebug()) {

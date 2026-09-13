@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.main.persistence
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
@@ -9,6 +8,7 @@ import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.dem.DEMRepo
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
@@ -28,7 +28,7 @@ class RepoCleanupWorker(
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
 
-        Log.d("RepoCleanupWorker", "Cleaning up repositories")
+        getAppService<Logger>().debug("RepoCleanupWorker", "Cleaning up repositories")
 
         val cleanables: List<ICleanable> = listOf(
             PathService.getInstance(context),
@@ -48,7 +48,7 @@ class RepoCleanupWorker(
         getAppService<OfflineMapService>().cleanup()
         DeleteTempFilesCommand(context).execute()
 
-        Log.d("RepoCleanupWorker", "Finished cleaning up repositories")
+        getAppService<Logger>().debug("RepoCleanupWorker", "Finished cleaning up repositories")
 
         Result.success()
     }

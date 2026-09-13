@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
-import android.util.Log
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.units.Coordinate
@@ -39,7 +38,6 @@ class SolarEclipseAlertCommand(private val context: Context) : Command<Coordinat
         }
 
         if (eclipse == null) {
-            Log.d(TAG, "No solar eclipse found for $today")
             return
         }
 

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
@@ -9,10 +8,12 @@ import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
@@ -32,7 +33,7 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
     private val alertWindow = Duration.ofMinutes(20)
 
     override suspend fun execute() = onDefault {
-        Log.i(TAG, "Started")
+        getAppService<Logger>().info(TAG, "Started")
 
         val now = ZonedDateTime.now()
 
@@ -133,7 +134,7 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
         scheduler.cancel()
         val instant = time.toInstant()
         scheduler.once(instant)
-        Log.i(TAG, "Scheduled next run at $instant")
+        getAppService<Logger>().info(TAG, "Scheduled next run at $instant")
     }
 
     companion object {
