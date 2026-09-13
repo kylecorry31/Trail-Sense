@@ -30,7 +30,7 @@ class PreferenceMigratorTest {
             val settings = InMemoryPreferences()
             enabled?.let { settings.putBoolean("pref_use_filtered_gps", it) }
             migration.action(mock(), settings)
-            assertEquals(if (enabled == false) 0 else 50, settings.getInt("pref_gps_smoothing"))
+            assertEquals(if (enabled == true) 50 else 0, settings.getInt("pref_gps_smoothing"))
             assertFalse(settings.contains("pref_use_filtered_gps"))
         }
     }

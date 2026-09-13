@@ -525,15 +525,11 @@ class PreferenceMigrator private constructor() {
 
                 legacyKeys.forEach(prefs::remove)
             },
-            PreferenceMigration(31, 32) { context, prefs ->
-                val key = context.getString(R.string.pref_use_filtered_gps)
-                prefs.putBoolean(key, true)
-            },
             PreferenceMigration(32, 33) { _, prefs ->
                 val smoothingKey = "pref_gps_smoothing"
                 val legacyKey = "pref_use_filtered_gps"
                 if (!prefs.contains(smoothingKey)) {
-                    val smoothing = if (prefs.getBoolean(legacyKey) == false) 0 else 50
+                    val smoothing = if (prefs.getBoolean(legacyKey) == true) 50 else 0
                     prefs.putInt(smoothingKey, smoothing)
                 }
                 prefs.remove(legacyKey)
