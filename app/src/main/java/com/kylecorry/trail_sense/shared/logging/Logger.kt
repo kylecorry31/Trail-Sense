@@ -18,11 +18,10 @@ class Logger(context: Context) {
     private val files = CacheFileSystem(context)
     private val queue = ConcurrentLinkedQueue<String>()
     private val runner = CoroutineQueueRunner()
-    private val onLogReported = Subscription<String>()
+    private val onLogReported = Subscription<Unit>()
 
     @Suppress("TooGenericExceptionCaught")
-    private suspend fun writeToFile(log: String) {
-        queue.add(log)
+    private suspend fun writeToFile() {
         runner.enqueue {
             try {
                 writeQueuedLogs()
@@ -61,7 +60,7 @@ class Logger(context: Context) {
     }
 
     init {
-        onLogReported.subscribe(this::writeToFile)
+        onLogReported.subscribe { writeToFile() }
     }
 
     fun getLogFile(): File {
@@ -70,42 +69,47 @@ class Logger(context: Context) {
 
     fun debug(tag: String?, message: String) {
         Log.d(tag, message)
-        onLogReported.publish(formatLog("D", tag, message, null))
+        report(formatLog("D", tag, message, null))
     }
 
     fun debug(tag: String?, message: String, throwable: Throwable?) {
         Log.d(tag, message, throwable)
-        onLogReported.publish(formatLog("D", tag, message, throwable))
+        report(formatLog("D", tag, message, throwable))
     }
 
     fun info(tag: String?, message: String) {
         Log.i(tag, message)
-        onLogReported.publish(formatLog("I", tag, message, null))
+        report(formatLog("I", tag, message, null))
     }
 
     fun info(tag: String?, message: String, throwable: Throwable?) {
         Log.i(tag, message, throwable)
-        onLogReported.publish(formatLog("I", tag, message, throwable))
+        report(formatLog("I", tag, message, throwable))
     }
 
     fun warn(tag: String?, message: String) {
         Log.w(tag, message)
-        onLogReported.publish(formatLog("W", tag, message, null))
+        report(formatLog("W", tag, message, null))
     }
 
     fun warn(tag: String?, message: String, throwable: Throwable?) {
         Log.w(tag, message, throwable)
-        onLogReported.publish(formatLog("W", tag, message, throwable))
+        report(formatLog("W", tag, message, throwable))
     }
 
     fun error(tag: String?, message: String) {
         Log.e(tag, message)
-        onLogReported.publish(formatLog("E", tag, message, null))
+        report(formatLog("E", tag, message, null))
     }
 
     fun error(tag: String?, message: String, throwable: Throwable?) {
         Log.e(tag, message, throwable)
-        onLogReported.publish(formatLog("E", tag, message, throwable))
+        report(formatLog("E", tag, message, throwable))
+    }
+
+    private fun report(log: String) {
+        queue.add(log)
+        onLogReported.publish(Unit)
     }
 
     private fun formatLog(type: String, tag: String?, message: String, throwable: Throwable?): String {
