@@ -53,7 +53,7 @@ class BacktrackService :
                 listenToNmea = false,
                 listenToGnssStatusChanges = false
             )
-        }, unregisterWhileRunning = true, action = action)
+        }, action = action)
     }
 
     override fun getForegroundInfo(): ForegroundInfo {
