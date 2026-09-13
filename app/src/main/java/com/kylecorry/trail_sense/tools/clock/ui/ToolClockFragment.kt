@@ -110,9 +110,8 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         if (fixTime == 0L) {
             return gps.eventTime
         }
-        val systemTime = SystemClock.elapsedRealtimeNanos()
-        val timeDiff = fixTime - systemTime
-        return gps.eventTime.plusNanos(timeDiff)
+        val fixAge = SystemClock.elapsedRealtimeNanos() - fixTime
+        return gps.eventTime.plusNanos(fixAge)
     }
 
     private fun update() {
