@@ -46,7 +46,7 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override var weatherUpdateFrequency: Duration
         get() {
             return cache.getDuration(context.getString(R.string.pref_weather_update_frequency))
-                ?: Duration.ofMinutes(15)
+                ?: Duration.ofMinutes(30)
         }
         set(value) {
             cache.putDuration(context.getString(R.string.pref_weather_update_frequency), value)

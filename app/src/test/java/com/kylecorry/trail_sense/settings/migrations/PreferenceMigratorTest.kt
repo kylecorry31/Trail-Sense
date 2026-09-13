@@ -76,6 +76,36 @@ class PreferenceMigratorTest {
     }
 
     @Test
+    fun migratesWeatherFrequencyForExistingUsers() {
+        val settings = InMemoryPreferences()
+        settings.putBoolean("monitor_weather", false)
+
+        PreferenceMigrator.migrations.first { it.fromVersion == 35 }.action(weatherContext(), settings)
+
+        assertEquals(Duration.ofMinutes(15), settings.getDuration("weather_frequency"))
+    }
+
+    @Test
+    fun doesNotMigrateWeatherFrequencyForNewUsers() {
+        val settings = InMemoryPreferences()
+
+        PreferenceMigrator.migrations.first { it.fromVersion == 35 }.action(weatherContext(), settings)
+
+        assertFalse(settings.contains("weather_frequency"))
+    }
+
+    @Test
+    fun migrationPreservesExistingWeatherFrequency() {
+        val settings = InMemoryPreferences()
+        settings.putBoolean("monitor_weather", true)
+        settings.putDuration("weather_frequency", Duration.ofMinutes(5))
+
+        PreferenceMigrator.migrations.first { it.fromVersion == 35 }.action(weatherContext(), settings)
+
+        assertEquals(Duration.ofMinutes(5), settings.getDuration("weather_frequency"))
+    }
+
+    @Test
     fun runsEveryMigrationInOrderForANewInstall() {
         val ran = migrate()
 
@@ -215,6 +245,13 @@ class PreferenceMigratorTest {
         return mock<Context>().also {
             whenever(it.getString(R.string.pref_backtrack_enabled)).thenReturn("backtrack_enabled")
             whenever(it.getString(R.string.pref_backtrack_frequency)).thenReturn("backtrack_frequency")
+        }
+    }
+
+    private fun weatherContext(): Context {
+        return mock<Context>().also {
+            whenever(it.getString(R.string.pref_monitor_weather)).thenReturn("monitor_weather")
+            whenever(it.getString(R.string.pref_weather_update_frequency)).thenReturn("weather_frequency")
         }
     }
 }
